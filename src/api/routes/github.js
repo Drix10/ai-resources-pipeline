@@ -1,13 +1,13 @@
 const express = require("express");
 const githubController = require("../controllers/github");
-const { authenticate } = require("../middleware/auth");
+const auth = require("../middleware/auth");
 const { validateGitHubRequest } = require("../middleware/validation");
-const config = require("../config");
+const config = require("../../../config/index");
 const router = express.Router();
 
 router.post(
   "/upload",
-  authenticate,
+  auth,
   validateGitHubRequest,
   async (req, res) => {
     try {

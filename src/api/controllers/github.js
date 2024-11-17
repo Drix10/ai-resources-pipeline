@@ -1,5 +1,5 @@
 const { Octokit } = require("@octokit/rest");
-const config = require("../config");
+const config = require("../../../config/index");
 const { createReadStream } = require("fs");
 
 class GithubController {

@@ -42,7 +42,7 @@ This repository contains a Minimum Viable Product (MVP) that automates the colle
 
 
 ## 📂 Structure
-text
+```text
 twitter-to-github-mvp/
 ├── .env
 ├── package.json
@@ -75,7 +75,7 @@ twitter-to-github-mvp/
         └── integration/
             ├── tweets.test.js
             └── github.test.js
-
+```
 
 
 ## 💻 Installation

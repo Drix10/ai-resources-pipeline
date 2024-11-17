@@ -1,8 +1,8 @@
 const { TwitterApi } = require("twitter-api-v2");
-const { GeminiClient } = require("@google-cloud/gemini");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 const Tweet = require("../models/tweet");
-const config = require("../config");
-const { sanitizeInput } = require("../utils/helpers");
+const config = require("../../../config/index");
+const { sanitizeInput } = require("../../utils/helpers");
 
 class TweetsController {
   constructor() {
@@ -11,9 +11,7 @@ class TweetsController {
       appSecret: config.twitter.apiSecret,
       accessToken: config.twitter.bearerToken,
     });
-    this.geminiClient = new GeminiClient({
-      keyFilename: config.gemini.apiKey,
-    });
+    this.geminiClient = new GoogleGenerativeAI(config.gemini.apiKey);
     this.tweetModel = Tweet;
   }
 
@@ -71,14 +69,16 @@ class TweetsController {
 
   async generateMarkdown(tweet) {
     try {
-      const response = await this.geminiClient.generateText({
-        prompt: `Generate a well-formatted Markdown summary for the following tweet:\n${JSON.stringify(
+      const model = this.geminiClient.getGenerativeModel({ model: "gemini-pro" });
+      const response = await model.generateContent(
+        `Generate a well-formatted Markdown summary for the following tweet:\n${JSON.stringify(
           tweet,
           null,
           2
-        )}`,
-      });
-      return response[0].text;
+        )}`
+      );
+      const result = await response.response;
+      return result.text();
     } catch (error) {
       console.error("Error generating Markdown:", error);
       return "Failed to generate Markdown";

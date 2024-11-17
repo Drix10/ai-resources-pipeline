@@ -1,10 +1,10 @@
 const express = require("express");
 const tweetsController = require("../controllers/tweets");
-const { authenticate } = require("../middleware/auth");
-const { validateTweetRequest } = require("../middleware/validation");
+const auth = require("../middleware/auth");
+const { tweetValidationRules } = require("../middleware/validation");
 const router = express.Router();
 
-router.post("/", authenticate, validateTweetRequest, async (req, res) => {
+router.post("/", auth, tweetValidationRules, async (req, res) => {
   try {
     const { keywords, hashtags } = req.body;
     const tweets = await tweetsController.fetchAndProcessTweets(

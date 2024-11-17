@@ -1,5 +1,4 @@
 const { MongoClient } = require("mongodb");
-const config = require("../config");
 const { logger } = require("../utils/helpers");
 
 class DbConnection {

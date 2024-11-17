@@ -1,4 +1,4 @@
-const { GeminiClient } = require("@google-cloud/gemini");
+const { GeminiClient } = require("@google/generative-ai");
 const config = require("../../config");
 const { logger } = require("../../utils/helpers");
 
