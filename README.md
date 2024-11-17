@@ -92,8 +92,9 @@ MIN_REQUIRED_TWEETS=5 # The minimum number of tweets required to run the pipelin
 ### 🏃‍♂️ Running the MVP
 
 1. Start the server:
-   bash
+   ```bash
    npm run start
+   ```
 2. The application will run on port 3000 with hourly cron jobs by default.
 
 ## 📄 License & Attribution

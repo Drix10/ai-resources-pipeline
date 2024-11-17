@@ -2,7 +2,7 @@ const cron = require("node-cron");
 const { logger } = require("../src/utils/helpers");
 const config = require("../config");
 const { runDataPipeline } = require("../src/services/cron");
-const dbConnection = require("../src/utils/dbConnection");
+const mongoose = require("mongoose");
 
 let scheduledJob = null;
 const MAX_RETRIES = 3;
@@ -12,9 +12,8 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const runPipelineWithRetry = async (retryCount = 0) => {
   try {
-    const connectionStatus = dbConnection.getConnectionStatus();
-    if (!connectionStatus.isConnected) {
-      await dbConnection.connect(config.mongodb.uri);
+    if (mongoose.connection.readyState !== 1) {
+      throw new Error("Database connection not established");
     }
 
     await runDataPipeline();
@@ -30,9 +29,9 @@ const runPipelineWithRetry = async (retryCount = 0) => {
       return runPipelineWithRetry(retryCount + 1);
     }
 
-    if (!dbConnection.getConnectionStatus().isConnected) {
+    if (mongoose.connection.readyState !== 1) {
       try {
-        await dbConnection.connect(config.mongodb.uri);
+        await mongoose.connect(config.mongodb.uri);
       } catch (dbError) {
         logger.error("Failed to reconnect to database:", dbError);
       }
