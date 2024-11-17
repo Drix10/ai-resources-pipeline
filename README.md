@@ -41,7 +41,7 @@ This repository contains a Minimum Viable Product (MVP) that automates the colle
 | 1   | Twitter Authentication & Scraping | Authenticates with the Twitter API v2 and scrapes tweets based on specified keywords or hashtags. Handles rate limits and errors.           |
 | 2   | Gemini AI Content Generation      | Uses Google's Gemini API to convert scraped tweet data into well-formatted Markdown files.                                                  |
 | 3   | GitHub Repository Management      | Interacts with a designated GitHub repository to commit the generated Markdown files to a specified folder. Handles rate limits and errors. |
-| 4   | Automated Daily Execution         | Automates the entire process using Node-cron to run daily at a specified time. Includes error handling and email notifications.             |
+| 4   | Automated Timely Execution        | Automates the entire process using Node-cron to run at specified time. Includes error handling and discord webhook notifications.           |
 
 ## 💻 Installation
 
