@@ -20,6 +20,7 @@ Twitter-Gemini-GitHub-MVP
 </div>
 
 ## 📑 Table of Contents
+
 - 📍 Overview
 - 📦 Features
 - 📂 Structure
@@ -30,63 +31,87 @@ Twitter-Gemini-GitHub-MVP
 - 👏 Authors
 
 ## 📍 Overview
-This repository contains a Minimum Viable Product (MVP) that automates the collection of Twitter data and stores it in a structured Markdown format on GitHub, leveraging Google's Gemini AI for content processing.  This addresses the need for researchers and developers to efficiently collect and organize relevant Twitter content.
+
+This repository contains a Minimum Viable Product (MVP) that automates the collection of Twitter data and stores it in a structured Markdown format on GitHub, leveraging Google's Gemini AI for content processing. This addresses the need for researchers and developers to efficiently collect and organize relevant Twitter content.
 
 ## 📦 Features
-|    | Feature                          | Description                                                                                                                            |
-|----|----------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| 1  | Twitter Authentication & Scraping | Authenticates with the Twitter API v2 and scrapes tweets based on specified keywords or hashtags. Handles rate limits and errors.             |
-| 2  | Gemini AI Content Generation     | Uses Google's Gemini API to convert scraped tweet data into well-formatted Markdown files.                                                  |
-| 3  | GitHub Repository Management      | Interacts with a designated GitHub repository to commit the generated Markdown files to a specified folder. Handles rate limits and errors. |
-| 4  | Automated Daily Execution        | Automates the entire process using Node-cron to run daily at a specified time. Includes error handling and email notifications.           |
 
+|     | Feature                           | Description                                                                                                                                 |
+| --- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Twitter Authentication & Scraping | Authenticates with the Twitter API v2 and scrapes tweets based on specified keywords or hashtags. Handles rate limits and errors.           |
+| 2   | Gemini AI Content Generation      | Uses Google's Gemini API to convert scraped tweet data into well-formatted Markdown files.                                                  |
+| 3   | GitHub Repository Management      | Interacts with a designated GitHub repository to commit the generated Markdown files to a specified folder. Handles rate limits and errors. |
+| 4   | Automated Daily Execution         | Automates the entire process using Node-cron to run daily at a specified time. Includes error handling and email notifications.             |
 
 ## 💻 Installation
+
 ### 🔧 Prerequisites
+
 - Node.js v16+
 - npm 8+
 - MongoDB
 - A Google Cloud Project with the Gemini API enabled
 - A GitHub account and Personal Access Token
+- Twitter account credentials
 
 ### 🚀 Setup Instructions
-1. Clone the repository:
-   bash
-   git clone https://github.com/coslynx/Twitter-Gemini-GitHub-MVP.git
+
+1. Clone and install:
+
+```bash
+   git clone https://github.com/Drix10/Twitter-Gemini-GitHub-MVP.git
    cd Twitter-Gemini-GitHub-MVP
-   
-2. Install dependencies:
-   bash
    npm install
-   
-3. Create a `.env` file using the `.env.example` file and populate it with your API keys and credentials.
-4.  Start the MongoDB server.
+```
+
+2. Create a `.env` file with the following configuration:
+
+```bash
+# Required
+GITHUB_PAT= # The GitHub personal access token
+GEMINI_API_KEY= # The Gemini API key
+
+# Optional (but recommended)
+MONGODB_URI= # The MongoDB URI
+TWITTER_USERNAME= # Your Twitter username
+TWITTER_PASSWORD= # Your Twitter password
+DISCORD_WEBHOOK_URL= # Your Discord webhook URL
+
+# Optional (with defaults)
+GITHUB_REPO=userName/repoName # The repository where the tweets will be saved
+GITHUB_FOLDER=folderName # The folder where the tweets will be saved
+GITHUB_BRANCH=branchName # The branch where the tweets will be saved
+SEARCH_KEYWORDS=keyword1,keyword2,keyword3 # The keywords to search for
+SEARCH_HASHTAGS=hashtag1,hashtag2,hashtag3 # The hashtags to search for
+CRON_SCHEDULE=0 * * * * # The cron schedule to run the backend
+MIN_REQUIRED_TWEETS=5 # The minimum number of tweets required to run the pipeline
+```
 
 ## 🏗️ Usage
+
 ### 🏃‍♂️ Running the MVP
+
 1. Start the server:
    bash
    npm run start
-   
-2. The application will run on port 3000.  The cron job will run daily at midnight UTC.
-
-
-## 🌐 Hosting
-This application is designed to be deployed on a server with Node.js and MongoDB. Consider using a cloud provider such as AWS, Google Cloud, or Heroku.
-
+2. The application will run on port 3000 with hourly cron jobs by default.
 
 ## 📄 License & Attribution
 
 ### 📄 License
+
 This Minimum Viable Product (MVP) is licensed under the [GNU AGPLv3](https://choosealicense.com/licenses/agpl-3.0/) license.
 
 ### 🤖 AI-Generated MVP
+
 This MVP was entirely generated using artificial intelligence through [CosLynx.com](https://coslynx.com).
 
 No human was directly involved in the coding process of the repository: Twitter-Gemini-GitHub-MVP
 
 ### 📞 Contact
+
 For any questions or concerns regarding this AI-generated MVP, please contact CosLynx at:
+
 - Website: [CosLynx.com](https://coslynx.com)
 - Twitter: [@CosLynxAI](https://x.com/CosLynxAI)
 
