@@ -1,91 +1,89 @@
 const cron = require("node-cron");
-const config = require("../../config");
-const TwitterService = require("./twitter");
-const GeminiService = require("./gemini");
-const Tweet = require("../models/tweet");
-const GithubService = require("./github");
-const nodemailer = require("nodemailer");
-const winston = require("winston");
+const { logger } = require("../src/utils/helpers");
+const config = require("../config");
+const { runDataPipeline } = require("../src/services/cron");
+const dbConnection = require("../src/utils/dbConnection");
 
-const logger = winston.createLogger({
-  level: "info",
-  format: winston.format.json(),
-  defaultMeta: { service: "cron-job" },
-  transports: [
-    new winston.transports.File({ filename: "cron-job.log", level: "info" }),
-  ],
-});
+let scheduledJob = null;
 
-const runDataPipeline = async () => {
-  const {
-    keywords,
-    hashtags,
-    github: { repo, folder },
-  } = config;
-  const timestamp = new Date().toISOString();
-
+const initCronJob = () => {
   try {
-    logger.info(`Starting data pipeline at ${timestamp}`);
-
-    const tweets = await TwitterService.fetchTweets(keywords, hashtags);
-    logger.info(`Fetched ${tweets.length} tweets`);
-
-    const processedTweets = await GeminiService.generateMarkdown(tweets);
-    logger.info(`Processed ${processedTweets.length} tweets with Gemini`);
-
-    await Tweet.insertMany(processedTweets);
-    logger.info(`Saved ${processedTweets.length} tweets to MongoDB`);
-
-    const markdownContent = processedTweets
-      .map((tweet) => tweet.markdown)
-      .join("\n");
-    const fileBuffer = Buffer.from(markdownContent);
-    const uploadResult = await GithubService.uploadMarkdownFile(
-      fileBuffer,
-      repo,
-      folder
-    );
-    logger.info(`Uploaded Markdown to GitHub: ${uploadResult.message}`);
-
-    if (config.email.user && config.email.pass) {
-      const transporter = nodemailer.createTransport({
-        host: config.email.host,
-        port: config.email.port,
-        secure: false,
-        auth: {
-          user: config.email.user,
-          pass: config.email.pass,
-        },
-      });
-
-      const mailOptions = {
-        from: config.email.user,
-        to: config.email.user,
-        subject: "Twitter to GitHub Pipeline Status",
-        text: uploadResult.success
-          ? "Pipeline completed successfully!"
-          : "Pipeline encountered errors.",
-      };
-
-      try {
-        await transporter.sendMail(mailOptions);
-        logger.info("Sent email notification");
-      } catch (emailError) {
-        logger.error("Failed to send email notification:", emailError);
-      }
+    if (scheduledJob) {
+      logger.warn("Cron job already initialized");
+      return scheduledJob;
     }
 
-    logger.info(
-      `Data pipeline completed successfully at ${new Date().toISOString()}`
-    );
-  } catch (error) {
-    logger.error(`Data pipeline failed at ${new Date().toISOString()}:`, {
-      ...error,
-      stack: error.stack,
+    // Run immediately when started
+    logger.info("Running initial pipeline execution...");
+    runDataPipeline().catch((error) => {
+      logger.error("Initial pipeline execution failed:", error);
     });
+
+    // Schedule to run every hour
+    scheduledJob = cron.schedule("0 * * * *", async () => {
+      logger.info(
+        `Starting hourly pipeline run at ${new Date().toISOString()}`
+      );
+
+      try {
+        // Ensure database connection
+        const connectionStatus = dbConnection.getConnectionStatus();
+        if (!connectionStatus.isConnected) {
+          await dbConnection.connect(config.mongodb.uri);
+        }
+
+        // Run the pipeline
+        await runDataPipeline();
+      } catch (error) {
+        logger.error("Scheduled pipeline run failed:", error);
+
+        // Attempt to reconnect database if that was the issue
+        if (!dbConnection.getConnectionStatus().isConnected) {
+          try {
+            await dbConnection.connect(config.mongodb.uri);
+          } catch (dbError) {
+            logger.error("Failed to reconnect to database:", dbError);
+          }
+        }
+      }
+    });
+
+    logger.info("Cron job initialized with hourly schedule");
+    return scheduledJob;
+  } catch (error) {
+    logger.error("Failed to initialize cron job:", error);
+    throw error;
   }
 };
 
-cron.schedule(config.cron.schedule, runDataPipeline);
+const stopCronJob = () => {
+  if (scheduledJob) {
+    scheduledJob.stop();
+    scheduledJob = null;
+    logger.info("Cron job stopped");
+  }
+};
 
-logger.info(`Cron job scheduled to run at ${config.cron.schedule}`);
+// Function to run the pipeline manually
+const runManually = async () => {
+  logger.info("Starting manual pipeline execution...");
+  try {
+    // Ensure database connection
+    const connectionStatus = dbConnection.getConnectionStatus();
+    if (!connectionStatus.isConnected) {
+      await dbConnection.connect(config.mongodb.uri);
+    }
+
+    await runDataPipeline();
+    logger.info("Manual pipeline execution completed successfully");
+  } catch (error) {
+    logger.error("Manual pipeline execution failed:", error);
+    throw error;
+  }
+};
+
+module.exports = {
+  initCronJob,
+  stopCronJob,
+  runManually,
+};

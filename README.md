@@ -14,9 +14,9 @@ Twitter-Gemini-GitHub-MVP
   <img src="https://img.shields.io/badge/AI-Google%20Gemini-black" alt="AI">
 </div>
 <div class="badges" align="center">
-  <img src="https://img.shields.io/github/last-commit/coslynx/Twitter-Gemini-GitHub-MVP?style=flat-square&color=5D6D7E" alt="git-last-commit" />
-  <img src="https://img.shields.io/github/commit-activity/m/coslynx/Twitter-Gemini-GitHub-MVP?style=flat-square&color=5D6D7E" alt="GitHub commit activity" />
-  <img src="https://img.shields.io/github/languages/top/coslynx/Twitter-Gemini-GitHub-MVP?style=flat-square&color=5D6D7E" alt="GitHub top language" />
+  <img src="https://img.shields.io/github/last-commit/Drix10/Twitter-Gemini-GitHub-MVP?style=flat-square&color=5D6D7E" alt="git-last-commit" />
+  <img src="https://img.shields.io/github/commit-activity/m/Drix10/Twitter-Gemini-GitHub-MVP?style=flat-square&color=5D6D7E" alt="GitHub commit activity" />
+  <img src="https://img.shields.io/github/languages/top/Drix10/Twitter-Gemini-GitHub-MVP?style=flat-square&color=5D6D7E" alt="GitHub top language" />
 </div>
 
 ## 📑 Table of Contents
@@ -39,43 +39,6 @@ This repository contains a Minimum Viable Product (MVP) that automates the colle
 | 2  | Gemini AI Content Generation     | Uses Google's Gemini API to convert scraped tweet data into well-formatted Markdown files.                                                  |
 | 3  | GitHub Repository Management      | Interacts with a designated GitHub repository to commit the generated Markdown files to a specified folder. Handles rate limits and errors. |
 | 4  | Automated Daily Execution        | Automates the entire process using Node-cron to run daily at a specified time. Includes error handling and email notifications.           |
-
-
-## 📂 Structure
-```text
-twitter-to-github-mvp/
-├── .env
-├── package.json
-└── src/
-    ├── api/
-    │   ├── app.js
-    │   ├── controllers/
-    │   │   ├── github.js
-    │   │   └── tweets.js
-    │   ├── models/
-    │   │   └── tweet.js
-    │   ├── routes/
-    │   │   ├── github.js
-    │   │   └── tweets.js
-    │   └── services/
-    │       ├── github.js
-    │       ├── gemini.js
-    │       ├── twitter.js
-    │       └── cron.js
-    ├── config/
-    │   └── index.js
-    └── utils/
-        ├── dbConnection.js
-        └── helpers.js
-    └── tests/
-        ├── unit/
-        │   ├── twitter.test.js
-        │   ├── gemini.test.js
-        │   └── github.test.js
-        └── integration/
-            ├── tweets.test.js
-            └── github.test.js
-```
 
 
 ## 💻 Installation

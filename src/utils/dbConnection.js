@@ -1,42 +1,66 @@
-const { MongoClient } = require("mongodb");
-const { logger } = require("../utils/helpers");
+const mongoose = require("mongoose");
+const { logger } = require("./helpers");
 
 class DbConnection {
   constructor() {
-    this.client = null;
-    this.db = null;
+    this.isConnected = false;
+    mongoose.connection.on("connected", () => {
+      this.isConnected = true;
+      logger.info("MongoDB connection established");
+    });
+
+    mongoose.connection.on("disconnected", () => {
+      this.isConnected = false;
+      logger.info("MongoDB disconnected");
+    });
+
+    mongoose.connection.on("error", (err) => {
+      this.isConnected = false;
+      logger.error("MongoDB connection error:", err);
+    });
   }
 
   async connect(uri) {
-    if (!uri) {
-      throw new Error("MongoDB URI is required.");
-    }
     try {
-      this.client = new MongoClient(uri);
-      await this.client.connect();
-      this.db = this.client.db();
-      logger.info("Successfully connected to MongoDB.");
-      return this.db;
+      if (this.isConnected) {
+        logger.info("Using existing database connection");
+        return;
+      }
+
+      await mongoose.connect(uri, {
+        serverSelectionTimeoutMS: 45000,
+        socketTimeoutMS: 45000,
+      });
+
+      this.isConnected = true;
     } catch (error) {
-      logger.error("Failed to connect to MongoDB:", error);
-      throw new Error("Failed to connect to MongoDB.");
+      this.isConnected = false;
+      logger.error("Database connection error:", error);
+      throw error;
     }
   }
 
   async disconnect() {
-    if (this.client) {
-      try {
-        await this.client.close();
-        logger.info("Successfully disconnected from MongoDB.");
-      } catch (error) {
-        logger.error("Failed to disconnect from MongoDB:", error);
-        throw new Error("Failed to disconnect from MongoDB.");
+    try {
+      if (!this.isConnected) {
+        logger.info("No active database connection to close");
+        return;
       }
+
+      await mongoose.disconnect();
+      this.isConnected = false;
+      logger.info("Database connection closed");
+    } catch (error) {
+      logger.error("Error disconnecting from database:", error);
+      throw error;
     }
   }
 
-  getDb() {
-    return this.db;
+  getConnectionStatus() {
+    return {
+      isConnected: this.isConnected,
+      state: mongoose.connection.readyState,
+    };
   }
 }
 
