@@ -1,6 +1,6 @@
-const { TwitterApi } = require('twitter-api-v2');
-const config = require('../../config');
-const { sanitizeInput } = require('../../utils/helpers');
+const { TwitterApi } = require("twitter-api-v2");
+const config = require("../../config");
+const { sanitizeInput } = require("../../utils/helpers");
 
 class TwitterService {
   constructor() {
@@ -14,10 +14,10 @@ class TwitterService {
   async fetchTweets(keywords, hashtags) {
     keywords = sanitizeInput(keywords);
     hashtags = sanitizeInput(hashtags);
-    const query = `(${keywords || ''}) ${hashtags || ''}`.trim();
+    const query = `(${keywords || ""}) ${hashtags || ""}`.trim();
 
     if (!query) {
-      throw new Error('Keywords or hashtags are required.');
+      throw new Error("Keywords or hashtags are required.");
     }
 
     const maxResults = 100;
@@ -27,8 +27,8 @@ class TwitterService {
     while (true) {
       try {
         const response = await this.client.v2.search(query, {
-          tweet_fields: ['created_at', 'entities'],
-          expansions: ['author_id', 'in_reply_to_user_id'],
+          tweet_fields: ["created_at", "entities"],
+          expansions: ["author_id", "in_reply_to_user_id"],
           max_results: maxResults,
           next_token: nextToken,
         });
@@ -41,38 +41,38 @@ class TwitterService {
         }
 
         //Implement exponential backoff for rate limits
-        await new Promise(resolve => setTimeout(resolve, this.getBackoffDelay(response.meta)));
-
+        await new Promise((resolve) =>
+          setTimeout(resolve, this.getBackoffDelay(response.meta))
+        );
       } catch (error) {
-        console.error('Error fetching tweets:', error);
-        if (error.message.includes('Rate limit')) {
-          const retryAfter = parseInt(error.rateLimit.retryAfter,10) * 1000;
-          await new Promise(resolve => setTimeout(resolve, retryAfter));
+        console.error("Error fetching tweets:", error);
+        if (error.message.includes("Rate limit")) {
+          const retryAfter = parseInt(error.rateLimit.retryAfter, 10) * 1000;
+          await new Promise((resolve) => setTimeout(resolve, retryAfter));
           continue; //Retry on rate limit
-        } else if (error.code === 'ETIMEDOUT'){
-          throw new Error('Request timed out');
+        } else if (error.code === "ETIMEDOUT") {
+          throw new Error("Request timed out");
         }
-        throw new Error('Failed to fetch tweets');
+        throw new Error("Failed to fetch tweets");
       }
     }
     return tweets;
   }
 
-  getBackoffDelay(meta){
-    if(!meta || !meta.rateLimit){
+  getBackoffDelay(meta) {
+    if (!meta || !meta.rateLimit) {
       return 0; //No rate limit, no delay
     }
     const remaining = meta.rateLimit.remaining;
     const reset = meta.rateLimit.reset;
     const now = Date.now();
-    if(remaining === 0){
-        const delay = Math.max(0, reset - now) + 1000;//Add a small buffer to avoid hitting the limit
-        return delay;
+    if (remaining === 0) {
+      const delay = Math.max(0, reset - now) + 1000; //Add a small buffer to avoid hitting the limit
+      return delay;
     } else {
-        return 0;
+      return 0;
     }
   }
 }
 
 module.exports = new TwitterService();
-```

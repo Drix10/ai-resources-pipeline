@@ -27,4 +27,3 @@
     "dev": "nodemon src/api/app.js"
   }
 }
-```

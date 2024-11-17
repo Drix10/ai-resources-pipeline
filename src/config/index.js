@@ -1,4 +1,4 @@
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 
 dotenv.config();
 
@@ -35,25 +35,22 @@ const config = {
 
 // Validate required configurations
 const requiredConfigs = [
-  'twitter.apiKey',
-  'twitter.apiSecret',
-  'twitter.bearerToken',
-  'gemini.apiKey',
-  'github.personalAccessToken',
-  'github.repo',
-  'github.folder',
-  'mongodb.uri',
-  'cron.schedule',
+  "twitter.apiKey",
+  "twitter.apiSecret",
+  "twitter.bearerToken",
+  "gemini.apiKey",
+  "github.personalAccessToken",
+  "github.repo",
+  "github.folder",
+  "mongodb.uri",
+  "cron.schedule",
 ];
 
 requiredConfigs.forEach((key) => {
-  const value = key.split('.').reduce((o, k) => o && o[k], config);
+  const value = key.split(".").reduce((o, k) => o && o[k], config);
   if (!value) {
     throw new Error(`Missing required configuration: ${key}`);
   }
 });
 
-
 module.exports = config;
-
-```

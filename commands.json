@@ -5,4 +5,3 @@
     "node src/cron/cronJob.js"
   ]
 }
-```

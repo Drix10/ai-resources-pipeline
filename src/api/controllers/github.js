@@ -1,6 +1,6 @@
-const { Octokit } = require('@octokit/rest');
-const config = require('../config');
-const { createReadStream } = require('fs');
+const { Octokit } = require("@octokit/rest");
+const config = require("../config");
+const { createReadStream } = require("fs");
 
 class GithubController {
   async uploadMarkdownFile(file, repoName, folder) {
@@ -11,41 +11,39 @@ class GithubController {
 
     try {
       const { data: fileContent } = await octokit.rest.repos.getContent({
-        owner: repoName.split('/')[0],
-        repo: repoName.split('/')[1],
+        owner: repoName.split("/")[0],
+        repo: repoName.split("/")[1],
         path: filePath,
       });
 
       const sha = fileContent.sha;
-      const message = 'Automated update of tweets';
-      const base64FileContent = file.buffer.toString('base64');
+      const message = "Automated update of tweets";
+      const base64FileContent = file.buffer.toString("base64");
 
       await octokit.rest.repos.createOrUpdateFileContents({
-        owner: repoName.split('/')[0],
-        repo: repoName.split('/')[1],
+        owner: repoName.split("/")[0],
+        repo: repoName.split("/")[1],
         path: filePath,
         message,
         content: base64FileContent,
         sha,
-        branch: 'main',
+        branch: "main",
       });
 
-      return { success: true, message: 'File uploaded successfully' };
+      return { success: true, message: "File uploaded successfully" };
     } catch (error) {
-      console.error('Error uploading file:', error);
+      console.error("Error uploading file:", error);
       if (error.status === 401) {
-        throw { status: 401, message: 'Unauthorized' };
+        throw { status: 401, message: "Unauthorized" };
       } else if (error.status === 429) {
-        throw { status: 429, message: 'GitHub API rate limit exceeded' };
-      } else if (error.code === 'ENOENT') {
-        throw { status: 400, message: 'File not found' };
+        throw { status: 429, message: "GitHub API rate limit exceeded" };
+      } else if (error.code === "ENOENT") {
+        throw { status: 400, message: "File not found" };
       } else {
-        throw { status: 500, message: 'Internal Server Error' };
+        throw { status: 500, message: "Internal Server Error" };
       }
     }
   }
 }
 
 module.exports = new GithubController();
-
-```

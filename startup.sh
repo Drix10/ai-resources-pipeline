@@ -71,5 +71,3 @@ start_cron
 echo "$(date +"%Y-%m-%d %H:%M:%S") Startup complete. Backend running on port ${PORT}."
 wait "$backend_pid"
 exit 0
-
-```

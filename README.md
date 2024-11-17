@@ -42,7 +42,7 @@ This repository contains a Minimum Viable Product (MVP) that automates the colle
 
 
 ## 📂 Structure
-```text
+text
 twitter-to-github-mvp/
 ├── .env
 ├── package.json
@@ -76,7 +76,7 @@ twitter-to-github-mvp/
             ├── tweets.test.js
             └── github.test.js
 
-```
+
 
 ## 💻 Installation
 ### 🔧 Prerequisites
@@ -88,23 +88,23 @@ twitter-to-github-mvp/
 
 ### 🚀 Setup Instructions
 1. Clone the repository:
-   ```bash
+   bash
    git clone https://github.com/coslynx/Twitter-Gemini-GitHub-MVP.git
    cd Twitter-Gemini-GitHub-MVP
-   ```
+   
 2. Install dependencies:
-   ```bash
+   bash
    npm install
-   ```
+   
 3. Create a `.env` file using the `.env.example` file and populate it with your API keys and credentials.
 4.  Start the MongoDB server.
 
 ## 🏗️ Usage
 ### 🏃‍♂️ Running the MVP
 1. Start the server:
-   ```bash
+   bash
    npm run start
-   ```
+   
 2. The application will run on port 3000.  The cron job will run daily at midnight UTC.
 
 
@@ -139,4 +139,3 @@ For any questions or concerns regarding this AI-generated MVP, please contact Co
 <img src="https://img.shields.io/badge/Backed_by-Google,_Microsoft_&_Amazon_for_Startups-red" alt="">
 <img src="https://img.shields.io/badge/Finalist-Backdrop_Build_v4,_v6-black" alt="">
 </div>
-```
