@@ -1,9 +1,13 @@
 const { Octokit } = require("@octokit/rest");
 const config = require("../../config");
 const { logger, handleError } = require("../utils/helpers");
+const geminiService = require("./gemini");
 
 class GithubService {
   constructor() {
+    this.RATE_LIMIT_BUFFER = 100;
+    this.MAX_RETRIES = 3;
+
     try {
       this.octokit = new Octokit({
         auth: config.github.personalAccessToken,
@@ -12,6 +16,24 @@ class GithubService {
         retry: {
           enabled: true,
           retries: 3,
+          doNotRetry: [401, 403, 404],
+        },
+        throttle: {
+          onRateLimit: (retryAfter, options, octokit) => {
+            logger.warn(
+              `Request quota exhausted for request ${options.method} ${options.url}`
+            );
+            if (options.request.retryCount <= 2) {
+              logger.info(`Retrying after ${retryAfter} seconds!`);
+              return true;
+            }
+          },
+          onSecondaryRateLimit: (retryAfter, options, octokit) => {
+            logger.warn(
+              `Secondary rate limit hit for ${options.method} ${options.url}`
+            );
+            return true;
+          },
         },
       });
       logger.info("GitHub client initialized successfully");
@@ -21,17 +43,64 @@ class GithubService {
     }
   }
 
+  async createMarkdownFileFromTweets(tweets) {
+    try {
+      logger.info(`Generating markdown content for ${tweets.length} tweets`);
+
+      if (!config.github.repo) {
+        throw new Error("GitHub repository configuration is missing");
+      }
+
+      const markdownContent = await geminiService.generateMarkdown(tweets);
+      const fileBuffer = Buffer.from(markdownContent);
+
+      const result = await this.uploadMarkdownFile(
+        fileBuffer,
+        config.github.repo,
+        config.github.folder || "tweets"
+      );
+
+      if (!result.success) {
+        throw new Error(`Failed to upload markdown: ${result.message}`);
+      }
+
+      logger.info("Successfully created and uploaded markdown file", {
+        url: result.url,
+        sha: result.sha,
+      });
+
+      return {
+        success: true,
+        url: result.url,
+        content: markdownContent,
+      };
+    } catch (error) {
+      logger.error("Error creating markdown file:", error);
+      throw error;
+    }
+  }
+
   async uploadMarkdownFile(fileBuffer, repoName, folder) {
     const [owner, repo] = repoName.split("/");
     const timestamp = new Date().toISOString().split("T")[0];
-    const filePath = `${folder}/tweets-${timestamp}-${Date.now()}.md`;
+    const hash = require("crypto")
+      .createHash("md5")
+      .update(fileBuffer)
+      .digest("hex")
+      .slice(0, 6);
+    const filePath = `${folder}/tweets-${timestamp}-${hash}.md`;
     const base64FileContent = fileBuffer.toString("base64");
 
     try {
-      // Check repository access
+      const rateLimit = await this.checkRateLimit();
+      if (rateLimit.isLimited) {
+        throw new Error(
+          `Rate limit exceeded. Resets at ${rateLimit.resetTime}`
+        );
+      }
+
       await this.checkRepoAccess(owner, repo);
 
-      // Create or update file
       const response = await this.createOrUpdateFile(
         owner,
         repo,
@@ -40,6 +109,9 @@ class GithubService {
       );
 
       const fileUrl = `https://github.com/${owner}/${repo}/blob/main/${filePath}`;
+
+      await this.updateReadmeWithNewFile(owner, repo, fileUrl, timestamp);
+
       logger.info(`File uploaded successfully to ${fileUrl}`);
 
       return {
@@ -53,9 +125,59 @@ class GithubService {
     }
   }
 
+  async updateReadmeWithNewFile(owner, repo, fileUrl, timestamp) {
+    try {
+      const path = "README.md";
+      const existing = await this.octokit.repos
+        .getContent({
+          owner,
+          repo,
+          path,
+        })
+        .catch(() => null);
+
+      let content = existing
+        ? Buffer.from(existing.data.content, "base64").toString()
+        : "";
+
+      const newEntry = `- [${timestamp}](${fileUrl}) - Latest tech updates`;
+      if (content.includes("## Recent Updates")) {
+        const updateSection = content.split("## Recent Updates");
+        const updates = updateSection[1].split("\n").slice(0, 10);
+        content = `${
+          updateSection[0]
+        }## Recent Updates\n${newEntry}\n${updates.join("\n")}`;
+      } else {
+        content += `\n\n## Recent Updates\n${newEntry}`;
+      }
+
+      await this.createOrUpdateReadme(owner, repo, content);
+    } catch (error) {
+      logger.warn("Failed to update README with new file link:", error);
+    }
+  }
+
   async checkRepoAccess(owner, repo) {
     try {
-      await this.octokit.repos.get({ owner, repo });
+      logger.info(`Checking access to repository ${owner}/${repo}`);
+
+      if (!owner || !repo) {
+        throw new Error("Owner and repository name are required");
+      }
+
+      const { data } = await this.octokit.repos.get({ owner, repo });
+
+      if (data.archived) {
+        throw new Error(`Repository ${owner}/${repo} is archived`);
+      }
+      if (data.disabled) {
+        throw new Error(`Repository ${owner}/${repo} is disabled`);
+      }
+      if (!data.permissions?.push) {
+        throw new Error(`No write access to repository ${owner}/${repo}`);
+      }
+
+      return data;
     } catch (error) {
       if (error.status === 404) {
         throw new Error(`Repository ${owner}/${repo} not found`);
@@ -69,12 +191,29 @@ class GithubService {
 
   async createOrUpdateFile(owner, repo, filePath, content) {
     try {
-      // Try to get existing file
+      if (!owner || !repo || !filePath || !content) {
+        throw new Error("Missing required parameters for file creation");
+      }
+
+      const branch = config.github.branch || "main";
+
+      logger.info(`Creating/updating file in ${owner}/${repo}`, {
+        path: filePath,
+        branch,
+      });
+
+      const { data: ref } = await this.octokit.git.getRef({
+        owner,
+        repo,
+        ref: `heads/${branch}`,
+      });
+
       const existingFile = await this.octokit.repos
         .getContent({
           owner,
           repo,
           path: filePath,
+          ref: branch,
         })
         .catch(() => null);
 
@@ -85,22 +224,21 @@ class GithubService {
         repo,
         path: filePath,
         message: commitMessage,
-        content: content,
+        content,
         sha: existingFile?.data?.sha,
-        branch: config.github.branch || "main",
+        branch,
+        committer: {
+          name: config.github.committerName || "Twitter Bot",
+          email: config.github.committerEmail || "bot@example.com",
+        },
       });
     } catch (error) {
-      if (error.status === 404) {
-        // File doesn't exist, create new
-        return await this.octokit.repos.createOrUpdateFileContents({
-          owner,
-          repo,
-          path: filePath,
-          message: this.generateCommitMessage(filePath),
-          content: content,
-          branch: config.github.branch || "main",
-        });
-      }
+      logger.error("File creation/update failed:", {
+        owner,
+        repo,
+        path: filePath,
+        error: error.message,
+      });
       throw error;
     }
   }
@@ -117,27 +255,21 @@ Generated by Twitter-to-GitHub Pipeline`;
     let errorMessage = "Failed to upload file to GitHub";
     let statusCode = 500;
 
-    switch (error.status) {
-      case 401:
-        errorMessage = "GitHub authentication failed - check your token";
-        statusCode = 401;
-        break;
-      case 403:
-        errorMessage = "No permission to access repository";
-        statusCode = 403;
-        break;
-      case 404:
-        errorMessage = "Repository not found";
-        statusCode = 404;
-        break;
-      case 422:
-        errorMessage = "Invalid file content or path";
-        statusCode = 422;
-        break;
-      case 429:
-        errorMessage = "GitHub API rate limit exceeded";
-        statusCode = 429;
-        break;
+    const errorMap = {
+      401: "GitHub authentication failed - check your token",
+      403: "No permission to access repository",
+      404: "Repository not found",
+      422: "Invalid file content or path",
+      429: "GitHub API rate limit exceeded",
+    };
+
+    if (error.status in errorMap) {
+      errorMessage = errorMap[error.status];
+      statusCode = error.status;
+    }
+
+    if (error.response?.headers?.["x-ratelimit-remaining"]) {
+      errorMessage += ` (Rate limit: ${error.response.headers["x-ratelimit-remaining"]} remaining)`;
     }
 
     handleError(error, errorMessage);
@@ -147,30 +279,37 @@ Generated by Twitter-to-GitHub Pipeline`;
       message: errorMessage,
       status: statusCode,
       error: error.message,
+      rateLimitReset: error.response?.headers?.["x-ratelimit-reset"],
     };
   }
 
   async checkRateLimit() {
     try {
       const { data } = await this.octokit.rateLimit.get();
-      const { remaining, reset } = data.rate;
+      const { remaining, reset, used, limit } = data.rate;
 
       logger.info("GitHub API Rate Limit Status:", {
+        used,
         remaining,
+        limit,
         resetTime: new Date(reset * 1000).toISOString(),
       });
 
       return {
         remaining,
         resetTime: new Date(reset * 1000),
-        isLimited: remaining === 0,
+        isLimited: remaining < this.RATE_LIMIT_BUFFER,
+        used,
+        limit,
       };
     } catch (error) {
       handleError(error, "Failed to check rate limit");
       return {
         remaining: 0,
-        resetTime: new Date(Date.now() + 3600000), // Assume 1 hour
+        resetTime: new Date(Date.now() + 3600000),
         isLimited: true,
+        used: 0,
+        limit: 0,
       };
     }
   }
@@ -178,13 +317,14 @@ Generated by Twitter-to-GitHub Pipeline`;
   async createOrUpdateReadme(owner, repo, content) {
     try {
       const path = "README.md";
+      const branch = config.github.branch || "main";
 
-      // Try to get existing README
       const existing = await this.octokit.repos
         .getContent({
           owner,
           repo,
           path,
+          ref: branch,
         })
         .catch(() => null);
 
@@ -195,7 +335,11 @@ Generated by Twitter-to-GitHub Pipeline`;
         message: "📚 Update README with latest tweets",
         content: Buffer.from(content).toString("base64"),
         sha: existing?.data?.sha,
-        branch: config.github.branch || "main",
+        branch,
+        committer: {
+          name: config.github.committerName || "Twitter Bot",
+          email: config.github.committerEmail || "bot@example.com",
+        },
       });
 
       logger.info("README updated successfully");

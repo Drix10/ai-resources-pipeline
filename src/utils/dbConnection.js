@@ -1,67 +1,109 @@
 const mongoose = require("mongoose");
 const { logger } = require("./helpers");
 
-class DbConnection {
-  constructor() {
-    this.isConnected = false;
-    mongoose.connection.on("connected", () => {
-      this.isConnected = true;
-      logger.info("MongoDB connection established");
+const tweetSchema = new mongoose.Schema(
+  {
+    url: {
+      type: String,
+      required: true,
+      unique: true,
+      index: true,
+    },
+    text: {
+      type: String,
+      required: true,
+      minLength: 50,
+    },
+    links: [
+      {
+        type: String,
+        validate: {
+          validator: function (v) {
+            try {
+              new URL(v);
+              return true;
+            } catch (e) {
+              return false;
+            }
+          },
+          message: "Invalid URL format",
+        },
+      },
+    ],
+    status: {
+      type: String,
+      enum: ["pending", "processed", "failed"],
+      default: "pending",
+      index: true,
+    },
+    processed_at: {
+      type: Date,
+    },
+  },
+  {
+    timestamps: true,
+    strict: true,
+  }
+);
+
+tweetSchema.index({ createdAt: -1 });
+tweetSchema.index({ status: 1, createdAt: -1 });
+
+tweetSchema.statics.findUnprocessed = function () {
+  return this.find({ status: "pending" })
+    .sort({ createdAt: -1 })
+    .limit(100)
+    .lean();
+};
+
+tweetSchema.statics.markAsProcessed = async function (tweetId) {
+  return this.findByIdAndUpdate(tweetId, {
+    status: "processed",
+    processed_at: new Date(),
+  });
+};
+
+tweetSchema.statics.handleError = function (error, message) {
+  logger.error(message, {
+    error: error.message,
+    code: error.code,
+  });
+
+  if (error.code === 11000) {
+    logger.warn("Duplicate tweet detected");
+    return null;
+  }
+  throw error;
+};
+
+mongoose.connection.on("connected", () => {
+  logger.info("MongoDB connection established");
+});
+
+mongoose.connection.on("disconnected", () => {
+  logger.info("MongoDB disconnected");
+});
+
+mongoose.connection.on("error", (err) => {
+  logger.error("MongoDB connection error:", err);
+});
+
+const connect = async (uri) => {
+  try {
+    await mongoose.connect(uri, {
+      serverSelectionTimeoutMS: 45000,
+      socketTimeoutMS: 45000,
     });
-
-    mongoose.connection.on("disconnected", () => {
-      this.isConnected = false;
-      logger.info("MongoDB disconnected");
-    });
-
-    mongoose.connection.on("error", (err) => {
-      this.isConnected = false;
-      logger.error("MongoDB connection error:", err);
-    });
+  } catch (error) {
+    logger.error("Database connection error:", error);
+    throw error;
   }
+};
 
-  async connect(uri) {
-    try {
-      if (this.isConnected) {
-        logger.info("Using existing database connection");
-        return;
-      }
+const Tweet = mongoose.model("Tweet", tweetSchema);
 
-      await mongoose.connect(uri, {
-        serverSelectionTimeoutMS: 45000,
-        socketTimeoutMS: 45000,
-      });
-
-      this.isConnected = true;
-    } catch (error) {
-      this.isConnected = false;
-      logger.error("Database connection error:", error);
-      throw error;
-    }
-  }
-
-  async disconnect() {
-    try {
-      if (!this.isConnected) {
-        logger.info("No active database connection to close");
-        return;
-      }
-
-      await mongoose.disconnect();
-      this.isConnected = false;
-      logger.info("Database connection closed");
-    } catch (error) {
-      logger.error("Error disconnecting from database:", error);
-      throw error;
-    }
-  }
-
-  getConnectionStatus() {
-    return {
-      isConnected: this.isConnected,
-      state: mongoose.connection.readyState,
-    };
-  }
-}
-
-module.exports = new DbConnection();
+module.exports = {
+  connect,
+  disconnect: () => mongoose.disconnect(),
+  Tweet,
+};

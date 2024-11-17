@@ -1,5 +1,6 @@
 const puppeteer = require("puppeteer");
 const config = require("../../config");
+const { Tweet } = require("../utils/dbConnection");
 const { logger, sleep } = require("../utils/helpers");
 
 class TwitterService {
@@ -28,8 +29,8 @@ class TwitterService {
 
       if (!this.page) {
         this.page = await this.browser.newPage();
-        await this.page.setDefaultNavigationTimeout(60000);
-        await this.page.setDefaultTimeout(60000);
+        this.page.setDefaultNavigationTimeout(60000);
+        this.page.setDefaultTimeout(60000);
       }
     } catch (error) {
       logger.error("Failed to initialize:", error);
@@ -37,17 +38,122 @@ class TwitterService {
     }
   }
 
+  async scrollForContent() {
+    const SCROLL_INTERVAL = 4000;
+    const MAX_SCROLL_ATTEMPTS = 30;
+    const MIN_TWEETS_PER_SCROLL = 5;
+    const MIN_REQUIRED_TWEETS = config.minRequiredTweets;
+
+    let lastTweetCount = 0;
+    let noNewContentCount = 0;
+    let scrollAttempts = 0;
+    let validTweets = [];
+
+    while (scrollAttempts < MAX_SCROLL_ATTEMPTS) {
+      const beforeScroll = await this.page.evaluate(
+        () => document.querySelectorAll('article[data-testid="tweet"]').length
+      );
+
+      await this.page.evaluate(() => {
+        window.scrollBy({
+          top: window.innerHeight * 1.5,
+          behavior: "smooth",
+        });
+      });
+
+      await this.page
+        .waitForNetworkIdle({
+          idleTime: 1000,
+          timeout: 5000,
+        })
+        .catch(() => {});
+
+      await sleep(SCROLL_INTERVAL);
+
+      const tweets = await this.page.evaluate(() => {
+        return Array.from(
+          document.querySelectorAll('article[data-testid="tweet"]')
+        )
+          .map((tweet) => {
+            const tweetUrl = tweet.querySelector('a[href*="/status/"]')?.href;
+            const text = tweet
+              .querySelector('[data-testid="tweetText"]')
+              ?.innerText?.trim();
+            const links = Array.from(tweet.querySelectorAll("a[href]"))
+              .map((a) => a.href)
+              .filter((href) => {
+                if (!href) return false;
+                try {
+                  const url = new URL(href);
+                  return (
+                    !url.hostname.includes("twitter.com") &&
+                    !url.hostname.includes("t.co") &&
+                    !url.hostname.includes("instagram.com") &&
+                    !url.hostname.includes("facebook.com")
+                  );
+                } catch {
+                  return false;
+                }
+              });
+
+            if (!tweetUrl || !text || text.length < 100 || links.length === 0)
+              return null;
+
+            return { url: tweetUrl, text, links };
+          })
+          .filter((tweet) => tweet !== null);
+      });
+
+      let validCount = 0;
+      for (const tweet of tweets) {
+        const exists = await Tweet.countDocuments(
+          { url: tweet.url },
+          { limit: 1 }
+        );
+        if (exists === 0) {
+          validCount++;
+          validTweets.push(tweet);
+        }
+      }
+
+      const newTweets = tweets.length - beforeScroll;
+      logger.info(
+        `Scroll ${
+          scrollAttempts + 1
+        }: Found ${newTweets} new tweets (${validCount} valid)`
+      );
+
+      if (validCount >= MIN_REQUIRED_TWEETS) {
+        logger.info("Found enough valid tweets, stopping scroll");
+        break;
+      }
+
+      if (newTweets < MIN_TWEETS_PER_SCROLL) {
+        noNewContentCount++;
+        if (noNewContentCount >= 10) {
+          logger.info("No significant new content found in last 10 scrolls");
+          break;
+        }
+      } else {
+        noNewContentCount = 0;
+      }
+
+      lastTweetCount = tweets.length;
+      scrollAttempts++;
+      await sleep(2000);
+    }
+
+    return validTweets;
+  }
+
   async login() {
     try {
       logger.info("Starting login process...");
-
       await this.page.goto("https://twitter.com/i/flow/login", {
         waitUntil: "networkidle0",
         timeout: 60000,
       });
 
-      // Type username
-      logger.info("Entering username...");
       await this.page.waitForSelector('input[autocomplete="username"]', {
         visible: true,
       });
@@ -59,49 +165,11 @@ class TwitterService {
       );
       await sleep(2000);
 
-      // Click Next
-      logger.info("Clicking Next...");
-      const clicked = await this.page.evaluate(() => {
-        const buttons = Array.from(
-          document.querySelectorAll('div[role="button"]')
-        );
-        const nextButton = buttons.find((button) =>
-          button.textContent.toLowerCase().includes("next")
-        );
-        if (nextButton) {
-          nextButton.click();
-          return true;
-        }
-        return false;
-      });
+      await this.page.keyboard.press("Enter");
 
-      if (!clicked) {
-        throw new Error("Could not find or click Next button");
-      }
-
-      // Wait for password field to appear
-      logger.info("Waiting for password field...");
       await sleep(3000);
 
-      const passwordFieldAppeared = await this.page.evaluate(() => {
-        const inputs = Array.from(document.querySelectorAll("input"));
-        return inputs.some(
-          (input) =>
-            input.type === "password" ||
-            input.name === "password" ||
-            input.autocomplete === "current-password"
-        );
-      });
-
-      if (!passwordFieldAppeared) {
-        logger.error("Password field did not appear");
-        await this.page.screenshot({ path: "password-field-missing.png" });
-        throw new Error("Password field not found after clicking Next");
-      }
-
-      // Type password
-      logger.info("Entering password...");
-      await this.page.evaluate(() => {
+      const passwordFieldFound = await this.page.evaluate(() => {
         const inputs = Array.from(document.querySelectorAll("input"));
         const passwordInput = inputs.find(
           (input) =>
@@ -111,184 +179,108 @@ class TwitterService {
         );
         if (passwordInput) {
           passwordInput.focus();
-        }
-      });
-
-      await sleep(1000);
-      await this.page.keyboard.type(config.twitter.password, { delay: 100 });
-      await sleep(2000);
-
-      // Click Login
-      logger.info("Clicking Login...");
-      const loginClicked = await this.page.evaluate(() => {
-        const buttons = Array.from(
-          document.querySelectorAll('div[role="button"]')
-        );
-        const loginButton = buttons.find((button) =>
-          button.textContent.toLowerCase().includes("log in")
-        );
-        if (loginButton) {
-          loginButton.click();
           return true;
         }
         return false;
       });
 
-      if (!loginClicked) {
-        throw new Error("Could not find or click Login button");
+      if (!passwordFieldFound) {
+        throw new Error("Could not find password field");
       }
 
-      // Wait for navigation
+      await sleep(1000);
+      await this.page.keyboard.type(config.twitter.password, { delay: 100 });
+      await sleep(2000);
+
+      await this.page.keyboard.press("Enter");
+
       await sleep(5000);
 
-      // Verify login success
-      const isLoggedIn = await this.page.evaluate(() => {
-        return !!(
-          document.querySelector('[data-testid="AppTabBar_Home_Link"]') ||
-          document.querySelector('[aria-label="Home"]') ||
-          document.querySelector('[data-testid="primaryColumn"]')
-        );
+      const loginSuccess = await this.page.evaluate(() => {
+        return !document.querySelector('input[name="password"]');
       });
 
-      if (!isLoggedIn) {
-        throw new Error("Login verification failed");
+      if (!loginSuccess) {
+        throw new Error("Login failed - password field still present");
       }
 
       logger.info("Login successful");
-      return true;
     } catch (error) {
       logger.error("Login failed:", error);
-      await this.page.screenshot({ path: "login-error.png" });
       throw error;
     }
   }
 
-  async handlePostLoginScreens() {
-    logger.info("Handling post-login screens...");
-    await sleep(5000);
-
-    try {
-      // Handle any verification or security prompts
-      await this.page.evaluate(() => {
-        const buttons = Array.from(
-          document.querySelectorAll('div[role="button"]')
-        );
-
-        // Check for "Yes, it's me" button
-        const verifyButton = buttons.find((button) =>
-          button.textContent.toLowerCase().includes("yes, it's me")
-        );
-        if (verifyButton) verifyButton.click();
-
-        // Check for "Skip for now" button
-        const skipButton = buttons.find((button) =>
-          button.textContent.toLowerCase().includes("skip for now")
-        );
-        if (skipButton) skipButton.click();
-      });
-
-      await sleep(3000);
-
-      // Wait for home timeline
-      logger.info("Waiting for home timeline...");
-      await this.page.waitForSelector('[data-testid="primaryColumn"]', {
-        timeout: 30000,
-      });
-
-      // Verify we're properly logged in
-      const isLoggedIn = await this.page.evaluate(() => {
-        return !!document.querySelector('[data-testid="primaryColumn"]');
-      });
-
-      if (!isLoggedIn) {
-        throw new Error("Login verification failed");
-      }
-
-      logger.info("Successfully verified login");
-      return true;
-    } catch (error) {
-      logger.error("Error during post-login handling:", error);
-      await this.page.screenshot({ path: "post-login-error.png" });
-      throw error;
-    }
-  }
-
-  async fetchTweets(keywords = [], hashtags = []) {
+  async fetchTweets() {
     try {
       if (!this.page) {
         await this.init();
         await this.login();
       }
 
+      const keywords = config.search.keywords || [];
+      const hashtags = config.search.hashtags || [];
       const searchTerms = [
         ...keywords,
-        ...hashtags.map((tag) => `#${tag}`),
+        ...hashtags.map((tag) => (tag.startsWith("#") ? tag : `#${tag}`)),
       ].join(" OR ");
-      logger.info(`Searching for: ${searchTerms}`);
+
+      if (!searchTerms.trim()) {
+        throw new Error("Search terms cannot be empty");
+      }
 
       const searchUrl = `https://twitter.com/search?q=${encodeURIComponent(
         searchTerms
-      )}&f=live`;
+      )}&f=top`;
       await this.page.goto(searchUrl, {
-        waitUntil: "networkidle0",
-        timeout: 60000,
+        waitUntil: "domcontentloaded",
+        timeout: 90000,
       });
 
-      logger.info("Waiting for tweets to load...");
-      await sleep(5000);
-
-      // Scroll a few times to load more tweets
-      for (let i = 0; i < 3; i++) {
-        await this.page.evaluate(() => {
-          window.scrollBy(0, 1000);
-        });
-        await sleep(2000);
+      let retryCount = 0;
+      while (retryCount < 3) {
+        try {
+          await this.page.waitForSelector('article[data-testid="tweet"]', {
+            timeout: 20000,
+          });
+          break;
+        } catch (error) {
+          retryCount++;
+          logger.warn(`Tweet load retry ${retryCount}/3`);
+          await sleep(2000);
+        }
       }
 
-      const tweets = await this.page.evaluate(() => {
-        const tweetElements = document.querySelectorAll(
-          'article[data-testid="tweet"]'
-        );
-        return Array.from(tweetElements, (tweet) => {
-          const tweetText =
-            tweet.querySelector('[data-testid="tweetText"]')?.innerText || "";
-          const links = Array.from(tweet.querySelectorAll("a[href]"))
-            .map((a) => a.href)
-            .filter((href) => !href.includes("twitter.com"));
+      const validTweets = await this.scrollForContent();
 
-          const tweetLink =
-            tweet.querySelector('a[href*="/status/"]')?.href || "";
-          const tweetId = tweetLink.split("/status/")[1]?.split("?")[0];
+      if (validTweets.length > 0) {
+        const tweetsToSave = validTweets.map((tweet) => ({
+          url: tweet.url,
+          text: tweet.text,
+          links: tweet.links,
+          status: "pending",
+        }));
 
-          // Get username and timestamp
-          const userElement = tweet.querySelector(
-            'div[data-testid="User-Name"]'
-          );
-          const username = userElement
-            ? userElement.textContent.split("@")[1]
-            : "";
-          const timeElement = tweet.querySelector("time");
-          const timestamp = timeElement
-            ? timeElement.getAttribute("datetime")
-            : new Date().toISOString();
-
-          return {
-            id: tweetId,
-            username,
-            text: tweetText,
-            links,
-            url: tweetLink,
-            timestamp,
-            collected_at: new Date().toISOString(),
-          };
+        await Tweet.insertMany(tweetsToSave, {
+          ordered: false,
+          lean: true,
+        }).catch((err) => {
+          if (err.code === 11000) {
+            logger.warn(
+              `Skipped ${err.writeErrors?.length || 0} duplicate tweets`
+            );
+            return err.insertedDocs || [];
+          }
+          throw err;
         });
-      });
 
-      logger.info(`Successfully fetched ${tweets.length} tweets`);
-      return tweets;
+        logger.info(`Saved ${tweetsToSave.length} new tweets to database`);
+        return tweetsToSave;
+      }
+
+      return validTweets;
     } catch (error) {
       logger.error("Error fetching tweets:", error);
-      await this.page.screenshot({ path: "fetch-error.png" });
       throw error;
     }
   }
@@ -299,7 +291,6 @@ class TwitterService {
         await this.browser.close();
         this.browser = null;
         this.page = null;
-        logger.info("Browser cleanup completed");
       }
     } catch (error) {
       logger.error("Cleanup failed:", error);

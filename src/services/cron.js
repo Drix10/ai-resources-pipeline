@@ -1,119 +1,119 @@
 const { logger, handleError } = require("../utils/helpers");
 const config = require("../../config");
 const TwitterService = require("./twitter");
-const GeminiService = require("./gemini");
 const GithubService = require("./github");
-const Tweet = require("../models/tweet");
 const axios = require("axios");
-const dbConnection = require("../utils/dbConnection");
+const mongoose = require("mongoose");
+const { Tweet } = require("../utils/dbConnection");
+const cron = require("node-cron");
 
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 5000;
+const MIN_REQUIRED_TWEETS = config.minRequiredTweets;
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const runDataPipeline = async (retryCount = 0) => {
   const timestamp = new Date().toISOString();
+  const pipelineStats = {
+    tweetsFound: 0,
+    tweetsProcessed: 0,
+    tweetsSaved: 0,
+    markdownGenerated: false,
+    githubUploaded: false,
+    errors: [],
+  };
 
   try {
-    // Check database connection
-    const connectionStatus = dbConnection.getConnectionStatus();
-    if (!connectionStatus.isConnected) {
+    if (mongoose.connection.readyState !== 1) {
       throw new Error("Database connection not established");
     }
 
     logger.info(`Starting data pipeline at ${timestamp}`);
 
-    // 1. Fetch tweets
     const tweets = await TwitterService.fetchTweets();
+    pipelineStats.tweetsFound = tweets.length;
+
     if (!tweets.length) {
-      logger.info("No new tweets to process");
       await sendDiscordNotification({
         success: true,
-        tweetsProcessed: 0,
+        stats: pipelineStats,
         timestamp,
         message: "No new tweets to process",
       });
-      return;
+      return pipelineStats;
     }
     logger.info(`Fetched ${tweets.length} tweets`);
 
-    // 2. Process tweets with Gemini
-    const processedTweets = await GeminiService.generateMarkdown(tweets);
-    if (!processedTweets.length) {
-      throw new Error("Failed to process tweets with Gemini");
+    if (tweets.length < MIN_REQUIRED_TWEETS) {
+      logger.info(
+        `Insufficient tweets (${tweets.length}/${MIN_REQUIRED_TWEETS}) to generate markdown`
+      );
+      return pipelineStats;
     }
-    logger.info(`Processed ${processedTweets.length} tweets with Gemini`);
 
-    // 3. Save to MongoDB
-    const savedTweets = await Tweet.insertMany(processedTweets, {
-      ordered: false,
-    }).catch((err) => {
-      if (err.code === 11000) {
-        logger.warn(
-          `Some tweets were already in database: ${
-            err.writeErrors?.length || 0
-          } duplicates`
-        );
-        return err.insertedDocs;
+    const result = await GithubService.createMarkdownFileFromTweets(tweets);
+
+    if (!result.success) {
+      throw new Error("Failed to create and upload markdown file");
+    }
+
+    pipelineStats.markdownGenerated = true;
+    pipelineStats.githubUploaded = true;
+    pipelineStats.tweetsProcessed = tweets.length;
+
+    const savedTweets = await Tweet.updateMany(
+      { url: { $in: tweets.map((t) => t.url) } },
+      {
+        $set: {
+          status: "processed",
+          processed_at: new Date(),
+        },
       }
-      throw err;
-    });
-    logger.info(`Saved ${savedTweets.length} tweets to MongoDB`);
-
-    // 4. Generate and upload markdown file
-    const markdownContent = processedTweets
-      .map((tweet) => tweet.markdown)
-      .join("\n\n---\n\n");
-    const fileBuffer = Buffer.from(markdownContent);
-
-    const uploadResult = await GithubService.uploadMarkdownFile(
-      fileBuffer,
-      config.github.repo,
-      config.github.folder
     );
-    logger.info(`Uploaded Markdown to GitHub: ${uploadResult.message}`);
 
-    // 5. Send success notification
+    pipelineStats.tweetsSaved = savedTweets.modifiedCount;
+    logger.info(`Updated ${savedTweets.modifiedCount} tweets in database`);
+
     await sendDiscordNotification({
       success: true,
-      tweetsProcessed: tweets.length,
-      savedTweets: savedTweets.length,
+      stats: pipelineStats,
       timestamp,
-      githubUrl: uploadResult.url,
+      githubUrl: result.url,
+      message: `Successfully processed ${tweets.length} tweets and created markdown file`,
     });
 
-    return {
-      success: true,
-      tweetsProcessed: tweets.length,
-      savedTweets: savedTweets.length,
-      githubUrl: uploadResult.url,
-    };
+    return pipelineStats;
   } catch (error) {
     handleError(
       error,
       `Pipeline error (attempt ${retryCount + 1}/${MAX_RETRIES})`,
-      {
-        retryCount,
-        timestamp,
-      }
+      { retryCount, timestamp, stats: pipelineStats }
     );
+
+    const retryableErrors = [
+      "Rate limit",
+      "Network error",
+      "ECONNRESET",
+      "Database connection not established",
+      "socket hang up",
+      "ETIMEDOUT",
+    ];
 
     const shouldRetry =
       retryCount < MAX_RETRIES &&
-      (error.message?.includes("Rate limit") ||
-        error.message?.includes("Network error") ||
-        error.message?.includes("ECONNRESET") ||
-        error.message?.includes("Database connection not established"));
+      (retryableErrors.some((e) => error.message?.includes(e)) ||
+        error.code === "ECONNRESET");
 
     if (shouldRetry) {
       logger.info(`Retrying pipeline in ${RETRY_DELAY}ms...`);
-      await sleep(RETRY_DELAY);
+      await sleep(RETRY_DELAY * (retryCount + 1));
       return runDataPipeline(retryCount + 1);
     }
 
     await sendDiscordNotification({
       success: false,
+      stats: pipelineStats,
       error: error.message,
       timestamp,
       retryCount,
@@ -125,8 +125,7 @@ const runDataPipeline = async (retryCount = 0) => {
 
 async function sendDiscordNotification({
   success,
-  tweetsProcessed = 0,
-  savedTweets = 0,
+  stats = {},
   error = null,
   timestamp,
   retryCount = 0,
@@ -156,7 +155,7 @@ async function sendDiscordNotification({
         },
       ],
       footer: {
-        text: "Twitter to GitHub Pipeline",
+        text: `Twitter to GitHub Pipeline | ${new Date().toLocaleDateString()}`,
       },
     };
 
@@ -166,13 +165,18 @@ async function sendDiscordNotification({
       } else {
         embed.fields.push(
           {
-            name: "Tweets Processed",
-            value: `${tweetsProcessed} tweets`,
+            name: "Tweets Found",
+            value: `${stats.tweetsFound || 0}`,
             inline: true,
           },
           {
-            name: "Tweets Saved",
-            value: `${savedTweets} tweets`,
+            name: "Processed",
+            value: `${stats.tweetsProcessed || 0}`,
+            inline: true,
+          },
+          {
+            name: "Saved",
+            value: `${stats.tweetsSaved || 0}`,
             inline: true,
           }
         );
@@ -193,6 +197,13 @@ async function sendDiscordNotification({
           inline: false,
         },
         {
+          name: "Pipeline Progress",
+          value: Object.entries(stats)
+            .map(([key, value]) => `${key}: ${value}`)
+            .join("\n"),
+          inline: false,
+        },
+        {
           name: "Retry Count",
           value: `${retryCount}/${MAX_RETRIES}`,
           inline: true,
@@ -200,10 +211,7 @@ async function sendDiscordNotification({
       );
     }
 
-    await axios.post(config.discord.webhookUrl, {
-      embeds: [embed],
-    });
-
+    await axios.post(config.discord.webhookUrl, { embeds: [embed] });
     logger.info("Sent Discord notification");
   } catch (webhookError) {
     handleError(webhookError, "Failed to send Discord notification", {
@@ -214,13 +222,21 @@ async function sendDiscordNotification({
 }
 
 const initCronJob = () => {
-  const schedule = config.cron?.schedule || "0 * * * *"; // Default to every hour
+  const schedule = config.cron?.schedule || "0 * * * *";
 
   try {
+    if (!cron.validate(schedule)) {
+      throw new Error(`Invalid cron schedule: ${schedule}`);
+    }
+
     const job = cron.schedule(schedule, async () => {
+      const startTime = Date.now();
       logger.info(`Running scheduled pipeline at ${new Date().toISOString()}`);
+
       try {
-        await runDataPipeline();
+        const stats = await runDataPipeline();
+        const duration = Date.now() - startTime;
+        logger.info(`Pipeline completed in ${duration}ms`, { stats });
       } catch (error) {
         logger.error("Scheduled pipeline failed:", error);
       }

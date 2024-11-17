@@ -26,7 +26,7 @@ const logger = winston.createLogger({
       ),
     }),
   ],
-  // Prevent application crash on unhandled errors
+
   exitOnError: false,
 });
 
@@ -111,7 +111,6 @@ const createErrorResponse = (message, statusCode = 500, details = {}) => {
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-// Freeze the exported object to prevent modifications
 module.exports = Object.freeze({
   sanitizeInput,
   handleError,

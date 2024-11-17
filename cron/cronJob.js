@@ -5,6 +5,42 @@ const { runDataPipeline } = require("../src/services/cron");
 const dbConnection = require("../src/utils/dbConnection");
 
 let scheduledJob = null;
+const MAX_RETRIES = 3;
+const RETRY_DELAY = 5000;
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const runPipelineWithRetry = async (retryCount = 0) => {
+  try {
+    const connectionStatus = dbConnection.getConnectionStatus();
+    if (!connectionStatus.isConnected) {
+      await dbConnection.connect(config.mongodb.uri);
+    }
+
+    await runDataPipeline();
+  } catch (error) {
+    logger.error(
+      `Pipeline execution failed (attempt ${retryCount + 1}/${MAX_RETRIES}):`,
+      error
+    );
+
+    if (retryCount < MAX_RETRIES - 1) {
+      logger.info(`Retrying in ${RETRY_DELAY / 1000} seconds...`);
+      await sleep(RETRY_DELAY);
+      return runPipelineWithRetry(retryCount + 1);
+    }
+
+    if (!dbConnection.getConnectionStatus().isConnected) {
+      try {
+        await dbConnection.connect(config.mongodb.uri);
+      } catch (dbError) {
+        logger.error("Failed to reconnect to database:", dbError);
+      }
+    }
+
+    throw error;
+  }
+};
 
 const initCronJob = () => {
   try {
@@ -13,42 +49,35 @@ const initCronJob = () => {
       return scheduledJob;
     }
 
-    // Run immediately when started
     logger.info("Running initial pipeline execution...");
-    runDataPipeline().catch((error) => {
-      logger.error("Initial pipeline execution failed:", error);
+    runPipelineWithRetry().catch((error) => {
+      logger.error(
+        "Initial pipeline execution failed after all retries:",
+        error
+      );
     });
 
-    // Schedule to run every hour
-    scheduledJob = cron.schedule("0 * * * *", async () => {
-      logger.info(
-        `Starting hourly pipeline run at ${new Date().toISOString()}`
-      );
+    scheduledJob = cron.schedule(
+      config.cron.schedule || "0 * * * *",
+      async () => {
+        logger.info(
+          `Starting hourly pipeline run at ${new Date().toISOString()}`
+        );
 
-      try {
-        // Ensure database connection
-        const connectionStatus = dbConnection.getConnectionStatus();
-        if (!connectionStatus.isConnected) {
-          await dbConnection.connect(config.mongodb.uri);
-        }
-
-        // Run the pipeline
-        await runDataPipeline();
-      } catch (error) {
-        logger.error("Scheduled pipeline run failed:", error);
-
-        // Attempt to reconnect database if that was the issue
-        if (!dbConnection.getConnectionStatus().isConnected) {
-          try {
-            await dbConnection.connect(config.mongodb.uri);
-          } catch (dbError) {
-            logger.error("Failed to reconnect to database:", dbError);
-          }
+        try {
+          await runPipelineWithRetry();
+          logger.info("Hourly pipeline run completed successfully");
+        } catch (error) {
+          logger.error("Hourly pipeline run failed after all retries:", error);
         }
       }
-    });
+    );
 
-    logger.info("Cron job initialized with hourly schedule");
+    logger.info(
+      `Cron job initialized with schedule: ${
+        config.cron.schedule || "0 * * * *"
+      }`
+    );
     return scheduledJob;
   } catch (error) {
     logger.error("Failed to initialize cron job:", error);
@@ -61,29 +90,12 @@ const stopCronJob = () => {
     scheduledJob.stop();
     scheduledJob = null;
     logger.info("Cron job stopped");
-  }
-};
-
-// Function to run the pipeline manually
-const runManually = async () => {
-  logger.info("Starting manual pipeline execution...");
-  try {
-    // Ensure database connection
-    const connectionStatus = dbConnection.getConnectionStatus();
-    if (!connectionStatus.isConnected) {
-      await dbConnection.connect(config.mongodb.uri);
-    }
-
-    await runDataPipeline();
-    logger.info("Manual pipeline execution completed successfully");
-  } catch (error) {
-    logger.error("Manual pipeline execution failed:", error);
-    throw error;
+  } else {
+    logger.warn("No active cron job to stop");
   }
 };
 
 module.exports = {
   initCronJob,
   stopCronJob,
-  runManually,
 };

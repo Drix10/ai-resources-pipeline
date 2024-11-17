@@ -11,7 +11,6 @@ class RateLimiter {
   async checkLimit() {
     const now = Date.now();
 
-    // Clean up old requests
     this.requests = this.requests.filter(
       (time) => now - time < this.timeWindow
     );
