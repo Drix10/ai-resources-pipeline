@@ -67,17 +67,13 @@ This repository contains a Minimum Viable Product (MVP) that automates the colle
 2. Create a `.env` file with the following configuration:
 
 ```bash
-# Required
 GITHUB_PAT= # The GitHub personal access token
 GEMINI_API_KEY= # The Gemini API key
-
-# Optional (but recommended)
 MONGODB_URI= # The MongoDB URI
 TWITTER_USERNAME= # Your Twitter username
 TWITTER_PASSWORD= # Your Twitter password
 DISCORD_WEBHOOK_URL= # Your Discord webhook URL
 
-# Optional (with defaults)
 GITHUB_REPO=userName/repoName # The repository where the tweets will be saved
 GITHUB_FOLDER=folderName # The folder where the tweets will be saved
 GITHUB_BRANCH=branchName # The branch where the tweets will be saved
