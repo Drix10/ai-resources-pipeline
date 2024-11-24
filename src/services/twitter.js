@@ -13,12 +13,14 @@ class TwitterService {
     try {
       if (!this.browser) {
         this.browser = await puppeteer.launch({
-          headless: false,
+          headless: "new",
           args: [
             "--no-sandbox",
             "--disable-setuid-sandbox",
             "--window-size=1920,1080",
             "--disable-notifications",
+            "--disable-gpu",
+            "--disable-dev-shm-usage",
           ],
           defaultViewport: {
             width: 1920,
@@ -161,13 +163,39 @@ class TwitterService {
       await this.page.type(
         'input[autocomplete="username"]',
         config.twitter.username,
-        { delay: 100 }
+        {
+          delay: 100,
+        }
       );
       await sleep(2000);
-
       await this.page.keyboard.press("Enter");
-
       await sleep(3000);
+
+      const emailRequired = await this.page.evaluate(() => {
+        const inputs = Array.from(document.querySelectorAll("input"));
+        const emailInput = inputs.find(
+          (input) =>
+            input.type === "email" ||
+            input.name === "email" ||
+            (input.autocomplete && input.autocomplete.includes("email"))
+        );
+        return !!emailInput;
+      });
+      if (emailRequired) {
+        logger.info("Email verification required");
+
+        if (!config.twitter.email) {
+          throw new Error(
+            "Email verification required but email not configured"
+          );
+        }
+        await this.page.type('input[type="email"]', config.twitter.email, {
+          delay: 100,
+        });
+        await sleep(2000);
+        await this.page.keyboard.press("Enter");
+        await sleep(3000);
+      }
 
       const passwordFieldFound = await this.page.evaluate(() => {
         const inputs = Array.from(document.querySelectorAll("input"));
@@ -183,27 +211,21 @@ class TwitterService {
         }
         return false;
       });
-
       if (!passwordFieldFound) {
         throw new Error("Could not find password field");
       }
-
       await sleep(1000);
       await this.page.keyboard.type(config.twitter.password, { delay: 100 });
       await sleep(2000);
-
       await this.page.keyboard.press("Enter");
-
       await sleep(5000);
 
       const loginSuccess = await this.page.evaluate(() => {
         return !document.querySelector('input[name="password"]');
       });
-
       if (!loginSuccess) {
         throw new Error("Login failed - password field still present");
       }
-
       logger.info("Login successful");
     } catch (error) {
       logger.error("Login failed:", error);

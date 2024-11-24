@@ -11,6 +11,7 @@ const config = {
   twitter: {
     username: process.env.TWITTER_USERNAME,
     password: process.env.TWITTER_PASSWORD,
+    email: process.env.TWITTER_EMAIL,
   },
   github: {
     personalAccessToken: process.env.GITHUB_PAT,
@@ -43,6 +44,7 @@ const requiredConfigs = {
   "MongoDB URI": config.mongodb.uri,
   "Twitter Username": config.twitter.username,
   "Twitter Password": config.twitter.password,
+  "Twitter Email": config.twitter.email,
   "GitHub Personal Access Token": config.github.personalAccessToken,
   "GitHub Repository": config.github.repo,
   "Gemini API Key": config.gemini.apiKey,
