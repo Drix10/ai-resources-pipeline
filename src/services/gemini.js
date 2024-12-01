@@ -1,20 +1,32 @@
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+const {
+  GoogleGenerativeAI,
+  HarmBlockThreshold,
+  HarmCategory,
+} = require("@google/generative-ai");
 const config = require("../../config");
 const { logger } = require("../utils/helpers");
 
 class GeminiService {
   constructor() {
     this.genAI = new GoogleGenerativeAI(config.gemini.apiKey);
-    this.model = this.genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
-      generationConfig: {
-        temperature: 0.7,
-        topK: 40,
-        topP: 0.8,
-        maxOutputTokens: 100000,
+    this.safetySettings = [
+      {
+        category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+        threshold: HarmBlockThreshold.BLOCK_NONE,
       },
-    });
-
+      {
+        category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+        threshold: HarmBlockThreshold.BLOCK_NONE,
+      },
+      {
+        category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+        threshold: HarmBlockThreshold.BLOCK_NONE,
+      },
+      {
+        category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+        threshold: HarmBlockThreshold.BLOCK_NONE,
+      },
+    ];
     this.systemPrompt = `
 You are a professional content curator and markdown writer. Transform Twitter threads and their resources into engaging markdown articles that MUST follow this exact format:
 
@@ -54,6 +66,17 @@ Important rules:
 9. Never add fake links or resources
 10. Always include ALL external links from the thread
 `;
+    this.model = this.genAI.getGenerativeModel({
+      model: "gemini-1.5-flash",
+      generationConfig: {
+        temperature: 0.7,
+        topK: 40,
+        topP: 0.8,
+        maxOutputTokens: 100000,
+      },
+      safetySettings: this.safetySettings,
+      systemInstruction: this.systemPrompt,
+    });
   }
 
   async generateChat() {
@@ -91,9 +114,12 @@ Important rules:
       
       Key Points:
       • Analytics provides high-level metrics like user counts and page views.
+
       • Observability offers deeper insights into individual user requests and responses.
+      
       • A basic RAG system requires an inference provider and a vector database.
       
+
       🚀 Implementation:
       1. Choose an Inference Provider: Select a service that provides the necessary AI model.
       2. Select a Vector Database: Choose a database suitable for storing embeddings.
@@ -101,6 +127,7 @@ Important rules:
       
       🔗 Resources:
       [Tool Name](https://example.com) - Brief description of the tool.
+
       [Another Tool](https://example.com) - What this tool helps with.
       `;
 
@@ -130,12 +157,6 @@ Important rules:
           ),
         ];
 
-        logger.info(
-          `Processing thread: ${
-            thread.id
-          }\nThread content: ${tweetContent}\nLinks: ${links.join(", ")}`
-        );
-
         const prompt = `
 You are a professional technical content curator. Transform this Twitter thread into a high-quality markdown article following these EXACT specifications:
 
@@ -163,7 +184,6 @@ FORMAT REQUIREMENTS:
    - No emojis in points
    - Example:
      Key Points:
-
      • First key point about the topic
 
      • Second key point about functionality
@@ -179,8 +199,7 @@ FORMAT REQUIREMENTS:
    - Double newline between each bullet point
    - Double newline after last bullet point
    - Example format:
-     Key Points:
-   
+     Key Points:  
      • Point one
    
      • Point two
@@ -206,6 +225,10 @@ FORMAT REQUIREMENTS:
    - Example:
      🔗 Resources:
      [Tool Name](https://example.com) - What this tool helps with
+
+     [Another Tool](https://example.com) - What this tool helps with
+
+     [Third Tool](https://example.com) - What this tool helps with
 
 STRICT FORMATTING RULES:
 - Maintain exact spacing shown in example

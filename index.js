@@ -1,7 +1,7 @@
 const { logger } = require("./src/utils/helpers");
 const config = require("./config");
 const dbConnection = require("./src/utils/dbConnection");
-const { initCronJob, stopCronJob, runManually } = require("./cron/cronJob");
+const { initCronJob, stopCronJob } = require("./src/services/cron");
 
 const handleShutdown = async (signal) => {
   logger.info(`Received ${signal}. Starting graceful shutdown...`);
@@ -26,10 +26,8 @@ const startApplication = async () => {
     logger.info("Starting application...");
 
     await dbConnection.connect(config.mongodb.uri);
-    logger.info("Database connection established");
 
     initCronJob();
-    logger.info("Cron job initialized");
 
     logger.info("Application started successfully");
 

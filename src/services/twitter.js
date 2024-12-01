@@ -536,16 +536,6 @@ class TwitterService {
       }
 
       logger.info("Looking for password field...");
-      const pageState = await this.page.evaluate(() => {
-        const inputs = Array.from(document.querySelectorAll("input"));
-        return {
-          inputCount: inputs.length,
-          types: inputs.map((i) => i.type),
-          names: inputs.map((i) => i.name),
-          placeholders: inputs.map((i) => i.placeholder),
-        };
-      });
-      logger.info("Current page state:", pageState);
 
       const passwordFieldFound = await this.page.evaluate(() => {
         const inputs = Array.from(document.querySelectorAll("input"));

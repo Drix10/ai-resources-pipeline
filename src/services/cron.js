@@ -4,6 +4,7 @@ const TwitterService = require("./twitter");
 const GithubService = require("./github");
 const axios = require("axios");
 const cron = require("node-cron");
+const mongoose = require("mongoose");
 
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 5000;
@@ -177,37 +178,91 @@ async function sendDiscordNotification({
   }
 }
 
-const initCronJob = () => {
-  const schedule = config.cron?.schedule || "0 * * * *";
+let scheduledJob = null;
 
+const initCronJob = () => {
   try {
+    if (scheduledJob) {
+      logger.warn("Cron job already initialized");
+      return scheduledJob;
+    }
+
+    const schedule = config.cron?.schedule || "0 * * * *";
     if (!cron.validate(schedule)) {
       throw new Error(`Invalid cron schedule: ${schedule}`);
     }
 
-    const job = cron.schedule(schedule, async () => {
+    logger.info("Running initial pipeline execution...");
+    runInitialPipeline();
+
+    scheduledJob = cron.schedule(schedule, async () => {
       const startTime = Date.now();
-      logger.info(`Running scheduled pipeline at ${new Date().toISOString()}`);
+      const timestamp = new Date().toISOString();
+      logger.info(`Running scheduled pipeline at ${timestamp}`);
 
       try {
+        if (mongoose.connection.readyState !== 1) {
+          throw new Error("Database connection not established");
+        }
+
         const stats = await runDataPipeline();
         const duration = Date.now() - startTime;
         logger.info(`Pipeline completed in ${duration}ms`, { stats });
+
+        await sendDiscordNotification({
+          success: true,
+          stats,
+          timestamp,
+          githubUrl: stats.githubUrl,
+        });
       } catch (error) {
         logger.error("Scheduled pipeline failed:", error);
+
+        await sendDiscordNotification({
+          success: false,
+          error: error.message,
+          stats: error.stats || {},
+          timestamp,
+          retryCount: error.retryCount || MAX_RETRIES,
+        });
+
+        if (mongoose.connection.readyState !== 1) {
+          try {
+            await mongoose.connect(config.mongodb.uri);
+          } catch (dbError) {
+            logger.error("Failed to reconnect to database:", dbError);
+          }
+        }
       }
     });
 
     logger.info(`Cron job initialized with schedule: ${schedule}`);
-    return job;
+    return scheduledJob;
   } catch (error) {
     logger.error("Failed to initialize cron job:", error);
     throw error;
   }
 };
 
+const stopCronJob = () => {
+  if (scheduledJob) {
+    scheduledJob.stop();
+    scheduledJob = null;
+    logger.info("Cron job stopped");
+  } else {
+    logger.warn("No active cron job to stop");
+  }
+};
+
+const runInitialPipeline = () => {
+  runDataPipeline().catch((error) => {
+    logger.error("Initial pipeline execution failed:", error);
+  });
+};
+
 module.exports = {
   runDataPipeline,
   initCronJob,
+  stopCronJob,
   sendDiscordNotification,
 };

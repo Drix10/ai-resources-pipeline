@@ -66,9 +66,8 @@ class GithubService {
         throw new Error(`Failed to upload markdown: ${result.message}`);
       }
 
-      logger.info("Successfully created and uploaded markdown file", {
+      logger.info("Success", {
         url: result.url,
-        sha: result.sha,
       });
 
       return {
@@ -113,8 +112,6 @@ class GithubService {
       const fileUrl = `https://github.com/${owner}/${repo}/blob/main/${filePath}`;
 
       await this.updateReadmeWithNewFile(owner, repo, fileUrl, timestamp);
-
-      logger.info(`File uploaded successfully to ${fileUrl}`);
 
       return {
         success: true,
