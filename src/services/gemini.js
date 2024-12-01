@@ -16,27 +16,29 @@ class GeminiService {
     });
 
     this.systemPrompt = `
-You are a professional content curator and markdown writer. Transform tweets into engaging markdown articles that MUST follow this exact format:
+You are a professional content curator and markdown writer. Transform Twitter threads and their resources into engaging markdown articles that MUST follow this exact format:
 
----
 
-### 💻 {Clear Technical Title}
+### 🔗 {Clear Resource Category Title}
 
-{Main technical explanation and context - focus on the core technical concept}
+{Brief introduction about this collection of resources from the thread}
 
-Key Points:
-• {Technical insight 1 - specific and actionable}
-• {Technical insight 2 - focus on implementation}
-• {Technical insight 3 - best practices or tips}
+Featured Resources:
+{Numbered list of resources with descriptions from the thread context}
 
-🔍 Technical Details:
-{Detailed technical explanation with code examples if present. Include syntax highlighting when showing code.}
+Key Highlights:
 
-🚀 Implementation:
-{Step-by-step practical implementation guide or usage instructions}
+• {Main benefit or feature from thread context 1}
+
+• {Main benefit or feature from thread context 2}
+
+• {Main benefit or feature from thread context 3}
+
+💡 Pro Tips:
+{Practical implementation advice derived from the thread}
 
 🔗 Resources:
-{Formatted links from the tweet with descriptive titles}
+{All external links from the thread with descriptive titles}
 
 ---
 
@@ -44,17 +46,19 @@ Important rules:
 1. Always include section separators (---)
 2. Always start with H3 header (###) and emoji
 3. Always format links as [descriptive title](url)
-4. Always include practical implementation steps with 🚀
-5. Always maintain professional technical tone
-6. Focus on code examples and technical details
-7. Group related tweets together coherently
-8. Keep explanations clear and concise
+4. Always include the original context from the thread
+5. Always maintain professional tone
+6. Group related resources together coherently
+7. Keep descriptions clear and concise
+8. Never skip any sections
+9. Never add fake links or resources
+10. Always include ALL external links from the thread
 `;
   }
 
   async generateChat() {
     try {
-      return await this.model.startChat({
+      return this.model.startChat({
         history: [
           {
             role: "user",
@@ -72,120 +76,237 @@ Important rules:
     }
   }
 
-  async generateThreadMarkdown(tweets) {
+  async generateMarkdown(threads) {
     try {
-      const chat = await this.generateChat();
+      logger.info(`Generating markdown content for ${threads.length} threads`);
+      let allMarkdown = "";
 
-      const tweetTexts = tweets.map((t) => ({
-        text: t.text,
-        links: t.links,
-      }));
+      const exampleFormat = `
+      Example of perfect formatting:
+      
+      ---
+      ### 🤖 Observability, Evaluation, and RAG Implementation
+      
+      This article outlines the differences between analytics and observability, explains the components needed for a Retrieval Augmented Generation (RAG) system, and provides implementation guidance.
+      
+      Key Points:
+      • Analytics provides high-level metrics like user counts and page views.
+      • Observability offers deeper insights into individual user requests and responses.
+      • A basic RAG system requires an inference provider and a vector database.
+      
+      🚀 Implementation:
+      1. Choose an Inference Provider: Select a service that provides the necessary AI model.
+      2. Select a Vector Database: Choose a database suitable for storing embeddings.
+      3. Develop Retrieval Logic: Implement logic to retrieve relevant information.
+      
+      🔗 Resources:
+      [Tool Name](https://example.com) - Brief description of the tool.
+      [Another Tool](https://example.com) - What this tool helps with.
+      `;
 
-      const prompt = `
-Transform these tweets into a markdown article:
+      for (const thread of threads) {
+        if (!thread.tweets || thread.tweets.length === 0) {
+          logger.warn("Skipping thread with no tweets");
+          continue;
+        }
 
-Tweet Content:
-${JSON.stringify(tweetTexts, null, 2)}
+        const tweetContent = thread.tweets
+          .map((tweet) => {
+            let content = tweet.text || "";
 
-Remember to:
-1. Use the exact format provided
-2. Include all external links
-3. Make content engaging and valuable
-4. Add relevant technical context
-5. Include clear call to action`;
-
-      // Try up to 3 times to get valid markdown
-      for (let attempt = 1; attempt <= 3; attempt++) {
-        try {
-          const result = await chat.sendMessage(prompt);
-          const markdown = result.response.text();
-
-          const validation = this.validateMarkdown(markdown);
-          if (validation.isValid) {
-            return markdown;
-          }
-
-          logger.warn(
-            `Attempt ${attempt}: Invalid markdown - ${validation.failures.join(
-              ", "
-            )}`
-          );
-
-          if (attempt === 3) {
-            const fixed = this.fixMarkdown(markdown);
-            const fixedValidation = this.validateMarkdown(fixed);
-            if (fixedValidation.isValid) {
-              return fixed;
+            if (tweet.images && tweet.images.length > 0) {
+              content +=
+                "\n\n" +
+                tweet.images.map((img) => `![Image](${img})`).join("\n");
             }
-            throw new Error("Failed to generate valid markdown after fixes");
+
+            return content;
+          })
+          .join("\n\n");
+
+        const links = [
+          ...new Set(
+            thread.tweets.flatMap((tweet) => tweet.links || []).filter(Boolean)
+          ),
+        ];
+
+        logger.info(
+          `Processing thread: ${
+            thread.id
+          }\nThread content: ${tweetContent}\nLinks: ${links.join(", ")}`
+        );
+
+        const prompt = `
+You are a professional technical content curator. Transform this Twitter thread into a high-quality markdown article following these EXACT specifications:
+
+FORMAT REQUIREMENTS:
+1. HEADER (MANDATORY):
+   - Start with "### " followed by ONE emoji and title
+   - Emoji options: 🤖 for technical, 🚀 for tools, 💡 for tips, ✨ for features
+   - Title format: "### [emoji] Main Topic - Subtopic"
+   - Example: "### 🤖 Observability - RAG Implementation"
+
+2. INTRODUCTION (MANDATORY):
+   - 2-3 sentences maximum
+   - Explain what the article covers
+   - No marketing language
+   - Professional tone
+   - No emojis in introduction
+
+3. KEY POINTS (MANDATORY):
+   - Start with "Key Points:"
+   - Add TWO newlines after "Key Points:"
+   - Use bullet points with "•" symbol
+   - 3-5 points maximum
+   - Each point must be separated by TWO newlines
+   - Each point: single line, clear benefit
+   - No emojis in points
+   - Example:
+     Key Points:
+
+     • First key point about the topic
+
+     • Second key point about functionality
+
+     • Third key point about benefits
+
+     • Fourth key point describing main feature
+
+     • Fifth key point highlighting unique value
+
+   SPACING RULES FOR POINTS:
+   - Double newline after section header
+   - Double newline between each bullet point
+   - Double newline after last bullet point
+   - Example format:
+     Key Points:
+   
+     • Point one
+   
+     • Point two
+   
+     • Point three
+
+4. IMPLEMENTATION (IF APPLICABLE):
+   - Start with "🚀 Implementation:"
+   - Numbered steps (1. 2. 3. etc)
+   - 3-5 steps maximum
+   - Each step: action-oriented, clear
+   - Example:
+     🚀 Implementation:
+     1. First Step: What to do first
+     2. Second Step: What to do next
+     3. Third Step: Final action
+
+5. RESOURCES (MANDATORY):
+   - Start with "🔗 Resources:"
+   - Format: [Tool Name](url) - Brief description
+   - Description: max 10 words
+   - Only include verified links
+   - Example:
+     🔗 Resources:
+     [Tool Name](https://example.com) - What this tool helps with
+
+STRICT FORMATTING RULES:
+- Maintain exact spacing shown in example
+- No bold or italic text
+- No extra emojis
+- No extra sections
+- No marketing language
+- No placeholder content
+- No "Learn more" or similar phrases
+- No colons in descriptions
+- No extra horizontal rules
+
+Here's the content to transform:
+${tweetContent}
+
+Here's the example format:
+${exampleFormat}
+
+${links.length > 0 ? `\nRelevant Links:\n${links.join("\n")}` : ""}
+
+Remember:
+1. Keep it professional and technical
+2. Follow exact spacing and formatting
+3. No deviations from the structure
+4. No extra decorative elements
+5. Verify all links before including`;
+
+        try {
+          const result = await this.model.generateContent(prompt);
+          let generatedText = result.response.text();
+
+          generatedText = generatedText
+            .replace(
+              /!\[\]\((https?:\/\/[^\s)]+)\)/g,
+              "![Image Description Here]($1)"
+            )
+
+            .replace(
+              /\[(https?:\/\/[^\s\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
+              "[Resource Link]($2)"
+            );
+
+          generatedText = generatedText
+            .replace(/```markdown/g, "")
+            .replace(/```/g, "")
+            .trim();
+
+          generatedText = generatedText.replace(/^---\s*\n/, "");
+
+          if (
+            !generatedText ||
+            !generatedText.match(/^### [🔗🚀⚡️💡🔨🛠️🤖✨🌟🔥]/)
+          ) {
+            logger.warn("Invalid content format, skipping...");
+            continue;
           }
+
+          const sections = generatedText
+            .split(/\n---\n/)
+            .map((section) => section.trim())
+            .filter((section) => {
+              return (
+                section.match(/^### [🔗🚀⚡️💡🔨🛠️🤖✨🌟🔥]/) &&
+                section.length > 10
+              );
+            });
+
+          if (sections.length === 0) {
+            logger.warn("No valid sections found after cleanup");
+            continue;
+          }
+
+          generatedText = sections.join("\n\n---\n\n").trim();
+
+          if (allMarkdown) {
+            allMarkdown += "\n\n---\n\n";
+          }
+          allMarkdown += generatedText;
         } catch (error) {
-          if (attempt === 3) throw error;
-          await sleep(1000); // Wait before retry
+          logger.error("Failed to generate content for thread:", error);
+          continue;
         }
       }
-    } catch (error) {
-      logger.error("Error generating markdown:", error);
-      throw new Error("Markdown generation failed");
-    }
-  }
 
-  validateMarkdown(markdown) {
-    const failures = [];
-
-    if (!markdown.includes("### ")) failures.push("Missing H3 header");
-    if (!markdown.includes("---")) failures.push("Missing separators");
-    if (!markdown.match(/🚀|📱|💻|🔗/)) failures.push("Missing emojis");
-    if (!markdown.includes("](")) failures.push("Missing formatted links");
-
-    const sections = markdown.split("---").filter((s) => s.trim());
-    if (sections.length === 0) failures.push("Empty content");
-
-    return {
-      isValid: failures.length === 0,
-      failures,
-    };
-  }
-
-  fixMarkdown(markdown) {
-    let fixed = markdown;
-
-    // Add separators if missing
-    if (!fixed.includes("---")) {
-      fixed = "---\n\n" + fixed + "\n\n---";
-    }
-
-    // Fix header
-    if (!fixed.includes("### ")) {
-      fixed = fixed.replace(/---\n\n/, "---\n\n### 📱 Technical Update\n\n");
-    }
-
-    // Fix links
-    const urlRegex = /(https?:\/\/[^\s\)]+)/g;
-    fixed = fixed.replace(urlRegex, (url) => {
-      if (!fixed.includes(`](${url})`)) {
-        return `[${url}](${url})`;
+      if (!allMarkdown.trim()) {
+        throw new Error("No markdown content was generated");
       }
-      return url;
-    });
 
-    // Add call to action if missing
-    if (!fixed.includes("🚀")) {
-      fixed += "\n\n🚀 Check out these resources to learn more!";
-    }
+      const supportSection = `
+      ---
+      
+      ### ⭐️ Support & Contributions
+      
+      If you enjoy this repository, please star ⭐️ it and follow [Drix10](https://github.com/Drix10) to help others discover these resources. Contributions are always welcome! Submit pull requests with additional links, tips, or any useful resources that fit these categories.
+      
+      ---
+      `;
 
-    return fixed;
-  }
-
-  async generateMarkdown(tweets) {
-    try {
-      const conversations = this.groupTweetsByConversation(tweets);
-      const markdownPromises = conversations.map((conversation) =>
-        this.generateThreadMarkdown(conversation)
+      return (
+        allMarkdown.replace(/\n---\n\s*$/g, "").trim() + "\n\n" + supportSection
       );
-
-      const results = await Promise.all(markdownPromises);
-      return results.filter(Boolean).join("\n\n");
     } catch (error) {
       logger.error("Error in markdown generation:", error);
       throw error;

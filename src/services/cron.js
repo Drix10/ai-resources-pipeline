@@ -3,121 +3,77 @@ const config = require("../../config");
 const TwitterService = require("./twitter");
 const GithubService = require("./github");
 const axios = require("axios");
-const mongoose = require("mongoose");
-const { Tweet } = require("../utils/dbConnection");
 const cron = require("node-cron");
 
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 5000;
-const MIN_REQUIRED_TWEETS = config.minRequiredTweets;
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const runDataPipeline = async (retryCount = 0) => {
-  const timestamp = new Date().toISOString();
-  const pipelineStats = {
-    tweetsFound: 0,
-    tweetsProcessed: 0,
-    tweetsSaved: 0,
+  const stats = {
+    startTime: new Date(),
+    endTime: null,
+    threadsProcessed: 0,
+    linksFound: 0,
     markdownGenerated: false,
-    githubUploaded: false,
     errors: [],
   };
 
   try {
-    if (mongoose.connection.readyState !== 1) {
-      throw new Error("Database connection not established");
-    }
-
-    logger.info(`Starting data pipeline at ${timestamp}`);
+    logger.info(`Starting data pipeline at ${stats.startTime.toISOString()}`);
 
     const tweets = await TwitterService.fetchTweets();
-    pipelineStats.tweetsFound = tweets.length;
-
-    if (!tweets.length) {
-      await sendDiscordNotification({
-        success: true,
-        stats: pipelineStats,
-        timestamp,
-        message: "No new tweets to process",
-      });
-      return pipelineStats;
+    if (!tweets || !Array.isArray(tweets)) {
+      throw new Error("No valid tweets returned from Twitter service");
     }
+
+    stats.threadsProcessed = tweets.length;
     logger.info(`Fetched ${tweets.length} tweets`);
 
-    if (tweets.length < MIN_REQUIRED_TWEETS) {
-      logger.info(
-        `Insufficient tweets (${tweets.length}/${MIN_REQUIRED_TWEETS}) to generate markdown`
-      );
-      return pipelineStats;
-    }
-
-    const result = await GithubService.createMarkdownFileFromTweets(tweets);
-
-    if (!result.success) {
-      throw new Error("Failed to create and upload markdown file");
-    }
-
-    pipelineStats.markdownGenerated = true;
-    pipelineStats.githubUploaded = true;
-    pipelineStats.tweetsProcessed = tweets.length;
-
-    const savedTweets = await Tweet.updateMany(
-      { url: { $in: tweets.map((t) => t.url) } },
-      {
-        $set: {
-          status: "processed",
-          processed_at: new Date(),
-        },
+    if (tweets.length > 0) {
+      const result = await GithubService.createMarkdownFileFromTweets(tweets);
+      if (!result?.success) {
+        throw new Error("Failed to create and upload markdown file");
       }
-    );
 
-    pipelineStats.tweetsSaved = savedTweets.modifiedCount;
-    logger.info(`Updated ${savedTweets.modifiedCount} tweets in database`);
+      stats.markdownGenerated = true;
+      logger.info("Successfully created and uploaded markdown file", {
+        url: result.url,
+        sha: result.sha,
+      });
+    }
 
-    await sendDiscordNotification({
-      success: true,
-      stats: pipelineStats,
-      timestamp,
-      githubUrl: result.url,
-      message: `Successfully processed ${tweets.length} tweets and created markdown file`,
-    });
+    stats.linksFound = tweets.reduce((total, thread) => {
+      if (thread?.tweets) {
+        return (
+          total +
+          thread.tweets.reduce(
+            (threadTotal, tweet) => threadTotal + (tweet.links?.length || 0),
+            0
+          )
+        );
+      }
+      return total;
+    }, 0);
 
-    return pipelineStats;
+    stats.endTime = new Date();
+    return stats;
   } catch (error) {
     handleError(
       error,
       `Pipeline error (attempt ${retryCount + 1}/${MAX_RETRIES})`,
-      { retryCount, timestamp, stats: pipelineStats }
+      {
+        retryCount,
+        stats,
+      }
     );
 
-    const retryableErrors = [
-      "Rate limit",
-      "Network error",
-      "ECONNRESET",
-      "Database connection not established",
-      "socket hang up",
-      "ETIMEDOUT",
-    ];
-
-    const shouldRetry =
-      retryCount < MAX_RETRIES &&
-      (retryableErrors.some((e) => error.message?.includes(e)) ||
-        error.code === "ECONNRESET");
-
-    if (shouldRetry) {
-      logger.info(`Retrying pipeline in ${RETRY_DELAY}ms...`);
+    if (retryCount < MAX_RETRIES) {
+      logger.info(`Retrying in ${RETRY_DELAY}ms...`);
       await sleep(RETRY_DELAY * (retryCount + 1));
       return runDataPipeline(retryCount + 1);
     }
-
-    await sendDiscordNotification({
-      success: false,
-      stats: pipelineStats,
-      error: error.message,
-      timestamp,
-      retryCount,
-    });
 
     throw error;
   }
@@ -165,18 +121,18 @@ async function sendDiscordNotification({
       } else {
         embed.fields.push(
           {
-            name: "Tweets Found",
-            value: `${stats.tweetsFound || 0}`,
+            name: "Threads Processed",
+            value: `${stats.threadsProcessed || 0}`,
             inline: true,
           },
           {
-            name: "Processed",
-            value: `${stats.tweetsProcessed || 0}`,
+            name: "Links Found",
+            value: `${stats.linksFound || 0}`,
             inline: true,
           },
           {
-            name: "Saved",
-            value: `${stats.tweetsSaved || 0}`,
+            name: "Markdown Generated",
+            value: `${stats.markdownGenerated || false}`,
             inline: true,
           }
         );

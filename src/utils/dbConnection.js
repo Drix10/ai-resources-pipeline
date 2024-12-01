@@ -3,6 +3,12 @@ const { logger } = require("./helpers");
 
 const tweetSchema = new mongoose.Schema(
   {
+    id: {
+      type: String,
+      required: true,
+      unique: true,
+      index: true,
+    },
     url: {
       type: String,
       required: true,
@@ -46,8 +52,8 @@ const tweetSchema = new mongoose.Schema(
   }
 );
 
-tweetSchema.index({ createdAt: -1 });
-tweetSchema.index({ status: 1, createdAt: -1 });
+tweetSchema.index({ status: 1, processed_at: -1 });
+tweetSchema.index({ links: 1, status: 1 });
 
 tweetSchema.statics.findUnprocessed = function () {
   return this.find({ status: "pending" })

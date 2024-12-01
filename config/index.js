@@ -17,18 +17,10 @@ const config = {
     personalAccessToken: process.env.GITHUB_PAT,
     repo: process.env.GITHUB_REPO,
     folder: process.env.GITHUB_FOLDER || "tweets",
-    branch: process.env.GITHUB_BRANCH || "main",
+    branch: "main",
   },
   gemini: {
     apiKey: process.env.GEMINI_API_KEY,
-  },
-  search: {
-    keywords: process.env.SEARCH_KEYWORDS
-      ? process.env.SEARCH_KEYWORDS.split(",").map((k) => k.trim())
-      : [],
-    hashtags: process.env.SEARCH_HASHTAGS
-      ? process.env.SEARCH_HASHTAGS.split(",").map((h) => h.trim())
-      : [],
   },
   discord: {
     webhookUrl: process.env.DISCORD_WEBHOOK_URL,
