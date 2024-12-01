@@ -50,7 +50,7 @@ Key Highlights:
 {Practical implementation advice derived from the thread}
 
 🔗 Resources:
-{All external links from the thread with descriptive titles}
+• {All external links from the thread with descriptive titles}
 
 ---
 
@@ -101,7 +101,6 @@ Important rules:
 
   async generateMarkdown(threads) {
     try {
-      logger.info(`Generating markdown content for ${threads.length} threads`);
       let allMarkdown = "";
 
       const exampleFormat = `
@@ -126,9 +125,9 @@ Important rules:
       3. Develop Retrieval Logic: Implement logic to retrieve relevant information.
       
       🔗 Resources:
-      [Tool Name](https://example.com) - Brief description of the tool.
+      • [Tool Name](https://example.com) - Brief description of the tool.
 
-      [Another Tool](https://example.com) - What this tool helps with.
+      • [Another Tool](https://example.com) - What this tool helps with.
       `;
 
       for (const thread of threads) {
@@ -219,16 +218,16 @@ FORMAT REQUIREMENTS:
 
 5. RESOURCES (MANDATORY):
    - Start with "🔗 Resources:"
-   - Format: [Tool Name](url) - Brief description
+   - Format: • [Tool Name](url) - Brief description
    - Description: max 10 words
    - Only include verified links
    - Example:
      🔗 Resources:
-     [Tool Name](https://example.com) - What this tool helps with
+     • [Tool Name](https://example.com) - What this tool helps with
 
-     [Another Tool](https://example.com) - What this tool helps with
+     • [Another Tool](https://example.com) - What this tool helps with
 
-     [Third Tool](https://example.com) - What this tool helps with
+     • [Third Tool](https://example.com) - What this tool helps with
 
 STRICT FORMATTING RULES:
 - Maintain exact spacing shown in example
@@ -318,14 +317,13 @@ Remember:
       }
 
       const supportSection = `
-      ---
-      
-      ### ⭐️ Support & Contributions
-      
-      If you enjoy this repository, please star ⭐️ it and follow [Drix10](https://github.com/Drix10) to help others discover these resources. Contributions are always welcome! Submit pull requests with additional links, tips, or any useful resources that fit these categories.
-      
-      ---
-      `;
+---
+
+### ⭐️ Support & Contributions
+
+If you enjoy this repository, please star ⭐️ it and follow [Drix10](https://github.com/Drix10) to help others discover these resources. Contributions are always welcome! Submit pull requests with additional links, tips, or any useful resources that fit these categories.
+
+---`;
 
       return (
         allMarkdown.replace(/\n---\n\s*$/g, "").trim() + "\n\n" + supportSection

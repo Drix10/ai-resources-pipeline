@@ -22,8 +22,6 @@ const runDataPipeline = async (retryCount = 0) => {
   };
 
   try {
-    logger.info(`Starting data pipeline at ${stats.startTime.toISOString()}`);
-
     const tweets = await TwitterService.fetchTweets();
     if (!tweets || !Array.isArray(tweets)) {
       throw new Error("No valid tweets returned from Twitter service");
@@ -39,10 +37,6 @@ const runDataPipeline = async (retryCount = 0) => {
       }
 
       stats.markdownGenerated = true;
-      logger.info("Successfully created and uploaded markdown file", {
-        url: result.url,
-        sha: result.sha,
-      });
     }
 
     stats.linksFound = tweets.reduce((total, thread) => {
@@ -195,46 +189,54 @@ const initCronJob = () => {
     logger.info("Running initial pipeline execution...");
     runInitialPipeline();
 
-    scheduledJob = cron.schedule(schedule, async () => {
-      const startTime = Date.now();
-      const timestamp = new Date().toISOString();
-      logger.info(`Running scheduled pipeline at ${timestamp}`);
+    scheduledJob = cron.schedule(
+      schedule,
+      async () => {
+        const startTime = Date.now();
+        const timestamp = new Date().toISOString();
+        logger.info(`Running scheduled pipeline at ${timestamp}`);
 
-      try {
-        if (mongoose.connection.readyState !== 1) {
-          throw new Error("Database connection not established");
-        }
+        try {
+          if (mongoose.connection.readyState !== 1) {
+            throw new Error("Database connection not established");
+          }
 
-        const stats = await runDataPipeline();
-        const duration = Date.now() - startTime;
-        logger.info(`Pipeline completed in ${duration}ms`, { stats });
+          const stats = await runDataPipeline();
+          const duration = Date.now() - startTime;
+          logger.info(`Pipeline completed in ${duration}ms`, { stats });
 
-        await sendDiscordNotification({
-          success: true,
-          stats,
-          timestamp,
-          githubUrl: stats.githubUrl,
-        });
-      } catch (error) {
-        logger.error("Scheduled pipeline failed:", error);
+          await sendDiscordNotification({
+            success: true,
+            stats,
+            timestamp,
+            githubUrl: stats.githubUrl,
+          });
+        } catch (error) {
+          logger.error("Scheduled pipeline failed:", error);
 
-        await sendDiscordNotification({
-          success: false,
-          error: error.message,
-          stats: error.stats || {},
-          timestamp,
-          retryCount: error.retryCount || MAX_RETRIES,
-        });
+          await sendDiscordNotification({
+            success: false,
+            error: error.message,
+            stats: error.stats || {},
+            timestamp,
+            retryCount: error.retryCount || MAX_RETRIES,
+          });
 
-        if (mongoose.connection.readyState !== 1) {
-          try {
-            await mongoose.connect(config.mongodb.uri);
-          } catch (dbError) {
-            logger.error("Failed to reconnect to database:", dbError);
+          if (mongoose.connection.readyState !== 1) {
+            try {
+              await mongoose.connect(config.mongodb.uri);
+            } catch (dbError) {
+              logger.error("Failed to reconnect to database:", dbError);
+            }
           }
         }
+      },
+      {
+        scheduled: true,
+        timezone: "UTC",
+        runOnInit: false,
       }
-    });
+    );
 
     logger.info(`Cron job initialized with schedule: ${schedule}`);
     return scheduledJob;

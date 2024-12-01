@@ -496,7 +496,7 @@ class TwitterService {
       });
 
       if (emailRequired.required) {
-        logger.info("Email verification required:", emailRequired);
+        logger.info("Email verification required");
 
         if (!config.twitter.email) {
           throw new Error("Email verification required but not configured");
