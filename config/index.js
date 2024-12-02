@@ -29,7 +29,6 @@ const config = {
     schedule: process.env.CRON_SCHEDULE || "0 * * * *",
     immediate: true,
   },
-  minRequiredTweets: parseInt(process.env.MIN_REQUIRED_TWEETS) || 5,
 };
 
 const requiredConfigs = {

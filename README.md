@@ -77,7 +77,6 @@ DISCORD_WEBHOOK_URL= # Your Discord webhook URL
 GITHUB_REPO=userName/repoName # The repository where the tweets will be saved
 GITHUB_FOLDER=folderName # The folder where the tweets will be saved
 CRON_SCHEDULE=0 * * * * # The cron schedule to run the backend
-MIN_REQUIRED_TWEETS=5 # The minimum number of tweets required to run the pipeline
 ```
 
 ## 🏗️ Usage
