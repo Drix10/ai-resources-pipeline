@@ -42,6 +42,10 @@ const tweetSchema = new mongoose.Schema(
       default: "pending",
       index: true,
     },
+    query: {
+      type: String,
+      index: true,
+    },
     processed_at: {
       type: Date,
     },
@@ -54,6 +58,7 @@ const tweetSchema = new mongoose.Schema(
 
 tweetSchema.index({ status: 1, processed_at: -1 });
 tweetSchema.index({ links: 1, status: 1 });
+tweetSchema.index({ query: 1, processed_at: -1 });
 
 tweetSchema.statics.findUnprocessed = function () {
   return this.find({ status: "pending" })

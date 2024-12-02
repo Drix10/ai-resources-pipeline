@@ -7,15 +7,34 @@ class RateLimiter {
   constructor() {
     this.requestDelay = 2000;
     this.lastRequest = Date.now();
+    this.consecutiveErrors = 0;
+    this.baseDelay = 2000;
   }
 
   async waitForNext() {
     const now = Date.now();
     const timeSinceLastRequest = now - this.lastRequest;
+
+    if (this.consecutiveErrors > 0) {
+      this.requestDelay = this.baseDelay * Math.pow(2, this.consecutiveErrors);
+      this.requestDelay = Math.min(this.requestDelay, 30000);
+    } else {
+      this.requestDelay = this.baseDelay;
+    }
+
     if (timeSinceLastRequest < this.requestDelay) {
       await sleep(this.requestDelay - timeSinceLastRequest);
     }
+
     this.lastRequest = Date.now();
+  }
+
+  handleError() {
+    this.consecutiveErrors++;
+  }
+
+  handleSuccess() {
+    this.consecutiveErrors = 0;
   }
 }
 
@@ -56,59 +75,87 @@ class TwitterService {
     ];
 
     this.searchQueriesType1 = [
-      "coding ai tips 🧵",
-      "programming ai thread",
-      "developer ai tools thread",
-      "coding with ai 🧵",
-      "ai development guide thread",
-      "coding automation tips 🧵",
-      "filter:links ai coding tools",
-      "filter:links programming ai",
-      "coding ai tutorial 1/",
-      "software engineering ai (1/",
+      "ai tools thread 🧵",
+      "artificial intelligence news thread",
+      "chatgpt tips thread",
+      "ai automation guide 🧵",
+      "machine learning tools thread",
+      "ai productivity tools 🧵",
+      "filter:links new ai tools",
+      "ai developments thread",
+      "generative ai guide 1/",
+      "ai models comparison (1/",
+      "ai research findings thread",
+      "llm developments 🧵",
+      "ai tools comparison thread",
+      "future of ai thread",
     ];
 
     this.searchQueriesType2 = [
-      "coding tips tricks 🧵",
-      "programming hacks thread",
-      "developer tools thread",
-      "coding resources 🧵",
-      "software engineering tips thread",
-      "ai coding assistant 🧵",
-      "filter:links coding tutorial",
-      "programming best practices thread",
-      "coding productivity tips 1/",
-      "developer workflow guide 🧵",
+      "coding best practices 🧵",
+      "software architecture thread",
+      "developer tools guide",
+      "programming tips 🧵",
+      "backend development thread",
+      "frontend frameworks 🧵",
+      "filter:links coding resources",
+      "system design tips thread",
+      "database optimization 1/",
+      "clean code guide 🧵",
+      "web development tools thread",
+      "devops practices 🧵",
+      "coding patterns thread",
+      "microservices guide thread",
     ];
 
     this.searchQueriesType3 = [
-      "online earning guide 🧵",
-      "productivity tools thread",
-      "useful websites thread",
-      "productivity hacks 🧵",
-      "make money online thread",
-      "side hustle guide 🧵",
-      "filter:links productivity tools",
-      "remote work tips thread",
-      "freelancing guide 1/",
-      "digital tools thread 🧵",
+      "passive income guide 🧵",
+      "productivity system thread",
+      "digital tools thread",
+      "work optimization 🧵",
+      "side business guide thread",
+      "freelancing success 🧵",
+      "filter:links productivity stack",
+      "remote work tools thread",
+      "business automation 1/",
+      "digital nomad guide 🧵",
+      "online business thread",
+      "time management system 🧵",
+      "wealth building guide thread",
+      "personal finance tips 🧵",
     ];
 
-    this.searchQueries = this.getRandomQueryType();
+    this.currentQueryIndex = 0;
+    this.currentTypeIndex = 0;
+
+    this.searchParams = {
+      latest: "&f=live",
+      top: "&f=top",
+      media: "&f=image",
+    };
   }
 
-  getRandomQueryType() {
+  getNextSearchQuery() {
     const types = [
       this.searchQueriesType1,
       this.searchQueriesType2,
       this.searchQueriesType3,
     ];
-    const selectedType = types[Math.floor(Math.random() * types.length)];
 
-    const typeIndex = types.indexOf(selectedType) + 1;
-    logger.info(`Selected search query type: ${typeIndex}`);
+    if (this.currentQueryIndex >= types[this.currentTypeIndex].length) {
+      this.currentQueryIndex = 0;
+      this.currentTypeIndex = (this.currentTypeIndex + 1) % types.length;
+    }
 
-    return selectedType;
+    const selectedType = types[this.currentTypeIndex];
+    const selectedQuery = selectedType[this.currentQueryIndex];
+
+    this.currentQueryIndex++;
+
+    const searchFilter =
+      Date.now() % 2 === 0 ? this.searchParams.latest : this.searchParams.top;
+
+    return selectedQuery + searchFilter;
   }
 
   async init() {
@@ -151,107 +198,186 @@ class TwitterService {
         { timeout: 15000 }
       );
 
-      for (let i = 0; i < 5; i++) {
+      const THREADS_NEEDED = 10;
+      const MAX_SCROLL_ATTEMPTS = 1500;
+      const SCROLL_PAUSE = 3000;
+      let processedThreads = [];
+      let seenUrls = new Set();
+      let scrollAttempts = 0;
+      let consecutiveEmptyScrolls = 0;
+
+      while (
+        scrollAttempts < MAX_SCROLL_ATTEMPTS &&
+        processedThreads.length < THREADS_NEEDED
+      ) {
+        logger.info(
+          `Scroll attempt ${scrollAttempts + 1}/${MAX_SCROLL_ATTEMPTS}, found ${
+            processedThreads.length
+          }/${THREADS_NEEDED} threads`
+        );
+
         await this.page.evaluate(() => {
           window.scrollBy(0, window.innerHeight * 2);
         });
-        await sleep(2500);
-      }
+        await sleep(SCROLL_PAUSE);
 
-      const threadStarters = await this.page.evaluate(() => {
-        const tweets = Array.from(
-          document.querySelectorAll('article[data-testid="tweet"]')
-        );
+        const threadStarters = await this.page.evaluate(() => {
+          const tweets = Array.from(
+            document.querySelectorAll('article[data-testid="tweet"]')
+          );
 
-        return tweets
-          .map((tweet) => {
-            try {
-              const tweetText = tweet
-                .querySelector('[data-testid="tweetText"]')
-                ?.innerText?.trim();
-              if (!tweetText) return null;
+          return tweets
+            .map((tweet) => {
+              try {
+                const tweetText = tweet
+                  .querySelector('[data-testid="tweetText"]')
+                  ?.innerText?.trim();
+                if (!tweetText) return null;
 
-              const tweetUrl = tweet.querySelector('a[href*="/status/"]')?.href;
-              if (!tweetUrl) return null;
+                const tweetUrl = tweet.querySelector(
+                  'a[href*="/status/"]'
+                )?.href;
+                if (!tweetUrl) return null;
 
-              const isThread =
-                tweetText.includes("🧵") ||
-                tweetText.toLowerCase().includes("thread") ||
-                /1\/|part 1|step 1|\(1\)|first part|tutorial|guide|learn/i.test(
-                  tweetText
-                ) ||
-                tweetText.split("\n").length > 3 ||
-                tweet.querySelectorAll("code, pre").length > 0 ||
-                tweet.querySelectorAll('a[href*="github.com"]').length > 0;
+                const timestamp = tweet
+                  .querySelector("time")
+                  ?.getAttribute("datetime");
+                if (!timestamp) return null;
 
-              if (!isThread) return null;
+                const isThread =
+                  tweetText.includes("🧵") ||
+                  tweetText.toLowerCase().includes("thread") ||
+                  /1\/|part 1|step 1|\(1\)/.test(tweetText) ||
+                  tweetText.split("\n").length > 3;
 
-              const getMetric = (selector) => {
-                const text =
-                  tweet.querySelector(`div[data-testid="${selector}"]`)
-                    ?.textContent || "0";
-                return text.toLowerCase().includes("k")
-                  ? parseFloat(text.replace("k", "")) * 1000
-                  : text.toLowerCase().includes("m")
-                  ? parseFloat(text.replace("m", "")) * 1000000
-                  : parseFloat(text) || 0;
-              };
+                if (!isThread) return null;
 
-              const engagement = {
-                likes: getMetric("like"),
-                retweets: getMetric("retweet"),
-                replies: getMetric("reply"),
-              };
+                const getMetric = (selector) => {
+                  const text =
+                    tweet.querySelector(`div[data-testid="${selector}"]`)
+                      ?.textContent || "0";
+                  return parseInt(text.replace(/[k,m]/gi, "")) || 0;
+                };
 
-              const qualityScore =
-                engagement.likes * 1 +
-                engagement.retweets * 2 +
-                engagement.replies * 1.5;
+                const engagement = {
+                  likes: getMetric("like"),
+                  retweets: getMetric("retweet"),
+                  replies: getMetric("reply"),
+                };
 
-              return {
-                url: tweetUrl,
-                text: tweetText,
-                engagement,
-                qualityScore,
-                hasCode: tweet.querySelectorAll("code, pre").length > 0,
-                hasGithubLinks:
-                  tweet.querySelectorAll('a[href*="github.com"]').length > 0,
-              };
-            } catch (error) {
-              return null;
-            }
-          })
-          .filter(Boolean)
-          .sort((a, b) => b.qualityScore - a.qualityScore)
-          .slice(0, 15);
-      });
+                const qualityScore =
+                  engagement.likes +
+                  engagement.retweets * 2 +
+                  engagement.replies * 1.5;
 
-      const processedThreads = [];
-      for (const thread of threadStarters) {
-        try {
-          const tweetId = thread.url.split("/status/")[1]?.split("?")[0];
-          if (!tweetId) continue;
+                return {
+                  url: tweetUrl,
+                  text: tweetText,
+                  timestamp,
+                  engagement,
+                  qualityScore,
+                };
+              } catch (error) {
+                return null;
+              }
+            })
+            .filter(Boolean);
+        });
 
-          const existingTweet = await Tweet.findOne({ id: tweetId });
-          if (!existingTweet) {
-            await new Tweet({
-              id: tweetId,
-              url: thread.url,
-              text: thread.text,
-              status: "pending",
-            }).save();
-            processedThreads.push(thread);
+        if (threadStarters.length === 0) {
+          consecutiveEmptyScrolls++;
+          logger.info(
+            `No new tweets found in scroll attempt ${
+              scrollAttempts + 1
+            }, consecutive empty scrolls: ${consecutiveEmptyScrolls}`
+          );
+
+          if (consecutiveEmptyScrolls >= 3) {
+            logger.info(
+              "Three consecutive empty scrolls, moving to next query"
+            );
+            break;
           }
-        } catch (dbError) {
-          logger.error(`Database operation failed for ${thread.url}:`, dbError);
-          processedThreads.push(thread);
+        } else {
+          consecutiveEmptyScrolls = 0;
         }
+
+        for (const thread of threadStarters) {
+          if (processedThreads.length >= THREADS_NEEDED) break;
+
+          try {
+            if (seenUrls.has(thread.url)) {
+              logger.debug(`Skipping duplicate URL: ${thread.url}`);
+              continue;
+            }
+            seenUrls.add(thread.url);
+
+            const tweetId = thread.url.split("/status/")[1]?.split("?")[0];
+            if (!tweetId) continue;
+
+            const existingTweet = await Tweet.findOne({ id: tweetId });
+
+            if (!existingTweet) {
+              const fullThread = await this.collectFullThread(thread.url);
+
+              if (fullThread && fullThread.length > 0) {
+                try {
+                  await Tweet.findOneAndUpdate(
+                    { id: tweetId },
+                    {
+                      $setOnInsert: {
+                        id: tweetId,
+                        url: thread.url,
+                        text: thread.text,
+                        timestamp: new Date(thread.timestamp),
+                        status: "processed",
+                        query: this.currentQuery,
+                        processed_at: new Date(),
+                        tweets: fullThread,
+                      },
+                    },
+                    { upsert: true, new: true }
+                  );
+
+                  processedThreads.push({
+                    ...thread,
+                    tweets: fullThread,
+                  });
+
+                  logger.info(
+                    `Found: ${thread.url} (${processedThreads.length}/${THREADS_NEEDED})`
+                  );
+                } catch (dbError) {
+                  if (dbError.code !== 11000) {
+                    logger.error(
+                      `Database operation failed for ${thread.url}:`,
+                      dbError
+                    );
+                  }
+                }
+              } else {
+                logger.debug(
+                  `Thread ${thread.url} had no content or failed to collect`
+                );
+              }
+            } else {
+              logger.debug(`Skipping already processed tweet: ${thread.url}`);
+            }
+          } catch (error) {
+            logger.error(`Error processing thread ${thread.url}:`, error);
+          }
+        }
+
+        scrollAttempts++;
       }
 
-      logger.info(
-        `Found ${threadStarters.length} threads, ${processedThreads.length} new`
-      );
-      return threadStarters;
+      if (processedThreads.length < THREADS_NEEDED) {
+        logger.info(
+          `Finished with ${processedThreads.length} threads after ${scrollAttempts} scrolls`
+        );
+      }
+
+      return processedThreads;
     } catch (error) {
       logger.error("Error in findThreadStarters:", error);
       await this.takeDebugScreenshot("thread-finder-error");
@@ -275,8 +401,6 @@ class TwitterService {
       } catch (dbError) {
         logger.error(`Database check failed for ${threadUrl}:`, dbError);
       }
-
-      logger.info(`Collecting thread from: ${threadUrl}`);
 
       let navigationSuccess = false;
       let retryCount = 0;
@@ -322,11 +446,9 @@ class TwitterService {
         throw new Error("Could not identify original author");
       }
 
-      logger.info(`Original author: ${originalAuthor}`);
-
       let previousHeight = 0;
       let scrollAttempts = 0;
-      const maxScrolls = 10;
+      const maxScrolls = 1500;
 
       while (scrollAttempts < maxScrolls) {
         await this.page.evaluate(() => window.scrollBy(0, window.innerHeight));
@@ -368,6 +490,10 @@ class TwitterService {
                 })
                 .filter(Boolean);
 
+              const codeBlocks = Array.from(tweet.querySelectorAll("pre, code"))
+                .map((block) => block.innerText)
+                .filter(Boolean);
+
               return {
                 text,
                 links: Array.from(tweet.querySelectorAll("a[href]"))
@@ -384,9 +510,22 @@ class TwitterService {
                     }
                   }),
                 images,
-                codeBlocks: Array.from(tweet.querySelectorAll("pre, code"))
-                  .map((block) => block.innerText)
-                  .filter(Boolean),
+                codeBlocks,
+                timestamp: tweet
+                  .querySelector("time")
+                  ?.getAttribute("datetime"),
+                isEdited: tweet.textContent.includes("Edited"),
+                mediaType: tweet.querySelector("video")
+                  ? "video"
+                  : tweet.querySelector('img[src*="media"]')
+                  ? "image"
+                  : "text",
+                mentions: Array.from(tweet.querySelectorAll('a[href*="/"]'))
+                  .map((a) => a.href)
+                  .filter((href) => href.match(/twitter\.com\/[^/]+$/)),
+                hashtags: Array.from(
+                  tweet.querySelectorAll('a[href*="/hashtag/"]')
+                ).map((a) => a.textContent),
               };
             } catch (error) {
               return null;
@@ -395,16 +534,12 @@ class TwitterService {
           .filter(
             (tweet) =>
               tweet &&
-              (tweet.text ||
-                tweet.links.length > 0 ||
-                tweet.images.length > 0 ||
-                tweet.codeBlocks.length > 0)
+              (tweet.text?.length > 50 ||
+                tweet.links?.length > 0 ||
+                tweet.images?.length > 0 ||
+                tweet.codeBlocks?.length > 0)
           );
       }, originalAuthor);
-
-      logger.info(
-        `Collected ${tweets.length} tweets from original author ${originalAuthor}`
-      );
 
       if (tweets && tweets.length > 0) {
         try {
@@ -585,141 +720,57 @@ class TwitterService {
       }
 
       let allThreads = [];
+      let consecutiveEmptySearches = 0;
+      const MAX_EMPTY_SEARCHES = 15;
 
-      for (const baseQuery of this.searchQueries) {
+      while (allThreads.length < 10) {
         try {
-          logger.info(`Processing search query: ${baseQuery}`);
+          const currentQueryType = this.currentTypeIndex + 1;
+          const searchQuery = this.getNextSearchQuery();
+          logger.info(
+            `Processing search query: ${searchQuery} (Type: ${currentQueryType})`
+          );
+
           const searchUrl = `https://twitter.com/search?q=${encodeURIComponent(
-            baseQuery + " thread"
-          )}&f=top`;
+            searchQuery
+          )}`;
+          await this.page.goto(searchUrl, { waitUntil: "domcontentloaded" });
 
-          let navigationSuccess = false;
-          let retryCount = 0;
-          const maxRetries = 3;
-          const baseTimeout = 30000;
+          const threads = await this.findThreadStarters();
 
-          while (!navigationSuccess && retryCount < maxRetries) {
-            try {
-              logger.info(`Attempting navigation (attempt ${retryCount + 1})`);
+          const validThreads = threads.filter(
+            (t) => t.tweets && t.tweets.length > 0
+          );
 
-              await this.page.goto(searchUrl, {
-                waitUntil: "domcontentloaded",
-                timeout: baseTimeout * (retryCount + 1),
-              });
-
-              await this.page
-                .waitForSelector('article[data-testid="tweet"]', {
-                  timeout: 10000,
-                })
-                .catch(() => {
-                  logger.warn(
-                    "No tweets found immediately, will try scrolling"
-                  );
-                });
-
-              await this.page.evaluate(() => {
-                window.scrollBy(0, window.innerHeight);
-              });
-
-              await sleep(3000);
-
-              const hasTweets = await this.page.evaluate(() => {
-                return (
-                  document.querySelectorAll('article[data-testid="tweet"]')
-                    .length > 0
-                );
-              });
-
-              if (hasTweets) {
-                navigationSuccess = true;
-                logger.info("Navigation successful, tweets found");
-              } else {
-                throw new Error("No tweets found after navigation");
-              }
-            } catch (navError) {
-              retryCount++;
-              logger.warn(
-                `Navigation attempt ${retryCount} failed:`,
-                navError.message
-              );
-              await sleep(5000 * retryCount);
-
-              if (await this.isPageUnresponsive()) {
-                await this.recreatePage();
-              }
-            }
-          }
-
-          if (!navigationSuccess) {
-            throw new Error(`Failed to navigate after ${maxRetries} attempts`);
-          }
-
-          const threadStarters = await this.findThreadStarters();
-          logger.info(`Found ${threadStarters.length} thread starters`);
-
-          for (const starter of threadStarters) {
-            try {
-              const fullThread = await this.collectFullThread(starter.url);
-              if (fullThread && fullThread.length > 0) {
-                allThreads.push({
-                  starter,
-                  tweets: fullThread,
-                  totalTweets: fullThread.length,
-                  hasLinks: fullThread.some(
-                    (t) => t.links && t.links.length > 0
-                  ),
-                  hasImages: fullThread.some(
-                    (t) => t.images && t.images.length > 0
-                  ),
-                  hasCode: fullThread.some(
-                    (t) => t.codeBlocks && t.codeBlocks.length > 0
-                  ),
-                });
-
-                logger.info(
-                  `Processed thread with ${fullThread.length} tweets`
-                );
-              }
-            } catch (threadError) {
-              logger.error(
-                `Error processing thread ${starter.url}:`,
-                threadError
-              );
+          if (validThreads.length === 0) {
+            consecutiveEmptySearches++;
+            if (consecutiveEmptySearches >= MAX_EMPTY_SEARCHES) {
+              logger.info("Multiple empty searches, rotating to next type");
+              this.currentQueryIndex = 999;
+              consecutiveEmptySearches = 0;
               continue;
             }
-
-            if (allThreads.length >= 10) {
-              logger.info("Reached desired number of threads");
-              break;
-            }
-
-            await sleep(3000);
+          } else {
+            consecutiveEmptySearches = 0;
+            allThreads.push(...validThreads);
           }
 
-          if (allThreads.length >= 10) break;
+          if (allThreads.length >= 10) {
+            logger.info(`Found ${allThreads.length} complete threads`);
+            return {
+              threads: allThreads.slice(0, 10),
+              queryType: currentQueryType,
+            };
+          }
+
+          await sleep(3000);
         } catch (queryError) {
-          logger.error(`Error processing query "${baseQuery}":`, queryError);
-          await this.takeDebugScreenshot(`query-error-${Date.now()}`);
-          continue;
+          logger.error(`Error processing query:`, queryError);
+          await sleep(5000);
         }
       }
-
-      logger.info(`Total threads collected: ${allThreads.length}`);
-
-      const validThreads = allThreads.filter(
-        (thread) =>
-          thread &&
-          thread.starter &&
-          thread.tweets &&
-          Array.isArray(thread.tweets) &&
-          thread.tweets.length > 0
-      );
-
-      logger.info(`Valid threads for processing: ${validThreads.length}`);
-      return validThreads;
     } catch (error) {
       logger.error("Fatal error in fetchTweets:", error);
-      await this.cleanup();
       throw error;
     }
   }
@@ -735,9 +786,32 @@ class TwitterService {
 
   async recreatePage() {
     logger.info("Recreating page due to unresponsiveness");
-    await this.page.close();
-    this.page = await this.browser.newPage();
-    await this.login();
+    try {
+      if (this.page) {
+        await this.page.close().catch(() => {});
+      }
+
+      const client = await this.browser.target().createCDPSession();
+      await client.send("Network.clearBrowserCookies");
+      await client.send("Network.clearBrowserCache");
+
+      this.page = await this.browser.newPage();
+
+      await this.page.setRequestInterception(true);
+      this.page.on("request", (request) => {
+        if (["image", "stylesheet", "font"].includes(request.resourceType())) {
+          request.abort();
+        } else {
+          request.continue();
+        }
+      });
+
+      await this.login();
+      logger.info("Page successfully recreated");
+    } catch (error) {
+      logger.error("Error recreating page:", error);
+      throw error;
+    }
   }
 
   async takeDebugScreenshot(name) {
@@ -755,7 +829,7 @@ class TwitterService {
 
   async scrollForContent() {
     const SCROLL_INTERVAL = 4000;
-    const MAX_SCROLL_ATTEMPTS = 30;
+    const MAX_SCROLL_ATTEMPTS = 100;
     const MIN_TWEETS_PER_SCROLL = 5;
     const MIN_REQUIRED_TWEETS = 10;
 

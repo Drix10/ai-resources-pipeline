@@ -22,24 +22,30 @@ const runDataPipeline = async (retryCount = 0) => {
   };
 
   try {
-    const tweets = await TwitterService.fetchTweets();
-    if (!tweets || !Array.isArray(tweets)) {
+    const result = await TwitterService.fetchTweets();
+    if (!result || !Array.isArray(result.threads)) {
       throw new Error("No valid tweets returned from Twitter service");
     }
 
-    stats.threadsProcessed = tweets.length;
-    logger.info(`Fetched ${tweets.length} tweets`);
+    stats.threadsProcessed = result.threads.length;
+    logger.info(
+      `Fetched ${result.threads.length} tweets of type ${result.queryType}`
+    );
 
-    if (tweets.length > 0) {
-      const result = await GithubService.createMarkdownFileFromTweets(tweets);
-      if (!result?.success) {
+    if (result.threads.length > 0) {
+      const githubResult = await GithubService.createMarkdownFileFromTweets(
+        result.threads,
+        result.queryType
+      );
+      if (!githubResult?.success) {
         throw new Error("Failed to create and upload markdown file");
       }
 
       stats.markdownGenerated = true;
+      stats.queryType = result.queryType;
     }
 
-    stats.linksFound = tweets.reduce((total, thread) => {
+    stats.linksFound = result.threads.reduce((total, thread) => {
       if (thread?.tweets) {
         return (
           total +

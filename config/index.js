@@ -16,8 +16,9 @@ const config = {
   github: {
     personalAccessToken: process.env.GITHUB_PAT,
     repo: process.env.GITHUB_REPO,
-    folder: process.env.GITHUB_FOLDER || "tweets",
-    branch: "main",
+    folderOne: process.env.GITHUB_FOLDER_ONE,
+    folderTwo: process.env.GITHUB_FOLDER_TWO,
+    folderThree: process.env.GITHUB_FOLDER_THREE,
   },
   gemini: {
     apiKey: process.env.GEMINI_API_KEY,

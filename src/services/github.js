@@ -41,12 +41,18 @@ class GithubService {
       handleError(error, "Failed to initialize GitHub client");
       throw error;
     }
+
+    this.folderMap = {
+      1: config.github.folderOne,
+      2: config.github.folderTwo,
+      3: config.github.folderThree,
+    };
   }
 
-  async createMarkdownFileFromTweets(threadData) {
+  async createMarkdownFileFromTweets(threadData, queryType) {
     try {
       logger.info(
-        `Generating markdown content for ${threadData.length} threads`
+        `Generating markdown content for ${threadData.length} threads of type ${queryType}`
       );
 
       if (!config.github.repo) {
@@ -56,10 +62,12 @@ class GithubService {
       const markdownContent = await geminiService.generateMarkdown(threadData);
       const fileBuffer = Buffer.from(markdownContent);
 
+      const folder = this.folderMap[queryType];
+
       const result = await this.uploadMarkdownFile(
         fileBuffer,
         config.github.repo,
-        config.github.folder || "threads"
+        folder
       );
 
       if (!result.success) {
@@ -72,6 +80,7 @@ class GithubService {
         success: true,
         url: result.url,
         content: markdownContent,
+        folder: folder,
       };
     } catch (error) {
       logger.error("Error creating markdown file:", error);
@@ -81,16 +90,23 @@ class GithubService {
 
   async uploadMarkdownFile(fileBuffer, repoName, folder) {
     const [owner, repo] = repoName.split("/");
-    const timestamp = new Date().toISOString().split("T")[0];
-    const hash = require("crypto")
-      .createHash("md5")
-      .update(fileBuffer)
-      .digest("hex")
-      .slice(0, 6);
-    const filePath = `${folder}/thread-resources-${timestamp}-${hash}.md`;
-    const base64FileContent = fileBuffer.toString("base64");
+
+    const decodedFolder = decodeURIComponent(folder).replace(/%20/g, " ");
+    const urlSafeFolder = encodeURIComponent(decodedFolder);
 
     try {
+      await this.ensureFolderExists(owner, repo, decodedFolder);
+
+      const nextNumber = await this.getNextFileNumber(
+        owner,
+        repo,
+        decodedFolder
+      );
+
+      const fileName = `resources-${String(nextNumber).padStart(3, "0")}.md`;
+      const filePath = `${decodedFolder}/${fileName}`;
+      const base64FileContent = fileBuffer.toString("base64");
+
       const rateLimit = await this.checkRateLimit();
       if (rateLimit.isLimited) {
         throw new Error(
@@ -104,25 +120,76 @@ class GithubService {
         owner,
         repo,
         filePath,
-        base64FileContent
+        base64FileContent,
+        `📝 Add resource collection #${nextNumber}`
       );
 
-      const fileUrl = `https://github.com/${owner}/${repo}/blob/main/${filePath}`;
+      const fileUrl = `https://github.com/${owner}/${repo}/blob/main/${urlSafeFolder}/${fileName}`;
 
-      await this.updateReadmeWithNewFile(owner, repo, fileUrl, timestamp);
+      await this.updateReadmeWithNewFile(
+        owner,
+        repo,
+        fileUrl,
+        nextNumber,
+        decodedFolder
+      );
 
       return {
         success: true,
         message: "File uploaded successfully",
         url: fileUrl,
         sha: response.data.content.sha,
+        number: nextNumber,
       };
     } catch (error) {
       return this.handleGitHubError(error);
     }
   }
 
-  async updateReadmeWithNewFile(owner, repo, fileUrl, timestamp) {
+  async getNextFileNumber(owner, repo, folder) {
+    try {
+      const { data } = await this.octokit.repos.getContent({
+        owner,
+        repo,
+        path: folder,
+      });
+
+      const numbers = data
+        .filter((file) => file.name.match(/^resources-\d{3}\.md$/))
+        .map((file) => parseInt(file.name.match(/\d{3}/)[0]));
+
+      return numbers.length > 0 ? Math.max(...numbers) + 1 : 1;
+    } catch (error) {
+      if (error.status === 404) {
+        return 1;
+      }
+      throw error;
+    }
+  }
+
+  async createOrUpdateFile(owner, repo, path, content, message) {
+    try {
+      const response = await this.octokit.repos.createOrUpdateFileContents({
+        owner,
+        repo,
+        path,
+        message: message || `Update ${path}`,
+        content,
+        branch: "main",
+      });
+      return response;
+    } catch (error) {
+      logger.error("File creation/update failed:", {
+        error: error.message,
+        owner,
+        repo,
+        path,
+      });
+      throw error;
+    }
+  }
+
+  async updateReadmeWithNewFile(owner, repo, fileUrl, number, folder) {
     try {
       const path = "README.md";
       const existing = await this.octokit.repos
@@ -137,15 +204,26 @@ class GithubService {
         ? Buffer.from(existing.data.content, "base64").toString()
         : "";
 
-      const newEntry = `- [${timestamp}](${fileUrl}) - Latest tech updates`;
-      if (content.includes("## Recent Updates")) {
-        const updateSection = content.split("## Recent Updates");
+      const categoryTitles = {
+        [config.github.folderOne]: "🤖 AI Updates",
+        [config.github.folderTwo]: "💻 Development Resources",
+        [config.github.folderThree]: "📈 Productivity & Growth",
+      };
+
+      const category = categoryTitles[folder] || "📝 Updates";
+      const newEntry = `- [#${String(number).padStart(
+        3,
+        "0"
+      )}](${fileUrl}) - Latest ${folder.replace("-", " ")} collection`;
+
+      if (content.includes(`## ${category}`)) {
+        const updateSection = content.split(`## ${category}`);
         const updates = updateSection[1].split("\n").slice(0, 10);
         content = `${
           updateSection[0]
-        }## Recent Updates\n${newEntry}\n${updates.join("\n")}`;
+        }## ${category}\n${newEntry}\n${updates.join("\n")}`;
       } else {
-        content += `\n\n## Recent Updates\n${newEntry}`;
+        content += `\n\n## ${category}\n${newEntry}`;
       }
 
       await this.createOrUpdateReadme(owner, repo, content);
@@ -180,60 +258,6 @@ class GithubService {
       if (error.status === 403) {
         throw new Error(`No access to repository ${owner}/${repo}`);
       }
-      throw error;
-    }
-  }
-
-  async createOrUpdateFile(owner, repo, filePath, content) {
-    try {
-      if (!owner || !repo || !filePath || !content) {
-        throw new Error("Missing required parameters for file creation");
-      }
-
-      const branch = config.github.branch || "main";
-
-      logger.info(`Creating/updating file in ${owner}/${repo}`, {
-        path: filePath,
-        branch,
-      });
-
-      const { data: ref } = await this.octokit.git.getRef({
-        owner,
-        repo,
-        ref: `heads/${branch}`,
-      });
-
-      const existingFile = await this.octokit.repos
-        .getContent({
-          owner,
-          repo,
-          path: filePath,
-          ref: branch,
-        })
-        .catch(() => null);
-
-      const commitMessage = this.generateCommitMessage(filePath);
-
-      return await this.octokit.repos.createOrUpdateFileContents({
-        owner,
-        repo,
-        path: filePath,
-        message: commitMessage,
-        content,
-        sha: existingFile?.data?.sha,
-        branch,
-        committer: {
-          name: config.github.committerName || "Twitter Bot",
-          email: config.github.committerEmail || "bot@example.com",
-        },
-      });
-    } catch (error) {
-      logger.error("File creation/update failed:", {
-        owner,
-        repo,
-        path: filePath,
-        error: error.message,
-      });
       throw error;
     }
   }
@@ -325,8 +349,8 @@ Generated by Twitter-to-GitHub Pipeline`;
         sha: existing?.data?.sha,
         branch,
         committer: {
-          name: config.github.committerName || "Twitter Bot",
-          email: config.github.committerEmail || "bot@example.com",
+          name: config.github.committerName || "Drix10",
+          email: config.github.committerEmail || "ggdrishtant@gmail.com",
         },
       });
 
@@ -343,6 +367,36 @@ Generated by Twitter-to-GitHub Pipeline`;
         message: "Failed to update README",
         error: error.message,
       };
+    }
+  }
+
+  async ensureFolderExists(owner, repo, folder) {
+    try {
+      await this.octokit.repos.getContent({
+        owner,
+        repo,
+        path: folder,
+      });
+      logger.info(`Folder ${folder} already exists`);
+    } catch (error) {
+      if (error.status === 404) {
+        try {
+          await this.octokit.repos.createOrUpdateFileContents({
+            owner,
+            repo,
+            path: `${folder}/.gitkeep`,
+            message: `Create ${folder} folder`,
+            content: Buffer.from("").toString("base64"),
+            branch: "main",
+          });
+          logger.info(`Created new folder: ${folder}`);
+        } catch (createError) {
+          logger.error(`Failed to create folder ${folder}:`, createError);
+          throw new Error(`Failed to create folder: ${createError.message}`);
+        }
+      } else {
+        throw error;
+      }
     }
   }
 }
