@@ -78,7 +78,7 @@ GITHUB_REPO=userName/repoName # The repository where the tweets will be saved
 GITHUB_FOLDER_ONE= # The folder where the tweets will be saved
 GITHUB_FOLDER_TWO= # The folder where the tweets will be saved
 GITHUB_FOLDER_THREE= # The folder where the tweets will be saved
-CRON_SCHEDULE=0 * * * * # The cron schedule to run the backend
+CRON_SCHEDULE=0 */5 * * * # The cron schedule to run the backend
 ```
 
 ## 🏗️ Usage

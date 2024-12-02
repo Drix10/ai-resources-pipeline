@@ -65,6 +65,13 @@ Important rules:
 8. Never skip any sections
 9. Never add fake links or resources
 10. Always include ALL external links from the thread
+
+Note:
+1. Always include the original context from the thread
+2. If no resources are provided, do not include the Resources section
+3. Always embed images and links from the thread with correct descriptions
+4. Fill it with your best knowledge of the topic, if not enough context is provided.
+5. When alot of context is missing, write a detailed introduction about the topic and provide links to more information.
 `;
     this.model = this.genAI.getGenerativeModel({
       model: "gemini-1.5-flash",
@@ -253,7 +260,14 @@ Remember:
 2. Follow exact spacing and formatting
 3. No deviations from the structure
 4. No extra decorative elements
-5. Verify all links before including`;
+5. Verify all links before including
+
+Note:
+1. Always include the original context from the thread
+2. If no resources are provided, do not include the Resources section
+3. Always embed images and links from the thread with correct descriptions
+4. Fill it with your best knowledge of the topic, if not enough context is provided.
+5. When alot of context is missing, write a detailed introduction about the topic and provide links to more information.`;
 
         try {
           const result = await this.model.generateContent(prompt);

@@ -28,9 +28,6 @@ const runDataPipeline = async (retryCount = 0) => {
     }
 
     stats.threadsProcessed = result.threads.length;
-    logger.info(
-      `Fetched ${result.threads.length} tweets of type ${result.queryType}`
-    );
 
     if (result.threads.length > 0) {
       const githubResult = await GithubService.createMarkdownFileFromTweets(
@@ -187,7 +184,7 @@ const initCronJob = () => {
       return scheduledJob;
     }
 
-    const schedule = config.cron?.schedule || "0 * * * *";
+    const schedule = config.cron?.schedule || "0 */5 * * *";
     if (!cron.validate(schedule)) {
       throw new Error(`Invalid cron schedule: ${schedule}`);
     }
