@@ -60,8 +60,6 @@ class TwitterService {
     this.currentQueryIndex = 0;
     this.currentTypeIndex = 0;
     this.lastUsedType = null;
-
-    this.searchFilters = ["&f=top", "&f=live"];
   }
 
   getSearchQuery() {
@@ -90,7 +88,8 @@ class TwitterService {
     try {
       if (!this.browser) {
         this.browser = await puppeteer.launch({
-          headless: true,
+          headless: true, // false
+          // Use these args when running on a server
           args: [
             "--no-sandbox",
             "--disable-setuid-sandbox",
@@ -122,10 +121,29 @@ class TwitterService {
             "--mute-audio",
             "--js-flags=--max-old-space-size=4096",
           ],
+
+          // Use these args when running locally
+          //args: [
+          //  "--no-sandbox",
+          //  "--disable-setuid-sandbox",
+          //  "--window-size=1920,1080",
+          //  "--disable-notifications",
+          //  "--disable-gpu",
+          //  "--disable-dev-shm-usage",
+          //],
+
+          // Use these viewport when running on a server
           defaultViewport: {
             width: 1280,
             height: 720,
           },
+
+          // Use these viewport when running locally
+          //defaultViewport: {
+          //  width: 1920,
+          //  height: 1080,
+          //},
+
           protocolTimeout: 180000,
           timeout: 180000,
           ignoreHTTPSErrors: true,
@@ -210,18 +228,36 @@ class TwitterService {
                 const tweetText = tweet
                   .querySelector('[data-testid="tweetText"]')
                   ?.innerText?.trim();
-                if (!tweetText || tweetText.length < 50) return null;
 
-                const tweetUrl = tweet.querySelector(
-                  'a[href*="/status/"]'
-                )?.href;
-                if (!tweetUrl) return null;
+                if (!tweetText || tweetText.length < 80) return null;
+                if (
+                  tweetText.includes("Follow me") ||
+                  tweetText.includes("RT if") ||
+                  tweetText.includes("retweet if")
+                )
+                  return null;
+
+                const threadContainer = tweet.closest(
+                  '[data-testid="cellInnerDiv"]'
+                );
+                const isThreadStart =
+                  !threadContainer?.previousElementSibling?.querySelector(
+                    '[data-testid="tweet"]'
+                  );
+
+                const isReply = tweet.querySelector('[data-testid="reply"]');
+                const isQuote = tweet.querySelector('[data-testid="quote"]');
 
                 const links = Array.from(
                   tweet.querySelectorAll('a[href*="http"]')
                 )
                   .map((a) => a.href)
-                  .filter((href) => !href.includes("twitter.com"));
+                  .filter(
+                    (href) =>
+                      !href.includes("twitter.com") &&
+                      !href.includes("x.com") &&
+                      !href.includes("t.co")
+                  );
 
                 const images = Array.from(
                   tweet.querySelectorAll('img[src*="https"]')
@@ -231,18 +267,109 @@ class TwitterService {
                     (src) => !src.includes("emoji") && !src.includes("profile")
                   );
 
+                const hasLinks = links.length > 0;
+                const hasImages = images.length > 0;
+                const hasNumbers = /\d+\.|\(\d+\)/.test(tweetText);
+                const hasBulletPoints = /[•●\-\*\+]/.test(tweetText);
+                const hasThreadMarker =
+                  /🧵|thread|1\/|1\)|part 1|tips|guide/i.test(
+                    tweetText.toLowerCase()
+                  );
+                const hasKeyPhrases =
+                  /how to|learn|guide|tips|thread|steps|ways|reasons|tools|resources/i.test(
+                    tweetText.toLowerCase()
+                  );
+
+                const qualityScore = [
+                  hasLinks ? 2 : 0,
+                  hasImages ? 1 : 0,
+                  hasNumbers ? 1 : 0,
+                  hasBulletPoints ? 1 : 0,
+                  hasThreadMarker ? 2 : 0,
+                  hasKeyPhrases ? 1 : 0,
+                  tweetText.length > 150 ? 1 : 0,
+                  isThreadStart ? 2 : 0,
+                  !isReply && !isQuote ? 1 : 0,
+                ].reduce((a, b) => a + b, 0);
+
+                if (qualityScore < 2) return null;
+
+                const threadTweets = [];
+                if (isThreadStart) {
+                  let currentTweet = tweet;
+                  let nextContainer = threadContainer?.nextElementSibling;
+
+                  threadTweets.push({
+                    text: tweetText,
+                    images: images,
+                    links: links,
+                  });
+
+                  while (nextContainer) {
+                    const nextTweet = nextContainer.querySelector(
+                      'article[data-testid="tweet"]'
+                    );
+                    if (!nextTweet) break;
+
+                    const originalAuthor = tweet
+                      .querySelector('a[href*="/status/"]')
+                      ?.href.split("/")[3];
+                    const nextAuthor = nextTweet
+                      .querySelector('a[href*="/status/"]')
+                      ?.href.split("/")[3];
+                    if (originalAuthor !== nextAuthor) break;
+
+                    const nextText = nextTweet
+                      .querySelector('[data-testid="tweetText"]')
+                      ?.innerText?.trim();
+                    if (!nextText) break;
+
+                    const nextImages = Array.from(
+                      nextTweet.querySelectorAll('img[src*="https"]')
+                    )
+                      .map((img) => img.src)
+                      .filter(
+                        (src) =>
+                          !src.includes("emoji") && !src.includes("profile")
+                      );
+
+                    const nextLinks = Array.from(
+                      nextTweet.querySelectorAll('a[href*="http"]')
+                    )
+                      .map((a) => a.href)
+                      .filter(
+                        (href) =>
+                          !href.includes("twitter.com") &&
+                          !href.includes("x.com") &&
+                          !href.includes("t.co")
+                      );
+
+                    threadTweets.push({
+                      text: nextText,
+                      images: nextImages,
+                      links: nextLinks,
+                    });
+
+                    nextContainer = nextContainer.nextElementSibling;
+                  }
+                }
+
                 return {
-                  tweets: [
-                    {
-                      text: tweetText,
-                      images: images,
-                      links: links,
-                    },
-                  ],
-                  url: tweetUrl,
+                  tweets: isThreadStart
+                    ? threadTweets
+                    : [
+                        {
+                          text: tweetText,
+                          images: images,
+                          links: links,
+                        },
+                      ],
+                  url: tweet.querySelector('a[href*="/status/"]')?.href,
                   timestamp: tweet
                     .querySelector("time")
                     ?.getAttribute("datetime"),
+                  qualityScore: qualityScore,
+                  isThreadStart: isThreadStart,
                 };
               } catch (error) {
                 console.error(`Error processing tweet: ${error.message}`);
@@ -479,12 +606,15 @@ class TwitterService {
           searchQuery: searchQuery,
         };
       } catch (error) {
-        logger.error(`Fetch attempt ${attempt} failed:`, error);
+        logger.error(
+          `Fetch attempt ${attempt} failed: ${error.message}`,
+          error
+        );
 
         if (attempt === maxRetries) {
           if (reinitializeOnFailure) {
             logger.warn("Max retries reached. Reinitializing browser.");
-            await this.close();
+            await this.cleanup();
             await this.init();
           }
           throw error;
