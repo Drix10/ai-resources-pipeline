@@ -90,26 +90,67 @@ class TwitterService {
     try {
       if (!this.browser) {
         this.browser = await puppeteer.launch({
-          headless: "new", //false,
+          headless: true,
           args: [
             "--no-sandbox",
             "--disable-setuid-sandbox",
-            "--window-size=1920,1080",
+            "--window-size=1280,720",
             "--disable-notifications",
             "--disable-gpu",
             "--disable-dev-shm-usage",
+            "--disable-accelerated-2d-canvas",
+            "--disable-canvas-aa",
+            "--disable-2d-canvas-clip-aa",
+            "--disable-gl-drawing-for-tests",
+            "--no-first-run",
+            "--no-zygote",
+            "--single-process",
+            "--disable-dev-shm-usage",
+            "--disable-infobars",
+            "--disable-background-networking",
+            "--disable-background-timer-throttling",
+            "--disable-backgrounding-occluded-windows",
+            "--disable-breakpad",
+            "--disable-component-extensions-with-background-pages",
+            "--disable-extensions",
+            "--disable-features=TranslateUI",
+            "--disable-ipc-flooding-protection",
+            "--disable-renderer-backgrounding",
+            "--enable-features=NetworkService,NetworkServiceInProcess",
+            "--force-color-profile=srgb",
+            "--metrics-recording-only",
+            "--mute-audio",
+            "--js-flags=--max-old-space-size=4096",
           ],
           defaultViewport: {
-            width: 1920,
-            height: 1080,
+            width: 1280,
+            height: 720,
           },
+          protocolTimeout: 180000,
+          timeout: 180000,
+          ignoreHTTPSErrors: true,
         });
       }
 
       if (!this.page) {
         this.page = await this.browser.newPage();
-        this.page.setDefaultNavigationTimeout(60000);
-        this.page.setDefaultTimeout(60000);
+        this.page.setDefaultNavigationTimeout(180000);
+        this.page.setDefaultTimeout(180000);
+
+        await this.page.setCacheEnabled(false);
+
+        await this.page.setRequestInterception(true);
+        this.page.on("request", (request) => {
+          if (
+            request.resourceType() === "image" ||
+            request.resourceType() === "stylesheet" ||
+            request.resourceType() === "font"
+          ) {
+            request.abort();
+          } else {
+            request.continue();
+          }
+        });
       }
     } catch (error) {
       logger.error("Failed to initialize:", error);
@@ -123,9 +164,22 @@ class TwitterService {
       const THREADS_NEEDED = 10;
       const MAX_SCROLL_ATTEMPTS = 1500;
       const SCROLL_PAUSE = 3000;
+      const MAX_NO_NEW_TWEETS = 10;
+      const INITIAL_LOAD_TIMEOUT = 10000;
+
       let collectedContent = [];
       let scrollAttempts = 0;
       let processedTweetIds = new Set();
+      let lastHeight = 0;
+      let noNewTweetsCount = 0;
+
+      try {
+        await this.page.waitForSelector('article[data-testid="tweet"]', {
+          timeout: INITIAL_LOAD_TIMEOUT,
+        });
+      } catch (error) {
+        logger.warn("No tweets found on initial load, retrying scroll...");
+      }
 
       while (
         scrollAttempts < MAX_SCROLL_ATTEMPTS &&
@@ -138,9 +192,13 @@ class TwitterService {
         );
 
         await this.page.evaluate(() => {
-          window.scrollBy(0, window.innerHeight * 2);
+          window.scrollTo(0, document.documentElement.scrollHeight);
         });
         await sleep(SCROLL_PAUSE);
+
+        const currentHeight = await this.page.evaluate(
+          "document.documentElement.scrollHeight"
+        );
 
         const potentialContent = await this.page.evaluate(() => {
           const tweets = Array.from(
@@ -194,6 +252,20 @@ class TwitterService {
             .filter(Boolean);
         });
 
+        if (potentialContent.length > 0) {
+          noNewTweetsCount = 0;
+        } else {
+          noNewTweetsCount++;
+          if (noNewTweetsCount >= MAX_NO_NEW_TWEETS) {
+            logger.info(
+              "No new tweets found after multiple attempts, trying page refresh..."
+            );
+            await this.page.reload({ waitUntil: "networkidle0" });
+            noNewTweetsCount = 0;
+            continue;
+          }
+        }
+
         for (const content of potentialContent) {
           if (collectedContent.length >= THREADS_NEEDED) break;
 
@@ -201,28 +273,13 @@ class TwitterService {
           if (!tweetId || processedTweetIds.has(tweetId)) continue;
 
           processedTweetIds.add(tweetId);
-
           try {
             const existingTweet = await Tweet.findOne({ id: tweetId });
-
             if (!existingTweet) {
               logger.info(`Processing: ${content.url}`);
               collectedContent.push(content);
-
-              await Tweet.findOneAndUpdate(
-                { id: tweetId },
-                {
-                  $setOnInsert: {
-                    id: tweetId,
-                    url: content.url,
-                    text: content.tweets[0].text,
-                    timestamp: new Date(content.timestamp),
-                    status: "processed",
-                    processed_at: new Date(),
-                  },
-                },
-                { upsert: true, new: true }
-              );
+            } else {
+              logger.debug(`Skipping existing tweet: ${content.url}`);
             }
           } catch (dbError) {
             if (dbError.code !== 11000) {
@@ -233,6 +290,12 @@ class TwitterService {
             }
             continue;
           }
+        }
+
+        if (currentHeight === lastHeight) {
+          noNewTweetsCount++;
+        } else {
+          lastHeight = currentHeight;
         }
 
         scrollAttempts++;
@@ -256,7 +319,7 @@ class TwitterService {
       logger.info("Waiting for username field...");
       await this.page.waitForSelector('input[autocomplete="username"]', {
         visible: true,
-        timeout: 10000,
+        timeout: 60000,
       });
       await sleep(2000);
       await this.page.type(
@@ -405,7 +468,7 @@ class TwitterService {
 
         await this.page.goto(searchUrl, {
           waitUntil: "domcontentloaded",
-          timeout: 30000,
+          timeout: 60000,
         });
 
         const content = await this.findContent();
