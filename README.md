@@ -103,6 +103,8 @@ This MVP was entirely generated using artificial intelligence through [CosLynx.c
 
 No human was directly involved in the coding process of the repository: Twitter-Gemini-GitHub-MVP
 
+Note: A final version was finished and pushed via a human due to a special case.
+
 ### 📞 Contact
 
 For any questions or concerns regarding this AI-generated MVP, please contact CosLynx at:
