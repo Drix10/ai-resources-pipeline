@@ -79,7 +79,7 @@ class TwitterService {
 
     this.lastUsedType = this.currentTypeIndex + 1;
 
-    const filter = Math.random() < 0.5 ? "&f=top" : "&f=live";
+    const filter = "&f=live";
 
     return selectedQuery + filter;
   }
