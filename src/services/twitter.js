@@ -93,7 +93,7 @@ class TwitterService {
           args: [
             "--no-sandbox",
             "--disable-setuid-sandbox",
-            "--window-size=1280,720",
+            "--window-size=1920,1080",
             "--disable-notifications",
             "--disable-gpu",
             "--disable-dev-shm-usage",
@@ -131,18 +131,6 @@ class TwitterService {
           //  "--disable-gpu",
           //  "--disable-dev-shm-usage",
           //],
-
-          // Use these viewport when running on a server
-          defaultViewport: {
-            width: 1280,
-            height: 720,
-          },
-
-          // Use these viewport when running locally
-          //defaultViewport: {
-          //  width: 1920,
-          //  height: 1080,
-          //},
 
           protocolTimeout: 180000,
           timeout: 180000,
@@ -634,6 +622,62 @@ class TwitterService {
       }
     } catch (error) {
       logger.error("Cleanup failed:", error);
+    }
+  }
+
+  async postTweet(text) {
+    try {
+      if (!this.page) {
+        logger.info("No active page, initializing Twitter service...");
+        await this.init();
+        await this.login();
+      }
+
+      logger.info("Posting new tweet...");
+      try {
+        await this.page.goto("https://twitter.com/compose/tweet", {
+          waitUntil: "domcontentloaded",
+          timeout: 60000,
+        });
+      } catch (navigationError) {
+        await this.page.goto("https://twitter.com/home", {
+          waitUntil: "domcontentloaded",
+          timeout: 60000,
+        });
+      }
+      await sleep(3000);
+
+      await this.page.waitForSelector('div[data-testid="tweetTextarea_0"]', {
+        timeout: 10000,
+      });
+      await this.page.click('div[data-testid="tweetTextarea_0"]');
+      await sleep(1000);
+
+      await this.page.keyboard.type(text, { delay: 100 });
+      await sleep(1000);
+
+      await this.page.waitForSelector('div[data-testid="tweetButton"]', {
+        timeout: 10000,
+      });
+      await this.page.click('div[data-testid="tweetButton"]');
+      await sleep(3000);
+
+      const tweetPosted = await this.page.evaluate(() => {
+        const errorElements = document.querySelectorAll(
+          '[data-testid*="error"]'
+        );
+        return errorElements.length === 0;
+      });
+
+      if (!tweetPosted) {
+        throw new Error("Tweet posting verification failed");
+      }
+
+      logger.info("Tweet posted successfully!");
+      return true;
+    } catch (error) {
+      logger.error("Failed to post tweet:", error.message);
+      return false;
     }
   }
 }

@@ -26,10 +26,6 @@ const config = {
   discord: {
     webhookUrl: process.env.DISCORD_WEBHOOK_URL,
   },
-  cron: {
-    schedule: process.env.CRON_SCHEDULE || "0 * * * *",
-    immediate: true,
-  },
 };
 
 const requiredConfigs = {
