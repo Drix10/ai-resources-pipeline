@@ -28,7 +28,7 @@ const runDataPipeline = async (retryCount = 0) => {
 
       const tweetText = `New ${getTopicName(
         result.queryType
-      )} resources added!\n\nCheck out the latest resources here:\n${
+      )} resource added!\n\nMade by @DRIX_10_ via @CosLynxAI\n\nCheck out the latest resource here:\n${
         githubResult.url
       }`;
       await TwitterService.postTweet(tweetText);
@@ -67,7 +67,7 @@ function getTopicName(queryType) {
     case 3:
       return "Productivity & Business";
     default:
-      return "Resource";
+      return "AI Scrapped";
   }
 }
 
@@ -80,7 +80,7 @@ const initCronJob = () => {
       return scheduledJob;
     }
 
-    const RandNum = Math.floor(Math.random() * 4) + 1;
+    const RandNum = Math.floor(Math.random() * 5) + 1;
     const schedule = `0 */${RandNum} * * *`;
     if (!cron.validate(schedule)) {
       throw new Error(`Invalid cron schedule: ${schedule}`);

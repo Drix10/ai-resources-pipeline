@@ -15,7 +15,6 @@ class TwitterService {
       "ai automation guide 🧵",
       "machine learning tools thread",
       "ai productivity tools 🧵",
-      "filter:links new ai tools",
       "ai developments thread",
       "generative ai guide 1/",
       "ai models comparison (1/",
@@ -31,7 +30,6 @@ class TwitterService {
       "programming tips 🧵",
       "backend development thread",
       "frontend frameworks 🧵",
-      "filter:links coding resources",
       "system design tips thread",
       "database optimization 1/",
       "clean code guide 🧵",
@@ -47,7 +45,6 @@ class TwitterService {
       "work optimization 🧵",
       "side business guide thread",
       "freelancing success 🧵",
-      "filter:links productivity stack",
       "remote work tools thread",
       "business automation 1/",
       "digital nomad guide 🧵",
@@ -79,16 +76,14 @@ class TwitterService {
 
     this.lastUsedType = this.currentTypeIndex + 1;
 
-    const filter = "&f=live";
-
-    return selectedQuery + filter;
+    return selectedQuery;
   }
 
   async init() {
     try {
       if (!this.browser) {
         this.browser = await puppeteer.launch({
-          headless: true, // false
+          headless: false, // false
           // Use these args when running on a server
           args: [
             "--no-sandbox",
@@ -97,29 +92,6 @@ class TwitterService {
             "--disable-notifications",
             "--disable-gpu",
             "--disable-dev-shm-usage",
-            "--disable-accelerated-2d-canvas",
-            "--disable-canvas-aa",
-            "--disable-2d-canvas-clip-aa",
-            "--disable-gl-drawing-for-tests",
-            "--no-first-run",
-            "--no-zygote",
-            "--single-process",
-            "--disable-dev-shm-usage",
-            "--disable-infobars",
-            "--disable-background-networking",
-            "--disable-background-timer-throttling",
-            "--disable-backgrounding-occluded-windows",
-            "--disable-breakpad",
-            "--disable-component-extensions-with-background-pages",
-            "--disable-extensions",
-            "--disable-features=TranslateUI",
-            "--disable-ipc-flooding-protection",
-            "--disable-renderer-backgrounding",
-            "--enable-features=NetworkService,NetworkServiceInProcess",
-            "--force-color-profile=srgb",
-            "--metrics-recording-only",
-            "--mute-audio",
-            "--js-flags=--max-old-space-size=4096",
           ],
 
           // Use these args when running locally
@@ -656,25 +628,47 @@ class TwitterService {
       await this.page.keyboard.type(text, { delay: 100 });
       await sleep(1000);
 
-      await this.page.waitForSelector('div[data-testid="tweetButton"]', {
-        timeout: 10000,
-      });
-      await this.page.click('div[data-testid="tweetButton"]');
-      await sleep(3000);
+      try {
+        await this.page.keyboard.down("Control");
+        await this.page.keyboard.press("Enter");
+        await this.page.keyboard.up("Control");
+        await sleep(2000);
 
-      const tweetPosted = await this.page.evaluate(() => {
-        const errorElements = document.querySelectorAll(
-          '[data-testid*="error"]'
-        );
-        return errorElements.length === 0;
-      });
+        const buttonVisible = await this.page.evaluate(() => {
+          return !!document.querySelector('div[data-testid="tweetButton"]');
+        });
 
-      if (!tweetPosted) {
-        throw new Error("Tweet posting verification failed");
+        if (buttonVisible) {
+          for (let i = 0; i < 3; i++) {
+            await this.page.keyboard.press("Tab");
+            await sleep(500);
+          }
+          await this.page.keyboard.press("Enter");
+        }
+
+        await sleep(3000);
+
+        const tweetPosted = await this.page.evaluate(() => {
+          const composeAreaGone = !document.querySelector(
+            'div[data-testid="tweetTextarea_0"]'
+          );
+          const successToast = document.querySelector('[data-testid="toast"]');
+          const noErrors = !document.querySelector('[data-testid*="error"]');
+
+          return (composeAreaGone || successToast) && noErrors;
+        });
+
+        if (!tweetPosted) {
+          await this.page.screenshot({ path: "tweet-failed.png" });
+          throw new Error("Tweet posting verification failed");
+        }
+
+        logger.info("Tweet posted successfully!");
+        return true;
+      } catch (error) {
+        logger.error("Failed to post tweet:", error.message);
+        return false;
       }
-
-      logger.info("Tweet posted successfully!");
-      return true;
     } catch (error) {
       logger.error("Failed to post tweet:", error.message);
       return false;
