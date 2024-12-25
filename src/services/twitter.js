@@ -83,7 +83,7 @@ class TwitterService {
     try {
       if (!this.browser) {
         this.browser = await puppeteer.launch({
-          headless: false, // false
+          headless: true, // false to see the browser live
           // Use these args when running on a server
           args: [
             "--no-sandbox",
@@ -92,6 +92,29 @@ class TwitterService {
             "--disable-notifications",
             "--disable-gpu",
             "--disable-dev-shm-usage",
+            "--disable-accelerated-2d-canvas",
+            "--disable-canvas-aa",
+            "--disable-2d-canvas-clip-aa",
+            "--disable-gl-drawing-for-tests",
+            "--no-first-run",
+            "--no-zygote",
+            "--single-process",
+            "--disable-dev-shm-usage",
+            "--disable-infobars",
+            "--disable-background-networking",
+            "--disable-background-timer-throttling",
+            "--disable-backgrounding-occluded-windows",
+            "--disable-breakpad",
+            "--disable-component-extensions-with-background-pages",
+            "--disable-extensions",
+            "--disable-features=TranslateUI",
+            "--disable-ipc-flooding-protection",
+            "--disable-renderer-backgrounding",
+            "--enable-features=NetworkService,NetworkServiceInProcess",
+            "--force-color-profile=srgb",
+            "--metrics-recording-only",
+            "--mute-audio",
+            "--js-flags=--max-old-space-size=4096",
           ],
 
           // Use these args when running locally
