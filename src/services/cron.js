@@ -99,6 +99,7 @@ const initCronJob = () => {
           if (mongoose.connection.readyState !== 1) {
             throw new Error("Database connection not established");
           }
+          runInitialPipeline();
         } catch (error) {
           logger.error("Scheduled pipeline failed:", error);
 
