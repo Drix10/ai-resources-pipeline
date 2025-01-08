@@ -167,7 +167,6 @@ class TwitterService {
       const SCROLL_PAUSE = 3000;
       const MAX_NO_NEW_TWEETS = 10;
       const INITIAL_LOAD_TIMEOUT = 10000;
-
       let collectedContent = [];
       let scrollAttempts = 0;
       let processedTweetIds = new Set();
@@ -212,11 +211,13 @@ class TwitterService {
                   .querySelector('[data-testid="tweetText"]')
                   ?.innerText?.trim();
 
-                if (!tweetText || tweetText.length < 80) return null;
+                if (!tweetText || tweetText.length < 60) return null;
                 if (
                   tweetText.includes("Follow me") ||
                   tweetText.includes("RT if") ||
-                  tweetText.includes("retweet if")
+                  tweetText.includes("retweet if") ||
+                  (tweetText.includes("giveaway") && tweetText.length < 120) ||
+                  (tweetText.includes("contest") && tweetText.length < 120)
                 )
                   return null;
 
@@ -227,7 +228,6 @@ class TwitterService {
                   !threadContainer?.previousElementSibling?.querySelector(
                     '[data-testid="tweet"]'
                   );
-
                 const isReply = tweet.querySelector('[data-testid="reply"]');
                 const isQuote = tweet.querySelector('[data-testid="quote"]');
 
@@ -242,50 +242,54 @@ class TwitterService {
                       !href.includes("t.co")
                   );
 
-                const images = Array.from(
-                  tweet.querySelectorAll('img[src*="https"]')
-                )
-                  .map((img) => img.src)
-                  .filter(
-                    (src) => !src.includes("emoji") && !src.includes("profile")
-                  );
-
-                const hasLinks = links.length > 0;
-                const hasImages = images.length > 0;
-                const hasNumbers = /\d+\.|\(\d+\)/.test(tweetText);
-                const hasBulletPoints = /[•●\-\*\+]/.test(tweetText);
-                const hasThreadMarker =
-                  /🧵|thread|1\/|1\)|part 1|tips|guide/i.test(
-                    tweetText.toLowerCase()
-                  );
-                const hasKeyPhrases =
-                  /how to|learn|guide|tips|thread|steps|ways|reasons|tools|resources/i.test(
-                    tweetText.toLowerCase()
-                  );
-
                 const qualityScore = [
-                  hasLinks ? 2 : 0,
-                  hasImages ? 1 : 0,
-                  hasNumbers ? 1 : 0,
-                  hasBulletPoints ? 1 : 0,
-                  hasThreadMarker ? 2 : 0,
-                  hasKeyPhrases ? 1 : 0,
-                  tweetText.length > 150 ? 1 : 0,
+                  links.length > 0 ? 1 : 0,
+                  /\d+\.|\(\d+\)/.test(tweetText) ? 2 : 0,
+                  /[•●\-\*\+]/.test(tweetText) ? 2 : 0,
+                  /🧵|thread|1\/|1\)|part 1|tips|guide/i.test(tweetText)
+                    ? 2
+                    : 0,
+                  /how to|learn|guide|tips|steps|ways|reasons|tools|resources|tutorial|explained/i.test(
+                    tweetText
+                  )
+                    ? 2
+                    : 0,
+                  tweetText.length > 200
+                    ? 3
+                    : tweetText.length > 150
+                    ? 2
+                    : tweetText.length > 100
+                    ? 1
+                    : 0,
                   isThreadStart ? 2 : 0,
                   !isReply && !isQuote ? 1 : 0,
+                  /[\n\r]/.test(tweetText) ? 1 : 0,
+                  /(important|key|crucial|essential|note|remember|tip:)/i.test(
+                    tweetText
+                  )
+                    ? 1
+                    : 0,
                 ].reduce((a, b) => a + b, 0);
+
+                const hasGoodFormatting =
+                  /\d+\.|\(\d+\)/.test(tweetText) &&
+                  /[•●\-\*\+]/.test(tweetText) &&
+                  /[\n\r]/.test(tweetText);
+                const isEducational =
+                  /how to|learn|guide|tutorial|explained/i.test(tweetText) &&
+                  tweetText.length > 150;
+
+                if (hasGoodFormatting || isEducational) {
+                  qualityScore += 2;
+                }
 
                 if (qualityScore < 2) return null;
 
                 const threadTweets = [];
                 if (isThreadStart) {
-                  let currentTweet = tweet;
                   let nextContainer = threadContainer?.nextElementSibling;
-
                   threadTweets.push({
                     text: tweetText,
-                    images: images,
-                    links: links,
                   });
 
                   while (nextContainer) {
@@ -293,7 +297,6 @@ class TwitterService {
                       'article[data-testid="tweet"]'
                     );
                     if (!nextTweet) break;
-
                     const originalAuthor = tweet
                       .querySelector('a[href*="/status/"]')
                       ?.href.split("/")[3];
@@ -307,30 +310,8 @@ class TwitterService {
                       ?.innerText?.trim();
                     if (!nextText) break;
 
-                    const nextImages = Array.from(
-                      nextTweet.querySelectorAll('img[src*="https"]')
-                    )
-                      .map((img) => img.src)
-                      .filter(
-                        (src) =>
-                          !src.includes("emoji") && !src.includes("profile")
-                      );
-
-                    const nextLinks = Array.from(
-                      nextTweet.querySelectorAll('a[href*="http"]')
-                    )
-                      .map((a) => a.href)
-                      .filter(
-                        (href) =>
-                          !href.includes("twitter.com") &&
-                          !href.includes("x.com") &&
-                          !href.includes("t.co")
-                      );
-
                     threadTweets.push({
                       text: nextText,
-                      images: nextImages,
-                      links: nextLinks,
                     });
 
                     nextContainer = nextContainer.nextElementSibling;
@@ -343,8 +324,6 @@ class TwitterService {
                     : [
                         {
                           text: tweetText,
-                          images: images,
-                          links: links,
                         },
                       ],
                   url: tweet.querySelector('a[href*="/status/"]')?.href,
@@ -378,11 +357,10 @@ class TwitterService {
 
         for (const content of potentialContent) {
           if (collectedContent.length >= THREADS_NEEDED) break;
-
           const tweetId = content.url.split("/status/")[1]?.split("?")[0];
           if (!tweetId || processedTweetIds.has(tweetId)) continue;
-
           processedTweetIds.add(tweetId);
+
           try {
             const existingTweet = await Tweet.findOne({ id: tweetId });
             if (!existingTweet) {
@@ -407,7 +385,6 @@ class TwitterService {
         } else {
           lastHeight = currentHeight;
         }
-
         scrollAttempts++;
       }
 
