@@ -80,7 +80,7 @@ const initCronJob = () => {
       return scheduledJob;
     }
 
-    const RandNum = Math.floor(Math.random() * 10) + 1;
+    const RandNum = Math.floor(Math.random() * 7) + 1;
     const schedule = `0 */${RandNum} * * *`;
     if (!cron.validate(schedule)) {
       throw new Error(`Invalid cron schedule: ${schedule}`);
