@@ -8,50 +8,20 @@ class TwitterService {
     this.browser = null;
     this.page = null;
 
-    this.searchQueriesType1 = [
-      "ai tools thread 🧵",
-      "artificial intelligence news thread",
-      "chatgpt tips thread",
-      "ai automation guide 🧵",
-      "machine learning tools thread",
-      "ai productivity tools 🧵",
-      "ai developments thread",
-      "generative ai guide 1/",
-      "ai models comparison (1/",
-      "ai research findings thread",
-      "llm developments 🧵",
-      "ai tools comparison thread",
-      "future of ai thread",
+    this.listIdsType1 = [
+      "1183066543174881282", // AI/ML list
+      "1594632801785094146",
+      "1394275179077914632",
     ];
-    this.searchQueriesType2 = [
-      "coding best practices 🧵",
-      "software architecture thread",
-      "developer tools guide",
-      "programming tips 🧵",
-      "backend development thread",
-      "frontend frameworks 🧵",
-      "system design tips thread",
-      "database optimization 1/",
-      "clean code guide 🧵",
-      "web development tools thread",
-      "devops practices 🧵",
-      "coding patterns thread",
-      "microservices guide thread",
+    this.listIdsType2 = [
+      "1281694355024011265", // Development list
+      "1403650939047890946",
+      "1247246664076800007",
     ];
-    this.searchQueriesType3 = [
-      "passive income guide 🧵",
-      "productivity system thread",
-      "digital tools thread",
-      "work optimization 🧵",
-      "side business guide thread",
-      "freelancing success 🧵",
-      "remote work tools thread",
-      "business automation 1/",
-      "digital nomad guide 🧵",
-      "online business thread",
-      "time management system 🧵",
-      "wealth building guide thread",
-      "personal finance tips 🧵",
+    this.listIdsType3 = [
+      "928982358082179072", // Productivity list
+      "1591607866091339786",
+      "1195113292085317632",
     ];
 
     this.currentQueryIndex = 0;
@@ -60,23 +30,14 @@ class TwitterService {
   }
 
   getSearchQuery() {
-    const types = [
-      this.searchQueriesType1,
-      this.searchQueriesType2,
-      this.searchQueriesType3,
-    ];
+    const listTypes = [this.listIdsType1, this.listIdsType2, this.listIdsType3];
 
-    this.currentTypeIndex = Math.floor(Math.random() * types.length);
-
-    const selectedType = types[this.currentTypeIndex];
-
+    this.currentTypeIndex = Math.floor(Math.random() * listTypes.length);
+    const selectedType = listTypes[this.currentTypeIndex];
     this.currentQueryIndex = Math.floor(Math.random() * selectedType.length);
 
-    const selectedQuery = selectedType[this.currentQueryIndex];
-
     this.lastUsedType = this.currentTypeIndex + 1;
-
-    return selectedQuery;
+    return selectedType[this.currentQueryIndex];
   }
 
   async init() {
@@ -544,16 +505,14 @@ class TwitterService {
           await this.login();
         }
 
-        const searchQuery = this.getSearchQuery();
+        const listId = this.getSearchQuery();
         logger.info(
-          `Processing search query: ${searchQuery} (Type: ${this.lastUsedType})`
+          `Processing list ID: ${listId} (Type: ${this.lastUsedType})`
         );
 
-        const searchUrl = `https://twitter.com/search?q=${encodeURIComponent(
-          searchQuery
-        )}`;
+        const listUrl = `https://twitter.com/i/lists/${listId}`;
 
-        await this.page.goto(searchUrl, {
+        await this.page.goto(listUrl, {
           waitUntil: "domcontentloaded",
           timeout: 60000,
         });
@@ -563,7 +522,7 @@ class TwitterService {
         return {
           threads: content,
           queryType: this.lastUsedType,
-          searchQuery: searchQuery,
+          searchQuery: listId,
         };
       } catch (error) {
         logger.error(
