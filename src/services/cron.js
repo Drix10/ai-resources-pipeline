@@ -73,6 +73,56 @@ function getTopicName(queryType) {
 
 let scheduledJob = null;
 
+const scheduleRandomJob = () => {
+  const RandNum = Math.floor(Math.random() * 7) + 1;
+  const schedule = `0 */${RandNum} * * *`;
+
+  if (!cron.validate(schedule)) {
+    throw new Error(`Invalid cron schedule: ${schedule}`);
+  }
+
+  logger.info(`Scheduling job to run every ${RandNum} hours`);
+
+  if (scheduledJob) {
+    scheduledJob.stop();
+    scheduledJob = null;
+  }
+
+  scheduledJob = cron.schedule(
+    schedule,
+    async () => {
+      const timestamp = new Date().toISOString();
+      logger.info(`Running scheduled pipeline at ${timestamp}`);
+
+      try {
+        if (mongoose.connection.readyState !== 1) {
+          throw new Error("Database connection not established");
+        }
+        runInitialPipeline();
+      } catch (error) {
+        logger.error("Scheduled pipeline failed:", error);
+
+        if (mongoose.connection.readyState !== 1) {
+          try {
+            await mongoose.connect(config.mongodb.uri);
+          } catch (dbError) {
+            logger.error("Failed to reconnect to database:", dbError);
+          }
+        }
+      }
+
+      scheduleRandomJob();
+    },
+    {
+      scheduled: true,
+      timezone: "UTC",
+      runOnInit: false,
+    }
+  );
+
+  logger.info(`Cron job initialized with schedule: ${schedule}`);
+};
+
 const initCronJob = () => {
   try {
     if (scheduledJob) {
@@ -80,46 +130,10 @@ const initCronJob = () => {
       return scheduledJob;
     }
 
-    const RandNum = Math.floor(Math.random() * 7) + 1;
-    const schedule = `0 */${RandNum} * * *`;
-    if (!cron.validate(schedule)) {
-      throw new Error(`Invalid cron schedule: ${schedule}`);
-    }
-
     logger.info("Running initial pipeline execution...");
     runInitialPipeline();
+    scheduleRandomJob();
 
-    scheduledJob = cron.schedule(
-      schedule,
-      async () => {
-        const timestamp = new Date().toISOString();
-        logger.info(`Running scheduled pipeline at ${timestamp}`);
-
-        try {
-          if (mongoose.connection.readyState !== 1) {
-            throw new Error("Database connection not established");
-          }
-          runInitialPipeline();
-        } catch (error) {
-          logger.error("Scheduled pipeline failed:", error);
-
-          if (mongoose.connection.readyState !== 1) {
-            try {
-              await mongoose.connect(config.mongodb.uri);
-            } catch (dbError) {
-              logger.error("Failed to reconnect to database:", dbError);
-            }
-          }
-        }
-      },
-      {
-        scheduled: true,
-        timezone: "UTC",
-        runOnInit: false,
-      }
-    );
-
-    logger.info(`Cron job initialized with schedule: ${schedule}`);
     return scheduledJob;
   } catch (error) {
     logger.error("Failed to initialize cron job:", error);
