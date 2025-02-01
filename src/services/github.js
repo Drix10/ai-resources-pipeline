@@ -126,13 +126,7 @@ class GithubService {
 
       const fileUrl = `https://github.com/${owner}/${repo}/blob/main/${urlSafeFolder}/${fileName}`;
 
-      await this.updateReadmeWithNewFile(
-        owner,
-        repo,
-        fileUrl,
-        nextNumber,
-        decodedFolder
-      );
+      await this.updateReadmeWithNewFile(owner, repo);
 
       return {
         success: true,
@@ -189,7 +183,7 @@ class GithubService {
     }
   }
 
-  async updateReadmeWithNewFile(owner, repo, fileUrl, number, folder) {
+  async updateReadmeWithNewFile(owner, repo) {
     try {
       const path = "README.md";
       const existing = await this.octokit.repos
@@ -210,21 +204,45 @@ class GithubService {
         [config.github.folderThree]: "📈 Productivity & Growth",
       };
 
-      const category = categoryTitles[folder] || "📝 Updates";
-      const newEntry = `- [#${String(number).padStart(
-        3,
-        "0"
-      )}](${fileUrl}) - Latest ${folder.replace("-", " ")} collection`;
+      let newContent = "";
+      for (const [folder, title] of Object.entries(categoryTitles)) {
+        const decodedFolder = decodeURIComponent(folder).replace(/%20/g, " ");
+        try {
+          const { data } = await this.octokit.repos.getContent({
+            owner,
+            repo,
+            path: decodedFolder,
+          });
 
-      if (content.includes(`## ${category}`)) {
-        const updateSection = content.split(`## ${category}`);
-        const updates = updateSection[1].split("\n").slice(0, 10);
-        content = `${
-          updateSection[0]
-        }## ${category}\n${newEntry}\n${updates.join("\n")}`;
-      } else {
-        content += `\n\n## ${category}\n${newEntry}`;
+          const files = data
+            .filter((file) => file.name.match(/^resources-\d{3}\.md$/))
+            .map((file) => ({
+              number: parseInt(file.name.match(/\d{3}/)[0]),
+              url: `https://github.com/${owner}/${repo}/blob/main/${encodeURIComponent(
+                decodedFolder
+              )}/${file.name}`,
+            }))
+            .sort((a, b) => b.number - a.number);
+
+          newContent += `\n## ${title}\n`;
+          if (files.length > 0) {
+            const latest = files[0];
+            newContent += `- [#${String(latest.number).padStart(3, "0")}](${
+              latest.url
+            }) - Latest update from ${title}\n`;
+          } else {
+            newContent += "No recent updates\n";
+          }
+        } catch (error) {
+          if (error.status !== 404) {
+            throw error;
+          }
+          newContent += `\n## ${title}\nNo recent updates\n`;
+        }
       }
+
+      const existingBeforeSection = content.split("\n## ")[0] || "";
+      content = existingBeforeSection + newContent.trim();
 
       await this.createOrUpdateReadme(owner, repo, content);
     } catch (error) {

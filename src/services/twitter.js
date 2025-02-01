@@ -129,7 +129,7 @@ class TwitterService {
 
   async findContent() {
     try {
-      const THREADS_NEEDED = 10;
+      const THREADS_NEEDED = 15;
       const MAX_SCROLL_ATTEMPTS = 1500;
       const SCROLL_PAUSE = 3000;
       const MAX_NO_NEW_TWEETS = 10;
