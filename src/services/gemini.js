@@ -4,7 +4,7 @@ const {
   HarmCategory,
 } = require("@google/generative-ai");
 const config = require("../../config");
-const { logger } = require("../utils/helpers");
+const { logger, sleep } = require("../utils/helpers");
 
 class GeminiService {
   constructor() {
@@ -106,64 +106,68 @@ Note:
     }
   }
 
-  async generateMarkdown(threads) {
+  async generateMarkdown(threads, retries = 3) {
     try {
-      let allMarkdown = "";
+      if (!threads || threads.length === 0) {
+        logger.warn("No threads provided to generateMarkdown.");
+        return "";
+      }
 
+      let combinedPrompt = "";
       const exampleFormat = `
       Example of perfect formatting:
-      
+
       ---
       ### 🤖 Observability, Evaluation, and RAG Implementation
-      
+
       This article outlines the differences between analytics and observability, explains the components needed for a Retrieval Augmented Generation (RAG) system, and provides implementation guidance.
-      
+
       Key Points:
       • Analytics provides high-level metrics like user counts and page views.
 
       • Observability offers deeper insights into individual user requests and responses.
-      
+
       • A basic RAG system requires an inference provider and a vector database.
-      
+
 
       🚀 Implementation:
       1. Choose an Inference Provider: Select a service that provides the necessary AI model.
       2. Select a Vector Database: Choose a database suitable for storing embeddings.
       3. Develop Retrieval Logic: Implement logic to retrieve relevant information.
-      
+
       🔗 Resources:
       • [Tool Name](https://example.com) - Brief description of the tool.
 
       • [Another Tool](https://example.com) - What this tool helps with.
       `;
 
-      for (const thread of threads) {
-        if (!thread.tweets || thread.tweets.length === 0) {
-          logger.warn("Skipping thread with no tweets");
-          continue;
+      const groupedThreads = this.groupTweetsByConversation(
+        threads.flatMap((thread) => thread.tweets)
+      );
+
+      for (const threadTweets of groupedThreads) {
+        let threadContent = "";
+
+        for (const tweet of threadTweets) {
+          let content = tweet.text || "";
+
+          if (tweet.images && tweet.images.length > 0) {
+            content +=
+              "\n\n" + tweet.images.map((img) => `![Image](${img})`).join("\n");
+          }
+          if (tweet.links && tweet.links.length > 0) {
+            content += "\n\nLinks:\n" + tweet.links.join("\n");
+          }
+
+          threadContent += content + "\n\n---\n\n";
         }
 
-        const tweetContent = thread.tweets
-          .map((tweet) => {
-            let content = tweet.text || "";
+        combinedPrompt += threadContent;
+      }
 
-            if (tweet.images && tweet.images.length > 0) {
-              content +=
-                "\n\n" +
-                tweet.images.map((img) => `![Image](${img})`).join("\n");
-            }
+      console.log(combinedPrompt);
 
-            return content;
-          })
-          .join("\n\n");
-
-        const links = [
-          ...new Set(
-            thread.tweets.flatMap((tweet) => tweet.links || []).filter(Boolean)
-          ),
-        ];
-
-        const prompt = `
+      const prompt = `
 You are a professional technical content curator. Transform this Twitter thread into a high-quality markdown article following these EXACT specifications:
 
 FORMAT REQUIREMENTS:
@@ -190,6 +194,7 @@ FORMAT REQUIREMENTS:
    - No emojis in points
    - Example:
      Key Points:
+
      • First key point about the topic
 
      • Second key point about functionality
@@ -205,11 +210,12 @@ FORMAT REQUIREMENTS:
    - Double newline between each bullet point
    - Double newline after last bullet point
    - Example format:
-     Key Points:  
+     Key Points:
+
      • Point one
-   
+
      • Point two
-   
+
      • Point three
 
 4. IMPLEMENTATION (IF APPLICABLE):
@@ -248,12 +254,10 @@ STRICT FORMATTING RULES:
 - No extra horizontal rules
 
 Here's the content to transform:
-${tweetContent}
+${combinedPrompt}
 
 Here's the example format:
 ${exampleFormat}
-
-${links.length > 0 ? `\nRelevant Links:\n${links.join("\n")}` : ""}
 
 Remember:
 1. Keep it professional and technical
@@ -261,6 +265,9 @@ Remember:
 3. No deviations from the structure
 4. No extra decorative elements
 5. Verify all links before including
+6. **Process each conversation as a single unit.**
+7. **Do not repeat content or links within a single article.**
+8. **Preserve original hashtags and mentions (e.g., @username, #hashtag).**
 
 Note:
 1. Always include the original context from the thread
@@ -269,68 +276,20 @@ Note:
 4. Fill it with your best knowledge of the topic, if not enough context is provided.
 5. When alot of context is missing, write a detailed introduction about the topic and provide links to more information.`;
 
-        try {
-          const result = await this.model.generateContent(prompt);
-          let generatedText = result.response.text();
+      try {
+        await this.checkRateLimit();
+        const result = await this.model.generateContent(prompt);
+        let generatedText = result.response.text();
+        console.log(generatedText);
 
-          generatedText = generatedText
-            .replace(
-              /!\[\]\((https?:\/\/[^\s)]+)\)/g,
-              "![Image Description Here]($1)"
-            )
+        generatedText = generatedText
+          .replace(/```markdown/g, "")
+          .replace(/```/g, "")
+          .trim();
 
-            .replace(
-              /\[(https?:\/\/[^\s\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
-              "[Resource Link]($2)"
-            );
+        generatedText = generatedText.replace(/^---\s*\n/, "");
 
-          generatedText = generatedText
-            .replace(/```markdown/g, "")
-            .replace(/```/g, "")
-            .trim();
-
-          generatedText = generatedText.replace(/^---\s*\n/, "");
-
-          if (
-            !generatedText ||
-            !generatedText.match(/^### [🔗🚀⚡️💡🔨🛠️🤖✨🌟🔥]/)
-          ) {
-            logger.warn("Invalid content format, skipping...");
-            continue;
-          }
-
-          const sections = generatedText
-            .split(/\n---\n/)
-            .map((section) => section.trim())
-            .filter((section) => {
-              return (
-                section.match(/^### [🔗🚀⚡️💡🔨🛠️🤖✨🌟🔥]/) &&
-                section.length > 10
-              );
-            });
-
-          if (sections.length === 0) {
-            logger.warn("No valid sections found after cleanup");
-            continue;
-          }
-
-          generatedText = sections.join("\n\n---\n\n").trim();
-
-          if (allMarkdown) {
-            allMarkdown += "\n\n---\n\n";
-          }
-          allMarkdown += generatedText;
-        } catch (error) {
-          logger.error("Failed to generate content for thread:", error);
-          continue;
-        }
-      }
-
-      if (!allMarkdown.trim()) {
-        throw new Error("No markdown content was generated");
-      }
-
-      const supportSection = `
+        const supportSection = `
 ---
 
 ### ⭐️ Support
@@ -339,13 +298,55 @@ If you liked reading this report, please star ⭐️ this repository and follow 
 
 ---`;
 
-      return (
-        allMarkdown.replace(/\n---\n\s*$/g, "").trim() + "\n\n" + supportSection
-      );
+        return (
+          generatedText.replace(/\n---\n\s*$/g, "").trim() +
+          "\n\n" +
+          supportSection
+        );
+      } catch (error) {
+        console.log(error);
+        if (retries > 0) {
+          logger.warn(
+            `error, retrying in 60 seconds... (${retries} retries remaining)`
+          );
+          await sleep(60000);
+          return this.generateMarkdown(threads, retries - 1);
+        }
+        logger.error("Failed to generate content:", error);
+        throw error;
+      }
     } catch (error) {
       logger.error("Error in markdown generation:", error);
       throw error;
     }
+  }
+
+  async checkRateLimit() {
+    if (!this.lastRequestTime) {
+      this.lastRequestTime = 0;
+    }
+    if (!this.requestsThisMinute) {
+      this.requestsThisMinute = 0;
+    }
+
+    const now = Date.now();
+    if (now - this.lastRequestTime < 60000) {
+      if (this.requestsThisMinute >= 55) {
+        const waitTime = 60000 - (now - this.lastRequestTime);
+        logger.info(
+          `Gemini Rate limit: Waiting ${
+            waitTime / 1000
+          } seconds before next request`
+        );
+        await sleep(waitTime);
+        this.requestsThisMinute = 0;
+        this.lastRequestTime = Date.now();
+      }
+    } else {
+      this.requestsThisMinute = 0;
+      this.lastRequestTime = now;
+    }
+    this.requestsThisMinute++;
   }
 
   groupTweetsByConversation(tweets) {

@@ -189,77 +189,45 @@ class GithubService {
         return;
       }
 
-      const headerContent = `<div align="center">
+      const headerContent = `
+<div align="center">
   <h1><a href="https://x.com/DRIX_10_" target="_blank">🚀 AI Resources by DRIX10</a></h1>
   <p><strong>Explore a comprehensive collection of top AI resources, cutting-edge productivity hacks, and innovative tools, curated by experts on 𝕏</strong></p>
   <p>🌟 Daily updates • 💡 Expert insights • 🔥 Trending tools • 💻 Developer resources</p>
-</div>
 
-<div align="center">
-  <img src="https://img.shields.io/badge/Maintainer-Drix10-blue" alt="Maintainer Drix10" />
-  <img src="https://img.shields.io/badge/Topics-Productivity%2C%20AI%2C%20Tips%20and%20Tricks-red" alt="Topics" />
-  <img src="https://img.shields.io/github/last-commit/Drix10/ai-resources?style=flat-square&color=5D6D7E" alt="Last Updated" />
-  <img src="https://img.shields.io/github/stars/Drix10/ai-resources?style=social" alt="GitHub Stars" />
+  <img src="https://img.shields.io/badge/Maintainer-Drix10-blue?style=for-the-badge" alt="Maintainer Drix10" />
+  <img src="https://img.shields.io/badge/Topics-Productivity%2C%20AI%2C%20Tips%20and%20Tricks-red?style=for-the-badge" alt="Topics" />
+  <img src="https://img.shields.io/github/last-commit/Drix10/ai-resources?style=for-the-badge&color=5D6D7E" alt="Last Updated" />
+  <a href="https://github.com/Drix10/ai-resources"><img src="https://img.shields.io/github/stars/Drix10/ai-resources?style=for-the-badge&color=yellow" alt="GitHub Stars" /></a>
+
+  <br>
+
+  <h3>🌟 Quick Links</h3>
+    <a href="https://x.com/DRIX_10_">
+      <img src="https://img.shields.io/badge/Follow_on_𝕏-black?style=for-the-badge&logo=x&logoColor=white" alt="Follow on X" />
+    </a>
+    <a href="https://github.com/Drix10">
+      <img src="https://img.shields.io/badge/Follow_on_GitHub-black?style=for-the-badge&logo=github&logoColor=white" alt="Follow on GitHub" />
+    </a>
 </div>
 
 ---
 
-<div align="center">
-  <table>
-    <tr>
-      <td align="center">
-        <b>🎯 Categories</b>
-        <br />
-        • AI & ML Tools
-        <br />
-        • Development Tips
-        <br />
-        • Growth Hacks
-      </td>
-      <td align="center">
-        <b>🌟 Features</b>
-        <br />
-        • Daily Updates
-        <br />
-        • Expert Curation
-        <br />
-        • Practical Examples
-      </td>
-      <td align="center">
-        <b>🔥 Highlights</b>
-        <br />
-        • Trending Tools
-        <br />
-        • Best Practices
-        <br />
-        • Community Picks
-      </td>
-    </tr>
-  </table>
-</div>
+## 📚 Resource Categories
 
-<div align="center">
-  <h3>🌟 Quick Links</h3>
-  <a href="https://x.com/DRIX_10_">
-    <img src="https://img.shields.io/badge/Follow_on_𝕏-black?style=for-the-badge&logo=x&logoColor=white" alt="Follow on X" />
-  </a>
-  <a href="https://github.com/Drix10">
-    <img src="https://img.shields.io/badge/Follow_on_GitHub-black?style=for-the-badge&logo=github&logoColor=white" alt="Follow on GitHub" />
-  </a>
-</div>
+`;
 
----\n`;
-
-      // Use config.folders to generate the updates content
       let updatesContent = "";
+
       for (const folder of config.folders) {
-        const decodedFolder = folder.name.replace(/ /g, " "); // No need to decode
+        const decodedFolder = folder.name.replace(/ /g, " ");
         try {
           const { data } = await this.octokit.repos.getContent({
             owner,
             repo,
             path: decodedFolder,
           });
+
           const files = data
             .filter((file) => file.name.match(/^resources-\d{3}\.md$/))
             .map((file) => ({
@@ -270,36 +238,35 @@ class GithubService {
             }))
             .sort((a, b) => b.number - a.number);
 
-          updatesContent += `
-<div align="center">
-<h2 style="margin: 0;">${folder.name}</h2>
-${
-  files.length > 0
-    ? `<p>• <a href="${files[0].url}">#${String(files[0].number).padStart(
-        3,
-        "0"
-      )}</a> - Latest update from ${folder.name}</p>`
-    : "<p>No recent updates</p>"
-}
-</div>
-`;
-        } catch (error) {
-          if (error.status !== 404) {
-            throw error;
+          updatesContent += `### ${folder.name}\n\n`;
+
+          if (files.length > 0) {
+            updatesContent += `*   [Latest Update (#${String(
+              files[0].number
+            ).padStart(3, "0")})](${files[0].url}) - *${
+              folder.description || "Resources related to " + folder.name
+            }*\n`;
+          } else {
+            updatesContent += `*   No resources yet.\n`;
           }
-          updatesContent += `
-<div align="center">
-  <h2 style="margin: 0;">${folder.name}</h2>
-  <p>No recent updates</p>
-</div>
-`;
+          updatesContent += "\n";
+        } catch (error) {
+          if (error.status === 404) {
+            updatesContent += `### ${folder.name}\n\n`;
+            updatesContent += `*   No resources yet.\n\n`;
+          } else {
+            logger.error(`Error getting content for ${decodedFolder}:`, error);
+            updatesContent += `### ${folder.name}\n\n`;
+            updatesContent += `*   Error loading resources.\n\n`;
+          }
         }
       }
 
-      const newContent = headerContent + updatesContent.trim() + "\n";
+      const newContent = headerContent + updatesContent;
+
       await this.createOrUpdateReadme(owner, repo, newContent);
     } catch (error) {
-      logger.warn("Failed to update README with new file link:", error);
+      logger.error("Failed to update README:", error);
     }
   }
 

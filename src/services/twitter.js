@@ -1,12 +1,13 @@
 const puppeteer = require("puppeteer");
 const config = require("../../config");
-const { Tweet } = require("../utils/dbConnection");
 const { logger, sleep } = require("../utils/helpers");
 
 class TwitterService {
   constructor() {
     this.browser = null;
     this.page = null;
+    this.RATE_LIMIT_DELAY = 60000;
+    this.lastRequestTime = 0;
   }
 
   getSearchQuery(folder) {
@@ -18,6 +19,18 @@ class TwitterService {
       listId: folder.lists[listIndex],
       name: folder.name,
     };
+  }
+
+  async checkRateLimit() {
+    const now = Date.now();
+    if (now - this.lastRequestTime < this.RATE_LIMIT_DELAY) {
+      const waitTime = this.RATE_LIMIT_DELAY - (now - this.lastRequestTime);
+      logger.info(
+        `Rate limit: Waiting ${waitTime / 1000} seconds before next request`
+      );
+      await sleep(waitTime);
+    }
+    this.lastRequestTime = Date.now();
   }
 
   async init() {
@@ -56,6 +69,7 @@ class TwitterService {
             "--metrics-recording-only",
             "--mute-audio",
             "--js-flags=--max-old-space-size=4096",
+            "--disable-web-security",
           ],
 
           // Use these args when running locally
@@ -104,20 +118,20 @@ class TwitterService {
 
   async findContent() {
     try {
-      const THREADS_NEEDED = 15;
-      const MAX_SCROLL_ATTEMPTS = 1500;
-      const SCROLL_PAUSE = 3000;
-      const MAX_NO_NEW_TWEETS = 10;
-      const INITIAL_LOAD_TIMEOUT = 10000;
+      const THREADS_NEEDED = 10;
+      const MAX_SCROLL_ATTEMPTS = 30;
+      const SCROLL_PAUSE = 5000;
       let collectedContent = [];
       let scrollAttempts = 0;
       let processedTweetIds = new Set();
       let lastHeight = 0;
       let noNewTweetsCount = 0;
+      const MAX_NO_NEW_TWEETS = 15;
+      let validTweetsCount = 0;
 
       try {
         await this.page.waitForSelector('article[data-testid="tweet"]', {
-          timeout: INITIAL_LOAD_TIMEOUT,
+          timeout: 10000,
         });
       } catch (error) {
         logger.warn("No tweets found on initial load, retrying scroll...");
@@ -125,12 +139,12 @@ class TwitterService {
 
       while (
         scrollAttempts < MAX_SCROLL_ATTEMPTS &&
-        collectedContent.length < THREADS_NEEDED
+        validTweetsCount < THREADS_NEEDED
       ) {
         logger.info(
-          `Scroll attempt ${scrollAttempts + 1}/${MAX_SCROLL_ATTEMPTS}, found ${
-            collectedContent.length
-          }/${THREADS_NEEDED} content pieces`
+          `Scroll attempt ${
+            scrollAttempts + 1
+          }/${MAX_SCROLL_ATTEMPTS}, found ${validTweetsCount}/${THREADS_NEEDED} content pieces`
         );
 
         await this.page.evaluate(() => {
@@ -146,6 +160,7 @@ class TwitterService {
           const tweets = Array.from(
             document.querySelectorAll('article[data-testid="tweet"]')
           );
+
           return tweets
             .map((tweet) => {
               try {
@@ -153,15 +168,9 @@ class TwitterService {
                   .querySelector('[data-testid="tweetText"]')
                   ?.innerText?.trim();
 
-                if (!tweetText || tweetText.length < 60) return null;
-                if (
-                  tweetText.includes("Follow me") ||
-                  tweetText.includes("RT if") ||
-                  tweetText.includes("retweet if") ||
-                  (tweetText.includes("giveaway") && tweetText.length < 120) ||
-                  (tweetText.includes("contest") && tweetText.length < 120)
-                )
+                if (!tweetText || tweetText.length < 150) {
                   return null;
+                }
 
                 const threadContainer = tweet.closest(
                   '[data-testid="cellInnerDiv"]'
@@ -170,68 +179,32 @@ class TwitterService {
                   !threadContainer?.previousElementSibling?.querySelector(
                     '[data-testid="tweet"]'
                   );
-                const isReply = tweet.querySelector('[data-testid="reply"]');
-                const isQuote = tweet.querySelector('[data-testid="quote"]');
-
-                const links = Array.from(
-                  tweet.querySelectorAll('a[href*="http"]')
-                )
+                if (!isThreadStart) {
+                  return null;
+                }
+                const links = Array.from(tweet.querySelectorAll("a[href]"))
                   .map((a) => a.href)
                   .filter(
                     (href) =>
-                      !href.includes("twitter.com") &&
-                      !href.includes("x.com") &&
-                      !href.includes("t.co")
+                      !href.includes("status") && !href.includes("x.com")
                   );
 
-                const qualityScore = [
-                  links.length > 0 ? 1 : 0,
-                  /\d+\.|\(\d+\)/.test(tweetText) ? 2 : 0,
-                  /[•●\-\*\+]/.test(tweetText) ? 2 : 0,
-                  /🧵|thread|1\/|1\)|part 1|tips|guide/i.test(tweetText)
-                    ? 2
-                    : 0,
-                  /how to|learn|guide|tips|steps|ways|reasons|tools|resources|tutorial|explained/i.test(
-                    tweetText
-                  )
-                    ? 2
-                    : 0,
-                  tweetText.length > 200
-                    ? 3
-                    : tweetText.length > 150
-                    ? 2
-                    : tweetText.length > 100
-                    ? 1
-                    : 0,
-                  isThreadStart ? 2 : 0,
-                  !isReply && !isQuote ? 1 : 0,
-                  /[\n\r]/.test(tweetText) ? 1 : 0,
-                  /(important|key|crucial|essential|note|remember|tip:)/i.test(
-                    tweetText
-                  )
-                    ? 1
-                    : 0,
-                ].reduce((a, b) => a + b, 0);
-
-                const hasGoodFormatting =
-                  /\d+\.|\(\d+\)/.test(tweetText) &&
-                  /[•●\-\*\+]/.test(tweetText) &&
-                  /[\n\r]/.test(tweetText);
-                const isEducational =
-                  /how to|learn|guide|tutorial|explained/i.test(tweetText) &&
-                  tweetText.length > 150;
-
-                if (hasGoodFormatting || isEducational) {
-                  qualityScore += 2;
-                }
-
-                if (qualityScore < 2) return null;
+                const images = Array.from(
+                  tweet.querySelectorAll('[data-testid="tweetPhoto"] img')
+                ).map((img) => {
+                  const computedStyle = window.getComputedStyle(img);
+                  return computedStyle
+                    .getPropertyValue("background-image")
+                    .slice(5, -2);
+                });
 
                 const threadTweets = [];
                 if (isThreadStart) {
                   let nextContainer = threadContainer?.nextElementSibling;
                   threadTweets.push({
                     text: tweetText,
+                    links: links,
+                    images: images,
                   });
 
                   while (nextContainer) {
@@ -239,6 +212,7 @@ class TwitterService {
                       'article[data-testid="tweet"]'
                     );
                     if (!nextTweet) break;
+
                     const originalAuthor = tweet
                       .querySelector('a[href*="/status/"]')
                       ?.href.split("/")[3];
@@ -250,29 +224,49 @@ class TwitterService {
                     const nextText = nextTweet
                       .querySelector('[data-testid="tweetText"]')
                       ?.innerText?.trim();
-                    if (!nextText) break;
+                    if (!nextText || nextText.length < 50) {
+                      break;
+                    }
+
+                    const nextLinks = Array.from(
+                      nextTweet.querySelectorAll("a[href]")
+                    )
+                      .map((a) => a.href)
+                      .filter(
+                        (href) =>
+                          !href.includes("status") && !href.includes("x.com")
+                      );
+
+                    const nextImages = Array.from(
+                      nextTweet.querySelectorAll(
+                        '[data-testid="tweetPhoto"] img'
+                      )
+                    ).map((img) => {
+                      const computedStyle = window.getComputedStyle(img);
+                      return computedStyle
+                        .getPropertyValue("background-image")
+                        .slice(5, -2);
+                    });
 
                     threadTweets.push({
                       text: nextText,
+                      links: nextLinks,
+                      images: nextImages,
                     });
 
                     nextContainer = nextContainer.nextElementSibling;
                   }
                 }
+                if (threadTweets.length === 0) {
+                  return null;
+                }
 
                 return {
-                  tweets: isThreadStart
-                    ? threadTweets
-                    : [
-                        {
-                          text: tweetText,
-                        },
-                      ],
+                  tweets: threadTweets,
                   url: tweet.querySelector('a[href*="/status/"]')?.href,
                   timestamp: tweet
                     .querySelector("time")
                     ?.getAttribute("datetime"),
-                  qualityScore: qualityScore,
                   isThreadStart: isThreadStart,
                 };
               } catch (error) {
@@ -283,57 +277,39 @@ class TwitterService {
             .filter(Boolean);
         });
 
-        if (potentialContent.length > 0) {
-          noNewTweetsCount = 0;
-        } else {
-          noNewTweetsCount++;
-          if (noNewTweetsCount >= MAX_NO_NEW_TWEETS) {
-            logger.info(
-              "No new tweets found after multiple attempts, trying page refresh..."
-            );
-            await this.page.reload({ waitUntil: "networkidle0" });
-            noNewTweetsCount = 0;
-            continue;
-          }
-        }
-
         for (const content of potentialContent) {
-          if (collectedContent.length >= THREADS_NEEDED) break;
+          if (validTweetsCount >= THREADS_NEEDED) break;
           const tweetId = content.url.split("/status/")[1]?.split("?")[0];
           if (!tweetId || processedTweetIds.has(tweetId)) continue;
           processedTweetIds.add(tweetId);
 
-          try {
-            const existingTweet = await Tweet.findOne({ id: tweetId });
-            if (!existingTweet) {
-              logger.info(`Processing: ${content.url}`);
-              collectedContent.push(content);
-            } else {
-              logger.debug(`Skipping existing tweet: ${content.url}`);
-            }
-          } catch (dbError) {
-            if (dbError.code !== 11000) {
-              logger.error(
-                `Database operation failed for ${content.url}:`,
-                dbError
-              );
-            }
-            continue;
-          }
+          collectedContent.push(content);
+          validTweetsCount++;
         }
+        scrollAttempts++;
 
         if (currentHeight === lastHeight) {
           noNewTweetsCount++;
+          if (noNewTweetsCount >= MAX_NO_NEW_TWEETS) {
+            logger.warn(
+              "No new tweets detected.  Refreshing and resetting counters."
+            );
+            await this.page.reload({
+              waitUntil: ["networkidle0", "domcontentloaded"],
+            });
+            noNewTweetsCount = 0;
+          }
         } else {
-          lastHeight = currentHeight;
+          noNewTweetsCount = 0;
         }
-        scrollAttempts++;
+        lastHeight = currentHeight;
       }
 
+      logger.info(`Collected ${validTweetsCount} valid content pieces`);
       return collectedContent;
     } catch (error) {
       logger.error("Error in findContent:", error);
-      return [];
+      throw error;
     }
   }
 
@@ -489,14 +465,14 @@ class TwitterService {
         if (!this.page) {
           await this.init();
         }
-
+        await this.checkRateLimit();
         const { listId, name } = this.getSearchQuery(folder);
         logger.info(`Processing list ID: ${listId} (Type: ${name})`);
         const listUrl = `https://x.com/i/lists/${listId}`;
 
         await this.page.goto(listUrl, {
-          waitUntil: "domcontentloaded",
-          timeout: 60000,
+          waitUntil: "networkidle0",
+          timeout: 120000,
         });
 
         const content = await this.findContent();

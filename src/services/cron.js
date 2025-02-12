@@ -23,7 +23,8 @@ const runDataPipeline = async (folder) => {
       if (result.threads.length > 0) {
         const githubResult = await GithubService.createMarkdownFileFromTweets(
           result.threads,
-          result.queryName
+          result.queryName,
+          folder
         );
         if (!githubResult?.success) {
           throw new Error("Failed to create and upload markdown file");
@@ -105,6 +106,7 @@ const scheduleRandomJob = () => {
             );
           }
         }
+        await GithubService.updateReadmeWithNewFile();
       } catch (error) {
         logger.error("Scheduled pipeline failed:", error);
 
@@ -177,6 +179,7 @@ const runInitialPipeline = async () => {
         );
       }
     }
+    await GithubService.updateReadmeWithNewFile();
   } catch (error) {
     logger.error("Initial pipeline execution failed:", error);
     if (mongoose.connection.readyState !== 1) {
