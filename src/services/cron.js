@@ -7,68 +7,61 @@ const mongoose = require("mongoose");
 
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 5000;
-
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const runDataPipeline = async (retryCount = 0) => {
-  try {
-    const result = await TwitterService.fetchTweets();
-    if (!result || !Array.isArray(result.threads)) {
-      throw new Error("No valid tweets returned from Twitter service");
-    }
+const runDataPipeline = async (folder) => {
+  for (let retryCount = 0; retryCount <= MAX_RETRIES; retryCount++) {
+    try {
+      const result = await TwitterService.fetchTweets({ folder });
 
-    if (result.threads.length > 0) {
-      const githubResult = await GithubService.createMarkdownFileFromTweets(
-        result.threads,
-        result.queryType
-      );
-      if (!githubResult?.success) {
-        throw new Error("Failed to create and upload markdown file");
+      if (!result || !Array.isArray(result.threads)) {
+        throw new Error(
+          `No valid tweets returned from Twitter service for folder: ${folder.name}`
+        );
       }
 
-      const tweetText = `New ${getTopicName(
-        result.queryType
-      )} resource added!\n\nMade by @DRIX_10_ via @CosLynxAI\n\nCheck out the latest resource here:\n${
-        githubResult.url
-      }`;
-      await TwitterService.postTweet(tweetText);
+      if (result.threads.length > 0) {
+        const githubResult = await GithubService.createMarkdownFileFromTweets(
+          result.threads,
+          result.queryName
+        );
+        if (!githubResult?.success) {
+          throw new Error("Failed to create and upload markdown file");
+        }
 
-      return {
-        queryType: result.queryType,
-        githubUrl: githubResult.url,
-      };
-    }
-  } catch (error) {
-    handleError(
-      error,
-      `Pipeline error (attempt ${retryCount + 1}/${MAX_RETRIES})`,
-      {
-        retryCount,
-        stats,
+        const tweetText = `New ${getTopicName(
+          result.queryName
+        )} resource added!\n\nMade by @DRIX_10_ via @CosLynxAI\n\nCheck out the latest resource here:\n${
+          githubResult.url
+        }`;
+        await TwitterService.postTweet(tweetText);
+
+        return {
+          queryName: result.queryName,
+          githubUrl: githubResult.url,
+        };
       }
-    );
-
-    if (retryCount < MAX_RETRIES) {
-      logger.info(`Retrying in ${RETRY_DELAY}ms...`);
+      return null;
+    } catch (error) {
+      if (retryCount === MAX_RETRIES) {
+        handleError(
+          error,
+          `Pipeline error for folder type (attempt ${
+            retryCount + 1
+          }/${MAX_RETRIES})`,
+          { folder }
+        );
+        throw error;
+      }
+      logger.info(`Retrying in ${RETRY_DELAY * (retryCount + 1)}ms...`);
       await sleep(RETRY_DELAY * (retryCount + 1));
-      return runDataPipeline(retryCount + 1);
     }
-
-    throw error;
   }
 };
 
-function getTopicName(queryType) {
-  switch (queryType) {
-    case 1:
-      return "AI & Machine Learning";
-    case 2:
-      return "Programming & Development";
-    case 3:
-      return "Productivity & Business";
-    default:
-      return "AI Scrapped";
-  }
+function getTopicName(queryName) {
+  const folder = config.folders.find((f) => f.type === queryName);
+  return folder ? folder.name : "AI Scrapped";
 }
 
 let scheduledJob = null;
@@ -98,7 +91,20 @@ const scheduleRandomJob = () => {
         if (mongoose.connection.readyState !== 1) {
           throw new Error("Database connection not established");
         }
-        runInitialPipeline();
+        await TwitterService.init();
+
+        for (const folder of config.folders) {
+          const result = await runDataPipeline(folder);
+          if (result) {
+            logger.info(
+              `Pipeline succeeded for folder type ${result.queryName}: ${result.githubUrl}`
+            );
+          } else {
+            logger.info(
+              `Pipeline completed for folder, but no new threads were found.`
+            );
+          }
+        }
       } catch (error) {
         logger.error("Scheduled pipeline failed:", error);
 
@@ -151,12 +157,37 @@ const stopCronJob = () => {
   }
 };
 
-const runInitialPipeline = () => {
-  runDataPipeline().catch((error) => {
-    logger.error("Initial pipeline execution failed:", error);
-  });
-};
+const runInitialPipeline = async () => {
+  logger.info("Running initial pipeline execution...");
+  try {
+    if (mongoose.connection.readyState !== 1) {
+      throw new Error("Database connection not established");
+    }
+    await TwitterService.init();
 
+    for (const folder of config.folders) {
+      const result = await runDataPipeline(folder);
+      if (result) {
+        logger.info(
+          `Pipeline succeeded for folder type ${result.queryName}: ${result.githubUrl}`
+        );
+      } else {
+        logger.info(
+          `Pipeline completed for folder, but no new threads were found.`
+        );
+      }
+    }
+  } catch (error) {
+    logger.error("Initial pipeline execution failed:", error);
+    if (mongoose.connection.readyState !== 1) {
+      try {
+        await mongoose.connect(config.mongodb.uri);
+      } catch (dbError) {
+        logger.error("Failed to reconnect to database:", dbError);
+      }
+    }
+  }
+};
 module.exports = {
   runDataPipeline,
   initCronJob,

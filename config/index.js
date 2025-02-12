@@ -16,9 +16,6 @@ const config = {
   github: {
     personalAccessToken: process.env.GITHUB_PAT,
     repo: process.env.GITHUB_REPO,
-    folderOne: process.env.GITHUB_FOLDER_ONE,
-    folderTwo: process.env.GITHUB_FOLDER_TWO,
-    folderThree: process.env.GITHUB_FOLDER_THREE,
   },
   gemini: {
     apiKey: process.env.GEMINI_API_KEY,
@@ -26,6 +23,42 @@ const config = {
   discord: {
     webhookUrl: process.env.DISCORD_WEBHOOK_URL,
   },
+  folders: [
+    {
+      name: "AI Tools and Resources",
+      type: 1,
+      lists: [
+        "1183066543174881282",
+        "1594632801785094146",
+        "1394275179077914632",
+        "1400568686931550217",
+        "1091845227416092673",
+      ],
+    },
+    {
+      name: "Coding and Software Development",
+      type: 2,
+      lists: [
+        "1281694355024011265",
+        "1403650939047890946",
+        "1247246664076800007",
+        "1299970078230765568",
+        "1422301561133228032",
+      ],
+    },
+    {
+      name: "Productivity and Passive Income",
+      type: 3,
+      lists: [
+        "928982358082179072",
+        "1591607866091339786",
+        "1195113292085317632",
+        "1022182056808402945",
+        "1498705679241998337",
+      ],
+    },
+    //add more as needed
+  ],
 };
 
 const requiredConfigs = {
@@ -37,6 +70,7 @@ const requiredConfigs = {
   "GitHub Repository": config.github.repo,
   "Gemini API Key": config.gemini.apiKey,
   "Discord Webhook URL": config.discord.webhookUrl,
+  "Folder(s)": config.folders,
 };
 
 for (const [key, value] of Object.entries(requiredConfigs)) {

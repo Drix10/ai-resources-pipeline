@@ -73,12 +73,10 @@ MONGODB_URI= # The MongoDB URI
 TWITTER_USERNAME= # Your Twitter username
 TWITTER_PASSWORD= # Your Twitter password
 DISCORD_WEBHOOK_URL= # Your Discord webhook URL
-
 GITHUB_REPO=userName/repoName # The repository where the tweets will be saved
-GITHUB_FOLDER_ONE= # The folder where the tweets will be saved
-GITHUB_FOLDER_TWO= # The folder where the tweets will be saved
-GITHUB_FOLDER_THREE= # The folder where the tweets will be saved
 ```
+
+3. Fill/change config/index.js with the Folder name & lists to track
 
 ## 🏗️ Usage
 

@@ -7,43 +7,17 @@ class TwitterService {
   constructor() {
     this.browser = null;
     this.page = null;
-
-    this.listIdsType1 = [
-      "1183066543174881282", // AI/ML list
-      "1594632801785094146",
-      "1394275179077914632",
-      "1400568686931550217",
-      "1091845227416092673",
-    ];
-    this.listIdsType2 = [
-      "1281694355024011265", // Development list
-      "1403650939047890946",
-      "1247246664076800007",
-      "1299970078230765568",
-      "1422301561133228032",
-    ];
-    this.listIdsType3 = [
-      "928982358082179072", // Productivity list
-      "1591607866091339786",
-      "1195113292085317632",
-      "1022182056808402945",
-      "1498705679241998337",
-    ];
-
-    this.currentQueryIndex = 0;
-    this.currentTypeIndex = 0;
-    this.lastUsedType = null;
   }
 
-  getSearchQuery() {
-    const listTypes = [this.listIdsType1, this.listIdsType2, this.listIdsType3];
-
-    this.currentTypeIndex = Math.floor(Math.random() * listTypes.length);
-    const selectedType = listTypes[this.currentTypeIndex];
-    this.currentQueryIndex = Math.floor(Math.random() * selectedType.length);
-
-    this.lastUsedType = this.currentTypeIndex + 1;
-    return selectedType[this.currentQueryIndex];
+  getSearchQuery(folder) {
+    if (!folder || !folder.lists || folder.lists.length === 0) {
+      throw new Error("Invalid folder provided to getSearchQuery");
+    }
+    const listIndex = Math.floor(Math.random() * folder.lists.length);
+    return {
+      listId: folder.lists[listIndex],
+      name: folder.name,
+    };
   }
 
   async init() {
@@ -120,6 +94,7 @@ class TwitterService {
           }
         });
       }
+      await this.login();
     } catch (error) {
       logger.error("Failed to initialize:", error);
       await this.cleanup();
@@ -502,21 +477,22 @@ class TwitterService {
       maxRetries = 3,
       retryDelay = 5000,
       reinitializeOnFailure = true,
+      folder,
     } = options;
+
+    if (!folder) {
+      throw new Error("Folder must be provided to fetchTweets");
+    }
 
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
       try {
         if (!this.page) {
           await this.init();
-          await this.login();
         }
 
-        const listId = this.getSearchQuery();
-        logger.info(
-          `Processing list ID: ${listId} (Type: ${this.lastUsedType})`
-        );
-
-        const listUrl = `https://twitter.com/i/lists/${listId}`;
+        const { listId, name } = this.getSearchQuery(folder);
+        logger.info(`Processing list ID: ${listId} (Type: ${name})`);
+        const listUrl = `https://x.com/i/lists/${listId}`;
 
         await this.page.goto(listUrl, {
           waitUntil: "domcontentloaded",
@@ -527,7 +503,7 @@ class TwitterService {
 
         return {
           threads: content,
-          queryType: this.lastUsedType,
+          queryName: name,
           searchQuery: listId,
         };
       } catch (error) {
