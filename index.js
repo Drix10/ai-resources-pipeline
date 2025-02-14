@@ -1,6 +1,5 @@
 const { logger } = require("./src/utils/helpers");
 const config = require("./config");
-const dbConnection = require("./src/utils/dbConnection");
 const { initCronJob, stopCronJob } = require("./src/services/cron");
 
 const handleShutdown = async (signal) => {
@@ -9,9 +8,6 @@ const handleShutdown = async (signal) => {
   try {
     stopCronJob();
     logger.info("Cron job stopped successfully");
-
-    await dbConnection.disconnect();
-    logger.info("Database disconnected successfully");
 
     logger.info("Graceful shutdown completed");
     process.exit(0);
@@ -24,8 +20,6 @@ const handleShutdown = async (signal) => {
 const startApplication = async () => {
   try {
     logger.info("Starting application...");
-
-    await dbConnection.connect(config.mongodb.uri);
 
     initCronJob();
 

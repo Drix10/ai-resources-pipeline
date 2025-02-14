@@ -1,11 +1,11 @@
-const puppeteer = require("puppeteer");
+const { Builder, By, Key, until } = require("selenium-webdriver");
+const chrome = require("selenium-webdriver/chrome");
 const config = require("../../config");
 const { logger, sleep } = require("../utils/helpers");
 
 class TwitterService {
   constructor() {
-    this.browser = null;
-    this.page = null;
+    this.driver = null;
     this.RATE_LIMIT_DELAY = 60000;
     this.lastRequestTime = 0;
   }
@@ -30,83 +30,26 @@ class TwitterService {
       );
       await sleep(waitTime);
     }
-    this.lastRequestTime = Date.now();
+    this.lastRequestTime = now;
   }
 
   async init() {
     try {
-      if (!this.browser) {
-        this.browser = await puppeteer.launch({
-          headless: true, // false to see the browser live
-          // Use these args when running on a server
-          args: [
-            "--no-sandbox",
-            "--disable-setuid-sandbox",
-            "--window-size=1920,1080",
-            "--disable-notifications",
-            "--disable-gpu",
-            "--disable-dev-shm-usage",
-            "--disable-accelerated-2d-canvas",
-            "--disable-canvas-aa",
-            "--disable-2d-canvas-clip-aa",
-            "--disable-gl-drawing-for-tests",
-            "--no-first-run",
-            "--no-zygote",
-            "--single-process",
-            "--disable-dev-shm-usage",
-            "--disable-infobars",
-            "--disable-background-networking",
-            "--disable-background-timer-throttling",
-            "--disable-backgrounding-occluded-windows",
-            "--disable-breakpad",
-            "--disable-component-extensions-with-background-pages",
-            "--disable-extensions",
-            "--disable-features=TranslateUI",
-            "--disable-ipc-flooding-protection",
-            "--disable-renderer-backgrounding",
-            "--enable-features=NetworkService,NetworkServiceInProcess",
-            "--force-color-profile=srgb",
-            "--metrics-recording-only",
-            "--mute-audio",
-            "--js-flags=--max-old-space-size=4096",
-            "--disable-web-security",
-          ],
+      if (!this.driver) {
+        let options = new chrome.Options();
+        options.addArguments(
+          "--no-sandbox",
+          "--disable-setuid-sandbox",
+          "--window-size=1920,1080",
+          "--disable-notifications",
+          "--disable-gpu",
+          "--disable-dev-shm-usage"
+        );
 
-          // Use these args when running locally
-          //args: [
-          //  "--no-sandbox",
-          //  "--disable-setuid-sandbox",
-          //  "--window-size=1920,1080",
-          //  "--disable-notifications",
-          //  "--disable-gpu",
-          //  "--disable-dev-shm-usage",
-          //],
-
-          protocolTimeout: 180000,
-          timeout: 180000,
-          ignoreHTTPSErrors: true,
-        });
-      }
-
-      if (!this.page) {
-        this.page = await this.browser.newPage();
-        this.page.setDefaultNavigationTimeout(180000);
-        this.page.setDefaultTimeout(180000);
-
-        await this.page.setCacheEnabled(false);
-
-        await this.page.setRequestInterception(true);
-        this.page.on("request", (request) => {
-          if (
-            request.resourceType() === "image" ||
-            request.resourceType() === "stylesheet" ||
-            request.resourceType() === "font"
-          ) {
-            request.abort();
-          } else {
-            request.continue();
-          }
-        });
+        this.driver = await new Builder()
+          .forBrowser("chrome")
+          .setChromeOptions(options)
+          .build();
       }
       await this.login();
     } catch (error) {
@@ -119,22 +62,108 @@ class TwitterService {
   async findContent() {
     try {
       const THREADS_NEEDED = 10;
-      const MAX_SCROLL_ATTEMPTS = 30;
-      const SCROLL_PAUSE = 5000;
+      const MAX_SCROLL_ATTEMPTS = 100;
+      const SCROLL_PAUSE = 3000;
+      const MAX_NO_NEW_TWEETS = 15;
+      const INITIAL_LOAD_TIMEOUT = 30000;
+      const MIN_TOTAL_WORDS = 25;
+
+      const extractTweetData = async (tweetElement) => {
+        if (!tweetElement) return null;
+
+        let quotedTweetText = "";
+        try {
+          const quoteTweet = await tweetElement.findElement(
+            By.xpath('.//*[contains(@href, "/status/")]/ancestor::div[4]')
+          );
+          quotedTweetText = await quoteTweet
+            .findElement(By.css('[data-testid="tweetText"]'))
+            .getText();
+        } catch (quoteError) {}
+
+        let tweetText = "";
+        try {
+          tweetText = await tweetElement
+            .findElement(By.css('[data-testid="tweetText"]'))
+            .getText();
+        } catch (textError) {}
+
+        if (quotedTweetText) {
+          tweetText = `${tweetText}\n\nQuoted Tweet:\n${quotedTweetText}`;
+        }
+
+        let links = [];
+        try {
+          const linkElements = await tweetElement.findElements(By.tagName("a"));
+          for (const linkElement of linkElements) {
+            const href = await linkElement.getAttribute("href");
+            if (
+              href &&
+              !href.includes("x.com") &&
+              !href.includes("twitter.com") &&
+              !href.includes("t.co")
+            ) {
+              links.push(href);
+            }
+          }
+        } catch (e) {}
+
+        let images = [];
+        try {
+          const imageElements = await tweetElement.findElements(
+            By.css('[data-testid="tweetPhoto"] img')
+          );
+          for (const img of imageElements) {
+            images.push(await img.getAttribute("src"));
+          }
+        } catch (imageError) {}
+
+        let videos = [];
+        try {
+          const videoElements = await tweetElement.findElements(
+            By.css("video")
+          );
+          for (const video of videoElements) {
+            videos.push(await video.getAttribute("src"));
+          }
+        } catch (videoError) {}
+
+        let url = "";
+        try {
+          url = await tweetElement
+            .findElement(By.xpath('.//a[contains(@href, "/status/")]'))
+            .getAttribute("href");
+        } catch (urlError) {}
+
+        let timestamp = "";
+        try {
+          timestamp = await tweetElement
+            .findElement(By.tagName("time"))
+            .getAttribute("datetime");
+        } catch (timeError) {}
+
+        return { text: tweetText, links, images, videos, url, timestamp };
+      };
+
       let collectedContent = [];
       let scrollAttempts = 0;
       let processedTweetIds = new Set();
       let lastHeight = 0;
       let noNewTweetsCount = 0;
-      const MAX_NO_NEW_TWEETS = 15;
       let validTweetsCount = 0;
 
       try {
-        await this.page.waitForSelector('article[data-testid="tweet"]', {
-          timeout: 10000,
-        });
+        await this.driver.wait(
+          until.elementLocated(
+            By.css(
+              '[data-testid="cellInnerDiv"] > div > div > article[data-testid="tweet"]'
+            )
+          ),
+          INITIAL_LOAD_TIMEOUT
+        );
       } catch (error) {
-        logger.warn("No tweets found on initial load, retrying scroll...");
+        logger.error("Initial tweet selector not found:", error);
+        throw error;
       }
 
       while (
@@ -144,165 +173,138 @@ class TwitterService {
         logger.info(
           `Scroll attempt ${
             scrollAttempts + 1
-          }/${MAX_SCROLL_ATTEMPTS}, found ${validTweetsCount}/${THREADS_NEEDED} content pieces`
+          }/${MAX_SCROLL_ATTEMPTS}, found ${validTweetsCount}/${THREADS_NEEDED} valid content pieces`
         );
 
-        await this.page.evaluate(() => {
-          window.scrollTo(0, document.documentElement.scrollHeight);
-        });
+        try {
+          await this.driver.executeScript(
+            "window.scrollTo(0, document.body.scrollHeight);"
+          );
+        } catch (scrollError) {
+          logger.warn("Scrolling failed:", scrollError);
+          break;
+        }
+
         await sleep(SCROLL_PAUSE);
 
-        const currentHeight = await this.page.evaluate(
-          "document.documentElement.scrollHeight"
+        const currentHeight = await this.driver.executeScript(
+          "return document.body.scrollHeight;"
         );
 
-        const potentialContent = await this.page.evaluate(() => {
-          const tweets = Array.from(
-            document.querySelectorAll('article[data-testid="tweet"]')
-          );
+        const tweetElements = await this.driver.findElements(
+          By.css(
+            '[data-testid="cellInnerDiv"] > div > div > article[data-testid="tweet"]'
+          )
+        );
 
-          return tweets
-            .map((tweet) => {
-              try {
-                const tweetText = tweet
-                  .querySelector('[data-testid="tweetText"]')
-                  ?.innerText?.trim();
-
-                if (!tweetText || tweetText.length < 150) {
-                  return null;
-                }
-
-                const threadContainer = tweet.closest(
-                  '[data-testid="cellInnerDiv"]'
-                );
-                const isThreadStart =
-                  !threadContainer?.previousElementSibling?.querySelector(
-                    '[data-testid="tweet"]'
-                  );
-                if (!isThreadStart) {
-                  return null;
-                }
-                const links = Array.from(tweet.querySelectorAll("a[href]"))
-                  .map((a) => a.href)
-                  .filter(
-                    (href) =>
-                      !href.includes("status") && !href.includes("x.com")
-                  );
-
-                const images = Array.from(
-                  tweet.querySelectorAll('[data-testid="tweetPhoto"] img')
-                ).map((img) => {
-                  const computedStyle = window.getComputedStyle(img);
-                  return computedStyle
-                    .getPropertyValue("background-image")
-                    .slice(5, -2);
-                });
-
-                const threadTweets = [];
-                if (isThreadStart) {
-                  let nextContainer = threadContainer?.nextElementSibling;
-                  threadTweets.push({
-                    text: tweetText,
-                    links: links,
-                    images: images,
-                  });
-
-                  while (nextContainer) {
-                    const nextTweet = nextContainer.querySelector(
-                      'article[data-testid="tweet"]'
-                    );
-                    if (!nextTweet) break;
-
-                    const originalAuthor = tweet
-                      .querySelector('a[href*="/status/"]')
-                      ?.href.split("/")[3];
-                    const nextAuthor = nextTweet
-                      .querySelector('a[href*="/status/"]')
-                      ?.href.split("/")[3];
-                    if (originalAuthor !== nextAuthor) break;
-
-                    const nextText = nextTweet
-                      .querySelector('[data-testid="tweetText"]')
-                      ?.innerText?.trim();
-                    if (!nextText || nextText.length < 50) {
-                      break;
-                    }
-
-                    const nextLinks = Array.from(
-                      nextTweet.querySelectorAll("a[href]")
-                    )
-                      .map((a) => a.href)
-                      .filter(
-                        (href) =>
-                          !href.includes("status") && !href.includes("x.com")
-                      );
-
-                    const nextImages = Array.from(
-                      nextTweet.querySelectorAll(
-                        '[data-testid="tweetPhoto"] img'
-                      )
-                    ).map((img) => {
-                      const computedStyle = window.getComputedStyle(img);
-                      return computedStyle
-                        .getPropertyValue("background-image")
-                        .slice(5, -2);
-                    });
-
-                    threadTweets.push({
-                      text: nextText,
-                      links: nextLinks,
-                      images: nextImages,
-                    });
-
-                    nextContainer = nextContainer.nextElementSibling;
-                  }
-                }
-                if (threadTweets.length === 0) {
-                  return null;
-                }
-
-                return {
-                  tweets: threadTweets,
-                  url: tweet.querySelector('a[href*="/status/"]')?.href,
-                  timestamp: tweet
-                    .querySelector("time")
-                    ?.getAttribute("datetime"),
-                  isThreadStart: isThreadStart,
-                };
-              } catch (error) {
-                console.error(`Error processing tweet: ${error.message}`);
-                return null;
-              }
-            })
-            .filter(Boolean);
-        });
-
-        for (const content of potentialContent) {
-          if (validTweetsCount >= THREADS_NEEDED) break;
-          const tweetId = content.url.split("/status/")[1]?.split("?")[0];
-          if (!tweetId || processedTweetIds.has(tweetId)) continue;
-          processedTweetIds.add(tweetId);
-
-          collectedContent.push(content);
-          validTweetsCount++;
+        if (tweetElements.length > 0) {
+          noNewTweetsCount = 0;
+        } else {
+          noNewTweetsCount++;
+          if (noNewTweetsCount >= MAX_NO_NEW_TWEETS) {
+            logger.info(
+              "No new tweets found after multiple attempts, skipping..."
+            );
+            break;
+          }
         }
-        scrollAttempts++;
+
+        for (const tweetElement of tweetElements) {
+          if (validTweetsCount >= THREADS_NEEDED) break;
+
+          try {
+            const initialTweetData = await extractTweetData(tweetElement);
+            if (!initialTweetData) continue;
+
+            const threadTweets = [initialTweetData];
+            let nextContainer = null;
+
+            try {
+              nextContainer = await tweetElement.findElement(
+                By.xpath("./following-sibling::div")
+              );
+            } catch (nextError) {}
+
+            while (nextContainer) {
+              let nextTweet = null;
+              try {
+                nextTweet = await nextContainer.findElement(
+                  By.css('article[data-testid="tweet"]')
+                );
+              } catch (findTweetError) {
+                break;
+              }
+
+              if (!nextTweet) break;
+
+              let originalAuthor = "";
+              let nextAuthor = "";
+
+              try {
+                originalAuthor = await tweetElement
+                  .findElement(By.xpath('.//a[contains(@href, "/status/")]'))
+                  .getAttribute("href");
+                originalAuthor = originalAuthor.split("/")[3];
+
+                nextAuthor = await nextTweet
+                  .findElement(By.xpath('.//a[contains(@href, "/status/")]'))
+                  .getAttribute("href");
+                nextAuthor = nextAuthor.split("/")[3];
+              } catch (authorError) {
+                break;
+              }
+
+              if (originalAuthor !== nextAuthor) break;
+
+              const nextTweetData = await extractTweetData(nextTweet);
+              if (!nextTweetData?.text) break;
+
+              threadTweets.push(nextTweetData);
+
+              try {
+                nextContainer = await nextContainer.findElement(
+                  By.xpath("./following-sibling::div")
+                );
+              } catch (nextNextError) {
+                nextContainer = null;
+              }
+            }
+
+            let combinedText = threadTweets.reduce(
+              (acc, curr) => acc + (curr.text || ""),
+              ""
+            );
+            let wordCount = combinedText
+              .split(/\s+/)
+              .filter((word) => word.length > 0).length;
+
+            if (wordCount >= MIN_TOTAL_WORDS) {
+              const tweetId = initialTweetData.url
+                .split("/status/")[1]
+                ?.split("?")[0];
+              if (!tweetId || processedTweetIds.has(tweetId)) continue;
+              processedTweetIds.add(tweetId);
+
+              collectedContent.push({
+                tweets: threadTweets,
+                url: initialTweetData.url,
+                timestamp: initialTweetData.timestamp,
+              });
+              validTweetsCount++;
+            }
+          } catch (processingError) {
+            logger.error("Error processing tweet:", processingError);
+            continue;
+          }
+        }
 
         if (currentHeight === lastHeight) {
           noNewTweetsCount++;
-          if (noNewTweetsCount >= MAX_NO_NEW_TWEETS) {
-            logger.warn(
-              "No new tweets detected.  Refreshing and resetting counters."
-            );
-            await this.page.reload({
-              waitUntil: ["networkidle0", "domcontentloaded"],
-            });
-            noNewTweetsCount = 0;
-          }
         } else {
+          lastHeight = currentHeight;
           noNewTweetsCount = 0;
         }
-        lastHeight = currentHeight;
+        scrollAttempts++;
       }
 
       logger.info(`Collected ${validTweetsCount} valid content pieces`);
@@ -315,135 +317,92 @@ class TwitterService {
 
   async login() {
     try {
-      logger.info("Starting login process...");
-      await this.page.goto("https://twitter.com/i/flow/login", {
-        waitUntil: "networkidle0",
-        timeout: 60000,
-      });
+      await this.driver.get("https://x.com/login");
 
-      logger.info("Waiting for username field...");
-      await this.page.waitForSelector('input[autocomplete="username"]', {
-        visible: true,
-        timeout: 60000,
-      });
-      await sleep(2000);
-      await this.page.type(
-        'input[autocomplete="username"]',
-        config.twitter.username,
-        {
-          delay: 100,
-        }
+      logger.info("Looking for username field...");
+      const usernameInput = await this.driver.wait(
+        until.elementLocated(By.css('input[autocomplete="username"]')),
+        60000
       );
+      await this.driver.wait(until.elementIsVisible(usernameInput), 60000);
+      await this.driver.wait(until.elementIsEnabled(usernameInput), 60000);
+      await usernameInput.sendKeys(config.twitter.username, Key.RETURN);
       logger.info("Username entered");
-      await sleep(2000);
-      await this.page.keyboard.press("Enter");
       await sleep(3000);
 
       logger.info("Checking for email verification...");
-      const emailRequired = await this.page.evaluate(() => {
-        const inputs = Array.from(document.querySelectorAll("input"));
-        const emailInput = inputs.find(
-          (input) =>
-            input.type === "text" ||
-            input.type === "email" ||
-            input.name === "text" ||
-            input.name === "email" ||
-            (input.placeholder &&
-              input.placeholder.toLowerCase().includes("email"))
+      try {
+        const emailInput = await this.driver.wait(
+          until.elementLocated(
+            By.css('input[type="text"], input[type="email"]')
+          ),
+          10000
         );
-        return {
-          required: !!emailInput,
-          type: emailInput?.type || "",
-          placeholder: emailInput?.placeholder || "",
-        };
-      });
-
-      if (emailRequired.required) {
-        logger.info("Email verification required");
+        await this.driver.wait(until.elementIsVisible(emailInput), 10000);
+        await this.driver.wait(until.elementIsEnabled(emailInput), 10000);
 
         if (!config.twitter.email) {
           throw new Error("Email verification required but not configured");
         }
-
-        const emailSelectors = [
-          'input[type="text"]',
-          'input[type="email"]',
-          'input[name="text"]',
-          'input[name="email"]',
-        ];
-
-        let inputFound = false;
-        for (const selector of emailSelectors) {
-          try {
-            const input = await this.page.$(selector);
-            if (input) {
-              await input.type(config.twitter.email, { delay: 100 });
-              inputFound = true;
-              logger.info(`Email entered using selector: ${selector}`);
-              break;
-            }
-          } catch (e) {
-            continue;
-          }
+        await emailInput.sendKeys(config.twitter.email, Key.RETURN);
+        logger.info("Email entered");
+        await sleep(3000);
+      } catch (emailError) {
+        if (emailError.name === "TimeoutError") {
+          logger.info("Email verification not required.");
+        } else {
+          throw emailError;
         }
-
-        if (!inputFound) {
-          throw new Error("Could not find email input field");
-        }
-
-        await sleep(2000);
-
-        await this.page.keyboard.press("Enter");
-
-        await sleep(5000);
       }
 
       logger.info("Looking for password field...");
-
-      const passwordFieldFound = await this.page.evaluate(() => {
-        const inputs = Array.from(document.querySelectorAll("input"));
-        const passwordInput = inputs.find(
-          (input) =>
-            input.type === "password" ||
-            input.name === "password" ||
-            input.autocomplete === "current-password" ||
-            input.placeholder?.toLowerCase().includes("password")
-        );
-        if (passwordInput) {
-          passwordInput.focus();
-          return true;
-        }
-        return false;
-      });
-
-      if (!passwordFieldFound) {
-        await this.page.screenshot({
-          path: "debug-password-not-found.png",
-          fullPage: true,
-        });
-        throw new Error("Could not find password field");
-      }
-
-      logger.info("Password field found, entering password");
-      await sleep(1000);
-      await this.page.keyboard.type(config.twitter.password, { delay: 100 });
-      await sleep(2000);
-      await this.page.keyboard.press("Enter");
+      const passwordInput = await this.driver.wait(
+        until.elementLocated(By.css('input[type="password"]')),
+        60000
+      );
+      await this.driver.wait(until.elementIsVisible(passwordInput), 60000);
+      await this.driver.wait(until.elementIsEnabled(passwordInput), 60000);
+      await passwordInput.sendKeys(config.twitter.password, Key.RETURN);
+      logger.info("Password entered");
       await sleep(5000);
 
-      const loginSuccess = await this.page.evaluate(() => {
-        return !document.querySelector('input[name="password"]');
-      });
+      try {
+        await this.driver.wait(async () => {
+          try {
+            const urlMatches = await until
+              .urlMatches(/twitter\.com\/(home|explore)/)
+              .fn(this.driver);
+            if (urlMatches) return true;
 
-      if (!loginSuccess) {
-        throw new Error("Login failed - password field still present");
+            const elementLocated = await until
+              .elementLocated(By.css('[data-testid="AppTabBar_Home_Link"]'))
+              .fn(this.driver);
+            if (elementLocated) return true;
+
+            return false;
+          } catch (e) {
+            if (
+              e.name === "StaleElementReferenceError" ||
+              e.name === "NoSuchElementError"
+            ) {
+              return false;
+            }
+            throw e;
+          }
+        }, 60000);
+        logger.info("Login successful");
+      } catch (loginCheckError) {
+        logger.error("Login verification failed:", loginCheckError);
+        await this.driver.takeScreenshot().then((image) => {
+          require("fs").writeFileSync("login-error.png", image, "base64");
+        });
+        throw new Error("Login failed - could not verify successful login");
       }
-
-      logger.info("Login successful");
     } catch (error) {
       logger.error("Login failed:", error);
-
-      await this.page.screenshot({ path: "login-error.png", fullPage: true });
+      await this.driver.takeScreenshot().then((image) => {
+        require("fs").writeFileSync("login-error.png", image, "base64");
+      });
       throw error;
     }
   }
@@ -451,7 +410,7 @@ class TwitterService {
   async fetchTweets(options = {}) {
     const {
       maxRetries = 3,
-      retryDelay = 5000,
+      retryDelay = 10000,
       reinitializeOnFailure = true,
       folder,
     } = options;
@@ -462,7 +421,7 @@ class TwitterService {
 
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
       try {
-        if (!this.page) {
+        if (!this.driver) {
           await this.init();
         }
         await this.checkRateLimit();
@@ -470,127 +429,132 @@ class TwitterService {
         logger.info(`Processing list ID: ${listId} (Type: ${name})`);
         const listUrl = `https://x.com/i/lists/${listId}`;
 
-        await this.page.goto(listUrl, {
-          waitUntil: "networkidle0",
-          timeout: 120000,
-        });
-
-        const content = await this.findContent();
-
-        return {
-          threads: content,
-          queryName: name,
-          searchQuery: listId,
-        };
-      } catch (error) {
-        logger.error(
-          `Fetch attempt ${attempt} failed: ${error.message}`,
-          error
-        );
-
-        if (attempt === maxRetries) {
-          if (reinitializeOnFailure) {
-            logger.warn("Max retries reached. Reinitializing browser.");
-            await this.cleanup();
-            await this.init();
+        let navigationSuccessful = false;
+        for (let i = 0; i < 3 && !navigationSuccessful; i++) {
+          try {
+            await this.driver.get(listUrl);
+            await this.driver.wait(until.urlIs(listUrl), 120000);
+            navigationSuccessful = true;
+          } catch (gotoError) {
+            logger.error(
+              `Error navigating to ${listUrl} (attempt ${i + 1}): ${
+                gotoError.message
+              }`
+            );
+            if (i < 2) {
+              await sleep(5000);
+            } else {
+              throw gotoError;
+            }
           }
-          throw error;
         }
 
-        await new Promise((resolve) => setTimeout(resolve, retryDelay));
+        if (!navigationSuccessful) {
+          logger.error(
+            `Failed to navigate to ${listUrl} after multiple attempts.`
+          );
+          return;
+        }
+
+        const tweets = await this.findContent();
+        return tweets;
+      } catch (error) {
+        logger.error(
+          `Attempt ${attempt} failed to fetch tweets: ${error.message}`
+        );
+        if (attempt < maxRetries) {
+          logger.info(`Retrying in ${retryDelay / 1000} seconds...`);
+          await sleep(retryDelay);
+          if (reinitializeOnFailure) {
+            await this.cleanup();
+            this.driver = null;
+          }
+        } else {
+          logger.error("Max retries reached. Unable to fetch tweets.");
+          throw error;
+        }
       }
     }
   }
 
   async cleanup() {
     try {
-      if (this.browser) {
-        await this.browser.close();
-        this.browser = null;
-        this.page = null;
+      if (this.driver) {
+        await this.driver.quit();
       }
     } catch (error) {
-      logger.error("Cleanup failed:", error);
+      logger.error("Failed to clean up:", error);
+    } finally {
+      this.driver = null;
     }
   }
 
   async postTweet(text) {
     try {
-      if (!this.page) {
-        logger.info("No active page, initializing Twitter service...");
+      if (!this.driver) {
+        logger.info("No active driver, initializing Twitter service...");
         await this.init();
-        await this.login();
       }
 
       logger.info("Posting new tweet...");
-      try {
-        await this.page.goto("https://twitter.com/compose/tweet", {
-          waitUntil: "domcontentloaded",
-          timeout: 60000,
-        });
-      } catch (navigationError) {
-        await this.page.goto("https://twitter.com/home", {
-          waitUntil: "domcontentloaded",
-          timeout: 60000,
-        });
-      }
-      await sleep(3000);
+      await this.driver.get("https://x.com/compose/tweet");
 
-      await this.page.waitForSelector('div[data-testid="tweetTextarea_0"]', {
-        timeout: 10000,
-      });
-      await this.page.click('div[data-testid="tweetTextarea_0"]');
-      await sleep(1000);
+      const tweetTextarea = await this.driver.wait(
+        until.elementLocated(By.css('div[data-testid="tweetTextarea_0"]')),
+        60000
+      );
+      await this.driver.wait(until.elementIsVisible(tweetTextarea), 60000);
+      await this.driver.wait(until.elementIsEnabled(tweetTextarea), 60000);
+      await tweetTextarea.sendKeys(text);
+      await sleep(2000);
 
-      await this.page.keyboard.type(text, { delay: 100 });
-      await sleep(1000);
+      let tweetButton = await this.driver.wait(
+        until.elementLocated(
+          By.css('div[role="button"][data-testid="tweetButtonInline"]')
+        ),
+        30000
+      );
 
-      try {
-        await this.page.keyboard.down("Control");
-        await this.page.keyboard.press("Enter");
-        await this.page.keyboard.up("Control");
-        await sleep(2000);
-
-        const buttonVisible = await this.page.evaluate(() => {
-          return !!document.querySelector('div[data-testid="tweetButton"]');
-        });
-
-        if (buttonVisible) {
-          for (let i = 0; i < 3; i++) {
-            await this.page.keyboard.press("Tab");
-            await sleep(500);
-          }
-          await this.page.keyboard.press("Enter");
-        }
-
-        await sleep(3000);
-
-        const tweetPosted = await this.page.evaluate(() => {
-          const composeAreaGone = !document.querySelector(
-            'div[data-testid="tweetTextarea_0"]'
+      await this.driver.wait(async () => {
+        try {
+          return (
+            (await tweetButton.isDisplayed()) && (await tweetButton.isEnabled())
           );
-          const successToast = document.querySelector('[data-testid="toast"]');
-          const noErrors = !document.querySelector('[data-testid*="error"]');
-
-          return (composeAreaGone || successToast) && noErrors;
-        });
-
-        if (!tweetPosted) {
-          await this.page.screenshot({ path: "tweet-failed.png" });
-          throw new Error("Tweet posting verification failed");
+        } catch (e) {
+          return false;
         }
+      }, 30000);
 
+      await this.driver.executeScript("arguments[0].focus();", tweetButton);
+
+      await this.driver.executeScript("arguments[0].click();", tweetButton);
+      logger.info("Tweet button clicked (using JavaScript)");
+
+      try {
+        await this.driver.wait(
+          until.anyOf(
+            until.urlContains("x.com/"),
+            until.elementLocated(By.css('[data-testid="toast"]'))
+          ),
+          30000
+        );
         logger.info("Tweet posted successfully!");
         return true;
-      } catch (error) {
-        logger.error("Failed to post tweet:", error.message);
-        return false;
+      } catch (verifyError) {
+        logger.error("Failed to verify tweet posting:", verifyError);
+        await this.driver.takeScreenshot().then((image) => {
+          require("fs").writeFileSync("tweet-failed.png", image, "base64");
+        });
+        throw new Error("Tweet posting verification failed");
       }
     } catch (error) {
-      logger.error("Failed to post tweet:", error.message);
+      logger.error("Failed to post tweet:", error);
+      await this.driver.takeScreenshot().then((image) => {
+        require("fs").writeFileSync("tweet-failed.png", image, "base64");
+      });
       return false;
     }
   }
 }
 
-module.exports = new TwitterService();
+module.exports = TwitterService;

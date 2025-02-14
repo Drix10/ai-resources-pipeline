@@ -14,16 +14,12 @@
     "@octokit/rest": "^20.0.2",
     "axios": "^1.7.7",
     "dotenv": "^16.4.5",
-    "mongoose": "^8.8.1",
     "node-cron": "^3.0.3",
-    "puppeteer": "^23.8.0",
-    "twitter-api-v2": "^1.15.2",
-    "winston": "^3.17.0",
-    "puppeteer-extra": "^3.3.6",
-    "puppeteer-extra-plugin-stealth": "^2.11.2"
+    "selenium-webdriver": "^4.28.1",
+    "winston": "^3.17.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.3"
+    "nodemon": "^3.1.9"
   },
   "scripts": {
     "start": "node index.js",

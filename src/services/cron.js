@@ -1,9 +1,9 @@
 const { logger, handleError } = require("../utils/helpers");
 const config = require("../../config");
-const TwitterService = require("./twitter");
+const twitterService = require("./twitter");
+const TwitterService = new twitterService();
 const GithubService = require("./github");
 const cron = require("node-cron");
-const mongoose = require("mongoose");
 
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 5000;
@@ -14,16 +14,16 @@ const runDataPipeline = async (folder) => {
     try {
       const result = await TwitterService.fetchTweets({ folder });
 
-      if (!result || !Array.isArray(result.threads)) {
+      if (!result || !Array.isArray(result)) {
         throw new Error(
           `No valid tweets returned from Twitter service for folder: ${folder.name}`
         );
       }
 
-      if (result.threads.length > 0) {
+      if (result.length > 0) {
         const githubResult = await GithubService.createMarkdownFileFromTweets(
-          result.threads,
-          result.queryName,
+          result,
+          folder.name,
           folder
         );
         if (!githubResult?.success) {
@@ -31,19 +31,20 @@ const runDataPipeline = async (folder) => {
         }
 
         const tweetText = `New ${getTopicName(
-          result.queryName
+          folder.type
         )} resource added!\n\nMade by @DRIX_10_ via @CosLynxAI\n\nCheck out the latest resource here:\n${
           githubResult.url
         }`;
         await TwitterService.postTweet(tweetText);
 
         return {
-          queryName: result.queryName,
+          queryName: folder.name,
           githubUrl: githubResult.url,
         };
       }
       return null;
     } catch (error) {
+      console.log(error);
       if (retryCount === MAX_RETRIES) {
         handleError(
           error,
@@ -61,14 +62,14 @@ const runDataPipeline = async (folder) => {
 };
 
 function getTopicName(queryName) {
-  const folder = config.folders.find((f) => f.type === queryName);
+  const folder = config.folders.find((f) => f.name === queryName);
   return folder ? folder.name : "AI Scrapped";
 }
 
 let scheduledJob = null;
 
 const scheduleRandomJob = () => {
-  const RandNum = Math.floor(Math.random() * 7) + 1;
+  const RandNum = Math.floor(Math.random() * 10) + 1;
   const schedule = `0 */${RandNum} * * *`;
 
   if (!cron.validate(schedule)) {
@@ -89,9 +90,6 @@ const scheduleRandomJob = () => {
       logger.info(`Running scheduled pipeline at ${timestamp}`);
 
       try {
-        if (mongoose.connection.readyState !== 1) {
-          throw new Error("Database connection not established");
-        }
         await TwitterService.init();
 
         for (const folder of config.folders) {
@@ -109,14 +107,6 @@ const scheduleRandomJob = () => {
         await GithubService.updateReadmeWithNewFile();
       } catch (error) {
         logger.error("Scheduled pipeline failed:", error);
-
-        if (mongoose.connection.readyState !== 1) {
-          try {
-            await mongoose.connect(config.mongodb.uri);
-          } catch (dbError) {
-            logger.error("Failed to reconnect to database:", dbError);
-          }
-        }
       }
 
       scheduleRandomJob();
@@ -138,7 +128,6 @@ const initCronJob = () => {
       return scheduledJob;
     }
 
-    logger.info("Running initial pipeline execution...");
     runInitialPipeline();
     scheduleRandomJob();
 
@@ -162,9 +151,6 @@ const stopCronJob = () => {
 const runInitialPipeline = async () => {
   logger.info("Running initial pipeline execution...");
   try {
-    if (mongoose.connection.readyState !== 1) {
-      throw new Error("Database connection not established");
-    }
     await TwitterService.init();
 
     for (const folder of config.folders) {
@@ -182,13 +168,6 @@ const runInitialPipeline = async () => {
     await GithubService.updateReadmeWithNewFile();
   } catch (error) {
     logger.error("Initial pipeline execution failed:", error);
-    if (mongoose.connection.readyState !== 1) {
-      try {
-        await mongoose.connect(config.mongodb.uri);
-      } catch (dbError) {
-        logger.error("Failed to reconnect to database:", dbError);
-      }
-    }
   }
 };
 module.exports = {

@@ -10,7 +10,6 @@ Twitter-Gemini-GitHub-MVP
 <div class="badges" align="center">
   <img src="https://img.shields.io/badge/Framework-Node.js%20with%20Express.js-blue" alt="Framework">
   <img src="https://img.shields.io/badge/Backend-JavaScript-red" alt="Backend">
-  <img src="https://img.shields.io/badge/Database-MongoDB-blue" alt="Database">
   <img src="https://img.shields.io/badge/AI-Google%20Gemini-black" alt="AI">
 </div>
 <div class="badges" align="center">
@@ -49,7 +48,6 @@ This repository contains a Minimum Viable Product (MVP) that automates the colle
 
 - Node.js v16+
 - npm 8+
-- MongoDB
 - A Google Cloud Project with the Gemini API enabled
 - A GitHub account and Personal Access Token
 - Twitter account credentials
@@ -69,7 +67,6 @@ This repository contains a Minimum Viable Product (MVP) that automates the colle
 ```bash
 GITHUB_PAT= # The GitHub personal access token
 GEMINI_API_KEY= # The Gemini API key
-MONGODB_URI= # The MongoDB URI
 TWITTER_USERNAME= # Your Twitter username
 TWITTER_PASSWORD= # Your Twitter password
 DISCORD_WEBHOOK_URL= # Your Discord webhook URL

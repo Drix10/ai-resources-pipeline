@@ -28,7 +28,7 @@ class GeminiService {
       },
     ];
     this.systemPrompt = `
-You are a professional content curator and markdown writer. Transform Twitter threads and their resources into engaging markdown articles that MUST follow this exact format:
+You are a professional content curator and markdown writer. Transform all the Twitter threads and their resources into engaging markdown articles that MUST follow this exact format and make one for each Tweet, don't mix all of them into one and make something like this, different for each, around 10-15 depending on input:
 
 
 ### 🔗 {Clear Resource Category Title}
@@ -50,14 +50,15 @@ Key Highlights:
 {Practical implementation advice derived from the thread}
 
 🔗 Resources:
-• {All external links from the thread with descriptive titles}
+
+{All external links and images from the thread with descriptive titles}
 
 ---
 
 Important rules:
 1. Always include section separators (---)
 2. Always start with H3 header (###) and emoji
-3. Always format links as [descriptive title](url)
+3. Always format links as [descriptive title](url) and for images this: ![Image](img url)
 4. Always include the original context from the thread
 5. Always maintain professional tone
 6. Group related resources together coherently
@@ -67,7 +68,7 @@ Important rules:
 10. Always include ALL external links from the thread
 
 Note:
-1. Always include the original context from the thread
+1. Always include the original context from the thread, and make one for all the threads provided
 2. If no resources are provided, do not include the Resources section
 3. Always embed images and links from the thread with correct descriptions
 4. Fill it with your best knowledge of the topic, if not enough context is provided.
@@ -96,7 +97,9 @@ Note:
           },
           {
             role: "model",
-            parts: ["I will strictly follow the markdown format provided."],
+            parts: [
+              "I will strictly follow the markdown format and create articles for all the tweets provided one by one.",
+            ],
           },
         ],
       });
@@ -115,7 +118,7 @@ Note:
 
       let combinedPrompt = "";
       const exampleFormat = `
-      Example of perfect formatting:
+      Example of perfect formatting (You have to create one for each Tweet):
 
       ---
       ### 🤖 Observability, Evaluation, and RAG Implementation
@@ -136,9 +139,10 @@ Note:
       3. Develop Retrieval Logic: Implement logic to retrieve relevant information.
 
       🔗 Resources:
-      • [Tool Name](https://example.com) - Brief description of the tool.
 
-      • [Another Tool](https://example.com) - What this tool helps with.
+      • [Tool Name](https://example.com) - Brief description of the tool
+
+      ![Image](https://example.png) 
       `;
 
       const groupedThreads = this.groupTweetsByConversation(
@@ -168,7 +172,7 @@ Note:
       console.log(combinedPrompt);
 
       const prompt = `
-You are a professional technical content curator. Transform this Twitter thread into a high-quality markdown article following these EXACT specifications:
+You are a professional technical content curator. Transform this each of the Twitter thread into a high-quality markdown article following these EXACT specifications:
 
 FORMAT REQUIREMENTS:
 1. HEADER (MANDATORY):
@@ -187,7 +191,7 @@ FORMAT REQUIREMENTS:
 3. KEY POINTS (MANDATORY):
    - Start with "Key Points:"
    - Add TWO newlines after "Key Points:"
-   - Use bullet points with "•" symbol
+   - Use bullet points with "•" symbol (not for Images)
    - 3-5 points maximum
    - Each point must be separated by TWO newlines
    - Each point: single line, clear benefit
@@ -232,15 +236,17 @@ FORMAT REQUIREMENTS:
 5. RESOURCES (MANDATORY):
    - Start with "🔗 Resources:"
    - Format: • [Tool Name](url) - Brief description
+   - Format: ![Image](Image url)
    - Description: max 10 words
    - Only include verified links
    - Example:
      🔗 Resources:
+
      • [Tool Name](https://example.com) - What this tool helps with
 
      • [Another Tool](https://example.com) - What this tool helps with
 
-     • [Third Tool](https://example.com) - What this tool helps with
+     ![Image](https://example.png)
 
 STRICT FORMATTING RULES:
 - Maintain exact spacing shown in example
@@ -252,6 +258,7 @@ STRICT FORMATTING RULES:
 - No "Learn more" or similar phrases
 - No colons in descriptions
 - No extra horizontal rules
+- No descriptions for Images
 
 Here's the content to transform:
 ${combinedPrompt}
@@ -264,10 +271,10 @@ Remember:
 2. Follow exact spacing and formatting
 3. No deviations from the structure
 4. No extra decorative elements
-5. Verify all links before including
-6. **Process each conversation as a single unit.**
-7. **Do not repeat content or links within a single article.**
-8. **Preserve original hashtags and mentions (e.g., @username, #hashtag).**
+5. Verify all links and images's format before including
+6. Process each conversation as a single unit.
+7. Do not repeat content or links within a single article.
+8. Make one Formatted article for each of the Tweet's context provided, ideally 10-15 at once depending on input
 
 Note:
 1. Always include the original context from the thread

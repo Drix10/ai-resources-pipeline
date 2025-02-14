@@ -1,13 +1,6 @@
 require("dotenv").config();
 
 const config = {
-  mongodb: {
-    uri: process.env.MONGODB_URI,
-    options: {
-      serverSelectionTimeoutMS: 45000,
-      socketTimeoutMS: 45000,
-    },
-  },
   twitter: {
     username: process.env.TWITTER_USERNAME,
     password: process.env.TWITTER_PASSWORD,
@@ -25,197 +18,179 @@ const config = {
   },
   folders: [
     {
-      name: "AI Tools and Resources",
-      lists: [
-        "1183066543174881282",
-        "1594632801785094146",
-        "1394275179077914632",
-        "1400568686931550217",
-        "1091845227416092673",
-        "1762486484111634815",
-      ],
+      name: "CS Academics",
+      lists: ["1805784149468340566"],
     },
     {
-      name: "Coding and Software Development",
-      lists: [
-        "1281694355024011265",
-        "1403650939047890946",
-        "1247246664076800007",
-        "1299970078230765568",
-        "1422301561133228032",
-        "1762520870393184573",
-        "1762520567314686389",
-      ],
+      name: "Devs, Designers, DevRel",
+      lists: ["1805986224055955873"],
     },
     {
-      name: "Productivity and Passive Income",
-      lists: [
-        "928982358082179072",
-        "1591607866091339786",
-        "1195113292085317632",
-        "1022182056808402945",
-        "1498705679241998337",
-      ],
+      name: "Tech VIPs",
+      lists: ["7100"],
+    },
+    {
+      name: "VC Firms",
+      lists: ["1219428908283514881"],
+    },
+    {
+      name: "AI Developer Tools",
+      lists: ["1705695313334571453"],
+    },
+    {
+      name: "AI Education",
+      lists: ["1705702737835643273"],
     },
     {
       name: "AI Artists and Creators",
-      lists: ["1762485748469383596"],
+      lists: ["1697023939338519013"],
     },
     {
       name: "AI Companies and Ventures",
-      lists: ["1762486094323220861", "1762486224492310958"],
+      lists: ["1696336383231525354", "1811755253970112761"],
     },
     {
       name: "AI Consulting and Expertise",
-      lists: ["1762486369854320795"],
+      lists: ["1741727636806881476"],
     },
     {
       name: "AI in Enterprise Applications",
-      lists: ["1762486816870359164"],
+      lists: ["1705692999974637973"],
     },
     {
-      name: "AI-Powered Film and Media",
-      lists: ["1762486938394370171"],
+      name: "AI Powered Film and Media",
+      lists: ["1846645136064995788", "1741902685669113995"],
     },
     {
       name: "AI Holodeck and Virtual Worlds",
-      lists: ["1762487076892741918"],
+      lists: ["1705695075014180922"],
     },
     {
       name: "AI Leaders and Thinkers",
-      lists: ["1762487240196346177", "1762487348818161907"],
+      lists: ["1744564719309279599", "1828820239175590166"],
     },
     {
       name: "AI in Healthcare and Science",
-      lists: ["1762487537213399163"],
+      lists: ["1705695499108638974"],
     },
     {
-      name: "AI-Generated Music and Audio",
-      lists: ["1762487663874330987"],
+      name: "AI Generated Music and Audio",
+      lists: ["1705703289579602425"],
     },
     {
       name: "AI Organizations and Media",
-      lists: ["1762487793426841816"],
+      lists: ["1741902685669113995"],
     },
     {
       name: "AI Professionals and Community",
       lists: [
-        "1762487913976344923",
-        "1762488021318779319",
-        "1762488127194341815",
-        "1762488229116588485",
-        "1762488340178112858",
+        "952969346518720512",
+        "1807679743619367128",
+        "1811773620181463494",
+        "1822396593506848796",
+        "1854973625138294946",
       ],
     },
     {
       name: "AI Policy and Ethical Considerations",
-      lists: ["1762488459581399161"],
+      lists: ["1805777808330781114"],
     },
     {
       name: "AI in Real Estate and Property Tech",
-      lists: ["1762488557519634818"],
+      lists: ["1705718284488986722"],
     },
     {
       name: "AI and Robotics Applications",
-      lists: ["1762488661568364895"],
+      lists: ["1805786050763087967"],
     },
     {
-      name: "AI-Driven Vehicles and Transportation",
-      lists: ["1762488781086581147"],
+      name: "AI Driven Vehicles and Transportation",
+      lists: ["956617160733818880"],
     },
     {
       name: "AI for Content Creation and Marketing",
-      lists: ["1762488903474385365"],
+      lists: ["1705715250895667539"],
     },
     {
-      name: "AR/VR Companies and Development",
-      lists: ["1762489054428651968"],
+      name: "AR VR Companies and Development",
+      lists: ["733277650085511168"],
     },
     {
-      name: "AR/VR Professionals and Community",
-      lists: ["1762489161168363875", "1762489264222601619"],
+      name: "AR VR Professionals and Community",
+      lists: ["733162578625449985", "1786062895668974066"],
     },
     {
       name: "Climate and Weather Technology",
-      lists: ["1762489387218129315"],
+      lists: ["1038538444480307200"],
     },
     {
       name: "Computer Vision and AI Applications",
-      lists: ["1762489493818409317"],
+      lists: ["1052973537944694784"],
     },
     {
-      name: "Crypto and Web 3.0",
-      lists: ["1762520311717740895", "1762520423411843514"],
+      name: "Crypto and Web3",
+      lists: ["952969256903168000", "1837926936586473655"],
     },
     {
       name: "Decentralized AI",
-      lists: ["1762520729775378817"],
+      lists: ["1770238087593112021"],
     },
     {
       name: "The Exponential Future",
-      lists: ["1762521094288150954"],
+      lists: ["1579148080745791489"],
     },
     {
       name: "Founders and Entrepreneurs",
-      lists: [
-        "1762521224293441979",
-        "1762521323595571655",
-        "1762521414485385621",
-      ],
+      lists: ["8020", "1049755751185403904", "1795545373173575917"],
     },
     {
       name: "Tech Infrastructure",
-      lists: ["1762521598278865395"],
+      lists: ["1049745135431376896"],
     },
     {
       name: "Interesting Finds",
-      lists: ["1762521703275348385", "1762521793078661568"],
+      lists: ["1221942510081036293", "1814007176647847963"],
     },
     {
       name: "Investors and Venture Capital",
-      lists: [
-        "1762521923717648849",
-        "1762522043576811959",
-        "1762523003326320795",
-      ],
+      lists: ["7450", "1751865298263932998", "1219428908283514881"],
     },
     {
       name: "Neuroscience and AI",
-      lists: ["1762522173728252359"],
+      lists: ["1805775704568844551"],
     },
     {
       name: "PR and Communications",
-      lists: ["1762522293718888815"],
+      lists: ["1049751021877002240"],
     },
     {
       name: "Quantum Computing",
-      lists: ["1762522400357740804"],
+      lists: ["1805983875052798286"],
     },
     {
       name: "Cybersecurity and Tech",
-      lists: ["1762522507277680798"],
+      lists: ["1052973696090955776"],
     },
     {
       name: "Spatial Computing",
-      lists: ["1762522651328360816"],
+      lists: ["1490757476332945413"],
     },
     {
       name: "Tech Companies and News",
-      lists: ["1762522758941188590", "1762522913228988689"],
+      lists: ["953543671843975168", "31748"],
     },
     {
       name: "Tech Journalists and VIPs",
-      lists: ["1762522837767610819", "1762522958700224849"],
+      lists: ["8096", "7100"],
     },
     {
       name: "World News and Updates",
-      lists: ["1762523093068394879"],
+      lists: ["72719839"],
     },
   ],
 };
 
 const requiredConfigs = {
-  "MongoDB URI": config.mongodb.uri,
   "Twitter Username": config.twitter.username,
   "Twitter Password": config.twitter.password,
   "Twitter Email": config.twitter.email,
