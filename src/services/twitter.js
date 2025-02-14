@@ -43,12 +43,43 @@ class TwitterService {
           "--window-size=1920,1080",
           "--disable-notifications",
           "--disable-gpu",
-          "--disable-dev-shm-usage"
+          "--disable-dev-shm-usage",
+          "--disable-accelerated-2d-canvas",
+          "--disable-canvas-aa",
+          "--disable-2d-canvas-clip-aa",
+          "--disable-gl-drawing-for-tests",
+          "--no-first-run",
+          "--no-zygote",
+          "--single-process",
+          "--disable-dev-shm-usage",
+          "--disable-infobars",
+          "--disable-background-networking",
+          "--disable-background-timer-throttling",
+          "--disable-backgrounding-occluded-windows",
+          "--disable-breakpad",
+          "--disable-component-extensions-with-background-pages",
+          "--disable-extensions",
+          "--disable-features=TranslateUI",
+          "--disable-ipc-flooding-protection",
+          "--disable-renderer-backgrounding",
+          "--enable-features=NetworkService,NetworkServiceInProcess",
+          "--force-color-profile=srgb",
+          "--metrics-recording-only",
+          "--mute-audio",
+          "--js-flags=--max-old-space-size=4096",
+          "--disable-web-security",
+          `--user-data-dir=/home/container/chrome-user-data-${Date.now()}`
         );
+        options.headless = true;
+        const chromeBinaryPath = "/home/container/chrome-linux64/chrome";
+        const chromedriverPath = "/home/container/chromedriver";
 
+        const service = new chrome.ServiceBuilder(chromedriverPath);
+        options.setChromeBinaryPath(chromeBinaryPath);
         this.driver = await new Builder()
           .forBrowser("chrome")
           .setChromeOptions(options)
+          .setChromeService(service)
           .build();
       }
       await this.login();
