@@ -4,30 +4,29 @@ const {
   HarmCategory,
 } = require("@google/generative-ai");
 const config = require("../../config");
+const genAI = new GoogleGenerativeAI(config.gemini.apiKey);
 const { logger, sleep } = require("../utils/helpers");
 
-class GeminiService {
-  constructor() {
-    this.genAI = new GoogleGenerativeAI(config.gemini.apiKey);
-    this.safetySettings = [
-      {
-        category: HarmCategory.HARM_CATEGORY_HARASSMENT,
-        threshold: HarmBlockThreshold.BLOCK_NONE,
-      },
-      {
-        category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
-        threshold: HarmBlockThreshold.BLOCK_NONE,
-      },
-      {
-        category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
-        threshold: HarmBlockThreshold.BLOCK_NONE,
-      },
-      {
-        category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-        threshold: HarmBlockThreshold.BLOCK_NONE,
-      },
-    ];
-    this.systemPrompt = `
+const safetySettings = [
+  {
+    category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+    threshold: HarmBlockThreshold.BLOCK_NONE,
+  },
+  {
+    category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+    threshold: HarmBlockThreshold.BLOCK_NONE,
+  },
+  {
+    category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+    threshold: HarmBlockThreshold.BLOCK_NONE,
+  },
+  {
+    category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+    threshold: HarmBlockThreshold.BLOCK_NONE,
+  },
+];
+
+const SYSTEM_PROMPT = `
 You are a professional content curator and markdown writer. Transform all the Twitter threads and their resources into engaging markdown articles that MUST follow this exact format and make one for each Tweet, don't mix all of them into one and make something like this, different for each, around 10-15 depending on input:
 
 
@@ -74,40 +73,15 @@ Note:
 4. Fill it with your best knowledge of the topic, if not enough context is provided.
 5. When alot of context is missing, write a detailed introduction about the topic and provide links to more information.
 `;
-    this.model = this.genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
-      generationConfig: {
-        temperature: 0.7,
-        topK: 40,
-        topP: 0.8,
-        maxOutputTokens: 100000,
-      },
-      safetySettings: this.safetySettings,
-      systemInstruction: this.systemPrompt,
-    });
-  }
 
-  async generateChat() {
-    try {
-      return this.model.startChat({
-        history: [
-          {
-            role: "user",
-            parts: [this.systemPrompt],
-          },
-          {
-            role: "model",
-            parts: [
-              "I will strictly follow the markdown format and create articles for all the tweets provided one by one.",
-            ],
-          },
-        ],
-      });
-    } catch (error) {
-      logger.error("Error creating Gemini chat:", error);
-      throw new Error("Failed to initialize Gemini chat");
-    }
-  }
+const model = genAI.getGenerativeModel({
+  model: "gemini-1.5-flash",
+  safetySettings,
+  systemInstruction: SYSTEM_PROMPT,
+});
+
+class GeminiService {
+  constructor() {}
 
   async generateMarkdown(threads, retries = 3) {
     try {
@@ -285,7 +259,7 @@ Note:
 
       try {
         await this.checkRateLimit();
-        const result = await this.model.generateContent(prompt);
+        const result = await model.generateContent(prompt);
         let generatedText = result.response.text();
         console.log(generatedText);
 
