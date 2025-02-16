@@ -104,7 +104,10 @@ const scheduleRandomJob = () => {
             );
           }
         }
-        await GithubService.updateReadmeWithNewFile();
+        await GithubService.updateReadmeWithNewFile(
+          config.github.owner,
+          config.github.repo
+        );
       } catch (error) {
         logger.error("Scheduled pipeline failed:", error);
       }
@@ -165,7 +168,10 @@ const runInitialPipeline = async () => {
         );
       }
     }
-    await GithubService.updateReadmeWithNewFile();
+    await GithubService.updateReadmeWithNewFile(
+      config.github.owner,
+      config.github.repo
+    );
   } catch (error) {
     logger.error("Initial pipeline execution failed:", error);
   }

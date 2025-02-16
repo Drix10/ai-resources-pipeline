@@ -181,6 +181,7 @@ class GithubService {
           owner,
           repo,
           path,
+          ref: "main",
         })
         .catch(() => null);
 
@@ -192,11 +193,11 @@ class GithubService {
       const headerContent = `
 <div align="center">
   <h1><a href="https://x.com/DRIX_10_" target="_blank">🚀 AI Resources by DRIX10</a></h1>
-  <p><strong>Explore a comprehensive collection of top AI resources, cutting-edge productivity hacks, and innovative tools, curated by experts on 𝕏</strong></p>
-  <p>🌟 Daily updates • 💡 Expert insights • 🔥 Trending tools • 💻 Developer resources</p>
+  <p><strong>Explore a comprehensive collection of top AI resources curated by experts on 𝕏</strong></p>
+  <p>🌟 Daily updates • 💡 Expert insights • 🔥 Trending Topics</p>
 
   <img src="https://img.shields.io/badge/Maintainer-Drix10-blue?style=for-the-badge" alt="Maintainer Drix10" />
-  <img src="https://img.shields.io/badge/Topics-Productivity%2C%20AI%2C%20Tips%20and%20Tricks-red?style=for-the-badge" alt="Topics" />
+  <img src="https://img.shields.io/badge/Topics-Everything%2C%20AI-red?style=for-the-badge" alt="Topics" />
   <img src="https://img.shields.io/github/last-commit/Drix10/ai-resources?style=for-the-badge&color=5D6D7E" alt="Last Updated" />
   <a href="https://github.com/Drix10/ai-resources"><img src="https://img.shields.io/github/stars/Drix10/ai-resources?style=for-the-badge&color=yellow" alt="GitHub Stars" /></a>
 
@@ -361,14 +362,21 @@ class GithubService {
       const path = "README.md";
       const branch = config.github.branch || "main";
 
-      const existing = await this.octokit.repos
-        .getContent({
+      let existingSha = null;
+      try {
+        const existing = await this.octokit.repos.getContent({
           owner,
           repo,
           path,
           ref: branch,
-        })
-        .catch(() => null);
+        });
+        existingSha = existing.data.sha;
+      } catch (error) {
+        if (error.status !== 404) {
+          throw error;
+        }
+        logger.info("README.md not found, creating a new one.");
+      }
 
       const response = await this.octokit.repos.createOrUpdateFileContents({
         owner,
@@ -376,7 +384,7 @@ class GithubService {
         path,
         message: "📚 Update README with latest tweets",
         content: Buffer.from(content).toString("base64"),
-        sha: existing?.data?.sha,
+        sha: existingSha,
         branch,
         committer: {
           name: config.github.committerName || "Drix10",

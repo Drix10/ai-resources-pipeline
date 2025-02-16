@@ -8,7 +8,8 @@ const config = {
   },
   github: {
     personalAccessToken: process.env.GITHUB_PAT,
-    repo: process.env.GITHUB_REPO,
+    owner: process.env.GITHUB_USERNAME,
+    repo: process.env.GITHUB_REPONAME,
   },
   gemini: {
     apiKey: process.env.GEMINI_API_KEY,

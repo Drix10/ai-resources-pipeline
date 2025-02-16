@@ -1,5 +1,4 @@
 const { logger } = require("./src/utils/helpers");
-const config = require("./config");
 const { initCronJob, stopCronJob } = require("./src/services/cron");
 
 const handleShutdown = async (signal) => {
