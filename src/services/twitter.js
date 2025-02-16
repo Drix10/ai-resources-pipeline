@@ -510,24 +510,6 @@ class TwitterService {
 
       await tweetTextarea.sendKeys(Key.chord(Key.CONTROL, Key.ENTER));
       logger.info("Enter key pressed (using Selenium)");
-
-      try {
-        await this.driver.wait(
-          until.anyOf(
-            until.urlContains("x.com/"),
-            until.elementLocated(By.css('[data-testid="toast"]'))
-          ),
-          30000
-        );
-        logger.info("Tweet posted successfully!");
-        return true;
-      } catch (verifyError) {
-        logger.error("Failed to verify tweet posting:", verifyError);
-        await this.driver.takeScreenshot().then((image) => {
-          require("fs").writeFileSync("tweet-failed.png", image, "base64");
-        });
-        throw new Error("Tweet posting verification failed");
-      }
     } catch (error) {
       logger.error("Failed to post tweet:", error);
       await this.driver.takeScreenshot().then((image) => {

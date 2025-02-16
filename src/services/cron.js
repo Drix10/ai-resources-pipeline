@@ -31,7 +31,7 @@ const runDataPipeline = async (folder) => {
         }
 
         const tweetText = `New ${getTopicName(
-          folder.type
+          folder.name
         )} resource added!\n\nMade by @DRIX_10_ via @CosLynxAI\n\nCheck out the latest resource here:\n${
           githubResult.url
         }`;
