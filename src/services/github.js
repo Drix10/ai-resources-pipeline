@@ -58,7 +58,7 @@ class GithubService {
 
       const result = await this.uploadMarkdownFile(
         fileBuffer,
-        config.github.repo,
+        `${config.github.owner}/${config.github.repo}`,
         folder
       );
 
@@ -360,7 +360,7 @@ class GithubService {
   async createOrUpdateReadme(owner, repo, content) {
     try {
       const path = "README.md";
-      const branch = config.github.branch || "main";
+      const branch = "main";
 
       let existingSha = null;
       try {
@@ -387,8 +387,8 @@ class GithubService {
         sha: existingSha,
         branch,
         committer: {
-          name: config.github.committerName || "Drix10",
-          email: config.github.committerEmail || "ggdrishtant@gmail.com",
+          name: "Drix10",
+          email: "ggdrishtant@gmail.com",
         },
       });
 
