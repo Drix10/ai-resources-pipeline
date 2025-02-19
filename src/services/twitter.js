@@ -509,6 +509,7 @@ class TwitterService {
       await sleep(2000);
 
       await tweetTextarea.sendKeys(Key.chord(Key.CONTROL, Key.ENTER));
+      await sleep(2000);
       logger.info("Enter key pressed (using Selenium)");
     } catch (error) {
       logger.error("Failed to post tweet:", error);
