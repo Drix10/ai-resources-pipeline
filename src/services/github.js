@@ -393,16 +393,49 @@ class GithubService {
       });
 
       logger.info("README updated successfully");
+
+      let releaseVersion;
+
+      try {
+        const releases = await this.octokit.repos.listReleases({ owner, repo });
+
+        if (releases.data.length > 0) {
+          const lastRelease = releases.data[0];
+          const lastBuildNumber = parseInt(
+            lastRelease.tag_name.split(".").pop()
+          );
+          releaseVersion = `v0.0.${lastBuildNumber + 1}`;
+        } else {
+          releaseVersion = "v0.0.1";
+        }
+      } catch (error) {
+        logger.warn("No previous releases found, starting from v0.0.1", error);
+      }
+
+      const release = await this.octokit.repos.createRelease({
+        owner,
+        repo,
+        tag_name: releaseVersion,
+        name: `${releaseVersion} - Latest AI resources`,
+        body: `Star this repo and Follow Drix10 for more!`,
+        draft: false,
+        prerelease: false,
+      });
+
+      logger.info(`Release ${releaseVersion} created successfully`);
+
       return {
         success: true,
         url: `https://github.com/${owner}/${repo}/blob/main/README.md`,
         sha: response.data.content.sha,
+        releaseUrl: release.data.html_url,
+        version: releaseVersion,
       };
     } catch (error) {
-      handleError(error, "Failed to update README");
+      handleError(error, "Failed to update README and create release");
       return {
         success: false,
-        message: "Failed to update README",
+        message: "Failed to update README or create release",
         error: error.message,
       };
     }

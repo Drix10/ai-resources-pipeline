@@ -65,6 +65,8 @@ Important rules:
 8. Never skip any sections
 9. Never add fake links or resources
 10. Always include ALL external links from the thread
+11. Do not remove any information which was provided in the original tweet
+12. Do not generate any other text, other than the articles
 
 Note:
 1. Always include the original context from the thread, and make one for all the threads provided
@@ -249,6 +251,8 @@ Remember:
 6. Process each conversation as a single unit.
 7. Do not repeat content or links within a single article.
 8. Make one Formatted article for each of the Tweet's context provided, ideally 10-15 at once depending on input
+9. Do not remove any information which was provided in the original tweet
+10. Do not generate any other text, other than the articles
 
 Note:
 1. Always include the original context from the thread

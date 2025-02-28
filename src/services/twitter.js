@@ -66,7 +66,7 @@ class TwitterService {
       const SCROLL_PAUSE = 3000;
       const MAX_NO_NEW_TWEETS = 15;
       const INITIAL_LOAD_TIMEOUT = 30000;
-      const MIN_TOTAL_WORDS = 25;
+      const MIN_TOTAL_WORDS = 40;
 
       const extractTweetData = async (tweetElement) => {
         if (!tweetElement) return null;
@@ -97,14 +97,8 @@ class TwitterService {
           const linkElements = await tweetElement.findElements(By.tagName("a"));
           for (const linkElement of linkElements) {
             const href = await linkElement.getAttribute("href");
-            if (
-              href &&
-              !href.includes("x.com") &&
-              !href.includes("twitter.com") &&
-              !href.includes("t.co")
-            ) {
-              links.push(href);
-            }
+
+            links.push(href);
           }
         } catch (e) {}
 

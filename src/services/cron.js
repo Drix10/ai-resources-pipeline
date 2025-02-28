@@ -69,7 +69,7 @@ function getTopicName(queryName) {
 let scheduledJob = null;
 
 const scheduleRandomJob = () => {
-  const RandNum = Math.floor(Math.random() * 10) + 1;
+  const RandNum = Math.floor(Math.random() * 16) + 1;
   const schedule = `0 */${RandNum} * * *`;
 
   if (!cron.validate(schedule)) {
