@@ -392,6 +392,31 @@ class TwitterService {
         });
         throw new Error("Login failed - could not verify successful login");
       }
+
+      logger.info("Rechecking for email verification...");
+      try {
+        const emailInput = await this.driver.wait(
+          until.elementLocated(
+            By.css('input[type="text"], input[type="email"]')
+          ),
+          10000
+        );
+        await this.driver.wait(until.elementIsVisible(emailInput), 10000);
+        await this.driver.wait(until.elementIsEnabled(emailInput), 10000);
+
+        if (!config.twitter.email) {
+          throw new Error("Email verification required but not configured");
+        }
+        await emailInput.sendKeys(config.twitter.email, Key.RETURN);
+        logger.info("Email entered");
+        await sleep(3000);
+      } catch (emailError) {
+        if (emailError.name === "TimeoutError") {
+          logger.info("Email verification not required.");
+        } else {
+          throw emailError;
+        }
+      }
     } catch (error) {
       logger.error("Login failed:", error);
       await this.driver.takeScreenshot().then((image) => {
