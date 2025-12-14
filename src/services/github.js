@@ -220,9 +220,13 @@ class GithubService {
 
       let updatesContent = "";
 
-      for (const folder of config.folders) {
+      // Process all folders in parallel
+      const folderPromises = config.folders.map(async (folder) => {
         const decodedFolder = folder.name.replace(/ /g, " ");
         try {
+          // Add delay to prevent hitting rate limits
+          await new Promise(resolve => setTimeout(resolve, Math.random() * 2000));
+          
           const { data } = await this.octokit.repos.getContent({
             owner,
             repo,
@@ -239,29 +243,39 @@ class GithubService {
             }))
             .sort((a, b) => b.number - a.number);
 
-          updatesContent += `### ${folder.name}\n\n`;
+          let sectionContent = `### ${folder.name}\n\n`;
 
           if (files.length > 0) {
-            updatesContent += `*   [Latest Update (#${String(
+            sectionContent += `*   [Latest Update (#${String(
               files[0].number
             ).padStart(3, "0")})](${files[0].url}) - *${
               folder.description || "Resources related to " + folder.name
             }*\n`;
           } else {
-            updatesContent += `*   No resources yet.\n`;
+            sectionContent += `*   No resources yet.\n`;
           }
-          updatesContent += "\n";
+          sectionContent += "\n";
+          return { name: folder.name, content: sectionContent };
         } catch (error) {
+          let sectionContent = `### ${folder.name}\n\n`;
           if (error.status === 404) {
-            updatesContent += `### ${folder.name}\n\n`;
-            updatesContent += `*   No resources yet.\n\n`;
+            sectionContent += `*   No resources yet.\n\n`;
           } else {
             logger.error(`Error getting content for ${decodedFolder}:`, error);
-            updatesContent += `### ${folder.name}\n\n`;
-            updatesContent += `*   Error loading resources.\n\n`;
+            sectionContent += `*   Error loading resources.\n\n`;
           }
+          return { name: folder.name, content: sectionContent };
         }
-      }
+      });
+
+      const folderResults = await Promise.all(folderPromises);
+      
+      // Sort results to maintain order from config
+      const orderedContent = config.folders.map(folder => 
+        folderResults.find(r => r.name === folder.name)?.content || ""
+      ).join("");
+
+      updatesContent += orderedContent;
 
       const newContent = headerContent + updatesContent;
 

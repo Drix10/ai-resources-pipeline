@@ -83,7 +83,23 @@ const model = genAI.getGenerativeModel({
 });
 
 class GeminiService {
-  constructor() {}
+  constructor() {
+    this.lastRequestTime = 0;
+    this.requestsThisMinute = 0;
+    this.resetInterval = null;
+
+    // Reset counter every minute
+    this.resetInterval = setInterval(() => {
+      this.requestsThisMinute = 0;
+    }, 60000);
+  }
+
+  cleanup() {
+    if (this.resetInterval) {
+      clearInterval(this.resetInterval);
+      this.resetInterval = null;
+    }
+  }
 
   async generateMarkdown(threads, retries = 3) {
     try {
@@ -307,17 +323,19 @@ If you liked reading this report, please star ⭐️ this repository and follow 
   }
 
   async checkRateLimit() {
-    if (!this.lastRequestTime) {
-      this.lastRequestTime = 0;
-    }
-    if (!this.requestsThisMinute) {
+    const now = Date.now();
+    const timeSinceLastRequest = now - this.lastRequestTime;
+
+    // Reset counter if more than a minute has passed
+    if (timeSinceLastRequest >= 60000) {
       this.requestsThisMinute = 0;
+      this.lastRequestTime = now;
     }
 
-    const now = Date.now();
-    if (now - this.lastRequestTime < 60000) {
-      if (this.requestsThisMinute >= 55) {
-        const waitTime = 60000 - (now - this.lastRequestTime);
+    // Check if we've hit the rate limit
+    if (this.requestsThisMinute >= 55) {
+      const waitTime = 60000 - timeSinceLastRequest;
+      if (waitTime > 0) {
         logger.info(
           `Gemini Rate limit: Waiting ${
             waitTime / 1000
@@ -327,10 +345,8 @@ If you liked reading this report, please star ⭐️ this repository and follow 
         this.requestsThisMinute = 0;
         this.lastRequestTime = Date.now();
       }
-    } else {
-      this.requestsThisMinute = 0;
-      this.lastRequestTime = now;
     }
+
     this.requestsThisMinute++;
   }
 

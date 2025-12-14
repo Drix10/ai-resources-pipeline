@@ -5,8 +5,11 @@ const handleShutdown = async (signal) => {
   logger.info(`Received ${signal}. Starting graceful shutdown...`);
 
   try {
-    stopCronJob();
+    await stopCronJob();
     logger.info("Cron job stopped successfully");
+
+    // Give time for cleanup
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
     logger.info("Graceful shutdown completed");
     process.exit(0);

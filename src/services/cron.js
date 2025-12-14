@@ -14,10 +14,13 @@ const runDataPipeline = async (folder) => {
     try {
       const result = await TwitterService.fetchTweets({ folder });
 
-      if (!result || !Array.isArray(result)) {
-        throw new Error(
-          `No valid tweets returned from Twitter service for folder: ${folder.name}`
-        );
+      if (!result) {
+        throw new Error("Twitter service failed to fetch tweets (returned null)");
+      }
+
+      if (result.length === 0) {
+        logger.info(`No new tweets found for folder: ${folder.name}`);
+        return null; 
       }
 
       if (result.length > 0) {
@@ -66,7 +69,38 @@ function getTopicName(queryName) {
   return folder ? folder.name : "AI Scrapped";
 }
 
+const processAllFolders = async () => {
+  await TwitterService.init();
+
+  for (const folder of config.folders) {
+    try {
+      const result = await runDataPipeline(folder);
+      if (result) {
+        logger.info(
+          `Pipeline succeeded for folder type ${result.queryName}: ${result.githubUrl}`
+        );
+      } else {
+        logger.info(
+          `Pipeline completed for folder, but no new threads were found.`
+        );
+      }
+    } catch (error) {
+      logger.error(`Pipeline iteration failed for folder ${folder.name}:`, error);
+      // Continue to next folder despite error
+    }
+  }
+
+  await GithubService.updateReadmeWithNewFile(
+    config.github.owner,
+    config.github.repo
+  );
+
+  // Cleanup screenshots after successful run
+  TwitterService.cleanupScreenshots();
+};
+
 let scheduledJob = null;
+let isJobRunning = false;
 
 const scheduleRandomJob = () => {
   const RandNum = Math.floor(Math.random() * 16) + 1;
@@ -86,30 +120,23 @@ const scheduleRandomJob = () => {
   scheduledJob = cron.schedule(
     schedule,
     async () => {
+      // Prevent concurrent runs
+      if (isJobRunning) {
+        logger.warn("Previous job still running, skipping this execution");
+        return;
+      }
+
+      isJobRunning = true;
       const timestamp = new Date().toISOString();
       logger.info(`Running scheduled pipeline at ${timestamp}`);
 
       try {
-        await TwitterService.init();
-
-        for (const folder of config.folders) {
-          const result = await runDataPipeline(folder);
-          if (result) {
-            logger.info(
-              `Pipeline succeeded for folder type ${result.queryName}: ${result.githubUrl}`
-            );
-          } else {
-            logger.info(
-              `Pipeline completed for folder, but no new threads were found.`
-            );
-          }
-        }
-        await GithubService.updateReadmeWithNewFile(
-          config.github.owner,
-          config.github.repo
-        );
+        // processAllFolders handles its own TwitterService.init()
+        await processAllFolders();
       } catch (error) {
         logger.error("Scheduled pipeline failed:", error);
+      } finally {
+        isJobRunning = false;
       }
 
       scheduleRandomJob();
@@ -141,7 +168,7 @@ const initCronJob = () => {
   }
 };
 
-const stopCronJob = () => {
+const stopCronJob = async () => {
   if (scheduledJob) {
     scheduledJob.stop();
     scheduledJob = null;
@@ -149,9 +176,23 @@ const stopCronJob = () => {
   } else {
     logger.warn("No active cron job to stop");
   }
+
+  // Cleanup Twitter service
+  try {
+    await TwitterService.cleanup();
+    logger.info("Twitter service cleaned up");
+  } catch (error) {
+    logger.error("Error cleaning up Twitter service:", error);
+  }
 };
 
 const runInitialPipeline = async () => {
+  if (isJobRunning) {
+    logger.warn("Job already running, skipping initial pipeline");
+    return;
+  }
+
+  isJobRunning = true;
   logger.info("Running initial pipeline execution...");
   try {
     await TwitterService.init();
@@ -172,8 +213,13 @@ const runInitialPipeline = async () => {
       config.github.owner,
       config.github.repo
     );
+
+    // Cleanup screenshots after successful run
+    TwitterService.cleanupScreenshots();
   } catch (error) {
     logger.error("Initial pipeline execution failed:", error);
+  } finally {
+    isJobRunning = false;
   }
 };
 module.exports = {

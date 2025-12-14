@@ -13,3 +13,6 @@ error.log
 .vscode/
 login-error.png
 tweet-failed.png
+
+# Chrome user data (session persistence)
+chrome-data/

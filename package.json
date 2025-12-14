@@ -22,7 +22,8 @@
     "nodemon": "^3.1.9"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "powershell -ExecutionPolicy Bypass -File start.ps1",
+    "start:direct": "node index.js",
     "dev": "nodemon index.js"
   }
 }
