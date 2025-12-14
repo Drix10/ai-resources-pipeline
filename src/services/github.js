@@ -268,7 +268,15 @@ class GithubService {
         }
       });
 
-      const folderResults = await Promise.all(folderPromises);
+      const folderSettledResults = await Promise.allSettled(folderPromises);
+      
+      const folderResults = folderSettledResults.map(result => {
+        if (result.status === 'fulfilled') {
+          return result.value;
+        } else {
+          return { name: "unknown", content: "" }; // Should be handled in try-catch above but safe fallback
+        }
+      });
       
       // Sort results to maintain order from config
       const orderedContent = config.folders.map(folder => 
