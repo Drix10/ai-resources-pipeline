@@ -17,6 +17,15 @@ const config = {
   discord: {
     webhookUrl: process.env.DISCORD_WEBHOOK_URL,
   },
+  monitoring: {
+    targetListId: process.env.MONITOR_LIST_ID,
+    checkInterval: parseInt(process.env.CHECK_INTERVAL) || 300000,
+    rateLimitDelay: parseInt(process.env.RATE_LIMIT_DELAY) || 60000,
+    sendAllTweets: process.env.SEND_ALL_TWEETS === "true" || false,
+    keywords: process.env.MONITOR_KEYWORDS
+      ? process.env.MONITOR_KEYWORDS.split(",").map((k) => k.trim())
+      : [],
+  },
   folders: [
     {
       name: "CS Academics",
@@ -198,12 +207,21 @@ const requiredConfigs = {
   "GitHub Personal Access Token": config.github.personalAccessToken,
   "GitHub Repository": config.github.repo,
   "Gemini API Key": config.gemini.apiKey,
-  "Discord Webhook URL": config.discord.webhookUrl,
   "Folder(s)": config.folders,
 };
 
+// Discord webhook is optional - only required for monitoring (list-tracker.js)
+// Validation for monitoring is done in list-tracker.js itself
+
 for (const [key, value] of Object.entries(requiredConfigs)) {
-  if (!value) {
+  // Special validation for folders array - must have at least one entry
+  if (key === "Folder(s)") {
+    if (!value || !Array.isArray(value) || value.length === 0) {
+      throw new Error(
+        `Required configuration ${key} is missing or empty - at least one folder must be configured`,
+      );
+    }
+  } else if (!value) {
     throw new Error(`Required configuration ${key} is missing`);
   }
 }

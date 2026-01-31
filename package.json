@@ -22,8 +22,8 @@
     "nodemon": "^3.1.9"
   },
   "scripts": {
-    "start": "powershell -ExecutionPolicy Bypass -File start.ps1",
-    "start:direct": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node start-app.js",
+    "dev": "nodemon index.js",
+    "list": "node tracker/start-list.js"
   }
 }

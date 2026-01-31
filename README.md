@@ -80,11 +80,15 @@ GITHUB_REPONAME= # Your Github Repository name
 
 ### 🏃‍♂️ Running the MVP
 
-1. Start the server:
+1. Start the main automation (scrapes Twitter lists → GitHub):
    ```bash
    npm run start
    ```
-2. The application will run on port 3000 with hourly cron jobs by default.
+2. Start the Twitter list tracker (monitors single list → Discord, checks every 20s):
+   ```bash
+   npm run list
+   ```
+3. The main application will run on port 3000 with hourly cron jobs by default.
 
 ## 📄 License & Attribution
 
