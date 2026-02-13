@@ -29,7 +29,7 @@ const config = {
   folders: [
     {
       name: "CS Academics",
-      lists: ["1805784149468340566"],
+      lists: ["89224383"],
     },
     {
       name: "Devs, Designers, DevRel",
@@ -163,39 +163,7 @@ const config = {
     },
     {
       name: "Investors and Venture Capital",
-      lists: ["7450", "1751865298263932998", "1219428908283514881"],
-    },
-    {
-      name: "Neuroscience and AI",
-      lists: ["1805775704568844551"],
-    },
-    {
-      name: "PR and Communications",
-      lists: ["1049751021877002240"],
-    },
-    {
-      name: "Quantum Computing",
-      lists: ["1805983875052798286"],
-    },
-    {
-      name: "Cybersecurity and Tech",
-      lists: ["1052973696090955776"],
-    },
-    {
-      name: "Spatial Computing",
-      lists: ["1490757476332945413"],
-    },
-    {
-      name: "Tech Companies and News",
-      lists: ["953543671843975168", "31748"],
-    },
-    {
-      name: "Tech Journalists and VIPs",
-      lists: ["8096", "7100"],
-    },
-    {
-      name: "World News and Updates",
-      lists: ["72719839"],
+      lists: ["7450", "1751865298263932998"],
     },
   ],
 };
