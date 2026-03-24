@@ -165,6 +165,38 @@ const config = {
       name: "Investors and Venture Capital",
       lists: ["7450", "1751865298263932998"],
     },
+    {
+      name: "Cybersecurity and Tech",
+      lists: ["201875823", "1245446681488916480"],
+    },
+    {
+      name: "Neuroscience and AI",
+      lists: ["1299331453344526336"],
+    },
+    {
+      name: "PR and Communications",
+      lists: ["1213510929629007872"],
+    },
+    {
+      name: "Quantum Computing",
+      lists: ["953244273901621248", "1714954513730425115", "1879078035921748205"],
+    },
+    {
+      name: "Spatial Computing",
+      lists: ["1749207474983354875"],
+    },
+    {
+      name: "Tech Companies and News",
+      lists: ["1272237719733796866", "2299457"],
+    },
+    {
+      name: "Tech Journalists and VIPs",
+      lists: ["1272593321181851648"],
+    },
+    {
+      name: "World News and Updates",
+      lists: ["1297881495701397504", "1325322395335315457"],
+    },
   ],
 };
 
