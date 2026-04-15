@@ -35,7 +35,7 @@ const runDataPipeline = async (folder) => {
 
         const tweetText = `New ${getTopicName(
           folder.name
-        )} resource added!\n\nMade by @DRIX_10_ via @CosLynxAI\n\nCheck out the latest resource here:\n${
+        )} resource added!\n\nMade by @DrishtantGhosh via @CosLynxAI\n\nCheck out the latest resource here:\n${
           githubResult.url
         }`;
         await TwitterService.postTweet(tweetText);
