@@ -80,6 +80,43 @@ class GithubService {
     }
   }
 
+  async createMarkdownFileFromCombined(threads, linkedinPosts, queryName, folder) {
+    try {
+      logger.info(
+        `Generating markdown content for ${threads.length} X threads and ${linkedinPosts.length} LinkedIn posts of type ${queryName}`
+      );
+
+      if (!config.github.repo) {
+        throw new Error("GitHub repository configuration is missing");
+      }
+
+      const markdownContent = await geminiService.generateMarkdownFromCombined(threads, linkedinPosts);
+      const fileBuffer = Buffer.from(markdownContent);
+
+      const result = await this.uploadMarkdownFile(
+        fileBuffer,
+        `${config.github.owner}/${config.github.repo}`,
+        folder
+      );
+
+      if (!result.success) {
+        throw new Error(`Failed to upload markdown: ${result.message}`);
+      }
+
+      logger.info(`Success combined markdown upload: ${result.url}`);
+
+      return {
+        success: true,
+        url: result.url,
+        content: markdownContent,
+        folder: folder.name,
+      };
+    } catch (error) {
+      logger.error("Error creating combined markdown file:", error);
+      throw error;
+    }
+  }
+
   async uploadMarkdownFile(fileBuffer, repoName, folder) {
     const [owner, repo] = repoName.split("/");
 

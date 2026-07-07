@@ -5,12 +5,6 @@ const config = require("../config");
 const { logger, sleep } = require("../src/utils/helpers");
 
 // Validate required configuration
-if (!config.twitter.username) {
-  throw new Error("TWITTER_USERNAME must be configured in .env");
-}
-if (!config.twitter.password) {
-  throw new Error("TWITTER_PASSWORD must be configured in .env");
-}
 if (!config.monitoring.targetListId) {
   throw new Error("MONITOR_LIST_ID must be configured in .env");
 }
@@ -138,148 +132,32 @@ class TwitterListTracker {
           until.elementLocated(By.css('[data-testid="AppTabBar_Home_Link"]')),
           5000,
         );
-        logger.info("Already logged in, skipping login process");
+        logger.info("Already logged in to X (Twitter), skipping login process");
         return;
       } catch (e) {
-        logger.info("Not logged in, proceeding with login...");
+        logger.info("Not logged in to X (Twitter), prompting for manual login...");
       }
 
-      await this.driver.get("https://x.com/login");
-      await sleep(5000);
+      logger.warn("⚠️ X (Twitter) Login Required: Please log in manually in the Chrome browser window.");
 
-      logger.info("Looking for username field...");
-      const usernameInput = await this.driver.wait(
-        until.elementLocated(By.css('input[autocomplete="username"]')),
-        60000,
-      );
-      await this.driver.wait(until.elementIsVisible(usernameInput), 60000);
-      await this.driver.wait(until.elementIsEnabled(usernameInput), 60000);
-
-      for (const char of config.twitter.username) {
-        await usernameInput.sendKeys(char);
-        await sleep(100 + Math.random() * 100);
-      }
-      await sleep(1000);
-      await usernameInput.sendKeys(Key.RETURN);
-      logger.info("Username entered");
-      await sleep(5000);
-
-      logger.info("Checking for email verification...");
-      try {
-        const emailInput = await this.driver.wait(
-          until.elementLocated(
-            By.css('input[type="text"], input[type="email"]'),
-          ),
-          10000,
-        );
-        await this.driver.wait(until.elementIsVisible(emailInput), 10000);
-        await this.driver.wait(until.elementIsEnabled(emailInput), 10000);
-
-        if (!config.twitter.email) {
-          throw new Error("Email verification required but not configured");
-        }
-
-        for (const char of config.twitter.email) {
-          await emailInput.sendKeys(char);
-          await sleep(100 + Math.random() * 100);
-        }
-        await sleep(1000);
-        await emailInput.sendKeys(Key.RETURN);
-        logger.info("Email entered");
-        await sleep(5000);
-      } catch (emailError) {
-        if (emailError.name === "TimeoutError") {
-          logger.info("Email verification not required.");
-        } else {
-          throw emailError;
-        }
-      }
-
-      logger.info("Looking for password field...");
-      const passwordInput = await this.driver.wait(
-        until.elementLocated(By.css('input[type="password"]')),
-        60000,
-      );
-      await this.driver.wait(until.elementIsVisible(passwordInput), 60000);
-      await this.driver.wait(until.elementIsEnabled(passwordInput), 60000);
-
-      for (const char of config.twitter.password) {
-        await passwordInput.sendKeys(char);
-        await sleep(100 + Math.random() * 100);
-      }
-      await sleep(1000);
-      await passwordInput.sendKeys(Key.RETURN);
-      logger.info("Password entered");
-      await sleep(8000);
-
-      try {
-        await this.driver.wait(async () => {
-          try {
-            const urlMatches = await until
-              .urlMatches(/x\.com\/(home|explore)/)
-              .fn(this.driver);
-            if (urlMatches) return true;
-
-            const elementLocated = await until
-              .elementLocated(By.css('[data-testid="AppTabBar_Home_Link"]'))
-              .fn(this.driver);
-            if (elementLocated) return true;
-
-            return false;
-          } catch (e) {
-            if (
-              e.name === "StaleElementReferenceError" ||
-              e.name === "NoSuchElementError"
-            ) {
-              return false;
+      // Poll until the login is completed by the user
+      while (true) {
+        try {
+          const currentUrl = await this.driver.getCurrentUrl();
+          if (currentUrl.includes("/home") || currentUrl.includes("/explore") || currentUrl.includes("x.com")) {
+            const homeLink = await this.driver.findElements(By.css('[data-testid="AppTabBar_Home_Link"]'));
+            if (homeLink.length > 0) {
+              logger.info("X (Twitter) login detected! Continuing tracker...");
+              break;
             }
-            throw e;
           }
-        }, 60000);
-        logger.info("Login successful");
-      } catch (loginCheckError) {
-        logger.error("Login verification failed:", loginCheckError);
-        await this.driver.takeScreenshot().then((image) => {
-          require("fs").writeFileSync("login-error.png", image, "base64");
-        });
-        throw new Error("Login failed - could not verify successful login");
-      }
-
-      logger.info("Rechecking for email verification...");
-      try {
-        const emailInput = await this.driver.wait(
-          until.elementLocated(
-            By.css('input[type="text"], input[type="email"]'),
-          ),
-          10000,
-        );
-        await this.driver.wait(until.elementIsVisible(emailInput), 10000);
-        await this.driver.wait(until.elementIsEnabled(emailInput), 10000);
-
-        if (!config.twitter.email) {
-          throw new Error("Email verification required but not configured");
+        } catch (pollErr) {
+          // Ignore transient errors
         }
-
-        for (const char of config.twitter.email) {
-          await emailInput.sendKeys(char);
-          await sleep(100 + Math.random() * 100);
-        }
-        await sleep(1000);
-        await emailInput.sendKeys(Key.RETURN);
-        logger.info("Email entered (second check)");
-        await sleep(3000);
-      } catch (emailError) {
-        if (emailError.name === "TimeoutError") {
-          logger.info("Email verification not required (second check).");
-        } else {
-          throw emailError;
-        }
+        await sleep(5000);
       }
     } catch (error) {
-      logger.error("Login failed:", error);
-      await this.driver.takeScreenshot().then((image) => {
-        require("fs").writeFileSync("login-error.png", image, "base64");
-      });
+      logger.error("Error during X (Twitter) login check in list-tracker:", error);
       throw error;
     }
   }

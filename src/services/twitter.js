@@ -199,10 +199,7 @@ class TwitterService {
       try {
         await this.driver.executeScript(`
           window.focus();
-          // Prevent tab from being throttled
-          if (document.hidden) {
-            console.log('Tab is hidden, bringing to front');
-          }
+          // Prevent tab from being throttled (bring to front if hidden)
         `);
       } catch (e) {
         logger.warn("Could not focus window:", e);
@@ -541,8 +538,63 @@ class TwitterService {
     }
   }
 
+  async switchToTab(domainKeyword) {
+    let originalHandle = null;
+    try {
+      originalHandle = await this.driver.getWindowHandle();
+    } catch (e) {}
+
+    try {
+      const handles = await this.driver.getAllWindowHandles();
+      for (const handle of handles) {
+        try {
+          await this.driver.switchTo().window(handle);
+          const url = await this.driver.getCurrentUrl();
+          let hostname = "";
+          try {
+            hostname = new URL(url).hostname;
+          } catch (urlErr) {}
+          if (
+            hostname.endsWith(domainKeyword) || 
+            hostname === domainKeyword || 
+            hostname.endsWith("twitter.com") || 
+            hostname === "twitter.com" || 
+            hostname.endsWith("x.com") || 
+            hostname === "x.com"
+          ) {
+            logger.info(`TwitterService: Switched to tab matching "${domainKeyword}": ${url}`);
+            try {
+              await this.driver.sendDevToolsCommand("Page.bringToFront");
+            } catch (cdpErr) {
+              await this.driver.executeScript("window.focus();");
+            }
+            return true;
+          }
+        } catch (err) {}
+      }
+      logger.info(`TwitterService: No active tab matching "${domainKeyword}" found. Restoring original tab context.`);
+      if (originalHandle) {
+        await this.driver.switchTo().window(originalHandle);
+      }
+      return false;
+    } catch (e) {
+      logger.warn("TwitterService: Error switching tabs: " + (e.stack || e));
+      if (originalHandle) {
+        try {
+          await this.driver.switchTo().window(originalHandle);
+        } catch (restoreErr) {}
+      }
+      return false;
+    }
+  }
+
   async login() {
     try {
+      const matched = await this.switchToTab("x.com");
+      if (!matched) {
+        logger.info("TwitterService: No matching tab found, opening a new tab...");
+        await this.driver.switchTo().newWindow("tab");
+      }
       // First check if already logged in
       await this.driver.get("https://x.com/home");
       await sleep(3000);
@@ -553,145 +605,32 @@ class TwitterService {
           until.elementLocated(By.css('[data-testid="AppTabBar_Home_Link"]')),
           5000
         );
-        logger.info("Already logged in, skipping login process");
+        logger.info("Already logged in to X (Twitter), skipping login process");
         return;
       } catch (e) {
-        logger.info("Not logged in, proceeding with login...");
+        logger.info("Not logged in to X (Twitter), prompting for manual login...");
       }
 
-      await this.driver.get("https://x.com/login");
-      await sleep(5000); // Wait for page to fully load
+      logger.warn("⚠️ X (Twitter) Login Required: Please log in manually in the Chrome browser window.");
 
-      logger.info("Looking for username field...");
-      const usernameInput = await this.driver.wait(
-        until.elementLocated(By.css('input[autocomplete="username"]')),
-        60000
-      );
-      await this.driver.wait(until.elementIsVisible(usernameInput), 60000);
-      await this.driver.wait(until.elementIsEnabled(usernameInput), 60000);
-
-      // Type slowly to avoid bot detection
-      for (const char of config.twitter.username) {
-        await usernameInput.sendKeys(char);
-        await sleep(100 + Math.random() * 100);
-      }
-      await sleep(1000);
-      await usernameInput.sendKeys(Key.RETURN);
-      logger.info("Username entered");
-      await sleep(5000);
-
-      logger.info("Checking for email verification...");
-      try {
-        const emailInput = await this.driver.wait(
-          until.elementLocated(
-            By.css('input[type="text"], input[type="email"]')
-          ),
-          10000
-        );
-        await this.driver.wait(until.elementIsVisible(emailInput), 10000);
-        await this.driver.wait(until.elementIsEnabled(emailInput), 10000);
-
-        if (!config.twitter.email) {
-          throw new Error("Email verification required but not configured");
-        }
-
-        // Type slowly to avoid bot detection
-        for (const char of config.twitter.email) {
-          await emailInput.sendKeys(char);
-          await sleep(100 + Math.random() * 100);
-        }
-        await sleep(1000);
-        await emailInput.sendKeys(Key.RETURN);
-        logger.info("Email entered");
-        await sleep(5000);
-      } catch (emailError) {
-        if (emailError.name === "TimeoutError") {
-          logger.info("Email verification not required.");
-        } else {
-          throw emailError;
-        }
-      }
-
-      logger.info("Looking for password field...");
-      const passwordInput = await this.driver.wait(
-        until.elementLocated(By.css('input[type="password"]')),
-        60000
-      );
-      await this.driver.wait(until.elementIsVisible(passwordInput), 60000);
-      await this.driver.wait(until.elementIsEnabled(passwordInput), 60000);
-
-      // Type slowly to avoid bot detection
-      for (const char of config.twitter.password) {
-        await passwordInput.sendKeys(char);
-        await sleep(100 + Math.random() * 100);
-      }
-      await sleep(1000);
-      await passwordInput.sendKeys(Key.RETURN);
-      logger.info("Password entered");
-      await sleep(8000);
-
-      try {
-        await this.driver.wait(async () => {
-          try {
-            const urlMatches = await until
-              .urlMatches(/twitter\.com\/(home|explore)/)
-              .fn(this.driver);
-            if (urlMatches) return true;
-
-            const elementLocated = await until
-              .elementLocated(By.css('[data-testid="AppTabBar_Home_Link"]'))
-              .fn(this.driver);
-            if (elementLocated) return true;
-
-            return false;
-          } catch (e) {
-            if (
-              e.name === "StaleElementReferenceError" ||
-              e.name === "NoSuchElementError"
-            ) {
-              return false;
+      // Poll until the login is completed by the user
+      while (true) {
+        try {
+          const currentUrl = await this.driver.getCurrentUrl();
+          if (currentUrl.includes("/home") || currentUrl.includes("/explore") || currentUrl.includes("x.com")) {
+            const homeLink = await this.driver.findElements(By.css('[data-testid="AppTabBar_Home_Link"]'));
+            if (homeLink.length > 0) {
+              logger.info("X (Twitter) login detected! Continuing pipeline...");
+              break;
             }
-            throw e;
           }
-        }, 60000);
-        logger.info("Login successful");
-      } catch (loginCheckError) {
-        logger.error("Login verification failed:", loginCheckError);
-        await this.driver.takeScreenshot().then((image) => {
-          require("fs").writeFileSync("login-error.png", image, "base64");
-        });
-        throw new Error("Login failed - could not verify successful login");
-      }
-
-      logger.info("Rechecking for email verification...");
-      try {
-        const emailInput = await this.driver.wait(
-          until.elementLocated(
-            By.css('input[type="text"], input[type="email"]')
-          ),
-          10000
-        );
-        await this.driver.wait(until.elementIsVisible(emailInput), 10000);
-        await this.driver.wait(until.elementIsEnabled(emailInput), 10000);
-
-        if (!config.twitter.email) {
-          throw new Error("Email verification required but not configured");
+        } catch (pollErr) {
+          // Ignore transient errors
         }
-        await emailInput.sendKeys(config.twitter.email, Key.RETURN);
-        logger.info("Email entered");
-        await sleep(3000);
-      } catch (emailError) {
-        if (emailError.name === "TimeoutError") {
-          logger.info("Email verification not required.");
-        } else {
-          throw emailError;
-        }
+        await sleep(5000);
       }
     } catch (error) {
-      logger.error("Login failed:", error);
-      await this.driver.takeScreenshot().then((image) => {
-        require("fs").writeFileSync("login-error.png", image, "base64");
-      });
+      logger.error("Error during X (Twitter) login check:", error);
       throw error;
     }
   }
@@ -712,6 +651,11 @@ class TwitterService {
       try {
         if (!this.driver || !this.isInitialized) {
           await this.init();
+        }
+        const matched = await this.switchToTab("x.com");
+        if (!matched) {
+          logger.info("TwitterService: No matching tab found, opening a new tab...");
+          await this.driver.switchTo().newWindow("tab");
         }
 
         // Verify driver is still connected
@@ -807,9 +751,14 @@ class TwitterService {
 
   async postTweet(text) {
     try {
-      if (!this.driver) {
-        logger.info("No active driver, initializing Twitter service...");
+      if (!this.driver || !this.isInitialized) {
+        logger.info("No active driver or not initialized, initializing Twitter service...");
         await this.init();
+      }
+      const matched = await this.switchToTab("x.com");
+      if (!matched) {
+        logger.info("TwitterService: No matching tab found, opening a new tab...");
+        await this.driver.switchTo().newWindow("tab");
       }
 
       logger.info("Posting new tweet...");
@@ -827,11 +776,14 @@ class TwitterService {
       await tweetTextarea.sendKeys(Key.chord(Key.CONTROL, Key.ENTER));
       await sleep(2000);
       logger.info("Enter key pressed (using Selenium)");
+      return true;
     } catch (error) {
       logger.error("Failed to post tweet:", error);
-      await this.driver.takeScreenshot().then((image) => {
-        require("fs").writeFileSync("tweet-failed.png", image, "base64");
-      });
+      try {
+        await this.driver.takeScreenshot().then((image) => {
+          require("fs").writeFileSync("tweet-failed.png", image, "base64");
+        });
+      } catch (e) {}
       return false;
     }
   }

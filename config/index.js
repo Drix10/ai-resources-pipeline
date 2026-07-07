@@ -1,11 +1,6 @@
 require("dotenv").config();
 
 const config = {
-  twitter: {
-    username: process.env.TWITTER_USERNAME,
-    password: process.env.TWITTER_PASSWORD,
-    email: process.env.TWITTER_EMAIL,
-  },
   github: {
     personalAccessToken: process.env.GITHUB_PAT,
     owner: process.env.GITHUB_USERNAME,
@@ -201,9 +196,6 @@ const config = {
 };
 
 const requiredConfigs = {
-  "Twitter Username": config.twitter.username,
-  "Twitter Password": config.twitter.password,
-  "Twitter Email": config.twitter.email,
   "GitHub Personal Access Token": config.github.personalAccessToken,
   "GitHub Repository": config.github.repo,
   "Gemini API Key": config.gemini.apiKey,
