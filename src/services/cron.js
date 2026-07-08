@@ -89,6 +89,9 @@ const runEndofRunCuration = async (successfulArticles) => {
         .filter(art => !!art);
         
       if (selectedArticles.length > 0) {
+        logger.info("LinkedIn Curation: Initializing LinkedIn service...");
+        await LinkedInService.init();
+        
         // Step 2: Curation - Generate final LinkedIn post using selected full contents
         const megaPostData = await geminiService.generateLinkedInMasterPost(selectedArticles);
         
@@ -136,7 +139,6 @@ const runEndofRunCuration = async (successfulArticles) => {
  */
 const processAllFolders = async () => {
   await TwitterService.init();
-  await LinkedInService.init();
 
   const successfulArticles = [];
   for (const folder of config.folders) {

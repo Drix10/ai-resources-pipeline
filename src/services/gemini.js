@@ -748,9 +748,8 @@ PART 2: THE BODY (the value-add)
 - ANTI-AI RULE: Completely avoid words like "delve", "testament", "tapestry", "unlock", "seamless", "game-changer", "revolutionary", "groundbreaking", "treasure trove", "leverage", "robust", "elevate". Instead use simple, direct words like "look at", "show", "enable", "simple", "useful", "use", "improve".
 
 PART 3: THE GITHUB MENTION
-- Add ONE line that mentions the GitHub resource: "Full resource list → (link in comments 👇)"
-- DO NOT paste the actual URL in the post body — LinkedIn's algorithm penalizes outbound links
-- The actual URL will be posted separately in the first comment
+- Add ONE line that mentions the GitHub resource and includes the actual URL: "Full resource list → ${githubUrl}"
+- You MUST use the exact GitHub Resource URL provided: ${githubUrl}
 
 PART 4: THE ENGAGEMENT CTA
 - Ask ONE specific, thought-provoking question that invites expertise-sharing
@@ -784,7 +783,7 @@ Return ONLY a raw JSON object (no markdown code blocks, no commentary before or 
 CRITICAL CHECKS before outputting:
 ✓ Hook is under 200 chars and creates curiosity
 ✓ Empty lines between every paragraph
-✓ GitHub URL is NOT in the post body (mention "link in comments" instead)
+✓ GitHub Resource URL is included directly in the post body (e.g. "Full resource list → [URL]")
 ✓ CTA asks a specific, engagement-driving question
 ✓ Exactly 3-4 hashtags at the end
 ✓ slidePoints are specific, under 65 chars each, and contain no AI buzzwords

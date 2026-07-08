@@ -498,9 +498,10 @@ class LinkedInService {
         const el = await this.driver.executeScript(`
           const outlet = document.getElementById("interop-outlet");
           if (outlet && outlet.shadowRoot) {
-            return outlet.shadowRoot.querySelector(arguments[0]);
+            const shadowEl = outlet.shadowRoot.querySelector(arguments[0]);
+            if (shadowEl) return shadowEl;
           }
-          return null;
+          return document.querySelector(arguments[0]);
         `, selector);
         if (el) return el;
       } catch (scriptErr) {
@@ -521,6 +522,22 @@ class LinkedInService {
     let originalHandle = null;
     let localImagePath = null;
     let isRemote = false;
+
+    // Clean up markdown formatting so it renders beautifully on LinkedIn (which only supports plain text)
+    const cleanedText = text
+      // Remove bold markers (**bold** -> bold)
+      .replace(/\*\*(.*?)\*\*/g, "$1")
+      // Remove italic markers (*italic* -> italic)
+      .replace(/\*(.*?)\*/g, "$1")
+      // Remove underline markers (__underline__ -> underline)
+      .replace(/__(.*?)__/g, "$1")
+      // Remove backticks (code format) (`code` -> code)
+      .replace(/`(.*?)`/g, "$1")
+      // Clean up markdown headers (e.g., ### Title -> Title)
+      .replace(/^#+\s*(.*?)$/gm, "$1")
+      // Clean up markdown links ([Link text](http://url) -> Link text: http://url)
+      .replace(/\[(.*?)\]\((.*?)\)/g, "$1: $2");
+
     try {
       await this.ensureDriverConnected();
 
@@ -636,20 +653,24 @@ class LinkedInService {
 
       logger.info("LinkedInService: Formatting and injecting post text into editor...");
       await this.driver.executeScript(`
+        let editorEl = null;
         const outlet = document.getElementById("interop-outlet");
         if (outlet && outlet.shadowRoot) {
-          const editorEl = outlet.shadowRoot.querySelector("div.ql-editor, div[role='textbox'][contenteditable='true']");
-          if (editorEl) {
-            editorEl.innerHTML = "";
-            const formattedText = arguments[0].split('\\n').map(p => {
-              const trimmed = p.trim();
-              return trimmed ? '<p>' + p + '</p>' : '<p><br></p>';
-            }).join('');
-            editorEl.innerHTML = formattedText;
-            editorEl.dispatchEvent(new Event('input', { bubbles: true }));
-          }
+          editorEl = outlet.shadowRoot.querySelector("div.ql-editor, div[role='textbox'][contenteditable='true']");
         }
-      `, text);
+        if (!editorEl) {
+          editorEl = document.querySelector("div.ql-editor, div[role='textbox'][contenteditable='true']");
+        }
+        if (editorEl) {
+          editorEl.innerHTML = "";
+          const formattedText = arguments[0].split('\\n').map(p => {
+            const trimmed = p.trim();
+            return trimmed ? '<p>' + p + '</p>' : '<p><br></p>';
+          }).join('');
+          editorEl.innerHTML = formattedText;
+          editorEl.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+      `, cleanedText);
       await sleep(3000);
 
 
@@ -664,12 +685,15 @@ class LinkedInService {
       let isEnabled = false;
       for (let i = 0; i < 20; i++) {
         isEnabled = await this.driver.executeScript(`
+          let btn = null;
           const outlet = document.getElementById("interop-outlet");
           if (outlet && outlet.shadowRoot) {
-            const btn = outlet.shadowRoot.querySelector("button.share-actions__primary-action, button[class*='primary-action']");
-            return btn ? !btn.disabled : false;
+            btn = outlet.shadowRoot.querySelector("button.share-actions__primary-action, button[class*='primary-action']");
           }
-          return false;
+          if (!btn) {
+            btn = document.querySelector("button.share-actions__primary-action, button[class*='primary-action']");
+          }
+          return btn ? !btn.disabled : false;
         `);
         if (isEnabled) break;
         await sleep(500);
@@ -730,6 +754,12 @@ class LinkedInService {
 
     try {
       await this.ensureDriverConnected();
+    } catch (err) {
+      logger.error("LinkedInService: Failed to ensure driver connected for slide image:", err);
+      return null;
+    }
+
+    try {
       originalHandle = await this.driver.getWindowHandle();
     } catch (e) {}
 
@@ -745,28 +775,40 @@ class LinkedInService {
     // Escape any HTML special chars in dynamic content to prevent injection
     const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-    const pointsHtml = points.map((pt, i) => `
-      <div class="point-item">
-        <div class="point-num">${i + 1}</div>
-        <div class="point-text">${esc(pt)}</div>
-      </div>
-    `).join("");
+    const safePoints = Array.isArray(points) ? points : [];
+    const accents = [
+      { border: "rgba(249, 115, 22, 0.4)", numBg: "linear-gradient(135deg, #ea580c 0%, #7c2d12 100%)", glow: "rgba(249, 115, 22, 0.3)", textColor: "#ffedd5" },
+      { border: "rgba(99, 102, 241, 0.4)", numBg: "linear-gradient(135deg, #4f46e5 0%, #312e81 100%)", glow: "rgba(99, 102, 241, 0.3)", textColor: "#e0e7ff" },
+      { border: "rgba(16, 185, 129, 0.4)", numBg: "linear-gradient(135deg, #059669 0%, #064e3b 100%)", glow: "rgba(16, 185, 129, 0.3)", textColor: "#d1fae5" }
+    ];
+
+    const pointsHtml = safePoints.map((pt, i) => {
+      const acc = accents[i] || accents[0];
+      return `
+        <div class="point-item" style="border-left: 5px solid ${acc.border}; box-shadow: 0 12px 40px rgba(0,0,0,0.4), inset 0 0 15px ${acc.glow};">
+          <div class="point-num" style="background: ${acc.numBg}; border: 1px solid ${acc.border}; box-shadow: 0 0 15px ${acc.glow}; color: ${acc.textColor};">${i + 1}</div>
+          <div class="point-text">${esc(pt)}</div>
+        </div>
+      `;
+    }).join("");
     
-    // Portrait 1080x1350 — LinkedIn feed-optimal with a clean, flat Swiss-developer aesthetic
+    // Portrait 1080x1350 — LinkedIn feed-optimal with a premium, Vercel-style minimalist dark aesthetic
     const htmlContent = `<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       width: 1080px;
       height: 1350px;
       display: flex;
       flex-direction: column;
-      background: #0f0f11;
-      color: #f4f4f5;
+      background: radial-gradient(circle at 50% 0%, #201a15 0%, #0a0806 70%, #020101 100%);
+      background-image: radial-gradient(circle at 50% 0%, #201a15 0%, #0a0806 70%, #020101 100%), radial-gradient(rgba(255, 255, 255, 0.03) 1.5px, transparent 0);
+      background-size: 100% 100%, 32px 32px;
+      color: #f5f5f4;
       font-family: 'Inter', sans-serif;
       overflow: hidden;
       position: relative;
@@ -777,101 +819,112 @@ class LinkedInService {
       display: flex;
       flex-direction: column;
       height: 100%;
-      padding: 90px 80px 70px;
+      padding: 70px 85px 60px;
     }
     .top-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 70px;
+      margin-bottom: 45px;
     }
     .badge {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      border: 1px solid #3f3f46;
-      background: #18181b;
-      padding: 10px 20px;
-      border-radius: 6px;
+      gap: 12px;
+      border: 1px solid rgba(249, 115, 22, 0.15);
+      background: rgba(43, 30, 20, 0.4);
+      backdrop-filter: blur(8px);
+      padding: 10px 22px;
+      border-radius: 99px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: #e4e4e7;
+      color: #ffedd5;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
     }
     .badge-dot {
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: #10b981;
+      background: #f97316;
+      box-shadow: 0 0 10px #f97316;
     }
     .logo-area {
       font-family: 'JetBrains Mono', monospace;
       font-size: 15px;
-      color: #71717a;
-      font-weight: 500;
+      color: #a8a29e;
+      font-weight: 600;
+      letter-spacing: -0.01em;
     }
     .hero-section {
-      margin-bottom: 50px;
-      border-left: 5px solid #6366f1;
-      padding-left: 28px;
+      margin-bottom: 40px;
+      border-left: 4px solid;
+      border-image: linear-gradient(to bottom, #f97316, #ea580c, transparent) 1;
+      padding-left: 32px;
     }
     .eyebrow {
       font-size: 15px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
+      font-weight: 700;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: #a5b4fc;
-      margin-bottom: 14px;
+      color: #fed7aa;
+      margin-bottom: 16px;
     }
     .title {
-      font-size: 58px;
+      font-size: 54px;
       font-weight: 800;
       line-height: 1.15;
-      color: #ffffff;
-      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #ffffff 30%, #ffedd5 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.03em;
     }
     .points-section {
       flex-grow: 1;
       display: flex;
       flex-direction: column;
-      gap: 32px;
+      gap: 24px;
     }
     .point-item {
       display: flex;
       align-items: flex-start;
       gap: 28px;
-      padding: 30px;
-      background: #18181b;
-      border: 1px solid #27272a;
-      border-radius: 8px;
+      padding: 24px 32px;
+      background: rgba(28, 25, 23, 0.45);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+      transition: all 0.3s ease;
     }
     .point-num {
       flex-shrink: 0;
-      width: 44px;
-      height: 44px;
-      border-radius: 6px;
-      background: #27272a;
-      border: 1px solid #3f3f46;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ea580c 0%, #7c2d12 100%);
+      border: 1px solid #f97316;
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 700;
-      color: #6366f1;
+      color: #ffedd5;
+      box-shadow: 0 0 15px rgba(249, 115, 22, 0.25);
     }
     .point-text {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 500;
-      color: #d4d4d8;
-      line-height: 1.5;
+      color: #e4e4e7;
+      line-height: 1.45;
     }
     .footer {
-      margin-top: 50px;
-      padding-top: 36px;
-      border-top: 1px solid #27272a;
+      margin-top: 40px;
+      padding-top: 25px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -882,26 +935,28 @@ class LinkedInService {
       gap: 12px;
     }
     .footer-icon {
-      font-size: 18px;
+      font-size: 20px;
+      filter: drop-shadow(0 0 8px #f97316);
     }
     .footer-text {
       font-size: 16px;
-      color: #71717a;
-      font-weight: 500;
+      color: #a8a29e;
+      font-weight: 600;
       font-family: 'JetBrains Mono', monospace;
     }
     .save-cta {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: #27272a;
-      border: 1px solid #3f3f46;
-      padding: 10px 20px;
-      border-radius: 6px;
-      font-size: 14px;
+      gap: 10px;
+      background: linear-gradient(135deg, #292524 0%, #1c1917 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 15px;
       font-weight: 600;
-      color: #e4e4e7;
-      letter-spacing: 0.02em;
+      color: #ffedd5;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.35), inset 0 1px 1px rgba(255,255,255,0.05);
+      letter-spacing: 0.01em;
     }
   </style>
 </head>
@@ -939,13 +994,15 @@ class LinkedInService {
       await this.driver.switchTo().newWindow("tab");
       renderTabOpened = true;
       
-      // Resize window to match 1080x1350 portrait canvas
-      await this.driver.manage().window().setSize({ width: 1080, height: 1420 });
+      // Use massive window dimensions to comfortably fit the 1080x1350 canvas even on high Windows DPI/OS scaling
+      await this.driver.manage().window().setSize({ width: 1500, height: 1800 });
       await this.driver.get(fileUrl);
       await sleep(2500); // Wait for Google Fonts to load
       
       const imagePath = path.join(tempDir, `slide-${Date.now()}.png`);
-      const screenshotData = await this.driver.takeScreenshot();
+      // Find body element and take element-level screenshot to capture exact 1080x1350 area without window scrollbars or border clipping
+      const bodyEl = await this.driver.findElement(By.css("body"));
+      const screenshotData = await bodyEl.takeScreenshot();
       fs.writeFileSync(imagePath, Buffer.from(screenshotData, "base64"));
       logger.info(`LinkedInService: Generated slide image screenshot saved to ${imagePath}`);
       
