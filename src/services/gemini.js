@@ -27,60 +27,24 @@ const safetySettings = [
 ];
 
 const SYSTEM_PROMPT = `
-You are an expert technical writer and curator. Your writing style is direct, clear, and highly professional, completely free of generic AI-generated filler and corporate fluff.
+You are an expert technical writer and senior software engineer. Your writing style is direct, clear, highly analytical, and professional—completely free of generic AI-generated filler, marketing hype, and corporate fluff.
 
-Transform the Twitter threads and their resources into high-value technical articles following these EXACT formatting and style guidelines:
+You curate raw tech/AI/developer content (Twitter threads, LinkedIn posts) and transform them into premium, high-value, and perfectly formatted technical articles in markdown.
 
-### 🔗 {Clear Resource Category Title}
+=== ANTI-AI & TECHNICAL TONE RULES (STRICT) ===
+1. BAN LIST — Absolutely NEVER use these robotic/AI buzzwords: "delve", "testament", "tapestry", "unlock", "seamless", "game-changer", "revolutionary", "groundbreaking", "moreover", "furthermore", "in conclusion", "shines a light", "treasure trove", "leverage", "robust", "key takeaway", "elevate", "cutting-edge", "beacon", "look no further".
+2. NO MARKETING FLUFF — Avoid empty hype adjectives. Instead of "powerful query system" or "lightning-fast framework", write "query system" or "framework". Only include benchmark figures or technical details if specifically present in the source text.
+3. HUMAN SENIOR-ENGINEER TONE — Write as if you are sharing what actually works directly with another senior engineer. Be objective, precise, and practical.
+4. SENTENCE VARIANCE — Use a natural human rhythm. Mix short, punchy 4-to-6-word statements with slightly longer technical explanations. Avoid repetitive sentence structures.
 
-{Brief introduction about this collection of resources from the thread}
-
-Featured Resources:
-{Numbered list of resources with descriptions from the thread context}
-
-Key Highlights:
-
-• {Main benefit or feature from thread context 1}
-
-• {Main benefit or feature from thread context 2}
-
-• {Main benefit or feature from thread context 3}
-
-💡 Pro Tips:
-{Practical implementation advice derived from the thread}
-
-🔗 Resources:
-
-{All external links and images from the thread with descriptive titles}
-
----
-
-STYLE & ANTI-AI DIRECTIONS:
-1. BAN LIST — Absolutely NEVER use these AI buzzwords: "delve", "testament", "tapestry", "unlock", "seamless", "game-changer", "revolutionary", "groundbreaking", "moreover", "furthermore", "in conclusion", "shines a light", "treasure trove", "leverage", "robust", "key takeaway", "elevate".
-2. NO MARKETING FLUFF — Avoid empty adjectives. Instead of "powerful framework", say "framework". Instead of "lightning-fast query system", state the actual benchmark or mechanism if present (or just say "query system").
-3. VARIANCE — Write with varied sentence lengths (mix short, punchy 5-word statements with longer explanatory sentences).
-4. HUMAN VOICE — Write as if you are explaining this directly to another senior engineer. Be technical, precise, and objective.
-
-Important rules:
-1. Always include section separators (---)
-2. Always start with H3 header (###) and emoji
-3. Always format links as [descriptive title](url) and for images this: ![Image](img url)
-4. Always include the original context from the thread
-5. Always maintain professional tone
-6. Group related resources together coherently
-7. Keep descriptions clear and concise
-8. Never skip any sections
-9. Never add fake links or resources
-10. Always include ALL external links from the thread
-11. Do not remove any information which was provided in the original tweet
-12. Do not generate any other text, other than the articles
-
-Note:
-1. Always include the original context from the thread, and make one for all the threads provided
-2. If no resources are provided, do not include the Resources section
-3. Always embed images and links from the thread with correct descriptions
-4. Fill it with your best knowledge of the topic, if not enough context is provided.
-5. When alot of context is missing, write a detailed introduction about the topic and provide links to more information.
+=== CORE FORMATTING INSTRUCTIONS ===
+- Every article must start with a level-3 header: "### [emoji] Topic - Subtopic" (Use ONE appropriate emoji: 🤖 for technical, 🚀 for tools, 💡 for tips, ✨ for features).
+- The article must have a concise introduction (2-3 sentences max) explaining what the topic covers. No emojis or marketing language.
+- Follow with "Key Points:" with a double newline, then bullet points using "•". There must be a double newline between each point. Single line per point, no emojis in points, 3-5 points max.
+- When applicable, add "🚀 Implementation:" followed by 3-5 numbered steps.
+- When verified external links or images exist in the source, add "🔗 Resources:" followed by links formatted as "• [Tool Name](url) - Description (max 10 words)" or images formatted as "![Image](url)".
+- Never invent or hallucinate any links, tools, or resources. Preserve all factual information from the original context.
+- Always separate distinct articles with "---" and a newline.
 `;
 
 const model = genAI.getGenerativeModel({
@@ -99,6 +63,9 @@ class GeminiService {
     this.resetInterval = setInterval(() => {
       this.requestsThisMinute = 0;
     }, 60000);
+    if (this.resetInterval && this.resetInterval.unref) {
+      this.resetInterval.unref();
+    }
   }
 
   cleanup() {
@@ -171,7 +138,12 @@ class GeminiService {
       logger.info("GeminiService: Combined prompt built, sending to API...");
 
       const prompt = `
-You are a professional technical content curator. Transform this each of the Twitter thread into a high-quality markdown article following these EXACT specifications:
+You are a professional technical content curator and senior engineer. Your task is to transform each of the provided Twitter threads/conversations into a high-quality, professional markdown article following these EXACT formatting and style specifications:
+
+=== ANTI-AI & TONE DIRECTIVES (CRITICAL) ===
+1. BAN LIST — Absolutely NEVER use these words or phrases anywhere in your output: "delve", "testament", "tapestry", "unlock", "seamless", "game-changer", "revolutionary", "groundbreaking", "moreover", "furthermore", "in conclusion", "shines a light", "treasure trove", "leverage", "robust", "key takeaway", "elevate", "cutting-edge", "beacon", "look no further".
+2. TONE & VOCABULARY — Write in a direct, objective, and analytical senior-engineer tone. Avoid empty hype adjectives and marketing fluff (e.g., use "database", not "powerful cutting-edge database").
+3. VARIANCE — Write with varied sentence lengths. Use short, punchy statements mixed with longer technical explanations to sound natural and human.
 
 FORMAT REQUIREMENTS:
 1. HEADER (MANDATORY):
@@ -181,35 +153,20 @@ FORMAT REQUIREMENTS:
    - Example: "### 🤖 Observability - RAG Implementation"
 
 2. INTRODUCTION (MANDATORY):
-   - 2-3 sentences maximum
-   - Explain what the article covers
-   - No marketing language
+   - 2-3 sentences maximum explaining what the article covers
+   - No marketing language, pure technical value
    - Professional tone
-   - No emojis in introduction
+   - No emojis in the introduction text
 
 3. KEY POINTS (MANDATORY):
    - Start with "Key Points:"
    - Add TWO newlines after "Key Points:"
    - Use bullet points with "•" symbol (not for Images)
    - 3-5 points maximum
-   - Each point must be separated by TWO newlines
-   - Each point: single line, clear benefit
-   - No emojis in points
-   - Example:
-     Key Points:
-
-     • First key point about the topic
-
-     • Second key point about functionality
-
-     • Third key point about benefits
-
-     • Fourth key point describing main feature
-
-     • Fifth key point highlighting unique value
-
-   SPACING RULES FOR POINTS:
-   - Double newline after section header
+   - Each point: single line, clear benefit/insight, no emojis, no bold/italic formatting
+   
+   SPACING RULES FOR POINTS (STRICT):
+   - Double newline after "Key Points:"
    - Double newline between each bullet point
    - Double newline after last bullet point
    - Example format:
@@ -225,64 +182,37 @@ FORMAT REQUIREMENTS:
    - Start with "🚀 Implementation:"
    - Numbered steps (1. 2. 3. etc)
    - 3-5 steps maximum
-   - Each step: action-oriented, clear
-   - Example:
-     🚀 Implementation:
-     1. First Step: What to do first
-     2. Second Step: What to do next
-     3. Third Step: Final action
+   - Each step: action-oriented, clear, technical
 
 5. RESOURCES (MANDATORY):
    - Start with "🔗 Resources:"
-   - Format: • [Tool Name](url) - Brief description
-   - Format: ![Image](Image url)
-   - Description: max 10 words
-   - Only include verified links
-   - Example:
-     🔗 Resources:
-
-     • [Tool Name](https://example.com) - What this tool helps with
-
-     • [Another Tool](https://example.com) - What this tool helps with
-
-     ![Image](https://example.png)
+   - Format: • [Tool Name](url) - Brief description (max 10 words, no colons inside descriptions)
+   - Format: ![Image](Image url) (no descriptions for images)
+   - Only include verified links and images directly present in the source text
 
 STRICT FORMATTING RULES:
-- Maintain exact spacing shown in example
+- Maintain exact spacing shown in the example
 - No bold or italic text
-- No extra emojis
+- No extra emojis or decorative elements
 - No extra sections
-- No marketing language
 - No placeholder content
 - No "Learn more" or similar phrases
-- No colons in descriptions
 - No extra horizontal rules
-- No descriptions for Images
+- Keep it highly structured and extremely clean
 
-Here's the content to transform:
+Here is the content to transform:
 ${combinedPrompt}
 
-Here's the example format:
+Here is the example format to match exactly:
 ${exampleFormat}
 
 Remember:
-1. Keep it professional and technical
-2. Follow exact spacing and formatting
-3. No deviations from the structure
-4. No extra decorative elements
-5. Verify all links and images's format before including
-6. Process each conversation as a single unit.
-7. Do not repeat content or links within a single article.
-8. Make one Formatted article for each of the Tweet's context provided, ideally 10-15 at once depending on input
-9. Do not remove any information which was provided in the original tweet
-10. Do not generate any other text, other than the articles
-
-Note:
-1. Always include the original context from the thread
-2. If no resources are provided, do not include the Resources section
-3. Always embed images and links from the thread with correct descriptions
-4. Fill it with your best knowledge of the topic, if not enough context is provided.
-5. When alot of context is missing, write a detailed introduction about the topic and provide links to more information.`;
+1. Process each conversation as a single unit.
+2. Do not repeat content or links within a single article.
+3. Make one formatted article for each thread/conversation provided.
+4. Do not remove or omit any factual information provided in the original content.
+5. Do not generate any other text, other than the articles.
+`;
 
       try {
         await this.checkRateLimit();
@@ -341,7 +271,7 @@ If you liked reading this report, please star ⭐️ this repository and follow 
 
     // Check if we've hit the rate limit
     if (this.requestsThisMinute >= 55) {
-      const waitTime = 60000 - timeSinceLastRequest;
+      const waitTime = 60000 - (Date.now() - this.lastRequestTime);
       if (waitTime > 0) {
         logger.info(
           `Gemini Rate limit: Waiting ${
@@ -349,8 +279,11 @@ If you liked reading this report, please star ⭐️ this repository and follow 
           } seconds before next request`
         );
         await sleep(waitTime);
-        this.requestsThisMinute = 0;
-        this.lastRequestTime = Date.now();
+        // Concurrency-safe reset: only reset if another request hasn't already reset it
+        if (Date.now() - this.lastRequestTime >= 60000) {
+          this.requestsThisMinute = 0;
+          this.lastRequestTime = Date.now();
+        }
       }
     }
 
@@ -431,14 +364,14 @@ If you liked reading this report, please star ⭐️ this repository and follow 
       `;
 
       const prompt = `
-You are an expert technical writer and curator. Transform the following Twitter threads and LinkedIn posts into a high-quality markdown article following these EXACT specifications:
+You are an expert technical writer, senior software engineer, and content curator. Transform the following Twitter threads and LinkedIn posts into high-quality, professional markdown articles following these EXACT specifications:
 
 CONTENT FILTERING RULE (CRITICAL):
 - Ignore and completely filter out any threads or posts that are low-value noise, advertisements, self-promotional spam, hiring announcements, open/closed polls, or generic marketing fluff.
 - Only generate formatted articles for items containing genuine, high-quality technical insights, architecture lessons, programming guides, or actual tools/libraries.
 
-ANTI-AI WRITING DIRECTIVES (CRITICAL):
-1. BANNED WORDS — Absolutely DO NOT use these words or phrases anywhere in your output: "delve", "testament", "tapestry", "unlock", "seamless", "game-changer", "revolutionary", "groundbreaking", "moreover", "furthermore", "in conclusion", "shines a light", "treasure trove", "leverage", "robust", "key takeaway", "elevate".
+=== ANTI-AI & TONE DIRECTIVES (CRITICAL) ===
+1. BAN LIST — Absolutely NEVER use these words or phrases anywhere in your output: "delve", "testament", "tapestry", "unlock", "seamless", "game-changer", "revolutionary", "groundbreaking", "moreover", "furthermore", "in conclusion", "shines a light", "treasure trove", "leverage", "robust", "key takeaway", "elevate", "cutting-edge", "beacon", "look no further".
 2. TONE & VOCABULARY — Write in a direct, objective, and analytical tone. Avoid motivational cliches, hype words, and marketing adjectives (e.g. use "database", not "cutting-edge database").
 3. VARIANCE — Write with varied sentence lengths. Use short, punchy statements mixed with longer explanatory sentences to sound natural and human.
 
@@ -450,23 +383,20 @@ FORMAT REQUIREMENTS:
    - Example: "### 🤖 Observability - RAG Implementation"
 
 2. INTRODUCTION (MANDATORY):
-   - 2-3 sentences maximum
-   - Explain what the article covers
-   - No marketing language
+   - 2-3 sentences maximum explaining what the article covers
+   - No marketing language, pure technical value
    - Professional tone
-   - No emojis in introduction
+   - No emojis in the introduction text
 
 3. KEY POINTS (MANDATORY):
    - Start with "Key Points:"
    - Add TWO newlines after "Key Points:"
    - Use bullet points with "•" symbol (not for Images)
    - 3-5 points maximum
-   - Each point must be separated by TWO newlines
-   - Each point: single line, clear benefit
-   - No emojis in points
+   - Each point: single line, clear benefit/insight, no emojis, no bold/italic formatting
 
-   SPACING RULES FOR POINTS:
-   - Double newline after section header
+   SPACING RULES FOR POINTS (STRICT):
+   - Double newline after "Key Points:"
    - Double newline between each bullet point
    - Double newline after last bullet point
 
@@ -474,31 +404,29 @@ FORMAT REQUIREMENTS:
    - Start with "🚀 Implementation:"
    - Numbered steps (1. 2. 3. etc)
    - 3-5 steps maximum
-   - Each step: action-oriented, clear
+   - Each step: action-oriented, clear, technical
 
 5. RESOURCES (MANDATORY):
    - Start with "🔗 Resources:"
-   - Format: • [Tool Name](url) - Brief description
-   - Format: ![Image](Image url)
-   - Description: max 10 words
-   - Only include verified links
+   - Format: • [Tool Name](url) - Brief description (max 10 words, no colons inside descriptions)
+   - Format: ![Image](Image url) (no descriptions for images)
+   - Only include verified links and images directly present in the source text
 
 STRICT FORMATTING RULES:
-- Maintain exact spacing shown in example
+- Maintain exact spacing shown in the example
 - No bold or italic text
-- No extra emojis
+- No extra emojis or decorative elements
 - No extra sections
-- No marketing language
 - No placeholder content
 - No "Learn more" or similar phrases
 - No colons in descriptions
 - No extra horizontal rules
 - No descriptions for Images
 
-Here's the content to transform:
+Here is the content to transform:
 ${combinedPrompt}
 
-Here's the example format:
+Here is the example format to match exactly:
 ${exampleFormat}
 
 Remember:
@@ -583,26 +511,53 @@ If you liked reading this report, please star ⭐️ this repository and follow 
       }
 
       const prompt = `
-You are a premium technical copywriter and SEO expert. Your task is to analyze the following list of scraped content (tweets and LinkedIn posts) and draft ONE highly professional, engaging, and SEO-optimized LinkedIn summary post that highlights the top insights or resources found in this content.
+You are a world-class technical LinkedIn copywriter who creates high-engagement posts for developer and AI audiences.
 
-Here is the GitHub URL where the full curated list of resources has been uploaded:
-${githubUrl}
+Your goal: Write ONE premium LinkedIn summary post that highlights the best insights/tools from the scraped content and drives traffic to the GitHub repository.
 
-Here is the scraped content:
+GitHub URL: ${githubUrl}
+
+Scraped content:
 ${combinedPrompt}
 
-INSTRUCTIONS FOR THE LINKEDIN POST:
-1. Craft a compelling HOOK as the first sentence. It must intrigue professional readers in tech, development, or AI and encourage them to click "see more".
-2. Organize the body into readable paragraphs with ample white space. Do NOT make blocks of text.
-3. Call out 3-4 top key takeaways, tools, or resources found in the scraped content. Focus on high-value, educational, or technical quality.
-4. Promote the GitHub repository link (${githubUrl}) clearly as the place where all resources are listed, formatted nicely.
-5. End with 3-5 relevant, highly targeted hashtags (e.g., #AI, #WebDevelopment, #TechResources).
-6. Do NOT use fake urls.
-7. Return your response in VALID JSON format. The JSON must contain exactly these two keys:
-   - "postText": A string containing the full, raw text of your LinkedIn post (including spacing, emoji, bullet points, and hashtags).
-   - "imageToAttach": The URL of the single best image from the scraped content to attach to the post. If no suitable image exists, set this to null.
+=== 2026 LINKEDIN VIRALITY RULES (STRICTLY FOLLOW) ===
 
-Ensure the output is ONLY the raw JSON object, starting with { and ending with }. Do not wrap it in markdown code blocks like \`\`\`json.
+HOOK (CRITICAL - First 1-3 lines, under 200 characters visible):
+Must create a strong curiosity/information gap so people click "see more".
+Best performing styles for tech content: 
+  Numbered specific claim
+  "I analyzed/tested X..." 
+  Surprising statistic or result
+  Contrarian take ("Most devs do this wrong...")
+  Problem statement or "This changed everything"
+Make it specific and concrete. Avoid generic openers like "Excited to share" or "In today's world".
+
+BODY:
+Use plenty of white space (double newlines between paragraphs).
+3-5 short paragraphs maximum (1-3 sentences each).
+Highlight 3-4 top specific tools, insights, or frameworks from the content.
+Make it skimmable with bullets or numbered lists where natural.
+Naturally promote the GitHub as the full curated resource list: "Full resource list and tools → ${githubUrl}"
+Keep tone direct, technical, and valuable (like a senior engineer sharing what actually works).
+
+CTA:
+End with EXACTLY ONE specific, thought-provoking question that invites expertise-sharing (e.g., "Which of these tools have you tried in production?", "What's the biggest challenge you face with [topic]?").
+Avoid weak/generic CTAs like "Thoughts?", "Agree?", or "What do you think?".
+
+HASHTAGS:
+Exactly 3-5 highly targeted hashtags on the final line (mix 1 broad + 2-3 niche).
+
+STYLE RULES:
+Direct, professional, technical tone.
+No AI buzzwords or hype language.
+Short, readable sentences.
+Focus on value and specificity.
+
+Return ONLY valid raw JSON. Ensure the output is ONLY the raw JSON object, starting with { and ending with }. Do not wrap it in markdown code blocks like \`\`\`json.
+{
+  "postText": "Full formatted post with proper newlines (use \\n)",
+  "imageToAttach": "Best image URL from content or null"
+}
 `;
 
       try {
@@ -612,8 +567,8 @@ Ensure the output is ONLY the raw JSON object, starting with { and ending with }
         let text = result.response.text().trim();
         
         // Clean up markdown block if model output it
-        if (text.startsWith("```")) {
-          text = text.replace(/```(json)?/g, "").trim();
+        if (text.includes("```")) {
+          text = text.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "").trim();
         }
 
         const data = JSON.parse(text);
@@ -640,29 +595,24 @@ Ensure the output is ONLY the raw JSON object, starting with { and ending with }
     try {
       const list = articles.map((art, idx) => `[Index ${idx}] Topic: "${art.title}"`).join("\n");
       const prompt = `
-You are a senior tech content strategist with deep expertise in LinkedIn growth for developer and AI audiences.
+You are a top-tier senior tech content strategist with deep expertise in LinkedIn growth for developer and AI audiences.
 
-Your task: From the list of curated tech articles below, select the 1 article (or at most 2 if two topics are clearly complementary) that will make the BEST LinkedIn post for maximum reach and engagement.
+Your task: Analyze the list of curated tech articles below and select the single BEST article (or at most two if they are highly complementary) to write a high-engagement, scroll-stopping LinkedIn post.
 
-Evaluation criteria (score each mentally 1-10 on each):
-1. TRENDING RELEVANCE — Is this topic hot RIGHT NOW in tech/AI/dev communities?
-2. BROAD APPEAL — Will this resonate with developers, AI engineers, CTOs, and tech enthusiasts?
-3. STORYTELLING POTENTIAL — Can we write a compelling hook around this? Does it have a surprising angle?
-4. ACTIONABILITY — Can a reader immediately apply something from this? Frameworks, tools, and how-tos score high.
-5. UNIQUENESS — Is this a fresh take or a well-covered topic? Niche but important scores highest.
-
-IMPORTANT RULES:
-- AVOID selecting anything that is primarily a job listing, generic motivational content, recruiting news, or company announcement
-- PREFER topics related to: AI tools/models, developer productivity, architecture patterns, new frameworks/libraries, security insights, performance optimization
-- SELECT the topic with the highest combined score across all criteria
+=== 2026 ENGAGEMENT & SELECTION CRITERIA ===
+1. ACTIONABILITY & UTILITY (HIGH WEIGHT) — Can a developer or engineer immediately use, bookmark, or apply this? Curations, tools, frameworks, and practical guidebooks perform best.
+2. STORYTELLING & CURIOSITY GAP — Does this topic have a high storytelling potential? Is there a surprising benchmark, an elegant architecture design, or a contrarian take we can hook readers with?
+3. TRENDING COMMUNITY IRRELEVANCE — Is this topic highly relevant and trending in AI, LLM, devops, or software engineering circles?
+4. BROAD DEVELOPER APPEAL — Will this resonate deeply with software engineers, AI developers, CTOs, and tech leads?
+5. AVOID ADVERTISING & SPAM — Completely avoid selecting job postings, generic announcements, polls, or motivational/career fluff.
 
 Articles list:
 ${list}
 
 Return ONLY a raw JSON object (no markdown, no commentary) with exactly one key:
-- "selectedIndices": An array of integers (the index numbers of your selected articles, max 2)
+- "selectedIndices": An array of integers (index numbers of selected articles, max 2)
 
-Example output: {"selectedIndices": [2]}
+Example output: {"selectedIndices": [1]}
 `;
 
       try {
@@ -671,8 +621,8 @@ Example output: {"selectedIndices": [2]}
         const result = await responseModel.generateContent(prompt);
         let text = result.response.text().trim();
         
-        if (text.startsWith("```")) {
-          text = text.replace(/```(json)?/g, "").trim();
+        if (text.includes("```")) {
+          text = text.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "").trim();
         }
 
         const data = JSON.parse(text);
@@ -708,86 +658,67 @@ Example output: {"selectedIndices": [2]}
       const githubUrl = selectedArticles.length > 0 ? selectedArticles[0].githubUrl : "";
 
       const prompt = `
-You are a world-class LinkedIn content creator specializing in tech, AI, and software development. You have written viral posts that regularly receive 50K+ impressions. You deeply understand the LinkedIn algorithm and what makes professionals stop scrolling.
+You are a top-tier LinkedIn content creator specializing in tech, AI, and developer content. You write posts that regularly get high engagement through strong hooks, valuable insights, and conversation-starting CTAs.
 
-Your task: Write ONE masterclass LinkedIn post based on the article content below. This post must follow the proven 2025 LinkedIn virality formula precisely.
+Task: Write ONE high-performing LinkedIn post based on the selected article(s) below. Follow the proven 2026 virality formula exactly.
 
 === ARTICLE CONTENT ===
 ${context}
-=== END CONTENT ===
+=== END ===
 
-GitHub Resource URL (for mention): ${githubUrl}
+GitHub Resource URL: ${githubUrl}
 
-=== THE VIRAL LINKEDIN POST FORMULA ===
+=== VIRAL LINKEDIN POST FORMULA (2026) ===
 
-PART 1: THE HOOK (CRITICAL — first 200 characters)
-- This is the text visible BEFORE the "see more" button
-- Must create an INFORMATION GAP — a reason to click and read more
-- Use ONE of these proven hook styles:
-  a) Bold, specific claim: "I analyzed 100 AI tools. Only 3 are actually worth your time."
-  b) Surprising statistic: "87% of developers are using [X] wrong. Here's the correct approach."
-  c) Contrarian take: "Hot take: [popular belief] is completely wrong for your stack in 2025."
-  d) Numbered specific: "5 [X] mistakes that are silently costing your team 10+ hours/week."
-  e) Problem statement: "[specific pain point] is the #1 reason senior devs leave their jobs."
-- NO generic openings like "Excited to share", "I wanted to discuss", "In today's world"
-- NO vague questions like "What do you think?" or "Agree?"
-- The hook MUST directly relate to the article topic
-- Max 200 characters for the hook line
+PART 1: HOOK (Most important - first 1-3 lines, <200 characters)
+Create a strong curiosity gap.
+Use one of these high-performing styles for tech content:
+  Numbered specific ("I tested 47 AI tools. Only these 5 matter.")
+  "How I..." or results-first
+  Surprising statistic or concrete result
+  Contrarian take ("Most developers are using [tool] wrong...")
+  Problem statement or "This one change..."
+Make it specific and promise value. No generic hooks.
 
-PART 2: THE BODY (the value-add)
-- MANDATORY: empty line after the hook before starting body
-- Write 3-5 punchy paragraphs, each 1-3 sentences MAX
-- MANDATORY: empty line between EVERY paragraph (LinkedIn renders single newlines as spaces)
-- Use bullet points or numbered lists for key takeaways (3-5 items max)
-- Each bullet must be concrete and specific — no vague generalities
-- Include the SPECIFIC insight, tool, framework, or lesson from the article
-- Write in first-person where natural to feel authentic, not corporate
-- NO bold/italic (LinkedIn strips most markdown)
-- NO walls of text — if a section is longer than 3 lines, break it up
-- ANTI-AI RULE: Do NOT use generic robotic filler or transitions (e.g., "In conclusion", "Moreover", "Furthermore").
-- ANTI-AI RULE: Completely avoid words like "delve", "testament", "tapestry", "unlock", "seamless", "game-changer", "revolutionary", "groundbreaking", "treasure trove", "leverage", "robust", "elevate". Instead use simple, direct words like "look at", "show", "enable", "simple", "useful", "use", "improve".
+PART 2: BODY
+Double newline after the hook.
+3-5 short paragraphs (1-3 sentences max each).
+Heavy whitespace — use empty lines between paragraphs for mobile readability.
+Deliver specific, actionable value from the article (tools, frameworks, lessons, "what actually works").
+Use bullets or numbered lists for key takeaways (max 3-5).
+Naturally include: "Full resource list → ${githubUrl}"
+Keep it skimmable and valuable.
 
-PART 3: THE GITHUB MENTION
-- Add ONE line that mentions the GitHub resource and includes the actual URL: "Full resource list → ${githubUrl}"
-- You MUST use the exact GitHub Resource URL provided: ${githubUrl}
+PART 3: CTA
+End with EXACTLY ONE strong, specific question that drives comments and conversation (e.g. "Which of these have you already implemented?", "What's your experience with [specific topic]?").
+This is critical for algorithm reach.
 
-PART 4: THE ENGAGEMENT CTA
-- Ask ONE specific, thought-provoking question that invites expertise-sharing
-- Examples: "Which of these have you already tried in production?", "What's the biggest blocker you hit with [topic]?"
-- Avoid: "What do you think?", "Thoughts?", "Agree or disagree?" — these are too generic
+PART 4: HASHTAGS
+Exactly 3-4 targeted hashtags on the last line.
 
-PART 5: HASHTAGS
-- End with exactly 3-4 hashtags — no more
-- Mix: 1 broad (#AI or #SoftwareDevelopment), 1 niche (#MLOps or #LLMs), 1 community (#BuildInPublic or #DevCommunity)
-- Place them on their own line at the very end
+=== VISUAL SLIDE DETAILS ===
+Also generate companion slide content:
+"title": Max 50 characters. Punchy value statement (not just the article title).
+"slidePoints": Exactly 3 specific bullet points (max 65 chars each). Use simple, concrete language.
+"slideTagline": 5-8 word footer (e.g. "Curated technical resources • Updated weekly")
 
-=== SLIDE DETAILS ===
-Also generate details for a companion visual slide image:
-- "title": Max 50 chars. A punchy headline for the slide. Not the article title — make it a VALUE STATEMENT (e.g., "5 AI Tools Devs Are Sleeping On" not "AI Resources Collection")
-- "slidePoints": Exactly 3 bullet points for the slide. Each max 65 chars. Make them specific, numbered insights or powerful one-liners that complement the post. Must use simple, natural language (no AI buzzwords).
-- "slideTagline": A short 5-8 word footer tagline (e.g., "Curated by AI · Updated Weekly")
+=== IMAGE ===
+"originalImage": Best high-quality image URL from the article content, or null.
 
-=== IMAGE SELECTION ===
-- "originalImage": If the article content contains a high-quality image URL (not a profile photo, avatar, or tiny icon), return it. Otherwise return null.
+STYLE RULES (Strict):
+Direct, technical, senior-engineer tone.
+No AI buzzwords, hype, or fluff.
+Short sentences + varied length.
+Focus on specificity and real value.
 
-=== OUTPUT FORMAT ===
-Return ONLY a raw JSON object (no markdown code blocks, no commentary before or after). Structure:
+Return ONLY valid raw JSON (no markdown, no extra text). Ensure the output is ONLY the raw JSON object, starting with { and ending with }. Do not wrap it in markdown code blocks like \`\`\`json.
 {
-  "postText": "[full formatted post text with proper newlines — use \\n for newlines]",
-  "title": "[slide title — max 50 chars]",
-  "slidePoints": ["[point 1 — max 65 chars]", "[point 2 — max 65 chars]", "[point 3 — max 65 chars]"],
-  "slideTagline": "[footer tagline — 5-8 words]",
-  "originalImage": "[image url or null]"
+  "postText": "Full post text with \\n for newlines",
+  "title": "Slide title",
+  "slidePoints": ["Point 1", "Point 2", "Point 3"],
+  "slideTagline": "Short tagline",
+  "originalImage": "url or null"
 }
-
-CRITICAL CHECKS before outputting:
-✓ Hook is under 200 chars and creates curiosity
-✓ Empty lines between every paragraph
-✓ GitHub Resource URL is included directly in the post body (e.g. "Full resource list → [URL]")
-✓ CTA asks a specific, engagement-driving question
-✓ Exactly 3-4 hashtags at the end
-✓ slidePoints are specific, under 65 chars each, and contain no AI buzzwords
-✓ Output is valid JSON only
 `;
 
       try {
@@ -796,8 +727,8 @@ CRITICAL CHECKS before outputting:
         const result = await responseModel.generateContent(prompt);
         let text = result.response.text().trim();
         
-        if (text.startsWith("```")) {
-          text = text.replace(/```(json)?/g, "").trim();
+        if (text.includes("```")) {
+          text = text.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "").trim();
         }
 
         const data = JSON.parse(text);

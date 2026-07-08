@@ -1,6 +1,5 @@
-const { Builder, By, Key, until } = require("selenium-webdriver");
+const { Builder, By, until } = require("selenium-webdriver");
 const chrome = require("selenium-webdriver/chrome");
-const config = require("../../config");
 const { logger, sleep } = require("../utils/helpers");
 const axios = require("axios");
 const fs = require("fs");
@@ -10,29 +9,6 @@ class LinkedInService {
   constructor() {
     this.driver = null;
     this.isInitialized = false;
-    this.RATE_LIMIT_DELAY = 60000;
-    this.lastRequestTime = 0;
-    this.processedPostUrns = new Set();
-  }
-
-  async checkRateLimit() {
-    const now = Date.now();
-    if (now - this.lastRequestTime < this.RATE_LIMIT_DELAY) {
-      const waitTime = this.RATE_LIMIT_DELAY - (now - this.lastRequestTime);
-      logger.info(`LinkedIn Rate limit: Waiting ${waitTime / 1000} seconds before next request`);
-      await sleep(waitTime);
-    }
-    this.lastRequestTime = now;
-  }
-
-  clearProcessedUrns() {
-    // Prevent memory leaks by bounding the processed URN list
-    if (this.processedPostUrns.size > 5000) {
-      logger.info("LinkedInService: Clearing processed post URNs to prevent memory leak");
-      const urnsArray = Array.from(this.processedPostUrns);
-      const keptUrns = urnsArray.slice(Math.floor(urnsArray.length / 2));
-      this.processedPostUrns = new Set(keptUrns);
-    }
   }
 
   async ensureDriverConnected() {
@@ -205,284 +181,6 @@ class LinkedInService {
     }
   }
 
-  async fetchPostsByKeyword(keyword) {
-    try {
-      await this.ensureDriverConnected();
-      const matched = await this.switchToTab("linkedin.com");
-      if (!matched) {
-        logger.info("LinkedInService: No matching tab found, opening a new tab...");
-        await this.driver.switchTo().newWindow("tab");
-      }
-
-      await this.checkRateLimit();
-      this.clearProcessedUrns();
-
-      logger.info(`LinkedInService: Searching for keyword: "${keyword}"`);
-      const searchUrl = `https://www.linkedin.com/search/results/content/?keywords=${encodeURIComponent(keyword)}&origin=GLOBAL_SEARCH_HEADER`;
-      
-      await this.driver.get(searchUrl);
-      await sleep(3000);
-
-      // Dismiss any open filter modals/drawers that block screen scrolling
-      try {
-        const dismissButtons = await this.driver.findElements(
-          By.css("button[aria-label*='Dismiss'], button[class*='dismiss'], button[class*='cancel'], button[class*='close']")
-        );
-        for (const btn of dismissButtons) {
-          if (await btn.isDisplayed()) {
-            await btn.click();
-            await sleep(500);
-          }
-        }
-      } catch (dismissErr) {}
-      
-      // Wait for page results to load (Wait for elements containing activity, share, update, or card styles)
-      try {
-        await this.driver.wait(
-          until.elementLocated(By.css("[data-urn*='activity'], [data-urn*='update'], [data-urn*='share'], [data-activity-id], .artdeco-card")),
-          15000
-        );
-      } catch (waitErr) {
-        logger.warn("LinkedInService: Timeout waiting for search results elements, proceeding anyway...");
-        try {
-          const bodyText = await this.driver.executeScript("return document.body.innerText;");
-          logger.info("LinkedIn Body text length: " + bodyText.length);
-          logger.info("LinkedIn Body preview: " + bodyText.substring(0, 400).replace(/\n/g, " "));
-          logger.info("LinkedIn Body contains 'CS Academics'?: " + bodyText.includes("CS Academics"));
-          logger.info("LinkedIn Body contains 'Pragati'?: " + bodyText.includes("Pragati"));
-        } catch (bodyErr) {
-          logger.error("Failed to read body text:", bodyErr);
-        }
-        try {
-          await this.driver.takeScreenshot().then((image) => {
-            require("fs").writeFileSync("linkedin-search-failed.png", image, "base64");
-          });
-          logger.info("LinkedInService: Saved search failure screenshot to linkedin-search-failed.png");
-        } catch (screenshotErr) {}
-      }
-
-      const SCROLL_ATTEMPTS = 5;
-      const POSTS_NEEDED = 10;
-      
-      for (let attempt = 1; attempt <= SCROLL_ATTEMPTS; attempt++) {
-        logger.info(`LinkedInService: Scroll attempt ${attempt}/${SCROLL_ATTEMPTS}`);
-        
-        // Scroll the last post card element into view using the "feed post" prefix label
-        try {
-          await this.driver.executeScript(`
-            const cards = Array.from(document.querySelectorAll("div, li, article")).filter(el => {
-              const text = (el.textContent || el.innerText || "").trim().toLowerCase();
-              if (!text.startsWith("feed post") && !text.startsWith("feed update")) return false;
-              if (text.length < 100) return false;
-              const childMatches = Array.from(el.querySelectorAll("div, li, article")).some(child => {
-                if (child === el) return false;
-                const cText = (child.textContent || child.innerText || "").trim().toLowerCase();
-                return cText.startsWith("feed post") || cText.startsWith("feed update");
-              });
-              return !childMatches;
-            });
-            if (cards.length > 0) {
-              const lastCard = cards[cards.length - 1];
-              lastCard.scrollIntoView({ behavior: 'auto', block: 'end' });
-            } else {
-              window.scrollBy(0, 500);
-            }
-          `);
-        } catch (scrollErr) {
-          logger.warn("LinkedIn gradual scroll failed:", scrollErr);
-        }
-        await sleep(3000); // Allow sufficient time for lazy-loaded posts to render
-      }
-
-      logger.info("LinkedInService: Performing browser-side batch DOM extraction...");
-      
-      // Extract all posts in a single JS execution context in the browser to minimize Selenium round-trips
-      const scrapedData = await this.driver.executeScript(`
-        // 1. Expand all "... see more" text buttons
-        const seeMoreButtons = document.querySelectorAll("button, span, a");
-        for (const btn of seeMoreButtons) {
-          try {
-            const text = (btn.textContent || btn.innerText || "").trim().toLowerCase();
-            if (text === "... more" || text === "more" || btn.className.includes("see-more")) {
-              btn.click();
-              btn.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
-            }
-          } catch(e) {}
-        }
-
-        const posts = [];
-        const seenUrns = new Set();
-        
-        // 2. Locate all card containers by identifying elements starting with "feed post" or "feed update"
-        const cardCandidates = Array.from(document.querySelectorAll("div, li, article")).filter(el => {
-          const text = (el.textContent || el.innerText || "").trim().toLowerCase();
-          if (!text.startsWith("feed post") && !text.startsWith("feed update")) return false;
-          if (text.length < 100) return false;
-          
-          // Exclude parent wrappers
-          const childMatches = Array.from(el.querySelectorAll("div, li, article")).some(child => {
-            if (child === el) return false;
-            const cText = (child.textContent || child.innerText || "").trim().toLowerCase();
-            return cText.startsWith("feed post") || cText.startsWith("feed update");
-          });
-          return !childMatches;
-        });
-        
-        for (const container of cardCandidates) {
-          // Extract URN/Link if present
-          let urn = "";
-          let postUrl = "";
-          const links = container.querySelectorAll("a");
-          for (const l of links) {
-            const href = l.getAttribute("href") || "";
-            if (href.includes("/feed/update/") || href.includes("/posts/")) {
-              postUrl = href.startsWith("http") ? href : "https://www.linkedin.com" + href;
-              const urnMatch = href.match(/urn:li:[^/?&#]+/);
-              if (urnMatch) urn = urnMatch[0];
-              break;
-            }
-          }
-          
-          // Fallback unique ID if no URN was found
-          if (!urn) {
-            // Generate a simple hash from content
-            let hash = 0;
-            const contentString = (container.textContent || "").substring(0, 100);
-            for (let i = 0; i < contentString.length; i++) {
-              hash = (hash << 5) - hash + contentString.charCodeAt(i);
-              hash |= 0;
-            }
-            urn = "urn:li:local:" + Math.abs(hash);
-          }
-          
-          if (seenUrns.has(urn)) continue;
-          seenUrns.add(urn);
-          
-          // Extract Author (clean feed post label and split at bullet marker)
-          let author = "LinkedIn Contributor";
-          const rawText = container.textContent || "";
-          const cleaned = rawText.replace(/^(feed post|feed update)/i, "").trim();
-          const parts = cleaned.split("•");
-          if (parts.length > 0) {
-            author = parts[0].trim().replace(/\\s+/g, " ");
-          }
-          if (author.length > 50) author = author.substring(0, 50);
-
-          // Extract Text (find the longest commentary text block)
-          let text = "";
-          const textEls = container.querySelectorAll("span, p, div");
-          let maxLen = 0;
-          for (const tel of textEls) {
-            const tVal = tel.textContent.trim();
-            if (tVal.length > maxLen && tVal.length < 5000 && !tVal.includes("Like") && !tVal.includes("Comment") && !tVal.includes("Follow") && !tVal.toLowerCase().startsWith("feed post")) {
-              maxLen = tVal.length;
-              text = tel.innerText || tel.textContent;
-            }
-          }
-          if (!text || text.length < 15) continue;
-          
-          // Extract out-links
-          const extLinks = [];
-          for (const l of links) {
-            const lHref = l.getAttribute("href");
-            if (lHref && lHref.startsWith("http") && !lHref.includes("linkedin.com/feed") && !lHref.includes("linkedin.com/in/") && !lHref.includes("linkedin.com/company/")) {
-              if (!extLinks.includes(lHref)) extLinks.push(lHref);
-            }
-          }
-          
-          // Extract images
-          const images = [];
-          const imgEls = container.querySelectorAll("img");
-          for (const img of imgEls) {
-            const src = img.getAttribute("src");
-            const className = img.getAttribute("class") || "";
-            if (src && src.startsWith("http") && !src.includes("profile-displayphoto") && !className.includes("avatar")) {
-              if (!images.includes(src)) images.push(src);
-            }
-          }
-          
-          posts.push({
-            id: urn,
-            text,
-            author,
-            links: extLinks,
-            images,
-            url: postUrl
-          });
-        }
-        return posts;
-      `);
-
-      if (scrapedData.length === 0) {
-        logger.warn("LinkedInService: No posts found by batch parser. Running DOM diagnostics...");
-        try {
-          const diag = await this.driver.executeScript(`
-            const allElements = Array.from(document.querySelectorAll("button, span, a, p, div, li, article"));
-            const res = [];
-            for (const el of allElements) {
-              const text = (el.textContent || el.innerText || "").trim().toLowerCase();
-              if (text.includes("like") || text.includes("comment") || text.includes("pragati") || text.includes("career")) {
-                res.push({
-                  tagName: el.tagName,
-                  className: el.className.substring(0, 50),
-                  text: text.substring(0, 50),
-                  parentTag: el.parentElement ? el.parentElement.tagName : "NONE",
-                  parentClass: el.parentElement ? el.parentElement.className.substring(0, 50) : "NONE"
-                });
-              }
-            }
-            return res.slice(0, 30);
-          `);
-          logger.info("LinkedIn Diagnostic DOM dump: " + JSON.stringify(diag));
-        } catch (diagErr) {
-          logger.error("LinkedIn Diagnostic failed:", diagErr);
-        }
-      }
-
-      logger.info(`LinkedInService: Browser-side extraction found ${scrapedData.length} total posts. Filtering duplicates and spam...`);
-
-      let collectedPosts = [];
-      const noiseWords = ["poll", "vote", "hiring", "job opening", "recruiting", "open role", "internship", "admission", "resume", "cv", "recruiter", "hiring manager"];
-      
-      for (const post of scrapedData) {
-        if (collectedPosts.length >= POSTS_NEEDED) break;
-
-        if (this.processedPostUrns.has(post.id)) {
-          continue;
-        }
-
-        // Filter out low-quality spam or polls
-        const lowerText = post.text.toLowerCase();
-        const containsNoise = noiseWords.some(word => lowerText.includes(word));
-        if (containsNoise) {
-          logger.info(`LinkedInService: Filtered out noise/poll post from ${post.author}`);
-          continue;
-        }
-
-        // Mark URN as processed for this run
-        this.processedPostUrns.add(post.id);
-
-        const postUrl = post.url || `https://www.linkedin.com/feed/update/${post.id}`;
-        collectedPosts.push({
-          id: post.id,
-          text: post.text,
-          author: post.author,
-          links: post.links,
-          images: post.images,
-          url: postUrl,
-          source: "LinkedIn",
-          timestamp: new Date().toISOString()
-        });
-      }
-
-      logger.info(`LinkedInService: Successfully collected ${collectedPosts.length} posts for "${keyword}"`);
-      return collectedPosts;
-    } catch (error) {
-      logger.error(`LinkedInService: Failed to fetch posts for "${keyword}":`, error);
-      return [];
-    }
-  }
-
   /**
    * Query an element inside #interop-outlet's Shadow DOM.
    * The LinkedIn share modal (and all its child elements) live inside this shadow root
@@ -577,8 +275,11 @@ class LinkedInService {
             // Remove any capture-phase preventDefault calls that block the click
             const handler = e => { e.stopImmediatePropagation(); };
             document.addEventListener('click', handler, true);
-            el.click();
-            document.removeEventListener('click', handler, true);
+            try {
+              el.click();
+            } finally {
+              document.removeEventListener('click', handler, true);
+            }
           `, photoTrigger);
         } else {
           logger.warn("LinkedInService: 'Photo' trigger not found; falling back to 'Start a post' trigger.");
@@ -742,7 +443,10 @@ class LinkedInService {
       const writer = fs.createWriteStream(destPath);
       response.data.pipe(writer);
       writer.on("finish", resolve);
-      writer.on("error", reject);
+      writer.on("error", (err) => {
+        writer.destroy();
+        reject(err);
+      });
     });
   }
 
