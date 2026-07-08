@@ -35,6 +35,21 @@ class LinkedInService {
     }
   }
 
+  async ensureDriverConnected() {
+    if (!this.driver || !this.isInitialized) {
+      await this.init();
+      return;
+    }
+    try {
+      await this.driver.getCurrentUrl();
+    } catch (err) {
+      logger.warn(`LinkedInService: WebDriver session was lost or invalid (${err.message}). Reinitializing...`);
+      this.isInitialized = false;
+      await this.cleanup();
+      await this.init();
+    }
+  }
+
   async init() {
     try {
       if (!this.driver || !this.isInitialized) {
@@ -192,9 +207,7 @@ class LinkedInService {
 
   async fetchPostsByKeyword(keyword) {
     try {
-      if (!this.driver || !this.isInitialized) {
-        await this.init();
-      }
+      await this.ensureDriverConnected();
       const matched = await this.switchToTab("linkedin.com");
       if (!matched) {
         logger.info("LinkedInService: No matching tab found, opening a new tab...");
@@ -509,9 +522,7 @@ class LinkedInService {
     let localImagePath = null;
     let isRemote = false;
     try {
-      if (!this.driver || !this.isInitialized) {
-        await this.init();
-      }
+      await this.ensureDriverConnected();
 
       try {
         originalHandle = await this.driver.getWindowHandle();
@@ -718,6 +729,7 @@ class LinkedInService {
     // Use module-level fs and path imports (no inner require needed)
 
     try {
+      await this.ensureDriverConnected();
       originalHandle = await this.driver.getWindowHandle();
     } catch (e) {}
 

@@ -47,6 +47,21 @@ class TwitterService {
     this.lastRequestTime = now;
   }
 
+  async ensureDriverConnected() {
+    if (!this.driver || !this.isInitialized) {
+      await this.init();
+      return;
+    }
+    try {
+      await this.driver.getCurrentUrl();
+    } catch (err) {
+      logger.warn(`TwitterService: WebDriver session was lost or invalid (${err.message}). Reinitializing...`);
+      this.isInitialized = false;
+      await this.cleanup();
+      await this.init();
+    }
+  }
+
   async init() {
     try {
       if (!this.driver || !this.isInitialized) {
@@ -649,24 +664,13 @@ class TwitterService {
 
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
       try {
-        if (!this.driver || !this.isInitialized) {
-          await this.init();
-        }
+        await this.ensureDriverConnected();
         const matched = await this.switchToTab("x.com");
         if (!matched) {
           logger.info("TwitterService: No matching tab found, opening a new tab...");
           await this.driver.switchTo().newWindow("tab");
         }
 
-        // Verify driver is still connected
-        try {
-          await this.driver.getTitle();
-        } catch (driverError) {
-          logger.warn("Driver disconnected, reinitializing...");
-          this.isInitialized = false;
-          await this.cleanup();
-          await this.init();
-        }
         await this.checkRateLimit();
         const { listId, name } = this.getSearchQuery(folder);
         logger.info(`Processing list ID: ${listId} (Type: ${name})`);
@@ -723,7 +727,9 @@ class TwitterService {
   async cleanup() {
     try {
       if (this.driver) {
-        await this.driver.quit();
+        logger.info("TwitterService: Releasing WebDriver control of debugging browser session");
+        // Detach connection by clearing reference without calling quit() to preserve user's browser tabs
+        this.driver = null;
       }
     } catch (error) {
       logger.error("Failed to clean up:", error);
@@ -751,10 +757,7 @@ class TwitterService {
 
   async postTweet(text) {
     try {
-      if (!this.driver || !this.isInitialized) {
-        logger.info("No active driver or not initialized, initializing Twitter service...");
-        await this.init();
-      }
+      await this.ensureDriverConnected();
       const matched = await this.switchToTab("x.com");
       if (!matched) {
         logger.info("TwitterService: No matching tab found, opening a new tab...");

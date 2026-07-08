@@ -271,6 +271,12 @@ const stopCronJob = async () => {
   } catch (error) {
     logger.error("Error cleaning up LinkedIn service:", error);
   }
+  try {
+    geminiService.cleanup();
+    logger.info("Gemini service cleaned up");
+  } catch (error) {
+    logger.error("Error cleaning up Gemini service:", error);
+  }
 };
 
 /**
