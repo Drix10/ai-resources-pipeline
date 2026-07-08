@@ -2,6 +2,7 @@ const {
   GoogleGenerativeAI,
   HarmBlockThreshold,
   HarmCategory,
+  SchemaType,
 } = require("@google/generative-ai");
 const config = require("../../config");
 const genAI = new GoogleGenerativeAI(config.gemini.apiKey);
@@ -140,10 +141,8 @@ class GeminiService {
       const prompt = `
 You are a professional technical content curator and senior engineer. Your task is to transform each of the provided Twitter threads/conversations into a high-quality, professional markdown article following these EXACT formatting and style specifications:
 
-=== ANTI-AI & TONE DIRECTIVES (CRITICAL) ===
-1. BAN LIST — Absolutely NEVER use these words or phrases anywhere in your output: "delve", "testament", "tapestry", "unlock", "seamless", "game-changer", "revolutionary", "groundbreaking", "moreover", "furthermore", "in conclusion", "shines a light", "treasure trove", "leverage", "robust", "key takeaway", "elevate", "cutting-edge", "beacon", "look no further".
-2. TONE & VOCABULARY — Write in a direct, objective, and analytical senior-engineer tone. Avoid empty hype adjectives and marketing fluff (e.g., use "database", not "powerful cutting-edge database").
-3. VARIANCE — Write with varied sentence lengths. Use short, punchy statements mixed with longer technical explanations to sound natural and human.
+=== ANTI-AI & TONE DIRECTIVES ===
+Follow all rules from the system prompt (banned words, senior-engineer tone, no hype, sentence variance).
 
 FORMAT REQUIREMENTS:
 1. HEADER (MANDATORY):
@@ -370,10 +369,8 @@ CONTENT FILTERING RULE (CRITICAL):
 - Ignore and completely filter out any threads or posts that are low-value noise, advertisements, self-promotional spam, hiring announcements, open/closed polls, or generic marketing fluff.
 - Only generate formatted articles for items containing genuine, high-quality technical insights, architecture lessons, programming guides, or actual tools/libraries.
 
-=== ANTI-AI & TONE DIRECTIVES (CRITICAL) ===
-1. BAN LIST — Absolutely NEVER use these words or phrases anywhere in your output: "delve", "testament", "tapestry", "unlock", "seamless", "game-changer", "revolutionary", "groundbreaking", "moreover", "furthermore", "in conclusion", "shines a light", "treasure trove", "leverage", "robust", "key takeaway", "elevate", "cutting-edge", "beacon", "look no further".
-2. TONE & VOCABULARY — Write in a direct, objective, and analytical tone. Avoid motivational cliches, hype words, and marketing adjectives (e.g. use "database", not "cutting-edge database").
-3. VARIANCE — Write with varied sentence lengths. Use short, punchy statements mixed with longer explanatory sentences to sound natural and human.
+=== ANTI-AI & TONE DIRECTIVES ===
+Follow all rules from the system prompt (banned words, senior-engineer tone, no hype, sentence variance).
 
 FORMAT REQUIREMENTS:
 1. HEADER (MANDATORY):
@@ -547,30 +544,39 @@ Avoid weak/generic CTAs like "Thoughts?", "Agree?", or "What do you think?".
 HASHTAGS:
 Exactly 3-5 highly targeted hashtags on the final line (mix 1 broad + 2-3 niche).
 
-STYLE RULES:
-Direct, professional, technical tone.
-No AI buzzwords or hype language.
-Short, readable sentences.
-Focus on value and specificity.
+=== ANTI-AI & TONE DIRECTIVES ===
+Follow all rules from the system prompt (banned words, senior-engineer tone, no hype, sentence variance).
 
-Return ONLY valid raw JSON. Ensure the output is ONLY the raw JSON object, starting with { and ending with }. Do not wrap it in markdown code blocks like \`\`\`json.
+Return ONLY a valid raw JSON object. No markdown, no explanations.
+
+JSON schema:
 {
-  "postText": "Full formatted post with proper newlines (use \\n)",
-  "imageToAttach": "Best image URL from content or null"
+  "postText": string (full formatted post with proper newlines (use \\n)),
+  "imageToAttach": string or null (best image URL from content or null)
 }
 `;
 
+      const responseSchema = {
+        type: SchemaType.OBJECT,
+        properties: {
+          postText: { type: SchemaType.STRING },
+          imageToAttach: { type: SchemaType.STRING, nullable: true }
+        },
+        required: ["postText"]
+      };
+
       try {
         await this.checkRateLimit();
-        const responseModel = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+        const responseModel = genAI.getGenerativeModel({
+          model: "gemini-2.5-flash",
+          generationConfig: {
+            responseMimeType: "application/json",
+            responseSchema: responseSchema
+          }
+        });
         const result = await responseModel.generateContent(prompt);
         let text = result.response.text().trim();
         
-        // Clean up markdown block if model output it
-        if (text.includes("```")) {
-          text = text.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "").trim();
-        }
-
         const data = JSON.parse(text);
         if (!data.postText) {
           throw new Error("Invalid response format: missing postText");
@@ -609,22 +615,37 @@ Your task: Analyze the list of curated tech articles below and select the single
 Articles list:
 ${list}
 
-Return ONLY a raw JSON object (no markdown, no commentary) with exactly one key:
-- "selectedIndices": An array of integers (index numbers of selected articles, max 2)
+Return ONLY a valid raw JSON object. No markdown, no commentary, no explanations.
 
-Example output: {"selectedIndices": [1]}
+JSON schema:
+{
+  "selectedIndices": array of selected article indices (integers, max 2)
+}
 `;
+
+      const responseSchema = {
+        type: SchemaType.OBJECT,
+        properties: {
+          selectedIndices: {
+            type: SchemaType.ARRAY,
+            items: { type: SchemaType.INTEGER }
+          }
+        },
+        required: ["selectedIndices"]
+      };
 
       try {
         await this.checkRateLimit();
-        const responseModel = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+        const responseModel = genAI.getGenerativeModel({
+          model: "gemini-2.5-flash",
+          generationConfig: {
+            responseMimeType: "application/json",
+            responseSchema: responseSchema
+          }
+        });
         const result = await responseModel.generateContent(prompt);
         let text = result.response.text().trim();
         
-        if (text.includes("```")) {
-          text = text.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "").trim();
-        }
-
         const data = JSON.parse(text);
         if (!data.selectedIndices || !Array.isArray(data.selectedIndices)) {
           throw new Error("Invalid response format: missing selectedIndices array");
@@ -705,31 +726,49 @@ Also generate companion slide content:
 === IMAGE ===
 "originalImage": Best high-quality image URL from the article content, or null.
 
-STYLE RULES (Strict):
-Direct, technical, senior-engineer tone.
-No AI buzzwords, hype, or fluff.
-Short sentences + varied length.
-Focus on specificity and real value.
+=== ANTI-AI & TONE DIRECTIVES ===
+Follow all rules from the system prompt (banned words, senior-engineer tone, no hype, sentence variance).
 
-Return ONLY valid raw JSON (no markdown, no extra text). Ensure the output is ONLY the raw JSON object, starting with { and ending with }. Do not wrap it in markdown code blocks like \`\`\`json.
+Return ONLY a valid raw JSON object. No markdown, no explanations.
+
+JSON schema:
 {
-  "postText": "Full post text with \\n for newlines",
-  "title": "Slide title",
-  "slidePoints": ["Point 1", "Point 2", "Point 3"],
-  "slideTagline": "Short tagline",
-  "originalImage": "url or null"
+  "postText": string (full post with \\n for line breaks),
+  "title": string (max 50 chars),
+  "slidePoints": array of exactly 3 strings (max 65 chars each),
+  "slideTagline": string (5-8 words),
+  "originalImage": string or null
 }
 `;
 
+      const responseSchema = {
+        type: SchemaType.OBJECT,
+        properties: {
+          postText: { type: SchemaType.STRING },
+          title: { type: SchemaType.STRING },
+          slidePoints: {
+            type: SchemaType.ARRAY,
+            items: { type: SchemaType.STRING },
+            minItems: 3,
+            maxItems: 3
+          },
+          slideTagline: { type: SchemaType.STRING },
+          originalImage: { type: SchemaType.STRING, nullable: true }
+        },
+        required: ["postText", "title", "slidePoints", "slideTagline"]
+      };
+
       try {
         await this.checkRateLimit();
-        const responseModel = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+        const responseModel = genAI.getGenerativeModel({
+          model: "gemini-2.5-flash",
+          generationConfig: {
+            responseMimeType: "application/json",
+            responseSchema: responseSchema
+          }
+        });
         const result = await responseModel.generateContent(prompt);
         let text = result.response.text().trim();
-        
-        if (text.includes("```")) {
-          text = text.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "").trim();
-        }
 
         const data = JSON.parse(text);
         if (!data.postText || !data.title) {
