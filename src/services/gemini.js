@@ -556,11 +556,16 @@ JSON schema:
 }
 `;
 
+      // Structured output schema for reliable JSON generation
       const responseSchema = {
         type: SchemaType.OBJECT,
         properties: {
           postText: { type: SchemaType.STRING },
-          imageToAttach: { type: SchemaType.STRING, nullable: true }
+          imageToAttach: {
+            type: SchemaType.STRING,
+            nullable: true,
+            description: "Best image URL from the scraped content or null"
+          }
         },
         required: ["postText"]
       };
@@ -623,6 +628,7 @@ JSON schema:
 }
 `;
 
+      // Structured output schema for reliable JSON generation
       const responseSchema = {
         type: SchemaType.OBJECT,
         properties: {
@@ -735,12 +741,13 @@ JSON schema:
 {
   "postText": string (full post with \\n for line breaks),
   "title": string (max 50 chars),
-  "slidePoints": array of exactly 3 strings (max 65 chars each),
+  "slidePoints": array of exactly 3 strings (each max 65 characters, simple & concrete),
   "slideTagline": string (5-8 words),
   "originalImage": string or null
 }
 `;
 
+      // Structured output schema for reliable JSON generation
       const responseSchema = {
         type: SchemaType.OBJECT,
         properties: {
