@@ -1,5 +1,6 @@
 const { logger, handleError, sleep } = require("../utils/helpers");
 const fs = require("fs");
+const path = require("path");
 const config = require("../../config");
 const twitterService = require("./twitter");
 const TwitterService = new twitterService();
@@ -84,9 +85,15 @@ const runEndofRunCuration = async (successfulArticles) => {
       const selectedIndices = await geminiService.selectBestArticlesForLinkedIn(successfulArticles);
       logger.info(`LinkedIn Curation: Selected article indices: ${JSON.stringify(selectedIndices)}`);
       
-      const selectedArticles = selectedIndices
+      const uniqueIndices = [...new Set(selectedIndices)];
+      const selectedArticles = uniqueIndices
         .map(idx => successfulArticles[idx])
         .filter(art => !!art);
+        
+      if (selectedArticles.length === 0) {
+        logger.warn("LinkedIn Curation: No articles were selected by Gemini. Defaulting to the first available article.");
+        selectedArticles.push(successfulArticles[0]);
+      }
         
       if (selectedArticles.length > 0) {
         logger.info("LinkedIn Curation: Initializing LinkedIn service...");
@@ -96,12 +103,12 @@ const runEndofRunCuration = async (successfulArticles) => {
         const megaPostData = await geminiService.generateLinkedInMasterPost(selectedArticles);
         
         let slideImagePath = null;
-        if (megaPostData.originalImage) {
-          slideImagePath = megaPostData.originalImage;
-          logger.info(`LinkedIn Curation: Using original article image: ${slideImagePath}`);
-        } else {
+        try {
           logger.info(`LinkedIn Curation: Generating custom HTML slide image...`);
           slideImagePath = await LinkedInService.generateSlideImage(megaPostData.title, megaPostData.slidePoints, megaPostData.slideTagline);
+        } catch (imageErr) {
+          logger.error("LinkedIn Curation: Failed to generate slide image, continuing without image:", imageErr);
+          slideImagePath = null;
         }
 
         if (megaPostData.postText) {
@@ -112,7 +119,9 @@ const runEndofRunCuration = async (successfulArticles) => {
           });
 
           // Clean up the generated slide image after posting (only local generated PNGs)
-          if (slideImagePath && !megaPostData.originalImage && typeof slideImagePath === "string" && slideImagePath.includes("temp")) {
+          const tempDir = path.join(process.cwd(), "temp");
+          const isTemporary = slideImagePath && typeof slideImagePath === "string" && slideImagePath.startsWith(tempDir);
+          if (isTemporary) {
             try {
               if (fs.existsSync(slideImagePath)) fs.unlinkSync(slideImagePath);
             } catch (e) {}

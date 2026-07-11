@@ -141,6 +141,14 @@ class TwitterService {
             tweetText = `${tweetText}\n\nQuoted Tweet:\n${quotedTweetText}`;
           }
 
+          // Anti-spam keyword filter
+          const spamKeywords = ["we are hiring", "hiring for", "dm me to", "join my team", "dm for", "check out my course", "buy my book"];
+          const isSpam = spamKeywords.some(keyword => tweetText.toLowerCase().includes(keyword));
+          if (isSpam) {
+            logger.debug("Skipping tweet: Detected spam/hiring keyword");
+            return null;
+          }
+
           let links = [];
           try {
             const linkElements = await tweetElement.findElements(
@@ -148,8 +156,27 @@ class TwitterService {
             );
             for (const linkElement of linkElements) {
               const href = await linkElement.getAttribute("href");
+              if (href) {
+                const hrefLower = href.toLowerCase();
+                const isTwitterInternal = hrefLower.includes("twitter.com/") || hrefLower.includes("x.com/") || href.startsWith("/");
+                const isProfileOrHashtagOrStatus = 
+                  hrefLower.includes("/status/") || 
+                  hrefLower.includes("/hashtag/") || 
+                  hrefLower.includes("/search") || 
+                  hrefLower.includes("/i/lists") || 
+                  hrefLower.includes("/home") ||
+                  hrefLower.includes("/explore") ||
+                  hrefLower.includes("/notifications") ||
+                  hrefLower.includes("/messages") ||
+                  hrefLower.includes("/settings") ||
+                  hrefLower.includes("/tos") ||
+                  hrefLower.includes("/privacy") ||
+                  hrefLower.includes("/rules");
 
-              links.push(href);
+                if (hrefLower.includes("t.co") || !isTwitterInternal || (!isProfileOrHashtagOrStatus && !href.startsWith("/"))) {
+                  links.push(href);
+                }
+              }
             }
           } catch (e) {}
 

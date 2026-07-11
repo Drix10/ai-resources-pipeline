@@ -194,7 +194,8 @@ async function generateLinkedInPreviews() {
     const selectedIndices = await geminiService.selectBestArticlesForLinkedIn(articles);
     console.log(`✅ Selected indices from Gemini: ${JSON.stringify(selectedIndices)}`);
 
-    const selectedArticles = selectedIndices
+    const uniqueIndices = [...new Set(selectedIndices)];
+    const selectedArticles = uniqueIndices
       .map(idx => articles[idx])
       .filter(art => !!art);
 
@@ -223,7 +224,6 @@ async function generateLinkedInPreviews() {
     console.log(`   Title:   "${postData.title}"`);
     console.log(`   Points:  ${JSON.stringify(postData.slidePoints, null, 2)}`);
     console.log(`   Tagline: "${postData.slideTagline}"`);
-    console.log(`   Image:   "${postData.originalImage}"`);
     console.log("-------------------------------------------------------------\n");
 
     // 4. Save results locally in a previews directory
