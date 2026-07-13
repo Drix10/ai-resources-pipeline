@@ -161,21 +161,47 @@ Avoid weak, open-ended, or generic questions in the hook itself. Never start wit
     return `
 === 2026 LINKEDIN VIRALITY RULES ===
 ${hookRules}
-BODY:
-- Heavy whitespace (double newlines between paragraphs for mobile readability).
-- 3-5 short paragraphs max.
-- Deliver specific, actionable, or concrete details.
-- Sound like a senior engineer — direct and practical (no generic praises or roundups).
-- Use "• " for bullets (never * or -).
-- Highlight 3-4 specific tools/insights (for summary posts) or key takeaways (for master posts).
-- MANDATORY: You MUST include this exact single line (do not break it or change the wording):
-"Full resource list and tools → ${githubUrl}"
-CRITICAL: The line "Full resource list and tools → [URL]" must appear as a single unbroken string. No line break, no newline character between the label text and the URL.
+BODY STRUCTURE — optimized for saves and dwell time:
+Post length target: 1,300-2,000 characters total (including hook). Short posts die.
 
-CTA:
-End with exactly ONE strong, informal, opinionated question that drives personal debate or provocation — it should slightly challenge the reader's current approach. Prefer questions with an implicit "wrong answer" that the reader either agrees with or pushes back on.
-Example: "Cloud-only inference in 2026 — pragmatic or just lazy?"
-Do NOT write boring, survey-ish open-ended workflow or technical options (avoid "Are you using X or Y in your workflow?" or "Are you building hybrid deployments?").
+Use this 4-part structure:
+1. PROBLEM paragraph (2-3 sentences): Name the specific pain. Mirror the engineer's internal monologue. "You've been doing X because..."
+2. INSIGHT paragraph (2-3 sentences): The non-obvious fact from the source. One concrete thing they didn't know.
+3. REHOOK (required): Between the INSIGHT and FRAMEWORK sections, add one short sentence of 6-10 words that creates a second tension or surprise. Examples:
+- "But here's where most engineers stop."
+- "The part nobody tells you:"
+- "This is where it gets specific."
+This keeps skimmers reading past the first scroll.
+4. FRAMEWORK/STEPS: Use 3-5 numbered steps OR "• " bullets for the actionable takeaway. This is the save-trigger — make it reference-worthy.
+5. IMPLICATION sentence: One sentence on why this matters NOW, not generically.
+
+FRAMEWORK DEPTH RULE: Each bullet in the framework section must be 1.5–2 lines of text (not a single short sentence). Expand each point to include the "why it matters" in the same bullet. Example:
+BAD: "• Visualize individual user actions from log data."
+GOOD: "• Visualize individual user actions from log data — not aggregates. This lets you trace exactly what one user did without filtering out concurrent noise."
+This increases dwell time and makes the section worth saving.
+
+SAVE-TRIGGER RULE: At least one section must be structured as a numbered list or bullet sequence that a reader would bookmark. Avoid pure prose paragraphs — nobody saves prose.
+
+GITHUB LINK RULE (CRITICAL for reach):
+Do NOT include the GitHub URL in the post body. External links in post bodies reduce reach by ~60%.
+Instead, end your post body with this exact line:
+"🔗 Full breakdown + resources in the comments."
+
+CTA — engineered for comment threads:
+End with a question that FORCES a specific answer revealing the reader's situation. 
+The best questions make the reader think "my answer to this is different from most people's."
+FORMATS THAT WORK:
+- "What's your current setup for X — [Option A] or something else entirely?"
+- "How long did it take your team to realize [thing from article]?"  
+- "Anyone else been burned by [specific pain from article] before switching?"
+- Gold standard format: "How long were you [doing X the hard way] before someone showed you [Y]?"
+FORMATS THAT DON'T (CRITICAL):
+- "What's your primary bottleneck in X?" (This is a multiple-choice survey, not a provocation. It won't generate 15-word+ personal replies.)
+- "What do you think?" (too vague)
+- "Is X still viable in 2026?" (readiness survey)
+- "Are you using X or Y?" (binary poll)
+- NEVER ask "Is your X ready for Y?" — this is a readiness survey, not a provocation.
+The question must be answerable in 2-3 sentences and make people want to share their specific experience. That's what generates 15-word+ comments the algorithm rewards.
 
 HASHTAGS:
 Exactly 3-4 highly targeted hashtags on their own line at the very end. Mix exactly 1 broad + 2-3 niche. Do not overuse or add generic ones (e.g. use exactly 4 tags to prevent reach dilution).
@@ -344,13 +370,13 @@ JSON schema:
     const errors = [];
     const postText = postData.postText || "";
 
-    // 1. Check GitHub URL (Strict formatting checking - Bug 2)
-    const urlLineRegex = /Full resource list and tools\s*→\s*https:\/\//;
-    if (githubUrl && (!postText.includes(githubUrl) || !urlLineRegex.test(postText) || postText.includes("tools \n→") || postText.includes("tools\n→"))) {
-      errors.push("GitHub URL line is missing, broken, or incorrectly formatted");
+    if (postText.includes("github.com") || postText.includes("https://github.com")) {
+      errors.push("GitHub URL is present in the post text body (violates external link reach rule)");
+    }
+    if (!postData.commentText) {
+      errors.push("commentText is missing or empty");
     }
 
-    // 2. Check Banned Words across ALL text fields with stem-matching (Bug 1 & Audit)
     const allText = [
       postData.postText || "",
       postData.slideTagline || "",
@@ -360,7 +386,6 @@ JSON schema:
 
     const foundBanned = BANNED_WORDS.filter(word => {
       const escaped = word.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-      // Match the word plus common suffixes: -s, -ed, -ing, -ly, -tion, -ness
       const regex = new RegExp(`\\b${escaped}(s|ed|ing|ly|tion|ness)?\\b`, 'i');
       return regex.test(allText);
     });
@@ -368,38 +393,32 @@ JSON schema:
       errors.push(`Banned word(s) found: ${foundBanned.join(", ")}`);
     }
 
-    // 3. Check Hook Length (first paragraph before \n\n)
     const hook = postText.split("\n\n")[0] || "";
     if (hook.length > 200) {
       errors.push(`Hook exceeds 200 characters (${hook.length} characters)`);
     }
 
-    // 4. Check Hashtags Count
     const hashtagMatches = postText.match(/#[a-zA-Z0-9]+/g) || [];
     const hashtagCount = hashtagMatches.length;
     if (hashtagCount < 3 || hashtagCount > 4) {
       errors.push(`Invalid number of hashtags: found ${hashtagCount} (expected 3-4)`);
     }
 
-    // 5. Check Padding (paragraph count vs source bullet count)
     const paragraphs = postText.split("\n\n").filter(p => {
       const trimmed = p.trim();
-      // Exclude tags, resource URLs, and CTA questions
       return trimmed.length > 0 && 
              !trimmed.startsWith("#") && 
-             !trimmed.toLowerCase().includes("full resource list") &&
+             !trimmed.toLowerCase().includes("full breakdown") &&
              !trimmed.endsWith("?");
     });
 
     if (sourceBulletCount > 0) {
-      // The first paragraph is the hook, so body paragraph count is paragraphs.length - 1
       const bodyParagraphCount = Math.max(0, paragraphs.length - 1);
       if (bodyParagraphCount > sourceBulletCount) {
         errors.push(`Padding/Hallucination warning: post has ${bodyParagraphCount} body paragraphs but source content only has ${sourceBulletCount} bullet points/steps.`);
       }
     }
 
-    // 6. Check Hook Repetition in Body (Bug-Audit 2)
     const firstBodyParagraph = paragraphs[1] || "";
     if (firstBodyParagraph) {
       const firstBodySentence = firstBodyParagraph.split(/[.!?]/)[0] || "";
@@ -485,6 +504,8 @@ JSON schema:
       // Length optimization (sweet spot 100 - 180 chars)
       if (hookText.length > 200) {
         score -= 50; // Heavily penalize exceeding LinkedIn visible limits
+      } else if (hookText.length < 80) {
+        score -= 25; // Penalize hooks that are too short (not enough tension to earn "see more")
       } else if (hookText.length >= 100 && hookText.length <= 180) {
         score += 15;
       }
@@ -1182,7 +1203,8 @@ JSON schema:
   "postTextBody": string (formatted body, CTA, and hashtags with \\n for line breaks),
   "title": string (max 50 chars),
   "slidePoints": array of exactly 3 strings (max 65 chars each),
-  "slideTagline": string (5-8 words)
+  "slideTagline": string (5-8 words),
+  "cta": string (the provocative CTA question)
 }
 `;
 
@@ -1197,9 +1219,10 @@ JSON schema:
           minItems: 3,
           maxItems: 3
         },
-        slideTagline: { type: SchemaType.STRING }
+        slideTagline: { type: SchemaType.STRING },
+        cta: { type: SchemaType.STRING }
       },
-      required: ["postTextBody", "title", "slidePoints", "slideTagline"]
+      required: ["postTextBody", "title", "slidePoints", "slideTagline", "cta"]
     };
 
     try {
@@ -1215,15 +1238,22 @@ JSON schema:
       const text = result.response.text().trim();
       const data = JSON.parse(text);
 
-      if (!data.postTextBody || !data.title) {
-        throw new Error("Invalid response format: missing postTextBody or title");
+      if (!data.postTextBody || !data.title || !data.cta) {
+        throw new Error("Invalid response format: missing postTextBody, title or cta");
       }
       
-      // Combine hook and body and collapse newline hashtags (Fix 2)
-      const postText = `${chosenHook.hook}\n\n${data.postTextBody}`
+      let postTextBodyClean = data.postTextBody;
+      const linkLine = "🔗 Full breakdown + resources in the comments.";
+      if (!postTextBodyClean.includes(linkLine)) {
+        postTextBodyClean = postTextBodyClean.trim() + "\n\n" + linkLine;
+      }
+
+      const postText = `${chosenHook.hook}\n\n${postTextBodyClean}`
+        .replace(/(#\w+)\s*\n+\s*(?=.+)/g, '$1 ')
         .replace(/(#\w+)\s*\n+\s*(?=#)/g, '$1 ');
 
-      // Validate slidePoints: must be an array; normalize to exactly 3 items
+      const commentText = `Full resource list and tools → ${githubUrl}`;
+
       if (!Array.isArray(data.slidePoints) || data.slidePoints.length === 0) {
         throw new Error("Invalid response format: slidePoints must be a non-empty array");
       }
@@ -1235,6 +1265,7 @@ JSON schema:
 
       return {
         postText,
+        commentText,
         title: data.title,
         slidePoints,
         slideTagline

@@ -219,6 +219,13 @@ async function generateLinkedInPreviews() {
     console.log(postData.postText);
     console.log("=============================================================\n");
 
+    if (postData.commentText) {
+      console.log("💬 AUTOMATED FIRST COMMENT PREVIEW:");
+      console.log("-------------------------------------------------------------");
+      console.log(postData.commentText);
+      console.log("-------------------------------------------------------------\n");
+    }
+
     console.log("🖼️ COMPANION VISUAL SLIDE PREVIEW:");
     console.log("-------------------------------------------------------------");
     console.log(`   Title:   "${postData.title}"`);

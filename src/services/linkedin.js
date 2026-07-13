@@ -1,4 +1,4 @@
-const { Builder, By, until } = require("selenium-webdriver");
+const { Builder, By, until, Key } = require("selenium-webdriver");
 const chrome = require("selenium-webdriver/chrome");
 const { logger, sleep } = require("../utils/helpers");
 const axios = require("axios");
@@ -216,7 +216,7 @@ class LinkedInService {
     throw new Error(`LinkedInService: Timeout waiting for shadow element: ${selector}`);
   }
 
-  async postToLinkedIn(text, imageUrl = null) {
+  async postToLinkedIn(text, imageUrl = null, commentText = null) {
     let originalHandle = null;
     let localImagePath = null;
     let isRemote = false;
@@ -400,11 +400,242 @@ class LinkedInService {
         await sleep(500);
       }
 
-      logger.info(`LinkedInService: Clicking Post submission (button enabled: ${isEnabled})...`);
+      logger.info("LinkedInService: Clicking Post submission...");
       await postButton.click();
       await sleep(8000);
 
       logger.info("LinkedInService: Post submitted successfully!");
+
+      if (commentText) {
+        let postUrl = null;
+        try {
+          const currentUrl = await this.driver.getCurrentUrl();
+          if (currentUrl.includes('/posts/') || currentUrl.includes('/feed/update/')) {
+            postUrl = currentUrl;
+            logger.info(`LinkedInService: Post URL captured directly: ${postUrl}`);
+          }
+        } catch (e) {}
+
+        let clickedToast = false;
+        if (postUrl && !postUrl.includes('/feed/')) {
+          await this.driver.get(postUrl);
+          await sleep(3000);
+          clickedToast = true;
+        } else {
+          logger.info("LinkedInService: Post URL not captured directly. Detecting 'View post' success toast to open dedicated post URL...");
+          for (let i = 0; i < 20; i++) {
+            clickedToast = await this.driver.executeScript(`
+              const toastBtn = Array.from(document.querySelectorAll("a, button, span, div")).find(el => {
+                const txt = (el.textContent || "").toLowerCase().trim();
+                return txt === "view post" || txt === "view" || txt === "view updates";
+              });
+              if (toastBtn) {
+                toastBtn.click();
+                return true;
+              }
+              return false;
+            `);
+            if (clickedToast) break;
+            await sleep(500);
+          }
+
+          if (clickedToast) {
+            logger.info("LinkedInService: Clicked success toast! Waiting for dedicated post page to render...");
+            await sleep(5000);
+          } else {
+            logger.warn("LinkedInService: Success toast not detected. Falling back to feed-level first post container...");
+          }
+        }
+
+        try {
+          logger.info("LinkedInService: Scrolling social action bar or media into view to trigger comments...");
+          await this.driver.executeScript(`
+            const actionBar = document.querySelector(".social-actions, .feed-shared-social-action-bar, [class*='social-actions']");
+            if (actionBar) {
+              actionBar.scrollIntoView({ behavior: 'auto', block: 'center' });
+            } else {
+              const media = document.querySelector(".feed-shared-update-v2__content, .update-components-image, [class*='update-components-']");
+              if (media) {
+                media.scrollIntoView({ behavior: 'auto', block: 'end' });
+              }
+            }
+          `);
+          await sleep(2000);
+
+          logger.info("LinkedInService: Scrolling page and layout containers to bottom...");
+          await this.driver.executeScript(`
+            window.scrollTo(0, 100000);
+            if (document.documentElement) document.documentElement.scrollTop = 100000;
+            if (document.body) document.body.scrollTop = 100000;
+            
+            const allElements = document.querySelectorAll("*");
+            for (const el of allElements) {
+              if (el.scrollHeight > el.clientHeight) {
+                const style = window.getComputedStyle(el);
+                if (style.overflowY === "auto" || style.overflowY === "scroll" || el.tagName === "MAIN" || el.tagName === "SECTION") {
+                  el.scrollTop = el.scrollHeight;
+                }
+              }
+            }
+          `);
+          await sleep(2000);
+
+          logger.info("LinkedInService: Locating comments container...");
+          await this.driver.executeScript(`
+            const commentBox = document.querySelector(
+              "[aria-label='Text editor for creating comment'], " +
+              ".tiptap, " +
+              ".ProseMirror"
+            );
+            if (commentBox) {
+              commentBox.scrollIntoView({ behavior: 'auto', block: 'center' });
+            }
+          `);
+          await sleep(1500);
+
+          logger.info("LinkedInService: Locating comment editor...");
+          const editorEl = await this.driver.wait(
+            until.elementLocated(By.css(
+              "[aria-label='Text editor for creating comment'], " +
+              ".tiptap, " +
+              ".ProseMirror"
+            )),
+            15000
+          );
+          
+          logger.info("LinkedInService: Clicking comment editor to focus...");
+          await this.driver.executeScript(`
+            const ed = document.querySelector("[aria-label='Text editor for creating comment'], .tiptap, .ProseMirror");
+            if (ed) { ed.focus(); ed.scrollIntoView({ behavior: 'auto', block: 'center' }); }
+          `);
+          await sleep(500);
+          await editorEl.click();
+          await sleep(800);
+
+          logger.info("LinkedInService: Typing comment text via sendKeys (fires native key events ProseMirror handles)...");
+          // sendKeys fires real OS-level key events which Tiptap/ProseMirror handles correctly
+          // This is more reliable than execCommand in a remote debugging session
+          await editorEl.sendKeys(Key.chord(Key.CONTROL, "a"), Key.BACK_SPACE);
+          await sleep(300);
+          await editorEl.sendKeys(commentText);
+          await sleep(2000);
+
+          const editorContent = await this.driver.executeScript(`
+            const ed = document.querySelector("[aria-label='Text editor for creating comment'], .tiptap, .ProseMirror");
+            return ed ? ed.innerText.trim() : "";
+          `);
+          logger.info(`LinkedInService: Comment editor content preview: "${editorContent.substring(0, 80)}"`);
+
+          logger.info("LinkedInService: Waiting for submit button to enable naturally...");
+          let submitBtnEnabled = false;
+          for (let i = 0; i < 25; i++) {
+            submitBtnEnabled = await this.driver.executeScript(`
+              const ed = document.querySelector("[aria-label='Text editor for creating comment'], .tiptap, .ProseMirror");
+              if (!ed) return false;
+              let parent = ed.parentElement;
+              let submitBtn = null;
+              while (parent && parent.tagName !== "BODY") {
+                // The comment submit button has text 'Comment' and type='button' (not 'submit')
+                const allBtns = parent.querySelectorAll("button");
+                for (const b of allBtns) {
+                  if (b.innerText.trim() === "Comment" && !b.disabled) {
+                    submitBtn = b;
+                    break;
+                  }
+                }
+                if (submitBtn) break;
+                parent = parent.parentElement;
+              }
+              if (!submitBtn) return false;
+              submitBtn.scrollIntoView({ behavior: 'auto', block: 'center' });
+              const rect = submitBtn.getBoundingClientRect();
+              return rect.width > 0 && rect.height > 0;
+            `);
+            if (submitBtnEnabled) break;
+            await sleep(400);
+          }
+
+          await sleep(500);
+          logger.info(`LinkedInService: Submit button naturally enabled: ${submitBtnEnabled}. Clicking...`);
+
+          // Locate the visible 'Comment' submit button and click via Actions
+          let clicked = false;
+          try {
+            const submitBtnEl = await this.driver.executeScript(`
+              const ed = document.querySelector("[aria-label='Text editor for creating comment'], .tiptap, .ProseMirror");
+              if (!ed) return null;
+              let parent = ed.parentElement;
+              while (parent && parent.tagName !== "BODY") {
+                const allBtns = parent.querySelectorAll("button");
+                for (const b of allBtns) {
+                  if (b.innerText.trim() === "Comment") {
+                    const rect = b.getBoundingClientRect();
+                    if (rect.width > 0 && rect.height > 0) return b;
+                  }
+                }
+                parent = parent.parentElement;
+              }
+              return null;
+            `);
+            if (submitBtnEl) {
+              await this.driver.executeScript(`arguments[0].scrollIntoView({ behavior: 'auto', block: 'center' });`, submitBtnEl);
+              await sleep(500);
+              const actions = this.driver.actions({ async: true });
+              await actions.move({ origin: submitBtnEl }).click().perform();
+              clicked = true;
+              logger.info("LinkedInService: 'Comment' submit button clicked via Actions mouse click.");
+            } else {
+              logger.warn("LinkedInService: Could not find visible 'Comment' button.");
+            }
+          } catch (clickErr) {
+            logger.warn(`LinkedInService: Actions click failed: ${clickErr.message}`);
+          }
+
+          if (!clicked) {
+            logger.warn("LinkedInService: Falling back to Ctrl+Enter keyboard submit...");
+            try {
+              await editorEl.click();
+              await sleep(300);
+              const actions = this.driver.actions({ async: true });
+              await actions
+                .keyDown("\uE009") // Ctrl
+                .sendKeys("\n")     // Enter
+                .keyUp("\uE009")
+                .perform();
+            } catch (kbErr) {
+              logger.error("LinkedInService: Keyboard submit also failed:", kbErr.message);
+            }
+          }
+
+          // Wait for comment to be submitted — editor clears on success
+          await sleep(5000);
+          
+          const commentPosted = await this.driver.executeScript(`
+            const ed = document.querySelector("[aria-label='Text editor for creating comment'], .tiptap, .ProseMirror");
+            // If editor is empty after submission, comment was posted successfully
+            const editorEmpty = !ed || ed.innerText.trim() === "" || ed.innerText.trim() === "\\n";
+            const hasError = document.body.innerText.toLowerCase().includes("something went wrong");
+            return editorEmpty && !hasError;
+          `);
+          logger.info(`LinkedInService: Comment posted: ${commentPosted}`);
+          
+          // Always save screenshot for inspection
+          try {
+            const screenshot = await this.driver.takeScreenshot();
+            fs.writeFileSync("linkedin-comment-result.png", screenshot, "base64");
+            logger.info("LinkedInService: Screenshot saved to linkedin-comment-result.png");
+          } catch (e) {}
+
+        } catch (commentErr) {
+          logger.error("LinkedInService: Failed to post first comment:", commentErr);
+          try {
+            const screenshot = await this.driver.takeScreenshot();
+            fs.writeFileSync("linkedin-comment-failed.png", screenshot, "base64");
+            logger.info("LinkedInService: Screenshot saved to linkedin-comment-failed.png for debugging");
+          } catch (e) {}
+        }
+      }
+
       return true;
     } catch (error) {
       logger.error("LinkedInService: Failed to post to LinkedIn:", error);
@@ -450,11 +681,10 @@ class LinkedInService {
     });
   }
 
-  async generateSlideImage(title, points, slideTagline = "Curated by AI \u00b7 Updated Weekly") {
+  async generateSlideImage(title, points, slideTagline = "Curated by AI \u00b7 Updated Weekly", authorHandle = "github.com/Drix10") {
     let originalHandle = null;
     let renderTabOpened = false;
     let originalSize = null;
-    // Use module-level fs and path imports (no inner require needed)
 
     try {
       await this.ensureDriverConnected();
@@ -476,7 +706,6 @@ class LinkedInService {
       fs.mkdirSync(tempDir, { recursive: true });
     }
     
-    // Escape any HTML special chars in dynamic content to prevent injection
     const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
     const safePoints = Array.isArray(points) ? points : [];
@@ -496,7 +725,6 @@ class LinkedInService {
       `;
     }).join("");
     
-    // Portrait 1080x1350 — LinkedIn feed-optimal with a premium, Vercel-style minimalist dark aesthetic
     const htmlContent = `<!DOCTYPE html>
 <html>
 <head>
@@ -668,7 +896,7 @@ class LinkedInService {
   <div class="content">
     <div class="top-bar">
       <div class="badge"><span class="badge-dot"></span>Tech Curation</div>
-      <div class="logo-area">github.com/Drix10</div>
+      <div class="logo-area">${esc(authorHandle)}</div>
     </div>
     <div class="hero-section">
       <div class="eyebrow">Curated Report</div>

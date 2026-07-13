@@ -113,7 +113,7 @@ const runEndofRunCuration = async (successfulArticles) => {
 
         if (megaPostData.postText) {
           logger.info("LinkedIn Curation: Posting curated update to LinkedIn...");
-          const postSuccess = await LinkedInService.postToLinkedIn(megaPostData.postText, slideImagePath).catch(err => {
+          const postSuccess = await LinkedInService.postToLinkedIn(megaPostData.postText, slideImagePath, megaPostData.commentText).catch(err => {
             logger.error("Failed to post mega post to LinkedIn:", err);
             return false;
           });
