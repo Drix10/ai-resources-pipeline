@@ -162,14 +162,18 @@ async function runLivePostCuration() {
   try {
     const articles = await fetchArticlesFromGithub();
 
+    // If a single markdown file contains multiple sub-articles, flatten them so
+    // the topic selector can return a valid, focused index.
+    const flattenedArticles = geminiService.splitArticlesIntoSubArticles(articles);
+
     logger.info("\nStep 1: Querying Gemini to select the single best topic for LinkedIn...");
-    const selectedIndices = await geminiService.selectBestArticlesForLinkedIn(articles);
+    const selectedIndices = await geminiService.selectBestArticlesForLinkedIn(flattenedArticles);
     logger.info(`Selected indices from Gemini: ${JSON.stringify(selectedIndices)}`);
 
     const uniqueIndices = [...new Set(selectedIndices.map((idx) => Number(idx)))];
     const selectedArticles = uniqueIndices
-      .filter((idx) => Number.isInteger(idx) && idx >= 0 && idx < articles.length)
-      .map((idx) => articles[idx]);
+      .filter((idx) => Number.isInteger(idx) && idx >= 0 && idx < flattenedArticles.length)
+      .map((idx) => flattenedArticles[idx]);
 
     if (uniqueIndices.length > 0 && selectedArticles.length !== uniqueIndices.length) {
       logger.warn(`Some selected indices were out of range and ignored: ${JSON.stringify(uniqueIndices)}`);
@@ -177,7 +181,7 @@ async function runLivePostCuration() {
 
     if (selectedArticles.length === 0) {
       logger.warn("No articles were selected by Gemini. Defaulting to the first available article.");
-      selectedArticles.push(articles[0]);
+      selectedArticles.push(flattenedArticles[0]);
     }
 
     logger.info(`\nSelected Article: "${selectedArticles[0].title}"`);
@@ -194,7 +198,16 @@ async function runLivePostCuration() {
 
       const githubUrl = selectedArticles[0].githubUrl || "";
       const sourceBulletCount = geminiService.countSourceBullets(selectedArticles[0].fullContent || "");
-      validation = geminiService.validatePostText(postData, githubUrl, sourceBulletCount);
+
+      // Prefer the validation that ran inside generateLinkedInMasterPost (with hook-filtered manual points).
+      const internalValidation = postData && postData.isValid !== undefined;
+      validation = internalValidation
+        ? {
+            isValid: postData.isValid,
+            qualityScore: postData.qualityScore,
+            errors: postData.validationErrors || []
+          }
+        : geminiService.validatePostText(postData, githubUrl, sourceBulletCount);
 
       if (validation.isValid) {
         logger.info(`Post passed quality validation (score: ${validation.qualityScore})`);

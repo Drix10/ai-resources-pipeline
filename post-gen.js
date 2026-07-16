@@ -184,20 +184,24 @@ async function generateLinkedInPreviews() {
     // 1. Fetch articles (GitHub or Mock)
     const articles = await fetchArticlesFromGithub();
 
-    console.log(`\n📚 Loaded ${articles.length} total articles for evaluation:`);
-    articles.forEach((art, idx) => {
+    // 1b. If a single markdown file contains multiple sub-articles, flatten them so
+    // the topic selector returns a valid index for one focused topic.
+    const flattenedArticles = geminiService.splitArticlesIntoSubArticles(articles);
+
+    console.log(`\n📚 Loaded ${flattenedArticles.length} total articles for evaluation:`);
+    flattenedArticles.forEach((art, idx) => {
       console.log(`   [Index ${idx}] Folder: "${art.title}" -> ${art.githubUrl}`);
     });
 
     // 2. Select the best article using selectBestArticlesForLinkedIn
     console.log("\n🤖 Step 1: Querying Gemini to select the single best topic for LinkedIn...");
-    const selectedIndices = await geminiService.selectBestArticlesForLinkedIn(articles);
+    const selectedIndices = await geminiService.selectBestArticlesForLinkedIn(flattenedArticles);
     console.log(`✅ Selected indices from Gemini: ${JSON.stringify(selectedIndices)}`);
 
     const uniqueIndices = [...new Set(selectedIndices.map((idx) => Number(idx)))];
     const selectedArticles = uniqueIndices
-      .filter((idx) => Number.isInteger(idx) && idx >= 0 && idx < articles.length)
-      .map((idx) => articles[idx]);
+      .filter((idx) => Number.isInteger(idx) && idx >= 0 && idx < flattenedArticles.length)
+      .map((idx) => flattenedArticles[idx]);
 
     if (uniqueIndices.length > 0 && selectedArticles.length !== uniqueIndices.length) {
       console.warn(`⚠️ Some selected indices were out of range and ignored: ${JSON.stringify(uniqueIndices)}`);
@@ -205,7 +209,7 @@ async function generateLinkedInPreviews() {
 
     if (selectedArticles.length === 0) {
       console.warn("⚠️ No articles were selected by Gemini. Defaulting to the first available article.");
-      selectedArticles.push(articles[0]);
+      selectedArticles.push(flattenedArticles[0]);
     }
 
     console.log(`\n✨ Selected Article(s) for Post Generation:`);
@@ -232,9 +236,10 @@ async function generateLinkedInPreviews() {
 
     console.log("🖼️ COMPANION VISUAL SLIDE PREVIEW:");
     console.log("-------------------------------------------------------------");
-    console.log(`   Title:   "${postData.title}"`);
-    console.log(`   Points:  ${JSON.stringify(postData.slidePoints, null, 2)}`);
-    console.log(`   Tagline: "${postData.slideTagline}"`);
+    console.log(`   Title:     "${postData.title}"`);
+    console.log(`   Points:    ${JSON.stringify(postData.slidePoints, null, 2)}`);
+    console.log(`   Tagline:   "${postData.slideTagline}"`);
+    console.log(`   Structure: "${postData.chosenStructure || "unspecified"}"`);
     console.log("-------------------------------------------------------------\n");
 
     // 4. Save results locally in a previews directory

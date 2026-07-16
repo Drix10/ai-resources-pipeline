@@ -70,6 +70,52 @@ const MID_QUALITY_PATTERNS = [
 const MIN_POST_LENGTH = 1200;
 const MAX_POST_LENGTH = 2200;
 const MIN_QUALITY_SCORE = 72;
+const MAX_RECENT_STRUCTURES = 8;
+
+// LinkedIn post structures the AI can choose from to keep posts varied.
+// The AI selects the one that best fits the hook, topic, and manual points.
+const STRUCTURE_REGISTRY = [
+  {
+    name: "problem-insight-framework",
+    label: "Problem → Insight → Rehook → Framework",
+    description: "Name the pain, reveal the non-obvious fact, add a short rehook, then deliver a save-worthy framework of 3-5 numbered steps or bullets."
+  },
+  {
+    name: "contrarian-proof-action",
+    label: "Contrarian Take → Proof → Application",
+    description: "Challenge a common assumption, prove it with a concrete detail from the source, then show how to act on it with 3-5 practical numbered steps."
+  },
+  {
+    name: "story-arc",
+    label: "Story / Narrative Arc",
+    description: "Tell a short scene (something that happened, a team's mistake, an observed pattern), then extract 3-5 practical numbered takeaways."
+  },
+  {
+    name: "before-after",
+    label: "Before / After Comparison",
+    description: "Contrast how most engineers approach the topic today vs. the better way implied by the source, then list 3-5 numbered steps to bridge the gap."
+  },
+  {
+    name: "numbered-listicle",
+    label: "Numbered Listicle with Commentary",
+    description: "Frame the post as 3-5 discrete observations or rules as numbered steps/bullets, with a sentence or two of connective analysis between them."
+  },
+  {
+    name: "how-i-think-about",
+    label: "How I Think About X",
+    description: "Write as a senior engineer explaining the mental model they use for this topic; keep it analytical and distill it into 3-5 numbered operating principles."
+  },
+  {
+    name: "direct-technical-breakdown",
+    label: "Direct Technical Breakdown",
+    description: "Skip the story and walk through the mechanism: what changed, why it matters, and what to do with it in 3-5 numbered technical actions."
+  },
+  {
+    name: "mistake-correction-execution",
+    label: "Common Mistake → Correction → Execution",
+    description: "Spot a recurring anti-pattern, correct it with the source fact, then give 3-5 numbered concrete execution steps."
+  }
+];
 
 const SYSTEM_PROMPT = `
 You are an expert technical writer and senior software engineer. Your writing style is direct, clear, highly analytical, and professional—completely free of generic AI-generated filler, marketing hype, and corporate fluff.
@@ -140,6 +186,18 @@ class GeminiService {
       clearInterval(this.resetInterval);
       this.resetInterval = null;
     }
+  }
+
+  buildBannedWordRegex(word) {
+    if (!word || typeof word !== "string") return null;
+    // Strip a trailing silent "e" so derivatives like leverage -> leveraging,
+    // ensure -> ensuring, advance -> advanced are caught. Only do this for
+    // words longer than 4 characters to avoid over-matching short roots.
+    const useStem = word.endsWith("e") && word.length > 4;
+    const stem = useStem ? word.slice(0, -1) : word;
+    const pattern = (useStem ? stem : word).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+    const optionalE = useStem ? "e?" : "";
+    return new RegExp(`\\b${pattern}${optionalE}(s|ed|ing|ly|tion|ness|er|est|ance|ence|ment|ive|ize|ise|able|ible)?\\b`, 'i');
   }
 
   async checkRateLimit() {
@@ -260,6 +318,58 @@ You MUST strictly follow the anti-hype rules and avoid all banned words defined 
 `;
   }
 
+  buildFlexibleLinkedInPostRules(githubUrl, minLength = MIN_POST_LENGTH, maxLength = MAX_POST_LENGTH) {
+    return `
+=== 2026 LINKEDIN VIRALITY RULES (FLEXIBLE STRUCTURE) ===
+BODY STRUCTURE — AI chooses the best fit:
+- You are the copywriter. Pick ONE structure from the "Available Structures" list that best fits the hook, the manual points, and the topic.
+- Vary the writing style: mix short punchy sentences (4-6 words) with longer technical explanations; avoid repeating the same sentence rhythm across paragraphs.
+- Keep the post specific and save-worthy. Every paragraph should teach something or advance the reader's understanding.
+- At least one section must be a numbered list or bullet framework that readers would bookmark. Pure prose dies.
+
+MANUAL POINTS RULE (MOST IMPORTANT):
+- The MANUAL POINTS listed below are the curated technical facts. They MUST be preserved in substance and accuracy.
+- You may lightly reword for flow, but do NOT omit, soften, invent, or replace them with generic summaries.
+- Do NOT add industry talking points, "data sovereignty", "cost-effectiveness", or other filler not present in the manual points.
+
+GITHUB LINK RULE (CRITICAL for reach):
+Do NOT include the GitHub URL in the post body. External links in post bodies reduce reach by ~60%.
+Instead, end your post body with this exact line:
+"🔗 Full breakdown + resources in the comments."
+
+CTA — engineered for comment threads:
+End with a question that FORCES a specific answer revealing the reader's situation.
+The best questions make the reader think "my answer to this is different from most people's."
+FORMATS THAT WORK:
+- "What's your current setup for X — [Option A] or something else entirely?"
+- "How long did it take your team to realize [thing from article]?"
+- "Anyone else been burned by [specific pain from article] before switching?"
+- "How long were you [doing X the hard way] before someone showed you [Y]?"
+FORMATS THAT DON'T:
+- "What's your primary bottleneck in X?" (survey)
+- "What do you think?" (too vague)
+- "Is X still viable in 2026?" (readiness survey)
+- "Are you using X or Y?" (binary poll)
+- NEVER ask "Is your X ready for Y?" — readiness survey, not provocation.
+
+HASHTAGS:
+Exactly 3-4 highly targeted hashtags on their own line at the very end. Mix exactly 1 broad + 2-3 niche.
+
+=== BODY RULES ===
+- Sound like a senior engineer casually sharing something useful.
+- Avoid hype, flowery, or overly polished corporate language.
+- Explicitly explain why the update matters for developers (performance, cost, workflow, correctness).
+- Prefer concrete numbers and real usage claims over general statements.
+- EMOJIS: Use 0–3 emojis maximum per post as visual anchors. Never decorate or spam.
+- @TAGGING: Tag 0–2 relevant original creators only.
+
+=== ANTI-HYPE & VOICE RULES (STRICT) ===
+You MUST strictly follow the anti-hype rules and avoid all banned words defined in the system prompt.
+
+Post length target: ${minLength}-${maxLength} characters total (including hook).
+`;
+  }
+
   async filterSubstantiveContent(items, retries = 3) {
     if (!items || items.length === 0) return [];
 
@@ -356,6 +466,236 @@ JSON schema:
     }
   }
 
+  saveRecentStructure(structureName) {
+    try {
+      if (!structureName || typeof structureName !== "string") return;
+      const validNames = new Set(STRUCTURE_REGISTRY.map(s => s.name));
+
+      // The model sometimes returns the structure label instead of the name.
+      const matched = STRUCTURE_REGISTRY.find(s => s.name === structureName || s.label === structureName);
+      const canonicalName = matched ? matched.name : structureName;
+      if (!validNames.has(canonicalName)) return;
+
+      const filePath = path.join(process.cwd(), "recent-structures.json");
+      let recentStructures = [];
+      if (fs.existsSync(filePath)) {
+        recentStructures = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+      }
+      if (!Array.isArray(recentStructures)) recentStructures = [];
+
+      // Normalize any legacy label entries to names and de-duplicate against the canonical name.
+      recentStructures = recentStructures.map(s => {
+        const entry = STRUCTURE_REGISTRY.find(r => r.name === s || r.label === s);
+        return entry ? entry.name : s;
+      }).filter(s => s !== canonicalName);
+      recentStructures.unshift(canonicalName);
+      recentStructures = recentStructures.slice(0, MAX_RECENT_STRUCTURES);
+      fs.writeFileSync(filePath, JSON.stringify(recentStructures, null, 2), "utf-8");
+      logger.info(`Saved "${canonicalName}" to recent LinkedIn structure history.`);
+    } catch (err) {
+      logger.warn("Could not save recent structure:", err.message);
+    }
+  }
+
+  loadRecentStructures() {
+    try {
+      const filePath = path.join(process.cwd(), "recent-structures.json");
+      if (fs.existsSync(filePath)) {
+        const parsed = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (err) {
+      logger.warn("Could not load recent structures:", err.message);
+    }
+    return [];
+  }
+
+  buildStructureOptions(recentStructures = []) {
+    const recentSet = new Set(
+      (recentStructures || []).slice(0, 3).filter(Boolean).map(s => {
+        const entry = STRUCTURE_REGISTRY.find(r => r.name === s || r.label === s);
+        return entry ? entry.name : s;
+      })
+    );
+    const preferred = STRUCTURE_REGISTRY.filter(s => !recentSet.has(s.name));
+    const fallback = STRUCTURE_REGISTRY.filter(s => recentSet.has(s.name));
+    const ordered = preferred.length > 0 ? [...preferred, ...fallback] : STRUCTURE_REGISTRY;
+
+    return ordered.map((s, idx) => {
+      const flag = recentSet.has(s.name) ? " [used recently — only pick if clearly best fit]" : "";
+      return `${idx + 1}. ${s.label}${flag}\n   ${s.description}`;
+    }).join("\n");
+  }
+
+  extractManualPoints(content) {
+    if (!content) return [];
+    const subArticles = content.split(/\n---\n/);
+    const points = [];
+
+    for (const sub of subArticles) {
+      if (!sub.trim()) continue;
+      const headerMatch = sub.match(/^###\s+(.+)$/m);
+      const topic = headerMatch ? headerMatch[1].trim() : "Topic";
+
+      const keyPointsMatch = sub.match(/Key Points:\s*([\s\S]*?)(?=🚀|🔗|---|$)/i);
+      if (keyPointsMatch) {
+        const lines = keyPointsMatch[1].split("\n").map(l => l.trim()).filter(l => l.startsWith("•"));
+        for (const line of lines) {
+          const clean = line.replace(/^•\s*/, "").trim();
+          if (clean.length > 10) points.push(clean);
+        }
+      }
+
+      const implMatch = sub.match(/(?:🚀\s*)?Implementation:\s*([\s\S]*?)(?=🔗|---|$)/i);
+      if (implMatch) {
+        const lines = implMatch[1].split("\n").map(l => l.trim()).filter(l => /^\d+\./.test(l));
+        for (const line of lines) {
+          const clean = line.replace(/^\d+\.\s*/, "").trim();
+          if (clean.length > 10) points.push(clean);
+        }
+      }
+    }
+
+    // Resources are intentionally NOT treated as mandatory manual points because
+    // they often contain generic placeholders or links. The GitHub URL is shared
+    // in the first comment instead.
+
+    // Deduplicate loosely by lowercased text and drop sentences that are too generic
+    const GENERIC_POINT_PATTERNS = [
+      /^tool name/i,
+      /^brief description/i,
+      /^https?:\/\//,
+      /^\[.*\]\(.*\)\s*-\s*brief/i
+    ];
+    return Array.from(new Map(points.map(p => [p.toLowerCase(), p])).values())
+      .filter(p => !GENERIC_POINT_PATTERNS.some(pattern => pattern.test(p)));
+  }
+
+
+
+  // Shared tokenizer used for coverage overlap. Keeps acronyms and short
+  // symbolic tech terms (AI, RAG, SQL, LLM, API) even when ≤4 characters.
+  tokenizeForCoverage(text) {
+    if (!text) return [];
+
+    const stopWords = new Set([
+      "the", "a", "an", "is", "it", "are", "of", "to", "for", "in", "and", "or", "on", "with", "that", "this", "your",
+      "you", "about", "they", "them", "their", "has", "have", "had", "been", "was", "were", "will", "would", "could",
+      "should", "can", "may", "might", "must", "shall", "than", "more", "most", "some", "any", "such", "only", "just",
+      "also", "even", "then", "now", "here", "there", "what", "when", "where", "which", "while", "how", "why", "who",
+      "all", "each", "every", "both", "few", "many", "much", "other", "another", "same", "different", "own", "under",
+      "over", "again", "further", "once", "way", "one", "two", "not", "but", "as", "at", "by", "from", "up", "down",
+      "out", "if", "because", "through", "during", "before", "after", "above", "below", "between", "into", "onto",
+      "off", "via", "per", "among", "within", "without", "around", "against", "toward", "towards", "across",
+      "behind", "beyond", "beside", "besides", "except", "including", "regarding", "concerning", "following",
+      "using", "given", "based", "made", "make", "making", "do", "does"
+    ]);
+
+    // Capture 2-4 uppercase acronyms/symbolic terms before lowercasing.
+    const acronyms = (text.match(/\b[A-Z]{2,4}\b/g) || [])
+      .map(w => w.toLowerCase())
+      .filter(w => !stopWords.has(w));
+
+    const words = text
+      .replace(/'s\b/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, " ")
+      .split(/\s+/)
+      .filter(w => w.length > 3 && !stopWords.has(w));
+
+    return Array.from(new Set([...acronyms, ...words]));
+  }
+
+  getPointFingerprint(text) {
+    return this.tokenizeForCoverage(text).join(" ");
+  }
+
+  measureManualPointCoverage(postText, manualPoints) {
+    if (!postText || !manualPoints || manualPoints.length === 0) return { coverage: 1, missing: [] };
+
+    const postLower = postText.toLowerCase();
+    const missing = [];
+    let covered = 0;
+    let evaluated = 0;
+
+    for (const point of manualPoints) {
+      const keywords = this.tokenizeForCoverage(point);
+      if (keywords.length === 0) continue;
+      evaluated++;
+
+      const matchCount = keywords.filter(w => {
+        const escaped = w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        return new RegExp(`\\b${escaped}\\b`).test(postLower);
+      }).length;
+
+      const ratio = matchCount / keywords.length;
+      if (ratio >= 0.6) {
+        covered++;
+      } else {
+        missing.push(point);
+      }
+    }
+
+    // Only count points that actually contributed evaluable tokens.
+    const coverage = evaluated > 0 ? covered / evaluated : 1;
+    return { coverage, missing: missing.slice(0, 5) };
+  }
+
+  formatManualPoints(manualPoints) {
+    if (!manualPoints || manualPoints.length === 0) return "(No explicit manual points extracted; derive directly from article text.)";
+    return manualPoints.map((p, i) => `${i + 1}. ${p}`).join("\n");
+  }
+
+  splitArticlesIntoSubArticles(articles) {
+    if (!Array.isArray(articles)) return [];
+    const flattened = [];
+    for (const art of articles) {
+      if (!art || !art.fullContent) {
+        flattened.push(art);
+        continue;
+      }
+      const chunks = art.fullContent
+        .split(/\n---\n/)
+        .map(s => s.trim())
+        .filter(s => s.length > 50);
+      if (chunks.length <= 1) {
+        flattened.push(art);
+        continue;
+      }
+      for (let i = 0; i < chunks.length; i++) {
+        const headerMatch = chunks[i].match(/^###\s+(.+)$/m);
+        const header = headerMatch ? headerMatch[1].trim() : `Section ${i + 1}`;
+        flattened.push({
+          ...art,
+          title: `${art.title}: ${header}`,
+          fullContent: chunks[i]
+        });
+      }
+    }
+    return flattened;
+  }
+
+  extractSignificantWords(text) {
+    const stopWords = new Set(["the", "a", "an", "is", "it", "are", "of", "to", "for", "in", "and", "or", "on", "with", "that", "this", "your", "you", "about", "they", "them", "their", "has", "have", "had", "been", "was", "were", "will", "would", "could", "should", "can", "may", "might", "must", "shall", "than", "more", "most", "some", "any", "such", "only", "just", "also", "even", "then", "now", "here", "there", "what", "when", "where", "which", "while", "how", "why", "who", "all", "each", "every", "both", "few", "many", "much", "other", "another", "same", "different", "own", "under", "over", "again", "further", "once", "way", "one", "two"]);
+    return text.toLowerCase().replace(/'s\b/g, "").replace(/[^a-z0-9]/g, " ").split(/\s+/).map(w => w.trim()).filter(w => w.length > 3 && !stopWords.has(w));
+  }
+
+  filterManualPointsByHook(manualPoints, hookText) {
+    if (!manualPoints || manualPoints.length === 0 || !hookText) return manualPoints || [];
+    const hookWords = this.extractSignificantWords(hookText);
+    if (hookWords.length === 0) return manualPoints;
+
+    return manualPoints.filter(point => {
+      const pointWords = this.extractSignificantWords(point);
+      if (pointWords.length === 0) return false;
+      const overlap = pointWords.filter(w => hookWords.includes(w)).length;
+      const ratio = overlap / pointWords.length;
+      // Require a meaningful overlap: at least two shared distinctive words, or
+      // one very central word in a short point, or 25% of the point's words.
+      return overlap >= 2 || (overlap === 1 && pointWords.length <= 5) || ratio >= 0.25;
+    });
+  }
+
   countSourceBullets(content) {
     if (!content) return 0;
     const lines = content.split("\n");
@@ -411,7 +751,13 @@ JSON schema:
     if (!postText) return [];
     return postText.split("\n").filter(line => {
       const trimmed = line.trim();
-      return trimmed.startsWith("•") || /^\d+\./.test(trimmed);
+      return trimmed.startsWith("•") ||
+        trimmed.startsWith("-") ||
+        trimmed.startsWith("*") ||
+        trimmed.startsWith(">") ||
+        /^\d+[\.\)]/.test(trimmed) ||
+        /^\(\d+\)[\.\)]?/.test(trimmed) ||
+        /^[a-zA-Z][\.\)]/.test(trimmed);
     });
   }
 
@@ -461,10 +807,21 @@ JSON schema:
       if (paragraph.includes("→")) continue;
       if (paragraph.endsWith("?")) return paragraph;
     }
+
+    // Fallback: search within the body only (skip the hook, which is separated by a blank line).
+    const firstBlank = postText.indexOf("\n\n");
+    const bodyText = firstBlank >= 0 ? postText.slice(firstBlank + 2) : postText;
+    const lines = bodyText.split("\n").map(l => l.trim()).filter(l => l.length > 0);
+    for (let i = lines.length - 1; i >= 0; i--) {
+      const line = lines[i];
+      if (line.startsWith("#")) continue;
+      if (line.includes("→")) continue;
+      if (line.endsWith("?")) return line;
+    }
     return "";
   }
 
-  scorePostQuality(postData, sourceBulletCount = 0) {
+  scorePostQuality(postData, sourceBulletCount = 0, manualPoints = []) {
     const postText = postData.postText || "";
     const hook = postText.split("\n\n")[0] || "";
     const bodyWithoutHook = postText.slice(hook.length).trim();
@@ -472,6 +829,39 @@ JSON schema:
     const issues = [];
     let bonusPoints = 0;
     let penaltyPoints = 0;
+
+    const coverage = this.measureManualPointCoverage(bodyWithoutHook, manualPoints);
+    if (manualPoints && manualPoints.length > 0) {
+      if (coverage.coverage >= 0.8) {
+        bonusPoints += 10;
+      } else if (coverage.coverage >= 0.6) {
+        bonusPoints += 5;
+      } else if (coverage.coverage >= 0.4) {
+        penaltyPoints += 15;
+        issues.push(`Manual point coverage is weak (${Math.round(coverage.coverage * 100)}% preserved)`);
+      } else {
+        penaltyPoints += 30;
+        issues.push(`Manual point coverage too low (${Math.round(coverage.coverage * 100)}% preserved); missing: ${coverage.missing.slice(0, 2).join("; ")}`);
+      }
+    }
+
+    const foundBannedInPost = BANNED_WORDS.filter(word => {
+      const regex = this.buildBannedWordRegex(word);
+      return regex && regex.test(postText);
+    });
+    if (foundBannedInPost.length > 0) {
+      penaltyPoints += 25;
+      issues.push(`Banned word(s) found: ${foundBannedInPost.join(", ")}`);
+    }
+
+    const hashtagMatches = postText.match(/#[a-zA-Z0-9]+/g) || [];
+    const hashtagCount = hashtagMatches.length;
+    if (hashtagCount < 3 || hashtagCount > 4) {
+      penaltyPoints += 15;
+      issues.push(`Invalid number of hashtags: found ${hashtagCount} (expected 3-4)`);
+    } else {
+      bonusPoints += 5;
+    }
 
     if (postText.length < MIN_POST_LENGTH) {
       penaltyPoints += 30;
@@ -502,7 +892,7 @@ JSON schema:
     }
 
     if (!this.hasRehook(bodyWithoutHook)) {
-      penaltyPoints += 25;
+      penaltyPoints += 12;
       issues.push("Missing rehook sentence between insight and framework");
     }
 
@@ -515,9 +905,12 @@ JSON schema:
         !trimmed.includes("→") &&
         !trimmed.endsWith("?");
     });
-    if (proseParagraphs.length < 2) {
+    if (proseParagraphs.length < 1) {
       penaltyPoints += 25;
-      issues.push("Needs at least 2 prose paragraphs (problem + insight) before the framework");
+      issues.push("Needs at least 1 substantive prose paragraph before the framework");
+    } else if (proseParagraphs.length < 2) {
+      penaltyPoints += 8;
+      issues.push("Consider adding a second prose paragraph for rhythm (optional depending on structure)");
     }
 
     const cta = this.getCtaQuestion(postText);
@@ -570,7 +963,7 @@ JSON schema:
     };
   }
 
-  validatePostText(postData, githubUrl, sourceBulletCount = 0) {
+  validatePostText(postData, githubUrl, sourceBulletCount = 0, manualPoints = []) {
     const errors = [];
     const postText = postData.postText || "";
 
@@ -599,9 +992,8 @@ JSON schema:
     }
 
     const foundBanned = BANNED_WORDS.filter(word => {
-      const escaped = word.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-      const regex = new RegExp(`\\b${escaped}(s|ed|ing|ly|tion|ness)?\\b`, 'i');
-      return regex.test(allText);
+      const regex = this.buildBannedWordRegex(word);
+      return regex && regex.test(allText);
     });
     if (foundBanned.length > 0) {
       errors.push(`Banned word(s) found: ${foundBanned.join(", ")}`);
@@ -610,6 +1002,12 @@ JSON schema:
     const hook = postText.split("\n\n")[0] || "";
     if (hook.length > 200) {
       errors.push(`Hook exceeds 200 characters (${hook.length} characters)`);
+    }
+
+    const bodyWithoutHook = postText.slice(hook.length).trim();
+    const coverage = this.measureManualPointCoverage(bodyWithoutHook, manualPoints);
+    if (manualPoints && manualPoints.length > 0 && coverage.coverage < 0.6) {
+      errors.push(`Manual point coverage too low (${Math.round(coverage.coverage * 100)}% of ${manualPoints.length} points). Missing or weak on: ${coverage.missing.slice(0, 3).join("; ")}`);
     }
 
     const hashtagMatches = postText.match(/#[a-zA-Z0-9]+/g) || [];
@@ -626,31 +1024,10 @@ JSON schema:
         !trimmed.endsWith("?");
     });
 
-    if (sourceBulletCount > 0) {
-      const bodyParagraphCount = Math.max(0, paragraphs.length - 1);
-      if (bodyParagraphCount > sourceBulletCount) {
-        errors.push(`Padding/Hallucination warning: post has ${bodyParagraphCount} body paragraphs but source content only has ${sourceBulletCount} bullet points/steps.`);
-      }
-    }
-
-    const firstBodyParagraph = paragraphs[1] || "";
-    if (firstBodyParagraph) {
-      const firstBodySentence = firstBodyParagraph.split(/[.!?]/)[0] || "";
-      const hookSentence = hook.split(/[.!?]/)[0] || "";
-
-      const getSignificantWords = (text) => {
-        const stopWords = ["the", "a", "an", "is", "it", "are", "of", "to", "for", "in", "and", "or", "on", "with", "that", "this", "your", "you", "about"];
-        return text.toLowerCase().split(/\s+/).map(w => w.replace(/[^a-zA-Z]/g, "")).filter(w => w.length > 3 && !stopWords.includes(w));
-      };
-
-      const firstBodyWords = getSignificantWords(firstBodySentence);
-      const hookWords = getSignificantWords(hookSentence);
-      const commonWords = firstBodyWords.filter(w => hookWords.includes(w));
-
-      if (commonWords.length >= 4) {
-        errors.push(`Verbatim/Paraphrase Repetition warning: first sentence of body paragraph heavily repeats hook concepts (shared words: ${commonWords.join(", ")})`);
-      }
-    }
+    // Padding vs. source bullet count and hook/body lexical overlap are surfaced
+    // only in the quality score, not as hard validation errors, because good posts
+    // legitimately expand ideas beyond the source bullet count and naturally echo
+    // the hook topic in the first body paragraph.
 
     if (postText.length < MIN_POST_LENGTH) {
       errors.push(`Post too short: ${postText.length} characters (minimum ${MIN_POST_LENGTH})`);
@@ -659,7 +1036,6 @@ JSON schema:
       errors.push(`Post too long: ${postText.length} characters (maximum ${MAX_POST_LENGTH})`);
     }
 
-    const bodyWithoutHook = postText.slice(hook.length).trim();
     const frameworkBullets = this.extractFrameworkBullets(bodyWithoutHook);
     if (frameworkBullets.length < 3) {
       errors.push(`Framework section must have at least 3 bullets/steps (found ${frameworkBullets.length})`);
@@ -672,9 +1048,7 @@ JSON schema:
       errors.push(`Framework bullets are too shallow (avg ${Math.round(avgBulletLength)} chars, need 70+)`);
     }
 
-    if (!this.hasRehook(bodyWithoutHook)) {
-      errors.push("Missing rehook sentence between insight and framework sections");
-    }
+    // Rehook is encouraged but not a hard gate — it is already penalized in the quality score.
 
     const cta = this.getCtaQuestion(postText);
     if (!cta) {
@@ -699,7 +1073,7 @@ JSON schema:
       errors.push('Missing required line: "🔗 Full breakdown + resources in the comments."');
     }
 
-    const quality = this.scorePostQuality(postData, sourceBulletCount);
+    const quality = this.scorePostQuality(postData, sourceBulletCount, manualPoints);
     if (quality.score < MIN_QUALITY_SCORE) {
       errors.push(`Quality score too low: ${quality.score}/${MIN_QUALITY_SCORE} (penalties: -${quality.penaltyPoints}, bonuses: +${quality.bonusPoints})`);
     }
@@ -800,9 +1174,18 @@ JSON schema:
         }
       }
 
+      const bannedInHook = BANNED_WORDS.filter(word => {
+        const regex = this.buildBannedWordRegex(word);
+        return regex && regex.test(hookText);
+      });
+      if (bannedInHook.length > 0) {
+        score -= 40;
+      }
+
       return {
         ...c,
-        score
+        score,
+        bannedWords: bannedInHook
       };
     }).sort((a, b) => b.score - a.score);
   }
@@ -1378,6 +1761,7 @@ MANDATORY CURIOSITY GAP RULES (STRICT):
 - Avoid weak, open-ended, or generic questions in the hook itself.
 - Never start with "Here is", "This week", or similar roundup/newsletter intros.
 - Hook and promise must follow the anti-hype rules from the system prompt (no "significant", "wild", "next-gen", "groundbreaking", etc.).
+- NEVER use any of these banned words or their derivatives anywhere in the hook: ${BANNED_WORDS.join(", ")}
 
 PROMISE:
 - A brief explanation of what value/delivery the body must provide to satisfy this hook.
@@ -1446,7 +1830,13 @@ JSON schema:
     }
   }
 
-  async generateBody(selectedArticles, chosenHook, retries = 3, validationFeedback = []) {
+  async generateBody(selectedArticles, chosenHook, retries = 3, validationFeedback = [], recentStructures = [], previousDraft = null) {
+    const primaryArticle = selectedArticles && selectedArticles.length > 0 ? selectedArticles[0] : null;
+    const rawManualPoints = primaryArticle ? this.extractManualPoints(primaryArticle.fullContent) : [];
+    const hookAndPromise = `${chosenHook?.hook || ""} ${chosenHook?.promise || ""}`;
+    const manualPointsForThisHook = this.filterManualPointsByHook(rawManualPoints, hookAndPromise);
+    const manualPointsText = this.formatManualPoints(manualPointsForThisHook);
+
     let context = "";
     selectedArticles.forEach((art, i) => {
       context += `=== ARTICLE #${i + 1} ===\n`;
@@ -1455,8 +1845,22 @@ JSON schema:
       context += `Content:\n${this.extractKeyPoints(art.fullContent)}\n\n`;
     });
 
-    const githubUrl = selectedArticles.length > 0 ? selectedArticles[0].githubUrl : "";
-    const postRules = this.buildLinkedInPostRules(githubUrl, false);
+    const githubUrl = primaryArticle ? primaryArticle.githubUrl : "";
+    const postRules = this.buildFlexibleLinkedInPostRules(githubUrl, MIN_POST_LENGTH, MAX_POST_LENGTH);
+
+    const recentStructuresList = Array.isArray(recentStructures) ? recentStructures : [];
+    const structureOptions = this.buildStructureOptions(recentStructuresList);
+    const recentStructuresText = recentStructuresList.length > 0
+      ? `Recently used structures (avoid unless this topic clearly demands one): ${recentStructuresList.slice(0, 3).join(", ")}`
+      : "No recent structures yet.";
+
+    const previousDraftBlock = previousDraft
+      ? `
+=== PREVIOUS DRAFT FAILED ===
+This was the rejected draft. Diagnose why it failed (length, structure, banned words, weak CTA, missing manual points) and write something meaningfully different:
+${previousDraft.substring(0, 1200)}
+`
+      : "";
 
     const feedbackBlock = validationFeedback.length > 0
       ? `
@@ -1464,7 +1868,7 @@ JSON schema:
 Your last draft was rejected. Fix every issue below while keeping the same hook promise:
 ${validationFeedback.map(err => `- ${err}`).join("\n")}
 
-Do NOT produce another generic roundup. Expand thin bullets, add the missing rehook, and replace any survey-style CTA.
+Do NOT produce another generic roundup. Expand thin bullets, vary the structure, and replace any survey-style CTA.
 `
       : "";
 
@@ -1483,7 +1887,25 @@ Your body, CTA, visual slide title, tagline, and slide points MUST focus 100% on
 If the article content contains multiple unrelated sub-articles, only use the sub-article that matches the hook topic.
 Discard all other sub-article content from your response.
 
+=== MANUAL POINTS (PRESERVE ACCURACY) ===
+These are the curated technical facts. Your post MUST include the substance of the ones that align with the CHOSEN HOOK and PROMISE above. You may lightly reword for flow, but do NOT omit, soften, invent, or replace them with generic summaries.
+${manualPointsText}
+
 ${feedbackBlock}
+${previousDraftBlock}
+
+=== AVAILABLE STRUCTURES (CHOOSE ONE) ===
+${structureOptions}
+
+${recentStructuresText}
+
+Pick the single structure that best serves the hook and manual points. Announce your choice in the "chosenStructure" field and follow it consistently from hook through CTA.
+
+=== CORE ELEMENTS (every structure must include) ===
+- A tension/problem or surprising insight section near the start that earns the reader's attention.
+- One short 6-10 word rehook/tension line placed right before the actionable framework.
+- A save-worthy framework of 3-5 bullets or numbered steps using ONLY the manual points. Each step MUST be on its own line and start with a number + period (e.g., "1. First step...") or a bullet "• ". Never bury the steps inside a prose paragraph.
+- A one-sentence implication/takeaway explaining why this matters now.
 
 === ARTICLE CONTENT ===
 ${context}
@@ -1494,8 +1916,10 @@ GitHub URL: ${githubUrl}
 ${postRules}
 
 === STYLE NOTE ===
-Write in a direct, technical, "senior engineer sharing findings" style. Avoid any generalities or promotional language.
-This post must feel worth saving — not a neutral summary. Every framework bullet should teach something specific.
+- Vary sentence rhythm: mix very short punchy sentences (4-6 words) with denser technical explanations.
+- Vary paragraph length. Avoid every paragraph being the same size.
+- The structure and flow are up to you; do not chain identical transition phrases.
+- Sound like a senior engineer sharing useful findings, not a corporate comms team.
 
 STRICT BANNED WORDS RULE:
 Absolutely NEVER use any of these banned words or their derivatives (such as plural -s, past -ed, continuous -ing, adverb -ly, etc.) anywhere in your output (including the slide title, slide points, slide tagline, and body paragraphs):
@@ -1503,12 +1927,19 @@ ${BANNED_WORDS.join(", ")}
 
 === ADDITIONAL BODY RULES ===
 - Do NOT repeat the pre-written hook inside the "postTextBody" field. We will prepend the hook programmatically.
-- Combine the generated Body, CTA, and Hashtags into the "postTextBody" field.
-- Target ${MIN_POST_LENGTH}-${MAX_POST_LENGTH} characters for the final assembled post (hook + body + CTA + hashtags).
+- Combine the generated Body, CTA, and the required link line into the "postTextBody" field. Put the hashtags in the separate "hashtags" field, NOT inside "postTextBody".
+- Final assembled post length target (hook + body + CTA + link line + hashtags): ${MIN_POST_LENGTH}-${MAX_POST_LENGTH} characters.
 - EMOJI UNIQUE RULE: Do NOT use any emoji that appears in the pre-written hook above. Check the hook text (e.g. if it uses 💡 or 🚀) and pick entirely different emojis or none at all for the body paragraph visual anchors.
-- NO FABRICATIONS OR HALLUCINATIONS: Do NOT invent or infer details that are not present in the source article content. If you cannot fill a paragraph using only facts from the Key Points above, write fewer paragraphs — do not invent connecting tissue or industry talking points (like 'data sovereignty' or 'cost-effectiveness' if they aren't explicitly mentioned). Keep your body paragraphs strictly bounded by the actual bullet points/facts provided in the source text.
-- REHOOK IS MANDATORY: Include one short 6-10 word tension line between the insight paragraph and the framework bullets.
+- NO FABRICATIONS OR HALLUCINATIONS: Do NOT invent or infer details that are not present in the source article content. If you cannot fill a paragraph using only facts from the Key Points or Manual Points above, write fewer paragraphs — do not invent connecting tissue.
 - CTA MUST ask for a personal story or timeline, never a yes/no poll or readiness survey.
+
+=== HARD CONSTRAINTS (violations cause regeneration) ===
+1. postTextBody MUST contain a save-worthy framework of 3-5 bullets or numbered steps and a 6-10 word rehook/tension line before it. Each framework step must start on its own line with "1. ", "2. ", etc., or "• ". Do not merge them into a single paragraph.
+2. Hashtags field MUST contain exactly 3-4 targeted hashtags separated by spaces.
+3. Zero banned words anywhere in the output (scan your draft and remove any matches).
+4. Every substantive claim must reflect the manual points above.
+
+Before returning JSON, run a final self-check against every HARD CONSTRAINT and fix any violation.
 
 === VISUAL SLIDE ===
 title: Max 50 characters (punchy value statement)
@@ -1520,11 +1951,13 @@ Return ONLY valid raw JSON.
 
 JSON schema:
 {
-  "postTextBody": string (formatted body, CTA, and hashtags with \\n for line breaks),
+  "postTextBody": string (formatted body, CTA, and required link line with \\n for line breaks — do NOT include hashtags here),
+  "hashtags": string (exactly 3-4 targeted hashtags separated by spaces, e.g. "#AI #DevTools #Engineering"),
   "title": string (max 50 chars),
   "slidePoints": array of exactly 3 strings (max 65 chars each),
   "slideTagline": string (5-8 words),
-  "cta": string (the provocative CTA question)
+  "cta": string (the provocative CTA question),
+  "chosenStructure": string (the "name" value of the structure you chose from Available Structures)
 }
 `;
 
@@ -1540,9 +1973,11 @@ JSON schema:
           maxItems: 3
         },
         slideTagline: { type: SchemaType.STRING },
-        cta: { type: SchemaType.STRING }
+        cta: { type: SchemaType.STRING },
+        chosenStructure: { type: SchemaType.STRING },
+        hashtags: { type: SchemaType.STRING }
       },
-      required: ["postTextBody", "title", "slidePoints", "slideTagline", "cta"]
+      required: ["postTextBody", "hashtags", "title", "slidePoints", "slideTagline", "cta", "chosenStructure"]
     };
 
     try {
@@ -1564,13 +1999,60 @@ JSON schema:
 
       let postTextBodyClean = data.postTextBody;
       const linkLine = "🔗 Full breakdown + resources in the comments.";
+      const ctaText = data.cta ? data.cta.trim() : "";
+
+      // Canonicalize the body CTA: keep exactly one instance, placed right before the link line.
+      if (ctaText) {
+        const ctaNormalized = ctaText.toLowerCase().replace(/\?$/, "").trim();
+        postTextBodyClean = postTextBodyClean.split("\n")
+          .filter(line => {
+            const lineNorm = line.trim().toLowerCase().replace(/\?$/, "").trim();
+            return lineNorm !== ctaNormalized;
+          })
+          .join("\n");
+      }
+
       if (!postTextBodyClean.includes(linkLine)) {
         postTextBodyClean = postTextBodyClean.trim() + "\n\n" + linkLine;
       }
 
-      const postText = `${chosenHook.hook}\n\n${postTextBodyClean}`
-        .replace(/(#\w+)\s*\n+\s*(?=.+)/g, '$1 ')
-        .replace(/(#\w+)\s*\n+\s*(?=#)/g, '$1 ');
+      if (ctaText) {
+        const lines = postTextBodyClean.split("\n");
+        const linkIdx = lines.findIndex(l => l.trim() === linkLine);
+        if (linkIdx >= 0) {
+          // Check whether a CTA is already immediately before the link line.
+          let prevIdx = -1;
+          for (let i = linkIdx - 1; i >= 0; i--) {
+            if (lines[i].trim()) { prevIdx = i; break; }
+          }
+          const ctaNormalized = ctaText.toLowerCase().replace(/\?$/, "").trim();
+          const prevIsCta = prevIdx >= 0 && lines[prevIdx].trim().toLowerCase().replace(/\?$/, "").trim() === ctaNormalized;
+          if (!prevIsCta) {
+            lines.splice(linkIdx, 0, "", ctaText);
+            postTextBodyClean = lines.join("\n");
+          }
+        }
+      }
+
+      // Sanitize hashtags: remove any inline hashtags from the body and append
+      // exactly 3-4 hashtags from the dedicated field on their own line.
+      const tagRegex = /#[a-zA-Z0-9]+/g;
+      const allHashtags = ((data.hashtags || "").trim().match(tagRegex) || []);
+      const bodyHashtags = (postTextBodyClean.match(tagRegex) || []);
+      const uniqueHashtags = Array.from(new Set([...allHashtags, ...bodyHashtags])).slice(0, 4);
+
+      // Strip inline hashtags line-by-line, preserving blank-line paragraph breaks.
+      postTextBodyClean = postTextBodyClean
+        .split("\n")
+        .map(line => line.replace(tagRegex, "").trim().replace(/[ \t]{2,}/g, " "))
+        .join("\n")
+        .trim();
+
+      if (uniqueHashtags.length > 0) {
+        postTextBodyClean = postTextBodyClean + "\n\n" + uniqueHashtags.join(" ");
+      }
+
+      const postText = `${chosenHook.hook}\n\n${postTextBodyClean}`;
 
       const commentText = `Full resource list and tools → ${githubUrl}`;
 
@@ -1583,19 +2065,26 @@ JSON schema:
       const slidePoints = data.slidePoints.slice(0, 3);
       const slideTagline = data.slideTagline || "Curated by AI \u00b7 Updated Weekly";
 
+      // Canonicalize chosenStructure to a registry name (model sometimes returns a label).
+      const structureEntry = STRUCTURE_REGISTRY.find(
+        s => s.name === data.chosenStructure || s.label === data.chosenStructure
+      );
+      const chosenStructureName = structureEntry ? structureEntry.name : (data.chosenStructure || "unspecified");
+
       return {
         postText,
         commentText,
         title: data.title,
         slidePoints,
-        slideTagline
+        slideTagline,
+        chosenStructure: chosenStructureName
       };
     } catch (error) {
       logger.error("GeminiService: JSON parsing error in generateBody:", error);
       if (retries > 0) {
-        logger.warn(`Error in generateBody, retrying in 30 seconds... (${retries} retries remaining)`);
-        await sleep(30000);
-        return this.generateBody(selectedArticles, chosenHook, retries - 1, validationFeedback);
+        logger.warn(`Error in generateBody, retrying in 15 seconds... (${retries} retries remaining)`);
+        await sleep(15000);
+        return this.generateBody(selectedArticles, chosenHook, retries - 1, validationFeedback, recentStructures, previousDraft);
       }
       throw error;
     }
@@ -1607,10 +2096,11 @@ JSON schema:
         throw new Error("No selected articles provided for generateLinkedInMasterPost");
       }
 
-      const githubUrl = selectedArticles[0].githubUrl || "";
-      const sourceBulletCount = selectedArticles.length > 0
-        ? this.countSourceBullets(selectedArticles[0].fullContent)
-        : 0;
+      const primaryArticle = selectedArticles[0];
+      const githubUrl = primaryArticle.githubUrl || "";
+      const sourceBulletCount = this.countSourceBullets(primaryArticle.fullContent);
+      const manualPoints = this.extractManualPoints(primaryArticle.fullContent);
+      const recentStructures = this.loadRecentStructures();
 
       logger.info("GeminiService: Step 2a: Generating hook candidates...");
       const hookCandidates = await this.generateHook(selectedArticles);
@@ -1652,9 +2142,10 @@ JSON schema:
 
         logger.info(`GeminiService: Step 2b: Generating body for hook [Score ${hookCandidate.score}]: "${hookCandidate.hook.substring(0, 60)}..."`);
 
-        const postData = await this.generateBody(selectedArticles, hookCandidate, 1, validationFeedback);
-        const validation = this.validatePostText(postData, githubUrl, sourceBulletCount);
-        const qualityScore = validation.qualityScore ?? this.scorePostQuality(postData, sourceBulletCount).score;
+        const postData = await this.generateBody(selectedArticles, hookCandidate, 1, validationFeedback, recentStructures, null);
+        const hookManualPoints = this.filterManualPointsByHook(manualPoints, `${hookCandidate.hook} ${hookCandidate.promise}`);
+        const validation = this.validatePostText(postData, githubUrl, sourceBulletCount, hookManualPoints);
+        const qualityScore = validation.qualityScore ?? this.scorePostQuality(postData, sourceBulletCount, hookManualPoints).score;
 
         logger.info(`GeminiService: Candidate quality score: ${qualityScore} (valid: ${validation.isValid})`);
 
@@ -1667,6 +2158,7 @@ JSON schema:
 
       let remainingRetries = retries;
       let previousQualityScore = -1;
+      let previousDraft = bestPost ? bestPost.postText : null;
       while (!bestValidation.isValid && remainingRetries > 0) {
         remainingRetries--;
         const currentScore = bestValidation.qualityScore ?? 0;
@@ -1677,8 +2169,13 @@ JSON schema:
         }
         previousQualityScore = currentScore;
 
+        const combinedFeedback = [
+          ...bestValidation.errors,
+          ...(bestValidation.qualityIssues || []).filter(issue => !bestValidation.errors.includes(issue))
+        ];
+
         logger.warn(`GeminiService: Post failed quality gate (score ${currentScore}). Retrying body with feedback... (${remainingRetries} retries remaining)`);
-        logger.warn(`GeminiService: Validation issues:\n- ${bestValidation.errors.join("\n- ")}`);
+        logger.warn(`GeminiService: Validation issues:\n- ${combinedFeedback.join("\n- ")}`);
 
         let improvedPost = bestPost;
         let improvedValidation = bestValidation;
@@ -1689,10 +2186,13 @@ JSON schema:
             selectedArticles,
             retryHook,
             1,
-            bestValidation.errors
+            combinedFeedback,
+            recentStructures,
+            previousDraft
           );
-          const retryValidation = this.validatePostText(retryPost, githubUrl, sourceBulletCount);
-          const retryScore = retryValidation.qualityScore ?? this.scorePostQuality(retryPost, sourceBulletCount).score;
+          const retryHookManualPoints = this.filterManualPointsByHook(manualPoints, `${retryHook.hook} ${retryHook.promise}`);
+          const retryValidation = this.validatePostText(retryPost, githubUrl, sourceBulletCount, retryHookManualPoints);
+          const retryScore = retryValidation.qualityScore ?? this.scorePostQuality(retryPost, sourceBulletCount, retryHookManualPoints).score;
 
           if (!improvedPost || isBetterCandidate(retryValidation, retryScore, retryHook, improvedValidation, improvedHook)) {
             improvedPost = retryPost;
@@ -1704,6 +2204,7 @@ JSON schema:
         bestPost = improvedPost;
         bestValidation = improvedValidation;
         chosenHook = improvedHook;
+        previousDraft = bestPost ? bestPost.postText : null;
 
         logger.info(`GeminiService: Retry quality score: ${bestValidation.qualityScore} (valid: ${bestValidation.isValid})`);
       }
@@ -1713,13 +2214,20 @@ JSON schema:
         : 0;
       const winningSourceTitle = selectedArticles[winningSourceIndex]?.title || selectedArticles[0]?.title || "";
 
-      logger.info(`GeminiService: Final post quality score: ${bestValidation.qualityScore}. Title: "${bestPost.title}", slideTagline: "${bestPost.slideTagline}", sourceTitle: "${winningSourceTitle}"`);
+      const structureLabel = STRUCTURE_REGISTRY.find(s => s.name === bestPost.chosenStructure)?.label || bestPost.chosenStructure;
+      logger.info(`GeminiService: Final post quality score: ${bestValidation.qualityScore}. Title: "${bestPost.title}", slideTagline: "${bestPost.slideTagline}", sourceTitle: "${winningSourceTitle}", structure: "${structureLabel}"`);
       if (!bestValidation.isValid) {
         logger.warn(`GeminiService: Publishing best available draft after retries. Remaining issues:\n- ${bestValidation.errors.join("\n- ")}`);
       }
 
+      if (bestPost.chosenStructure) {
+        this.saveRecentStructure(bestPost.chosenStructure);
+      }
+
       return {
         ...bestPost,
+        isValid: bestValidation.isValid,
+        validationErrors: bestValidation.errors || [],
         qualityScore: bestValidation.qualityScore,
         qualityIssues: bestValidation.qualityIssues || [],
         sourceIndex: winningSourceIndex,

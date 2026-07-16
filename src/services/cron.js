@@ -78,19 +78,20 @@ function getTopicName(queryName) {
 
 const runEndofRunCuration = async (successfulArticles) => {
   if (successfulArticles.length > 0) {
-    logger.info(`Starting LinkedIn Agentic Curation Flow for ${successfulArticles.length} articles...`);
+    logger.info(`Starting LinkedIn Agentic Curation Flow for ${successfulArticles.length} raw files (flattening sub-articles)...`);
     try {
-      const selectedIndices = await geminiService.selectBestArticlesForLinkedIn(successfulArticles);
+      const flattenedArticles = geminiService.splitArticlesIntoSubArticles(successfulArticles);
+      const selectedIndices = await geminiService.selectBestArticlesForLinkedIn(flattenedArticles);
       logger.info(`LinkedIn Curation: Selected article indices: ${JSON.stringify(selectedIndices)}`);
 
       const uniqueIndices = [...new Set(selectedIndices)];
       const selectedArticles = uniqueIndices
-        .map(idx => successfulArticles[idx])
+        .map(idx => flattenedArticles[idx])
         .filter(art => !!art);
 
       if (selectedArticles.length === 0) {
         logger.warn("LinkedIn Curation: No articles were selected by Gemini. Defaulting to the first available article.");
-        selectedArticles.push(successfulArticles[0]);
+        selectedArticles.push(flattenedArticles[0]);
       }
 
       if (selectedArticles.length > 0) {
@@ -116,7 +117,16 @@ const runEndofRunCuration = async (successfulArticles) => {
             megaPostData = await geminiService.generateLinkedInMasterPost(selectedArticles, 3, validationFeedback);
             const githubUrl = selectedArticles[0].githubUrl || "";
             const sourceBulletCount = geminiService.countSourceBullets(selectedArticles[0].fullContent || "");
-            validation = geminiService.validatePostText(megaPostData, githubUrl, sourceBulletCount);
+
+            // Prefer the validation that ran inside generateLinkedInMasterPost (with hook-filtered manual points).
+            const internalValidation = megaPostData && megaPostData.isValid !== undefined;
+            validation = internalValidation
+              ? {
+                  isValid: megaPostData.isValid,
+                  qualityScore: megaPostData.qualityScore,
+                  errors: megaPostData.validationErrors || []
+                }
+              : geminiService.validatePostText(megaPostData, githubUrl, sourceBulletCount);
 
             if (validation.isValid) {
               logger.info(`LinkedIn Curation: Mega post passed quality validation (score: ${validation.qualityScore})`);
