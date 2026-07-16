@@ -113,7 +113,7 @@ async function fetchArticlesFromGithub() {
   const octokit = githubService.octokit;
 
   const collectedArticles = [];
-  
+
   // Choose up to 4 folders from configuration to fetch from to save API rate-limits
   const sampleFolders = config.folders.slice(0, 4);
 
@@ -183,7 +183,7 @@ async function generateLinkedInPreviews() {
   try {
     // 1. Fetch articles (GitHub or Mock)
     const articles = await fetchArticlesFromGithub();
-    
+
     console.log(`\n📚 Loaded ${articles.length} total articles for evaluation:`);
     articles.forEach((art, idx) => {
       console.log(`   [Index ${idx}] Folder: "${art.title}" -> ${art.githubUrl}`);
@@ -194,10 +194,14 @@ async function generateLinkedInPreviews() {
     const selectedIndices = await geminiService.selectBestArticlesForLinkedIn(articles);
     console.log(`✅ Selected indices from Gemini: ${JSON.stringify(selectedIndices)}`);
 
-    const uniqueIndices = [...new Set(selectedIndices)];
+    const uniqueIndices = [...new Set(selectedIndices.map((idx) => Number(idx)))];
     const selectedArticles = uniqueIndices
-      .map(idx => articles[idx])
-      .filter(art => !!art);
+      .filter((idx) => Number.isInteger(idx) && idx >= 0 && idx < articles.length)
+      .map((idx) => articles[idx]);
+
+    if (uniqueIndices.length > 0 && selectedArticles.length !== uniqueIndices.length) {
+      console.warn(`⚠️ Some selected indices were out of range and ignored: ${JSON.stringify(uniqueIndices)}`);
+    }
 
     if (selectedArticles.length === 0) {
       console.warn("⚠️ No articles were selected by Gemini. Defaulting to the first available article.");

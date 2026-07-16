@@ -128,7 +128,7 @@ class TwitterService {
               .findElement(By.css('[data-testid="tweetText"]'))
               .getText();
           } catch (textError) {
-             // Tweet text might be missing (e.g. only image)
+            // Tweet text might be missing (e.g. only image)
           }
 
           // Validate tweet has actual content
@@ -159,11 +159,11 @@ class TwitterService {
               if (href) {
                 const hrefLower = href.toLowerCase();
                 const isTwitterInternal = hrefLower.includes("twitter.com/") || hrefLower.includes("x.com/") || href.startsWith("/");
-                const isProfileOrHashtagOrStatus = 
-                  hrefLower.includes("/status/") || 
-                  hrefLower.includes("/hashtag/") || 
-                  hrefLower.includes("/search") || 
-                  hrefLower.includes("/i/lists") || 
+                const isProfileOrHashtagOrStatus =
+                  hrefLower.includes("/status/") ||
+                  hrefLower.includes("/hashtag/") ||
+                  hrefLower.includes("/search") ||
+                  hrefLower.includes("/i/lists") ||
                   hrefLower.includes("/home") ||
                   hrefLower.includes("/explore") ||
                   hrefLower.includes("/notifications") ||
@@ -178,7 +178,7 @@ class TwitterService {
                 }
               }
             }
-          } catch (e) {}
+          } catch (e) { }
 
           let images = [];
           try {
@@ -188,7 +188,7 @@ class TwitterService {
             for (const img of imageElements) {
               images.push(await img.getAttribute("src"));
             }
-          } catch (imageError) {}
+          } catch (imageError) { }
 
           let videos = [];
           try {
@@ -198,21 +198,21 @@ class TwitterService {
             for (const video of videoElements) {
               videos.push(await video.getAttribute("src"));
             }
-          } catch (videoError) {}
+          } catch (videoError) { }
 
           let url = "";
           try {
             url = await tweetElement
               .findElement(By.xpath('.//a[contains(@href, "/status/")]'))
               .getAttribute("href");
-          } catch (urlError) {}
+          } catch (urlError) { }
 
           let timestamp = "";
           try {
             timestamp = await tweetElement
               .findElement(By.tagName("time"))
               .getAttribute("datetime");
-          } catch (timeError) {}
+          } catch (timeError) { }
 
           return { text: tweetText, links, images, videos, url, timestamp };
         } catch (staleError) {
@@ -266,8 +266,7 @@ class TwitterService {
         validTweetsCount < THREADS_NEEDED
       ) {
         logger.info(
-          `Scroll attempt ${
-            scrollAttempts + 1
+          `Scroll attempt ${scrollAttempts + 1
           }/${MAX_SCROLL_ATTEMPTS}, found ${validTweetsCount}/${THREADS_NEEDED} valid content pieces`
         );
 
@@ -293,16 +292,16 @@ class TwitterService {
             const scrollTarget = viewportHeight * 2.5;
             const steps = 15;
             const stepSize = scrollTarget / steps;
-            
-            for(let i=0; i<steps; i++) {
-               await this.driver.executeScript(`window.scrollBy(0, ${stepSize})`);
-               await sleep(50); // Safe timing
+
+            for (let i = 0; i < steps; i++) {
+              await this.driver.executeScript(`window.scrollBy(0, ${stepSize})`);
+              await sleep(50); // Safe timing
             }
             await this.driver.executeScript("window.scrollTo(0, document.body.scrollHeight)");
           } catch (e) {
             logger.warn("Scroll interaction failed:", e);
           }
-          
+
           await sleep(3000);
         } catch (scrollError) {
           logger.warn("Scrolling failed:", scrollError);
@@ -339,7 +338,7 @@ class TwitterService {
                     rect.right > 0
                   );
                 `, el);
-                
+
                 if (isInViewport) {
                   tweetElements.push(el);
                 }
@@ -417,7 +416,7 @@ class TwitterService {
               nextContainer = await tweetElement.findElement(
                 By.xpath("./following-sibling::div")
               );
-            } catch (nextError) {}
+            } catch (nextError) { }
 
             while (nextContainer) {
               let nextTweet = null;
@@ -584,7 +583,7 @@ class TwitterService {
     let originalHandle = null;
     try {
       originalHandle = await this.driver.getWindowHandle();
-    } catch (e) {}
+    } catch (e) { }
 
     try {
       const handles = await this.driver.getAllWindowHandles();
@@ -595,13 +594,13 @@ class TwitterService {
           let hostname = "";
           try {
             hostname = new URL(url).hostname;
-          } catch (urlErr) {}
+          } catch (urlErr) { }
           if (
-            hostname.endsWith(domainKeyword) || 
-            hostname === domainKeyword || 
-            hostname.endsWith("twitter.com") || 
-            hostname === "twitter.com" || 
-            hostname.endsWith("x.com") || 
+            hostname.endsWith(domainKeyword) ||
+            hostname === domainKeyword ||
+            hostname.endsWith("twitter.com") ||
+            hostname === "twitter.com" ||
+            hostname.endsWith("x.com") ||
             hostname === "x.com"
           ) {
             logger.info(`TwitterService: Switched to tab matching "${domainKeyword}": ${url}`);
@@ -612,7 +611,7 @@ class TwitterService {
             }
             return true;
           }
-        } catch (err) {}
+        } catch (err) { }
       }
       logger.info(`TwitterService: No active tab matching "${domainKeyword}" found. Restoring original tab context.`);
       if (originalHandle) {
@@ -624,7 +623,7 @@ class TwitterService {
       if (originalHandle) {
         try {
           await this.driver.switchTo().window(originalHandle);
-        } catch (restoreErr) {}
+        } catch (restoreErr) { }
       }
       return false;
     }
@@ -655,22 +654,38 @@ class TwitterService {
 
       logger.warn("⚠️ X (Twitter) Login Required: Please log in manually in the Chrome browser window.");
 
-      // Poll until the login is completed by the user
-      while (true) {
+      const maxLoginAttempts = 60;
+      let loginAttempts = 0;
+      while (loginAttempts < maxLoginAttempts) {
         try {
           const currentUrl = await this.driver.getCurrentUrl();
           if (currentUrl.includes("/home") || currentUrl.includes("/explore") || currentUrl.includes("x.com")) {
             const homeLink = await this.driver.findElements(By.css('[data-testid="AppTabBar_Home_Link"]'));
             if (homeLink.length > 0) {
               logger.info("X (Twitter) login detected! Continuing pipeline...");
-              break;
+              return;
             }
           }
         } catch (pollErr) {
-          // Ignore transient errors
+          const msg = String(pollErr?.message || "").toLowerCase();
+          if (
+            msg.includes("invalid session") ||
+            msg.includes("invalid session id") ||
+            msg.includes("no such window") ||
+            msg.includes("chrome not reachable") ||
+            msg.includes("transport") ||
+            msg.includes("session not created") ||
+            msg.includes("session deleted")
+          ) {
+            throw pollErr;
+          }
+          // Ignore known transient polling errors and continue waiting for manual login.
         }
+        loginAttempts++;
         await sleep(5000);
       }
+
+      throw new Error("Twitter manual login timed out after 5 minutes.");
     } catch (error) {
       logger.error("Error during X (Twitter) login check:", error);
       throw error;
@@ -711,8 +726,7 @@ class TwitterService {
             navigationSuccessful = true;
           } catch (gotoError) {
             logger.error(
-              `Error navigating to ${listUrl} (attempt ${i + 1}): ${
-                gotoError.message
+              `Error navigating to ${listUrl} (attempt ${i + 1}): ${gotoError.message
               }`
             );
             if (i < 2) {
@@ -813,7 +827,7 @@ class TwitterService {
         await this.driver.takeScreenshot().then((image) => {
           require("fs").writeFileSync("tweet-failed.png", image, "base64");
         });
-      } catch (e) {}
+      } catch (e) { }
       return false;
     }
   }

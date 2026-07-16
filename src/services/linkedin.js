@@ -58,7 +58,7 @@ class LinkedInService {
     let originalHandle = null;
     try {
       originalHandle = await this.driver.getWindowHandle();
-    } catch (e) {}
+    } catch (e) { }
 
     try {
       const handles = await this.driver.getAllWindowHandles();
@@ -72,7 +72,7 @@ class LinkedInService {
           let hostname = "";
           try {
             hostname = new URL(url).hostname;
-          } catch (urlErr) {}
+          } catch (urlErr) { }
 
           if (hostname.endsWith(domainKeyword) || hostname === domainKeyword) {
             if (!domainMatchHandle) {
@@ -83,7 +83,7 @@ class LinkedInService {
               break;
             }
           }
-        } catch (err) {}
+        } catch (err) { }
       }
 
       const targetHandle = bestMatchHandle || domainMatchHandle;
@@ -109,7 +109,7 @@ class LinkedInService {
       if (originalHandle) {
         try {
           await this.driver.switchTo().window(originalHandle);
-        } catch (restoreErr) {}
+        } catch (restoreErr) { }
       }
       return false;
     }
@@ -123,7 +123,7 @@ class LinkedInService {
         await this.driver.switchTo().newWindow("tab");
       }
       await this.driver.get("https://www.linkedin.com/feed/");
-      
+
       // Wait up to 10 seconds for any logged-in elements to appear
       let isLoggedIn = false;
       const startTime = Date.now();
@@ -220,20 +220,15 @@ class LinkedInService {
     let originalHandle = null;
     let localImagePath = null;
     let isRemote = false;
+    let postSucceeded = false;
+    let commentSucceeded = !commentText;
 
-    // Clean up markdown formatting so it renders beautifully on LinkedIn (which only supports plain text)
     const cleanedText = text
-      // Remove bold markers (**bold** -> bold)
       .replace(/\*\*(.*?)\*\*/g, "$1")
-      // Remove italic markers (*italic* -> italic)
       .replace(/\*(.*?)\*/g, "$1")
-      // Remove underline markers (__underline__ -> underline)
       .replace(/__(.*?)__/g, "$1")
-      // Remove backticks (code format) (`code` -> code)
       .replace(/`(.*?)`/g, "$1")
-      // Clean up markdown headers (e.g., ### Title -> Title)
       .replace(/^#+\s*(.*?)$/gm, "$1")
-      // Clean up markdown links ([Link text](http://url) -> Link text: http://url)
       .replace(/\[(.*?)\]\((.*?)\)/g, "$1: $2");
 
     try {
@@ -241,10 +236,8 @@ class LinkedInService {
 
       try {
         originalHandle = await this.driver.getWindowHandle();
-      } catch (e) {}
+      } catch (e) { }
 
-      // Switch to existing LinkedIn feed tab instead of opening a fresh one (avoids
-      // hitting Chrome's popup-blocker and is cleaner for debugging sessions).
       logger.info("Switching to existing LinkedIn tab...");
       const matched = await this.switchToTab("linkedin.com", "/feed");
       if (!matched) {
@@ -253,10 +246,6 @@ class LinkedInService {
       }
       await sleep(4000);
 
-      // ── Step 1: Open the share modal ──────────────────────────────────────
-      // When posting with an image we click the "Photo" shortcut on the feed
-      // page so the media uploader opens immediately (avoids an extra click
-      // to switch from text-only to media mode inside the modal).
       if (imageUrl) {
         logger.info("Locating 'Photo' link trigger on feed page...");
         const photoTrigger = await this.driver.executeScript(`
@@ -272,7 +261,6 @@ class LinkedInService {
           logger.info("Clicking 'Photo' link trigger via JS click with capturing preventDefault interceptor...");
           await this.driver.executeScript(`
             const el = arguments[0];
-            // Remove any capture-phase preventDefault calls that block the click
             const handler = e => { e.stopImmediatePropagation(); };
             document.addEventListener('click', handler, true);
             try {
@@ -290,7 +278,6 @@ class LinkedInService {
           if (postTrigger) await this.driver.executeScript(`arguments[0].click();`, postTrigger);
         }
       } else {
-        // Text-only post: use the "Start a post" entry trigger
         logger.info("LinkedInService: Locating 'Start a post' trigger for text-only post...");
         const postTrigger = await this.driver.executeScript(`
           const all = Array.from(document.querySelectorAll("p, span, button, div, a"));
@@ -299,7 +286,6 @@ class LinkedInService {
         if (postTrigger) {
           await this.driver.executeScript(`arguments[0].click();`, postTrigger);
         } else {
-          // Hard fallback to Selenium locator
           const fallback = await this.driver.wait(
             until.elementLocated(By.css("[aria-label*='Start a post'], a[href*='sharebox'], .share-box-feed-entry__trigger")),
             8000
@@ -307,9 +293,8 @@ class LinkedInService {
           await fallback.click();
         }
       }
-      await sleep(5000); // Allow shadow DOM modal to fully render
+      await sleep(5000);
 
-      // ── Step 2: Upload image (Shadow DOM aware) ───────────────────────────
       if (imageUrl) {
         isRemote = imageUrl.startsWith("http");
         localImagePath = imageUrl;
@@ -318,10 +303,10 @@ class LinkedInService {
           const tempDir = path.join(process.cwd(), "temp");
           if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir, { recursive: true });
           let ext = ".jpg";
-          try { ext = path.extname(new URL(imageUrl).pathname.split("?")[0]) || ".jpg"; } catch (e) {}
+          try { ext = path.extname(new URL(imageUrl).pathname.split("?")[0]) || ".jpg"; } catch (e) { }
           localImagePath = path.join(tempDir, `linkedin-upload-${Date.now()}${ext}`);
           logger.info(`LinkedInService: Downloading image from ${imageUrl}...`);
-          await this.downloadImage(imageUrl, localImagePath);
+          await this.downloadImageWithRetry(imageUrl, localImagePath);
           logger.info(`LinkedInService: Image downloaded to ${localImagePath}`);
         } else {
           logger.info(`LinkedInService: Using local image path for upload: ${localImagePath}`);
@@ -331,9 +316,23 @@ class LinkedInService {
         const fileInput = await this._getShadowEl("input[type='file']", 20000);
         await fileInput.sendKeys(path.resolve(localImagePath));
         logger.info("LinkedInService: Uploaded image file path to input element");
-        await sleep(6000); // Wait for upload preview to render
 
-        // Click 'Next' to proceed to the text composition screen
+        let imagePreviewReady = false;
+        for (let i = 0; i < 20; i++) {
+          imagePreviewReady = await this.driver.executeScript(`
+            const outlet = document.getElementById("interop-outlet");
+            const root = (outlet && outlet.shadowRoot) ? outlet.shadowRoot : document;
+            const nextBtn = root.querySelector("button[aria-label='Next'], button.share-box-footer__primary-btn, button[class*='primary-btn']");
+            return nextBtn && !nextBtn.disabled;
+          `);
+          if (imagePreviewReady) break;
+          await sleep(1000);
+        }
+
+        if (!imagePreviewReady) {
+          logger.warn("LinkedInService: Image preview did not become ready within timeout. Attempting to proceed anyway...");
+        }
+
         logger.info("LinkedInService: Confirming image preview (Next button)...");
         const nextButton = await this._getShadowEl(
           "button[aria-label='Next'], button.share-box-footer__primary-btn, button[class*='primary-btn']",
@@ -343,7 +342,6 @@ class LinkedInService {
         await sleep(4000);
       }
 
-      // ── Step 3: Type post text (Shadow DOM aware) ────────────────────────
       logger.info("LinkedInService: Locating editor text area inside Shadow DOM...");
       const editor = await this._getShadowEl(
         "div.ql-editor, div[role='textbox'][contenteditable='true']",
@@ -374,17 +372,14 @@ class LinkedInService {
       `, cleanedText);
       await sleep(3000);
 
-
-      // ── Step 4: Click Post (Shadow DOM aware) ─────────────────────────────
       logger.info("LinkedInService: Locating post submission button inside Shadow DOM...");
       const postButton = await this._getShadowEl(
         "button.share-actions__primary-action, button[class*='primary-action']",
         15000
       );
 
-      // Wait for the Post button to become enabled (not disabled)
       let isEnabled = false;
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 30; i++) {
         isEnabled = await this.driver.executeScript(`
           let btn = null;
           const outlet = document.getElementById("interop-outlet");
@@ -400,11 +395,38 @@ class LinkedInService {
         await sleep(500);
       }
 
+      if (!isEnabled) {
+        logger.warn("LinkedInService: Post button did not become enabled within timeout. Attempting click anyway...");
+      }
+
       logger.info("LinkedInService: Clicking Post submission...");
       await postButton.click();
-      await sleep(8000);
 
-      logger.info("LinkedInService: Post submitted successfully!");
+      let postConfirmAttempts = 0;
+      const MAX_POST_CONFIRM = 15;
+      let postConfirmed = false;
+      while (postConfirmAttempts < MAX_POST_CONFIRM) {
+        await sleep(1000);
+        const modalClosed = await this.driver.executeScript(`
+          const outlet = document.getElementById("interop-outlet");
+          const root = (outlet && outlet.shadowRoot) ? outlet.shadowRoot : document;
+          const modal = root.querySelector("div[class*='share-creation-state'], div[aria-label='Create a post']");
+          return !modal;
+        `).catch(() => false);
+        if (modalClosed) {
+          postConfirmed = true;
+          break;
+        }
+        postConfirmAttempts++;
+      }
+
+      await sleep(3000);
+      if (postConfirmed) {
+        postSucceeded = true;
+        logger.info("LinkedInService: Post submitted successfully!");
+      } else {
+        logger.warn("LinkedInService: Post confirmation did not complete within timeout.");
+      }
 
       if (commentText) {
         let postUrl = null;
@@ -414,7 +436,7 @@ class LinkedInService {
             postUrl = currentUrl;
             logger.info(`LinkedInService: Post URL captured directly: ${postUrl}`);
           }
-        } catch (e) {}
+        } catch (e) { }
 
         let clickedToast = false;
         if (postUrl && !postUrl.includes('/feed/')) {
@@ -422,8 +444,8 @@ class LinkedInService {
           await sleep(3000);
           clickedToast = true;
         } else {
-          logger.info("LinkedInService: Post URL not captured directly. Detecting 'View post' success toast to open dedicated post URL...");
-          for (let i = 0; i < 20; i++) {
+          logger.info("LinkedInService: Post URL not captured directly. Detecting 'View post' success toast...");
+          for (let i = 0; i < 30; i++) {
             clickedToast = await this.driver.executeScript(`
               const toastBtn = Array.from(document.querySelectorAll("a, button, span, div")).find(el => {
                 const txt = (el.textContent || "").toLowerCase().trim();
@@ -502,7 +524,7 @@ class LinkedInService {
             )),
             15000
           );
-          
+
           logger.info("LinkedInService: Clicking comment editor to focus...");
           await this.driver.executeScript(`
             const ed = document.querySelector("[aria-label='Text editor for creating comment'], .tiptap, .ProseMirror");
@@ -512,9 +534,7 @@ class LinkedInService {
           await editorEl.click();
           await sleep(800);
 
-          logger.info("LinkedInService: Typing comment text via sendKeys (fires native key events ProseMirror handles)...");
-          // sendKeys fires real OS-level key events which Tiptap/ProseMirror handles correctly
-          // This is more reliable than execCommand in a remote debugging session
+          logger.info("LinkedInService: Typing comment text via sendKeys...");
           await editorEl.sendKeys(Key.chord(Key.CONTROL, "a"), Key.BACK_SPACE);
           await sleep(300);
           await editorEl.sendKeys(commentText);
@@ -526,6 +546,10 @@ class LinkedInService {
           `);
           logger.info(`LinkedInService: Comment editor content preview: "${editorContent.substring(0, 80)}"`);
 
+          if (!editorContent || editorContent.trim().length === 0) {
+            logger.warn("LinkedInService: Comment editor appears empty after typing. Comment may not have been entered.");
+          }
+
           logger.info("LinkedInService: Waiting for submit button to enable naturally...");
           let submitBtnEnabled = false;
           for (let i = 0; i < 25; i++) {
@@ -535,7 +559,6 @@ class LinkedInService {
               let parent = ed.parentElement;
               let submitBtn = null;
               while (parent && parent.tagName !== "BODY") {
-                // The comment submit button has text 'Comment' and type='button' (not 'submit')
                 const allBtns = parent.querySelectorAll("button");
                 for (const b of allBtns) {
                   if (b.innerText.trim() === "Comment" && !b.disabled) {
@@ -558,7 +581,6 @@ class LinkedInService {
           await sleep(500);
           logger.info(`LinkedInService: Submit button naturally enabled: ${submitBtnEnabled}. Clicking...`);
 
-          // Locate the visible 'Comment' submit button and click via Actions
           let clicked = false;
           try {
             const submitBtnEl = await this.driver.executeScript(`
@@ -598,8 +620,8 @@ class LinkedInService {
               await sleep(300);
               const actions = this.driver.actions({ async: true });
               await actions
-                .keyDown("\uE009") // Ctrl
-                .sendKeys("\n")     // Enter
+                .keyDown("\uE009")
+                .sendKeys("\n")
                 .keyUp("\uE009")
                 .perform();
             } catch (kbErr) {
@@ -607,84 +629,140 @@ class LinkedInService {
             }
           }
 
-          // Wait for comment to be submitted — editor clears on success
           await sleep(5000);
-          
-          const commentPosted = await this.driver.executeScript(`
-            const ed = document.querySelector("[aria-label='Text editor for creating comment'], .tiptap, .ProseMirror");
-            // If editor is empty after submission, comment was posted successfully
-            const editorEmpty = !ed || ed.innerText.trim() === "" || ed.innerText.trim() === "\\n";
-            const hasError = document.body.innerText.toLowerCase().includes("something went wrong");
-            return editorEmpty && !hasError;
-          `);
-          logger.info(`LinkedInService: Comment posted: ${commentPosted}`);
-          
-          // Always save screenshot for inspection
-          try {
-            const screenshot = await this.driver.takeScreenshot();
-            fs.writeFileSync("linkedin-comment-result.png", screenshot, "base64");
-            logger.info("LinkedInService: Screenshot saved to linkedin-comment-result.png");
-          } catch (e) {}
+
+          let commentVerificationAttempts = 0;
+          const commentSnippet = commentText.substring(0, 40);
+          const initialCommentCount = await this.driver.executeScript(`
+            const comments = Array.from(document.querySelectorAll('[data-testid*="comment"], .comments-comment-item, .comments-comments-list__comment-item'));
+            return comments.length;
+          `).catch(() => 0);
+
+          while (commentVerificationAttempts < 5) {
+            const commentState = await this.driver.executeScript(`
+              const ed = document.querySelector("[aria-label='Text editor for creating comment'], .tiptap, .ProseMirror");
+              const editorEmpty = !ed || ed.innerText.trim() === "" || ed.innerText.trim() === "\\n";
+              const hasError = document.body.innerText.toLowerCase().includes("something went wrong");
+              const hasNewComment = document.body.innerText.includes(arguments[0]);
+              return { editorEmpty, hasError, hasNewComment };
+            `, commentSnippet);
+
+            if (commentState.hasNewComment && !commentState.hasError) {
+              const laterCommentCount = await this.driver.executeScript(`
+                const comments = Array.from(document.querySelectorAll('[data-testid*="comment"], .comments-comment-item, .comments-comments-list__comment-item'));
+                return comments.length;
+              `).catch(() => initialCommentCount);
+
+              if (laterCommentCount > initialCommentCount) {
+                commentSucceeded = true;
+                logger.info("LinkedInService: Comment posted and verified successfully.");
+                break;
+              }
+            }
+
+            if (commentState.editorEmpty && !commentState.hasError) {
+              logger.info("LinkedInService: Comment editor is empty and no error is present; assuming the comment was submitted.");
+              commentSucceeded = true;
+              break;
+            }
+
+            commentVerificationAttempts++;
+            await sleep(2000);
+          }
+
+          if (!commentSucceeded) {
+            logger.warn("LinkedInService: Comment could not be verified as posted.");
+            try {
+              const screenshot = await this.driver.takeScreenshot();
+              const screenshotPath = path.join(process.cwd(), "temp", `linkedin-comment-${Date.now()}.png`);
+              const tempDir = path.join(process.cwd(), "temp");
+              if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir, { recursive: true });
+              fs.writeFileSync(screenshotPath, screenshot, "base64");
+              logger.info(`LinkedInService: Screenshot saved to ${screenshotPath}`);
+            } catch (e) { }
+          }
 
         } catch (commentErr) {
           logger.error("LinkedInService: Failed to post first comment:", commentErr);
           try {
+            const tempDir = path.join(process.cwd(), "temp");
+            if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir, { recursive: true });
             const screenshot = await this.driver.takeScreenshot();
-            fs.writeFileSync("linkedin-comment-failed.png", screenshot, "base64");
-            logger.info("LinkedInService: Screenshot saved to linkedin-comment-failed.png for debugging");
-          } catch (e) {}
+            fs.writeFileSync(path.join(tempDir, `linkedin-comment-failed-${Date.now()}.png`), screenshot, "base64");
+            logger.info("LinkedInService: Screenshot saved for debugging");
+          } catch (e) { }
         }
       }
 
-      return true;
+      return postSucceeded && commentSucceeded;
     } catch (error) {
       logger.error("LinkedInService: Failed to post to LinkedIn:", error);
       try {
+        const tempDir = path.join(process.cwd(), "temp");
+        if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir, { recursive: true });
         const screenshot = await this.driver.takeScreenshot();
-        fs.writeFileSync("linkedin-post-failed.png", screenshot, "base64");
-      } catch (e) {}
+        fs.writeFileSync(path.join(tempDir, `linkedin-post-failed-${Date.now()}.png`), screenshot, "base64");
+      } catch (e) { }
       return false;
     } finally {
-      // Clean up downloaded temp image
       try {
         if (isRemote && localImagePath && fs.existsSync(localImagePath)) {
           fs.unlinkSync(localImagePath);
         }
-      } catch (e) {}
+      } catch (e) { }
 
-      // Close the post tab if we opened a new one
       if (originalHandle) {
-        try { await this.driver.switchTo().window(originalHandle); } catch (e) {}
+        try { await this.driver.switchTo().window(originalHandle); } catch (e) { }
       }
     }
   }
 
-  async downloadImage(url, destPath) {
-    const response = await axios({
-      url,
-      method: "GET",
-      responseType: "stream",
-      timeout: 30000,
-      headers: {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8"
+  async downloadImageWithRetry(url, destPath, retries = 3) {
+    let lastError;
+    for (let attempt = 1; attempt <= retries; attempt++) {
+      try {
+        const response = await axios({
+          url,
+          method: "GET",
+          responseType: "stream",
+          timeout: 30000,
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8"
+          }
+        });
+        return await new Promise((resolve, reject) => {
+          const writer = fs.createWriteStream(destPath);
+          response.data.pipe(writer);
+          response.data.on("error", (err) => {
+            writer.destroy();
+            reject(err);
+          });
+          writer.on("finish", resolve);
+          writer.on("error", (err) => {
+            response.data.destroy();
+            reject(err);
+          });
+        });
+      } catch (err) {
+        lastError = err;
+        logger.warn(`LinkedInService: Image download attempt ${attempt}/${retries} failed: ${err.message}`);
+        if (attempt < retries) {
+          await sleep(2000 * attempt);
+          if (fs.existsSync(destPath)) {
+            try { fs.unlinkSync(destPath); } catch (e) { }
+          }
+        }
       }
-    });
-    return new Promise((resolve, reject) => {
-      const writer = fs.createWriteStream(destPath);
-      response.data.pipe(writer);
-      writer.on("finish", resolve);
-      writer.on("error", (err) => {
-        writer.destroy();
-        reject(err);
-      });
-    });
+    }
+    throw lastError;
   }
 
   async generateSlideImage(title, points, slideTagline = "Curated by AI \u00b7 Updated Weekly", authorHandle = "github.com/Drix10") {
     let originalHandle = null;
     let renderTabOpened = false;
     let originalSize = null;
+    let htmlPath = null;
 
     try {
       await this.ensureDriverConnected();
@@ -695,17 +773,17 @@ class LinkedInService {
 
     try {
       originalHandle = await this.driver.getWindowHandle();
-    } catch (e) {}
+    } catch (e) { }
 
     try {
       originalSize = await this.driver.manage().window().getSize();
-    } catch (e) {}
+    } catch (e) { }
 
     const tempDir = path.join(process.cwd(), "temp");
     if (!fs.existsSync(tempDir)) {
       fs.mkdirSync(tempDir, { recursive: true });
     }
-    
+
     const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
     const safePoints = Array.isArray(points) ? points : [];
@@ -724,7 +802,7 @@ class LinkedInService {
         </div>
       `;
     }).join("");
-    
+
     const htmlContent = `<!DOCTYPE html>
 <html>
 <head>
@@ -907,62 +985,94 @@ class LinkedInService {
     </div>
     <div class="footer">
       <div class="footer-left">
-        <span class="footer-icon">⚡</span>
+        <span class="footer-icon">\u26A1</span>
         <span class="footer-text">${esc(slideTagline)}</span>
       </div>
-      <div class="save-cta">⭐ Save for later</div>
+      <div class="save-cta">\u2B50 Save for later</div>
     </div>
   </div>
 </body>
 </html>`;
-    
-    const htmlPath = path.join(tempDir, `slide-${Date.now()}.html`);
+
+    htmlPath = path.join(tempDir, `slide-${Date.now()}.html`);
     fs.writeFileSync(htmlPath, htmlContent);
     const fileUrl = "file:///" + htmlPath.replace(/\\/g, "/");
     logger.info(`LinkedInService: Loading generated slide HTML: ${fileUrl}`);
 
     try {
-      // Open rendering tab
       await this.driver.switchTo().newWindow("tab");
       renderTabOpened = true;
-      
-      // Use massive window dimensions to comfortably fit the 1080x1350 canvas even on high Windows DPI/OS scaling
+
       await this.driver.manage().window().setSize({ width: 1500, height: 1800 });
       await this.driver.get(fileUrl);
-      await sleep(2500); // Wait for Google Fonts to load
-      
+
+      await this.driver.executeScript(`
+        return new Promise((resolve) => {
+          let resolved = false;
+          const done = () => { if (!resolved) { resolved = true; resolve(); } };
+          if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(done);
+          }
+          setTimeout(done, 5000);
+        });
+      `);
+      await sleep(1000);
+
+      const bodyReady = await this.driver.executeScript(`
+        const body = document.body;
+        return body && body.offsetHeight > 0 && body.offsetWidth > 0;
+      `);
+
+      if (!bodyReady) {
+        logger.warn("LinkedInService: Slide body not ready for screenshot.");
+        return null;
+      }
+
       const imagePath = path.join(tempDir, `slide-${Date.now()}.png`);
-      // Find body element and take element-level screenshot to capture exact 1080x1350 area without window scrollbars or border clipping
       const bodyEl = await this.driver.findElement(By.css("body"));
       const screenshotData = await bodyEl.takeScreenshot();
       fs.writeFileSync(imagePath, Buffer.from(screenshotData, "base64"));
       logger.info(`LinkedInService: Generated slide image screenshot saved to ${imagePath}`);
-      
+
       return imagePath;
     } catch (err) {
       logger.error("LinkedInService: Failed to render slide image in browser tab:", err);
       return null;
     } finally {
+      if (htmlPath && fs.existsSync(htmlPath)) {
+        try { fs.unlinkSync(htmlPath); } catch (e) { }
+      }
+
       if (renderTabOpened) {
-        try {
-          await this.driver.close();
-        } catch (closeErr) {}
+        try { await this.driver.close(); } catch (closeErr) { }
       }
       if (originalHandle) {
-        try {
-          await this.driver.switchTo().window(originalHandle);
-        } catch (switchErr) {}
+        try { await this.driver.switchTo().window(originalHandle); } catch (switchErr) { }
       }
       if (originalSize) {
-        try {
-          await this.driver.manage().window().setSize({ width: originalSize.width, height: originalSize.height });
-        } catch (resizeErr) {}
+        try { await this.driver.manage().window().setSize({ width: originalSize.width, height: originalSize.height }); } catch (resizeErr) { }
       }
-      try {
-        if (fs.existsSync(htmlPath)) {
-          fs.unlinkSync(htmlPath);
-        }
-      } catch (e) {}
+    }
+  }
+
+  cleanupDebugScreenshots() {
+    try {
+      const tempDir = path.join(process.cwd(), "temp");
+      if (!fs.existsSync(tempDir)) return;
+      const files = fs.readdirSync(tempDir).filter(f => f.startsWith("linkedin-") && f.endsWith(".png"));
+      const now = Date.now();
+      for (const file of files) {
+        const filePath = path.join(tempDir, file);
+        try {
+          const stat = fs.statSync(filePath);
+          if (now - stat.mtimeMs > 3600000) {
+            fs.unlinkSync(filePath);
+            logger.info(`LinkedInService: Cleaned up old debug screenshot: ${file}`);
+          }
+        } catch (e) { }
+      }
+    } catch (error) {
+      logger.warn("LinkedInService: Failed to cleanup debug screenshots:", error.message);
     }
   }
 
@@ -970,7 +1080,6 @@ class LinkedInService {
     try {
       if (this.driver) {
         logger.info("LinkedInService: Releasing WebDriver control of debugging browser session");
-        // Detach connection by clearing reference without calling quit(), preserving user's Chrome tabs
         this.driver = null;
       }
     } catch (error) {

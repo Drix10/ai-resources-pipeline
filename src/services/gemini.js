@@ -30,17 +30,46 @@ const safetySettings = [
 ];
 
 const BANNED_WORDS = [
-  "delve", "testament", "tapestry", "unlock", "unlocking", "seamless", "game-changer", 
-  "revolutionary", "groundbreaking", "moreover", "furthermore", "in conclusion", 
-  "shines a light", "treasure trove", "leverage", "robust", "key takeaway", 
-  "elevate", "cutting-edge", "beacon", "look no further", "significant", 
-  "significantly", "significant shifts", "advanced", "major", "majorly", 
-  "making waves", "advance", "powerful", "next-gen", "wild", "impressive", 
-  "critical", "critical step", "sophisticated", "most powerful", "signaling", "broader reach", 
-  "push boundaries", "pushing boundaries", "extensibility", "masterclass", 
+  "delve", "testament", "tapestry", "unlock", "unlocking", "seamless", "game-changer",
+  "revolutionary", "groundbreaking", "moreover", "furthermore", "in conclusion",
+  "shines a light", "treasure trove", "leverage", "robust", "key takeaway",
+  "elevate", "cutting-edge", "beacon", "look no further", "significant",
+  "significantly", "significant shifts", "advanced", "major", "majorly",
+  "making waves", "advance", "powerful", "next-gen", "wild", "impressive",
+  "critical", "critical step", "sophisticated", "most powerful", "signaling", "broader reach",
+  "push boundaries", "pushing boundaries", "extensibility", "masterclass",
   "paving the way", "incredible ways", "blurring lines", "dive", "deep dive",
   "fundamental", "ensure", "core"
 ];
+
+const WEAK_CTA_PATTERNS = [
+  /what(?:'s| is) your primary bottleneck/i,
+  /what do you think/i,
+  /is .+ still viable/i,
+  /are you using .+ or/i,
+  /is your .+ ready for/i,
+  /which .+ do you (?:use|prefer)/i,
+  /what(?:'s| is) your go-to/i,
+  /have you tried .+ yet/i,
+  /agree or disagree/i,
+];
+
+const MID_QUALITY_PATTERNS = [
+  /here(?:'s| is) what you need to know/i,
+  /in this (?:post|article|update)/i,
+  /let(?:'s| us) (?:dive|explore|break) (?:into|down)/i,
+  /as (?:we all know|developers know)/i,
+  /it(?:'s| is) worth noting/i,
+  /exciting (?:news|update|development)/i,
+  /stay tuned/i,
+  /thoughts\?/i,
+  /swipe (?:left|through)/i,
+  /in today(?:'s|s) (?:fast-paced|ever-changing)/i,
+];
+
+const MIN_POST_LENGTH = 1200;
+const MAX_POST_LENGTH = 2200;
+const MIN_QUALITY_SCORE = 72;
 
 const SYSTEM_PROMPT = `
 You are an expert technical writer and senior software engineer. Your writing style is direct, clear, highly analytical, and professional—completely free of generic AI-generated filler, marketing hype, and corporate fluff.
@@ -64,23 +93,23 @@ You curate raw tech/AI/developer content (Twitter threads, LinkedIn posts) and t
 - Always separate distinct articles with "---" and a newline.
 
 === LINKEDIN POST GUARDRAILS ===
-When generating LinkedIn posts, ALWAYS include the exact GitHub link line if a URL is provided.
 Prioritize clarity and specificity over flowery language.
 Never use banned words even in creative sections.
+Never put external GitHub URLs in the post body — they reduce reach. Put the link in the first comment instead.
 
 === LINKEDIN POST SPECIFIC RULES ===
 Always use "• " for bullet points (never * or -).
 Prioritize specific, actionable, or personal ("how I") insights over generic summaries.
 Create a curiosity gap in the first 1-3 lines.
 Sound like a senior engineer casually sharing something useful — avoid hype, marketing cliches, and corporate language.
-MANDATORY: If a GitHub URL is provided, include the exact line "Full resource list → [URL]" (do not shorten or omit).
+MANDATORY: End the post body with exactly "🔗 Full breakdown + resources in the comments." (GitHub URL goes in the comment, not the post).
 
 === LINKEDIN ANTI-HYPE & VOICE RULES (STRICT) ===
 Write like a senior engineer casually sharing something useful with another engineer.
 Avoid hype, flowery, or overly polished language including: "significant", "significantly", "significant shifts", "advanced", "major", "majorly", "game-changing", "making waves", "robust", "advance", "powerful", "next-gen", "cutting-edge", "wild", "impressive", "critical step", "sophisticated", "most powerful", "signaling", "broader reach", "push boundaries", "pushing boundaries", "extensibility", "masterclass", "paving the way", "incredible ways", "blurring lines", "game-changer", "revolutionary", "groundbreaking", "dive", "deep dive", etc.
 Avoid amplifying adverbs or adjectives that exaggerate facts (e.g., "significantly", "greatly", "impressively", "massively").
 Prefer concrete technical details and specific examples over general praise or dramatic framing.
-Keep the GitHub link on a single clean line: "Full resource list → [URL]"
+End the post body with exactly: "🔗 Full breakdown + resources in the comments."
 Sound direct and practical.
 Use "• " for all bullet points.
 `;
@@ -128,8 +157,7 @@ class GeminiService {
       const waitTime = 60000 - (Date.now() - this.lastRequestTime);
       if (waitTime > 0) {
         logger.info(
-          `Gemini Rate limit: Waiting ${
-            waitTime / 1000
+          `Gemini Rate limit: Waiting ${waitTime / 1000
           } seconds before next request`
         );
         await sleep(waitTime);
@@ -203,6 +231,19 @@ FORMATS THAT DON'T (CRITICAL):
 - NEVER ask "Is your X ready for Y?" — this is a readiness survey, not a provocation.
 The question must be answerable in 2-3 sentences and make people want to share their specific experience. That's what generates 15-word+ comments the algorithm rewards.
 
+=== ANTI-MID EXAMPLES (Study these — do NOT write like the BAD column) ===
+BAD hook: "Here is a roundup of this week's best AI developer tools."
+GOOD hook: "You've been wiring RAG evaluators by hand. Three frameworks now ship the scoring pipeline out of the box."
+
+BAD body opener: "In this post, we'll explore why observability matters for LLM apps."
+GOOD body opener: "Most teams still treat RAG failures like a prompt problem. The logs usually tell a different story."
+
+BAD bullet: "• Use a vector database for retrieval."
+GOOD bullet: "• Store embeddings in a dedicated vector DB — not your app Postgres. Query latency drops and you stop mixing OLTP traffic with similarity search."
+
+BAD CTA: "What do you think about RAG evaluation?"
+GOOD CTA: "How long did it take your team to catch a faithfulness regression before you had automated evals in CI?"
+
 HASHTAGS:
 Exactly 3-4 highly targeted hashtags on their own line at the very end. Mix exactly 1 broad + 2-3 niche. Do not overuse or add generic ones (e.g. use exactly 4 tags to prevent reach dilution).
 
@@ -221,7 +262,7 @@ You MUST strictly follow the anti-hype rules and avoid all banned words defined 
 
   async filterSubstantiveContent(items, retries = 3) {
     if (!items || items.length === 0) return [];
-    
+
     try {
       const itemsText = items.map((item, idx) => {
         let text = `[Index ${idx}]\n`;
@@ -279,7 +320,7 @@ JSON schema:
       const result = await responseModel.generateContent(prompt);
       const text = result.response.text().trim();
       const data = JSON.parse(text);
-      
+
       if (!data || !Array.isArray(data.substantiveIndices)) {
         throw new Error("Invalid response format: missing substantiveIndices array");
       }
@@ -320,10 +361,10 @@ JSON schema:
     const lines = content.split("\n");
     const bulletMatches = lines.filter(line => {
       const trimmed = line.trim();
-      return trimmed.startsWith("•") || 
-             (trimmed.startsWith("-") && trimmed.length > 3) ||  // exclude ---
-             (trimmed.startsWith("*") && trimmed.length > 1) || 
-             /^\d+\./.test(trimmed);
+      return trimmed.startsWith("•") ||
+        (trimmed.startsWith("-") && trimmed.length > 3) ||  // exclude ---
+        (trimmed.startsWith("*") && trimmed.length > 1) ||
+        /^\d+\./.test(trimmed);
     });
     return bulletMatches.length;
   }
@@ -335,14 +376,14 @@ JSON schema:
       const trimmed = line.trim();
       return trimmed.startsWith("•") || trimmed.startsWith("-") || trimmed.startsWith("*") || /^\d+\./.test(trimmed);
     });
-    
+
     const substantive = bullets.filter(b => {
       const text = b.trim();
       return /\d+/.test(text) ||                 // has a number
-             /[A-Z][a-z]+[A-Z]/.test(text) ||    // has a CamelCase tool name (e.g. Ollama, GooglePhotos)
-             text.length > 80;                   // is detailed enough
+        /[A-Z][a-z]+[A-Z]/.test(text) ||    // has a CamelCase tool name (e.g. Ollama, GooglePhotos)
+        text.length > 80;                   // is detailed enough
     });
-    
+
     return substantive.length >= 2;
   }
 
@@ -352,13 +393,13 @@ JSON schema:
     return subArticles.map((sub, idx) => {
       const headerMatch = sub.match(/###\s+.+$/m);
       const header = headerMatch ? headerMatch[0] : `### Sub-Article #${idx + 1}`;
-      
-      const keyPointsMatch = sub.match(/Key Points:([\s\S]*?)(?=🚀|🔗|---|$)/i);
-      const keyPoints = keyPointsMatch ? keyPointsMatch[1].trim() : "";
-      
-      const implMatch = sub.match(/🚀 Implementation:([\s\S]*?)(?=🔗|---|$)/i);
-      const implementation = implMatch ? implMatch[1].trim() : "";
-      
+
+      const keyPointsMatch = sub.match(/Key Points:\s*([\s\S]*?)(?=🚀|🔗|---|$)/i);
+      const keyPoints = keyPointsMatch ? keyPointsMatch[1].replace(/^\n+/, "").trim() : "";
+
+      const implMatch = sub.match(/(?:🚀\s*)?Implementation:\s*([\s\S]*?)(?=🔗|---|$)/i);
+      const implementation = implMatch ? implMatch[1].replace(/^\n+/, "").trim() : "";
+
       let formatted = `${header}\n`;
       if (keyPoints) formatted += `Key Points:\n${keyPoints}\n\n`;
       if (implementation) formatted += `Implementation:\n${implementation}`;
@@ -366,16 +407,172 @@ JSON schema:
     }).filter(s => s.length > 50).join("\n\n---\n\n");
   }
 
+  extractFrameworkBullets(postText) {
+    if (!postText) return [];
+    return postText.split("\n").filter(line => {
+      const trimmed = line.trim();
+      return trimmed.startsWith("•") || /^\d+\./.test(trimmed);
+    });
+  }
+
+  hasRehook(postText) {
+    if (!postText) return false;
+
+    const rehookPatterns = [
+      /^but here'?s/i,
+      /^the part nobody/i,
+      /^this is where/i,
+      /^here'?s the (?:catch|twist|part)/i,
+      /^most engineers stop/i,
+      /^nobody tells you/i,
+      /^that'?s not the real/i,
+    ];
+
+    const paragraphs = postText.split("\n\n").map(p => p.trim()).filter(p => p.length > 0);
+    for (let i = 1; i < paragraphs.length - 1; i++) {
+      const paragraph = paragraphs[i];
+      const wordCount = paragraph.split(/\s+/).length;
+      const sentenceCount = paragraph.split(/[.!?]/).filter(s => s.trim()).length;
+      if (
+        wordCount >= 4 &&
+        wordCount <= 14 &&
+        sentenceCount <= 2 &&
+        !paragraph.startsWith("•") &&
+        !/^#/.test(paragraph) &&
+        !paragraph.includes("→") &&
+        !paragraph.endsWith("?")
+      ) {
+        if (rehookPatterns.some(pattern => pattern.test(paragraph))) {
+          return true;
+        }
+        if (wordCount >= 6 && wordCount <= 12 && sentenceCount === 1) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  getCtaQuestion(postText) {
+    const paragraphs = postText.split("\n\n").map(p => p.trim()).filter(p => p.length > 0);
+    for (let i = paragraphs.length - 1; i > 0; i--) {
+      const paragraph = paragraphs[i];
+      if (paragraph.startsWith("#")) continue;
+      if (paragraph.includes("→")) continue;
+      if (paragraph.endsWith("?")) return paragraph;
+    }
+    return "";
+  }
+
+  scorePostQuality(postData, sourceBulletCount = 0) {
+    const postText = postData.postText || "";
+    const hook = postText.split("\n\n")[0] || "";
+    const bodyWithoutHook = postText.slice(hook.length).trim();
+    let score = 100;
+    const issues = [];
+    let bonusPoints = 0;
+    let penaltyPoints = 0;
+
+    if (postText.length < MIN_POST_LENGTH) {
+      penaltyPoints += 30;
+      issues.push(`Post too short (${postText.length} chars, target ${MIN_POST_LENGTH}-${MAX_POST_LENGTH})`);
+    } else if (postText.length > MAX_POST_LENGTH) {
+      penaltyPoints += 20;
+      issues.push(`Post too long (${postText.length} chars)`);
+    } else if (postText.length >= 1400 && postText.length <= 1900) {
+      bonusPoints += 10;
+    }
+
+    const frameworkBullets = this.extractFrameworkBullets(bodyWithoutHook);
+    if (frameworkBullets.length < 3) {
+      penaltyPoints += 35;
+      issues.push(`Framework section too thin (${frameworkBullets.length} bullets/steps, need 3+)`);
+    } else {
+      bonusPoints += 10;
+    }
+
+    const avgBulletLength = frameworkBullets.length > 0
+      ? frameworkBullets.reduce((sum, bullet) => sum + bullet.trim().length, 0) / frameworkBullets.length
+      : 0;
+    if (avgBulletLength < 70) {
+      penaltyPoints += 30;
+      issues.push(`Framework bullets too shallow (avg ${Math.round(avgBulletLength)} chars, need 70+)`);
+    } else if (avgBulletLength >= 100) {
+      bonusPoints += 10;
+    }
+
+    if (!this.hasRehook(bodyWithoutHook)) {
+      penaltyPoints += 25;
+      issues.push("Missing rehook sentence between insight and framework");
+    }
+
+    const proseParagraphs = bodyWithoutHook.split("\n\n").filter(p => {
+      const trimmed = p.trim();
+      return trimmed.length > 0 &&
+        !trimmed.startsWith("•") &&
+        !/^\d+\./.test(trimmed) &&
+        !trimmed.startsWith("#") &&
+        !trimmed.includes("→") &&
+        !trimmed.endsWith("?");
+    });
+    if (proseParagraphs.length < 2) {
+      penaltyPoints += 25;
+      issues.push("Needs at least 2 prose paragraphs (problem + insight) before the framework");
+    }
+
+    const cta = this.getCtaQuestion(postText);
+    if (!cta) {
+      penaltyPoints += 25;
+      issues.push("Missing provocative CTA question");
+    } else {
+      for (const pattern of WEAK_CTA_PATTERNS) {
+        if (pattern.test(cta)) {
+          penaltyPoints += 30;
+          issues.push(`Weak survey-style CTA: "${cta}"`);
+          break;
+        }
+      }
+      if (cta.split(/\s+/).length < 8) {
+        penaltyPoints += 10;
+        issues.push("CTA question is too short to provoke a personal story");
+      }
+    }
+
+    for (const pattern of MID_QUALITY_PATTERNS) {
+      if (pattern.test(postText)) {
+        penaltyPoints += 25;
+        issues.push("Contains generic mid-quality filler phrasing");
+        break;
+      }
+    }
+
+    if (!bodyWithoutHook.includes("🔗 Full breakdown + resources in the comments.")) {
+      penaltyPoints += 15;
+      issues.push('Missing required link line: "🔗 Full breakdown + resources in the comments."');
+    }
+
+    if (hook.length >= 100 && hook.length <= 180) {
+      bonusPoints += 8;
+    }
+
+    if (sourceBulletCount > 0 && !this.hasSubstantiveBullets(bodyWithoutHook)) {
+      penaltyPoints += 15;
+      issues.push("Framework lacks concrete technical detail from source content");
+    }
+
+    const total = Math.max(0, Math.min(120, score + bonusPoints - penaltyPoints));
+
+    return {
+      score: total,
+      issues,
+      bonusPoints,
+      penaltyPoints
+    };
+  }
+
   validatePostText(postData, githubUrl, sourceBulletCount = 0) {
     const errors = [];
     const postText = postData.postText || "";
-
-    if (postText.includes("github.com") || postText.includes("https://github.com")) {
-      errors.push("GitHub URL is present in the post text body (violates external link reach rule)");
-    }
-    if (!postData.commentText) {
-      errors.push("commentText is missing or empty");
-    }
 
     const allText = [
       postData.postText || "",
@@ -383,6 +580,23 @@ JSON schema:
       ...(postData.slidePoints || []),
       postData.title || ""
     ].join(" ");
+
+    const githubUrlPatterns = [
+      /github\.com/i,
+      /https?:\/\/github/i
+    ];
+    for (const pattern of githubUrlPatterns) {
+      if (pattern.test(postText)) {
+        errors.push("GitHub URL is present in the post text body (violates external link reach rule)");
+        break;
+      }
+    }
+
+    if (!postData.commentText) {
+      errors.push("commentText is missing or empty");
+    } else if (githubUrl && githubUrl.includes("github.com") && !postData.commentText.includes(githubUrl)) {
+      errors.push("commentText does not contain the GitHub URL for the resource link");
+    }
 
     const foundBanned = BANNED_WORDS.filter(word => {
       const escaped = word.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
@@ -406,10 +620,10 @@ JSON schema:
 
     const paragraphs = postText.split("\n\n").filter(p => {
       const trimmed = p.trim();
-      return trimmed.length > 0 && 
-             !trimmed.startsWith("#") && 
-             !trimmed.toLowerCase().includes("full breakdown") &&
-             !trimmed.endsWith("?");
+      return trimmed.length > 0 &&
+        !trimmed.startsWith("#") &&
+        !trimmed.toLowerCase().includes("full breakdown") &&
+        !trimmed.endsWith("?");
     });
 
     if (sourceBulletCount > 0) {
@@ -423,7 +637,7 @@ JSON schema:
     if (firstBodyParagraph) {
       const firstBodySentence = firstBodyParagraph.split(/[.!?]/)[0] || "";
       const hookSentence = hook.split(/[.!?]/)[0] || "";
-      
+
       const getSignificantWords = (text) => {
         const stopWords = ["the", "a", "an", "is", "it", "are", "of", "to", "for", "in", "and", "or", "on", "with", "that", "this", "your", "you", "about"];
         return text.toLowerCase().split(/\s+/).map(w => w.replace(/[^a-zA-Z]/g, "")).filter(w => w.length > 3 && !stopWords.includes(w));
@@ -432,15 +646,69 @@ JSON schema:
       const firstBodyWords = getSignificantWords(firstBodySentence);
       const hookWords = getSignificantWords(hookSentence);
       const commonWords = firstBodyWords.filter(w => hookWords.includes(w));
-      
+
       if (commonWords.length >= 4) {
         errors.push(`Verbatim/Paraphrase Repetition warning: first sentence of body paragraph heavily repeats hook concepts (shared words: ${commonWords.join(", ")})`);
       }
     }
 
+    if (postText.length < MIN_POST_LENGTH) {
+      errors.push(`Post too short: ${postText.length} characters (minimum ${MIN_POST_LENGTH})`);
+    }
+    if (postText.length > MAX_POST_LENGTH) {
+      errors.push(`Post too long: ${postText.length} characters (maximum ${MAX_POST_LENGTH})`);
+    }
+
+    const bodyWithoutHook = postText.slice(hook.length).trim();
+    const frameworkBullets = this.extractFrameworkBullets(bodyWithoutHook);
+    if (frameworkBullets.length < 3) {
+      errors.push(`Framework section must have at least 3 bullets/steps (found ${frameworkBullets.length})`);
+    }
+
+    const avgBulletLength = frameworkBullets.length > 0
+      ? frameworkBullets.reduce((sum, bullet) => sum + bullet.trim().length, 0) / frameworkBullets.length
+      : 0;
+    if (frameworkBullets.length > 0 && avgBulletLength < 70) {
+      errors.push(`Framework bullets are too shallow (avg ${Math.round(avgBulletLength)} chars, need 70+)`);
+    }
+
+    if (!this.hasRehook(bodyWithoutHook)) {
+      errors.push("Missing rehook sentence between insight and framework sections");
+    }
+
+    const cta = this.getCtaQuestion(postText);
+    if (!cta) {
+      errors.push("Missing CTA question at the end of the post");
+    } else {
+      for (const pattern of WEAK_CTA_PATTERNS) {
+        if (pattern.test(cta)) {
+          errors.push(`Weak survey-style CTA detected: "${cta}"`);
+          break;
+        }
+      }
+    }
+
+    for (const pattern of MID_QUALITY_PATTERNS) {
+      if (pattern.test(postText)) {
+        errors.push("Generic mid-quality filler phrasing detected in post");
+        break;
+      }
+    }
+
+    if (!bodyWithoutHook.includes("🔗 Full breakdown + resources in the comments.")) {
+      errors.push('Missing required line: "🔗 Full breakdown + resources in the comments."');
+    }
+
+    const quality = this.scorePostQuality(postData, sourceBulletCount);
+    if (quality.score < MIN_QUALITY_SCORE) {
+      errors.push(`Quality score too low: ${quality.score}/${MIN_QUALITY_SCORE} (penalties: -${quality.penaltyPoints}, bonuses: +${quality.bonusPoints})`);
+    }
+
     return {
       isValid: errors.length === 0,
-      errors
+      errors,
+      qualityScore: quality.score,
+      qualityIssues: quality.issues
     };
   }
 
@@ -450,8 +718,35 @@ JSON schema:
       const hookText = c.hook || "";
       const hookLower = hookText.toLowerCase();
 
-      // Penalize generic announcements and subject-first structures
+      const hasTensionSignal =
+        hookLower.includes("you've been") ||
+        hookLower.includes("you have been") ||
+        hookLower.includes("instead of") ||
+        hookLower.includes("wrong") ||
+        hookLower.includes("unnecessary") ||
+        hookLower.includes("stop ") ||
+        hookLower.includes("never ") ||
+        /\d/.test(hookText) ||
+        hookLower.includes("?") ||
+        hookLower.includes("...");
+
       const weakStartPatterns = [
+        /^here is/i,
+        /^this week/i,
+        /^introducing/i,
+        /^launched:/i,
+        /^announced:/i,
+        /^released:/i
+      ];
+
+      for (const pattern of weakStartPatterns) {
+        if (pattern.test(hookText)) {
+          score -= 45;
+          break;
+        }
+      }
+
+      const announcementPatterns = [
         /^[a-z0-9_\-\s]+ just launched/i,
         /^[a-z0-9_\-\s]+ just announced/i,
         /^[a-z0-9_\-\s]+ just released/i,
@@ -459,32 +754,21 @@ JSON schema:
         /^[a-z0-9_\-\s]+ has launched/i,
         /^[a-z0-9_\-\s]+ has announced/i,
         /^[a-z0-9_\-\s]+ has released/i,
-        /^here is/i,
-        /^this week/i,
-        /^introducing/i,
-        /^launched/i,
-        /^announced/i,
-        /^released/i
       ];
 
-      for (const pattern of weakStartPatterns) {
-        if (pattern.test(hookText)) {
-          score -= 40; // Heavy penalty for direct announcement
+      for (const pattern of announcementPatterns) {
+        if (pattern.test(hookText) && !hasTensionSignal) {
+          score -= 35;
           break;
         }
       }
 
-      // Penalize generic updates
-      if (hookLower.includes("just updated") || hookLower.includes("just launched") || hookLower.includes("just released")) {
-        score -= 20;
-      }
-
-      // Penalize hooks that answer their own question (resolution patterns)
       const resolutionPatterns = [
-        /wrong\.\s*(it'?s|the answer|here'?s)/i,
-        /missing\.\s*(it'?s|the answer|here'?s)/i,
-        /\?\s*(it'?s|the answer|here'?s|that'?s)/i,
-        /picture\.\s*(it'?s|the answer)/i,
+        /\.\s+it'?s\s+(the answer|here|built|created|designed|made|done|solved|fixed)/i,
+        /\.\s+the answer is/i,
+        /\?\s+it'?s\s+(actually|simply|just|really|all about)/i,
+        /\.\s+here'?s (how|what|the|a)/i,
+        /picture this\.?\s+it'?s/i,
       ];
       for (const pattern of resolutionPatterns) {
         if (pattern.test(hookText)) {
@@ -493,28 +777,34 @@ JSON schema:
         }
       }
 
-      // Reward hooks that withhold information or create high curiosity/tension
-      if (hookLower.includes("you've been") || hookLower.includes("you have been")) score += 15;
+      if (hookLower.includes("you've been") || hookLower.includes("you have been")) score += 18;
       if (hookLower.includes("instead of")) score += 15;
-      if (hookLower.includes("why ") || hookLower.includes("how ")) score += 10;
+      if (hookLower.includes("why ") || hookLower.includes("how ")) score += 12;
       if (hookLower.includes("stop ") || hookLower.includes("never ")) score += 15;
       if (hookLower.includes("unnecessary") || hookLower.includes("wrong")) score += 15;
       if (hookLower.includes("?") || hookLower.includes("...")) score += 10;
+      if (/\d/.test(hookText)) score += 12;
 
-      // Length optimization (sweet spot 100 - 180 chars)
       if (hookText.length > 200) {
-        score -= 50; // Heavily penalize exceeding LinkedIn visible limits
+        score -= 50;
       } else if (hookText.length < 80) {
-        score -= 25; // Penalize hooks that are too short (not enough tension to earn "see more")
+        score -= 25;
       } else if (hookText.length >= 100 && hookText.length <= 180) {
         score += 15;
+      }
+
+      for (const pattern of MID_QUALITY_PATTERNS) {
+        if (pattern.test(hookText)) {
+          score -= 30;
+          break;
+        }
       }
 
       return {
         ...c,
         score
       };
-    }).sort((a, b) => b.score - a.score); // Sort descending by score
+    }).sort((a, b) => b.score - a.score);
   }
 
   async generateMarkdown(threads, retries = 3) {
@@ -864,7 +1154,7 @@ If you liked reading this report, please star ⭐️ this repository and follow 
       if (threads && threads.length > 0) {
         combinedPrompt += "--- TWITTER/X THREADS ---\n\n";
         threads.forEach((t, i) => {
-          combinedPrompt += `Item #${i+1} (X):\n${t.tweets ? t.tweets.map(tweet => tweet.text).join("\n") : t.url}\n`;
+          combinedPrompt += `Item #${i + 1} (X):\n${t.tweets ? t.tweets.map(tweet => tweet.text).join("\n") : t.url}\n`;
           if (t.tweets) {
             t.tweets.forEach(tweet => {
               if (tweet.images) combinedPrompt += tweet.images.map(img => `Image: ${img}\n`).join("");
@@ -877,7 +1167,7 @@ If you liked reading this report, please star ⭐️ this repository and follow 
       if (linkedinPosts && linkedinPosts.length > 0) {
         combinedPrompt += "--- LINKEDIN POSTS ---\n\n";
         linkedinPosts.forEach((post, i) => {
-          combinedPrompt += `Item #${i+1} (LinkedIn) by ${post.author}:\n${post.text}\n`;
+          combinedPrompt += `Item #${i + 1} (LinkedIn) by ${post.author}:\n${post.text}\n`;
           if (post.images) combinedPrompt += post.images.map(img => `Image: ${img}\n`).join("");
           combinedPrompt += "\n";
         });
@@ -926,7 +1216,7 @@ JSON schema:
         });
         const result = await responseModel.generateContent(prompt);
         let text = result.response.text().trim();
-        
+
         const data = JSON.parse(text);
         if (!data.postText) {
           throw new Error("Invalid response format: missing postText");
@@ -965,8 +1255,8 @@ JSON schema:
 
       let recentTopicsText = "";
       if (Array.isArray(recentTopics) && recentTopics.length > 0) {
-        recentTopicsText = `\n=== RECENTLY POSTED TOPICS ===\n` + 
-          recentTopics.map(t => `- ${t}`).join("\n") + 
+        recentTopicsText = `\n=== RECENTLY POSTED TOPICS ===\n` +
+          recentTopics.map(t => `- ${t}`).join("\n") +
           `\n(CRITICAL: Actively AVOID selecting articles that cover similar topics to those recently posted to maintain high diversity in content categories.)\n`;
       }
 
@@ -1025,12 +1315,24 @@ JSON schema:
         });
         const result = await responseModel.generateContent(prompt);
         let text = result.response.text().trim();
-        
+
         const data = JSON.parse(text);
         if (!data.selectedIndices || !Array.isArray(data.selectedIndices)) {
           throw new Error("Invalid response format: missing selectedIndices array");
         }
-        return data.selectedIndices;
+
+        const selectedIndices = data.selectedIndices
+          .map((idx) => Number(idx))
+          .filter((idx) => Number.isInteger(idx));
+
+        if (selectedIndices.length !== data.selectedIndices.length) {
+          logger.warn("GeminiService: Some selectedIndices were invalid and were dropped:", {
+            original: data.selectedIndices,
+            sanitized: selectedIndices,
+          });
+        }
+
+        return selectedIndices;
       } catch (error) {
         logger.error("GeminiService: JSON parsing error in selectBestArticlesForLinkedIn:", error);
         if (retries > 0) {
@@ -1049,7 +1351,7 @@ JSON schema:
   async generateHook(selectedArticles, retries = 3) {
     let context = "";
     selectedArticles.forEach((art, i) => {
-      context += `=== ARTICLE #${i+1} ===\n`;
+      context += `=== ARTICLE #${i + 1} ===\n`;
       context += `Topic: ${art.title}\n`;
       context += `Content:\n${art.fullContent}\n\n`;
     });
@@ -1057,7 +1359,9 @@ JSON schema:
     const prompt = `
 You are an elite, world-class technical copywriter specializing in high-performing LinkedIn posts for tech/AI/developer audiences.
 
-Given the technical article context, your task is to generate exactly 3 candidate scroll-stopping hooks with their corresponding "promises" (what the reader expects to learn or get after reading the post).
+Given the technical article context, your task is to generate exactly 5 candidate scroll-stopping hooks with their corresponding "promises" (what the reader expects to learn or get after reading the post).
+
+For each candidate, identify the single article index from the list above that best matches the hook you are writing. If the hook is based on a single article, return that article's index. If it is inspired by multiple articles, return the index for the strongest primary source.
 
 === 2026 HOOK VIRALITY FORMULA ===
 Create an elite, scroll-stopping curiosity or information gap (80% of post success). You MUST use a results-first bold claim, a specific number, a contrarian angle, or a concrete announcement. Avoid neutral roundups. Prioritize hooks that include concrete numbers, benchmarks, or pricing when available in the content. Consider starting with one strategic emoji when it fits naturally (e.g. 💡, 🚀, ⚡) to act as a clean visual anchor.
@@ -1088,9 +1392,10 @@ JSON schema:
   "candidates": [
     {
       "hook": string,
-      "promise": string
+      "promise": string,
+      "sourceIndex": integer
     },
-    ... (exactly 3 items)
+    ... (exactly 5 items)
   ]
 }
 `;
@@ -1104,12 +1409,11 @@ JSON schema:
             type: SchemaType.OBJECT,
             properties: {
               hook: { type: SchemaType.STRING },
-              promise: { type: SchemaType.STRING }
+              promise: { type: SchemaType.STRING },
+              sourceIndex: { type: SchemaType.INTEGER }
             },
-            required: ["hook", "promise"]
-          },
-          minItems: 3,
-          maxItems: 3
+            required: ["hook", "promise", "sourceIndex"]
+          }
         }
       },
       required: ["candidates"]
@@ -1142,10 +1446,10 @@ JSON schema:
     }
   }
 
-  async generateBody(selectedArticles, chosenHook, retries = 3) {
+  async generateBody(selectedArticles, chosenHook, retries = 3, validationFeedback = []) {
     let context = "";
     selectedArticles.forEach((art, i) => {
-      context += `=== ARTICLE #${i+1} ===\n`;
+      context += `=== ARTICLE #${i + 1} ===\n`;
       context += `Topic: ${art.title}\n`;
       context += `GitHub URL: ${art.githubUrl}\n`;
       context += `Content:\n${this.extractKeyPoints(art.fullContent)}\n\n`;
@@ -1153,6 +1457,16 @@ JSON schema:
 
     const githubUrl = selectedArticles.length > 0 ? selectedArticles[0].githubUrl : "";
     const postRules = this.buildLinkedInPostRules(githubUrl, false);
+
+    const feedbackBlock = validationFeedback.length > 0
+      ? `
+=== PREVIOUS ATTEMPT FAILED QUALITY CHECK ===
+Your last draft was rejected. Fix every issue below while keeping the same hook promise:
+${validationFeedback.map(err => `- ${err}`).join("\n")}
+
+Do NOT produce another generic roundup. Expand thin bullets, add the missing rehook, and replace any survey-style CTA.
+`
+      : "";
 
     const prompt = `
 You are an expert LinkedIn content writer and senior developer.
@@ -1169,6 +1483,8 @@ Your body, CTA, visual slide title, tagline, and slide points MUST focus 100% on
 If the article content contains multiple unrelated sub-articles, only use the sub-article that matches the hook topic.
 Discard all other sub-article content from your response.
 
+${feedbackBlock}
+
 === ARTICLE CONTENT ===
 ${context}
 === END ===
@@ -1179,6 +1495,7 @@ ${postRules}
 
 === STYLE NOTE ===
 Write in a direct, technical, "senior engineer sharing findings" style. Avoid any generalities or promotional language.
+This post must feel worth saving — not a neutral summary. Every framework bullet should teach something specific.
 
 STRICT BANNED WORDS RULE:
 Absolutely NEVER use any of these banned words or their derivatives (such as plural -s, past -ed, continuous -ing, adverb -ly, etc.) anywhere in your output (including the slide title, slide points, slide tagline, and body paragraphs):
@@ -1187,8 +1504,11 @@ ${BANNED_WORDS.join(", ")}
 === ADDITIONAL BODY RULES ===
 - Do NOT repeat the pre-written hook inside the "postTextBody" field. We will prepend the hook programmatically.
 - Combine the generated Body, CTA, and Hashtags into the "postTextBody" field.
+- Target ${MIN_POST_LENGTH}-${MAX_POST_LENGTH} characters for the final assembled post (hook + body + CTA + hashtags).
 - EMOJI UNIQUE RULE: Do NOT use any emoji that appears in the pre-written hook above. Check the hook text (e.g. if it uses 💡 or 🚀) and pick entirely different emojis or none at all for the body paragraph visual anchors.
 - NO FABRICATIONS OR HALLUCINATIONS: Do NOT invent or infer details that are not present in the source article content. If you cannot fill a paragraph using only facts from the Key Points above, write fewer paragraphs — do not invent connecting tissue or industry talking points (like 'data sovereignty' or 'cost-effectiveness' if they aren't explicitly mentioned). Keep your body paragraphs strictly bounded by the actual bullet points/facts provided in the source text.
+- REHOOK IS MANDATORY: Include one short 6-10 word tension line between the insight paragraph and the framework bullets.
+- CTA MUST ask for a personal story or timeline, never a yes/no poll or readiness survey.
 
 === VISUAL SLIDE ===
 title: Max 50 characters (punchy value statement)
@@ -1241,7 +1561,7 @@ JSON schema:
       if (!data.postTextBody || !data.title || !data.cta) {
         throw new Error("Invalid response format: missing postTextBody, title or cta");
       }
-      
+
       let postTextBodyClean = data.postTextBody;
       const linkLine = "🔗 Full breakdown + resources in the comments.";
       if (!postTextBodyClean.includes(linkLine)) {
@@ -1275,26 +1595,27 @@ JSON schema:
       if (retries > 0) {
         logger.warn(`Error in generateBody, retrying in 30 seconds... (${retries} retries remaining)`);
         await sleep(30000);
-        return this.generateBody(selectedArticles, chosenHook, retries - 1);
+        return this.generateBody(selectedArticles, chosenHook, retries - 1, validationFeedback);
       }
       throw error;
     }
   }
 
-  async generateLinkedInMasterPost(selectedArticles, retries = 3) {
+  async generateLinkedInMasterPost(selectedArticles, retries = 3, validationFeedback = []) {
     try {
       if (!selectedArticles || selectedArticles.length === 0) {
         throw new Error("No selected articles provided for generateLinkedInMasterPost");
       }
 
       const githubUrl = selectedArticles[0].githubUrl || "";
+      const sourceBulletCount = selectedArticles.length > 0
+        ? this.countSourceBullets(selectedArticles[0].fullContent)
+        : 0;
 
       logger.info("GeminiService: Step 2a: Generating hook candidates...");
       const hookCandidates = await this.generateHook(selectedArticles);
-      
-      // Heuristically score and select the hook with the highest curiosity gap / information withholding (Gap 2)
       const scoredHooks = this.scoreHooks(hookCandidates);
-      
+
       logger.info("=============================================================");
       logger.info("📝 SCORING HOOK CANDIDATES:");
       scoredHooks.forEach((sh, index) => {
@@ -1303,30 +1624,107 @@ JSON schema:
       });
       logger.info("=============================================================");
 
-      const chosenHook = scoredHooks[0];
-      // Normalise punctuation spacing programmatically to prevent missing-space typo
-      chosenHook.hook = chosenHook.hook.replace(/\.([a-zA-Z])/g, '. $1').replace(/\?([a-zA-Z])/g, '? $1');
+      const topHooks = scoredHooks.slice(0, 3);
+      if (validationFeedback.length > 0) {
+        logger.warn("GeminiService: Retrying generateLinkedInMasterPost with previous validation feedback:");
+        validationFeedback.forEach(err => logger.warn(`  - ${err}`));
+      }
+      let bestPost = null;
+      let bestValidation = null;
+      let chosenHook = null;
 
-      logger.info(`GeminiService: Step 2b: Generating body for chosen hook [Score ${chosenHook.score}]: "${chosenHook.hook.substring(0, 60)}..."`);
+      const isBetterCandidate = (candidateValidation, candidateScore, candidateHook, currentValidation, currentHook) => {
+        const candidateIsValid = candidateValidation.isValid;
+        const currentIsValid = currentValidation?.isValid ?? false;
 
-      const postData = await this.generateBody(selectedArticles, chosenHook);
+        if (candidateIsValid && !currentIsValid) return true;
+        if (candidateIsValid === currentIsValid) {
+          if (candidateScore > (currentValidation?.qualityScore ?? -1)) return true;
+          if (candidateScore === (currentValidation?.qualityScore ?? -1) && candidateHook.score > (currentHook?.score ?? -1)) return true;
+        }
+        return false;
+      };
 
-      // Perform programmatic validation including the new bullet justification padding check (Gap 5)
-      const sourceBulletCount = selectedArticles.length > 0 ? this.countSourceBullets(selectedArticles[0].fullContent) : 0;
-      logger.info(`GeminiService: Validating post. Title: "${postData.title}", slideTagline: "${postData.slideTagline}"`);
-      const validation = this.validatePostText(postData, githubUrl, sourceBulletCount);
-      if (!validation.isValid) {
-        logger.warn(`GeminiService: Programmatic post validation failed. Reasons:\n- ${validation.errors.join("\n- ")}`);
-        if (retries > 0) {
-          logger.info(`Retrying generation with explicit feedback... (${retries} retries remaining)`);
-          return this.generateLinkedInMasterPost(selectedArticles, retries - 1);
+      for (const hookCandidate of topHooks) {
+        hookCandidate.hook = hookCandidate.hook
+          .replace(/\.([a-zA-Z])/g, ". $1")
+          .replace(/\?([a-zA-Z])/g, "? $1");
+
+        logger.info(`GeminiService: Step 2b: Generating body for hook [Score ${hookCandidate.score}]: "${hookCandidate.hook.substring(0, 60)}..."`);
+
+        const postData = await this.generateBody(selectedArticles, hookCandidate, 1, validationFeedback);
+        const validation = this.validatePostText(postData, githubUrl, sourceBulletCount);
+        const qualityScore = validation.qualityScore ?? this.scorePostQuality(postData, sourceBulletCount).score;
+
+        logger.info(`GeminiService: Candidate quality score: ${qualityScore} (valid: ${validation.isValid})`);
+
+        if (!bestPost || isBetterCandidate(validation, qualityScore, hookCandidate, bestValidation, chosenHook)) {
+          bestPost = postData;
+          bestValidation = validation;
+          chosenHook = hookCandidate;
         }
       }
 
-      // Save selected topic to recent list to prevent topic categories from being repeated in future runs (Gap 3)
-      this.saveRecentTopic(selectedArticles[0].title);
+      let remainingRetries = retries;
+      let previousQualityScore = -1;
+      while (!bestValidation.isValid && remainingRetries > 0) {
+        remainingRetries--;
+        const currentScore = bestValidation.qualityScore ?? 0;
 
-      return postData;
+        if (previousQualityScore >= 0 && currentScore <= previousQualityScore) {
+          logger.warn(`GeminiService: Quality score not improving (${previousQualityScore} -> ${currentScore}). Stopping retry loop.`);
+          break;
+        }
+        previousQualityScore = currentScore;
+
+        logger.warn(`GeminiService: Post failed quality gate (score ${currentScore}). Retrying body with feedback... (${remainingRetries} retries remaining)`);
+        logger.warn(`GeminiService: Validation issues:\n- ${bestValidation.errors.join("\n- ")}`);
+
+        let improvedPost = bestPost;
+        let improvedValidation = bestValidation;
+        let improvedHook = chosenHook;
+
+        for (const retryHook of topHooks) {
+          const retryPost = await this.generateBody(
+            selectedArticles,
+            retryHook,
+            1,
+            bestValidation.errors
+          );
+          const retryValidation = this.validatePostText(retryPost, githubUrl, sourceBulletCount);
+          const retryScore = retryValidation.qualityScore ?? this.scorePostQuality(retryPost, sourceBulletCount).score;
+
+          if (!improvedPost || isBetterCandidate(retryValidation, retryScore, retryHook, improvedValidation, improvedHook)) {
+            improvedPost = retryPost;
+            improvedValidation = retryValidation;
+            improvedHook = retryHook;
+          }
+        }
+
+        bestPost = improvedPost;
+        bestValidation = improvedValidation;
+        chosenHook = improvedHook;
+
+        logger.info(`GeminiService: Retry quality score: ${bestValidation.qualityScore} (valid: ${bestValidation.isValid})`);
+      }
+
+      const winningSourceIndex = Number.isInteger(chosenHook?.sourceIndex)
+        ? chosenHook.sourceIndex
+        : 0;
+      const winningSourceTitle = selectedArticles[winningSourceIndex]?.title || selectedArticles[0]?.title || "";
+
+      logger.info(`GeminiService: Final post quality score: ${bestValidation.qualityScore}. Title: "${bestPost.title}", slideTagline: "${bestPost.slideTagline}", sourceTitle: "${winningSourceTitle}"`);
+      if (!bestValidation.isValid) {
+        logger.warn(`GeminiService: Publishing best available draft after retries. Remaining issues:\n- ${bestValidation.errors.join("\n- ")}`);
+      }
+
+      return {
+        ...bestPost,
+        qualityScore: bestValidation.qualityScore,
+        qualityIssues: bestValidation.qualityIssues || [],
+        sourceIndex: winningSourceIndex,
+        sourceTitle: winningSourceTitle
+      };
     } catch (error) {
       logger.error("Error in generateLinkedInMasterPost:", error);
       throw error;

@@ -36,7 +36,7 @@ const runDataPipeline = async (folder) => {
         folder.name,
         folder
       );
-      
+
       if (!githubResult?.success) {
         throw new Error("Failed to create and upload combined markdown file");
       }
@@ -44,9 +44,8 @@ const runDataPipeline = async (folder) => {
       // Post to Twitter/X
       const tweetText = `New ${getTopicName(
         folder.name
-      )} resource added!\n\nMade by @Drix10 via @CosLynxAI\n\nCheck out the latest resource here:\n${
-        githubResult.url
-      }`;
+      )} resource added!\n\nMade by @Drix10 via @CosLynxAI\n\nCheck out the latest resource here:\n${githubResult.url
+        }`;
       await TwitterService.postTweet(tweetText).catch(err => {
         logger.error("Failed to post tweet:", err);
       });
@@ -81,54 +80,98 @@ const runEndofRunCuration = async (successfulArticles) => {
   if (successfulArticles.length > 0) {
     logger.info(`Starting LinkedIn Agentic Curation Flow for ${successfulArticles.length} articles...`);
     try {
-      // Step 1: Titles only to select best topics (saves tokens)
       const selectedIndices = await geminiService.selectBestArticlesForLinkedIn(successfulArticles);
       logger.info(`LinkedIn Curation: Selected article indices: ${JSON.stringify(selectedIndices)}`);
-      
+
       const uniqueIndices = [...new Set(selectedIndices)];
       const selectedArticles = uniqueIndices
         .map(idx => successfulArticles[idx])
         .filter(art => !!art);
-        
+
       if (selectedArticles.length === 0) {
         logger.warn("LinkedIn Curation: No articles were selected by Gemini. Defaulting to the first available article.");
         selectedArticles.push(successfulArticles[0]);
       }
-        
+
       if (selectedArticles.length > 0) {
-        logger.info("LinkedIn Curation: Initializing LinkedIn service...");
-        await LinkedInService.init();
-        
-        // Step 2: Curation - Generate final LinkedIn post using selected full contents
-        const megaPostData = await geminiService.generateLinkedInMasterPost(selectedArticles);
-        
+        let initialized = false;
         let slideImagePath = null;
         try {
-          logger.info(`LinkedIn Curation: Generating custom HTML slide image...`);
-          slideImagePath = await LinkedInService.generateSlideImage(megaPostData.title, megaPostData.slidePoints, megaPostData.slideTagline);
-        } catch (imageErr) {
-          logger.error("LinkedIn Curation: Failed to generate slide image, continuing without image:", imageErr);
-          slideImagePath = null;
+          logger.info("LinkedIn Curation: Initializing LinkedIn service...");
+          await LinkedInService.init();
+          initialized = true;
+        } catch (initErr) {
+          logger.error("LinkedIn Curation: Failed to initialize LinkedIn service:", initErr);
+          return;
         }
 
-        if (megaPostData.postText) {
-          logger.info("LinkedIn Curation: Posting curated update to LinkedIn...");
-          const postSuccess = await LinkedInService.postToLinkedIn(megaPostData.postText, slideImagePath, megaPostData.commentText).catch(err => {
-            logger.error("Failed to post mega post to LinkedIn:", err);
-            return false;
-          });
+        try {
+          const maxGenerationAttempts = 2;
+          let megaPostData = null;
+          let validation = null;
+          let validationFeedback = [];
 
-          // Clean up the generated slide image after posting (only local generated PNGs)
-          const tempDir = path.join(process.cwd(), "temp");
-          const isTemporary = slideImagePath && typeof slideImagePath === "string" && slideImagePath.startsWith(tempDir);
-          if (isTemporary) {
-            try {
-              if (fs.existsSync(slideImagePath)) fs.unlinkSync(slideImagePath);
-            } catch (e) {}
+          for (let attempt = 1; attempt <= maxGenerationAttempts; attempt++) {
+            logger.info(`LinkedIn Curation: Generating mega post draft (attempt ${attempt}/${maxGenerationAttempts})...`);
+            megaPostData = await geminiService.generateLinkedInMasterPost(selectedArticles, 3, validationFeedback);
+            const githubUrl = selectedArticles[0].githubUrl || "";
+            const sourceBulletCount = geminiService.countSourceBullets(selectedArticles[0].fullContent || "");
+            validation = geminiService.validatePostText(megaPostData, githubUrl, sourceBulletCount);
+
+            if (validation.isValid) {
+              logger.info(`LinkedIn Curation: Mega post passed quality validation (score: ${validation.qualityScore})`);
+              break;
+            }
+
+            logger.warn(`LinkedIn Curation: Mega post failed quality validation (score: ${validation.qualityScore}):`);
+            validation.errors.forEach(err => logger.warn(`  - ${err}`));
+
+            if (attempt === maxGenerationAttempts) {
+              logger.warn("LinkedIn Curation: Aborting publish due to repeated quality validation failures.");
+              return;
+            }
+
+            validationFeedback = validation.errors;
+            logger.info("LinkedIn Curation: Retrying mega post generation with validation feedback...");
           }
 
-          if (postSuccess) {
-            logger.info("LinkedIn Curation: Post submitted successfully.");
+          try {
+            logger.info(`LinkedIn Curation: Generating custom HTML slide image...`);
+            slideImagePath = await LinkedInService.generateSlideImage(megaPostData.title, megaPostData.slidePoints, megaPostData.slideTagline);
+          } catch (imageErr) {
+            logger.error("LinkedIn Curation: Failed to generate slide image, continuing without image:", imageErr);
+            slideImagePath = null;
+          }
+
+          if (megaPostData.postText) {
+            logger.info("LinkedIn Curation: Posting curated update to LinkedIn...");
+            const postSuccess = await LinkedInService.postToLinkedIn(megaPostData.postText, slideImagePath, megaPostData.commentText).catch(err => {
+              logger.error("Failed to post mega post to LinkedIn:", err);
+              return false;
+            });
+
+            if (postSuccess) {
+              logger.info("LinkedIn Curation: Post submitted successfully.");
+              const recentTopic = megaPostData.sourceTitle || selectedArticles[0].title;
+              geminiService.saveRecentTopic(recentTopic);
+            } else {
+              logger.warn("LinkedIn Curation: Post submission returned failure status.");
+            }
+          }
+        } catch (postErr) {
+          logger.error("LinkedIn Curation: Post generation or submission failed:", postErr);
+        } finally {
+          LinkedInService.cleanupDebugScreenshots();
+          if (slideImagePath && typeof slideImagePath === "string") {
+            const tempDir = path.join(process.cwd(), "temp");
+            const normalizedPath = path.resolve(slideImagePath).replace(/\\/g, "/");
+            const normalizedTemp = path.resolve(tempDir).replace(/\\/g, "/");
+            const isTemporary = normalizedPath === normalizedTemp || normalizedPath.startsWith(`${normalizedTemp}/`);
+            if (isTemporary) {
+              try {
+                if (fs.existsSync(slideImagePath)) fs.unlinkSync(slideImagePath);
+              } catch (e) { }
+            }
           }
         }
       } else {
@@ -183,11 +226,12 @@ const processAllFolders = async () => {
 
   // Cleanup leftover debug screenshots from root
   TwitterService.cleanupScreenshots();
+  LinkedInService.cleanupDebugScreenshots();
   try {
     if (fs.existsSync("linkedin-post-failed.png")) {
       fs.unlinkSync("linkedin-post-failed.png");
     }
-  } catch (e) {}
+  } catch (e) { }
 };
 
 let scheduledJob = null;

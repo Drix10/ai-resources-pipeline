@@ -110,10 +110,10 @@ class TwitterListTracker {
     logger.info("Refreshing browser session to prevent issues...");
     try {
       if (this.driver) {
-        await this.driver.quit();
+        this.driver = null;
       }
     } catch (error) {
-      logger.warn("Error quitting driver during refresh:", error);
+      logger.warn("Error detaching driver during refresh:", error);
     }
     this.isInitialized = false;
     this.driver = null;
@@ -140,22 +140,38 @@ class TwitterListTracker {
 
       logger.warn("⚠️ X (Twitter) Login Required: Please log in manually in the Chrome browser window.");
 
-      // Poll until the login is completed by the user
-      while (true) {
+      const maxLoginAttempts = 60;
+      let loginAttempts = 0;
+      while (loginAttempts < maxLoginAttempts) {
         try {
           const currentUrl = await this.driver.getCurrentUrl();
           if (currentUrl.includes("/home") || currentUrl.includes("/explore") || currentUrl.includes("x.com")) {
             const homeLink = await this.driver.findElements(By.css('[data-testid="AppTabBar_Home_Link"]'));
             if (homeLink.length > 0) {
               logger.info("X (Twitter) login detected! Continuing tracker...");
-              break;
+              return;
             }
           }
         } catch (pollErr) {
-          // Ignore transient errors
+          const msg = String(pollErr?.message || "").toLowerCase();
+          if (
+            msg.includes("invalid session") ||
+            msg.includes("invalid session id") ||
+            msg.includes("no such window") ||
+            msg.includes("chrome not reachable") ||
+            msg.includes("transport") ||
+            msg.includes("session not created") ||
+            msg.includes("session deleted")
+          ) {
+            throw pollErr;
+          }
+          // Ignore known transient polling errors and continue waiting for manual login.
         }
+        loginAttempts++;
         await sleep(5000);
       }
+
+      throw new Error("Twitter manual login timed out after 5 minutes.");
     } catch (error) {
       logger.error("Error during X (Twitter) login check in list-tracker:", error);
       throw error;
@@ -289,14 +305,14 @@ class TwitterListTracker {
         quotedTweetText = await quoteTweet
           .findElement(By.css('[data-testid="tweetText"]'))
           .getText();
-      } catch (quoteError) {}
+      } catch (quoteError) { }
 
       let tweetText = "";
       try {
         tweetText = await tweetElement
           .findElement(By.css('[data-testid="tweetText"]'))
           .getText();
-      } catch (textError) {}
+      } catch (textError) { }
 
       if (quotedTweetText) {
         tweetText = `${tweetText}\n\nQuoted Tweet:\n${quotedTweetText}`;
@@ -313,7 +329,7 @@ class TwitterListTracker {
             continue;
           }
         }
-      } catch (e) {}
+      } catch (e) { }
 
       let images = [];
       try {
@@ -328,7 +344,7 @@ class TwitterListTracker {
             continue;
           }
         }
-      } catch (imageError) {}
+      } catch (imageError) { }
 
       let videos = [];
       try {
@@ -341,21 +357,21 @@ class TwitterListTracker {
             continue;
           }
         }
-      } catch (videoError) {}
+      } catch (videoError) { }
 
       let url = "";
       try {
         url = await tweetElement
           .findElement(By.xpath('.//a[contains(@href, "/status/")]'))
           .getAttribute("href");
-      } catch (urlError) {}
+      } catch (urlError) { }
 
       let timestamp = "";
       try {
         timestamp = await tweetElement
           .findElement(By.tagName("time"))
           .getAttribute("datetime");
-      } catch (timeError) {}
+      } catch (timeError) { }
 
       let author = "";
       try {
@@ -367,7 +383,7 @@ class TwitterListTracker {
           const parts = authorHref.split("/").filter(Boolean);
           author = parts.length > 0 ? parts[parts.length - 1] : "";
         }
-      } catch (authorError) {}
+      } catch (authorError) { }
 
       const tweetId = url ? url.split("/status/")[1]?.split("?")[0] : "";
 
@@ -619,8 +635,8 @@ class TwitterListTracker {
   async cleanup() {
     try {
       if (this.driver) {
-        await this.driver.quit();
-        logger.info("WebDriver session closed");
+        logger.info("ListTracker: Releasing WebDriver control of debugging browser session");
+        this.driver = null;
       }
     } catch (error) {
       logger.error("Failed to clean up:", error);
@@ -668,7 +684,7 @@ process.on("SIGTERM", () => gracefulShutdown("SIGTERM"));
 process.on("uncaughtException", (error) => {
   logger.error("Uncaught Exception:", error);
   // Start graceful shutdown without awaiting to avoid blocking
-  gracefulShutdown("uncaughtException").catch(() => {});
+  gracefulShutdown("uncaughtException").catch(() => { });
   // Ensure forced exit as fallback
   setTimeout(() => process.exit(1), 10000);
 });
@@ -676,7 +692,7 @@ process.on("uncaughtException", (error) => {
 process.on("unhandledRejection", (reason, promise) => {
   logger.error("Unhandled Rejection at:", promise, "reason:", reason);
   // Start graceful shutdown without awaiting to avoid blocking
-  gracefulShutdown("unhandledRejection").catch(() => {});
+  gracefulShutdown("unhandledRejection").catch(() => { });
   // Ensure forced exit as fallback
   setTimeout(() => process.exit(1), 10000);
 });

@@ -156,39 +156,70 @@ async function fetchArticlesFromGithub() {
 
 async function runLivePostCuration() {
   logger.info("============================================================");
-  logger.info("🚀 STARTING LIVE CURATED LINKEDIN POST & COMMENT RUN 🚀");
+  logger.info("STARTING LIVE CURATED LINKEDIN POST & COMMENT RUN");
   logger.info("============================================================");
 
   try {
     const articles = await fetchArticlesFromGithub();
 
-    logger.info("\n🤖 Step 1: Querying Gemini to select the single best topic for LinkedIn...");
+    logger.info("\nStep 1: Querying Gemini to select the single best topic for LinkedIn...");
     const selectedIndices = await geminiService.selectBestArticlesForLinkedIn(articles);
-    logger.info(`✅ Selected indices from Gemini: ${JSON.stringify(selectedIndices)}`);
+    logger.info(`Selected indices from Gemini: ${JSON.stringify(selectedIndices)}`);
 
-    const uniqueIndices = [...new Set(selectedIndices)];
+    const uniqueIndices = [...new Set(selectedIndices.map((idx) => Number(idx)))];
     const selectedArticles = uniqueIndices
-      .map(idx => articles[idx])
-      .filter(art => !!art);
+      .filter((idx) => Number.isInteger(idx) && idx >= 0 && idx < articles.length)
+      .map((idx) => articles[idx]);
+
+    if (uniqueIndices.length > 0 && selectedArticles.length !== uniqueIndices.length) {
+      logger.warn(`Some selected indices were out of range and ignored: ${JSON.stringify(uniqueIndices)}`);
+    }
 
     if (selectedArticles.length === 0) {
       logger.warn("No articles were selected by Gemini. Defaulting to the first available article.");
       selectedArticles.push(articles[0]);
     }
 
-    logger.info(`\n✨ Selected Article: "${selectedArticles[0].title}"`);
-    logger.info(`🔗 GitHub URL: ${selectedArticles[0].githubUrl}`);
+    logger.info(`\nSelected Article: "${selectedArticles[0].title}"`);
+    logger.info(`GitHub URL: ${selectedArticles[0].githubUrl}`);
 
-    logger.info("\n🤖 Step 2: Running optimized 2026 virality formulas to generate LinkedIn post...");
-    const postData = await geminiService.generateLinkedInMasterPost(selectedArticles);
+    const maxGenerationAttempts = 2;
+    let postData = null;
+    let validation = null;
+    let validationFeedback = [];
+
+    for (let attempt = 1; attempt <= maxGenerationAttempts; attempt++) {
+      logger.info(`\nStep 2: Running optimized 2026 virality formulas to generate LinkedIn post (attempt ${attempt}/${maxGenerationAttempts})...`);
+      postData = await geminiService.generateLinkedInMasterPost(selectedArticles, 3, validationFeedback);
+
+      const githubUrl = selectedArticles[0].githubUrl || "";
+      const sourceBulletCount = geminiService.countSourceBullets(selectedArticles[0].fullContent || "");
+      validation = geminiService.validatePostText(postData, githubUrl, sourceBulletCount);
+
+      if (validation.isValid) {
+        logger.info(`Post passed quality validation (score: ${validation.qualityScore})`);
+        break;
+      }
+
+      logger.warn(`Post failed quality validation (score: ${validation.qualityScore}):`);
+      validation.errors.forEach(err => logger.warn(`  - ${err}`));
+
+      if (attempt === maxGenerationAttempts) {
+        logger.warn("Aborting live publish due to repeated quality validation failures.");
+        return;
+      }
+
+      validationFeedback = validation.errors;
+      logger.info("Retrying LinkedIn post generation with validation feedback...");
+    }
 
     logger.info("Initializing LinkedIn service...");
     await LinkedInService.init();
 
     logger.info("Step 3: Rendering custom HTML slide image...");
     const slideImagePath = await LinkedInService.generateSlideImage(
-      postData.title, 
-      postData.slidePoints, 
+      postData.title,
+      postData.slidePoints,
       postData.slideTagline,
       `github.com/${config.github.owner || "Drix10"}/${config.github.repo || "ai-resources"}`
     );
@@ -200,28 +231,33 @@ async function runLivePostCuration() {
 
     logger.info("\nStep 4: Publishing post and comment live to LinkedIn...");
     const postSuccess = await LinkedInService.postToLinkedIn(
-      postData.postText, 
-      slideImagePath, 
+      postData.postText,
+      slideImagePath,
       postData.commentText
     );
 
     if (postSuccess) {
       logger.info("\n=============================================================");
-      logger.info("🎉 SUCCESS: Curated LinkedIn update and first comment published!");
+      logger.info("SUCCESS: Curated LinkedIn update and first comment published!");
       logger.info("=============================================================");
+      geminiService.saveRecentTopic(selectedArticles[0].title);
     } else {
-      logger.warn("\n❌ FAILED: LinkedIn poster returned false status.");
+      logger.warn("\nFAILED: LinkedIn poster returned false status.");
     }
+
+    await sleep(5000);
 
     if (slideImagePath && fs.existsSync(slideImagePath)) {
       try {
         fs.unlinkSync(slideImagePath);
         logger.info("Cleaned up temporary slide PNG file.");
-      } catch (e) {}
+      } catch (e) { }
     }
 
+    LinkedInService.cleanupDebugScreenshots();
+
   } catch (error) {
-    logger.error("❌ Curation runner failed with error:", error);
+    logger.error("Curation runner failed with error:", error);
   } finally {
     logger.info("Releasing LinkedIn WebDriver context...");
     await LinkedInService.cleanup();
