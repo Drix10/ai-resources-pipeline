@@ -1059,7 +1059,10 @@ class LinkedInService {
     try {
       const tempDir = path.join(process.cwd(), "temp");
       if (!fs.existsSync(tempDir)) return;
-      const files = fs.readdirSync(tempDir).filter(f => f.startsWith("linkedin-") && f.endsWith(".png"));
+      const files = fs.readdirSync(tempDir).filter(f =>
+        (f.startsWith("linkedin-") || f.startsWith("slide-")) &&
+        (f.endsWith(".png") || f.endsWith(".html") || f.endsWith(".jpg") || f.endsWith(".jpeg"))
+      );
       const now = Date.now();
       for (const file of files) {
         const filePath = path.join(tempDir, file);
@@ -1067,12 +1070,12 @@ class LinkedInService {
           const stat = fs.statSync(filePath);
           if (now - stat.mtimeMs > 3600000) {
             fs.unlinkSync(filePath);
-            logger.info(`LinkedInService: Cleaned up old debug screenshot: ${file}`);
+            logger.info(`LinkedInService: Cleaned up old temporary file: ${file}`);
           }
         } catch (e) { }
       }
     } catch (error) {
-      logger.warn("LinkedInService: Failed to cleanup debug screenshots:", error.message);
+      logger.warn("LinkedInService: Failed to cleanup temporary files:", error.message);
     }
   }
 

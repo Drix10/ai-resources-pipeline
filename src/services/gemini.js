@@ -359,9 +359,9 @@ Exactly 3-4 highly targeted hashtags on their own line at the very end. Mix exac
 - Sound like a senior engineer casually sharing something useful.
 - Avoid hype, flowery, or overly polished corporate language.
 - Explicitly explain why the update matters for developers (performance, cost, workflow, correctness).
-- Prefer concrete numbers and real usage claims over general statements.
+- Prefer concrete numbers, benchmarks, speedups, and real usage claims over general statements.
 - EMOJIS: Use 0–3 emojis maximum per post as visual anchors. Never decorate or spam.
-- @TAGGING: Tag 0–2 relevant original creators only.
+- @TAGGING & MENTIONS: Identify original content creators, tool authors, framework maintainers, or companies mentioned in the content (e.g. @OpenAI, @cursor_ai, @AnthropicAI, creator handles). Include 1-2 relevant @mentions naturally in the post body or first comment to trigger notification visibility and multiply reach.
 
 === ANTI-HYPE & VOICE RULES (STRICT) ===
 You MUST strictly follow the anti-hype rules and avoid all banned words defined in the system prompt.
@@ -1622,6 +1622,11 @@ JSON schema:
 
   async selectBestArticlesForLinkedIn(articles, recentTopics = [], retries = 3) {
     try {
+      if (!Array.isArray(articles) || articles.length === 0) {
+        logger.warn("selectBestArticlesForLinkedIn: Empty or invalid articles array provided.");
+        return [];
+      }
+
       if (!recentTopics || recentTopics.length === 0) {
         try {
           const filePath = path.join(process.cwd(), "recent-topics.json");
@@ -1706,10 +1711,10 @@ JSON schema:
 
         const selectedIndices = data.selectedIndices
           .map((idx) => Number(idx))
-          .filter((idx) => Number.isInteger(idx));
+          .filter((idx) => Number.isInteger(idx) && idx >= 0 && idx < articles.length);
 
         if (selectedIndices.length !== data.selectedIndices.length) {
-          logger.warn("GeminiService: Some selectedIndices were invalid and were dropped:", {
+          logger.warn("GeminiService: Some selectedIndices were invalid/out of bounds and were dropped:", {
             original: data.selectedIndices,
             sanitized: selectedIndices,
           });
@@ -1953,6 +1958,7 @@ JSON schema:
 {
   "postTextBody": string (formatted body, CTA, and required link line with \\n for line breaks — do NOT include hashtags here),
   "hashtags": string (exactly 3-4 targeted hashtags separated by spaces, e.g. "#AI #DevTools #Engineering"),
+  "taggedMentions": string (1-2 relevant creator, tool, or company handles to tag for maximum notice, e.g. "cc @OpenAI @cursor_ai" or ""),
   "title": string (max 50 chars),
   "slidePoints": array of exactly 3 strings (max 65 chars each),
   "slideTagline": string (5-8 words),
@@ -1975,7 +1981,8 @@ JSON schema:
         slideTagline: { type: SchemaType.STRING },
         cta: { type: SchemaType.STRING },
         chosenStructure: { type: SchemaType.STRING },
-        hashtags: { type: SchemaType.STRING }
+        hashtags: { type: SchemaType.STRING },
+        taggedMentions: { type: SchemaType.STRING }
       },
       required: ["postTextBody", "hashtags", "title", "slidePoints", "slideTagline", "cta", "chosenStructure"]
     };
@@ -2054,7 +2061,14 @@ JSON schema:
 
       const postText = `${chosenHook.hook}\n\n${postTextBodyClean}`;
 
-      const commentText = `Full resource list and tools → ${githubUrl}`;
+      let taggedMentionsStr = "";
+      if (typeof data.taggedMentions === "string") {
+        taggedMentionsStr = data.taggedMentions.trim();
+      } else if (Array.isArray(data.taggedMentions)) {
+        taggedMentionsStr = data.taggedMentions.map(m => String(m).trim()).filter(Boolean).join(" ");
+      }
+      const mentionsSuffix = taggedMentionsStr ? ` (${taggedMentionsStr})` : "";
+      const commentText = `Full breakdown & source resources → ${githubUrl}${mentionsSuffix}`;
 
       if (!Array.isArray(data.slidePoints) || data.slidePoints.length === 0) {
         throw new Error("Invalid response format: slidePoints must be a non-empty array");

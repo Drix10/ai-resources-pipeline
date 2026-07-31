@@ -103,7 +103,7 @@ async function fetchArticlesFromGithub() {
   logger.info(`Fetching markdown files from GitHub repository: ${owner}/${repo}...`);
   const octokit = githubService.octokit;
   const collectedArticles = [];
-  const sampleFolders = config.folders.slice(0, 4);
+  const sampleFolders = (config.folders || []).slice(0, 8);
 
   for (const folder of sampleFolders) {
     try {
@@ -131,7 +131,7 @@ async function fetchArticlesFromGithub() {
         path: targetFile.path
       });
 
-      if (fileData && fileData.content) {
+      if (fileData && !Array.isArray(fileData) && fileData.content) {
         const fileContent = Buffer.from(fileData.content, "base64").toString("utf-8");
         const fileUrl = `https://github.com/${owner}/${repo}/blob/main/${encodeURIComponent(targetFile.path)}`;
 

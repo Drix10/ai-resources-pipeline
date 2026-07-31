@@ -23,12 +23,20 @@ const config = {
   },
   folders: [
     {
-      name: "CS Academics",
-      lists: ["89224383"],
+      name: "AI Developer Tools",
+      lists: ["1705695313334571453"],
     },
     {
-      name: "Devs, Designers, DevRel",
-      lists: ["1805986224055955873"],
+      name: "AI Leaders and Thinkers",
+      lists: ["1744564719309279599", "1828820239175590166"],
+    },
+    {
+      name: "AI Companies and Ventures",
+      lists: ["1696336383231525354", "1811755253970112761"],
+    },
+    {
+      name: "CS Academics",
+      lists: ["89224383"],
     },
     {
       name: "Tech VIPs",
@@ -39,28 +47,20 @@ const config = {
       lists: ["1219428908283514881"],
     },
     {
-      name: "AI Developer Tools",
-      lists: ["1705695313334571453"],
+      name: "Devs, Designers, DevRel",
+      lists: ["1805986224055955873"],
     },
     {
-      name: "AI Education",
-      lists: ["1705702737835643273"],
+      name: "Tech Infrastructure",
+      lists: ["1049745135431376896"],
     },
     {
-      name: "AI Artists and Creators",
-      lists: ["1697023939338519013"],
+      name: "Founders and Entrepreneurs",
+      lists: ["8020", "1049755751185403904", "1795545373173575917"],
     },
     {
-      name: "AI Companies and Ventures",
-      lists: ["1696336383231525354", "1811755253970112761"],
-    },
-    {
-      name: "AI Consulting and Expertise",
-      lists: ["1741727636806881476"],
-    },
-    {
-      name: "AI in Enterprise Applications",
-      lists: ["1705692999974637973"],
+      name: "AI Organizations and Media",
+      lists: ["1741902685669113995"],
     },
     {
       name: "AI Powered Film and Media",
