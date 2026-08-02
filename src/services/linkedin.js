@@ -247,36 +247,26 @@ class LinkedInService {
       await sleep(4000);
 
       if (imageUrl) {
-        logger.info("Locating 'Photo' link trigger on feed page...");
-        const photoTrigger = await this.driver.executeScript(`
-          const all = Array.from(document.querySelectorAll("a, button, span, div"));
-          return all.find(el => {
+        logger.info("Locating 'Photo' or 'Start a post' trigger on feed page...");
+        const triggered = await this.driver.executeScript(`
+          const all = Array.from(document.querySelectorAll("button, a, span, div, p"));
+          const photoBtn = all.find(el => {
             const text = (el.textContent || "").trim().toLowerCase();
             const aria  = (el.getAttribute("aria-label") || "").toLowerCase();
-            return (text === "photo" || aria.includes("photo") || aria.includes("image") || aria.includes("add a photo"));
-          }) || null;
+            return (text === "photo" || aria.includes("photo") || aria.includes("image") || aria.includes("add a photo") || aria.includes("media"));
+          });
+          if (photoBtn) {
+            photoBtn.click();
+            return "photo";
+          }
+          const postBtn = all.find(el => (el.textContent || "").trim().toLowerCase() === "start a post");
+          if (postBtn) {
+            postBtn.click();
+            return "post";
+          }
+          return null;
         `);
-
-        if (photoTrigger) {
-          logger.info("Clicking 'Photo' link trigger via JS click with capturing preventDefault interceptor...");
-          await this.driver.executeScript(`
-            const el = arguments[0];
-            const handler = e => { e.stopImmediatePropagation(); };
-            document.addEventListener('click', handler, true);
-            try {
-              el.click();
-            } finally {
-              document.removeEventListener('click', handler, true);
-            }
-          `, photoTrigger);
-        } else {
-          logger.warn("LinkedInService: 'Photo' trigger not found; falling back to 'Start a post' trigger.");
-          const postTrigger = await this.driver.executeScript(`
-            const all = Array.from(document.querySelectorAll("p, span, button, div, a"));
-            return all.find(el => (el.textContent || "").trim().toLowerCase() === "start a post") || null;
-          `);
-          if (postTrigger) await this.driver.executeScript(`arguments[0].click();`, postTrigger);
-        }
+        logger.info(`LinkedInService: Trigger result: ${triggered}`);
       } else {
         logger.info("LinkedInService: Locating 'Start a post' trigger for text-only post...");
         const postTrigger = await this.driver.executeScript(`
@@ -293,7 +283,7 @@ class LinkedInService {
           await fallback.click();
         }
       }
-      await sleep(5000);
+      await sleep(4000);
 
       if (imageUrl) {
         isRemote = imageUrl.startsWith("http");
@@ -312,8 +302,33 @@ class LinkedInService {
           logger.info(`LinkedInService: Using local image path for upload: ${localImagePath}`);
         }
 
-        logger.info("LinkedInService: Locating hidden file input inside Shadow DOM and uploading image...");
-        const fileInput = await this._getShadowEl("input[type='file']", 20000);
+        logger.info("LinkedInService: Locating hidden file input and uploading image...");
+        let fileInput = null;
+        for (let attempt = 0; attempt < 10; attempt++) {
+          try {
+            fileInput = await this._getShadowEl("input[type='file']", 3000);
+            if (fileInput) break;
+          } catch (e) { }
+
+          // If file input not found, try clicking media button inside open modal
+          await this.driver.executeScript(`
+            const modal = document.querySelector("div[class*='share-creation-state'], div[aria-label='Create a post'], div[role='dialog'], #interop-outlet");
+            if (modal) {
+              const root = (modal.shadowRoot || modal);
+              const mediaBtn = Array.from(root.querySelectorAll("button, label, span")).find(b => {
+                const label = (b.getAttribute("aria-label") || b.textContent || "").toLowerCase();
+                return label.includes("media") || label.includes("photo") || label.includes("image");
+              });
+              if (mediaBtn) mediaBtn.click();
+            }
+          `);
+          await sleep(1500);
+        }
+
+        if (!fileInput) {
+          fileInput = await this._getShadowEl("input[type='file']", 5000);
+        }
+
         await fileInput.sendKeys(path.resolve(localImagePath));
         logger.info("LinkedInService: Uploaded image file path to input element");
 
@@ -334,12 +349,16 @@ class LinkedInService {
         }
 
         logger.info("LinkedInService: Confirming image preview (Next button)...");
-        const nextButton = await this._getShadowEl(
-          "button[aria-label='Next'], button.share-box-footer__primary-btn, button[class*='primary-btn']",
-          15000
-        );
-        await nextButton.click();
-        await sleep(4000);
+        try {
+          const nextButton = await this._getShadowEl(
+            "button[aria-label='Next'], button.share-box-footer__primary-btn, button[class*='primary-btn']",
+            8000
+          );
+          await nextButton.click();
+          await sleep(4000);
+        } catch (e) {
+          logger.warn("LinkedInService: Next button click skipped or not required.");
+        }
       }
 
       logger.info("LinkedInService: Locating editor text area inside Shadow DOM...");
@@ -502,18 +521,21 @@ class LinkedInService {
           `);
           await sleep(2000);
 
-          logger.info("LinkedInService: Locating comments container...");
+          logger.info("LinkedInService: Locating comments container and clicking Comment trigger if needed...");
           await this.driver.executeScript(`
-            const commentBox = document.querySelector(
-              "[aria-label='Text editor for creating comment'], " +
-              ".tiptap, " +
-              ".ProseMirror"
+            const existingEd = document.querySelector(
+              "[aria-label='Text editor for creating comment'], .tiptap, .ProseMirror"
             );
-            if (commentBox) {
-              commentBox.scrollIntoView({ behavior: 'auto', block: 'center' });
+            if (!existingEd) {
+              const commentBtn = Array.from(document.querySelectorAll("button, span, div, a")).find(el => {
+                const aria = (el.getAttribute("aria-label") || "").toLowerCase();
+                const txt = (el.textContent || "").trim().toLowerCase();
+                return aria.includes("comment") || txt === "comment" || txt === "commenter";
+              });
+              if (commentBtn) commentBtn.click();
             }
           `);
-          await sleep(1500);
+          await sleep(2000);
 
           logger.info("LinkedInService: Locating comment editor...");
           const editorEl = await this.driver.wait(
