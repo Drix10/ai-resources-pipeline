@@ -78,7 +78,7 @@ Key Points:
     fullContent: `
 ### 💡 Post-CSS vs Tailwind: CSS Architecture in 2026
 
-An in-depth look at CSS performance at scale. This article compares Tailwind CSS utility classes against vanilla CSS variables and Post-CSS modules for high-interaction dashboards.
+An in-depth look at CSS performance at scale. This article compares Tailwind CSS utility classes against vanilla CSS variables and Post-CSS modules for high-interaction developer CLI tools and interfaces.
 
 Key Points:
 

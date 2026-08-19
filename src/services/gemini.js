@@ -39,7 +39,8 @@ const BANNED_WORDS = [
   "critical", "critical step", "sophisticated", "most powerful", "signaling", "broader reach",
   "push boundaries", "pushing boundaries", "extensibility", "masterclass",
   "paving the way", "incredible ways", "blurring lines", "dive", "deep dive",
-  "fundamental", "ensure", "core"
+  "fundamental", "ensure", "core", "platform", "platforms", "dashboard",
+  "dashboards", "web app", "webapp"
 ];
 
 const WEAK_CTA_PATTERNS = [
@@ -128,6 +129,7 @@ You curate raw tech/AI/developer content (Twitter threads, LinkedIn posts) and t
 2. NO MARKETING FLUFF — Avoid empty hype adjectives. Instead of "powerful query system" or "lightning-fast framework", write "query system" or "framework". Only include benchmark figures or technical details if specifically present in the source text.
 3. HUMAN SENIOR-ENGINEER TONE — Write as if you are sharing what actually works directly with another senior engineer. Be objective, precise, and practical.
 4. SENTENCE VARIANCE — Use a natural human rhythm. Mix short, punchy 4-to-6-word statements with slightly longer technical explanations. Avoid repetitive sentence structures.
+5. CLI / TOOL FOCUS — This codebase and output target CLI tools, scripts, and developer utilities. Never refer to CLI tools, utilities, or systems as "platform", "platforms", "dashboard", "dashboards", or "web app". Refer to them strictly as CLI tools, utilities, or scripts.
 
 === CORE FORMATTING INSTRUCTIONS ===
 - Every article must start with a level-3 header: "### [emoji] Topic - Subtopic" (Use ONE appropriate emoji: 🤖 for technical, 🚀 for tools, 💡 for tips, ✨ for features).
@@ -1667,7 +1669,7 @@ Your task: Analyze the list of curated tech articles below and select the single
 3. STORYTELLING & CURIOSITY GAP — Does this topic have a high storytelling potential? Is there a surprising benchmark, an elegant architecture design, or a contrarian take we can hook readers with?
 4. TRENDING COMMUNITY RELEVANCE — Is this topic highly relevant and trending in AI, LLM, devops, or software engineering circles?
 5. AVOID ADVERTISING & SPAM — Completely avoid selecting job postings, generic announcements, polls, or motivational/career fluff.
-6. REJECT THIN CONTENT — Never select articles that describe a single minor UI/UX update, a feature toggle, or a cosmetic change to an existing platform with no architectural, performance, or cost implications. If the entire substance can be summarized in one sentence, it's not post-worthy on its own. Completely reject changelog/feature-announcement content that has no developer workflow impact beyond "it's slightly more convenient now."
+6. REJECT THIN CONTENT — Never select articles that describe a single minor UI/UX update, a feature toggle, or a cosmetic change to an existing tool/CLI or library with no architectural, performance, or cost implications. If the entire substance can be summarized in one sentence, it's not post-worthy on its own. Completely reject changelog/feature-announcement content that has no developer workflow impact beyond "it's slightly more convenient now."
 
 ${recentTopicsText}
 Articles list:
@@ -1760,7 +1762,7 @@ MANDATORY CURIOSITY GAP RULES (STRICT):
   * Question Hook Example — BAD: "Are you parsing logs manually? There's a better way."
   * Question Hook Example — GOOD: "Are you parsing logs manually? Every engineer who's done it at scale has the same regret."
 - STOP AT MAX TENSION (CRITICAL): The hook must stop exactly when the tension is maximized. Never append a resolution sentence like "X built a simpler way" or "there is an easier path" or similar deflations. Instead of "X built a simpler way", write "X faced the same problem at scale." The body is where the gap closes.
-- PENALTY (CRITICAL): Never start with the subject/platform name directly followed by "just launched", "announced", "released", "updated", or similar verbs. This news-headline style is boring and kills "see more" clicks.
+- PENALTY (CRITICAL): Never start with the subject/tool name directly followed by "just launched", "announced", "released", "updated", or similar verbs. This news-headline style is boring and kills "see more" clicks.
 - Hook MUST be 1-3 lines max.
 - Hook MUST be under 200 characters to prevent being hidden under LinkedIn's "see more" button.
 - Avoid weak, open-ended, or generic questions in the hook itself.
