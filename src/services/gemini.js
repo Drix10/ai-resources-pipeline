@@ -1228,25 +1228,22 @@ JSON schema:
       ![Image](https://example.png) 
       `;
 
-      const groupedThreads = this.groupTweetsByConversation(
-        threads.flatMap((thread) => thread.tweets)
-      );
-
-      // Perform pre-filtering (Gap 1)
-      logger.info(`GeminiService: Pre-filtering ${groupedThreads.length} X threads...`);
-      const substantiveIndices = await this.filterSubstantiveContent(groupedThreads);
-      const filteredThreads = groupedThreads.filter((_, idx) => substantiveIndices.includes(idx));
-
-      if (filteredThreads.length === 0) {
-        logger.warn("GeminiService: All threads filtered out as non-substantive.");
-        return "";
+      // The scraper already returns one collection per candidate thread. Do not
+      // flatten those collections and regroup by an absent conversation_id: X's
+      // DOM payload does not currently expose that field, which previously merged
+      // every collected tweet into one "undefined" conversation.
+      const groupedThreads = this.normalizeCollectedThreads(threads);
+      if (groupedThreads.length === 0) {
+        throw new Error("No pre-vetted X threads were provided; skipping publication.");
       }
 
-      logger.info(`GeminiService: Processing ${filteredThreads.length} substantive X threads...`);
+      // TwitterService owns source admission. Once it has collected a candidate,
+      // Gemini must cover it rather than silently choosing a favourite subset.
+      logger.info(`GeminiService: Building a resource file from all ${groupedThreads.length} pre-vetted X threads...`);
 
-      for (const threadTweets of filteredThreads) {
+      for (const [sourceIndex, threadTweets] of groupedThreads.entries()) {
         let threadContent = "";
-        threadContent += `[Type: ${threadTweets.type || 'thread'}]\n`;
+        threadContent += `[Source #${sourceIndex + 1} | Type: ${threadTweets.type || 'thread'}]\n`;
 
         for (const tweet of threadTweets) {
           let content = tweet.text || "";
@@ -1268,7 +1265,7 @@ JSON schema:
       logger.info("GeminiService: Combined prompt built, sending to API...");
 
       const prompt = `
-Transform each of the provided Twitter threads/conversations into high-quality, professional technical markdown articles.
+Transform every provided Twitter thread/conversation into a high-quality, professional technical markdown article in one resource file.
 
 Note: Some items are single tweets (Type: tweet) and others are multi-tweet threads (Type: thread). Single tweets should be summarized concisely as single-concept updates, whereas multi-tweet threads can be expanded into more detailed structured articles if they contain enough depth.
 
@@ -1300,6 +1297,7 @@ Strict rules:
 - Only use verified links and images directly present in the source text.
 - No bold, italic, extra emojis, or extra sections.
 - Make one formatted article for each thread/conversation provided.
+- COVERAGE IS A HARD REQUIREMENT: create exactly ${groupedThreads.length} article sections, one for every numbered source. Do not choose a favourite, omit a source, combine unrelated sources, or turn this into a one-item roundup.
 - Do not repeat content or links within a single article.
 - Separate distinct articles with "---" and a newline.
 
@@ -1332,11 +1330,13 @@ If you liked reading this report, please star ⭐️ this repository and follow 
 
 ---`;
 
-        return (
+        const markdown = (
           generatedText.replace(/\n---\n\s*$/g, "").trim() +
           "\n\n" +
           supportSection
         );
+        this.assertPublishableMarkdown(markdown, groupedThreads.length);
+        return markdown;
       } catch (error) {
         logger.error("GeminiService: generateMarkdown API error:", error);
         if (retries > 0) {
@@ -1362,35 +1362,29 @@ If you liked reading this report, please star ⭐️ this repository and follow 
         return "";
       }
 
-      let filteredGroupedThreads = [];
+      let groupedThreads = [];
       if (threads && threads.length > 0) {
-        const groupedThreads = this.groupTweetsByConversation(
-          threads.flatMap((thread) => thread.tweets)
-        );
-        logger.info(`GeminiService: Pre-filtering ${groupedThreads.length} X threads...`);
-        const threadIndices = await this.filterSubstantiveContent(groupedThreads);
-        filteredGroupedThreads = groupedThreads.filter((_, idx) => threadIndices.includes(idx));
+        // Preserve the scraper's candidate boundaries. See normalizeCollectedThreads.
+        groupedThreads = this.normalizeCollectedThreads(threads);
+        logger.info(`GeminiService: Building a resource file from all ${groupedThreads.length} pre-vetted X threads...`);
       }
 
-      let filteredLinkedinPosts = [];
+      const curatedLinkedinPosts = Array.isArray(linkedinPosts) ? linkedinPosts.filter(Boolean) : [];
       if (linkedinPosts && linkedinPosts.length > 0) {
-        logger.info(`GeminiService: Pre-filtering ${linkedinPosts.length} LinkedIn posts...`);
-        const postIndices = await this.filterSubstantiveContent(linkedinPosts);
-        filteredLinkedinPosts = linkedinPosts.filter((_, idx) => postIndices.includes(idx));
+        logger.info(`GeminiService: Including all ${curatedLinkedinPosts.length} pre-vetted LinkedIn posts...`);
       }
 
-      if (filteredGroupedThreads.length === 0 && filteredLinkedinPosts.length === 0) {
-        logger.warn("GeminiService: All threads and LinkedIn posts filtered out as non-substantive.");
-        return "";
+      if (groupedThreads.length === 0 && curatedLinkedinPosts.length === 0) {
+        throw new Error("No pre-vetted source content was provided; skipping publication.");
       }
 
       let combinedPrompt = "";
 
-      if (filteredGroupedThreads.length > 0) {
+      if (groupedThreads.length > 0) {
         combinedPrompt += "--- TWITTER/X THREADS ---\n\n";
-        for (const threadTweets of filteredGroupedThreads) {
+        for (const [sourceIndex, threadTweets] of groupedThreads.entries()) {
           let threadContent = "";
-          threadContent += `[Type: ${threadTweets.type || 'thread'}]\n`;
+          threadContent += `[Source #${sourceIndex + 1} | Type: ${threadTweets.type || 'thread'}]\n`;
           for (const tweet of threadTweets) {
             let content = tweet.text || "";
             if (tweet.images && tweet.images.length > 0) {
@@ -1405,10 +1399,10 @@ If you liked reading this report, please star ⭐️ this repository and follow 
         }
       }
 
-      if (filteredLinkedinPosts.length > 0) {
+      if (curatedLinkedinPosts.length > 0) {
         combinedPrompt += "--- LINKEDIN POSTS ---\n\n";
-        for (const post of filteredLinkedinPosts) {
-          let content = `Post by ${post.author || "Unknown"}:\n${post.text || ""}`;
+        for (const [sourceIndex, post] of curatedLinkedinPosts.entries()) {
+          let content = `[LinkedIn Source #${sourceIndex + 1}] Post by ${post.author || "Unknown"}:\n${post.text || ""}`;
           if (post.images && post.images.length > 0) {
             content += "\n\n" + post.images.map((img) => `![Image](${img})`).join("\n");
           }
@@ -1448,7 +1442,7 @@ If you liked reading this report, please star ⭐️ this repository and follow 
       `;
 
       const prompt = `
-Transform the following Twitter threads and LinkedIn posts into high-quality, professional technical markdown articles.
+Transform every provided Twitter thread and LinkedIn post into high-quality, professional technical markdown articles in one resource file.
 
 Note: Some Twitter threads are single tweets (Type: tweet) and others are multi-tweet threads (Type: thread). Single tweets should be summarized concisely as single-concept updates, whereas multi-tweet threads can be expanded into more detailed structured articles if they contain enough depth.
 
@@ -1480,6 +1474,7 @@ Strict rules:
 - Only use verified links and images directly present in the source text.
 - No bold, italic, extra emojis, or extra sections.
 - Make one formatted article for each high-quality content item provided.
+- COVERAGE IS A HARD REQUIREMENT: create exactly ${groupedThreads.length + curatedLinkedinPosts.length} article sections, one for every numbered source. Do not select a favourite subset, omit a source, or publish a one-item roundup.
 - Do not repeat content or links within a single article.
 - Separate distinct articles with "---" and a newline.
 
@@ -1511,11 +1506,13 @@ If you liked reading this report, please star ⭐️ this repository and follow 
 
 ---`;
 
-        return (
+        const markdown = (
           generatedText.replace(/\n---\n\s*$/g, "").trim() +
           "\n\n" +
           supportSection
         );
+        this.assertPublishableMarkdown(markdown, groupedThreads.length + curatedLinkedinPosts.length);
+        return markdown;
       } catch (error) {
         logger.error("GeminiService: generateMarkdownFromCombined API error:", error);
         if (retries > 0) {
@@ -2258,8 +2255,11 @@ JSON schema:
   groupTweetsByConversation(tweets) {
     const conversations = new Map();
 
-    tweets.forEach((tweet) => {
-      const conversationId = tweet.conversation_id || tweet.id;
+    tweets.forEach((tweet, index) => {
+      // URL is always extracted by TwitterService and is a stable fallback. The
+      // final fallback deliberately remains unique so unrelated tweets are never
+      // merged into an "undefined" conversation.
+      const conversationId = tweet.conversation_id || tweet.id || tweet.url || `tweet-${index}`;
       if (!conversations.has(conversationId)) {
         conversations.set(conversationId, []);
       }
@@ -2271,6 +2271,53 @@ JSON schema:
       group.type = group.length > 1 ? 'thread' : 'tweet';
       return group;
     });
+  }
+
+  normalizeCollectedThreads(collections) {
+    if (!Array.isArray(collections)) return [];
+
+    return collections
+      .map((collection, index) => {
+        const tweets = Array.isArray(collection?.tweets)
+          ? collection.tweets.filter(Boolean)
+          : collection ? [collection] : [];
+        if (tweets.length === 0) return null;
+
+        // De-duplicate nodes that can be encountered again while scrolling.
+        const seen = new Set();
+        const uniqueTweets = tweets.filter((tweet, tweetIndex) => {
+          const key = tweet?.id || tweet?.url || `${index}-${tweetIndex}-${tweet?.text || ""}`;
+          if (seen.has(key)) return false;
+          seen.add(key);
+          return true;
+        });
+        uniqueTweets.type = uniqueTweets.length > 1 ? "thread" : "tweet";
+        return uniqueTweets;
+      })
+      .filter(Boolean);
+  }
+
+  assertPublishableMarkdown(markdown, expectedArticleCount = 1) {
+    const content = typeof markdown === "string" ? markdown.trim() : "";
+    const contentWithoutFooter = content
+      .replace(/---\s*\n\s*### ⭐️ Support[\s\S]*$/m, "")
+      .trim();
+    const articleCount = (contentWithoutFooter.match(/^###\s+/gm) || []).length;
+    const keyPointsCount = (contentWithoutFooter.match(/^Key Points:/gm) || []).length;
+    const bulletCount = (contentWithoutFooter.match(/^•\s+.+/gm) || []).length;
+    const requiredArticleCount = Math.max(1, Number.isInteger(expectedArticleCount) ? expectedArticleCount : 1);
+    const minimumCharacters = Math.max(1_500, requiredArticleCount * 400);
+
+    if (
+      contentWithoutFooter.length < minimumCharacters ||
+      articleCount < requiredArticleCount ||
+      keyPointsCount < requiredArticleCount ||
+      bulletCount < requiredArticleCount * 3
+    ) {
+      throw new Error(
+        `Generated markdown failed publication quality gate (articles=${articleCount}/${requiredArticleCount}, keyPoints=${keyPointsCount}/${requiredArticleCount}, bullets=${bulletCount}/${requiredArticleCount * 3}, characters=${contentWithoutFooter.length}/${minimumCharacters}).`
+      );
+    }
   }
 }
 

@@ -1,5 +1,10 @@
 require("dotenv").config();
 
+const parsePositiveInteger = (value, fallback) => {
+  const parsed = Number.parseInt(value, 10);
+  return Number.isSafeInteger(parsed) && parsed > 0 ? parsed : fallback;
+};
+
 const config = {
   github: {
     personalAccessToken: process.env.GITHUB_PAT,
@@ -14,8 +19,8 @@ const config = {
   },
   monitoring: {
     targetListId: process.env.MONITOR_LIST_ID,
-    checkInterval: parseInt(process.env.CHECK_INTERVAL) || 300000,
-    rateLimitDelay: parseInt(process.env.RATE_LIMIT_DELAY) || 60000,
+    checkInterval: parsePositiveInteger(process.env.CHECK_INTERVAL, 300000),
+    rateLimitDelay: parsePositiveInteger(process.env.RATE_LIMIT_DELAY, 60000),
     sendAllTweets: process.env.SEND_ALL_TWEETS === "true" || false,
     keywords: process.env.MONITOR_KEYWORDS
       ? process.env.MONITOR_KEYWORDS.split(",").map((k) => k.trim())
@@ -195,8 +200,21 @@ const config = {
   ],
 };
 
+// A duplicated category causes the same list to be scraped, uploaded, and
+// announced twice in one run. Keep the first declaration as the canonical one.
+const seenFolderNames = new Set();
+config.folders = config.folders.filter((folder) => {
+  if (seenFolderNames.has(folder.name)) {
+    console.warn(`Ignoring duplicate configured folder: ${folder.name}`);
+    return false;
+  }
+  seenFolderNames.add(folder.name);
+  return true;
+});
+
 const requiredConfigs = {
   "GitHub Personal Access Token": config.github.personalAccessToken,
+  "GitHub Username": config.github.owner,
   "GitHub Repository": config.github.repo,
   "Gemini API Key": config.gemini.apiKey,
   "Folder(s)": config.folders,

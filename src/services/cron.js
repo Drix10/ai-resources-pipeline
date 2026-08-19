@@ -12,6 +12,42 @@ const cron = require("node-cron");
 
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 5000;
+const MIN_PUBLISHABLE_CANDIDATES = 6;
+const PIPELINE_LOCK_PATH = path.join(process.cwd(), ".pipeline.lock");
+
+const acquirePipelineLock = () => {
+  try {
+    const fd = fs.openSync(PIPELINE_LOCK_PATH, "wx");
+    fs.writeFileSync(fd, JSON.stringify({ pid: process.pid, startedAt: new Date().toISOString() }));
+    fs.closeSync(fd);
+    return true;
+  } catch (error) {
+    if (error.code !== "EEXIST") throw error;
+    try {
+      const lock = JSON.parse(fs.readFileSync(PIPELINE_LOCK_PATH, "utf8"));
+      // A stale lock from a terminated run must not prevent the next scheduled run.
+      process.kill(lock.pid, 0);
+      logger.warn(`Another pipeline process is already running (PID ${lock.pid}); skipping this run.`);
+      return false;
+    } catch (lockError) {
+      if (lockError.code === "ESRCH" || lockError instanceof SyntaxError) {
+        fs.unlinkSync(PIPELINE_LOCK_PATH);
+        return acquirePipelineLock();
+      }
+      throw lockError;
+    }
+  }
+};
+
+const releasePipelineLock = () => {
+  try {
+    if (!fs.existsSync(PIPELINE_LOCK_PATH)) return;
+    const lock = JSON.parse(fs.readFileSync(PIPELINE_LOCK_PATH, "utf8"));
+    if (lock.pid === process.pid) fs.unlinkSync(PIPELINE_LOCK_PATH);
+  } catch (error) {
+    logger.warn(`Could not release pipeline lock: ${error.message}`);
+  }
+};
 
 const runDataPipeline = async (folder) => {
   for (let retryCount = 0; retryCount <= MAX_RETRIES; retryCount++) {
@@ -20,13 +56,20 @@ const runDataPipeline = async (folder) => {
       const linkedinPosts = [];
 
       logger.info(`Fetching tweets for folder: ${folder.name}...`);
-      const tweets = await TwitterService.fetchTweets({ folder }).catch(err => {
-        logger.error(`Error fetching tweets for ${folder.name}:`, err);
-        return [];
-      }) || [];
+      // Let failures reach the retry loop. Converting a browser/network failure
+      // into an empty array makes the pipeline falsely report "no new content".
+      const tweets = await TwitterService.fetchTweets({ folder }) || [];
 
       if (tweets.length === 0 && linkedinPosts.length === 0) {
         logger.info(`No new content found on X for folder: ${folder.name}`);
+        return null;
+      }
+
+      const sourceCount = tweets.length + linkedinPosts.length;
+      if (sourceCount < MIN_PUBLISHABLE_CANDIDATES) {
+        logger.info(
+          `Skipping ${folder.name}: only ${sourceCount}/${MIN_PUBLISHABLE_CANDIDATES} pre-vetted sources were collected; preserving the quality bar.`
+        );
         return null;
       }
 
@@ -40,6 +83,10 @@ const runDataPipeline = async (folder) => {
       if (!githubResult?.success) {
         throw new Error("Failed to create and upload combined markdown file");
       }
+
+      // Only a confirmed GitHub upload consumes the source IDs. This preserves
+      // candidates across retries when curation or upload fails temporarily.
+      TwitterService.markContentAsPublished(tweets);
 
       // Post to Twitter/X
       const tweetText = `New ${getTopicName(
@@ -200,48 +247,54 @@ const runEndofRunCuration = async (successfulArticles) => {
  * updates README, runs end-of-run LinkedIn curation, and cleans up temp files.
  */
 const processAllFolders = async () => {
-  await TwitterService.init();
+  if (!acquirePipelineLock()) return;
 
-  const successfulArticles = [];
-  for (const folder of config.folders) {
-    try {
-      const result = await runDataPipeline(folder);
-      if (result) {
-        logger.info(
-          `Pipeline succeeded for folder type ${result.queryName}: ${result.githubUrl}`
-        );
-        successfulArticles.push({
-          title: result.queryName,
-          githubUrl: result.githubUrl,
-          fullContent: result.markdownContent
-        });
-      } else {
-        logger.info(
-          `Pipeline completed for folder, but no new threads/posts were found.`
-        );
-      }
-    } catch (error) {
-      logger.error(`Pipeline iteration failed for folder ${folder.name}:`, error);
-      // Continue to next folder despite error
-    }
-  }
-
-  await GithubService.updateReadmeWithNewFile(
-    config.github.owner,
-    config.github.repo
-  );
-
-  // Run the end-of-run LinkedIn curation flow
-  await runEndofRunCuration(successfulArticles);
-
-  // Cleanup leftover debug screenshots from root
-  TwitterService.cleanupScreenshots();
-  LinkedInService.cleanupDebugScreenshots();
   try {
-    if (fs.existsSync("linkedin-post-failed.png")) {
-      fs.unlinkSync("linkedin-post-failed.png");
+    await TwitterService.init();
+
+    const successfulArticles = [];
+    for (const folder of config.folders) {
+      try {
+        const result = await runDataPipeline(folder);
+        if (result) {
+          logger.info(
+            `Pipeline succeeded for folder type ${result.queryName}: ${result.githubUrl}`
+          );
+          successfulArticles.push({
+            title: result.queryName,
+            githubUrl: result.githubUrl,
+            fullContent: result.markdownContent
+          });
+        } else {
+          logger.info(
+            `Pipeline completed for folder, but no new threads/posts were found.`
+          );
+        }
+      } catch (error) {
+        logger.error(`Pipeline iteration failed for folder ${folder.name}:`, error);
+        // Continue to next folder despite error
+      }
     }
-  } catch (e) { }
+
+    await GithubService.updateReadmeWithNewFile(
+      config.github.owner,
+      config.github.repo
+    );
+
+    // Run the end-of-run LinkedIn curation flow
+    await runEndofRunCuration(successfulArticles);
+
+    // Cleanup leftover debug screenshots from root
+    TwitterService.cleanupScreenshots();
+    LinkedInService.cleanupDebugScreenshots();
+    try {
+      if (fs.existsSync("linkedin-post-failed.png")) {
+        fs.unlinkSync("linkedin-post-failed.png");
+      }
+    } catch (e) { }
+  } finally {
+    releasePipelineLock();
+  }
 };
 
 let scheduledJob = null;

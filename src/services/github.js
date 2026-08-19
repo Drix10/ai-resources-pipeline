@@ -54,6 +54,7 @@ class GithubService {
       }
 
       const markdownContent = await geminiService.generateMarkdown(threadData);
+      geminiService.assertPublishableMarkdown(markdownContent);
       const fileBuffer = Buffer.from(markdownContent);
 
       const result = await this.uploadMarkdownFile(
@@ -91,6 +92,9 @@ class GithubService {
       }
 
       const markdownContent = await geminiService.generateMarkdownFromCombined(threads, linkedinPosts);
+      // This is a final defensive boundary: no model response can create a
+      // repository file (or social announcement) unless it contains a real article.
+      geminiService.assertPublishableMarkdown(markdownContent);
       const fileBuffer = Buffer.from(markdownContent);
 
       const result = await this.uploadMarkdownFile(
@@ -257,8 +261,9 @@ class GithubService {
 
       let updatesContent = "";
 
-      // Process all folders in parallel
-      const folderPromises = config.folders.map(async (folder) => {
+      // GitHub's contents API is rate-limited. A small bounded pool is faster
+      // than sequential calls without turning one README refresh into a burst.
+      const folderResults = await this.mapWithConcurrency(config.folders, 4, async (folder) => {
         const decodedFolder = folder.name.replace(/ /g, " ");
         try {
           // Add delay to prevent hitting rate limits
@@ -302,16 +307,6 @@ class GithubService {
             sectionContent += `*   Error loading resources.\n\n`;
           }
           return { name: folder.name, content: sectionContent };
-        }
-      });
-
-      const folderSettledResults = await Promise.allSettled(folderPromises);
-      
-      const folderResults = folderSettledResults.map(result => {
-        if (result.status === 'fulfilled') {
-          return result.value;
-        } else {
-          return { name: "unknown", content: "" }; // Should be handled in try-catch above but safe fallback
         }
       });
       
@@ -422,6 +417,7 @@ class GithubService {
       const branch = "main";
 
       let existingSha = null;
+      let existingContent = null;
       try {
         const existing = await this.octokit.repos.getContent({
           owner,
@@ -430,11 +426,22 @@ class GithubService {
           ref: branch,
         });
         existingSha = existing.data.sha;
+        existingContent = Buffer.from(existing.data.content || "", "base64").toString("utf8");
       } catch (error) {
         if (error.status !== 404) {
           throw error;
         }
         logger.info("README.md not found, creating a new one.");
+      }
+
+      if (existingContent === content) {
+        logger.info("README is already current; skipping redundant commit.");
+        return {
+          success: true,
+          skipped: true,
+          url: `https://github.com/${owner}/${repo}/blob/main/${path}`,
+          sha: existingSha,
+        };
       }
 
       const response = await this.octokit.repos.createOrUpdateFileContents({
@@ -453,48 +460,16 @@ class GithubService {
 
       logger.info("README updated successfully");
 
-      let releaseVersion;
-
-      try {
-        const releases = await this.octokit.repos.listReleases({ owner, repo });
-
-        if (releases.data.length > 0) {
-          const lastRelease = releases.data[0];
-          const lastBuildNumber = parseInt(
-            lastRelease.tag_name.split(".").pop()
-          );
-          releaseVersion = `v0.0.${lastBuildNumber + 1}`;
-        } else {
-          releaseVersion = "v0.0.1";
-        }
-      } catch (error) {
-        logger.warn("No previous releases found, starting from v0.0.1", error);
-      }
-
-      const release = await this.octokit.repos.createRelease({
-        owner,
-        repo,
-        tag_name: releaseVersion,
-        name: `${releaseVersion} - Latest AI resources`,
-        body: `Star this repo and Follow Drix10 for more!`,
-        draft: false,
-        prerelease: false,
-      });
-
-      logger.info(`Release ${releaseVersion} created successfully`);
-
       return {
         success: true,
         url: `https://github.com/${owner}/${repo}/blob/main/README.md`,
         sha: response.data.content.sha,
-        releaseUrl: release.data.html_url,
-        version: releaseVersion,
       };
     } catch (error) {
-      handleError(error, "Failed to update README and create release");
+      handleError(error, "Failed to update README");
       return {
         success: false,
-        message: "Failed to update README or create release",
+        message: "Failed to update README",
         error: error.message,
       };
     }
@@ -527,6 +502,21 @@ class GithubService {
         throw error;
       }
     }
+  }
+
+  async mapWithConcurrency(items, limit, worker) {
+    const results = new Array(items.length);
+    let nextIndex = 0;
+    const workerCount = Math.min(Math.max(1, limit), items.length);
+
+    await Promise.all(Array.from({ length: workerCount }, async () => {
+      while (nextIndex < items.length) {
+        const index = nextIndex++;
+        results[index] = await worker(items[index], index);
+      }
+    }));
+
+    return results;
   }
 }
 

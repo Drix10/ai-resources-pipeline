@@ -24,6 +24,16 @@ class TwitterService {
     }
   }
 
+  markContentAsPublished(collections) {
+    for (const collection of collections || []) {
+      for (const tweet of collection?.tweets || []) {
+        const id = tweet?.id || tweet?.url?.split("/status/")[1]?.split("?")[0];
+        if (id) this.processedTweetIds.add(id);
+      }
+    }
+    this.clearProcessedIds();
+  }
+
   getSearchQuery(folder) {
     if (!folder || !folder.lists || folder.lists.length === 0) {
       throw new Error("Invalid folder provided to getSearchQuery");
@@ -104,7 +114,8 @@ class TwitterService {
       const SCROLL_PAUSE = 3000; // Increased for Twitter to load content
       const MAX_NO_NEW_TWEETS = 5; // Exit faster if stuck
       const INITIAL_LOAD_TIMEOUT = 30000;
-      const MIN_TOTAL_WORDS = 15; // Lowered from 40 to capture link-heavy tweets
+      const MIN_TOTAL_WORDS = 30;
+      const MIN_WORDS_WITH_EXTERNAL_LINK = 15;
 
       const extractTweetData = async (tweetElement, retries = 2) => {
         if (!tweetElement) return null;
@@ -141,8 +152,14 @@ class TwitterService {
             tweetText = `${tweetText}\n\nQuoted Tweet:\n${quotedTweetText}`;
           }
 
-          // Anti-spam keyword filter
-          const spamKeywords = ["we are hiring", "hiring for", "dm me to", "join my team", "dm for", "check out my course", "buy my book"];
+          // Reject obvious promotion, recruitment, and engagement bait before a
+          // candidate can reach the publication set. The AI must not be asked to
+          // clean up a weak collection later in the pipeline.
+          const spamKeywords = [
+            "we are hiring", "hiring for", "dm me to", "join my team", "dm for",
+            "check out my course", "buy my book", "join the waitlist", "sign up now",
+            "use my code", "limited spots", "giveaway", "subscribe for", "link in bio"
+          ];
           const isSpam = spamKeywords.some(keyword => tweetText.toLowerCase().includes(keyword));
           if (isSpam) {
             logger.debug("Skipping tweet: Detected spam/hiring keyword");
@@ -231,6 +248,7 @@ class TwitterService {
       let noNewTweetsCount = 0;
       let validTweetsCount = 0;
       let lastSeenTweetIds = new Set();
+      const collectedTweetIds = new Set();
       let sameContentCount = 0;
       const MAX_SEEN_TWEETS = 1000; // Prevent memory leak
 
@@ -405,7 +423,7 @@ class TwitterService {
               newTweetsFound++;
             }
 
-            if (this.processedTweetIds.has(tweetId)) {
+            if (this.processedTweetIds.has(tweetId) || collectedTweetIds.has(tweetId)) {
               continue;
             }
 
@@ -494,16 +512,17 @@ class TwitterService {
               .split(/\s+/)
               .filter((word) => word.length > 0).length;
 
-            const hasMediaOrLinks = threadTweets.some(
-              (t) =>
-                (t.links && t.links.length > 0) ||
-                (t.images && t.images.length > 0) ||
-                (t.videos && t.videos.length > 0)
+            const hasExternalLink = threadTweets.some((t) =>
+              (t.links || []).some((link) => /^https?:\/\//i.test(link) && !/^(https?:\/\/)?(?:www\.)?(?:x|twitter)\.com\//i.test(link))
             );
+            const hasEnoughSourceDetail =
+              wordCount >= MIN_TOTAL_WORDS ||
+              (hasExternalLink && wordCount >= MIN_WORDS_WITH_EXTERNAL_LINK);
 
-            if (wordCount >= MIN_TOTAL_WORDS || hasMediaOrLinks) {
-              // Mark as processed only if it meets criteria
-              this.processedTweetIds.add(tweetId);
+            if (hasEnoughSourceDetail) {
+              // Keep it local until GitHub confirms publication. Marking it now
+              // loses the source forever when Gemini or GitHub has a transient error.
+              collectedTweetIds.add(tweetId);
 
               collectedContent.push({
                 tweets: threadTweets,
@@ -515,7 +534,7 @@ class TwitterService {
               // Don't mark as processed if it doesn't meet word count
               // It might be part of a longer thread we haven't seen yet
               logger.debug(
-                `Tweet ${tweetId} only has ${wordCount} words, skipping for now`
+                `Tweet ${tweetId} lacks enough technical detail (${wordCount} words), skipping`
               );
             }
           } catch (processingError) {

@@ -35,5 +35,5 @@ linkedin-search-failed.png
 tweet-failed.png
 login-error.png
 
-# Lock files (use npm ci in CI, not npm install with lockfile)
-package-lock.json
+# Runtime coordination
+.pipeline.lock
