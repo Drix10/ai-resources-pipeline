@@ -163,7 +163,7 @@ Use "• " for all bullet points.
 `;
 
 const model = genAI.getGenerativeModel({
-  model: "gemini-2.5-flash",
+  model: "gemini-3.5-flash",
   safetySettings,
   systemInstruction: SYSTEM_PROMPT,
 });
@@ -423,7 +423,7 @@ JSON schema:
 
       await this.checkRateLimit();
       const responseModel = genAI.getGenerativeModel({
-        model: "gemini-2.5-flash",
+        model: "gemini-3.5-flash",
         generationConfig: {
           responseMimeType: "application/json",
           responseSchema: responseSchema
@@ -1593,7 +1593,7 @@ JSON schema:
       try {
         await this.checkRateLimit();
         const responseModel = genAI.getGenerativeModel({
-          model: "gemini-2.5-flash",
+          model: "gemini-3.5-flash",
           generationConfig: {
             responseMimeType: "application/json",
             responseSchema: responseSchema
@@ -1697,7 +1697,7 @@ JSON schema:
       try {
         await this.checkRateLimit();
         const responseModel = genAI.getGenerativeModel({
-          model: "gemini-2.5-flash",
+          model: "gemini-3.5-flash",
           generationConfig: {
             responseMimeType: "application/json",
             responseSchema: responseSchema
@@ -1813,7 +1813,7 @@ JSON schema:
     try {
       await this.checkRateLimit();
       const responseModel = genAI.getGenerativeModel({
-        model: "gemini-2.5-flash",
+        model: "gemini-3.5-flash",
         generationConfig: {
           responseMimeType: "application/json",
           responseSchema: responseSchema
@@ -1992,7 +1992,7 @@ JSON schema:
     try {
       await this.checkRateLimit();
       const responseModel = genAI.getGenerativeModel({
-        model: "gemini-2.5-flash",
+        model: "gemini-3.5-flash",
         generationConfig: {
           responseMimeType: "application/json",
           responseSchema: responseSchema
