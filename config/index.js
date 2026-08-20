@@ -15,6 +15,9 @@ const config = {
     baseUrl: (process.env.LOCAL_LLM_BASE_URL || "http://127.0.0.1:11434").replace(/\/$/, ""),
     model: process.env.LOCAL_LLM_MODEL || "gemma4:latest",
     requestTimeoutMs: parsePositiveInteger(process.env.LOCAL_LLM_REQUEST_TIMEOUT_MS, 300000),
+    startupTimeoutMs: parsePositiveInteger(process.env.LOCAL_LLM_STARTUP_TIMEOUT_MS, 60000),
+    autoStart: process.env.LOCAL_LLM_AUTO_START !== "false",
+    command: process.env.LOCAL_LLM_COMMAND || "ollama",
     maxFoldersPerRun: parsePositiveInteger(process.env.MAX_FOLDERS_PER_RUN, 12),
   },
   discord: {
