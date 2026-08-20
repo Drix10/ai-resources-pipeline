@@ -3,14 +3,14 @@
 </div>
 
 <h1 align="center">
-Twitter-Gemini-GitHub-MVP
+Local LLM X-to-GitHub MVP
 </h1>
-<h4 align="center">Automates Twitter data collection and GitHub Markdown storage using Gemini AI</h4>
+<h4 align="center">Automates X data collection and GitHub Markdown storage using a local LLM</h4>
 <h4 align="center">Developed with the software and tools below.</h4>
 <div class="badges" align="center">
-  <img src="https://img.shields.io/badge/Framework-Node.js%20with%20Express.js-blue" alt="Framework">
+  <img src="https://img.shields.io/badge/Framework-Node.js%20CLI-blue" alt="Framework">
   <img src="https://img.shields.io/badge/Backend-JavaScript-red" alt="Backend">
-  <img src="https://img.shields.io/badge/AI-Google%20Gemini-black" alt="AI">
+  <img src="https://img.shields.io/badge/AI-Local%20LLM-black" alt="AI">
 </div>
 <div class="badges" align="center">
   <img src="https://img.shields.io/github/last-commit/Drix10/Twitter-Gemini-GitHub-MVP?style=flat-square&color=5D6D7E" alt="git-last-commit" />
@@ -31,14 +31,14 @@ Twitter-Gemini-GitHub-MVP
 
 ## 📍 Overview
 
-This repository contains a Minimum Viable Product (MVP) that automates the collection of Twitter data and stores it in a structured Markdown format on GitHub, leveraging Google's Gemini AI for content processing. This addresses the need for researchers and developers to efficiently collect and organize relevant Twitter content.
+This repository contains a Minimum Viable Product (MVP) that automates the collection of X data and stores it in a structured Markdown format on GitHub, using a locally hosted LLM for content processing.
 
 ## 📦 Features
 
 |     | Feature                           | Description                                                                                                                                 |
 | --- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | Twitter Authentication & Scraping | Authenticates with the Twitter API v2 and scrapes tweets based on specified keywords or hashtags. Handles rate limits and errors.           |
-| 2   | Gemini AI Content Generation      | Uses Google's Gemini API to convert scraped tweet data into well-formatted Markdown files.                                                  |
+| 1   | X Authentication & Scraping       | Uses a logged-in Chrome session to scrape configured X lists. Handles browser failures and rate limits.                                   |
+| 2   | Local LLM Content Generation      | Uses Ollama to convert scraped X data into well-formatted Markdown files.                                                  |
 | 3   | GitHub Repository Management      | Interacts with a designated GitHub repository to commit the generated Markdown files to a specified folder. Handles rate limits and errors. |
 | 4   | Automated Timely Execution        | Automates the entire process using Node-cron to run at specified time. Includes error handling and discord webhook notifications.           |
 
@@ -46,11 +46,11 @@ This repository contains a Minimum Viable Product (MVP) that automates the colle
 
 ### 🔧 Prerequisites
 
-- Node.js v16+
+- Node.js v18+
 - npm 8+
-- A Google Cloud Project with the Gemini API enabled
+- Ollama installed with a supported local model
 - A GitHub account and Personal Access Token
-- Twitter account credentials
+- A Chrome profile that can be logged into X and LinkedIn manually
 
 ### 🚀 Setup Instructions
 
@@ -66,15 +66,17 @@ This repository contains a Minimum Viable Product (MVP) that automates the colle
 
 ```bash
 GITHUB_PAT= # The GitHub personal access token
-GEMINI_API_KEY= # The Gemini API key
 TWITTER_USERNAME= # Your Twitter username
 TWITTER_PASSWORD= # Your Twitter password
 DISCORD_WEBHOOK_URL= # Your Discord webhook URL
-GITHUB_USERNAME= # Your Github Username
-GITHUB_REPONAME= # Your Github Repository name
+   GITHUB_USERNAME= # Your Github Username
+   GITHUB_REPONAME= # Your Github Repository name
+   LOCAL_LLM_BASE_URL=http://127.0.0.1:11434
+   LOCAL_LLM_MODEL=gemma4:latest
+   LOCAL_LLM_REQUEST_TIMEOUT_MS=300000
 ```
 
-3. Fill/change config/index.js with the Folder name & lists to track
+3. Configure the local LLM and fill/change `config/index.js` with the folders and lists to track.
 
 ## 🏗️ Usage
 
@@ -88,7 +90,7 @@ GITHUB_REPONAME= # Your Github Repository name
    ```bash
    npm run list
    ```
-3. The main application will run on port 3000 with hourly cron jobs by default.
+3. The main application runs as a background CLI process with an immediate pipeline and randomized UTC cron schedule.
 
 ## 📄 License & Attribution
 

@@ -11,8 +11,11 @@ const config = {
     owner: process.env.GITHUB_USERNAME,
     repo: process.env.GITHUB_REPONAME,
   },
-  gemini: {
-    apiKey: process.env.GEMINI_API_KEY,
+  llm: {
+    baseUrl: (process.env.LOCAL_LLM_BASE_URL || "http://127.0.0.1:11434").replace(/\/$/, ""),
+    model: process.env.LOCAL_LLM_MODEL || "gemma4:latest",
+    requestTimeoutMs: parsePositiveInteger(process.env.LOCAL_LLM_REQUEST_TIMEOUT_MS, 300000),
+    maxFoldersPerRun: parsePositiveInteger(process.env.MAX_FOLDERS_PER_RUN, 12),
   },
   discord: {
     webhookUrl: process.env.DISCORD_WEBHOOK_URL,
@@ -216,7 +219,6 @@ const requiredConfigs = {
   "GitHub Personal Access Token": config.github.personalAccessToken,
   "GitHub Username": config.github.owner,
   "GitHub Repository": config.github.repo,
-  "Gemini API Key": config.gemini.apiKey,
   "Folder(s)": config.folders,
 };
 

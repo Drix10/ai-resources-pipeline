@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const geminiService = require("./src/services/gemini");
+const localLlmService = require("./src/services/local-llm");
 const linkedinService = require("./src/services/linkedin");
 const LinkedInService = new linkedinService();
 const githubService = require("./src/services/github");
@@ -164,11 +164,11 @@ async function runLivePostCuration() {
 
     // If a single markdown file contains multiple sub-articles, flatten them so
     // the topic selector can return a valid, focused index.
-    const flattenedArticles = geminiService.splitArticlesIntoSubArticles(articles);
+    const flattenedArticles = localLlmService.splitArticlesIntoSubArticles(articles);
 
-    logger.info("\nStep 1: Querying Gemini to select the single best topic for LinkedIn...");
-    const selectedIndices = await geminiService.selectBestArticlesForLinkedIn(flattenedArticles);
-    logger.info(`Selected indices from Gemini: ${JSON.stringify(selectedIndices)}`);
+    logger.info("\nStep 1: Querying local LLM to select the single best topic for LinkedIn...");
+    const selectedIndices = await localLlmService.selectBestArticlesForLinkedIn(flattenedArticles);
+    logger.info(`Selected indices from local LLM: ${JSON.stringify(selectedIndices)}`);
 
     const uniqueIndices = [...new Set(selectedIndices.map((idx) => Number(idx)))];
     const selectedArticles = uniqueIndices
@@ -180,7 +180,7 @@ async function runLivePostCuration() {
     }
 
     if (selectedArticles.length === 0) {
-      logger.warn("No articles were selected by Gemini. Defaulting to the first available article.");
+      logger.warn("No articles were selected by the local LLM. Defaulting to the first available article.");
       selectedArticles.push(flattenedArticles[0]);
     }
 
@@ -194,10 +194,19 @@ async function runLivePostCuration() {
 
     for (let attempt = 1; attempt <= maxGenerationAttempts; attempt++) {
       logger.info(`\nStep 2: Running optimized 2026 virality formulas to generate LinkedIn post (attempt ${attempt}/${maxGenerationAttempts})...`);
-      postData = await geminiService.generateLinkedInMasterPost(selectedArticles, 3, validationFeedback);
+      try {
+        postData = await localLlmService.generateLinkedInMasterPost(selectedArticles, 3, validationFeedback);
+      } catch (generationError) {
+        if (generationError.code !== "LOCAL_LLM_QUALITY_REJECTED" || attempt === maxGenerationAttempts) {
+          throw generationError;
+        }
+        validationFeedback = [generationError.message];
+        logger.warn(`Draft rejected; retrying with feedback: ${generationError.message}`);
+        continue;
+      }
 
       const githubUrl = selectedArticles[0].githubUrl || "";
-      const sourceBulletCount = geminiService.countSourceBullets(selectedArticles[0].fullContent || "");
+      const sourceBulletCount = localLlmService.countSourceBullets(selectedArticles[0].fullContent || "");
 
       // Prefer the validation that ran inside generateLinkedInMasterPost (with hook-filtered manual points).
       const internalValidation = postData && postData.isValid !== undefined;
@@ -207,7 +216,7 @@ async function runLivePostCuration() {
             qualityScore: postData.qualityScore,
             errors: postData.validationErrors || []
           }
-        : geminiService.validatePostText(postData, githubUrl, sourceBulletCount);
+        : localLlmService.validatePostText(postData, githubUrl, sourceBulletCount);
 
       if (validation.isValid) {
         logger.info(`Post passed quality validation (score: ${validation.qualityScore})`);
@@ -253,7 +262,7 @@ async function runLivePostCuration() {
       logger.info("\n=============================================================");
       logger.info("SUCCESS: Curated LinkedIn update and first comment published!");
       logger.info("=============================================================");
-      geminiService.saveRecentTopic(selectedArticles[0].title);
+      localLlmService.saveRecentTopic(selectedArticles[0].title);
     } else {
       logger.warn("\nFAILED: LinkedIn poster returned false status.");
     }

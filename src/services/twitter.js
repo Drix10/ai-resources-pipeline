@@ -2,15 +2,19 @@ const { Builder, By, Key, until } = require("selenium-webdriver");
 const chrome = require("selenium-webdriver/chrome");
 const config = require("../../config");
 const { logger, sleep } = require("../utils/helpers");
+const fs = require("fs");
+const path = require("path");
+
+const PROCESSED_IDS_PATH = path.join(process.cwd(), ".processed-tweet-ids.json");
 
 class TwitterService {
   constructor() {
     this.driver = null;
-    this.RATE_LIMIT_DELAY = 60000;
+    this.RATE_LIMIT_DELAY = config.monitoring.rateLimitDelay;
     this.lastRequestTime = 0;
     this.isInitialized = false;
-    this.processedTweetIds = new Set();
     this.MAX_PROCESSED_IDS = 10000; // Prevent memory leak
+    this.processedTweetIds = this.loadProcessedIds();
   }
 
   clearProcessedIds() {
@@ -21,17 +25,51 @@ class TwitterService {
       const idsArray = Array.from(this.processedTweetIds);
       const keptIds = idsArray.slice(Math.floor(idsArray.length / 2));
       this.processedTweetIds = new Set(keptIds);
+      this.persistProcessedIds();
+    }
+  }
+
+  loadProcessedIds() {
+    try {
+      if (!fs.existsSync(PROCESSED_IDS_PATH)) return new Set();
+      const parsed = JSON.parse(fs.readFileSync(PROCESSED_IDS_PATH, "utf8"));
+      if (!Array.isArray(parsed)) return new Set();
+      return new Set(parsed.filter((id) => typeof id === "string").slice(-this.MAX_PROCESSED_IDS));
+    } catch (error) {
+      logger.warn(`Could not load published X IDs: ${error.message}`);
+      return new Set();
+    }
+  }
+
+  persistProcessedIds() {
+    try {
+      const tempPath = `${PROCESSED_IDS_PATH}.tmp`;
+      fs.writeFileSync(tempPath, JSON.stringify(Array.from(this.processedTweetIds)), "utf8");
+      try {
+        fs.renameSync(tempPath, PROCESSED_IDS_PATH);
+      } catch (error) {
+        if (!['EEXIST', 'EPERM'].includes(error.code)) throw error;
+        fs.rmSync(PROCESSED_IDS_PATH, { force: true });
+        fs.renameSync(tempPath, PROCESSED_IDS_PATH);
+      }
+    } catch (error) {
+      logger.warn(`Could not persist published X IDs: ${error.message}`);
     }
   }
 
   markContentAsPublished(collections) {
+    let changed = false;
     for (const collection of collections || []) {
       for (const tweet of collection?.tweets || []) {
         const id = tweet?.id || tweet?.url?.split("/status/")[1]?.split("?")[0];
-        if (id) this.processedTweetIds.add(id);
+        if (id && !this.processedTweetIds.has(id)) {
+          this.processedTweetIds.add(id);
+          changed = true;
+        }
       }
     }
     this.clearProcessedIds();
+    if (changed) this.persistProcessedIds();
   }
 
   getSearchQuery(folder) {
@@ -521,7 +559,7 @@ class TwitterService {
 
             if (hasEnoughSourceDetail) {
               // Keep it local until GitHub confirms publication. Marking it now
-              // loses the source forever when Gemini or GitHub has a transient error.
+              // loses the source forever when the local LLM or GitHub has a transient error.
               collectedTweetIds.add(tweetId);
 
               collectedContent.push({
@@ -760,7 +798,7 @@ class TwitterService {
           logger.error(
             `Failed to navigate to ${listUrl} after multiple attempts.`
           );
-          return null;
+          throw new Error(`Failed to navigate to ${listUrl} after multiple attempts.`);
         }
 
         const tweets = await this.findContent();

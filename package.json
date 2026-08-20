@@ -1,16 +1,18 @@
 {
   "name": "twitter-to-github-mvp",
   "version": "1.0.0",
-  "description": "Automates Twitter data collection and GitHub Markdown storage using Gemini AI",
+  "description": "Automates X data collection and GitHub Markdown storage using a local LLM",
   "main": "index.js",
   "author": "Drix10",
   "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Drix10/Twitter-Gemini-GitHub-MVP.git"
   },
   "dependencies": {
-    "@google/generative-ai": "^0.24.1",
     "@octokit/rest": "^22.0.1",
     "axios": "^1.19.0",
     "dotenv": "^16.4.5",

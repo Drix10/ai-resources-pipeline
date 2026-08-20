@@ -6,7 +6,7 @@
  * Local testing script that fetches existing markdown curation files from the
  * configured GitHub repository, simulates the pipeline's end-of-run agentic
  * curation flow, and generates ready-to-post LinkedIn updates using the optimized
- * 2026 virality prompts in GeminiService.
+ * 2026 virality prompts in the local LLM service.
  *
  * This runs completely locally and does NOT post anything to LinkedIn.
  */
@@ -14,7 +14,7 @@
 const fs = require("fs");
 const path = require("path");
 const config = require("./config");
-const geminiService = require("./src/services/gemini");
+const localLlmService = require("./src/services/local-llm");
 const githubService = require("./src/services/github");
 const { logger } = require("./src/utils/helpers");
 
@@ -186,7 +186,7 @@ async function generateLinkedInPreviews() {
 
     // 1b. If a single markdown file contains multiple sub-articles, flatten them so
     // the topic selector returns a valid index for one focused topic.
-    const flattenedArticles = geminiService.splitArticlesIntoSubArticles(articles);
+    const flattenedArticles = localLlmService.splitArticlesIntoSubArticles(articles);
 
     console.log(`\n📚 Loaded ${flattenedArticles.length} total articles for evaluation:`);
     flattenedArticles.forEach((art, idx) => {
@@ -194,9 +194,9 @@ async function generateLinkedInPreviews() {
     });
 
     // 2. Select the best article using selectBestArticlesForLinkedIn
-    console.log("\n🤖 Step 1: Querying Gemini to select the single best topic for LinkedIn...");
-    const selectedIndices = await geminiService.selectBestArticlesForLinkedIn(flattenedArticles);
-    console.log(`✅ Selected indices from Gemini: ${JSON.stringify(selectedIndices)}`);
+    console.log("\n🤖 Step 1: Querying local LLM to select the single best topic for LinkedIn...");
+    const selectedIndices = await localLlmService.selectBestArticlesForLinkedIn(flattenedArticles);
+    console.log(`✅ Selected indices from local LLM: ${JSON.stringify(selectedIndices)}`);
 
     const uniqueIndices = [...new Set(selectedIndices.map((idx) => Number(idx)))];
     const selectedArticles = uniqueIndices
@@ -208,7 +208,7 @@ async function generateLinkedInPreviews() {
     }
 
     if (selectedArticles.length === 0) {
-      console.warn("⚠️ No articles were selected by Gemini. Defaulting to the first available article.");
+      console.warn("⚠️ No articles were selected by the local LLM. Defaulting to the first available article.");
       selectedArticles.push(flattenedArticles[0]);
     }
 
@@ -219,7 +219,7 @@ async function generateLinkedInPreviews() {
 
     // 3. Generate LinkedIn post data using generateLinkedInMasterPost
     console.log("\n🤖 Step 2: Running optimized 2026 virality formulas to generate LinkedIn post...");
-    const postData = await geminiService.generateLinkedInMasterPost(selectedArticles);
+    const postData = await localLlmService.generateLinkedInMasterPost(selectedArticles);
 
     console.log("\n=============================================================");
     console.log("🔥 GENERATED LINKEDIN POST PREVIEW 🔥");

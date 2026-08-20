@@ -716,7 +716,9 @@ class LinkedInService {
         }
       }
 
-      return postSucceeded && commentSucceeded;
+      // A successful post must not be retried just because the optional first
+      // comment could not be verified; retrying could create duplicate posts.
+      return postSucceeded;
     } catch (error) {
       logger.error("LinkedInService: Failed to post to LinkedIn:", error);
       try {

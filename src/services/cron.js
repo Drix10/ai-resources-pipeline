@@ -7,32 +7,106 @@ const TwitterService = new twitterService();
 const linkedinService = require("./linkedin");
 const LinkedInService = new linkedinService();
 const GithubService = require("./github");
-const geminiService = require("./gemini");
+const localLlmService = require("./local-llm");
 const cron = require("node-cron");
 
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 5000;
 const MIN_PUBLISHABLE_CANDIDATES = 6;
 const PIPELINE_LOCK_PATH = path.join(process.cwd(), ".pipeline.lock");
+const PIPELINE_STATE_PATH = path.join(process.cwd(), ".pipeline-state.json");
+const PIPELINE_LOCK_STALE_AFTER_MS = 2 * 60 * 1000;
+let lockHeartbeatTimer = null;
+
+const replaceRuntimeFile = (filePath, content) => {
+  const tempPath = `${filePath}.tmp`;
+  fs.writeFileSync(tempPath, content, "utf8");
+  try {
+    fs.renameSync(tempPath, filePath);
+  } catch (error) {
+    if (!['EEXIST', 'EPERM'].includes(error.code)) throw error;
+    fs.rmSync(filePath, { force: true });
+    fs.renameSync(tempPath, filePath);
+  }
+};
+
+const startLockHeartbeat = () => {
+  if (lockHeartbeatTimer) clearInterval(lockHeartbeatTimer);
+  lockHeartbeatTimer = setInterval(() => {
+    try {
+      if (!fs.existsSync(PIPELINE_LOCK_PATH)) return;
+      const lock = JSON.parse(fs.readFileSync(PIPELINE_LOCK_PATH, "utf8"));
+      if (lock.pid === process.pid) {
+        fs.writeFileSync(
+          PIPELINE_LOCK_PATH,
+          JSON.stringify({ ...lock, heartbeatAt: new Date().toISOString() }),
+          "utf8",
+        );
+      }
+    } catch (error) {
+      logger.warn(`Could not update pipeline lock heartbeat: ${error.message}`);
+    }
+  }, 30000);
+  if (lockHeartbeatTimer.unref) lockHeartbeatTimer.unref();
+};
+
+const lockIsFresh = (lock) => {
+  const timestamp = Date.parse(lock?.heartbeatAt || lock?.startedAt || "");
+  return Number.isFinite(timestamp) && Date.now() - timestamp <= PIPELINE_LOCK_STALE_AFTER_MS;
+};
+
+const lockFileIsFresh = () => {
+  try {
+    return Date.now() - fs.statSync(PIPELINE_LOCK_PATH).mtimeMs <= PIPELINE_LOCK_STALE_AFTER_MS;
+  } catch (error) {
+    return false;
+  }
+};
 
 const acquirePipelineLock = () => {
   try {
     const fd = fs.openSync(PIPELINE_LOCK_PATH, "wx");
-    fs.writeFileSync(fd, JSON.stringify({ pid: process.pid, startedAt: new Date().toISOString() }));
-    fs.closeSync(fd);
+    try {
+      const now = new Date().toISOString();
+      fs.writeFileSync(fd, JSON.stringify({ pid: process.pid, startedAt: now, heartbeatAt: now }));
+      startLockHeartbeat();
+    } finally {
+      try { fs.closeSync(fd); } catch (closeError) { }
+    }
     return true;
   } catch (error) {
     if (error.code !== "EEXIST") throw error;
+    let lock = null;
     try {
-      const lock = JSON.parse(fs.readFileSync(PIPELINE_LOCK_PATH, "utf8"));
+      lock = JSON.parse(fs.readFileSync(PIPELINE_LOCK_PATH, "utf8"));
+      if (!Number.isInteger(lock?.pid) || lock.pid <= 0) {
+        if (lockFileIsFresh()) {
+          logger.warn("Pipeline lock is being initialized; skipping this run.");
+          return false;
+        }
+        fs.unlinkSync(PIPELINE_LOCK_PATH);
+        return acquirePipelineLock();
+      }
       // A stale lock from a terminated run must not prevent the next scheduled run.
       process.kill(lock.pid, 0);
       logger.warn(`Another pipeline process is already running (PID ${lock.pid}); skipping this run.`);
       return false;
     } catch (lockError) {
-      if (lockError.code === "ESRCH" || lockError instanceof SyntaxError) {
+      if (lockError.code === "ESRCH" || (lockError instanceof SyntaxError && !lockFileIsFresh())) {
         fs.unlinkSync(PIPELINE_LOCK_PATH);
         return acquirePipelineLock();
+      }
+      if (lockError instanceof SyntaxError && lockFileIsFresh()) {
+        logger.warn("Pipeline lock is being updated; skipping this run.");
+        return false;
+      }
+      if (lockError.code === "EPERM") {
+        if (!lock || !lockIsFresh(lock)) {
+          fs.unlinkSync(PIPELINE_LOCK_PATH);
+          return acquirePipelineLock();
+        }
+        logger.warn(`Pipeline lock belongs to an inaccessible active process (PID ${lock.pid}); skipping this run.`);
+        return false;
       }
       throw lockError;
     }
@@ -40,6 +114,10 @@ const acquirePipelineLock = () => {
 };
 
 const releasePipelineLock = () => {
+  if (lockHeartbeatTimer) {
+    clearInterval(lockHeartbeatTimer);
+    lockHeartbeatTimer = null;
+  }
   try {
     if (!fs.existsSync(PIPELINE_LOCK_PATH)) return;
     const lock = JSON.parse(fs.readFileSync(PIPELINE_LOCK_PATH, "utf8"));
@@ -49,8 +127,49 @@ const releasePipelineLock = () => {
   }
 };
 
+const getFoldersForRun = () => {
+  const allFolders = config.folders;
+  const batchSize = Math.min(config.llm.maxFoldersPerRun, allFolders.length);
+  let nextFolderIndex = 0;
+
+  try {
+    if (fs.existsSync(PIPELINE_STATE_PATH)) {
+      const state = JSON.parse(fs.readFileSync(PIPELINE_STATE_PATH, "utf8"));
+      if (Number.isInteger(state.nextFolderIndex) && state.nextFolderIndex >= 0) {
+        nextFolderIndex = state.nextFolderIndex % allFolders.length;
+      }
+    }
+  } catch (error) {
+    logger.warn(`Could not read pipeline rotation state: ${error.message}`);
+  }
+
+  const folders = Array.from({ length: batchSize }, (_, offset) =>
+    allFolders[(nextFolderIndex + offset) % allFolders.length]
+  );
+  logger.info(`Processing ${folders.length}/${allFolders.length} folders this run, starting at rotation index ${nextFolderIndex}.`);
+  return {
+    folders,
+    nextFolderIndex,
+    batchSize,
+    totalFolders: allFolders.length,
+  };
+};
+
+const savePipelineState = (nextFolderIndex, totalFolders) => {
+  const safeIndex = ((nextFolderIndex % totalFolders) + totalFolders) % totalFolders;
+  const tempPath = `${PIPELINE_STATE_PATH}.tmp`;
+  fs.writeFileSync(tempPath, JSON.stringify({ nextFolderIndex: safeIndex }), "utf8");
+  try {
+    fs.renameSync(tempPath, PIPELINE_STATE_PATH);
+  } catch (error) {
+    if (!['EEXIST', 'EPERM'].includes(error.code)) throw error;
+    fs.rmSync(PIPELINE_STATE_PATH, { force: true });
+    fs.renameSync(tempPath, PIPELINE_STATE_PATH);
+  }
+};
+
 const runDataPipeline = async (folder) => {
-  for (let retryCount = 0; retryCount <= MAX_RETRIES; retryCount++) {
+  for (let retryCount = 0; retryCount < MAX_RETRIES; retryCount++) {
     try {
       // LinkedIn scraping disabled at user request
       const linkedinPosts = [];
@@ -58,7 +177,10 @@ const runDataPipeline = async (folder) => {
       logger.info(`Fetching tweets for folder: ${folder.name}...`);
       // Let failures reach the retry loop. Converting a browser/network failure
       // into an empty array makes the pipeline falsely report "no new content".
-      const tweets = await TwitterService.fetchTweets({ folder }) || [];
+      const tweets = await TwitterService.fetchTweets({ folder });
+       if (!Array.isArray(tweets)) {
+         throw new Error(`X fetch returned an invalid result for folder ${folder.name}`);
+       }
 
       if (tweets.length === 0 && linkedinPosts.length === 0) {
         logger.info(`No new content found on X for folder: ${folder.name}`);
@@ -104,7 +226,14 @@ const runDataPipeline = async (folder) => {
       };
     } catch (error) {
       logger.error(`Pipeline error for folder ${folder.name} (attempt ${retryCount + 1}/${MAX_RETRIES}):`, error);
-      if (retryCount === MAX_RETRIES) {
+      if (error.code === "LOCAL_LLM_UNAVAILABLE") {
+        throw error;
+      }
+      if (error.code === "MARKDOWN_QUALITY_REJECTED") {
+        logger.warn(`Generated content for ${folder.name} did not meet the publication standard; skipping without another local LLM attempt.`);
+        return null;
+      }
+      if (retryCount === MAX_RETRIES - 1) {
         handleError(
           error,
           `Pipeline error for folder type (attempt ${retryCount + 1}/${MAX_RETRIES})`,
@@ -127,8 +256,8 @@ const runEndofRunCuration = async (successfulArticles) => {
   if (successfulArticles.length > 0) {
     logger.info(`Starting LinkedIn Agentic Curation Flow for ${successfulArticles.length} raw files (flattening sub-articles)...`);
     try {
-      const flattenedArticles = geminiService.splitArticlesIntoSubArticles(successfulArticles);
-      const selectedIndices = await geminiService.selectBestArticlesForLinkedIn(flattenedArticles);
+      const flattenedArticles = localLlmService.splitArticlesIntoSubArticles(successfulArticles);
+      const selectedIndices = await localLlmService.selectBestArticlesForLinkedIn(flattenedArticles);
       logger.info(`LinkedIn Curation: Selected article indices: ${JSON.stringify(selectedIndices)}`);
 
       const uniqueIndices = [...new Set(selectedIndices)];
@@ -137,17 +266,15 @@ const runEndofRunCuration = async (successfulArticles) => {
         .filter(art => !!art);
 
       if (selectedArticles.length === 0) {
-        logger.warn("LinkedIn Curation: No articles were selected by Gemini. Defaulting to the first available article.");
+        logger.warn("LinkedIn Curation: No articles were selected by the local LLM. Defaulting to the first available article.");
         selectedArticles.push(flattenedArticles[0]);
       }
 
       if (selectedArticles.length > 0) {
-        let initialized = false;
         let slideImagePath = null;
         try {
           logger.info("LinkedIn Curation: Initializing LinkedIn service...");
           await LinkedInService.init();
-          initialized = true;
         } catch (initErr) {
           logger.error("LinkedIn Curation: Failed to initialize LinkedIn service:", initErr);
           return;
@@ -161,9 +288,18 @@ const runEndofRunCuration = async (successfulArticles) => {
 
           for (let attempt = 1; attempt <= maxGenerationAttempts; attempt++) {
             logger.info(`LinkedIn Curation: Generating mega post draft (attempt ${attempt}/${maxGenerationAttempts})...`);
-            megaPostData = await geminiService.generateLinkedInMasterPost(selectedArticles, 3, validationFeedback);
+            try {
+              megaPostData = await localLlmService.generateLinkedInMasterPost(selectedArticles, 3, validationFeedback);
+            } catch (generationError) {
+              if (generationError.code !== "LOCAL_LLM_QUALITY_REJECTED" || attempt === maxGenerationAttempts) {
+                throw generationError;
+              }
+              validationFeedback = [generationError.message];
+              logger.warn(`LinkedIn Curation: Draft rejected; retrying with feedback: ${generationError.message}`);
+              continue;
+            }
             const githubUrl = selectedArticles[0].githubUrl || "";
-            const sourceBulletCount = geminiService.countSourceBullets(selectedArticles[0].fullContent || "");
+            const sourceBulletCount = localLlmService.countSourceBullets(selectedArticles[0].fullContent || "");
 
             // Prefer the validation that ran inside generateLinkedInMasterPost (with hook-filtered manual points).
             const internalValidation = megaPostData && megaPostData.isValid !== undefined;
@@ -173,7 +309,7 @@ const runEndofRunCuration = async (successfulArticles) => {
                   qualityScore: megaPostData.qualityScore,
                   errors: megaPostData.validationErrors || []
                 }
-              : geminiService.validatePostText(megaPostData, githubUrl, sourceBulletCount);
+              : localLlmService.validatePostText(megaPostData, githubUrl, sourceBulletCount);
 
             if (validation.isValid) {
               logger.info(`LinkedIn Curation: Mega post passed quality validation (score: ${validation.qualityScore})`);
@@ -210,7 +346,7 @@ const runEndofRunCuration = async (successfulArticles) => {
             if (postSuccess) {
               logger.info("LinkedIn Curation: Post submitted successfully.");
               const recentTopic = megaPostData.sourceTitle || selectedArticles[0].title;
-              geminiService.saveRecentTopic(recentTopic);
+              localLlmService.saveRecentTopic(recentTopic);
             } else {
               logger.warn("LinkedIn Curation: Post submission returned failure status.");
             }
@@ -253,7 +389,11 @@ const processAllFolders = async () => {
     await TwitterService.init();
 
     const successfulArticles = [];
-    for (const folder of config.folders) {
+    let localLlmUnavailable = false;
+    const rotation = getFoldersForRun();
+    for (let folderOffset = 0; folderOffset < rotation.folders.length; folderOffset++) {
+      const folder = rotation.folders[folderOffset];
+      let advanceRotation = true;
       try {
         const result = await runDataPipeline(folder);
         if (result) {
@@ -272,7 +412,20 @@ const processAllFolders = async () => {
         }
       } catch (error) {
         logger.error(`Pipeline iteration failed for folder ${folder.name}:`, error);
+        advanceRotation = false;
+        if (error.code === "LOCAL_LLM_UNAVAILABLE") {
+          localLlmUnavailable = true;
+          logger.warn("Local Ollama service is unavailable. Stopping this run instead of retrying every folder.");
+          break;
+        }
         // Continue to next folder despite error
+      }
+
+      if (advanceRotation) {
+        savePipelineState(
+          rotation.nextFolderIndex + folderOffset + 1,
+          rotation.totalFolders,
+        );
       }
     }
 
@@ -281,8 +434,9 @@ const processAllFolders = async () => {
       config.github.repo
     );
 
-    // Run the end-of-run LinkedIn curation flow
-    await runEndofRunCuration(successfulArticles);
+    if (!localLlmUnavailable) {
+      await runEndofRunCuration(successfulArticles);
+    }
 
     // Cleanup leftover debug screenshots from root
     TwitterService.cleanupScreenshots();
@@ -299,6 +453,7 @@ const processAllFolders = async () => {
 
 let scheduledJob = null;
 let isJobRunning = false;
+let activePipelinePromise = null;
 
 /**
  * Schedules a single cron job with a random interval (1–16 hours).
@@ -333,12 +488,15 @@ const scheduleRandomJob = () => {
       const timestamp = new Date().toISOString();
       logger.info(`Running scheduled pipeline at ${timestamp}`);
 
+      const scheduledPipelinePromise = processAllFolders();
+      activePipelinePromise = scheduledPipelinePromise;
       try {
-        await processAllFolders();
+        await scheduledPipelinePromise;
       } catch (error) {
         logger.error("Scheduled pipeline failed:", error);
       } finally {
         isJobRunning = false;
+        if (activePipelinePromise === scheduledPipelinePromise) activePipelinePromise = null;
       }
     },
     {
@@ -377,6 +535,16 @@ const stopCronJob = async () => {
     logger.warn("No active cron job to stop");
   }
 
+  if (activePipelinePromise) {
+    try {
+      await activePipelinePromise;
+    } catch (error) {
+      logger.error("Error waiting for active pipeline during shutdown:", error);
+    } finally {
+      activePipelinePromise = null;
+    }
+  }
+
   try {
     await TwitterService.cleanup();
     logger.info("Twitter service cleaned up");
@@ -390,10 +558,10 @@ const stopCronJob = async () => {
     logger.error("Error cleaning up LinkedIn service:", error);
   }
   try {
-    geminiService.cleanup();
-    logger.info("Gemini service cleaned up");
+    localLlmService.cleanup();
+    logger.info("Local LLM service cleaned up");
   } catch (error) {
-    logger.error("Error cleaning up Gemini service:", error);
+    logger.error("Error cleaning up local LLM service:", error);
   }
 };
 
@@ -409,12 +577,15 @@ const runInitialPipeline = async () => {
 
   isJobRunning = true;
   logger.info("Running initial pipeline execution...");
+  const pipelinePromise = processAllFolders();
+  activePipelinePromise = pipelinePromise;
   try {
-    await processAllFolders();
+    await pipelinePromise;
   } catch (error) {
     logger.error("Initial pipeline execution failed:", error);
   } finally {
     isJobRunning = false;
+    if (activePipelinePromise === pipelinePromise) activePipelinePromise = null;
   }
 };
 

@@ -1,7 +1,7 @@
 const { Octokit } = require("@octokit/rest");
 const config = require("../../config");
 const { logger, handleError } = require("../utils/helpers");
-const geminiService = require("./gemini");
+const localLlmService = require("./local-llm");
 
 class GithubService {
   constructor() {
@@ -45,16 +45,20 @@ class GithubService {
 
   async createMarkdownFileFromTweets(threadData, queryName, folder) {
     try {
+      const threads = Array.isArray(threadData) ? threadData : [];
       logger.info(
-        `Generating markdown content for ${threadData.length} threads of type ${queryName}`
+        `Generating markdown content for ${threads.length} threads of type ${queryName}`
       );
 
       if (!config.github.repo) {
         throw new Error("GitHub repository configuration is missing");
       }
 
-      const markdownContent = await geminiService.generateMarkdown(threadData);
-      geminiService.assertPublishableMarkdown(markdownContent);
+      const markdownContent = await localLlmService.generateMarkdown(threads);
+      localLlmService.assertPublishableMarkdown(
+        markdownContent,
+        localLlmService.normalizeCollectedThreads(threads).length,
+      );
       const fileBuffer = Buffer.from(markdownContent);
 
       const result = await this.uploadMarkdownFile(
@@ -83,18 +87,21 @@ class GithubService {
 
   async createMarkdownFileFromCombined(threads, linkedinPosts, queryName, folder) {
     try {
+      const safeThreads = Array.isArray(threads) ? threads : [];
+      const safeLinkedinPosts = Array.isArray(linkedinPosts) ? linkedinPosts : [];
       logger.info(
-        `Generating markdown content for ${threads.length} X threads and ${linkedinPosts.length} LinkedIn posts of type ${queryName}`
+        `Generating markdown content for ${safeThreads.length} X threads and ${safeLinkedinPosts.length} LinkedIn posts of type ${queryName}`
       );
 
       if (!config.github.repo) {
         throw new Error("GitHub repository configuration is missing");
       }
 
-      const markdownContent = await geminiService.generateMarkdownFromCombined(threads, linkedinPosts);
+      const markdownContent = await localLlmService.generateMarkdownFromCombined(safeThreads, safeLinkedinPosts);
       // This is a final defensive boundary: no model response can create a
       // repository file (or social announcement) unless it contains a real article.
-      geminiService.assertPublishableMarkdown(markdownContent);
+      const expectedArticleCount = localLlmService.normalizeCollectedThreads(safeThreads).length + safeLinkedinPosts.filter(Boolean).length;
+      localLlmService.assertPublishableMarkdown(markdownContent, expectedArticleCount);
       const fileBuffer = Buffer.from(markdownContent);
 
       const result = await this.uploadMarkdownFile(
@@ -122,6 +129,21 @@ class GithubService {
   }
 
   async uploadMarkdownFile(fileBuffer, repoName, folder) {
+    if (!Buffer.isBuffer(fileBuffer)) {
+      throw new Error("Markdown content must be provided as a Buffer");
+    }
+    if (
+      !folder ||
+      typeof folder.name !== "string" ||
+      !folder.name.trim() ||
+      folder.name.includes("..") ||
+      /[\\/]/.test(folder.name)
+    ) {
+      throw new Error("A valid destination folder is required");
+    }
+    if (typeof repoName !== "string" || !repoName.includes("/")) {
+      throw new Error("Repository must use the owner/repository format");
+    }
     const [owner, repo] = repoName.split("/");
 
     const decodedFolder = folder.name.replace(/ /g, " ");
@@ -217,14 +239,18 @@ class GithubService {
   async updateReadmeWithNewFile(owner, repo) {
     try {
       const path = "README.md";
-      const existing = await this.octokit.repos
-        .getContent({
+      let existing;
+      try {
+        existing = await this.octokit.repos.getContent({
           owner,
           repo,
           path,
           ref: "main",
-        })
-        .catch(() => null);
+        });
+      } catch (error) {
+        if (error.status !== 404) throw error;
+        existing = null;
+      }
 
       if (!existing) {
         logger.warn("README.md not found");

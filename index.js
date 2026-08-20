@@ -1,7 +1,11 @@
 const { logger } = require("./src/utils/helpers");
 const { initCronJob, stopCronJob } = require("./src/services/cron");
 
+let shuttingDown = false;
+
 const handleShutdown = async (signal) => {
+  if (shuttingDown) return;
+  shuttingDown = true;
   logger.info(`Received ${signal}. Starting graceful shutdown...`);
 
   try {

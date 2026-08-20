@@ -4,14 +4,6 @@ const axios = require("axios");
 const config = require("../config");
 const { logger, sleep } = require("../src/utils/helpers");
 
-// Validate required configuration
-if (!config.monitoring.targetListId) {
-  throw new Error("MONITOR_LIST_ID must be configured in .env");
-}
-if (!config.discord.webhookUrl) {
-  throw new Error("DISCORD_WEBHOOK_URL must be configured");
-}
-
 const LIST_ID = config.monitoring.targetListId;
 const LIST_URL = `https://x.com/i/lists/${LIST_ID}`;
 const DISCORD_WEBHOOK_URL = config.discord.webhookUrl;
@@ -178,7 +170,7 @@ class TwitterListTracker {
     }
   }
 
-  async getLatestTweets(retryCount = 0) {
+  async getLatestTweets(retryCount = 0, markProcessed = true) {
     const maxRetries = 3;
     try {
       // No rate limit check - we control timing with CHECK_INTERVAL
@@ -206,7 +198,7 @@ class TwitterListTracker {
         logger.error(
           `Failed to navigate to ${LIST_URL} after multiple attempts.`,
         );
-        return [];
+        throw new Error(`Failed to navigate to ${LIST_URL} after multiple attempts.`);
       }
 
       await sleep(3000);
@@ -225,9 +217,9 @@ class TwitterListTracker {
         logger.error("Initial tweet selector not found:", error);
         if (retryCount < maxRetries) {
           await sleep(5000);
-          return this.getLatestTweets(retryCount + 1);
+          return this.getLatestTweets(retryCount + 1, markProcessed);
         }
-        return [];
+        throw error;
       }
 
       // Get all visible tweets
@@ -269,8 +261,7 @@ class TwitterListTracker {
             continue;
           }
 
-          // Mark as processed
-          this.processedTweetIds.add(tweetId);
+          if (markProcessed) this.processedTweetIds.add(tweetId);
           newTweets.push(tweetData);
 
           logger.info(`Found new tweet: ${tweetId}`);
@@ -288,10 +279,10 @@ class TwitterListTracker {
       );
       if (retryCount < maxRetries) {
         await sleep(30000);
-        return this.getLatestTweets(retryCount + 1);
+        return this.getLatestTweets(retryCount + 1, markProcessed);
       }
       logger.error("Max retries reached in getLatestTweets");
-      return [];
+      throw error;
     }
   }
 
@@ -484,7 +475,7 @@ class TwitterListTracker {
         timeout: 10000,
       });
 
-      if (response.status === 204) {
+      if (response.status >= 200 && response.status < 300) {
         logger.info("Discord webhook sent successfully!");
         return true;
       } else {
@@ -564,7 +555,7 @@ class TwitterListTracker {
             await this.refreshBrowser();
           }
 
-          const tweets = await this.getLatestTweets();
+          const tweets = await this.getLatestTweets(0, false);
 
           if (tweets.length === 0) {
             logger.info("No new tweets found");
@@ -591,6 +582,7 @@ class TwitterListTracker {
                 const sent = await this.sendToDiscord(tweet);
                 if (sent) {
                   logger.info("✅ Notification sent to Discord successfully");
+                  this.processedTweetIds.add(tweet.id);
                 } else {
                   logger.warn("❌ Failed to send notification to Discord");
                 }
@@ -598,6 +590,7 @@ class TwitterListTracker {
                 logger.info(
                   `Tweet does not match criteria (${shouldSendTweet.reason}) - skipping notification`,
                 );
+                this.processedTweetIds.add(tweet.id);
               }
             }
 
@@ -649,8 +642,17 @@ class TwitterListTracker {
   }
 }
 
-// Global error handlers
-let isShuttingDown = false;
+if (require.main === module) {
+  if (!LIST_ID) {
+    throw new Error("MONITOR_LIST_ID must be configured in .env");
+  }
+  if (!DISCORD_WEBHOOK_URL) {
+    throw new Error("DISCORD_WEBHOOK_URL must be configured");
+  }
+
+  // Global error handlers
+  let isShuttingDown = false;
+  const tracker = new TwitterListTracker();
 
 async function gracefulShutdown(signal) {
   if (isShuttingDown) return;
@@ -697,10 +699,11 @@ process.on("unhandledRejection", (reason, promise) => {
   setTimeout(() => process.exit(1), 10000);
 });
 
-// Start the tracker
-const tracker = new TwitterListTracker();
-tracker.startTracking().catch(async (error) => {
-  logger.error("Fatal error:", error);
-  await tracker.cleanup();
-  process.exit(1);
-});
+  tracker.startTracking().catch(async (error) => {
+    logger.error("Fatal error:", error);
+    await tracker.cleanup();
+    process.exit(1);
+  });
+}
+
+module.exports = TwitterListTracker;
