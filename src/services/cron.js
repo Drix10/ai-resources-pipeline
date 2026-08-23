@@ -230,7 +230,7 @@ const runDataPipeline = async (folder) => {
         throw error;
       }
       if (error.code === "MARKDOWN_QUALITY_REJECTED") {
-        logger.warn(`Generated content for ${folder.name} did not meet the publication standard; skipping without another local LLM attempt.`);
+        logger.warn(`Generated content for ${folder.name} still failed the publication standard after feedback-guided local LLM retries; skipping it safely.`);
         return null;
       }
       if (retryCount === MAX_RETRIES - 1) {
