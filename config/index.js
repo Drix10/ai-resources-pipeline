@@ -23,6 +23,10 @@ const config = {
   discord: {
     webhookUrl: process.env.DISCORD_WEBHOOK_URL,
   },
+  social: {
+    // Publishing is opt-in so an unset or invalid value cannot post to LinkedIn.
+    linkedinPost: process.env.LINKEDIN_POST === "true",
+  },
   monitoring: {
     targetListId: process.env.MONITOR_LIST_ID,
     checkInterval: parsePositiveInteger(process.env.CHECK_INTERVAL, 300000),

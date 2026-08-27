@@ -434,8 +434,10 @@ const processAllFolders = async () => {
       config.github.repo
     );
 
-    if (!localLlmUnavailable) {
+    if (!localLlmUnavailable && config.social.linkedinPost) {
       await runEndofRunCuration(successfulArticles);
+    } else if (!config.social.linkedinPost) {
+      logger.info("LinkedIn posting is disabled (set LINKEDIN_POST=true to enable it). Skipping curation.");
     }
 
     // Cleanup leftover debug screenshots from root
