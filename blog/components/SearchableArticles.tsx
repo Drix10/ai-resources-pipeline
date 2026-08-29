@@ -243,13 +243,20 @@ export default function SearchableArticles({ initialArticles, initialTotalCount,
               </button>
 
               <div className="flex items-center gap-1 mx-0.5">
-                {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                  let pageNum = currentPage - 2 + i;
-                  if (pageNum < 1) pageNum += (1 - (currentPage - 2));
-                  if (pageNum > totalPages) return null;
-                  if (pageNum < 1) return null;
+                {(() => {
+                  const maxVisible = 5;
+                  let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+                  let end = start + maxVisible - 1;
+                  if (end > totalPages) {
+                    end = totalPages;
+                    start = Math.max(1, end - maxVisible + 1);
+                  }
+                  const visiblePages: number[] = [];
+                  for (let p = start; p <= end; p++) {
+                    visiblePages.push(p);
+                  }
 
-                  return (
+                  return visiblePages.map((pageNum) => (
                     <button
                       key={pageNum}
                       onClick={() => { setCurrentPage(pageNum); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
@@ -257,8 +264,8 @@ export default function SearchableArticles({ initialArticles, initialTotalCount,
                     >
                       {pageNum}
                     </button>
-                  );
-                })}
+                  ));
+                })()}
               </div>
 
               <button
