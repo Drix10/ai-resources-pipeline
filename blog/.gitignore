@@ -1,0 +1,13 @@
+# Next.js build & cache
+.next/
+out/
+.turbo/
+
+# Node dependencies
+node_modules/
+
+# Environment files
+.env*.local
+
+# Logs
+*.log

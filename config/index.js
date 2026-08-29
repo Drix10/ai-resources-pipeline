@@ -34,6 +34,22 @@ const config = {
     // Publishing is opt-in so an unset or invalid value cannot post to LinkedIn.
     linkedinPost: process.env.LINKEDIN_POST === "true",
   },
+  syndication: {
+    canonicalBaseUrl: (process.env.CANONICAL_BASE_URL || "https://blogs.drix10.com").replace(/\/$/, ""),
+    devto: {
+      apiKey: process.env.DEVTO_API_KEY || "",
+      enabled: process.env.DEVTO_AUTO_PUBLISH === "true",
+    },
+    medium: {
+      token: process.env.MEDIUM_TOKEN || "",
+      enabled: process.env.MEDIUM_AUTO_PUBLISH === "true",
+    },
+    hashnode: {
+      token: process.env.HASHNODE_TOKEN || "",
+      publicationId: process.env.HASHNODE_PUBLICATION_ID || "",
+      enabled: process.env.HASHNODE_AUTO_PUBLISH === "true",
+    },
+  },
   monitoring: {
     targetListId: process.env.MONITOR_LIST_ID,
     checkInterval: parsePositiveInteger(process.env.CHECK_INTERVAL, 300000),

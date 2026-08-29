@@ -440,6 +440,18 @@ const processAllFolders = async () => {
       logger.info("LinkedIn posting is disabled (set LINKEDIN_POST=true to enable it). Skipping curation.");
     }
 
+    // --- End-of-Cycle Batched Synchronization ---
+    // Automatically rebuilds the blog index and synchronizes all new articles in ONE single consolidated batch commit
+    try {
+      const { rebuildBlogIndex } = require("../utils/helpers");
+      if (typeof rebuildBlogIndex === "function") {
+        rebuildBlogIndex();
+        logger.info("Cycle End: Rebuilt local Knowledge Hub search index.");
+      }
+    } catch (indexErr) {
+      logger.warn("Cycle End: Index rebuild skipped:", indexErr.message);
+    }
+
     // Cleanup leftover debug screenshots from root
     TwitterService.cleanupScreenshots();
     LinkedInService.cleanupDebugScreenshots();

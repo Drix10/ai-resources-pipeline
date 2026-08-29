@@ -2,6 +2,7 @@ const { Octokit } = require("@octokit/rest");
 const config = require("../../config");
 const { logger, handleError } = require("../utils/helpers");
 const localLlmService = require("./local-llm");
+const syndicationService = require("./syndication");
 
 class GithubService {
   constructor() {
@@ -180,6 +181,19 @@ class GithubService {
       );
 
       const fileUrl = `https://github.com/${owner}/${repo}/blob/main/${urlSafeFolder}/${fileName}`;
+
+      // Asynchronously syndicate to enabled platforms (DEV.to, Medium, Hashnode) with canonical URL protection
+      syndicationService
+        .syndicateMarkdownArticle({
+          title: `${decodedFolder} #${nextNumber}`,
+          markdown: fileBuffer.toString("utf8"),
+          tags: [decodedFolder.toLowerCase().replace(/[^a-z0-9]/g, "")],
+          category: decodedFolder,
+          relativePath: filePath,
+        })
+        .catch((err) => {
+          logger.warn(`Syndication error (non-fatal): ${err.message}`);
+        });
 
       return {
         success: true,

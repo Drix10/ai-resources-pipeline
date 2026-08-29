@@ -1147,6 +1147,14 @@ JSON schema:
       issues.push("Post contains em dashes (— or --); use colons, commas, or periods instead.");
     }
 
+    // @Mentions check (at least 1-2 @mentions expected)
+    const mentionMatches = postText.match(/@[a-zA-Z0-9_]+/g) || [];
+    if (mentionMatches.length >= 1) {
+      bonusPoints += 10;
+    } else {
+      issues.push("Post is missing @mentions (expected at least 1-2 '@Company' or '@Org' tags)");
+    }
+
     // Hashtag check (rich cloud: 5-20 hashtags expected)
     const hashtagMatches = postText.match(/#[a-zA-Z0-9_]+/g) || [];
     const hashtagCount = hashtagMatches.length;
@@ -2066,9 +2074,11 @@ Describe how you encountered and studied this material. DO NOT fake being in an 
 Ground your context in these technical facts:
 ${pointText}
 
-3. MENTIONS & NOTABLE ORGANIZATIONS:
-Identify and mention the ACTUAL companies, organizations, open-source tools, universities, or creators mentioned in the text (e.g. @CynuxEra, @CompTIA, @ISC2, @EC-Council, or the specific teams/companies behind the technology).
-CRITICAL: NEVER output literal placeholder text like "[Company Name]" or "[Insert Mentor]". Always use the real names from the source, or refer directly to the engineering team/project by name.
+3. MANDATORY @MENTIONS (CRITICAL):
+You MUST actively include at least 2 to 4 prominent @mentions using the '@' prefix for the relevant companies, organizations, frameworks, or leaders (e.g. @Meta, @OpenAI, @Anthropic, @Google, @CompTIA, @ISC2, @EC-Council, @CynuxEra, or the specific engineering team behind the technology).
+CRITICAL RULES:
+- Every mention MUST begin with the '@' symbol (e.g. "@Meta", "@OpenAI", "@Anthropic", "@Google", "@CynuxEra").
+- NEVER output placeholder brackets like "[Company Name]". Use the real name with '@'.
 
 4. STRUCTURED STANDOUT TAKEAWAYS:
 Transition with:
@@ -2112,6 +2122,29 @@ Include 10-15 highly targeted, relevant hashtags on their own block at the very 
         .trim();
 
       body = this.sanitizeBannedWords(body);
+
+      // Auto-tag well-known tech entities with '@' if the model omitted the '@'
+      const knownEntities = [
+        ["Meta AI", "@Meta"],
+        ["Meta", "@Meta"],
+        ["OpenAI", "@OpenAI"],
+        ["Anthropic", "@Anthropic"],
+        ["Google AI", "@Google"],
+        ["Google", "@Google"],
+        ["Microsoft", "@Microsoft"],
+        ["CynuxEra", "@CynuxEra"],
+        ["CompTIA", "@CompTIA"],
+        ["ISC2", "@ISC2"],
+        ["EC-Council", "@EC-Council"],
+        ["Claude Opus", "@Anthropic's Claude Opus"],
+        ["GPT-5", "@OpenAI's GPT-5"]
+      ];
+
+      for (const [entity, replacement] of knownEntities) {
+        // Only replace if not already preceded by '@'
+        const regex = new RegExp(`(?<!@)\\b${entity}\\b`, 'g');
+        body = body.replace(regex, replacement);
+      }
 
       if (!body) throw new Error("Local model returned an empty LinkedIn post body");
 
