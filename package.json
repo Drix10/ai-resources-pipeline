@@ -1,7 +1,7 @@
 {
-  "name": "twitter-to-github-mvp",
+  "name": "ai-knowledge-pipeline",
   "version": "1.0.0",
-  "description": "Automates X data collection and GitHub Markdown storage using a local LLM",
+  "description": "Autonomous AI Knowledge & Multi-Channel Syndication Engine",
   "main": "index.js",
   "author": "Drix10",
   "license": "MIT",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Drix10/Twitter-Gemini-GitHub-MVP.git"
+    "url": "git+https://github.com/Drix10/ai-knowledge-pipeline.git"
   },
   "dependencies": {
     "@octokit/rest": "^22.0.1",
