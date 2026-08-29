@@ -12,6 +12,7 @@ const config = {
     repo: process.env.GITHUB_REPONAME,
   },
   llm: {
+    useLocal: process.env.LOCAL_LLM !== undefined ? process.env.LOCAL_LLM === "true" : (process.env.USE_LOCAL_LLM !== undefined ? process.env.USE_LOCAL_LLM === "true" : true),
     baseUrl: (process.env.LOCAL_LLM_BASE_URL || "http://127.0.0.1:11434").replace(/\/$/, ""),
     model: process.env.LOCAL_LLM_MODEL || "gemma4:latest",
     requestTimeoutMs: parsePositiveInteger(process.env.LOCAL_LLM_REQUEST_TIMEOUT_MS, 300000),
@@ -19,6 +20,12 @@ const config = {
     autoStart: process.env.LOCAL_LLM_AUTO_START !== "false",
     command: process.env.LOCAL_LLM_COMMAND || "ollama",
     maxFoldersPerRun: parsePositiveInteger(process.env.MAX_FOLDERS_PER_RUN, 12),
+    nvidia: {
+      apiKey: process.env.NVIDIA_API_KEY || "",
+      baseUrl: (process.env.NVIDIA_BASE_URL || "https://integrate.api.nvidia.com/v1").replace(/\/$/, ""),
+      model: process.env.NVIDIA_MODEL || "meta/llama-3.2-11b-vision-instruct",
+      requestTimeoutMs: parsePositiveInteger(process.env.NVIDIA_REQUEST_TIMEOUT_MS, 120000),
+    },
   },
   discord: {
     webhookUrl: process.env.DISCORD_WEBHOOK_URL,

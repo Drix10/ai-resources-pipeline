@@ -160,6 +160,10 @@ class LocalLLMService {
 
   cleanup() {}
 
+  isLocalMode() {
+    return Boolean(config.llm.useLocal);
+  }
+
   isLocalEndpoint() {
     return /^https?:\/\/(?:127\.0\.0\.1|localhost|\[::1\])(?::\d+)?$/i.test(config.llm.baseUrl);
   }
@@ -178,6 +182,23 @@ class LocalLLMService {
   }
 
   async ensureAvailable() {
+    if (this.isLocalMode()) {
+      return this.ensureLocalOllamaAvailable();
+    }
+    return this.ensureNvidiaAvailable();
+  }
+
+  async ensureNvidiaAvailable() {
+    if (!config.llm.nvidia.apiKey || config.llm.nvidia.apiKey.trim() === "") {
+      const error = new Error(
+        "NVIDIA API Key is missing. Set NVIDIA_API_KEY in .env or set LOCAL_LLM=true to use local Ollama."
+      );
+      error.code = "NVIDIA_LLM_UNAVAILABLE";
+      throw error;
+    }
+  }
+
+  async ensureLocalOllamaAvailable() {
     try {
       const models = await this.getAvailableModels();
       if (!models.includes(config.llm.model)) {
@@ -257,11 +278,46 @@ class LocalLLMService {
     throw unavailable;
   }
 
+  sanitizeBannedWords(text) {
+    if (!text || typeof text !== "string") return text;
+    let result = text;
+    const replacements = [
+      [/\bleveraging\b/gi, "using"],
+      [/\bleverage\b/gi, "use"],
+      [/\bdeep dive\b/gi, "breakdown"],
+      [/\bdive into\b/gi, "look into"],
+      [/\bdive\b/gi, "explore"],
+      [/\badvanced\b/gi, "modern"],
+      [/\badvances\b/gi, "developments"],
+      [/\badvance\b/gi, "progress"],
+      [/\brobust\b/gi, "resilient"],
+      [/\bgame-changer\b/gi, "shift"],
+      [/\bseamlessly\b/gi, "directly"],
+      [/\bseamless\b/gi, "smooth"],
+      [/\bcutting-edge\b/gi, "modern"],
+      [/\bnext-gen\b/gi, "new"],
+      [/\brevolutionary\b/gi, "innovative"],
+      [/\bgroundbreaking\b/gi, "innovative"],
+      [/\bsignificant\b/gi, "notable"],
+      [/\bsignificantly\b/gi, "noticeably"],
+      [/\bdelve\b/gi, "look"],
+      [/\btestament\b/gi, "proof"],
+      [/\btapestry\b/gi, "mix"],
+      [/\bunlock\b/gi, "enable"],
+      [/\belevate\b/gi, "improve"],
+      [/\bmoreover\b/gi, "also"],
+      [/\bfurthermore\b/gi, "also"],
+      [/\bin conclusion\b/gi, "finally"]
+    ];
+
+    for (const [pattern, replacement] of replacements) {
+      result = result.replace(pattern, replacement);
+    }
+    return result;
+  }
+
   buildBannedWordRegex(word) {
     if (!word || typeof word !== "string") return null;
-    // Strip a trailing silent "e" so derivatives like leverage -> leveraging,
-    // ensure -> ensuring, advance -> advanced are caught. Only do this for
-    // words longer than 4 characters to avoid over-matching short roots.
     const useStem = word.endsWith("e") && word.length > 4;
     const stem = useStem ? word.slice(0, -1) : word;
     const pattern = (useStem ? stem : word).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
@@ -270,8 +326,15 @@ class LocalLLMService {
   }
 
   async generateText(prompt, options = {}) {
+    if (this.isLocalMode()) {
+      return this.generateTextViaOllama(prompt, options);
+    }
+    return this.generateTextViaNvidia(prompt, options);
+  }
+
+  async generateTextViaOllama(prompt, options = {}) {
     const endpoint = `${config.llm.baseUrl}/api/generate`;
-    await this.ensureAvailable();
+    await this.ensureLocalOllamaAvailable();
     logger.info(`LocalLLMService: Generating with local model "${config.llm.model}".`);
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), config.llm.requestTimeoutMs);
@@ -286,9 +349,6 @@ class LocalLLMService {
           model: config.llm.model,
           stream: false,
           think: false,
-          // Gemma's old 12k-token ceiling made a two-source batch run for
-          // minutes and often encouraged it to pad the answer with invented
-          // prose. Resource calls pass a tighter source-aware cap below.
           ...(format ? { format } : {}),
           options: { temperature: 0.1, num_predict: 2200, ...generationOptions },
           prompt: `${SYSTEM_PROMPT}\n\n${prompt}`,
@@ -321,6 +381,98 @@ class LocalLLMService {
     } finally {
       clearTimeout(timeout);
     }
+  }
+
+  async generateTextViaNvidia(prompt, options = {}) {
+    await this.ensureNvidiaAvailable();
+    const endpoint = `${config.llm.nvidia.baseUrl}/chat/completions`;
+    logger.info(`NvidiaLLMService: Generating with model "${config.llm.nvidia.model}".`);
+
+    const { format, temperature = 0.2, num_predict = 2500, ...generationOptions } = options;
+    const maxRetries = 3;
+    let lastError = null;
+
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), config.llm.nvidia.requestTimeoutMs);
+
+      try {
+        const payload = {
+          model: config.llm.nvidia.model,
+          messages: [
+            { role: "system", content: SYSTEM_PROMPT },
+            { role: "user", content: prompt }
+          ],
+          temperature: typeof temperature === "number" ? temperature : 0.2,
+          max_tokens: typeof num_predict === "number" ? num_predict : 2500,
+          stream: false,
+          ...(format === "json" ? { response_format: { type: "json_object" } } : {})
+        };
+
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${config.llm.nvidia.apiKey}`
+          },
+          signal: controller.signal,
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          const errText = await response.text();
+          const isRateLimit = response.status === 429;
+          const isServerError = response.status >= 500;
+
+          if ((isRateLimit || isServerError) && attempt < maxRetries) {
+            const delayMs = attempt * 3000;
+            logger.warn(`NvidiaLLMService: HTTP ${response.status} error (${errText.slice(0, 120)}). Retrying in ${delayMs}ms (attempt ${attempt}/${maxRetries})...`);
+            await sleep(delayMs);
+            continue;
+          }
+
+          const responseError = new Error(`NVIDIA API generation failed (${response.status}): ${errText}`);
+          responseError.code = "NVIDIA_LLM_ERROR";
+          throw responseError;
+        }
+
+        const data = await response.json();
+        const rawContent = data?.choices?.[0]?.message?.content;
+        if (!rawContent || typeof rawContent !== "string") {
+          const responseError = new Error("NVIDIA API returned an empty or invalid response.");
+          responseError.code = "NVIDIA_LLM_ERROR";
+          throw responseError;
+        }
+
+        // Clean out any <think>...</think> reasoning tags if reasoning models are used
+        const cleaned = rawContent
+          .replace(/<think>[\s\S]*?<\/think>/gi, "")
+          .trim();
+
+        return cleaned;
+      } catch (error) {
+        lastError = error;
+        if (error?.name === "AbortError") {
+          if (attempt < maxRetries) {
+            logger.warn(`NvidiaLLMService: Request timed out. Retrying (attempt ${attempt}/${maxRetries})...`);
+            await sleep(attempt * 2000);
+            continue;
+          }
+          const timeoutError = new Error(`NVIDIA API generation exceeded ${config.llm.nvidia.requestTimeoutMs}ms.`);
+          timeoutError.code = "NVIDIA_LLM_TIMEOUT";
+          throw timeoutError;
+        }
+        if (attempt < maxRetries && error?.code !== "NVIDIA_LLM_UNAVAILABLE") {
+          await sleep(attempt * 2000);
+          continue;
+        }
+        throw error;
+      } finally {
+        clearTimeout(timeout);
+      }
+    }
+
+    throw lastError || new Error("NVIDIA API generation failed after retries.");
   }
 
   async generateJson(prompt, schema = "json") {
@@ -1872,7 +2024,11 @@ JSON schema:
       if (!data.candidates || !Array.isArray(data.candidates) || data.candidates.length === 0) {
         throw new Error("Invalid response format: missing candidates array");
       }
-      return data.candidates;
+      return (data.candidates || []).map(c => ({
+        ...c,
+        hook: this.sanitizeBannedWords(c.hook),
+        promise: this.sanitizeBannedWords(c.promise)
+      }));
     } catch (error) {
       logger.error("LocalLLMService: JSON parsing error in generateHook:", error);
       if (retries > 0) {
@@ -1954,6 +2110,8 @@ Include 10-15 highly targeted, relevant hashtags on their own block at the very 
         .replace(/\[Company Name\]/gi, "the engineering team")
         .replace(/\[Insert.*?\]/gi, "")
         .trim();
+
+      body = this.sanitizeBannedWords(body);
 
       if (!body) throw new Error("Local model returned an empty LinkedIn post body");
 
