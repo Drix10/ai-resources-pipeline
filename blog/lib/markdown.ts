@@ -13,6 +13,8 @@ export interface ArticleSummary {
   description: string;
   searchKeywords: string;
   date: string;
+  isoTimestamp?: string;
+  sortOrder?: number;
   readingTimeMinutes: number;
   wordCount: number;
   canonicalUrl: string;
@@ -47,16 +49,11 @@ for (const a of articlesList) {
   slugMap.set(a.categorySlug + '/' + fileBase, a);
 }
 
-function resolveProjectRootDir(): string {
+function resolveContentRootDir(): string {
   const cwd = process.cwd();
-  const parentPath = path.join(cwd, '..');
-  if (fs.existsSync(path.join(parentPath, 'AI Developer Tools')) || fs.existsSync(path.join(parentPath, 'config'))) {
-    return parentPath;
-  }
-  if (fs.existsSync(path.join(cwd, 'AI Developer Tools')) || fs.existsSync(path.join(cwd, 'blog'))) {
-    return cwd;
-  }
-  return parentPath;
+  if (fs.existsSync(path.join(cwd, 'content'))) return path.join(cwd, 'content');
+  if (fs.existsSync(path.join(cwd, 'blog/content'))) return path.join(cwd, 'blog/content');
+  return path.join(cwd, 'content');
 }
 
 export function getAllArticles(): ArticleSummary[] {
@@ -85,13 +82,17 @@ export function getArticleBySlug(slugPath: string[]): Article | null {
   }
   if (!summary) return null;
 
-  const rootDir = resolveProjectRootDir();
-  const fullPath = path.join(rootDir, summary.filePath);
+  const contentDir = resolveContentRootDir();
+  const fullPath = path.join(contentDir, summary.category, summary.filename);
   let content = '';
   try {
     content = fs.readFileSync(fullPath, 'utf8');
   } catch (err) {
-    content = '# ' + summary.title + '\n\n' + summary.description;
+    try {
+      content = fs.readFileSync(path.join(process.cwd(), summary.filePath), 'utf8');
+    } catch (e) {
+      content = '# ' + summary.title + '\n\n' + summary.description;
+    }
   }
 
   return {

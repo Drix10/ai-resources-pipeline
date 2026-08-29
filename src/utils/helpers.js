@@ -132,10 +132,11 @@ const rebuildBlogIndex = () => {
     const articles = [];
     const categoryCountMap = new Map();
 
-    const entries = fs.readdirSync(rootDir, { withFileTypes: true });
+    const contentDir = path.join(blogDir, 'content');
+    const entries = fs.readdirSync(contentDir, { withFileTypes: true });
     for (const entry of entries) {
       if (!entry.isDirectory() || entry.name.startsWith(".") || ignored.has(entry.name)) continue;
-      const catDir = path.join(rootDir, entry.name);
+      const catDir = path.join(contentDir, entry.name);
       try {
         const files = fs.readdirSync(catDir);
         for (const file of files) {
