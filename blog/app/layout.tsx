@@ -1,6 +1,15 @@
 import HeaderLiveCounter from '@/components/HeaderLiveCounter';
+import Link from 'next/link';
+import Image from 'next/image';
+import { Inter } from 'next/font/google';
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
 
 export const viewport: Viewport = {
   themeColor: '#09090b',
@@ -111,7 +120,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(searchSchema) }}
         />
       </head>
-      <body className="min-h-screen flex flex-col bg-[#09090b] text-[#fafafa] antialiased selection:bg-zinc-800 selection:text-zinc-100 font-sans overflow-x-hidden">
+      <body className={`${inter.variable} font-sans min-h-screen flex flex-col bg-[#09090b] text-[#fafafa] antialiased selection:bg-zinc-800 selection:text-zinc-100 overflow-x-hidden`}>
         {/* Mobile-First Sticky Header */}
         <header className="border-b border-zinc-800/80 bg-[#09090b]/95 backdrop-blur-md sticky top-0 z-50">
           <div className="max-w-5xl mx-auto px-3.5 sm:px-4 h-14 flex items-center justify-between gap-2">
@@ -123,9 +132,11 @@ export default function RootLayout({
                 title="Visit drix10.com"
                 className="flex items-center gap-2 group min-h-[44px]"
               >
-                <img
+                <Image
                   src="/avatar.png"
                   alt="Drix10"
+                  width={28}
+                  height={28}
                   className="w-7 h-7 rounded-full object-cover border border-zinc-700 shadow-sm group-hover:border-zinc-400 transition-colors"
                 />
                 <span className="font-semibold text-sm tracking-tight text-zinc-100 group-hover:text-white transition-colors">
@@ -133,12 +144,12 @@ export default function RootLayout({
                 </span>
               </a>
               <span className="text-zinc-600 font-light select-none">/</span>
-              <a 
+              <Link 
                 href="/" 
                 className="text-sm text-zinc-400 hover:text-zinc-200 transition-colors py-2 font-medium"
               >
                 blog
-              </a>
+              </Link>
             </div>
             
             <div className="flex items-center gap-2">
@@ -192,9 +203,9 @@ export default function RootLayout({
                 LinkedIn
               </a>
               <span className="text-zinc-700">•</span>
-              <a href="/sitemap.xml" className="hover:text-zinc-100 hover:underline min-h-[32px] flex items-center">
+              <Link href="/sitemap.xml" className="hover:text-zinc-100 hover:underline min-h-[32px] flex items-center">
                 Sitemap
-              </a>
+              </Link>
             </div>
           </div>
         </footer>

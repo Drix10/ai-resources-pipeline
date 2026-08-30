@@ -30,7 +30,9 @@ renderer.image = ({ href, title, text }) => {
   return '<div class="my-6 text-center"><img src="' + href + '" alt="' + (text || 'Technical illustration') + '" title="' + (title || '') + '" class="rounded-xl border border-zinc-800 shadow-xl max-w-full h-auto mx-auto inline-block hover:border-zinc-700 transition-all" loading="lazy" />' + (text ? '<p class="text-xs text-zinc-500 mt-2 font-mono">' + text + '</p>' : '') + '</div>';
 };
 renderer.link = ({ href, title, text }) => {
-  const isExternal = href && href.startsWith('http');
+  if (!href) return text || '';
+  const isInternal = href.startsWith('/') || href.startsWith('https://blogs.drix10.com');
+  const isExternal = href.startsWith('http') && !isInternal;
   return '<a href="' + href + '" ' + (isExternal ? 'target="_blank" rel="noopener noreferrer"' : '') + ' title="' + (title || '') + '" class="text-zinc-200 underline decoration-zinc-700 underline-offset-4 hover:decoration-zinc-300 hover:text-white transition-colors">' + text + (isExternal ? ' ↗' : '') + '</a>';
 };
 renderer.table = ({ header, rows }) => {

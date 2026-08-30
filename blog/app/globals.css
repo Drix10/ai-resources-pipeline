@@ -28,6 +28,15 @@
   background: #3f3f46;
 }
 
+/* Hide scrollbar utility for horizontal scroll containers */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Prose Markdown custom styling */
 .prose pre {
   background-color: #121215 !important;

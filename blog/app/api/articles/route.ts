@@ -19,8 +19,8 @@ export async function GET(request: NextRequest) {
   const rawPage = parseInt(searchParams.get('page') || '1', 10);
   const page = Number.isInteger(rawPage) && rawPage > 0 ? Math.min(rawPage, 10000) : 1;
 
-  const rawLimit = parseInt(searchParams.get('limit') || '30', 10);
-  const limit = Number.isInteger(rawLimit) && rawLimit > 0 ? Math.min(100, Math.max(10, rawLimit)) : 30;
+  const rawLimit = parseInt(searchParams.get('limit') || '25', 10);
+  const limit = Number.isInteger(rawLimit) && rawLimit > 0 ? Math.min(100, Math.max(10, rawLimit)) : 25;
 
   const sort = searchParams.get('sort') || 'newest';
 

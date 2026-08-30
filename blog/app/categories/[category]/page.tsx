@@ -1,6 +1,7 @@
 export const dynamicParams = true;
 export const revalidate = 3600;
 
+import Link from 'next/link';
 import { getAllArticles, getAllCategories } from '@/lib/markdown';
 import { notFound } from 'next/navigation';
 
@@ -22,7 +23,7 @@ export default function CategoryPage({ params }: { params: { category: string } 
   return (
     <div className="space-y-8">
       <div className="border-b border-zinc-800 pb-4">
-        <a href="/" className="text-xs text-zinc-500 hover:text-zinc-300 mb-2 inline-block">← Back to Overview</a>
+        <Link href="/" className="text-xs text-zinc-500 hover:text-zinc-300 mb-2 inline-block">← Back to Overview</Link>
         <h1 className="text-xl font-bold text-zinc-100">{categoryName}</h1>
         <p className="text-zinc-400 text-xs mt-1">{filtered.length} curated breakdown(s)</p>
       </div>
@@ -37,18 +38,18 @@ export default function CategoryPage({ params }: { params: { category: string } 
             </div>
 
             <h2 className="text-base font-semibold text-zinc-100 group-hover:text-zinc-300 transition-colors leading-snug mb-1">
-              <a href={'/articles/' + article.slug} className="hover:underline">
+              <Link href={'/articles/' + article.slug} className="hover:underline">
                 {article.title}
-              </a>
+              </Link>
             </h2>
 
             <p className="text-xs text-zinc-400 line-clamp-2 leading-relaxed mb-2">
               {article.description}
             </p>
 
-            <a href={'/articles/' + article.slug} className="text-xs text-zinc-300 hover:text-zinc-100 font-medium inline-flex items-center gap-1">
+            <Link href={'/articles/' + article.slug} className="text-xs text-zinc-300 hover:text-zinc-100 font-medium inline-flex items-center gap-1">
               Read article →
-            </a>
+            </Link>
           </article>
         ))}
       </div>

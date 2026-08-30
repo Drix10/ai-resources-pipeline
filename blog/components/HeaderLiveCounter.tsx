@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
+import React, { useEffect, useState, useRef } from 'react';
 import initialViewsData from '@/lib/views-data.json';
 
 const SEED_TOTAL_VIEWS = typeof (initialViewsData as any)?.totalViews === 'number' 
@@ -9,54 +8,59 @@ const SEED_TOTAL_VIEWS = typeof (initialViewsData as any)?.totalViews === 'numbe
   : 8950;
 
 export default function HeaderLiveCounter() {
-  const [totalViews, setTotalViews] = useState<number>(() => {
-    if (typeof window !== 'undefined') {
+  const [totalViews, setTotalViews] = useState<number>(SEED_TOTAL_VIEWS);
+  const highWaterMark = useRef<number>(SEED_TOTAL_VIEWS);
+
+  // Helper: only accept values >= current high-water mark, storage-safe
+  const updateViews = (newVal: number) => {
+    if (!newVal || isNaN(newVal)) return;
+    const safe = Math.max(SEED_TOTAL_VIEWS, newVal, highWaterMark.current);
+    highWaterMark.current = safe;
+    setTotalViews(safe);
+    try {
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('drix10_total_views', String(safe));
+      }
+    } catch (e) {}
+  };
+
+  useEffect(() => {
+    // 1. Check local storage safely on client mount
+    try {
       const cached = localStorage.getItem('drix10_total_views');
       if (cached && !isNaN(Number(cached))) {
-        return Math.max(SEED_TOTAL_VIEWS, Number(cached));
+        updateViews(Number(cached));
       }
-    }
-    return SEED_TOTAL_VIEWS;
-  });
+    } catch (e) {}
 
-  const pathname = usePathname();
-
-  const fetchViews = () => {
+    // 2. Fetch server view count once on mount
+    let isMounted = true;
     fetch('/api/views')
       .then((res) => {
         if (!res.ok) throw new Error('Network error');
         return res.json();
       })
       .then((data) => {
-        if (data?.totalViews) {
-          const val = Math.max(SEED_TOTAL_VIEWS, data.totalViews);
-          setTotalViews(val);
-          if (typeof window !== 'undefined') {
-            localStorage.setItem('drix10_total_views', String(val));
-          }
+        if (isMounted && data?.totalViews) {
+          updateViews(data.totalViews);
         }
       })
       .catch(() => {});
-  };
 
-  useEffect(() => {
-    fetchViews();
-
+    // 3. Listen for real-time article view events
     const handleViewRecorded = (e: any) => {
       if (e?.detail?.totalViews) {
-        const val = Math.max(SEED_TOTAL_VIEWS, e.detail.totalViews);
-        setTotalViews(val);
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('drix10_total_views', String(val));
-        }
+        updateViews(e.detail.totalViews);
       }
     };
 
     window.addEventListener('viewRecorded', handleViewRecorded);
     return () => {
+      isMounted = false;
       window.removeEventListener('viewRecorded', handleViewRecorded);
     };
-  }, [pathname]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div 

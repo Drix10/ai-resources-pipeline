@@ -1,8 +1,8 @@
 {
-  "totalViews": 8956,
-  "totalAiViews": 2,
-  "totalHumanViews": 8954,
-  "lastUpdated": "2026-08-30T10:06:43.576Z",
+  "totalViews": 8962,
+  "totalAiViews": 4,
+  "totalHumanViews": 8958,
+  "lastUpdated": "2026-08-30T11:21:29.806Z",
   "articles": {
     "linkedin-insights/ai-developer-tools-1788031114374": {
       "views": 7,
@@ -44673,6 +44673,11 @@
       "views": 9,
       "humanViews": 8,
       "aiViews": 1
+    },
+    "cs-academics/resources-266": {
+      "views": 4,
+      "humanViews": 2,
+      "aiViews": 2
     }
   }
 }

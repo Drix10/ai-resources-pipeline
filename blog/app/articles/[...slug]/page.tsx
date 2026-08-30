@@ -3,6 +3,8 @@ import { getArticleViews } from '@/lib/views-manager';
 import { getAllArticles, getArticleBySlug } from '@/lib/markdown';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export const dynamicParams = true;
 export const revalidate = 3600;
@@ -113,11 +115,11 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
 
       {/* Mobile-Friendly Breadcrumbs */}
       <nav className="flex items-center gap-1.5 sm:gap-2 text-xs font-medium text-zinc-500 overflow-x-auto pb-1 no-scrollbar">
-        <a href="/" className="hover:text-zinc-200 transition-colors flex-shrink-0">Home</a>
+        <Link href="/" className="hover:text-zinc-200 transition-colors flex-shrink-0">Home</Link>
         <span>/</span>
-        <a href={'/categories/' + article.categorySlug} className="hover:text-zinc-200 transition-colors flex-shrink-0">
+        <Link href={'/categories/' + article.categorySlug} className="hover:text-zinc-200 transition-colors flex-shrink-0">
           {article.category}
-        </a>
+        </Link>
         <span>/</span>
         <span className="text-zinc-400 truncate max-w-[160px] sm:max-w-[240px] flex-shrink-0">{article.title}</span>
       </nav>
@@ -140,16 +142,21 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
           {article.title}
         </h1>
 
-        <ArticleViewTracker
-          slug={article.slug}
-          initialViews={getArticleViews(article.slug).views}
-          initialAiViews={getArticleViews(article.slug).aiViews}
-        />
+        {(() => {
+          const viewStats = getArticleViews(article.slug);
+          return (
+            <ArticleViewTracker
+              slug={article.slug}
+              initialViews={viewStats.views}
+              initialAiViews={viewStats.aiViews}
+            />
+          );
+        })()}
       </header>
 
       {/* Article Prose with Mobile Overflow Protection */}
       <article 
-        className="prose prose-invert prose-zinc max-w-none text-sm sm:text-[15px] leading-relaxed sm:leading-loose prose-headings:font-semibold prose-headings:text-zinc-100 prose-h1:text-lg sm:prose-h1:text-xl prose-h2:text-base sm:prose-h2:text-lg prose-h3:text-sm sm:prose-h3:text-base prose-p:text-zinc-300 prose-strong:text-zinc-100 prose-pre:bg-zinc-900 prose-pre:border prose-pre:border-zinc-800 prose-a:text-zinc-200 prose-a:underline hover:prose-a:text-white overflow-x-hidden"
+        className="prose prose-invert prose-zinc max-w-none text-sm sm:text-[15px] leading-relaxed sm:leading-loose prose-headings:font-semibold prose-headings:text-zinc-100 prose-h1:text-lg sm:prose-h1:text-xl prose-h2:text-base sm:prose-h2:text-lg prose-h3:text-sm sm:prose-h3:text-base prose-p:text-zinc-300 prose-strong:text-zinc-100 prose-pre:bg-zinc-900 prose-pre:border prose-pre:border-zinc-800 prose-a:text-zinc-200 prose-a:underline hover:prose-a:text-white overflow-x-auto"
         dangerouslySetInnerHTML={{ __html: article.htmlContent }}
       />
 
@@ -163,7 +170,7 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
             .filter((a) => a.category === article.category && a.slug !== article.slug)
             .slice(0, 4)
             .map((related) => (
-              <a
+              <Link
                 key={related.slug}
                 href={`/articles/${related.slug}`}
                 className="group p-3 rounded-xl bg-zinc-900/40 border border-zinc-800/60 hover:border-zinc-700 hover:bg-zinc-900/80 transition-all flex flex-col justify-between"
@@ -175,7 +182,7 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
                   <span>{related.readingTimeMinutes}m read</span>
                   <span className="group-hover:translate-x-0.5 transition-transform text-zinc-400">Read ↗</span>
                 </div>
-              </a>
+              </Link>
             ))}
         </div>
       </section>
@@ -185,9 +192,11 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
         <div className="p-4 rounded-xl bg-zinc-900/60 border border-zinc-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
             <a href="https://drix10.com" target="_blank" rel="noreferrer" className="shrink-0">
-              <img
+              <Image
                 src="/avatar.png"
                 alt="Drix10"
+                width={44}
+                height={44}
                 className="w-11 h-11 rounded-full object-cover border border-zinc-700 shadow-md hover:border-zinc-400 transition-colors"
               />
             </a>
@@ -220,9 +229,9 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
         </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-zinc-500 text-center sm:text-left">
-          <a href="/" className="hover:text-zinc-300 transition-colors py-1">
+          <Link href="/" className="hover:text-zinc-300 transition-colors py-1">
             ← Back to all breakdowns
-          </a>
+          </Link>
           <a href={article.canonicalUrl} className="hover:text-zinc-300 font-mono truncate max-w-[280px]">
             {article.canonicalUrl}
           </a>

@@ -3,7 +3,7 @@ import SearchableArticles from '@/components/SearchableArticles';
 
 export default function HomePage() {
   const allArticles = getAllArticles();
-  const initialArticles = allArticles.slice(0, 30);
+  const initialArticles = allArticles.slice(0, 25);
   const categories = getAllCategories();
 
   return (

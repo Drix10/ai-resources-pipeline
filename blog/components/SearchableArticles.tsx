@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useTransition } from 'react';
+import React, { useState, useEffect, useTransition, useRef, useCallback } from 'react';
+import Link from 'next/link';
 import type { ArticleSummary } from '@/lib/markdown';
 
 interface Props {
@@ -16,13 +17,33 @@ export default function SearchableArticles({ initialArticles, initialTotalCount,
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState<SortOption>('newest');
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(30);
-        const [articles, setArticles] = useState<ArticleSummary[]>(initialArticles);
+  const [pageSize, setPageSize] = useState(25);
+  const [articles, setArticles] = useState<ArticleSummary[]>(initialArticles);
   const [totalCount, setTotalCount] = useState(initialTotalCount);
-  const [totalPages, setTotalPages] = useState(Math.ceil(initialTotalCount / 30));
+  const [totalPages, setTotalPages] = useState(Math.ceil(initialTotalCount / 25));
   const [isPending, startTransition] = useTransition();
+  const isInitialMount = useRef(true);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // ⌘K / Ctrl+K keyboard shortcut to focus search
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   useEffect(() => {
+    // Skip the initial fetch — SSR props already have the right data
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+
     const controller = new AbortController();
     const timer = setTimeout(() => {
       const params = new URLSearchParams({
@@ -75,6 +96,7 @@ export default function SearchableArticles({ initialArticles, initialTotalCount,
           </svg>
         </div>
         <input
+          ref={searchInputRef}
           type="search"
           inputMode="search"
           autoCapitalize="none"
@@ -191,7 +213,7 @@ export default function SearchableArticles({ initialArticles, initialTotalCount,
         ) : (
           <div className="grid gap-2.5 sm:gap-3">
             {articles.map((article) => (
-              <a
+              <Link
                 key={article.slug}
                 href={'/articles/' + article.slug}
                 className="block p-3.5 sm:p-4 rounded-xl bg-zinc-900/30 hover:bg-zinc-900/80 border border-zinc-800/80 hover:border-zinc-700 transition-all duration-150 group active:scale-[0.99]"
@@ -213,7 +235,7 @@ export default function SearchableArticles({ initialArticles, initialTotalCount,
                 <p className="text-xs text-zinc-400 line-clamp-2 leading-relaxed">
                   {article.description}
                 </p>
-              </a>
+              </Link>
             ))}
           </div>
         )}

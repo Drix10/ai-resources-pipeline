@@ -6,10 +6,14 @@ import path from 'path';
 import indexData from '@/lib/articles-index.json';
 
 let cachedSlugs = new Set<string>();
+let lastCacheRefresh = 0;
 
-function getValidSlugs(): Set<string> {
-  if (cachedSlugs.size > 0) return cachedSlugs;
+function getValidSlugs(forceRefresh = false): Set<string> {
+  const now = Date.now();
+  if (cachedSlugs.size > 0 && !forceRefresh) return cachedSlugs;
+  if (forceRefresh && now - lastCacheRefresh < 30000) return cachedSlugs;
 
+  lastCacheRefresh = now;
   try {
     const indexPath = path.join(process.cwd(), 'lib', 'articles-index.json');
     if (fs.existsSync(indexPath)) {
@@ -76,9 +80,8 @@ export async function POST(request: NextRequest) {
     const validSlugs = getValidSlugs();
     // Security Gate: Reject unindexed / arbitrary slugs to prevent storage corruption
     if (!validSlugs.has(cleanSlug)) {
-      // Re-read once in case the file was just added
-      cachedSlugs.clear();
-      const freshSlugs = getValidSlugs();
+      // Re-read with throttle guard in case the file was just added
+      const freshSlugs = getValidSlugs(true);
       if (!freshSlugs.has(cleanSlug)) {
         return NextResponse.json({ error: 'Invalid article slug' }, { status: 404 });
       }

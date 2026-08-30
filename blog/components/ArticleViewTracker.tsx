@@ -13,7 +13,15 @@ export default function ArticleViewTracker({ slug, initialViews, initialAiViews 
   const [aiViews, setAiViews] = useState(initialAiViews);
 
   useEffect(() => {
-    // Increment view count asynchronously on page load
+    let isMounted = true;
+    const sessionKey = `viewed:${slug}`;
+
+    try {
+      if (typeof window !== 'undefined' && sessionStorage.getItem(sessionKey)) {
+        return; // Already recorded this session
+      }
+    } catch (e) {}
+
     fetch('/api/views', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -21,15 +29,23 @@ export default function ArticleViewTracker({ slug, initialViews, initialAiViews 
     })
       .then((res) => res.json())
       .then((data) => {
+        if (!isMounted) return;
         if (data?.stats) {
           setViews(data.stats.views);
           setAiViews(data.stats.aiViews);
         }
         if (data?.totalViews && typeof window !== 'undefined') {
+          try {
+            sessionStorage.setItem(sessionKey, '1');
+          } catch (e) {}
           window.dispatchEvent(new CustomEvent('viewRecorded', { detail: data }));
         }
       })
       .catch(() => {});
+
+    return () => {
+      isMounted = false;
+    };
   }, [slug]);
 
   return (

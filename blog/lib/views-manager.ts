@@ -22,7 +22,9 @@ const BASE_TOTAL_VIEWS = typeof (seedData as any)?.totalViews === 'number' ? (se
 const BASE_AI_VIEWS = typeof (seedData as any)?.totalAiViews === 'number' ? (seedData as any).totalAiViews : 1;
 const BASE_HUMAN_VIEWS = typeof (seedData as any)?.totalHumanViews === 'number' ? (seedData as any).totalHumanViews : BASE_TOTAL_VIEWS - BASE_AI_VIEWS;
 
-const defaultStore: ViewsStore = {
+// In-memory store — survives within a single serverless lambda lifecycle.
+// Initialized ONCE from seed data. NOT re-read from disk on every function call.
+const store: ViewsStore = {
   totalViews: BASE_TOTAL_VIEWS,
   totalAiViews: BASE_AI_VIEWS,
   totalHumanViews: BASE_HUMAN_VIEWS,
@@ -30,13 +32,13 @@ const defaultStore: ViewsStore = {
   articles: ((seedData as any)?.articles as Record<string, ArticleViews>) || {},
 };
 
+const IS_SERVERLESS = !!(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
+
 function getViewsFilePath(): string {
-  // On Vercel / serverless lambdas, write to /tmp
-  if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
+  if (IS_SERVERLESS) {
     return path.join(os.tmpdir(), 'ai-knowledge-views.json');
   }
 
-  // Resolve locally across possible cwd locations
   const candidates = [
     path.join(process.cwd(), 'lib', 'views-data.json'),
     path.join(process.cwd(), 'blog', 'lib', 'views-data.json'),
@@ -50,30 +52,39 @@ function getViewsFilePath(): string {
   return candidates[0];
 }
 
-function loadStoreFromDisk(): ViewsStore {
+// Load from disk ONLY on cold-start initialization for local dev.
+// On serverless, the in-memory store seeded from views-data.json is the source of truth.
+let initialized = false;
+function initStoreOnce(): void {
+  if (initialized) return;
+  initialized = true;
+
+  // On serverless, the committed seed IS the truth. Don't try to read /tmp.
+  if (IS_SERVERLESS) return;
+
+  // Local dev: try to load latest state from disk
   const filePath = getViewsFilePath();
   try {
     if (fs.existsSync(filePath)) {
       const raw = fs.readFileSync(filePath, 'utf8');
       const parsed = JSON.parse(raw);
       if (parsed && typeof parsed.totalViews === 'number') {
-        parsed.totalViews = Math.max(BASE_TOTAL_VIEWS, parsed.totalViews);
-        parsed.articles = parsed.articles || {};
-        return parsed;
+        store.totalViews = Math.max(BASE_TOTAL_VIEWS, parsed.totalViews);
+        store.totalAiViews = parsed.totalAiViews || store.totalAiViews;
+        store.totalHumanViews = parsed.totalHumanViews || store.totalHumanViews;
+        store.articles = parsed.articles || store.articles;
+        store.lastUpdated = parsed.lastUpdated || store.lastUpdated;
       }
     }
-  } catch (e) {}
-
-  return {
-    ...defaultStore,
-    totalViews: Math.max(BASE_TOTAL_VIEWS, defaultStore.totalViews),
-    articles: { ...defaultStore.articles }
-  };
+  } catch (e) {
+    // Silently use seed data
+  }
 }
 
-let store: ViewsStore = loadStoreFromDisk();
-
 function saveStoreToDisk(): void {
+  // On serverless, skip disk writes — /tmp is ephemeral and misleading
+  if (IS_SERVERLESS) return;
+
   const filePath = getViewsFilePath();
   try {
     const dir = path.dirname(filePath);
@@ -93,6 +104,16 @@ export function isAiCrawler(userAgent: string): boolean {
   return AI_BOT_REGEX.test(userAgent.slice(0, 500));
 }
 
+function normalizeSlug(slug: string): string {
+  if (!slug || typeof slug !== 'string') return '';
+  let clean = slug.trim().toLowerCase();
+  try {
+    clean = decodeURIComponent(clean).toLowerCase().trim();
+  } catch (e) {}
+  clean = clean.replace(/^\/+|\/+$/g, '');
+  return clean.slice(0, 180);
+}
+
 export function recordView(slug: string, userAgent: string): {
   slug: string;
   stats: ArticleViews;
@@ -101,27 +122,27 @@ export function recordView(slug: string, userAgent: string): {
   totalHumanViews: number;
   totalAiViews: number;
 } {
-  const diskStore = loadStoreFromDisk();
-  store = diskStore;
+  initStoreOnce();
 
+  const cleanSlug = normalizeSlug(slug);
   const isAi = isAiCrawler(userAgent);
 
-  if (!store.articles[slug]) {
-    store.articles[slug] = {
+  if (!store.articles[cleanSlug]) {
+    store.articles[cleanSlug] = {
       views: 1,
       humanViews: isAi ? 0 : 1,
       aiViews: isAi ? 1 : 0,
     };
   } else {
-    store.articles[slug].views = (store.articles[slug].views || 0) + 1;
+    store.articles[cleanSlug].views = (store.articles[cleanSlug].views || 0) + 1;
     if (isAi) {
-      store.articles[slug].aiViews = (store.articles[slug].aiViews || 0) + 1;
+      store.articles[cleanSlug].aiViews = (store.articles[cleanSlug].aiViews || 0) + 1;
     } else {
-      store.articles[slug].humanViews = (store.articles[slug].humanViews || 0) + 1;
+      store.articles[cleanSlug].humanViews = (store.articles[cleanSlug].humanViews || 0) + 1;
     }
   }
 
-  // Guaranteed strictly monotonic increment
+  // Strictly monotonic increment — never go below base
   store.totalViews = Math.max(BASE_TOTAL_VIEWS, store.totalViews) + 1;
   if (isAi) {
     store.totalAiViews = (store.totalAiViews || 0) + 1;
@@ -133,8 +154,8 @@ export function recordView(slug: string, userAgent: string): {
   saveStoreToDisk();
 
   return {
-    slug,
-    stats: store.articles[slug],
+    slug: cleanSlug,
+    stats: { ...store.articles[cleanSlug] },
     isAi,
     totalViews: store.totalViews,
     totalHumanViews: store.totalHumanViews,
@@ -143,16 +164,18 @@ export function recordView(slug: string, userAgent: string): {
 }
 
 export function getArticleViews(slug: string): ArticleViews {
-  const diskStore = loadStoreFromDisk();
-  store = diskStore;
+  initStoreOnce();
 
-  return (
-    store.articles[slug] || {
-      views: 0,
-      humanViews: 0,
-      aiViews: 0,
-    }
-  );
+  const cleanSlug = normalizeSlug(slug);
+  const found = store.articles[cleanSlug] || store.articles[slug];
+  if (found) {
+    return { ...found };
+  }
+  return {
+    views: 0,
+    humanViews: 0,
+    aiViews: 0,
+  };
 }
 
 export function getGlobalViewsStats(): {
@@ -161,8 +184,7 @@ export function getGlobalViewsStats(): {
   totalHumanViews: number;
   lastUpdated: string;
 } {
-  const diskStore = loadStoreFromDisk();
-  store = diskStore;
+  initStoreOnce();
 
   return {
     totalViews: Math.max(BASE_TOTAL_VIEWS, store.totalViews),
