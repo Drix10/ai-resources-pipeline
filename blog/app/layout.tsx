@@ -42,6 +42,11 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  icons: {
+    icon: '/avatar.png',
+    shortcut: '/avatar.png',
+    apple: '/avatar.png',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -49,12 +54,21 @@ export const metadata: Metadata = {
     siteName: 'Drix10 Blogs',
     title: 'Drix10 Blogs — Engineering Breakdowns & AI Knowledge Base',
     description: 'Curated technical research, system architectures, cybersecurity breakdowns, and AI engineering notes.',
+    images: [
+      {
+        url: '/avatar.png',
+        width: 800,
+        height: 800,
+        alt: 'Drix10',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Drix10 Blogs — Engineering Breakdowns & AI Knowledge Base',
     description: 'Curated technical research, system architectures, and AI engineering notes.',
     creator: '@drix10',
+    images: ['/avatar.png'],
   },
   alternates: {
     canonical: 'https://blogs.drix10.com',
@@ -89,6 +103,8 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark scroll-smooth">
       <head>
+        <link rel="icon" href="/avatar.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/avatar.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(searchSchema) }}
@@ -98,14 +114,31 @@ export default function RootLayout({
         {/* Mobile-First Sticky Header */}
         <header className="border-b border-zinc-800/80 bg-[#09090b]/95 backdrop-blur-md sticky top-0 z-50">
           <div className="max-w-5xl mx-auto px-3.5 sm:px-4 h-14 flex items-center justify-between gap-2">
-            <a href="/" className="flex items-center gap-2 group min-h-[44px]">
-              <span className="w-7 h-7 rounded-md bg-zinc-100 text-zinc-950 flex items-center justify-center font-bold text-xs shadow-sm">
-                D
-              </span>
-              <span className="font-semibold text-sm tracking-tight text-zinc-100 group-hover:text-zinc-300 transition-colors">
-                drix10 <span className="text-zinc-500 font-normal">/ blog</span>
-              </span>
-            </a>
+            <div className="flex items-center gap-2">
+              <a 
+                href="https://drix10.com" 
+                target="_blank" 
+                rel="noreferrer"
+                title="Visit drix10.com"
+                className="flex items-center gap-2 group min-h-[44px]"
+              >
+                <img
+                  src="/avatar.png"
+                  alt="Drix10"
+                  className="w-7 h-7 rounded-full object-cover border border-zinc-700 shadow-sm group-hover:border-zinc-400 transition-colors"
+                />
+                <span className="font-semibold text-sm tracking-tight text-zinc-100 group-hover:text-white transition-colors">
+                  drix10
+                </span>
+              </a>
+              <span className="text-zinc-600 font-light select-none">/</span>
+              <a 
+                href="/" 
+                className="text-sm text-zinc-400 hover:text-zinc-200 transition-colors py-2 font-medium"
+              >
+                blog
+              </a>
+            </div>
             
             <div className="flex items-center gap-2">
               <a 

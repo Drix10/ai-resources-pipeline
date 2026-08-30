@@ -183,11 +183,20 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
       {/* High-DR Backlinks & Mobile Author Card */}
       <div className="mt-8 sm:mt-12 pt-6 border-t border-zinc-800 space-y-4 sm:space-y-6">
         <div className="p-4 rounded-xl bg-zinc-900/60 border border-zinc-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="space-y-1">
-            <div className="text-xs font-semibold text-zinc-200">Written by Drix10</div>
-            <p className="text-xs text-zinc-400">
-              Co founder @ PartPilot | 1 x Acquired Founder | Canopy @ f.inc | Cybersec @ DSU | 2x International Hackathon 🏆. Read more on <a href="https://drix10.com" target="_blank" rel="noreferrer" className="text-zinc-200 underline">drix10.com</a>.
-            </p>
+          <div className="flex items-center gap-3.5">
+            <a href="https://drix10.com" target="_blank" rel="noreferrer" className="shrink-0">
+              <img
+                src="/avatar.png"
+                alt="Drix10"
+                className="w-11 h-11 rounded-full object-cover border border-zinc-700 shadow-md hover:border-zinc-400 transition-colors"
+              />
+            </a>
+            <div className="space-y-0.5">
+              <div className="text-xs font-semibold text-zinc-200">Written by Drix10</div>
+              <p className="text-xs text-zinc-400">
+                Co founder @ PartPilot | 1 x Acquired Founder | Canopy @ f.inc | Cybersec @ DSU | 2x International Hackathon 🏆. Read more on <a href="https://drix10.com" target="_blank" rel="noreferrer" className="text-zinc-200 underline">drix10.com</a>.
+              </p>
+            </div>
           </div>
 
           <div className="flex items-center gap-2 w-full sm:w-auto">
