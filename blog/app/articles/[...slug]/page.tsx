@@ -186,7 +186,7 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
           <div className="space-y-1">
             <div className="text-xs font-semibold text-zinc-200">Written by Drix10</div>
             <p className="text-xs text-zinc-400">
-              Cybersecurity practitioner & AI engineer. Read more on <a href="https://drix10.com" target="_blank" rel="noreferrer" className="text-zinc-200 underline">drix10.com</a>.
+              Co founder @ PartPilot | 1 x Acquired Founder | Canopy @ f.inc | Cybersec @ DSU | 2x International Hackathon 🏆. Read more on <a href="https://drix10.com" target="_blank" rel="noreferrer" className="text-zinc-200 underline">drix10.com</a>.
             </p>
           </div>
 
