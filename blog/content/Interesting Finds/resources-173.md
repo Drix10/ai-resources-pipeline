@@ -1,6 +1,6 @@
 ### 💡 Political Communication - Verifying Public Statements
 
-Process of verifying political statements by referring to public records. It highlights the importance of documentation in political discourse and communication.
+This article examines the process of verifying political statements by referring to public records. It highlights the importance of documentation in political discourse and communication.
 
 Key Points:
 

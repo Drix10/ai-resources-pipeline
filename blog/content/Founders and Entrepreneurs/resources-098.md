@@ -1,6 +1,6 @@
 ### 🤖 Expo SDK 54 - Blob API Integration
 
-Addition of the spec-compliant Blob API to Expo SDK 54, focusing on its impact on handling binary data.
+This article discusses the addition of the spec-compliant Blob API to Expo SDK 54, focusing on its impact on handling binary data.
 
 Key Points:
 

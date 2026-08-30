@@ -1,6 +1,6 @@
 ### 🤖 Deep Learning Journey - Personal Goals
 
-Personal goals of a deep learning enthusiast focusing on skill development, code improvement, community engagement, and networking.
+This article outlines the personal goals of a deep learning enthusiast focusing on skill development, code improvement, community engagement, and networking.
 
 Key Points:
 

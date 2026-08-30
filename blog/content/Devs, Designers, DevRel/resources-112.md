@@ -1,6 +1,6 @@
 ### 💡 Figma Design - Project Cover Best Practices
 
-Importance of well-designed project covers in Figma and provides examples of effective practices for improved team collaboration and file organization.  It highlights the challenges of locating relevant project files in large design teams.
+This article discusses the importance of well-designed project covers in Figma and provides examples of effective practices for improved team collaboration and file organization.  It highlights the challenges of locating relevant project files in large design teams.
 
 
 Key Points:

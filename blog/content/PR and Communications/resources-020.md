@@ -1,6 +1,6 @@
 ### ⚠️ Geopolitics - Allegations of Russian Influence
 
-Allegations of Russian influence in the United States, focusing on claims regarding President Trump.  The content includes various opinions and assertions from social media.
+This article summarizes allegations of Russian influence in the United States, focusing on claims regarding President Trump.  The content includes various opinions and assertions from social media.
 
 
 Key Points:

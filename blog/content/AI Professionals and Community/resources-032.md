@@ -1,6 +1,6 @@
 ### 🤖 Image Generation - FlowMo Tokenizer
 
-FlowMo, a novel transformer-based tokenizer for image generation developed by researchers from Stanford and UMich.  It highlights FlowMo's departure from traditional CNN-based methods and its use of a diffusion autoencoder.
+This article discusses FlowMo, a novel transformer-based tokenizer for image generation developed by researchers from Stanford and UMich.  It highlights FlowMo's departure from traditional CNN-based methods and its use of a diffusion autoencoder.
 
 Key Points:
 

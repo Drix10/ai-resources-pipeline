@@ -1,6 +1,6 @@
 ### ✨ Author Events - Cory Doctorow Appearances
 
-Details on upcoming author appearances by Cory Doctorow in Ottawa and Toronto. It outlines the dates, locations, and featured guests for these events.
+This article provides details on upcoming author appearances by Cory Doctorow in Ottawa and Toronto. It outlines the dates, locations, and featured guests for these events.
 
 Key Points:
 

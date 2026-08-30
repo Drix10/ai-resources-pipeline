@@ -1,6 +1,6 @@
 ### 💡 Public Safety - Repeat Offenders Strategy
 
-Strategic approach to enhancing public safety by focusing on repeat offenders. It highlights the potential impact of targeted interventions on crime rates and community well-being.
+This article explores a strategic approach to enhancing public safety by focusing on repeat offenders. It highlights the potential impact of targeted interventions on crime rates and community well-being.
 
 Key Points:
 

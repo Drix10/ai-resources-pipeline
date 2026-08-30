@@ -1,6 +1,6 @@
 ### 🤖 Decentralized Finance - Oracle Evolution
 
-Shortcomings of current oracles in decentralized finance (DeFi) and proposes a path towards more robust, transparent, and decentralized solutions.  It also briefly touches on the potential of on-chain oracles.
+This article discusses the shortcomings of current oracles in decentralized finance (DeFi) and proposes a path towards more robust, transparent, and decentralized solutions.  It also briefly touches on the potential of on-chain oracles.
 
 
 Key Points:

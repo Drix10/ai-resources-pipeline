@@ -1,6 +1,6 @@
 ### 🎙️ Math Education Podcast - Discussion on Key Concepts
 
-Podcast discussion on math education, covering Bloom's two-sigma problem, mastery learning, and the knowledge graph's hierarchical structure.
+This article summarizes a podcast discussion on math education, covering Bloom's two-sigma problem, mastery learning, and the knowledge graph's hierarchical structure.
 
 
 Key Points:

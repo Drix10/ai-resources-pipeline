@@ -1,6 +1,6 @@
 ### 🤖 Sarawak AI Vision - Green, Sovereign AI Economy
 
-Sarawak's strategic vision for an AI-driven economy. It highlights the focus on local resources, governance, and relevance to achieve a green and sovereign AI ecosystem. The content references a recent agreement as an initial step towards this objective.
+This article discusses Sarawak's strategic vision for an AI-driven economy. It highlights the focus on local resources, governance, and relevance to achieve a green and sovereign AI ecosystem. The content references a recent agreement as an initial step towards this objective.
 
 Key Points:
 

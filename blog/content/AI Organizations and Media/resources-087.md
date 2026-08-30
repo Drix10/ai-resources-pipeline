@@ -1,6 +1,6 @@
 ### 🤖 AI Pipelines - Asynchronous and Composable AI Pipelines
 
-New open-source Python library for building asynchronous and composable AI pipelines, designed for real-time agents and generative AI.  It focuses on the library's key features and integration capabilities.
+This article discusses a new open-source Python library for building asynchronous and composable AI pipelines, designed for real-time agents and generative AI.  It focuses on the library's key features and integration capabilities.
 
 Key Points:
 

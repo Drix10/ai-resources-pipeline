@@ -1,6 +1,6 @@
 ### 💡 Agent Discoverability - Best Practices for LLM Interactions
 
-Importance of discoverability for AI agents to effectively locate and interact with digital content. It highlights the use of `llms.txt` and machine-readable formats, along with optimal placement strategies.
+This article discusses the importance of discoverability for AI agents to effectively locate and interact with digital content. It highlights the use of `llms.txt` and machine-readable formats, along with optimal placement strategies.
 
 Key Points:
 

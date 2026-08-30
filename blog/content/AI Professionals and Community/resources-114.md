@@ -1,6 +1,6 @@
 ### 🤖 Meta's Failed Glass Demos - An Authentic Perspective
 
-Reaction to Meta's failed glass demos and considers the potential implications for the development of augmented reality technology.  It also explores the anticipated responses from operating system developers.
+This article discusses the reaction to Meta's failed glass demos and considers the potential implications for the development of augmented reality technology.  It also explores the anticipated responses from operating system developers.
 
 
 Key Points:

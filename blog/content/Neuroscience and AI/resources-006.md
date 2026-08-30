@@ -1,6 +1,6 @@
 ### ⚠️ Political Commentary - US Federal Budget Priorities
 
-Twitter thread expressing concern over the perceived prioritization of tax cuts for billionaires over addressing issues such as healthcare, infrastructure, and veteran support.
+This article summarizes a Twitter thread expressing concern over the perceived prioritization of tax cuts for billionaires over addressing issues such as healthcare, infrastructure, and veteran support.
 
 Key Points:
 

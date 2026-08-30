@@ -1,6 +1,6 @@
 ### 🤖 UAP Analysis - Tic Tac UFO
 
-Claims that the 2004 Tic Tac UFO sighting involved a man-made craft potentially developed secretly within the U.S. defense industry.  The analysis explores available information concerning the object's characteristics and origins.
+This article examines the claims that the 2004 Tic Tac UFO sighting involved a man-made craft potentially developed secretly within the U.S. defense industry.  The analysis explores available information concerning the object's characteristics and origins.
 
 
 Key Points:

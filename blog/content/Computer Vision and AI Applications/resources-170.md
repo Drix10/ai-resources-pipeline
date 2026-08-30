@@ -1,6 +1,6 @@
 ### 🤖 Camera Pose Estimation - Novel 6DoF Approach
 
-Advancements by the Omni team in camera pose estimation, demonstrating a method that achieves 6DoF results through AR text generation without relying on traditional architectural components.
+This article highlights advancements by the Omni team in camera pose estimation, demonstrating a method that achieves 6DoF results through AR text generation without relying on traditional architectural components.
 
 Key Points:
 

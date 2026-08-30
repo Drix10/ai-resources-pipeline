@@ -1,6 +1,6 @@
 ### ⚠️ Incident Report - Assault in Paris
 
-Reported assault that occurred in Paris, France.  The author describes an incident where they were assaulted for refusing to delete a video.
+This article summarizes a reported assault that occurred in Paris, France.  The author describes an incident where they were assaulted for refusing to delete a video.
 
 Key Points:
 

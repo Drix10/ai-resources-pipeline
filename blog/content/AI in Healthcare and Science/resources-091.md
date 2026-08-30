@@ -1,6 +1,6 @@
 ### 💡 Healthcare Leadership - The CMIO's Role
 
-Role of a Chief Medical Informatics Officer (CMIO), focusing on their responsibilities as a translator, educator, and realist within the healthcare innovation landscape.  Dr. Rebecca Markowitz's perspective on this role is highlighted.
+This article discusses the role of a Chief Medical Informatics Officer (CMIO), focusing on their responsibilities as a translator, educator, and realist within the healthcare innovation landscape.  Dr. Rebecca Markowitz's perspective on this role is highlighted.
 
 Key Points:
 

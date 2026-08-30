@@ -1,6 +1,6 @@
 ### 🤖 Healthcare - Insurance Industry Complications
 
-Complexities within the healthcare insurance industry, highlighting the significant role played by large insurance companies and Pharmacy Benefit Managers (PBMs).  It focuses on their control over patient flow and its implications.
+This article discusses the complexities within the healthcare insurance industry, highlighting the significant role played by large insurance companies and Pharmacy Benefit Managers (PBMs).  It focuses on their control over patient flow and its implications.
 
 Key Points:
 

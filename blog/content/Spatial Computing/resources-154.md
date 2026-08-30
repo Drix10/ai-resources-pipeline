@@ -1,6 +1,6 @@
 ### 💡 Digital Communication - Expressing Sentiment Online
 
-Nuanced expression of sentiment in digital communication, particularly through icons and implied understanding. It addresses how brief online interactions often require context to convey deeper meaning.
+This article discusses the nuanced expression of sentiment in digital communication, particularly through icons and implied understanding. It addresses how brief online interactions often require context to convey deeper meaning.
 
 Key Points:
 

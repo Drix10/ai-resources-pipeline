@@ -1,6 +1,6 @@
 ### 🕊️ Peace - The High Cost of War
 
-Devastating consequences of war, emphasizing the irreplaceable human cost and the futility of armed conflict as a solution to problems.
+This article discusses the devastating consequences of war, emphasizing the irreplaceable human cost and the futility of armed conflict as a solution to problems.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Philanthropy - Rethinking Impact
 
-Limitations of traditional charitable giving and proposes an alternative approach focusing on the scarcity of talent and ambition.
+This article discusses the limitations of traditional charitable giving and proposes an alternative approach focusing on the scarcity of talent and ambition.
 
 Key Points:
 

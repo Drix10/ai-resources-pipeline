@@ -1,6 +1,6 @@
 ### 💡 Entrepreneurial Journey - MakeMyTrip Success
 
-Journey of MakeMyTrip and its co-founder Deep Kalra, showcasing their impact on India's startup ecosystem. It also notes an upcoming event by @spc_india featuring Deep Kalra.
+This article highlights the journey of MakeMyTrip and its co-founder Deep Kalra, showcasing their impact on India's startup ecosystem. It also notes an upcoming event by @spc_india featuring Deep Kalra.
 
 Key Points:
 

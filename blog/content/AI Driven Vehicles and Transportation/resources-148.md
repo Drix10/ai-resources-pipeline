@@ -1,6 +1,6 @@
 ### 🤖 Autonomous Driving Systems - Safety Regulation and Benchmarking
 
-Regulatory landscape for autonomous driving systems (ADS), focusing on documentation requirements within an Operational Design Domain (ODD). It explains the role of U.S. vehicle regulation under NHTSA and the potential global influence of the GTR.
+This article discusses the regulatory landscape for autonomous driving systems (ADS), focusing on documentation requirements within an Operational Design Domain (ODD). It explains the role of U.S. vehicle regulation under NHTSA and the potential global influence of the GTR.
 
 Key Points:
 

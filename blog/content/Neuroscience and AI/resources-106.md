@@ -1,6 +1,6 @@
 ### 🤖 Neuroscience - Hippocampal Function in Relational Structure Learning
 
-Study investigating the causal role of the hippocampus in relational structure learning using novel behavioral tasks, fMRI, and transcranial ultrasound stimulation.
+This article discusses a study investigating the causal role of the hippocampus in relational structure learning using novel behavioral tasks, fMRI, and transcranial ultrasound stimulation.
 
 Key Points:
 

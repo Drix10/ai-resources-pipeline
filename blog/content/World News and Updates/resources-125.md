@@ -1,6 +1,6 @@
 ### 💡 Crime Report - East Delhi Family Tragedy
 
-Reported crime in East Delhi where a man killed three family members due to financial difficulties. It details the perpetrator's subsequent surrender to the police.
+This article summarizes a reported crime in East Delhi where a man killed three family members due to financial difficulties. It details the perpetrator's subsequent surrender to the police.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Rare Earths Mining - Geopolitical Control
 
-Significant rare earth deposits found in Southern China and the secretive nature of their extraction. It highlights the strategic importance of these resources globally and the challenges in reporting on the industry.
+This article discusses the significant rare earth deposits found in Southern China and the secretive nature of their extraction. It highlights the strategic importance of these resources globally and the challenges in reporting on the industry.
 
 Key Points:
 

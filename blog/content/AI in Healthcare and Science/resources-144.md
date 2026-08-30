@@ -1,6 +1,6 @@
 ### 🤖 Medical Reasoning - Dataset Generation
 
-Creation of a large-scale open medical reasoning dataset. It details the methodologies and scale involved in combining multiple models to produce a comprehensive dataset for medical AI research.
+This article discusses the creation of a large-scale open medical reasoning dataset. It details the methodologies and scale involved in combining multiple models to produce a comprehensive dataset for medical AI research.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Knowledge Graphs - Data Synthesis with open-sciencela
 
-Application of knowledge graphs for synthesizing data, highlighting an open-source project from Open Science LA that facilitates this process.
+This article covers the application of knowledge graphs for synthesizing data, highlighting an open-source project from Open Science LA that facilitates this process.
 
 Key Points:
 

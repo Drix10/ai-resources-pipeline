@@ -1,6 +1,6 @@
 ### 🤖 Interview - Pasquale and IllusionOfLife
 
-Planned interview with Pasquale (@okpasquale) about IllusionOfLife (@IllusionOfLife),  consisting of ten questions to be answered sequentially.
+This article summarizes a planned interview with Pasquale (@okpasquale) about IllusionOfLife (@IllusionOfLife),  consisting of ten questions to be answered sequentially.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 🤖 Google Cloud Registry Deprecation
 
-Notification regarding the deprecation of a Google Cloud registry and outlines the necessary steps for data migration.  Users are advised to re-register their data in the new registry.
+This article summarizes a notification regarding the deprecation of a Google Cloud registry and outlines the necessary steps for data migration.  Users are advised to re-register their data in the new registry.
 
 
 Key Points:

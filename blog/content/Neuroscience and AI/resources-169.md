@@ -1,6 +1,6 @@
 ### 🤖 Space Resources - Lunar Helium-3 Mining
 
-Potential profitability of mining the rare isotope helium-3 from the Moon. It highlights helium-3 as one of Earth's most precious commodities.
+This article discusses the potential profitability of mining the rare isotope helium-3 from the Moon. It highlights helium-3 as one of Earth's most precious commodities.
 
 Key Points:
 

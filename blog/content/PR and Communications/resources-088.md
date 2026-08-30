@@ -1,6 +1,6 @@
 ### 💡 Social Issues - Crime Prevention Strategies
 
-Alternative approaches to crime prevention, focusing on societal investment rather than solely law enforcement.
+This article discusses alternative approaches to crime prevention, focusing on societal investment rather than solely law enforcement.
 
 Key Points:
 

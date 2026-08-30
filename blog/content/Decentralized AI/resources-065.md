@@ -1,6 +1,6 @@
 ### 🚀 Yield Farming - Mode AI Terminal Optimization
 
-To leverage the Mode AI Terminal to enhance yield farming strategies, focusing on setting LP ranges, maximizing fees, and reducing impermanent loss.
+This article details how to leverage the Mode AI Terminal to enhance yield farming strategies, focusing on setting LP ranges, maximizing fees, and reducing impermanent loss.
 
 Key Points:
 

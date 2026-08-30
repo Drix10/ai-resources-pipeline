@@ -1,6 +1,6 @@
 ### 💡 Public Transport - World Cup Fares
 
-Public reaction to proposed $150 train fares for World Cup attendees traveling to Meadowlands stadium in New Jersey. It highlights the concerns of New York City residents regarding the high cost of transportation for the event.
+This article discusses the public reaction to proposed $150 train fares for World Cup attendees traveling to Meadowlands stadium in New Jersey. It highlights the concerns of New York City residents regarding the high cost of transportation for the event.
 
 Key Points:
 

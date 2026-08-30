@@ -1,6 +1,6 @@
 ### 🤖 AI Music - Innovation or "Wallpaper Sound"?
 
-Rise of AI-generated music and questions its impact on creativity and the music industry.  The implications for artists and the overall musical landscape are considered.
+This article discusses the rise of AI-generated music and questions its impact on creativity and the music industry.  The implications for artists and the overall musical landscape are considered.
 
 
 Key Points:

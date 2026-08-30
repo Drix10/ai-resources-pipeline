@@ -1,6 +1,6 @@
 ### 🤖 AI in Therapy - Impact on Practice
 
-Impact of AI on therapist practices, focusing on compliance, CPT coding, documentation, and work-life balance.  Data regarding AI's influence on these areas is summarized.
+This article examines the impact of AI on therapist practices, focusing on compliance, CPT coding, documentation, and work-life balance.  Data regarding AI's influence on these areas is summarized.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Economic Vulnerability - Single Stock Reliance
 
-Risks of an economy or market segment being overly reliant on a single company's performance. It mentions South Korea's recent market event and draws parallels to European markets.
+This article discusses the risks of an economy or market segment being overly reliant on a single company's performance. It mentions South Korea's recent market event and draws parallels to European markets.
 
 Key Points:
 

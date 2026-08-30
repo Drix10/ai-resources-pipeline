@@ -1,6 +1,6 @@
 ### 💡 Education - Probability Theory Book
 
-Recommended book, *One Step Ahead of Probability*, focusing on probability and measure theory. It provides an accessible approach to understanding complex mathematical concepts.
+This article discusses a recommended book, *One Step Ahead of Probability*, focusing on probability and measure theory. It provides an accessible approach to understanding complex mathematical concepts.
 
 Key Points:
 • Introduces *One Step Ahead of Probability* as a recommended text.

@@ -1,6 +1,6 @@
 ### 🤖 Quantum Computing - Majorana Qubit Processor
 
-Announcement of Majorana 1, the world's first quantum processor powered by topological qubits, and its implications for scalable quantum computing.
+This article discusses the announcement of Majorana 1, the world's first quantum processor powered by topological qubits, and its implications for scalable quantum computing.
 
 Key Points:
 

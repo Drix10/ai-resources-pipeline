@@ -1,6 +1,6 @@
 ### 🏞️ Travel - North Dakota Journey
 
-Personal travel experience across North Dakota, showcasing images from the journey.
+This article details a personal travel experience across North Dakota, showcasing images from the journey.
 
 Key Points:
 

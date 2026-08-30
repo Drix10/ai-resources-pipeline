@@ -1,6 +1,6 @@
 ### ✨ Football Statistics - Premier League Goalkeeping Performance
 
-David Raya's impressive clean sheet record in the Premier League, recognizing his achievement of winning the Golden Glove and his strong performance in the current season.
+This article highlights David Raya's impressive clean sheet record in the Premier League, recognizing his achievement of winning the Golden Glove and his strong performance in the current season.
 
 Key Points:
 

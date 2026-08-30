@@ -1,6 +1,6 @@
 ### 🤖 MultiversX Narrative - Building on Elrond's Foundation
 
-Narrative surrounding MultiversX, highlighting its origins in Elrond and emphasizing its solution to the blockchain trilemma.  It also touches upon perspectives from within the MultiversX community.
+This article discusses the narrative surrounding MultiversX, highlighting its origins in Elrond and emphasizing its solution to the blockchain trilemma.  It also touches upon perspectives from within the MultiversX community.
 
 
 Key Points:

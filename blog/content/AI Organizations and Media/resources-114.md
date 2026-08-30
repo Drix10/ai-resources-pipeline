@@ -1,6 +1,6 @@
 ### 🤖 AI and Copyright - Protecting Creative Works
 
-Implications of AI on copyright law, specifically focusing on the potential for AI to infringe upon creative works.  The example uses Sweden's creative scene as a case study.
+This article discusses the implications of AI on copyright law, specifically focusing on the potential for AI to infringe upon creative works.  The example uses Sweden's creative scene as a case study.
 
 Key Points:
 

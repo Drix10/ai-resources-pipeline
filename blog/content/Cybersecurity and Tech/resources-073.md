@@ -1,6 +1,6 @@
 ### ⚠️ Cybersecurity - The Spiral of Failure
 
-Cyclical nature of cybersecurity failures stemming from corporate short-term thinking and examines ways to break this cycle.  It highlights the disconnect between security vendors/consultants and practical reality.
+This article discusses the cyclical nature of cybersecurity failures stemming from corporate short-term thinking and examines ways to break this cycle.  It highlights the disconnect between security vendors/consultants and practical reality.
 
 Key Points:
 

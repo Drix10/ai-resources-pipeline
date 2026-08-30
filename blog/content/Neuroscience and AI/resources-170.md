@@ -1,6 +1,6 @@
 ### 🚀 Artemis III Mission - Planning Details
 
-Ongoing planning for NASA's 2027 Artemis III mission, highlighting both the details that have been revealed and key questions that remain unanswered regarding the mission's specifics and astronaut selection.
+This article outlines the ongoing planning for NASA's 2027 Artemis III mission, highlighting both the details that have been revealed and key questions that remain unanswered regarding the mission's specifics and astronaut selection.
 
 Key Points:
 

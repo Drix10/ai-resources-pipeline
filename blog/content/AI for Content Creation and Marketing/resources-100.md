@@ -1,6 +1,6 @@
 ### ✨ Knowledge Base Features - Trillium Cloning
 
-"Cloning" feature in Trillium, a knowledge base tool, and its influence on a similar feature under development for Dosu.
+This article discusses the "Cloning" feature in Trillium, a knowledge base tool, and its influence on a similar feature under development for Dosu.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Public Safety - Foiled Attack Prevention
 
-Foiled terrorist attack in Germany, including the arrests made and the planned target. It explains the purpose of public safety measures such as protective barriers in preventing such incidents.
+This article details a foiled terrorist attack in Germany, including the arrests made and the planned target. It explains the purpose of public safety measures such as protective barriers in preventing such incidents.
 
 Key Points:
 

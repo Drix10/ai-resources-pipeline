@@ -1,6 +1,6 @@
 ### 🤖 AI Accelerator Cohort - Multimodal AI and Agentic Workflows
 
-Lately AI's acceptance into Google for Startups Cloud AI Accelerator program, focusing on their work in multimodal AI and agential workflows.
+This article discusses Lately AI's acceptance into Google for Startups Cloud AI Accelerator program, focusing on their work in multimodal AI and agential workflows.
 
 Key Points:
 

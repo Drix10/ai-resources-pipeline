@@ -1,6 +1,6 @@
 ### 🤖 Quantum Computing - Neutral Atom Research Expansion
 
-Google Quantum AI's strategic expansion to include neutral atom research alongside its superconducting program. This move aims to accelerate the development of large-scale, error-corrected quantum computers by leveraging complementary technological paths.
+This article outlines Google Quantum AI's strategic expansion to include neutral atom research alongside its superconducting program. This move aims to accelerate the development of large-scale, error-corrected quantum computers by leveraging complementary technological paths.
 
 Key Points:
 

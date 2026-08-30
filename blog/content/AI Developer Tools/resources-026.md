@@ -1,6 +1,6 @@
 ### 🚀 OpenAI Tools - AI Agent Development
 
-New tools from OpenAI designed to assist developers in building reliable and powerful AI agents.  The tools cover various functionalities, including web and file search, computer usage simulation, and API access.
+This article details new tools from OpenAI designed to assist developers in building reliable and powerful AI agents.  The tools cover various functionalities, including web and file search, computer usage simulation, and API access.
 
 Key Points:
 

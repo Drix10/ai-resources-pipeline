@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Enhanced Tactile Sensing
 
-Research on improving robots' tactile sensing capabilities to mimic human brain function.  The research uses ConvRNNs and tactile-specific augmentations.
+This article discusses research on improving robots' tactile sensing capabilities to mimic human brain function.  The research uses ConvRNNs and tactile-specific augmentations.
 
 
 Key Points:

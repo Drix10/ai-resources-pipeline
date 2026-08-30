@@ -1,6 +1,6 @@
 ### 💡 Social Media Policy - Content Moderation Challenges
 
-Complexities and challenges inherent in implementing and enforcing content moderation policies on social media platforms. It highlights the public discourse surrounding consistency and perceived biases.
+This article examines the complexities and challenges inherent in implementing and enforcing content moderation policies on social media platforms. It highlights the public discourse surrounding consistency and perceived biases.
 
 Key Points:
 

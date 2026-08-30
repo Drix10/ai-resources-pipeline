@@ -1,6 +1,6 @@
 ### 🤖 Robotics Debugging - Closed Loop Systems
 
-New capability for closed-loop robotics debugging. It highlights its application in improving custom gaussian splatting views.
+This article discusses a new capability for closed-loop robotics debugging. It highlights its application in improving custom gaussian splatting views.
 
 Key Points:
 • Introduces a method for closed-loop robotics debugging.

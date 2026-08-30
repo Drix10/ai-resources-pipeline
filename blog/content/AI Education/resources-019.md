@@ -1,6 +1,6 @@
 ### 🤖 AI-Powered Question Generation for Educators
 
-Kami's AI-powered question generation tool, which allows educators to create assessments from various input types, including text, images, and videos.  It also highlights the tool's one-click sharing feature for Learning Management Systems (LMS).
+This article discusses Kami's AI-powered question generation tool, which allows educators to create assessments from various input types, including text, images, and videos.  It also highlights the tool's one-click sharing feature for Learning Management Systems (LMS).
 
 
 Key Points:

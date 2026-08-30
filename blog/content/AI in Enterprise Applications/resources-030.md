@@ -1,6 +1,6 @@
 ### 🚀 Finance - Automated Financial Management with Digits
 
-Digits, a tool for automating financial management.  It simplifies financial processes by connecting to various financial tools.
+This article discusses Digits, a tool for automating financial management.  It simplifies financial processes by connecting to various financial tools.
 
 
 Key Points:

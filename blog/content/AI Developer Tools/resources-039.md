@@ -1,6 +1,6 @@
 ### 🚀 AI Infra Summit - Industry Leaders Showcase AI Workloads
 
-Speakers and topics at the Ray + AI Infra Summit in NYC on May 20th, focusing on how industry leaders leverage Ray to power their AI workloads.
+This article highlights the speakers and topics at the Ray + AI Infra Summit in NYC on May 20th, focusing on how industry leaders leverage Ray to power their AI workloads.
 
 Key Points:
 

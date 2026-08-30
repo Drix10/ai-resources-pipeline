@@ -1,6 +1,6 @@
 ### 🚀 AI Creative Tools - Based Labs AI
 
-Based Labs AI, an all-in-one AI creative studio, highlighting its image generation and customization capabilities.
+This article provides an overview of Based Labs AI, an all-in-one AI creative studio, highlighting its image generation and customization capabilities.
 
 Key Points:
 

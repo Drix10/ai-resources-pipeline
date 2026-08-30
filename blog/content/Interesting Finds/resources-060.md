@@ -1,6 +1,6 @@
 ### 🚨 News - Secret Service Officer Altercation
 
-Reported altercation between two female Secret Service officers outside former President Obama's residence.  The incident reportedly stemmed from a scheduling conflict.
+This article summarizes a reported altercation between two female Secret Service officers outside former President Obama's residence.  The incident reportedly stemmed from a scheduling conflict.
 
 Key Points:
 

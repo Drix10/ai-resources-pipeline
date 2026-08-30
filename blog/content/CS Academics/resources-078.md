@@ -1,6 +1,6 @@
 ### 🤖 Institute Future - Funding and Structure
 
-Future plans for an institute, its funding requirements, and its organizational structure as composed of semi-autonomous modules.
+This article discusses the future plans for an institute, its funding requirements, and its organizational structure as composed of semi-autonomous modules.
 
 Key Points:
 

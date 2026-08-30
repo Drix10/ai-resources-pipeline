@@ -1,6 +1,6 @@
 ### 💡 Policy - SNAP Benefits Reform
 
-Potential for reforming the Supplemental Nutrition Assistance Program (SNAP) to reduce spending on less healthy food options.  It highlights the significant portion of SNAP benefits allocated to sugary drinks and candy.
+This article discusses the potential for reforming the Supplemental Nutrition Assistance Program (SNAP) to reduce spending on less healthy food options.  It highlights the significant portion of SNAP benefits allocated to sugary drinks and candy.
 
 Key Points:
 

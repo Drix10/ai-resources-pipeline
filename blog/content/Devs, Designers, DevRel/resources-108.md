@@ -1,6 +1,6 @@
 ### 🤖 Social Media - Copyright Infringement
 
-Social media account (@Ahmadansari2233) with over 180K followers that appears to be posting copyrighted wallpapers and graphics without attribution.  The issue of copyright infringement in the design community is highlighted.
+This article discusses a social media account (@Ahmadansari2233) with over 180K followers that appears to be posting copyrighted wallpapers and graphics without attribution.  The issue of copyright infringement in the design community is highlighted.
 
 Key Points:
 

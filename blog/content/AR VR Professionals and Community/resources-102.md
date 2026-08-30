@@ -1,6 +1,6 @@
 ### 🤖 Game Development - Believability in Virtual Worlds
 
-Importance of believability in virtual world design, focusing on a core principle advocated by the Another Axiom team.  It examines why immersion alone is insufficient for a compelling player experience.
+This article discusses the importance of believability in virtual world design, focusing on a core principle advocated by the Another Axiom team.  It examines why immersion alone is insufficient for a compelling player experience.
 
 
 Key Points:

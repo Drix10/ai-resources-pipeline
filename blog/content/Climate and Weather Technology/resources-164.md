@@ -1,6 +1,6 @@
 ### 🤖 Environmental Geology - Persistent Methane Seepage
 
-Historical 1955 drilling blowout at the Haripur gas field in Sylhet, Bangladesh, locally known as Fire Hill. It explains the ongoing methane seepage from the ground decades later, which produces blue flames when ignited.
+This article details the historical 1955 drilling blowout at the Haripur gas field in Sylhet, Bangladesh, locally known as Fire Hill. It explains the ongoing methane seepage from the ground decades later, which produces blue flames when ignited.
 
 Key Points:
 

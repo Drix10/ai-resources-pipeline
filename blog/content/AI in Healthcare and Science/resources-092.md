@@ -1,6 +1,6 @@
 ### 🤖 Generative AI - Revolutionizing Drug Discovery
 
-Generative AI is transforming drug discovery by enabling the creation of novel molecules and offering a new approach to drug design.  It highlights the potential for improved drug development through AI-powered insights.
+This article discusses how generative AI is transforming drug discovery by enabling the creation of novel molecules and offering a new approach to drug design.  It highlights the potential for improved drug development through AI-powered insights.
 
 Key Points:
 

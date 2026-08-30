@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - In-Context Learning Drivers
 
-Findings of a research paper regarding the primary drivers of in-context learning (ICL) in large language models, challenging the common association with induction heads.
+This article discusses the findings of a research paper regarding the primary drivers of in-context learning (ICL) in large language models, challenging the common association with induction heads.
 
 Key Points:
 

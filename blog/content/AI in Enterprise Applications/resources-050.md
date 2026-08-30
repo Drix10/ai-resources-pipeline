@@ -1,6 +1,6 @@
 ### 🤖 AI Video Editing - Enhancing Recorded Videos
 
-To use AI to enhance recorded videos, focusing on Descript's AI Video Maker.  The process from raw recording to polished video is outlined.
+This article details how to use AI to enhance recorded videos, focusing on Descript's AI Video Maker.  The process from raw recording to polished video is outlined.
 
 Key Points:
 

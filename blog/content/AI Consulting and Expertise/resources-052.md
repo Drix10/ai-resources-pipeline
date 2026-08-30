@@ -1,6 +1,6 @@
 ### 🤖 Neural Timing in Deep Learning - Continuous Thought Machines
 
-New Sakana AI paper introducing neural timing, mirroring brain firing rhythms, into deep learning models, enabling adaptive computation.  The model dynamically determines when to cease processing, optimizing resource usage.
+This article discusses a new Sakana AI paper introducing neural timing, mirroring brain firing rhythms, into deep learning models, enabling adaptive computation.  The model dynamically determines when to cease processing, optimizing resource usage.
 
 
 Key Points:

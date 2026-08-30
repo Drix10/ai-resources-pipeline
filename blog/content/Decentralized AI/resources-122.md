@@ -1,6 +1,6 @@
 ### 🤖 Flare - ISO 20022 Integration
 
-Flare's readiness for ISO 20022 integration, facilitated by the ProofRails tool. It details how blockchain transactions can be converted into the standardized financial messaging format.
+This article outlines Flare's readiness for ISO 20022 integration, facilitated by the ProofRails tool. It details how blockchain transactions can be converted into the standardized financial messaging format.
 
 Key Points:
 

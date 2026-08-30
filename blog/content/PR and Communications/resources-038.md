@@ -1,6 +1,6 @@
 ### ⚽ Soccer - Andrea Pirlo's World Cup Performance
 
-Andrea Pirlo's performance during the 2006 World Cup, highlighting his impact on the Italian team.  A personal anecdote from an Italian fan is included.
+This article discusses Andrea Pirlo's performance during the 2006 World Cup, highlighting his impact on the Italian team.  A personal anecdote from an Italian fan is included.
 
 Key Points:
 

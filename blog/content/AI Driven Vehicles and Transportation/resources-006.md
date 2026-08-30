@@ -1,6 +1,6 @@
 ### 🤖 AI in Child Development Research - Automated Measurement of Human Interactions
 
-Use of AI and 3D computer vision to automate the measurement of human interactions in video data from early child development research.  The approach offers significant time savings compared to traditional human annotation methods.
+This article discusses the use of AI and 3D computer vision to automate the measurement of human interactions in video data from early child development research.  The approach offers significant time savings compared to traditional human annotation methods.
 
 Key Points:
 

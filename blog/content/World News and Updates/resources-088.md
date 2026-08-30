@@ -1,6 +1,6 @@
 ### 🌎 International Relations - Gaza Conflict Escalation
 
-Report on Israel's decision to seize control of Gaza City following the Hamas hostage situation.  The report highlights the number of hostages and their status.
+This article summarizes a report on Israel's decision to seize control of Gaza City following the Hamas hostage situation.  The report highlights the number of hostages and their status.
 
 Key Points:
 

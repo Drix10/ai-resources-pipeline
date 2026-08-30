@@ -1,6 +1,6 @@
 ### ✨ Awards - XREAL Markers
 
-IF Design Award win by XREAL Markers, interactive image tracking cards designed to enhance the interaction between physical and virtual displays.  The award-winning design was created exclusively for early XREAL Air 2 Ultra users.
+This article discusses the iF Design Award win by XREAL Markers, interactive image tracking cards designed to enhance the interaction between physical and virtual displays.  The award-winning design was created exclusively for early XREAL Air 2 Ultra users.
 
 Key Points:
 

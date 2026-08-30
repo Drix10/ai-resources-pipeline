@@ -1,6 +1,6 @@
 ### ✨ Pixverse v6 - Animation Capabilities
 
-New Pixverse v6, focusing on its advanced animation features. It showcases its ability to generate high-quality video content with specific artistic styles.
+This article highlights the new Pixverse v6, focusing on its advanced animation features. It showcases its ability to generate high-quality video content with specific artistic styles.
 
 Key Points:
 

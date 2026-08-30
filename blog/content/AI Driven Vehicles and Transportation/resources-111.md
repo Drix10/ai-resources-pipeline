@@ -1,6 +1,6 @@
 ### 🤖 Autonomous Vehicles - Waymo Safety Data Analysis
 
-Neurosurgeon's in-depth analysis of Waymo's publicly released autonomous vehicle safety data, focusing on the significance of raw data availability for independent verification.
+This article discusses a neurosurgeon's in-depth analysis of Waymo's publicly released autonomous vehicle safety data, focusing on the significance of raw data availability for independent verification.
 
 Key Points:
 

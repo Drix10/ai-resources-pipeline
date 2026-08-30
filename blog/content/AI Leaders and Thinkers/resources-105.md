@@ -1,6 +1,6 @@
 ### 🤖 AI Inference - Speed Optimization
 
-NVIDIA's research on significantly accelerating Large Language Model (LLM) inference without retraining.  The research focuses on achieving hyper-speed while maintaining or exceeding state-of-the-art accuracy.
+This article discusses NVIDIA's research on significantly accelerating Large Language Model (LLM) inference without retraining.  The research focuses on achieving hyper-speed while maintaining or exceeding state-of-the-art accuracy.
 
 Key Points:
 

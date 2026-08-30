@@ -1,6 +1,6 @@
 ### 💡 Economic Analysis - Cost of Residential Electricity
 
-Relationship between the average cost of residential electricity and the Consumer Price Index (CPI). It highlights how understanding these metrics can provide quick economic insights.
+This article examines the relationship between the average cost of residential electricity and the Consumer Price Index (CPI). It highlights how understanding these metrics can provide quick economic insights.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 📰 NOAA - Hurricane Season Update
 
-Latest issue of Flightlines, a newsletter providing updates on NOAA's hurricane season preparations.  It also includes a link to the full newsletter.
+This article summarizes the latest issue of Flightlines, a newsletter providing updates on NOAA's hurricane season preparations.  It also includes a link to the full newsletter.
 
 Key Points:
 

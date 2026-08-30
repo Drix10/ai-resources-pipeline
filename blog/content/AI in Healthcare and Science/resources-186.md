@@ -1,6 +1,6 @@
 ### 🤖 Coding Library - Medical Reference
 
-Free, specialty-specific reference library for medical coding professionals. It emphasizes its continuous availability and updated content to support daily operations.
+This article highlights a free, specialty-specific reference library for medical coding professionals. It emphasizes its continuous availability and updated content to support daily operations.
 
 Key Points:
 

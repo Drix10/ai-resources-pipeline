@@ -1,6 +1,6 @@
 ### 🤖 X Algorithm Changes - Curating AI Content
 
-Adjustments made to the author's X (formerly Twitter) lists for AI communities and news, focusing on account size and content curation strategies.
+This article discusses adjustments made to the author's X (formerly Twitter) lists for AI communities and news, focusing on account size and content curation strategies.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Literary Analysis - Journey to the West - Sun Wukong's Role
 
-Significant narrative contribution of Sun Wukong within the classic Chinese novel, Journey to the West. It highlights the extensive focus on his character and adventures throughout the epic.
+This article explores the significant narrative contribution of Sun Wukong within the classic Chinese novel, Journey to the West. It highlights the extensive focus on his character and adventures throughout the epic.
 
 Key Points:
 

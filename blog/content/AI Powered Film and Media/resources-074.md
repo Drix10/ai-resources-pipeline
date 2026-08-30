@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - MindsDB Integration
 
-Integrating a MindsDB Materialized Compute Pipeline (MCP) server into Large Language Model (LLM) calls, enabling queries across diverse data sources.  The example uses MindsDB.
+This article details integrating a MindsDB Materialized Compute Pipeline (MCP) server into Large Language Model (LLM) calls, enabling queries across diverse data sources.  The example uses MindsDB.
 
 
 Key Points:

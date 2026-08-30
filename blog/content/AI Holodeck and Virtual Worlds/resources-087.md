@@ -1,6 +1,6 @@
 ### 🤖 Building Scalable Real-time Voice AI
 
-Challenges of building scalable real-time voice AI and showcases a solution using open-source models, RAG, and Baseten.
+This article discusses the challenges of building scalable real-time voice AI and showcases a solution using open-source models, RAG, and Baseten.
 
 Key Points:
 

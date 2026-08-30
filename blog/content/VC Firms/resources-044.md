@@ -1,6 +1,6 @@
 ### 🤖 Finance - EIF Guarantee Agreements
 
-New EIF guarantee agreements backed by InvestEU, designed to improve access to finance for those in need.  A press release provides further details.
+This article discusses new EIF guarantee agreements backed by InvestEU, designed to improve access to finance for those in need.  A press release provides further details.
 
 Key Points:
 

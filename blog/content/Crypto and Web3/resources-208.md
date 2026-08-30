@@ -1,6 +1,6 @@
 ### 💡 Market Observation - Volatility Trends
 
-Recent market activity, suggesting unusual or volatile price movements. It provides a visual representation of these shifts.
+This article highlights recent market activity, suggesting unusual or volatile price movements. It provides a visual representation of these shifts.
 
 Key Points:
 

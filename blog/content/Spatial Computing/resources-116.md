@@ -1,6 +1,6 @@
 ### ✨ Game Announcement - Orbitals for Nintendo Switch 2
 
-Global announcement of "Orbitals," an upcoming game scheduled for exclusive release on the Nintendo Switch 2 in 2026.
+This article details the global announcement of "Orbitals," an upcoming game scheduled for exclusive release on the Nintendo Switch 2 in 2026.
 
 Key Points:
 

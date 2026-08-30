@@ -1,6 +1,6 @@
 ### 🤖 AI in Healthcare - Epic's AI Assistants
 
-Three AI assistants developed by Epic, a leading EHR provider,  designed to improve clinical workflows, patient experience, and claims processing.
+This article details three AI assistants developed by Epic, a leading EHR provider,  designed to improve clinical workflows, patient experience, and claims processing.
 
 Key Points:
 

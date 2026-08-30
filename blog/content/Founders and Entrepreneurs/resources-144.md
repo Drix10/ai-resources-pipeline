@@ -1,6 +1,6 @@
 ### 🤖 Knowledge Graphs - AI-Driven Enterprise Applications
 
-Construction of knowledge graphs specifically designed to power AI-driven enterprise applications. It highlights how these structured data models enhance the capabilities of artificial intelligence within an organizational context.
+This article discusses the construction of knowledge graphs specifically designed to power AI-driven enterprise applications. It highlights how these structured data models enhance the capabilities of artificial intelligence within an organizational context.
 
 Key Points:
 

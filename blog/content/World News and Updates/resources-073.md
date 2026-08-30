@@ -1,6 +1,6 @@
 ### 🧘‍♀️ Indian Culture - Yoga's True Roots
 
-Evolution of yoga, highlighting its traditional Indian origins and contrasting them with modern Western adaptations.  It features a video discussing the topic.
+This article discusses the evolution of yoga, highlighting its traditional Indian origins and contrasting them with modern Western adaptations.  It features a video discussing the topic.
 
 Key Points:
 

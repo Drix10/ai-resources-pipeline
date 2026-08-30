@@ -1,6 +1,6 @@
 ### 💡 Geopolitics - Potential Ukraine-EU-China Deal
 
-Proposed, hypothetical deal involving Ukraine, the EU, and China to de-escalate the conflict with Russia.  The potential agreement involves concessions from Ukraine and the EU in exchange for China's influence on Russia.
+This article discusses a proposed, hypothetical deal involving Ukraine, the EU, and China to de-escalate the conflict with Russia.  The potential agreement involves concessions from Ukraine and the EU in exchange for China's influence on Russia.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Energy Policy - Renewable vs. Nuclear Economics
 
-Economic arguments comparing renewable energy investments with nuclear power development in Scotland. It highlights differences in job creation potential between these energy sectors.
+This article examines the economic arguments comparing renewable energy investments with nuclear power development in Scotland. It highlights differences in job creation potential between these energy sectors.
 
 Key Points:
 

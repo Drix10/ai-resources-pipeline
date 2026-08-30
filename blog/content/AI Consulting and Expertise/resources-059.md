@@ -1,6 +1,6 @@
 ### 🤖 Veo 3 AI Video Generation - Initial Testing
 
-Initial tests of text-to-image (t2i) and text-to-video (t2v) prompt generation using the Veo 3 platform.  Cost and generation limits are also discussed.
+This article summarizes initial tests of text-to-image (t2i) and text-to-video (t2v) prompt generation using the Veo 3 platform.  Cost and generation limits are also discussed.
 
 
 Key Points:

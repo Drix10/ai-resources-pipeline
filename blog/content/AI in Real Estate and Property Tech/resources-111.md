@@ -1,6 +1,6 @@
 ### 💡 Domain Names -  "ii" suffix value
 
-Unexpected value of domain names ending in "ii," based on a personal anecdote.  The author highlights a shift in perspective regarding the perceived value of such domains.
+This article discusses the unexpected value of domain names ending in "ii," based on a personal anecdote.  The author highlights a shift in perspective regarding the perceived value of such domains.
 
 
 Key Points:

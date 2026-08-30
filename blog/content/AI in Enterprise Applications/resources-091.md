@@ -1,6 +1,6 @@
 ### 🚀 AI Agents - Lindy 3.0 Launch
 
-Increased demand for AI agent builders and the recent launch of Lindy 3.0, a tool for creating agents from simple prompts.
+This article discusses the increased demand for AI agent builders and the recent launch of Lindy 3.0, a tool for creating agents from simple prompts.
 
 Key Points:
 

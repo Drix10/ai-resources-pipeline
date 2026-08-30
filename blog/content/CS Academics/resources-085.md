@@ -1,6 +1,6 @@
 ### 🤖 Academic Integrity -  Nepotism in Theoretical Computer Science
 
-Concerns regarding academic nepotism within the editorial board of the journal Theoretical Computer Science, specifically focusing on the continued presence of Ding-Zhu Du on the editorial board despite a change in Editors-in-Chief.
+This article discusses concerns regarding academic nepotism within the editorial board of the journal Theoretical Computer Science, specifically focusing on the continued presence of Ding-Zhu Du on the editorial board despite a change in Editors-in-Chief.
 
 Key Points:
 

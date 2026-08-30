@@ -1,6 +1,6 @@
 ### 💰 Personal Finance - High Net Worth Individual's Financial Strategy
 
-Financial situation of a high-net-worth individual, highlighting their savings habits, investment strategies, and monthly expenditure.
+This article discusses the financial situation of a high-net-worth individual, highlighting their savings habits, investment strategies, and monthly expenditure.
 
 Key Points:
 

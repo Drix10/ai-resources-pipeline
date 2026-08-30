@@ -1,6 +1,6 @@
 ### 🤖 Meta's New AR Technology - First Impressions
 
-Initial reactions to Meta's newly launched AR glasses, interface, and neural band.  The post notes that while live demos encountered technical difficulties, the underlying technology shows significant promise.
+This article summarizes initial reactions to Meta's newly launched AR glasses, interface, and neural band.  The post notes that while live demos encountered technical difficulties, the underlying technology shows significant promise.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 👽 UFOs - Government Cover-up
 
-Quote by Stanton Friedman regarding the reasons behind potential government cover-ups concerning UFOs.  It highlights three main problems governments face when dealing with UFO phenomena.
+This article discusses a quote by Stanton Friedman regarding the reasons behind potential government cover-ups concerning UFOs.  It highlights three main problems governments face when dealing with UFO phenomena.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Rare Earths - Supply Chain and AI Infrastructure
 
-China's market control over rare earth elements and the relevance for AI and robotics manufacturing, highlighting potential US investment avenues.
+This article discusses China's market control over rare earth elements and the relevance for AI and robotics manufacturing, highlighting potential US investment avenues.
 
 Key Points:
 

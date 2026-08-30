@@ -1,6 +1,6 @@
 ### 🤖 AI Research - Oil & Gas Well Detection
 
-Research paper accepted to ICML 2025 that focuses on detecting oil and gas wells using AI and remote sensing to identify methane leaks.
+This article discusses a research paper accepted to ICML 2025 that focuses on detecting oil and gas wells using AI and remote sensing to identify methane leaks.
 
 
 Key Points:

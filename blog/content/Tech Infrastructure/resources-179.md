@@ -1,6 +1,6 @@
 ### 💡 Governmental Functions - Policy and Citizen Services
 
-Diverse responsibilities and operations of state governments, covering their fundamental roles in policy development and service delivery to citizens.
+This article outlines the diverse responsibilities and operations of state governments, covering their fundamental roles in policy development and service delivery to citizens.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Context Engineering - Practical Techniques
 
-Practical techniques for context engineering in large language models (LLMs), focusing on the types of context and key dimensions to consider.  It draws from a blog post by Tuana Çelik and Logan Markewich.
+This article summarizes practical techniques for context engineering in large language models (LLMs), focusing on the types of context and key dimensions to consider.  It draws from a blog post by Tuana Çelik and Logan Markewich.
 
 Key Points:
 

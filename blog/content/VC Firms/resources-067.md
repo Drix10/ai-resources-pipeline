@@ -1,6 +1,6 @@
 ### 🤖 Browser Agents - Market Map
 
-Market landscape for browser agents, based on insights gathered from interviews with numerous founders in the field.  It provides a high-level overview of the current state of this technology.
+This article summarizes the market landscape for browser agents, based on insights gathered from interviews with numerous founders in the field.  It provides a high-level overview of the current state of this technology.
 
 Key Points:
 

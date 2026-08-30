@@ -1,6 +1,6 @@
 ### 🤖 US Higher Education - Defunding of Private Universities
 
-Reported defunding of private universities in the United States, following the dismantling of the public research system and downsizing of the education department.  It explores the reasons behind this and potential consequences.
+This article discusses the reported defunding of private universities in the United States, following the dismantling of the public research system and downsizing of the education department.  It explores the reasons behind this and potential consequences.
 
 Key Points:
 

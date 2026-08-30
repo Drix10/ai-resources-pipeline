@@ -1,6 +1,6 @@
 ### ⚖️ Indian Law - Allahabad High Court Bar Association Strike
 
-Allahabad High Court Bar Association's indefinite strike and its demands regarding a judge's transfer and actions.
+This article summarizes the Allahabad High Court Bar Association's indefinite strike and its demands regarding a judge's transfer and actions.
 
 Key Points:
 

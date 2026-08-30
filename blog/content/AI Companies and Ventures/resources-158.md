@@ -1,6 +1,6 @@
 ### 🤖 Claude Sonnet 4.6 - AI Model Benchmarking
 
-Recent performance improvements of Claude Sonnet 4.6 in AI model benchmarks. It highlights its ranking in both code and text-based evaluation arenas.
+This article details the recent performance improvements of Claude Sonnet 4.6 in AI model benchmarks. It highlights its ranking in both code and text-based evaluation arenas.
 
 Key Points:
 

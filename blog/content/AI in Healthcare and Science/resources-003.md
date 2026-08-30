@@ -1,6 +1,6 @@
 ### 🤖 Cancer Research - Extracellular Matrix Exploitation
 
-Research on how cancer cells utilize the extracellular matrix (ECM) to metastasize.  The findings suggest potential therapeutic targets for preventing metastasis.
+This article summarizes research on how cancer cells utilize the extracellular matrix (ECM) to metastasize.  The findings suggest potential therapeutic targets for preventing metastasis.
 
 Key Points:
 

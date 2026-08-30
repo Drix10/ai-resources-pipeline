@@ -1,6 +1,6 @@
 ### 🤖 NIH Policy - DEI Initiatives Refocus
 
-Policy shift at the National Institutes of Health (NIH), specifically concerning the Diversity, Equity, and Inclusion (DEI) apparatus. It explains the redirection of the NIH's mission towards supporting research that broadly advances the health of all Americans.
+This article discusses the policy shift at the National Institutes of Health (NIH), specifically concerning the Diversity, Equity, and Inclusion (DEI) apparatus. It explains the redirection of the NIH's mission towards supporting research that broadly advances the health of all Americans.
 
 Key Points:
 

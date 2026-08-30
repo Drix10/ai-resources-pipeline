@@ -1,6 +1,6 @@
 ### 🤖 Ruby Project Analysis - Identifying Common Flaws
 
-Findings from an analysis of common flaws within Ruby projects, based on a broad dataset of projects with billions of downloads.
+This article summarizes findings from an analysis of common flaws within Ruby projects, based on a broad dataset of projects with billions of downloads.
 
 Key Points:
 

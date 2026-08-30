@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Integration with FlutterFlow Designer
 
-Seamless integration of AI agents directly within the FlutterFlow Designer environment. It aims to simplify the management and utilization of agents for developers.
+This article discusses the seamless integration of AI agents directly within the FlutterFlow Designer environment. It aims to simplify the management and utilization of agents for developers.
 
 Key Points:
 

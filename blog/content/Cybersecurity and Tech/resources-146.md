@@ -1,6 +1,6 @@
 ### 🤖 GitLab Security - Hybrid Attack Paths
 
-Potential security vulnerabilities in GitLab instances, focusing on how OpenGraph mapping can expose hybrid attack paths. It outlines the progression from repository to identity compromise through CI/CD and identity providers.
+This article discusses potential security vulnerabilities in GitLab instances, focusing on how OpenGraph mapping can expose hybrid attack paths. It outlines the progression from repository to identity compromise through CI/CD and identity providers.
 
 Key Points:
 

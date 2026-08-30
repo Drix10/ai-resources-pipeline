@@ -1,6 +1,6 @@
 ### 🤖 Three.js - TSL Shader Exploration
 
-Use of TSL (a shading language) within the Three.js JavaScript library for creating custom shaders.  It details a specific project and provides links to the code and a live demo.
+This article explores the use of TSL (a shading language) within the Three.js JavaScript library for creating custom shaders.  It details a specific project and provides links to the code and a live demo.
 
 Key Points:
 

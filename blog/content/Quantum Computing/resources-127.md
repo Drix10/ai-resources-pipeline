@@ -1,6 +1,6 @@
 ### 🤖 Optimizer Research - Critical Batch Size Benchmarking
 
-Importance of critical batch size in optimizer research. It advocates for its use as an explicit benchmark to evaluate and guide the development of new optimization algorithms.
+This article discusses the importance of critical batch size in optimizer research. It advocates for its use as an explicit benchmark to evaluate and guide the development of new optimization algorithms.
 
 Key Points:
 

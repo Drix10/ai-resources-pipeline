@@ -1,6 +1,6 @@
 ### 🤖 Code Generation - Infinite Codegen with Agents
 
-Concept of using coding agents to generate code that, in turn, generates more code. It covers the implications of this recursive approach to software development.
+This article explores the concept of using coding agents to generate code that, in turn, generates more code. It covers the implications of this recursive approach to software development.
 
 Key Points:
 

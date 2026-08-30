@@ -1,6 +1,6 @@
 ### 🤖 PeptAI - Decentralized Drug Discovery
 
-PeptAI project, covering its core concept, the scientific rationale behind using peptides for specific targets, and its technical architecture. It highlights the use of agent-based systems and blockchain for autonomous operations.
+This article details the PeptAI project, covering its core concept, the scientific rationale behind using peptides for specific targets, and its technical architecture. It highlights the use of agent-based systems and blockchain for autonomous operations.
 
 Key Points:
 

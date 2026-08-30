@@ -1,6 +1,6 @@
 ### 🤖 Spam Calls and Messages - Mitigation Challenges
 
-Challenges of mitigating spam calls and messages despite using call-blocking services like AT&T Active Armor.  The focus is on the limitations of current blocking methods when spam originates from constantly changing, unique numbers.
+This article discusses the challenges of mitigating spam calls and messages despite using call-blocking services like AT&T Active Armor.  The focus is on the limitations of current blocking methods when spam originates from constantly changing, unique numbers.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Cognitive Enhancement - Multitasking and Attention
 
-Potential impact of multitasking on cognitive function, specifically focusing on attention span and adaptive learning.  It examines the idea of pushing cognitive limits for enhanced adaptability.
+This article explores the potential impact of multitasking on cognitive function, specifically focusing on attention span and adaptive learning.  It examines the idea of pushing cognitive limits for enhanced adaptability.
 
 
 Key Points:

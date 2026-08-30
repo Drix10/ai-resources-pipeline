@@ -1,6 +1,6 @@
 ### 🤖 Offshoring of Tech Jobs - National Security Concerns
 
-Impact of offshoring tech jobs to India, focusing on potential national security, innovation, and economic stability concerns.
+This article discusses the impact of offshoring tech jobs to India, focusing on potential national security, innovation, and economic stability concerns.
 
 Key Points:
 

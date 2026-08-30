@@ -1,6 +1,6 @@
 ### 🤖 Speech Anti-spoofing - Multi-API Dataset and Local-Attention Network
 
-"MultiAPI Spoof," a research paper introducing a new multi-API dataset and a local-attention network for advanced speech anti-spoofing detection. The work aims to enhance the robustness of systems designed to detect fabricated speech.
+This article discusses "MultiAPI Spoof," a research paper introducing a new multi-API dataset and a local-attention network for advanced speech anti-spoofing detection. The work aims to enhance the robustness of systems designed to detect fabricated speech.
 
 Key Points:
 

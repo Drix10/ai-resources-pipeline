@@ -1,6 +1,6 @@
 ### ✨ Dreamina Seedance 2.5 - Upcoming Features
 
-Anticipated features of Seedance 2.5, an upcoming video generation model on Higgsfield. It highlights realism in environmental effects and character animations.
+This article details the anticipated features of Seedance 2.5, an upcoming video generation model on Higgsfield. It highlights realism in environmental effects and character animations.
 
 Key Points:
 

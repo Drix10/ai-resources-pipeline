@@ -1,6 +1,6 @@
 ### 🤖 AI AMA - Future of AI Agents
 
-Upcoming AMA on April 10, 2025, focusing on the future of AI agents, including decentralization, compute infrastructure, and real-world applications.  The speaker will be Kaya Gülten.
+This article summarizes an upcoming AMA on April 10, 2025, focusing on the future of AI agents, including decentralization, compute infrastructure, and real-world applications.  The speaker will be Kaya Gülten.
 
 Key Points:
 

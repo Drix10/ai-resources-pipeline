@@ -1,6 +1,6 @@
 ### ✨ Cursor AI - New Capabilities
 
-Recent advancements by Cursor AI, a platform known for its AI-powered code editing capabilities. It showcases new features that enhance the development workflow.
+This article highlights recent advancements by Cursor AI, a platform known for its AI-powered code editing capabilities. It showcases new features that enhance the development workflow.
 
 Key Points:
 

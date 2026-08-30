@@ -1,6 +1,6 @@
 ### 🤖 Programming Languages - Rust's Complexity
 
-Surprisingly large codebase required to parse the Rust programming language and explores potential alternative approaches.
+This article discusses the surprisingly large codebase required to parse the Rust programming language and explores potential alternative approaches.
 
 Key Points:
 

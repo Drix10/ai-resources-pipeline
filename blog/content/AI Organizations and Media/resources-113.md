@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Unexpected Capabilities
 
-Google research paper exploring the capabilities of standard language models when prompted in a less conventional way.  The research highlights surprising emergent behaviors when prompting for process demonstration rather than direct answers.
+This article discusses a Google research paper exploring the capabilities of standard language models when prompted in a less conventional way.  The research highlights surprising emergent behaviors when prompting for process demonstration rather than direct answers.
 
 Key Points:
 

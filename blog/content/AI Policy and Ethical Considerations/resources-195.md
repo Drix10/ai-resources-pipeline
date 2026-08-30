@@ -1,6 +1,6 @@
 ### 💡 Cybersecurity - Phishing Scams
 
-Phishing scams disguised as Calendly login requests. It explains the deceptive nature of these prompts designed for account takeover and the importance of user vigilance.
+This article discusses phishing scams disguised as Calendly login requests. It explains the deceptive nature of these prompts designed for account takeover and the importance of user vigilance.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Film Industry - Diverse Theatrical Lineup
 
-Hollywood's shift towards diverse film lineups and the reasons behind it, as observed by movie theater exhibitors.
+This article outlines Hollywood's shift towards diverse film lineups and the reasons behind it, as observed by movie theater exhibitors.
 
 Key Points:
 

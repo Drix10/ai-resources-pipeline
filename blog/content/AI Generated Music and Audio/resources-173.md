@@ -1,6 +1,6 @@
 ### 🤖 AI Prompting - Harness Engineering
 
-Overly prescriptive instructions, termed "harness engineering," can inadvertently limit the performance of advanced AI models. It explores the idea that smarter models might benefit from less constrained guidance.
+This article discusses how overly prescriptive instructions, termed "harness engineering," can inadvertently limit the performance of advanced AI models. It explores the idea that smarter models might benefit from less constrained guidance.
 
 Key Points:
 

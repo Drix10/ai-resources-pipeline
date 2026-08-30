@@ -1,6 +1,6 @@
 ### 🤖 Biotechnology - AI in Drug Discovery
 
-Panel discussion on the challenges of applying artificial intelligence to drug discovery within the biotechnology and pharmaceutical industries.  The discussion highlights the complexities involved in this emerging field.
+This article summarizes a panel discussion on the challenges of applying artificial intelligence to drug discovery within the biotechnology and pharmaceutical industries.  The discussion highlights the complexities involved in this emerging field.
 
 
 Key Points:

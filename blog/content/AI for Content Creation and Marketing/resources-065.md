@@ -1,6 +1,6 @@
 ### 🤖 AI Adoption - Speed of User Acquisition
 
-Rapid user acquisition of AI compared to other internet technologies, as highlighted in Mary Meeker's Internet Trends Report.  The report showcases the scale of AI's build-out and usage.
+This article examines the rapid user acquisition of AI compared to other internet technologies, as highlighted in Mary Meeker's Internet Trends Report.  The report showcases the scale of AI's build-out and usage.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Limitations - Motivated Reasoning in LLMs
 
-New paper's argument that Large Language Models cannot replicate human motivated reasoning due to a lack of inherent motivation. It explores the significant implications of this limitation, particularly for AI-driven political simulations.
+This article discusses a new paper's argument that Large Language Models cannot replicate human motivated reasoning due to a lack of inherent motivation. It explores the significant implications of this limitation, particularly for AI-driven political simulations.
 
 Key Points:
 

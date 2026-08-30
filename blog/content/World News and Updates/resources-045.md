@@ -1,6 +1,6 @@
 ### 🤖 India - CM Poshan Mission
 
-Upcoming launch of the CM Poshan Mission in Uttar Pradesh, India, aimed at providing nutritious food to children aged 6 months to 6 years.  The initiative will involve NGOs and will draw upon a similar program in Indonesia.
+This article discusses the upcoming launch of the CM Poshan Mission in Uttar Pradesh, India, aimed at providing nutritious food to children aged 6 months to 6 years.  The initiative will involve NGOs and will draw upon a similar program in Indonesia.
 
 
 Key Points:

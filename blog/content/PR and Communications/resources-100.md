@@ -1,6 +1,6 @@
 ### 🤖 AI in Medicine - MAI-DxO Diagnostic Accuracy
 
-Performance of Microsoft's MAI-DxO AI tool in diagnosing complex medical cases, comparing its accuracy to that of human doctors.
+This article discusses the performance of Microsoft's MAI-DxO AI tool in diagnosing complex medical cases, comparing its accuracy to that of human doctors.
 
 Key Points:
 

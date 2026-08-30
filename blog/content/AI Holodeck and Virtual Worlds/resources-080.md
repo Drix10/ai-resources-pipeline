@@ -1,6 +1,6 @@
 ### 🤖 AI Development - Canadian AI Agent
 
-Development of a visual AI agent, "Mike," designed with a Canadian persona.  The agent's capabilities and characteristics are highlighted.
+This article discusses the development of a visual AI agent, "Mike," designed with a Canadian persona.  The agent's capabilities and characteristics are highlighted.
 
 Key Points:
 

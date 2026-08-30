@@ -1,6 +1,6 @@
 ### 🤖 USearch Performance - Vector Database Queries
 
-Performance capabilities of Unum Cloud's USearch vector database, focusing on query speeds for different index sizes.  It also highlights a common misconception regarding its speed.
+This article discusses the performance capabilities of Unum Cloud's USearch vector database, focusing on query speeds for different index sizes.  It also highlights a common misconception regarding its speed.
 
 Key Points:
 

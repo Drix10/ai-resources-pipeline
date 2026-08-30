@@ -1,6 +1,6 @@
 ### 🤖 Autonomous Vehicles - Waabi Funding
 
-Waabi AI's record-breaking funding round and its implications for autonomous vehicle development. It highlights the renewed collaboration between founder Raquel Urtasun and Uber on robo-taxis.
+This article covers Waabi AI's record-breaking funding round and its implications for autonomous vehicle development. It highlights the renewed collaboration between founder Raquel Urtasun and Uber on robo-taxis.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Tools - Vibe Code Week Mini-App Workshop
 
-Week-long workshop focused on building high-quality mini-apps, transitioning participants from zero experience to on-chain development.  The workshop is a collaboration between Vercel and v0.
+This article details a week-long workshop focused on building high-quality mini-apps, transitioning participants from zero experience to on-chain development.  The workshop is a collaboration between Vercel and v0.
 
 Key Points:
 

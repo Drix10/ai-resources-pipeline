@@ -1,6 +1,6 @@
 ### 🚀 Google Pixel - Upcoming Pixel 10 Series
 
-Leaks and rumors surrounding Google's anticipated Pixel 10 series smartphone lineup, expected to launch on August 20th.  The focus is on the potential for a four-device release.
+This article summarizes leaks and rumors surrounding Google's anticipated Pixel 10 series smartphone lineup, expected to launch on August 20th.  The focus is on the potential for a four-device release.
 
 Key Points:
 

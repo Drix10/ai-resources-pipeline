@@ -1,6 +1,6 @@
 ### 🤖 Raffle Seed Generation - Provably Random Selection
 
-Mechanism for generating a provably random raffle seed for Season 8. It explains how individual vote counts are processed and combined to ensure a fair and verifiable selection of winners.
+This article details the mechanism for generating a provably random raffle seed for Season 8. It explains how individual vote counts are processed and combined to ensure a fair and verifiable selection of winners.
 
 Key Points:
 

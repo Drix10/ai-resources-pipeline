@@ -1,6 +1,6 @@
 ### 🚀 Hackathons - From Zero to Y Combinator
 
-Journey of a team that went from having no hackathon ideas to winning best developer tool and subsequently gaining Y Combinator acceptance.  The team's experience is shared as inspiration and to announce their own hackathon, CustomHack.
+This article details the journey of a team that went from having no hackathon ideas to winning best developer tool and subsequently gaining Y Combinator acceptance.  The team's experience is shared as inspiration and to announce their own hackathon, CustomHack.
 
 
 Key Points:

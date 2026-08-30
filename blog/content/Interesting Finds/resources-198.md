@@ -1,6 +1,6 @@
 ### 🚀 SpaceX - Falcon 9 Booster Landing
 
-Recent successful landing of a Falcon 9 booster. This event marks a milestone in reusability for orbital launch vehicles.
+This article details a recent successful landing of a Falcon 9 booster. This event marks a milestone in reusability for orbital launch vehicles.
 
 Key Points:
 • Falcon 9 booster completed its 36th successful launch and landing.

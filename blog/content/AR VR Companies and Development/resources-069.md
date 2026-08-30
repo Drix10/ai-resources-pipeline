@@ -1,6 +1,6 @@
 ### 🤖 VR - Floreo's Impact on Neurodiversity
 
-Conversation about Floreo, a VR-based solution aimed at improving the lives of neurodiverse individuals.  The discussion highlights the challenges and achievements in building Floreo.
+This article summarizes a conversation about Floreo, a VR-based solution aimed at improving the lives of neurodiverse individuals.  The discussion highlights the challenges and achievements in building Floreo.
 
 Key Points:
 

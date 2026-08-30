@@ -1,6 +1,6 @@
 ### 🤖 AI in Security - Combating Phone Scammers
 
-Use of an AI voice bot, "Daisy," developed by 02, a British mobile operator, to deter phone scammers.  The bot employs a unique persona to frustrate and waste the scammers' time.
+This article discusses the use of an AI voice bot, "Daisy," developed by 02, a British mobile operator, to deter phone scammers.  The bot employs a unique persona to frustrate and waste the scammers' time.
 
 Key Points:
 

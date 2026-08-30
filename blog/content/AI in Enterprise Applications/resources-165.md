@@ -1,6 +1,6 @@
 ### 💡 n8n AI Inspiration Sessions - Automation Workshops
 
-N8n AI Inspiration Sessions, a series of in-person workshops designed to demonstrate practical AI-powered automation workflows. These sessions are open to all skill levels.
+This article details the n8n AI Inspiration Sessions, a series of in-person workshops designed to demonstrate practical AI-powered automation workflows. These sessions are open to all skill levels.
 
 Key Points:
 

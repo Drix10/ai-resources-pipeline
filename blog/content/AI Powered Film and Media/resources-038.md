@@ -1,6 +1,6 @@
 ### 🌎 Earth's Core - Reverse Rotation
 
-Recent scientific confirmation that Earth's inner core is rotating in a reverse direction, exploring the methodology and implications of this discovery.
+This article discusses the recent scientific confirmation that Earth's inner core is rotating in a reverse direction, exploring the methodology and implications of this discovery.
 
 Key Points:
 

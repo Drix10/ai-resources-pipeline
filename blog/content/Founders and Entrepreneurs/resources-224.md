@@ -1,6 +1,6 @@
 ### 🤖 AdTech Architecture - Demand Side Services
 
-Current state of Demand Side Services (DSS) in the advertising technology space. It highlights an industry conversation on the necessity of updated software architectures to handle modern advertising requirements.
+This article examines the current state of Demand Side Services (DSS) in the advertising technology space. It highlights an industry conversation on the necessity of updated software architectures to handle modern advertising requirements.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ Social App - bub Platform Overview
 
-The bub mobile application, highlighting its availability on major app stores. It covers key functionalities and access points for the platform.
+This article provides an overview of the bub mobile application, highlighting its availability on major app stores. It covers key functionalities and access points for the platform.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Transportation - Bay Area Water Transport Scaling
 
-Need for streamlined regulations to facilitate the expansion of water transportation infrastructure in the San Francisco Bay Area, proposing high-speed water shuttles as a potential solution.
+This article discusses the need for streamlined regulations to facilitate the expansion of water transportation infrastructure in the San Francisco Bay Area, proposing high-speed water shuttles as a potential solution.
 
 Key Points:
 

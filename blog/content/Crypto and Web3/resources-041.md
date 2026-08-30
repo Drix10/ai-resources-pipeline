@@ -1,6 +1,6 @@
 ### 📈 Investing - Bear Market Strategies
 
-Strategies for navigating bear markets, based on one user's experience of turning an $8,000 investment into $5 million.
+This article summarizes strategies for navigating bear markets, based on one user's experience of turning an $8,000 investment into $5 million.
 
 Key Points:
 

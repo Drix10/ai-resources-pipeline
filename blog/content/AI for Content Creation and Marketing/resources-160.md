@@ -1,6 +1,6 @@
 ### 🤖 Notion AI - Claude Agents Integration
 
-Integration of Claude AI agents into Notion. It highlights how Notion serves as the orchestration layer for these agents, managing context, user interface, and team collaboration.
+This article discusses the integration of Claude AI agents into Notion. It highlights how Notion serves as the orchestration layer for these agents, managing context, user interface, and team collaboration.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🧠 Neuroscience - Eric Kandel Interview
 
-Interview with Eric Kandel, discussing his early interests in psychoanalysis, his psychiatric training, and his groundbreaking memory research.  The interview is part of the Society for Neuroscience's "The History of Neuroscience in Autobiography" series.
+This article summarizes an interview with Eric Kandel, discussing his early interests in psychoanalysis, his psychiatric training, and his groundbreaking memory research.  The interview is part of the Society for Neuroscience's "The History of Neuroscience in Autobiography" series.
 
 Key Points:
 

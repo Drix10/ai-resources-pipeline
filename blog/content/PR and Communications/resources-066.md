@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics - Ukraine Conflict Resolution
 
-Necessity of increasing military pressure on Russia to achieve a resolution to the conflict in Ukraine that is acceptable to Ukraine and its allies.  It argues that this approach is crucial for deterring future aggression.
+This article discusses the necessity of increasing military pressure on Russia to achieve a resolution to the conflict in Ukraine that is acceptable to Ukraine and its allies.  It argues that this approach is crucial for deterring future aggression.
 
 Key Points:
 

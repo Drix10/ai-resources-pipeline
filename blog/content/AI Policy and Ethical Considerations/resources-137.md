@@ -1,6 +1,6 @@
 ### 🤖 AI Governance - Future RFPs
 
-Future plans for Request for Proposals (RFPs) related to AI governance initiatives. It highlights the ongoing proactive work and anticipated upcoming opportunities for revised proposals.
+This article discusses future plans for Request for Proposals (RFPs) related to AI governance initiatives. It highlights the ongoing proactive work and anticipated upcoming opportunities for revised proposals.
 
 Key Points:
 

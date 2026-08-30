@@ -1,6 +1,6 @@
 ### 🚀 Dify - v1.5.1 Release Notes
 
-Improvements included in Dify version 1.5.1, focusing on enhanced knowledge base indexing and dynamic select parameters for plugins.
+This article details the improvements included in Dify version 1.5.1, focusing on enhanced knowledge base indexing and dynamic select parameters for plugins.
 
 Key Points:
 

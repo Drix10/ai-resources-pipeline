@@ -1,6 +1,6 @@
 ### 🚀 AI Tools - Lip Sync with Character-3
 
-User's experience using Hevra Labs' Character-3 AI lip sync tool with music from Suno Music and an image from Midjourney.  The user highlights the ease of use and impressive results.
+This article discusses a user's experience using Hevra Labs' Character-3 AI lip sync tool with music from Suno Music and an image from Midjourney.  The user highlights the ease of use and impressive results.
 
 Key Points:
 

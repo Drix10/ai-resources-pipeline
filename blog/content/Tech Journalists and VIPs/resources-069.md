@@ -1,6 +1,6 @@
 ### 💡 Venture Capital - Founder Evaluation
 
-Method for evaluating founders during the fundraising process, using an unconventional approach to assess their resilience and understanding of valuation.
+This article discusses a method for evaluating founders during the fundraising process, using an unconventional approach to assess their resilience and understanding of valuation.
 
 Key Points:
 

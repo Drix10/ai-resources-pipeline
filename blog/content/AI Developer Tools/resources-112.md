@@ -1,6 +1,6 @@
 ### 🤖 FTC Investigation - AI Impact on Children
 
-Federal Trade Commission's (FTC) investigation into the impact of AI chatbots on children and teenagers.  The FTC is gathering data from major tech companies to assess their monitoring and limitation of AI use by minors.
+This article summarizes the Federal Trade Commission's (FTC) investigation into the impact of AI chatbots on children and teenagers.  The FTC is gathering data from major tech companies to assess their monitoring and limitation of AI use by minors.
 
 
 Key Points:

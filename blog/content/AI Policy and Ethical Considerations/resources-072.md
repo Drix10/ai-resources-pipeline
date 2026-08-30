@@ -1,6 +1,6 @@
 ### 💡 Artistic Intent vs. Product Mindset
 
-Difference between creating art for its own sake and creating products for profit, using examples from the art world and video game industry.
+This article discusses the difference between creating art for its own sake and creating products for profit, using examples from the art world and video game industry.
 
 Key Points:
 

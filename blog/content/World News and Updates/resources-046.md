@@ -1,6 +1,6 @@
 ### 🤖 Political Meeting - CPI(M) and ECI Discussion
 
-Meeting between the CPI(M) General Secretary and the Election Commission of India (ECI).  The meeting was described as customary and part of ongoing discussions with various political parties.
+This article summarizes a meeting between the CPI(M) General Secretary and the Election Commission of India (ECI).  The meeting was described as customary and part of ongoing discussions with various political parties.
 
 Key Points:
 

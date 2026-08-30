@@ -1,6 +1,6 @@
 ### 💡 Online Interactions - Positive Affirmation
 
-Value of positive feedback in online interactions. It highlights how simple affirmations contribute to a supportive community environment.
+This article discusses the value of positive feedback in online interactions. It highlights how simple affirmations contribute to a supportive community environment.
 
 Key Points:
 

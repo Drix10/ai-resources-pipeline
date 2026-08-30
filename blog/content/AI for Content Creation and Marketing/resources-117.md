@@ -1,6 +1,6 @@
 ### 🤖 AI Content Generation - D&D Campaign Creation
 
-Use of AI, specifically DeepWriter, for generating extensive Dungeons & Dragons campaigns. It highlights the capability of AI to produce detailed narratives, characters, maps, and consistent imagery over many pages.
+This article discusses the use of AI, specifically DeepWriter, for generating extensive Dungeons & Dragons campaigns. It highlights the capability of AI to produce detailed narratives, characters, maps, and consistent imagery over many pages.
 
 Key Points:
 

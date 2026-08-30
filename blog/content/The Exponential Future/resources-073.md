@@ -1,6 +1,6 @@
 ### 🤖 Finance - Anthony Pompliano's Video Summary
 
-Video by Anthony Pompliano, covering topics including a $750 million fundraising round, the appeal of stablecoins, Coatue's Bitcoin investment strategy, and a unique income stream from reporting car idling.
+This article summarizes a video by Anthony Pompliano, covering topics including a $750 million fundraising round, the appeal of stablecoins, Coatue's Bitcoin investment strategy, and a unique income stream from reporting car idling.
 
 
 Key Points:

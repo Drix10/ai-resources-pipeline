@@ -1,6 +1,6 @@
 ### 🤖 AI's Impact on Content Platforms - Reddit's Data Strategy
 
-Reddit's decision to sell its site data for AI training, the resulting changes in user engagement, and the platform's response to content consumption shifts.
+This article examines Reddit's decision to sell its site data for AI training, the resulting changes in user engagement, and the platform's response to content consumption shifts.
 
 Key Points:
 

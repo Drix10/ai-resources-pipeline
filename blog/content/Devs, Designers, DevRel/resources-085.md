@@ -1,6 +1,6 @@
 ### 🚀 IoT - Remote Access with Tunnelmole
 
-Tunnelmole, a tool enabling remote access to IoT devices without needing firewall adjustments or static IPs.  It simplifies remote access and real-time data sharing for IoT platforms.
+This article discusses Tunnelmole, a tool enabling remote access to IoT devices without needing firewall adjustments or static IPs.  It simplifies remote access and real-time data sharing for IoT platforms.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Quantum Communications - SES and Airbus Ground Station
 
-Collaboration between SES and Airbus in establishing a ground station for quantum communications. The project involves securing a specific site for this facility.
+This article details the collaboration between SES and Airbus in establishing a ground station for quantum communications. The project involves securing a specific site for this facility.
 
 Key Points:
 

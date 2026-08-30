@@ -1,6 +1,6 @@
 ### 💡 Career Opportunities - Elcyo Recruitment
 
-Current recruitment opportunities at Elcyo, focusing on engineering and business development roles. The company is actively seeking skilled professionals to join its team.
+This article outlines current recruitment opportunities at Elcyo, focusing on engineering and business development roles. The company is actively seeking skilled professionals to join its team.
 
 Key Points:
 

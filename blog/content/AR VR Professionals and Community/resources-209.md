@@ -1,6 +1,6 @@
 ### 🚀 Event - Anjin Games Meetup
 
-Upcoming community meetup organized by Anjin Games.
+This article highlights an upcoming community meetup organized by Anjin Games.
 
 Key Points:
 

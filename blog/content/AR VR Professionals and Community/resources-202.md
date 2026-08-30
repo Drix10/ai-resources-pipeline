@@ -1,6 +1,6 @@
 ### 🤖 Claude AI - Access and Rate Limits Update
 
-Recent changes to Claude AI's model access and rate limits. It provides information on extended availability for Fable 5 and increased limits for Claude Code.
+This article summarizes recent changes to Claude AI's model access and rate limits. It provides information on extended availability for Fable 5 and increased limits for Claude Code.
 
 Key Points:
 

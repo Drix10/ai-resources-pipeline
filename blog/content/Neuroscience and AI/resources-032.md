@@ -1,6 +1,6 @@
 ### 🐒 Primatology - Passing of Kanzi the Bonobo
 
-Passing of Kanzi, a language-competent bonobo, and his significant contributions to our understanding of great ape linguistic and cognitive abilities.
+This article discusses the passing of Kanzi, a language-competent bonobo, and his significant contributions to our understanding of great ape linguistic and cognitive abilities.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI in Neuroscience - Brain Cell Evolution
 
-Study using deep learning to analyze gene regulation in brain cells across different species, providing insights into brain evolution over 320 million years.  The research utilized data from human, mouse, and chicken brains.
+This article discusses a study using deep learning to analyze gene regulation in brain cells across different species, providing insights into brain evolution over 320 million years.  The research utilized data from human, mouse, and chicken brains.
 
 Key Points:
 

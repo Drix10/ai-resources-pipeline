@@ -1,6 +1,6 @@
 ### 💡 Political News - Florida Special Election
 
-Outcome of a recent special election in Florida. It covers the electoral shift in a significant state legislative district.
+This article details the outcome of a recent special election in Florida. It covers the electoral shift in a significant state legislative district.
 
 Key Points:
 

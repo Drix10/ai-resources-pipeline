@@ -1,6 +1,6 @@
 ### 🤖 Student Engagement - Semester Exam SCRs
 
-Successful approach to improving student performance on semester exams using Student Course Records (SCRs).  The strategy focused on encouraging student participation and celebrating incremental progress.
+This article discusses a successful approach to improving student performance on semester exams using Student Course Records (SCRs).  The strategy focused on encouraging student participation and celebrating incremental progress.
 
 Key Points:
 

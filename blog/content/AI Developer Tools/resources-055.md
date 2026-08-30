@@ -1,6 +1,6 @@
 ### 🚀 Firecrawl - v1.9.0 Release
 
-Improvements and new features included in Firecrawl version 1.9.0.  The release focuses on self-hosting enhancements and performance boosts.
+This article details the improvements and new features included in Firecrawl version 1.9.0.  The release focuses on self-hosting enhancements and performance boosts.
 
 Key Points:
 

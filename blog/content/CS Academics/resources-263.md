@@ -1,6 +1,6 @@
 ### 🤖 Medical AI - Cardiac Amyloidosis Screening Study
 
-DETECT-ATTR study, which evaluates an AI-enabled echocardiography-based approach for identifying cardiac amyloidosis. The study focuses on screening within a large healthcare system.
+This article discusses the DETECT-ATTR study, which evaluates an AI-enabled echocardiography-based approach for identifying cardiac amyloidosis. The study focuses on screening within a large healthcare system.
 
 Key Points:
 

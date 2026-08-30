@@ -1,6 +1,6 @@
 ### 🤖 AI Tool Updates - Plur.ai CLI
 
-Commands needed to update various Plur.ai command-line interface tools, including Claude Code, Cursor, Windsurf, OpenClaw, and Hermes.
+This article outlines the commands needed to update various Plur.ai command-line interface tools, including Claude Code, Cursor, Windsurf, OpenClaw, and Hermes.
 
 Key Points:
 

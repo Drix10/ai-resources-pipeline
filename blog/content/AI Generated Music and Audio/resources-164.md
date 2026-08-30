@@ -1,6 +1,6 @@
 ### ✨ AI Music Videos - Onbeat Effect Creator Challenge
 
-Onbeat effect for generating synchronized visuals in AI music videos and announces a creator challenge. It encourages creators to produce AI music videos with the Onbeat effect and a short tutorial.
+This article highlights the Onbeat effect for generating synchronized visuals in AI music videos and announces a creator challenge. It encourages creators to produce AI music videos with the Onbeat effect and a short tutorial.
 
 Key Points:
 

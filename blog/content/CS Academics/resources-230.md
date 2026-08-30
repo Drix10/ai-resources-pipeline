@@ -1,6 +1,6 @@
 ### 💡 Indie Game Development - Quantifying Effort and High Impact Features
 
-System used by indie developer Writ Nelson to quantify development effort and prioritize high-impact features, emphasizing the crucial role of intentionality in game creation.
+This article explores a system used by indie developer Writ Nelson to quantify development effort and prioritize high-impact features, emphasizing the crucial role of intentionality in game creation.
 
 Key Points:
 

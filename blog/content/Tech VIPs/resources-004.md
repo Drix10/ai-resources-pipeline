@@ -1,6 +1,6 @@
 ### 🤖 AI Reasoning - Self-Evaluation in LLMs
 
-Mental model shift in Large Language Model (LLM) design, focusing on the crucial role of self-evaluation and correction in planning and reasoning.  It contrasts this approach with traditional OpenAI models.
+This article explores a mental model shift in Large Language Model (LLM) design, focusing on the crucial role of self-evaluation and correction in planning and reasoning.  It contrasts this approach with traditional OpenAI models.
 
 Key Points:
 

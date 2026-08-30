@@ -1,6 +1,6 @@
 ### 🤖 WebGPU - Real-time Fluid Interactions
 
-Capabilities of WebGPU for creating fluid interactions that run in real-time. It highlights how these simulations offer adjustable parameters and are designed for easy remixing.
+This article explores the capabilities of WebGPU for creating fluid interactions that run in real-time. It highlights how these simulations offer adjustable parameters and are designed for easy remixing.
 
 Key Points:
 

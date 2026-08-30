@@ -1,6 +1,6 @@
 ### 🚀 Mapbox - Spring Release Updates
 
-Key updates and features announced in Mapbox's Spring release webinar, including improvements to Mapbox Boundaries, Geofencing, and interactive map features.  A preview of the incremental tileset updating beta launch for Mapbox Tiling Service is also included.
+This article summarizes the key updates and features announced in Mapbox's Spring release webinar, including improvements to Mapbox Boundaries, Geofencing, and interactive map features.  A preview of the incremental tileset updating beta launch for Mapbox Tiling Service is also included.
 
 Key Points:
 

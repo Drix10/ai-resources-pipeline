@@ -1,6 +1,6 @@
 ### 🎭 Art - Masks as Symbols of Duality
 
-Use of masks in art as representations of duality, encompassing the interplay between the visible and hidden aspects of identity and self-expression.  Two artworks are presented as examples of this artistic theme.
+This article explores the use of masks in art as representations of duality, encompassing the interplay between the visible and hidden aspects of identity and self-expression.  Two artworks are presented as examples of this artistic theme.
 
 Key Points:
 

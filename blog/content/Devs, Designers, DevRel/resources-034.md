@@ -1,6 +1,6 @@
 ### 💡 Design - Time Investment
 
-Time required for effective design, contrasting quick designs with more deliberate, higher-quality approaches.
+This article discusses the time required for effective design, contrasting quick designs with more deliberate, higher-quality approaches.
 
 Key Points:
 

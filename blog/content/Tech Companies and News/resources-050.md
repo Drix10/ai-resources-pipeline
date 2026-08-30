@@ -1,6 +1,6 @@
 ### 💡 Business Strategy - Platform Switching
 
-Why businesses switch platforms and emphasizes the importance of focusing on core business metrics rather than superficial features.
+This article discusses why businesses switch platforms and emphasizes the importance of focusing on core business metrics rather than superficial features.
 
 Key Points:
 

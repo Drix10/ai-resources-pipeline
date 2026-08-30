@@ -1,6 +1,6 @@
 ### 🚀 XR Development - Event Showcase
 
-Upcoming XR and smart glasses development conference in Harajuku. It highlights an opportunity to experience generative AI content and additional showcase material.
+This article covers an upcoming XR and smart glasses development conference in Harajuku. It highlights an opportunity to experience generative AI content and additional showcase material.
 
 Key Points:
 

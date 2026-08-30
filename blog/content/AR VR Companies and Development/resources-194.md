@@ -1,6 +1,6 @@
 ### 🚀 VR Gaming - Smartphone PCVR Integration
 
-IVRy enables Windows SteamVR PCVR titles to be played on smartphones, standalone headsets, and PSVR. It also outlines the free evaluation options and premium features available.
+This article details how iVRy enables Windows SteamVR PCVR titles to be played on smartphones, standalone headsets, and PSVR. It also outlines the free evaluation options and premium features available.
 
 Key Points:
 

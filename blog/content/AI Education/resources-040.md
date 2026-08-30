@@ -1,6 +1,6 @@
 ### 💡 Education - Retrieval Practice for Improved Memory
 
-Retrieval practice as a method for enhancing memory, particularly beneficial for students preparing for exams.  It offers practical tips and resources to boost memory retention.
+This article provides an overview of retrieval practice as a method for enhancing memory, particularly beneficial for students preparing for exams.  It offers practical tips and resources to boost memory retention.
 
 
 Key Points:

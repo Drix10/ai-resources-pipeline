@@ -1,6 +1,6 @@
 ### 🤖 Cybersecurity Certifications -  Professional Development
 
-Author's experience studying for cybersecurity certifications, specifically PCI DSS requirements and NIST Special Publication 800-61 Revision 3.
+This article discusses the author's experience studying for cybersecurity certifications, specifically PCI DSS requirements and NIST Special Publication 800-61 Revision 3.
 
 Key Points:
 

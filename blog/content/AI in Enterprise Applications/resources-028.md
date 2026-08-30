@@ -1,6 +1,6 @@
 ### 🤖 ServiceNow Integration - Glean for Faster Issue Resolution
 
-Glean integrates with ServiceNow to improve support and IT team efficiency by providing instant access to relevant information.
+This article discusses how Glean integrates with ServiceNow to improve support and IT team efficiency by providing instant access to relevant information.
 
 Key Points:
 

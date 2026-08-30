@@ -1,6 +1,6 @@
 ### 💡 Content Creation - The Subconscious Effects of "Slop"
 
-Detrimental, yet often invisible, effects of consistently producing low-quality work on one's cognitive abilities.  It highlights the gradual erosion of judgment and self-awareness that can result.
+This article discusses the detrimental, yet often invisible, effects of consistently producing low-quality work on one's cognitive abilities.  It highlights the gradual erosion of judgment and self-awareness that can result.
 
 Key Points:
 

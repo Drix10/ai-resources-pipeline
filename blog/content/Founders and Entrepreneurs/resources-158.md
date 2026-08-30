@@ -1,6 +1,6 @@
 ### 💡 Build in Public - Transparency in Product Development
 
-"build in public" approach, highlighting companies like Anthropic, OpenAI, and Cursor as prime examples of this transparent development methodology. It explains how shipping what they think fosters innovation and community.
+This article discusses the "build in public" approach, highlighting companies like Anthropic, OpenAI, and Cursor as prime examples of this transparent development methodology. It explains how shipping what they think fosters innovation and community.
 
 Key Points:
 

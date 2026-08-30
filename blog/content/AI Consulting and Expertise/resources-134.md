@@ -1,6 +1,6 @@
 ### 💡 Cultural Heritage - Piprahwa Relics Return
 
-Repatriation of the sacred Piprahwa relics associated with Bhagwan Buddha. It highlights the cultural and historical significance of this event after over a century.
+This article discusses the repatriation of the sacred Piprahwa relics associated with Bhagwan Buddha. It highlights the cultural and historical significance of this event after over a century.
 
 Key Points:
 

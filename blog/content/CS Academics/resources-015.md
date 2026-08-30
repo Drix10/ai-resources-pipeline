@@ -1,6 +1,6 @@
 ### 🤖 Real-time Translation - Pinch Video Calls
 
-Pinch, a platform offering immersive real-time video call translation.  It allows users to appear and sound like native speakers in over 30 languages by synchronizing facial expressions with translated speech.
+This article discusses Pinch, a platform offering immersive real-time video call translation.  It allows users to appear and sound like native speakers in over 30 languages by synchronizing facial expressions with translated speech.
 
 
 Key Points:

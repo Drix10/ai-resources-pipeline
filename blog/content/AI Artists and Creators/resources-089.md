@@ -1,6 +1,6 @@
 ### 🚀 Next-Gen Video Model - Interactive Video
 
-New real-time interactive video model that functions similarly to a game, but without the use of a game engine.  The model's capabilities are powered by AI.
+This article discusses a new real-time interactive video model that functions similarly to a game, but without the use of a game engine.  The model's capabilities are powered by AI.
 
 Key Points:
 

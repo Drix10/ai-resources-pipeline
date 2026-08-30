@@ -1,6 +1,6 @@
 ### 🤖 Chemistry - Teflon Recycling
 
-New method for recycling Teflon (PTFE), a persistent organic pollutant, developed by researchers at QST.  The method achieves 100% decomposition while reducing CO2 emissions.
+This article discusses a new method for recycling Teflon (PTFE), a persistent organic pollutant, developed by researchers at QST.  The method achieves 100% decomposition while reducing CO2 emissions.
 
 Key Points:
 

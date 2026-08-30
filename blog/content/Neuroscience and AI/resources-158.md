@@ -1,6 +1,6 @@
 ### 🤖 Alpha-synuclein - CSF Seeding Assay in Unimpaired Individuals
 
-Study assessing alpha-synuclein status in cerebrospinal fluid from clinically unimpaired individuals. It explores the prevalence of positive samples and their association with age, synaptic integrity, and cognitive performance.
+This article discusses a study assessing alpha-synuclein status in cerebrospinal fluid from clinically unimpaired individuals. It explores the prevalence of positive samples and their association with age, synaptic integrity, and cognitive performance.
 
 Key Points:
 

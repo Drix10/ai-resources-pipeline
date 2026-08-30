@@ -1,6 +1,6 @@
 ### 🤖 Boltzmann Labs - Women in Science
 
-Boltzmann Labs' commitment to diversity and inclusion, emphasizing the significant contribution of women to scientific breakthroughs.  The company celebrates International Women's Day by acknowledging the crucial role women play in its innovative work.
+This article highlights Boltzmann Labs' commitment to diversity and inclusion, emphasizing the significant contribution of women to scientific breakthroughs.  The company celebrates International Women's Day by acknowledging the crucial role women play in its innovative work.
 
 
 Key Points:

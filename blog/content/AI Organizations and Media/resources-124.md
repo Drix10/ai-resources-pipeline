@@ -1,6 +1,6 @@
 ### 🚀 Aerial Data Acquisition - Advanced Imaging Techniques
 
-Blue Nose Aerial Imaging's services, which leverage advanced aerial data acquisition technologies to serve various industries. It highlights the integration of multiple imaging methods to deliver high-accuracy data.
+This article details Blue Nose Aerial Imaging's services, which leverage advanced aerial data acquisition technologies to serve various industries. It highlights the integration of multiple imaging methods to deliver high-accuracy data.
 
 Key Points:
 

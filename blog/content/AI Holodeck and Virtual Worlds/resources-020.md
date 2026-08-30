@@ -1,6 +1,6 @@
 ### ✨ Animation -  AI-Generated Video
 
-Creation of a short video using AI-powered animation tools.  The original tweet provides limited context but showcases a completed video.
+This article discusses the creation of a short video using AI-powered animation tools.  The original tweet provides limited context but showcases a completed video.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Quantum Physics - Entangled Photon Generation
 
-Recent research calculating high fidelity for entangled photon generation, a crucial aspect of quantum computing and communication. It explores the advancements in creating stable entangled states, which are fundamental to quantum technologies.
+This article discusses recent research calculating high fidelity for entangled photon generation, a crucial aspect of quantum computing and communication. It explores the advancements in creating stable entangled states, which are fundamental to quantum technologies.
 
 Key Points:
 

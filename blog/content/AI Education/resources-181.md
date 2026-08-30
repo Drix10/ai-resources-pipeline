@@ -1,6 +1,6 @@
 ### ✨ Perplexity - Personal Computer Features
 
-Capabilities of Perplexity's Personal Computer feature, highlighting its continuous operation and cross-device functionality. It also notes the compatibility requirements for optimal use.
+This article details the capabilities of Perplexity's Personal Computer feature, highlighting its continuous operation and cross-device functionality. It also notes the compatibility requirements for optimal use.
 
 Key Points:
 

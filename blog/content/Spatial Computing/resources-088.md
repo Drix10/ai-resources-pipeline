@@ -1,6 +1,6 @@
 ### 🤖 AI Video Generation - Prompt Enhancement
 
-Impact of prompt engineering on AI video generation, highlighting a specific instance where a minor prompt enhancement yielded significantly improved results.  The example focuses on improvements observed in video output quality and unexpected creative outcomes.
+This article discusses the impact of prompt engineering on AI video generation, highlighting a specific instance where a minor prompt enhancement yielded significantly improved results.  The example focuses on improvements observed in video output quality and unexpected creative outcomes.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤝 Partnerships - Getty Images and MLB Collaboration
 
-Continued partnership between Getty Images and MLB, focusing on their support for emerging talent within the HBCU community.  The partnership supported the third annual HBCU Swingman Classic.
+This article details the continued partnership between Getty Images and MLB, focusing on their support for emerging talent within the HBCU community.  The partnership supported the third annual HBCU Swingman Classic.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 CVE-2026-28292 - simple-git RCE Vulnerability
 
-CVE-2026-28292, a high-severity Remote Code Execution (RCE) vulnerability found in the `simple-git` library. The vulnerability exploits a case-sensitivity bypass mechanism.
+This article details CVE-2026-28292, a high-severity Remote Code Execution (RCE) vulnerability found in the `simple-git` library. The vulnerability exploits a case-sensitivity bypass mechanism.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 NFTV Interview - XoCillian's Creative Process
 
-Discussion with digital artist XoCillian on RadNFTV, covering his creative journey, preferred tools, and inspirations.
+This article summarizes a discussion with digital artist XoCillian on RadNFTV, covering his creative journey, preferred tools, and inspirations.
 
 Key Points:
 

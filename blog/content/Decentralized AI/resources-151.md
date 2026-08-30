@@ -1,6 +1,6 @@
 ### 🤖 Blockchain Technology - Nillion, Ethereum, and Node Rewards
 
-Nillion's operational framework, clarifies the role of Ethereum within their ecosystem, and explains how node rewards function. It also features insights from John Alan Woods, CEO of the Nillion Association.
+This article outlines Nillion's operational framework, clarifies the role of Ethereum within their ecosystem, and explains how node rewards function. It also features insights from John Alan Woods, CEO of the Nillion Association.
 
 Key Points:
 

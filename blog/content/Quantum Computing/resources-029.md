@@ -1,6 +1,6 @@
 ### 📊 Sexuality and Academic Outcomes in the US
 
-Study investigating the relationship between sexuality and academic achievement in the United States, focusing on the educational attainment of LGB adults and high school students.
+This article summarizes a study investigating the relationship between sexuality and academic achievement in the United States, focusing on the educational attainment of LGB adults and high school students.
 
 
 Key Points:

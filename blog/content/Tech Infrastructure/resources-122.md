@@ -1,6 +1,6 @@
 ### 🤖 AI - Infrastructure Knowledge Graph
 
-Critical role of understanding for AI automation, introducing Project Infragraph from HashiConf 2025. It covers how this unified infrastructure knowledge graph provides AI with comprehensive context across systems, security, and ownership.
+This article discusses the critical role of understanding for AI automation, introducing Project Infragraph from HashiConf 2025. It covers how this unified infrastructure knowledge graph provides AI with comprehensive context across systems, security, and ownership.
 
 Key Points:
 

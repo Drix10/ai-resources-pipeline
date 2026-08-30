@@ -1,6 +1,6 @@
 ### 🌎 Tariffs - Impact on US Businesses
 
-Impact of US tariffs imposed on China, Mexico, and other countries on American businesses and consumers.  It highlights perspectives from individuals experiencing these effects.
+This article discusses the impact of US tariffs imposed on China, Mexico, and other countries on American businesses and consumers.  It highlights perspectives from individuals experiencing these effects.
 
 Key Points:
 

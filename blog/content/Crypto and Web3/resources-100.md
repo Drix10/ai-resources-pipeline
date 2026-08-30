@@ -1,6 +1,6 @@
 ### 🤖 Fraction AI Leaderboard Progress
 
-Progress made on the Fraction AI leaderboard and includes screenshots of the progress.
+This article discusses progress made on the Fraction AI leaderboard and includes screenshots of the progress.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🐠 Marine Biology - Rare Oarfish Sighting
 
-Unusual sighting of an oarfish off the coast of Baja California Sur, Mexico, and its significance in marine biology.  The oarfish, typically inhabiting deep ocean waters, was observed near the surface.
+This article discusses the unusual sighting of an oarfish off the coast of Baja California Sur, Mexico, and its significance in marine biology.  The oarfish, typically inhabiting deep ocean waters, was observed near the surface.
 
 Key Points:
 

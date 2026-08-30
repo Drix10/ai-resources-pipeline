@@ -1,6 +1,6 @@
 ### 🤖 Consumer Choices - Intention-Driven Systems
 
-Shift towards intention-driven consumer choices, enabled by GS1 and OriginTrail technologies.  It highlights how these technologies are enhancing consumer autonomy, trust, and value perception.
+This article discusses the shift towards intention-driven consumer choices, enabled by GS1 and OriginTrail technologies.  It highlights how these technologies are enhancing consumer autonomy, trust, and value perception.
 
 Key Points:
 

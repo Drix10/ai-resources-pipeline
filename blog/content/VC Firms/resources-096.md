@@ -1,6 +1,6 @@
 ### 🤖 Tesla Screen Transcription - Grok Limitations
 
-Challenges of transcribing video from a Tesla screen using Grok, focusing on file size limitations and alternative solutions.
+This article discusses the challenges of transcribing video from a Tesla screen using Grok, focusing on file size limitations and alternative solutions.
 
 Key Points:
 

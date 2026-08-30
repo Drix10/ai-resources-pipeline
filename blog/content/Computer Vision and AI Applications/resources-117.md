@@ -1,6 +1,6 @@
 ### 💡 Startup Leadership - R&D Agility
 
-Common trait observed among successful "six little tigers" (referring to companies or groups) that maintain strong research and development capabilities. It highlights the importance of young founders actively leading and pushing innovation from the front lines.
+This article discusses a common trait observed among successful "six little tigers" (referring to companies or groups) that maintain strong research and development capabilities. It highlights the importance of young founders actively leading and pushing innovation from the front lines.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics - US-Russia Peace Negotiations
 
-Statement regarding potential peace negotiations between the US and Russia.  The statement indicates upcoming discussions between President Biden and President Putin.
+This article summarizes a statement regarding potential peace negotiations between the US and Russia.  The statement indicates upcoming discussions between President Biden and President Putin.
 
 Key Points:
 

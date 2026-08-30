@@ -1,6 +1,6 @@
 ### 🤖 PTSD Treatment - AI and Epigenetics
 
-Spectruth DAO's approach to personalized PTSD treatment using AI, epigenetics, and blockchain technology.  The focus is on the body-based nature of PTSD and the potential of this technology to address it.
+This article discusses Spectruth DAO's approach to personalized PTSD treatment using AI, epigenetics, and blockchain technology.  The focus is on the body-based nature of PTSD and the potential of this technology to address it.
 
 Key Points:
 

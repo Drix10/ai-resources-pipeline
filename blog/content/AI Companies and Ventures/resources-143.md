@@ -1,6 +1,6 @@
 ### ✨ Claude AI - Excel Integration
 
-New capabilities of Claude in Excel, now available for Pro plan users. It covers enhancements for file handling, cell protection, and extended session management within spreadsheets.
+This article details the new capabilities of Claude in Excel, now available for Pro plan users. It covers enhancements for file handling, cell protection, and extended session management within spreadsheets.
 
 Key Points:
 

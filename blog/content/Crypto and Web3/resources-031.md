@@ -1,6 +1,6 @@
 ### 💡 Auctions - Acquiring Art
 
-Humorous, albeit impractical, method for winning an art auction.  It's intended as satire, not a serious guide.
+This article details a humorous, albeit impractical, method for winning an art auction.  It's intended as satire, not a serious guide.
 
 Key Points:
 

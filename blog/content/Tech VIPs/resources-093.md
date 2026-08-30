@@ -1,6 +1,6 @@
 ### 🤖 AI Application Layer - Focused Use Cases
 
-Approach of focusing on specific use cases within the AI application layer, as described by Scott Wu, Co-Founder & CEO of Cognition.  The core idea is to deliver direct results by concentrating on particular capabilities applicable to software.
+This article discusses the approach of focusing on specific use cases within the AI application layer, as described by Scott Wu, Co-Founder & CEO of Cognition.  The core idea is to deliver direct results by concentrating on particular capabilities applicable to software.
 
 Key Points:
 

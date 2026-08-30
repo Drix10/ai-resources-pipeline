@@ -1,6 +1,6 @@
 ### 🤖 Venture Capital - Chapter One's New General Partner
 
-Chapter One's expansion with the addition of a new general partner, highlighting its significance for the firm and the broader venture capital landscape.  The announcement also touches upon the evolution of Chapter One from a solo GP firm.
+This article discusses Chapter One's expansion with the addition of a new general partner, highlighting its significance for the firm and the broader venture capital landscape.  The announcement also touches upon the evolution of Chapter One from a solo GP firm.
 
 Key Points:
 

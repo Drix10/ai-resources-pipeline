@@ -1,6 +1,6 @@
 ### 🤖 AI in Education - Addressing Grading Inconsistency
 
-Potential of AI to address inconsistencies in grading, focusing on its ability to provide consistent evaluation across multiple submissions.
+This article explores the potential of AI to address inconsistencies in grading, focusing on its ability to provide consistent evaluation across multiple submissions.
 
 Key Points:
 

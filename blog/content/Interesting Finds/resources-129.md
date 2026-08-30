@@ -1,6 +1,6 @@
 ### 🤖 IndiaAI Mission - Government Priority
 
-Indian government's focus on artificial intelligence as a top priority. It highlights a recent high-level meeting with AI startups to review the IndiaAI Mission's progress.
+This article discusses the Indian government's focus on artificial intelligence as a top priority. It highlights a recent high-level meeting with AI startups to review the IndiaAI Mission's progress.
 
 Key Points:
 

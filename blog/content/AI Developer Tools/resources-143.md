@@ -1,6 +1,6 @@
 ### ✨ LocallyAI - macOS Dark Icon Update
 
-Introduction of a new dark mode icon for the LocallyAI application on macOS. It discusses the aesthetic update for users.
+This article highlights the introduction of a new dark mode icon for the LocallyAI application on macOS. It discusses the aesthetic update for users.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ Image Generation - Brand Color Accuracy
 
-To achieve precise brand color accuracy and generate high-quality images using FLUX.2 Max within LTX Studio. It highlights the features that support meticulous color work for design and branding.
+This article discusses how to achieve precise brand color accuracy and generate high-quality images using FLUX.2 Max within LTX Studio. It highlights the features that support meticulous color work for design and branding.
 
 Key Points:
 

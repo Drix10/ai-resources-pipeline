@@ -1,6 +1,6 @@
 ### 🚢 History - The Sinking of the Titanic
 
-Sinking of the Titanic, focusing on the contributing factors beyond the iceberg collision.  It highlights human error and disregarded warnings as crucial elements in the disaster.
+This article examines the sinking of the Titanic, focusing on the contributing factors beyond the iceberg collision.  It highlights human error and disregarded warnings as crucial elements in the disaster.
 
 Key Points:
 

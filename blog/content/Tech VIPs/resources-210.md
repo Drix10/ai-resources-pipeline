@@ -1,6 +1,6 @@
 ### 💡 Film Awards - Inclusion Rules Impact
 
-Implications of the Academy Awards' new inclusion rules for Best Picture. It questions the effectiveness of these criteria if past winners already meet them, prompting a discussion on their intended purpose.
+This article examines the implications of the Academy Awards' new inclusion rules for Best Picture. It questions the effectiveness of these criteria if past winners already meet them, prompting a discussion on their intended purpose.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Volcanic Eruptions - Attribution Challenges
 
-Difficulty in attributing historical volcanic eruptions to specific volcanoes, highlighting a study showing a significant portion of eruptions remain unassigned.
+This article discusses the difficulty in attributing historical volcanic eruptions to specific volcanoes, highlighting a study showing a significant portion of eruptions remain unassigned.
 
 Key Points:
 

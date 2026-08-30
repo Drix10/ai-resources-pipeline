@@ -1,6 +1,6 @@
 ### 🚀 Robotaxi - Miami Operations Update
 
-Updates on the ongoing testing and operational improvements of the Robotaxi service in Miami. It highlights observations regarding service availability and user wait times.
+This article provides updates on the ongoing testing and operational improvements of the Robotaxi service in Miami. It highlights observations regarding service availability and user wait times.
 
 Key Points:
 

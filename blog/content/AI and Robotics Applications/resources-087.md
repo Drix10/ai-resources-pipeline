@@ -1,6 +1,6 @@
 ### ⚠️ Social Media - Combating Disinformation
 
-Spread of disinformation through Pakistani fake accounts targeting India and calls for a counter-campaign.  It highlights the need for awareness and action against this online threat.
+This article discusses the spread of disinformation through Pakistani fake accounts targeting India and calls for a counter-campaign.  It highlights the need for awareness and action against this online threat.
 
 Key Points:
 

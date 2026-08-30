@@ -1,6 +1,6 @@
 ### 💡 Basketball Performance - Jalen Johnson's All-Around Play
 
-Jalen Johnson's recent exceptional performance, showcasing his versatility on the court. It covers his key contributions and impressive statistical averages.
+This article highlights Jalen Johnson's recent exceptional performance, showcasing his versatility on the court. It covers his key contributions and impressive statistical averages.
 
 Key Points:
 

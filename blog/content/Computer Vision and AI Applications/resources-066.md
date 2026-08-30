@@ -1,6 +1,6 @@
 ### 🤖  Object Pose Trajectory Challenges in DexMV2
 
-Challenges encountered in scaling smooth object pose trajectories within the DexMV2 system, referencing previous internal attempts.
+This article discusses challenges encountered in scaling smooth object pose trajectories within the DexMV2 system, referencing previous internal attempts.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 No-code AI Tool Development - Using Bubble
 
-Development of a no-code AI tool designed to improve client workflows. The tool was built using the Bubble platform and was developed internally.
+This article outlines the development of a no-code AI tool designed to improve client workflows. The tool was built using the Bubble platform and was developed internally.
 
 Key Points:
 

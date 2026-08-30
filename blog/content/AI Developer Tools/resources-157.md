@@ -1,6 +1,6 @@
 ### 🤖 AI Agent Development - Codebase Context for LLMs
 
-Importance of providing coding agents with up-to-date codebase context rather than just documentation. It highlights a tool that helps maintain current information for library integrations.
+This article discusses the importance of providing coding agents with up-to-date codebase context rather than just documentation. It highlights a tool that helps maintain current information for library integrations.
 
 Key Points:
 

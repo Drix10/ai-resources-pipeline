@@ -1,6 +1,6 @@
 ### 💡 Scratch Programming - Project Paths for Kids
 
-Project paths for teaching children to code using Scratch, catering to different skill levels.  It includes links to resources for getting started.
+This article outlines project paths for teaching children to code using Scratch, catering to different skill levels.  It includes links to resources for getting started.
 
 Key Points:
 

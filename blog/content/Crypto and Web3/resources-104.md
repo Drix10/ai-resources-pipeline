@@ -1,6 +1,6 @@
 ### 🚀 NFT Giveaways - Shrimpers x OKX Wallet Collaboration
 
-Collaboration between Shrimpers NFT and OKX Wallet offering 350 whitelist spots for the Shrimpers NFT mint.  Instructions for entry are provided via links to relevant social media posts.
+This article details a collaboration between Shrimpers NFT and OKX Wallet offering 350 whitelist spots for the Shrimpers NFT mint.  Instructions for entry are provided via links to relevant social media posts.
 
 
 Key Points:

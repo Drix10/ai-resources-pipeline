@@ -1,6 +1,6 @@
 ### 🎶 Music - Neil Young's American Stars 'n Bars
 
-48th anniversary of Neil Young's album, *American Stars 'n Bars*, highlighting its diverse musical styles and reflecting on its significance in Young's career.
+This article discusses the 48th anniversary of Neil Young's album, *American Stars 'n Bars*, highlighting its diverse musical styles and reflecting on its significance in Young's career.
 
 Key Points:
 

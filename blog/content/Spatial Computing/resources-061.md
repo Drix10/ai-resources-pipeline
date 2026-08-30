@@ -1,6 +1,6 @@
 ### 🚀 Marketing Analytics - Accelerating Time-to-Insight
 
-Webinar focusing on how leading brands are accelerating attribution, campaign measurement, and time-to-insight for marketing and data teams.  The webinar aims to help reduce time spent analyzing data and increase time spent acting on it.
+This article discusses a webinar focusing on how leading brands are accelerating attribution, campaign measurement, and time-to-insight for marketing and data teams.  The webinar aims to help reduce time spent analyzing data and increase time spent acting on it.
 
 
 Key Points:

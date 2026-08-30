@@ -1,6 +1,6 @@
 ### 💣 Geopolitics - Russian Strike Claims
 
-Russia's claim of a "high-precision" strike targeting a restaurant allegedly hosting a meeting of commanders and mercenaries.  The claim is analyzed in light of reported casualties.
+This article examines Russia's claim of a "high-precision" strike targeting a restaurant allegedly hosting a meeting of commanders and mercenaries.  The claim is analyzed in light of reported casualties.
 
 Key Points:
 

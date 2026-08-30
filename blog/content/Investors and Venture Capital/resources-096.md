@@ -1,6 +1,6 @@
 ### 🫂 Volunteerism - Cuidemos el Voto
 
-Impact of over 55,000 Bolivian volunteers who participated in the Cuidemos el Voto initiative.  Their efforts demonstrated the power of collective action in ensuring fair elections.
+This article summarizes the impact of over 55,000 Bolivian volunteers who participated in the Cuidemos el Voto initiative.  Their efforts demonstrated the power of collective action in ensuring fair elections.
 
 
 Key Points:

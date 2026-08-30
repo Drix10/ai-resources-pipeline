@@ -1,6 +1,6 @@
 ### 💡 Live Captioning - Co-design Workshop with the Deaf and Hard-of-Hearing Community
 
-Co-design workshop focused on improving live captioning technology for the deaf and hard-of-hearing community.  The workshop aimed to address the limitations of current captioning tools in handling non-standard speech patterns.
+This article summarizes a co-design workshop focused on improving live captioning technology for the deaf and hard-of-hearing community.  The workshop aimed to address the limitations of current captioning tools in handling non-standard speech patterns.
 
 
 Key Points:

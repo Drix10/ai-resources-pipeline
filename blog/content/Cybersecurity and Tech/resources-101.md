@@ -1,6 +1,6 @@
 ### 🤖 US Politics - Proportional Representation vs. Gerrymandering
 
-Difference between proportional representation and gerrymandering in the context of US Congressional elections.  It contrasts a system where vote share directly translates to seat allocation with the current district-based system.
+This article discusses the difference between proportional representation and gerrymandering in the context of US Congressional elections.  It contrasts a system where vote share directly translates to seat allocation with the current district-based system.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Collaboration - Virtuals and sKAITO/YT Distribution
 
-Recent iterations between Virtuals and the sKAITO/YT teams, focusing on improvements to distribution mechanisms.  A new mechanism for sKAITO/YT is outlined.
+This article discusses recent iterations between Virtuals and the sKAITO/YT teams, focusing on improvements to distribution mechanisms.  A new mechanism for sKAITO/YT is outlined.
 
 Key Points:
 

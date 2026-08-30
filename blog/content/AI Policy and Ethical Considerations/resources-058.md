@@ -1,6 +1,6 @@
 ### 🤖 US-China Trade - Huawei Chip Export Controls
 
-Chinese Ministry of Commerce's response to the U.S. Department of Commerce's revision of export control language on Huawei Ascend chips.  The response is presented via a full transcript.
+This article summarizes the Chinese Ministry of Commerce's response to the U.S. Department of Commerce's revision of export control language on Huawei Ascend chips.  The response is presented via a full transcript.
 
 Key Points:
 

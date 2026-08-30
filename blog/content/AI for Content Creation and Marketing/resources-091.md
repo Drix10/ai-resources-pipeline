@@ -1,6 +1,6 @@
 ### 📈 Economics - July 2025 CPI-DPG Update
 
-July 2025 update on the Consumer Price Index for Durable and Personal Goods (CPI-DPG), highlighting a deceleration in price growth attributed to Prime Week and Walmart discounts.  The full breakdown is linked below.
+This article summarizes the July 2025 update on the Consumer Price Index for Durable and Personal Goods (CPI-DPG), highlighting a deceleration in price growth attributed to Prime Week and Walmart discounts.  The full breakdown is linked below.
 
 Key Points:
 

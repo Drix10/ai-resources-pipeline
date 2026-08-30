@@ -1,6 +1,6 @@
 ### 🤖 RESI Finance - Onchain Real Estate Lending
 
-RESI Finance as the central platform for onchain real estate lending. It details access requirements and the underlying security mechanisms for property tokens.
+This article outlines RESI Finance as the central platform for onchain real estate lending. It details access requirements and the underlying security mechanisms for property tokens.
 
 Key Points:
 

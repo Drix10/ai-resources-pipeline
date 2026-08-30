@@ -1,6 +1,6 @@
 ### 💡 AI Coding - The 99 Pattern and Infill
 
-"99" AI coding pattern, an alternative to traditional "vibe coding," and how tools like Cursor's edit mode can facilitate similar infill strategies. It also touches on the broader concept of token abundance in AI engineering.
+This article discusses the "99" AI coding pattern, an alternative to traditional "vibe coding," and how tools like Cursor's edit mode can facilitate similar infill strategies. It also touches on the broader concept of token abundance in AI engineering.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Blockchain - OriginTrail and Genomic Data
 
-OriginTrail's TRAC staking mechanism and its collaboration with ELSA for securing genomic data in healthcare.
+This article discusses OriginTrail's TRAC staking mechanism and its collaboration with ELSA for securing genomic data in healthcare.
 
 Key Points:
 

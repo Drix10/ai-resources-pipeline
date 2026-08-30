@@ -1,6 +1,6 @@
 ### ⚖️  Political Violence and its Corrosive Effect on Democracy
 
-Detrimental impact of political violence on democratic systems and emphasizes the importance of utilizing legal and civic tools for change.
+This article discusses the detrimental impact of political violence on democratic systems and emphasizes the importance of utilizing legal and civic tools for change.
 
 Key Points:
 

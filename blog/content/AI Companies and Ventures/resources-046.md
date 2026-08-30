@@ -1,6 +1,6 @@
 ### 🤖 Google Workspace - Browser Use Cloud Integration
 
-Recent integration of Google Sign-In on the Browser Use Cloud, enabling access to Google Workspace services.  A sample prompt for utilizing this integration is also provided.
+This article covers the recent integration of Google Sign-In on the Browser Use Cloud, enabling access to Google Workspace services.  A sample prompt for utilizing this integration is also provided.
 
 Key Points:
 

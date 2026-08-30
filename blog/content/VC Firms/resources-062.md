@@ -1,6 +1,6 @@
 ### ✨ Venture Capital - Nichols Ranked Top Early-Stage Investor
 
-Marlon Nichols's ranking as a top early-stage investor in Business Insider's 2025 Seed 100 list.  It highlights his firm's impact and investment strategy.
+This article discusses Marlon Nichols's ranking as a top early-stage investor in Business Insider's 2025 Seed 100 list.  It highlights his firm's impact and investment strategy.
 
 Key Points:
 

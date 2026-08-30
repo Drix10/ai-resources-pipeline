@@ -1,6 +1,6 @@
 ### 🤖 LLM Architecture - Task Delegation
 
-Strategies for optimizing Large Language Model (LLM) usage. It highlights a method combining high-capability models with specialized models for varied tasks. This approach aims to distribute computational load efficiently.
+This article discusses strategies for optimizing Large Language Model (LLM) usage. It highlights a method combining high-capability models with specialized models for varied tasks. This approach aims to distribute computational load efficiently.
 
 Key Points:
 

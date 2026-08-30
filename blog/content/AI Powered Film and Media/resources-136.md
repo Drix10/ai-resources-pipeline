@@ -1,6 +1,6 @@
 ### 🤖 Peptide Spectral Library Search - Benchmarking
 
-Benchmarking of peptide spectral library searches, a critical process in proteomics. It highlights the importance of evaluating search methods for accuracy and efficiency in identifying peptides.
+This article explores the benchmarking of peptide spectral library searches, a critical process in proteomics. It highlights the importance of evaluating search methods for accuracy and efficiency in identifying peptides.
 
 Key Points:
 

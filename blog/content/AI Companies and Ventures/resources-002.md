@@ -1,6 +1,6 @@
 ### ✨ Awards - Manu Bhaker's BBC Indian Sportswoman of the Year Award
 
-Manu Bhaker's achievement of winning the BBC Indian Sportswoman of the Year Award following her performance at the Paris Olympics.
+This article highlights Manu Bhaker's achievement of winning the BBC Indian Sportswoman of the Year Award following her performance at the Paris Olympics.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Agentic Video Creation - NoSpoon
 
-NoSpoon, a platform for creating agentic videos with customizable voices.  The platform offers a variety of voice options and soon will allow for character customization.
+This article discusses NoSpoon, a platform for creating agentic videos with customizable voices.  The platform offers a variety of voice options and soon will allow for character customization.
 
 Key Points:
 

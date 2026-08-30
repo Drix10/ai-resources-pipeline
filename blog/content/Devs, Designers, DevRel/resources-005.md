@@ -1,6 +1,6 @@
 ### 🤖 Cloud Migration - Microsoft Azure
 
-Virtual talk on cloud migration to Microsoft Azure, covering key aspects and experiences.
+This article summarizes a virtual talk on cloud migration to Microsoft Azure, covering key aspects and experiences.
 
 
 Key Points:

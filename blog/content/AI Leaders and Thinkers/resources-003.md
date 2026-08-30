@@ -1,6 +1,6 @@
 ### 🚀 Linear Finance - Major Update and New Features
 
-February 13th major update to Linear Finance's PerpDEX, highlighting new features and improvements.  It also briefly mentions the launch of a new trading feature.
+This article summarizes the February 13th major update to Linear Finance's PerpDEX, highlighting new features and improvements.  It also briefly mentions the launch of a new trading feature.
 
 Key Points:
 

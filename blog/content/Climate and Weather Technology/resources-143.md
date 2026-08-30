@@ -1,6 +1,6 @@
 ### 💡 Geopolitics - Paris Protest Observation
 
-Observation of Iranians gathering in Paris, reflecting on the perceived historic significance of such events in contemporary times. It highlights the role of public assembly in expressing sentiment.
+This article discusses the observation of Iranians gathering in Paris, reflecting on the perceived historic significance of such events in contemporary times. It highlights the role of public assembly in expressing sentiment.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Agent Session Management - Cleanup Commands
 
-Two Omnara commands designed to streamline the cleanup of agent sessions, enhancing operational efficiency. These commands aim to provide a smoother and more robust approach to managing agent lifecycles.
+This article discusses two Omnara commands designed to streamline the cleanup of agent sessions, enhancing operational efficiency. These commands aim to provide a smoother and more robust approach to managing agent lifecycles.
 
 Key Points:
 

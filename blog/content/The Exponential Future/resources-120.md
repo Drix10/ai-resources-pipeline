@@ -1,6 +1,6 @@
 ### 🤖 AI Research - Emerging Capabilities
 
-Efforts of the Sparks paper to identify and measure unexpected capabilities within GPT-4, noting the challenge in quantifying these advanced behaviors. It draws a parallel to "Early Science Acceleration," describing it as a currently unclear phenomenon expected to become more defined over time.
+This article outlines the efforts of the Sparks paper to identify and measure unexpected capabilities within GPT-4, noting the challenge in quantifying these advanced behaviors. It draws a parallel to "Early Science Acceleration," describing it as a currently unclear phenomenon expected to become more defined over time.
 
 Key Points:
 

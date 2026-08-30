@@ -1,6 +1,6 @@
 ### 💡 Website Design - Skinny Landing Pages
 
-Benefits and examples of skinny landing pages, a design approach focusing on mobile-first optimization and consistent user experience across devices.
+This article discusses the benefits and examples of skinny landing pages, a design approach focusing on mobile-first optimization and consistent user experience across devices.
 
 Key Points:
 

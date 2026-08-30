@@ -1,6 +1,6 @@
 ### 🎙️ Cybersecurity Podcast - Post-Quantum Cryptography Challenges
 
-Cybersecurity podcast episode discussing the challenges of transitioning to post-quantum cryptography.  The episode features the founder and CEO of Corix Partners.
+This article summarizes a cybersecurity podcast episode discussing the challenges of transitioning to post-quantum cryptography.  The episode features the founder and CEO of Corix Partners.
 
 Key Points:
 

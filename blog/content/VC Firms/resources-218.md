@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Claude Sonnet 5 Integration
 
-Warp Agent's new support for Claude Sonnet 5, outlining the benefits for agentic coding and professional tasks. It covers how this integration enhances performance and cost-effectiveness for terminal-based operations.
+This article details the Warp Agent's new support for Claude Sonnet 5, outlining the benefits for agentic coding and professional tasks. It covers how this integration enhances performance and cost-effectiveness for terminal-based operations.
 
 Key Points:
 

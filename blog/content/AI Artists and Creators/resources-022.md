@@ -1,6 +1,6 @@
 ### 🤖 AI-Generated Art - Bing Image Creation
 
-Creation of taco art using Bing's AI image generation capabilities, highlighting the challenges encountered and the individuals involved.
+This article discusses the creation of taco art using Bing's AI image generation capabilities, highlighting the challenges encountered and the individuals involved.
 
 Key Points:
 

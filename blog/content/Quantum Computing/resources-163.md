@@ -1,6 +1,6 @@
 ### 🤖 Cryptography - Adaptive Distributed Key Generation
 
-Research paper on Adaptive Distributed Key Generation for Discrete-Log Cryptosystems. It discusses mechanisms for dynamically managing cryptographic keys in distributed environments, enhancing security and flexibility.
+This article examines the research paper on Adaptive Distributed Key Generation for Discrete-Log Cryptosystems. It discusses mechanisms for dynamically managing cryptographic keys in distributed environments, enhancing security and flexibility.
 
 Key Points:
 

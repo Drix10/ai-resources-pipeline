@@ -1,6 +1,6 @@
 ### 🤖 Law Firm - Associate Resignation
 
-Email from a Skadden Arps associate announcing their resignation, contingent on the firm's response to recent events.  The email highlights the urgency of the situation.
+This article summarizes an email from a Skadden Arps associate announcing their resignation, contingent on the firm's response to recent events.  The email highlights the urgency of the situation.
 
 Key Points:
 

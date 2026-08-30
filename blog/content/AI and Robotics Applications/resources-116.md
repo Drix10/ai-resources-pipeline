@@ -1,6 +1,6 @@
 ### 🤖 Behavior Trees - C Library Development
 
-Development of a header-only C library for behavior trees, detailing its initial functionality and supported node types. It highlights the progress in implementing core components for complex decision-making logic.
+This article covers the development of a header-only C library for behavior trees, detailing its initial functionality and supported node types. It highlights the progress in implementing core components for complex decision-making logic.
 
 Key Points:
 

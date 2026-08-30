@@ -1,6 +1,6 @@
 ### 🤖 Google Indexing - First Pass Indexing
 
-Google's evolving indexing strategy, specifically the introduction of "first pass indexing." This new approach involves Google assessing content quality upfront and potentially omitting low-value pages from its index.
+This article discusses Google's evolving indexing strategy, specifically the introduction of "first pass indexing." This new approach involves Google assessing content quality upfront and potentially omitting low-value pages from its index.
 
 Key Points:
 • Google now evaluates content quality before the initial indexing process.

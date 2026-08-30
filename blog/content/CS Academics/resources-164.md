@@ -1,6 +1,6 @@
 ### ✨ X Platform - Like Animation Update
 
-Recent update to the Like animation on the X platform. The change is noted to have occurred following the mergers of SpaceX and xAI. It highlights a specific user interface modification.
+This article discusses the recent update to the Like animation on the X platform. The change is noted to have occurred following the mergers of SpaceX and xAI. It highlights a specific user interface modification.
 
 Key Points:
 

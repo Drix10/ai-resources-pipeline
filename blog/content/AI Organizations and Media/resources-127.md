@@ -1,6 +1,6 @@
 ### 🤖 AI Research - Dissertation Insights
 
-Insight into the work of Neringa Jurenaite, a research associate at TU Dresden. It highlights her involvement with the Transfer and Service Center and the Living Lab, along with her current dissertation focus.
+This article provides an insight into the work of Neringa Jurenaite, a research associate at TU Dresden. It highlights her involvement with the Transfer and Service Center and the Living Lab, along with her current dissertation focus.
 
 Key Points:
 

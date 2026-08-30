@@ -1,6 +1,6 @@
 ### 🗣️ US Politics - Criticisms of Trump's Russia Policy
 
-Criticisms of Donald Trump's approach to Russia voiced by several Republican lawmakers.  The statements highlight concerns about Trump's interactions with Vladimir Putin and his perceived inability to adequately address Russian aggression.
+This article summarizes criticisms of Donald Trump's approach to Russia voiced by several Republican lawmakers.  The statements highlight concerns about Trump's interactions with Vladimir Putin and his perceived inability to adequately address Russian aggression.
 
 Key Points:
 

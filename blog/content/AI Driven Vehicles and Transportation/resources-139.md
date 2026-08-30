@@ -1,6 +1,6 @@
 ### 🤖 Claude Code - GitHub PR Integration
 
-New `--from-pr` flag in Claude Code. It explains how this feature enhances workflow by linking coding sessions directly to GitHub Pull Requests.
+This article covers the new `--from-pr` flag in Claude Code. It explains how this feature enhances workflow by linking coding sessions directly to GitHub Pull Requests.
 
 Key Points:
 

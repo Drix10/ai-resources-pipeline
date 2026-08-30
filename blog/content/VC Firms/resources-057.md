@@ -1,6 +1,6 @@
 ### 💡 Communications - Playbook Breakdown
 
-Communications playbook focusing on short attention spans and effective storytelling techniques for conversions.  It emphasizes the importance of emotional connection and clear, concise messaging.
+This article summarizes a communications playbook focusing on short attention spans and effective storytelling techniques for conversions.  It emphasizes the importance of emotional connection and clear, concise messaging.
 
 Key Points:
 

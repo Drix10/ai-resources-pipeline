@@ -1,6 +1,6 @@
 ### 🤖 AI Image Generation - Prompt Engineering
 
-Creation of photorealistic images using AI, focusing on the specific prompt engineering techniques employed with the Nano Banana Pro tool. It details how precise instructions influence visual output.
+This article covers the creation of photorealistic images using AI, focusing on the specific prompt engineering techniques employed with the Nano Banana Pro tool. It details how precise instructions influence visual output.
 
 Key Points:
 

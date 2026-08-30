@@ -1,6 +1,6 @@
 ### 🤖 Overparameterized ML - Generalization Limits
 
-Limitations of current overparameterized machine learning systems regarding out-of-distribution (OOD) generalization and explores the potential of pattern/concept narratives as an alternative approach.
+This article discusses the limitations of current overparameterized machine learning systems regarding out-of-distribution (OOD) generalization and explores the potential of pattern/concept narratives as an alternative approach.
 
 Key Points:
 

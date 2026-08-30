@@ -1,6 +1,6 @@
 ### ✨ InstantlyAI - Automations and API Expansion
 
-Introduction of new automation capabilities and an expanded API for InstantlyAI, designed to integrate seamlessly into existing workflows. These enhancements aim to simplify outbound processes and improve scalability as operational volume and complexity increase.
+This article details the introduction of new automation capabilities and an expanded API for InstantlyAI, designed to integrate seamlessly into existing workflows. These enhancements aim to simplify outbound processes and improve scalability as operational volume and complexity increase.
 
 Key Points:
 

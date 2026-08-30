@@ -1,6 +1,6 @@
 ### 🤖 Generative AI Updates - Freepik & Hollywood AI Landscape
 
-Recent updates in generative AI, focusing on Freepik's new "Objects" feature and the impact of AI on Hollywood.
+This article summarizes recent updates in generative AI, focusing on Freepik's new "Objects" feature and the impact of AI on Hollywood.
 
 Key Points:
 

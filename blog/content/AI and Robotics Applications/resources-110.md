@@ -1,6 +1,6 @@
 ### 🤖 AI Progress - Embodied AI's Importance
 
-Limitations of current AI models and emphasizes the importance of embodied AI for future advancements.  It highlights the need for AI systems to interact with the real world through perception and control.
+This article discusses the limitations of current AI models and emphasizes the importance of embodied AI for future advancements.  It highlights the need for AI systems to interact with the real world through perception and control.
 
 Key Points:
 

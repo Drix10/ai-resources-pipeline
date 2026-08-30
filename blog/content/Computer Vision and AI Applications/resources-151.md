@@ -1,6 +1,6 @@
 ### 🤖 Self-Driving Simulation - Video World Models with AR-DiT
 
-NVIDIA's demonstration of a concrete path towards closed-loop simulation for self-driving vehicles. It highlights the use of AR-DiT trained with Self-Forcing to achieve this advanced simulation capability.
+This article explores NVIDIA's demonstration of a concrete path towards closed-loop simulation for self-driving vehicles. It highlights the use of AR-DiT trained with Self-Forcing to achieve this advanced simulation capability.
 
 Key Points:
 

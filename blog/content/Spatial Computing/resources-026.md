@@ -1,6 +1,6 @@
 ### 🤖 Soil Health - Regenerative Agriculture
 
-Perennial's use of Google Earth Engine, Google Cloud, and AI to map soil health, reduce carbon emissions, and improve climate resilience.  The company's case study highlights the benefits of this technology.
+This article discusses Perennial's use of Google Earth Engine, Google Cloud, and AI to map soil health, reduce carbon emissions, and improve climate resilience.  The company's case study highlights the benefits of this technology.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 CAASPP Test Prep - AI-Powered Feedback
 
-Webinar on using Class Companion for CAASPP test preparation.  The webinar will cover strategies for easier and more effective test preparation.
+This article summarizes a webinar on using Class Companion for CAASPP test preparation.  The webinar will cover strategies for easier and more effective test preparation.
 
 Key Points:
 

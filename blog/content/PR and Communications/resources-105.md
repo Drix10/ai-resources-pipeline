@@ -1,6 +1,6 @@
 ### ⚖️ Philadelphia DA - Strong Stance
 
-Twitter thread expressing admiration for Philadelphia District Attorney Larry Krasner's assertive approach to law enforcement.
+This article summarizes a Twitter thread expressing admiration for Philadelphia District Attorney Larry Krasner's assertive approach to law enforcement.
 
 Key Points:
 

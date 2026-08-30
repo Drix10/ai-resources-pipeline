@@ -1,6 +1,6 @@
 ### 🤖 Trading Bot - New Copy Trading Feature
 
-New copy trading bot currently in private beta.  It details the features and planned release.
+This article discusses a new copy trading bot currently in private beta.  It details the features and planned release.
 
 Key Points:
 

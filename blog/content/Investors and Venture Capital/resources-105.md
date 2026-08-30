@@ -1,6 +1,6 @@
 ### 🤖 Logistics and Infrastructure - Chinese High-Speed Rail Takeaway Ordering
 
-Sophisticated logistics and infrastructure required to enable takeaway food ordering on China's high-speed rail network.  The complexity highlights the advanced systems in place.
+This article discusses the sophisticated logistics and infrastructure required to enable takeaway food ordering on China's high-speed rail network.  The complexity highlights the advanced systems in place.
 
 Key Points:
 

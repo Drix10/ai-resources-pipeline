@@ -1,6 +1,6 @@
 ### 💡 Avoiding Misinformation - Online Safety
 
-Key strategies for identifying and avoiding misinformation online.  It focuses on critical evaluation of sources and content.
+This article provides key strategies for identifying and avoiding misinformation online.  It focuses on critical evaluation of sources and content.
 
 Key Points:
 

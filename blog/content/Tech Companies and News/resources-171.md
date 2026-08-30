@@ -1,6 +1,6 @@
 ### ✨ Google AI Results - New Labels and Carousel Features
 
-Recent updates to Google AI search results, including the introduction of preferred sources labels, a new interactive carousel, and the expansion of highly cited labels in search. These enhancements aim to improve content transparency and user navigation.
+This article outlines recent updates to Google AI search results, including the introduction of preferred sources labels, a new interactive carousel, and the expansion of highly cited labels in search. These enhancements aim to improve content transparency and user navigation.
 
 Key Points:
 

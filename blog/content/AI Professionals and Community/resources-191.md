@@ -1,6 +1,6 @@
 ### 🤖 Generative Models - Structured Coupling with Flow Matching
 
-Structured coupling for generative models, specifically combining flow matching with VAE-based coupling. It highlights how this approach improves representation and sample quality in generative tasks.
+This article discusses structured coupling for generative models, specifically combining flow matching with VAE-based coupling. It highlights how this approach improves representation and sample quality in generative tasks.
 
 Key Points:
 

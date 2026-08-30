@@ -1,6 +1,6 @@
 ### 🤖 Image Generation - FLUX.1 Kontext
 
-FLUX.1 Kontext, a suite of generative flow matching models for image generation and editing in latent space.  The models utilize a simple sequence concatenation approach.
+This article discusses FLUX.1 Kontext, a suite of generative flow matching models for image generation and editing in latent space.  The models utilize a simple sequence concatenation approach.
 
 Key Points:
 

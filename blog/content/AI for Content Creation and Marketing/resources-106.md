@@ -1,6 +1,6 @@
 ### 🚀 X Account Metrics - Subscription Impact
 
-Impact of subscription options on X account followership, based on a poll conducted by CRANQ.  The poll aims to determine if the availability of subscriptions influences users' likelihood to follow accounts.
+This article discusses the impact of subscription options on X account followership, based on a poll conducted by CRANQ.  The poll aims to determine if the availability of subscriptions influences users' likelihood to follow accounts.
 
 Key Points:
 

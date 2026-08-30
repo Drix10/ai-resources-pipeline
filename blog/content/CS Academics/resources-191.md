@@ -1,6 +1,6 @@
 ### 🚀 Spacecraft Launch - Cygnus XL Mission
 
-Launch of Northrop Grumman’s Cygnus XL spacecraft by a Falcon 9 rocket, destined for the International Space Station. It highlights the collaborative effort in space logistics and resupply missions.
+This article details the launch of Northrop Grumman’s Cygnus XL spacecraft by a Falcon 9 rocket, destined for the International Space Station. It highlights the collaborative effort in space logistics and resupply missions.
 
 Key Points:
 

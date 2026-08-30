@@ -1,6 +1,6 @@
 ### 🤖 Adaptive Fault-Tolerant Control - Self-Organizing RBF Neural Networks
 
-New research proposal for an adaptive fault-tolerant control algorithm. It focuses on its application to affine nonlinear systems, leveraging neural network technology.
+This article summarizes a new research proposal for an adaptive fault-tolerant control algorithm. It focuses on its application to affine nonlinear systems, leveraging neural network technology.
 
 Key Points:
 

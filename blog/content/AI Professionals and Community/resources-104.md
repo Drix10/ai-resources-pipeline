@@ -1,6 +1,6 @@
 ### 🤖 Minecraft Server Development - Key Features
 
-Key features of a well-designed Minecraft server, focusing on client support, runtime API discovery, and underutilized functionalities.
+This article highlights key features of a well-designed Minecraft server, focusing on client support, runtime API discovery, and underutilized functionalities.
 
 Key Points:
 

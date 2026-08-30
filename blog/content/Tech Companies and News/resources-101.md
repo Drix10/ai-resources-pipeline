@@ -1,6 +1,6 @@
 ### 🤖 Blockchain - Figment's Vision
 
-Interview with Lorien Gabel, CEO of Figment, discussing their foresight regarding blockchain staking and the transition from traditional internet to decentralized finance.
+This article summarizes an interview with Lorien Gabel, CEO of Figment, discussing their foresight regarding blockchain staking and the transition from traditional internet to decentralized finance.
 
 Key Points:
 

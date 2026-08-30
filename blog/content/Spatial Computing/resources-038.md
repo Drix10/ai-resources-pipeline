@@ -1,6 +1,6 @@
 ### 🚀 VR Gaming - Wanderer: Fragments of Fate
 
-Information about the game Wanderer: Fragments of Fate, available on Meta Quest.  It's a time-travel adventure game involving action and puzzle-solving.
+This article provides information about the game Wanderer: Fragments of Fate, available on Meta Quest.  It's a time-travel adventure game involving action and puzzle-solving.
 
 Key Points:
 

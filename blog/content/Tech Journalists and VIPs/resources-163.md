@@ -1,6 +1,6 @@
 ### 💡 Progressive Policies - Urban Impact and Public Trust
 
-Public discourse surrounding the admitted negative impacts of certain progressive urban policies, alongside continued calls for public confidence in proposed solutions. It explores the tension between policy outcomes and public trust.
+This article examines the public discourse surrounding the admitted negative impacts of certain progressive urban policies, alongside continued calls for public confidence in proposed solutions. It explores the tension between policy outcomes and public trust.
 
 Key Points:
 

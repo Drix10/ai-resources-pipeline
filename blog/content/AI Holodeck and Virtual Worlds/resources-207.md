@@ -1,6 +1,6 @@
 ### 🤖 Embodied AI - Infrastructure Challenges
 
-Critical need for robust infrastructure to support embodied AI systems operating in the physical world. It addresses the inherent challenges of physical environments not designed for intelligent, acting machines and announces an event to foster collaboration.
+This article highlights the critical need for robust infrastructure to support embodied AI systems operating in the physical world. It addresses the inherent challenges of physical environments not designed for intelligent, acting machines and announces an event to foster collaboration.
 
 Key Points:
 

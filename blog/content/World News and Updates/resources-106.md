@@ -1,6 +1,6 @@
 ### 🤖 Indian Air Force - Public Message on Response Capability
 
-Public message released by the Indian Air Force, highlighting its swift and decisive response capabilities.  The message was shared at the NDTV Defence Summit 2025.
+This article summarizes a public message released by the Indian Air Force, highlighting its swift and decisive response capabilities.  The message was shared at the NDTV Defence Summit 2025.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 🚀 AI Agent Business Ideas - 100 Prompts
 
-Curated list of 100 AI agent ideas, each with detailed prompts to facilitate the launch of an AI agent business.  The resource aims to provide a starting point for entrepreneurs interested in this field.
+This article provides a curated list of 100 AI agent ideas, each with detailed prompts to facilitate the launch of an AI agent business.  The resource aims to provide a starting point for entrepreneurs interested in this field.
 
 
 Key Points:

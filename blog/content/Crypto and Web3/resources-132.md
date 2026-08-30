@@ -1,6 +1,6 @@
 ### ✨ Platform Engagement - Personal Achievements
 
-User's recent achievements and progress on the Bappfun platform, highlighting active participation and its direct impact on ranking and rewards.
+This article details a user's recent achievements and progress on the Bappfun platform, highlighting active participation and its direct impact on ranking and rewards.
 
 Key Points:
 

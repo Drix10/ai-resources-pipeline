@@ -1,6 +1,6 @@
 ### 🤖 AI Image Editing - Nano Banana Issues
 
-Issues encountered with the Nano Banana AI image editing tool on AI Studio, specifically regarding its performance on hard edits.  The tool appears to be malfunctioning, resulting in the replication of reference images rather than the intended edits.
+This article discusses issues encountered with the Nano Banana AI image editing tool on AI Studio, specifically regarding its performance on hard edits.  The tool appears to be malfunctioning, resulting in the replication of reference images rather than the intended edits.
 
 Key Points:
 

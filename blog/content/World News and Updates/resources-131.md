@@ -1,6 +1,6 @@
 ### 💡 Public Figure - Political Ambitions
 
-Actor Vikrant Massey's interview on "The New Business of Life," where he addresses questions regarding a potential career in politics. It provides insights into his current perspectives on public service and his future considerations.
+This article discusses actor Vikrant Massey's interview on "The New Business of Life," where he addresses questions regarding a potential career in politics. It provides insights into his current perspectives on public service and his future considerations.
 
 Key Points:
 

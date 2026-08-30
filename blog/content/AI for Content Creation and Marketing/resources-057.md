@@ -1,6 +1,6 @@
 ### ✨ Virtuals Ecosystem - Agent Staking
 
-Shift in user engagement within the Virtuals ecosystem from passive holding to active agent staking for earning virgen points.  A fixed deadline for this transition is also noted.
+This article discusses the shift in user engagement within the Virtuals ecosystem from passive holding to active agent staking for earning virgen points.  A fixed deadline for this transition is also noted.
 
 Key Points:
 

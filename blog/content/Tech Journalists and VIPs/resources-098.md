@@ -1,6 +1,6 @@
 ### 🤖 Physics - Alcubierre Drive
 
-Alcubierre Drive, a theoretical faster-than-light propulsion system proposed by physicist Miguel Alcubierre.  It explains the concept of warping space-time to achieve faster-than-light travel.
+This article discusses the Alcubierre Drive, a theoretical faster-than-light propulsion system proposed by physicist Miguel Alcubierre.  It explains the concept of warping space-time to achieve faster-than-light travel.
 
 
 Key Points:

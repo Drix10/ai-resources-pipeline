@@ -1,6 +1,6 @@
 ### 🤖 NLP - Ultra-Compact BERT Model
 
-EI-BERT, an ultra-compact framework for edge NLP, highlighting its size and application in Natural Language Understanding (NLU) tasks.
+This article discusses EI-BERT, an ultra-compact framework for edge NLP, highlighting its size and application in Natural Language Understanding (NLU) tasks.
 
 
 Key Points:

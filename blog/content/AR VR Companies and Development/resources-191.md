@@ -1,6 +1,6 @@
 ### 🚀 Puzzle Game - Multiplayer Experience
 
-A new multiplayer puzzle game, highlighting its core features. It aims to introduce the game's concept and visual style to potential players.
+This article provides an overview of a new multiplayer puzzle game, highlighting its core features. It aims to introduce the game's concept and visual style to potential players.
 
 Key Points:
 

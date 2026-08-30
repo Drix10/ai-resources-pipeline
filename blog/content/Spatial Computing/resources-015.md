@@ -1,6 +1,6 @@
 ### 🤖 VR Headsets - OpenXR Standard Allegations
 
-Allegations of Meta undermining the OpenXR standard through its OVRPlugin, potentially blocking non-Meta headsets from accessing certain features.  It summarizes statements from Guy Godin of VRDesktop corroborating these claims.
+This article discusses allegations of Meta undermining the OpenXR standard through its OVRPlugin, potentially blocking non-Meta headsets from accessing certain features.  It summarizes statements from Guy Godin of VRDesktop corroborating these claims.
 
 Key Points:
 

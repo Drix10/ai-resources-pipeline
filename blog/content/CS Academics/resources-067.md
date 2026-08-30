@@ -1,6 +1,6 @@
 ### 🤖 Image Processing - Hyperspectral Enhancement
 
-Challenges of hyperspectral image enhancement, specifically focusing on predicting simulated infrared slices from RGB images, and its application in forensics.  The high accuracy achieved by the MST++ model is highlighted.
+This article discusses the challenges of hyperspectral image enhancement, specifically focusing on predicting simulated infrared slices from RGB images, and its application in forensics.  The high accuracy achieved by the MST++ model is highlighted.
 
 Key Points:
 

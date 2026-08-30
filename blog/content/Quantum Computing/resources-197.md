@@ -1,6 +1,6 @@
 ### 🤖 AI Models - Math Problem Solving
 
-Performance of an internal model named Astra in solving mathematical problems. It highlights the model's ability to find solutions efficiently.
+This article discusses the performance of an internal model named Astra in solving mathematical problems. It highlights the model's ability to find solutions efficiently.
 
 Key Points:
 

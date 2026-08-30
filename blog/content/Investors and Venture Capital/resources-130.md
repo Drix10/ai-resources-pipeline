@@ -1,6 +1,6 @@
 ### 💡 Historical Diplomacy - US-Iran Relations under Nixon
 
-Historical insights from Richard Nixon regarding the Shah's concerns about U.S. support. It highlights a critical perspective on the perceived indecisiveness in foreign policy during that era.
+This article examines historical insights from Richard Nixon regarding the Shah's concerns about U.S. support. It highlights a critical perspective on the perceived indecisiveness in foreign policy during that era.
 
 Key Points:
 

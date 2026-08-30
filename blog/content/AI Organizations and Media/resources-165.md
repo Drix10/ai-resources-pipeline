@@ -1,6 +1,6 @@
 ### 🤖 Claude - Code Learning Resources
 
-Resources available for learning to code with Claude, an AI model. It focuses on practical applications and tutorials for developing AI-powered solutions.
+This article provides an overview of resources available for learning to code with Claude, an AI model. It focuses on practical applications and tutorials for developing AI-powered solutions.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Integration - Liberty Finance and AIDEN
 
-Integration of AIDEN, an AI-powered solution, into Liberty Finance, a DAO building compliant financial engines.  The integration aims to provide quick and accurate answers to community questions.
+This article discusses the integration of AIDEN, an AI-powered solution, into Liberty Finance, a DAO building compliant financial engines.  The integration aims to provide quick and accurate answers to community questions.
 
 Key Points:
 

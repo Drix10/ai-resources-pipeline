@@ -1,6 +1,6 @@
 ### ⚠️ NOAA Budget Cuts - Impact on Hurricane Forecasting
 
-Proposed cuts to the NOAA budget and their potential negative impact on the accuracy and timeliness of hurricane forecasting in the United States.
+This article discusses the proposed cuts to the NOAA budget and their potential negative impact on the accuracy and timeliness of hurricane forecasting in the United States.
 
 Key Points:
 

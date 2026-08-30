@@ -1,6 +1,6 @@
 ### 💡 Pediatric Orthopedics - Distal Radial Fracture Treatment
 
-Treatment of distal radial fractures in children, which are common bony injuries. It examines a study comparing the clinical and cost-effectiveness of surgical reduction against non-surgical casting.
+This article discusses the treatment of distal radial fractures in children, which are common bony injuries. It examines a study comparing the clinical and cost-effectiveness of surgical reduction against non-surgical casting.
 
 Key Points:
 

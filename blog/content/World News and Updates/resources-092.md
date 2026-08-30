@@ -1,6 +1,6 @@
 ### 🎬 Bollywood - Sholay's 50th Anniversary
 
-50th anniversary of the Bollywood film Sholay and its filming location in Karnataka's Ramdevra Betta.  Local accounts of the filming are included.
+This article discusses the 50th anniversary of the Bollywood film Sholay and its filming location in Karnataka's Ramdevra Betta.  Local accounts of the filming are included.
 
 Key Points:
 

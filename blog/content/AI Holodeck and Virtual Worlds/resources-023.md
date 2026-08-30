@@ -1,6 +1,6 @@
 ### 🤖 Physical AI - Newton Model Demo at SXSW
 
-Demonstration of Newton, a Physical AI foundation model designed to understand and interpret sensor data from the physical world, at SXSW 2025.  The demonstration showcased Newton's capabilities in interpreting physical world sensor data.
+This article summarizes a demonstration of Newton, a Physical AI foundation model designed to understand and interpret sensor data from the physical world, at SXSW 2025.  The demonstration showcased Newton's capabilities in interpreting physical world sensor data.
 
 
 Key Points:

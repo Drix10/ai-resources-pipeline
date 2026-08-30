@@ -1,6 +1,6 @@
 ### 🤖 Deep Learning - Mathematical Principles
 
-Recently released open-source book on the mathematical principles of deep learning and intelligence, including its accompanying chatbot and Chinese translation.
+This article discusses the recently released open-source book on the mathematical principles of deep learning and intelligence, including its accompanying chatbot and Chinese translation.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ Games - Death Relives Wishlist Campaign
 
-Wishlist campaign for the game Death Relives, highlighting its features and encouraging players to add it to their wishlists.
+This article discusses a wishlist campaign for the game Death Relives, highlighting its features and encouraging players to add it to their wishlists.
 
 Key Points:
 

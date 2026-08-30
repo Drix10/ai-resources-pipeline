@@ -1,6 +1,6 @@
 ### 🤖 Humanoid Robotics - Uma's Natural Language Capabilities
 
-Uma, a humanoid robot designed to understand and interact using natural language.  Its capabilities include storytelling and question answering.
+This article discusses Uma, a humanoid robot designed to understand and interact using natural language.  Its capabilities include storytelling and question answering.
 
 Key Points:
 

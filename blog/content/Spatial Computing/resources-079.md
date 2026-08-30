@@ -1,6 +1,6 @@
 ### ✨ VRChat - PJKTFEST25 Photo Opportunity
 
-Photo opportunity at the PJKTFEST25 event featuring a Fitness Marshall statue.  Community member photos are included.
+This article highlights a photo opportunity at the PJKTFEST25 event featuring a Fitness Marshall statue.  Community member photos are included.
 
 
 Key Points:

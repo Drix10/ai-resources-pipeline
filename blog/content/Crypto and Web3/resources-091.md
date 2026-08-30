@@ -1,6 +1,6 @@
 ### 💡 Crypto Investing - Patience and Discipline
 
-Importance of patience and discipline in cryptocurrency investing, focusing on the Bitcoin ecosystem.  It emphasizes the long-term perspective needed for success.
+This article discusses the importance of patience and discipline in cryptocurrency investing, focusing on the Bitcoin ecosystem.  It emphasizes the long-term perspective needed for success.
 
 
 Key Points:

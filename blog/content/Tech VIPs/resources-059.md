@@ -1,6 +1,6 @@
 ### 🤖 National Security - Science Funding Cuts
 
-Concerning parallels between strategic undermining of American science research and education and a potential act of war by a foreign adversary.
+This article discusses the concerning parallels between strategic undermining of American science research and education and a potential act of war by a foreign adversary.
 
 Key Points:
 

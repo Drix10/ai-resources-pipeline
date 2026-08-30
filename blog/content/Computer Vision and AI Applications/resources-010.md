@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Generalization
 
-Implications of successful generalization in large language models, specifically addressing concerns about "backdoors" or unintended conditioning.
+This article discusses the implications of successful generalization in large language models, specifically addressing concerns about "backdoors" or unintended conditioning.
 
 Key Points:
 

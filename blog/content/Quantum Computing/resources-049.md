@@ -1,6 +1,6 @@
 ### 🤖 Relativity - The Terrell-Penrose Effect
 
-Terrell-Penrose effect, a relativistic visual phenomenon observed when objects approach the speed of light.  It explains the appearance of such objects from the perspective of a stationary observer.
+This article discusses the Terrell-Penrose effect, a relativistic visual phenomenon observed when objects approach the speed of light.  It explains the appearance of such objects from the perspective of a stationary observer.
 
 Key Points:
 

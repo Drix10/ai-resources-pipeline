@@ -1,6 +1,6 @@
 ### 🤖 AI Agent Capabilities - Sentiment Analysis
 
-Application of a general-purpose AI agent for analyzing public sentiment, specifically focusing on post-launch sentiment for a new product or service.  It explores the potential benefits and the process of building such a tool.
+This article discusses the application of a general-purpose AI agent for analyzing public sentiment, specifically focusing on post-launch sentiment for a new product or service.  It explores the potential benefits and the process of building such a tool.
 
 Key Points:
 

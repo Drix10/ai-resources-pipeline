@@ -1,6 +1,6 @@
 ### 🤖 Web Accessibility - AI Crawler Blocking
 
-Cloudflare's default blocking of AI crawlers and its potential impact on web authors.  It advises authors to deactivate this feature to ensure their content remains accessible to AI models.
+This article discusses Cloudflare's default blocking of AI crawlers and its potential impact on web authors.  It advises authors to deactivate this feature to ensure their content remains accessible to AI models.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Mistral AI - CoreWeave Accelerated Training
 
-Mistral AI's experience significantly accelerating their training using CoreWeave's infrastructure, resulting in a 2.5x speed increase.  The article highlights the impact of this infrastructure on Mistral AI's timeline.
+This article discusses Mistral AI's experience significantly accelerating their training using CoreWeave's infrastructure, resulting in a 2.5x speed increase.  The article highlights the impact of this infrastructure on Mistral AI's timeline.
 
 Key Points:
 

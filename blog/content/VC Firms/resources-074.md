@@ -1,6 +1,6 @@
 ### 🚀 Space Ventures - Collaboration at VivaTech
 
-Discussion at VivaTech on space ventures and global collaboration, focusing on sustainable human presence in space.  The discussion included insights from the CEOs of participating companies.
+This article summarizes a discussion at VivaTech on space ventures and global collaboration, focusing on sustainable human presence in space.  The discussion included insights from the CEOs of participating companies.
 
 Key Points:
 

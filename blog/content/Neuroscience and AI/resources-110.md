@@ -1,6 +1,6 @@
 ### 💡 Mental Health Activism - Unintentional Motivations
 
-Observation that some individuals engaging in political activism for mental health reasons may be doing so for reinforcement and self-concept improvement rather than solely altruistic goals.
+This article discusses the observation that some individuals engaging in political activism for mental health reasons may be doing so for reinforcement and self-concept improvement rather than solely altruistic goals.
 
 
 Key Points:

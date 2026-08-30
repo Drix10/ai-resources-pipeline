@@ -1,6 +1,6 @@
 ### 🚀 Careers - Axiom Math AI Opportunities
 
-Information on career opportunities at Axiom Math AI. It highlights the direct review process for applications and the nature of the company's growth.
+This article provides information on career opportunities at Axiom Math AI. It highlights the direct review process for applications and the nature of the company's growth.
 
 Key Points:
 

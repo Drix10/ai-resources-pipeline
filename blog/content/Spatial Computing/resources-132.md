@@ -1,6 +1,6 @@
 ### 🚀 Sports Filming - Compact 4K Action Camera
 
-Capturing professional-grade sports footage with a compact action camera. It highlights the capability of a small setup to deliver high-quality 4K perspectives in dynamic environments like live sports events.
+This article discusses capturing professional-grade sports footage with a compact action camera. It highlights the capability of a small setup to deliver high-quality 4K perspectives in dynamic environments like live sports events.
 
 Key Points:
 

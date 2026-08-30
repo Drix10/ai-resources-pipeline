@@ -1,6 +1,6 @@
 ### 💡 Patient Experience - Cancer Diagnosis Stressors
 
-Patient experience following a cancer diagnosis, focusing on the primary stressors identified by patients. It highlights that the waiting period between diagnosis and treatment is a major source of anxiety, more so than portal-based disclosures.
+This article explores the patient experience following a cancer diagnosis, focusing on the primary stressors identified by patients. It highlights that the waiting period between diagnosis and treatment is a major source of anxiety, more so than portal-based disclosures.
 
 Key Points:
 

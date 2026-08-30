@@ -1,6 +1,6 @@
 ### 💡 Loss and Grief - AI Twins for Remembrance
 
-Use of AI twins as a method of preserving the memory of deceased loved ones.  It explores the emotional aspects of loss and introduces the technological approach offered by AI.
+This article discusses the use of AI twins as a method of preserving the memory of deceased loved ones.  It explores the emotional aspects of loss and introduces the technological approach offered by AI.
 
 
 Key Points:

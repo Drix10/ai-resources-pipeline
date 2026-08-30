@@ -1,6 +1,6 @@
 ### ✨ Google Ads - Video Creation Beta
 
-Beta release of a new feature within Google Ads, enabling users to create videos directly within the platform. This functionality aims to simplify the process of developing video advertising campaigns.
+This article covers the beta release of a new feature within Google Ads, enabling users to create videos directly within the platform. This functionality aims to simplify the process of developing video advertising campaigns.
 
 Key Points:
 

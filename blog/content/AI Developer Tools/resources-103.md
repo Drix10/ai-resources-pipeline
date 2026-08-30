@@ -1,6 +1,6 @@
 ### 🤖 YouTube Content Deletion and Odysee's Growth
 
-Challenges of finding older content on YouTube and the potential for Odysee to become a viable alternative.  It highlights the ongoing effort to build a comprehensive video library on Odysee.
+This article discusses the challenges of finding older content on YouTube and the potential for Odysee to become a viable alternative.  It highlights the ongoing effort to build a comprehensive video library on Odysee.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Nigerian Societal Changes - Post-1979 Decline
 
-Historical perspective on the evolution of the Nigerian national psyche, particularly focusing on shifts in values and the emergence of self-centeredness after 1979. It discusses factors contributing to a decline in societal guardrails against corruption.
+This article examines a historical perspective on the evolution of the Nigerian national psyche, particularly focusing on shifts in values and the emergence of self-centeredness after 1979. It discusses factors contributing to a decline in societal guardrails against corruption.
 
 Key Points:
 

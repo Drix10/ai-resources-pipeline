@@ -1,6 +1,6 @@
 ### 🤖 AI Infrastructure - Cloud Sustainability
 
-Environmental impact of AI infrastructure and its effect on cloud sustainability practices. It explores how the rapid expansion of AI is challenging traditional cloud sustainability models and industry expectations.
+This article discusses the environmental impact of AI infrastructure and its effect on cloud sustainability practices. It explores how the rapid expansion of AI is challenging traditional cloud sustainability models and industry expectations.
 
 Key Points:
 

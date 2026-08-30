@@ -1,6 +1,6 @@
 ### 🤖 Computer Vision - MipNeRF360 Scene Rendering
 
-Submission requirements for a computer vision challenge focused on rendering MipNeRF360 scenes.  The challenge involves creating a runnable entry point and producing a results table, visuals, and a technical brief.
+This article details the submission requirements for a computer vision challenge focused on rendering MipNeRF360 scenes.  The challenge involves creating a runnable entry point and producing a results table, visuals, and a technical brief.
 
 Key Points:
 

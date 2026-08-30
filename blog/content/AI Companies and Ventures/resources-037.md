@@ -1,6 +1,6 @@
 ### 🤖 Mirroriai Platform Update - Version 2
 
-Updates to the Mirroriai platform, including the transition to version 2 and changes to the Pro subscription.
+This article details updates to the Mirroriai platform, including the transition to version 2 and changes to the Pro subscription.
 
 Key Points:
 

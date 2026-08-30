@@ -1,6 +1,6 @@
 ### 🚗 EV Battery Performance - Range Degradation
 
-Electric vehicle battery longevity, specifically focusing on how much range EVs retain after several years of use.
+This article discusses electric vehicle battery longevity, specifically focusing on how much range EVs retain after several years of use.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🏈 American Football - Pass Interference Call
 
-Specific pass interference call in an NFL game between the Kansas City Chiefs and another team, focusing on whether the call was correctly made.  The author expresses a strong opinion on the matter.
+This article discusses a specific pass interference call in an NFL game between the Kansas City Chiefs and another team, focusing on whether the call was correctly made.  The author expresses a strong opinion on the matter.
 
 Key Points:
 

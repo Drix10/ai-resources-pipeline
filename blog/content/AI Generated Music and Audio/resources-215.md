@@ -1,6 +1,6 @@
 ### 🤖 Agentic NPCs - Unity Implementation
 
-Implementation of agentic non-player characters (NPCs) within the Unity engine. It touches upon the integration of AI models to create more dynamic and responsive game agents.
+This article discusses the implementation of agentic non-player characters (NPCs) within the Unity engine. It touches upon the integration of AI models to create more dynamic and responsive game agents.
 
 Key Points:
 

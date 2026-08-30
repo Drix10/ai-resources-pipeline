@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Scaling Inference
 
-Differences between handling single model calls and serving AI agents at scale, detailing the changes required for robust deployment. It also highlights an upcoming open-source inference workshop.
+This article outlines the differences between handling single model calls and serving AI agents at scale, detailing the changes required for robust deployment. It also highlights an upcoming open-source inference workshop.
 
 Key Points:
 

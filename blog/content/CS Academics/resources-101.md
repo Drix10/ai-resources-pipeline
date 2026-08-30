@@ -1,6 +1,6 @@
 ### 🧑‍🏫 Quantum Cosmology and the Arrows of Time
 
-Collaboration on quantum cosmology and a workshop on the arrows of time, featuring a photo of Murray Gell-Mann and Jim Hartle.
+This article discusses a collaboration on quantum cosmology and a workshop on the arrows of time, featuring a photo of Murray Gell-Mann and Jim Hartle.
 
 Key Points:
 

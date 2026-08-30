@@ -1,6 +1,6 @@
 ### 🚀 AI-Powered Journaling - Year-End Summaries and Insights
 
-NotebookLM, an AI tool that summarizes journal entries, answers questions about past experiences, and offers suggestions for future actions.  It's designed for users who want to gain insights from their personal journaling.
+This article discusses NotebookLM, an AI tool that summarizes journal entries, answers questions about past experiences, and offers suggestions for future actions.  It's designed for users who want to gain insights from their personal journaling.
 
 Key Points:
 

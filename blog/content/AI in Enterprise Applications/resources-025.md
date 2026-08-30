@@ -1,6 +1,6 @@
 ### 🚀 Descript - Season 8 Updates
 
-Upcoming Descript Season 8 release, focusing on updates to scenes and layouts for improved video production.  A live Q&A session is also announced.
+This article summarizes the upcoming Descript Season 8 release, focusing on updates to scenes and layouts for improved video production.  A live Q&A session is also announced.
 
 Key Points:
 

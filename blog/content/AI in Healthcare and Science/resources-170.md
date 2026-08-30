@@ -1,6 +1,6 @@
 ### 💡 Entrepreneurship - Leveraging Social Platforms
 
-Impact of social media platforms on professional networking and startup development. It also touches on unconventional educational paths for entrepreneurs.
+This article discusses the impact of social media platforms on professional networking and startup development. It also touches on unconventional educational paths for entrepreneurs.
 
 Key Points:
 

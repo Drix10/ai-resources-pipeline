@@ -1,6 +1,6 @@
 ### 🚀 No-Code App Building - AI-Powered Development
 
-Use of AI in no-code app development, focusing on the benefits and adoption rates observed in an AI alpha program.  Key statistics on builder retention and onboarding are presented.
+This article discusses the use of AI in no-code app development, focusing on the benefits and adoption rates observed in an AI alpha program.  Key statistics on builder retention and onboarding are presented.
 
 Key Points:
 

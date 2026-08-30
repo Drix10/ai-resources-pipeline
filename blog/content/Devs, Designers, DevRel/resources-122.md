@@ -1,6 +1,6 @@
 ### 🤖 Workplace Dynamics - H1B and TN Visa Holders
 
-Observation that American companies may prefer H1B and TN visa holders over American workers due to perceived differences in work ethic and the ability to terminate and deport foreign workers.
+This article discusses the observation that American companies may prefer H1B and TN visa holders over American workers due to perceived differences in work ethic and the ability to terminate and deport foreign workers.
 
 Key Points:
 

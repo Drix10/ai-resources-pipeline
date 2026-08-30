@@ -1,6 +1,6 @@
 ### 💡 Geopolitics - Iran Nuclear Ambitions and Human Rights
 
-Recent media attention on human rights issues in Iran, including executions of demonstrators, and political stances on the country's status as a state sponsor of terror. It also touches upon the ongoing debate regarding strategies to address Iran's nuclear program and global terror campaigns.
+This article discusses recent media attention on human rights issues in Iran, including executions of demonstrators, and political stances on the country's status as a state sponsor of terror. It also touches upon the ongoing debate regarding strategies to address Iran's nuclear program and global terror campaigns.
 
 Key Points:
 

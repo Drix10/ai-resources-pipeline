@@ -1,6 +1,6 @@
 ### 🚀  AI-Assisted 3D Rendering Workflow
 
-Workflow using Claude 3.7, Magnific, and Runway Restyle to create 3D renders and stylized video outputs.  The process involves several steps, from initial 3D modeling to final video enhancement.
+This article details a workflow using Claude 3.7, Magnific, and Runway Restyle to create 3D renders and stylized video outputs.  The process involves several steps, from initial 3D modeling to final video enhancement.
 
 Key Points:
 

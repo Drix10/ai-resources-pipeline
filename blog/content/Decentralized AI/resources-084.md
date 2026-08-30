@@ -1,6 +1,6 @@
 ### 🚀 AI Art - Unleashing Potential with Open-Source Tools
 
-Leveraging open-source tools to enhance the artistic capabilities of AI art generation, focusing on the benefits of prompt engineering beyond basic usage.
+This article discusses leveraging open-source tools to enhance the artistic capabilities of AI art generation, focusing on the benefits of prompt engineering beyond basic usage.
 
 Key Points:
 

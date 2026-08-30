@@ -1,6 +1,6 @@
 ### 🚀 AI Game Development - No-Code Creation
 
-Spawn, a platform that enables game development without coding, game engines, or a dedicated team. It highlights how users can create games through conversation and personal taste.
+This article discusses Spawn, a platform that enables game development without coding, game engines, or a dedicated team. It highlights how users can create games through conversation and personal taste.
 
 Key Points:
 

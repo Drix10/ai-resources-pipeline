@@ -1,6 +1,6 @@
 ### 🤖 Local Politics - Disability Benefit Cuts Opposition
 
-Passing of a motion in Lewisham North opposing cuts to disability benefits, specifically PIP and UC LCWRA.  The motion will be communicated to relevant government officials.
+This article summarizes the passing of a motion in Lewisham North opposing cuts to disability benefits, specifically PIP and UC LCWRA.  The motion will be communicated to relevant government officials.
 
 Key Points:
 

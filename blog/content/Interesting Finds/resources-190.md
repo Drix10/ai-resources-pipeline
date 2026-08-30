@@ -1,6 +1,6 @@
 ### 💡 Social Issues - Public Safety and Mental Health
 
-Recent tragic event involving actor James Handy, highlighting broader societal implications regarding public safety and mental health initiatives.
+This article discusses a recent tragic event involving actor James Handy, highlighting broader societal implications regarding public safety and mental health initiatives.
 
 Key Points:
 

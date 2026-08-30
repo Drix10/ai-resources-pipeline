@@ -1,6 +1,6 @@
 ### 🤖 AI in Digital Pathology - Prostate Cancer Diagnosis
 
-Study on the use of Ibex's AI in prostate cancer diagnosis, highlighting findings from a three-year real-world application by CorePlus.  The study focuses on the algorithm's negative predictive value (NPV).
+This article discusses a study on the use of Ibex's AI in prostate cancer diagnosis, highlighting findings from a three-year real-world application by CorePlus.  The study focuses on the algorithm's negative predictive value (NPV).
 
 Key Points:
 

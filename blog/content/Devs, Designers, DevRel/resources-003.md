@@ -1,6 +1,6 @@
 ### 🕵️‍♂️ Crypto Fraud Allegations - Dave Portnoy and $LIBRA
 
-Allegations of fraudulent activities involving Dave Portnoy and the cryptocurrency $LIBRA, focusing on claims of pump-and-dump schemes, insider information, and questionable token launches.
+This article summarizes allegations of fraudulent activities involving Dave Portnoy and the cryptocurrency $LIBRA, focusing on claims of pump-and-dump schemes, insider information, and questionable token launches.
 
 Key Points:
 

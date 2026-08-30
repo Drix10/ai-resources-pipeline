@@ -1,6 +1,6 @@
 ### 🔬 Medical Misinformation - The Lancet Article and the Anti-vaccine Movement
 
-26th anniversary of a fraudulent article published in The Lancet, which is considered the origin of the modern anti-vaccine movement.  The article details the fraudulent claims made and their lasting impact.
+This article discusses the 26th anniversary of a fraudulent article published in The Lancet, which is considered the origin of the modern anti-vaccine movement.  The article details the fraudulent claims made and their lasting impact.
 
 Key Points:
 

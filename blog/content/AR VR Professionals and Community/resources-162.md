@@ -1,6 +1,6 @@
 ### 🚀 Graphics Card - Giveaway Participation
 
-Participation requirements for a hardware giveaway. It details the steps necessary to enter for a chance to receive a specific graphics card.
+This article outlines the participation requirements for a hardware giveaway. It details the steps necessary to enter for a chance to receive a specific graphics card.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Animation - The Synergy of Art and Technology
 
-Interplay between art and technology in animation, using Pixar's philosophy and examples like "Paperman" to illustrate the enduring value of human creativity in CGI.
+This article discusses the interplay between art and technology in animation, using Pixar's philosophy and examples like "Paperman" to illustrate the enduring value of human creativity in CGI.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Leadership - Cultivating High-Performance Teams
 
-Importance of team appreciation and support in building a scalable culture of excellence and high performance.  It highlights the value of making team members feel valued and supported.
+This article discusses the importance of team appreciation and support in building a scalable culture of excellence and high performance.  It highlights the value of making team members feel valued and supported.
 
 Key Points:
 

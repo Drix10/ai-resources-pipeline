@@ -1,6 +1,6 @@
 ### 🤖 Clean Energy - White Hydrogen Potential
 
-Potential of white hydrogen as a clean energy source, its extraction challenges, and the global interest in its development.  It also references a relevant X post highlighting the vast quantity of this resource.
+This article discusses the potential of white hydrogen as a clean energy source, its extraction challenges, and the global interest in its development.  It also references a relevant X post highlighting the vast quantity of this resource.
 
 Key Points:
 

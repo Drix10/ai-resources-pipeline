@@ -1,6 +1,6 @@
 ### 🤖 Finance - Market Function of Information
 
-Key takeaway from a lecture by MIT Professor Andrew Lo: market dynamics are fundamentally driven by information.  The core concept is explored, highlighting its significance in understanding price discovery.
+This article summarizes a key takeaway from a lecture by MIT Professor Andrew Lo: market dynamics are fundamentally driven by information.  The core concept is explored, highlighting its significance in understanding price discovery.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Digital Rights - VPN Legality
 
-Proposed legislative changes in the UK regarding the use of Virtual Private Networks (VPNs). It examines the implications of such regulations, drawing parallels to countries with strict internet censorship policies.
+This article discusses the proposed legislative changes in the UK regarding the use of Virtual Private Networks (VPNs). It examines the implications of such regulations, drawing parallels to countries with strict internet censorship policies.
 
 Key Points:
 

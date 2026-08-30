@@ -1,6 +1,6 @@
 ### 💡 Photography - Low Light Techniques
 
-Specific camera settings, such as exposure time and ISO, enable effective photography in challenging low-light conditions, particularly with cameras like the Insta360.
+This article details how specific camera settings, such as exposure time and ISO, enable effective photography in challenging low-light conditions, particularly with cameras like the Insta360.
 
 Key Points:
 

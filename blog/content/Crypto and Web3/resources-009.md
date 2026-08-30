@@ -1,6 +1,6 @@
 ### 🤖 Twitch Interactive Streaming - Spectator Influence
 
-Twitch extension allowing spectators to directly influence live game matches via a custom-built Twitch API.  It highlights the enhanced viewer engagement this technology offers.
+This article discusses a Twitch extension allowing spectators to directly influence live game matches via a custom-built Twitch API.  It highlights the enhanced viewer engagement this technology offers.
 
 Key Points:
 

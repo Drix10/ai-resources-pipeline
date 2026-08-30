@@ -1,6 +1,6 @@
 ### 🤖 Aerospace - Hypersonic Vehicle Acceleration
 
-Pentagon-released video showing a craft achieving 5,000 gravities of acceleration, enabling rapid interstellar travel.  The implications for space exploration are briefly considered.
+This article discusses a Pentagon-released video showing a craft achieving 5,000 gravities of acceleration, enabling rapid interstellar travel.  The implications for space exploration are briefly considered.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Geopolitical Risks - Impact on Maritime Insurance
 
-Significant influence of geopolitical events on international maritime trade, specifically focusing on the role of insurance underwriters in assessing and responding to heightened risks in critical choke points.
+This article examines the significant influence of geopolitical events on international maritime trade, specifically focusing on the role of insurance underwriters in assessing and responding to heightened risks in critical choke points.
 
 Key Points:
 

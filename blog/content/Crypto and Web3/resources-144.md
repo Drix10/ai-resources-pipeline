@@ -1,6 +1,6 @@
 ### 🤖 GPT-2 Training - Performance Optimization
 
-Nanochat's recent achievements in optimizing GPT-2 model training, highlighting a significant reduction in training time on specialized hardware. It outlines the key contributing factors to these performance gains.
+This article details nanochat's recent achievements in optimizing GPT-2 model training, highlighting a significant reduction in training time on specialized hardware. It outlines the key contributing factors to these performance gains.
 
 Key Points:
 

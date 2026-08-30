@@ -1,6 +1,6 @@
 ### 🤖 Food Industry - RFK Jr.'s Proposed GRAS Rule Changes
 
-Impact of Robert F. Kennedy Jr.'s call for the FDA to revise its Generally Recognized As Safe (GRAS) rule, focusing on the potential elimination of the self-affirmed GRAS pathway.  It explores the practical implications for the food industry.
+This article summarizes the impact of Robert F. Kennedy Jr.'s call for the FDA to revise its Generally Recognized As Safe (GRAS) rule, focusing on the potential elimination of the self-affirmed GRAS pathway.  It explores the practical implications for the food industry.
 
 Key Points:
 

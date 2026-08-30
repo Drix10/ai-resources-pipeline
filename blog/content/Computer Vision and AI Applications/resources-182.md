@@ -1,6 +1,6 @@
 ### 💡 CVPR 2026 - Call for Contributions
 
-Call for applications to perform at CVPR 2026. It highlights the opportunity for community members to share their talents.
+This article details the call for applications to perform at CVPR 2026. It highlights the opportunity for community members to share their talents.
 
 Key Points:
 

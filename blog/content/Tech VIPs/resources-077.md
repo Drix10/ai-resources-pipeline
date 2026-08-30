@@ -1,6 +1,6 @@
 ### 💡 Employee Retention - Impactful Work
 
-Key factor in employee retention: the perception of making a meaningful impact.  High compensation and benefits are insufficient if employees feel their work is insignificant.
+This article discusses a key factor in employee retention: the perception of making a meaningful impact.  High compensation and benefits are insufficient if employees feel their work is insignificant.
 
 Key Points:
 

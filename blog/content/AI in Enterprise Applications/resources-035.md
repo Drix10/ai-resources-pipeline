@@ -1,6 +1,6 @@
 ### 🚀 Groq Resources - AI Tools and Techniques
 
-Several resources related to Groq's AI tools and techniques, including guides on using their platform and winning AI hackathons.
+This article summarizes several resources related to Groq's AI tools and techniques, including guides on using their platform and winning AI hackathons.
 
 Key Points:
 

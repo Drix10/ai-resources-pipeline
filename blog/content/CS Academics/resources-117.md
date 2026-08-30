@@ -1,6 +1,6 @@
 ### 🤖 Academic Integrity - Conference Paper Rejections
 
-Instances of conference paper rejections seemingly based on arbitrary criteria, rather than solely on the quality of the research.  Two examples are given, highlighting the potential for bias in the peer-review process.
+This article discusses instances of conference paper rejections seemingly based on arbitrary criteria, rather than solely on the quality of the research.  Two examples are given, highlighting the potential for bias in the peer-review process.
 
 Key Points:
 

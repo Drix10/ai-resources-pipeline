@@ -1,6 +1,6 @@
 ### ✨ Customer Contact Week - Prize Giveaway
 
-Prize giveaway at Customer Contact Week in Las Vegas.  Participants can win one of seven prizes by visiting specified booths and completing a passport.
+This article details a prize giveaway at Customer Contact Week in Las Vegas.  Participants can win one of seven prizes by visiting specified booths and completing a passport.
 
 Key Points:
 

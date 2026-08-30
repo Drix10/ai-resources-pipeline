@@ -1,6 +1,6 @@
 ### 💡 Housing Policy - Rent Control Stance
 
-Recent parliamentary statement by the Housing Secretary regarding the government's position on rent controls. It addresses whether such measures have been ruled out for the UK housing market.
+This article covers the recent parliamentary statement by the Housing Secretary regarding the government's position on rent controls. It addresses whether such measures have been ruled out for the UK housing market.
 
 Key Points:
 

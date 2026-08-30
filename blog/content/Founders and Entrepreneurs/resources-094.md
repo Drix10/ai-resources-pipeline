@@ -1,6 +1,6 @@
 ### 🤖 AI - Enhancing GPT-5 Security Performance
 
-Agent engineering improved GPT-5's performance on security tasks, surpassing OpenAI's internal benchmarks.  It highlights the importance of environment and harness optimization for specific tasks.
+This article discusses how agent engineering improved GPT-5's performance on security tasks, surpassing OpenAI's internal benchmarks.  It highlights the importance of environment and harness optimization for specific tasks.
 
 Key Points:
 

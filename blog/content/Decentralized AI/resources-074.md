@@ -1,6 +1,6 @@
 ### 🤖 Open Source Bounty - Gaussian Splatting Optimization
 
-Open-source bounty offering a $300 reward for optimizing the CUDA training of Gaussian Splatting to achieve a 50% speed increase while maintaining accuracy.  The solution must adhere to permissive licensing.
+This article details an open-source bounty offering a $300 reward for optimizing the CUDA training of Gaussian Splatting to achieve a 50% speed increase while maintaining accuracy.  The solution must adhere to permissive licensing.
 
 Key Points:
 

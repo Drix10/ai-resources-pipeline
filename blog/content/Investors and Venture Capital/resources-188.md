@@ -1,6 +1,6 @@
 ### 🤖 Ancient Shipbuilding - Viking Wood Bending Techniques
 
-Historical methods employed by Vikings to shape the planks for ships like the Oseberg, focusing on the specialized wood preparation and bending process.
+This article details the historical methods employed by Vikings to shape the planks for ships like the Oseberg, focusing on the specialized wood preparation and bending process.
 
 Key Points:
 

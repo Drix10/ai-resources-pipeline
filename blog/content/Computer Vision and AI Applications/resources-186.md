@@ -1,6 +1,6 @@
 ### ✨ Depth Estimation - Depth Anything V2 Enhancements
 
-Advancements in Depth Anything V2, focusing on its improved capabilities and deployment flexibility. It covers new features like synthetic training data and enhanced handling of challenging surfaces.
+This article details the advancements in Depth Anything V2, focusing on its improved capabilities and deployment flexibility. It covers new features like synthetic training data and enhanced handling of challenging surfaces.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Community Engagement - GenLayer Testnet Launch
 
-Community member's journey with GenLayer, showcasing their involvement from joining to contributing to the Testnet Bradbury launch. It summarizes the progression of engagement within the platform.
+This article highlights a community member's journey with GenLayer, showcasing their involvement from joining to contributing to the Testnet Bradbury launch. It summarizes the progression of engagement within the platform.
 
 Key Points:
 

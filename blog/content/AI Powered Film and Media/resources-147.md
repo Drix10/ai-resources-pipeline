@@ -1,6 +1,6 @@
 ### ✨ Film - David Lynch's Unproduced Fantômas
 
-Intriguing discovery of an unproduced screenplay by David Lynch for a "Fantômas" film, intended to star Gérard Depardieu. It sheds light on a fascinating, unrealized project from Lynch's creative output.
+This article highlights the intriguing discovery of an unproduced screenplay by David Lynch for a "Fantômas" film, intended to star Gérard Depardieu. It sheds light on a fascinating, unrealized project from Lynch's creative output.
 
 Key Points:
 

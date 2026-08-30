@@ -1,6 +1,6 @@
 ### ✨ Art Acquisition - MoMA Donation
 
-Process by which the Museum of Modern Art (MoMA) acquired a new artwork through a collector's donation. It highlights the role of private collectors in enriching public art institutions.
+This article details the process by which the Museum of Modern Art (MoMA) acquired a new artwork through a collector's donation. It highlights the role of private collectors in enriching public art institutions.
 
 Key Points:
 

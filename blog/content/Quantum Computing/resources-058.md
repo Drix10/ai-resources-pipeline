@@ -1,6 +1,6 @@
 ### 🤖 PhD Research - LLMs for Dataset and Model Explanation
 
-PhD thesis focusing on using Large Language Models (LLMs) to explain datasets and models.  The research has been adopted by OpenAI and Anthropic for interpretability and societal impact.  A tutorial is available.
+This article summarizes a PhD thesis focusing on using Large Language Models (LLMs) to explain datasets and models.  The research has been adopted by OpenAI and Anthropic for interpretability and societal impact.  A tutorial is available.
 
 Key Points:
 

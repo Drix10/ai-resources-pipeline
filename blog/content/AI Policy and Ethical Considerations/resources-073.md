@@ -1,6 +1,6 @@
 ### 🤖 GUI Design - A Critique of Modern Trends
 
-Observations on the design of modern graphical user interfaces (GUIs), contrasting them with older designs and highlighting a perceived lack of utility in favor of visual aesthetics.
+This article discusses observations on the design of modern graphical user interfaces (GUIs), contrasting them with older designs and highlighting a perceived lack of utility in favor of visual aesthetics.
 
 Key Points:
 

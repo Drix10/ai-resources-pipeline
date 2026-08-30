@@ -1,6 +1,6 @@
 ### 💊 Medicine - Thalidomide's Comeback
 
-History of Thalidomide, its initial ban, and its surprising resurgence as a revolutionary treatment for myeloma, highlighting the often-unacknowledged role of Dr. Leif Bergsagel.
+This article discusses the history of Thalidomide, its initial ban, and its surprising resurgence as a revolutionary treatment for myeloma, highlighting the often-unacknowledged role of Dr. Leif Bergsagel.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Preventive Radiology - A New Specialty?
 
-Potential emergence of preventive radiology as a new medical specialty, focusing on the role of AI in enabling proactive risk identification.
+This article discusses the potential emergence of preventive radiology as a new medical specialty, focusing on the role of AI in enabling proactive risk identification.
 
 Key Points:
 

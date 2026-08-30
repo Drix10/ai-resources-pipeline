@@ -1,6 +1,6 @@
 ### 🤖 Programming Challenges - OS vs. Accounting Software
 
-Hypothetical conversation between a warlord and a programmer regarding the relative difficulty of designing an operating system versus an accounting package.  The programmer's response highlights the complexities inherent in each task.
+This article discusses a hypothetical conversation between a warlord and a programmer regarding the relative difficulty of designing an operating system versus an accounting package.  The programmer's response highlights the complexities inherent in each task.
 
 Key Points:
 

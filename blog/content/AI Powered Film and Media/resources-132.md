@@ -1,6 +1,6 @@
 ### 🤖 Generative AI - Film Production Trends
 
-Future landscape of film production, specifically highlighting the emergence of fully AI-generated films and referencing the "Mind Tunnels: Extraction" project.
+This article discusses the future landscape of film production, specifically highlighting the emergence of fully AI-generated films and referencing the "Mind Tunnels: Extraction" project.
 
 Key Points:
 

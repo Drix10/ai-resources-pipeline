@@ -1,6 +1,6 @@
 ### 🤖 AI Music Generation - Prompt Examples
 
-Examples of prompts for generating music using a new AI tool, currently available for pre-order.  The tool allows for music generation based on text input.
+This article provides examples of prompts for generating music using a new AI tool, currently available for pre-order.  The tool allows for music generation based on text input.
 
 
 Key Points:

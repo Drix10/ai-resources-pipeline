@@ -1,6 +1,6 @@
 ### 🤖 Linguistics - Terminology Discrepancies
 
-Minor linguistic difference in terminology, specifically the variations in the spelling and usage of "math" versus "maths," and touches upon the broader topic of formal language isomorphisms.
+This article discusses a minor linguistic difference in terminology, specifically the variations in the spelling and usage of "math" versus "maths," and touches upon the broader topic of formal language isomorphisms.
 
 Key Points:
 

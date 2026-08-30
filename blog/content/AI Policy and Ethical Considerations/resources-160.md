@@ -1,6 +1,6 @@
 ### 💡 Energy Markets - Risk Management
 
-Competitive electricity markets can reallocate financial risk, contrasting them with traditional monopoly utility models. It explains the benefits of a competitive system for ratepayers.
+This article outlines how competitive electricity markets can reallocate financial risk, contrasting them with traditional monopoly utility models. It explains the benefits of a competitive system for ratepayers.
 
 Key Points:
 

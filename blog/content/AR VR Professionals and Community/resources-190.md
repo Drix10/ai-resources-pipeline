@@ -1,6 +1,6 @@
 ### 💡 Web3 Operations - Improving Mint List UX
 
-Past major issue encountered with a platform's mint list, outlining the causes of the failure and detailing subsequent improvements to the user experience. It highlights lessons learned in managing critical operational events.
+This article covers a past major issue encountered with a platform's mint list, outlining the causes of the failure and detailing subsequent improvements to the user experience. It highlights lessons learned in managing critical operational events.
 
 Key Points:
 

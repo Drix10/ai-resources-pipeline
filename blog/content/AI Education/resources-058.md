@@ -1,6 +1,6 @@
 ### 🤖 Decentralized Knowledge Graphs - Enhancing Transparency
 
-OriginTrail's Decentralized Knowledge Graph (DKG) can improve transparency by connecting data from various sources in a decentralized manner.  It examines the potential applications of the DKG for enhanced data traceability and trust.
+This article explores how OriginTrail's Decentralized Knowledge Graph (DKG) can improve transparency by connecting data from various sources in a decentralized manner.  It examines the potential applications of the DKG for enhanced data traceability and trust.
 
 
 Key Points:

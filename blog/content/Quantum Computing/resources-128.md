@@ -1,6 +1,6 @@
 ### 🤖 LLM Fine-tuning - KL-Regularization in RLVR
 
-Critical aspects of KL-regularization in RLVR fine-tuning of Large Language Models. It covers the empirical evaluation of estimator choices and their application to either the reward function or the loss.
+This article discusses the critical aspects of KL-regularization in RLVR fine-tuning of Large Language Models. It covers the empirical evaluation of estimator choices and their application to either the reward function or the loss.
 
 Key Points:
 

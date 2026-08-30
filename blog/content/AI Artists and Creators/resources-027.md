@@ -1,6 +1,6 @@
 ### 📝 Editorial - Salt Unrest
 
-Recent unrest in Salt, Spain, arguing against interpretations that frame it as an isolated incident or solely a response to rising housing costs.  It suggests a broader underlying societal phenomenon.
+This article discusses the recent unrest in Salt, Spain, arguing against interpretations that frame it as an isolated incident or solely a response to rising housing costs.  It suggests a broader underlying societal phenomenon.
 
 Key Points:
 

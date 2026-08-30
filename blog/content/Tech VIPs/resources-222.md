@@ -1,6 +1,6 @@
 ### 🚀 Ryzen AI - Micro Center Shipments
 
-Availability of Ryzen AI Halo systems at Micro Center. It also highlights AMD's market leadership in desktop CPUs and GPU presence within the retailer's offerings.
+This article details the availability of Ryzen AI Halo systems at Micro Center. It also highlights AMD's market leadership in desktop CPUs and GPU presence within the retailer's offerings.
 
 Key Points:
 

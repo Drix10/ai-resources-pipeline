@@ -1,6 +1,6 @@
 ### ⚠️ School Closures - February 18th
 
-School closures and delays reported on February 18th due to inclement weather.  Specific districts and their actions are listed.
+This article details school closures and delays reported on February 18th due to inclement weather.  Specific districts and their actions are listed.
 
 Key Points:
 

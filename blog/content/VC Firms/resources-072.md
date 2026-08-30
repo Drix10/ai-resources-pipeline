@@ -1,6 +1,6 @@
 ### 🤖 Gene Editing - Responsible Innovation
 
-Importance of responsible innovation in gene editing and the need for open dialogue among scientists.  It highlights concerns about reckless advancements in heritable editing.
+This article discusses the importance of responsible innovation in gene editing and the need for open dialogue among scientists.  It highlights concerns about reckless advancements in heritable editing.
 
 
 Key Points:

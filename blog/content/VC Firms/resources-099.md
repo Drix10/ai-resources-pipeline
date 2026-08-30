@@ -1,6 +1,6 @@
 ### 🤖 Global Health - Childhood Cancer
 
-Disparity in childhood cancer survival rates between the United States and low-income countries, highlighting the work of St. Jude Children's Research Hospital.
+This article discusses the disparity in childhood cancer survival rates between the United States and low-income countries, highlighting the work of St. Jude Children's Research Hospital.
 
 Key Points:
 

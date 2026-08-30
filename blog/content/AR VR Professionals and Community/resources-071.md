@@ -1,6 +1,6 @@
 ### 📰 Politics - Impeachment Call for Donald Trump
 
-Call for impeachment of Donald Trump following a reported bombing of Iran without Congressional approval.  The author alleges a violation of constitutional authority.
+This article discusses the call for impeachment of Donald Trump following a reported bombing of Iran without Congressional approval.  The author alleges a violation of constitutional authority.
 
 Key Points:
 

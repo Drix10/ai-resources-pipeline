@@ -1,6 +1,6 @@
 ### 🤖 AI and Humanity - Proof of Human Necessity
 
-Discussion with Sam Altman and others on the accelerating pace of AI development and the necessity of "proof of human" mechanisms. It also covers Pantera's investment in Worldcoin.
+This article summarizes a discussion with Sam Altman and others on the accelerating pace of AI development and the necessity of "proof of human" mechanisms. It also covers Pantera's investment in Worldcoin.
 
 Key Points:
 

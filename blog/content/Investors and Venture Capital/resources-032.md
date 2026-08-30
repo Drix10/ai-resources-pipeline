@@ -1,6 +1,6 @@
 ### 📢 Healthcare - Medicaid Cuts
 
-Denouncement of a proposed Republican plan for significant Medicaid cuts, highlighting potential consequences for healthcare access.
+This article summarizes a denouncement of a proposed Republican plan for significant Medicaid cuts, highlighting potential consequences for healthcare access.
 
 Key Points:
 

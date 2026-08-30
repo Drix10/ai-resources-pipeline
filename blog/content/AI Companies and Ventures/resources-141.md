@@ -1,6 +1,6 @@
 ### ✨ Image Transformation - Nano Banana Pro Usage
 
-Process of transforming photos into digital paintings using the Nano Banana Pro application. It details the simple steps involved in selecting a model, capturing an image, and applying a stylistic transformation.
+This article outlines the process of transforming photos into digital paintings using the Nano Banana Pro application. It details the simple steps involved in selecting a model, capturing an image, and applying a stylistic transformation.
 
 Key Points:
 

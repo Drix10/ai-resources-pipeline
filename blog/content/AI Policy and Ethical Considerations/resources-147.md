@@ -1,6 +1,6 @@
 ### 🤖 Public Health - Vaccine Research Advocacy
 
-Critical importance of sustained vaccine research and manufacturing for public health. It highlights the potential for preventable diseases and disabilities if scientific capacity is undermined, emphasizing efforts to strengthen science funding in California.
+This article discusses the critical importance of sustained vaccine research and manufacturing for public health. It highlights the potential for preventable diseases and disabilities if scientific capacity is undermined, emphasizing efforts to strengthen science funding in California.
 
 Key Points:
 

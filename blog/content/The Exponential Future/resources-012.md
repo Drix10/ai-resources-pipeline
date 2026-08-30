@@ -1,6 +1,6 @@
 ### 🤖 AI Document Processing - Agentic Extraction
 
-Agentic Document Extraction, a novel approach to AI-powered PDF processing that focuses on understanding document components for more accurate meaning extraction.  The method aims to improve the accuracy of information retrieval from complex documents.
+This article discusses Agentic Document Extraction, a novel approach to AI-powered PDF processing that focuses on understanding document components for more accurate meaning extraction.  The method aims to improve the accuracy of information retrieval from complex documents.
 
 Key Points:
 

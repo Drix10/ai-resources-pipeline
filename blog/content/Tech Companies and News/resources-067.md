@@ -1,6 +1,6 @@
 ### 🤖 Data Transparency in Marketing - Enhanced Acxiom Partnership
 
-Expanded partnership between Snowflake and Acxiom, aiming to increase transparency and control over marketing data.  It enables brands to access real-time, privacy-safe insights.
+This article discusses an expanded partnership between Snowflake and Acxiom, aiming to increase transparency and control over marketing data.  It enables brands to access real-time, privacy-safe insights.
 
 Key Points:
 

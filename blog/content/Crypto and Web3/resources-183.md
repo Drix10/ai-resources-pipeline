@@ -1,6 +1,6 @@
 ### 🤖 Solana - Payment Transactions Milestone
 
-Significant milestone achieved by Solana, surpassing 15 million agent-initiated payment transactions this year. It highlights the network's growing activity and adoption in the payment sector.
+This article outlines the significant milestone achieved by Solana, surpassing 15 million agent-initiated payment transactions this year. It highlights the network's growing activity and adoption in the payment sector.
 
 Key Points:
 

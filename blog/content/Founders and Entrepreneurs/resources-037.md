@@ -1,6 +1,6 @@
 ### ⚖️ Politics - AG Pam Bondi's Refusal to Investigate
 
-Attorney General Pam Bondi's refusal to investigate "Signalgate" and the implications of this decision.  It highlights concerns about partisan enforcement and the lack of investigation into the matter.
+This article discusses Attorney General Pam Bondi's refusal to investigate "Signalgate" and the implications of this decision.  It highlights concerns about partisan enforcement and the lack of investigation into the matter.
 
 Key Points:
 

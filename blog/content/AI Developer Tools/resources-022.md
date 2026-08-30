@@ -1,6 +1,6 @@
 ### 🤖 Jupyter Notebook Enhancement - Marimo
 
-Marimo as a significant upgrade to Jupyter Notebooks, particularly for developers working with NLP LLMs.  It offers a recommendation based on the authors' experience.
+This article highlights Marimo as a significant upgrade to Jupyter Notebooks, particularly for developers working with NLP LLMs.  It offers a recommendation based on the authors' experience.
 
 Key Points:
 

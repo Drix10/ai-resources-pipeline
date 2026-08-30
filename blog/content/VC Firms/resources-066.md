@@ -1,6 +1,6 @@
 ### 🤖 SMASH Program - Pathways to Tech Careers
 
-SMASH program, highlighting its year-round offerings, graduate success rates, and alumni achievements in STEM fields.
+This article summarizes the SMASH program, highlighting its year-round offerings, graduate success rates, and alumni achievements in STEM fields.
 
 Key Points:
 

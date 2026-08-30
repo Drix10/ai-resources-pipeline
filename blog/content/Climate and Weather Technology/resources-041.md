@@ -1,6 +1,6 @@
 ### 💡 Safety Tips - Staying Warm During a Power Outage
 
-Safety tips for staying warm during a power outage, emphasizing safe practices and avoiding dangerous methods.
+This article provides safety tips for staying warm during a power outage, emphasizing safe practices and avoiding dangerous methods.
 
 Key Points:
 

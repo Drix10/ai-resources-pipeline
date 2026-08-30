@@ -1,6 +1,6 @@
 ### ✨ American Culture Building - Sovereign House to Club Reign
 
-Origins of Sovereign House and the new venture, Club Reign. It highlights the work of Nick Allen in shaping cultural initiatives.
+This article covers the origins of Sovereign House and the new venture, Club Reign. It highlights the work of Nick Allen in shaping cultural initiatives.
 
 Key Points:
 

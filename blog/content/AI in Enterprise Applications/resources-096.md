@@ -1,6 +1,6 @@
 ### 🤖 Data Center Growth - COHR's Outlook
 
-COHR's CEO statement on the growth outlook for their data center business, highlighting the contributions of data sand and communications technologies.
+This article summarizes COHR's CEO statement on the growth outlook for their data center business, highlighting the contributions of data sand and communications technologies.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Automotive Industry - Supply Chain Restructuring
 
-Impact of a policy shift to remove Chinese components from vehicles built in North America. It covers the resulting cost implications for consumers and the challenges faced by automakers in reconfiguring established supply chains.
+This article examines the impact of a policy shift to remove Chinese components from vehicles built in North America. It covers the resulting cost implications for consumers and the challenges faced by automakers in reconfiguring established supply chains.
 
 Key Points:
 

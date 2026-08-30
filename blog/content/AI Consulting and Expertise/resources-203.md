@@ -1,6 +1,6 @@
 ### 💡 Computer Science Education - Adapting to the AI Era
 
-Current state of computer science education and highlights challenges traditional programs face in adequately preparing students for the rapidly evolving landscape influenced by artificial intelligence. It emphasizes the need for curricula to adapt to these changes.
+This article discusses the current state of computer science education and highlights challenges traditional programs face in adequately preparing students for the rapidly evolving landscape influenced by artificial intelligence. It emphasizes the need for curricula to adapt to these changes.
 
 Key Points:
 

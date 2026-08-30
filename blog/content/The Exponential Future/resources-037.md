@@ -1,6 +1,6 @@
 ### 👨‍🚀 Spaceflight - Fram2 Mission Crew
 
-Crew members of the Fram2 spaceflight mission and their respective roles.  The mission is led by a Maltese entrepreneur.
+This article details the crew members of the Fram2 spaceflight mission and their respective roles.  The mission is led by a Maltese entrepreneur.
 
 
 Key Points:

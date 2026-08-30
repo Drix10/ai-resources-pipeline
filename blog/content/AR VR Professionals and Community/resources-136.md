@@ -1,6 +1,6 @@
 ### 🤖 Generalist AI - Physical Commonsense and Emergent Behavior
 
-Instance of Generalist AI demonstrating real-time intuition through a complex task. It details a robot's emergent behavior in manipulating an object without scripted motion.
+This article highlights an instance of Generalist AI demonstrating real-time intuition through a complex task. It details a robot's emergent behavior in manipulating an object without scripted motion.
 
 Key Points:
 

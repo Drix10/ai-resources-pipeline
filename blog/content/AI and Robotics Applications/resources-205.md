@@ -1,6 +1,6 @@
 ### 💡 Digital Distribution Platforms - Early Features
 
-Impulse, a digital distribution platform acquired by GameStop. It highlights the platform's advanced features prior to widespread adoption of similar services.
+This article discusses Impulse, a digital distribution platform acquired by GameStop. It highlights the platform's advanced features prior to widespread adoption of similar services.
 
 Key Points:
 • Impulse offered a large game catalog.

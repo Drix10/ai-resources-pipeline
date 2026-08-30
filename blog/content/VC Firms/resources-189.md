@@ -1,6 +1,6 @@
 ### 💡 Historical Events - SoftBank Founding in Showa Era
 
-Context on Showa Day, exploring significant events from the Showa era and specifically highlighting the establishment of SoftBank Group Co., Ltd. within that historical period.
+This article provides context on Showa Day, exploring significant events from the Showa era and specifically highlighting the establishment of SoftBank Group Co., Ltd. within that historical period.
 
 Key Points:
 

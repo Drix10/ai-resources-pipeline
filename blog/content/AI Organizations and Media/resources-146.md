@@ -1,6 +1,6 @@
 ### 🤖 AI Interpretability - Model Understanding Challenges
 
-Challenges faced by mechanistic interpretability researchers in understanding the internal mechanisms of AI models, even for seemingly straightforward tasks. It highlights the complexity of discerning how models process and derive specific information.
+This article discusses the challenges faced by mechanistic interpretability researchers in understanding the internal mechanisms of AI models, even for seemingly straightforward tasks. It highlights the complexity of discerning how models process and derive specific information.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Ethics -  Respectful Interactions
 
-Importance of ethical treatment of others regardless of background or appearance, specifically highlighting the avoidance of manipulation for unlawful activities.
+This article discusses the importance of ethical treatment of others regardless of background or appearance, specifically highlighting the avoidance of manipulation for unlawful activities.
 
 
 Key Points:

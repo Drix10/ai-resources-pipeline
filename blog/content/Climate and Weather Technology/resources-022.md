@@ -1,6 +1,6 @@
 ### 🌪️ Tropical Cyclones - Cyclone Jude Impact
 
-Landfall of Cyclone Jude in Mozambique and its projected impact on Madagascar, highlighting the significant flooding expected.
+This article summarizes the landfall of Cyclone Jude in Mozambique and its projected impact on Madagascar, highlighting the significant flooding expected.
 
 Key Points:
 

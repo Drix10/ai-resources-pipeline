@@ -1,6 +1,6 @@
 ### 🤖 AI Scientist - Human-Centric Development
 
-Development philosophy behind AI scientists, emphasizing a human-centric approach. It highlights the distinction between general chatbots and advanced AI systems in scientific research.
+This article discusses the development philosophy behind AI scientists, emphasizing a human-centric approach. It highlights the distinction between general chatbots and advanced AI systems in scientific research.
 
 Key Points:
 

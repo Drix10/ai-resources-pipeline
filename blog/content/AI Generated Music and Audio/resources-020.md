@@ -1,6 +1,6 @@
 ### 🤖 Rare Disease Research - Community Observance
 
-Challenges faced by individuals living with rare diseases and underscores the importance of continued research efforts.  It also acknowledges the support provided to rare disease research.
+This article highlights the challenges faced by individuals living with rare diseases and underscores the importance of continued research efforts.  It also acknowledges the support provided to rare disease research.
 
 
 Key Points:

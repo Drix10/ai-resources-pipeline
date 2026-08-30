@@ -1,6 +1,6 @@
 ### 🚀 No-Code Development - Build Apps Without Coding
 
-Platform enabling the creation of applications, landing pages, and games without any coding experience, directly within a web browser.  The platform supports importing designs from Figma, cloning existing websites, or starting from an image.
+This article discusses a platform enabling the creation of applications, landing pages, and games without any coding experience, directly within a web browser.  The platform supports importing designs from Figma, cloning existing websites, or starting from an image.
 
 Key Points:
 

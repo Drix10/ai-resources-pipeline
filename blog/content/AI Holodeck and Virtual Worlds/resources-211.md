@@ -1,6 +1,6 @@
 ### 🚀 AI Agents - Remote Computer Control
 
-System designed for AI agents to securely control computers remotely. It addresses the distinct requirements of AI for remote access compared to human-centric remote desktop solutions.
+This article discusses a system designed for AI agents to securely control computers remotely. It addresses the distinct requirements of AI for remote access compared to human-centric remote desktop solutions.
 
 Key Points:
 • Enables AI agents to control computers.

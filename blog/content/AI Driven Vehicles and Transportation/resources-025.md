@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Gemini in the Physical World
 
-Interaction with Gemini Robotics VLA, a robot controlled via voice commands to perform a desk cleanup task.  The experience highlights the capabilities of voice-controlled robotics.
+This article discusses an interaction with Gemini Robotics VLA, a robot controlled via voice commands to perform a desk cleanup task.  The experience highlights the capabilities of voice-controlled robotics.
 
 Key Points:
 

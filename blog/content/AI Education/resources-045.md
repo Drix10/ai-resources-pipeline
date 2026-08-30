@@ -1,6 +1,6 @@
 ### 🤖 AI Safety - Ensuring Safe Student Spaces
 
-Methods used to ensure the safety and reliability of AI systems, specifically within educational spaces.  It focuses on rigorous testing and continuous evaluation procedures.
+This article discusses the methods used to ensure the safety and reliability of AI systems, specifically within educational spaces.  It focuses on rigorous testing and continuous evaluation procedures.
 
 Key Points:
 

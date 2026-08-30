@@ -1,6 +1,6 @@
 ### ⚠️ Geopolitics - Iran's Islamist Regime
 
-Concerns raised by Iranian women regarding the alliance between communism and Islamism, highlighting its role in the Iranian revolution and its ongoing impact.
+This article discusses concerns raised by Iranian women regarding the alliance between communism and Islamism, highlighting its role in the Iranian revolution and its ongoing impact.
 
 Key Points:
 

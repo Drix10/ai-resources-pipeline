@@ -1,6 +1,6 @@
 ### 💡 Social Media Algorithms - Impact on Curated Feeds
 
-Observed degradation of social media content quality despite user efforts in feed curation, attributing it to platform algorithm adjustments. It explores how changes can introduce irrelevant or low-quality content into personalized timelines.
+This article discusses the observed degradation of social media content quality despite user efforts in feed curation, attributing it to platform algorithm adjustments. It explores how changes can introduce irrelevant or low-quality content into personalized timelines.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Martian Lore - Auraxial Tower
 
-Fictional narrative surrounding the Auraxial Tower on Mars, a cathedral-engine left behind by the Terraformers.  The text hints at a deeper, less forgiving reality than the pilgrims believe.
+This article explores a fictional narrative surrounding the Auraxial Tower on Mars, a cathedral-engine left behind by the Terraformers.  The text hints at a deeper, less forgiving reality than the pilgrims believe.
 
 Key Points:
 

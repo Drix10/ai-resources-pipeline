@@ -1,6 +1,6 @@
 ### 🤖 Misinformation - Case Study of Detention Claims
 
-Case where media reports on a detainee's treatment contradict photographic evidence.  The analysis focuses on discrepancies between claimed mistreatment and visual documentation.
+This article examines a case where media reports on a detainee's treatment contradict photographic evidence.  The analysis focuses on discrepancies between claimed mistreatment and visual documentation.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 📈 IPOs - Shiprocket Funding Round
 
-Shiprocket's planned initial public offering (IPO), including funding details and advisors involved.
+This article covers Shiprocket's planned initial public offering (IPO), including funding details and advisors involved.
 
 Key Points:
 

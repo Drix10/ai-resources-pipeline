@@ -1,6 +1,6 @@
 ### 🤖 AI Prompt Engineering - Sanity Check Prompt
 
-Useful prompt for reviewing text accuracy and exploring factual claims, and its effectiveness with various large language models.
+This article discusses a useful prompt for reviewing text accuracy and exploring factual claims, and its effectiveness with various large language models.
 
 Key Points:
 

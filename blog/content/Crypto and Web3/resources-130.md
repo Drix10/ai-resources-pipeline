@@ -1,6 +1,6 @@
 ### 💡 Ethereum Community - Bangalore Engagement
 
-Positive experience and strong community engagement observed within the local Ethereum ecosystem in Bangalore. It highlights the collaborative spirit and preparatory efforts for an upcoming major event.
+This article outlines the positive experience and strong community engagement observed within the local Ethereum ecosystem in Bangalore. It highlights the collaborative spirit and preparatory efforts for an upcoming major event.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 3D Scanning - Revopoint Trackit at Control 2025
 
-Information about Revopoint's Trackit 3D scanner, showcased at Control 2025.  The scanner uses advanced optical tracking and blue laser scanning for markerless 3D capture.
+This article provides information about Revopoint's Trackit 3D scanner, showcased at Control 2025.  The scanner uses advanced optical tracking and blue laser scanning for markerless 3D capture.
 
 Key Points:
 

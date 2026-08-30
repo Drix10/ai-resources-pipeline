@@ -1,6 +1,6 @@
 ### 🚀 Hyperscape Capture - Quest VR Implementation
 
-Hyperscape Capture feature, allowing users to create high-quality 3D environments using a Meta Quest headset.  The process is quick and requires minimal user interaction.
+This article details the Hyperscape Capture feature, allowing users to create high-quality 3D environments using a Meta Quest headset.  The process is quick and requires minimal user interaction.
 
 Key Points:
 

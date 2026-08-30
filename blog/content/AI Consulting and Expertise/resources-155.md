@@ -1,6 +1,6 @@
 ### ✨ Stop-Motion Horror - Community Challenge Submission
 
-Submission for the LTX Studio 'Night of the Living Dead: Community Cut' challenge, highlighting the use of classic stop-motion horror aesthetics. It describes the creative process of adding grain and texture to achieve a vintage George Romero film feel.
+This article details a submission for the LTX Studio 'Night of the Living Dead: Community Cut' challenge, highlighting the use of classic stop-motion horror aesthetics. It describes the creative process of adding grain and texture to achieve a vintage George Romero film feel.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Runway Seedance 2.0 - Character Replacement
 
-Use of Runway's Seedance 2.0, specifically its multi-reference feature for character replacement in video, utilizing AI-generated assets. It details the process of integrating diverse sources to modify characters within a live-action video.
+This article covers the use of Runway's Seedance 2.0, specifically its multi-reference feature for character replacement in video, utilizing AI-generated assets. It details the process of integrating diverse sources to modify characters within a live-action video.
 
 Key Points:
 

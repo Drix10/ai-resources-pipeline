@@ -1,6 +1,6 @@
 ### 💡 Public Health - COVID-19 Policy Review
 
-Concerns regarding the long-term health effects of COVID-19 in children and educators. It addresses the impact of current policies on mask recommendations during infectious disease outbreaks.
+This article outlines concerns regarding the long-term health effects of COVID-19 in children and educators. It addresses the impact of current policies on mask recommendations during infectious disease outbreaks.
 
 Key Points:
 

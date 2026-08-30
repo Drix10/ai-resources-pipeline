@@ -1,6 +1,6 @@
 ### 🧬 Genomics - Personalized Healthcare
 
-Potential benefits of personal genomics profiles for proactive healthcare and longevity.  A case study using Nucleus Genomics kits is presented.
+This article discusses the potential benefits of personal genomics profiles for proactive healthcare and longevity.  A case study using Nucleus Genomics kits is presented.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Tax Implications - QSBS Changes
 
-Recent changes to Qualified Small Business Stock (QSBS) rules, highlighting their impact on founders, employees, and early exits.
+This article summarizes recent changes to Qualified Small Business Stock (QSBS) rules, highlighting their impact on founders, employees, and early exits.
 
 Key Points:
 

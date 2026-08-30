@@ -1,6 +1,6 @@
 ### 🤖 YC Application - AI Startup School
 
-Twitter thread expressing readiness for the Y Combinator AI Startup School, including visa approval and pending confirmation.  The author requests likes and reposts.
+This article summarizes a Twitter thread expressing readiness for the Y Combinator AI Startup School, including visa approval and pending confirmation.  The author requests likes and reposts.
 
 Key Points:
 

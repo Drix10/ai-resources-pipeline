@@ -1,6 +1,6 @@
 ### 🤖 Web3 in Sports - Fan Ownership
 
-Discussion on how Web3 technologies are changing the sports industry, focusing on fan engagement and ownership.  It highlights a live AMA session with industry leaders discussing fan involvement as stakeholders.
+This article summarizes a discussion on how Web3 technologies are changing the sports industry, focusing on fan engagement and ownership.  It highlights a live AMA session with industry leaders discussing fan involvement as stakeholders.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Startup Accelerators - W26 Program Consideration
 
-Criteria for startup program inclusion, specifically referencing Y Combinator's W26 batch. It explores what factors might qualify a company for such a competitive accelerator.
+This article discusses the criteria for startup program inclusion, specifically referencing Y Combinator's W26 batch. It explores what factors might qualify a company for such a competitive accelerator.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 India's Financial Cleanup - Modi's Achievements
 
-Claims regarding the state of India's finances in 2014 and the subsequent improvements attributed to Narendra Modi's leadership.  It includes a quote from Modi's interview with Lex Fridman.
+This article summarizes claims regarding the state of India's finances in 2014 and the subsequent improvements attributed to Narendra Modi's leadership.  It includes a quote from Modi's interview with Lex Fridman.
 
 Key Points:
 

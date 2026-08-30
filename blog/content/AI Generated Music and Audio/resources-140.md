@@ -1,6 +1,6 @@
 ### 🤖 Generative AI - Musical Heritage for Peace
 
-Application of generative artificial intelligence in preserving and leveraging musical heritage for constructing peace narratives. It focuses on a case study conducted in Mali.
+This article explores the application of generative artificial intelligence in preserving and leveraging musical heritage for constructing peace narratives. It focuses on a case study conducted in Mali.
 
 Key Points:
 

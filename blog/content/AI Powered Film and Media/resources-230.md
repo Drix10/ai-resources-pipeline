@@ -1,6 +1,6 @@
 ### 🤖 Machine Learning - Drug Solubility Computation
 
-Method using machine learning to predict the solubility of solid drugs in supercritical carbon dioxide. This computational approach aims to improve efficiency in pharmaceutical research.
+This article discusses a method using machine learning to predict the solubility of solid drugs in supercritical carbon dioxide. This computational approach aims to improve efficiency in pharmaceutical research.
 
 Key Points:
 

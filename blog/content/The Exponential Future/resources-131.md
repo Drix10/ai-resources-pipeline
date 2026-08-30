@@ -1,6 +1,6 @@
 ### 🚀 Space Exploration - Lunar Nuclear Power
 
-Collaborative efforts between the U.S. Department of Energy and NASA to develop and deploy a nuclear reactor on the Moon by 2030. The initiative aims to provide robust and sustained power capabilities for future lunar missions and permanent base operations.
+This article details the collaborative efforts between the U.S. Department of Energy and NASA to develop and deploy a nuclear reactor on the Moon by 2030. The initiative aims to provide robust and sustained power capabilities for future lunar missions and permanent base operations.
 
 Key Points:
 

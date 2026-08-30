@@ -1,6 +1,6 @@
 ### 💡 Productivity - Email Pre-Meeting Protocol
 
-Pre-meeting email protocol designed to improve meeting efficiency by gathering necessary information beforehand.  It highlights the surprisingly low follow-up rate observed when implementing this approach.
+This article discusses a pre-meeting email protocol designed to improve meeting efficiency by gathering necessary information beforehand.  It highlights the surprisingly low follow-up rate observed when implementing this approach.
 
 Key Points:
 

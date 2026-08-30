@@ -1,6 +1,6 @@
 ### 🤖 Venture Capital - AI Investment
 
-New venture capital fund focused on technology companies within the consumer and financial services sectors, and also highlights the scale of investment in the current AI boom.
+This article discusses a new venture capital fund focused on technology companies within the consumer and financial services sectors, and also highlights the scale of investment in the current AI boom.
 
 Key Points:
 

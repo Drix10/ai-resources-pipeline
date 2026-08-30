@@ -1,6 +1,6 @@
 ### 🤖 3D Modeling - Preventing Component Collisions
 
-Use of sketch rigs in 3D modeling workflows to visualize and prevent unexpected motion and potential collisions between components.  This approach helps improve model safety and efficiency.
+This article discusses the use of sketch rigs in 3D modeling workflows to visualize and prevent unexpected motion and potential collisions between components.  This approach helps improve model safety and efficiency.
 
 Key Points:
 

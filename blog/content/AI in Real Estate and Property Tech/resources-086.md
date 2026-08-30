@@ -1,6 +1,6 @@
 ### 🤖 Crexi All PRO - Broker Success
 
-Crexi All PRO assists real estate brokers in improving their workflow and achieving greater success, as shared by Landan Dory on The Crexi Podcast.  The focus is on the tool's features and benefits.
+This article discusses how Crexi All PRO assists real estate brokers in improving their workflow and achieving greater success, as shared by Landan Dory on The Crexi Podcast.  The focus is on the tool's features and benefits.
 
 
 Key Points:

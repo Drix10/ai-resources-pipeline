@@ -1,6 +1,6 @@
 ### 📰 India News - Rakshit Chaurasia Case
 
-Case of Rakshit Chaurasia, a law student involved in a recent accident in Karelibaug, highlighting a prior incident.
+This article summarizes the case of Rakshit Chaurasia, a law student involved in a recent accident in Karelibaug, highlighting a prior incident.
 
 Key Points:
 

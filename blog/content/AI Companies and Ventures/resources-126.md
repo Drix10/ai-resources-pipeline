@@ -1,6 +1,6 @@
 ### 🤖 AI Models - Gemini 3 Flash Performance
 
-Performance of Gemini 3 Flash, highlighting its position on the LMArena leaderboard. It also acknowledges its competitive API pricing and low latency.
+This article details the performance of Gemini 3 Flash, highlighting its position on the LMArena leaderboard. It also acknowledges its competitive API pricing and low latency.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Simultaneous Speech-to-Speech Translation - Without Aligned Data
 
-Research on simultaneous speech-to-speech translation, specifically focusing on methods that do not require aligned data for training. It explores techniques that enable real-time translation without relying on parallel datasets.
+This article discusses research on simultaneous speech-to-speech translation, specifically focusing on methods that do not require aligned data for training. It explores techniques that enable real-time translation without relying on parallel datasets.
 
 Key Points:
 

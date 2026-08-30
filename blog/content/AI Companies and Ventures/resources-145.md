@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Live Web Access
 
-Enabling AI agents to interact with the live internet. It highlights the capability of these agents to perform real-time web operations.
+This article discusses enabling AI agents to interact with the live internet. It highlights the capability of these agents to perform real-time web operations.
 
 Key Points:
 

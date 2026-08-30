@@ -1,6 +1,6 @@
 ### 🤖 Open Source AI - Proprietary Model Performance
 
-Current landscape of AI model performance, focusing on how open-source models are closing the gap with their proprietary counterparts. It analyzes data collected over three years from various Arena competitions.
+This article discusses the current landscape of AI model performance, focusing on how open-source models are closing the gap with their proprietary counterparts. It analyzes data collected over three years from various Arena competitions.
 
 Key Points:
 

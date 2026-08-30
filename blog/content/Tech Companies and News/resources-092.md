@@ -1,6 +1,6 @@
 ### 🤖 Privacy Risks - Instagram's Friend Map
 
-Potential privacy and safety risks associated with Instagram's new Friend Map feature, as highlighted by Amit Weigman.  It explains how the feature can expose user location data and daily routines.
+This article discusses the potential privacy and safety risks associated with Instagram's new Friend Map feature, as highlighted by Amit Weigman.  It explains how the feature can expose user location data and daily routines.
 
 Key Points:
 

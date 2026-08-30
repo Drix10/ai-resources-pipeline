@@ -1,6 +1,6 @@
 ### 🤖 Generative AI - Protein Function Prediction
 
-Evo 2, a generative AI tool designed to predict protein functions across all life forms.  Its development was supported by the Hoffman-Yee grant and aims to accelerate biomedical research.
+This article discusses Evo 2, a generative AI tool designed to predict protein functions across all life forms.  Its development was supported by the Hoffman-Yee grant and aims to accelerate biomedical research.
 
 Key Points:
 

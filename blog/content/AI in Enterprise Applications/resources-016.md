@@ -1,6 +1,6 @@
 ### 📚 Book Review - The Technological Republic
 
-Wall Street Journal review of "The Technological Republic," highlighting its ambition and reception.
+This article summarizes a Wall Street Journal review of "The Technological Republic," highlighting its ambition and reception.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Python Development - Windows User Pain Points
 
-Common challenges faced by Windows users when developing with Python. It aims to identify specific pain points within the development environment.
+This article discusses common challenges faced by Windows users when developing with Python. It aims to identify specific pain points within the development environment.
 
 Key Points:
 

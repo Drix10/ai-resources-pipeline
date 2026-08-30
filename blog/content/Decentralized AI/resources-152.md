@@ -1,6 +1,6 @@
 ### 🤖 AI Resilience - Infrastructure Recovery
 
-Potential for artificial intelligence to mitigate the impact of major infrastructure disruptions. It explores how AI systems could facilitate rapid restoration and enhance the resilience of critical global networks against physical threats.
+This article discusses the potential for artificial intelligence to mitigate the impact of major infrastructure disruptions. It explores how AI systems could facilitate rapid restoration and enhance the resilience of critical global networks against physical threats.
 
 Key Points:
 

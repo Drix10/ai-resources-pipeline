@@ -1,6 +1,6 @@
 ### 🚀 Kubernetes Security Research - Ludus Environment
 
-Bad Sector Labs' Ludus platform facilitates Kubernetes security research. It details the capabilities offered for spinning up specialized K8s environments, integrating various security tools and scenarios for comprehensive testing.
+This article outlines how Bad Sector Labs' Ludus platform facilitates Kubernetes security research. It details the capabilities offered for spinning up specialized K8s environments, integrating various security tools and scenarios for comprehensive testing.
 
 Key Points:
 

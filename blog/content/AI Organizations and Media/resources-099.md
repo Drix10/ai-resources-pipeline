@@ -1,6 +1,6 @@
 ### 🤖 Neuro-Symbolic AI - Enhancing Neural Networks
 
-Community webinar focusing on Neuro-Symbolic AI, a method combining neural networks and logic-based rules to improve AI systems.  The webinar will delve into the practical applications and benefits of this approach.
+This article summarizes a community webinar focusing on Neuro-Symbolic AI, a method combining neural networks and logic-based rules to improve AI systems.  The webinar will delve into the practical applications and benefits of this approach.
 
 Key Points:
 

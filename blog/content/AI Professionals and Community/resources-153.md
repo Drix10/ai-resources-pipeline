@@ -1,6 +1,6 @@
 ### 💡 Geopolitics - Russia's Alleged Influence in Europe
 
-Garry Kasparov's statement regarding Russia's financial influence in European politics, particularly in France, Germany, and Italy. It highlights his call for transparency from those involved in Russia's invitation to the Venice Biennale.
+This article discusses Garry Kasparov's statement regarding Russia's financial influence in European politics, particularly in France, Germany, and Italy. It highlights his call for transparency from those involved in Russia's invitation to the Venice Biennale.
 
 Key Points:
 

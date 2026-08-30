@@ -1,6 +1,6 @@
 ### 🤖 Voice Technology - Sesame Labs Preview
 
-Sesame Labs' new voice technology, including an early preview and plans for open-sourcing a model and building hardware.
+This article provides a brief overview of Sesame Labs' new voice technology, including an early preview and plans for open-sourcing a model and building hardware.
 
 Key Points:
 

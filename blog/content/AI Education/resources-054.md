@@ -1,6 +1,6 @@
 ### 🤖 Neuro-Symbolic AI Agent Architecture
 
-Solution architecture of a neuro-symbolic AI agent, built using Amazon Neptune and integrated with the OriginTrail Decentralized Knowledge Graph (DKG).  The architecture was presented at the DKGcon x KGConference workshop.
+This article details the solution architecture of a neuro-symbolic AI agent, built using Amazon Neptune and integrated with the OriginTrail Decentralized Knowledge Graph (DKG).  The architecture was presented at the DKGcon x KGConference workshop.
 
 Key Points:
 

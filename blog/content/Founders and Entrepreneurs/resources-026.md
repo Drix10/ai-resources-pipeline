@@ -1,6 +1,6 @@
 ### 🤖 Low-Code Development - Impact on Non-Technical Founders
 
-Impact of low-code development on individuals with strong ideas but limited technical skills.  It examines the shift from a reliance on technical expertise to easier building capabilities.
+This article discusses the impact of low-code development on individuals with strong ideas but limited technical skills.  It examines the shift from a reliance on technical expertise to easier building capabilities.
 
 Key Points:
 

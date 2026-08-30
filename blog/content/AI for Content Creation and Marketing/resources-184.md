@@ -1,6 +1,6 @@
 ### 💡 LinkedIn - Post Design Guide
 
-Guidance on designing effective LinkedIn posts. It covers key specifications and offers templates to streamline content creation for professional networking.
+This article provides guidance on designing effective LinkedIn posts. It covers key specifications and offers templates to streamline content creation for professional networking.
 
 Key Points:
 

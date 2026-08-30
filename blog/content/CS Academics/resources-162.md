@@ -1,6 +1,6 @@
 ### 💡 Geopolitical Analysis - Iran Death Toll and War Proximity
 
-Interview discussing the death toll in Iran and the escalating geopolitical tensions. It highlights insights from various commentators on the situation.
+This article summarizes an interview discussing the death toll in Iran and the escalating geopolitical tensions. It highlights insights from various commentators on the situation.
 
 Key Points:
 

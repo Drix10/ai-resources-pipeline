@@ -1,6 +1,6 @@
 ### 🤖 Geology - Geologic Hydrogen Potential
 
-Potential of geologic hydrogen as a future energy source, considering both its promise and uncertainties.  The feasibility and viability of this resource are discussed.
+This article explores the potential of geologic hydrogen as a future energy source, considering both its promise and uncertainties.  The feasibility and viability of this resource are discussed.
 
 Key Points:
 

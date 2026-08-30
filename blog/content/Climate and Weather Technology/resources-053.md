@@ -1,6 +1,6 @@
 ### 🤖 NWS Communication Issues - Tornado Emergency Delay
 
-Reported communication breakdown within the Jackson, KY NWS office, resulting in a delay in issuing a Tornado Emergency.  The silence on their communication channels is analyzed in relation to the incident.
+This article discusses a reported communication breakdown within the Jackson, KY NWS office, resulting in a delay in issuing a Tornado Emergency.  The silence on their communication channels is analyzed in relation to the incident.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Social Issues - Name-Based Discrimination in Germany
 
-Anecdotal evidence suggesting potential discrimination against individuals with foreign-sounding names in Germany's housing market.  The lack of concrete data limits a comprehensive analysis.
+This article discusses anecdotal evidence suggesting potential discrimination against individuals with foreign-sounding names in Germany's housing market.  The lack of concrete data limits a comprehensive analysis.
 
 Key Points:
 

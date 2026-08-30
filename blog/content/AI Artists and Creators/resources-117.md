@@ -1,6 +1,6 @@
 ### ⚖️ Legal - Defamation Case
 
-Legal case involving defamation claims.  The author alleges a smear campaign by their lawyer, an agency, and the father of their child.
+This article discusses a legal case involving defamation claims.  The author alleges a smear campaign by their lawyer, an agency, and the father of their child.
 
 Key Points:
 

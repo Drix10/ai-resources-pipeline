@@ -1,6 +1,6 @@
 ### 💡 Public Document Access - Epstein Case Installation
 
-"Donald J. Trump ve Jeffrey Epstein Memorial Reading Room" installation in New York. It presents the extensive Epstein documents in a physical archive for public review.
+This article details the "Donald J. Trump ve Jeffrey Epstein Memorial Reading Room" installation in New York. It presents the extensive Epstein documents in a physical archive for public review.
 
 Key Points:
 

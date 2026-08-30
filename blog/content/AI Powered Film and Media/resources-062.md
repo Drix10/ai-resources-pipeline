@@ -1,6 +1,6 @@
 ### 🚀 ComfyUI - API Node Update
 
-New wave of API nodes added to ComfyUI, expanding its functionality with LLM and 3D capabilities.  The update includes several new integrations with prominent AI services.
+This article details the new wave of API nodes added to ComfyUI, expanding its functionality with LLM and 3D capabilities.  The update includes several new integrations with prominent AI services.
 
 Key Points:
 

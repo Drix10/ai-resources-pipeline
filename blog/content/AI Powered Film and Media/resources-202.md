@@ -1,6 +1,6 @@
 ### 🤖 AI - k-NAF Budget Accounting for Anchored Decoding
 
-Empirical audit of k-NAF budget accounting within the context of anchored decoding. It covers the findings from research into this specific algorithmic approach.
+This article discusses an empirical audit of k-NAF budget accounting within the context of anchored decoding. It covers the findings from research into this specific algorithmic approach.
 
 Key Points:
 

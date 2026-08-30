@@ -1,6 +1,6 @@
 ### 🤖 AI in Business Program - Global Top 3 Ranking
 
-Achievement of creating a globally top-ranked "AI in Business" program, surpassing programs from Cambridge and UPenn's Wharton School.
+This article details the achievement of creating a globally top-ranked "AI in Business" program, surpassing programs from Cambridge and UPenn's Wharton School.
 
 Key Points:
 

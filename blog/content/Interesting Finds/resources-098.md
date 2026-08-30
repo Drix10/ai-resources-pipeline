@@ -1,6 +1,6 @@
 ### 🤖 Text-to-Speech Applications - A Review of Current Options
 
-Current state of text-to-speech applications, highlighting some notable examples and their limitations.  It focuses on the frustrations users experience with the lack of robust and readily available options.
+This article discusses the current state of text-to-speech applications, highlighting some notable examples and their limitations.  It focuses on the frustrations users experience with the lack of robust and readily available options.
 
 Key Points:
 

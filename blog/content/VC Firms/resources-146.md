@@ -1,6 +1,6 @@
 ### 💡 AI & Art - Experiential Exhibition
 
-NumerCon AI Art Exhibit, focusing on the blend of artificial intelligence with artistic expression. It covers the experiential works presented by Misalignment Museum at the event.
+This article highlights the NumerCon AI Art Exhibit, focusing on the blend of artificial intelligence with artistic expression. It covers the experiential works presented by Misalignment Museum at the event.
 
 Key Points:
 

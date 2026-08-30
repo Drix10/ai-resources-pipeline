@@ -1,6 +1,6 @@
 ### 💡 Public Discourse - Social Conflict and Response
 
-Various instances of public dissent and the associated governmental responses in France, as presented in a recent social media discourse. It highlights perceptions of state interaction with different protest movements.
+This article examines various instances of public dissent and the associated governmental responses in France, as presented in a recent social media discourse. It highlights perceptions of state interaction with different protest movements.
 
 Key Points:
 

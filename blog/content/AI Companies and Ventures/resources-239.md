@@ -1,6 +1,6 @@
 ### 🤖 Game UI Development - AI-Generated
 
-Creation of a AAA game UI using MiniMaxH3 within the Hailuo_AI platform. It highlights how UI components, including menus, stat bars, and ability panels, are animated natively.
+This article discusses the creation of a AAA game UI using MiniMaxH3 within the Hailuo_AI platform. It highlights how UI components, including menus, stat bars, and ability panels, are animated natively.
 
 Key Points:
 

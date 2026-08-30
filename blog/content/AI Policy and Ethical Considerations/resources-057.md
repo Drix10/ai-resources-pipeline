@@ -1,6 +1,6 @@
 ### 🤖 Politics - Funding Cuts and Foreign Aid
 
-Alleged misallocation of funds, highlighting the reduction of research funding in critical areas like cancer and quantum computing and the acceptance of an airplane donation from a country supporting Hamas.
+This article discusses the alleged misallocation of funds, highlighting the reduction of research funding in critical areas like cancer and quantum computing and the acceptance of an airplane donation from a country supporting Hamas.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Glioblastoma Research - Winning Hackathon Projects
 
-Solutions from the three winning projects of a glioblastoma moonshot hackathon, focusing on their approaches to understanding tumor-immune interactions and AI methodologies.
+This article summarizes the solutions from the three winning projects of a glioblastoma moonshot hackathon, focusing on their approaches to understanding tumor-immune interactions and AI methodologies.
 
 Key Points:
 

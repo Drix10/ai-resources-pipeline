@@ -1,6 +1,6 @@
 ### ⚖️ SEC Investigations - Uniswap Case Closure
 
-SEC's closure of its four-year investigation into Uniswap Labs, highlighting the implications for the cryptocurrency industry and regulatory landscape.
+This article summarizes the SEC's closure of its four-year investigation into Uniswap Labs, highlighting the implications for the cryptocurrency industry and regulatory landscape.
 
 Key Points:
 

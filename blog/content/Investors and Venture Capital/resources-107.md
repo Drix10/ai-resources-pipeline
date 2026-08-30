@@ -1,6 +1,6 @@
 ### 💡 First Aid - Immediate Actions After a Shooting
 
-Critical importance of immediate first aid in a shooting incident, specifically focusing on controlling blood loss.  The lack of immediate action is highlighted as a concerning factor.
+This article discusses the critical importance of immediate first aid in a shooting incident, specifically focusing on controlling blood loss.  The lack of immediate action is highlighted as a concerning factor.
 
 Key Points:
 

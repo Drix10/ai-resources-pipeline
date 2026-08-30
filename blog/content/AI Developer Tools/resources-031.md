@@ -1,6 +1,6 @@
 ### 📅 Effect Days 2025 - Conference Schedule
 
-Schedule for Effect Days 2025, a three-day conference featuring talks on AI agents, developer tools, Effect Cluster, error management, and real-world use cases.  The schedule and speaker information is available via the provided link.
+This article provides the schedule for Effect Days 2025, a three-day conference featuring talks on AI agents, developer tools, Effect Cluster, error management, and real-world use cases.  The schedule and speaker information is available via the provided link.
 
 
 Key Points:

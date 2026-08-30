@@ -1,6 +1,6 @@
 ### 💡 Writing - Building Daily Habits
 
-Concept that consistency is more impactful than sporadic inspiration in writing. It outlines how establishing simple daily writing routines can significantly enhance productivity and foster prolific writing.
+This article explores the concept that consistency is more impactful than sporadic inspiration in writing. It outlines how establishing simple daily writing routines can significantly enhance productivity and foster prolific writing.
 
 Key Points:
 

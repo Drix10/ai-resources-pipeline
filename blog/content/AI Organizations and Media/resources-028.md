@@ -1,6 +1,6 @@
 ### 🤖 Image Generation Model Updates - Improved Accessibility
 
-Improvements made to the accessibility of a Flash Experimental Image Generation model, version 2.0, including changes to model listing and naming conventions.
+This article details improvements made to the accessibility of a Flash Experimental Image Generation model, version 2.0, including changes to model listing and naming conventions.
 
 
 Key Points:

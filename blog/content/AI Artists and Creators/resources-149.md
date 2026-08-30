@@ -1,6 +1,6 @@
 ### ✨ Digital Art - Creative Sharing
 
-Practice of sharing unique digital content and imagery within online communities. It focuses on the simple act of contributing to creative expression.
+This article highlights the practice of sharing unique digital content and imagery within online communities. It focuses on the simple act of contributing to creative expression.
 
 Key Points:
 

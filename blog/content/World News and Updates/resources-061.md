@@ -1,6 +1,6 @@
 ### 🤖 US Foreign Policy - Increased Arms Sales to Taiwan
 
-Planned increase in US weapons sales to Taiwan, exceeding the levels seen during President Trump's first term, as a deterrent against increasing Chinese military pressure.
+This article discusses the planned increase in US weapons sales to Taiwan, exceeding the levels seen during President Trump's first term, as a deterrent against increasing Chinese military pressure.
 
 Key Points:
 

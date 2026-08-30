@@ -1,6 +1,6 @@
 ### 🤖 NotebookLM -  Human-like Voice Generation
 
-Novel approach to NotebookLM, focusing on generating human-like and unique voices for business and product applications.  A demo is forthcoming.
+This article discusses a novel approach to NotebookLM, focusing on generating human-like and unique voices for business and product applications.  A demo is forthcoming.
 
 Key Points:
 

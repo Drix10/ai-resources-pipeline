@@ -1,6 +1,6 @@
 ### 🇬🇧 UK Support for Ukraine - Prime Minister's Statement
 
-Prime Minister Sir Keir Starmer's statement of unwavering support for Ukraine,  as communicated to President Zelenskyy.  It also includes broadcast details and links to further information.
+This article summarizes Prime Minister Sir Keir Starmer's statement of unwavering support for Ukraine,  as communicated to President Zelenskyy.  It also includes broadcast details and links to further information.
 
 Key Points:
 

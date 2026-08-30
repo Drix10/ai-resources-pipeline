@@ -1,6 +1,6 @@
 ### 🤖 Solana Agent Support - G.A.M.E Cloud
 
-G.A.M.E Cloud's Solana agent support, highlighting its features for faster deployment and streamlined multi-chain development workflows.  It also mentions improved testing capabilities.
+This article discusses the G.A.M.E Cloud's Solana agent support, highlighting its features for faster deployment and streamlined multi-chain development workflows.  It also mentions improved testing capabilities.
 
 Key Points:
 

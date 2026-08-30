@@ -1,6 +1,6 @@
 ### 🤖 Assam Government - Police Encounter Investigation
 
-Assam government's response to a public interest petition concerning alleged police encounters.  The petition calls for an independent investigation into 171 incidents.
+This article summarizes the Assam government's response to a public interest petition concerning alleged police encounters.  The petition calls for an independent investigation into 171 incidents.
 
 Key Points:
 

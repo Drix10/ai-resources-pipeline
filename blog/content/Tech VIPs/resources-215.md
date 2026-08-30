@@ -1,6 +1,6 @@
 ### 🤖 AI Funding - DeepSeek's Capital Raise
 
-DeepSeek's recent capital raise, which was initiated to enhance its competitive position in the global AI landscape. The funding decision was influenced by advancements demonstrated by other leading AI labs.
+This article discusses DeepSeek's recent capital raise, which was initiated to enhance its competitive position in the global AI landscape. The funding decision was influenced by advancements demonstrated by other leading AI labs.
 
 Key Points:
 

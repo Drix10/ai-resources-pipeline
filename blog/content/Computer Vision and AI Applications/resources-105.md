@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Core Concepts for Developers
 
-Livestream on building AI agents, covering fundamental concepts and practical applications for developers.  It provides links to the livestream and related resources.
+This article summarizes a livestream on building AI agents, covering fundamental concepts and practical applications for developers.  It provides links to the livestream and related resources.
 
 Key Points:
 

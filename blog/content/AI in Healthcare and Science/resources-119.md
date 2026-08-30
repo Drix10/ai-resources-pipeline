@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Building with Claude
 
-Discussion on developing AI agents using Claude, including strategies for optimizing performance, understanding the evolution of agentic frameworks, and applying the Claude Agent SDK.
+This article covers a discussion on developing AI agents using Claude, including strategies for optimizing performance, understanding the evolution of agentic frameworks, and applying the Claude Agent SDK.
 
 Key Points:
 

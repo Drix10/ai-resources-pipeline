@@ -1,6 +1,6 @@
 ### 🤖 Tropical Weather - Amplified Waves over Africa
 
-Unusually strong tropical waves observed over Africa, influenced by the Madden-Julian Oscillation (MJO), Kelvin Wave (KW), and Equatorial Rossby Wave (ERW).  Two prominent waves are highlighted, with potential for tropical cyclogenesis.
+This article discusses the unusually strong tropical waves observed over Africa, influenced by the Madden-Julian Oscillation (MJO), Kelvin Wave (KW), and Equatorial Rossby Wave (ERW).  Two prominent waves are highlighted, with potential for tropical cyclogenesis.
 
 Key Points:
 

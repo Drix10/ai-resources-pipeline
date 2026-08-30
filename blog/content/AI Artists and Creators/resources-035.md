@@ -1,6 +1,6 @@
 ### 🤖 Generative Models in Post-Production - House of David
 
-Use of generative models in the post-production of the Amazon Prime series, House of David.  It details the involvement of the author in incorporating these models into the production pipeline.
+This article discusses the use of generative models in the post-production of the Amazon Prime series, House of David.  It details the involvement of the author in incorporating these models into the production pipeline.
 
 Key Points:
 

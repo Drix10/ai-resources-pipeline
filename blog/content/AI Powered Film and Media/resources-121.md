@@ -1,6 +1,6 @@
 ### 🤖 Natural Language Processing - Interview Insights
 
-Interview with the Columbia University Linguistics Program Blog, CLAUSE. It provides insights into natural language processing and the interviewee's current work in the field.
+This article covers an interview with the Columbia University Linguistics Program Blog, CLAUSE. It provides insights into natural language processing and the interviewee's current work in the field.
 
 Key Points:
 

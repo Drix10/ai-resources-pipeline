@@ -1,6 +1,6 @@
 ### 🚀 DeFi - BOB Rise Campaign
 
-BOB Rise DeFi campaign, which incentivizes users to bring Bitcoin to the BOB Layer-2 network on the Optimism Superchain.  The campaign is funded by a grant from Optimism.
+This article details the BOB Rise DeFi campaign, which incentivizes users to bring Bitcoin to the BOB Layer-2 network on the Optimism Superchain.  The campaign is funded by a grant from Optimism.
 
 Key Points:
 

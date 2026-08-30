@@ -1,6 +1,6 @@
 ### 🚀 VFX Tools - Accelerated VFX Workflow with Kling AI and Higgsfield
 
-Use of Kling AI presets within Higgsfield for creating various VFX effects, significantly accelerating the workflow.  The focus is on the ease and speed of generating effects like fireworks, glowing eyes, and creature morphs.
+This article discusses the use of Kling AI presets within Higgsfield for creating various VFX effects, significantly accelerating the workflow.  The focus is on the ease and speed of generating effects like fireworks, glowing eyes, and creature morphs.
 
 Key Points:
 

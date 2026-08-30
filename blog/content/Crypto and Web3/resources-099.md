@@ -1,6 +1,6 @@
 ### 🤖 Airdrops - Morph Layer Airdrop
 
-Morph Layer airdrop, suggesting it is relatively easy to obtain.  It highlights the potential to gain a significant position on the XP leaderboard.
+This article discusses the Morph Layer airdrop, suggesting it is relatively easy to obtain.  It highlights the potential to gain a significant position on the XP leaderboard.
 
 Key Points:
 

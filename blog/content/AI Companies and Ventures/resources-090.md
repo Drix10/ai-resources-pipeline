@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Completion Request Enhancement
 
-Update to a Hugging Face Space that allows for completion requests using any model, highlighting the integration with the OpenRouterAI API.
+This article details an update to a Hugging Face Space that allows for completion requests using any model, highlighting the integration with the OpenRouterAI API.
 
 Key Points:
 

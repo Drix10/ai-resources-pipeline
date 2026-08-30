@@ -1,6 +1,6 @@
 ### 🚀 Events - ISTE Live Free Pedicab Rides
 
-Availability of free pedicab rides for educators attending ISTE Live 2025.  The service is offered on specific dates and times.
+This article details the availability of free pedicab rides for educators attending ISTE Live 2025.  The service is offered on specific dates and times.
 
 Key Points:
 

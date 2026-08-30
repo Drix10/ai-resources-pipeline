@@ -1,6 +1,6 @@
 ### 🤖 AI Development - Building with Claude Code
 
-Building code using the Claude AI model, featuring insights from Boris Cherny. It highlights practical aspects of AI development and implementation.
+This article covers building code using the Claude AI model, featuring insights from Boris Cherny. It highlights practical aspects of AI development and implementation.
 
 Key Points:
 

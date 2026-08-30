@@ -1,6 +1,6 @@
 ### ⚖️ Legal - Online Movie Ticket Tax
 
-Bombay High Court's ruling upholding Maharashtra's tax on online movie ticket booking fees.  The court deemed the tax a part of "payment for admission."
+This article summarizes the Bombay High Court's ruling upholding Maharashtra's tax on online movie ticket booking fees.  The court deemed the tax a part of "payment for admission."
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Neuroscience - Brainstem Control of Locus Coeruleus
 
-Interview discussing a research paper that identified brainstem cells precisely controlling locus coeruleus output.  The interview explores the methodology and implications of this discovery.
+This article summarizes an interview discussing a research paper that identified brainstem cells precisely controlling locus coeruleus output.  The interview explores the methodology and implications of this discovery.
 
 Key Points:
 

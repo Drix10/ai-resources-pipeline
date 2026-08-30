@@ -1,6 +1,6 @@
 ### 💡 Language Education - Choosing Chinese Phonetic Systems
 
-Rationale behind choosing Zhuyin over Roman pinyin for teaching Chinese, highlighting the pedagogical and cultural considerations involved. It discusses the perceived closeness of Zhuyin to the original language pronunciation.
+This article explores the rationale behind choosing Zhuyin over Roman pinyin for teaching Chinese, highlighting the pedagogical and cultural considerations involved. It discusses the perceived closeness of Zhuyin to the original language pronunciation.
 
 Key Points:
 

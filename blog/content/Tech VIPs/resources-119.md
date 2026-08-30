@@ -1,6 +1,6 @@
 ### 🤖 Video Games - New Overdose Trailer
 
-Release of a new three-minute teaser trailer for the upcoming video game Overdose, developed by Hideo Kojima and published by Xbox.  It also notes Microsoft's involvement in the game's development.
+This article summarizes the release of a new three-minute teaser trailer for the upcoming video game Overdose, developed by Hideo Kojima and published by Xbox.  It also notes Microsoft's involvement in the game's development.
 
 Key Points:
 

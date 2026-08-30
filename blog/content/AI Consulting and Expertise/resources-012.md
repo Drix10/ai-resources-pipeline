@@ -1,6 +1,6 @@
 ### 💡 Security - Two-Factor Authentication on X
 
-Guide on enabling two-factor authentication (2FA) on the X platform to enhance account security.  The steps are outlined for mobile users.
+This article provides a brief guide on enabling two-factor authentication (2FA) on the X platform to enhance account security.  The steps are outlined for mobile users.
 
 Key Points:
 

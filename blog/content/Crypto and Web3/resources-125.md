@@ -1,6 +1,6 @@
 ### 💡 Digital Communication - Public Figures on Social Media
 
-Dynamics of public figures' engagement on social media platforms. It highlights how digital communication shapes public perception and information dissemination.
+This article examines the dynamics of public figures' engagement on social media platforms. It highlights how digital communication shapes public perception and information dissemination.
 
 Key Points:
 

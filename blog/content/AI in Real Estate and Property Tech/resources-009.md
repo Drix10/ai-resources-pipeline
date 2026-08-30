@@ -1,6 +1,6 @@
 ### 👩‍💼 Real Estate - Women of Influence in Multifamily
 
-Key insights from a panel discussion with leading women in the multifamily real estate industry, focusing on current trends, predictions for 2025, and advice for women in commercial real estate.
+This article summarizes key insights from a panel discussion with leading women in the multifamily real estate industry, focusing on current trends, predictions for 2025, and advice for women in commercial real estate.
 
 
 Key Points:

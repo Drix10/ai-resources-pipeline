@@ -1,6 +1,6 @@
 ### 🤖 Anthropic's Claude 3.7 - Extended Thinking Capabilities
 
-Anthropic's Claude 3.7 Sonnet, highlighting its advanced reasoning capabilities and its significance as the first Claude model to offer extended thinking.
+This article discusses Anthropic's Claude 3.7 Sonnet, highlighting its advanced reasoning capabilities and its significance as the first Claude model to offer extended thinking.
 
 Key Points:
 

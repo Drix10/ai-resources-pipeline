@@ -1,6 +1,6 @@
 ### 🤖 RAG - Addressing Semantic Differences in Retrieval
 
-Challenges of semantic differences between questions and answers in Naive Retrieval Augmented Generation (RAG) and introduces HyDE as a solution.  It illustrates the difference between traditional RAG and HyDE via a visual.
+This article discusses the challenges of semantic differences between questions and answers in Naive Retrieval Augmented Generation (RAG) and introduces HyDE as a solution.  It illustrates the difference between traditional RAG and HyDE via a visual.
 
 Key Points:
 

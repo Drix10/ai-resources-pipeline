@@ -1,6 +1,6 @@
 ### 💰 Politics - Cost of a B-2 Flyover
 
-Cost of a B-2 stealth bomber flyover conducted to honor Vladimir Putin.  The exorbitant expense raises questions about resource allocation.
+This article details the cost of a B-2 stealth bomber flyover conducted to honor Vladimir Putin.  The exorbitant expense raises questions about resource allocation.
 
 Key Points:
 

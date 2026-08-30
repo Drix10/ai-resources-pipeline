@@ -1,6 +1,6 @@
 ### 🤖 AI Models - DeepSeek's mHC
 
-DeepSeek's new mHC residual connection design, which addresses stability and scaling challenges in large AI models. It focuses on how mHC improves upon existing Hyper-Connections for robust performance.
+This article discusses DeepSeek's new mHC residual connection design, which addresses stability and scaling challenges in large AI models. It focuses on how mHC improves upon existing Hyper-Connections for robust performance.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Venture Capital - Missed Solana Investment
 
-Missed investment opportunity in Solana's seed round in early 2018, highlighting the significant return on investment that would have resulted.  The author reflects on their early investment memos.
+This article discusses a missed investment opportunity in Solana's seed round in early 2018, highlighting the significant return on investment that would have resulted.  The author reflects on their early investment memos.
 
 Key Points:
 

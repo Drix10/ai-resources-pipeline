@@ -1,6 +1,6 @@
 ### 🤖 3D Model Generation - Asset Creation
 
-Process of generating 3D model assets from images, focusing on the creation of a library of free, downloadable models for SEO purposes.
+This article discusses the process of generating 3D model assets from images, focusing on the creation of a library of free, downloadable models for SEO purposes.
 
 Key Points:
 

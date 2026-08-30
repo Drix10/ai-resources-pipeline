@@ -1,6 +1,6 @@
 ### 🤖 AI in Restaurants - Voice AI Platform
 
-Application of a voice AI platform in the restaurant industry, focusing on its use for order taking and employee support across various channels.
+This article discusses the application of a voice AI platform in the restaurant industry, focusing on its use for order taking and employee support across various channels.
 
 Key Points:
 

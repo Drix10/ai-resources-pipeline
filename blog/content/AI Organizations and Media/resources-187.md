@@ -1,6 +1,6 @@
 ### 🤖 Spreadsheet Understanding - Graph-Enhanced Representation
 
-Novel approach for understanding multi-sheet spreadsheets using a graph-enhanced representation, treating each sheet as a token. It explores the methodology proposed in the research paper "Sheet as Token".
+This article discusses a novel approach for understanding multi-sheet spreadsheets using a graph-enhanced representation, treating each sheet as a token. It explores the methodology proposed in the research paper "Sheet as Token".
 
 Key Points:
 

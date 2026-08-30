@@ -1,6 +1,6 @@
 ### 💡 Historical Release Dates - "Young Americans" Correction
 
-Historical UK release date of David Bowie's "Young Americans" album, clarifying previous assumptions. It highlights the importance of using primary evidence for historical accuracy.
+This article discusses the historical UK release date of David Bowie's "Young Americans" album, clarifying previous assumptions. It highlights the importance of using primary evidence for historical accuracy.
 
 Key Points:
 

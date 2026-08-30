@@ -1,6 +1,6 @@
 ### 🤖 AI Models - Overview
 
-Artificial intelligence models, often referred to as "machines" for their automated capabilities. It touches upon the foundational aspects of these intelligent systems.
+This article provides a brief overview of artificial intelligence models, often referred to as "machines" for their automated capabilities. It touches upon the foundational aspects of these intelligent systems.
 
 Key Points:
 

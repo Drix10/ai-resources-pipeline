@@ -1,6 +1,6 @@
 ### 🤖 Judicial AI - Solutions in India
 
-Artificial intelligence solutions are being successfully implemented within India's judicial system. It demonstrates how these innovations are addressing traditional challenges and proving effective despite initial skepticism.
+This article covers how artificial intelligence solutions are being successfully implemented within India's judicial system. It demonstrates how these innovations are addressing traditional challenges and proving effective despite initial skepticism.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Audio Transcription - AI Scripting Workflow
 
-Workflow for transcribing audio dialogue using AI and organizing the output into a structured script. It covers the use of ElevenLabs Scribe for transcription and Gemini for script organization.
+This article details a workflow for transcribing audio dialogue using AI and organizing the output into a structured script. It covers the use of ElevenLabs Scribe for transcription and Gemini for script organization.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 CesiumJS - AI-Powered Geospatial Interaction
 
-Upcoming agentic workflows for CesiumJS, integrating AI-powered natural language processing with 3D geospatial data. It details how users can interact with digital twins using simple phrases to extract insights.
+This article covers upcoming agentic workflows for CesiumJS, integrating AI-powered natural language processing with 3D geospatial data. It details how users can interact with digital twins using simple phrases to extract insights.
 
 Key Points:
 

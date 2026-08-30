@@ -1,6 +1,6 @@
 ### 📰 International News - UK Pensioner Death
 
-News report regarding the death of a 90-year-old British pensioner in Spain, potentially due to starvation, after her son's death in the same property.  Police discovered both bodies.
+This article summarizes a news report regarding the death of a 90-year-old British pensioner in Spain, potentially due to starvation, after her son's death in the same property.  Police discovered both bodies.
 
 Key Points:
 

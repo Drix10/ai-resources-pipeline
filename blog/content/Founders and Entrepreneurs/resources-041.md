@@ -1,6 +1,6 @@
 ### 🤖 Trade Negotiations - NAFTA and China's WTO Entry
 
-Steve Eisman's perspective on the impacts of NAFTA and China's entry into the WTO, focusing on the arguments made regarding GDP growth and job creation.
+This article summarizes Steve Eisman's perspective on the impacts of NAFTA and China's entry into the WTO, focusing on the arguments made regarding GDP growth and job creation.
 
 Key Points:
 

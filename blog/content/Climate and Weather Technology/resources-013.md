@@ -1,6 +1,6 @@
 ### 🤖 Climate Change Policy - Expert Survey Results
 
-Findings of a survey conducted by the Inevitable Policy Response (IPR) in November-December 2024, focusing on expert opinions regarding global temperature increase.
+This article summarizes the findings of a survey conducted by the Inevitable Policy Response (IPR) in November-December 2024, focusing on expert opinions regarding global temperature increase.
 
 Key Points:
 

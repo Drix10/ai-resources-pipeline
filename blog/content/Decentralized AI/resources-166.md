@@ -1,6 +1,6 @@
 ### 🤖 AI Model Training - Qwen 3.6 with Hermes
 
-Process of setting up and executing a Qwen 3.6 training regime on a DGX Spark system using K2.6 and Hermes. It highlights the efficiency achieved with autonomous training sessions.
+This article details the process of setting up and executing a Qwen 3.6 training regime on a DGX Spark system using K2.6 and Hermes. It highlights the efficiency achieved with autonomous training sessions.
 
 Key Points:
 

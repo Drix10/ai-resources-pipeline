@@ -1,6 +1,6 @@
 ### 🤖 Scientific Congress - Abstract Submissions for EAN2026
 
-Process for submitting abstracts for significant recent work to be presented at EAN2026. It details the review criteria and provides essential guidelines for submission.
+This article outlines the process for submitting abstracts for significant recent work to be presented at EAN2026. It details the review criteria and provides essential guidelines for submission.
 
 Key Points:
 

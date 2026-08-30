@@ -1,6 +1,6 @@
 ### 🚀 Scheduling Software - Typefully Review
 
-User review of Typefully, a scheduling software.  The review highlights its simplicity, reliability, and affordability.
+This article provides a user review of Typefully, a scheduling software.  The review highlights its simplicity, reliability, and affordability.
 
 Key Points:
 

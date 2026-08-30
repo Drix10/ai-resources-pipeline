@@ -1,6 +1,6 @@
 ### 🤖 Societal Impact of Technology - Ethical Considerations in Development
 
-Ethical implications of technological development, particularly concerning exploitative systems and the responsibility of developers to prioritize ethical practices.
+This article discusses the ethical implications of technological development, particularly concerning exploitative systems and the responsibility of developers to prioritize ethical practices.
 
 Key Points:
 

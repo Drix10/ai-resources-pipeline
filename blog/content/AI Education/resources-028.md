@@ -1,6 +1,6 @@
 ### 🤖 AI Advantages - Collective Capabilities
 
-Collective advantages of Artificial General Intelligences (AGIs), focusing on their ability to be copied, merged, scaled, and evolved in ways surpassing human capabilities.  The concept of a firm of AGIs is explored.
+This article discusses the collective advantages of Artificial General Intelligences (AGIs), focusing on their ability to be copied, merged, scaled, and evolved in ways surpassing human capabilities.  The concept of a firm of AGIs is explored.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Tools - Vercel and Sentry Partnership
 
-Vercel's partnership with Sentry to provide client-side exception observability.  It highlights the ease of integration between the two platforms.
+This article discusses Vercel's partnership with Sentry to provide client-side exception observability.  It highlights the ease of integration between the two platforms.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Longevity Research - Bottlenecks in Progress
 
-Major bottleneck hindering faster progress in longevity research, as identified by Adam Gries of Vitalism.  A trivia quiz with a prize is announced.
+This article discusses a major bottleneck hindering faster progress in longevity research, as identified by Adam Gries of Vitalism.  A trivia quiz with a prize is announced.
 
 Key Points:
 

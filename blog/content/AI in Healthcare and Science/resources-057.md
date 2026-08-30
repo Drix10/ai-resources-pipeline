@@ -1,6 +1,6 @@
 ### ✨ ISPOR 2025 - Conference Recap
 
-Truveta's experience at the ISPOR 2025 conference, highlighting key interactions and engagement.
+This article summarizes Truveta's experience at the ISPOR 2025 conference, highlighting key interactions and engagement.
 
 Key Points:
 

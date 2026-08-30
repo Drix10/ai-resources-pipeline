@@ -1,6 +1,6 @@
 ### 🤖 Osteoarthritis - Unmet Needs and Innovation
 
-Projected increase in osteoarthritis cases by 2050 and highlights the current limitations of therapies in addressing the underlying pathology.  It emphasizes the significant unmet need and the potential for innovation in this area.
+This article discusses the projected increase in osteoarthritis cases by 2050 and highlights the current limitations of therapies in addressing the underlying pathology.  It emphasizes the significant unmet need and the potential for innovation in this area.
 
 Key Points:
 

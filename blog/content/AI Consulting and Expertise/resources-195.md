@@ -1,6 +1,6 @@
 ### 💡 Security Measures - Religious Institutions
 
-Proposal to install CCTV cameras in mosques for security purposes. It draws parallels with existing security measures in temples to improve overall safety.
+This article discusses the proposal to install CCTV cameras in mosques for security purposes. It draws parallels with existing security measures in temples to improve overall safety.
 
 Key Points:
 

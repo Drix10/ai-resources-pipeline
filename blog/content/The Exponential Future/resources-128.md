@@ -1,6 +1,6 @@
 ### 🤖 AI Application - Local Subscription Management
 
-Potential for developing a local application capable of processing bank statements to identify and manage subscriptions. It explores the technical feasibility of running such an application entirely offline using open-weights AI models.
+This article outlines the potential for developing a local application capable of processing bank statements to identify and manage subscriptions. It explores the technical feasibility of running such an application entirely offline using open-weights AI models.
 
 Key Points:
 

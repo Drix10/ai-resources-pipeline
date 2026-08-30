@@ -1,6 +1,6 @@
 ### 💡 Teenage Development - The Impact of Books
 
-Anecdotal observation that books read during adolescence can significantly influence a person's development.  It presents a contrasting viewpoint and examines the extent to which this influence holds true.
+This article explores the anecdotal observation that books read during adolescence can significantly influence a person's development.  It presents a contrasting viewpoint and examines the extent to which this influence holds true.
 
 Key Points:
 

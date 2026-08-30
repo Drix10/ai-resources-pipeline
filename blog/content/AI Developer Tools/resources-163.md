@@ -1,6 +1,6 @@
 ### ✨ Gemini - Google Sheets Performance
 
-Advanced capabilities of Gemini within Google Sheets. It details Gemini's benchmark performance on the SpreadsheetBench dataset, showcasing its effectiveness in spreadsheet operations.
+This article highlights the advanced capabilities of Gemini within Google Sheets. It details Gemini's benchmark performance on the SpreadsheetBench dataset, showcasing its effectiveness in spreadsheet operations.
 
 Key Points:
 

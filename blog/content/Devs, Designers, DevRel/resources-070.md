@@ -1,6 +1,6 @@
 ### 🎉 Business Milestone - Rural E-commerce Success
 
-Achievement of Tons Valley Shop, a rural e-commerce business, exceeding ₹1 crore in annual revenue.  The success showcases the viability of rural businesses in fulfilling online orders.
+This article highlights the achievement of Tons Valley Shop, a rural e-commerce business, exceeding ₹1 crore in annual revenue.  The success showcases the viability of rural businesses in fulfilling online orders.
 
 Key Points:
 

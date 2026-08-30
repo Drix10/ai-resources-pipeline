@@ -1,6 +1,6 @@
 ### 🤖 Katana Protocol - Token Distribution and Yield
 
-Current state of Katana Protocol's token distribution and its various yield-generating sources.  It also provides links to relevant resources.
+This article discusses the current state of Katana Protocol's token distribution and its various yield-generating sources.  It also provides links to relevant resources.
 
 Key Points:
 

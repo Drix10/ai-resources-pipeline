@@ -1,6 +1,6 @@
 ### 🤖 Georgia Legislation - Survivor Justice Act
 
-House Bill 582, the Georgia Survivor Justice Act, and positive commentary on its potential impact.
+This article discusses House Bill 582, the Georgia Survivor Justice Act, and positive commentary on its potential impact.
 
 Key Points:
 

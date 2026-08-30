@@ -1,6 +1,6 @@
 ### 🤖 Voice AI - UC Berkeley AI Hackathon
 
-Results of the UC Berkeley AI Hackathon, highlighting the significant role of voice AI and showcasing winning projects powered by Vapi.
+This article summarizes the results of the UC Berkeley AI Hackathon, highlighting the significant role of voice AI and showcasing winning projects powered by Vapi.
 
 Key Points:
 

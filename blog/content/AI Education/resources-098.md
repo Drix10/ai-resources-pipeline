@@ -1,6 +1,6 @@
 ### 🤖 Social Science Research - The Impact of Attractiveness
 
-Research paper exploring the correlation between attractiveness and life outcomes.  It examines the societal biases that may influence this relationship.
+This article summarizes a research paper exploring the correlation between attractiveness and life outcomes.  It examines the societal biases that may influence this relationship.
 
 Key Points:
 

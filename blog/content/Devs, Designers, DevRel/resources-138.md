@@ -1,6 +1,6 @@
 ### ✨ 3D Rendering - Render Playblast Feature
 
-Feature in 3D software that simplifies the process of previewing renders, known as Render Playblast. It highlights the use of viewport shading options to achieve desired visual outcomes.
+This article discusses a feature in 3D software that simplifies the process of previewing renders, known as Render Playblast. It highlights the use of viewport shading options to achieve desired visual outcomes.
 
 Key Points:
 

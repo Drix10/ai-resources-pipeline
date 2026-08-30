@@ -1,6 +1,6 @@
 ### 🤖 Machine Learning - Key Algorithms Overview
 
-Concise overview of various machine learning algorithms. It aims to introduce the fundamental approaches used in building intelligent systems.
+This article provides a concise overview of various machine learning algorithms. It aims to introduce the fundamental approaches used in building intelligent systems.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Data Ownership and User Control - Moca Network
 
-Challenges of large tech companies controlling user data and introduces Moca Network as a potential solution for increased user data control and portability.
+This article discusses the challenges of large tech companies controlling user data and introduces Moca Network as a potential solution for increased user data control and portability.
 
 Key Points:
 

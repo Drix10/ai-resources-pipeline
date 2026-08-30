@@ -1,6 +1,6 @@
 ### 📖 History - Interest Rates and Human Civilization
 
-Historical impact of interest rates on human civilization, drawing insights from Edward Chancellor's "The Price of Time."  It examines how interest rates have been viewed and their influence throughout history.
+This article explores the historical impact of interest rates on human civilization, drawing insights from Edward Chancellor's "The Price of Time."  It examines how interest rates have been viewed and their influence throughout history.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🔬 Physics PhD - Beyond Assigned Tasks
 
-Multifaceted nature of a physics PhD, extending beyond the completion of assigned tasks to encompass critical thinking, research, and the development of physical intuition.
+This article discusses the multifaceted nature of a physics PhD, extending beyond the completion of assigned tasks to encompass critical thinking, research, and the development of physical intuition.
 
 Key Points:
 

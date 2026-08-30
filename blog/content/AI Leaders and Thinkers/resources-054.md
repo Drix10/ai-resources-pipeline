@@ -1,6 +1,6 @@
 ### 🤖 AI Assistants - Shared Memory
 
-Launch of OpenMemory MCP, a private memory system for MCP-compatible clients.  It addresses the current limitation of independent operation among AI assistants and development tools.
+This article discusses the launch of OpenMemory MCP, a private memory system for MCP-compatible clients.  It addresses the current limitation of independent operation among AI assistants and development tools.
 
 Key Points:
 

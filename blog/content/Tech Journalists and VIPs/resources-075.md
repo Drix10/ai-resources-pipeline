@@ -1,6 +1,6 @@
 ### 🤖 AI Limitations - Feedback Loops
 
-Limitations of current AI models, focusing on the lack of feedback mechanisms and their impact on user experience and model improvement.
+This article discusses the limitations of current AI models, focusing on the lack of feedback mechanisms and their impact on user experience and model improvement.
 
 Key Points:
 

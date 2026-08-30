@@ -1,6 +1,6 @@
 ### 🚀 AUVSI Defense - Industry Events
 
-Two co-located events for the autonomous systems industry: AUVSI Defense and a commercial/policy counterpart. Both events take place at the same venue.
+This article highlights two co-located events for the autonomous systems industry: AUVSI Defense and a commercial/policy counterpart. Both events take place at the same venue.
 
 Key Points:
 

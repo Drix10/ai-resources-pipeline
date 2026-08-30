@@ -1,6 +1,6 @@
 ### 💡 Social Dynamics - Researching Group Psychology
 
-Ongoing relevance of cult psychology and group dynamics for academic and social research. It emphasizes the need for continued investigation into how groups influence individual and collective behaviors.
+This article highlights the ongoing relevance of cult psychology and group dynamics for academic and social research. It emphasizes the need for continued investigation into how groups influence individual and collective behaviors.
 
 Key Points:
 

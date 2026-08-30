@@ -1,6 +1,6 @@
 ### 🤖 Generative AI in Film - House of David
 
-Use of generative AI in the production of the film "House of David," highlighting key takeaways from its implementation.  The film utilized AI for a significant portion of its visual effects.
+This article discusses the use of generative AI in the production of the film "House of David," highlighting key takeaways from its implementation.  The film utilized AI for a significant portion of its visual effects.
 
 Key Points:
 

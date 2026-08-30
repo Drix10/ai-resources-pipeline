@@ -1,6 +1,6 @@
 ### 🤖 PODS Conference - Speaker Highlights
 
-Speakers and their topics at the Principles of Database Systems (PODS) conference.
+This article highlights the speakers and their topics at the Principles of Database Systems (PODS) conference.
 
 Key Points:
 

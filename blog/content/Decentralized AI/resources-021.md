@@ -1,6 +1,6 @@
 ### 🎉 ETHDenver - Infra Gardens Recap
 
-Infra Gardens event at ETHDenver, highlighting the positive atmosphere and community engagement.
+This article summarizes the Infra Gardens event at ETHDenver, highlighting the positive atmosphere and community engagement.
 
 Key Points:
 

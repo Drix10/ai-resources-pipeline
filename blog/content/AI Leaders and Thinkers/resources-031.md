@@ -1,6 +1,6 @@
 ### 🚀 Windsurf AI - Wave 5 Update
 
-Improvements in Windsurf AI's Wave 5 update, focusing on the enhanced Windsurf Tab and other included features.
+This article details the improvements in Windsurf AI's Wave 5 update, focusing on the enhanced Windsurf Tab and other included features.
 
 Key Points:
 

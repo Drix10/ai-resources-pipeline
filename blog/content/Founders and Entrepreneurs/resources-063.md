@@ -1,6 +1,6 @@
 ### 🤖 GeckoTerminal - Data Product Development
 
-GeckoTerminal (GT), a data product under development for over 10 years, highlighting its continuous improvement and focus on community needs.
+This article discusses GeckoTerminal (GT), a data product under development for over 10 years, highlighting its continuous improvement and focus on community needs.
 
 Key Points:
 

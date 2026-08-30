@@ -1,6 +1,6 @@
 ### 📚 Code Reading - A Neglected Skill
 
-Importance of code reading skills, highlighting that code reading is often more prevalent than code writing in a software engineer's daily tasks, yet it receives less formal training.  It also suggests a relevant resource for improving these skills.
+This article discusses the importance of code reading skills, highlighting that code reading is often more prevalent than code writing in a software engineer's daily tasks, yet it receives less formal training.  It also suggests a relevant resource for improving these skills.
 
 Key Points:
 

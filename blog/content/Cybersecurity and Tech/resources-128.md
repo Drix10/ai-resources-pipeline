@@ -1,6 +1,6 @@
 ### 🤖 Microsoft Purview - Audit Log Event Types
 
-Various event types found in the Microsoft Purview audit log, explaining their triggers and significance. It aims to clarify the comprehensive logging capabilities within Purview for compliance and security monitoring.
+This article details the various event types found in the Microsoft Purview audit log, explaining their triggers and significance. It aims to clarify the comprehensive logging capabilities within Purview for compliance and security monitoring.
 
 Key Points:
 

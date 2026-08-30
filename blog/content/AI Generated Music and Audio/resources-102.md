@@ -1,6 +1,6 @@
 ### ✨ Events - Takashi Iizuka Signing
 
-Exclusive signing event with Takashi Iizuka, a key figure behind Sonic Racing: CrossWorlds.  The event includes opportunities to obtain autographs.
+This article details an exclusive signing event with Takashi Iizuka, a key figure behind Sonic Racing: CrossWorlds.  The event includes opportunities to obtain autographs.
 
 
 Key Points:

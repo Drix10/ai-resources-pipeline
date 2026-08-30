@@ -1,6 +1,6 @@
 ### 🏢 Mergers and Acquisitions - BlackRock Acquires ElmTree Funds
 
-Acquisition of ElmTree Funds, a significant real estate private equity firm, by BlackRock.  The deal highlights the ongoing activity in the real estate investment market.
+This article covers the acquisition of ElmTree Funds, a significant real estate private equity firm, by BlackRock.  The deal highlights the ongoing activity in the real estate investment market.
 
 Key Points:
 

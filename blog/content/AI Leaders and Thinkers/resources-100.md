@@ -1,6 +1,6 @@
 ### 🤖 TensorBoard - Smoothing Data
 
-Potential drawbacks of enabling smoothing by default in TensorBoard visualizations and offers an alternative approach.  It highlights how smoothing can obscure important details in the data.
+This article discusses the potential drawbacks of enabling smoothing by default in TensorBoard visualizations and offers an alternative approach.  It highlights how smoothing can obscure important details in the data.
 
 Key Points:
 

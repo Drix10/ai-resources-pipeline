@@ -1,6 +1,6 @@
 ### 🤖 Education - Michigan's High School CS Requirement
 
-State of Michigan's mandate requiring all high schools to offer an in-person computer science course by 2027-2028, and the inclusive definition of computer science adopted.
+This article discusses the State of Michigan's mandate requiring all high schools to offer an in-person computer science course by 2027-2028, and the inclusive definition of computer science adopted.
 
 Key Points:
 

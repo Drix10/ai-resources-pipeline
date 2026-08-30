@@ -1,6 +1,6 @@
 ### 🤖 Def Con 2024 - Day 3 Recap
 
-Final day of Def Con 2024, including the author's activities and attire.
+This article summarizes the final day of Def Con 2024, including the author's activities and attire.
 
 Key Points:
 

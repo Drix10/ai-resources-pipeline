@@ -1,6 +1,6 @@
 ### 🚀 Ronin Network - Ethereum Layer 2 Migration
 
-Upcoming migration of the Ronin blockchain gaming network to an Ethereum Layer 2 solution. It covers the scheduled transition date and Ronin's history as an independent sidechain.
+This article details the upcoming migration of the Ronin blockchain gaming network to an Ethereum Layer 2 solution. It covers the scheduled transition date and Ronin's history as an independent sidechain.
 
 Key Points:
 

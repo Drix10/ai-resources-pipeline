@@ -1,6 +1,6 @@
 ### 📺 Media Coverage - 60 Minutes Segment
 
-60 Minutes segment featuring HR McMaster, discussing its impact and providing access to the broadcast.
+This article summarizes a 60 Minutes segment featuring HR McMaster, discussing its impact and providing access to the broadcast.
 
 Key Points:
 

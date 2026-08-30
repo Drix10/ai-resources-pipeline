@@ -1,6 +1,6 @@
 ### ⛈️ Severe Weather - Miami Area Forecast
 
-Severe storm system impacting the Miami area, including potential tornadoes, damaging winds, and flash flooding.  The Storm Prediction Center issued a Marginal Risk for southern Florida.
+This article summarizes a severe storm system impacting the Miami area, including potential tornadoes, damaging winds, and flash flooding.  The Storm Prediction Center issued a Marginal Risk for southern Florida.
 
 Key Points:
 

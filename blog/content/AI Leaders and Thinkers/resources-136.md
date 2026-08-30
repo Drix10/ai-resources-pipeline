@@ -1,6 +1,6 @@
 ### 💡 Financial Policy - Credit Card Interest Rates
 
-Proposal to cap credit card interest rates and explores its potential broad ripple effects across the financial sector. It highlights how such policy changes can introduce unexpected dynamics into the economy.
+This article discusses a proposal to cap credit card interest rates and explores its potential broad ripple effects across the financial sector. It highlights how such policy changes can introduce unexpected dynamics into the economy.
 
 Key Points:
 

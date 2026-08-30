@@ -1,6 +1,6 @@
 ### 🤖 Alberta Politics - A Developing Situation
 
-Rapidly evolving political landscape in Alberta, highlighting the minority government, the implementation of a carbon tax, and discussions surrounding provincial sovereignty.
+This article summarizes the rapidly evolving political landscape in Alberta, highlighting the minority government, the implementation of a carbon tax, and discussions surrounding provincial sovereignty.
 
 Key Points:
 

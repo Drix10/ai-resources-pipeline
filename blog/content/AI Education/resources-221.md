@@ -1,6 +1,6 @@
 ### 💡 Literature Review - Efficient Methods
 
-Method for conducting literature reviews using Litmaps to streamline the process. It aims to help researchers find relevant papers more effectively.
+This article discusses a method for conducting literature reviews using Litmaps to streamline the process. It aims to help researchers find relevant papers more effectively.
 
 Key Points:
 

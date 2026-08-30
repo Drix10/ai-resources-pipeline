@@ -1,6 +1,6 @@
 ### 🚀 DeFi - Leveraged Yield Product
 
-Development of a new leveraged yield product in the decentralized finance (DeFi) space.  The product is anticipated to be a significant advancement in the field.
+This article discusses the development of a new leveraged yield product in the decentralized finance (DeFi) space.  The product is anticipated to be a significant advancement in the field.
 
 Key Points:
 

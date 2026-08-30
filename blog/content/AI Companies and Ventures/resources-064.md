@@ -1,6 +1,6 @@
 ### 🤖 Web3 Gaming - Somnia Gaming Room X Space
 
-Twitter Spaces discussion about gaming, on-chain development, and Somnia Network's approach to enhancing Web3 gaming experiences.  The discussion included representatives from Hexaplay, Metakraft, and Galeon.
+This article summarizes a Twitter Spaces discussion about gaming, on-chain development, and Somnia Network's approach to enhancing Web3 gaming experiences.  The discussion included representatives from Hexaplay, Metakraft, and Galeon.
 
 Key Points:
 

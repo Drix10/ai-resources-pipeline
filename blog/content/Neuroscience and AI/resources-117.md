@@ -1,6 +1,6 @@
 ### 💡 Urban Planning - Critical Review of Urban Renewal
 
-Critical perspective on recent urban development initiatives, specifically the "Deputy Capital Concept." It highlights concerns regarding land speculation and projects labeled as urban renewal.
+This article discusses a critical perspective on recent urban development initiatives, specifically the "Deputy Capital Concept." It highlights concerns regarding land speculation and projects labeled as urban renewal.
 
 Key Points:
 

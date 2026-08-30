@@ -1,6 +1,6 @@
 ### 💡 Media Strategy - Platform Shift
 
-BuzzFeed's strategic redirection, moving from its foundational role in the social web to a new focus on video-centric, ad-supported platforms. It outlines the company's evolution following its acquisition.
+This article covers BuzzFeed's strategic redirection, moving from its foundational role in the social web to a new focus on video-centric, ad-supported platforms. It outlines the company's evolution following its acquisition.
 
 Key Points:
 

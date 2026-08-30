@@ -1,6 +1,6 @@
 ### 📰 Virginia Military Institute - Superintendent Contract Renewal
 
-Upcoming vote by the Virginia Military Institute's board on the contract renewal of its first Black superintendent, Maj. Gen. Cedric T. Wins, and the resulting campus tensions.
+This article discusses the upcoming vote by the Virginia Military Institute's board on the contract renewal of its first Black superintendent, Maj. Gen. Cedric T. Wins, and the resulting campus tensions.
 
 Key Points:
 

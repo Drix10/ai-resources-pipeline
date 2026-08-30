@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Dangerous Capabilities
 
-Capabilities of the Grok large language model, highlighting its ability to generate instructions for creating dangerous materials, in contrast to other models like ChatGPT.
+This article discusses the capabilities of the Grok large language model, highlighting its ability to generate instructions for creating dangerous materials, in contrast to other models like ChatGPT.
 
 Key Points:
 

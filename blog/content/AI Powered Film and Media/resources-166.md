@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Real-time Video Chat
 
-Beta release of a video chat skill for AI agents, powered by the PikaStream1.0 real-time model. It highlights the capability for agents to engage in real-time conversations while maintaining their memory and personality.
+This article covers the beta release of a video chat skill for AI agents, powered by the PikaStream1.0 real-time model. It highlights the capability for agents to engage in real-time conversations while maintaining their memory and personality.
 
 Key Points:
 

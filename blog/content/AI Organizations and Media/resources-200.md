@@ -1,6 +1,6 @@
 ### 🤖 Audio Datasets - Data Preparation Challenges
 
-Common issues encountered during the preparation of audio datasets for ASR and TTS training. It highlights the prevalence of inaccurate labels in even "gold standard" datasets and their implications.
+This article discusses common issues encountered during the preparation of audio datasets for ASR and TTS training. It highlights the prevalence of inaccurate labels in even "gold standard" datasets and their implications.
 
 Key Points:
 

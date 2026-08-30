@@ -1,6 +1,6 @@
 ### ⚖️ Legal News - French Doctor Trial
 
-Trial of a French doctor accused of multiple counts of rape and sexual abuse.  The case involves a large number of alleged victims, primarily children who were his patients.
+This article summarizes the trial of a French doctor accused of multiple counts of rape and sexual abuse.  The case involves a large number of alleged victims, primarily children who were his patients.
 
 Key Points:
 

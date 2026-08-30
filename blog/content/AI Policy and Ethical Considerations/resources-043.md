@@ -1,6 +1,6 @@
 ### 🤖 Economics - US Tariffs and Recession Risk
 
-Potential economic consequences of proposed US tariffs, focusing on the risk of recession and job losses.
+This article discusses the potential economic consequences of proposed US tariffs, focusing on the risk of recession and job losses.
 
 Key Points:
 

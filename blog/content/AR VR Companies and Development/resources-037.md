@@ -1,6 +1,6 @@
 ### 🤖 3D Scanning - A Career Journey
 
-Career path of a 3D scanning professional, showcasing the evolution from capturing historical sites to creating immersive XR experiences.
+This article details the career path of a 3D scanning professional, showcasing the evolution from capturing historical sites to creating immersive XR experiences.
 
 Key Points:
 

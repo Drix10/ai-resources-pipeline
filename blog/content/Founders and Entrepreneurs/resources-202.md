@@ -1,6 +1,6 @@
 ### 🤖 AI Authorship - Shifting Paradigms
 
-Question of authorship for AI-generated news content, referencing a 2005 study on participant perspectives. It notes how the rise of coding agents impacts these discussions today.
+This article examines the question of authorship for AI-generated news content, referencing a 2005 study on participant perspectives. It notes how the rise of coding agents impacts these discussions today.
 
 Key Points:
 

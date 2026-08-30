@@ -1,6 +1,6 @@
 ### ✨ Arc Boats - Five-Year Journey and Future Vision
 
-Journey of Arc Boats over the past five years, detailing its foundational belief and the significant progress made in marine innovation. It highlights the company's continuous commitment to enhancing the boating experience.
+This article outlines the journey of Arc Boats over the past five years, detailing its foundational belief and the significant progress made in marine innovation. It highlights the company's continuous commitment to enhancing the boating experience.
 
 Key Points:
 

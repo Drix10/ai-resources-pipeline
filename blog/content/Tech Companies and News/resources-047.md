@@ -1,6 +1,6 @@
 ### 🤖 Couchbase - Unified Data Workloads
 
-Couchbase's unified data platform, designed to handle various data workloads from a single, managed solution.  It highlights the platform's capabilities for transactional, analytical, mobile, and AI applications.
+This article discusses Couchbase's unified data platform, designed to handle various data workloads from a single, managed solution.  It highlights the platform's capabilities for transactional, analytical, mobile, and AI applications.
 
 
 Key Points:

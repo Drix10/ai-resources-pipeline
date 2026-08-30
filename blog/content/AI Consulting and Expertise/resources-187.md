@@ -1,6 +1,6 @@
 ### 🤖 AI Security - .env File Exposure
 
-Potential security vulnerability where AI models like Claude Code may access and log sensitive information from .env files. It highlights the risk of exposing critical credentials such as API keys and database passwords to third-party servers.
+This article discusses a potential security vulnerability where AI models like Claude Code may access and log sensitive information from .env files. It highlights the risk of exposing critical credentials such as API keys and database passwords to third-party servers.
 
 Key Points:
 

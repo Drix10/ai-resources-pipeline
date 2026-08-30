@@ -1,6 +1,6 @@
 ### 🤖 AI Code Review - Airline Adoption
 
-Adoption of CodeAnt AI's code review and security platform by Akasa Air, one of India's fastest-growing airlines.  The platform helps improve the speed, safety, and scalability of software development.
+This article discusses the adoption of CodeAnt AI's code review and security platform by Akasa Air, one of India's fastest-growing airlines.  The platform helps improve the speed, safety, and scalability of software development.
 
 Key Points:
 

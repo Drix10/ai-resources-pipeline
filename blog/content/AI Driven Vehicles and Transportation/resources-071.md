@@ -1,6 +1,6 @@
 ### 🤖 Autonomy Markets - Week's Discussion
 
-Discussion on autonomy markets, covering Waymo's New York City expansion, a Waymo rider survey, potential Tesla regulatory challenges in Texas, and speculation about Meta's entry into the autonomous vehicle market.
+This article summarizes a discussion on autonomy markets, covering Waymo's New York City expansion, a Waymo rider survey, potential Tesla regulatory challenges in Texas, and speculation about Meta's entry into the autonomous vehicle market.
 
 
 Key Points:

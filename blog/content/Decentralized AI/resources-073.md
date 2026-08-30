@@ -1,6 +1,6 @@
 ### ✨ Voice of the Realm - Weekly Quest 7
 
-Seventh weekly quest for Voice of the Realm, outlining the challenge, submission guidelines, and prize structure.
+This article details the seventh weekly quest for Voice of the Realm, outlining the challenge, submission guidelines, and prize structure.
 
 Key Points:
 

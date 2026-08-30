@@ -1,6 +1,6 @@
 ### 🚀 BigCommerce - Algolia AI Search Integration
 
-Integration of Algolia's AI search functionality with BigCommerce, highlighting the observed improvements in conversion rates.
+This article details the integration of Algolia's AI search functionality with BigCommerce, highlighting the observed improvements in conversion rates.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Maritime Safety - Monterey Rescue Operation
 
-Recent maritime incident off the coast of Monterey, California, where a whale-watching vessel responded to a distress call. It covers the successful rescue of two fishermen whose boat had capsized.
+This article details a recent maritime incident off the coast of Monterey, California, where a whale-watching vessel responded to a distress call. It covers the successful rescue of two fishermen whose boat had capsized.
 
 Key Points:
 

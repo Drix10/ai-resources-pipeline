@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Chain-of-Thought Reasoning
 
-Research paper from Anthropic AI that challenges the common understanding of Chain-of-Thought (CoT) reasoning in Large Language Models (LLMs).  It suggests that LLMs may not utilize CoT for reasoning as previously believed.
+This article discusses a research paper from Anthropic AI that challenges the common understanding of Chain-of-Thought (CoT) reasoning in Large Language Models (LLMs).  It suggests that LLMs may not utilize CoT for reasoning as previously believed.
 
 Key Points:
 

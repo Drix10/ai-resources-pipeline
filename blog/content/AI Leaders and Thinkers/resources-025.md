@@ -1,6 +1,6 @@
 ### 🤖 OpenAI Operator Alternatives - CUA Starter Kit
 
-Building a cost-effective alternative to OpenAI Operator using CUA for automating enterprise workflows.  It provides links to relevant resources.
+This article discusses building a cost-effective alternative to OpenAI Operator using CUA for automating enterprise workflows.  It provides links to relevant resources.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Blockchain - Validator Expansion
 
-Expansion of the Tempo network's validator set, including the addition of major financial institutions. It also highlights the network's strategy towards achieving permissionless validation.
+This article discusses the expansion of the Tempo network's validator set, including the addition of major financial institutions. It also highlights the network's strategy towards achieving permissionless validation.
 
 Key Points:
 

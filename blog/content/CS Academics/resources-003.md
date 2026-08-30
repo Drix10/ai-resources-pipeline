@@ -1,6 +1,6 @@
 ### 🤖 Engineering Education - Importance of In-Person Interaction
 
-Importance of in-person interaction in engineering education at US universities, highlighting its impact on student engagement, motivation, and learning.  The value of hands-on labs is also emphasized.
+This article discusses the importance of in-person interaction in engineering education at US universities, highlighting its impact on student engagement, motivation, and learning.  The value of hands-on labs is also emphasized.
 
 Key Points:
 

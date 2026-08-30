@@ -1,6 +1,6 @@
 ### 🤖 AI Trends - Agentic AI and Compute Stack Evolution
 
-Insights from AMD CTO Mark Papermaster on the evolving AI landscape. It highlights the underestimation of agentic AI's impact and the resulting changes in the compute stack.
+This article discusses insights from AMD CTO Mark Papermaster on the evolving AI landscape. It highlights the underestimation of agentic AI's impact and the resulting changes in the compute stack.
 
 Key Points:
 

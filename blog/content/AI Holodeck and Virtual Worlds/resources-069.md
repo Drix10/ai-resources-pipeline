@@ -1,6 +1,6 @@
 ### 🚀 Video Editing - Cinematic Enhancements with Filmora
 
-To enhance raw video footage using Filmora's editing capabilities to achieve a cinematic look.  It highlights key features and their benefits.
+This article details how to enhance raw video footage using Filmora's editing capabilities to achieve a cinematic look.  It highlights key features and their benefits.
 
 Key Points:
 

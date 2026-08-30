@@ -1,6 +1,6 @@
 ### 🤖 AI Design - User-Assistant Paradigm Contamination
 
-Impact of the user-assistant paradigm on AI system design, noting its limitations and the need for alternative approaches.  It highlights the current focus on one-to-one human-AI interactions and the challenges in shifting this perspective.
+This article discusses the impact of the user-assistant paradigm on AI system design, noting its limitations and the need for alternative approaches.  It highlights the current focus on one-to-one human-AI interactions and the challenges in shifting this perspective.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### ⚠️ Climate Change - Antarctic Ice Loss
 
-Scientific study published in Nature regarding significant and ongoing ice loss in Antarctica, and its potential implications for a climate tipping point.
+This article summarizes a scientific study published in Nature regarding significant and ongoing ice loss in Antarctica, and its potential implications for a climate tipping point.
 
 Key Points:
 

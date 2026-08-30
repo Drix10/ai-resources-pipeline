@@ -1,6 +1,6 @@
 ### 🤖 Social Media - Political Discourse
 
-Several Twitter threads discussing political violence, the role of political figures in shaping public discourse, and instances of alleged antisemitism.
+This article examines several Twitter threads discussing political violence, the role of political figures in shaping public discourse, and instances of alleged antisemitism.
 
 Key Points:
 

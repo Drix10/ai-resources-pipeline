@@ -1,6 +1,6 @@
 ### ✨ Virtual Tourism - Black Myth: Wukong Location
 
-Real-world filming location of Huangmei Temple, featured in the video game Black Myth: Wukong,  identified as Xiaoxitian.  The article includes visual references.
+This article details the real-world filming location of Huangmei Temple, featured in the video game Black Myth: Wukong,  identified as Xiaoxitian.  The article includes visual references.
 
 Key Points:
 

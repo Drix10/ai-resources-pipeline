@@ -1,6 +1,6 @@
 ### 💡 Work-Life Balance - Avoiding Burnout
 
-Importance of maintaining a healthy work-life balance to prevent burnout and improve overall well-being.  It highlights the need for self-awareness and proactive measures to avoid overwork.
+This article discusses the importance of maintaining a healthy work-life balance to prevent burnout and improve overall well-being.  It highlights the need for self-awareness and proactive measures to avoid overwork.
 
 Key Points:
 

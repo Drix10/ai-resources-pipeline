@@ -1,6 +1,6 @@
 ### 🤖 Large Language Model Agents - Combining Models for Optimal Performance
 
-Benefits of combining different large language models (LLMs) to create more effective AI agents.  Specific models and their strengths are highlighted.
+This article discusses the benefits of combining different large language models (LLMs) to create more effective AI agents.  Specific models and their strengths are highlighted.
 
 Key Points:
 

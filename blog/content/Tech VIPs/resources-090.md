@@ -1,6 +1,6 @@
 ### ⚠️  Spanish Political Allegation -  Allegations against Sánchez's family
 
-Allegation regarding the family of Begoña Gómez, the wife of Spanish Prime Minister Pedro Sánchez.  The allegation involves the operation of a network of brothels and saunas across Spain.
+This article summarizes an allegation regarding the family of Begoña Gómez, the wife of Spanish Prime Minister Pedro Sánchez.  The allegation involves the operation of a network of brothels and saunas across Spain.
 
 Key Points:
 

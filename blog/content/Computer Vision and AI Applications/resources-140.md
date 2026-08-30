@@ -1,6 +1,6 @@
 ### 💡 Media Integrity - Fact-Checking Digital Content
 
-Instance where a German public broadcaster allegedly removed a segment containing false information related to Google Trends but maintained the narrative in text form online. It highlights challenges in maintaining journalistic integrity and ensuring public information accuracy, noting a persistent lack of correction.
+This article discusses an instance where a German public broadcaster allegedly removed a segment containing false information related to Google Trends but maintained the narrative in text form online. It highlights challenges in maintaining journalistic integrity and ensuring public information accuracy, noting a persistent lack of correction.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Social Unrest - Jerusalem Parking Incident
 
-Incident in Jerusalem where a parking ticket led to riots on Hanna Street. It describes the immediate aftermath, including property damage and injuries to law enforcement personnel.
+This article details an incident in Jerusalem where a parking ticket led to riots on Hanna Street. It describes the immediate aftermath, including property damage and injuries to law enforcement personnel.
 
 Key Points:
 

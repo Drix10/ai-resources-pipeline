@@ -1,6 +1,6 @@
 ### 🤖 Sandy Munro Visit - Machina Labs
 
-Visit from Sandy Munro to Machina Labs and the ensuing conversation.  The article includes images from the visit.
+This article summarizes a visit from Sandy Munro to Machina Labs and the ensuing conversation.  The article includes images from the visit.
 
 Key Points:
 

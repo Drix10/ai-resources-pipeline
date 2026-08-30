@@ -1,6 +1,6 @@
 ### 🤖 Gemini CLI Stats - Unexpected Performance
 
-Surprising performance statistics for the Gemini CLI, a free and open-source project.  It highlights the high usage and compares it to paid alternatives.
+This article summarizes surprising performance statistics for the Gemini CLI, a free and open-source project.  It highlights the high usage and compares it to paid alternatives.
 
 Key Points:
 

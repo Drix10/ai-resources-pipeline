@@ -1,6 +1,6 @@
 ### 🤖 AI and Relational Data - Enterprise Predictive Modeling
 
-Application of AI to relational data, focusing on enterprise predictive modeling and the benefits of minimizing data movement.  It highlights a specific implementation using Kumo inside Snowflake.
+This article discusses the application of AI to relational data, focusing on enterprise predictive modeling and the benefits of minimizing data movement.  It highlights a specific implementation using Kumo inside Snowflake.
 
 Key Points:
 

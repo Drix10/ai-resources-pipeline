@@ -1,6 +1,6 @@
 ### 🚀 AI Visibility Audit - CrowdReply for ChatGPT Presence
 
-Process for auditing a business's brand presence on ChatGPT. It details how to identify visibility gaps and implement automated fixes.
+This article outlines a process for auditing a business's brand presence on ChatGPT. It details how to identify visibility gaps and implement automated fixes.
 
 Key Points:
 

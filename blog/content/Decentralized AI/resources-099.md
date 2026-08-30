@@ -1,6 +1,6 @@
 ### 🤖 Decentralized Knowledge Graphs - AI's Future
 
-Importance of Decentralized Knowledge Graphs (DKGs) for ensuring the verifiability of AI inputs and preventing AI hallucinations and misinformation.  It highlights the role of DKGs in building trust in AI outputs.
+This article discusses the importance of Decentralized Knowledge Graphs (DKGs) for ensuring the verifiability of AI inputs and preventing AI hallucinations and misinformation.  It highlights the role of DKGs in building trust in AI outputs.
 
 
 Key Points:

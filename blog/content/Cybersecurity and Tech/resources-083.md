@@ -1,6 +1,6 @@
 ### ⚖️ International Relations - Criticism of Marco Rubio
 
-Twitter thread criticizing Marco Rubio's stance on an unspecified international issue, expressing support for Francesca Albanese instead.
+This article summarizes a Twitter thread criticizing Marco Rubio's stance on an unspecified international issue, expressing support for Francesca Albanese instead.
 
 Key Points:
 

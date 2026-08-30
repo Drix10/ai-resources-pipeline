@@ -1,6 +1,6 @@
 ### 💡 Urban Economics - Impact of Permitting Reform
 
-Significant economic and demographic impacts of reforming urban permitting processes in major U.S. cities. It highlights how reduced regulatory hurdles could lead to substantial increases in GDP and urban population.
+This article discusses the significant economic and demographic impacts of reforming urban permitting processes in major U.S. cities. It highlights how reduced regulatory hurdles could lead to substantial increases in GDP and urban population.
 
 Key Points:
 

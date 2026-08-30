@@ -1,6 +1,6 @@
 ### 🤖 Open Research - LLaDA and Data Efficiency
 
-Evolutionary path of open research projects like LLaDA and LaViDa. It highlights the significant impact of innovative strategies such as complementary masking on data efficiency within these ecosystems.
+This article discusses the evolutionary path of open research projects like LLaDA and LaViDa. It highlights the significant impact of innovative strategies such as complementary masking on data efficiency within these ecosystems.
 
 Key Points:
 

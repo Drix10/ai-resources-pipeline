@@ -1,6 +1,6 @@
 ### 🤖 Academic Commentary - Anti-Semitism and the Joint Task Force
 
-Concerns raised by a PhD neuroscientist regarding the Joint Task Force to Combat "anti-Semitism," its actions, and its historical context.  The author expresses distress over the perceived implications of the task force's activities.
+This article discusses concerns raised by a PhD neuroscientist regarding the Joint Task Force to Combat "anti-Semitism," its actions, and its historical context.  The author expresses distress over the perceived implications of the task force's activities.
 
 Key Points:
 

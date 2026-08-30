@@ -1,6 +1,6 @@
 ### 🤖 Civil Engineering - Chenab Bridge Construction
 
-Contributions of Prof. Madhavi Latha's team to the construction of the Chenab Bridge, focusing on slope stability, foundation design, and slope stabilization systems.
+This article discusses the contributions of Prof. Madhavi Latha's team to the construction of the Chenab Bridge, focusing on slope stability, foundation design, and slope stabilization systems.
 
 Key Points:
 

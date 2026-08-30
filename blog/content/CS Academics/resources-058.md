@@ -1,6 +1,6 @@
 ### 🤖 Writing ML Papers - A Guide
 
-Guide on writing high-quality machine learning research papers with scientific integrity.  The guide aims to clarify the often opaque process of transforming research into a publishable paper.
+This article summarizes a guide on writing high-quality machine learning research papers with scientific integrity.  The guide aims to clarify the often opaque process of transforming research into a publishable paper.
 
 Key Points:
 

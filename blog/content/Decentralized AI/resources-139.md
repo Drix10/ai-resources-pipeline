@@ -1,6 +1,6 @@
 ### 💡 Political Ethics - Accountability in Public Service
 
-Ethical imperative for public officials to advocate for vulnerable populations, specifically addressing issues of child protection. It highlights the importance of unwavering commitment to core principles in political roles.
+This article discusses the ethical imperative for public officials to advocate for vulnerable populations, specifically addressing issues of child protection. It highlights the importance of unwavering commitment to core principles in political roles.
 
 Key Points:
 

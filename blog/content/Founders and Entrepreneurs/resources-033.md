@@ -1,6 +1,6 @@
 ### 🌍 Travel - Nigerian Flag Across Continents
 
-Personal account of a challenging journey, aiming to plant the Nigerian flag on seven continents.  The author expresses gratitude for support received throughout the endeavor.
+This article summarizes a personal account of a challenging journey, aiming to plant the Nigerian flag on seven continents.  The author expresses gratitude for support received throughout the endeavor.
 
 Key Points:
 

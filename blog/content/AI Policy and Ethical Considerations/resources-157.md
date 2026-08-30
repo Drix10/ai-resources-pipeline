@@ -1,6 +1,6 @@
 ### 🤖 Asset Tokenisation - India's Bill 2026
 
-India's proposed Asset Tokenisation Bill 2026. It highlights the regulatory framework being established for the tokenization of assets within the country.
+This article discusses India's proposed Asset Tokenisation Bill 2026. It highlights the regulatory framework being established for the tokenization of assets within the country.
 
 Key Points:
 

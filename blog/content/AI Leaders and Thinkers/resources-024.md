@@ -1,6 +1,6 @@
 ### 🤖 Reinforcement Learning - Sudoku Solving with 7B Parameter Model
 
-Successful application of reinforcement learning to solve Sudoku puzzles using a 7B parameter model without any initial training data.  The experiment demonstrates the model's ability to learn and achieve high rewards.
+This article discusses the successful application of reinforcement learning to solve Sudoku puzzles using a 7B parameter model without any initial training data.  The experiment demonstrates the model's ability to learn and achieve high rewards.
 
 Key Points:
 

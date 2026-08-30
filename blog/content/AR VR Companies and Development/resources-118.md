@@ -1,6 +1,6 @@
 ### ✨ VR Gaming - RUINSMAGUS Bundle Offer
 
-Inclusion of RUINSMAGUS in the "Build Your Own HyperVR Bundle" on Fanatical, providing an opportunity for PCVR enthusiasts to expand their game collections.
+This article details the inclusion of RUINSMAGUS in the "Build Your Own HyperVR Bundle" on Fanatical, providing an opportunity for PCVR enthusiasts to expand their game collections.
 
 Key Points:
 

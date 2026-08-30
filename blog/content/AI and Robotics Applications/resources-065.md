@@ -1,6 +1,6 @@
 ### 🤖 Robotics Training - Teleoperation and RL
 
-Robotics training approach combining teleoperation and reinforcement learning (RL), followed by human demonstration and LLM integration for higher-level task learning.
+This article discusses a robotics training approach combining teleoperation and reinforcement learning (RL), followed by human demonstration and LLM integration for higher-level task learning.
 
 Key Points:
 

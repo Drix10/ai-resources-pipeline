@@ -1,6 +1,6 @@
 ### 🤖 Affective State Recognition - Wearable Physiological Data
 
-Application of transformer models for recognizing affective states from physiological data collected via wearable devices. It focuses on the methodology within everyday contexts.
+This article discusses the application of transformer models for recognizing affective states from physiological data collected via wearable devices. It focuses on the methodology within everyday contexts.
 
 Key Points:
 

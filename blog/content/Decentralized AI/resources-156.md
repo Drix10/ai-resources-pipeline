@@ -1,6 +1,6 @@
 ### 🤖 Confidential Transactions - Enhanced Privacy
 
-Benefits of confidential transfers on blockchain networks. It highlights how these transfers maintain privacy while ensuring on-chain verification.
+This article discusses the benefits of confidential transfers on blockchain networks. It highlights how these transfers maintain privacy while ensuring on-chain verification.
 
 Key Points:
 

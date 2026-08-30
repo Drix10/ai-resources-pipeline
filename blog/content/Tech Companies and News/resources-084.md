@@ -1,6 +1,6 @@
 ### 🤖 Security - Non-Human Identities
 
-Often-overlooked security aspect of managing non-human identities (NHIs) within organizations, similar to how human employee access is managed.  It highlights the need for increased scrutiny of these digital entities.
+This article discusses the often-overlooked security aspect of managing non-human identities (NHIs) within organizations, similar to how human employee access is managed.  It highlights the need for increased scrutiny of these digital entities.
 
 Key Points:
 

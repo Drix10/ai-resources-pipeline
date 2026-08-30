@@ -1,6 +1,6 @@
 ### 🤖 Contact Center Training - AI-Powered Roleplaying
 
-TELUS Digital's Agent Trainer, an AI-powered tool that uses lifelike simulations to reduce contact center employee onboarding and upskilling time.  The system leverages ElevenLabs' Conversational AI for realistic roleplaying scenarios.
+This article discusses TELUS Digital's Agent Trainer, an AI-powered tool that uses lifelike simulations to reduce contact center employee onboarding and upskilling time.  The system leverages ElevenLabs' Conversational AI for realistic roleplaying scenarios.
 
 
 Key Points:

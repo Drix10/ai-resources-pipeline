@@ -1,6 +1,6 @@
 ### 🤖 Ethereum - Pectra Upgrade
 
-Ethereum Pectra upgrade, detailing its impact on ETH sending, receiving, and staking.  It also notes the network-level changes introduced.
+This article summarizes the Ethereum Pectra upgrade, detailing its impact on ETH sending, receiving, and staking.  It also notes the network-level changes introduced.
 
 Key Points:
 

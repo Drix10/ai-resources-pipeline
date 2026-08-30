@@ -1,6 +1,6 @@
 ### 💡 Music Review - Sallow Moth LP
 
-New review for the upcoming Sallow Moth LP, detailing its release schedule and offering insights into the album.
+This article highlights a new review for the upcoming Sallow Moth LP, detailing its release schedule and offering insights into the album.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Machine Language - Future of Computing
 
-Potential of machine language to power future computing systems without operating systems, running applications on demand.  Early testing is underway.
+This article discusses the potential of machine language to power future computing systems without operating systems, running applications on demand.  Early testing is underway.
 
 Key Points:
 

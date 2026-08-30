@@ -1,6 +1,6 @@
 ### ✨ Descript - Feature Requests & Bug Reporting
 
-Descript actively seeks user feedback to enhance its platform. It provides a direct channel for users to submit feature requests and report bugs.
+This article outlines how Descript actively seeks user feedback to enhance its platform. It provides a direct channel for users to submit feature requests and report bugs.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🌎 Environmental Awareness - International Coastal Cleanup Day
 
-Importance of International Coastal Cleanup Day and the vital role of coastal resources in the Philippines.  It emphasizes individual responsibility in environmental protection.
+This article highlights the importance of International Coastal Cleanup Day and the vital role of coastal resources in the Philippines.  It emphasizes individual responsibility in environmental protection.
 
 Key Points:
 

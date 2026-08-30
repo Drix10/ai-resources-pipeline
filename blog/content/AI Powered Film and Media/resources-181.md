@@ -1,6 +1,6 @@
 ### 💡 Environmental Stewardship - Blackbuck Conservation at IIT Madras
 
-Importance of environmental stewardship, drawing attention to the increasing blackbuck population. It references the role of institutions like IIT Madras in contributing to India's conservation efforts.
+This article highlights the importance of environmental stewardship, drawing attention to the increasing blackbuck population. It references the role of institutions like IIT Madras in contributing to India's conservation efforts.
 
 Key Points:
 

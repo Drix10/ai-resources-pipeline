@@ -1,6 +1,6 @@
 ### 🌎 Geopolitics - Fuel Embargo Against US Forces
 
-Decision by Haltbakk Bunkers, a major Norwegian fuel company, to cease supplying fuel to US forces overseas.  The action is attributed to perceived mistreatment of Ukrainian President Zelenskyy.
+This article discusses the decision by Haltbakk Bunkers, a major Norwegian fuel company, to cease supplying fuel to US forces overseas.  The action is attributed to perceived mistreatment of Ukrainian President Zelenskyy.
 
 Key Points:
 

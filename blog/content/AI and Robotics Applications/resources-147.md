@@ -1,6 +1,6 @@
 ### 🤖 Robotic Deployment - Pune Airport
 
-Deployment of a MuksRobotic unit at Pune Airport, signifying an advancement in the automation of airport operations.
+This article discusses the deployment of a MuksRobotic unit at Pune Airport, signifying an advancement in the automation of airport operations.
 
 Key Points:
 

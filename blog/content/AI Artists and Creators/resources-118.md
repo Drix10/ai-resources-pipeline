@@ -1,6 +1,6 @@
 ### 🤖 Copyright Law - Karaoke Backing Tracks
 
-Complexities of copyright law concerning the creation and distribution of karaoke backing tracks.  The convoluted licensing process contributes to the often poor audio quality of commercially available tracks.
+This article discusses the complexities of copyright law concerning the creation and distribution of karaoke backing tracks.  The convoluted licensing process contributes to the often poor audio quality of commercially available tracks.
 
 Key Points:
 

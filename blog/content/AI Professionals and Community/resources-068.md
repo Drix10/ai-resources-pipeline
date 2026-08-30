@@ -1,6 +1,6 @@
 ### 🤖 Leadership - Elon Musk's Management Style
 
-Walter Isaacson's discussion on Elon Musk's management approach across his six billion-dollar companies: SpaceX, Tesla, X, xAI, Neuralink, and Boring Company.  It contrasts Musk's approach with the challenges faced by most founders managing a single company.
+This article summarizes Walter Isaacson's discussion on Elon Musk's management approach across his six billion-dollar companies: SpaceX, Tesla, X, xAI, Neuralink, and Boring Company.  It contrasts Musk's approach with the challenges faced by most founders managing a single company.
 
 Key Points:
 

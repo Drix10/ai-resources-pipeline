@@ -1,6 +1,6 @@
 ### ⚖️ US Politics - Trump Impeachments
 
-Articles of impeachment against former President Donald Trump.
+This article summarizes the articles of impeachment against former President Donald Trump.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ⚠️ Political Commentary - Trump and Epstein Files
 
-Online commentary regarding Donald Trump's response to renewed attention on the Epstein files.  The discussion centers on Trump's claims and the implications for the ongoing narrative.
+This article summarizes online commentary regarding Donald Trump's response to renewed attention on the Epstein files.  The discussion centers on Trump's claims and the implications for the ongoing narrative.
 
 Key Points:
 

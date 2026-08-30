@@ -1,6 +1,6 @@
 ### 🤖 Nvidia GPUs - Denial of Backdoors
 
-Nvidia's official statement denying the existence of kill switches, backdoors, or spyware in its GPUs.  The statement was published in response to speculation.
+This article summarizes Nvidia's official statement denying the existence of kill switches, backdoors, or spyware in its GPUs.  The statement was published in response to speculation.
 
 Key Points:
 

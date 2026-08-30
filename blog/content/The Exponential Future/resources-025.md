@@ -1,6 +1,6 @@
 ### 🤖 Multimodal LLMs - Gemini's Image Generation Capabilities
 
-Google's Gemini, a multimodal large language model (LLM) with direct image generation capabilities, contrasting it with previous LLMs that relied on separate image generation tools.  It highlights the advancements in AI image generation this represents.
+This article discusses Google's Gemini, a multimodal large language model (LLM) with direct image generation capabilities, contrasting it with previous LLMs that relied on separate image generation tools.  It highlights the advancements in AI image generation this represents.
 
 Key Points:
 

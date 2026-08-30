@@ -1,6 +1,6 @@
 ### 🤖 UN Summit Discussion - Misinformation
 
-Discussion on misinformation in the digital age at a United Nations summit in Geneva on July 11th, featuring Tomaz OT, founder of OriginTrail.  The discussion will likely highlight the roles of OriginTrail and Umanitek in addressing this issue.
+This article summarizes a discussion on misinformation in the digital age at a United Nations summit in Geneva on July 11th, featuring Tomaz OT, founder of OriginTrail.  The discussion will likely highlight the roles of OriginTrail and Umanitek in addressing this issue.
 
 
 Key Points:

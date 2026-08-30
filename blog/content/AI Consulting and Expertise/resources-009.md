@@ -1,6 +1,6 @@
 ### 🐳 Community Engagement - Walrus Mascot Naming Contest
 
-Community engagement initiative to name a new walrus mascot, outlining the contest rules and rewards.
+This article details a community engagement initiative to name a new walrus mascot, outlining the contest rules and rewards.
 
 Key Points:
 

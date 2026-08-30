@@ -1,6 +1,6 @@
 ### 🤖 AI Art Generation - Poetic Fashion Editorials
 
-Creative application of AI for generating detailed fashion editorial scenes. It explores the specific elements used in a textual prompt to achieve a desired aesthetic outcome.
+This article examines the creative application of AI for generating detailed fashion editorial scenes. It explores the specific elements used in a textual prompt to achieve a desired aesthetic outcome.
 
 Key Points:
 

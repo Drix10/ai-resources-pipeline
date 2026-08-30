@@ -1,6 +1,6 @@
 ### ✨ Social Media - Showcasing Value
 
-Importance of showcasing value on social media to attract attention and highlights a positive example.
+This article discusses the importance of showcasing value on social media to attract attention and highlights a positive example.
 
 Key Points:
 

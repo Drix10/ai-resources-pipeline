@@ -1,6 +1,6 @@
 ### ✨ Celebrity News - Name Change Filing
 
-Legal name change filing by Maddox Chivan Jolie-Pitt. It outlines the specific change from his hyphenated surname to "Jolie."
+This article details the legal name change filing by Maddox Chivan Jolie-Pitt. It outlines the specific change from his hyphenated surname to "Jolie."
 
 Key Points:
 

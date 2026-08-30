@@ -1,6 +1,6 @@
 ### 🤖 US Commercial Real Estate - Market Outlook Mid-2025
 
-The US commercial real estate market in the second half of 2025, highlighting the challenges and potential opportunities.
+This article provides a brief overview of the US commercial real estate market in the second half of 2025, highlighting the challenges and potential opportunities.
 
 Key Points:
 

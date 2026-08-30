@@ -1,6 +1,6 @@
 ### 🤖 Advanced Compilers - Self-Guided Course
 
-Self-guided online course CS 6120: Advanced Compilers, offered by Cornell University. It provides an opportunity for individuals to explore complex topics in compiler design and implementation at their own pace.
+This article outlines the self-guided online course CS 6120: Advanced Compilers, offered by Cornell University. It provides an opportunity for individuals to explore complex topics in compiler design and implementation at their own pace.
 
 Key Points:
 

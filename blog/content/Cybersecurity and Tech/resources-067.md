@@ -1,6 +1,6 @@
 ### ⚠️ Data Privacy - Meta AI Chat Discover Feed
 
-Potential privacy risks associated with the Meta AI app's Discover feed, highlighting instances where users unknowingly share private information.
+This article discusses the potential privacy risks associated with the Meta AI app's Discover feed, highlighting instances where users unknowingly share private information.
 
 Key Points:
 

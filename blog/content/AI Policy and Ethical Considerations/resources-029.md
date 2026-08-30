@@ -1,6 +1,6 @@
 ### 💡 Cognition - The Importance of Language
 
-Role of language in cognitive development, contrasting it with the impact of visual data.  It highlights the crucial role of language as sensory input for proper mental development.
+This article discusses the role of language in cognitive development, contrasting it with the impact of visual data.  It highlights the crucial role of language as sensory input for proper mental development.
 
 Key Points:
 

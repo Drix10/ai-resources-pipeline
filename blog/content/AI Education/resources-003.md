@@ -1,6 +1,6 @@
 ### 🤖 Origin of Life - A Cognitive Science Perspective
 
-Research paper proposing that the origin of life is not solely a chemistry problem but also, and primarily, a cognitive science problem.  The paper explores the intersection of chemistry and cognition in understanding life's beginnings.
+This article discusses a research paper proposing that the origin of life is not solely a chemistry problem but also, and primarily, a cognitive science problem.  The paper explores the intersection of chemistry and cognition in understanding life's beginnings.
 
 Key Points:
 

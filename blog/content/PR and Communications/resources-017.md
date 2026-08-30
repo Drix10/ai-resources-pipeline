@@ -1,6 +1,6 @@
 ### 🤖 Political Commentary - Rep. Harshbarger Town Hall
 
-Twitter thread discussing a town hall meeting featuring Rep. Harshbarger, focusing on her responses to questions about President Trump's pardons of January 6th rioters.
+This article summarizes a Twitter thread discussing a town hall meeting featuring Rep. Harshbarger, focusing on her responses to questions about President Trump's pardons of January 6th rioters.
 
 Key Points:
 

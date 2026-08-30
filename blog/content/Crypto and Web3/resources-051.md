@@ -1,6 +1,6 @@
 ### 🤖 Decentralized AI Ecosystem - Consensus 2025
 
-Discussion on the decentralized AI ecosystem at Consensus 2025 in Toronto, featuring leaders from various companies.  The event explored the current state and future direction of this developing field.
+This article summarizes a discussion on the decentralized AI ecosystem at Consensus 2025 in Toronto, featuring leaders from various companies.  The event explored the current state and future direction of this developing field.
 
 Key Points:
 

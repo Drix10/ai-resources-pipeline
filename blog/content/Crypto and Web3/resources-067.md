@@ -1,6 +1,6 @@
 ### 💡 Crypto Investing - Patience and Hodling
 
-Importance of patience and hodling in cryptocurrency investments, highlighting the long-term approach adopted by successful investors.
+This article discusses the importance of patience and hodling in cryptocurrency investments, highlighting the long-term approach adopted by successful investors.
 
 Key Points:
 

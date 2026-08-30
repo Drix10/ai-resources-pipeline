@@ -1,6 +1,6 @@
 ### 🤖 Neurology - rTMS for Post-Stroke Recovery
 
-New research on using repetitive transcranial magnetic stimulation (rTMS) combined with rehabilitation for patients recovering from stroke. It covers the clinical outcomes for language and swallowing dysfunction.
+This article discusses new research on using repetitive transcranial magnetic stimulation (rTMS) combined with rehabilitation for patients recovering from stroke. It covers the clinical outcomes for language and swallowing dysfunction.
 
 Key Points:
 

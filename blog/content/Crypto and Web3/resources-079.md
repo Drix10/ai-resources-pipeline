@@ -1,6 +1,6 @@
 ### 💡 Crypto Trading - Handling Incorrect Analyses
 
-Importance of accepting errors in cryptocurrency market analysis and the behavior of online trolls.  It also touches on the challenges of navigating social media in the crypto space.
+This article discusses the importance of accepting errors in cryptocurrency market analysis and the behavior of online trolls.  It also touches on the challenges of navigating social media in the crypto space.
 
 Key Points:
 

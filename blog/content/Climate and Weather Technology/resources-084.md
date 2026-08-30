@@ -1,6 +1,6 @@
 ### ☢️ International Relations - UK-France Nuclear Coordination
 
-Newly established agreement between the UK and France to coordinate their use of nuclear weapons in major conflicts.  The agreement covers the joint utilization of nuclear-armed submarines and fighter jets.
+This article details the newly established agreement between the UK and France to coordinate their use of nuclear weapons in major conflicts.  The agreement covers the joint utilization of nuclear-armed submarines and fighter jets.
 
 Key Points:
 

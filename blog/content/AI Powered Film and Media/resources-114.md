@@ -1,6 +1,6 @@
 ### 🏆 AI Art - Jury Selection
 
-Selection of "Apparitions of the Psychiatric Ward, My Grandmother’s Memories" by Ivon Tau as a winning entry in an AI art competition,  featuring commentary from juror Boris Eldagsen.
+This article discusses the selection of "Apparitions of the Psychiatric Ward, My Grandmother’s Memories" by Ivon Tau as a winning entry in an AI art competition,  featuring commentary from juror Boris Eldagsen.
 
 
 Key Points:

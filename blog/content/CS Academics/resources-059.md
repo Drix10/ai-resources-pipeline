@@ -1,6 +1,6 @@
 ### 🤖 AI Coding Agent - AlphaEvolve
 
-AlphaEvolve, an AI coding agent developed by Google DeepMind, designed to discover new algorithms for mathematical and computational problems.  It combines large language models with automated evaluators.
+This article discusses AlphaEvolve, an AI coding agent developed by Google DeepMind, designed to discover new algorithms for mathematical and computational problems.  It combines large language models with automated evaluators.
 
 Key Points:
 

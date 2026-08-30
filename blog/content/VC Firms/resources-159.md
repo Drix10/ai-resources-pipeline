@@ -1,6 +1,6 @@
 ### 🤖 Robotics - 3D Tissue Braiding for Manipulators
 
-Allonic's recent pre-seed funding round. It highlights the company's innovative 3D tissue braiding technology for creating robotic bodies, specifically manipulators like hands and grippers.
+This article discusses Allonic's recent pre-seed funding round. It highlights the company's innovative 3D tissue braiding technology for creating robotic bodies, specifically manipulators like hands and grippers.
 
 Key Points:
 

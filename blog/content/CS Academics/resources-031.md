@@ -1,6 +1,6 @@
 ### 🤖 Autonomous Driving - Tesla FSD vs. Chinese Competitors
 
-Comparison between Tesla's Full Self-Driving (FSD) system and autonomous driving systems from Chinese automakers, highlighting a claimed generational advantage for Tesla.
+This article discusses a comparison between Tesla's Full Self-Driving (FSD) system and autonomous driving systems from Chinese automakers, highlighting a claimed generational advantage for Tesla.
 
 Key Points:
 

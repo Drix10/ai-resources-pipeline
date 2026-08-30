@@ -1,6 +1,6 @@
 ### 🤖 Neuromarketing - Enobio System Launch
 
-Launch of an exposition featuring the Enobio EEG system, eye tracking technology, and other neuromarketing tools.  A related webinar is also referenced.
+This article discusses the launch of an exposition featuring the Enobio EEG system, eye tracking technology, and other neuromarketing tools.  A related webinar is also referenced.
 
 Key Points:
 

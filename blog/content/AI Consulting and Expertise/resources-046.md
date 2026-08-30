@@ -1,6 +1,6 @@
 ### 🤖 Team Optimization - Full Team Audit
 
-Full audit process designed to help teams reach their optimal performance.  The original post offers a link to the audit, but no further details are provided.
+This article discusses a full audit process designed to help teams reach their optimal performance.  The original post offers a link to the audit, but no further details are provided.
 
 Key Points:
 

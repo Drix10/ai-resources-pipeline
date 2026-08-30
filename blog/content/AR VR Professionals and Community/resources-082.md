@@ -1,6 +1,6 @@
 ### 🤖 PCVR - Vision Pro Audio Bug
 
-Reported audio bug in the ALVR application when using the Apple Vision Pro as a PCVR headset.  The issue involves audio dropout requiring application restart to resolve.
+This article discusses a reported audio bug in the ALVR application when using the Apple Vision Pro as a PCVR headset.  The issue involves audio dropout requiring application restart to resolve.
 
 Key Points:
 

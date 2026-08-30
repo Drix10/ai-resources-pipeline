@@ -1,6 +1,6 @@
 ### ✨ Pokémon GO - Unova Event
 
-Timed Research event in Pokémon GO, offering encounters with Snivy, Tepig, or Oshawott.  The event is tied to the Pokémon GO Tour: Unova.
+This article details a Timed Research event in Pokémon GO, offering encounters with Snivy, Tepig, or Oshawott.  The event is tied to the Pokémon GO Tour: Unova.
 
 Key Points:
 

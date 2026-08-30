@@ -1,6 +1,6 @@
 ### 🤖 Subsurface Imaging - Cosmo-SkyMed
 
-Application of Italy's COSMO-SkyMed satellite system for subsurface imaging, achieving depths of nearly two miles.  The technology's potential for archaeological applications is also explored.
+This article discusses the application of Italy's COSMO-SkyMed satellite system for subsurface imaging, achieving depths of nearly two miles.  The technology's potential for archaeological applications is also explored.
 
 Key Points:
 

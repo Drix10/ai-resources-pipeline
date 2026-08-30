@@ -1,6 +1,6 @@
 ### 🤖 Space Exploration - Human Health Challenges
 
-Recent Artemis 2 mission and the inherent physiological challenges humans face during deep space travel. It also references historical studies on the cardiovascular impacts on Apollo astronauts.
+This article discusses the recent Artemis 2 mission and the inherent physiological challenges humans face during deep space travel. It also references historical studies on the cardiovascular impacts on Apollo astronauts.
 
 Key Points:
 

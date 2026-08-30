@@ -1,6 +1,6 @@
 ### 🤖 AWS - Pre-signed S3 URLs
 
-Use of pre-signed URLs for secure file uploads and downloads in AWS applications.  Pre-signed URLs offer a time-limited, permission-scoped approach to managing access to S3 buckets.
+This article discusses the use of pre-signed URLs for secure file uploads and downloads in AWS applications.  Pre-signed URLs offer a time-limited, permission-scoped approach to managing access to S3 buckets.
 
 
 Key Points:

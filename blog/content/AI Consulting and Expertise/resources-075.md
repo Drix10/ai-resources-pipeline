@@ -1,6 +1,6 @@
 ### 🚀 Video Generation - Text-to-4K Video with SkyReels V2
 
-SkyReels V2, an open-source tool allowing users to generate high-quality 4K videos from text descriptions.  It's free to use and has no limitations on video length beyond 30 seconds.
+This article discusses SkyReels V2, an open-source tool allowing users to generate high-quality 4K videos from text descriptions.  It's free to use and has no limitations on video length beyond 30 seconds.
 
 
 Key Points:

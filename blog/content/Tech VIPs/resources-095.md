@@ -1,6 +1,6 @@
 ### 🚀 X Feature - Image to Video Conversion
 
-New feature on the X platform allowing users to quickly convert images into videos using the Grok AI tool.  The process and resulting video quality are highlighted.
+This article details a new feature on the X platform allowing users to quickly convert images into videos using the Grok AI tool.  The process and resulting video quality are highlighted.
 
 Key Points:
 

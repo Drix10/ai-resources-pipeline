@@ -1,6 +1,6 @@
 ### 💡 Political Discourse - National Unity
 
-Senator John Fetterman's perspective on American patriotism and national identity. It addresses concerns about the increasing partisanship affecting expressions of national pride and unity.
+This article discusses Senator John Fetterman's perspective on American patriotism and national identity. It addresses concerns about the increasing partisanship affecting expressions of national pride and unity.
 
 Key Points:
 

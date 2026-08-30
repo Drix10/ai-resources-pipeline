@@ -1,6 +1,6 @@
 ### 💡 Investment Trends - Market Performance Analysis
 
-Historical stock market performance over the last century, highlighting the frequency of significant gain years compared to down years. It provides a perspective on long-term market trends.
+This article examines historical stock market performance over the last century, highlighting the frequency of significant gain years compared to down years. It provides a perspective on long-term market trends.
 
 Key Points:
 

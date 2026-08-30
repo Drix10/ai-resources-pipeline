@@ -1,6 +1,6 @@
 ### 🤖 Jupyter Chat - Context Tracking and Branching
 
-Implementing context tracking and branching features within Jupyter Chat to improve conversation flow and summarization.  The user suggests a method for managing lengthy conversations by initiating new chats when nearing context limits and creating chat summaries as branches.
+This article discusses implementing context tracking and branching features within Jupyter Chat to improve conversation flow and summarization.  The user suggests a method for managing lengthy conversations by initiating new chats when nearing context limits and creating chat summaries as branches.
 
 Key Points:
 

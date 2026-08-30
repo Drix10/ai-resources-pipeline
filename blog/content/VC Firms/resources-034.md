@@ -1,6 +1,6 @@
 ### 💡 Startup Advice - Board Formation and CEO Relationships
 
-Insights shared at a CEO Evening on building startup boards, fostering CEO-Chair relationships, and setting board expectations.
+This article summarizes insights shared at a CEO Evening on building startup boards, fostering CEO-Chair relationships, and setting board expectations.
 
 Key Points:
 

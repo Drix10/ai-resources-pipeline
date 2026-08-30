@@ -1,6 +1,6 @@
 ### 🗺️ Geography - Volcanic Nine
 
-Creation of a map highlighting nine significant volcanoes, including the Volcanic Seven Summits, Mauna Kea, and Mount Etna.  The rationale behind including Mauna Kea and Etna is also discussed.
+This article details the creation of a map highlighting nine significant volcanoes, including the Volcanic Seven Summits, Mauna Kea, and Mount Etna.  The rationale behind including Mauna Kea and Etna is also discussed.
 
 Key Points:
 

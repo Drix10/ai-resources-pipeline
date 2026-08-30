@@ -1,6 +1,6 @@
 ### 💡 Customer Journeys - Increased Complexity
 
-Increasing complexity of customer journeys due to cross-platform and device usage.  It highlights strategies for optimizing customer touchpoints.
+This article discusses the increasing complexity of customer journeys due to cross-platform and device usage.  It highlights strategies for optimizing customer touchpoints.
 
 Key Points:
 

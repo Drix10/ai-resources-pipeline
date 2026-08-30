@@ -1,6 +1,6 @@
 ### 🤖 US Politics - Proposed Legislation on Military Intervention
 
-Proposed bill in the US House of Representatives (H.R.1936) that would prohibit funding for military operations aimed at invading or seizing territory from Canada, Panama, or Greenland.  The article also includes commentary from social media users on the proposal.
+This article summarizes a proposed bill in the US House of Representatives (H.R.1936) that would prohibit funding for military operations aimed at invading or seizing territory from Canada, Panama, or Greenland.  The article also includes commentary from social media users on the proposal.
 
 Key Points:
 

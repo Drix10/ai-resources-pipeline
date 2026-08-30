@@ -1,6 +1,6 @@
 ### 🤖 Local AI - Avoiding Online Provider Risks
 
-Author's shift to running GPT OSS 20B locally using Ollama and Continue, motivated by negative experiences with online AI providers.  The author provides a video demonstrating this setup.
+This article discusses the author's shift to running GPT OSS 20B locally using Ollama and Continue, motivated by negative experiences with online AI providers.  The author provides a video demonstrating this setup.
 
 Key Points:
 

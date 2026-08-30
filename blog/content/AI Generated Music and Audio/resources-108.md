@@ -1,6 +1,6 @@
 ### ✨ Digital Identity - The Future of Self-Expression
 
-Evolving concept of digital identity, moving beyond avatars to encompass personal expression and representation.  It highlights a discussion on this topic featuring several key players in the space.
+This article discusses the evolving concept of digital identity, moving beyond avatars to encompass personal expression and representation.  It highlights a discussion on this topic featuring several key players in the space.
 
 Key Points:
 

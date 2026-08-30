@@ -1,6 +1,6 @@
 ### ✍️ Political Commentary -  Mehdi Hasan and the "Woke Army"
 
-Journalist's claim regarding Mehdi Hasan's alleged role in a network described as aiming to undermine Western values.  The claim is presented without verification or further context.
+This article summarizes a journalist's claim regarding Mehdi Hasan's alleged role in a network described as aiming to undermine Western values.  The claim is presented without verification or further context.
 
 Key Points:
 

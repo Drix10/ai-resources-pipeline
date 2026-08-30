@@ -1,6 +1,6 @@
 ### 🤖 India's Superpower Image - A Chief Minister's Perspective
 
-Statement by the Chief Minister of Assam, Himanta Biswa Sarma, questioning whether India's projected superpower status is reflected in its image for tourists and investors.
+This article summarizes a statement by the Chief Minister of Assam, Himanta Biswa Sarma, questioning whether India's projected superpower status is reflected in its image for tourists and investors.
 
 Key Points:
 

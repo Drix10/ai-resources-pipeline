@@ -1,6 +1,6 @@
 ### 🤖 Space Exploration - Vera C. Rubin Observatory First Images
 
-First images released by the Vera C. Rubin Observatory, showcasing its advanced capabilities for mapping the southern sky. It also acknowledges the significant contributions made by LLNL to the observatory's development.
+This article highlights the first images released by the Vera C. Rubin Observatory, showcasing its advanced capabilities for mapping the southern sky. It also acknowledges the significant contributions made by LLNL to the observatory's development.
 
 Key Points:
 

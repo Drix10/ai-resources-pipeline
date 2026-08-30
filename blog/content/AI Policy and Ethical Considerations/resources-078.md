@@ -1,6 +1,6 @@
 ### 💡 Language -  Alternative Terms for Changing One's Mind
 
-Preferred term "updating" within the East Bay AI/rationality community to describe changing one's mind, and compares it to alternative suggestions.
+This article explores the preferred term "updating" within the East Bay AI/rationality community to describe changing one's mind, and compares it to alternative suggestions.
 
 
 Key Points:

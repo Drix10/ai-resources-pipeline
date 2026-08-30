@@ -1,6 +1,6 @@
 ### 🚀 Google Translate - AI-Powered Live Translation
 
-New AI-powered live translation feature and language practice tool recently added to the Google Translate app.  The update is available for both iOS and Android devices.
+This article discusses the new AI-powered live translation feature and language practice tool recently added to the Google Translate app.  The update is available for both iOS and Android devices.
 
 Key Points:
 

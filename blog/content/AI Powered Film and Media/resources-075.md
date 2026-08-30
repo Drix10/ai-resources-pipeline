@@ -1,6 +1,6 @@
 ### 🤖 Video Model - Physically Accurate Lighting
 
-Video model's impressive realism, specifically highlighting the physically accurate response of lighting, haze, and glare to a changing camera angle.
+This article discusses a video model's impressive realism, specifically highlighting the physically accurate response of lighting, haze, and glare to a changing camera angle.
 
 Key Points:
 

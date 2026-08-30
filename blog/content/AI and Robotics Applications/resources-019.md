@@ -1,6 +1,6 @@
 ### 🤖 LLMs - Inference Bottleneck
 
-Growing bottleneck in Large Language Model (LLM) inference, focusing on the disparity between GPU computational power and memory capacity/bandwidth.
+This article discusses the growing bottleneck in Large Language Model (LLM) inference, focusing on the disparity between GPU computational power and memory capacity/bandwidth.
 
 Key Points:
 

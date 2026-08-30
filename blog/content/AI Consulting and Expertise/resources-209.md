@@ -1,6 +1,6 @@
 ### 🚀 AI Art Generation - Character Creation Workflow
 
-Workflow for creating and styling characters using a combination of advanced AI image generation tools. It demonstrates how different models can be leveraged for specific artistic outcomes.
+This article outlines a workflow for creating and styling characters using a combination of advanced AI image generation tools. It demonstrates how different models can be leveraged for specific artistic outcomes.
 
 Key Points:
 

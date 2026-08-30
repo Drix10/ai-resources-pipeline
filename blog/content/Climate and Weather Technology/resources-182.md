@@ -1,6 +1,6 @@
 ### 💡 Public Discourse - Accountability in Leadership
 
-General principles of public accountability. It highlights the importance of holding leaders responsible for their actions and decisions.
+This article discusses general principles of public accountability. It highlights the importance of holding leaders responsible for their actions and decisions.
 
 Key Points:
 

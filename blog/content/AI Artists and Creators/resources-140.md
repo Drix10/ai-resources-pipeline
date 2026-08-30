@@ -1,6 +1,6 @@
 ### 🤖 AI Art Generation - Narrative and Thematic Exploration
 
-Capabilities of AI in generating creative content, specifically focusing on narrative and horror themes. It demonstrates how advanced AI models can interpret educational resources to produce unique artistic outputs.
+This article explores the capabilities of AI in generating creative content, specifically focusing on narrative and horror themes. It demonstrates how advanced AI models can interpret educational resources to produce unique artistic outputs.
 
 Key Points:
 

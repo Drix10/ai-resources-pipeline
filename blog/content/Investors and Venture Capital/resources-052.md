@@ -1,6 +1,6 @@
 ### 🤖 Indian Beverage Market - Campa Cola's Competitive Positioning
 
-Campa Cola, an Indian soft drink, and its competitive strategy against established players Coca-Cola and Pepsi.  The analysis is based on anecdotal observations from a recent trip to India.
+This article discusses Campa Cola, an Indian soft drink, and its competitive strategy against established players Coca-Cola and Pepsi.  The analysis is based on anecdotal observations from a recent trip to India.
 
 Key Points:
 

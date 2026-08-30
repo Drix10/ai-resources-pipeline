@@ -1,6 +1,6 @@
 ### 🤖 Crude Oil Market - Iran Update: Futures & Physical Reversal
 
-Update on crude oil market dynamics, specifically highlighting the observed reversal in roles between crude futures and physical oil. It references a cross-barrel analyst brief offering further insights into these market shifts.
+This article provides an update on crude oil market dynamics, specifically highlighting the observed reversal in roles between crude futures and physical oil. It references a cross-barrel analyst brief offering further insights into these market shifts.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 SMS Scams - Limited Oversight
 
-Critical vulnerability in SMS scam detection:  only scams originating from specific services are effectively checked, leaving the vast majority unchecked.
+This article highlights a critical vulnerability in SMS scam detection:  only scams originating from specific services are effectively checked, leaving the vast majority unchecked.
 
 Key Points:
 

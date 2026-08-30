@@ -1,6 +1,6 @@
 ### 💡 Word Choice - Enhancing Sentence Impact
 
-Nuances of word choice, specifically focusing on synonyms for "joy" and "gloom" to illustrate how selecting the right word can significantly alter the impact of a sentence.
+This article explores the nuances of word choice, specifically focusing on synonyms for "joy" and "gloom" to illustrate how selecting the right word can significantly alter the impact of a sentence.
 
 Key Points:
 

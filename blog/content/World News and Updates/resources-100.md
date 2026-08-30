@@ -1,6 +1,6 @@
 ### 💡 Longevity - Daily Habits of Super Agers
 
-Daily habits identified in a study of "super agers" (individuals over 85 in good health), as shared by Dr. Eric Topol.  These habits contribute to longevity and overall well-being.
+This article summarizes daily habits identified in a study of "super agers" (individuals over 85 in good health), as shared by Dr. Eric Topol.  These habits contribute to longevity and overall well-being.
 
 Key Points:
 

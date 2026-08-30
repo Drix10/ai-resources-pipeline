@@ -1,6 +1,6 @@
 ### 🤖 AWS Immersion Day - Kong Konnect and AI in APIs
 
-AWS Immersion Day event in Nashville, focusing on Kong Konnect on AWS and the transformative role of AI in APIs.  The event includes a deep dive into Kong Konnect and explores the impact of AI on API development.
+This article details an AWS Immersion Day event in Nashville, focusing on Kong Konnect on AWS and the transformative role of AI in APIs.  The event includes a deep dive into Kong Konnect and explores the impact of AI on API development.
 
 Key Points:
 

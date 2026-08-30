@@ -1,6 +1,6 @@
 ### 🤖 Lithography - Chinese Advancement in EUV Technology
 
-Advancements in Extreme Ultraviolet (EUV) lithography technology by Chinese companies, specifically focusing on Laser-Induced Discharge Plasma (LDP) technology and its implications for the industry.
+This article discusses the advancements in Extreme Ultraviolet (EUV) lithography technology by Chinese companies, specifically focusing on Laser-Induced Discharge Plasma (LDP) technology and its implications for the industry.
 
 
 Key Points:

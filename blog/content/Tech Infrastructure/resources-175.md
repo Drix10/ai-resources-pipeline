@@ -1,6 +1,6 @@
 ### 🤖 Realtime TTS 2.0 - Natural Language Steering
 
-Launch of Realtime TTS 2.0 from Inworld AI, now available on Cloudflare AI Gateway. It covers the capabilities for generating natural-sounding and steerable text-to-speech, along with new features and language support.
+This article details the launch of Realtime TTS 2.0 from Inworld AI, now available on Cloudflare AI Gateway. It covers the capabilities for generating natural-sounding and steerable text-to-speech, along with new features and language support.
 
 Key Points:
 

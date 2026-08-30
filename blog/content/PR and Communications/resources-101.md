@@ -1,6 +1,6 @@
 ### 🤝 Politics - California-Denmark Green Partnership
 
-Announcement of a new green technology and economic partnership between California and Denmark.  The partnership was initiated by Governor Gavin Newsom.
+This article summarizes the announcement of a new green technology and economic partnership between California and Denmark.  The partnership was initiated by Governor Gavin Newsom.
 
 
 Key Points:

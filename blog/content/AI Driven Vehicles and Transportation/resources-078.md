@@ -1,6 +1,6 @@
 ### 📈 Automotive - NIO June 2025 Delivery Update
 
-NIO Inc.'s June 2025 vehicle delivery report, highlighting the year-over-year increase and delivery breakdown.
+This article summarizes NIO Inc.'s June 2025 vehicle delivery report, highlighting the year-over-year increase and delivery breakdown.
 
 Key Points:
 

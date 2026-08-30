@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Customer Support
 
-Use of AI agents for customer support, focusing on a specific agent called 19pine and its benefits in reducing reliance on phone support.
+This article discusses the use of AI agents for customer support, focusing on a specific agent called 19pine and its benefits in reducing reliance on phone support.
 
 Key Points:
 

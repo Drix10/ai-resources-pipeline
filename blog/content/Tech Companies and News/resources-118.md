@@ -1,6 +1,6 @@
 ### 🤖 AI Video Generation - Service Expansion
 
-Expansion of AI video generation services by craftstory.ai developers. It covers the enhancement of AI-driven video creation capabilities and broader platform offerings.
+This article details the expansion of AI video generation services by craftstory.ai developers. It covers the enhancement of AI-driven video creation capabilities and broader platform offerings.
 
 Key Points:
 

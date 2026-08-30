@@ -1,6 +1,6 @@
 ### 🤖 Decentralized Science - Ecosystem Recognition
 
-Molecule's inclusion in the Crypto Valley Ecosystem Report, emphasizing the contributions of research teams and community funding to therapeutic programs.
+This article details Molecule's inclusion in the Crypto Valley Ecosystem Report, emphasizing the contributions of research teams and community funding to therapeutic programs.
 
 Key Points:
 

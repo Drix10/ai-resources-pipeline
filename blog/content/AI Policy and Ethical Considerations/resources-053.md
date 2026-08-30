@@ -1,6 +1,6 @@
 ### 🤖 AI Safety - State-of-the-Art Literature Review
 
-State-of-the-art literature review on AI safety evaluation, highlighting key findings and advancements in the field.  The review makes this knowledge accessible to a wider audience.
+This article summarizes a state-of-the-art literature review on AI safety evaluation, highlighting key findings and advancements in the field.  The review makes this knowledge accessible to a wider audience.
 
 
 Key Points:

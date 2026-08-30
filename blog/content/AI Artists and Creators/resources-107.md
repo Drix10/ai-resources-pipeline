@@ -1,6 +1,6 @@
 ### 🤖 Quantum Physics - Macroscopic Teleportation
 
-Research paper suggesting the achievement of macroscopic quantum teleportation and the unexpected patterns observed.  It briefly touches upon the implications of manipulating reality's source code.
+This article discusses a research paper suggesting the achievement of macroscopic quantum teleportation and the unexpected patterns observed.  It briefly touches upon the implications of manipulating reality's source code.
 
 Key Points:
 

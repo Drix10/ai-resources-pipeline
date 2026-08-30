@@ -1,6 +1,6 @@
 ### 🤖 India's Military Operation - Targeting Terrorists
 
-Indian Defence Minister Rajnath Singh's statement regarding a military operation, emphasizing the targeting of those responsible for civilian deaths.
+This article summarizes Indian Defence Minister Rajnath Singh's statement regarding a military operation, emphasizing the targeting of those responsible for civilian deaths.
 
 Key Points:
 

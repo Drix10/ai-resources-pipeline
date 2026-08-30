@@ -1,6 +1,6 @@
 ### 🌎 Geopolitics - The War in Ukraine
 
-Recent events in the ongoing conflict in Ukraine, highlighting statements from Russia and the United States.  The focus is on the lack of a ceasefire and the ongoing violence.
+This article summarizes recent events in the ongoing conflict in Ukraine, highlighting statements from Russia and the United States.  The focus is on the lack of a ceasefire and the ongoing violence.
 
 Key Points:
 

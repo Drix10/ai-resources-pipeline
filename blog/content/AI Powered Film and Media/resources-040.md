@@ -1,6 +1,6 @@
 ### 💡 AI Policy - Job Displacement vs. Augmentation
 
-Misconception of AI replacing human jobs, arguing instead for an augmentation perspective.  It examines the impact of AI on situational awareness and potential policy implications.
+This article discusses the misconception of AI replacing human jobs, arguing instead for an augmentation perspective.  It examines the impact of AI on situational awareness and potential policy implications.
 
 Key Points:
 

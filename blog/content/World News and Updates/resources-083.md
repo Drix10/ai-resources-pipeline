@@ -1,6 +1,6 @@
 ### 🤖 Pakistan - FATF Concerns
 
-Call to action encouraging participation in a televised debate on Pakistan's alleged terror financing activities, as viewed by the Financial Action Task Force (FATF).
+This article summarizes a call to action encouraging participation in a televised debate on Pakistan's alleged terror financing activities, as viewed by the Financial Action Task Force (FATF).
 
 Key Points:
 

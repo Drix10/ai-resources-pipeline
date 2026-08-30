@@ -1,6 +1,6 @@
 ### 🤖 Technology - Wright's Law and Pandemic Threats
 
-Relevance of Wright's Law in the context of pandemic preparedness and response.  It highlights the importance of key technologies for mitigating future pandemic threats.
+This article discusses the relevance of Wright's Law in the context of pandemic preparedness and response.  It highlights the importance of key technologies for mitigating future pandemic threats.
 
 Key Points:
 

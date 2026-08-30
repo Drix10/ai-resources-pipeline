@@ -1,6 +1,6 @@
 ### 🏀 NBA - Utah Jazz Player Performance Projections
 
-Potential performance increase for certain Utah Jazz players due to the absence of several key players in a game against the Washington Wizards.
+This article discusses the potential performance increase for certain Utah Jazz players due to the absence of several key players in a game against the Washington Wizards.
 
 Key Points:
 

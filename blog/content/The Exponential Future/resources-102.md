@@ -1,6 +1,6 @@
 ### 💡 Founder Mode - Listening to Your Inner Voice
 
-Brian Chesky's perspective on founder mode, highlighting the importance of listening to one's intuition.  It emphasizes the distinction between a founder's approach and that of a manager.
+This article discusses Brian Chesky's perspective on founder mode, highlighting the importance of listening to one's intuition.  It emphasizes the distinction between a founder's approach and that of a manager.
 
 Key Points:
 

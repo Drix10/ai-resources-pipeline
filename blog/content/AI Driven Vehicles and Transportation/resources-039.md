@@ -1,6 +1,6 @@
 ### 🤖 Automotive Safety - PAEB and Phantom Braking
 
-Upcoming Ask the Experts session focusing on phantom braking in relation to Automatic Emergency Braking (AEB) and Predictive AEB (PAEB) systems.  Registration details are provided.
+This article discusses an upcoming Ask the Experts session focusing on phantom braking in relation to Automatic Emergency Braking (AEB) and Predictive AEB (PAEB) systems.  Registration details are provided.
 
 Key Points:
 

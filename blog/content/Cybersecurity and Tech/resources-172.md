@@ -1,6 +1,6 @@
 ### 🤖 Malware Analysis - Kernel Driver Keyloggers
 
-Detection and analysis of a kernel driver keylogger, highlighting its presence on a malware analysis platform. It provides insights into advanced persistent threats using such techniques.
+This article discusses the detection and analysis of a kernel driver keylogger, highlighting its presence on a malware analysis platform. It provides insights into advanced persistent threats using such techniques.
 
 Key Points:
 

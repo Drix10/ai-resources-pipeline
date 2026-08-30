@@ -1,6 +1,6 @@
 ### ✨ NBA Player Highlight - Shai Gilgeous-Alexander's Smooth Play
 
-Shai Gilgeous-Alexander's exceptional on-court performance. It highlights his distinctive playing style, characterized by fluidity and skill.
+This article focuses on Shai Gilgeous-Alexander's exceptional on-court performance. It highlights his distinctive playing style, characterized by fluidity and skill.
 
 Key Points:
 

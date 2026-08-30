@@ -1,6 +1,6 @@
 ### 💡 Work-Life Balance - Founder Burnout
 
-Importance of work-life balance for founders and the risks of burnout.  It emphasizes the need for regular breaks and downtime to maintain productivity and well-being.
+This article discusses the importance of work-life balance for founders and the risks of burnout.  It emphasizes the need for regular breaks and downtime to maintain productivity and well-being.
 
 Key Points:
 

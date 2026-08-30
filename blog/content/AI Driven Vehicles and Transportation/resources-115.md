@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - LoRA Fine-tuning Comparison
 
-Comparative performance of LoRA against full fine-tuning methods for large language models. It presents experimental results and offers recommendations for effective LoRA implementation.
+This article explores the comparative performance of LoRA against full fine-tuning methods for large language models. It presents experimental results and offers recommendations for effective LoRA implementation.
 
 Key Points:
 

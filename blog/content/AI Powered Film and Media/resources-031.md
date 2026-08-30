@@ -1,6 +1,6 @@
 ### 💡 Japan - Water-Saving Toilets
 
-Unique feature of Japanese toilets:  their integrated handwashing sinks that reuse water for flushing, contributing to water conservation.
+This article discusses a unique feature of Japanese toilets:  their integrated handwashing sinks that reuse water for flushing, contributing to water conservation.
 
 Key Points:
 

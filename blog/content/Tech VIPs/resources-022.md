@@ -1,6 +1,6 @@
 ### 💡 Social Impact - Homeless Shelter Success
 
-Successful homeless shelter model in San Jose, highlighting its community integration and low incident rate.
+This article discusses a successful homeless shelter model in San Jose, highlighting its community integration and low incident rate.
 
 Key Points:
 

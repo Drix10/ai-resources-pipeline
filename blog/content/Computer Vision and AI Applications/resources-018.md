@@ -1,6 +1,6 @@
 ### 🤖 WACV 2025 - Scene Text Editing and Rendering
 
-Poster presentation at WACV 2025 on a novel scene text editing and rendering framework.  The presentation details a new approach to this challenging problem.
+This article discusses a poster presentation at WACV 2025 on a novel scene text editing and rendering framework.  The presentation details a new approach to this challenging problem.
 
 Key Points:
 

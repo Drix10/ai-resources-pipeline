@@ -1,6 +1,6 @@
 ### 🚀 Storage - High Availability All-Flash Platform
 
-Supermicro's high-availability dual-node all-flash platform (SBB) featuring SupremeRAID™ HE, showcased at FMS 2025.  The platform is GPU-accelerated and designed for AI workloads.
+This article discusses Supermicro's high-availability dual-node all-flash platform (SBB) featuring SupremeRAID™ HE, showcased at FMS 2025.  The platform is GPU-accelerated and designed for AI workloads.
 
 Key Points:
 

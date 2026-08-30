@@ -1,6 +1,6 @@
 ### 💡 Political Sentiment - Democratic Base Discontent
 
-Twitter thread expressing concern over declining support for Senator Chuck Schumer among the Democratic base, citing polling data and suggesting a need for improved outreach.
+This article summarizes a Twitter thread expressing concern over declining support for Senator Chuck Schumer among the Democratic base, citing polling data and suggesting a need for improved outreach.
 
 Key Points:
 

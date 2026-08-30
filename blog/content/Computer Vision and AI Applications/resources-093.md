@@ -1,6 +1,6 @@
 ### 🤖 Vision Model Evaluation - Language Bias Detection
 
-Use of Large Language Models (LLMs) for evaluating vision models and detecting language biases within them.  It highlights the need for dedicated methods to assess non-language capabilities like spatial understanding.
+This article discusses the use of Large Language Models (LLMs) for evaluating vision models and detecting language biases within them.  It highlights the need for dedicated methods to assess non-language capabilities like spatial understanding.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 3D Scanning and Modeling - Custom Scooter Protection
 
-User case demonstrating the practical application of 3D scanning and modeling for creating a custom protective cover for a scooter.  The process involved scanning the scooter deck and then designing and producing a protective cover using CAD software.
+This article details a user case demonstrating the practical application of 3D scanning and modeling for creating a custom protective cover for a scooter.  The process involved scanning the scooter deck and then designing and producing a protective cover using CAD software.
 
 Key Points:
 

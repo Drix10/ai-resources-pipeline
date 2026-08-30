@@ -1,6 +1,6 @@
 ### 🤖 AI Models - Claude 3.7 Sonnet
 
-Anthropic's Claude 3.7 Sonnet, a hybrid reasoning AI model designed for enhanced problem-solving capabilities.  The model combines fast responses with in-depth reflective thinking.
+This article discusses Anthropic's Claude 3.7 Sonnet, a hybrid reasoning AI model designed for enhanced problem-solving capabilities.  The model combines fast responses with in-depth reflective thinking.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Military Strategy - Assessing Combat Effectiveness
 
-Contrasting views on the combat effectiveness of NATO and Ukraine, referencing historical parallels in civilian morale during wartime bombing campaigns.
+This article examines contrasting views on the combat effectiveness of NATO and Ukraine, referencing historical parallels in civilian morale during wartime bombing campaigns.
 
 Key Points:
 

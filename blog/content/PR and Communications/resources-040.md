@@ -1,6 +1,6 @@
 ### 📽️  Security Footage - Nova Music Festival Hostage Situation
 
-Release of security camera footage from the Nova music festival, showing Segev Kalfon who has been held hostage for 545 days.  The footage highlights the events leading to his abduction.
+This article summarizes the release of security camera footage from the Nova music festival, showing Segev Kalfon who has been held hostage for 545 days.  The footage highlights the events leading to his abduction.
 
 Key Points:
 

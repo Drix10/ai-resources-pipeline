@@ -1,6 +1,6 @@
 ### 🤖 Agent Workflows - Local Models at AGNTCon + MCPCon Europe
 
-Upcoming presentation focusing on local models and their application within agentic workflows. The session will take place at AGNTCon + MCPCon Europe this September.
+This article summarizes an upcoming presentation focusing on local models and their application within agentic workflows. The session will take place at AGNTCon + MCPCon Europe this September.
 
 Key Points:
 

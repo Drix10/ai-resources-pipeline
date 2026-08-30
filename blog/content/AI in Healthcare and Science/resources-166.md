@@ -1,6 +1,6 @@
 ### 💡 Sleep - Foundation for Longevity
 
-Scientific consensus on the critical role of sleep in promoting a long and healthy life. It emphasizes that adequate rest is a fundamental component of longevity, often overlooked in daily routines.
+This article discusses the scientific consensus on the critical role of sleep in promoting a long and healthy life. It emphasizes that adequate rest is a fundamental component of longevity, often overlooked in daily routines.
 
 Key Points:
 

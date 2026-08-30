@@ -1,6 +1,6 @@
 ### 🤖 AI Summit - Day 1 Programme
 
-Programme for Day 1 of the AE Global Summit, focusing on AI research breakthroughs and infrastructure.  It highlights keynotes and presentations from leading UK experts and organizations.
+This article summarizes the programme for Day 1 of the AE Global Summit, focusing on AI research breakthroughs and infrastructure.  It highlights keynotes and presentations from leading UK experts and organizations.
 
 Key Points:
 

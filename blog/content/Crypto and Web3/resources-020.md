@@ -1,6 +1,6 @@
 ### 🤖 Web3 Gaming - Insights for Web2 and Web3 Professionals
 
-Key insights from a session on building games in a post-Web2 world, targeting both Web2 and Web3 gaming professionals.  It highlights the opportunities and challenges of transitioning to a Web3 gaming environment.
+This article summarizes key insights from a session on building games in a post-Web2 world, targeting both Web2 and Web3 gaming professionals.  It highlights the opportunities and challenges of transitioning to a Web3 gaming environment.
 
 Key Points:
 

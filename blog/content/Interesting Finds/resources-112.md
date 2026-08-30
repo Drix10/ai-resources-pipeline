@@ -1,6 +1,6 @@
 ### 💡 Healthcare - Quality vs. Metrics
 
-Concerns regarding healthcare systems prioritizing meeting targets over ensuring quality patient care and the potential elitism in medical decision-making.
+This article discusses concerns regarding healthcare systems prioritizing meeting targets over ensuring quality patient care and the potential elitism in medical decision-making.
 
 Key Points:
 

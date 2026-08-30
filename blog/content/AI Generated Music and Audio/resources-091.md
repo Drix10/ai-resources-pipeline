@@ -1,6 +1,6 @@
 ### 🤖 ITSM Transformation - AI-Driven Automation
 
-Use of an Autonomics platform to transform IT Service Management (ITSM) through AI-driven, end-to-end automation across IT systems.  A presentation on this topic will be given at the CIO 100 Symposium & Awards.
+This article discusses the use of an Autonomics platform to transform IT Service Management (ITSM) through AI-driven, end-to-end automation across IT systems.  A presentation on this topic will be given at the CIO 100 Symposium & Awards.
 
 Key Points:
 

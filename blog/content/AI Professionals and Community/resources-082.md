@@ -1,6 +1,6 @@
 ### 🤖 Neuroscience - Neural Encoding of Decision Variables
 
-Research paper exploring how decision variables are encoded in the brain.  It builds upon previous work showing the relationship between neural tuning curves and perceptual variable embedding.
+This article discusses a research paper exploring how decision variables are encoded in the brain.  It builds upon previous work showing the relationship between neural tuning curves and perceptual variable embedding.
 
 Key Points:
 

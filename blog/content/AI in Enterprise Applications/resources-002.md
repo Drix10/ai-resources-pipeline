@@ -1,6 +1,6 @@
 ### 🚀 AdTech - Lately AI's Recognition
 
-Lately AI's selection as a top AI-powered ad tech platform by PwC, highlighting its inclusion in the Scale AdTech Programme Cohort.  It also mentions other recognitions from various sources.
+This article discusses Lately AI's selection as a top AI-powered ad tech platform by PwC, highlighting its inclusion in the Scale AdTech Programme Cohort.  It also mentions other recognitions from various sources.
 
 Key Points:
 

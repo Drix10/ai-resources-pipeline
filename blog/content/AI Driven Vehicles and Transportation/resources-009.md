@@ -1,6 +1,6 @@
 ### 🤖 Autonomous Driving - Comma AI Rivian Update
 
-Recent update to the Comma AI driver assistance system for the Rivian R1T, highlighting improvements in performance and addressing previously reported issues.
+This article discusses a recent update to the Comma AI driver assistance system for the Rivian R1T, highlighting improvements in performance and addressing previously reported issues.
 
 Key Points:
 

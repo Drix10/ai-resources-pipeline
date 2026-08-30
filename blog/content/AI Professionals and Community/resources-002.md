@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Grok 3 Physics Capabilities
 
-Capabilities of Grok 3, a large language model, in handling physics-related prompts, specifically focusing on its ability to generate a Python script for a complex physics simulation without advanced prompting techniques.
+This article explores the capabilities of Grok 3, a large language model, in handling physics-related prompts, specifically focusing on its ability to generate a Python script for a complex physics simulation without advanced prompting techniques.
 
 Key Points:
 

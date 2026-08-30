@@ -1,6 +1,6 @@
 ### 💡 Legal System - Juror Bribery Conviction
 
-Sentencing of an individual in Minnesota for their involvement in a conspiracy to bribe a juror during a fraud trial. It covers the nature of the bribery attempt and the resulting federal prison sentence.
+This article details the sentencing of an individual in Minnesota for their involvement in a conspiracy to bribe a juror during a fraud trial. It covers the nature of the bribery attempt and the resulting federal prison sentence.
 
 Key Points:
 

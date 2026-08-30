@@ -1,6 +1,6 @@
 ### 🚀 Gaming - PSVR2 Game Discount - System Critical 2
 
-Significant discount available for the game System Critical 2 on the PlayStation VR2 platform. It highlights the opportunity for users to acquire the title at a reduced price for a limited period.
+This article details a significant discount available for the game System Critical 2 on the PlayStation VR2 platform. It highlights the opportunity for users to acquire the title at a reduced price for a limited period.
 
 Key Points:
 

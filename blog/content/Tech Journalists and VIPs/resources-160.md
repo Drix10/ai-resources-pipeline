@@ -1,6 +1,6 @@
 ### 🚀 iMessage API - Conversational Infrastructure with Chert
 
-Chert's platform, which enables businesses to leverage iMessage for automated conversations via APIs, reaching customers directly. It details their infrastructure designed for B2C, customer experience, and sales teams.
+This article highlights Chert's platform, which enables businesses to leverage iMessage for automated conversations via APIs, reaching customers directly. It details their infrastructure designed for B2C, customer experience, and sales teams.
 
 Key Points:
 

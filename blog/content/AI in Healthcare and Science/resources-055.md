@@ -1,6 +1,6 @@
 ### 🤖 Healthcare - Mental Health Parity Regulations
 
-Current uncertainty surrounding mental health parity regulations following a Republican administration's decision to temporarily halt enforcement of recent rule changes.  The implications for healthcare providers and employers are examined.
+This article discusses the current uncertainty surrounding mental health parity regulations following a Republican administration's decision to temporarily halt enforcement of recent rule changes.  The implications for healthcare providers and employers are examined.
 
 
 Key Points:

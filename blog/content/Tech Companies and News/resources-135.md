@@ -1,6 +1,6 @@
 ### ✨ Framer Awards - 2025 Submission Window
 
-Information regarding the Framer Awards 2025, highlighting the upcoming submission deadline. It outlines the opportunity for designers and developers to showcase their projects.
+This article provides information regarding the Framer Awards 2025, highlighting the upcoming submission deadline. It outlines the opportunity for designers and developers to showcase their projects.
 
 Key Points:
 

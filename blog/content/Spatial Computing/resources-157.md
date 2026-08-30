@@ -1,6 +1,6 @@
 ### 💡 Internet History - Early Web Protests
 
-Early history of iPhone.com, which initially served as a protest against the exclusive nature of Voice over IP technology. It highlights the sentiment that internet telephony should be universally accessible, not limited to computer owners.
+This article explores the early history of iPhone.com, which initially served as a protest against the exclusive nature of Voice over IP technology. It highlights the sentiment that internet telephony should be universally accessible, not limited to computer owners.
 
 Key Points:
 

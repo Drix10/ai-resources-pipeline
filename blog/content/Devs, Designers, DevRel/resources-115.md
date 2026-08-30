@@ -1,6 +1,6 @@
 ### 🤖 Claude's Excel Capabilities - Spreadsheet Generation
 
-Advanced capabilities of Claude in handling Excel files, specifically its proficiency in generating new spreadsheets with formulas and formatting based on user prompts.
+This article details the advanced capabilities of Claude in handling Excel files, specifically its proficiency in generating new spreadsheets with formulas and formatting based on user prompts.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 World Models - Foundational Understanding
 
-Basic explanation of World Models in artificial intelligence. It covers how these models learn and interpret environmental dynamics.
+This article provides a basic explanation of World Models in artificial intelligence. It covers how these models learn and interpret environmental dynamics.
 
 Key Points:
 

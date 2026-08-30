@@ -1,6 +1,6 @@
 ### 💡 Legal Disputes - Inter-agency Communication Breakdown
 
-Breakdown in communication between two agencies that eventually contributed to legal action by the BCA, Hennepin County Attorney, and the state of Minnesota. It details the lawsuit filed to gain access to critical investigative materials.
+This article examines the breakdown in communication between two agencies that eventually contributed to legal action by the BCA, Hennepin County Attorney, and the state of Minnesota. It details the lawsuit filed to gain access to critical investigative materials.
 
 Key Points:
 

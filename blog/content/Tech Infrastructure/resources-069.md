@@ -1,6 +1,6 @@
 ### 💡 Israeli Strategic Misunderstanding - October 7th, 2023
 
-Significant shift in Israeli understanding of their adversaries following events on October 7th, 2023.  It highlights the impact this had on Israeli strategic planning.
+This article discusses a significant shift in Israeli understanding of their adversaries following events on October 7th, 2023.  It highlights the impact this had on Israeli strategic planning.
 
 Key Points:
 

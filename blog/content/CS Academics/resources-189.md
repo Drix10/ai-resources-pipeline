@@ -1,6 +1,6 @@
 ### 💡 NBA Game Recap - Detroit Pistons Victory
 
-Wednesday NBA game where the Detroit Pistons secured a victory. Key player performances and statistics from the matchup are highlighted.
+This article summarizes the Wednesday NBA game where the Detroit Pistons secured a victory. Key player performances and statistics from the matchup are highlighted.
 
 Key Points:
 

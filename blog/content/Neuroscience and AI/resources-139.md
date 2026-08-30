@@ -1,6 +1,6 @@
 ### 💡 Medical Research - Heart Failure & Drug Delivery
 
-Recent advancements in medical research, including a noninvasive MRI test for heart oxygenation and a novel oral drug delivery system. These innovations demonstrate potential for improving heart failure diagnosis and drug absorption.
+This article outlines recent advancements in medical research, including a noninvasive MRI test for heart oxygenation and a novel oral drug delivery system. These innovations demonstrate potential for improving heart failure diagnosis and drug absorption.
 
 Key Points:
 

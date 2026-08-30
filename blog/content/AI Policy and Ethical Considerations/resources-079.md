@@ -1,6 +1,6 @@
 ### 🤖 Semiconductor Manufacturing - China's Silicon Wafer Capacity
 
-Projections for China's silicon wafer production capacity from 2024 to 2027, based on a report from the CTEE cited institutional brokerage.  The data highlights expected growth in both 8-inch and 12-inch wafer production.
+This article discusses projections for China's silicon wafer production capacity from 2024 to 2027, based on a report from the CTEE cited institutional brokerage.  The data highlights expected growth in both 8-inch and 12-inch wafer production.
 
 
 Key Points:

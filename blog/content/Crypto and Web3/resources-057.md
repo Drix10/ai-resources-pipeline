@@ -1,6 +1,6 @@
 ### 🤖 Tokenomics - Market Cap Strategies
 
-Strategies for launching a token at a reasonable market capitalization, including the use of vested distribution and time-locked or price-locked mechanisms.
+This article discusses strategies for launching a token at a reasonable market capitalization, including the use of vested distribution and time-locked or price-locked mechanisms.
 
 Key Points:
 

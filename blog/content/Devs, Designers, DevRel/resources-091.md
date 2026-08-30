@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Handling Long Prompts
 
-Limitations of Large Language Models (LLMs) when processing long prompts and introduces a method to overcome these limitations.  The focus is on maintaining accuracy and efficiency with extended input.
+This article discusses the limitations of Large Language Models (LLMs) when processing long prompts and introduces a method to overcome these limitations.  The focus is on maintaining accuracy and efficiency with extended input.
 
 Key Points:
 

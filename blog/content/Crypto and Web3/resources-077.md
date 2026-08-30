@@ -1,6 +1,6 @@
 ### 💡 Coding Style - Understanding the "Vibe"
 
-Coding philosophy where understanding what code *isn't* doing is as crucial as understanding what it *is* doing.  This approach emphasizes a holistic understanding of the code's impact.
+This article discusses a coding philosophy where understanding what code *isn't* doing is as crucial as understanding what it *is* doing.  This approach emphasizes a holistic understanding of the code's impact.
 
 Key Points:
 

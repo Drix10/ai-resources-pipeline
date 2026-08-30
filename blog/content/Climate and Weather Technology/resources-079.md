@@ -1,6 +1,6 @@
 ### 🤖 Live TV Weather - Modern Requirements
 
-Simplified equipment and personnel needed for modern live TV weather reporting.  The reduction in required equipment compared to the past is highlighted.
+This article details the simplified equipment and personnel needed for modern live TV weather reporting.  The reduction in required equipment compared to the past is highlighted.
 
 Key Points:
 

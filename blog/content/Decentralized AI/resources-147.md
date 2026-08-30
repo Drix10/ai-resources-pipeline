@@ -1,6 +1,6 @@
 ### 🤖 DEEP Projects Lens - Decentralization and AI Safety
 
-Core thesis behind DEEP Projects, emphasizing the critical role of decentralization in building existential resilience against deception and chaos. It highlights the non-negotiable need for safety and evaluation infrastructure in the era of AI models and autonomous agents.
+This article outlines the core thesis behind DEEP Projects, emphasizing the critical role of decentralization in building existential resilience against deception and chaos. It highlights the non-negotiable need for safety and evaluation infrastructure in the era of AI models and autonomous agents.
 
 Key Points:
 

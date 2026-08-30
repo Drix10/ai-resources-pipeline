@@ -1,6 +1,6 @@
 ### 🚀 Letta AI - Telegram Integration
 
-New tutorial on connecting Letta AI agents to Telegram using Modal Labs' serverless platform, enabling persistent agent memory across devices.
+This article details a new tutorial on connecting Letta AI agents to Telegram using Modal Labs' serverless platform, enabling persistent agent memory across devices.
 
 Key Points:
 

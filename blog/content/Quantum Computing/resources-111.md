@@ -1,6 +1,6 @@
 ### 💣 Historical Artifacts - WWII Detonators in Ukraine
 
-Discovery of detonators bearing swastikas by Ukrainian forces, highlighting their origin in Soviet-Nazi collaboration.  The finding underscores the enduring legacy of historical alliances and the continued presence of WWII-era materials in conflict zones.
+This article discusses the discovery of detonators bearing swastikas by Ukrainian forces, highlighting their origin in Soviet-Nazi collaboration.  The finding underscores the enduring legacy of historical alliances and the continued presence of WWII-era materials in conflict zones.
 
 Key Points:
 

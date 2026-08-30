@@ -1,6 +1,6 @@
 ### 🚀 Tools - Paper2Poster: Automated Academic Poster Generation
 
-Paper2Poster, a benchmark for automated academic poster generation, and its capabilities.  It highlights the tool's ability to transform lengthy research papers into concise, visually appealing posters.
+This article discusses Paper2Poster, a benchmark for automated academic poster generation, and its capabilities.  It highlights the tool's ability to transform lengthy research papers into concise, visually appealing posters.
 
 Key Points:
 

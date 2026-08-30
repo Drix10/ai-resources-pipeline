@@ -1,6 +1,6 @@
 ### 💔 Social Commentary - The Fight Against Evil
 
-Twitter thread expressing outrage and despair at seemingly insurmountable societal evils, specifically referencing the suffering of victims in Israel.  The author calls for active resistance against what they perceive as a malevolent force.
+This article discusses a Twitter thread expressing outrage and despair at seemingly insurmountable societal evils, specifically referencing the suffering of victims in Israel.  The author calls for active resistance against what they perceive as a malevolent force.
 
 Key Points:
 

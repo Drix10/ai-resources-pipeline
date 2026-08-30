@@ -1,6 +1,6 @@
 ### 💡 Generational Shifts - Political Alignment
 
-Recent shift in political alignment among young people, specifically noting a move towards more conservative viewpoints.  Data points regarding Republican gains in specific demographics are presented.
+This article discusses a recent shift in political alignment among young people, specifically noting a move towards more conservative viewpoints.  Data points regarding Republican gains in specific demographics are presented.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Regulation - Proposed Exemption
 
-Proposed regulatory exemption that would have excluded certain groups from AI harm assessments.  The proposal aimed to reduce costs, not enhance consumer protection.
+This article discusses a proposed regulatory exemption that would have excluded certain groups from AI harm assessments.  The proposal aimed to reduce costs, not enhance consumer protection.
 
 Key Points:
 

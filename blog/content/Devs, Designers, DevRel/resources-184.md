@@ -1,6 +1,6 @@
 ### 🤖 Game Development - Retro FPS Project Update
 
-Recent game development update for a retro FPS project. It highlights ongoing tasks and issues identified by testers, focusing on elements like tentacles and teleporters within the Godot Engine.
+This article summarizes a recent game development update for a retro FPS project. It highlights ongoing tasks and issues identified by testers, focusing on elements like tentacles and teleporters within the Godot Engine.
 
 Key Points:
 

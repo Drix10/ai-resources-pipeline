@@ -1,6 +1,6 @@
 ### 🤖 Social Commentary - Gender Presentation and Misgendering
 
-Online commentary regarding individuals who dress in a way considered by some to be an exaggerated version of femininity, and the refusal to use female pronouns for them.
+This article discusses online commentary regarding individuals who dress in a way considered by some to be an exaggerated version of femininity, and the refusal to use female pronouns for them.
 
 Key Points:
 

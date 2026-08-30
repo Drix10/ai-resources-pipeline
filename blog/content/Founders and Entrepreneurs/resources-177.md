@@ -1,6 +1,6 @@
 ### 🚀 Video Editing - Code-Driven Approach with Remotion and Cursor
 
-Integration of Cursor's design mode with Remotion, a React-based video editing framework. It details how code-driven video creation allows for precise, annotated changes directly within the editor.
+This article explores the integration of Cursor's design mode with Remotion, a React-based video editing framework. It details how code-driven video creation allows for precise, annotated changes directly within the editor.
 
 Key Points:
 

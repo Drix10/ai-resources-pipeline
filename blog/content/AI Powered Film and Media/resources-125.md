@@ -1,6 +1,6 @@
 ### ✨ Higgsfield - Yearly Recap Feature
 
-Higgsfield yearly recap feature, providing insights into its functionality and user experience. It also includes information on how users can access their personalized year-in-review.
+This article discusses the Higgsfield yearly recap feature, providing insights into its functionality and user experience. It also includes information on how users can access their personalized year-in-review.
 
 Key Points:
 

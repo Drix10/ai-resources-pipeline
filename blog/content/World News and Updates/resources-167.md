@@ -1,6 +1,6 @@
 ### 🤖 International Relations - Trade Deal Impact
 
-President Trump's visit to China, where he announced a substantial trade agreement involving Boeing and General Electric. It covers the scope of the deal and the positive remarks exchanged between the two leaders.
+This article details President Trump's visit to China, where he announced a substantial trade agreement involving Boeing and General Electric. It covers the scope of the deal and the positive remarks exchanged between the two leaders.
 
 Key Points:
 

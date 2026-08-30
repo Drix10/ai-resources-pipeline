@@ -1,6 +1,6 @@
 ### ⚠️ Geopolitics - Russia's Threat to Europe
 
-Statement by Ukrainian President Zelenskyy regarding the perceived threat posed by the Russian military to Europe.  The statement was made during a security conference in Munich.
+This article summarizes a statement by Ukrainian President Zelenskyy regarding the perceived threat posed by the Russian military to Europe.  The statement was made during a security conference in Munich.
 
 Key Points:
 

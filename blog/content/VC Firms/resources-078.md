@@ -1,6 +1,6 @@
 ### 🤖 Spacecraft Design - Early Shuttle Concepts
 
-Striking similarities between early Space Shuttle proposals and SpaceX's Starship, highlighting a 1971 Grumman Aerospace and Boeing design.
+This article examines the striking similarities between early Space Shuttle proposals and SpaceX's Starship, highlighting a 1971 Grumman Aerospace and Boeing design.
 
 Key Points:
 

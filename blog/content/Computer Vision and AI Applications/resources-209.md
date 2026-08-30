@@ -1,6 +1,6 @@
 ### 🤖 AI and Coding - Skill Development
 
-Perspective that AI tools are not causing developers to forget how to code, but rather are changing how coding tasks are approached. It implies a shift in skill application and problem-solving methods.
+This article discusses the perspective that AI tools are not causing developers to forget how to code, but rather are changing how coding tasks are approached. It implies a shift in skill application and problem-solving methods.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics - Shifting Power Dynamics
 
-Shift from soft power to hard power, focusing on the relative security of supply chains and manufacturing versus software.
+This article discusses the shift from soft power to hard power, focusing on the relative security of supply chains and manufacturing versus software.
 
 Key Points:
 

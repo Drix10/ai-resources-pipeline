@@ -1,6 +1,6 @@
 ### 🤖 AI Compute - Emerging eDSLs
 
-Emergence of embedded domain-specific languages (eDSLs) like TritonLang and two others recently announced by Nvidia, highlighting their significance in democratizing AI compute.  The author's planned blog post was delayed due to commitments at GTC.
+This article discusses the emergence of embedded domain-specific languages (eDSLs) like TritonLang and two others recently announced by Nvidia, highlighting their significance in democratizing AI compute.  The author's planned blog post was delayed due to commitments at GTC.
 
 Key Points:
 

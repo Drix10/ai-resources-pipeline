@@ -1,6 +1,6 @@
 ### 🗣️ Social Media - Public Figure Response
 
-Public figure's response to criticism on social media.  The post includes links to the original tweets and related discussions.
+This article summarizes a public figure's response to criticism on social media.  The post includes links to the original tweets and related discussions.
 
 Key Points:
 

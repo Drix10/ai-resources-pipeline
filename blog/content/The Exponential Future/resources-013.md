@@ -1,6 +1,6 @@
 ### 🤖 AI Evaluation - GPT-4.5 Benchmarks
 
-Limitations of current AI evaluation benchmarks and suggests that focusing solely on coding and testing neglects critical thinking and ideation capabilities, particularly in GPT-4.5.
+This article discusses the limitations of current AI evaluation benchmarks and suggests that focusing solely on coding and testing neglects critical thinking and ideation capabilities, particularly in GPT-4.5.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Investing - Avoiding FOMO
 
-Dangers of Fear Of Missing Out (FOMO) in investment decisions and suggests strategies for mitigating its negative impact.
+This article discusses the dangers of Fear Of Missing Out (FOMO) in investment decisions and suggests strategies for mitigating its negative impact.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 General Observation - Research Sharing Trends
 
-Sentiment regarding the decreasing frequency of research findings being shared on social media platforms, contrasting it with past trends.
+This article discusses a sentiment regarding the decreasing frequency of research findings being shared on social media platforms, contrasting it with past trends.
 
 Key Points:
 

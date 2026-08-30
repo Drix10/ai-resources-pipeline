@@ -1,6 +1,6 @@
 ### 💡 Equity Market - Divergences and Underperformance
 
-Negative divergences observed in the equity market. It highlights a discrepancy where the S&P 500 shows strong performance while many individual stocks reach new 52-week lows. Historically, such conditions suggest potential shorter-term market underperformance.
+This article discusses negative divergences observed in the equity market. It highlights a discrepancy where the S&P 500 shows strong performance while many individual stocks reach new 52-week lows. Historically, such conditions suggest potential shorter-term market underperformance.
 
 Key Points:
 

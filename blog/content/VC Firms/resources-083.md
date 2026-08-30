@@ -1,6 +1,6 @@
 ### 🤖 Materials Science - Reentry Heatshield Testing
 
-Testing of a new heatshield material for spacecraft reentry, comparing Varda Space's in-house design with a design from NASA Ames.  The rapid flight cadence allows for quick validation.
+This article discusses the testing of a new heatshield material for spacecraft reentry, comparing Varda Space's in-house design with a design from NASA Ames.  The rapid flight cadence allows for quick validation.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics - US-China Trade Tensions
 
-Treasury Secretary Scott Bessent's assessment of the US-China trade conflict, characterizing China's retaliatory tariff threats as a weak strategic move.
+This article summarizes Treasury Secretary Scott Bessent's assessment of the US-China trade conflict, characterizing China's retaliatory tariff threats as a weak strategic move.
 
 Key Points:
 

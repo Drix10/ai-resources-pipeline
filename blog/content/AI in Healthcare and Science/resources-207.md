@@ -1,6 +1,6 @@
 ### 🤖 Synthetic Biology - Building a Minimal Cell
 
-Creation of a microscopic water droplet comprising essential biological components, representing a significant step towards constructing a living cell from foundational elements. It highlights the simplicity and complexity involved in this synthetic biology achievement.
+This article details the creation of a microscopic water droplet comprising essential biological components, representing a significant step towards constructing a living cell from foundational elements. It highlights the simplicity and complexity involved in this synthetic biology achievement.
 
 Key Points:
 

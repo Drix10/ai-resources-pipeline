@@ -1,6 +1,6 @@
 ### 🤖 AI Research Program - Future of AI and Institutions
 
-New research program focused on aligning AI development with the creation of a positive future for humanity.  The program aims to define the necessary elements for a beneficial AI future.
+This article discusses a new research program focused on aligning AI development with the creation of a positive future for humanity.  The program aims to define the necessary elements for a beneficial AI future.
 
 Key Points:
 

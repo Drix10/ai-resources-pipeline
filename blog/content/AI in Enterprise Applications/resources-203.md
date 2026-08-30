@@ -1,6 +1,6 @@
 ### 🤖 AI Systems - Deployment and Scaling
 
-Details on an upcoming technical event focused on deploying and scaling AI systems. It covers key practical topics relevant to builders in the AI industry.
+This article provides details on an upcoming technical event focused on deploying and scaling AI systems. It covers key practical topics relevant to builders in the AI industry.
 
 Key Points:
 

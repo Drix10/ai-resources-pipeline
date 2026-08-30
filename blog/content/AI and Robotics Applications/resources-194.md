@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Embodied Human Data for Foundation Models
 
-Key takeaways from the Robotics & World Models Reading Club 08, focusing on embodied human data. It explores the concept of utilizing this data as a foundational resource for robot foundation models.
+This article summarizes the key takeaways from the Robotics & World Models Reading Club 08, focusing on embodied human data. It explores the concept of utilizing this data as a foundational resource for robot foundation models.
 
 Key Points:
 

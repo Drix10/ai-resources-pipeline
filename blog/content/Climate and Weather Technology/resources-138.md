@@ -1,6 +1,6 @@
 ### 💡 Natural Phenomena - Aurora Borealis Observation
 
-Spectacular display of the Northern Lights over Wonder Lake in Alaska, USA. It provides insight into this natural phenomenon and its visual characteristics.
+This article highlights the spectacular display of the Northern Lights over Wonder Lake in Alaska, USA. It provides insight into this natural phenomenon and its visual characteristics.
 
 Key Points:
 

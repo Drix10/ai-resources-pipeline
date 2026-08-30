@@ -1,6 +1,6 @@
 ### 📰 News - Charlie Kirk Shooting Investigation
 
-Initial reports on the shooting of Charlie Kirk, focusing on the unrecovered weapon and potential implications.  The lack of a recovered weapon suggests premeditation.
+This article summarizes initial reports on the shooting of Charlie Kirk, focusing on the unrecovered weapon and potential implications.  The lack of a recovered weapon suggests premeditation.
 
 Key Points:
 

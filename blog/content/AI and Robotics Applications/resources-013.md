@@ -1,6 +1,6 @@
 ### 🤖 Robotics Data - Scaling Data Collection
 
-Challenges of scaling data collection for robotics foundation models, focusing on the limitations of teleoperation and the advantages of pre-training with world models and generative simulation.  The author shares a link to a blog post delving deeper into this topic.
+This article discusses the challenges of scaling data collection for robotics foundation models, focusing on the limitations of teleoperation and the advantages of pre-training with world models and generative simulation.  The author shares a link to a blog post delving deeper into this topic.
 
 Key Points:
 

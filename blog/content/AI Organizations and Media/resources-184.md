@@ -1,6 +1,6 @@
 ### 🤖 Future of Software Engineering - Generalist vs. Specialist Roles
 
-Panel discussion at DeepLearning.AI's AI Dev 26 cx SF on the future of software engineering. It addresses the evolving landscape of developer roles, specifically focusing on the shift between generalist and specialist approaches.
+This article summarizes a panel discussion at DeepLearning.AI's AI Dev 26 cx SF on the future of software engineering. It addresses the evolving landscape of developer roles, specifically focusing on the shift between generalist and specialist approaches.
 
 Key Points:
 

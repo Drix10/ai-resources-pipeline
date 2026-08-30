@@ -1,6 +1,6 @@
 ### 🤖 AI/ML Hardware - VRAM Requirements for CUDA
 
-Hardware specifications, specifically VRAM, needed for CUDA-optimized AI/ML applications. It highlights the challenges with lower-spec GPUs and recommends higher-end models for efficient processing.
+This article discusses the hardware specifications, specifically VRAM, needed for CUDA-optimized AI/ML applications. It highlights the challenges with lower-spec GPUs and recommends higher-end models for efficient processing.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Resume Builder - ATS Optimization
 
-To optimize resumes for Applicant Tracking Systems (ATS). It highlights a tool designed to provide immediate feedback on resume compatibility. The goal is to improve the chances of a resume being seen by hiring managers.
+This article discusses how to optimize resumes for Applicant Tracking Systems (ATS). It highlights a tool designed to provide immediate feedback on resume compatibility. The goal is to improve the chances of a resume being seen by hiring managers.
 
 Key Points:
 

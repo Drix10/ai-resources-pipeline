@@ -1,6 +1,6 @@
 ### 🤖 Gemma 4 - Performance Enhancements
 
-Recent updates to Gemma 4, focusing on its enhanced speed and performance capabilities. These improvements aim to optimize efficiency and responsiveness for users and developers.
+This article covers recent updates to Gemma 4, focusing on its enhanced speed and performance capabilities. These improvements aim to optimize efficiency and responsiveness for users and developers.
 
 Key Points:
 

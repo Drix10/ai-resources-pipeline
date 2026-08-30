@@ -1,6 +1,6 @@
 ### 🚀 No-Code Development - Building a Platform in Three Weeks
 
-Sam's List founder Kimberly Green, with no prior custom development experience, built a live platform using Bubble in three weeks.
+This article details how Sam's List founder Kimberly Green, with no prior custom development experience, built a live platform using Bubble in three weeks.
 
 Key Points:
 

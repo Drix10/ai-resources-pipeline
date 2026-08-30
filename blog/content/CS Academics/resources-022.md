@@ -1,6 +1,6 @@
 ### 📰 Politics - UK Deputy PM Interview
 
-Twitter thread discussing a long-form interview with the UK Deputy PM.  The thread critiques the interview's lack of serious accountability.
+This article summarizes a Twitter thread discussing a long-form interview with the UK Deputy PM.  The thread critiques the interview's lack of serious accountability.
 
 Key Points:
 

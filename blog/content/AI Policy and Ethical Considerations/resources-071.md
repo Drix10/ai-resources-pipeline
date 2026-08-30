@@ -1,6 +1,6 @@
 ### 🤖 Accessibility - Expanding Access to Hearing Aids
 
-Senator Warren's efforts to expand access to over-the-counter hearing aids and reduce barriers to audiology services.  It also mentions bipartisan legislation aimed at improving access for seniors and people with disabilities.
+This article discusses Senator Warren's efforts to expand access to over-the-counter hearing aids and reduce barriers to audiology services.  It also mentions bipartisan legislation aimed at improving access for seniors and people with disabilities.
 
 Key Points:
 

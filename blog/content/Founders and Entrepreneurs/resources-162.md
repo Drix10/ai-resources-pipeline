@@ -1,6 +1,6 @@
 ### 💡 Political Commentary - Historical Perspectives
 
-Remarks made by Hasan Piker at Yale concerning the fall of the USSR, presenting his perspective on the event as a significant catastrophe. It also touches upon the political implications of his statements within current campaigns.
+This article details remarks made by Hasan Piker at Yale concerning the fall of the USSR, presenting his perspective on the event as a significant catastrophe. It also touches upon the political implications of his statements within current campaigns.
 
 Key Points:
 

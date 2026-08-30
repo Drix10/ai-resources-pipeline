@@ -1,6 +1,6 @@
 ### 🤖 AI in Healthcare - Early Disease Detection
 
-AI tool designed to analyze immune cell data for early detection of infections and autoimmune diseases.  The tool acts as a diagnostic aid, identifying potential health issues before they become severe.
+This article discusses an AI tool designed to analyze immune cell data for early detection of infections and autoimmune diseases.  The tool acts as a diagnostic aid, identifying potential health issues before they become severe.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Vision Pro - USB-C HDMI Input for Developers
 
-New capability for general developers to input and display HDMI signals via USB-C on Vision Pro. This feature allows wired connection of PCs and game consoles, leveraging Vision Pro as a large display.
+This article discusses the new capability for general developers to input and display HDMI signals via USB-C on Vision Pro. This feature allows wired connection of PCs and game consoles, leveraging Vision Pro as a large display.
 
 Key Points:
 

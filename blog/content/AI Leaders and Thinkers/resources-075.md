@@ -1,6 +1,6 @@
 ### ✨ Midjourney - Video Animation and Upscaling
 
-Use of Midjourney for creating video animations, focusing on the consistent volumetric lighting achieved, and the upscaling process using Topaz Labs Astra.
+This article discusses the use of Midjourney for creating video animations, focusing on the consistent volumetric lighting achieved, and the upscaling process using Topaz Labs Astra.
 
 Key Points:
 

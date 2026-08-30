@@ -1,6 +1,6 @@
 ### 🚀 Video Editing - CapCut's AI Script to Video
 
-CapCut's AI Script to Video tool, highlighting its efficiency and ease of use for video creation.  It focuses on the tool's key features and benefits for video editors.
+This article discusses CapCut's AI Script to Video tool, highlighting its efficiency and ease of use for video creation.  It focuses on the tool's key features and benefits for video editors.
 
 Key Points:
 

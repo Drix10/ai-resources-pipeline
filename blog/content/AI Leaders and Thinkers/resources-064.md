@@ -1,6 +1,6 @@
 ### 🚀 NEAR Ecosystem - Weekly Ship Showcase
 
-13th "What Did You Ship This Week?" livestream featuring the NEAR AI ecosystem.  The stream showcased projects and advancements within the NEAR blockchain for AI.
+This article summarizes the 13th "What Did You Ship This Week?" livestream featuring the NEAR AI ecosystem.  The stream showcased projects and advancements within the NEAR blockchain for AI.
 
 
 Key Points:

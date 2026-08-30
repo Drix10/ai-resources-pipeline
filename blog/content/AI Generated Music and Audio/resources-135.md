@@ -1,6 +1,6 @@
 ### 🤖 Music Information Retrieval - RPG Sub-Genre Classification
 
-Music information retrieval approach used to classify sub-genres within role-playing games. It details a methodology for categorizing game music based on its characteristics.
+This article explores a music information retrieval approach used to classify sub-genres within role-playing games. It details a methodology for categorizing game music based on its characteristics.
 
 Key Points:
 

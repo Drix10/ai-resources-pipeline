@@ -1,6 +1,6 @@
 ### ✨ Community Initiative - TreeClub
 
-Personal initiative centered around promoting tree planting and fostering community involvement in environmental efforts. It highlights the direct engagement in converting individuals to the "TreeClub" concept.
+This article discusses a personal initiative centered around promoting tree planting and fostering community involvement in environmental efforts. It highlights the direct engagement in converting individuals to the "TreeClub" concept.
 
 Key Points:
 

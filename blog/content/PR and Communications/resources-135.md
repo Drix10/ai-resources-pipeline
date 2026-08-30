@@ -1,6 +1,6 @@
 ### 🤖 Optimism Blockchain - OP Token Buyback Program
 
-Significant governance decision within the Optimism ecosystem concerning a new OP token buyback initiative. It covers the approval process by tokenholders and the subsequent step required for final implementation.
+This article details a significant governance decision within the Optimism ecosystem concerning a new OP token buyback initiative. It covers the approval process by tokenholders and the subsequent step required for final implementation.
 
 Key Points:
 

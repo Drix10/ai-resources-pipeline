@@ -1,6 +1,6 @@
 ### 😡 Credit Card Frustrations - Password Complexity Issues
 
-User's negative experience with American Express's password reset process, highlighting the frustration caused by overly complex password requirements.  The user expresses a preference for simpler financial management.
+This article discusses a user's negative experience with American Express's password reset process, highlighting the frustration caused by overly complex password requirements.  The user expresses a preference for simpler financial management.
 
 Key Points:
 

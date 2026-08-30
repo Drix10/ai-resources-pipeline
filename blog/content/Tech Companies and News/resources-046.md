@@ -1,6 +1,6 @@
 ### 💡 Financial Psychology - Spending Habits
 
-Morgan Housel's insights on the psychology of spending, emphasizing its non-scientific nature and the influence of envy and social aspirations.
+This article discusses Morgan Housel's insights on the psychology of spending, emphasizing its non-scientific nature and the influence of envy and social aspirations.
 
 Key Points:
 

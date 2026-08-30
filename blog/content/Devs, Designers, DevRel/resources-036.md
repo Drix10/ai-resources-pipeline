@@ -1,6 +1,6 @@
 ### 🗣️ Social Media - Elon Musk's Legal Threats
 
-Elon Musk's recent threats to sue individuals who offend him, contrasting his past free speech absolutism with his current actions.  It also highlights similar experiences from other individuals.
+This article discusses Elon Musk's recent threats to sue individuals who offend him, contrasting his past free speech absolutism with his current actions.  It also highlights similar experiences from other individuals.
 
 Key Points:
 

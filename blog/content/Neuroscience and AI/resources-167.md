@@ -1,6 +1,6 @@
 ### 🤖 Archaeology - Neanderthal Dental Practices
 
-Recent analysis of a Neanderthal molar, which suggests intentional drilling, and notes the skepticism from some experts in the field. It covers the debate surrounding early hominid dental interventions.
+This article discusses the recent analysis of a Neanderthal molar, which suggests intentional drilling, and notes the skepticism from some experts in the field. It covers the debate surrounding early hominid dental interventions.
 
 Key Points:
 

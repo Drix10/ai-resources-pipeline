@@ -1,6 +1,6 @@
 ### 🤖 Coherent Inc. (COHR) - Q4 FY25 Financial Results
 
-Coherent, Inc.'s (COHR) Q4 FY25 financial results, highlighting the performance of its data center and communications market segment and the ramp-up of 800G and 1.6T transceivers.  Revenue guidance fell below expectations.
+This article summarizes Coherent, Inc.'s (COHR) Q4 FY25 financial results, highlighting the performance of its data center and communications market segment and the ramp-up of 800G and 1.6T transceivers.  Revenue guidance fell below expectations.
 
 Key Points:
 

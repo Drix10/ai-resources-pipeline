@@ -1,6 +1,6 @@
 ### 🤖 Langchain - MCP Adapters Setup
 
-Simple setup for the `langchain-mcp-adapters` package using the MCP GitHub server.  It provides a basic code example for creating an application to assist with repository maintenance.
+This article details a simple setup for the `langchain-mcp-adapters` package using the MCP GitHub server.  It provides a basic code example for creating an application to assist with repository maintenance.
 
 Key Points:
 

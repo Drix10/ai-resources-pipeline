@@ -1,6 +1,6 @@
 ### 🤖 Windows on Arm - Ecosystem Limitations
 
-Challenges faced by Windows on Arm devices due to software ecosystem limitations, comparing them to Intel/AMD and Apple alternatives.
+This article discusses the challenges faced by Windows on Arm devices due to software ecosystem limitations, comparing them to Intel/AMD and Apple alternatives.
 
 Key Points:
 

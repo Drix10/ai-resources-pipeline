@@ -1,6 +1,6 @@
 ### 🤖 Legal - AI Training Data Licensing
 
-Court ruling regarding the licensing of training data for AI models, focusing on the implications for the case involving DbrxMosaicAI and Microsoft.
+This article discusses a court ruling regarding the licensing of training data for AI models, focusing on the implications for the case involving DbrxMosaicAI and Microsoft.
 
 Key Points:
 

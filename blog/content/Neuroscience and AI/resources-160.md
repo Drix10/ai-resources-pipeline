@@ -1,6 +1,6 @@
 ### 🤖 Neuroscience - Anaesthesia and Brain Activity
 
-Evolving understanding of brain activity under anaesthesia, highlighting recent evidence of significant neural processing. It examines research challenging traditional views of anaesthesia-induced brain inactivity.
+This article discusses the evolving understanding of brain activity under anaesthesia, highlighting recent evidence of significant neural processing. It examines research challenging traditional views of anaesthesia-induced brain inactivity.
 
 Key Points:
 

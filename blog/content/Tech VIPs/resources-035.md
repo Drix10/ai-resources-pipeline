@@ -1,6 +1,6 @@
 ### 🤖 AI Workflow Optimization - Cursor and Claude Integration
 
-Cost-effective workflow using Cursor and Claude AI agents to generate and refine project plans.  The process leverages the strengths of both agents for superior results.
+This article details a cost-effective workflow using Cursor and Claude AI agents to generate and refine project plans.  The process leverages the strengths of both agents for superior results.
 
 Key Points:
 

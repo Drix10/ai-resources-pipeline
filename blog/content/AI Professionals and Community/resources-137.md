@@ -1,6 +1,6 @@
 ### 🤖 Research Discussion - InstaDeep's Future
 
-Recent podcast episode reflecting on InstaDeep's research year and outlining future plans, featuring insights from the company's Head of Research and Development.
+This article covers a recent podcast episode reflecting on InstaDeep's research year and outlining future plans, featuring insights from the company's Head of Research and Development.
 
 Key Points:
 

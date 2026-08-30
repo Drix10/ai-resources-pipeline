@@ -1,6 +1,6 @@
 ### 🤖 Finance - Sell-Side Research Limitations
 
-Inherent limitations of sell-side research, highlighting its focus on safety and market following rather than early prediction.
+This article discusses the inherent limitations of sell-side research, highlighting its focus on safety and market following rather than early prediction.
 
 Key Points:
 

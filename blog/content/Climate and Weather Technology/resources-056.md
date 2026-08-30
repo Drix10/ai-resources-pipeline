@@ -1,6 +1,6 @@
 ### ⚠️ Geopolitics - Response to Israeli Actions
 
-Statement regarding potential international actions in response to Israeli government actions.  It outlines a conditional threat of further action if certain conditions are not met.
+This article summarizes a statement regarding potential international actions in response to Israeli government actions.  It outlines a conditional threat of further action if certain conditions are not met.
 
 Key Points:
 

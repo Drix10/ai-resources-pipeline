@@ -1,6 +1,6 @@
 ### ✨ Career Opportunities - Resend Team
 
-Opportunities to join the Resend team, encouraging community members to recommend candidates or apply directly for available roles.
+This article highlights opportunities to join the Resend team, encouraging community members to recommend candidates or apply directly for available roles.
 
 Key Points:
 

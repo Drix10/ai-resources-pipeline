@@ -1,6 +1,6 @@
 ### 🤖 Protein Language Models - Explainability
 
-Methods for understanding what protein language models learn about fundamental biological rules.  It focuses on a research paper examining the explainability of these models for protein sequence design.
+This article explores methods for understanding what protein language models learn about fundamental biological rules.  It focuses on a research paper examining the explainability of these models for protein sequence design.
 
 Key Points:
 

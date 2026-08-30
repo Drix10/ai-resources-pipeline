@@ -1,6 +1,6 @@
 ### 🤖 AI - Limitations of GOFAI
 
-Limitations of Good Old-Fashioned AI (GOFAI) and argues against its potential for achieving Artificial General Intelligence (AGI).
+This article discusses the limitations of Good Old-Fashioned AI (GOFAI) and argues against its potential for achieving Artificial General Intelligence (AGI).
 
 Key Points:
 

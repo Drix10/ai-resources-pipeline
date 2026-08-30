@@ -1,6 +1,6 @@
 ### 🤖 Vision-Language Models - Data Mixing and Scaling
 
-DCVLM, a framework for analyzing the data mix in Vision-Language Models (VLMs) across different scales. It highlights the complexities of data composition and its impact on model performance, noting that optimal data mixes vary with scale.
+This article discusses DCVLM, a framework for analyzing the data mix in Vision-Language Models (VLMs) across different scales. It highlights the complexities of data composition and its impact on model performance, noting that optimal data mixes vary with scale.
 
 Key Points:
 

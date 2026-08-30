@@ -1,6 +1,6 @@
 ### 🤖 AI in IDEs -  Overreliance Concerns
 
-Potential drawbacks of integrating AI coding assistance directly into IDEs, focusing on the concerns raised by developers.
+This article discusses the potential drawbacks of integrating AI coding assistance directly into IDEs, focusing on the concerns raised by developers.
 
 Key Points:
 

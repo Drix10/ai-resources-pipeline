@@ -1,6 +1,6 @@
 ### 💡 Relationships - Financial Responsibility
 
-Relationship between financial responsibility and romantic relationships, highlighting the importance of individual contributions.
+This article discusses the relationship between financial responsibility and romantic relationships, highlighting the importance of individual contributions.
 
 Key Points:
 

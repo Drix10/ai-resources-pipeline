@@ -1,6 +1,6 @@
 ### 🤖 AI in Education - Calculus & Physics Mentorship
 
-Pilot program using AI mentors in Calculus I and Physics courses at the American University of Sharjah.  The program aims to improve student learning outcomes in these gateway STEM courses.
+This article discusses a pilot program using AI mentors in Calculus I and Physics courses at the American University of Sharjah.  The program aims to improve student learning outcomes in these gateway STEM courses.
 
 
 Key Points:

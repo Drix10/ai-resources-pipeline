@@ -1,6 +1,6 @@
 ### 🤖 Talent Acquisition - Udao Platform
 
-The Udao platform and its capabilities for streamlining the talent acquisition process for organizations.
+This article provides a brief overview of the Udao platform and its capabilities for streamlining the talent acquisition process for organizations.
 
 Key Points:
 

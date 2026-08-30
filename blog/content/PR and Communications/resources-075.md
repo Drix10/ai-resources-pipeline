@@ -1,6 +1,6 @@
 ### 🚨 International Relations - Missile Launch from Yemen
 
-Reports of a missile launch from Yemen and the resulting activation of red alert sirens in Israel.  The Home Front Command advised Israeli citizens in affected areas to seek shelter.
+This article summarizes reports of a missile launch from Yemen and the resulting activation of red alert sirens in Israel.  The Home Front Command advised Israeli citizens in affected areas to seek shelter.
 
 Key Points:
 

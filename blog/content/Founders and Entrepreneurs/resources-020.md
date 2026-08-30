@@ -1,6 +1,6 @@
 ### 💡 Leadership - CEO's Most Important Skill
 
-Importance of truth-seeking as the most crucial skill for a CEO, highlighting the challenges and implications of avoiding difficult realities.  It references a talk given by Ben Horowitz at the Speedrun event.
+This article discusses the importance of truth-seeking as the most crucial skill for a CEO, highlighting the challenges and implications of avoiding difficult realities.  It references a talk given by Ben Horowitz at the Speedrun event.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 💡 Gameplay Mechanics - Non-Lethal Takedowns and Inventory Manipulation
 
-Strategic application of non-lethal takedowns in gameplay, focusing on how character inventory can be modified to influence future interactions. It explains how player actions can alter character states for subsequent encounters.
+This article covers the strategic application of non-lethal takedowns in gameplay, focusing on how character inventory can be modified to influence future interactions. It explains how player actions can alter character states for subsequent encounters.
 
 Key Points:
 

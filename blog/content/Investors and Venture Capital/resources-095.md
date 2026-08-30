@@ -1,6 +1,6 @@
 ### 💡 Feedback - PMF Piece Feedback
 
-Feedback received on a PMF (Problem/Market Fit) piece, including feedback channels and an image illustrating the author's dedication.
+This article discusses the feedback received on a PMF (Problem/Market Fit) piece, including feedback channels and an image illustrating the author's dedication.
 
 Key Points:
 

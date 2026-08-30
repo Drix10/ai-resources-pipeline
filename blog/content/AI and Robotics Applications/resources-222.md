@@ -1,6 +1,6 @@
 ### 🤖 AI Models - Kimi K3 Architecture Overview
 
-Kimi K3 model's architectural characteristics, specifically its parameter count and how it manages computational load during inference.
+This article outlines the Kimi K3 model's architectural characteristics, specifically its parameter count and how it manages computational load during inference.
 
 Key Points:
 

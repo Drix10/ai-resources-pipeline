@@ -1,6 +1,6 @@
 ### 💡 Cold Therapy - Understanding the Hype
 
-Benefits and limitations of cold therapy, specifically ice baths, for recovery and reducing soreness.  It emphasizes the importance of a balanced approach to recovery.
+This article explores the benefits and limitations of cold therapy, specifically ice baths, for recovery and reducing soreness.  It emphasizes the importance of a balanced approach to recovery.
 
 Key Points:
 

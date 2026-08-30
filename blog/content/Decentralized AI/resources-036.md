@@ -1,6 +1,6 @@
 ### 🤖 AI Discussion - Industry Transformation
 
-Upcoming conversation on AI's impact across various industries and how to participate.  The discussion features several industry experts.
+This article details an upcoming conversation on AI's impact across various industries and how to participate.  The discussion features several industry experts.
 
 Key Points:
 

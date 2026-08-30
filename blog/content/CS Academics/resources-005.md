@@ -1,6 +1,6 @@
 ### 🤖 Funding Delays - NSF Grant Awards
 
-Anticipated delays in NSF grant awards due to staff reductions and increased scrutiny.
+This article discusses the anticipated delays in NSF grant awards due to staff reductions and increased scrutiny.
 
 Key Points:
 

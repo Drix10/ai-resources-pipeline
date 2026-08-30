@@ -1,6 +1,6 @@
 ### 🎉 Conferences - QEC25 Experience
 
-Positive experience at the QEC25 conference, highlighting networking and career opportunities.
+This article summarizes a positive experience at the QEC25 conference, highlighting networking and career opportunities.
 
 Key Points:
 

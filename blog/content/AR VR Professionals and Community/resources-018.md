@@ -1,6 +1,6 @@
 ### ⚠️ Online Harassment - Impact on Streamers
 
-Instance of online harassment targeting female streamers and its potential connection to a broader pattern of online hate.  It highlights the need for a safer online environment.
+This article discusses an instance of online harassment targeting female streamers and its potential connection to a broader pattern of online hate.  It highlights the need for a safer online environment.
 
 Key Points:
 

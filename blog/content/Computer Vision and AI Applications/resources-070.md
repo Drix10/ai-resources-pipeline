@@ -1,6 +1,6 @@
 ### 🤖 Image Processing - Denoising for Regularization
 
-Use of image denoisers to regularize ill-posed problems, highlighting the concept of Regularization by Denoising (RED).  The approach leverages the geometric understanding of image manifolds inherent in effective denoisers.
+This article discusses the use of image denoisers to regularize ill-posed problems, highlighting the concept of Regularization by Denoising (RED).  The approach leverages the geometric understanding of image manifolds inherent in effective denoisers.
 
 Key Points:
 

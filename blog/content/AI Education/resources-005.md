@@ -1,6 +1,6 @@
 ### 💡 English Vocabulary - Notion Synonym
 
-Word "notion," providing a definition and synonyms for enhanced vocabulary.  It also includes an example sentence demonstrating its usage.
+This article explores the word "notion," providing a definition and synonyms for enhanced vocabulary.  It also includes an example sentence demonstrating its usage.
 
 Key Points:
 

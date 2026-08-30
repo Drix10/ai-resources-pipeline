@@ -1,6 +1,6 @@
 ### 🤖 Multifamily Development - Challenges and Strategies
 
-Podcast discussion on multifamily development, investment strategies, and the impact of natural disasters.  The discussion includes insights on public-private sector collaboration for rebuilding efforts.
+This article summarizes a podcast discussion on multifamily development, investment strategies, and the impact of natural disasters.  The discussion includes insights on public-private sector collaboration for rebuilding efforts.
 
 Key Points:
 

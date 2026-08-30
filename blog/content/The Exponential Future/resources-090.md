@@ -1,6 +1,6 @@
 ### 🤖 Federal Agency Support - Policy Implementation
 
-Office of Personnel Management's (OPM) role in supporting federal agencies by not only establishing policy but also assisting in its effective implementation.  It focuses on the OPM's contributions to key initiatives under the current presidential agenda.
+This article discusses the Office of Personnel Management's (OPM) role in supporting federal agencies by not only establishing policy but also assisting in its effective implementation.  It focuses on the OPM's contributions to key initiatives under the current presidential agenda.
 
 Key Points:
 

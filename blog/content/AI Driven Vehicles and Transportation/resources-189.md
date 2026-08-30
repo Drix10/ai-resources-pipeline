@@ -1,6 +1,6 @@
 ### 🤖 Diffusion World Models - Representation Learning with JEPA
 
-Recent advancements in diffusion world models, specifically exploring which representation spaces best support their development. It highlights the finding that JEPA space yields the most effective diffusion world models.
+This article discusses recent advancements in diffusion world models, specifically exploring which representation spaces best support their development. It highlights the finding that JEPA space yields the most effective diffusion world models.
 
 Key Points:
 

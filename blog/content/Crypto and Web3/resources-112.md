@@ -1,6 +1,6 @@
 ### 🤖 Cryptocurrency - $XAH Trading Tiers
 
-Various trading tiers for the cryptocurrency $XAH, based on the amount of currency held.  It provides a simple classification system for traders.
+This article outlines the various trading tiers for the cryptocurrency $XAH, based on the amount of currency held.  It provides a simple classification system for traders.
 
 Key Points:
 

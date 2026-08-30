@@ -1,6 +1,6 @@
 ### ✨ Mootion - Tokyo Workshop Recap
 
-Workshop held in Tokyo by Mootion, focusing on AI-powered video creation.  The event brought together creators, educators, and storytellers.
+This article summarizes a workshop held in Tokyo by Mootion, focusing on AI-powered video creation.  The event brought together creators, educators, and storytellers.
 
 
 Key Points:

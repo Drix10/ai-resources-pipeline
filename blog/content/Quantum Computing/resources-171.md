@@ -1,6 +1,6 @@
 ### 🤖 Privacy Coins - Historical Context and Design
 
-Historical context of privacy-focused digital currencies, linking their foundational principles to early cryptographic visions. It highlights the design tenets of proof-of-work and no-premine structures.
+This article discusses the historical context of privacy-focused digital currencies, linking their foundational principles to early cryptographic visions. It highlights the design tenets of proof-of-work and no-premine structures.
 
 Key Points:
 

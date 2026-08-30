@@ -1,6 +1,6 @@
 ### 🤖 AI Fine-tuning - Acupuncture Practice Data
 
-Successful fine-tuning of an AI model using 21 generations of acupuncture practice notes.  The resulting model demonstrates the potential of AI in healthcare.
+This article discusses the successful fine-tuning of an AI model using 21 generations of acupuncture practice notes.  The resulting model demonstrates the potential of AI in healthcare.
 
 Key Points:
 

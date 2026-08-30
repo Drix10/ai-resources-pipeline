@@ -1,6 +1,6 @@
 ### 💡 LGBTQ+ Health - Conversion Therapy Legal Impact
 
-Perspective essay arguing that the legal challenge in `Chiles v. Salazar` to Colorado's conversion therapy ban could significantly affect LGBTQ+ health, mental health professionals, and the legal standing of standards of care.
+This article covers a Perspective essay arguing that the legal challenge in `Chiles v. Salazar` to Colorado's conversion therapy ban could significantly affect LGBTQ+ health, mental health professionals, and the legal standing of standards of care.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Document Processing - Agentic Document Extraction
 
-The evolution of document processing techniques, focusing on the advancements from traditional Optical Character Recognition (OCR) to the more sophisticated Agentic Document Extraction approach.
+This article provides a brief overview of the evolution of document processing techniques, focusing on the advancements from traditional Optical Character Recognition (OCR) to the more sophisticated Agentic Document Extraction approach.
 
 Key Points:
 

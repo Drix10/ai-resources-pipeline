@@ -1,6 +1,6 @@
 ### 💡 Economy - K-shaped Trends
 
-Concept of a K-shaped economy, highlighting its diverging impact on different sectors and demographics. It emphasizes the critical role of the next few years in determining individual and business trajectories within this economic framework.
+This article discusses the concept of a K-shaped economy, highlighting its diverging impact on different sectors and demographics. It emphasizes the critical role of the next few years in determining individual and business trajectories within this economic framework.
 
 Key Points:
 

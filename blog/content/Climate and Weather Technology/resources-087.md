@@ -1,6 +1,6 @@
 ### 🤖 Central Texas Weather - Potential Catastrophic Flooding
 
-Potential for catastrophic flooding in Central Texas due to a favorable environment for slow-moving heavy downpours.  High levels of atmospheric water vapor and low-level moisture are expected to produce intense rainfall rates.
+This article discusses the potential for catastrophic flooding in Central Texas due to a favorable environment for slow-moving heavy downpours.  High levels of atmospheric water vapor and low-level moisture are expected to produce intense rainfall rates.
 
 Key Points:
 

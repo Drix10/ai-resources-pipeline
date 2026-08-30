@@ -1,6 +1,6 @@
 ### ✨ Basketball Highlights - Player Performance
 
-Key performance indicators from a basketball game, focusing on individual player contributions and team standing at halftime. It details player scoring and team lead in a crucial playoff game.
+This article covers key performance indicators from a basketball game, focusing on individual player contributions and team standing at halftime. It details player scoring and team lead in a crucial playoff game.
 
 Key Points:
 

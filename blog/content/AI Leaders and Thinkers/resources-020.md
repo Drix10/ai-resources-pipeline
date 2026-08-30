@@ -1,6 +1,6 @@
 ### 🤖 Reinforcement Learning - Ambiguous Text Judgements
 
-Application of Reinforcement Learning (RL) to handle ambiguous text judgements, going beyond simple mathematical problem-solving.  It highlights the effectiveness of a constant learning rate with a warmup period compared to decaying learning schedules.
+This article discusses the application of Reinforcement Learning (RL) to handle ambiguous text judgements, going beyond simple mathematical problem-solving.  It highlights the effectiveness of a constant learning rate with a warmup period compared to decaying learning schedules.
 
 Key Points:
 

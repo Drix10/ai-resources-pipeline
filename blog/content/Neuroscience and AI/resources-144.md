@@ -1,6 +1,6 @@
 ### 🤖 Epilepsy Treatment - DBS Biomarkers
 
-New research demonstrating that thalamic activity recorded from epilepsy patients undergoing Deep Brain Stimulation (DBS) can predict treatment success. These identified biomarkers offer a pathway for guiding personalized therapy, aiming to improve outcomes for individuals with drug-resistant epilepsy.
+This article discusses new research demonstrating that thalamic activity recorded from epilepsy patients undergoing Deep Brain Stimulation (DBS) can predict treatment success. These identified biomarkers offer a pathway for guiding personalized therapy, aiming to improve outcomes for individuals with drug-resistant epilepsy.
 
 Key Points:
 

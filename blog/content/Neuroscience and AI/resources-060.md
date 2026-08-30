@@ -1,6 +1,6 @@
 ### 🤖 University Rankings - Research Output
 
-Perceived inaccuracies in certain university rankings, specifically questioning the relative standing of USTC compared to MIT and Stanford.  The author also notes similarities between the Chinese and American academic systems.
+This article discusses the perceived inaccuracies in certain university rankings, specifically questioning the relative standing of USTC compared to MIT and Stanford.  The author also notes similarities between the Chinese and American academic systems.
 
 Key Points:
 

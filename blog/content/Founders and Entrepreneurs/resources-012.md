@@ -1,6 +1,6 @@
 ### 🤖 Decentralized Data Marketplaces - Pundi X
 
-Pundi X's vision for a decentralized data marketplace, drawing on a research report by COT Research.  It explores the concept of a decentralized alternative to centralized data monopolies.
+This article discusses Pundi X's vision for a decentralized data marketplace, drawing on a research report by COT Research.  It explores the concept of a decentralized alternative to centralized data monopolies.
 
 Key Points:
 

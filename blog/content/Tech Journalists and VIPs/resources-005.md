@@ -1,6 +1,6 @@
 ### 💡 Canva's Two-Step Plan -  Podcast Discussion
 
-Podcast discussion featuring Canva executives discussing their "Two-Step Plan," emphasizing their commitment to being "a force for good."  The discussion highlights Canva's approach to corporate social responsibility.
+This article summarizes a podcast discussion featuring Canva executives discussing their "Two-Step Plan," emphasizing their commitment to being "a force for good."  The discussion highlights Canva's approach to corporate social responsibility.
 
 Key Points:
 

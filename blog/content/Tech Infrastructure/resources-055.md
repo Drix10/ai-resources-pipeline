@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - FastAPI Course Limitations
 
-Limitations encountered while using a large language model to generate a FastAPI course.  The model prematurely stopped generating content due to exceeding context length.
+This article discusses limitations encountered while using a large language model to generate a FastAPI course.  The model prematurely stopped generating content due to exceeding context length.
 
 Key Points:
 

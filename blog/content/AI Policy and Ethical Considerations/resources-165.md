@@ -1,6 +1,6 @@
 ### 🤖 AI and Governance - Enhancing Transparency
 
-Artificial intelligence can empower citizens to improve government visibility, legibility, and accountability. Historically, governments have primarily acted to make society legible.
+This article discusses how artificial intelligence can empower citizens to improve government visibility, legibility, and accountability. Historically, governments have primarily acted to make society legible.
 
 Key Points:
 

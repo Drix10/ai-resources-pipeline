@@ -1,6 +1,6 @@
 ### 🤖 Education - 3D Prototyping in Auto Tech
 
-Use of Tinkercad in an automotive technology class for designing and creating car prototypes.  Students are progressing through the design thinking process, culminating in 3D printing and testing.
+This article discusses the use of Tinkercad in an automotive technology class for designing and creating car prototypes.  Students are progressing through the design thinking process, culminating in 3D printing and testing.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI in Healthcare - Rare Disease Diagnosis
 
-New AI model developed by the Broad Institute that aims to accelerate the diagnosis of rare diseases. It highlights the potential impact of artificial intelligence in improving diagnostic processes within healthcare.
+This article discusses a new AI model developed by the Broad Institute that aims to accelerate the diagnosis of rare diseases. It highlights the potential impact of artificial intelligence in improving diagnostic processes within healthcare.
 
 Key Points:
 

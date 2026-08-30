@@ -1,6 +1,6 @@
 ### 🚀 MAX Live Event - Reward Challenge
 
-One-time reward challenge during a live stream hosted by MAX.  Participants must connect their wallets to claim rewards.  The event will take place on YouTube and Mesh.
+This article details a one-time reward challenge during a live stream hosted by MAX.  Participants must connect their wallets to claim rewards.  The event will take place on YouTube and Mesh.
 
 Key Points:
 

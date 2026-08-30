@@ -1,6 +1,6 @@
 ### 🤖 AI Inference - Accelerator Investment
 
-Evolving economics of AI inference and details VSORA's recent investment round. It highlights the company's role in developing AI inference accelerators for data center workloads.
+This article discusses the evolving economics of AI inference and details VSORA's recent investment round. It highlights the company's role in developing AI inference accelerators for data center workloads.
 
 Key Points:
 

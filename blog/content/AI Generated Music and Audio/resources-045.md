@@ -1,6 +1,6 @@
 ### 🚀 Music Competition - Suno Sound Seasons
 
-Music competition hosted by Suno, outlining the entry requirements, prize, and judging timeline.
+This article details a music competition hosted by Suno, outlining the entry requirements, prize, and judging timeline.
 
 Key Points:
 

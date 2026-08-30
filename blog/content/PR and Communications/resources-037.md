@@ -1,6 +1,6 @@
 ### ⚠️ Social Issues - Private Sector in Public Services
 
-Potential negative consequences of private firms delivering public services, particularly for vulnerable populations.  The core argument highlights exploitation for profit maximization, counter to the needs of those being served.
+This article discusses the potential negative consequences of private firms delivering public services, particularly for vulnerable populations.  The core argument highlights exploitation for profit maximization, counter to the needs of those being served.
 
 Key Points:
 

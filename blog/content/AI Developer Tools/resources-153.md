@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Qwen3.5 Local Deployment
 
-Day-0 support for Qwen3.5 by mlx-vlm, enabling local execution of this large language model. It highlights the benefits of running advanced models on personal hardware for development and experimentation.
+This article outlines the day-0 support for Qwen3.5 by mlx-vlm, enabling local execution of this large language model. It highlights the benefits of running advanced models on personal hardware for development and experimentation.
 
 Key Points:
 

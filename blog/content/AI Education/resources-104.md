@@ -1,6 +1,6 @@
 ### 🤖 LLMs in Financial Data Analysis - Expected Parrot
 
-Use of Expected Parrot for LLM-based research in a financial data analysis class, including how professors can obtain API credits.
+This article discusses the use of Expected Parrot for LLM-based research in a financial data analysis class, including how professors can obtain API credits.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Deepfake Detection - Model Optimization & Conference Presentation
 
-Technical discussion held in Las Vegas focused on optimizing deepfake detection models. It acknowledges the speakers who contributed to this important topic.
+This article highlights a technical discussion held in Las Vegas focused on optimizing deepfake detection models. It acknowledges the speakers who contributed to this important topic.
 
 Key Points:
 

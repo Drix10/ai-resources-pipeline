@@ -1,6 +1,6 @@
 ### 🤖 Software Design - User-Centric Approach
 
-Piece of software designed with a strong focus on user experience, prioritizing ease of use and avoiding manipulative design tactics.
+This article discusses a piece of software designed with a strong focus on user experience, prioritizing ease of use and avoiding manipulative design tactics.
 
 Key Points:
 

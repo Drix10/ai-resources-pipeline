@@ -1,6 +1,6 @@
 ### 🤖 Artificial Superintelligence - Control and Ethics
 
-Critical ethical consideration regarding the development of Artificial Superintelligence (ASI), specifically focusing on the imperative to halt its creation if control cannot be guaranteed.
+This article discusses the critical ethical consideration regarding the development of Artificial Superintelligence (ASI), specifically focusing on the imperative to halt its creation if control cannot be guaranteed.
 
 Key Points:
 

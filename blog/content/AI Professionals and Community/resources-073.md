@@ -1,6 +1,6 @@
 ### 🤖 Open Source - X11Libre Fork
 
-Forking of X11Libre, framed within the context of open-source development and the perceived attempt to institute control.
+This article discusses the forking of X11Libre, framed within the context of open-source development and the perceived attempt to institute control.
 
 Key Points:
 

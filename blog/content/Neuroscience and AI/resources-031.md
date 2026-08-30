@@ -1,6 +1,6 @@
 ### 🤖 Genetics - Language Origins
 
-New genetic study suggesting the origin of human language ability at least 135,000 years ago, coinciding with early human population divergence.  The study's findings and implications are briefly summarized.
+This article discusses a new genetic study suggesting the origin of human language ability at least 135,000 years ago, coinciding with early human population divergence.  The study's findings and implications are briefly summarized.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 US Politics - South Korean Technicians Imprisonment
 
-Controversial imprisonment of South Korean technicians in the US during the Trump administration and its negative impact.  The action is criticized for its shortsightedness and potential harm to US-South Korean relations.
+This article discusses the controversial imprisonment of South Korean technicians in the US during the Trump administration and its negative impact.  The action is criticized for its shortsightedness and potential harm to US-South Korean relations.
 
 
 Key Points:

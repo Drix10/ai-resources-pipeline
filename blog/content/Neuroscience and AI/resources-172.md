@@ -1,6 +1,6 @@
 ### 🤖 Parkinson's Disease - Cognitive Impairment Treatment
 
-Rivastigmine, the only FDA-approved pharmaceutical treatment for cognitive impairment in Parkinson’s disease. It outlines the medication's properties, its initial approval, and its observed effects in Parkinson's patients.
+This article discusses Rivastigmine, the only FDA-approved pharmaceutical treatment for cognitive impairment in Parkinson’s disease. It outlines the medication's properties, its initial approval, and its observed effects in Parkinson's patients.
 
 Key Points:
 

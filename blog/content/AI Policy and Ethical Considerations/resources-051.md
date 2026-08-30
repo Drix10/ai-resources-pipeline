@@ -1,6 +1,6 @@
 ### 💡 Healthcare Reform - The Missing YIMBY Movement
 
-Lack of a vocal advocacy group pushing for economic efficiency reforms within the healthcare sector.  It highlights the need for such a movement to address systemic inefficiencies.
+This article discusses the lack of a vocal advocacy group pushing for economic efficiency reforms within the healthcare sector.  It highlights the need for such a movement to address systemic inefficiencies.
 
 
 Key Points:

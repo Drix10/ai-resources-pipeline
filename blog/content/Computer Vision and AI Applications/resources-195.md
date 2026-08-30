@@ -1,6 +1,6 @@
 ### 🤖 ACL2026 - Multimodal Understanding
 
-Attendance at the ACL2026 conference and highlights a keynote presentation on unifying video and audio for multimodal understanding and generation. It also mentions the International Conference on Spoken Language.
+This article provides an overview of attendance at the ACL2026 conference and highlights a keynote presentation on unifying video and audio for multimodal understanding and generation. It also mentions the International Conference on Spoken Language.
 
 Key Points:
 

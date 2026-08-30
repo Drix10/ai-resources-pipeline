@@ -1,6 +1,6 @@
 ### 🤖 Proteomics - Multiplexing with LC-MS
 
-New method for multiplexing proteomics analysis using LC-MS, significantly increasing sample throughput.  The method utilizes a new set of mass tags to enable 9-plex sample acquisition.
+This article discusses a new method for multiplexing proteomics analysis using LC-MS, significantly increasing sample throughput.  The method utilizes a new set of mass tags to enable 9-plex sample acquisition.
 
 Key Points:
 

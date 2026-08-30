@@ -1,6 +1,6 @@
 ### 🌀 Tropical Weather - Chantal Intensification
 
-Intensification of Tropical Storm Chantal, its potential impact on South and North Carolina, and the likelihood of landfall.  The information is based on a weather update.
+This article discusses the intensification of Tropical Storm Chantal, its potential impact on South and North Carolina, and the likelihood of landfall.  The information is based on a weather update.
 
 Key Points:
 

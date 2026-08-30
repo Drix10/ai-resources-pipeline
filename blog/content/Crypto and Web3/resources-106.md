@@ -1,6 +1,6 @@
 ### 💡 Health - FM Radio Analogy
 
-Metaphorical explanation of health issues using the analogy of an FM radio receiver in the brain.  The theory suggests that environmental factors can disrupt this internal "receiver."
+This article explores a metaphorical explanation of health issues using the analogy of an FM radio receiver in the brain.  The theory suggests that environmental factors can disrupt this internal "receiver."
 
 Key Points:
 

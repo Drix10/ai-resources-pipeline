@@ -1,6 +1,6 @@
 ### 💡 Social Media - Gen Alpha Usage
 
-Misconception that Gen Alpha dislikes social media, presenting data suggesting otherwise and highlighting the influence of parental restrictions.
+This article examines the misconception that Gen Alpha dislikes social media, presenting data suggesting otherwise and highlighting the influence of parental restrictions.
 
 Key Points:
 

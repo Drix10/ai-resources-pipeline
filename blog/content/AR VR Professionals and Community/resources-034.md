@@ -1,6 +1,6 @@
 ### 💡 Food Aversions - Childhood Experience
 
-Development of food aversions based on a personal anecdote about food poisoning.  The author describes a case of food poisoning resulting in a long-term aversion to certain foods.
+This article discusses the development of food aversions based on a personal anecdote about food poisoning.  The author describes a case of food poisoning resulting in a long-term aversion to certain foods.
 
 
 Key Points:

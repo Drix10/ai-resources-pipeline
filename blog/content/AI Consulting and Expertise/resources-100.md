@@ -1,6 +1,6 @@
 ### 📺 Streaming - AI Music Video Show Replay
 
-Availability of "The AI Music Video Show" replay on the Alchemy Stream app, accessible on Roku and Apple TV.  The show also streams live on X.
+This article discusses the availability of "The AI Music Video Show" replay on the Alchemy Stream app, accessible on Roku and Apple TV.  The show also streams live on X.
 
 Key Points:
 

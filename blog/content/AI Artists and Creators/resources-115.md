@@ -1,6 +1,6 @@
 ### 💡 AI Art and Video -  The Importance of Creation and Critical Analysis
 
-Importance of actively engaging with AI art and video generation, suggesting the creation of various media to better understand its implications.
+This article discusses the importance of actively engaging with AI art and video generation, suggesting the creation of various media to better understand its implications.
 
 Key Points:
 

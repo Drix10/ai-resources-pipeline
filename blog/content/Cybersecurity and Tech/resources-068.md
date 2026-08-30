@@ -1,6 +1,6 @@
 ### 📱 Mobile Phones - Trump Phone Specifications
 
-Specifications and purported manufacturing details of a new mobile phone, the Trump Phone.
+This article details the specifications and purported manufacturing details of a new mobile phone, the Trump Phone.
 
 Key Points:
 

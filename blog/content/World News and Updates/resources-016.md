@@ -1,6 +1,6 @@
 ### 🏏 Cricket - Shreyas Iyer's Half-Century
 
-Shreyas Iyer's ODI half-century against New Zealand in the ICC Champions Trophy 2025.  It provides the score and the link to live match updates.
+This article summarizes Shreyas Iyer's ODI half-century against New Zealand in the ICC Champions Trophy 2025.  It provides the score and the link to live match updates.
 
 Key Points:
 

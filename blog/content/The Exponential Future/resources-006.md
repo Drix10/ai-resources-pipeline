@@ -1,6 +1,6 @@
 ### 🤖 AI Decision-Making - Steelmanning for Policy Analysis
 
-Use of AI in presenting balanced arguments (steelmanning) for policy analysis, enabling a comprehensive understanding of both advantages and disadvantages.  It uses examples from OpenAI Deep Research reports on AI regulation.
+This article explores the use of AI in presenting balanced arguments (steelmanning) for policy analysis, enabling a comprehensive understanding of both advantages and disadvantages.  It uses examples from OpenAI Deep Research reports on AI regulation.
 
 Key Points:
 

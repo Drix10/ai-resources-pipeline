@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Mistral Medium 3 Evaluation
 
-Findings of three independent evaluations of the Mistral Medium 3 large language model, comparing its performance to other leading models.
+This article summarizes the findings of three independent evaluations of the Mistral Medium 3 large language model, comparing its performance to other leading models.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Video Generation - Unused Prompts
 
-Large number of AI-generated videos that often remain unpublished, and explores the potential value in sharing these videos and their associated prompts.  An example prompt is provided.
+This article discusses the large number of AI-generated videos that often remain unpublished, and explores the potential value in sharing these videos and their associated prompts.  An example prompt is provided.
 
 Key Points:
 

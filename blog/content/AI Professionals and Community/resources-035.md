@@ -1,6 +1,6 @@
 ### 💔 Immigration - 14-Year Green Card Backlog
 
-Family's 14-year experience navigating the US Green Card backlog after arriving on an H-1B visa.  The account highlights the emotional toll of this prolonged process.
+This article details a family's 14-year experience navigating the US Green Card backlog after arriving on an H-1B visa.  The account highlights the emotional toll of this prolonged process.
 
 Key Points:
 

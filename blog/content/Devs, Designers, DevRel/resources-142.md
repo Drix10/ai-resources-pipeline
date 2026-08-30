@@ -1,6 +1,6 @@
 ### 🤖 DIY Electronics - E-Ink Photo Frame
 
-Personal project to recreate a mini e-ink polaroid style photo frame from a Kickstarter concept. It details the planned use of a Raspberry Pi, a 4-inch e-ink display, and 3D printed components for the physical build. AI assistance is intended for firmware and iOS application development.
+This article outlines a personal project to recreate a mini e-ink polaroid style photo frame from a Kickstarter concept. It details the planned use of a Raspberry Pi, a 4-inch e-ink display, and 3D printed components for the physical build. AI assistance is intended for firmware and iOS application development.
 
 Key Points:
 

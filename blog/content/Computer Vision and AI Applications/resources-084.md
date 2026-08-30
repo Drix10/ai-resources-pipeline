@@ -1,6 +1,6 @@
 ### 🤖 CloudFlare R2 Uploads - Instagram Compatibility
 
-Issue encountered while uploading files to CloudFlare R2 using a file stream, resulting in chunked encoding which caused incompatibility with Instagram.  A solution using ChatGPT is presented.
+This article discusses an issue encountered while uploading files to CloudFlare R2 using a file stream, resulting in chunked encoding which caused incompatibility with Instagram.  A solution using ChatGPT is presented.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Political Philosophy - The Nature of Totalitarianism
 
-Hannah Arendt's quote on the susceptibility of individuals to totalitarian regimes, highlighting the erosion of critical thinking as a key factor.
+This article examines Hannah Arendt's quote on the susceptibility of individuals to totalitarian regimes, highlighting the erosion of critical thinking as a key factor.
 
 Key Points:
 

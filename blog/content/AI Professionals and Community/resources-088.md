@@ -1,6 +1,6 @@
 ### 💡 Academia - Funding Challenges
 
-Challenges faced by academics in securing research funding, focusing on the limitations imposed by the preference for "safe" research proposals.
+This article discusses the challenges faced by academics in securing research funding, focusing on the limitations imposed by the preference for "safe" research proposals.
 
 Key Points:
 

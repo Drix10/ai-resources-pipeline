@@ -1,6 +1,6 @@
 ### ✨  Experiences - Immersive Storytelling at Sphere
 
-Use of AI and creative vision in the immersive storytelling experience of "The Wizard of Oz" at the Sphere in Las Vegas.  It highlights the collaborative effort of various teams and individuals involved in bringing the production to life.
+This article discusses the use of AI and creative vision in the immersive storytelling experience of "The Wizard of Oz" at the Sphere in Las Vegas.  It highlights the collaborative effort of various teams and individuals involved in bringing the production to life.
 
 Key Points:
 

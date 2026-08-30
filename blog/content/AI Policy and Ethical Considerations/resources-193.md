@@ -1,6 +1,6 @@
 ### 💡 Public Health - Epidemic Containment
 
-Epuyén outbreak, highlighting its transmission characteristics and the effectiveness of strict public health interventions. It details how the outbreak was contained despite its remote location and initial spread.
+This article discusses the Epuyén outbreak, highlighting its transmission characteristics and the effectiveness of strict public health interventions. It details how the outbreak was contained despite its remote location and initial spread.
 
 Key Points:
 

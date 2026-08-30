@@ -1,6 +1,6 @@
 ### 💡 Health - Reading and Longevity
 
-Research from Yale University linking daily reading to increased longevity.  The study showed a correlation between reading and reduced mortality risk.
+This article summarizes research from Yale University linking daily reading to increased longevity.  The study showed a correlation between reading and reduced mortality risk.
 
 Key Points:
 

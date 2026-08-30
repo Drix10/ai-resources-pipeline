@@ -1,6 +1,6 @@
 ### 🏙️ Denver City Finances - Budgetary Concerns
 
-Concerns regarding Denver's financial state, specifically focusing on employee furloughs and spending on social programs.  It also includes a visual representation of a scene on Broadway in Denver.
+This article discusses concerns regarding Denver's financial state, specifically focusing on employee furloughs and spending on social programs.  It also includes a visual representation of a scene on Broadway in Denver.
 
 Key Points:
 

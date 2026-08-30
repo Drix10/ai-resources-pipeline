@@ -1,6 +1,6 @@
 ### 💡 Google AdSense - Vignette Ad Policy Change
 
-Google AdSense's recent update regarding vignette ads, specifically the removal of the browser back button as a trigger. This change aims to improve user experience on websites displaying these ads.
+This article discusses Google AdSense's recent update regarding vignette ads, specifically the removal of the browser back button as a trigger. This change aims to improve user experience on websites displaying these ads.
 
 Key Points:
 

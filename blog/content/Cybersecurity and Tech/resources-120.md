@@ -1,6 +1,6 @@
 ### 🤖 AI Capabilities - Coding Agents
 
-Capabilities of coding agents as a method to understand the current state of artificial intelligence. It highlights their utility, especially for individuals unfamiliar with traditional scripting and software engineering.
+This article explores the capabilities of coding agents as a method to understand the current state of artificial intelligence. It highlights their utility, especially for individuals unfamiliar with traditional scripting and software engineering.
 
 Key Points:
 

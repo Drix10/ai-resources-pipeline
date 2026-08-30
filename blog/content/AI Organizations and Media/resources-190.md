@@ -1,6 +1,6 @@
 ### 🤖 Protein Complex - Brain Development
 
-Specific protein complex that regulates β-tubulin and how its disruption can lead to developmental issues in the infant brain. It highlights the critical role of this complex in maintaining the necessary supply of αβ-tubulin for proper brain formation.
+This article discusses a specific protein complex that regulates β-tubulin and how its disruption can lead to developmental issues in the infant brain. It highlights the critical role of this complex in maintaining the necessary supply of αβ-tubulin for proper brain formation.
 
 Key Points:
 

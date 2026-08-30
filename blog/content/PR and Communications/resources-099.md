@@ -1,6 +1,6 @@
 ### ⚠️ Political Commentary - DOJ Attorney Actions
 
-Twitter thread discussing the actions of DOJ Special Attorney Ed Martin, who was observed near the home of Letitia James.  The thread also connects this event to broader political commentary.
+This article summarizes a Twitter thread discussing the actions of DOJ Special Attorney Ed Martin, who was observed near the home of Letitia James.  The thread also connects this event to broader political commentary.
 
 Key Points:
 

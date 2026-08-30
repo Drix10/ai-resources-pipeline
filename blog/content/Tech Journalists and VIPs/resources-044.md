@@ -1,6 +1,6 @@
 ### 🤖 US Senate - GENIUS Act Vote
 
-Upcoming cloture vote on the motion to proceed to the GENIUS Act in the US Senate.  Late-night negotiations between Senate Republicans and Democrats preceded the vote.
+This article covers the upcoming cloture vote on the motion to proceed to the GENIUS Act in the US Senate.  Late-night negotiations between Senate Republicans and Democrats preceded the vote.
 
 Key Points:
 

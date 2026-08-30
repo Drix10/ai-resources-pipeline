@@ -1,6 +1,6 @@
 ### ⚠️ Israel - Freedom Flotilla Footage Review
 
-Israeli Defense Minister Katz's order to screen footage of the October 7th attack for Freedom Flotilla passengers arriving at Ashdod Port.  The order aims to provide passengers with visual evidence related to the incident.
+This article discusses Israeli Defense Minister Katz's order to screen footage of the October 7th attack for Freedom Flotilla passengers arriving at Ashdod Port.  The order aims to provide passengers with visual evidence related to the incident.
 
 Key Points:
 

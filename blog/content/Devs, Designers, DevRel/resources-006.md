@@ -1,6 +1,6 @@
 ### 💡 Email Marketing - Newsletter Provider Limitations
 
-Limitations of current newsletter email providers, specifically concerning the ease of creating custom landing pages for gated content.
+This article discusses the limitations of current newsletter email providers, specifically concerning the ease of creating custom landing pages for gated content.
 
 Key Points:
 

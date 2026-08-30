@@ -1,6 +1,6 @@
 ### 🗣️ Podcast Appearance - Discussion on Consciousness and Medicine
 
-Podcast appearance discussing the effects of placebo, anesthesia, psychedelics, and dreaming on human experience and their potential role in medicine.
+This article summarizes a podcast appearance discussing the effects of placebo, anesthesia, psychedelics, and dreaming on human experience and their potential role in medicine.
 
 Key Points:
 

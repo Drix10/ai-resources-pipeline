@@ -1,6 +1,6 @@
 ### 🤖 C Libraries - Tiny Tensor Library
 
-`tensor.h` library, a lightweight tensor library written in C, designed to aid in understanding neural networks from a foundational perspective.
+This article discusses the `tensor.h` library, a lightweight tensor library written in C, designed to aid in understanding neural networks from a foundational perspective.
 
 Key Points:
 

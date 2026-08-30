@@ -1,6 +1,6 @@
 ### 🤖 Formal Analyses of Neural Networks - Workshop at Yale
 
-Upcoming workshop at Yale University focused on the formal analyses of neural networks, scheduled to take place in the spring. It provides details on the event's timing and subject matter for interested participants.
+This article covers an upcoming workshop at Yale University focused on the formal analyses of neural networks, scheduled to take place in the spring. It provides details on the event's timing and subject matter for interested participants.
 
 Key Points:
 

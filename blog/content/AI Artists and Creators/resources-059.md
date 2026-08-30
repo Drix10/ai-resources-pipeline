@@ -1,6 +1,6 @@
 ### 🤖 Collectibles - Mean Orange Cat Figures
 
-Release of 3.25" 3D-printed and hand-painted resin Mean Orange Cat figures.  The figures feature designs from past shorts.
+This article discusses the release of 3.25" 3D-printed and hand-painted resin Mean Orange Cat figures.  The figures feature designs from past shorts.
 
 Key Points:
 

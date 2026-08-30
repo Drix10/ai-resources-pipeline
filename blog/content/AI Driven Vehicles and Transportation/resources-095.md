@@ -1,6 +1,6 @@
 ### 🤖 Autonomous Vehicles - Focus and Capabilities
 
-Conversation regarding the development of autonomous vehicles, specifically focusing on the decision of whether to develop both the vehicle and the autonomy stack internally.
+This article discusses a conversation regarding the development of autonomous vehicles, specifically focusing on the decision of whether to develop both the vehicle and the autonomy stack internally.
 
 Key Points:
 

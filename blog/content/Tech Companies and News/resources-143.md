@@ -1,6 +1,6 @@
 ### 🤖 Private Capital - Structural Flaws Post-COVID
 
-Alan's analysis of structural flaws within private capital raising and deployment since COVID-19. It explains how these issues have contributed to redemption pressure and the emergence of stressed assets across the industry.
+This article summarizes Alan's analysis of structural flaws within private capital raising and deployment since COVID-19. It explains how these issues have contributed to redemption pressure and the emergence of stressed assets across the industry.
 
 Key Points:
 

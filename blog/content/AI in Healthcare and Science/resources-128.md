@@ -1,6 +1,6 @@
 ### 💡 DeSci Engagement - Community Rewards
 
-Distribution of BioXP to winners of a DeSci content engagement event. It details the utility of BioXP in an upcoming $SKIN sale and the continuation of the engagement initiative. It also highlights the broader impact of quality DeSci content and ecosystem development.
+This article discusses the distribution of BioXP to winners of a DeSci content engagement event. It details the utility of BioXP in an upcoming $SKIN sale and the continuation of the engagement initiative. It also highlights the broader impact of quality DeSci content and ecosystem development.
 
 Key Points:
 

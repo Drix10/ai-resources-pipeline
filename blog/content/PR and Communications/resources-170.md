@@ -1,6 +1,6 @@
 ### 💡 Biohacking - Vaginal Microbiome Testing Skepticism
 
-Emerging industry of at-home vaginal microbiome testing, referencing recent commentary by biohacker Bryan Johnson. It also highlights the skepticism surrounding the accuracy and utility of these commercial tests among experts.
+This article discusses the emerging industry of at-home vaginal microbiome testing, referencing recent commentary by biohacker Bryan Johnson. It also highlights the skepticism surrounding the accuracy and utility of these commercial tests among experts.
 
 Key Points:
 

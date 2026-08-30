@@ -1,6 +1,6 @@
 ### ✨ Healthcare - Kardia ECG Data Integration with AFibLife App
 
-Collaboration between AliveCor and Abbott to integrate Kardia ECG data into the AFibLife App, expanding the reach of clinically validated solutions for managing atrial fibrillation.
+This article discusses the collaboration between AliveCor and Abbott to integrate Kardia ECG data into the AFibLife App, expanding the reach of clinically validated solutions for managing atrial fibrillation.
 
 Key Points:
 

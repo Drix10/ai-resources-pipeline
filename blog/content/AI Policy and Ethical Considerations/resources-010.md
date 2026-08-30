@@ -1,6 +1,6 @@
 ### 💡 Societal Impacts - Foreign Aid Funding Freezes
 
-Potential consequences of abruptly halting foreign aid funding, focusing on the impact on recipient organizations and individuals.
+This article discusses the potential consequences of abruptly halting foreign aid funding, focusing on the impact on recipient organizations and individuals.
 
 Key Points:
 

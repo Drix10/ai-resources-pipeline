@@ -1,6 +1,6 @@
 ### 💎 Royal Jewels - Princess Diana's Engagement Ring
 
-History and approximate cost of Princess Diana's iconic sapphire engagement ring, now worn by Kate Middleton.
+This article details the history and approximate cost of Princess Diana's iconic sapphire engagement ring, now worn by Kate Middleton.
 
 Key Points:
 

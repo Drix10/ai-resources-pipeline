@@ -1,6 +1,6 @@
 ### ✨ NBA Season - Game Updates
 
-Update on the current NBA playoff series status between the New York Knicks and Atlanta Hawks. It also includes information on how to watch the upcoming Game 3.
+This article provides an update on the current NBA playoff series status between the New York Knicks and Atlanta Hawks. It also includes information on how to watch the upcoming Game 3.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ Presentation Tools - Custom Branding
 
-Gamma's custom theme feature, enabling organizations to maintain brand consistency across all presentations. It highlights how this functionality streamlines the design process for users.
+This article discusses Gamma's custom theme feature, enabling organizations to maintain brand consistency across all presentations. It highlights how this functionality streamlines the design process for users.
 
 Key Points:
 

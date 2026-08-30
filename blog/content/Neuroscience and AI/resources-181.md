@@ -1,6 +1,6 @@
 ### 💡 Scientific Inquiry - Creatine Benefits
 
-Scientific claims surrounding creatine as a supplement. It addresses its reported effects on muscle strength and cognitive function.
+This article explores the scientific claims surrounding creatine as a supplement. It addresses its reported effects on muscle strength and cognitive function.
 
 Key Points:
 • Creatine is a popular supplement among athletes and health influencers.

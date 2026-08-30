@@ -1,6 +1,6 @@
 ### 💡 Cognitive Biases - The Curse of Knowledge
 
-"curse of knowledge," a cognitive bias where experts struggle to explain concepts to novices due to their own deep understanding.  The article also includes an image illustrating the concept.
+This article discusses the "curse of knowledge," a cognitive bias where experts struggle to explain concepts to novices due to their own deep understanding.  The article also includes an image illustrating the concept.
 
 Key Points:
 

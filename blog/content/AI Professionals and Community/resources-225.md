@@ -1,6 +1,6 @@
 ### 🤖 AI Progress - Performance Scaling
 
-Acceleration of AI performance, suggesting it outpaces traditional technology scaling patterns.
+This article discusses the acceleration of AI performance, suggesting it outpaces traditional technology scaling patterns.
 
 Key Points:
 

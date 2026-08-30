@@ -1,6 +1,6 @@
 ### 🤖 AI Predictions - Social Media and LLM Focus
 
-Potential implications of Sam Altman's hinted social media app and the importance of focusing on core Large Language Model (LLM) technologies, drawing parallels to Steve Jobs's strategy at Apple.
+This article discusses the potential implications of Sam Altman's hinted social media app and the importance of focusing on core Large Language Model (LLM) technologies, drawing parallels to Steve Jobs's strategy at Apple.
 
 
 Key Points:

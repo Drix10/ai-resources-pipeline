@@ -1,6 +1,6 @@
 ### 💡 Financial Planning - Monte Carlo Simulation
 
-A Monte Carlo simulation can be leveraged for proactive financial planning over a multi-year horizon. It demonstrates the utility of requesting a detailed financial projection to understand future financial states.
+This article outlines how a Monte Carlo simulation can be leveraged for proactive financial planning over a multi-year horizon. It demonstrates the utility of requesting a detailed financial projection to understand future financial states.
 
 Key Points:
 

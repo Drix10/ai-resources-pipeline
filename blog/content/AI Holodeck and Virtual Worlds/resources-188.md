@@ -1,6 +1,6 @@
 ### ✨ Hailuo AI App - Feature Update v2.10.0
 
-Significant new features introduced in Hailuo AI App version 2.10.0, providing users with advanced capabilities for photo and video editing. The update focuses on creative transformations and content restoration.
+This article details the significant new features introduced in Hailuo AI App version 2.10.0, providing users with advanced capabilities for photo and video editing. The update focuses on creative transformations and content restoration.
 
 Key Points:
 

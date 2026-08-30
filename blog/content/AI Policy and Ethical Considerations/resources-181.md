@@ -1,6 +1,6 @@
 ### 🤖 AI Ethics - Lethal Autonomous Weapons Pledge
 
-Commitment made by prominent AI leaders and organizations, including those from Google DeepMind, to a pledge against the development and use of lethal autonomous weapons. It highlights the ethical imperative to maintain human control over life-or-death decisions.
+This article discusses the commitment made by prominent AI leaders and organizations, including those from Google DeepMind, to a pledge against the development and use of lethal autonomous weapons. It highlights the ethical imperative to maintain human control over life-or-death decisions.
 
 Key Points:
 

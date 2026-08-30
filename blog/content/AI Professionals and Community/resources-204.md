@@ -1,6 +1,6 @@
 ### 🤖 Philosophy - Computational Aspects
 
-Computational depth within philosophy, exemplified by causal discovery research housed in philosophy departments. It highlights how philosophical inquiry contributes to the development of computational algorithms.
+This article discusses the computational depth within philosophy, exemplified by causal discovery research housed in philosophy departments. It highlights how philosophical inquiry contributes to the development of computational algorithms.
 
 Key Points:
 

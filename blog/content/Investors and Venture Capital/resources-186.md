@@ -1,6 +1,6 @@
 ### ✨ GBrain - Full Evaluations and Prediction Tracking
 
-Latest GBrain v0.36.1 update, introducing enhanced features for tracking predictions over time and implementing comprehensive full evaluations. It highlights how these new capabilities improve model assessment and decision-making.
+This article covers the latest GBrain v0.36.1 update, introducing enhanced features for tracking predictions over time and implementing comprehensive full evaluations. It highlights how these new capabilities improve model assessment and decision-making.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Avian Flu - Mutation in Cows
 
-Concerning genetic mutation (PB2 E627K) found in US dairy cows, linked to severe disease and mammal-to-mammal transmission, raising potential human health risks.
+This article discusses a concerning genetic mutation (PB2 E627K) found in US dairy cows, linked to severe disease and mammal-to-mammal transmission, raising potential human health risks.
 
 Key Points:
 

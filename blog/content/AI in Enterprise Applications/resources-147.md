@@ -1,6 +1,6 @@
 ### ✨ Gaming Features - Default Multiplayer on Spawn
 
-Default multiplayer configuration of games hosted on the Spawn platform. It highlights the benefits and user experience associated with this integrated approach to gaming.
+This article details the default multiplayer configuration of games hosted on the Spawn platform. It highlights the benefits and user experience associated with this integrated approach to gaming.
 
 Key Points:
 

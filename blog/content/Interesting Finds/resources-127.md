@@ -1,6 +1,6 @@
 ### ✨ Lidar Technology - AEye Stratos Sensor Unveiled
 
-AEye's new Stratos lidar sensor, a 3rd-generation ultra-long-range system. It covers its enhanced detection capabilities and improved resolution for automotive and trucking applications.
+This article details AEye's new Stratos lidar sensor, a 3rd-generation ultra-long-range system. It covers its enhanced detection capabilities and improved resolution for automotive and trucking applications.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Venture Capital Strategy - LP Base Selection
 
-Long-term impact of limited partner (LP) composition on a venture fund's trajectory. It emphasizes considering LP relationships beyond initial fund size and recognizing diverse contributions.
+This article discusses the long-term impact of limited partner (LP) composition on a venture fund's trajectory. It emphasizes considering LP relationships beyond initial fund size and recognizing diverse contributions.
 
 Key Points:
 

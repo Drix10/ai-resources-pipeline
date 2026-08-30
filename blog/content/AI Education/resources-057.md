@@ -1,6 +1,6 @@
 ### 🤖 Gender Ratio in College Majors and Student IQ
 
-Study exploring the correlation between the gender ratio in college majors and average student IQ scores, as well as verbal and quantitative SAT scores.  The study reveals a significant negative correlation.
+This article examines a study exploring the correlation between the gender ratio in college majors and average student IQ scores, as well as verbal and quantitative SAT scores.  The study reveals a significant negative correlation.
 
 Key Points:
 

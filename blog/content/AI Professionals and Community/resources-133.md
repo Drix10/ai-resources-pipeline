@@ -1,6 +1,6 @@
 ### 🚀 AI Design Tools - Figma to Code with Bolt
 
-Bolt's capability to convert Figma designs directly into code, highlighting its efficiency for development workflows. It streamlines the creation process from design to implementation.
+This article covers Bolt's capability to convert Figma designs directly into code, highlighting its efficiency for development workflows. It streamlines the creation process from design to implementation.
 
 Key Points:
 

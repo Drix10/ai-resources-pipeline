@@ -1,6 +1,6 @@
 ### 🔬 Anti-Aging - Psilocybin Research
 
-Recent research suggesting that psilocybin, a compound found in psychedelic mushrooms, may have anti-aging properties.  The findings are based on studies involving both human cells and animal models.
+This article summarizes recent research suggesting that psilocybin, a compound found in psychedelic mushrooms, may have anti-aging properties.  The findings are based on studies involving both human cells and animal models.
 
 
 Key Points:

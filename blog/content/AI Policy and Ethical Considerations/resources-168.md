@@ -1,6 +1,6 @@
 ### 💡 Media Responsibility - Freedom of Press
 
-Importance of upholding journalistic integrity and critically evaluating attempts to attribute societal issues to thorough reporting. It emphasizes the foundational role of a free press in a thoughtful society.
+This article discusses the importance of upholding journalistic integrity and critically evaluating attempts to attribute societal issues to thorough reporting. It emphasizes the foundational role of a free press in a thoughtful society.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 OpenSea - Cross-Chain Transactions
 
-Seamless cross-chain minting experience on OpenSea using ETH on Base and Relay Protocol for bridging to Abstract.
+This article discusses a seamless cross-chain minting experience on OpenSea using ETH on Base and Relay Protocol for bridging to Abstract.
 
 Key Points:
 

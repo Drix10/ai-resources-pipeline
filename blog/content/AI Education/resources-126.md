@@ -1,6 +1,6 @@
 ### 🤖 Maximum-Likelihood Estimators - Data-Error Relationship
 
-Recent paper that provides a proof concerning the relationship between data quantity and error reduction in maximum-likelihood estimators. It addresses a long-standing statistical problem, confirming that more data can lead to less error under specific conditions.
+This article discusses a recent paper that provides a proof concerning the relationship between data quantity and error reduction in maximum-likelihood estimators. It addresses a long-standing statistical problem, confirming that more data can lead to less error under specific conditions.
 
 Key Points:
 

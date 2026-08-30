@@ -1,6 +1,6 @@
 ### 🤖 Windows App Management - Microsoft Intune Overview
 
-Managing Windows applications using Microsoft Intune, a cloud-based unified endpoint management solution. It covers the core functionalities for deploying and maintaining applications across various Windows devices.
+This article provides an overview of managing Windows applications using Microsoft Intune, a cloud-based unified endpoint management solution. It covers the core functionalities for deploying and maintaining applications across various Windows devices.
 
 Key Points:
 

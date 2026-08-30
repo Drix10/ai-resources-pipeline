@@ -1,6 +1,6 @@
 ### 🚀 3D Animation - Seedance 2.0 Camera Control
 
-Seedance 2.0 leverages basic 3D animation to control camera movement, offering a precise method for motion generation. It highlights the convenience of integrating reference videos and prompts for refined animation control.
+This article details how Seedance 2.0 leverages basic 3D animation to control camera movement, offering a precise method for motion generation. It highlights the convenience of integrating reference videos and prompts for refined animation control.
 
 Key Points:
 

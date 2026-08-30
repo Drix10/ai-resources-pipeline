@@ -1,6 +1,6 @@
 ### 💡 Political Representation - First Openly Queer MP
 
-Historical moment of Dr. Menaka Guruswamy's oath-taking in the Rajya Sabha. It marks a significant development in political representation within the country.
+This article highlights the historical moment of Dr. Menaka Guruswamy's oath-taking in the Rajya Sabha. It marks a significant development in political representation within the country.
 
 Key Points:
 

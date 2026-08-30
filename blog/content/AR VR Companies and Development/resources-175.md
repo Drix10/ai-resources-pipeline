@@ -1,6 +1,6 @@
 ### 🚀 Project Hail Mary VR - Immersive Experience
 
-Project Hail Mary VR game, an immersive virtual reality experience. It highlights the game's official website and associated developer profile.
+This article discusses the Project Hail Mary VR game, an immersive virtual reality experience. It highlights the game's official website and associated developer profile.
 
 Key Points:
 

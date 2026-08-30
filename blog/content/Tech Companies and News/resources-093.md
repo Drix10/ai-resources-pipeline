@@ -1,6 +1,6 @@
 ### 🤖 Accelerated Computing - NVIDIA Innovations at Hot Chips
 
-NVIDIA's presentations at Hot Chips, focusing on their accelerated computing platform and the NVIDIA ConnectX-8 SuperNIC.  The sessions highlighted advancements in programmable RoCE architecture for AI data centers.
+This article summarizes NVIDIA's presentations at Hot Chips, focusing on their accelerated computing platform and the NVIDIA ConnectX-8 SuperNIC.  The sessions highlighted advancements in programmable RoCE architecture for AI data centers.
 
 Key Points:
 

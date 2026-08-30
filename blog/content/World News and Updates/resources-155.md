@@ -1,6 +1,6 @@
 ### 💡 Geopolitics - US-Iran Policy Stance
 
-President Trump's public statements regarding Iran's peace proposal, including his reluctance to accept it without further conditions. It also addresses his musings on the potential for military action.
+This article examines President Trump's public statements regarding Iran's peace proposal, including his reluctance to accept it without further conditions. It also addresses his musings on the potential for military action.
 
 Key Points:
 

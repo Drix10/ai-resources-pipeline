@@ -1,6 +1,6 @@
 ### 🤖 Cybersecurity - Arkana Ransomware Attack on WOW!
 
-Reported ransomware attack on Wide Open West (WOW!), allegedly perpetrated by the Arkana ransomware group.  The group's identity and background are currently unclear.
+This article discusses the reported ransomware attack on Wide Open West (WOW!), allegedly perpetrated by the Arkana ransomware group.  The group's identity and background are currently unclear.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ Hackathon Sponsorship - The Hackathon KR Event
 
-Flock's role as a Track Sponsor for The Hackathon KR, a prominent building arena in South Korea. It highlights the event's unique structure where market data, not judges, determines success.
+This article details Flock's role as a Track Sponsor for The Hackathon KR, a prominent building arena in South Korea. It highlights the event's unique structure where market data, not judges, determines success.
 
 Key Points:
 

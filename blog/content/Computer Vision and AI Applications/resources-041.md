@@ -1,6 +1,6 @@
 ### 🤖 Media Criticism - DJV's Falsehoods
 
-Allegations of false statements made by DJV against children,  and calls for accountability.  The original Twitter thread lacks detailed context.
+This article discusses allegations of false statements made by DJV against children,  and calls for accountability.  The original Twitter thread lacks detailed context.
 
 
 Key Points:

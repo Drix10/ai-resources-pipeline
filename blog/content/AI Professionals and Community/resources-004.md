@@ -1,6 +1,6 @@
 ### 🤖 CUDA Kernel Automation - Speed and Success Rate Improvement
 
-Automation of CUDA kernel generation, highlighting achieved speed improvements and success rates.  The focus is on the techniques used and the resulting performance gains.
+This article discusses the automation of CUDA kernel generation, highlighting achieved speed improvements and success rates.  The focus is on the techniques used and the resulting performance gains.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Health & Genetics - Shifting Perspectives
 
-Evolving perspectives on health and genetics, moving beyond simply avoiding disease to fostering overall flourishing.
+This article discusses the evolving perspectives on health and genetics, moving beyond simply avoiding disease to fostering overall flourishing.
 
 Key Points:
 

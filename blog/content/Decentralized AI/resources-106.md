@@ -1,6 +1,6 @@
 ### 🤖 Agentic Economy - Cambrian Financial Intelligence
 
-Integration of autonomous agents with Cambrian's financial intelligence API for capital management and deployment within the Theoriq platform.
+This article discusses the integration of autonomous agents with Cambrian's financial intelligence API for capital management and deployment within the Theoriq platform.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Institutional Crypto Adoption - Solana Public Market Strategy
 
-Strategic approach for institutional crypto adoption, specifically for Solana, by leveraging public market mechanisms similar to MicroStrategy. It discusses the thesis that public markets offer the fastest path to integrating crypto into mainstream finance.
+This article outlines a strategic approach for institutional crypto adoption, specifically for Solana, by leveraging public market mechanisms similar to MicroStrategy. It discusses the thesis that public markets offer the fastest path to integrating crypto into mainstream finance.
 
 Key Points:
 

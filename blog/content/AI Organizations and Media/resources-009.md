@@ -1,6 +1,6 @@
 ### 🤖 Sonnet 3.7 Release - New Features
 
-New features and capabilities of Sonnet 3.7, focusing on its multimodal capabilities and adjustable reasoning time.
+This article details the new features and capabilities of Sonnet 3.7, focusing on its multimodal capabilities and adjustable reasoning time.
 
 Key Points:
 

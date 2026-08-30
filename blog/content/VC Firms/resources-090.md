@@ -1,6 +1,6 @@
 ### 🤖 RAG Enhancement - Zero Entropy Reranker
 
-Integration of Zero Entropy AI's reranking model into Mastra, a RAG system, highlighting performance improvements and cost reductions.
+This article discusses the integration of Zero Entropy AI's reranking model into Mastra, a RAG system, highlighting performance improvements and cost reductions.
 
 Key Points:
 

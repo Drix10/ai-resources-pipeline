@@ -1,6 +1,6 @@
 ### ✨ 3D Graphics - 3DGS to Mesh 3.0 Conversion
 
-Recent upgrade to 3DGS to Mesh 3.0, a feature designed to convert acquired 3D Gaussian Splatting (3DGS) data into mesh data. It covers the core functionality and potential benefits of this enhanced conversion process.
+This article highlights the recent upgrade to 3DGS to Mesh 3.0, a feature designed to convert acquired 3D Gaussian Splatting (3DGS) data into mesh data. It covers the core functionality and potential benefits of this enhanced conversion process.
 
 Key Points:
 

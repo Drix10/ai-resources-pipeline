@@ -1,6 +1,6 @@
 ### 🤖 Legal Action - Perplexity Faces Lawsuit from CNN
 
-Recent legal action taken by CNN against Perplexity. It covers the core issue of media companies suing AI platforms over content aggregation practices.
+This article discusses the recent legal action taken by CNN against Perplexity. It covers the core issue of media companies suing AI platforms over content aggregation practices.
 
 Key Points:
 

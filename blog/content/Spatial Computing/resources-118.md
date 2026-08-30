@@ -1,6 +1,6 @@
 ### 🤖 Spherical Voronoi - Differentiable Partition of the Sphere
 
-Spherical Voronoi diagrams, a method for directional appearance as a differentiable partition of the sphere. It covers the project, associated research paper, and a Google Colab notebook for implementation.
+This article discusses Spherical Voronoi diagrams, a method for directional appearance as a differentiable partition of the sphere. It covers the project, associated research paper, and a Google Colab notebook for implementation.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Real-World Task Performance
 
-Research paper evaluating the performance of current large language models on complex real-world tasks, highlighting potential for future improvement.
+This article discusses a research paper evaluating the performance of current large language models on complex real-world tasks, highlighting potential for future improvement.
 
 Key Points:
 

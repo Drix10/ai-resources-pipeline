@@ -1,6 +1,6 @@
 ### ✨ Digital Art - Community Appreciation
 
-Aesthetic appreciation of digital art and acknowledges the creators behind it. It emphasizes the role of individuals in sharing and promoting artistic works within online communities.
+This article highlights the aesthetic appreciation of digital art and acknowledges the creators behind it. It emphasizes the role of individuals in sharing and promoting artistic works within online communities.
 
 Key Points:
 

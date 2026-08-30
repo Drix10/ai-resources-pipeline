@@ -1,6 +1,6 @@
 ### 🤖 Imitation Learning - Factored Scaling Curves
 
-Factored Scaling Curves (FSC), a tool for improving the generalization of imitation learning policies by enabling principled data collection.  It explains how FSC quantifies the scaling of policy success with demonstrations for different environmental factors.
+This article discusses Factored Scaling Curves (FSC), a tool for improving the generalization of imitation learning policies by enabling principled data collection.  It explains how FSC quantifies the scaling of policy success with demonstrations for different environmental factors.
 
 Key Points:
 

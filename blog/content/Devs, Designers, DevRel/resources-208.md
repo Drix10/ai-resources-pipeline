@@ -1,6 +1,6 @@
 ### ✨ Codex Community - Project Showcase & Engagement
 
-Exciting competition for the Codex Community, inviting participants to share their projects and workflows. It aims to foster engagement and highlight innovative uses of the Codex platform.
+This article details an exciting competition for the Codex Community, inviting participants to share their projects and workflows. It aims to foster engagement and highlight innovative uses of the Codex platform.
 
 Key Points:
 

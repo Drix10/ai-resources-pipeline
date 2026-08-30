@@ -1,6 +1,6 @@
 ### 🤖 AI Policy - Geopolitical Impact
 
-Geopolitical implications for Europe if both China and the US implement export controls on advanced AI models. It considers potential actions or strategic responses.
+This article explores the geopolitical implications for Europe if both China and the US implement export controls on advanced AI models. It considers potential actions or strategic responses.
 
 Key Points:
 

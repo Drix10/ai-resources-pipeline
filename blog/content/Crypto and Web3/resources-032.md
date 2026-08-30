@@ -1,6 +1,6 @@
 ### 🤖 Dollar - Trump's Potential Impact
 
-Weakening US dollar in early 2025 and explores the potential role of Trump's trade policies in this decline.  The analysis focuses on the DXY index and its recent performance.
+This article discusses the weakening US dollar in early 2025 and explores the potential role of Trump's trade policies in this decline.  The analysis focuses on the DXY index and its recent performance.
 
 Key Points:
 

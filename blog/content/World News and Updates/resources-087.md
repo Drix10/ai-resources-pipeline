@@ -1,6 +1,6 @@
 ### 🤖 India-Israel Defense Cooperation - Equipment Supply
 
-Israel's supply of military equipment to India before Operation Sindoor, as revealed by an Israeli official.  The statement highlights the equipment's effectiveness and the broader cooperation between the two nations.
+This article discusses Israel's supply of military equipment to India before Operation Sindoor, as revealed by an Israeli official.  The statement highlights the equipment's effectiveness and the broader cooperation between the two nations.
 
 Key Points:
 

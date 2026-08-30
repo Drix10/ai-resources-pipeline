@@ -1,6 +1,6 @@
 ### 🤖 Evals As A Service - Model Evaluation Flexibility
 
-Concept of Evals As A Service, highlighting its ability to provide flexible model evaluation. It emphasizes the importance of choosing and mixing different models for optimal responses in a rapidly evolving AI landscape.
+This article discusses the concept of Evals As A Service, highlighting its ability to provide flexible model evaluation. It emphasizes the importance of choosing and mixing different models for optimal responses in a rapidly evolving AI landscape.
 
 Key Points:
 

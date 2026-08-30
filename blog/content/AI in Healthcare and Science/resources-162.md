@@ -1,6 +1,6 @@
 ### 💡 Public Health - Texas Flu Update
 
-Weekly update on flu prevalence across Texas for March 25. It outlines the general stabilization trend and highlights city-specific forecasts for the upcoming week.
+This article provides a weekly update on flu prevalence across Texas for March 25. It outlines the general stabilization trend and highlights city-specific forecasts for the upcoming week.
 
 Key Points:
 

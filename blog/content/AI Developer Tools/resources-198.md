@@ -1,6 +1,6 @@
 ### 🤖 Motor Driver Module - MX1508 Utilization
 
-Application of an MX1508 dual motor driver module within a project. It addresses the practical decision to use an existing component from inventory, acknowledging its potentially oversized capacity for the current application.
+This article details the application of an MX1508 dual motor driver module within a project. It addresses the practical decision to use an existing component from inventory, acknowledging its potentially oversized capacity for the current application.
 
 Key Points:
 

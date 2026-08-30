@@ -1,6 +1,6 @@
 ### 🤖 iOS Security - Network Traffic Monitoring
 
-Methods for monitoring network traffic in iOS applications. It highlights the use of free tools to inspect network input/output and identify sensitive information.
+This article discusses methods for monitoring network traffic in iOS applications. It highlights the use of free tools to inspect network input/output and identify sensitive information.
 
 Key Points:
 

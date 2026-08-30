@@ -1,6 +1,6 @@
 ### 🤖 Reinforcement Learning - Single Example Training & Test-Time RL
 
-Two recent papers on reinforcement learning: one focusing on training with a single example and the other on test-time reinforcement learning.  It briefly describes the core methodology of each approach.
+This article discusses two recent papers on reinforcement learning: one focusing on training with a single example and the other on test-time reinforcement learning.  It briefly describes the core methodology of each approach.
 
 Key Points:
 

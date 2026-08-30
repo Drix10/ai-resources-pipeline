@@ -1,6 +1,6 @@
 ### 📰 Kerala News - Student Ragging Incident
 
-Dismissal of five students from the Government College of Nursing, Kottayam, Kerala, following a brutal ragging incident.  The announcement was made by the Health Minister, Veena George.
+This article summarizes the dismissal of five students from the Government College of Nursing, Kottayam, Kerala, following a brutal ragging incident.  The announcement was made by the Health Minister, Veena George.
 
 
 Key Points:

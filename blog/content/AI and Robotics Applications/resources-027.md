@@ -1,6 +1,6 @@
 ### 🤖 Robotics - ARMS INA BOX Assembly Robot
 
-Ongoing development of an ARMS INA BOX assembly robot, focusing on arm segment arrangement and spherical wrist implementation.
+This article discusses the ongoing development of an ARMS INA BOX assembly robot, focusing on arm segment arrangement and spherical wrist implementation.
 
 Key Points:
 

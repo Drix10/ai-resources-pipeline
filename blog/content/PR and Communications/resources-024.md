@@ -1,6 +1,6 @@
 ### 🤖 Societal Influence - Algorithmic Manipulation
 
-Insidious influence of algorithms on society, subtly altering our thoughts and experiences.  It explores the transition from helpful tools to pervasive control.
+This article discusses the insidious influence of algorithms on society, subtly altering our thoughts and experiences.  It explores the transition from helpful tools to pervasive control.
 
 Key Points:
 

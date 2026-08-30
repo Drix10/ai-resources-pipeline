@@ -1,6 +1,6 @@
 ### 🚶 Golden Gate Park Builder Meetup - Networking Event
 
-Networking event for builders, founders, investors, and professionals held in Golden Gate Park.  The event aimed to foster connections within the San Francisco tech community.
+This article summarizes a networking event for builders, founders, investors, and professionals held in Golden Gate Park.  The event aimed to foster connections within the San Francisco tech community.
 
 
 Key Points:

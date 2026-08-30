@@ -1,6 +1,6 @@
 ### 🤖 Vector Search - Multi-Vector Embeddings
 
-Evolution of vector search and the impact of multi-vector embeddings on improving search accuracy and meaning capture.  It highlights how single vector representations are insufficient for complex data.
+This article discusses the evolution of vector search and the impact of multi-vector embeddings on improving search accuracy and meaning capture.  It highlights how single vector representations are insufficient for complex data.
 
 Key Points:
 

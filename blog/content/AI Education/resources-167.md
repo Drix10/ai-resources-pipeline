@@ -1,6 +1,6 @@
 ### ✨ Descript - Centralized Media Library
 
-Descript's newly released Media Library, designed to streamline asset management for users. It highlights the convenience of having a single location for frequently used media assets.
+This article details Descript's newly released Media Library, designed to streamline asset management for users. It highlights the convenience of having a single location for frequently used media assets.
 
 Key Points:
 

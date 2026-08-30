@@ -1,6 +1,6 @@
 ### 🎶 Memory - Music's Influence on Recall
 
-Study exploring how emotional music affects the recall of past events.  The research investigated the impact of positive and negative music on memory recollection.
+This article discusses a study exploring how emotional music affects the recall of past events.  The research investigated the impact of positive and negative music on memory recollection.
 
 Key Points:
 

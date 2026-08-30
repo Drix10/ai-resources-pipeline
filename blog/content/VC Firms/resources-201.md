@@ -1,6 +1,6 @@
 ### 💡 Investment Thesis - Markel Corporation Strategy
 
-Current investment thesis for Markel Corporation ($MKL) as shared by Thomas Gayner in Q1 2026. It provides insights into the principles guiding the company's long-term investment approach.
+This article outlines the current investment thesis for Markel Corporation ($MKL) as shared by Thomas Gayner in Q1 2026. It provides insights into the principles guiding the company's long-term investment approach.
 
 Key Points:
 

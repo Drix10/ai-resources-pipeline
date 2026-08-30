@@ -1,6 +1,6 @@
 ### ✨ Event Announcement - Merry Bassmas
 
-Details regarding the upcoming "Merry Bassmas" event. It outlines the scheduled time and includes associated resources for further information.
+This article provides details regarding the upcoming "Merry Bassmas" event. It outlines the scheduled time and includes associated resources for further information.
 
 Key Points:
 

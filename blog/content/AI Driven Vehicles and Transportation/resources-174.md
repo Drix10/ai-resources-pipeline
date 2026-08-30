@@ -1,6 +1,6 @@
 ### 🤖 Claude AI - Filesystem Memory Management
 
-Claude AI models, specifically Sonnet 3.5 and Opus 4.6, utilize the filesystem for memory management across different generations. It highlights the improvements in memory handling capabilities observed in later models.
+This article examines how Claude AI models, specifically Sonnet 3.5 and Opus 4.6, utilize the filesystem for memory management across different generations. It highlights the improvements in memory handling capabilities observed in later models.
 
 Key Points:
 

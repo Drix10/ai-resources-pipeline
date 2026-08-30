@@ -1,6 +1,6 @@
 ### 🤖 GPT Model Development - GPT-5 Architecture
 
-Architecture of the upcoming GPT-5 model, highlighting its departure from previous GPT-4 iterations.  It will focus on the use of entirely new, unreleased models as its foundation.
+This article discusses the architecture of the upcoming GPT-5 model, highlighting its departure from previous GPT-4 iterations.  It will focus on the use of entirely new, unreleased models as its foundation.
 
 Key Points:
 

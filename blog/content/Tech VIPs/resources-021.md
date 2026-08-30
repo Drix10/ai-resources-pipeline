@@ -1,6 +1,6 @@
 ### 💡Advising Founders - Multiple Paths to Success
 
-Importance of offering founders multiple paths to achieve their goals, rather than prescribing a single solution.  It highlights the approach of successful advisors who prioritize option generation.
+This article discusses the importance of offering founders multiple paths to achieve their goals, rather than prescribing a single solution.  It highlights the approach of successful advisors who prioritize option generation.
 
 Key Points:
 

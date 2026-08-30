@@ -1,6 +1,6 @@
 ### 💡 Community Challenge - DJI Flip Drone Giveaway
 
-Community challenge by DJI, offering participants a chance to win one of four DJI Flip drones. It details the requirements for entry and the platforms for submission.
+This article outlines a community challenge by DJI, offering participants a chance to win one of four DJI Flip drones. It details the requirements for entry and the platforms for submission.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Autonomous Vehicles - NVIDIA GTC Session
 
-Special session at NVIDIA GTC featuring Reza Ahmadi of Gatik, discussing the next generation of AI-driven autonomy.  It provides a link to learn more about the session.
+This article highlights a special session at NVIDIA GTC featuring Reza Ahmadi of Gatik, discussing the next generation of AI-driven autonomy.  It provides a link to learn more about the session.
 
 Key Points:
 

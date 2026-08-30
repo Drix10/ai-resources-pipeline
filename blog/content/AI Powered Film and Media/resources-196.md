@@ -1,6 +1,6 @@
 ### 💡 Digital Activism - Online Discourse
 
-Statement encouraging participation in online discourse related to political themes. It highlights the use of digital platforms for expressing collective sentiment and mobilizing support for specific objectives.
+This article examines a statement encouraging participation in online discourse related to political themes. It highlights the use of digital platforms for expressing collective sentiment and mobilizing support for specific objectives.
 
 Key Points:
 

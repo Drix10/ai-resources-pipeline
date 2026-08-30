@@ -1,6 +1,6 @@
 ### 🤖 Perplexity Embeddings - Model Availability
 
-Perplexity's embedding models, outlining their various parameter sizes and accessibility options. It covers where these models can be obtained and their licensing.
+This article details Perplexity's embedding models, outlining their various parameter sizes and accessibility options. It covers where these models can be obtained and their licensing.
 
 Key Points:
 

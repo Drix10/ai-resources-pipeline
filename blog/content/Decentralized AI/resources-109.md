@@ -1,6 +1,6 @@
 ### 🤖 LABtrade Snaps Campaign Upgrade to ACM Campaign
 
-Upgrade of the LABtrade Snaps Campaign to an ACM Campaign, highlighting increased rewards and methods for earning multipliers.
+This article details the upgrade of the LABtrade Snaps Campaign to an ACM Campaign, highlighting increased rewards and methods for earning multipliers.
 
 Key Points:
 

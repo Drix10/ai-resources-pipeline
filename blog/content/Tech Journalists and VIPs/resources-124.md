@@ -1,6 +1,6 @@
 ### 💡 Political Events - Maduro Custody
 
-Political exchange involving statements about Nicolas Maduro and a subsequent image of him in custody. It highlights a specific event in political discourse.
+This article covers a political exchange involving statements about Nicolas Maduro and a subsequent image of him in custody. It highlights a specific event in political discourse.
 
 Key Points:
 

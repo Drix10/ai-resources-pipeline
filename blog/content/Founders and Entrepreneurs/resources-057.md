@@ -1,6 +1,6 @@
 ### 💡 Hostage Situation - Ongoing Negotiations
 
-Statement from the families of hostages, emphasizing the importance of continued negotiations for a peaceful resolution.  The families express their determination to secure the safe return of their loved ones.
+This article summarizes a statement from the families of hostages, emphasizing the importance of continued negotiations for a peaceful resolution.  The families express their determination to secure the safe return of their loved ones.
 
 Key Points:
 

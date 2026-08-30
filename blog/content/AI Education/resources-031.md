@@ -1,6 +1,6 @@
 ### 🤖 AI Transparency in EdTech - The Importance of Disclosure
 
-Lack of transparency in the EdTech AI industry, highlighting the concerns raised by Thomas Hummel, co-founder of Eduaide AI, regarding companies presenting themselves as AI experts without building their own models.  The central question is the significance of transparency in educational technology.
+This article discusses the lack of transparency in the EdTech AI industry, highlighting the concerns raised by Thomas Hummel, co-founder of Eduaide AI, regarding companies presenting themselves as AI experts without building their own models.  The central question is the significance of transparency in educational technology.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Software Disruption - The Rise of Prompt-Based Interfaces
 
-Predicted disruption of software lacking prompt boxes on their homepages, emphasizing the user preference for prompt-based interaction.
+This article discusses the predicted disruption of software lacking prompt boxes on their homepages, emphasizing the user preference for prompt-based interaction.
 
 Key Points:
 

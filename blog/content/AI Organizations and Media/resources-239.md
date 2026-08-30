@@ -1,6 +1,6 @@
 ### 🤖 Computational Chemistry - Enzyme Engineering
 
-Application of machine learning to discover and engineer efficient PETase enzymes. The engineered systems focus on the depolymerization and detoxification of PET microplastics under physiological conditions.
+This article highlights the application of machine learning to discover and engineer efficient PETase enzymes. The engineered systems focus on the depolymerization and detoxification of PET microplastics under physiological conditions.
 
 Key Points:
 • Machine learning models accelerate the discovery of plastic-degrading enzymes.

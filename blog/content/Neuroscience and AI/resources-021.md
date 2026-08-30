@@ -1,6 +1,6 @@
 ### 🤖 Cognitive Psychology - Event Completion
 
-Study on event completion perception, focusing on why participants inaccurately recall events.  The research explores factors influencing memory reconstruction.
+This article discusses a study on event completion perception, focusing on why participants inaccurately recall events.  The research explores factors influencing memory reconstruction.
 
 Key Points:
 

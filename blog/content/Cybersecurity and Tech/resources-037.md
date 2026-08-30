@@ -1,6 +1,6 @@
 ### 💡 Business Controls - Preventing Fake AI Receipts
 
-Importance of implementing basic business controls and fostering a positive employee culture to mitigate the risk of fraudulent expense reports, emphasizing that such issues predate AI.
+This article discusses the importance of implementing basic business controls and fostering a positive employee culture to mitigate the risk of fraudulent expense reports, emphasizing that such issues predate AI.
 
 Key Points:
 

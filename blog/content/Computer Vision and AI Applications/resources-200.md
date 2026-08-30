@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Depth Prediction for Transparent Objects
 
-Advancements in depth prediction for robotic manipulation, specifically addressing the challenge of transparent objects. It highlights the consistency and boundary sharpness achieved even with difficult materials like plastic bags and glass jars.
+This article discusses advancements in depth prediction for robotic manipulation, specifically addressing the challenge of transparent objects. It highlights the consistency and boundary sharpness achieved even with difficult materials like plastic bags and glass jars.
 
 Key Points:
 • Robot manipulation is improving for transparent objects.

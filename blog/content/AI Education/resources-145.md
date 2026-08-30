@@ -1,6 +1,6 @@
 ### 🤖 Decentralized Knowledge Graphs - AI Transformation
 
-Decentralized Knowledge Graphs (DKG) are fundamentally changing AI by providing verifiable and interconnected data foundations. It explains how these systems enable more transparent and trustworthy machine learning.
+This article explores how Decentralized Knowledge Graphs (DKG) are fundamentally changing AI by providing verifiable and interconnected data foundations. It explains how these systems enable more transparent and trustworthy machine learning.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Embodied AI and Human Interaction
 
-Origin F1, a robot designed for intuitive, emotional, and human-like interaction, moving beyond traditional functional robotics. It highlights the pursuit of a new dimension of embodied intelligence.
+This article explores Origin F1, a robot designed for intuitive, emotional, and human-like interaction, moving beyond traditional functional robotics. It highlights the pursuit of a new dimension of embodied intelligence.
 
 Key Points:
 

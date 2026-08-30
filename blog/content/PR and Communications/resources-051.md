@@ -1,6 +1,6 @@
 ### 💡 AI Discussion - Scenario Planning
 
-Importance of incorporating proper scenario planning in AI discussions, moving beyond wishful thinking.  It references a book preorder to facilitate a more informed conversation.
+This article highlights the importance of incorporating proper scenario planning in AI discussions, moving beyond wishful thinking.  It references a book preorder to facilitate a more informed conversation.
 
 Key Points:
 

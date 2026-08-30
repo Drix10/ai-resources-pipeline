@@ -1,6 +1,6 @@
 ### 🚀 AI Mentorship - Gemini Founders Forum
 
-Gemini Founders Forum, an opportunity for Series A founders building with AI to receive mentorship from Google DeepMind and Google Cloud experts.  The forum also allows participation in shaping the future of Gemini products.
+This article discusses the Gemini Founders Forum, an opportunity for Series A founders building with AI to receive mentorship from Google DeepMind and Google Cloud experts.  The forum also allows participation in shaping the future of Gemini products.
 
 Key Points:
 

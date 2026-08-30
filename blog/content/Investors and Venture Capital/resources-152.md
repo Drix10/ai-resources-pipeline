@@ -1,6 +1,6 @@
 ### ✨ Social Media - Platform Notifications
 
-Social media platform notifications and their role in user engagement. It highlights how platforms like X keep users updated on their activity.
+This article provides a brief overview of social media platform notifications and their role in user engagement. It highlights how platforms like X keep users updated on their activity.
 
 Key Points:
 

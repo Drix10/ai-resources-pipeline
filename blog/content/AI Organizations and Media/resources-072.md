@@ -1,6 +1,6 @@
 ### 🤖 Global Tech and Opportunity - A Conversation with Balaji Srinivasan
 
-Conversation between Balaji Srinivasan and Aditya Agarwal on the podcast Minus One, discussing global technology and opportunities.  The conversation challenges common assumptions in these areas.
+This article summarizes a conversation between Balaji Srinivasan and Aditya Agarwal on the podcast Minus One, discussing global technology and opportunities.  The conversation challenges common assumptions in these areas.
 
 Key Points:
 

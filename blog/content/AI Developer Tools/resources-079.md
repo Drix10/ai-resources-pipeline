@@ -1,6 +1,6 @@
 ### 🚀 Tools - Rapid Mobile App Prototyping with Rocket
 
-Rocket, a tool designed for rapid mobile application prototyping.  It highlights the speed and efficiency of building applications with a single prompt.
+This article discusses Rocket, a tool designed for rapid mobile application prototyping.  It highlights the speed and efficiency of building applications with a single prompt.
 
 
 Key Points:

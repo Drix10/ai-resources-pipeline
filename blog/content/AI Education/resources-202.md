@@ -1,6 +1,6 @@
 ### 🚀 Research Tools - Daily Utility
 
-Consensus, an AI-powered search engine. It details how this tool streamlines the research process by providing direct answers from academic papers and scientific sources.
+This article highlights Consensus, an AI-powered search engine. It details how this tool streamlines the research process by providing direct answers from academic papers and scientific sources.
 
 Key Points:
 

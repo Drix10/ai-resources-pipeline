@@ -1,6 +1,6 @@
 ### 🤖 GNSS - LEO PNT Panel Discussion at #MGAConference
 
-Panel discussion at the MGA Conference on Low Earth Orbit (LEO) Precise Navigation and Timing (PNT) and its impact on GNSS.  The panel included representatives from various space agencies and companies.
+This article summarizes a panel discussion at the MGA Conference on Low Earth Orbit (LEO) Precise Navigation and Timing (PNT) and its impact on GNSS.  The panel included representatives from various space agencies and companies.
 
 Key Points:
 

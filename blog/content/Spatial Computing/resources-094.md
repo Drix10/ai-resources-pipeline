@@ -1,6 +1,6 @@
 ### 🤖 AI Agent Development - High-Performance Inference
 
-Building a simple AI agent using the OpenAI GPT-OSS 20B model for inference via OpenAI APIs and chat completions.  The process leverages NVIDIA NIM for enhanced performance.
+This article details building a simple AI agent using the OpenAI GPT-OSS 20B model for inference via OpenAI APIs and chat completions.  The process leverages NVIDIA NIM for enhanced performance.
 
 Key Points:
 

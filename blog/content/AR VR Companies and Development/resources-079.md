@@ -1,6 +1,6 @@
 ### 🚀 VR Headsets - Play For Dream MR Review
 
-VR flight simulator review of the Play For Dream MR headset, highlighting its visual capabilities and comfort.
+This article summarizes a VR flight simulator review of the Play For Dream MR headset, highlighting its visual capabilities and comfort.
 
 Key Points:
 

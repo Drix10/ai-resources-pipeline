@@ -1,6 +1,6 @@
 ### 💡 Finance - Net Worth and Investment Strategy
 
-Relationship between net worth, age, and investment strategy.  It suggests different financial goals based on varying levels of wealth.
+This article discusses the relationship between net worth, age, and investment strategy.  It suggests different financial goals based on varying levels of wealth.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ Pop Culture - Winona Ryder Imitation
 
-Notable imitation of Winona Ryder's character in Stranger Things, showcasing performance and character portrayal.
+This article highlights a notable imitation of Winona Ryder's character in Stranger Things, showcasing performance and character portrayal.
 
 Key Points:
 

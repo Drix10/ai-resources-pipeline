@@ -1,6 +1,6 @@
 ### 🤖 American Dynamism - The Decline of Corporate Innovation
 
-Observation that large American companies lack the innovative drive of startups, attributing this to cultural factors and risk aversion among venture capitalists.
+This article discusses the observation that large American companies lack the innovative drive of startups, attributing this to cultural factors and risk aversion among venture capitalists.
 
 Key Points:
 

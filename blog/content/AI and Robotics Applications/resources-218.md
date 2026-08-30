@@ -1,6 +1,6 @@
 ### 🤖 AI Creativity - Generating Complex ASCII Drawings
 
-Capability of AI to produce intricate ASCII art. It highlights how AI can generate detailed drawings, such as a hose clamp, a task that would be challenging for humans to perform manually.
+This article discusses the capability of AI to produce intricate ASCII art. It highlights how AI can generate detailed drawings, such as a hose clamp, a task that would be challenging for humans to perform manually.
 
 Key Points:
 

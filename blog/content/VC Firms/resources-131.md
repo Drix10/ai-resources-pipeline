@@ -1,6 +1,6 @@
 ### 💡 Logistics - Rail Merger Impacts on Trucking
 
-Potential effects of the Union Pacific and Norfolk Southern merger on the trucking industry. It discusses shifts in long-haul freight to rail and increased drayage opportunities for short-distance carriers.
+This article examines the potential effects of the Union Pacific and Norfolk Southern merger on the trucking industry. It discusses shifts in long-haul freight to rail and increased drayage opportunities for short-distance carriers.
 
 Key Points:
 

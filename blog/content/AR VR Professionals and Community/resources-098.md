@@ -1,6 +1,6 @@
 ### 💡 Social Media Advocacy - Child Safety
 
-Importance of online child safety advocacy and highlights individuals actively working to protect children.
+This article discusses the importance of online child safety advocacy and highlights individuals actively working to protect children.
 
 Key Points:
 

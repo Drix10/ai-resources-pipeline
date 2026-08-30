@@ -1,6 +1,6 @@
 ### 🤖 AI in Healthcare - High-Stakes Artifact Generation
 
-Challenges of generating clinically useful AI artifacts for healthcare, focusing on the need for accurate medical terminology recognition and the integration of retrospective clinical data.
+This article discusses the challenges of generating clinically useful AI artifacts for healthcare, focusing on the need for accurate medical terminology recognition and the integration of retrospective clinical data.
 
 Key Points:
 

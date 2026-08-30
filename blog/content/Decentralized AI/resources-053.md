@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Decentralized Training
 
-Training of a 40-billion parameter AI model on a globally distributed GPU cluster, highlighting its decentralized nature and scale.
+This article discusses the training of a 40-billion parameter AI model on a globally distributed GPU cluster, highlighting its decentralized nature and scale.
 
 Key Points:
 

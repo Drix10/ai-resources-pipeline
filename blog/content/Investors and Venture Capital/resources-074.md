@@ -1,6 +1,6 @@
 ### 🚀 Space Exploration - Multiplanetary Survival
 
-Elon Musk's vision for making life multiplanetary as a necessity for humanity's survival.  It highlights the importance of this goal and its implications for the future.
+This article discusses Elon Musk's vision for making life multiplanetary as a necessity for humanity's survival.  It highlights the importance of this goal and its implications for the future.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Agent Design - Open-Source Agent S2
 
-Open-sourced Agent S2, highlighting its design and key innovations as detailed in a recently released technical paper.  The agent combines generalist reasoning with specialist grounding for improved performance in long-horizon tasks.
+This article discusses the open-sourced Agent S2, highlighting its design and key innovations as detailed in a recently released technical paper.  The agent combines generalist reasoning with specialist grounding for improved performance in long-horizon tasks.
 
 Key Points:
 

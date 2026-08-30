@@ -1,6 +1,6 @@
 ### 📈 Personal Development - 100 Pushups Goal
 
-Individual's progress towards achieving a personal goal of completing 100 consecutive pushups.  The focus is on the consistent effort demonstrated.
+This article discusses an individual's progress towards achieving a personal goal of completing 100 consecutive pushups.  The focus is on the consistent effort demonstrated.
 
 Key Points:
 

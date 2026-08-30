@@ -1,6 +1,6 @@
 ### 🤖 APIs - Hands-on Workshop at ApiDays NY
 
-Workshop at ApiDays New York focusing on Anthropic's model for API interaction.  The workshop, led by Ben Morss of DeepL, explored practical applications of AI in API usage.
+This article summarizes a workshop at ApiDays New York focusing on Anthropic's model for API interaction.  The workshop, led by Ben Morss of DeepL, explored practical applications of AI in API usage.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🙏 Himachal Pradesh - Devastating Floods
 
-Devastating floods in Himachal Pradesh, India, and appeals for national support.  The state is experiencing one of its worst flood events in history.
+This article summarizes the devastating floods in Himachal Pradesh, India, and appeals for national support.  The state is experiencing one of its worst flood events in history.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Health - National Women's Health Week
 
-Information regarding National Women's Health Week and resources for self-care, mental well-being, and health priorities for all ages.
+This article provides information regarding National Women's Health Week and resources for self-care, mental well-being, and health priorities for all ages.
 
 Key Points:
 

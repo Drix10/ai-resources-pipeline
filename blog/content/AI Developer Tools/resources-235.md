@@ -1,6 +1,6 @@
 ### 🤖 fal.ai - Video Generation Models
 
-Fal.ai's MiniMax models, which allow users to generate video content from various inputs. It outlines the capabilities for creating video from images, text prompts, or existing reference videos.
+This article covers fal.ai's MiniMax models, which allow users to generate video content from various inputs. It outlines the capabilities for creating video from images, text prompts, or existing reference videos.
 
 Key Points:
 

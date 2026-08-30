@@ -1,6 +1,6 @@
 ### 💡 NBA Game Broadcast - Cleveland vs. Detroit Game 5
 
-Information on how to access the live broadcast of Game 5 between the Cleveland Cavaliers and Detroit Pistons. It details the current series status and viewing instructions for the upcoming game.
+This article provides information on how to access the live broadcast of Game 5 between the Cleveland Cavaliers and Detroit Pistons. It details the current series status and viewing instructions for the upcoming game.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Data Center Efficiency - AI's Impact on Infrastructure
 
-Challenges of modern data center development, specifically focusing on the increasing demands for power, cooling, and operational efficiency driven by AI acceleration. It highlights a white paper exploring these critical issues in infrastructure growth.
+This article covers the challenges of modern data center development, specifically focusing on the increasing demands for power, cooling, and operational efficiency driven by AI acceleration. It highlights a white paper exploring these critical issues in infrastructure growth.
 
 Key Points:
 

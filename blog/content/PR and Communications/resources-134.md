@@ -1,6 +1,6 @@
 ### 💡 Public Accountability - Unresolved Homicides and Governance
 
-Challenges faced when a state's leadership struggles to account for the killing of its citizens. It explores the implications of such unresolved issues on public trust and governance.
+This article discusses the challenges faced when a state's leadership struggles to account for the killing of its citizens. It explores the implications of such unresolved issues on public trust and governance.
 
 Key Points:
 

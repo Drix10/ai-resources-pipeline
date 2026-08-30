@@ -1,6 +1,6 @@
 ### 💡 Music Preference - Lyric Focus
 
-Listener preferences regarding song lyrics. It explores how a focus on lyrical content shapes the music listening experience.
+This article discusses listener preferences regarding song lyrics. It explores how a focus on lyrical content shapes the music listening experience.
 
 Key Points:
 

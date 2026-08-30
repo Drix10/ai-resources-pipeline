@@ -1,6 +1,6 @@
 ### 🤖 Computational Design - Grasshopper 3.0 Modeling Paradigms
 
-Workshop focused on advanced computational design methods within the Grasshopper environment. It explores three distinct modeling paradigms: NURBS, mesh, and volumetric modeling.
+This article details a workshop focused on advanced computational design methods within the Grasshopper environment. It explores three distinct modeling paradigms: NURBS, mesh, and volumetric modeling.
 
 Key Points:
 

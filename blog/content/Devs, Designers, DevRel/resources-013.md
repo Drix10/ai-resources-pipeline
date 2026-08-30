@@ -1,6 +1,6 @@
 ### 🤖 Affordable AI - DeepSeek R1
 
-DeepSeek R1, a new AI model significantly cheaper than OpenAI's o1, and its potential to improve AI accessibility.  It highlights the model's cost-effectiveness and its implications for the broader AI landscape.
+This article discusses DeepSeek R1, a new AI model significantly cheaper than OpenAI's o1, and its potential to improve AI accessibility.  It highlights the model's cost-effectiveness and its implications for the broader AI landscape.
 
 Key Points:
 

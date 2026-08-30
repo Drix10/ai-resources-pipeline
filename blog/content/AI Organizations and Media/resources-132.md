@@ -1,6 +1,6 @@
 ### 🤖 AI Impact - Human Capital Leveraging
 
-Fundamental question raised by Shri K. S. Gopinath Narayan, Principal Secretary (IT), Government of Assam, regarding the leveraging of human capital in the age of AI. It reflects on discussions from the Working Group Meeting at IIT, Guwahati, concerning AI's impact on the workforce.
+This article outlines a fundamental question raised by Shri K. S. Gopinath Narayan, Principal Secretary (IT), Government of Assam, regarding the leveraging of human capital in the age of AI. It reflects on discussions from the Working Group Meeting at IIT, Guwahati, concerning AI's impact on the workforce.
 
 Key Points:
 

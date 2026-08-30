@@ -1,6 +1,6 @@
 ### 🤖 AI Newsbreak - Genie 3 and Unreleased Models
 
-Unreleased Google model, Genie 3, capable of creating playable worlds from text prompts, and its impact on beta testers.  It also briefly mentions subsequent AI news.
+This article discusses an unreleased Google model, Genie 3, capable of creating playable worlds from text prompts, and its impact on beta testers.  It also briefly mentions subsequent AI news.
 
 Key Points:
 

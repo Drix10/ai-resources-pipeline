@@ -1,6 +1,6 @@
 ### 🤖 AI in Healthcare - Abridge Platform Evolution
 
-Transformation of Abridge into a patient-centered clinician intelligence platform. It covers the evolution of AI application within healthcare settings.
+This article outlines the transformation of Abridge into a patient-centered clinician intelligence platform. It covers the evolution of AI application within healthcare settings.
 
 Key Points:
 

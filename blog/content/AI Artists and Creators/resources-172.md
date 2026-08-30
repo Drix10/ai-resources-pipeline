@@ -1,6 +1,6 @@
 ### ✨ Midjourney - Style Reference Usage
 
-Application of the `--sref` parameter in Midjourney v8 for consistent style generation across multiple images. It demonstrates how a specific style reference code influences visual output.
+This article explores the application of the `--sref` parameter in Midjourney v8 for consistent style generation across multiple images. It demonstrates how a specific style reference code influences visual output.
 
 Key Points:
 

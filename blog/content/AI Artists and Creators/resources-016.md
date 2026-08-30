@@ -1,6 +1,6 @@
 ### 🔞 Social Commentary - Harem Dynamics
 
-Social commentary presented on Twitter regarding a woman's role and influence within a described social structure.  The post includes an image and links to related content.
+This article discusses a social commentary presented on Twitter regarding a woman's role and influence within a described social structure.  The post includes an image and links to related content.
 
 
 Key Points:

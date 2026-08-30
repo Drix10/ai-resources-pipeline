@@ -1,6 +1,6 @@
 ### 💡 Communication -  Using Frameworks for Self-Introduction
 
-"Name, Same, Fame, Aim, and Game" framework for effective self-introductions.  It provides a structured approach to concisely communicate key information about oneself and one's business.
+This article discusses the "Name, Same, Fame, Aim, and Game" framework for effective self-introductions.  It provides a structured approach to concisely communicate key information about oneself and one's business.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 💡 Economic Outlook - Warren Buffett's Perspective
 
-Warren Buffett's recent warnings regarding the potential collapse of the US dollar and his evolving perspective on the stock market. It highlights his current investment posture and insights shared.
+This article discusses Warren Buffett's recent warnings regarding the potential collapse of the US dollar and his evolving perspective on the stock market. It highlights his current investment posture and insights shared.
 
 Key Points:
 

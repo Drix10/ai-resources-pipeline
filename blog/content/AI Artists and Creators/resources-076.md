@@ -1,6 +1,6 @@
 ### ✨ Art - Emotional Resonance
 
-Artwork "Once I was" by Maral, highlighting its emotional impact and the artist's multidisciplinary approach.
+This article discusses the artwork "Once I was" by Maral, highlighting its emotional impact and the artist's multidisciplinary approach.
 
 Key Points:
 

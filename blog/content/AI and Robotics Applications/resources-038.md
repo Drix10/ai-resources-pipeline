@@ -1,6 +1,6 @@
 ### 🤖 ROS - ROS 3 Planning
 
-Key decisions made during a Project Management Committee (PMC) meeting regarding the planning of ROS 3, the successor to ROS 1.  The discussion focused on major technology shifts and platform changes.
+This article summarizes the key decisions made during a Project Management Committee (PMC) meeting regarding the planning of ROS 3, the successor to ROS 1.  The discussion focused on major technology shifts and platform changes.
 
 Key Points:
 

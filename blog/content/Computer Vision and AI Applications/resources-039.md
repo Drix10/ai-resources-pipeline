@@ -1,6 +1,6 @@
 ### 🚀 Gradio - Reaching 1 Million Developers
 
-Growth of Gradio, a Python library for building and sharing AI web applications, from its inception to surpassing one million monthly developers.
+This article summarizes the growth of Gradio, a Python library for building and sharing AI web applications, from its inception to surpassing one million monthly developers.
 
 Key Points:
 

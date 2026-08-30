@@ -1,6 +1,6 @@
 ### 🤖 Education Technology - GetSchoolAI Platform
 
-GetSchoolAI platform and its use in creating engaging learning environments that safely integrate AI into the classroom.  Student engagement and positive experiences are highlighted.
+This article discusses the GetSchoolAI platform and its use in creating engaging learning environments that safely integrate AI into the classroom.  Student engagement and positive experiences are highlighted.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 One Health Summit - Global Health Agenda
 
-Darlington Akogo's engagement at the One Health Summit in Lyon, where he collaborated with global leaders. The summit focused on connecting global health initiatives with policy and emerging system-wide risks.
+This article outlines Darlington Akogo's engagement at the One Health Summit in Lyon, where he collaborated with global leaders. The summit focused on connecting global health initiatives with policy and emerging system-wide risks.
 
 Key Points:
 

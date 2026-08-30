@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics - Tariffs and Economic Reset
 
-Implications of new tariffs, considering factors like national debt, inflation, and shifting global alliances.  The analysis focuses on the potential cascading effects of these economic decisions.
+This article discusses the implications of new tariffs, considering factors like national debt, inflation, and shifting global alliances.  The analysis focuses on the potential cascading effects of these economic decisions.
 
 Key Points:
 

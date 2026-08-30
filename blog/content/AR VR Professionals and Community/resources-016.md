@@ -1,6 +1,6 @@
 ### 🎬 Immersive Cinema - Behind the Scenes of Encounter Dinosaurs
 
-The creative process behind the immersive cinema experience "Encounter Dinosaurs," as shared at Apple's developer event.  It also notes a personal reflection on the event.
+This article provides a brief overview of the creative process behind the immersive cinema experience "Encounter Dinosaurs," as shared at Apple's developer event.  It also notes a personal reflection on the event.
 
 
 Key Points:

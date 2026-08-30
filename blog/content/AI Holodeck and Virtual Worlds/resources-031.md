@@ -1,6 +1,6 @@
 ### 🚀 3D Modeling - Backyard Visualization
 
-Workflow for quickly visualizing a backyard design using 3D scanning, texturing, and a game engine.  The process took approximately three hours.
+This article details a workflow for quickly visualizing a backyard design using 3D scanning, texturing, and a game engine.  The process took approximately three hours.
 
 Key Points:
 

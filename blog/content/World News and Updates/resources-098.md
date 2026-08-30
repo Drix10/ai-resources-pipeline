@@ -1,6 +1,6 @@
 ### 🌎 International Relations - Israel-Palestine Conflict
 
-US Ambassador to Israel Mike Huckabee's statement to Al Arabiya English regarding Israel's approval of the E1 settlement in the West Bank and its relation to European countries' recognition of a Palestinian state.
+This article summarizes US Ambassador to Israel Mike Huckabee's statement to Al Arabiya English regarding Israel's approval of the E1 settlement in the West Bank and its relation to European countries' recognition of a Palestinian state.
 
 Key Points:
 

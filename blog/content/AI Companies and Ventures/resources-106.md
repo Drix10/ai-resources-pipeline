@@ -1,6 +1,6 @@
 ### 🤖 AMD x SGLang Meetup - Discussion Summary
 
-Key discussion points and shared resources from the AMD x SGLang meetup at Shack 15.  It includes links to presentations and further information.
+This article summarizes the key discussion points and shared resources from the AMD x SGLang meetup at Shack 15.  It includes links to presentations and further information.
 
 Key Points:
 

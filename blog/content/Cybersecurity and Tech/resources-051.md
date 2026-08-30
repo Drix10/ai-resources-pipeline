@@ -1,6 +1,6 @@
 ### ⚖️ Legal Issues - Presidential Misconduct
 
-Legal ramifications of a president retaining classified documents and subsequently obstructing justice.  The article examines the implications of such actions and their potential impact on the justice system.
+This article discusses the legal ramifications of a president retaining classified documents and subsequently obstructing justice.  The article examines the implications of such actions and their potential impact on the justice system.
 
 Key Points:
 

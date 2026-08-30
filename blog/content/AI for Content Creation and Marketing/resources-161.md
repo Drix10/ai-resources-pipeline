@@ -1,6 +1,6 @@
 ### ✨ Claude AI - Desktop Availability
 
-Availability of Claude AI on macOS and Windows platforms. It highlights the expansion of access to users on these desktop operating systems.
+This article discusses the availability of Claude AI on macOS and Windows platforms. It highlights the expansion of access to users on these desktop operating systems.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Crexi PRO Features - Top Broker Tools
 
-Favorite features of Crexi PRO, a real estate platform, as shared by Crexi team members at ICSC Las Vegas.  The focus is on lead scoring, prospect identification, and email campaign tools.
+This article highlights favorite features of Crexi PRO, a real estate platform, as shared by Crexi team members at ICSC Las Vegas.  The focus is on lead scoring, prospect identification, and email campaign tools.
 
 Key Points:
 

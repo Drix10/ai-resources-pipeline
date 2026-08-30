@@ -1,6 +1,6 @@
 ### 🤖 Future of Engineering Roles - Convergence of Engineering and Product
 
-Evolving nature of engineering roles, highlighting the increasing convergence of engineering and product functions within many companies.  The future likely requires individuals proficient in both defining and building products.
+This article discusses the evolving nature of engineering roles, highlighting the increasing convergence of engineering and product functions within many companies.  The future likely requires individuals proficient in both defining and building products.
 
 
 Key Points:

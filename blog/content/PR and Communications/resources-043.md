@@ -1,6 +1,6 @@
 ### 🤖 Finance - Recession Prediction
 
-Statement by JP Morgan's Jamie Dimon predicting a recession and increased credit problems.  It also includes an image related to the economic downturn.
+This article summarizes a statement by JP Morgan's Jamie Dimon predicting a recession and increased credit problems.  It also includes an image related to the economic downturn.
 
 Key Points:
 

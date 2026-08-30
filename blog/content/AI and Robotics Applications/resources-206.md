@@ -1,6 +1,6 @@
 ### 🤖 Robotics - High-Performance Marathon Robot
 
-Honor's robot Lightning, which surpassed the human half-marathon world record. It highlights the technical innovation responsible for its advanced performance.
+This article details Honor's robot Lightning, which surpassed the human half-marathon world record. It highlights the technical innovation responsible for its advanced performance.
 
 Key Points:
 • Robot Lightning completed a half-marathon in record time.

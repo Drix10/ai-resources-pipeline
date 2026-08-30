@@ -1,6 +1,6 @@
 ### 💡 Digital Media Consumption - Differentiating Videogames from Passive Scrolling
 
-Distinction between interactive digital media like video games and passive consumption like social media doomscrolling. It argues against categorizing all digital entertainment uniformly.
+This article discusses the distinction between interactive digital media like video games and passive consumption like social media doomscrolling. It argues against categorizing all digital entertainment uniformly.
 
 Key Points:
 

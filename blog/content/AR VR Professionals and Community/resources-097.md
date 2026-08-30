@@ -1,6 +1,6 @@
 ### 🤖 Google's Holodeck - Genie 3 World Model
 
-Interview about Google's Genie 3, a 3D world model described as a "Holodeck," highlighting its capabilities and potential impact.
+This article discusses an interview about Google's Genie 3, a 3D world model described as a "Holodeck," highlighting its capabilities and potential impact.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Image Generation - Mirage 2 Challenges
 
-Challenges encountered while using Mirage 2, an AI image generation tool, focusing on issues related to defining the main subject within a prompt and image.  A solution involving focusing the prompt and image on the boat as the main subject is presented.
+This article discusses challenges encountered while using Mirage 2, an AI image generation tool, focusing on issues related to defining the main subject within a prompt and image.  A solution involving focusing the prompt and image on the boat as the main subject is presented.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Immersive Experiences - CloudXR on visionOS
 
-NVIDIA CloudXR for visionOS enables advanced immersive experiences. It focuses on applications like ultra-realistic design reviews, specialized training, and high-fidelity gaming.
+This article explores how NVIDIA CloudXR for visionOS enables advanced immersive experiences. It focuses on applications like ultra-realistic design reviews, specialized training, and high-fidelity gaming.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Oncology - RELAY Study Results
 
-Phase III RELAY study results comparing erlotinib plus ramucirumab versus erlotinib alone in EGFR-mutated non-small cell lung cancer (NSCLC).  The key findings regarding progression-free survival (PFS) and overall survival (OS) are presented.
+This article summarizes the phase III RELAY study results comparing erlotinib plus ramucirumab versus erlotinib alone in EGFR-mutated non-small cell lung cancer (NSCLC).  The key findings regarding progression-free survival (PFS) and overall survival (OS) are presented.
 
 Key Points:
 

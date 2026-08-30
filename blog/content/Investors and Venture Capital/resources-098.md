@@ -1,6 +1,6 @@
 ### ⚖️ Data Ownership - Brazil's Proposal
 
-Brazil's proposed legislation granting individuals full ownership of their financial data used in AI models and decisions, and the implications of this ownership.
+This article discusses Brazil's proposed legislation granting individuals full ownership of their financial data used in AI models and decisions, and the implications of this ownership.
 
 Key Points:
 

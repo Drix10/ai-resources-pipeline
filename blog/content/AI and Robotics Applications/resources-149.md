@@ -1,6 +1,6 @@
 ### 🤖 Robonomics - Cross-chain Bridge Development
 
-Ambitious project to build a comprehensive bridge chain connecting Ethereum, Polkadot Asset Hub, Robonomics, and Kusama Asset Hub. It details the planned interoperability solution for the upcoming Robonomics release in Polkadot 4.1.
+This article outlines the ambitious project to build a comprehensive bridge chain connecting Ethereum, Polkadot Asset Hub, Robonomics, and Kusama Asset Hub. It details the planned interoperability solution for the upcoming Robonomics release in Polkadot 4.1.
 
 Key Points:
 

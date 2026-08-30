@@ -1,6 +1,6 @@
 ### 🤖 Healthcare - Pharmacy Benefit Managers (PBMs)
 
-Impact of Pharmacy Benefit Managers (PBMs) on prescription drug prices and explores alternative approaches to improve affordability.  It also briefly mentions the potential of increased competition as a solution.
+This article discusses the impact of Pharmacy Benefit Managers (PBMs) on prescription drug prices and explores alternative approaches to improve affordability.  It also briefly mentions the potential of increased competition as a solution.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 💡 Public Health - COVID Prevalence Forecast
 
-Weekly update on COVID-19 prevalence, focusing on expected changes across the Southern United States. It outlines regional trends and suggests city-specific forecasts for the upcoming week.
+This article provides a weekly update on COVID-19 prevalence, focusing on expected changes across the Southern United States. It outlines regional trends and suggests city-specific forecasts for the upcoming week.
 
 Key Points:
 

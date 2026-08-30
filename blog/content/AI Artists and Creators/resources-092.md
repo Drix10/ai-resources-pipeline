@@ -1,6 +1,6 @@
 ### 🚀 Google AI for Education - Funding and Training
 
-Google's commitment to AI education, including funding and training initiatives for college students in the U.S.  It also highlights the resources provided through the Google AI for Education Accelerator.
+This article summarizes Google's commitment to AI education, including funding and training initiatives for college students in the U.S.  It also highlights the resources provided through the Google AI for Education Accelerator.
 
 Key Points:
 

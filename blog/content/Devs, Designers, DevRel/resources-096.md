@@ -1,6 +1,6 @@
 ### 🤖 GPT-5 - Integrated Model Architecture
 
-Key features of the GPT-5 model, highlighting its integrated architecture and improved accessibility.  It also notes the changes in safety guardrails.
+This article summarizes key features of the GPT-5 model, highlighting its integrated architecture and improved accessibility.  It also notes the changes in safety guardrails.
 
 Key Points:
 

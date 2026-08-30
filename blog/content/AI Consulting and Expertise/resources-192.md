@@ -1,6 +1,6 @@
 ### ✨ codesurf - UI/UX Enhancements and New Features
 
-Upcoming user experience and interface improvements within codesurf. It highlights performance optimizations, canvas enhancements, and new interactive features designed to streamline workflows.
+This article details the upcoming user experience and interface improvements within codesurf. It highlights performance optimizations, canvas enhancements, and new interactive features designed to streamline workflows.
 
 Key Points:
 

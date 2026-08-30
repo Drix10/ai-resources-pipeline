@@ -1,6 +1,6 @@
 ### 🤖 AI Development -  Dramatic Mindset Shift
 
-Significant shift in mindset experienced by an individual involved in the creation of a highly intelligent AI model.  The focus is on the speed and efficiency of the development team.
+This article discusses a significant shift in mindset experienced by an individual involved in the creation of a highly intelligent AI model.  The focus is on the speed and efficiency of the development team.
 
 Key Points:
 

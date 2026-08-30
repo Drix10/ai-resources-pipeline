@@ -1,6 +1,6 @@
 ### 🤖 AI Art - Christie's First AI Art Sale
 
-Christie's first-ever AI art sale, featuring works by several artists.  The sale includes a physical exhibition in New York.
+This article discusses Christie's first-ever AI art sale, featuring works by several artists.  The sale includes a physical exhibition in New York.
 
 Key Points:
 

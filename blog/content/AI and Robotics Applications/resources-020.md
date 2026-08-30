@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Muks Robotics' SPACEO Prototype
 
-Unveiling of SPACEO, a humanoid robot prototype developed by Muks Robotics in India, highlighting its key specifications and the company's goals.
+This article details the unveiling of SPACEO, a humanoid robot prototype developed by Muks Robotics in India, highlighting its key specifications and the company's goals.
 
 Key Points:
 

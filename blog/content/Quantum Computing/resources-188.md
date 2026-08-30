@@ -1,6 +1,6 @@
 ### 🤖 Biology - THAP12 and Complex I Regulation
 
-Identification of THAP12 as a specific transcription factor for Complex I in the electron transport chain and explores low oxygen therapy as a potential treatment for THAP12-related diseases.
+This article discusses the identification of THAP12 as a specific transcription factor for Complex I in the electron transport chain and explores low oxygen therapy as a potential treatment for THAP12-related diseases.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ Company Culture - Celebrating Women in Tech
 
-UiPath's celebration of International Women's Day, focusing on the contributions and inspirations of women within the organization. It recognizes the impact of their Women at UiPath Employee Resource Group (ERG).
+This article highlights UiPath's celebration of International Women's Day, focusing on the contributions and inspirations of women within the organization. It recognizes the impact of their Women at UiPath Employee Resource Group (ERG).
 
 Key Points:
 

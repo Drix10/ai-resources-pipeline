@@ -1,6 +1,6 @@
 ### 💡 Political Activism - Phonebanking Event
 
-Upcoming phonebanking event organized by the Sunrise Movement for Melat Kiros, featuring Hasan Piker. It outlines the purpose and timing of this community engagement effort.
+This article details an upcoming phonebanking event organized by the Sunrise Movement for Melat Kiros, featuring Hasan Piker. It outlines the purpose and timing of this community engagement effort.
 
 Key Points:
 

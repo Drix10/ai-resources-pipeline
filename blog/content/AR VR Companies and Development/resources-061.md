@@ -1,6 +1,6 @@
 ### 🤖 Physical AI Advancements at COMPUTEX 2025
 
-Key announcements regarding Physical AI advancements at COMPUTEX 2025, focusing on NVIDIA Cosmos, OpenUSD, and robotics.  A live breakdown is promised.
+This article summarizes the key announcements regarding Physical AI advancements at COMPUTEX 2025, focusing on NVIDIA Cosmos, OpenUSD, and robotics.  A live breakdown is promised.
 
 Key Points:
 

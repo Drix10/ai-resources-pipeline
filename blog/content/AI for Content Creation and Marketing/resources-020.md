@@ -1,6 +1,6 @@
 ### 🤖 Healthcare - Reducing Clinician Paperwork with AI
 
-Increasing administrative burden on clinicians and introduces Microsoft Dragon Copilot, an AI assistant designed to alleviate this issue.
+This article discusses the increasing administrative burden on clinicians and introduces Microsoft Dragon Copilot, an AI assistant designed to alleviate this issue.
 
 
 Key Points:

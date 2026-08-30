@@ -1,6 +1,6 @@
 ### 💡 Public Health - Weekly Flu Update
 
-Update on flu prevalence across the Southern United States for the week of December 31. It includes regional forecasts to inform the public about current health trends.
+This article provides an update on flu prevalence across the Southern United States for the week of December 31. It includes regional forecasts to inform the public about current health trends.
 
 Key Points:
 

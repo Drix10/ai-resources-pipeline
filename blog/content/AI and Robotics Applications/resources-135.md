@@ -1,6 +1,6 @@
 ### 🤖 AI Infrastructure - Self-Sustaining Energy for LLMs
 
-Economic advantages for Large Language Models (LLMs) to generate their own power. It contrasts this with traditional industries, highlighting potential revenue streams from surplus energy sales.
+This article discusses the economic advantages for Large Language Models (LLMs) to generate their own power. It contrasts this with traditional industries, highlighting potential revenue streams from surplus energy sales.
 
 Key Points:
 

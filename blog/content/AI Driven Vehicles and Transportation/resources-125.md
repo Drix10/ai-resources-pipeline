@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Efficient VLA Training with Video Models
 
-Challenge of data requirements for Vision-Language Agents (VLAs) and introduces mimic-video as a solution. It highlights how video models can significantly improve training efficiency.
+This article discusses the challenge of data requirements for Vision-Language Agents (VLAs) and introduces mimic-video as a solution. It highlights how video models can significantly improve training efficiency.
 
 Key Points:
 

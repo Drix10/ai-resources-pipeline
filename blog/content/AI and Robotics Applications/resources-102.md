@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Disassembly Interest
 
-User's interest in disassembling a robotic device.  The user expresses a desire to take apart a robot, contingent on receiving permission.
+This article discusses a user's interest in disassembling a robotic device.  The user expresses a desire to take apart a robot, contingent on receiving permission.
 
 Key Points:
 

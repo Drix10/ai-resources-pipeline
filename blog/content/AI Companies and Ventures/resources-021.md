@@ -1,6 +1,6 @@
 ### 🤖 Regulatory Updates & Market Events - XAVI's Overview
 
-Recent and upcoming major regulatory developments and market events as reported by XAVI.
+This article provides a summary of recent and upcoming major regulatory developments and market events as reported by XAVI.
 
 Key Points:
 

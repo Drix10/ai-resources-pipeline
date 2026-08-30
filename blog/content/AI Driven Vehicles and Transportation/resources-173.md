@@ -1,6 +1,6 @@
 ### 🚀 Simulation Deployment - CarlaEnv WorldSim
 
-Deployment of CarlaEnv x WorldSim nodes using single-click templates, highlighting key contributors and available tooling. It focuses on the practical aspects of setting up simulation environments for autonomous systems.
+This article details the deployment of CarlaEnv x WorldSim nodes using single-click templates, highlighting key contributors and available tooling. It focuses on the practical aspects of setting up simulation environments for autonomous systems.
 
 Key Points:
 

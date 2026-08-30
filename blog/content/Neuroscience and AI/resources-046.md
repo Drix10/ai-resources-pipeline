@@ -1,6 +1,6 @@
 ### 🤖 Neuroscience - Biological Implausibility of Backpropagation
 
-Biological implausibility of backpropagation, a common neural network training algorithm, and introduces predictive coding as a biologically-inspired alternative.  The article explores the derivation of predictive coding.
+This article discusses the biological implausibility of backpropagation, a common neural network training algorithm, and introduces predictive coding as a biologically-inspired alternative.  The article explores the derivation of predictive coding.
 
 Key Points:
 

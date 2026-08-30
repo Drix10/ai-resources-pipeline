@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics - Iran-U.S. Ceasefire Violations
 
-Senior Pakistani official's statement regarding the Iran-U.S. ceasefire. It examines the assertion of control and expected minor violations in contrast to reports of significant conflict.
+This article discusses a senior Pakistani official's statement regarding the Iran-U.S. ceasefire. It examines the assertion of control and expected minor violations in contrast to reports of significant conflict.
 
 Key Points:
 

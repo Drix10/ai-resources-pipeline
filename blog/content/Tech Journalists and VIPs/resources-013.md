@@ -1,6 +1,6 @@
 ### 🌎 Geopolitics - UK-US Relations and the Chagos Islands
 
-Controversial aspect of a UK Prime Minister's visit to the White House, focusing on the potential relinquishment of UK sovereign territory without full parliamentary transparency or Chagossian consent.
+This article discusses a controversial aspect of a UK Prime Minister's visit to the White House, focusing on the potential relinquishment of UK sovereign territory without full parliamentary transparency or Chagossian consent.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Economics - Impact of Tariffs on US Consumers
 
-Potential impact of increased tariffs on imports from India, focusing on the implications for US consumers and the shifting global economic landscape.
+This article discusses the potential impact of increased tariffs on imports from India, focusing on the implications for US consumers and the shifting global economic landscape.
 
 Key Points:
 

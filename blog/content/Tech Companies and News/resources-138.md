@@ -1,6 +1,6 @@
 ### ✨ Google Fiber - Rebranding to GFiber
 
-Rebranding of Google Fiber to GFiber. It also mentions the context of this change following a merger with Astound Broadband.
+This article discusses the rebranding of Google Fiber to GFiber. It also mentions the context of this change following a merger with Astound Broadband.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Geopolitics - Foreign Influence in Washington
 
-Extent of foreign influence operations in Washington, specifically highlighting Qatar's strategic investments. It details how these efforts extend across lobbying, academia, media, and real estate to establish a significant presence in the U.S. capital.
+This article examines the extent of foreign influence operations in Washington, specifically highlighting Qatar's strategic investments. It details how these efforts extend across lobbying, academia, media, and real estate to establish a significant presence in the U.S. capital.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Funding Model -  LP Funding for Project Development
 
-Unconventional funding model where limited partners (LPs) provide unlimited funding for project development, enabling the acquisition of resources like iPhones.
+This article discusses an unconventional funding model where limited partners (LPs) provide unlimited funding for project development, enabling the acquisition of resources like iPhones.
 
 Key Points:
 

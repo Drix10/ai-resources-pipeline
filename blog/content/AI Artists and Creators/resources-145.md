@@ -1,6 +1,6 @@
 ### 🤖 AI Trading - Autonomous Bot Development
 
-Creation of an AI bot equipped with a trading wallet to autonomously earn resources. It describes the bot's capabilities in analyzing market sentiment and executing trades across various asset classes.
+This article outlines the creation of an AI bot equipped with a trading wallet to autonomously earn resources. It describes the bot's capabilities in analyzing market sentiment and executing trades across various asset classes.
 
 Key Points:
 

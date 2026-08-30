@@ -1,6 +1,6 @@
 ### 🤖 Corporate Earnings - Key Reports
 
-Upcoming corporate earnings reports for several publicly traded companies. It provides an overview of which companies are reporting and their scheduled release times.
+This article details upcoming corporate earnings reports for several publicly traded companies. It provides an overview of which companies are reporting and their scheduled release times.
 
 Key Points:
 

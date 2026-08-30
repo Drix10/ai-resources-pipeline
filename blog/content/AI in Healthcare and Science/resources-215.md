@@ -1,6 +1,6 @@
 ### 🤖 OpenMed - AI Token Usage and Applications
 
-OpenMed's substantial AI token consumption and its application across development and data platforms. The company processes billions of tokens daily for various operational tasks.
+This article details OpenMed's substantial AI token consumption and its application across development and data platforms. The company processes billions of tokens daily for various operational tasks.
 
 Key Points:
 

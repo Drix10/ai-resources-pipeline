@@ -1,6 +1,6 @@
 ### ✨ XR Content Showcase - Innovative Creation
 
-Impressive XR creation by ZandyXR. It showcases advancements and creative possibilities within extended reality.
+This article highlights an impressive XR creation by ZandyXR. It showcases advancements and creative possibilities within extended reality.
 
 Key Points:
 

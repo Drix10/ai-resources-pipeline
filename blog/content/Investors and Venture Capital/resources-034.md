@@ -1,6 +1,6 @@
 ### 💡 Startup Equity - Understanding Stock Options
 
-Basic understanding of stock options in startups, highlighting common misunderstandings and hidden rules.  This is not financial advice.
+This article provides a basic understanding of stock options in startups, highlighting common misunderstandings and hidden rules.  This is not financial advice.
 
 Key Points:
 

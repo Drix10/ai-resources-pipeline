@@ -1,6 +1,6 @@
 ### 🚀 Contests - Freebeat AI Fumble Fest
 
-Contest hosted by Freebeat AI, offering 5000 credits as a prize for submitted videos showcasing glitches in their AI.
+This article details a contest hosted by Freebeat AI, offering 5000 credits as a prize for submitted videos showcasing glitches in their AI.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Social Media - Allegations of Defamation Against Don Lemon
 
-Allegations of defamation made against Don Lemon regarding comments he made about Charlie Kirk.  The post includes a video clip and links to related social media activity.
+This article summarizes allegations of defamation made against Don Lemon regarding comments he made about Charlie Kirk.  The post includes a video clip and links to related social media activity.
 
 Key Points:
 

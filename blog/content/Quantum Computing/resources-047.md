@@ -1,6 +1,6 @@
 ### 🤖  Large Language Models - Primer's Multi-dconv-head Attention
 
-Observations on Primer's multi-dconv-head attention mechanism, its limitations, and its relative under-citation despite its potential.  The findings suggest areas for improvement and further research.
+This article discusses observations on Primer's multi-dconv-head attention mechanism, its limitations, and its relative under-citation despite its potential.  The findings suggest areas for improvement and further research.
 
 Key Points:
 

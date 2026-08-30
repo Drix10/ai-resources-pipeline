@@ -1,6 +1,6 @@
 ### 🏢 Real Estate - First Location Misconceptions
 
-Common misconception about assisting tenants in finding their first location, emphasizing the importance of finding the right deal over maximizing profit.  It highlights insights from Jay Luchs, Vice Chairman of Newmark.
+This article discusses a common misconception about assisting tenants in finding their first location, emphasizing the importance of finding the right deal over maximizing profit.  It highlights insights from Jay Luchs, Vice Chairman of Newmark.
 
 Key Points:
 

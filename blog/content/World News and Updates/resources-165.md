@@ -1,6 +1,6 @@
 ### 🤖 US-China Relations - Taiwan's Role in Bilateral Talks
 
-Critical role of Taiwan in US-China diplomatic relations, highlighting potential areas of conflict. It covers the priorities declared by Chinese leadership concerning the island's status.
+This article discusses the critical role of Taiwan in US-China diplomatic relations, highlighting potential areas of conflict. It covers the priorities declared by Chinese leadership concerning the island's status.
 
 Key Points:
 

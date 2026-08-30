@@ -1,6 +1,6 @@
 ### 🤖 Public WiFi Security - Authentication Methods
 
-Security considerations when using public Wi-Fi networks, specifically focusing on those that require social media or email logins. It highlights the importance of user awareness and multi-factor authentication as security measures.
+This article discusses the security considerations when using public Wi-Fi networks, specifically focusing on those that require social media or email logins. It highlights the importance of user awareness and multi-factor authentication as security measures.
 
 Key Points:
 

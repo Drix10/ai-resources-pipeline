@@ -1,6 +1,6 @@
 ### 💡 Entrepreneurship - Historical Pitch Analysis
 
-Christopher Columbus as a historical entrepreneur, focusing on his pitch to Queen Isabella for funding his voyages. It highlights the monument representing this pivotal moment in his quest for resources and support.
+This article examines Christopher Columbus as a historical entrepreneur, focusing on his pitch to Queen Isabella for funding his voyages. It highlights the monument representing this pivotal moment in his quest for resources and support.
 
 Key Points:
 

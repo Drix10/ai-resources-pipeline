@@ -1,6 +1,6 @@
 ### 🤖 GeckoTerminal - A Data Product
 
-GeckoTerminal (GT), a data product with a ten-year history and ongoing development focused on user needs.  Weekly improvements aim to enhance the user experience.
+This article discusses GeckoTerminal (GT), a data product with a ten-year history and ongoing development focused on user needs.  Weekly improvements aim to enhance the user experience.
 
 Key Points:
 

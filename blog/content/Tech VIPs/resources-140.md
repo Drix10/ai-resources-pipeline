@@ -1,6 +1,6 @@
 ### 💡 Human Rights - Support for the Iranian People
 
-Cultural contributions of the Iranian people and emphasizes the importance of supporting their aspirations for freedom and dignity.
+This article discusses the cultural contributions of the Iranian people and emphasizes the importance of supporting their aspirations for freedom and dignity.
 
 Key Points:
 

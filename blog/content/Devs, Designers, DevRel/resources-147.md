@@ -1,6 +1,6 @@
 ### 🚀 VS Code - Productivity Extensions
 
-Leveraging Visual Studio Code extensions to significantly enhance developer productivity. It highlights how these tools streamline workflows and improve coding efficiency.
+This article covers leveraging Visual Studio Code extensions to significantly enhance developer productivity. It highlights how these tools streamline workflows and improve coding efficiency.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 YC Startup School - Key Learnings
 
-Key advice shared at Y Combinator Startup School, emphasizing actionable strategies for new founders.
+This article summarizes key advice shared at Y Combinator Startup School, emphasizing actionable strategies for new founders.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Cybersecurity - Zero Trust in the Age of AI
 
-Session at the Swiss IT Forum 2025, exploring the relevance of Zero Trust principles in the context of artificial intelligence.  The session will discuss the impact of AI on existing security models.
+This article summarizes a session at the Swiss IT Forum 2025, exploring the relevance of Zero Trust principles in the context of artificial intelligence.  The session will discuss the impact of AI on existing security models.
 
 Key Points:
 

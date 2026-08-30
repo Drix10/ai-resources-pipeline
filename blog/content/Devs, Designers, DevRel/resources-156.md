@@ -1,6 +1,6 @@
 ### 💡 Employee Retention - Manager Impact
 
-Common adage about employees leaving managers, not companies, exploring factors contributing to employee departures and the critical role of management. It emphasizes the profound influence managers have on employee satisfaction and retention.
+This article discusses the common adage about employees leaving managers, not companies, exploring factors contributing to employee departures and the critical role of management. It emphasizes the profound influence managers have on employee satisfaction and retention.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Old Money vs New Money - Societal Conflict
 
-Fundamental concept from game theory and political economy that explains conflicts in contemporary Western society: the dynamic between "Old Money" and "New Money." It examines how these contrasting socio-economic groups contribute to societal tensions.
+This article explores a fundamental concept from game theory and political economy that explains conflicts in contemporary Western society: the dynamic between "Old Money" and "New Money." It examines how these contrasting socio-economic groups contribute to societal tensions.
 
 Key Points:
 

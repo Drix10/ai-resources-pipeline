@@ -1,6 +1,6 @@
 ### 🤖 Global Politics - White House Conversations
 
-Overheard conversations between President Trump and European leaders at a White House meeting, focusing on President Trump's comments regarding a potential deal with Putin.
+This article summarizes overheard conversations between President Trump and European leaders at a White House meeting, focusing on President Trump's comments regarding a potential deal with Putin.
 
 Key Points:
 

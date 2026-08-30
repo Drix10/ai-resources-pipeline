@@ -1,6 +1,6 @@
 ### 🤖 Economics - Goldman Sachs Inflation Forecast
 
-Goldman Sachs' revised inflation forecast and its implications for Federal Reserve policy.  It includes an updated projection for core Personal Consumption Expenditures (PCE) and anticipated interest rate adjustments.
+This article summarizes Goldman Sachs' revised inflation forecast and its implications for Federal Reserve policy.  It includes an updated projection for core Personal Consumption Expenditures (PCE) and anticipated interest rate adjustments.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 🚀 Augmented Reality - Xreal Funding and Products
 
-Xreal's recent $100 million funding round from various partners. It also notes the unveiling of new product lines at CES 2026, highlighting the company's growth in the AR glasses market.
+This article details Xreal's recent $100 million funding round from various partners. It also notes the unveiling of new product lines at CES 2026, highlighting the company's growth in the AR glasses market.
 
 Key Points:
 

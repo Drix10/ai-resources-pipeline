@@ -1,6 +1,6 @@
 ### 🤖 Arbitrum DAO - Controversial Investment Proposal
 
-Proposal by Arbitrum's Growth Management Committee (GMC) to invest 7,500 ETH from the DAO treasury into Lido, Aave, and Fluid.  The proposal has generated significant controversy within the community.
+This article discusses a proposal by Arbitrum's Growth Management Committee (GMC) to invest 7,500 ETH from the DAO treasury into Lido, Aave, and Fluid.  The proposal has generated significant controversy within the community.
 
 Key Points:
 

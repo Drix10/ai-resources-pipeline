@@ -1,6 +1,6 @@
 ### ✨ Plane AI - Sprint Planning Features
 
-Plane AI's capabilities for project cycle and sprint planning. It explains how the AI assists in task organization and identifying workload imbalances.
+This article details Plane AI's capabilities for project cycle and sprint planning. It explains how the AI assists in task organization and identifying workload imbalances.
 
 Key Points:
 • Plane AI automates work breakdown by assignee, priority, and state.

@@ -1,6 +1,6 @@
 ### 💡 Healthcare Support - Philanthropy and Medical Access
 
-Personal story of a child receiving life-saving medical assistance facilitated by philanthropic intervention. It underscores challenges in healthcare access and the impact of individual support.
+This article highlights a personal story of a child receiving life-saving medical assistance facilitated by philanthropic intervention. It underscores challenges in healthcare access and the impact of individual support.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Societal Dysfunction - Four-Stage Sequence
 
-Four-stage sequence of political and societal dysfunction,  as observed in certain countries.  The original analysis, from eight years prior, suggested a decline towards a third-world model.
+This article discusses a four-stage sequence of political and societal dysfunction,  as observed in certain countries.  The original analysis, from eight years prior, suggested a decline towards a third-world model.
 
 Key Points:
 

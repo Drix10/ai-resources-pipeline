@@ -1,6 +1,6 @@
 ### 🤖 AI Inference - AMD Ryzen Performance
 
-Significant performance enhancements for large language model (LLM) inference on AMD's new Ryzen AI MAX+ 395 iGPU. It covers the speed improvements achieved using DFlash and PFlash technologies.
+This article details significant performance enhancements for large language model (LLM) inference on AMD's new Ryzen AI MAX+ 395 iGPU. It covers the speed improvements achieved using DFlash and PFlash technologies.
 
 Key Points:
 

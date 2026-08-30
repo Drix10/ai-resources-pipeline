@@ -1,6 +1,6 @@
 ### 🤖 Decentralized AI - DAO & Governance Discussion
 
-Discussion on DAOs and governance within the Decentralized AI space.  It includes a link to a replay of the discussion.
+This article summarizes a discussion on DAOs and governance within the Decentralized AI space.  It includes a link to a replay of the discussion.
 
 Key Points:
 

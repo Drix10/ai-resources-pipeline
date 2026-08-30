@@ -1,6 +1,6 @@
 ### 🤖 AI -  Deepfake of Arnold Schwarzenegger in The White Lotus
 
-Use of AI to create a deepfake video of Arnold Schwarzenegger appearing in a scene from the HBO show, The White Lotus.  The example shows AI's ability to seamlessly integrate individuals into existing video content.
+This article discusses the use of AI to create a deepfake video of Arnold Schwarzenegger appearing in a scene from the HBO show, The White Lotus.  The example shows AI's ability to seamlessly integrate individuals into existing video content.
 
 
 Key Points:

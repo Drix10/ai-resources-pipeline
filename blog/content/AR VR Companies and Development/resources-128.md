@@ -1,6 +1,6 @@
 ### 💡 Gaming Industry - Studio Closure and Unionization
 
-Closure of Ubisoft's Halifax studio, which occurred weeks after its workers voted to unionize. It covers the events leading to the closure and its implications for the gaming industry.
+This article discusses the closure of Ubisoft's Halifax studio, which occurred weeks after its workers voted to unionize. It covers the events leading to the closure and its implications for the gaming industry.
 
 Key Points:
 

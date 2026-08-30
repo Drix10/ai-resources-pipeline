@@ -1,6 +1,6 @@
 ### 🤖 Politics - NSF Funding Freeze
 
-Concerns surrounding a funding freeze of the National Science Foundation (NSF) and the resulting impact on scientific research and innovation.  It highlights a collective effort to demand answers from the Trump administration regarding this action.
+This article discusses the concerns surrounding a funding freeze of the National Science Foundation (NSF) and the resulting impact on scientific research and innovation.  It highlights a collective effort to demand answers from the Trump administration regarding this action.
 
 
 Key Points:

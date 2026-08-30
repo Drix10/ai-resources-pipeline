@@ -1,6 +1,6 @@
 ### 🤖 Climate Monitoring - Mesospheric Cooling
 
-Extension of Warming Stripes into the mesosphere and its implications for climate monitoring.  It highlights the cooling trend in the mesosphere due to the greenhouse effect and solar cycle variations.
+This article discusses the extension of Warming Stripes into the mesosphere and its implications for climate monitoring.  It highlights the cooling trend in the mesosphere due to the greenhouse effect and solar cycle variations.
 
 Key Points:
 

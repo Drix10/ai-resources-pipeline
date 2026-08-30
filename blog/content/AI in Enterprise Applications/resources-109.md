@@ -1,6 +1,6 @@
 ### 💡 Storytelling and Attention Spans -  Effective Communication in the Workplace
 
-Impact of storytelling on memorability and the limited attention spans in modern workplaces, emphasizing the need for concise and clear communication.
+This article discusses the impact of storytelling on memorability and the limited attention spans in modern workplaces, emphasizing the need for concise and clear communication.
 
 Key Points:
 

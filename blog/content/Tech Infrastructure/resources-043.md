@@ -1,6 +1,6 @@
 ### 🤖 Political Commentary - Trump's Tariff Stance
 
-Video clip showing Donald Trump discussing tariffs, highlighting the longevity of his stance on the issue.
+This article discusses a video clip showing Donald Trump discussing tariffs, highlighting the longevity of his stance on the issue.
 
 Key Points:
 

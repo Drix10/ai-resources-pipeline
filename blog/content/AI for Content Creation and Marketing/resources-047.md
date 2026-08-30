@@ -1,6 +1,6 @@
 ### 🚀 Marketing - Food Truck Launch
 
-Use of AI-powered marketing tools to generate compelling visuals and copy for a luxury food truck's pre-launch marketing campaign.  The success of the campaign highlights the effectiveness of AI in creating engaging content.
+This article discusses the use of AI-powered marketing tools to generate compelling visuals and copy for a luxury food truck's pre-launch marketing campaign.  The success of the campaign highlights the effectiveness of AI in creating engaging content.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 GDC Festival of Gaming - Introduction to GDC 101
 
-Information on GDC 101, a session designed to introduce attendees to the GDC Festival of Gaming. It details the opportunity to learn essential aspects of the event directly from key organizers.
+This article provides information on GDC 101, a session designed to introduce attendees to the GDC Festival of Gaming. It details the opportunity to learn essential aspects of the event directly from key organizers.
 
 Key Points:
 

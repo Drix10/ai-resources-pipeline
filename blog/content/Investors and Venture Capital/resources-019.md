@@ -1,6 +1,6 @@
 ### 🤖 US Politics - Aid Package Delays
 
-Delay of a US aid package, highlighting the role of political actors and the resulting impact.
+This article discusses the delay of a US aid package, highlighting the role of political actors and the resulting impact.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 EdTech Tools - Kami for Teacher Efficiency
 
-Kami, an edtech tool, enhances teacher efficiency by streamlining tasks. It highlights its impact within the Indian River School District, where it helped over 1,000 educators reclaim teaching time.
+This article discusses how Kami, an edtech tool, enhances teacher efficiency by streamlining tasks. It highlights its impact within the Indian River School District, where it helped over 1,000 educators reclaim teaching time.
 
 Key Points:
 

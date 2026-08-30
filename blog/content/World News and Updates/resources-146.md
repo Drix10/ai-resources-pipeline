@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics - Syrian Civil War Outcome
 
-US decision to withdraw forces following a major shift in the Syrian civil war. It details President Ahmed al-Sharaa's victory over Bashar al-Assad in December 2024.
+This article outlines the US decision to withdraw forces following a major shift in the Syrian civil war. It details President Ahmed al-Sharaa's victory over Bashar al-Assad in December 2024.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 📰 India-Pakistan Conflict - Statements by Ajay Rai
 
-Statement made by UP Congress chief Ajay Rai regarding PM Modi's address to the nation on Operation Sindoor and the US's role in a ceasefire announcement.
+This article summarizes a statement made by UP Congress chief Ajay Rai regarding PM Modi's address to the nation on Operation Sindoor and the US's role in a ceasefire announcement.
 
 Key Points:
 

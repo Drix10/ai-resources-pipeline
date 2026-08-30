@@ -1,6 +1,6 @@
 ### 🚀 AI Development - Timeline-Aware AI
 
-Spingle V2 Beta, a timeline-aware AI model trained for seven years.  It focuses on its ability to learn from past edits and improve creative workflows.
+This article discusses Spingle V2 Beta, a timeline-aware AI model trained for seven years.  It focuses on its ability to learn from past edits and improve creative workflows.
 
 Key Points:
 

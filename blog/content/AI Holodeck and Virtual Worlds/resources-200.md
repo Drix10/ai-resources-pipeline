@@ -1,6 +1,6 @@
 ### 🚀 3D Art Creation - Sketch to Scene Workflow
 
-Workflow for 3D artists to transform hand-drawn concept sketches into complete 3D scenes. It details the process of using Meshy for initial 3D concept generation and Blender for further refinement.
+This article outlines a workflow for 3D artists to transform hand-drawn concept sketches into complete 3D scenes. It details the process of using Meshy for initial 3D concept generation and Blender for further refinement.
 
 Key Points:
 

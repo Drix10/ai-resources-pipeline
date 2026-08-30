@@ -1,6 +1,6 @@
 ### 🤖 Artificial Intelligence in Medicine - Commentary on AI Perspective
 
-Medical doctor's commentary on a perspective piece titled "Faulty Artificial Intelligence, or the Sleep of Reason." It addresses critical viewpoints regarding the application and understanding of AI in healthcare contexts.
+This article covers a medical doctor's commentary on a perspective piece titled "Faulty Artificial Intelligence, or the Sleep of Reason." It addresses critical viewpoints regarding the application and understanding of AI in healthcare contexts.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚧 Construction - Plastics Shop Progress
 
-Update on the construction progress of a new plastics shop and supplier park.  A photo shows the current state of the project.
+This article provides a brief update on the construction progress of a new plastics shop and supplier park.  A photo shows the current state of the project.
 
 Key Points:
 

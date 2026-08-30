@@ -1,6 +1,6 @@
 ### 🗿 Archaeology - Inca Structures in Cutimbo
 
-Inca towers in Cutimbo and examines a potential puma carving or sculpted addition at the base of one structure.
+This article discusses the Inca towers in Cutimbo and examines a potential puma carving or sculpted addition at the base of one structure.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 🤖 Authentication Challenges in Agent Development
 
-Challenges of authentication in agent development, illustrated by a Telegram bot example that schedules Google Calendar events.  The article highlights how using Arcade.dev significantly reduced authentication code.
+This article discusses the challenges of authentication in agent development, illustrated by a Telegram bot example that schedules Google Calendar events.  The article highlights how using Arcade.dev significantly reduced authentication code.
 
 Key Points:
 

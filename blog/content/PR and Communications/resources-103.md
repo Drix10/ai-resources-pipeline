@@ -1,6 +1,6 @@
 ### 💡 Career Storytelling - PR Professionals
 
-Challenges of clearly articulating one's career path, focusing on common pitfalls and strategies for effective storytelling for PR professionals.  It highlights a resource offering guidance on this topic.
+This article discusses the challenges of clearly articulating one's career path, focusing on common pitfalls and strategies for effective storytelling for PR professionals.  It highlights a resource offering guidance on this topic.
 
 Key Points:
 

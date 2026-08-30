@@ -1,6 +1,6 @@
 ### 🌎 Geopolitics - US-Qatar Relations
 
-Perception of a plane gift from Qatar to the US, analyzing the potential implications and contrasting perspectives on the exchange.
+This article discusses the perception of a plane gift from Qatar to the US, analyzing the potential implications and contrasting perspectives on the exchange.
 
 
 Key Points:

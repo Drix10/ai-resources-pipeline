@@ -1,6 +1,6 @@
 ### 🚀 Canva - D-ID Vid Translate
 
-Integration of D-ID Vid Translate within Canva, enabling the creation of multilingual video content.  It highlights the process of translating a single video into multiple languages for global reach.
+This article discusses the integration of D-ID Vid Translate within Canva, enabling the creation of multilingual video content.  It highlights the process of translating a single video into multiple languages for global reach.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 👑  Political Commentary - Support for Iranian Crown Prince
 
-Twitter thread expressing support for the Crown Prince Reza Pahlavi and his vision for a free and democratic Iran.  It highlights the speaker's call for broader support from organizations and leaders.
+This article summarizes a Twitter thread expressing support for the Crown Prince Reza Pahlavi and his vision for a free and democratic Iran.  It highlights the speaker's call for broader support from organizations and leaders.
 
 
 Key Points:

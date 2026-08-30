@@ -1,6 +1,6 @@
 ### 💡 Public Transit - Funding and Future Support
 
-Current state of public transit in New York City and outlines recent funding efforts and future goals for improving the system. It highlights the importance of making transit supported, accessible, and reliable for all New Yorkers.
+This article discusses the current state of public transit in New York City and outlines recent funding efforts and future goals for improving the system. It highlights the importance of making transit supported, accessible, and reliable for all New Yorkers.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Adoption - NVIDIA RTX PRO Servers
 
-Adoption of NVIDIA RTX PRO servers by various industry giants for accelerating AI, physical AI, and business workloads.  The focus is on the capabilities of the RTX PRO 6000.
+This article discusses the adoption of NVIDIA RTX PRO servers by various industry giants for accelerating AI, physical AI, and business workloads.  The focus is on the capabilities of the RTX PRO 6000.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Economic Trends - US Office Construction Decline
 
-Significant decline in US office construction, adjusting for inflation. It highlights the drastic reduction in new office building projects since 2020.
+This article examines the significant decline in US office construction, adjusting for inflation. It highlights the drastic reduction in new office building projects since 2020.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Software Licensing - Non-Commercial Licenses for Research Code
 
-Implications of non-commercial licenses on research code, particularly for "Instant" papers. It explores why many research codes are released with restrictive licenses and their impact on long-term usage and adoption.
+This article discusses the implications of non-commercial licenses on research code, particularly for "Instant" papers. It explores why many research codes are released with restrictive licenses and their impact on long-term usage and adoption.
 
 Key Points:
 

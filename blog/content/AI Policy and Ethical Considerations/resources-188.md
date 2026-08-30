@@ -1,5 +1,5 @@
 ### 🤖 AI Policy - Spectrum Reform
-CSIS commentary that emphasizes the critical role of spectrum reform in supporting the extensive buildout of AI infrastructure. It highlights the policy considerations necessary for technological advancement.
+This article discusses a CSIS commentary that emphasizes the critical role of spectrum reform in supporting the extensive buildout of AI infrastructure. It highlights the policy considerations necessary for technological advancement.
 
 Key Points:
 

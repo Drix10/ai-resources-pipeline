@@ -1,6 +1,6 @@
 ### ⛈️ Severe Weather Alert - East Texas
 
-Update on a cluster of severe thunderstorms moving across East Texas, outlining potential hazards and affected areas.
+This article provides an update on a cluster of severe thunderstorms moving across East Texas, outlining potential hazards and affected areas.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Brain-Computer Interfaces - Neuralink Production & Surgical Advancements
 
-Neuralink's plan for high-volume brain-computer interface device production and surgical automation, focusing on the refined implantation technique where device threads pass directly through the dura.
+This article outlines Neuralink's plan for high-volume brain-computer interface device production and surgical automation, focusing on the refined implantation technique where device threads pass directly through the dura.
 
 Key Points:
 

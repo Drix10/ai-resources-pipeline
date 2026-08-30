@@ -1,6 +1,6 @@
 ### 🤖 Cloud Storage - Amazon FSx for NetApp ONTAP
 
-Amazon FSx for NetApp ONTAP, a managed file storage service.  The explanation is geared towards a general audience.
+This article provides a brief overview of Amazon FSx for NetApp ONTAP, a managed file storage service.  The explanation is geared towards a general audience.
 
 
 Key Points:

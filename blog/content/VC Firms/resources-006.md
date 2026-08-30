@@ -1,6 +1,6 @@
 ### 🤝 Partnerships - Xenon Systems and Netris Collaboration
 
-Partnership between Xenon Systems and Netris, focusing on their collaboration to deliver multi-tenant GPU cloud networking solutions for AI/ML cloud providers.
+This article discusses the partnership between Xenon Systems and Netris, focusing on their collaboration to deliver multi-tenant GPU cloud networking solutions for AI/ML cloud providers.
 
 
 Key Points:

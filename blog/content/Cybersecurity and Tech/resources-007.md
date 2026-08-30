@@ -1,6 +1,6 @@
 ### 🤖 Secure PDF Viewer - Version 26 Release
 
-Improvements and changes introduced in version 26 of the Secure PDF Viewer application.  Release notes and a changelog are available for detailed information.
+This article summarizes the improvements and changes introduced in version 26 of the Secure PDF Viewer application.  Release notes and a changelog are available for detailed information.
 
 Key Points:
 

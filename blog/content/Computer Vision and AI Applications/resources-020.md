@@ -1,6 +1,6 @@
 ### 🤖 Reinforcement Learning -  Historical Context and Optimal Control
 
-Relationship between reinforcement learning (RL) and control theory, highlighting the importance of studying the history of control and cybernetics for a deeper understanding of intelligence.  It also briefly touches upon RL Swarm and model distillation.
+This article discusses the relationship between reinforcement learning (RL) and control theory, highlighting the importance of studying the history of control and cybernetics for a deeper understanding of intelligence.  It also briefly touches upon RL Swarm and model distillation.
 
 Key Points:
 

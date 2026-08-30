@@ -1,6 +1,6 @@
 ### 💡 Social Commentary - Melania Trump, Gaza, and Hypocrisy
 
-Melania Trump's letter to Putin regarding Ukrainian children and contrasts it with the ongoing suffering of children in Gaza.  It highlights the perceived hypocrisy and double standards in her selective outrage.
+This article discusses Melania Trump's letter to Putin regarding Ukrainian children and contrasts it with the ongoing suffering of children in Gaza.  It highlights the perceived hypocrisy and double standards in her selective outrage.
 
 Key Points:
 

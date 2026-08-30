@@ -1,6 +1,6 @@
 ### 💡 Geopolitical Strategy - Strait of Hormuz Significance
 
-Strategic importance of the Strait of Hormuz and the geopolitical implications for Iran if this vital maritime chokepoint were to be bypassed or rendered less significant. It highlights the economic and strategic pressures at play in the region.
+This article discusses the strategic importance of the Strait of Hormuz and the geopolitical implications for Iran if this vital maritime chokepoint were to be bypassed or rendered less significant. It highlights the economic and strategic pressures at play in the region.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🏛️ Banking - The Decline of Local Banks
 
-Historical importance of local banks within communities and how nationalization impacted their role.  It examines the shift from community-focused banking to a more centralized and impersonal system.
+This article discusses the historical importance of local banks within communities and how nationalization impacted their role.  It examines the shift from community-focused banking to a more centralized and impersonal system.
 
 Key Points:
 

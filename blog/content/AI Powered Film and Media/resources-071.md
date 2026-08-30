@@ -1,6 +1,6 @@
 ### 🎬 Generative AI - Post-Apocalyptic Sci-Fi Short Film
 
-Short concept trailer for a post-apocalyptic sci-fi film, "Dustborn," created entirely using generative AI storyboarding.  The trailer features imagery of a paw print, a broken hourglass, and a fallen angel.
+This article discusses a short concept trailer for a post-apocalyptic sci-fi film, "Dustborn," created entirely using generative AI storyboarding.  The trailer features imagery of a paw print, a broken hourglass, and a fallen angel.
 
 Key Points:
 

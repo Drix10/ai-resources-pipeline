@@ -1,6 +1,6 @@
 ### 🤖 DeepSeek v4 Flash - Model Performance Update
 
-Recent performance metrics for the DeepSeek v4 Flash model, highlighting its standing against comparable models.
+This article summarizes the recent performance metrics for the DeepSeek v4 Flash model, highlighting its standing against comparable models.
 
 Key Points:
 

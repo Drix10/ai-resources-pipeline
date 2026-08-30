@@ -1,6 +1,6 @@
 ### 💡 Social Media Trends - Viral Content Analysis
 
-Nature of viral content on social media, using a specific example to illustrate engagement patterns. It discusses how simple, relatable observations can capture widespread attention.
+This article examines the nature of viral content on social media, using a specific example to illustrate engagement patterns. It discusses how simple, relatable observations can capture widespread attention.
 
 Key Points:
 

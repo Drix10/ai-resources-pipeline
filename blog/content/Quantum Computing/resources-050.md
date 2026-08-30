@@ -1,6 +1,6 @@
 ### 🤖 New York State Budget - School Meals Initiative
 
-Passing of the 2025 New York State budget, highlighting the inclusion of free school meals for all students.  The initiative was championed by a specific state representative.
+This article summarizes the passing of the 2025 New York State budget, highlighting the inclusion of free school meals for all students.  The initiative was championed by a specific state representative.
 
 Key Points:
 

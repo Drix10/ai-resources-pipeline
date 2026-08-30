@@ -1,6 +1,6 @@
 ### 🌎 International Relations - Prisoner Exchange
 
-Prisoner exchange between Russia and Ukraine, highlighting a moment of cooperation amidst ongoing conflict.
+This article summarizes a prisoner exchange between Russia and Ukraine, highlighting a moment of cooperation amidst ongoing conflict.
 
 Key Points:
 

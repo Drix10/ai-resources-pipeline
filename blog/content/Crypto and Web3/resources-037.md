@@ -1,6 +1,6 @@
 ### ⚠️ Travel and Networking - Southeast Asia Trip and Future Plans
 
-Author's upcoming travel plans to attend industry events in Bangkok, Thailand and future plans to move to Brazil.  It also briefly mentions unfortunate circumstances in the Myramar, Thai, and Southeast Asia regions.
+This article discusses the author's upcoming travel plans to attend industry events in Bangkok, Thailand and future plans to move to Brazil.  It also briefly mentions unfortunate circumstances in the Myramar, Thai, and Southeast Asia regions.
 
 Key Points:
 

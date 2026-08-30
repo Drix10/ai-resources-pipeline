@@ -1,6 +1,6 @@
 ### 🤖 Legal - Ziff Davis Sues OpenAI
 
-Lawsuit filed by Ziff Davis against OpenAI, alleging copyright infringement related to AI model training.  The lawsuit was initially filed in Delaware and subsequently transferred to the Southern District of New York.
+This article summarizes the lawsuit filed by Ziff Davis against OpenAI, alleging copyright infringement related to AI model training.  The lawsuit was initially filed in Delaware and subsequently transferred to the Southern District of New York.
 
 Key Points:
 

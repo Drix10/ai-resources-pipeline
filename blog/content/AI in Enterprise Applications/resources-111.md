@@ -1,6 +1,6 @@
 ### 🤖 Adobe Earnings - Q3 2025
 
-Key takeaways from Adobe's Q3 2025 earnings call, focusing on financial performance and AI initiatives.
+This article summarizes key takeaways from Adobe's Q3 2025 earnings call, focusing on financial performance and AI initiatives.
 
 Key Points:
 

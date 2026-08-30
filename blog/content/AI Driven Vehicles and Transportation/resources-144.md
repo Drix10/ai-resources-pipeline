@@ -1,6 +1,6 @@
 ### 🤖 AV Safety Validation - Real-World Data Challenges
 
-Critical challenge of validating safety in the autonomous vehicle (AV) industry, particularly for unforeseen events. It highlights the limitations of simulation and the necessity of extensive real-world data collection.
+This article discusses the critical challenge of validating safety in the autonomous vehicle (AV) industry, particularly for unforeseen events. It highlights the limitations of simulation and the necessity of extensive real-world data collection.
 
 Key Points:
 

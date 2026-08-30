@@ -1,6 +1,6 @@
 ### 📰 International Relations - Netanyahu and Trump Dinner
 
-Confirmed private dinner between Israeli Prime Minister Benjamin Netanyahu and US President Donald Trump.  The meeting is expected to cover various significant international matters.
+This article summarizes a confirmed private dinner between Israeli Prime Minister Benjamin Netanyahu and US President Donald Trump.  The meeting is expected to cover various significant international matters.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖  Africa's Tech Future - UNGA Side Event
 
-Side event at UNGA80 focusing on technology's role in shaping Africa's future.  The event features discussions with experts on how technology driven by cultural values can impact African development.
+This article details a side event at UNGA80 focusing on technology's role in shaping Africa's future.  The event features discussions with experts on how technology driven by cultural values can impact African development.
 
 Key Points:
 

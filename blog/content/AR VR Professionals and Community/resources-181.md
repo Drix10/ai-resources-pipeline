@@ -1,6 +1,6 @@
 ### ✨ VR Platforms - Meta Horizon Worlds Policy Reversal
 
-Meta's decision to reverse its planned shutdown of Horizon Worlds VR in certain regions, following significant user feedback. It highlights the impact of community sentiment on platform development and strategy.
+This article discusses Meta's decision to reverse its planned shutdown of Horizon Worlds VR in certain regions, following significant user feedback. It highlights the impact of community sentiment on platform development and strategy.
 
 Key Points:
 

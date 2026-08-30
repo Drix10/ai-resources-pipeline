@@ -1,6 +1,6 @@
 ### 🤖 Industry 5.0 - Human-Centered AI in Factories
 
-Shift towards Industry 5.0, emphasizing the integration of AI to augment human capabilities in manufacturing, rather than replacing them.  The potential economic impact and the importance of human-centric AI design are highlighted.
+This article discusses the shift towards Industry 5.0, emphasizing the integration of AI to augment human capabilities in manufacturing, rather than replacing them.  The potential economic impact and the importance of human-centric AI design are highlighted.
 
 Key Points:
 

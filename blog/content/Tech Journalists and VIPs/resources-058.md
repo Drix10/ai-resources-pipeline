@@ -1,6 +1,6 @@
 ### 💡 Sleep - Sleep Banking
 
-Concept of sleep banking, where individuals obtain extra sleep in advance to mitigate the effects of future sleep deprivation.  Research suggests potential benefits in maintaining cognitive function and faster recovery.
+This article discusses the concept of sleep banking, where individuals obtain extra sleep in advance to mitigate the effects of future sleep deprivation.  Research suggests potential benefits in maintaining cognitive function and faster recovery.
 
 
 Key Points:

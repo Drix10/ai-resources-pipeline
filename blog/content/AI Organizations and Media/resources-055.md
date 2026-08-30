@@ -1,6 +1,6 @@
 ### 🤖 Data Science - Zerve's AI Assistant
 
-Zerve, a platform for writing data science code, and its new AI assistant feature.  The AI assistant is specialized for data science code and platform usage.
+This article discusses Zerve, a platform for writing data science code, and its new AI assistant feature.  The AI assistant is specialized for data science code and platform usage.
 
 Key Points:
 

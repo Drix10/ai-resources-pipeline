@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Grasping Policy Training
 
-Development of a grasping policy trained on diverse objects using mjlab, highlighting the emergence of an effective pivot grasp strategy.
+This article details the development of a grasping policy trained on diverse objects using mjlab, highlighting the emergence of an effective pivot grasp strategy.
 
 Key Points:
 

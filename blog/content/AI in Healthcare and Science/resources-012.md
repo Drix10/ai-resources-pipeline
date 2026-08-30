@@ -1,6 +1,6 @@
 ### 🤖 Nutrition - Impact of Ultra-Processed Foods on Brain Function
 
-Research indicating that consuming ultra-processed foods for five days can negatively affect brain insulin responsiveness and reward functions, potentially leading to long-term unhealthy eating habits.  The study was conducted on healthy individuals.
+This article summarizes research indicating that consuming ultra-processed foods for five days can negatively affect brain insulin responsiveness and reward functions, potentially leading to long-term unhealthy eating habits.  The study was conducted on healthy individuals.
 
 Key Points:
 

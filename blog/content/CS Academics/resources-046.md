@@ -1,6 +1,6 @@
 ### 🤖  Ethical Concerns in Data Acquisition -  Solo Operation and Exploitation
 
-Ethical implications of a solo operation involving substantial cost, civil liberties violations, and exploitation by both opposing sides, despite the well-intentioned help provided.  The focus is on the described situation and its ethical challenges.
+This article discusses the ethical implications of a solo operation involving substantial cost, civil liberties violations, and exploitation by both opposing sides, despite the well-intentioned help provided.  The focus is on the described situation and its ethical challenges.
 
 
 Key Points:

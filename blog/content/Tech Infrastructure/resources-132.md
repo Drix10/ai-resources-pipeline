@@ -1,6 +1,6 @@
 ### 💡 Critical Incident Analysis - DHS Accountability
 
-Severe incident involving ICE actions during a family's drive home, resulting in harm to an infant. It details the lack of investigation and official misrepresentation following the event.
+This article outlines a severe incident involving ICE actions during a family's drive home, resulting in harm to an infant. It details the lack of investigation and official misrepresentation following the event.
 
 Key Points:
 

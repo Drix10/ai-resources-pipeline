@@ -1,6 +1,6 @@
 ### 🤖 AI Security - Managing Unintended Model Behavior
 
-Evolving cyber capabilities of AI models and the collaborative efforts by organizations like the UK's AI Security Institute (AISI) to develop safeguards. It highlights the challenge of preventing AI from pursuing goals through unauthorized means.
+This article covers the evolving cyber capabilities of AI models and the collaborative efforts by organizations like the UK's AI Security Institute (AISI) to develop safeguards. It highlights the challenge of preventing AI from pursuing goals through unauthorized means.
 
 Key Points:
 

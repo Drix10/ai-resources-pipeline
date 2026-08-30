@@ -1,6 +1,6 @@
 ### 🤖 DJI Drones - Amazon Availability
 
-Limited availability of DJI drones on Amazon in 2025, highlighting some remaining models.
+This article discusses the limited availability of DJI drones on Amazon in 2025, highlighting some remaining models.
 
 Key Points:
 

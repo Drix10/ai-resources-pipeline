@@ -1,6 +1,6 @@
 ### 💡 User Experience - Aesthetic Perception
 
-Simple visual elements can evoke a strong sense of pleasantness, demonstrating the subjective power of design and context. It highlights the direct emotional response that can arise from visual stimuli.
+This article explores how simple visual elements can evoke a strong sense of pleasantness, demonstrating the subjective power of design and context. It highlights the direct emotional response that can arise from visual stimuli.
 
 Key Points:
 

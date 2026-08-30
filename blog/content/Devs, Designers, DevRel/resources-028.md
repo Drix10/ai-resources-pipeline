@@ -1,6 +1,6 @@
 ### 🤖 Fire Investigation - Green Flames in Utility Tunnels
 
-Likely cause of green flames observed in a Texas Tech utility tunnel, attributing it to the combustion of copper compounds in electrical wiring.  The analysis contrasts this with the blue flames produced by sulfur combustion.
+This article discusses the likely cause of green flames observed in a Texas Tech utility tunnel, attributing it to the combustion of copper compounds in electrical wiring.  The analysis contrasts this with the blue flames produced by sulfur combustion.
 
 Key Points:
 

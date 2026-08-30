@@ -1,6 +1,6 @@
 ### 💡 Homeschool Math - Synthesis Tutor Review
 
-Review of Synthesis Tutor as a homeschool math resource, comparing it to other methods such as Khan Academy and workbooks.
+This article provides a brief review of Synthesis Tutor as a homeschool math resource, comparing it to other methods such as Khan Academy and workbooks.
 
 Key Points:
 

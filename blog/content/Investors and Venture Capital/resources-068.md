@@ -1,6 +1,6 @@
 ### 📈 IPOs - Down Round Valuation Stigma
 
-Changing perception of down-round IPOs, using Chime's public market debut as a case study.  Logan Bartlett's CNBC commentary is analyzed.
+This article discusses the changing perception of down-round IPOs, using Chime's public market debut as a case study.  Logan Bartlett's CNBC commentary is analyzed.
 
 
 Key Points:

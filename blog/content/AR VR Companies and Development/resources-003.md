@@ -1,6 +1,6 @@
 ### 🤖 Educational Technology - Integrating Nature and Tech
 
-Project that blends animation, 3D modeling, and hands-on creation to connect technology and nature in an educational setting.  The project aims to bridge the gap between technological tools and natural processes through interactive media assignments.
+This article discusses a project that blends animation, 3D modeling, and hands-on creation to connect technology and nature in an educational setting.  The project aims to bridge the gap between technological tools and natural processes through interactive media assignments.
 
 Key Points:
 

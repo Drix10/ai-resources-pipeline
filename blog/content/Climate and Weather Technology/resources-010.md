@@ -1,6 +1,6 @@
 ### 🤖 Politics -  Medicaid and Proxy Voting
 
-Case of a new mother who traveled across the country to prevent Medicaid cuts and advocates for proxy voting for new parents.
+This article discusses the case of a new mother who traveled across the country to prevent Medicaid cuts and advocates for proxy voting for new parents.
 
 Key Points:
 

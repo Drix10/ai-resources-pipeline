@@ -1,6 +1,6 @@
 ### ✨ Press Secretary - Performance Evaluation
 
-Twitter thread praising the current White House Press Secretary's performance, contrasting it with previous administrations.
+This article summarizes a Twitter thread praising the current White House Press Secretary's performance, contrasting it with previous administrations.
 
 Key Points:
 

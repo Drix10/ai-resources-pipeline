@@ -1,6 +1,6 @@
 ### 🚀 SpaceX - Starship Flight 9 Analysis
 
-Results of SpaceX's Starship Flight 9, highlighting key successes and areas for improvement.  The analysis focuses on flight performance and data gathered.
+This article summarizes the results of SpaceX's Starship Flight 9, highlighting key successes and areas for improvement.  The analysis focuses on flight performance and data gathered.
 
 Key Points:
 

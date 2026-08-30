@@ -1,6 +1,6 @@
 ### 🤖 AI Policy - UK Parliamentarians Advocate for Regulation
 
-Support from UK parliamentarians for binding regulation of AI systems. It highlights concerns regarding the risks posed by superintelligent AI.
+This article outlines the support from UK parliamentarians for binding regulation of AI systems. It highlights concerns regarding the risks posed by superintelligent AI.
 
 Key Points:
 

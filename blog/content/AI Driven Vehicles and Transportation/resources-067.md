@@ -1,6 +1,6 @@
 ### 🤖 AI Writing - Current Limitations
 
-Perceived discrepancy between the rapid advancement of AI in various tasks and its slower progress in writing, suggesting a strong link between writing and thinking abilities.
+This article discusses the perceived discrepancy between the rapid advancement of AI in various tasks and its slower progress in writing, suggesting a strong link between writing and thinking abilities.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Data Verification in the Age of AI
 
-Increasing importance of data verification in the age of AI, highlighting the vulnerability to misinformation and the potential of OriginTrail technology to address these concerns.
+This article discusses the increasing importance of data verification in the age of AI, highlighting the vulnerability to misinformation and the potential of OriginTrail technology to address these concerns.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Aesthetics - Elevating Everyday Objects
 
-Idea that even mundane objects can be sources of beauty if given more attention and care.  The focus is on shifting perspectives to appreciate the aesthetic potential in everyday life.
+This article explores the idea that even mundane objects can be sources of beauty if given more attention and care.  The focus is on shifting perspectives to appreciate the aesthetic potential in everyday life.
 
 Key Points:
 

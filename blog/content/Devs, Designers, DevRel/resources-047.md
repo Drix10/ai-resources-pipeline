@@ -1,6 +1,6 @@
 ### 🤖 Cloud Storage - Cloudflare R2
 
-Cloudflare R2, a free alternative to AWS S3, focusing on its pricing model and use cases for storing static files and user uploads.
+This article discusses Cloudflare R2, a free alternative to AWS S3, focusing on its pricing model and use cases for storing static files and user uploads.
 
 Key Points:
 

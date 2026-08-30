@@ -1,6 +1,6 @@
 ### 💡 Code Quality - Managing Feedback
 
-Process of receiving and interpreting feedback on code changes. It highlights the importance of managing reviews effectively to maintain code quality.
+This article discusses the process of receiving and interpreting feedback on code changes. It highlights the importance of managing reviews effectively to maintain code quality.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Free Speech - Impact of Censorship
 
-Societal implications of censorship, discussing how restricting speech can alter perceptions of violence and contribute to societal regression.
+This article examines the societal implications of censorship, discussing how restricting speech can alter perceptions of violence and contribute to societal regression.
 
 Key Points:
 

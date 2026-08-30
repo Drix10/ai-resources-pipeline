@@ -1,6 +1,6 @@
 ### 💡 Historical Context - The Balfour Declaration and British Mandate
 
-The Balfour Declaration of 1917 and the subsequent British Mandate in Palestine, highlighting the differing perspectives of Arabs and Jews regarding land sovereignty.
+This article provides a brief overview of the Balfour Declaration of 1917 and the subsequent British Mandate in Palestine, highlighting the differing perspectives of Arabs and Jews regarding land sovereignty.
 
 Key Points:
 

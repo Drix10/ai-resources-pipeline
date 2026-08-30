@@ -1,6 +1,6 @@
 ### 🤖 AI in Warfare - Project Maven Analysis
 
-Excerpt from 'Project Maven: A Marine Colonel, His Team, and the Dawn of AI Warfare' published on WIRED. It highlights the implications and applications of artificial intelligence in military contexts.
+This article discusses an excerpt from 'Project Maven: A Marine Colonel, His Team, and the Dawn of AI Warfare' published on WIRED. It highlights the implications and applications of artificial intelligence in military contexts.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Media Transparency - Financial Times Correction
 
-Notable correction published by the Financial Times. It highlights the importance of accuracy and integrity in journalism.
+This article discusses a notable correction published by the Financial Times. It highlights the importance of accuracy and integrity in journalism.
 
 Key Points:
 

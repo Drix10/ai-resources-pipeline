@@ -1,6 +1,6 @@
 ### 🤖 Weather Forecast - Intermountain West
 
-Westward-moving weather system impacting the Intermountain region, predicting thunderstorm development in the Southern Plains and Southeast.  Uncertainty remains regarding the intensity of the instability.
+This article discusses a westward-moving weather system impacting the Intermountain region, predicting thunderstorm development in the Southern Plains and Southeast.  Uncertainty remains regarding the intensity of the instability.
 
 
 Key Points:

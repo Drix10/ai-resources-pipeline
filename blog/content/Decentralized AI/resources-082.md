@@ -1,6 +1,6 @@
 ### 🤖 Real-World Assets (RWAs) - Weekly News
 
-Key developments in the Real-World Assets (RWA) space this week, including regulatory discussions and funding rounds.
+This article summarizes the key developments in the Real-World Assets (RWA) space this week, including regulatory discussions and funding rounds.
 
 Key Points:
 

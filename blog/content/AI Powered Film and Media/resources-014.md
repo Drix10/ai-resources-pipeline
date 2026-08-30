@@ -1,6 +1,6 @@
 ### 🤖 AI Video Tools - Sora's Potential and Challenges
 
-OpenAI's Sora AI video generation tool, highlighting its potential and outlining some of its current limitations.  The tool's availability in the EU and UK is also noted.
+This article discusses OpenAI's Sora AI video generation tool, highlighting its potential and outlining some of its current limitations.  The tool's availability in the EU and UK is also noted.
 
 Key Points:
 

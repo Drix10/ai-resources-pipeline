@@ -1,6 +1,6 @@
 ### 🚀 XR Technologies -  eXperiential Reality in Healthcare
 
-Application of extended reality (XR) technologies, encompassing augmented reality (AR) and virtual reality (VR), across the healthcare continuum, from patient education to surgical planning and intraoperative guidance.
+This article discusses the application of extended reality (XR) technologies, encompassing augmented reality (AR) and virtual reality (VR), across the healthcare continuum, from patient education to surgical planning and intraoperative guidance.
 
 
 Key Points:

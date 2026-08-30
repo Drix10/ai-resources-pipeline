@@ -1,6 +1,6 @@
 ### 💡 AI - Rethinking AI as a Thinking Tool
 
-Common misconception of viewing AI as a simple retrieval system, similar to search engines or databases, and proposes a shift in perspective towards AI as a tool to enhance human thought processes.
+This article discusses the common misconception of viewing AI as a simple retrieval system, similar to search engines or databases, and proposes a shift in perspective towards AI as a tool to enhance human thought processes.
 
 Key Points:
 

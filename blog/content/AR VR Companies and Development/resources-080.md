@@ -1,6 +1,6 @@
 ### ✨ Immersive Art - AR.te Gallery Experience
 
-AR.te Gallery, an immersive augmented reality and extended reality art experience accessible through Spheroid Universe and OverTheReality.  It allows users to explore digital art spaces and connect with a global creative community.
+This article details the AR.te Gallery, an immersive augmented reality and extended reality art experience accessible through Spheroid Universe and OverTheReality.  It allows users to explore digital art spaces and connect with a global creative community.
 
 Key Points:
 

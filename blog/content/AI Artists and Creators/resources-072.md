@@ -1,6 +1,6 @@
 ### 🤖 Physics - Wormhole Theory
 
-Bob Lazar's 1990s interview explanation of wormholes, focusing on the purported use of three orbs as transmitters and entanglement for destination creation.  The exclusion of scalar potential is also mentioned.
+This article discusses Bob Lazar's 1990s interview explanation of wormholes, focusing on the purported use of three orbs as transmitters and entanglement for destination creation.  The exclusion of scalar potential is also mentioned.
 
 Key Points:
 

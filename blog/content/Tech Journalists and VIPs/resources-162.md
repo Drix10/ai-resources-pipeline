@@ -1,6 +1,6 @@
 ### 💡 Public Discourse - Political Commentary
 
-Critical observations regarding statements made by public officials and their impact on public discourse. It aims to highlight the importance of informed communication in political commentary.
+This article discusses critical observations regarding statements made by public officials and their impact on public discourse. It aims to highlight the importance of informed communication in political commentary.
 
 Key Points:
 

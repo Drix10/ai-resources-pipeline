@@ -1,6 +1,6 @@
 ### 🚀 Accelerators - Ikigai Launchpad S'25
 
-Ikigai Launchpad S'25 accelerator program, outlining its key features and application details.
+This article summarizes the Ikigai Launchpad S'25 accelerator program, outlining its key features and application details.
 
 Key Points:
 

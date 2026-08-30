@@ -1,6 +1,6 @@
 ### 😡 Social Commentary - Political Relationship Breakdown
 
-Commentary on the breakdown of a political relationship, citing the deterioration as a result of detrimental actions by one party.  The author advocates for severing ties with the offending party.
+This article discusses a commentary on the breakdown of a political relationship, citing the deterioration as a result of detrimental actions by one party.  The author advocates for severing ties with the offending party.
 
 Key Points:
 

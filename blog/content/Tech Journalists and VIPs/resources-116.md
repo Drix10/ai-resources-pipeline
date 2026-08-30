@@ -1,6 +1,6 @@
 ### 💡 Public Safety - Current Incident Update
 
-Update on a public safety incident at Brown University, indicating that a perpetrator remains at large following the release of a previously detained individual.
+This article provides an update on a public safety incident at Brown University, indicating that a perpetrator remains at large following the release of a previously detained individual.
 
 Key Points:
 

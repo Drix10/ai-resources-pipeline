@@ -1,6 +1,6 @@
 ### 🤖 GPU Programming - Empowering Modern Compute Development
 
-Modular's vision, championed by Chris Lattner, to democratize GPU programming. The initiative aims to resolve existing language and platform challenges, making modern compute accessible to a broader developer base and offering greater development choices.
+This article discusses Modular's vision, championed by Chris Lattner, to democratize GPU programming. The initiative aims to resolve existing language and platform challenges, making modern compute accessible to a broader developer base and offering greater development choices.
 
 Key Points:
 

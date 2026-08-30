@@ -1,6 +1,6 @@
 ### 🤖 DEF CON 33 - Social Proof Security Clue Hunt
 
-Information about the DEF CON 33 Social Proof Security clue hunt, highlighting its length and difficulty compared to the previous year's event.  The top prize is mentioned as being noteworthy.
+This article summarizes information about the DEF CON 33 Social Proof Security clue hunt, highlighting its length and difficulty compared to the previous year's event.  The top prize is mentioned as being noteworthy.
 
 
 Key Points:

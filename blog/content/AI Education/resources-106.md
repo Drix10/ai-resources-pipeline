@@ -1,6 +1,6 @@
 ### 🤖 AI-Powered Video Editing - Underlord
 
-Descript's AI co-editor, Underlord, and its capabilities in simplifying video creation.  It highlights the tool's ability to streamline various aspects of the video production process.
+This article discusses Descript's AI co-editor, Underlord, and its capabilities in simplifying video creation.  It highlights the tool's ability to streamline various aspects of the video production process.
 
 Key Points:
 

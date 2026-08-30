@@ -1,6 +1,6 @@
 ### 🤖 Open Source AI Editor - Community Benefits
 
-Benefits of an open-source AI editor for the open-source community, highlighting the strong support from key individuals within the community.
+This article discusses the benefits of an open-source AI editor for the open-source community, highlighting the strong support from key individuals within the community.
 
 Key Points:
 

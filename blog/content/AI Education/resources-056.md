@@ -1,6 +1,6 @@
 ### 🤖 AI in Education - RAND Survey Findings
 
-Findings from a RAND report on AI adoption in US public schools, highlighting teacher usage and existing gaps.
+This article summarizes findings from a RAND report on AI adoption in US public schools, highlighting teacher usage and existing gaps.
 
 Key Points:
 

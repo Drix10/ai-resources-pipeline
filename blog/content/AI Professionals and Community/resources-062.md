@@ -1,6 +1,6 @@
 ### ⚠️ Government Funding - Impact on NPR
 
-Potential impact of halting federal funding to NPR, as stated in an executive order.  The statement highlights the consequences for NPR, its member stations, and the public.
+This article discusses the potential impact of halting federal funding to NPR, as stated in an executive order.  The statement highlights the consequences for NPR, its member stations, and the public.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Honorary Doctorates - UConn Criteria
 
-Criteria for honorary doctorates at the University of Connecticut (UConn), based on a Twitter thread by Patrick Yen.  It also notes the perceived lack of clarity in criteria at other universities.
+This article discusses the criteria for honorary doctorates at the University of Connecticut (UConn), based on a Twitter thread by Patrick Yen.  It also notes the perceived lack of clarity in criteria at other universities.
 
 
 Key Points:

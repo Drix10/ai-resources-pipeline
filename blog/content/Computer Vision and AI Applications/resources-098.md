@@ -1,6 +1,6 @@
 ### 🤖 Visualization - Open3D vs. Viser
 
-Author's experience integrating a dataloader into the Viser visualization tool, and compares it to Open3D.  The author found Viser significantly easier to use for visualization.
+This article discusses the author's experience integrating a dataloader into the Viser visualization tool, and compares it to Open3D.  The author found Viser significantly easier to use for visualization.
 
 Key Points:
 

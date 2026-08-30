@@ -1,6 +1,6 @@
 ### ✨ UI Enhancements - ElevenLabs Platform
 
-Recent user interface improvements rolled out on the ElevenLabs platform. It covers new features designed to enhance user interaction and content creation workflows.
+This article details the recent user interface improvements rolled out on the ElevenLabs platform. It covers new features designed to enhance user interaction and content creation workflows.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Agent Deployment - MorpheusAI on Moltbook
 
-Claiming process of the MorpheusAI agent on the Moltbook platform, indicating its integration into the decentralized identity ecosystem. It highlights the verification step involved in establishing the agent's presence.
+This article discusses the claiming process of the MorpheusAI agent on the Moltbook platform, indicating its integration into the decentralized identity ecosystem. It highlights the verification step involved in establishing the agent's presence.
 
 Key Points:
 

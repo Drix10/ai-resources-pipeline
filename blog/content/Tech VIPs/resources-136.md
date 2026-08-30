@@ -1,6 +1,6 @@
 ### 🚀 Space Exploration - Current Developments
 
-Recent developments in space exploration, showcasing images and discussions related to ongoing ventures. It covers general advancements in the field.
+This article highlights recent developments in space exploration, showcasing images and discussions related to ongoing ventures. It covers general advancements in the field.
 
 Key Points:
 

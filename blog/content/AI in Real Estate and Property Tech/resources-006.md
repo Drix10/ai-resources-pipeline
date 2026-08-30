@@ -1,6 +1,6 @@
 ### 🤖 AI in Architecture - Design Automation
 
-Use of artificial intelligence in architectural design, focusing on the simplification of the design process.  It presents examples of AI-generated architectural designs.
+This article discusses the use of artificial intelligence in architectural design, focusing on the simplification of the design process.  It presents examples of AI-generated architectural designs.
 
 Key Points:
 

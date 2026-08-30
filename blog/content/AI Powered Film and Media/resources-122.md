@@ -1,6 +1,6 @@
 ### 💡 Film Directing - Rob Reiner's Notable Run
 
-Rob Reiner's remarkable six-year directorial period, showcasing a series of critically acclaimed films. It focuses on the consistency and impact of his work within a concentrated timeframe.
+This article highlights Rob Reiner's remarkable six-year directorial period, showcasing a series of critically acclaimed films. It focuses on the consistency and impact of his work within a concentrated timeframe.
 
 Key Points:
 

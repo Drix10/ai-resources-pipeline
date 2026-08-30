@@ -1,6 +1,6 @@
 ### 🤖 AI in Development - Redefining Roles
 
-Evolving role of AI in software development, focusing on how AI tools can augment, rather than replace, developer roles.  It explores using AI for requirement gathering and task automation.
+This article discusses the evolving role of AI in software development, focusing on how AI tools can augment, rather than replace, developer roles.  It explores using AI for requirement gathering and task automation.
 
 Key Points:
 

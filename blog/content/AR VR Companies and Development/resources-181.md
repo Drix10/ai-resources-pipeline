@@ -1,6 +1,6 @@
 ### 🤖 Godot Engine - 4.6.3 Release Candidate
 
-Update on the ongoing development for the Godot Engine, focusing on the stability efforts for version 4.6 while 4.7 is in beta. It announces the availability of the first release candidate for Godot 4.6.3 for community testing.
+This article provides an update on the ongoing development for the Godot Engine, focusing on the stability efforts for version 4.6 while 4.7 is in beta. It announces the availability of the first release candidate for Godot 4.6.3 for community testing.
 
 Key Points:
 

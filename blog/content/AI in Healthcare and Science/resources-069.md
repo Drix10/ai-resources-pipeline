@@ -1,6 +1,6 @@
 ### 🤝 Connected Health Tech - Commure Nexus Recap
 
-First Commure Nexus event, featuring insights from General Catalyst on the future of connected health technology.  A link to General Catalyst's May recap is provided for further details.
+This article summarizes the first Commure Nexus event, featuring insights from General Catalyst on the future of connected health technology.  A link to General Catalyst's May recap is provided for further details.
 
 Key Points:
 

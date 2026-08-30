@@ -1,6 +1,6 @@
 ### 🤖 Autonomous Vehicles - Waymo City Operations
 
-Waymo's autonomous vehicle fleet operating within a city environment, highlighting its presence and service capabilities.
+This article discusses Waymo's autonomous vehicle fleet operating within a city environment, highlighting its presence and service capabilities.
 
 Key Points:
 

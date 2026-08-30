@@ -1,6 +1,6 @@
 ### 🤖 CAR T Cell Activity - Genomic Correlates
 
-Research findings on the genomic characteristics associated with clinical CAR T cell activity. It identifies specific genetic features that correlate with treatment response.
+This article discusses research findings on the genomic characteristics associated with clinical CAR T cell activity. It identifies specific genetic features that correlate with treatment response.
 
 Key Points:
 

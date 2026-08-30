@@ -1,6 +1,6 @@
 ### 🚀 Autonomous Vehicles - Texas Commercial Operation Approval
 
-Significant milestone of Bot Auto becoming the first approved commercial autonomous vehicle operator in Texas. It outlines the state's progress in enabling advanced mobility solutions.
+This article covers the significant milestone of Bot Auto becoming the first approved commercial autonomous vehicle operator in Texas. It outlines the state's progress in enabling advanced mobility solutions.
 
 Key Points:
 

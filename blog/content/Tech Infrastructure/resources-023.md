@@ -1,6 +1,6 @@
 ### 🤖 Generative AI - DeepSeek R1 on Amazon Bedrock
 
-Availability of DeepSeek AI's R1 model as a fully managed service within Amazon Bedrock.  It highlights the model's capabilities and its accessibility for various applications.
+This article discusses the availability of DeepSeek AI's R1 model as a fully managed service within Amazon Bedrock.  It highlights the model's capabilities and its accessibility for various applications.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Conference - Sovereign AI Clouds
 
-Session on building sovereign AI clouds using Canonical's open-source stack, presented at Ai4Conferences.  The session covered key technologies and approaches for creating secure and independent AI infrastructure.
+This article summarizes a session on building sovereign AI clouds using Canonical's open-source stack, presented at Ai4Conferences.  The session covered key technologies and approaches for creating secure and independent AI infrastructure.
 
 Key Points:
 

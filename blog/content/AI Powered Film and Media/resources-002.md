@@ -1,6 +1,6 @@
 ### 💔 Social Issues - UK Housing Displacement
 
-Case in the UK where a homeowner received a government order to sell their house to accommodate migrants.  The situation highlights the complexities of displacement and housing policies.
+This article discusses a case in the UK where a homeowner received a government order to sell their house to accommodate migrants.  The situation highlights the complexities of displacement and housing policies.
 
 Key Points:
 

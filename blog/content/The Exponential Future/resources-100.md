@@ -1,6 +1,6 @@
 ### 🤖 Audio Data - The Drying YouTube Well
 
-Challenges of using YouTube for voice model training data and introduces an alternative solution.
+This article discusses the challenges of using YouTube for voice model training data and introduces an alternative solution.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 NBA Playoffs - Game 5 Preview
 
-Preview for Game 5 of the NBA Playoffs between Minnesota and San Antonio. It details recent team performance and broadcast information for the upcoming match.
+This article provides a preview for Game 5 of the NBA Playoffs between Minnesota and San Antonio. It details recent team performance and broadcast information for the upcoming match.
 
 Key Points:
 

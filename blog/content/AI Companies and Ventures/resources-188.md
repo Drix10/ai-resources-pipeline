@@ -1,6 +1,6 @@
 ### ✨ AI Image Generation - Automotive Photography
 
-Process of generating high-quality automotive images using AI, focusing on specific photographic requirements and aesthetic elements.
+This article details the process of generating high-quality automotive images using AI, focusing on specific photographic requirements and aesthetic elements.
 
 Key Points:
 

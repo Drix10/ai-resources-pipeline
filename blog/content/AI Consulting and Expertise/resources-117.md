@@ -1,6 +1,6 @@
 ### 🤖 Air Quality Analysis - LA County Wildfires
 
-Analysis of air quality data in LA County, focusing on the potential impact of California wildfires.  The analysis utilized GridDB and Tableau for data visualization.
+This article details the analysis of air quality data in LA County, focusing on the potential impact of California wildfires.  The analysis utilized GridDB and Tableau for data visualization.
 
 Key Points:
 

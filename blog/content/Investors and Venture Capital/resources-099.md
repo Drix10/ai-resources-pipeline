@@ -1,6 +1,6 @@
 ### 🤖 Prediction Markets - An Overview
 
-Prediction markets, explaining their mechanism and theoretical function.  It also notes practical limitations.
+This article provides a brief overview of prediction markets, explaining their mechanism and theoretical function.  It also notes practical limitations.
 
 Key Points:
 

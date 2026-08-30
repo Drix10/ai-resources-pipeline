@@ -1,6 +1,6 @@
 ### 🤖 Bitcoin Protocol - BIP-110 Risk Assessment
 
-Risk analysis performed on Bitcoin Improvement Proposal 110 (BIP-110). It covers current miner support levels and impending enforcement mechanisms for nodes running compatible software.
+This article details a risk analysis performed on Bitcoin Improvement Proposal 110 (BIP-110). It covers current miner support levels and impending enforcement mechanisms for nodes running compatible software.
 
 Key Points:
 • BIP-110 currently has low miner support, estimated at 0.4–1%.

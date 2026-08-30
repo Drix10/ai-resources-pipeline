@@ -1,6 +1,6 @@
 ### 💡 AI Trends - Staying Current in the Field
 
-Significant premium placed on staying current with advancements in the AI field and the opportunities this presents for the next generation workforce.  The rapid pace of change in AI creates a high demand for those who are AI-native and up-to-date.
+This article discusses the significant premium placed on staying current with advancements in the AI field and the opportunities this presents for the next generation workforce.  The rapid pace of change in AI creates a high demand for those who are AI-native and up-to-date.
 
 Key Points:
 

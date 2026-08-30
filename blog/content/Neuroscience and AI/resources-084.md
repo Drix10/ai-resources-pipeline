@@ -1,6 +1,6 @@
 ### 🤖 Biotech AI - Market Entry and Valuation
 
-Upcoming market entry of several biotech artificial intelligence companies and questions the validity of inflated valuations based solely on in silico sequence generation or basic statistical analyses.
+This article discusses the upcoming market entry of several biotech artificial intelligence companies and questions the validity of inflated valuations based solely on in silico sequence generation or basic statistical analyses.
 
 Key Points:
 

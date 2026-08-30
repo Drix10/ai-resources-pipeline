@@ -1,6 +1,6 @@
 ### 🔬 Long COVID - Brain Fog Biological Markers
 
-Study investigating the biological markers associated with brain fog in long COVID patients, comparing them to fully recovered individuals.  The research focuses on inflammation and stress markers as potential contributors to persistent cognitive symptoms.
+This article summarizes a study investigating the biological markers associated with brain fog in long COVID patients, comparing them to fully recovered individuals.  The research focuses on inflammation and stress markers as potential contributors to persistent cognitive symptoms.
 
 Key Points:
 

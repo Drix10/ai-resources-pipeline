@@ -1,6 +1,6 @@
 ### 🌎 Cultural Beliefs - Safarwadi Cave Pilgrimage
 
-Pilgrimage to Safarwadi Cave in West Java, Indonesia, where thousands believe a hidden path to Mecca exists.  The article highlights the significance of the cave and the rituals performed there.
+This article discusses the pilgrimage to Safarwadi Cave in West Java, Indonesia, where thousands believe a hidden path to Mecca exists.  The article highlights the significance of the cave and the rituals performed there.
 
 Key Points:
 

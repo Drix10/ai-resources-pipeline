@@ -1,6 +1,6 @@
 ### 🤖 Least Squares Solutions - Generalization Performance
 
-Generalization performance of minimum-norm least squares solutions, particularly in scenarios where the number of data points significantly exceeds the number of parameters.  It explores the impact of regularization and the potential for optimal regularization parameters to be zero or even negative.
+This article discusses the generalization performance of minimum-norm least squares solutions, particularly in scenarios where the number of data points significantly exceeds the number of parameters.  It explores the impact of regularization and the potential for optimal regularization parameters to be zero or even negative.
 
 Key Points:
 

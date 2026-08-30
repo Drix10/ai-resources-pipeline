@@ -1,6 +1,6 @@
 ### 🤖 KubeCon - Spotify Portal Demo
 
-Spotify's presence at KubeCon, highlighting a demo of their Spotify Portal and community engagement activities.
+This article summarizes Spotify's presence at KubeCon, highlighting a demo of their Spotify Portal and community engagement activities.
 
 Key Points:
 

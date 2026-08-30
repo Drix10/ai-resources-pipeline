@@ -1,6 +1,6 @@
 ### 💡 Cognitive Health - Positivity Bias in Older Adults
 
-Study linking positivity bias in older adults to potential cognitive decline.  The study suggests this bias may be an indicator, rather than simply a coping mechanism.
+This article discusses a study linking positivity bias in older adults to potential cognitive decline.  The study suggests this bias may be an indicator, rather than simply a coping mechanism.
 
 Key Points:
 

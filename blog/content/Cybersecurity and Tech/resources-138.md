@@ -1,6 +1,6 @@
 ### 🤖 Supply Chain Security - LiteLLM Compromise Detection
 
-#TeamPCP #LiteLLM compromise, underscoring the vital role of scalable detection mechanisms in cybersecurity. It details how internal analysis effectively flagged a malicious software wheel and its embedded payload.
+This article discusses the #TeamPCP #LiteLLM compromise, underscoring the vital role of scalable detection mechanisms in cybersecurity. It details how internal analysis effectively flagged a malicious software wheel and its embedded payload.
 
 Key Points:
 

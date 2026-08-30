@@ -1,6 +1,6 @@
 ### 🤖 Conference Recap - ADAPT's Security Edge Sydney
 
-Panel discussion at ADAPT's Security Edge Sydney, focusing on AI risk from a CTO perspective.  The discussion included industry leaders from AWS, CrowdStrike, and Okta.
+This article summarizes a panel discussion at ADAPT's Security Edge Sydney, focusing on AI risk from a CTO perspective.  The discussion included industry leaders from AWS, CrowdStrike, and Okta.
 
 Key Points:
 

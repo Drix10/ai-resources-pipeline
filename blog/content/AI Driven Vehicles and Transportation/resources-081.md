@@ -1,6 +1,6 @@
 ### 🤖 AI Ethics - Police Body Cameras
 
-Concerns raised by the R Street Institute regarding the increasing use of AI-powered police body cameras, focusing on privacy, bias, and oversight issues.
+This article discusses concerns raised by the R Street Institute regarding the increasing use of AI-powered police body cameras, focusing on privacy, bias, and oversight issues.
 
 Key Points:
 

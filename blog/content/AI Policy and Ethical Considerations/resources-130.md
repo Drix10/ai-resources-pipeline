@@ -1,6 +1,6 @@
 ### 🤖 AI Impact on Economy - Labor Share and Wages
 
-Economic dynamics of rapid growth driven by AI, focusing on the relationship between overall economic expansion, labor wages, and the share of income attributed to human labor. It considers the scenario where AI significantly reduces production costs.
+This article explores the economic dynamics of rapid growth driven by AI, focusing on the relationship between overall economic expansion, labor wages, and the share of income attributed to human labor. It considers the scenario where AI significantly reduces production costs.
 
 Key Points:
 

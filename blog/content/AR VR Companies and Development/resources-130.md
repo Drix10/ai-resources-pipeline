@@ -1,6 +1,6 @@
 ### ✨ Roblox - Age Check to Chat Update
 
-Upcoming enhancements to Roblox's Age Check to Chat update. It covers new features designed to improve the communication experience for all users and enhance safety.
+This article details the upcoming enhancements to Roblox's Age Check to Chat update. It covers new features designed to improve the communication experience for all users and enhance safety.
 
 Key Points:
 

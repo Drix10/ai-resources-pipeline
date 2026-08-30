@@ -1,6 +1,6 @@
 ### 🌎 International Relations - US-Russia Diplomatic Relations
 
-Appointment of a new Russian ambassador to the United States and the underlying geopolitical context.
+This article discusses the appointment of a new Russian ambassador to the United States and the underlying geopolitical context.
 
 Key Points:
 

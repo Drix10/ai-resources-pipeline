@@ -1,6 +1,6 @@
 ### 🤖 UK Politics - Centrally Planned State
 
-Argument that Britain's centrally planned state is hindering its effectiveness and proposes radical state reform as a solution.
+This article discusses the argument that Britain's centrally planned state is hindering its effectiveness and proposes radical state reform as a solution.
 
 Key Points:
 

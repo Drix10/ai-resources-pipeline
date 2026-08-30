@@ -1,6 +1,6 @@
 ### 💡 Social Commentary - Digital ID and Civil Liberties
 
-Concerns regarding the potential erosion of civil liberties through the implementation of mandatory digital IDs, framed within the context of immigration control.  The author expresses apprehension about the long-term implications of such policies.
+This article discusses concerns regarding the potential erosion of civil liberties through the implementation of mandatory digital IDs, framed within the context of immigration control.  The author expresses apprehension about the long-term implications of such policies.
 
 Key Points:
 

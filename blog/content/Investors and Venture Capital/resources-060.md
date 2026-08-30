@@ -1,6 +1,6 @@
 ### 🎨 Color Mixing - Middletone Creation
 
-Six methods for mixing a middletone color, described as a khaki with a greenish tint, and suggests its use with a sepia wash.
+This article provides six methods for mixing a middletone color, described as a khaki with a greenish tint, and suggests its use with a sepia wash.
 
 Key Points:
 

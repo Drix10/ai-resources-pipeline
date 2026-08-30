@@ -1,6 +1,6 @@
 ### 🤖 Reinforcement Learning - Convergence and Stability
 
-Convergence and stability of modern reinforcement learning frameworks, focusing on Upside-Down RL, Online Decision Transformers, and Goal-Conditioned Supervised Learning.  The research highlights key findings from a collaboration between IDSIA, KAUST, and NNAISENSE.
+This article explores the convergence and stability of modern reinforcement learning frameworks, focusing on Upside-Down RL, Online Decision Transformers, and Goal-Conditioned Supervised Learning.  The research highlights key findings from a collaboration between IDSIA, KAUST, and NNAISENSE.
 
 Key Points:
 

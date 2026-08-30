@@ -1,6 +1,6 @@
 ### 💡 Hiring Strategy - Anti-Sell Approach
 
-Intentional "anti-sell" strategy employed in team hiring, explaining its purpose in attracting specific talent and managing expectations for a high-intensity work environment.
+This article outlines an intentional "anti-sell" strategy employed in team hiring, explaining its purpose in attracting specific talent and managing expectations for a high-intensity work environment.
 
 Key Points:
 

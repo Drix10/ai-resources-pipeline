@@ -1,6 +1,6 @@
 ### 🚀 3D Modeling - Backyard Visualization
 
-Workflow for creating a 3D model of a backyard using Polycam, Substance 3D, and Unreal Engine 5.  The process is illustrated with images showcasing the final result.
+This article details a workflow for creating a 3D model of a backyard using Polycam, Substance 3D, and Unreal Engine 5.  The process is illustrated with images showcasing the final result.
 
 Key Points:
 

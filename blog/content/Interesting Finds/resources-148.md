@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics - US-Israel-Iran Conflict Objectives
 
-Differing objectives between the United States and Israel regarding potential military action against Iran. It highlights the complexity of their strategic alignment given these distinct national interests.
+This article outlines the differing objectives between the United States and Israel regarding potential military action against Iran. It highlights the complexity of their strategic alignment given these distinct national interests.
 
 Key Points:
 

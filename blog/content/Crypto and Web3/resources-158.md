@@ -1,6 +1,6 @@
 ### 🤖 AI Workflow - Automation Platforms
 
-Platforms designed for AI workflow automation, highlighting their role in streamlining machine learning operations. It covers key features and benefits for users in the AI/ML space.
+This article discusses platforms designed for AI workflow automation, highlighting their role in streamlining machine learning operations. It covers key features and benefits for users in the AI/ML space.
 
 Key Points:
 

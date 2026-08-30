@@ -1,6 +1,6 @@
 ### 🤖 Kerbal Space Program - Orbital Mechanics Requirement
 
-That playing Kerbal Space Program effectively requires players to grasp and apply principles of orbital mechanics. It underscores the game's fidelity to real-world physics, making it an educational tool for astrodynamics.
+This article highlights that playing Kerbal Space Program effectively requires players to grasp and apply principles of orbital mechanics. It underscores the game's fidelity to real-world physics, making it an educational tool for astrodynamics.
 
 Key Points:
 

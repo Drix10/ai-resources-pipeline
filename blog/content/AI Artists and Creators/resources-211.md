@@ -1,6 +1,6 @@
 ### 💡 Human Cognition - Memory Recall
 
-Complexities of human memory, focusing on the mechanisms of recall and the factors that influence forgetting. It briefly touches upon the role of sleep in memory consolidation.
+This article explores the complexities of human memory, focusing on the mechanisms of recall and the factors that influence forgetting. It briefly touches upon the role of sleep in memory consolidation.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Public Policy - Ayodhya Non-Vegetarian Food Ban
 
-Ayodhya administration's decision to ban non-vegetarian food delivery within a 15km radius of the Ram Temple. The measure follows complaints regarding the supply of such food items in the town's periphery.
+This article details the Ayodhya administration's decision to ban non-vegetarian food delivery within a 15km radius of the Ram Temple. The measure follows complaints regarding the supply of such food items in the town's periphery.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Self-Awareness - Aligning Actions with Goals
 
-Importance of conscious goal setting and the correlation between actions and the subconscious goals that often drive behavior.  It highlights the disconnect between stated desires and actual actions.
+This article discusses the importance of conscious goal setting and the correlation between actions and the subconscious goals that often drive behavior.  It highlights the disconnect between stated desires and actual actions.
 
 Key Points:
 

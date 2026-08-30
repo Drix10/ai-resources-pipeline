@@ -1,6 +1,6 @@
 ### 💡 Online Interactions - Identifying Argumentative Users
 
-Challenges of identifying users primarily engaged in arguments online and suggests methods for distinguishing genuine engagement from unproductive debate.
+This article discusses the challenges of identifying users primarily engaged in arguments online and suggests methods for distinguishing genuine engagement from unproductive debate.
 
 Key Points:
 

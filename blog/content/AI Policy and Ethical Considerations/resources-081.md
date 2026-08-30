@@ -1,6 +1,6 @@
 ### 🔬 Genetics - Short Sleep Study Replication
 
-Failure to replicate findings on short sleep variants, focusing on the lack of replication of a specific NPSR1 variant.
+This article discusses the failure to replicate findings on short sleep variants, focusing on the lack of replication of a specific NPSR1 variant.
 
 Key Points:
 

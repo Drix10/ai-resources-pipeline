@@ -1,6 +1,6 @@
 ### 🤖 Azure Networking - VNet Default Outbound Access Change
 
-Upcoming change to Azure Virtual Networks, where newly created VNets will no longer have default outbound internet access. It highlights the implications for network configurations post-March 2026.
+This article discusses an upcoming change to Azure Virtual Networks, where newly created VNets will no longer have default outbound internet access. It highlights the implications for network configurations post-March 2026.
 
 Key Points:
 

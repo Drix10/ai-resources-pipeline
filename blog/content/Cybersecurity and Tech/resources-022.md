@@ -1,6 +1,6 @@
 ### 🤖 Software Security - 4.10 Release Security Improvements
 
-Improvements to product security in a 4.10 software release, focusing on changes to server and client licensing.
+This article discusses improvements to product security in a 4.10 software release, focusing on changes to server and client licensing.
 
 Key Points:
 

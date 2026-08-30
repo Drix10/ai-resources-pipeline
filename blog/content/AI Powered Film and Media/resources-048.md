@@ -1,6 +1,6 @@
 ### 🚀 NFT Giveaway - Double Genesis Drop
 
-Giveaway for two Forever Subscriptions to Artifex NFT Art.  The giveaway runs from May 5th to May 10th.
+This article details a giveaway for two Forever Subscriptions to Artifex NFT Art.  The giveaway runs from May 5th to May 10th.
 
 Key Points:
 

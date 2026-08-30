@@ -1,6 +1,6 @@
 ### 🤖 OpenAI - ChatGPT User Log Retention
 
-Court order mandating OpenAI to retain all ChatGPT user logs, raising concerns about user privacy and data handling in AI platforms.
+This article discusses a court order mandating OpenAI to retain all ChatGPT user logs, raising concerns about user privacy and data handling in AI platforms.
 
 Key Points:
 

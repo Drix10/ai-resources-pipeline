@@ -1,6 +1,6 @@
 ### 🤖 Bakkt - Potential Bitcoin Purchases
 
-Bakkt's filing for a $1 billion shelf offering and its updated investment policy allowing for potential Bitcoin purchases.  It also notes associated risks.
+This article discusses Bakkt's filing for a $1 billion shelf offering and its updated investment policy allowing for potential Bitcoin purchases.  It also notes associated risks.
 
 Key Points:
 

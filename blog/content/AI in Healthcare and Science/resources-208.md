@@ -1,6 +1,6 @@
 ### 🤖 OpenMed Community Updates - On-Device De-identification & Expansion
 
-Recent advancements within the OpenMed community, including significant technical developments in on-device data de-identification and expansion into new medical domains and languages.
+This article details recent advancements within the OpenMed community, including significant technical developments in on-device data de-identification and expansion into new medical domains and languages.
 
 Key Points:
 

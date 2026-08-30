@@ -1,6 +1,6 @@
 ### 🤖 Accounts Payable in Vertical SaaS
 
-Key considerations for software companies developing accounts payable (AP) and accounts receivable (AR) solutions for vertical SaaS markets.  Contact information is provided for further inquiries.
+This article summarizes key considerations for software companies developing accounts payable (AP) and accounts receivable (AR) solutions for vertical SaaS markets.  Contact information is provided for further inquiries.
 
 Key Points:
 

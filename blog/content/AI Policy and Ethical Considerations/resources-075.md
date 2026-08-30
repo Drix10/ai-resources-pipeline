@@ -1,6 +1,6 @@
 ### 🤖 Federal Housing Finance Banks - Reform Proposals
 
-Reassessment of Federal Home Loan Banks (FHLBs) and the reform proposals that have emerged since 2022.  The focus is on the changing role of FHLBs within the modern financial landscape.
+This article discusses the reassessment of Federal Home Loan Banks (FHLBs) and the reform proposals that have emerged since 2022.  The focus is on the changing role of FHLBs within the modern financial landscape.
 
 Key Points:
 

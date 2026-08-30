@@ -1,6 +1,6 @@
 ### 😡 Apple Products - User Experience Critique
 
-User criticisms regarding the design, repairability, and functionality of Apple products.
+This article summarizes user criticisms regarding the design, repairability, and functionality of Apple products.
 
 Key Points:
 

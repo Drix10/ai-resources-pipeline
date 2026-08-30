@@ -1,6 +1,6 @@
 ### ⚠️ American IP Rights - Allegations of Government Theft
 
-Allegations of the US government stealing intellectual property from its citizens and charging fees for access.  The author expresses concerns about the implications for innovation and national standing.
+This article discusses allegations of the US government stealing intellectual property from its citizens and charging fees for access.  The author expresses concerns about the implications for innovation and national standing.
 
 Key Points:
 

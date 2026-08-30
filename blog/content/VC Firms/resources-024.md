@@ -1,6 +1,6 @@
 ### 🤖 Funding Review - Female Founders in Ireland
 
-Tech Ireland's Female Founders Funding Review 2025, highlighting key findings and participants.  The report was launched in partnership with Fierce Tech Founders at Dogpatch Labs and sponsored by AWS.
+This article summarizes Tech Ireland's Female Founders Funding Review 2025, highlighting key findings and participants.  The report was launched in partnership with Fierce Tech Founders at Dogpatch Labs and sponsored by AWS.
 
 
 Key Points:

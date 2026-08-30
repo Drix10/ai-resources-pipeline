@@ -1,6 +1,6 @@
 ### 🤖 Indian Politics - Statements on Rafale and the Army
 
-Statements made by Indian political figures regarding the Rafale fighter jet and the Indian Army.  The statements express differing viewpoints and criticisms.
+This article summarizes statements made by Indian political figures regarding the Rafale fighter jet and the Indian Army.  The statements express differing viewpoints and criticisms.
 
 Key Points:
 

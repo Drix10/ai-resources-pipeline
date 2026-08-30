@@ -1,6 +1,6 @@
 ### 🚀 Typefully - Enhanced Login and Cross-Posting
 
-New login options and cross-posting enhancements for Typefully.  It will cover the various login methods now available and improved cross-platform content syncing capabilities.
+This article details new login options and cross-posting enhancements for Typefully.  It will cover the various login methods now available and improved cross-platform content syncing capabilities.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 🐐 Animal Health - Goat Self-Induced Hypothermia
 
-Potential causes of self-induced hypothermia in goats, a phenomenon where goats seek warmth from fire.  Several possible underlying medical conditions are considered.
+This article explores potential causes of self-induced hypothermia in goats, a phenomenon where goats seek warmth from fire.  Several possible underlying medical conditions are considered.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Azure Security - API Connection Vulnerabilities
 
-Briefing on vulnerabilities in Azure security, focusing on how API connections can expose sensitive information.  It explores the layers of Azure Resource Management (ARM) and Azure API Management (APIM) to highlight potential attack vectors.
+This article discusses a briefing on vulnerabilities in Azure security, focusing on how API connections can expose sensitive information.  It explores the layers of Azure Resource Management (ARM) and Azure API Management (APIM) to highlight potential attack vectors.
 
 Key Points:
 

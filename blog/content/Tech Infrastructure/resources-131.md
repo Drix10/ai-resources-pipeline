@@ -1,6 +1,6 @@
 ### 💡 Economic Policy - Affordability Measures
 
-Affordability agenda that proposes several economic measures, including credit card interest rate caps, restrictions on institutional home buying, and new taxation policies for large technology companies.
+This article outlines an affordability agenda that proposes several economic measures, including credit card interest rate caps, restrictions on institutional home buying, and new taxation policies for large technology companies.
 
 Key Points:
 

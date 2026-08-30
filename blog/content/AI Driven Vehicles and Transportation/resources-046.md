@@ -1,6 +1,6 @@
 ### 🤖 Autonomous Vehicles - California Policy Shift
 
-Potential impact of California's impending approval of autonomous trucks on public roads.  It summarizes insights from Earl Adams, VP for Policy & Regulatory Affairs at Plus.
+This article discusses the potential impact of California's impending approval of autonomous trucks on public roads.  It summarizes insights from Earl Adams, VP for Policy & Regulatory Affairs at Plus.
 
 Key Points:
 

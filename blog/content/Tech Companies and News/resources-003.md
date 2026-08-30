@@ -1,6 +1,6 @@
 ### 🤖 Gaming - Fallout: New Vegas Fan Remake in The Sims 2
 
-Fallout: New Vegas fan's undertaking of creating a remake of the game within The Sims 2.  The project highlights the dedication of the gaming community and the creative possibilities of game modding.
+This article discusses a Fallout: New Vegas fan's undertaking of creating a remake of the game within The Sims 2.  The project highlights the dedication of the gaming community and the creative possibilities of game modding.
 
 
 Key Points:

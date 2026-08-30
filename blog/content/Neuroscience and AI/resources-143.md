@@ -1,6 +1,6 @@
 ### 💡 Child Health - Non-Pharmacological Sleep Interventions
 
-Recent research on non-pharmacological interventions for sleep disorders in children and adolescents with neurodevelopmental and neurological disorders. It evaluates existing evidence regarding these alternative treatment approaches.
+This article discusses recent research on non-pharmacological interventions for sleep disorders in children and adolescents with neurodevelopmental and neurological disorders. It evaluates existing evidence regarding these alternative treatment approaches.
 
 Key Points:
 

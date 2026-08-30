@@ -1,6 +1,6 @@
 ### 🤖 AI Detection - Code Heuristics
 
-Possibility of developing heuristics for detecting AI-generated code, similar to those used for text.  It discusses the limitations of current methods and anticipates future improvements.
+This article explores the possibility of developing heuristics for detecting AI-generated code, similar to those used for text.  It discusses the limitations of current methods and anticipates future improvements.
 
 
 Key Points:

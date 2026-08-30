@@ -1,6 +1,6 @@
 ### 🤖 Robotics Investing - Untamed Landscape
 
-Challenges and considerations for investors navigating the robotics startup landscape, based on a conversation with Brannon Jones, a deep tech investor.
+This article discusses the challenges and considerations for investors navigating the robotics startup landscape, based on a conversation with Brannon Jones, a deep tech investor.
 
 Key Points:
 

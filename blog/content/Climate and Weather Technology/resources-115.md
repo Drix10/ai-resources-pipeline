@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics - Pukpuk Treaty Endorsement
 
-Papua New Guinea Cabinet's endorsement of the historic Pukpuk Treaty. It details how this agreement elevates the relationship between two countries to a formal Alliance, expanding defense cooperation and capabilities.
+This article outlines the Papua New Guinea Cabinet's endorsement of the historic Pukpuk Treaty. It details how this agreement elevates the relationship between two countries to a formal Alliance, expanding defense cooperation and capabilities.
 
 Key Points:
 

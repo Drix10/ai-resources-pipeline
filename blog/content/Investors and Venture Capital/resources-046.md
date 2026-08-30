@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Anduril's Klas Acquisition
 
-Anduril's acquisition of Klas, focusing on the importance of Klas's ruggedized computer technology for robotics in demanding environments.
+This article discusses Anduril's acquisition of Klas, focusing on the importance of Klas's ruggedized computer technology for robotics in demanding environments.
 
 Key Points:
 

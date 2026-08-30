@@ -1,6 +1,6 @@
 ### 🤖 Startup Mistakes - Top 3 Founder Errors
 
-Three most common mistakes made by startup founders that lead to failure, based on the experience of a Fractional CTO working with 20+ startups.
+This article discusses the three most common mistakes made by startup founders that lead to failure, based on the experience of a Fractional CTO working with 20+ startups.
 
 Key Points:
 

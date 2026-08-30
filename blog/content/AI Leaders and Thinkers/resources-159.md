@@ -1,6 +1,6 @@
 ### 🤖 Statistics - Misinterpretation of Randomness
 
-Propensity for statistical misinterpretation, especially when dealing with large datasets. It highlights how purely random events can appear to form meaningful streaks, leading to incorrect conclusions.
+This article explores the propensity for statistical misinterpretation, especially when dealing with large datasets. It highlights how purely random events can appear to form meaningful streaks, leading to incorrect conclusions.
 
 Key Points:
 

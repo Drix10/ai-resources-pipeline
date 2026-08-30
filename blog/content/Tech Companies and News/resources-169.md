@@ -1,6 +1,6 @@
 ### 🚀 Supersonic Aviation - Manufacturing Scale-up
 
-Strong demand for supersonic turbines and the intensive efforts in development and manufacturing scale-up. It highlights the challenges and inspiring nature of this work.
+This article discusses the strong demand for supersonic turbines and the intensive efforts in development and manufacturing scale-up. It highlights the challenges and inspiring nature of this work.
 
 Key Points:
 

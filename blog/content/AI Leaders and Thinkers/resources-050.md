@@ -1,6 +1,6 @@
 ### 🤖  Community Resilience -  Enduring Conflict
 
-Unwavering support provided by a community to its military during times of conflict, highlighting their continued assistance despite prolonged hardship.
+This article discusses the unwavering support provided by a community to its military during times of conflict, highlighting their continued assistance despite prolonged hardship.
 
 Key Points:
 

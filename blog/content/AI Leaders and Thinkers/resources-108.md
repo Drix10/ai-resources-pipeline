@@ -1,6 +1,6 @@
 ### 🤖 Mental Health and Social Media - Reddit and Doomscroll Blocker
 
-Negative mental health impacts of Reddit and introduces a browser extension designed to mitigate excessive social media consumption.
+This article discusses the negative mental health impacts of Reddit and introduces a browser extension designed to mitigate excessive social media consumption.
 
 Key Points:
 

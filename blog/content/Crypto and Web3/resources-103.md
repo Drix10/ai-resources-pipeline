@@ -1,6 +1,6 @@
 ### 🚀 Pudgy Party Launch - Mythical Games Marketplace and $MYTH Token
 
-The Mythical Games marketplace and its ecosystem token, $MYTH, in the context of the upcoming global release of Pudgy Party.  The focus is on the core functionality of in-game item trading.
+This article provides a brief overview of the Mythical Games marketplace and its ecosystem token, $MYTH, in the context of the upcoming global release of Pudgy Party.  The focus is on the core functionality of in-game item trading.
 
 Key Points:
 

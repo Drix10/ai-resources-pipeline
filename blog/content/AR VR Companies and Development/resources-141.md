@@ -1,6 +1,6 @@
 ### 🚀 Game Update - Project Freefall Login Rewards
 
-Week 2 update for Project Freefall, focusing on character distribution through a simplified login reward system. It outlines the direct acquisition of Divers for players.
+This article details the Week 2 update for Project Freefall, focusing on character distribution through a simplified login reward system. It outlines the direct acquisition of Divers for players.
 
 Key Points:
 

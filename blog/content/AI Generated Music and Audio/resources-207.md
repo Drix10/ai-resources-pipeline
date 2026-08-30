@@ -1,6 +1,6 @@
 ### 🤖 ASR - Non-Verbal Vocalization Modeling
 
-Research titled "Beyond Words: Towards Effective Modeling of Non-Verbal Vocalizations in ASR" by Gene Yang and collaborators. It explores methods to effectively integrate non-verbal vocalizations into Automatic Speech Recognition (ASR) systems.
+This article discusses the research titled "Beyond Words: Towards Effective Modeling of Non-Verbal Vocalizations in ASR" by Gene Yang and collaborators. It explores methods to effectively integrate non-verbal vocalizations into Automatic Speech Recognition (ASR) systems.
 
 Key Points:
 

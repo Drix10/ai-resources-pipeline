@@ -1,6 +1,6 @@
 ### 💔 9/11 - Howard Lutnick's Decision
 
-Impactful decision faced by Howard Lutnick, CEO of Cantor Fitzgerald, following the September 11th attacks, where he lost over 650 employees.  It examines the choice between shutting down his company and leveraging the business for recovery and rebuilding.
+This article discusses the impactful decision faced by Howard Lutnick, CEO of Cantor Fitzgerald, following the September 11th attacks, where he lost over 650 employees.  It examines the choice between shutting down his company and leveraging the business for recovery and rebuilding.
 
 Key Points:
 

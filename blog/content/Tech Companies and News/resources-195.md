@@ -1,6 +1,6 @@
 ### 🤖 Agent Systems - QM for Company Operations
 
-Application of QM as a primary agent harness within a company context. It highlights the utility of long-lived agents that integrate with internal communication platforms and data.
+This article discusses the application of QM as a primary agent harness within a company context. It highlights the utility of long-lived agents that integrate with internal communication platforms and data.
 
 Key Points:
 

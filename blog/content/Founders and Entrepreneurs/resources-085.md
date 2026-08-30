@@ -1,6 +1,6 @@
 ### 💡 Philanthropy - Supporting Civil Liberties Organizations
 
-Personal decision to donate to the ACLU and the Brennan Center for Justice, highlighting the importance of supporting civil liberties organizations even when disagreeing on specific issues.
+This article discusses a personal decision to donate to the ACLU and the Brennan Center for Justice, highlighting the importance of supporting civil liberties organizations even when disagreeing on specific issues.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Reward Model Quality in RLHF
 
-Challenges in measuring the quality of reward models (RMs) within Reinforcement Learning from Human Feedback (RLHF) and explores the complexities of optimizing for RM quality.
+This article discusses the challenges in measuring the quality of reward models (RMs) within Reinforcement Learning from Human Feedback (RLHF) and explores the complexities of optimizing for RM quality.
 
 Key Points:
 

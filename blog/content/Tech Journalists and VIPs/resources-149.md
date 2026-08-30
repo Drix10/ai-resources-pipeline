@@ -1,6 +1,6 @@
 ### 💡 Interview Series - Martin Shkreli on MTS
 
-Live session featuring Martin Shkreli on MTS. It provides context for the discussion and points to related resources for further engagement.
+This article highlights the live session featuring Martin Shkreli on MTS. It provides context for the discussion and points to related resources for further engagement.
 
 Key Points:
 

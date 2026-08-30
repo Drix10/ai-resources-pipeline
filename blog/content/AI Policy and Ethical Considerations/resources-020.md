@@ -1,6 +1,6 @@
 ### 🤖 Security Risks - Proxy Web Agents
 
-Security vulnerability found in a proxy web agent, highlighting the trade-off between security and functionality in such designs.  A specific example of prompt injection leading to unauthorized access is presented.
+This article discusses a security vulnerability found in a proxy web agent, highlighting the trade-off between security and functionality in such designs.  A specific example of prompt injection leading to unauthorized access is presented.
 
 Key Points:
 

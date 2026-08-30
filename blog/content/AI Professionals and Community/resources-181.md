@@ -1,6 +1,6 @@
 ### 💡 Global Events - Conflict Reports Acknowledged
 
-Recent acknowledgements by international bodies concerning reported atrocities during conflict. It emphasizes the importance of verified information in understanding complex global events.
+This article outlines recent acknowledgements by international bodies concerning reported atrocities during conflict. It emphasizes the importance of verified information in understanding complex global events.
 
 Key Points:
 

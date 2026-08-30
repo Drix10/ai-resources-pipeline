@@ -1,6 +1,6 @@
 ### 💡 Digital Commerce - Product Access
 
-Guidance on locating purchase links for digital products or services and understanding their typical presentation in online content.
+This article provides guidance on locating purchase links for digital products or services and understanding their typical presentation in online content.
 
 Key Points:
 

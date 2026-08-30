@@ -1,6 +1,6 @@
 ### 🤖 AI Spreadsheet Enhancement - VLOOKUP Automation
 
-AI can automate the VLOOKUP function in spreadsheets, eliminating the need for manual syntax input.  It highlights the context-aware capabilities of AI cell functionality.
+This article discusses how AI can automate the VLOOKUP function in spreadsheets, eliminating the need for manual syntax input.  It highlights the context-aware capabilities of AI cell functionality.
 
 Key Points:
 

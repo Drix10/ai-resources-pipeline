@@ -1,6 +1,6 @@
 ### 🤖 PyTorch - Hands-on Learning
 
-Benefits of hand-writing PyTorch code for improved understanding, contrasting it with faster, but less insightful, methods like copy-pasting or using AI coding models.  A resource for a related exercise is provided.
+This article discusses the benefits of hand-writing PyTorch code for improved understanding, contrasting it with faster, but less insightful, methods like copy-pasting or using AI coding models.  A resource for a related exercise is provided.
 
 Key Points:
 

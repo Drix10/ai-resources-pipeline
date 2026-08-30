@@ -1,6 +1,6 @@
 ### 💡 Child Welfare - DUI Incident Impact
 
-Concerning incident involving a DUI arrest with a minor present, highlighting the immediate impact on the child. It aims to provide context around such situations.
+This article discusses a concerning incident involving a DUI arrest with a minor present, highlighting the immediate impact on the child. It aims to provide context around such situations.
 
 Key Points:
 

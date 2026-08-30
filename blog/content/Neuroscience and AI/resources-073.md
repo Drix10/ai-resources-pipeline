@@ -1,6 +1,6 @@
 ### 🧠 Neuroscience - Aimless Wandering and Brain Training
 
-Study indicating that aimless wandering can contribute to brain learning, even without specific goals or tasks.  The research tracked neural activity in mice navigating virtual environments.
+This article discusses a study indicating that aimless wandering can contribute to brain learning, even without specific goals or tasks.  The research tracked neural activity in mice navigating virtual environments.
 
 Key Points:
 

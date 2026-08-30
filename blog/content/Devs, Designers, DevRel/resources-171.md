@@ -1,6 +1,6 @@
 ### ✨ Visual Design - Vibecoding and Creative Tools
 
-Khyati's innovative approach to visual design, emphasizing her use of vibecoding for creating visual tools and experiments. It explores how designers leverage code for creative expression and tool development.
+This article highlights Khyati's innovative approach to visual design, emphasizing her use of vibecoding for creating visual tools and experiments. It explores how designers leverage code for creative expression and tool development.
 
 Key Points:
 

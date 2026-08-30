@@ -1,6 +1,6 @@
 ### ✨ No Man's Sky - AI-Enhanced Screenshots
 
-Project that uses AI to enhance screenshots from the video game No Man's Sky, transforming them into photorealistic images.  The process and results are described.
+This article details a project that uses AI to enhance screenshots from the video game No Man's Sky, transforming them into photorealistic images.  The process and results are described.
 
 Key Points:
 

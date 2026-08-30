@@ -1,6 +1,6 @@
 ### 💡 MoML2025 - Call for Papers
 
-Details on the final submission deadline for MoML2025, highlighting opportunities for recognition and the chance to present work. Participants can submit their papers for consideration in the "Top 4" and compete for the Best Paper Prize.
+This article provides details on the final submission deadline for MoML2025, highlighting opportunities for recognition and the chance to present work. Participants can submit their papers for consideration in the "Top 4" and compete for the Best Paper Prize.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Spotify Podcast - Public Play Metrics
 
-Spotify's new "Plays" metric, which publicly displays podcast download numbers, and the resulting backlash from creators.  A video detailing the issue and its problems is linked.
+This article discusses Spotify's new "Plays" metric, which publicly displays podcast download numbers, and the resulting backlash from creators.  A video detailing the issue and its problems is linked.
 
 Key Points:
 

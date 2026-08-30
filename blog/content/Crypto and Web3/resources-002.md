@@ -1,6 +1,6 @@
 ### 🚀 Solana Giveaway - Win 1 SOL
 
-Giveaway contest offering a chance to win 1 SOL token.  The contest requires following a specified Twitter account, retweeting a post, and predicting the price of SOL.
+This article details a giveaway contest offering a chance to win 1 SOL token.  The contest requires following a specified Twitter account, retweeting a post, and predicting the price of SOL.
 
 
 Key Points:

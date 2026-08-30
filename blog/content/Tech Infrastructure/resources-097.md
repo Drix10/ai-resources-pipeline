@@ -1,6 +1,6 @@
 ### 🚘 Automotive - Nissan Cube Sale
 
-Sale of a used 2007 Nissan Cube 7-seater.  The vehicle has some minor body damage.
+This article details the sale of a used 2007 Nissan Cube 7-seater.  The vehicle has some minor body damage.
 
 Key Points:
 

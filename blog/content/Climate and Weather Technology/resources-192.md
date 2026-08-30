@@ -1,6 +1,6 @@
 ### 🤖 Weather Photography - Capturing Dynamic Events
 
-Notable example of capturing dynamic weather phenomena. It discusses the skill involved in documenting severe weather events through photography or videography.
+This article highlights a notable example of capturing dynamic weather phenomena. It discusses the skill involved in documenting severe weather events through photography or videography.
 
 Key Points:
 

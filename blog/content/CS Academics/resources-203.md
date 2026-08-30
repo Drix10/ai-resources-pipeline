@@ -1,6 +1,6 @@
 ### ✨ NBA Highlights - Spurs Performance
 
-Specific in-game moment highlighting the chemistry between Castle and Wemby as the Spurs secured a lead in the fourth quarter of Game 4.
+This article covers a specific in-game moment highlighting the chemistry between Castle and Wemby as the Spurs secured a lead in the fourth quarter of Game 4.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Mac App Store - Pico AI Server
 
-Pico AI Server, a large language model (LLM) and vision language model (VLM) server for macOS, and encourages user reviews to improve its visibility.
+This article discusses Pico AI Server, a large language model (LLM) and vision language model (VLM) server for macOS, and encourages user reviews to improve its visibility.
 
 Key Points:
 

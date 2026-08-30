@@ -1,6 +1,6 @@
 ### 💡 Sustainable Cities - Urban Development for SDG11
 
-Sustainable Development Goal 11 (SDG11), focusing on making cities inclusive, safe, resilient, and sustainable. It addresses the challenges posed by a growing global population and the necessity for thoughtful urban planning.
+This article discusses Sustainable Development Goal 11 (SDG11), focusing on making cities inclusive, safe, resilient, and sustainable. It addresses the challenges posed by a growing global population and the necessity for thoughtful urban planning.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Gaming - Super Mario with Gemini 2.0 Flash
 
-Google DeepMind's Gemini 2.0 Flash, highlighting its real-time Super Mario gameplay capabilities.  The key features enabling this are examined.
+This article discusses Google DeepMind's Gemini 2.0 Flash, highlighting its real-time Super Mario gameplay capabilities.  The key features enabling this are examined.
 
 
 Key Points:

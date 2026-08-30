@@ -1,6 +1,6 @@
 ### 🌎 Geopolitics - Strait of Hormuz Tensions
 
-Escalating tensions between Iran and Israel, focusing on Iran's potential closure of the Strait of Hormuz and its implications for global oil supply, particularly for India.
+This article discusses the escalating tensions between Iran and Israel, focusing on Iran's potential closure of the Strait of Hormuz and its implications for global oil supply, particularly for India.
 
 Key Points:
 

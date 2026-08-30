@@ -1,6 +1,6 @@
 ### ✨ Sports Highlights - NBA Playoff Performance
 
-Key player's performance in an NBA playoff game. It details their statistical contributions and impact during a critical moment.
+This article summarizes a key player's performance in an NBA playoff game. It details their statistical contributions and impact during a critical moment.
 
 Key Points:
 

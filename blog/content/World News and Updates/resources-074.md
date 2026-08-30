@@ -1,6 +1,6 @@
 ### ✍️ Author News - James Patterson's New Book
 
-James Patterson's new book, "The #1 Dad Book," a departure from his usual thriller genre.  It offers a personal reflection.
+This article discusses James Patterson's new book, "The #1 Dad Book," a departure from his usual thriller genre.  It offers a personal reflection.
 
 Key Points:
 

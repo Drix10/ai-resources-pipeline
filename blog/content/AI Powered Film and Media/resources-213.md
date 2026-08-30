@@ -1,6 +1,6 @@
 ### 🤖 AI/Robotics - Edible Agents for Human-Food Interaction
 
-Research into edible agents with perceptible minds as a robotic tool to explore human-food interactions. It discusses the intersection of AI, robotics, and food science for novel research approaches.
+This article covers research into edible agents with perceptible minds as a robotic tool to explore human-food interactions. It discusses the intersection of AI, robotics, and food science for novel research approaches.
 
 Key Points:
 • Focus on AI and robotics for food-related research.

@@ -1,6 +1,6 @@
 ### 🤖 Civil Liberties - Unnecessary Restrictions
 
-Persistence of restrictive laws, using the example of mandatory ID presentation to police officers in Italy,  highlighting the risks of accepting limitations on freedom for seemingly valid reasons.  The example points to laws enacted during a period of political instability that remain in effect.
+This article discusses the persistence of restrictive laws, using the example of mandatory ID presentation to police officers in Italy,  highlighting the risks of accepting limitations on freedom for seemingly valid reasons.  The example points to laws enacted during a period of political instability that remain in effect.
 
 Key Points:
 

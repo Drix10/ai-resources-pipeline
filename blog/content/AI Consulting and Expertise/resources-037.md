@@ -1,6 +1,6 @@
 ### 🤖 Crypto - An Inflection Point
 
-Changing landscape of the cryptocurrency market and its increasing attractiveness for consumer product builders.  The author suggests a shift in the regulatory environment and other factors have made this a more appealing space.
+This article discusses the changing landscape of the cryptocurrency market and its increasing attractiveness for consumer product builders.  The author suggests a shift in the regulatory environment and other factors have made this a more appealing space.
 
 
 Key Points:

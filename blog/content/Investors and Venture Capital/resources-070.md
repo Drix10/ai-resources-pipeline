@@ -1,6 +1,6 @@
 ### 🤖 Mobile Photography - Adobe's AI Camera App
 
-Adobe's new AI-powered camera app for iOS, highlighting its developers and key features.  The app aims to deliver high-quality images with manual controls.
+This article discusses Adobe's new AI-powered camera app for iOS, highlighting its developers and key features.  The app aims to deliver high-quality images with manual controls.
 
 Key Points:
 

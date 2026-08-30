@@ -1,6 +1,6 @@
 ### 🚀 ImageColorPicker.IO - User Segments
 
-Target user groups for ImageColorPicker.IO, a tool designed for color extraction and management.
+This article details the target user groups for ImageColorPicker.IO, a tool designed for color extraction and management.
 
 Key Points:
 • The tool assists UI/UX designers in their color workflow.

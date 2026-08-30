@@ -1,6 +1,6 @@
 ### 🤖 AI Development - Razer Forge Workstation
 
-Razer Forge AI Dev Workstation, a purpose-built computing platform. It is engineered for demanding artificial intelligence training, inference, and simulation workloads. The workstation offers high multi-GPU performance and extensive memory capacity.
+This article details the Razer Forge AI Dev Workstation, a purpose-built computing platform. It is engineered for demanding artificial intelligence training, inference, and simulation workloads. The workstation offers high multi-GPU performance and extensive memory capacity.
 
 Key Points:
 

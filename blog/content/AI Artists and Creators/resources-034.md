@@ -1,6 +1,6 @@
 ### ⚠️ Historical Analysis - Media's Role in Shaping Public Perception
 
-Assertion that corporate media allowed the actions and persona of a historical figure to be misrepresented, leading to a skewed public perception.  It uses examples from a Twitter thread to illustrate this point.
+This article examines the assertion that corporate media allowed the actions and persona of a historical figure to be misrepresented, leading to a skewed public perception.  It uses examples from a Twitter thread to illustrate this point.
 
 Key Points:
 

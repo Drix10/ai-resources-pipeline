@@ -1,6 +1,6 @@
 ### ✨ AI Agents - Cosmos Agent 9839
 
-Cosmos, an AI agent capable of generating high-quality visuals from simple prompts.  It highlights its capabilities and provides a link to access it.
+This article provides an overview of Cosmos, an AI agent capable of generating high-quality visuals from simple prompts.  It highlights its capabilities and provides a link to access it.
 
 Key Points:
 

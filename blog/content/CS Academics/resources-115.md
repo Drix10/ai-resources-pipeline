@@ -1,6 +1,6 @@
 ### 🤖 French Politics - Public Spending Debate
 
-Twitter thread discussing the source of funding for increased public spending in France.  The thread questions the feasibility of funding such increases through taxation of billionaires or other potential sources.
+This article summarizes a Twitter thread discussing the source of funding for increased public spending in France.  The thread questions the feasibility of funding such increases through taxation of billionaires or other potential sources.
 
 Key Points:
 

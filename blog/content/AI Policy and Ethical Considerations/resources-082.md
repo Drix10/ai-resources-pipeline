@@ -1,6 +1,6 @@
 ### 💡 Historical Context - The Enduring Relevance of the Declaration of Independence
 
-Historical significance of the Declaration of Independence and its continued relevance in the face of rising global authoritarianism.  It highlights the principles upon which the document was founded and their importance today.
+This article discusses the historical significance of the Declaration of Independence and its continued relevance in the face of rising global authoritarianism.  It highlights the principles upon which the document was founded and their importance today.
 
 Key Points:
 

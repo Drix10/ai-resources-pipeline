@@ -1,6 +1,6 @@
 ### 🤖 AI Model Limitations - Named Entity Recognition
 
-Specific limitation observed in AI models, specifically Grok, regarding its ability to correctly identify proper names. It highlights challenges in named entity recognition within AI systems.
+This article discusses a specific limitation observed in AI models, specifically Grok, regarding its ability to correctly identify proper names. It highlights challenges in named entity recognition within AI systems.
 
 Key Points:
 

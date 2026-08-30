@@ -1,6 +1,6 @@
 ### 🤖 AI Engineering - Karpathy on Verifiability
 
-Andrej Karpathy's perspective on the most valuable skill in AI engineering, focusing on the concept of verifiability.
+This article discusses Andrej Karpathy's perspective on the most valuable skill in AI engineering, focusing on the concept of verifiability.
 
 Key Points:
 

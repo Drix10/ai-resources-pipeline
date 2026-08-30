@@ -1,6 +1,6 @@
 ### ✨ Interactive Animation - Noise-based Masked Intros
 
-Implementation of dynamic, noise-based masked intros using Rive, an interactive animation tool. It highlights the capabilities for creating engaging visual elements in applications.
+This article explores the implementation of dynamic, noise-based masked intros using Rive, an interactive animation tool. It highlights the capabilities for creating engaging visual elements in applications.
 
 Key Points:
 

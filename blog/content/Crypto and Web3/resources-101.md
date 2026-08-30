@@ -1,6 +1,6 @@
 ### 🤖 Kek.Space - Social Layer and Realms
 
-Kek.Space, its social layer, and the concept of accessing different application layers or "realms" through it.  The first realm's integration with Pepe Coins is mentioned.
+This article discusses Kek.Space, its social layer, and the concept of accessing different application layers or "realms" through it.  The first realm's integration with Pepe Coins is mentioned.
 
 Key Points:
 

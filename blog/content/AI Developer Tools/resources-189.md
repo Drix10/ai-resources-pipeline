@@ -1,6 +1,6 @@
 ### 🤖 DeepSeek V4 - vLLM Integration Upgrade
 
-Recent upgrade to vLLM v0.20.1, which includes significant improvements for running DeepSeek V4 models. It highlights the benefits of this update, which has been thoroughly tested and verified by the open-source community.
+This article discusses the recent upgrade to vLLM v0.20.1, which includes significant improvements for running DeepSeek V4 models. It highlights the benefits of this update, which has been thoroughly tested and verified by the open-source community.
 
 Key Points:
 

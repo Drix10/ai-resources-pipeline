@@ -1,6 +1,6 @@
 ### 🤖 Deep Learning - Gradient Instability Solution
 
-Long-standing challenge in deep learning regarding gradient instability, specifically the vanishing or exploding gradient problem. It highlights DeepSeek's recent breakthrough in resolving this issue using a 60-year-old algorithm, enabling more effective training of deep networks.
+This article discusses a long-standing challenge in deep learning regarding gradient instability, specifically the vanishing or exploding gradient problem. It highlights DeepSeek's recent breakthrough in resolving this issue using a 60-year-old algorithm, enabling more effective training of deep networks.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✈️ Travel Summary - Trip Statistics
 
-Travel statistics from a recent trip, including distances covered, modes of transportation used, and miscellaneous details.
+This article summarizes travel statistics from a recent trip, including distances covered, modes of transportation used, and miscellaneous details.
 
 Key Points:
 

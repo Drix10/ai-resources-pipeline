@@ -1,6 +1,6 @@
 ### 🤖 AI - CrowdStrike Coalition Expansion
 
-Expansion of Project QuiltWorks, CrowdStrike's AI coalition. It highlights the new strategic partners joining this initiative to accelerate AI adoption.
+This article discusses the expansion of Project QuiltWorks, CrowdStrike's AI coalition. It highlights the new strategic partners joining this initiative to accelerate AI adoption.
 
 Key Points:
 

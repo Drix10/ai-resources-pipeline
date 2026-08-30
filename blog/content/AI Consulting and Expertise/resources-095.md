@@ -1,6 +1,6 @@
 ### 🇪🇸 Spanish Founders and Exit Tax
 
-Challenges Spanish founders face with exit tax and explores different perspectives on its impact.
+This article discusses the challenges Spanish founders face with exit tax and explores different perspectives on its impact.
 
 Key Points:
 

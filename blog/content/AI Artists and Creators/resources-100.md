@@ -1,6 +1,6 @@
 ### 🚀 Google AI - Imagen Updates
 
-Updates to Google's Imagen AI image generation models, including the launch of a faster model and increased resolution support.  These updates are now generally available via the Gemini API.
+This article details updates to Google's Imagen AI image generation models, including the launch of a faster model and increased resolution support.  These updates are now generally available via the Gemini API.
 
 Key Points:
 

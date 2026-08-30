@@ -1,6 +1,6 @@
 ### ✈️ Travel - Actor Stranded in Dubai
 
-Safe return of actor Vineet Kumar Singh to Mumbai after being stranded at Dubai Airport due to an airspace shutdown.
+This article details the safe return of actor Vineet Kumar Singh to Mumbai after being stranded at Dubai Airport due to an airspace shutdown.
 
 Key Points:
 

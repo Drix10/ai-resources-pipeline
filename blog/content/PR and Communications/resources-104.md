@@ -1,6 +1,6 @@
 ### 💡 Political Implications - Gaza Conflict
 
-Political ramifications of broad Israeli public support for the actions in Gaza, focusing on its impact on movements like BDS and calls for arms embargoes.
+This article discusses the political ramifications of broad Israeli public support for the actions in Gaza, focusing on its impact on movements like BDS and calls for arms embargoes.
 
 
 Key Points:

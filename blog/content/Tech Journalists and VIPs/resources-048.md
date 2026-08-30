@@ -1,6 +1,6 @@
 ### 🎨 AI - A New Art Form
 
-Perspective that AI is not simply a technological tool but a new medium of artistic expression, comparable to traditional art forms.
+This article explores the perspective that AI is not simply a technological tool but a new medium of artistic expression, comparable to traditional art forms.
 
 Key Points:
 

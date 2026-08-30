@@ -1,6 +1,6 @@
 ### 🤖 Legal - SEC Case Dismissal Against Uniswap Labs
 
-Dismissal of a case by the SEC against Uniswap Labs, concerning allegations of operating unregistered financial services.
+This article summarizes the dismissal of a case by the SEC against Uniswap Labs, concerning allegations of operating unregistered financial services.
 
 Key Points:
 

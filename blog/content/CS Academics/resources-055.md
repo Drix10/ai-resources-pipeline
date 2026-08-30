@@ -1,6 +1,6 @@
 ### 🤖 Cybersecurity and ML/AI Research - Bridging the Gap
 
-Intersection of cybersecurity and ML/AI research, highlighting how principled approaches in cybersecurity can benefit ML/AI researchers and how real threat models can inform cybersecurity professionals.  It emphasizes a collaborative learning opportunity.
+This article discusses the intersection of cybersecurity and ML/AI research, highlighting how principled approaches in cybersecurity can benefit ML/AI researchers and how real threat models can inform cybersecurity professionals.  It emphasizes a collaborative learning opportunity.
 
 Key Points:
 

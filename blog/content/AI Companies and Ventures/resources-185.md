@@ -1,6 +1,6 @@
 ### 🤖 Propulsion Technology - Light-Powered Metajets
 
-Groundbreaking development of light-powered metajets by Texas A&M researchers. It highlights how this technology offers a revolutionary approach to space travel by eliminating the need for traditional fuel.
+This article discusses the groundbreaking development of light-powered metajets by Texas A&M researchers. It highlights how this technology offers a revolutionary approach to space travel by eliminating the need for traditional fuel.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AGI - The "I Don't Know" Problem
 
-Research paper arguing that the inability of Artificial General Intelligence (AGI) to reliably respond "I don't know" is a significantly harder problem than text generation, and that AGI hallucinations are inevitable.  The paper provides mathematical proofs supporting this claim.
+This article discusses a research paper arguing that the inability of Artificial General Intelligence (AGI) to reliably respond "I don't know" is a significantly harder problem than text generation, and that AGI hallucinations are inevitable.  The paper provides mathematical proofs supporting this claim.
 
 Key Points:
 

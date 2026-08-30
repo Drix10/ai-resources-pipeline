@@ -1,6 +1,6 @@
 ### ⚠️ Cybersecurity - Aviation Sector Targeted
 
-Escalating cyber threat to the aviation industry, highlighting the involvement of the "Scattered Spider" hacking group and warnings issued by major cybersecurity firms and the FBI.
+This article discusses the escalating cyber threat to the aviation industry, highlighting the involvement of the "Scattered Spider" hacking group and warnings issued by major cybersecurity firms and the FBI.
 
 Key Points:
 

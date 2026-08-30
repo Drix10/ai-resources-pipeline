@@ -1,6 +1,6 @@
 ### 💡 Healthcare - Physician Weight & Lifestyle
 
-Potential reasons for higher rates of overweight and obesity among physicians, focusing on stress and time constraints.
+This article discusses potential reasons for higher rates of overweight and obesity among physicians, focusing on stress and time constraints.
 
 Key Points:
 

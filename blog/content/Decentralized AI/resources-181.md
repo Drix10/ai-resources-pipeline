@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Verifiable Inference
 
-OpenGradient's capability to enable AI agents to perform verifiable inference. It highlights the significance of ensuring trustworthiness and transparency in AI operations.
+This article discusses OpenGradient's capability to enable AI agents to perform verifiable inference. It highlights the significance of ensuring trustworthiness and transparency in AI operations.
 
 Key Points:
 

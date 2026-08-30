@@ -1,6 +1,6 @@
 ### 🤖  Coding & AI - Early Adoption Advantage
 
-Benefits of learning to code before the widespread adoption of AI tools like ChatGPT.  It highlights the advantage of having foundational coding skills when leveraging AI for larger projects.
+This article discusses the benefits of learning to code before the widespread adoption of AI tools like ChatGPT.  It highlights the advantage of having foundational coding skills when leveraging AI for larger projects.
 
 Key Points:
 

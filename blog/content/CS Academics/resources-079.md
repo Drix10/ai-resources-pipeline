@@ -1,6 +1,6 @@
 ### 🤖 Legal and Ethical Concerns - Warrantless Surveillance
 
-Legality, ethics, and implications of using an American citizen as bait in a criminal investigation involving exploitation and human trafficking, specifically focusing on the use of warrantless surveillance.  The potential violation of civil liberties is a central theme.
+This article discusses the legality, ethics, and implications of using an American citizen as bait in a criminal investigation involving exploitation and human trafficking, specifically focusing on the use of warrantless surveillance.  The potential violation of civil liberties is a central theme.
 
 Key Points:
 

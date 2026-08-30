@@ -1,6 +1,6 @@
 ### 💡 SF Bay Area Tech Culture - Preservation
 
-Unique tech culture of the San Francisco Bay Area and the need to protect it from potentially harmful influences.  It highlights the importance of effective government to prevent waste and misuse of resources.
+This article discusses the unique tech culture of the San Francisco Bay Area and the need to protect it from potentially harmful influences.  It highlights the importance of effective government to prevent waste and misuse of resources.
 
 Key Points:
 

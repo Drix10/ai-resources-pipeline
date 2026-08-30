@@ -1,6 +1,6 @@
 ### 💡 Global Economy - India's Energy Resilience
 
-Current global energy crisis and highlights India's improved position compared to 2020. It provides a perspective on India's resilience in the face of these international challenges.
+This article discusses the current global energy crisis and highlights India's improved position compared to 2020. It provides a perspective on India's resilience in the face of these international challenges.
 
 Key Points:
 

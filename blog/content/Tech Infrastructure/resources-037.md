@@ -1,6 +1,6 @@
 ### ⚖️ Criminal Justice - Repeat Offenders
 
-Issue of repeat offenders and their continued presence on the streets.  It highlights concerns about public safety and the need for stricter measures.
+This article discusses the issue of repeat offenders and their continued presence on the streets.  It highlights concerns about public safety and the need for stricter measures.
 
 
 Key Points:

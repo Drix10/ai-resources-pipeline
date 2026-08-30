@@ -1,6 +1,6 @@
 ### 💡 Education - Classroom Funding
 
-Fundraising effort to provide classroom materials for students.  The goal is to ensure students have the resources necessary for academic success.  A donation link is provided.
+This article discusses a fundraising effort to provide classroom materials for students.  The goal is to ensure students have the resources necessary for academic success.  A donation link is provided.
 
 Key Points:
 

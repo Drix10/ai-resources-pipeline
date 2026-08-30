@@ -1,6 +1,6 @@
 ### 🤖 Model Capabilities and Limitations -  RLHF Impact
 
-Limitations of current large language models in replicating human capabilities, focusing on the impact of Reinforcement Learning from Human Feedback (RLHF).  It explores the potential causes for reduced model creativity after RLHF.
+This article discusses the limitations of current large language models in replicating human capabilities, focusing on the impact of Reinforcement Learning from Human Feedback (RLHF).  It explores the potential causes for reduced model creativity after RLHF.
 
 
 Key Points:

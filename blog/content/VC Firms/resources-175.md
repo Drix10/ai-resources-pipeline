@@ -1,6 +1,6 @@
 ### 🚀 GitButler - Next-Gen Version Control
 
-GitButler, a platform aiming to redefine version control. It highlights a conversation between GitButler's CEO Scott Chacon and a16z GP Matt Bornstein, exploring the reasons behind Scott Chacon's return to the version control space.
+This article discusses GitButler, a platform aiming to redefine version control. It highlights a conversation between GitButler's CEO Scott Chacon and a16z GP Matt Bornstein, exploring the reasons behind Scott Chacon's return to the version control space.
 
 Key Points:
 

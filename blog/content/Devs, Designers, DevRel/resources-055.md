@@ -1,6 +1,6 @@
 ### ✨ Website Redesign - Case Study Updates
 
-Recent updates to an agency website, focusing on improvements to user experience and visual appeal.  The changes aim to increase case study visibility and engagement.
+This article details recent updates to an agency website, focusing on improvements to user experience and visual appeal.  The changes aim to increase case study visibility and engagement.
 
 Key Points:
 

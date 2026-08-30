@@ -1,6 +1,6 @@
 ### 🚀 AI Video Generation - Image to Video with Seedance 2.0
 
-Process of generating videos from a reference image using Seedance 2.0. It highlights the efficiency and low cost associated with this method for content creation.
+This article discusses the process of generating videos from a reference image using Seedance 2.0. It highlights the efficiency and low cost associated with this method for content creation.
 
 Key Points:
 

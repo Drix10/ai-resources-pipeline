@@ -1,6 +1,6 @@
 ### 💡 Historical Context - Online Disinformation
 
-Alleged role of certain individuals in the genesis of specific online movements and draws parallels to historical events that similarly operated to discredit narratives. It examines the mechanisms through which conspiracy theories can be used to obscure truth.
+This article outlines the alleged role of certain individuals in the genesis of specific online movements and draws parallels to historical events that similarly operated to discredit narratives. It examines the mechanisms through which conspiracy theories can be used to obscure truth.
 
 Key Points:
 

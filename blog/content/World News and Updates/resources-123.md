@@ -1,6 +1,6 @@
 ### 🤖 Yemen Conflict - Southern Independence Referendum
 
-Recent announcement by Aidarous al-Zubaidi regarding a two-year transitional period for southern Yemen. It covers the plan for a future independence referendum in the region.
+This article details the recent announcement by Aidarous al-Zubaidi regarding a two-year transitional period for southern Yemen. It covers the plan for a future independence referendum in the region.
 
 Key Points:
 

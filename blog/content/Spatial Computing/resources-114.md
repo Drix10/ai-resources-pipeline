@@ -1,6 +1,6 @@
 ### 🤖 WebGPU - Local LLM Execution
 
-Web-based application utilizing WebGPU to run the Qwen3 .6b large language model directly in the browser. It highlights the ability to execute advanced AI models locally without server dependencies or installation.
+This article discusses a web-based application utilizing WebGPU to run the Qwen3 .6b large language model directly in the browser. It highlights the ability to execute advanced AI models locally without server dependencies or installation.
 
 Key Points:
 

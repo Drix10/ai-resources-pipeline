@@ -1,6 +1,6 @@
 ### 🚀 NodeOps - Promotional Offer
 
-Promotional offer from NodeOps, providing a discount on node deployment and purchases.
+This article details a promotional offer from NodeOps, providing a discount on node deployment and purchases.
 
 Key Points:
 

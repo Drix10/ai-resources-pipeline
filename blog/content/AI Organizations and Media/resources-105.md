@@ -1,6 +1,6 @@
 ### 🤖 AI Lawsuit - xAI vs. Apple & OpenAI
 
-Antitrust lawsuit filed by xAI against Apple and OpenAI, alleging collusion to stifle AI competition.  The suit claims Apple's actions have created a significant barrier to entry for other AI companies.
+This article summarizes the antitrust lawsuit filed by xAI against Apple and OpenAI, alleging collusion to stifle AI competition.  The suit claims Apple's actions have created a significant barrier to entry for other AI companies.
 
 Key Points:
 

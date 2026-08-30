@@ -1,6 +1,6 @@
 ### 💡 AI Meetups - Networking and Best Practices
 
-Purpose of Fin meetups, which are designed to keep participants informed about the latest AI best practices and to facilitate connections with industry leaders and experts.
+This article outlines the purpose of Fin meetups, which are designed to keep participants informed about the latest AI best practices and to facilitate connections with industry leaders and experts.
 
 Key Points:
 

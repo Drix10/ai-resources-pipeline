@@ -1,6 +1,6 @@
 ### 🚀 Space Exploration - Artemis III Orion Power-On
 
-Successful power-on of the Artemis III Orion crew module's computers, a significant milestone in lunar exploration.  The event marks a key step towards establishing a sustainable presence on the Moon and future missions to Mars.
+This article covers the successful power-on of the Artemis III Orion crew module's computers, a significant milestone in lunar exploration.  The event marks a key step towards establishing a sustainable presence on the Moon and future missions to Mars.
 
 Key Points:
 

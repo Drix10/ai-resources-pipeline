@@ -1,6 +1,6 @@
 ### 🤖 Animation Techniques - Procedural vs. RL
 
-Developer's pivot from reinforcement learning (RL) based animation to procedural animation to achieve more visually appealing and physically driven results. It highlights the challenges in fine-tuning RL for aesthetic quality.
+This article discusses a developer's pivot from reinforcement learning (RL) based animation to procedural animation to achieve more visually appealing and physically driven results. It highlights the challenges in fine-tuning RL for aesthetic quality.
 
 Key Points:
 

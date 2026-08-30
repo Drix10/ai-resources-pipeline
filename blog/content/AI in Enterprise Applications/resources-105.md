@@ -1,6 +1,6 @@
 ### 🚀 Excel - Building Live Digital Clocks with VBA
 
-Three methods for creating a live digital clock within Microsoft Excel using VBA (Visual Basic for Applications).  The tutorial demonstrates practical applications and benefits of this technique.
+This article details three methods for creating a live digital clock within Microsoft Excel using VBA (Visual Basic for Applications).  The tutorial demonstrates practical applications and benefits of this technique.
 
 Key Points:
 

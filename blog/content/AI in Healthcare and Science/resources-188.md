@@ -1,6 +1,6 @@
 ### 🤖 AI in Healthcare - Privacy-Preserving Models
 
-Collaboration between OpenMed, OpenAI, and Nvidia in developing AI solutions. It highlights the availability of a privacy-preserving model on Hugging Face.
+This article discusses the collaboration between OpenMed, OpenAI, and Nvidia in developing AI solutions. It highlights the availability of a privacy-preserving model on Hugging Face.
 
 Key Points:
 

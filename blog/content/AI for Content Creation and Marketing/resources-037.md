@@ -1,6 +1,6 @@
 ### 🚀 E-commerce - Incrementality Testing
 
-Importance of holdout incrementality testing in e-commerce and highlights companies that integrate this feature directly into their tools.
+This article discusses the importance of holdout incrementality testing in e-commerce and highlights companies that integrate this feature directly into their tools.
 
 Key Points:
 

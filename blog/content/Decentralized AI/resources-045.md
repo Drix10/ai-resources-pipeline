@@ -1,6 +1,6 @@
 ### 🚀 Solana Projects -  A Potential Disruptor
 
-Project aiming to replace a legacy platform using Solana technology, highlighting its key features and potential impact.
+This article discusses a project aiming to replace a legacy platform using Solana technology, highlighting its key features and potential impact.
 
 
 Key Points:

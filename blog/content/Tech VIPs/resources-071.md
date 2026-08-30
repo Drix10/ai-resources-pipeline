@@ -1,6 +1,6 @@
 ### 🤖 AI Conference - Networking and Presentations
 
-Week at the aiDotEngineer conference, including networking opportunities and a presentation on real-time workflows using the Gemini Live API and Pipecat.  A workshop on building voice agents was also held.
+This article summarizes a week at the aiDotEngineer conference, including networking opportunities and a presentation on real-time workflows using the Gemini Live API and Pipecat.  A workshop on building voice agents was also held.
 
 Key Points:
 

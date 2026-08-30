@@ -1,6 +1,6 @@
 ### 🧬 Biology - Ancient Retrovirus and HIV Immunity
 
-Loss of human natural defense against HIV, attributing it to a repurposed gene originally used to fight a now-extinct retrovirus.  Old world monkeys retain this immunity.
+This article discusses the loss of human natural defense against HIV, attributing it to a repurposed gene originally used to fight a now-extinct retrovirus.  Old world monkeys retain this immunity.
 
 Key Points:
 

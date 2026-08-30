@@ -1,6 +1,6 @@
 ### 🤖 Nvidia's UK Investment - Jensen Huang's Announcement
 
-Comments made by Nvidia CEO Jensen Huang regarding increased investment in the UK, as reported by the BBC.  The comments were part of a larger briefing.
+This article summarizes comments made by Nvidia CEO Jensen Huang regarding increased investment in the UK, as reported by the BBC.  The comments were part of a larger briefing.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Decentralized Compute - Autonomous Agent Settlements
 
-Autonomous agents managing compute resources on-chain without human intervention. It highlights support for an open compute market solution.
+This article discusses autonomous agents managing compute resources on-chain without human intervention. It highlights support for an open compute market solution.
 
 Key Points:
 

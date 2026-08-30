@@ -1,6 +1,6 @@
 ### 🤖 Crexi PRO Features - Broker Feedback
 
-Feedback from Crexi team members regarding their favorite Crexi PRO features, highlighting tools beneficial for real estate brokers.
+This article summarizes feedback from Crexi team members regarding their favorite Crexi PRO features, highlighting tools beneficial for real estate brokers.
 
 Key Points:
 

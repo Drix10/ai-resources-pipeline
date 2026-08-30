@@ -1,6 +1,6 @@
 ### 💡 Toyota - Fiscal Year 2026 Performance and Strategy
 
-Toyota Motor Corporation's financial results for fiscal year 2026, highlighting key drivers and the challenges faced. It also touches upon the company's strategic focus on business structural transformation.
+This article outlines Toyota Motor Corporation's financial results for fiscal year 2026, highlighting key drivers and the challenges faced. It also touches upon the company's strategic focus on business structural transformation.
 
 Key Points:
 

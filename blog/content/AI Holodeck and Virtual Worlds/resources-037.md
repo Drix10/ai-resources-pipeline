@@ -1,6 +1,6 @@
 ### 🤖 Anthropic - From OpenAI Exit to $61.5B Valuation
 
-Journey of Anthropic, a company founded by researchers who left OpenAI, highlighting their challenges and remarkable success.
+This article details the journey of Anthropic, a company founded by researchers who left OpenAI, highlighting their challenges and remarkable success.
 
 Key Points:
 

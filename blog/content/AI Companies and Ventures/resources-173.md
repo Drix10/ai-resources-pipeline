@@ -1,6 +1,6 @@
 ### 🤖 A2A Payments - How it Works
 
-Operational structure of Account-to-Account (A2A) payments, detailing the process through which funds are transferred directly between bank accounts. It provides a foundational understanding of this payment method.
+This article outlines the operational structure of Account-to-Account (A2A) payments, detailing the process through which funds are transferred directly between bank accounts. It provides a foundational understanding of this payment method.
 
 Key Points:
 

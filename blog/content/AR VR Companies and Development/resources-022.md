@@ -1,6 +1,6 @@
 ### 💡 Cosmology - Astronomia Magna
 
-Johannes Kepler's *Astronomia Nova*, focusing on its central concept of the interconnectedness between the cosmos and humanity.
+This article provides a brief overview of Johannes Kepler's *Astronomia Nova*, focusing on its central concept of the interconnectedness between the cosmos and humanity.
 
 Key Points:
 

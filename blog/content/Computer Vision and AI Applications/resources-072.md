@@ -1,6 +1,6 @@
 ### 🤖 LLMs - Qwen3 Implementation
 
-Implementation of the Qwen-3 language model for research experiments, comparing it to Llama 3.  It highlights the trade-offs between model depth, speed, and memory efficiency.
+This article details the implementation of the Qwen-3 language model for research experiments, comparing it to Llama 3.  It highlights the trade-offs between model depth, speed, and memory efficiency.
 
 Key Points:
 

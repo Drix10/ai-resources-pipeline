@@ -1,6 +1,6 @@
 ### ✨ Professional Development - World Bank Africa Fellowship
 
-Selection for the 2026 World Bank Group Africa Fellowship. It details the expansion of skills and knowledge gained from working within the World Bank Development Economics Research Group. The experience enhanced understanding of fundamental global issues beyond digital silos.
+This article outlines the selection for the 2026 World Bank Group Africa Fellowship. It details the expansion of skills and knowledge gained from working within the World Bank Development Economics Research Group. The experience enhanced understanding of fundamental global issues beyond digital silos.
 
 Key Points:
 

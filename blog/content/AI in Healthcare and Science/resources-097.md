@@ -1,6 +1,6 @@
 ### 🤖 Oncology - Melanoma Treatment
 
-Results of a clinical trial (S1616) comparing ipilimumab/nivolumab combination therapy to ipilimumab alone in patients with metastatic or unresectable, PD-1 refractory melanoma.  The study assessed the benefits of the combination therapy for patients who did not respond to anti-PD-1 therapy.
+This article summarizes the results of a clinical trial (S1616) comparing ipilimumab/nivolumab combination therapy to ipilimumab alone in patients with metastatic or unresectable, PD-1 refractory melanoma.  The study assessed the benefits of the combination therapy for patients who did not respond to anti-PD-1 therapy.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🎙️ Patreon Content - Wellpod Q&A
 
-Sample Q&A from the Wellpod podcast's Patreon exclusive content.  The full Q&A is available to Patreon members.
+This article provides a brief sample Q&A from the Wellpod podcast's Patreon exclusive content.  The full Q&A is available to Patreon members.
 
 Key Points:
 

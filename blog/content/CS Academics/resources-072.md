@@ -1,6 +1,6 @@
 ### ⚠️ Civil Liberties and Civility - A Call for Respect
 
-Importance of restoring respect for civil liberties, including free expression and privacy, and the need for civility and humility.  The author highlights the threat of mediocrity and the need for a renewed commitment to these values.
+This article discusses the importance of restoring respect for civil liberties, including free expression and privacy, and the need for civility and humility.  The author highlights the threat of mediocrity and the need for a renewed commitment to these values.
 
 
 Key Points:

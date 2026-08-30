@@ -1,6 +1,6 @@
 ### 🤖 EthSign - A Platform for Builders and Believers
 
-EthSign, a platform described as being useful for serious builders, countries, governments, and believers.  The post encourages following associated accounts and engaging with them further.
+This article discusses EthSign, a platform described as being useful for serious builders, countries, governments, and believers.  The post encourages following associated accounts and engaging with them further.
 
 
 Key Points:

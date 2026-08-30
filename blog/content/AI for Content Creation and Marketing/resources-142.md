@@ -1,6 +1,6 @@
 ### ✨ Pictory AI - Prompt to Image Generation
 
-Pictory's new AI image generation feature, which allows users to create brand-ready visuals directly from text prompts within their existing workflow.
+This article discusses Pictory's new AI image generation feature, which allows users to create brand-ready visuals directly from text prompts within their existing workflow.
 
 Key Points:
 

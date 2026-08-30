@@ -1,6 +1,6 @@
 ### 🤖 Zero Trust - Implementation in Under 30 Minutes
 
-Session on implementing Zero Trust security in under 30 minutes, covering the demonstration, build process, and security aspects.  The session was presented by Sebastian Scherl at Cloudflare Connect 2025.
+This article summarizes a session on implementing Zero Trust security in under 30 minutes, covering the demonstration, build process, and security aspects.  The session was presented by Sebastian Scherl at Cloudflare Connect 2025.
 
 Key Points:
 

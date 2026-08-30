@@ -1,6 +1,6 @@
 ### 🤖 SpaceX - Compute Capacity Plans
 
-SpaceX's future compute infrastructure plans, specifically their intention to establish a significant capacity using NVIDIA hardware.
+This article details SpaceX's future compute infrastructure plans, specifically their intention to establish a significant capacity using NVIDIA hardware.
 
 Key Points:
 

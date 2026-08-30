@@ -1,6 +1,6 @@
 ### 🤖 Early-Stage Funding - Robinhood's Capital Raise
 
-Challenges Robinhood faced raising early capital and its successful strategy using AngelList.
+This article discusses the challenges Robinhood faced raising early capital and its successful strategy using AngelList.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Predictions - Inaccurate Forecasting
 
-Inaccurate predictions surrounding AGI arrival, productivity increases, and developer job displacement in 2023.  It contrasts these predictions with the reality of slower-than-expected adoption and productivity growth.
+This article examines the inaccurate predictions surrounding AGI arrival, productivity increases, and developer job displacement in 2023.  It contrasts these predictions with the reality of slower-than-expected adoption and productivity growth.
 
 Key Points:
 

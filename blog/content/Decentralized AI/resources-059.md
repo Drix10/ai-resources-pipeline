@@ -1,6 +1,6 @@
 ### 🚀 Contests - $RIZ Yap Takeover Campaign
 
-Extended 24-hour contest offering a $500 prize in $wRIZ rewards for creating unique Rivalz content and posting it on X.  Winners will be selected within 24 hours.
+This article details an extended 24-hour contest offering a $500 prize in $wRIZ rewards for creating unique Rivalz content and posting it on X.  Winners will be selected within 24 hours.
 
 Key Points:
 

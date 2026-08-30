@@ -1,6 +1,6 @@
 ### 🤖 AI Video Tournament - Quarter Finals Match 7 & 8
 
-Quarter-final matches 7 and 8 of Raiinmaker's AI video tournament, featuring the videos "Snow White's Kiss" and "Anime Power," and encourages voting.
+This article summarizes the quarter-final matches 7 and 8 of Raiinmaker's AI video tournament, featuring the videos "Snow White's Kiss" and "Anime Power," and encourages voting.
 
 Key Points:
 

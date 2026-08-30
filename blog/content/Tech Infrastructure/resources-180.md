@@ -1,6 +1,6 @@
 ### 🤖 Military Operations - Bint Jbeil Control
 
-Conclusion of IDF military activity in Bint Jbeil, southern Lebanon. It covers the capture of the city and its historical significance as a Hezbollah stronghold.
+This article details the conclusion of IDF military activity in Bint Jbeil, southern Lebanon. It covers the capture of the city and its historical significance as a Hezbollah stronghold.
 
 Key Points:
 

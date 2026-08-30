@@ -1,6 +1,6 @@
 ### 🤖 Database Performance - Storage Optimization
 
-StorPool Storage addresses common database performance bottlenecks by optimizing transactional workloads and eliminating I/O wait times.
+This article discusses how StorPool Storage addresses common database performance bottlenecks by optimizing transactional workloads and eliminating I/O wait times.
 
 Key Points:
 

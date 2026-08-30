@@ -1,6 +1,6 @@
 ### 💡 Political Strategy - Democratic Outreach
 
-Suggested strategy for Democrats to increase their outreach and engagement in traditionally Republican districts.  The core idea focuses on education and advocacy.
+This article discusses a suggested strategy for Democrats to increase their outreach and engagement in traditionally Republican districts.  The core idea focuses on education and advocacy.
 
 
 Key Points:

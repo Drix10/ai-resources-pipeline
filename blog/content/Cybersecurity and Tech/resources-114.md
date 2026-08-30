@@ -1,6 +1,6 @@
 ### 💡 Healthcare Policy - Primary Care Doctor Shortage Causes
 
-Critical policy decisions that have contributed to the ongoing shortage of primary care physicians. It highlights specific factors impacting medical education, residency funding, and reimbursement rates.
+This article examines critical policy decisions that have contributed to the ongoing shortage of primary care physicians. It highlights specific factors impacting medical education, residency funding, and reimbursement rates.
 
 Key Points:
 

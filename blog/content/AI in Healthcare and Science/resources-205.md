@@ -1,6 +1,6 @@
 ### 💡 Public Health - New World Screwworm Resurgence
 
-Re-emergence of the New World screwworm in the United States after approximately 60 years. It provides essential information regarding the current situation, risks to humans and livestock, and necessary precautions.
+This article details the re-emergence of the New World screwworm in the United States after approximately 60 years. It provides essential information regarding the current situation, risks to humans and livestock, and necessary precautions.
 
 Key Points:
 

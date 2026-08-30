@@ -1,6 +1,6 @@
 ### ✨ Ramadan Giveaway - Flourishing AI
 
-Ramadan giveaway by Flourishing AI, offering 3,000 $AI to three winners.  It outlines the entry process.
+This article details a Ramadan giveaway by Flourishing AI, offering 3,000 $AI to three winners.  It outlines the entry process.
 
 Key Points:
 

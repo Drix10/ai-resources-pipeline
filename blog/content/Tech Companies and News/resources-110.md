@@ -1,6 +1,6 @@
 ### 🚀 Generative AI - Skill Enhancement
 
-Free generative AI certification and training program offered by Google Cloud.  The program requires no prior experience.
+This article discusses a free generative AI certification and training program offered by Google Cloud.  The program requires no prior experience.
 
 Key Points:
 

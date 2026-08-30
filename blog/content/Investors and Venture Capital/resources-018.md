@@ -1,6 +1,6 @@
 ### 💡 African Venture Capital - Expanding Beyond Niches
 
-Limitations of niche markets in African venture capital and advocates for a broader, more expansive approach.  It suggests that the traditional, limited model is no longer viable.
+This article discusses the limitations of niche markets in African venture capital and advocates for a broader, more expansive approach.  It suggests that the traditional, limited model is no longer viable.
 
 Key Points:
 

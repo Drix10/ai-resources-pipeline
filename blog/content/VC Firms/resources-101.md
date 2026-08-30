@@ -1,6 +1,6 @@
 ### 🤖 AI Security - Secure Agent Deployment
 
-Alter, a platform designed to securely deploy AI agents in production environments by verifying, auditing, and approving each request via RBAC/ABAC, thereby mitigating risks associated with overly permissive credentials or compliance gaps.
+This article discusses Alter, a platform designed to securely deploy AI agents in production environments by verifying, auditing, and approving each request via RBAC/ABAC, thereby mitigating risks associated with overly permissive credentials or compliance gaps.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Immigration Policy - Green Card for Graduates
 
-Proposed immigration policy for college graduates in the United States. It focuses on the idea of automatically granting green card status to individuals upon their graduation.
+This article summarizes a proposed immigration policy for college graduates in the United States. It focuses on the idea of automatically granting green card status to individuals upon their graduation.
 
 Key Points:
 

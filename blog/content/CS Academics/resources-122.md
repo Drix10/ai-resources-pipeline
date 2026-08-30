@@ -1,6 +1,6 @@
 ### ⚖️ Justice System - Concerns Regarding Merit in Selection
 
-Concerns raised about the selection process for Prosecutor Officers, highlighting a case where an individual with a low score (0.33) was selected.  The implications of merit not being a primary factor in such crucial roles are examined.
+This article discusses concerns raised about the selection process for Prosecutor Officers, highlighting a case where an individual with a low score (0.33) was selected.  The implications of merit not being a primary factor in such crucial roles are examined.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Digital Communication - Informal Greetings
 
-Role of informal greetings in digital communication, highlighting their impact on online interaction. It explains how brief, positive messages contribute to community building in online spaces.
+This article discusses the role of informal greetings in digital communication, highlighting their impact on online interaction. It explains how brief, positive messages contribute to community building in online spaces.
 
 Key Points:
 

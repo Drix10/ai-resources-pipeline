@@ -1,6 +1,6 @@
 ### 🚀 Rivian R1T - Winter Performance and Utility
 
-Robust capabilities of the Rivian R1T electric truck in challenging winter environments, demonstrating its use in supporting operations at Big Sky Resort. It covers the vehicle's performance in freezing temperatures, deep snow, and icy conditions.
+This article highlights the robust capabilities of the Rivian R1T electric truck in challenging winter environments, demonstrating its use in supporting operations at Big Sky Resort. It covers the vehicle's performance in freezing temperatures, deep snow, and icy conditions.
 
 Key Points:
 

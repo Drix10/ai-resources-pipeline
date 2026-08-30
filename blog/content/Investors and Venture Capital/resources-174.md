@@ -1,6 +1,6 @@
 ### 🤖 Prediction Markets - Building an Exchange
 
-Foundational work required to establish a prediction market exchange after achieving necessary regulatory designations. It highlights the significant engineering effort involved in building such a platform from the ground up.
+This article discusses the foundational work required to establish a prediction market exchange after achieving necessary regulatory designations. It highlights the significant engineering effort involved in building such a platform from the ground up.
 
 Key Points:
 

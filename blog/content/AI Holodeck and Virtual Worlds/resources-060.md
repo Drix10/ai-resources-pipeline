@@ -1,6 +1,6 @@
 ### 🤖 OpenAI Acquisition - Jony Ive's io
 
-Reported acquisition of Jony Ive's AI company, io, by OpenAI for $6.5 billion and its implications for future device development.  The acquisition involves Ive's return to hardware design.
+This article discusses the reported acquisition of Jony Ive's AI company, io, by OpenAI for $6.5 billion and its implications for future device development.  The acquisition involves Ive's return to hardware design.
 
 Key Points:
 

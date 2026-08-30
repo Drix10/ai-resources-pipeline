@@ -1,6 +1,6 @@
 ### 🚨 Immigration - ICE Arrest of Elderly Cuban Grandfather
 
-Case of a 73-year-old Cuban grandfather arrested by ICE agents in Louisiana despite having fled Cuba 45 years ago on a US-provided ship for asylum seekers.
+This article details the case of a 73-year-old Cuban grandfather arrested by ICE agents in Louisiana despite having fled Cuba 45 years ago on a US-provided ship for asylum seekers.
 
 Key Points:
 

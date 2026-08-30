@@ -1,6 +1,6 @@
 ### 🤖 Public Transit Funding - Policy Exposure
 
-Potential impact of future policy changes on rural and smaller urban transit systems, particularly concerning their reliance on federal funding. It references an analysis by Moody's regarding the vulnerability of these systems to adverse policy shifts.
+This article discusses the potential impact of future policy changes on rural and smaller urban transit systems, particularly concerning their reliance on federal funding. It references an analysis by Moody's regarding the vulnerability of these systems to adverse policy shifts.
 
 Key Points:
 

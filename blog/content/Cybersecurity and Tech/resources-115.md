@@ -1,6 +1,6 @@
 ### 💡 Public Perception - Political Discourse
 
-Disconnect between political rhetoric and individual experiences regarding urban safety. It explores how personal perceptions can diverge from broader political narratives.
+This article examines the disconnect between political rhetoric and individual experiences regarding urban safety. It explores how personal perceptions can diverge from broader political narratives.
 
 Key Points:
 

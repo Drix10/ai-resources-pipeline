@@ -1,6 +1,6 @@
 ### 🎉 Giveaways - Metal Gear Solid Δ: Snake Eater
 
-Giveaway for the Metal Gear Solid Δ: Snake Eater Digital Deluxe edition for PC, hosted in partnership with Green Man Gaming.  Instructions on how to enter are provided.
+This article details a giveaway for the Metal Gear Solid Δ: Snake Eater Digital Deluxe edition for PC, hosted in partnership with Green Man Gaming.  Instructions on how to enter are provided.
 
 Key Points:
 

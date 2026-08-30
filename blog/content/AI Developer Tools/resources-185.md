@@ -1,6 +1,6 @@
 ### 🤖 llama.cpp - RPC Server RCE Vulnerability
 
-Critical vulnerability (CVE-2026-34159) found in the `llama.cpp` RPC server, stemming from a logic bug in its tensor deserialization pipeline. It explains how this flaw can lead to Remote Code Execution (RCE) even with modern security mitigations in place.
+This article discusses a critical vulnerability (CVE-2026-34159) found in the `llama.cpp` RPC server, stemming from a logic bug in its tensor deserialization pipeline. It explains how this flaw can lead to Remote Code Execution (RCE) even with modern security mitigations in place.
 
 Key Points:
 

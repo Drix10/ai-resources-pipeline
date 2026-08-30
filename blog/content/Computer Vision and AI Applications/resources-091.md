@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Microsoft Copilot Studio Agent Exploitation
 
-Exploitation of Microsoft's Copilot Studio agents to reveal their private knowledge and tools, demonstrating their capabilities by extracting full CRM records.  The process involved autonomous agents with no human intervention.
+This article details the exploitation of Microsoft's Copilot Studio agents to reveal their private knowledge and tools, demonstrating their capabilities by extracting full CRM records.  The process involved autonomous agents with no human intervention.
 
 Key Points:
 

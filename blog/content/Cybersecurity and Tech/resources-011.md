@@ -1,6 +1,6 @@
 ### 🤖 iOS - JIT Enablement on iOS 17.0-18.3
 
-To enable Just-In-Time (JIT) compilation on iOS versions 17.0 through 18.3 using SideJITServer, without requiring a jailbreak.  The process allows for faster and improved emulator performance.
+This article details how to enable Just-In-Time (JIT) compilation on iOS versions 17.0 through 18.3 using SideJITServer, without requiring a jailbreak.  The process allows for faster and improved emulator performance.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🛡️ Cybersecurity - Human-Centric Approach
 
-Importance of strengthening trust-based relationships between individuals in cybersecurity defense across various disciplines and sectors to combat AI-enabled threats.
+This article discusses the importance of strengthening trust-based relationships between individuals in cybersecurity defense across various disciplines and sectors to combat AI-enabled threats.
 
 
 Key Points:

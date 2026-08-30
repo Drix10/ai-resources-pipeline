@@ -1,6 +1,6 @@
 ### ✨ AI Art - Community Engagement and Sharing
 
-Practice of sharing AI-generated artwork within online communities. It highlights the collaborative and showcase aspects of the AI art movement.
+This article discusses the practice of sharing AI-generated artwork within online communities. It highlights the collaborative and showcase aspects of the AI art movement.
 
 Key Points:
 

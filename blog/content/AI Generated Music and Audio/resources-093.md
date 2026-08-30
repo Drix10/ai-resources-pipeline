@@ -1,6 +1,6 @@
 ### 🚀 Podcasting - AI-Powered Podcast Promotion
 
-Use of Riverside.fm's Co-Creator tool for automating podcast promotion tasks such as creating clips, thumbnails, and draft promotional content.
+This article discusses the use of Riverside.fm's Co-Creator tool for automating podcast promotion tasks such as creating clips, thumbnails, and draft promotional content.
 
 Key Points:
 

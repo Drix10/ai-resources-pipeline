@@ -1,6 +1,6 @@
 ### 🤖 Space Exploration - LISA Mission
 
-LISA (Laser Interferometer Space Antenna) mission, a proposed space-based gravitational wave observatory.  It highlights the scientific importance of the mission and the potential benefits of US partnership.
+This article discusses the LISA (Laser Interferometer Space Antenna) mission, a proposed space-based gravitational wave observatory.  It highlights the scientific importance of the mission and the potential benefits of US partnership.
 
 Key Points:
 

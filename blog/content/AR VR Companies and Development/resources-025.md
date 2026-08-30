@@ -1,6 +1,6 @@
 ### 🚀  Hyperfy - World Building with Apps
 
-Accessibility of applications within the Hyperfy platform for world building, emphasizing the no-code approach using hyperworld.host.
+This article discusses the accessibility of applications within the Hyperfy platform for world building, emphasizing the no-code approach using hyperworld.host.
 
 Key Points:
 

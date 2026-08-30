@@ -1,6 +1,6 @@
 ### 🚀 Video Creation - GetImg.ai Tutorial
 
-Video tutorial on using GetImg.ai's video generator.  The tutorial provides a comprehensive walkthrough for beginners.
+This article summarizes a video tutorial on using GetImg.ai's video generator.  The tutorial provides a comprehensive walkthrough for beginners.
 
 Key Points:
 

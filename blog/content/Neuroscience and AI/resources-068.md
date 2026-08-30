@@ -1,6 +1,6 @@
 ### 💡 Sleep Disorders - Combating Nightmares and Insomnia
 
-Workbook offering practical techniques to manage chronic nightmares and insomnia, focusing on Imagery Rehearsal Therapy and sleep cycle regulation.
+This article summarizes a workbook offering practical techniques to manage chronic nightmares and insomnia, focusing on Imagery Rehearsal Therapy and sleep cycle regulation.
 
 Key Points:
 

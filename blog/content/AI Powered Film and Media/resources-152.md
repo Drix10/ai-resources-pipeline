@@ -1,6 +1,6 @@
 ### 🚀 Animation - Character Design with Seedance 2
 
-Creation of animated characters using Seedance 2, a tool for digital animation. It highlights the process of bringing a character to life through motion.
+This article covers the creation of animated characters using Seedance 2, a tool for digital animation. It highlights the process of bringing a character to life through motion.
 
 Key Points:
 

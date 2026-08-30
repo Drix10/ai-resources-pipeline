@@ -1,6 +1,6 @@
 ### 🤖 AI Funding - Supporting DeepIndaba Attendees
 
-Funding disparity in the AI field and highlights the ML Collective's efforts to support DeepIndaba attendees.  The ML Collective is raising funds for the third year in a row to help attendees who may not have access to sufficient resources.
+This article discusses the funding disparity in the AI field and highlights the ML Collective's efforts to support DeepIndaba attendees.  The ML Collective is raising funds for the third year in a row to help attendees who may not have access to sufficient resources.
 
 
 Key Points:

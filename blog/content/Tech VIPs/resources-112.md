@@ -1,6 +1,6 @@
 ### ⚠️ Political Allegations - Trump and Epstein
 
-Allegations regarding a birthday card purportedly signed by Donald Trump and found at Jeffrey Epstein's estate.  The timeline and implications of the claim are discussed.
+This article summarizes allegations regarding a birthday card purportedly signed by Donald Trump and found at Jeffrey Epstein's estate.  The timeline and implications of the claim are discussed.
 
 Key Points:
 

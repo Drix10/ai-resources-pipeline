@@ -1,6 +1,6 @@
 ### 💡 Greek Mythology - Ancient Stories
 
-Exploration of Greek Mythology, focusing on an excerpt. It highlights the cultural significance and enduring appeal of these ancient narratives.
+This article provides a brief exploration of Greek Mythology, focusing on an excerpt. It highlights the cultural significance and enduring appeal of these ancient narratives.
 
 Key Points:
 

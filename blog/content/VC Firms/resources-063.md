@@ -1,6 +1,6 @@
 ### 🤖 Public Health Data - Sustainability Concerns
 
-Concerns raised by Dr. Bill Dietz regarding the potential dismantling of crucial public health monitoring systems due to budget cuts.  The impact on data used in reports like the MAHA report is highlighted.
+This article discusses concerns raised by Dr. Bill Dietz regarding the potential dismantling of crucial public health monitoring systems due to budget cuts.  The impact on data used in reports like the MAHA report is highlighted.
 
 Key Points:
 

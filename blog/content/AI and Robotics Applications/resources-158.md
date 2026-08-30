@@ -1,6 +1,6 @@
 ### 🤖 AI in Mathematics - Historical Context and Future Outlook
 
-Evolving relationship between artificial intelligence and mathematics, addressing concerns about AI's impact on mathematicians. It highlights the long history of computers assisting in complex mathematical tasks and considers the future role of AI in the field.
+This article discusses the evolving relationship between artificial intelligence and mathematics, addressing concerns about AI's impact on mathematicians. It highlights the long history of computers assisting in complex mathematical tasks and considers the future role of AI in the field.
 
 Key Points:
 

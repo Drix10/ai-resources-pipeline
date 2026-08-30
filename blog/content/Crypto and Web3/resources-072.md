@@ -1,6 +1,6 @@
 ### 🤖 Dogecoin Ecosystem Development - Polychain Investment
 
-$6.9 million investment by Polychain in DogeOS, a project building an application layer development bridge for Dogecoin.  It highlights the resulting growth in Dogecoin applications and their upcoming release.
+This article summarizes a $6.9 million investment by Polychain in DogeOS, a project building an application layer development bridge for Dogecoin.  It highlights the resulting growth in Dogecoin applications and their upcoming release.
 
 Key Points:
 

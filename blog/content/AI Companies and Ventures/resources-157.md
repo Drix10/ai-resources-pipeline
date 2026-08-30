@@ -1,6 +1,6 @@
 ### 💡 Driver Safety - Distraction Detection
 
-Guardian solution's ability to detect various forms of driver distraction. It highlights the system's collaboration with DfBBprogramme to address both overt mobile phone use and subtle attention lapses in fleet safety.
+This article discusses the Guardian solution's ability to detect various forms of driver distraction. It highlights the system's collaboration with DfBBprogramme to address both overt mobile phone use and subtle attention lapses in fleet safety.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Governance - Frontier Model Security
 
-Increasing government concerns regarding the security implications of frontier AI models. It addresses how discussions around open-weight models often overlook these policy considerations.
+This article discusses the increasing government concerns regarding the security implications of frontier AI models. It addresses how discussions around open-weight models often overlook these policy considerations.
 
 Key Points:
 • Governments express growing security concerns about advanced AI models.

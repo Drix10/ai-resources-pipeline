@@ -1,6 +1,6 @@
 ### 🤖 Social Media - Account Risk of Shadow Ban
 
-User's experience receiving a warning about potential shadow banning on X (formerly Twitter) for excessive Bitcoin-related posts.  The user requests support to continue posting on this topic.
+This article discusses a user's experience receiving a warning about potential shadow banning on X (formerly Twitter) for excessive Bitcoin-related posts.  The user requests support to continue posting on this topic.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Video Diffusion Models - LLM Enhancement
 
-Use of Large Language Models (LLMs) to improve the physical performance of video diffusion models and the potential benefits of using Vision Language Models (VLMs) instead.
+This article discusses the use of Large Language Models (LLMs) to improve the physical performance of video diffusion models and the potential benefits of using Vision Language Models (VLMs) instead.
 
 Key Points:
 

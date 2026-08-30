@@ -1,6 +1,6 @@
 ### 🤖 AI Chips - Seven Cutting-Edge AI Chips
 
-Seven new, cutting-edge AI chips from various companies.  It provides links to the original source for further information.
+This article summarizes seven new, cutting-edge AI chips from various companies.  It provides links to the original source for further information.
 
 Key Points:
 

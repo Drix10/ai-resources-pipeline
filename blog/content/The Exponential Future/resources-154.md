@@ -1,6 +1,6 @@
 ### 💡 Work Ethic - Venture Capital Success
 
-Dedication often associated with successful venture capitalists. It highlights the demanding nature of the VC industry and the perceived commitment required for top performance.
+This article discusses the dedication often associated with successful venture capitalists. It highlights the demanding nature of the VC industry and the perceived commitment required for top performance.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Relationships - Early Adoption
 
-Emerging trend of people forming relationships with AI, illustrated by Kim Kardashian's interaction with ChatGPT.  It speculates on the implications of embodied AI.
+This article examines the emerging trend of people forming relationships with AI, illustrated by Kim Kardashian's interaction with ChatGPT.  It speculates on the implications of embodied AI.
 
 Key Points:
 

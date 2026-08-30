@@ -1,6 +1,6 @@
 ### 🤖 Agentic Automation - Streamlining Feedback Loops
 
-Methods for streamlining feedback loops in agentic automation, focusing on improving the efficiency and robustness of complex tasks.  An example using Storybook and Playwright is provided.
+This article discusses methods for streamlining feedback loops in agentic automation, focusing on improving the efficiency and robustness of complex tasks.  An example using Storybook and Playwright is provided.
 
 Key Points:
 

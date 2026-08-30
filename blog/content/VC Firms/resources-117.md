@@ -1,6 +1,6 @@
 ### 🤖 Agriculture Technology - Insporos Seed Sorting
 
-Insporos, a finalist in the 2025TIAs, and their intelligent seed-sorting technology designed to improve greenhouse yields by identifying seed defects and diseases.  The company will be pitching their technology at the Dragons Den Pitch Night.
+This article discusses Insporos, a finalist in the 2025TIAs, and their intelligent seed-sorting technology designed to improve greenhouse yields by identifying seed defects and diseases.  The company will be pitching their technology at the Dragons Den Pitch Night.
 
 Key Points:
 

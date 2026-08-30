@@ -1,6 +1,6 @@
 ### 🎉 Giveaways - Insta360 X4 Giveaway
 
-Giveaway for an Insta360 X4 camera.  To enter, follow the instructions below.
+This article details a giveaway for an Insta360 X4 camera.  To enter, follow the instructions below.
 
 Key Points:
 

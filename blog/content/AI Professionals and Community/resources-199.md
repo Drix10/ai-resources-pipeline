@@ -1,6 +1,6 @@
 ### 🤖 AI in Research - One-Stage Screening Challenges
 
-Concept of one-stage screening in research, highlighting the potential for AI to process full-text documents. It also addresses current bottlenecks preventing its widespread adoption.
+This article discusses the concept of one-stage screening in research, highlighting the potential for AI to process full-text documents. It also addresses current bottlenecks preventing its widespread adoption.
 
 Key Points:
 

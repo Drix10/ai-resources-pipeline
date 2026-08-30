@@ -1,6 +1,6 @@
 ### 🤖 Fine-tuning LLMs - GRPO with SmolLM
 
-Notebook demonstrating the fine-tuning of a small language model (SmolLM-135M) using Gradient-based Reward Optimization (GRPO) and a filtered smoltldr dataset.  The goal is to generate concise summaries ("TL;DR").
+This article details a notebook demonstrating the fine-tuning of a small language model (SmolLM-135M) using Gradient-based Reward Optimization (GRPO) and a filtered smoltldr dataset.  The goal is to generate concise summaries ("TL;DR").
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Language Models - Memorization Capacity
 
-Research paper on the memorization capacity of GPT-style language models, quantifying the amount of information memorized per parameter.  The findings are presented visually through graphs illustrating the relationship between memorization and dataset size.
+This article discusses a research paper on the memorization capacity of GPT-style language models, quantifying the amount of information memorized per parameter.  The findings are presented visually through graphs illustrating the relationship between memorization and dataset size.
 
 Key Points:
 

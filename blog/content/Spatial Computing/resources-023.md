@@ -1,6 +1,6 @@
 ### 🤖 3D Rendering - RenderNetwork Case Study
 
-3D artist Stephan Weichelt and his studio improved their rendering workflow by switching to RenderNetwork, resulting in reduced energy consumption and increased creative output.
+This article discusses how 3D artist Stephan Weichelt and his studio improved their rendering workflow by switching to RenderNetwork, resulting in reduced energy consumption and increased creative output.
 
 Key Points:
 

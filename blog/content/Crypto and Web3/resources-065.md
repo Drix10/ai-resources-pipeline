@@ -1,6 +1,6 @@
 ### ⚠️  Financial Scams - Telegram Rug Pull
 
-Reported case of a Telegram group administrator defrauding members of $6000.  The author comments on karma and the consequences of such actions.
+This article discusses a reported case of a Telegram group administrator defrauding members of $6000.  The author comments on karma and the consequences of such actions.
 
 Key Points:
 

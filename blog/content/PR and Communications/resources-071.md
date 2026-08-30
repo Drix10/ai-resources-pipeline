@@ -1,6 +1,6 @@
 ### 🤖 Misinformation - Fake Online Persona
 
-Case of a fabricated online persona, "Jay Sullivan," used to spread propaganda and incite antisemitism.  The analysis focuses on the methods used to create and disseminate this fake identity.
+This article examines the case of a fabricated online persona, "Jay Sullivan," used to spread propaganda and incite antisemitism.  The analysis focuses on the methods used to create and disseminate this fake identity.
 
 Key Points:
 

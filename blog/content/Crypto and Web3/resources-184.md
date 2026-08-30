@@ -1,6 +1,6 @@
 ### 🚀 Cryptocurrency Trading - JTX Referral Program
 
-Users can participate in cryptocurrency trading platforms like JTX through referral programs. It highlights the mechanism of referral links for accessing these platforms and potential benefits for both referrer and new users.
+This article discusses how users can participate in cryptocurrency trading platforms like JTX through referral programs. It highlights the mechanism of referral links for accessing these platforms and potential benefits for both referrer and new users.
 
 Key Points:
 

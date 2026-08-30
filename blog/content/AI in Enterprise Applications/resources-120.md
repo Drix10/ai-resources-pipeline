@@ -1,6 +1,6 @@
 ### 🤖 AI Art - Photorealistic Character Generation
 
-Use of AI in generating photorealistic images of fictional characters. It highlights how precise prompt engineering can capture intricate details, bridging fantasy with lifelike visuals.
+This article explores the use of AI in generating photorealistic images of fictional characters. It highlights how precise prompt engineering can capture intricate details, bridging fantasy with lifelike visuals.
 
 Key Points:
 

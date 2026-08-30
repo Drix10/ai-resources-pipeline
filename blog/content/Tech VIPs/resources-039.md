@@ -1,6 +1,6 @@
 ### ⚖️ Lawsuit - Biden Administration Collusion
 
-Lawsuit filed against the Biden administration, alleging collusion with NGOs.  The lawsuit resulted in the release of evidence.
+This article summarizes a lawsuit filed against the Biden administration, alleging collusion with NGOs.  The lawsuit resulted in the release of evidence.
 
 Key Points:
 

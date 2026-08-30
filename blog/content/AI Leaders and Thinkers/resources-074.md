@@ -1,6 +1,6 @@
 ### 🤖 Reinforcement Learning - Broadening Reasoning Directions
 
-Impact of methods like KL-Cov on reinforcement learning, focusing on how they encourage broader consideration of possibilities during the reasoning process.  It also touches upon the limitations of reinforcement learning in relation to base model capabilities.
+This article discusses the impact of methods like KL-Cov on reinforcement learning, focusing on how they encourage broader consideration of possibilities during the reasoning process.  It also touches upon the limitations of reinforcement learning in relation to base model capabilities.
 
 
 Key Points:

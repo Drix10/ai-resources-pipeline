@@ -1,6 +1,6 @@
 ### 📈 LATAM Tech - Upcoming IPOs
 
-Potential for more large Latin American technology companies to go public following the recent IPOs of Mercado Libre, Nubank, DLocal, VTEX, Stone, and PagSeguro.  The author speculates on which companies might be next.
+This article discusses the potential for more large Latin American technology companies to go public following the recent IPOs of Mercado Libre, Nubank, DLocal, VTEX, Stone, and PagSeguro.  The author speculates on which companies might be next.
 
 Key Points:
 

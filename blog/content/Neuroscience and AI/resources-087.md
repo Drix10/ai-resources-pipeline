@@ -1,6 +1,6 @@
 ### ⚖️ Law Enforcement - Zero Tolerance Policy
 
-Statement advocating for a zero-tolerance policy regarding violent and criminal acts, irrespective of race.  The focus is on consistent application of the law based on actions, not demographics.
+This article summarizes a statement advocating for a zero-tolerance policy regarding violent and criminal acts, irrespective of race.  The focus is on consistent application of the law based on actions, not demographics.
 
 Key Points:
 

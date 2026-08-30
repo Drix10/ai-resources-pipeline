@@ -1,6 +1,6 @@
 ### 🤖 Politics - Alleged Attempts to Remove Rep. Thomas Massie from Congress
 
-Allegations regarding attempts to remove Representative Thomas Massie from Congress, citing the involvement of AIPAC and a new PAC announced by Donald Trump.
+This article summarizes allegations regarding attempts to remove Representative Thomas Massie from Congress, citing the involvement of AIPAC and a new PAC announced by Donald Trump.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Compute Capacity - Partnership
 
-Partnership between Claude AI and SpaceX to secure significant compute capacity. It covers the expansion of infrastructure for AI model deployment.
+This article details the partnership between Claude AI and SpaceX to secure significant compute capacity. It covers the expansion of infrastructure for AI model deployment.
 
 Key Points:
 

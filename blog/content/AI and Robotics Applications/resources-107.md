@@ -1,6 +1,6 @@
 ### 💡 Cross-Cultural Communication - Gendered Interactions in Japan
 
-Observations on how gender influences interactions between Americans and Japanese people, focusing on an anecdote about differing treatment of a couple.
+This article discusses observations on how gender influences interactions between Americans and Japanese people, focusing on an anecdote about differing treatment of a couple.
 
 Key Points:
 

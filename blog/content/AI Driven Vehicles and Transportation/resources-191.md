@@ -1,6 +1,6 @@
 ### 🤖 Autonomous Vehicles - Zoox Robotaxi Development
 
-Discussion with Marc Wimmershoff, VP of Autonomy Software at Zoox, covering the current state of the autonomous vehicle industry. It highlights Zoox's unique purpose-built robotaxi design and the company's future scaling strategies.
+This article outlines a discussion with Marc Wimmershoff, VP of Autonomy Software at Zoox, covering the current state of the autonomous vehicle industry. It highlights Zoox's unique purpose-built robotaxi design and the company's future scaling strategies.
 
 Key Points:
 

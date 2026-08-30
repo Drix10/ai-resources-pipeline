@@ -1,6 +1,6 @@
 ### 🏢 Real Estate - First Location Selection Misconceptions
 
-Common misconception regarding tenant placement in commercial real estate, highlighting the prioritization of suitable deals over maximizing profit.
+This article discusses a common misconception regarding tenant placement in commercial real estate, highlighting the prioritization of suitable deals over maximizing profit.
 
 Key Points:
 

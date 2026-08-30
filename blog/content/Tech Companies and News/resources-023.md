@@ -1,6 +1,6 @@
 ### 🤖 Multilingual AI - EuroBERT
 
-EuroBERT, an open multilingual encoder model for various NLP tasks across fifteen languages, trained on AMD compute platforms.
+This article discusses EuroBERT, an open multilingual encoder model for various NLP tasks across fifteen languages, trained on AMD compute platforms.
 
 Key Points:
 

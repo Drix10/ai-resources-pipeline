@@ -1,6 +1,6 @@
 ### 🤖 AI in Healthcare - AI SOAP Notes with AiSOAP
 
-AiSOAP, an AI-powered medical scribe tool that automates the creation of SOAP notes from patient conversations.  It highlights the tool's capabilities and potential benefits for healthcare professionals.
+This article discusses AiSOAP, an AI-powered medical scribe tool that automates the creation of SOAP notes from patient conversations.  It highlights the tool's capabilities and potential benefits for healthcare professionals.
 
 Key Points:
 

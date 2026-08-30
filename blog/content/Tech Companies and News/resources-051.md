@@ -1,6 +1,6 @@
 ### 🤖 Industrial IoT - SECO Clea on Raspberry Pi OS
 
-Release of SECO's Clea software, now natively available on Raspberry Pi OS, simplifying Industrial IoT (IIoT) application development and maintenance.
+This article covers the release of SECO's Clea software, now natively available on Raspberry Pi OS, simplifying Industrial IoT (IIoT) application development and maintenance.
 
 Key Points:
 

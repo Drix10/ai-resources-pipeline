@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics - US Sanctions and Economic Warfare
 
-Potential for international sanctions against the United States based on the actions of a former president.  The discussion focuses on the severity of potential economic consequences.
+This article discusses the potential for international sanctions against the United States based on the actions of a former president.  The discussion focuses on the severity of potential economic consequences.
 
 Key Points:
 

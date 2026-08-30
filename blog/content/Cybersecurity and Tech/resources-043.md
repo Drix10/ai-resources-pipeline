@@ -1,6 +1,6 @@
 ### 🌎 Geopolitics - Yemen Conflict
 
-Geopolitical perspective on the conflict in Yemen, highlighting the contrasting approaches of Yemen and the Western powers.
+This article summarizes a geopolitical perspective on the conflict in Yemen, highlighting the contrasting approaches of Yemen and the Western powers.
 
 Key Points:
 

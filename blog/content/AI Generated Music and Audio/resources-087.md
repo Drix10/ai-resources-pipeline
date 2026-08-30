@@ -1,6 +1,6 @@
 ### 🎶 Music Production - Formula 1 Drum & Bass Track Prompt
 
-Prompt for creating a drum & bass track inspired by Formula 1 racing.  The prompt aims to capture the speed and global excitement of the sport.
+This article details a prompt for creating a drum & bass track inspired by Formula 1 racing.  The prompt aims to capture the speed and global excitement of the sport.
 
 
 Key Points:

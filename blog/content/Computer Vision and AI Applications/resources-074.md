@@ -1,6 +1,6 @@
 ### 🤖 Layer Normalization - TanH Similarity
 
-Research findings from Meta indicating a functional similarity between Layer Normalization and the TanH activation function.  The research explored replacing Layer Normalization with TanH, achieving comparable results with improved speed.
+This article discusses research findings from Meta indicating a functional similarity between Layer Normalization and the TanH activation function.  The research explored replacing Layer Normalization with TanH, achieving comparable results with improved speed.
 
 
 Key Points:

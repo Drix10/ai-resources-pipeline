@@ -1,6 +1,6 @@
 ### 🚀 Animation Pipeline - iPhone Mocap to UE5
 
-Technical pipeline for converting iPhone motion capture data into animations for the Unreal Engine 5 skeleton. It describes how this process significantly reduces production time and costs for high-quality animation.
+This article details a technical pipeline for converting iPhone motion capture data into animations for the Unreal Engine 5 skeleton. It describes how this process significantly reduces production time and costs for high-quality animation.
 
 Key Points:
 

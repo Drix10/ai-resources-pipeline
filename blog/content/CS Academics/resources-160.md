@@ -1,6 +1,6 @@
 ### 🤖 AI/ML - Self-distillation with Privileged Information
 
-Concept of self-distillation in machine learning, specifically exploring its potential when enhanced with privileged information. It considers how a model's performance could be influenced by the subtle integration of such information during training.
+This article discusses the concept of self-distillation in machine learning, specifically exploring its potential when enhanced with privileged information. It considers how a model's performance could be influenced by the subtle integration of such information during training.
 
 Key Points:
 

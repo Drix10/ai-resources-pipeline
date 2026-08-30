@@ -1,6 +1,6 @@
 ### 🌌 Astronomy - The Boötes Void
 
-Boötes Void, a large region in space with a surprisingly low galaxy density.  It explores its size and the mystery surrounding its emptiness.
+This article discusses the Boötes Void, a large region in space with a surprisingly low galaxy density.  It explores its size and the mystery surrounding its emptiness.
 
 Key Points:
 

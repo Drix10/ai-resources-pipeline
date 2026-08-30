@@ -1,6 +1,6 @@
 ### 🤖 AI-Assisted Development -  Copilot Agent Mode Experience
 
-Experience of using GitHub Copilot's agent mode and coding agent for implementing authentication, user stores, and usage tracking in a .NET project.  The process involved using both GPT-4.1 and Claude 4.
+This article details the experience of using GitHub Copilot's agent mode and coding agent for implementing authentication, user stores, and usage tracking in a .NET project.  The process involved using both GPT-4.1 and Claude 4.
 
 
 Key Points:

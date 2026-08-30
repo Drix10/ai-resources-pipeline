@@ -1,6 +1,6 @@
 ### 🤖 Partnerships - Virtuals Protocol and Byreal
 
-Partnership between Virtuals Protocol and Byreal, granting whitelist access to top $VIRTUAL holders.  A snapshot of holders was taken on June 16, 2025.
+This article details a partnership between Virtuals Protocol and Byreal, granting whitelist access to top $VIRTUAL holders.  A snapshot of holders was taken on June 16, 2025.
 
 Key Points:
 

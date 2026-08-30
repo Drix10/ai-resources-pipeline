@@ -1,6 +1,6 @@
 ### 🤖 Generative Media - Future and Regulations
 
-Evolving landscape of generative media, emphasizing the need for collaboration between technology companies and rights holders. It highlights the importance of establishing clear rules, licenses, and accountability for future development.
+This article discusses the evolving landscape of generative media, emphasizing the need for collaboration between technology companies and rights holders. It highlights the importance of establishing clear rules, licenses, and accountability for future development.
 
 Key Points:
 

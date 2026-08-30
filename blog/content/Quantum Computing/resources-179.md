@@ -1,6 +1,6 @@
 ### 🤖 Side-Channel Attacks - Glitch-Stopping Circuits
 
-Seminar on side-channel leakages and the role of registers in glitch-stopping circuits. It explores the tolerance levels for small leakages in hardware security.
+This article discusses a seminar on side-channel leakages and the role of registers in glitch-stopping circuits. It explores the tolerance levels for small leakages in hardware security.
 
 Key Points:
 

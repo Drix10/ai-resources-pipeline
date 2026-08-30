@@ -1,6 +1,6 @@
 ### 🤖 Neuroscience - DNN vs Human Brain Image Representation
 
-Research paper exploring the similarities and differences between how Deep Neural Networks (DNNs) and the human brain represent images.  The study focuses on the level of detail captured by each.
+This article discusses a research paper exploring the similarities and differences between how Deep Neural Networks (DNNs) and the human brain represent images.  The study focuses on the level of detail captured by each.
 
 Key Points:
 

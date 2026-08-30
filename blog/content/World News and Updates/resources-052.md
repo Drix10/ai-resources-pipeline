@@ -1,6 +1,6 @@
 ### 🇮🇳 Goa's Identity - Beyond Tourism
 
-Statement by Goa's Chief Minister regarding the state's identity, emphasizing its religious and cultural aspects over its tourism image.
+This article summarizes a statement by Goa's Chief Minister regarding the state's identity, emphasizing its religious and cultural aspects over its tourism image.
 
 Key Points:
 

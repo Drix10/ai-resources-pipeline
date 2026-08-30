@@ -1,6 +1,6 @@
 ### ✨ Film - Raindance Immersive Documentary
 
-Documentary showcased at Raindance Immersive, celebrating Japanese artists and individuals through the lens of VR photographer Jelle Kayen.  The film's creators are acknowledged.
+This article highlights a documentary showcased at Raindance Immersive, celebrating Japanese artists and individuals through the lens of VR photographer Jelle Kayen.  The film's creators are acknowledged.
 
 Key Points:
 

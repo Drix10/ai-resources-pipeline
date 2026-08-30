@@ -1,6 +1,6 @@
 ### 🤖 AI Image Generation - Gemini 2.0 Flash
 
-Progress and accessibility of Google's Gemini 2.0 Flash image generation model.  It provides instructions on how to access and utilize the model.
+This article discusses the progress and accessibility of Google's Gemini 2.0 Flash image generation model.  It provides instructions on how to access and utilize the model.
 
 Key Points:
 

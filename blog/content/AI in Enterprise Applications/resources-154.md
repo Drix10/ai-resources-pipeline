@@ -1,6 +1,6 @@
 ### 🤖 FFmpeg Integration - Media Processing Enhancement
 
-Integration of FFmpeg into an application named "poke" to significantly enhance its media processing capabilities. It explores how this technical addition unlocks greater potential for multimedia handling within the system.
+This article covers the integration of FFmpeg into an application named "poke" to significantly enhance its media processing capabilities. It explores how this technical addition unlocks greater potential for multimedia handling within the system.
 
 Key Points:
 

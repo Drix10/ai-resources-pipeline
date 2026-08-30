@@ -1,6 +1,6 @@
 ### 🚀 NostalgiaPicturesAI - Launch and User Testing
 
-Launch of NostalgiaPicturesAI, an application that processes old photographs, and invites users to submit images for testing.  The application is powered by FAL.
+This article discusses the launch of NostalgiaPicturesAI, an application that processes old photographs, and invites users to submit images for testing.  The application is powered by FAL.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 3D Icons - Cute Pastel Clay Icon Creation
 
-Prompt for generating cute, pastel-colored 3D clay icons using Blender.  Several example images are provided.
+This article details a prompt for generating cute, pastel-colored 3D clay icons using Blender.  Several example images are provided.
 
 Key Points:
 

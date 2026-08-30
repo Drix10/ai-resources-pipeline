@@ -1,6 +1,6 @@
 ### 💡 Higher Education Funding - Student Costs
 
-Current landscape of university funding models and the financial burden placed on students, particularly within a challenging economic environment. It highlights the perceived gap in comprehensive discussions about who bears the personal costs of higher education.
+This article discusses the current landscape of university funding models and the financial burden placed on students, particularly within a challenging economic environment. It highlights the perceived gap in comprehensive discussions about who bears the personal costs of higher education.
 
 Key Points:
 

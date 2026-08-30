@@ -1,6 +1,6 @@
 ### 🤖 Politics - Labour's Inquiry into Child Abuse
 
-Labour party's decision to shelve inquiries into child abuse by Pakistani-heritage rape gangs.  The announcement was made by Jess Phillips.
+This article discusses the Labour party's decision to shelve inquiries into child abuse by Pakistani-heritage rape gangs.  The announcement was made by Jess Phillips.
 
 Key Points:
 

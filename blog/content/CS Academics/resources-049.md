@@ -1,6 +1,6 @@
 ### 💡 Poetry and Literature - Langston Hughes' "Let America Be America Again"
 
-Reading of Langston Hughes' poem, "Let America Be America Again," by Willie Jennings.  The focus is on the power and impact conveyed through Jennings' interpretation.
+This article discusses a reading of Langston Hughes' poem, "Let America Be America Again," by Willie Jennings.  The focus is on the power and impact conveyed through Jennings' interpretation.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Art Event - Inner Reflections
 
-Artist spotlight event featuring Inner Reflections, an AI video experimenter specializing in video-to-video and style transfer techniques.  The event will be streamed on YouTube, X, and Twitch.
+This article details an artist spotlight event featuring Inner Reflections, an AI video experimenter specializing in video-to-video and style transfer techniques.  The event will be streamed on YouTube, X, and Twitch.
 
 Key Points:
 

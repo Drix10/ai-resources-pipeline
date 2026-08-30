@@ -1,6 +1,6 @@
 ### 🤖 Blockchain - $RIV Community Engagement
 
-$RIV token and encourages community participation to share individual experiences. It aims to gather diverse perspectives on its impact and usage within the blockchain ecosystem.
+This article discusses the $RIV token and encourages community participation to share individual experiences. It aims to gather diverse perspectives on its impact and usage within the blockchain ecosystem.
 
 Key Points:
 

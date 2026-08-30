@@ -1,6 +1,6 @@
 ### 🤖 Healthcare Economics - PBM Leverage
 
-Significant leverage held by Pharmacy Benefit Managers (PBMs) within the healthcare system due to their control over cash flow and services for a substantial number of members.
+This article discusses the significant leverage held by Pharmacy Benefit Managers (PBMs) within the healthcare system due to their control over cash flow and services for a substantial number of members.
 
 Key Points:
 

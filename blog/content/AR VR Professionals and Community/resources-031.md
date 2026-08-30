@@ -1,6 +1,6 @@
 ### 🤖 Cline Integration - Deep Research Capabilities
 
-Enhanced deep research capabilities added to Cline via the Firecrawl MCP plugin.  It allows Cline to access and process information from open-source libraries and documentation.
+This article details the enhanced deep research capabilities added to Cline via the Firecrawl MCP plugin.  It allows Cline to access and process information from open-source libraries and documentation.
 
 Key Points:
 

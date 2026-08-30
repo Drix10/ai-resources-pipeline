@@ -1,6 +1,6 @@
 ### 🤖 Politics - The Difficulty of Libertarian Influence within the GOP
 
-Challenges libertarians face in influencing the Republican Party, using the example of Representative Thomas Massie.  It highlights the difficulties of maintaining and growing libertarian representation within the existing GOP structure.
+This article discusses the challenges libertarians face in influencing the Republican Party, using the example of Representative Thomas Massie.  It highlights the difficulties of maintaining and growing libertarian representation within the existing GOP structure.
 
 
 Key Points:

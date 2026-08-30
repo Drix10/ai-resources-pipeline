@@ -1,6 +1,6 @@
 ### ✨ Augmented Reality - Virtual Try-On for Cats
 
-Development of a virtual try-on application for eyewear, specifically designed for cats, using augmented reality technology.  The application is set to release with a software update next week.
+This article discusses the development of a virtual try-on application for eyewear, specifically designed for cats, using augmented reality technology.  The application is set to release with a software update next week.
 
 
 Key Points:

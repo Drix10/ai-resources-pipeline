@@ -1,6 +1,6 @@
 ### ✨ NBA Performance - Harris Scoring Streak
 
-Tobias Harris's consistent scoring performance in the NBA playoffs. It highlights his extended streak of 20-point games across multiple series, contributing to his team's success.
+This article details Tobias Harris's consistent scoring performance in the NBA playoffs. It highlights his extended streak of 20-point games across multiple series, contributing to his team's success.
 
 Key Points:
 

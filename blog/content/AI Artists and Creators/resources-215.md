@@ -1,6 +1,6 @@
 ### 💡 Tiny Home Ownership - Co-op Models
 
-Emerging trend of affordable tiny home ownership, highlighting a model where individuals can own a tiny home and its underlying land for a low cost. It further explores the benefits and structure of tiny home co-operatives.
+This article discusses the emerging trend of affordable tiny home ownership, highlighting a model where individuals can own a tiny home and its underlying land for a low cost. It further explores the benefits and structure of tiny home co-operatives.
 
 Key Points:
 

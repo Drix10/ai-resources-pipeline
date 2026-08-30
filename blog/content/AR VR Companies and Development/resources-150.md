@@ -1,6 +1,6 @@
 ### 🤖 EU Policy - Data Governance Challenges
 
-Goals of Europe's Digital Omnibus in strengthening EU capabilities and fostering tech adoption among firms. It also addresses the ongoing challenges in data governance, particularly concerning the Data Act.
+This article outlines the goals of Europe's Digital Omnibus in strengthening EU capabilities and fostering tech adoption among firms. It also addresses the ongoing challenges in data governance, particularly concerning the Data Act.
 
 Key Points:
 

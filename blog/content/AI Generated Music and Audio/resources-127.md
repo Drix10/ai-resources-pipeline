@@ -1,6 +1,6 @@
 ### 🤖 Audio MultiChallenge - Multi-Turn Evaluation for Spoken Dialogue Systems
 
-Audio MultiChallenge, a framework for evaluating spoken dialogue systems. It focuses on assessing system performance in multi-turn natural human interactions.
+This article discusses the Audio MultiChallenge, a framework for evaluating spoken dialogue systems. It focuses on assessing system performance in multi-turn natural human interactions.
 
 Key Points:
 

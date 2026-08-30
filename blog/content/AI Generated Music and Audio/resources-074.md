@@ -1,6 +1,6 @@
 ### 🤖 CAR HMI Europe - Voice AI and Voice Commerce
 
-SoundHound's participation in CAR HMI Europe, showcasing their voice AI solutions and their impact on the in-vehicle experience.  It highlights a keynote presentation by Pedram Faghfouri.
+This article summarizes SoundHound's participation in CAR HMI Europe, showcasing their voice AI solutions and their impact on the in-vehicle experience.  It highlights a keynote presentation by Pedram Faghfouri.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Hard Drives - Archival and AI Training Data
 
-Potential use of hard drives from older copiers and library systems as a source of archival and AI training data.  The data is not classified, but offers valuable historical information.
+This article discusses the potential use of hard drives from older copiers and library systems as a source of archival and AI training data.  The data is not classified, but offers valuable historical information.
 
 Key Points:
 

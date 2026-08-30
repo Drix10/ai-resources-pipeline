@@ -1,6 +1,6 @@
 ### 💡 Voice Cloning - Optimal Audio Input
 
-Guidelines for preparing audio input for voice cloning systems. It discusses desired speech characteristics and recording considerations.
+This article provides guidelines for preparing audio input for voice cloning systems. It discusses desired speech characteristics and recording considerations.
 
 Key Points:
 • Use plain, declarative speech without questions or exclamations.

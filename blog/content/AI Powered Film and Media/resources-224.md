@@ -1,6 +1,6 @@
 ### 🤖 AI in Neuroscience - Psychedelic Effects Mapping
 
-Research using AI-powered protein design to understand how psychedelics interact with brain cells. The work focuses on mapping these effects at a cellular level.
+This article highlights research using AI-powered protein design to understand how psychedelics interact with brain cells. The work focuses on mapping these effects at a cellular level.
 
 Key Points:
 

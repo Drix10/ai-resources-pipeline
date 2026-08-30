@@ -1,6 +1,6 @@
 ### 💡 Urban Planning - 15-Minute Neighborhoods
 
-Concept of the "15-minute city" or "15-minute community life circle," exploring its potential benefits and implications.  The focus is on a specific example of a Chinese policy and its global applicability.
+This article discusses the concept of the "15-minute city" or "15-minute community life circle," exploring its potential benefits and implications.  The focus is on a specific example of a Chinese policy and its global applicability.
 
 Key Points:
 

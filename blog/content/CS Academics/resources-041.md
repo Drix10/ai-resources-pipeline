@@ -1,6 +1,6 @@
 ### 🤖 Nonlinearity Research - Materials Exploration
 
-Ongoing research focused on improving the nonlinearity of a system through materials exploration.  The research is in its early stages but shows promising initial results.
+This article discusses ongoing research focused on improving the nonlinearity of a system through materials exploration.  The research is in its early stages but shows promising initial results.
 
 
 Key Points:

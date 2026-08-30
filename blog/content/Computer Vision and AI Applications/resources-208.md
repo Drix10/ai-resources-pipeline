@@ -1,6 +1,6 @@
 ### 🤖 OpenCV - Linux Installation Guide
 
-Guidance on installing OpenCV 5 on Linux, outlining different build options and cautioning against common versioning issues. It highlights the need for careful verification of installed components.
+This article provides guidance on installing OpenCV 5 on Linux, outlining different build options and cautioning against common versioning issues. It highlights the need for careful verification of installed components.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Finance - The Impact of Mortgage-Backed Securities
 
-Significant role of mortgage-backed securities (MBS) in shaping the financial landscape over the past 50 years, focusing on their contribution to market liquidity and price discovery.
+This article discusses the significant role of mortgage-backed securities (MBS) in shaping the financial landscape over the past 50 years, focusing on their contribution to market liquidity and price discovery.
 
 Key Points:
 

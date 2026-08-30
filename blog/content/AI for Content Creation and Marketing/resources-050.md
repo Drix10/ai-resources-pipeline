@@ -1,6 +1,6 @@
 ### 🚀 Video Resumes - PictoryAI
 
-To create a portfolio video from a resume using PictoryAI, as demonstrated by Larry Dorion.  The process involves using the tool to create short video trailers highlighting key skills and experience.
+This article details how to create a portfolio video from a resume using PictoryAI, as demonstrated by Larry Dorion.  The process involves using the tool to create short video trailers highlighting key skills and experience.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Legal Limits on Presidential Power - Trade Disputes
 
-Federal trade court ruling limiting President Trump's authority to impose tariffs, highlighting the checks and balances within the US legal system.
+This article discusses a federal trade court ruling limiting President Trump's authority to impose tariffs, highlighting the checks and balances within the US legal system.
 
 Key Points:
 

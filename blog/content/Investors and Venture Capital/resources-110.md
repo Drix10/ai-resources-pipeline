@@ -1,6 +1,6 @@
 ### 🤖 Social Media Strategy - Identifying Key Influencers
 
-Strategy for identifying key influencers on X (formerly Twitter) for collaborative conversations.  It highlights the selection criteria and provides examples of potential collaborators.
+This article discusses a strategy for identifying key influencers on X (formerly Twitter) for collaborative conversations.  It highlights the selection criteria and provides examples of potential collaborators.
 
 
 Key Points:

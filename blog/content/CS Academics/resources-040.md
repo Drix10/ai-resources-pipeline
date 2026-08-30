@@ -1,6 +1,6 @@
 ### 💡 Academia - Evolving Standards
 
-Observations regarding perceived shifts in academic standards across medical and PhD programs.  It examines the perspectives of faculty members who suggest they would not meet current admission criteria.
+This article discusses observations regarding perceived shifts in academic standards across medical and PhD programs.  It examines the perspectives of faculty members who suggest they would not meet current admission criteria.
 
 Key Points:
 

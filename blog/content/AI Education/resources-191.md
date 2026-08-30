@@ -1,6 +1,6 @@
 ### 🤖 LLMs - Reasoning Optimization
 
-New paper exploring methods to enhance LLM reasoning speed and intelligence. It covers the impact of context window size during RL fine-tuning and introduces an approach to stabilize accuracy.
+This article discusses a new paper exploring methods to enhance LLM reasoning speed and intelligence. It covers the impact of context window size during RL fine-tuning and introduces an approach to stabilize accuracy.
 
 Key Points:
 

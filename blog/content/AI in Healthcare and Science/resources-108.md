@@ -1,6 +1,6 @@
 ### 📅 Events - AHA Journals Editors at ESC 2025
 
-Opportunity to meet with editors from AHA Journals at the ESC 2025 congress in Madrid.  The event will cover journal initiatives and processes.
+This article details an opportunity to meet with editors from AHA Journals at the ESC 2025 congress in Madrid.  The event will cover journal initiatives and processes.
 
 Key Points:
 

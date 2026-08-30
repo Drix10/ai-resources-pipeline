@@ -1,6 +1,6 @@
 ### 🤖 Trade Policy - US-UK Tariffs
 
-Persistence of US tariffs on UK goods despite a US trade surplus with the UK, exploring the reasons behind this seemingly contradictory policy.
+This article discusses the persistence of US tariffs on UK goods despite a US trade surplus with the UK, exploring the reasons behind this seemingly contradictory policy.
 
 Key Points:
 

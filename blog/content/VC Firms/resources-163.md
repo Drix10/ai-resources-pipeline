@@ -1,6 +1,6 @@
 ### 💡 Financial Data Market - Disintermediation Risk
 
-Inherent value of established financial data platforms like Bloomberg and FactSet (FDS). It further explores the emerging disintermediation risk posed by new, innovative user interfaces entering the financial data landscape.
+This article discusses the inherent value of established financial data platforms like Bloomberg and FactSet (FDS). It further explores the emerging disintermediation risk posed by new, innovative user interfaces entering the financial data landscape.
 
 Key Points:
 

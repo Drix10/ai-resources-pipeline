@@ -1,6 +1,6 @@
 ### 🤖 Prompt Engineering - The Chemistry of Coding
 
-Analogy between prompt engineering and chemistry, highlighting the current limitations in understanding and predicting the outcomes of prompt combinations.
+This article explores the analogy between prompt engineering and chemistry, highlighting the current limitations in understanding and predicting the outcomes of prompt combinations.
 
 Key Points:
 

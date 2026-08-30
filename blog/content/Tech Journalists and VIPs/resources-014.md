@@ -1,6 +1,6 @@
 ### 🤖 Political Commentary - Starmer and Zelensky
 
-Twitter thread discussing Keir Starmer's perceived lack of a strong relationship with President Zelensky compared to Donald Trump's.  The thread includes images of Starmer's statement regarding support for Ukraine.
+This article summarizes a Twitter thread discussing Keir Starmer's perceived lack of a strong relationship with President Zelensky compared to Donald Trump's.  The thread includes images of Starmer's statement regarding support for Ukraine.
 
 Key Points:
 

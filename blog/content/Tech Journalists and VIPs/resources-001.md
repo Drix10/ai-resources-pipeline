@@ -1,6 +1,6 @@
 ### 💡 Political Commentary - Huntington Beach
 
-Political shift in Huntington Beach, California, characterized by conservative victories and subsequent policy changes.
+This article summarizes a political shift in Huntington Beach, California, characterized by conservative victories and subsequent policy changes.
 
 Key Points:
 

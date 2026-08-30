@@ -1,6 +1,6 @@
 ### 🤖 2D Jacobian Fields - Training in Optical Flow
 
-Training of 2D Jacobian fields for optical flow prediction, highlighting its advantages over traditional methods.  The research shows that leveraging the sparsity structure of the Jacobian allows for rapid generalization to unseen states and motions.
+This article discusses the training of 2D Jacobian fields for optical flow prediction, highlighting its advantages over traditional methods.  The research shows that leveraging the sparsity structure of the Jacobian allows for rapid generalization to unseen states and motions.
 
 Key Points:
 

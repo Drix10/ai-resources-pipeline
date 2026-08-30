@@ -1,6 +1,6 @@
 ### ✨ NBA History - Nikola Jokić Records
 
-Nikola Jokić's historic achievement in leading the NBA in both rebounds and assists per game. It discusses his unique statistical dominance in a single season, marking a significant milestone in his career.
+This article highlights Nikola Jokić's historic achievement in leading the NBA in both rebounds and assists per game. It discusses his unique statistical dominance in a single season, marking a significant milestone in his career.
 
 Key Points:
 

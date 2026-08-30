@@ -1,6 +1,6 @@
 ### 🚀 Rad AI - CNBC Disruptor50
 
-Rad AI's inclusion in the CNBC Disruptor50 list and explores the company's mission and values.  A video further detailing "Life at Rad AI" is provided.
+This article discusses Rad AI's inclusion in the CNBC Disruptor50 list and explores the company's mission and values.  A video further detailing "Life at Rad AI" is provided.
 
 Key Points:
 

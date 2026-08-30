@@ -1,6 +1,6 @@
 ### ✨ Publication - Submission Guidelines
 
-Submission options for manuscripts following an ESCCongress presentation. It confirms that journals accept original articles regardless of the initial format provided.
+This article details submission options for manuscripts following an ESCCongress presentation. It confirms that journals accept original articles regardless of the initial format provided.
 
 Key Points:
 

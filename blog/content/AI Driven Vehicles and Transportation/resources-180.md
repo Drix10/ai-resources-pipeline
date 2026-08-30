@@ -1,6 +1,6 @@
 ### ✨ Community Round - Refund and Bonus Announcement
 
-Recent updates regarding the Billions Network community round, focusing on new provisions for participants who opt for a refund. It details the bonus structure and potential for additional rewards.
+This article outlines recent updates regarding the Billions Network community round, focusing on new provisions for participants who opt for a refund. It details the bonus structure and potential for additional rewards.
 
 Key Points:
 

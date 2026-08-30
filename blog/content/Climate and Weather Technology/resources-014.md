@@ -1,6 +1,6 @@
 ### ⚠️ Weather Forecasting - Impact of NOAA and NWS Decisions
 
-Concerns regarding potential impacts on weather forecasting accuracy and timeliness due to decisions affecting the National Oceanic and Atmospheric Administration (NOAA) and the National Weather Service (NWS).  The potential consequences for public safety, particularly during life-threatening storms, are highlighted.
+This article discusses concerns regarding potential impacts on weather forecasting accuracy and timeliness due to decisions affecting the National Oceanic and Atmospheric Administration (NOAA) and the National Weather Service (NWS).  The potential consequences for public safety, particularly during life-threatening storms, are highlighted.
 
 
 Key Points:

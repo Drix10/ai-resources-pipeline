@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Future Household Robot Brains
 
-Necessary "brain" capabilities for future household robots, focusing on generalization, spatial memory, and precision.  The need for a robust control system capable of handling unforeseen circumstances is highlighted.
+This article discusses the necessary "brain" capabilities for future household robots, focusing on generalization, spatial memory, and precision.  The need for a robust control system capable of handling unforeseen circumstances is highlighted.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Diplomacy - Iran's Regional Travel
 
-Diplomatic movements of Iran's Foreign Minister, Abbas Araghchi, including his return to Islamabad and upcoming travel to Moscow. It covers the reported schedule and key destinations in his diplomatic engagements.
+This article details the diplomatic movements of Iran's Foreign Minister, Abbas Araghchi, including his return to Islamabad and upcoming travel to Moscow. It covers the reported schedule and key destinations in his diplomatic engagements.
 
 Key Points:
 

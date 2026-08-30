@@ -1,6 +1,6 @@
 ### 🤖 Airlines - Revenue Models
 
-Unconventional revenue model of major airlines, focusing on loyalty programs and points systems rather than solely on ticket sales.
+This article discusses the unconventional revenue model of major airlines, focusing on loyalty programs and points systems rather than solely on ticket sales.
 
 Key Points:
 

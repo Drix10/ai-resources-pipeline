@@ -1,6 +1,6 @@
 ### 🌎 India-Sri Lanka Relations - PM Modi's Visit
 
-Prime Minister Modi's three-day visit to Sri Lanka, focusing on strengthening bilateral ties.  The visit will cover various areas of cooperation.
+This article summarizes Prime Minister Modi's three-day visit to Sri Lanka, focusing on strengthening bilateral ties.  The visit will cover various areas of cooperation.
 
 Key Points:
 

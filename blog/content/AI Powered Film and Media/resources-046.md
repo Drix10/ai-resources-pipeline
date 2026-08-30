@@ -1,6 +1,6 @@
 ### 🤖 Artistic Expression - AI-Generated Imagery
 
-Limitations of AI image generation, specifically regarding photorealistic faces, and presents a comparison between different AI tools.
+This article discusses the limitations of AI image generation, specifically regarding photorealistic faces, and presents a comparison between different AI tools.
 
 Key Points:
 

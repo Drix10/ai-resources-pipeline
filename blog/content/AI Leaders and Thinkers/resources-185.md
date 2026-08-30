@@ -1,6 +1,6 @@
 ### 🚀 AI Agent Development - PixelDojo MCP Toolkit
 
-Features and capabilities of the PixelDojo MCP toolkit for AI agent development. It details how the toolkit provides extensive model access, pre-configured settings, and integration options for various AI coding environments.
+This article covers the features and capabilities of the PixelDojo MCP toolkit for AI agent development. It details how the toolkit provides extensive model access, pre-configured settings, and integration options for various AI coding environments.
 
 Key Points:
 

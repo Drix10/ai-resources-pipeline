@@ -1,6 +1,6 @@
 ### 🤖 AI in Translation - Ministerial Meetings in Warsaw
 
-Use of ElevenLabs' AI voices for multilingual dubbing of press conferences during ministerial meetings in Warsaw.  The project involves translating press conferences into Polish, English, and French.
+This article discusses the use of ElevenLabs' AI voices for multilingual dubbing of press conferences during ministerial meetings in Warsaw.  The project involves translating press conferences into Polish, English, and French.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 💡 Traumatic Brain Injury - Clinical and Human Aspects
 
-SIGNposts blog post exploring the clinical and human dimensions of traumatic brain injury. It emphasizes the critical role of attentive listening in detecting subtle neurological and behavioral effects.
+This article covers a SIGNposts blog post exploring the clinical and human dimensions of traumatic brain injury. It emphasizes the critical role of attentive listening in detecting subtle neurological and behavioral effects.
 
 Key Points:
 

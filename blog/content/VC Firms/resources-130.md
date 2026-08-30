@@ -1,6 +1,6 @@
 ### 🚀 Lovable Funding - Series B Round
 
-Lovable's recent Series B funding round, led by EQT Growth. It outlines the investment amount, valuation, and strategic focus on empowering builders.
+This article details Lovable's recent Series B funding round, led by EQT Growth. It outlines the investment amount, valuation, and strategic focus on empowering builders.
 
 Key Points:
 

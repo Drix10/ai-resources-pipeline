@@ -1,6 +1,6 @@
 ### 🤖 Real Estate Tech - Underwriting Automation
 
-RESI's recent acceptance into the Plaid partner program, enabling direct Know Your Customer (KYC) and income verification. This integration aims to significantly streamline and improve the traditionally complex property loan underwriting process.
+This article outlines RESI's recent acceptance into the Plaid partner program, enabling direct Know Your Customer (KYC) and income verification. This integration aims to significantly streamline and improve the traditionally complex property loan underwriting process.
 
 Key Points:
 

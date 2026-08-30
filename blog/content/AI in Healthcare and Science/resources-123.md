@@ -1,6 +1,6 @@
 ### 🤖 Patient Experience - Leveraging AI for Voice of the Patient
 
-Significant value of patient feedback gathered outside clinical settings for improving patient-centered care. It explains how listening at scale can enhance overall healthcare delivery.
+This article discusses the significant value of patient feedback gathered outside clinical settings for improving patient-centered care. It explains how listening at scale can enhance overall healthcare delivery.
 
 Key Points:
 

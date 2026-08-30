@@ -1,6 +1,6 @@
 ### ⚖️ Legal - Trump Administration Defiance of Court Orders
 
-Trump administration's alleged defiance of a judge's order regarding the deportation of individuals to El Salvador, highlighting concerns about due process and human rights.
+This article discusses the Trump administration's alleged defiance of a judge's order regarding the deportation of individuals to El Salvador, highlighting concerns about due process and human rights.
 
 Key Points:
 

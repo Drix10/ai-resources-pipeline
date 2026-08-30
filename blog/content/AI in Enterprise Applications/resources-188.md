@@ -1,6 +1,6 @@
 ### 🤖 AI Coaching - Athletic Performance Enhancement
 
-SkillForge, an AI-powered platform leveraging computer vision to provide autonomous athletic coaching. It covers how the system monitors training footage and delivers personalized feedback.
+This article discusses SkillForge, an AI-powered platform leveraging computer vision to provide autonomous athletic coaching. It covers how the system monitors training footage and delivers personalized feedback.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Online Communication - Interpreting Digital Reactions
 
-Nuances of informal digital communication, particularly the use of acronyms and visual content to convey immediate reactions. It discusses how such content contributes to online dialogue.
+This article explores the nuances of informal digital communication, particularly the use of acronyms and visual content to convey immediate reactions. It discusses how such content contributes to online dialogue.
 
 Key Points:
 

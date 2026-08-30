@@ -1,6 +1,6 @@
 ### 😡 Political Commentary -  Immigration Legislation and Governor's Actions
 
-Twitter thread expressing outrage over a governor's new immigration law, specifically focusing on a ban on masked federal law enforcement and past actions of the governor.
+This article summarizes a Twitter thread expressing outrage over a governor's new immigration law, specifically focusing on a ban on masked federal law enforcement and past actions of the governor.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Severe Weather - Texas Thunderstorms
 
-Severe thunderstorms predicted for parts of Texas, starting Friday afternoon and continuing through the weekend.  The potential for large hail, strong winds, and lightning is highlighted.
+This article provides a brief overview of severe thunderstorms predicted for parts of Texas, starting Friday afternoon and continuing through the weekend.  The potential for large hail, strong winds, and lightning is highlighted.
 
 Key Points:
 

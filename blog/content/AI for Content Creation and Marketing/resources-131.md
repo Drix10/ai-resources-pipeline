@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Pitch Deck Analysis
 
-AI agents can significantly accelerate the process of generating analyst-ready summaries from pitch decks. It highlights the efficiency gains and operational improvements achieved through automated analysis.
+This article explores how AI agents can significantly accelerate the process of generating analyst-ready summaries from pitch decks. It highlights the efficiency gains and operational improvements achieved through automated analysis.
 
 Key Points:
 

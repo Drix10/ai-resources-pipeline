@@ -1,6 +1,6 @@
 ### 🤖 AI Seminars - Biological vs. Artificial Neural Networks
 
-Launch of the REAL AI Seminar Series and highlights Dr. Fatih Dinc's presentation, which focused on the comparison between biological and artificial neural networks.
+This article covers the launch of the REAL AI Seminar Series and highlights Dr. Fatih Dinc's presentation, which focused on the comparison between biological and artificial neural networks.
 
 Key Points:
 

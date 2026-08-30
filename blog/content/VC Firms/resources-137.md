@@ -1,6 +1,6 @@
 ### 🚀 Open Source Projects - GitHub Trending Recognition
 
-Recent success of OpenBB Finance and NocoDB, two open-source projects from the OSS Capital portfolio, in reaching the first page of GitHub trending.
+This article highlights the recent success of OpenBB Finance and NocoDB, two open-source projects from the OSS Capital portfolio, in reaching the first page of GitHub trending.
 
 Key Points:
 

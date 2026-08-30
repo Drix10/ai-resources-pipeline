@@ -1,6 +1,6 @@
 ### ✨ ElevenLabs - Pricing Update
 
-New reduced pricing structure for ElevenAPI and ElevenAgents services. It highlights significant cost reductions for self-serve developers across various features.
+This article details the new reduced pricing structure for ElevenAPI and ElevenAgents services. It highlights significant cost reductions for self-serve developers across various features.
 
 Key Points:
 

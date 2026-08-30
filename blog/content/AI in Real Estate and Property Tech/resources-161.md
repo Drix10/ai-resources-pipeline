@@ -1,6 +1,6 @@
 ### 💡 Landscape Design - Pathway Lighting
 
-Pathway lighting enhances outdoor spaces, focusing on extending usability and improving safety and aesthetics during evening hours.
+This article outlines how pathway lighting enhances outdoor spaces, focusing on extending usability and improving safety and aesthetics during evening hours.
 
 Key Points:
 

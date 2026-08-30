@@ -1,6 +1,6 @@
 ### 🤖 AI Salaries - Gauntlet AI Cohort 1
 
-Salary data from Cohort 1 of Gauntlet AI, highlighting the range, median, and implications for hiring in the AI field.
+This article summarizes salary data from Cohort 1 of Gauntlet AI, highlighting the range, median, and implications for hiring in the AI field.
 
 Key Points:
 

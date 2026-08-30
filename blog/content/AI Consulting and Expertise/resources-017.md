@@ -1,6 +1,6 @@
 ### ⚠️ Geopolitics - NATO Fuel Supply Disruption
 
-Reported incident where a Norwegian company refused to sell diesel fuel to a US Navy submarine, highlighting potential geopolitical implications.
+This article discusses a reported incident where a Norwegian company refused to sell diesel fuel to a US Navy submarine, highlighting potential geopolitical implications.
 
 Key Points:
 

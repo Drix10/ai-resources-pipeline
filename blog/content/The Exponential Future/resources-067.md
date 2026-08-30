@@ -1,6 +1,6 @@
 ### 🤖 Starlink - Indian Market Entry
 
-Starlink's acquisition of a license to operate satellite internet services in India, concluding a three-year application process.  It highlights the significance of this event within India's telecommunications sector.
+This article covers Starlink's acquisition of a license to operate satellite internet services in India, concluding a three-year application process.  It highlights the significance of this event within India's telecommunications sector.
 
 Key Points:
 

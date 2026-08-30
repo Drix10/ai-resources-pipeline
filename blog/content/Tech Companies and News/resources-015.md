@@ -1,6 +1,6 @@
 ### 🤖 Leadership - Brex's Turnaround
 
-Change in leadership at Brex and the subsequent implementation of a "command-and-control" approach to improve profitability.  The focus is on the CEO's role in ensuring alignment with customer needs.
+This article discusses the change in leadership at Brex and the subsequent implementation of a "command-and-control" approach to improve profitability.  The focus is on the CEO's role in ensuring alignment with customer needs.
 
 Key Points:
 

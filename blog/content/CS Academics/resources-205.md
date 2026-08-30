@@ -1,6 +1,6 @@
 ### 💡 NBA Playoff Series - Game Highlights
 
-Key plays from a significant NBA playoff game. It highlights individual player contributions during a crucial first-round matchup.
+This article provides a brief overview of key plays from a significant NBA playoff game. It highlights individual player contributions during a crucial first-round matchup.
 
 Key Points:
 

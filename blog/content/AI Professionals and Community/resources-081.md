@@ -1,6 +1,6 @@
 ### 🤖 AI Art - Learning from Influencers
 
-Importance of following prominent figures in the AI art community to improve one's skills and showcases examples of AI-generated art.
+This article discusses the importance of following prominent figures in the AI art community to improve one's skills and showcases examples of AI-generated art.
 
 Key Points:
 

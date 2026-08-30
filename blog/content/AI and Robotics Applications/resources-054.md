@@ -1,6 +1,6 @@
 ### 🤖 Industrialization - Memetic Barriers
 
-Influence of pre-existing mental models, specifically using the example of interchangeable parts in firearm manufacturing, on problem-solving in industrial contexts.  It highlights how ingrained assumptions can hinder innovation.
+This article discusses the influence of pre-existing mental models, specifically using the example of interchangeable parts in firearm manufacturing, on problem-solving in industrial contexts.  It highlights how ingrained assumptions can hinder innovation.
 
 
 Key Points:

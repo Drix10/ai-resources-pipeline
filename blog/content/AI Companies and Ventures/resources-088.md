@@ -1,6 +1,6 @@
 ### 🚀 Social Media - Automating Retweet Strategy
 
-Using Circleboom to automatically reshare your most retweeted tweets, potentially increasing their reach.  It also mentions options for rewriting tweets with AI and scheduling for optimal times.
+This article discusses using Circleboom to automatically reshare your most retweeted tweets, potentially increasing their reach.  It also mentions options for rewriting tweets with AI and scheduling for optimal times.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Dynamic 3D - Monocular Video Reconstruction
 
-Advancements in generating dynamic 3D reconstructions using monocular video input. It highlights how combining static pre-scans with video data leads to richer and more detailed models. The approach becomes more practical as image-to-3D technologies improve.
+This article discusses the advancements in generating dynamic 3D reconstructions using monocular video input. It highlights how combining static pre-scans with video data leads to richer and more detailed models. The approach becomes more practical as image-to-3D technologies improve.
 
 Key Points:
 

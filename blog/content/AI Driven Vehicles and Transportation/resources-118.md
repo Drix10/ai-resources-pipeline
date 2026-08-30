@@ -1,6 +1,6 @@
 ### 🤖 Autonomous Driving - Tesla Robotaxi Deployment
 
-Sighting of multiple Tesla Model Y Robotaxis operating unsupervised in Austin, Texas. These vehicles utilize Full Self-Driving technology without human occupants in the front seats.
+This article discusses the sighting of multiple Tesla Model Y Robotaxis operating unsupervised in Austin, Texas. These vehicles utilize Full Self-Driving technology without human occupants in the front seats.
 
 Key Points:
 

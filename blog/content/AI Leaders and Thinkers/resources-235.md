@@ -1,6 +1,6 @@
 ### 🤖 Hermes Agent - Community Hardware Deployments
 
-Community interest in deploying the Hermes Agent on a variety of hardware configurations.
+This article highlights community interest in deploying the Hermes Agent on a variety of hardware configurations.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Google's AI Dominance - LLM and Generative Media Leadership
 
-Google's current leading position in the AI market across various modalities, including large language models (LLMs), image generation, and video generation.  It notes Google's competitive advantage across different price points and latency levels.
+This article discusses Google's current leading position in the AI market across various modalities, including large language models (LLMs), image generation, and video generation.  It notes Google's competitive advantage across different price points and latency levels.
 
 Key Points:
 

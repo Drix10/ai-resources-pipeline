@@ -1,6 +1,6 @@
 ### 💡 Social Media Trends - Political Discourse
 
-Coordinated social media activity surrounding political narratives. It outlines how specific accounts can amplify messages in unison to influence public perception on particular topics.
+This article examines coordinated social media activity surrounding political narratives. It outlines how specific accounts can amplify messages in unison to influence public perception on particular topics.
 
 Key Points:
 

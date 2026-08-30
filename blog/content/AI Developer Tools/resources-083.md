@@ -1,6 +1,6 @@
 ### 🤖 Cloud Browser Agents - Limitations and Alternatives
 
-Limitations of cloud browser agents, highlighting their high cost and slow performance, and proposes in-browser AI web agents as a more viable alternative.
+This article discusses the limitations of cloud browser agents, highlighting their high cost and slow performance, and proposes in-browser AI web agents as a more viable alternative.
 
 Key Points:
 

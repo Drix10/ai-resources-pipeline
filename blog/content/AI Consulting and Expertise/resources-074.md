@@ -1,6 +1,6 @@
 ### 💡 Education - Cognitive Impact of Academic Dishonesty
 
-Study indicating a correlation between students using tutors to write their papers and subsequent cognitive slowdown.  The study highlights the importance of independent academic work for cognitive development.
+This article discusses a study indicating a correlation between students using tutors to write their papers and subsequent cognitive slowdown.  The study highlights the importance of independent academic work for cognitive development.
 
 
 Key Points:

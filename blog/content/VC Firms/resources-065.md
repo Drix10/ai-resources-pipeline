@@ -1,6 +1,6 @@
 ### 🚀 FinTech - Beam Funding
 
-Beam's recent $7 million funding round and the challenges in the global financial system that Beam aims to address.  It highlights the inefficiencies in current cross-border transaction systems.
+This article discusses Beam's recent $7 million funding round and the challenges in the global financial system that Beam aims to address.  It highlights the inefficiencies in current cross-border transaction systems.
 
 Key Points:
 

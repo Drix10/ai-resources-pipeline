@@ -1,6 +1,6 @@
 ### 🤖 US Politics - Kennedy's Push for Artificial Color Additive Removal
 
-Closed-door meeting where Health Secretary Robert F. Kennedy Jr. urged food industry leaders to remove artificial color additives from their products.
+This article summarizes a closed-door meeting where Health Secretary Robert F. Kennedy Jr. urged food industry leaders to remove artificial color additives from their products.
 
 Key Points:
 

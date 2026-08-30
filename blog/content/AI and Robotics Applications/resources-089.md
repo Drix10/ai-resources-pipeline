@@ -1,6 +1,6 @@
 ### 🤖 Robotics Podcast - Increased Discoverability
 
-Efforts to improve the discoverability of the RoboPapers podcast, highlighting the contributions of Chris Paxton and the podcast's focus on robotics research.
+This article discusses efforts to improve the discoverability of the RoboPapers podcast, highlighting the contributions of Chris Paxton and the podcast's focus on robotics research.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Apple's FastVLM - Real-time Vision Language Models
 
-Apple's newly released FastVLM, a set of real-time Vision Language Models (VLMs) available on Hugging Face.  It highlights key performance improvements and features.
+This article discusses Apple's newly released FastVLM, a set of real-time Vision Language Models (VLMs) available on Hugging Face.  It highlights key performance improvements and features.
 
 Key Points:
 

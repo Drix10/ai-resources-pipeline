@@ -1,6 +1,6 @@
 ### 🤖 AI Ethics - Human-Centric AI Development
 
-Webinar on building human-centric AI, focusing on transparency, ethics, and regulation.  The webinar features Origin Trail and the British Standards Institution.
+This article discusses a webinar on building human-centric AI, focusing on transparency, ethics, and regulation.  The webinar features Origin Trail and the British Standards Institution.
 
 Key Points:
 

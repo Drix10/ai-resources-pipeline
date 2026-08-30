@@ -1,6 +1,6 @@
 ### 🤖 3D/VR180 Cameras - Kandao EGO 2
 
-Kandao EGO 2 camera, a modular system offering various 3D and VR180 capture modes through interchangeable lenses and sensors.
+This article discusses the Kandao EGO 2 camera, a modular system offering various 3D and VR180 capture modes through interchangeable lenses and sensors.
 
 Key Points:
 

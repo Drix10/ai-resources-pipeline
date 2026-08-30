@@ -1,6 +1,6 @@
 ### 🗣️ Voice Acting - Sarina in SoulMart
 
-Voice acting work for the character Sarina in the SoulMart project, highlighting collaboration with DillonGoo and Tonkhaikichi.  Images from Anime Expo are included.
+This article discusses voice acting work for the character Sarina in the SoulMart project, highlighting collaboration with DillonGoo and Tonkhaikichi.  Images from Anime Expo are included.
 
 Key Points:
 

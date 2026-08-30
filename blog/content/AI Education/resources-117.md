@@ -1,6 +1,6 @@
 ### 🤖 Celebrity Worship and Cognitive Skills - A 20-Year Study
 
-Research findings on the correlation between celebrity worship and cognitive skills, based on two decades of studies.  The research explores the potential negative impact of excessive celebrity admiration on cognitive abilities.
+This article summarizes research findings on the correlation between celebrity worship and cognitive skills, based on two decades of studies.  The research explores the potential negative impact of excessive celebrity admiration on cognitive abilities.
 
 Key Points:
 

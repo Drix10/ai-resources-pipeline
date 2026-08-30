@@ -1,6 +1,6 @@
 ### 💡 NBA Live Broadcast - POR/SAS Game 2
 
-Information regarding the live broadcast of Game 2 between the Portland Trail Blazers and San Antonio Spurs. It details the platforms available for viewers to watch the game in real-time.
+This article provides information regarding the live broadcast of Game 2 between the Portland Trail Blazers and San Antonio Spurs. It details the platforms available for viewers to watch the game in real-time.
 
 Key Points:
 

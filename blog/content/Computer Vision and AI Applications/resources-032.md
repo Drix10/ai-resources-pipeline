@@ -1,6 +1,6 @@
 ### 🤖 AI Integration - Egocentric LLM Assistant
 
-EgoLife, a project aiming to integrate AI into daily life by training an omni-modal LLM assistant using wearable glasses video data.  The focus is on the development of an egocentric AI perspective.
+This article discusses EgoLife, a project aiming to integrate AI into daily life by training an omni-modal LLM assistant using wearable glasses video data.  The focus is on the development of an egocentric AI perspective.
 
 Key Points:
 

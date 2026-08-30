@@ -1,6 +1,6 @@
 ### 🚀 DeFi - YieldNest BuildKey Launch
 
-Upcoming launch of YieldNest's BuildKey on March 18th, highlighting key features and the tokenomics of the $YND token.  It also provides information on redemption details.
+This article details the upcoming launch of YieldNest's BuildKey on March 18th, highlighting key features and the tokenomics of the $YND token.  It also provides information on redemption details.
 
 
 Key Points:

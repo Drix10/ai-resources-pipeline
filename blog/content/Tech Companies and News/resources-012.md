@@ -1,6 +1,6 @@
 ### 🤖 Automation - Addressing Understaffing with AI and Robotics
 
-Increasing use of AI and industrial robots to address labor shortages and improve workplace efficiency.  It highlights the benefits for both productivity and employee retention.
+This article discusses the increasing use of AI and industrial robots to address labor shortages and improve workplace efficiency.  It highlights the benefits for both productivity and employee retention.
 
 Key Points:
 

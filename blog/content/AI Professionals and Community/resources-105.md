@@ -1,6 +1,6 @@
 ### 💡 Work Metaphors - Culinary Vocabulary
 
-Use of food metaphors to describe work activities, suggesting a broader vocabulary for enhanced communication.  The author intends to expand the use of this style in casual conversation.
+This article explores the use of food metaphors to describe work activities, suggesting a broader vocabulary for enhanced communication.  The author intends to expand the use of this style in casual conversation.
 
 
 Key Points:

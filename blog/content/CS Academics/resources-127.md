@@ -1,6 +1,6 @@
 ### 👩‍👧‍👧 History - Women at Auschwitz
 
-Roles of women serving the SS in KL Auschwitz, categorized into three groups based on their duties.  The largest group were the Aufseherinnen, responsible for supervising women prisoners.
+This article discusses the roles of women serving the SS in KL Auschwitz, categorized into three groups based on their duties.  The largest group were the Aufseherinnen, responsible for supervising women prisoners.
 
 Key Points:
 

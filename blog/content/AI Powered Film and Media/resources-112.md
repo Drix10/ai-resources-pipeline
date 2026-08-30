@@ -1,6 +1,6 @@
 ### 🤝 Networking - MICCAI 2025 MIRASOL Workshop
 
-Information about the MIRASOL Workshop at MICCAI 2025, focusing on federated learning, AI for LMICs, and global health imaging.  It highlights networking opportunities and collaboration.
+This article provides information about the MIRASOL Workshop at MICCAI 2025, focusing on federated learning, AI for LMICs, and global health imaging.  It highlights networking opportunities and collaboration.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Healthcare Collaboration - AI Integration at Clínica Navarra
 
-Implementation of Ibex's AI at Clínica Navarra, highlighting the collaborative partnership with Barco Health and Roche to enhance healthcare efficiency and quality.
+This article discusses the implementation of Ibex's AI at Clínica Navarra, highlighting the collaborative partnership with Barco Health and Roche to enhance healthcare efficiency and quality.
 
 Key Points:
 

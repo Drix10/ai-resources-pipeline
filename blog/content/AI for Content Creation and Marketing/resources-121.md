@@ -1,6 +1,6 @@
 ### 🤖 Sports Analytics - NBA Betting Props
 
-NBA Best Props Sheet, powered by AI for data-driven insights into player and game statistics. It highlights the availability of these sheets for betting analysis.
+This article details the NBA Best Props Sheet, powered by AI for data-driven insights into player and game statistics. It highlights the availability of these sheets for betting analysis.
 
 Key Points:
 

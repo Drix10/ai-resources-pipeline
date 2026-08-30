@@ -1,6 +1,6 @@
 ### 💡 World Cup - Egypt's Engagement
 
-General sentiment and engagement surrounding Egypt's participation in the FIFA World Cup. It captures the atmosphere of joy and national pride associated with the tournament.
+This article highlights the general sentiment and engagement surrounding Egypt's participation in the FIFA World Cup. It captures the atmosphere of joy and national pride associated with the tournament.
 
 Key Points:
 

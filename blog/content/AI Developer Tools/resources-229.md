@@ -1,6 +1,6 @@
 ### 🤖 Wafer AI - GLM 5.2 Performance
 
-Use of the Wafer AI platform and the performance observed with GLM 5.2.
+This article covers the use of the Wafer AI platform and the performance observed with GLM 5.2.
 
 Key Points:
 

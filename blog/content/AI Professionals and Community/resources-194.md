@@ -1,6 +1,6 @@
 ### 🤖 Vector Calculus - Helmholtz Decomposition
 
-Helmholtz decomposition, a fundamental concept in vector calculus. It explains how this decomposition separates a vector field into components related to its divergence and curl.
+This article discusses the Helmholtz decomposition, a fundamental concept in vector calculus. It explains how this decomposition separates a vector field into components related to its divergence and curl.
 
 Key Points:
 

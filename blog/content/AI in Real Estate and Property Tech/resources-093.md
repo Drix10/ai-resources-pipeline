@@ -1,6 +1,6 @@
 ### 🤖 Real Estate - Lennar's Crexi Intelligence Adoption
 
-Lennar Atlanta's adoption of Crexi Intelligence, a commercial real estate data platform, and its potential benefits for the company's operations.
+This article discusses Lennar Atlanta's adoption of Crexi Intelligence, a commercial real estate data platform, and its potential benefits for the company's operations.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Geopolitics - US-Venezuela Conflict Updates
 
-US President's press statement following recent US actions in Venezuela and the capture of President Nicolas Maduro. It provides live updates on the unfolding geopolitical situation.
+This article covers the US President's press statement following recent US actions in Venezuela and the capture of President Nicolas Maduro. It provides live updates on the unfolding geopolitical situation.
 
 Key Points:
 

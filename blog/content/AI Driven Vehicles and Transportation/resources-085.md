@@ -1,6 +1,6 @@
 ### 🤖 Automotive Engineering - High-Speed Vehicle Range
 
-Relationship between velocity and range in high-speed vehicles, where aerodynamic forces become dominant.  It focuses on the significant reduction in range at speeds exceeding 90 km/h.
+This article discusses the relationship between velocity and range in high-speed vehicles, where aerodynamic forces become dominant.  It focuses on the significant reduction in range at speeds exceeding 90 km/h.
 
 Key Points:
 

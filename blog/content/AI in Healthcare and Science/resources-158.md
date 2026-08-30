@@ -1,6 +1,6 @@
 ### 🤖 Drug Discovery - Computational Safety Prediction
 
-Critical role of computational chemistry in predicting drug toxicity early in the discovery process. It emphasizes the importance of safety assessment before compounds enter laboratory testing.
+This article discusses the critical role of computational chemistry in predicting drug toxicity early in the discovery process. It emphasizes the importance of safety assessment before compounds enter laboratory testing.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Nikola Tesla - Enduring Scientific Legacy
 
-Life and significant contributions of Nikola Tesla, highlighting his foundational work in modern electricity and his prolific inventive career. It covers his key inventions and personal life aspects.
+This article explores the life and significant contributions of Nikola Tesla, highlighting his foundational work in modern electricity and his prolific inventive career. It covers his key inventions and personal life aspects.
 
 Key Points:
 

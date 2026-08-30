@@ -1,6 +1,6 @@
 ### 💡 Social Commentary - Core Values Under Scrutiny
 
-Tragic event concerning Alex Pretti and its implications for national core values. It aims to prompt consideration of current challenges facing societal principles.
+This article discusses the tragic event concerning Alex Pretti and its implications for national core values. It aims to prompt consideration of current challenges facing societal principles.
 
 Key Points:
 

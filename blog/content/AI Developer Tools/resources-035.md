@@ -1,6 +1,6 @@
 ### 🤖 AI Coding Agents - Context is Key
 
-Importance of context in AI coding agents and highlights the benefits of providing agents with access to an entire codebase.  The high cost of inefficient AI agents is emphasized.
+This article discusses the importance of context in AI coding agents and highlights the benefits of providing agents with access to an entire codebase.  The high cost of inefficient AI agents is emphasized.
 
 Key Points:
 

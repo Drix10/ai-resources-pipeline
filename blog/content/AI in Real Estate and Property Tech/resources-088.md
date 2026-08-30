@@ -1,6 +1,6 @@
 ### 🤖 Machine Learning Domains - Wholesale Acquisition
 
-Availability of several .ml domain names related to machine learning, currently offered for sale.  The price and contact information are provided.
+This article details the availability of several .ml domain names related to machine learning, currently offered for sale.  The price and contact information are provided.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ⚠️ Political Violence - Threats and Justice
 
-Threats of violence against supporters of a political figure and the response from authorities.  The statement emphasizes the pursuit of justice for perpetrators of such acts.
+This article discusses threats of violence against supporters of a political figure and the response from authorities.  The statement emphasizes the pursuit of justice for perpetrators of such acts.
 
 Key Points:
 

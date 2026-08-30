@@ -1,6 +1,6 @@
 ### ⚠️ Cybersecurity - FBI Warning on Scattered Spider Attacks
 
-FBI's warning regarding increased Scattered Spider attacks in the US, highlighting their unique human-hacking capabilities and the exploitation of help desk vulnerabilities to bypass MFA.
+This article discusses the FBI's warning regarding increased Scattered Spider attacks in the US, highlighting their unique human-hacking capabilities and the exploitation of help desk vulnerabilities to bypass MFA.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Indian Politics - Uttar Pradesh Leadership Meeting
 
-Political meeting in Lucknow, India, involving key state leaders, including the Chief Minister and the state BJP president.
+This article covers a political meeting in Lucknow, India, involving key state leaders, including the Chief Minister and the state BJP president.
 
 Key Points:
 

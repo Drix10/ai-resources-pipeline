@@ -1,6 +1,6 @@
 ### 🚀 Agents - Feedback Channel Implementation
 
-Introduction of a new feedback mechanism for `agents.craft.do` following unexpected attention. It outlines the transition to GitHub Discussions as a primary channel for user engagement and feedback.
+This article details the introduction of a new feedback mechanism for `agents.craft.do` following unexpected attention. It outlines the transition to GitHub Discussions as a primary channel for user engagement and feedback.
 
 Key Points:
 

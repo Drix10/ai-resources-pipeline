@@ -1,6 +1,6 @@
 ### 💡 Financial Markets - Syndicated Loan Performance
 
-September performance of syndicated loans, detailing their weakest returns in five months. It highlights the influence of specific corporate debt on the overall market index.
+This article examines the September performance of syndicated loans, detailing their weakest returns in five months. It highlights the influence of specific corporate debt on the overall market index.
 
 Key Points:
 

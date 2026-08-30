@@ -1,6 +1,6 @@
 ### 💡 Career Transition - Investing in Early-Stage Ventures
 
-Co-founder's transition from operational roles to full-time early-stage investing. It covers insights into building a successful company and the philosophy behind venture capital.
+This article details a co-founder's transition from operational roles to full-time early-stage investing. It covers insights into building a successful company and the philosophy behind venture capital.
 
 Key Points:
 

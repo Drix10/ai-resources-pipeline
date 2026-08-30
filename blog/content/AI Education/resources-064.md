@@ -1,6 +1,6 @@
 ### 🤖 Polkadot News Roundup - Weekly Digest
 
-Key Polkadot news, including updates on DeFi projects, Kusama treasury, and community events, as presented in a recent video.
+This article summarizes the key Polkadot news, including updates on DeFi projects, Kusama treasury, and community events, as presented in a recent video.
 
 Key Points:
 

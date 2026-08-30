@@ -1,6 +1,6 @@
 ### 📚 Mathematics - Introduction to Harmonic Analysis
 
-Recent release of "Introduction to Harmonic Analysis" by Ricardo Saenz, suitable for undergraduate study or self-learning.  It is assumed the reader has a background in real analysis.
+This article highlights a recent release of "Introduction to Harmonic Analysis" by Ricardo Saenz, suitable for undergraduate study or self-learning.  It is assumed the reader has a background in real analysis.
 
 Key Points:
 

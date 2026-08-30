@@ -1,6 +1,6 @@
 ### 🤖 Cryptanalysis - Neural Networks
 
-Application of cryptanalysis techniques to neural networks. It explores the intersection of cybersecurity and artificial intelligence, focusing on the analysis of potential vulnerabilities within complex AI models.
+This article discusses the application of cryptanalysis techniques to neural networks. It explores the intersection of cybersecurity and artificial intelligence, focusing on the analysis of potential vulnerabilities within complex AI models.
 
 Key Points:
 

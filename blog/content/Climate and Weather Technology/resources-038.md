@@ -1,6 +1,6 @@
 ### ⚠️  Political News - NIOSH Employee Layoffs
 
-Reported layoffs of hundreds of NIOSH employees in Cincinnati and the potential consequences.
+This article discusses the reported layoffs of hundreds of NIOSH employees in Cincinnati and the potential consequences.
 
 Key Points:
 

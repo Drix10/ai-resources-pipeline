@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics - UAE Recruitment of Pentagon Staff
 
-Reported attempts by the UAE to recruit former Pentagon employees to work on AI for the UAE military.  The recruitment efforts reportedly targeted staff from the Defense Digital Service.
+This article discusses the reported attempts by the UAE to recruit former Pentagon employees to work on AI for the UAE military.  The recruitment efforts reportedly targeted staff from the Defense Digital Service.
 
 Key Points:
 

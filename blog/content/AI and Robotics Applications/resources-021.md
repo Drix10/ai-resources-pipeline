@@ -1,6 +1,6 @@
 ### 🤖 visionOS - UVC Device Access with Endoscope
 
-Experiment using UVC Device Access on visionOS with an endoscope to view a ventilation system.  The experiment highlighted the need for a higher-quality camera.
+This article details an experiment using UVC Device Access on visionOS with an endoscope to view a ventilation system.  The experiment highlighted the need for a higher-quality camera.
 
 Key Points:
 

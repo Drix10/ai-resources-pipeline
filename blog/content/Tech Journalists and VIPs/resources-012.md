@@ -1,6 +1,6 @@
 ### 🤖 Team Structures - Generalists and Specialists
 
-Optimal composition of teams, balancing generalist and specialist roles for efficient workflow and scalability, potentially aided by AI.
+This article discusses the optimal composition of teams, balancing generalist and specialist roles for efficient workflow and scalability, potentially aided by AI.
 
 Key Points:
 

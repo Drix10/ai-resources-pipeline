@@ -1,6 +1,6 @@
 ### 🤖 Observability - Claude Code Usage Monitoring
 
-Observability solution designed for monitoring Claude Code usage. It highlights a tool for tracking and analyzing the operational performance of applications utilizing Claude.
+This article discusses an observability solution designed for monitoring Claude Code usage. It highlights a tool for tracking and analyzing the operational performance of applications utilizing Claude.
 
 Key Points:
 

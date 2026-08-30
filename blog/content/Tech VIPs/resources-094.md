@@ -1,6 +1,6 @@
 ### 🎉 Events - COYOTE Game Launch in NYC
 
-Successful launch event for the card game COYOTE in New York City, highlighting the international attendance and the game's development.
+This article summarizes the successful launch event for the card game COYOTE in New York City, highlighting the international attendance and the game's development.
 
 Key Points:
 

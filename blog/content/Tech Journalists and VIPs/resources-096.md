@@ -1,6 +1,6 @@
 ### 🇪🇺 Guatemalan Lake Funding - Investigative Findings
 
-Findings from an investigation by the DEGU (@CongresoEscucha) regarding the allocation of over €10 million in European Union taxes to a Guatemalan lake.  The investigation was discussed on @AlbertCastillon's program.
+This article summarizes findings from an investigation by the DEGU (@CongresoEscucha) regarding the allocation of over €10 million in European Union taxes to a Guatemalan lake.  The investigation was discussed on @AlbertCastillon's program.
 
 Key Points:
 

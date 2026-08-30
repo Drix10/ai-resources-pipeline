@@ -1,6 +1,6 @@
 ### 🤖 Anthropic - Free Token Policy Change
 
-Recent decision by Anthropic to discontinue its free token offering, impacting users who previously relied on these complimentary resources. It highlights the shift in service access and its implications for the AI community.
+This article discusses the recent decision by Anthropic to discontinue its free token offering, impacting users who previously relied on these complimentary resources. It highlights the shift in service access and its implications for the AI community.
 
 Key Points:
 

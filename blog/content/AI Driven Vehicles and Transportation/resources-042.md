@@ -1,6 +1,6 @@
 ### 🤖 Spy Thriller - Student Prank
 
-Student prank involving disinformation and the unwitting participation of intelligence agents and disinformation specialists.  The prank successfully identified a mole within their ranks.
+This article details a student prank involving disinformation and the unwitting participation of intelligence agents and disinformation specialists.  The prank successfully identified a mole within their ranks.
 
 Key Points:
 

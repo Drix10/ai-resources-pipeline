@@ -1,6 +1,6 @@
 ### 🤖 AGI Bottlenecks - Scaling RL Environments
 
-Dwarkesh Patel's perspective on the limitations hindering Artificial General Intelligence (AGI) and economic automation, focusing on the role of scaled and diverse reinforcement learning environments.
+This article discusses Dwarkesh Patel's perspective on the limitations hindering Artificial General Intelligence (AGI) and economic automation, focusing on the role of scaled and diverse reinforcement learning environments.
 
 Key Points:
 

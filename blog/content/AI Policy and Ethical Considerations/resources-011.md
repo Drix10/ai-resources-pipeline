@@ -1,6 +1,6 @@
 ### 🤖 Politics - White House Press Corps Power Dynamics
 
-Power dynamics within the White House Press Corps and the implications of the White House Correspondents' Association's (WHCA) role in determining press pool access.  The focus is on the democratic election process of the WHCA and its impact on information dissemination.
+This article discusses the power dynamics within the White House Press Corps and the implications of the White House Correspondents' Association's (WHCA) role in determining press pool access.  The focus is on the democratic election process of the WHCA and its impact on information dissemination.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💰 Education - Executive Compensation
 
-Significant pay disparity between education executives and teachers, highlighting the high salaries earned by some administrators despite not directly teaching students.
+This article discusses the significant pay disparity between education executives and teachers, highlighting the high salaries earned by some administrators despite not directly teaching students.
 
 Key Points:
 

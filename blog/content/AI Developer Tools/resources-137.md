@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Claude Code Workspace Skills
 
-Using Claude Code as a versatile agent within a custom workspace. It covers the creation of an agent workspace and the integration of specific skills for various tasks.
+This article discusses using Claude Code as a versatile agent within a custom workspace. It covers the creation of an agent workspace and the integration of specific skills for various tasks.
 
 Key Points:
 

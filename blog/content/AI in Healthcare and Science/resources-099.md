@@ -1,6 +1,6 @@
 ### 🤖 AI in Healthcare - Reducing Clinician Burden
 
-AI is being used in healthcare to reduce administrative burdens on clinicians, allowing them to focus more on patient care.  A specific platform's impact on clinical documentation time and digital fatigue is highlighted.
+This article discusses how AI is being used in healthcare to reduce administrative burdens on clinicians, allowing them to focus more on patient care.  A specific platform's impact on clinical documentation time and digital fatigue is highlighted.
 
 Key Points:
 

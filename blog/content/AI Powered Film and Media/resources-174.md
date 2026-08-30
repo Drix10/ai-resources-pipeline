@@ -1,6 +1,6 @@
 ### 🤖 AI Ethics - Model Self-Report Accuracy
 
-Normative position on improving the accuracy of AI model self-reports from introspection, highlighting its importance in current AI welfare discussions. It discusses why enhancing model self-reporting is considered ethically beneficial.
+This article explores the normative position on improving the accuracy of AI model self-reports from introspection, highlighting its importance in current AI welfare discussions. It discusses why enhancing model self-reporting is considered ethically beneficial.
 
 Key Points:
 

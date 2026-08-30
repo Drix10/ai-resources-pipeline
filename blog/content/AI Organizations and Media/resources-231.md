@@ -1,6 +1,6 @@
 ### 🤖 AI in Medicine - Positive Impact
 
-Contributions of artificial intelligence to the medical field. It highlights areas where AI is creating beneficial outcomes.
+This article covers the contributions of artificial intelligence to the medical field. It highlights areas where AI is creating beneficial outcomes.
 
 Key Points:
 

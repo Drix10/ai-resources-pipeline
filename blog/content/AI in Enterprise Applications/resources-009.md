@@ -1,6 +1,6 @@
 ### 🤖 Engineering Hiring - Complex Legal Work
 
-Current engineering hiring efforts focused on building systems for complex legal work.  The focus areas include agentic workflows, search systems, and large-scale document processing.
+This article summarizes current engineering hiring efforts focused on building systems for complex legal work.  The focus areas include agentic workflows, search systems, and large-scale document processing.
 
 Key Points:
 

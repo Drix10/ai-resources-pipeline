@@ -1,6 +1,6 @@
 ### 💡 Athletics - Marathon World Record Breakthrough
 
-Unprecedented achievement of Sabastian Sawe, who broke the marathon world record by running under two hours. It details the record-breaking time and the performance of other top athletes in the race.
+This article covers the unprecedented achievement of Sabastian Sawe, who broke the marathon world record by running under two hours. It details the record-breaking time and the performance of other top athletes in the race.
 
 Key Points:
 

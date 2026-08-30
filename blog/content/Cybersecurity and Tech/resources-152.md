@@ -1,6 +1,6 @@
 ### 🚀 Microsoft Sentinel - Open-Sourced Security Toolkit
 
-Open-sourcing of Microsoft's Sentinel security toolkit. It addresses common challenges faced by teams in Azure for threat detection, highlighting available resources.
+This article discusses the open-sourcing of Microsoft's Sentinel security toolkit. It addresses common challenges faced by teams in Azure for threat detection, highlighting available resources.
 
 Key Points:
 

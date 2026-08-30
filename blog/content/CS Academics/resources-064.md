@@ -1,6 +1,6 @@
 ### 🚀 Copilot - Copilot Tuning
 
-Copilot Tuning, a new feature allowing enterprises to fine-tune large language models with their own data within the Microsoft 365 ecosystem.  It offers a secure and self-serve approach.
+This article discusses Copilot Tuning, a new feature allowing enterprises to fine-tune large language models with their own data within the Microsoft 365 ecosystem.  It offers a secure and self-serve approach.
 
 Key Points:
 

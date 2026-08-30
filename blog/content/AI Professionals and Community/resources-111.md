@@ -1,6 +1,6 @@
 ### 🤖 AI Economic Impact - US State Analysis
 
-Anthropic's report analyzing AI usage across US states.  The report and interactive data are available online.
+This article summarizes Anthropic's report analyzing AI usage across US states.  The report and interactive data are available online.
 
 Key Points:
 

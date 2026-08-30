@@ -1,6 +1,6 @@
 ### 📅 Events - Women in Neuro UK
 
-Upcoming in-person and virtual events hosted by Women in Neuro UK.  The events will be held in Birmingham, Sheffield, and online.
+This article summarizes upcoming in-person and virtual events hosted by Women in Neuro UK.  The events will be held in Birmingham, Sheffield, and online.
 
 Key Points:
 

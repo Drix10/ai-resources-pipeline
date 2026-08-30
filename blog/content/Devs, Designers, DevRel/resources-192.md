@@ -1,6 +1,6 @@
 ### 🚀 Homelab - Self-Hosting Subscription Services
 
-Process of establishing a personal homelab to replace numerous online subscription services, leveraging AI for code generation. It explores the motivation behind self-hosting and the technical feasibility of running essential services locally.
+This article details the process of establishing a personal homelab to replace numerous online subscription services, leveraging AI for code generation. It explores the motivation behind self-hosting and the technical feasibility of running essential services locally.
 
 Key Points:
 

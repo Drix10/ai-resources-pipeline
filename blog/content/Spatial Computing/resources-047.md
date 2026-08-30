@@ -1,6 +1,6 @@
 ### ✨ Foursquare Places Dataset - May Release
 
-May 2024 release of the Foursquare Places dataset, including new operational models and availability across multiple platforms.
+This article details the May 2024 release of the Foursquare Places dataset, including new operational models and availability across multiple platforms.
 
 Key Points:
 

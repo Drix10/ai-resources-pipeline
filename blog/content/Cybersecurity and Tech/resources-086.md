@@ -1,6 +1,6 @@
 ### 🌎 Geopolitics - Cold War 2.0
 
-Emerging geopolitical landscape, characterized by a new Cold War dynamic and its implications for European policy.  The author suggests a shift in global order requires a reevaluation of existing political strategies.
+This article discusses the emerging geopolitical landscape, characterized by a new Cold War dynamic and its implications for European policy.  The author suggests a shift in global order requires a reevaluation of existing political strategies.
 
 Key Points:
 

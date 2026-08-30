@@ -1,6 +1,6 @@
 ### 🤖 Politics - Internet Access and Deployment
 
-Discussion regarding the deployment of internet access infrastructure in the United States, specifically criticizing the perceived lack of progress under the Biden administration.
+This article summarizes a discussion regarding the deployment of internet access infrastructure in the United States, specifically criticizing the perceived lack of progress under the Biden administration.
 
 Key Points:
 

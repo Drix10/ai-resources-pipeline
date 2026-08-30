@@ -1,6 +1,6 @@
 ### 🤖 Decentralized Finance - Liquid Restaking with EtherFi
 
-EtherFi's role in the decentralized finance landscape, highlighting its inclusion in the COIN50 Index. It discusses the project's focus on liquid restaking solutions and integration with payment capabilities.
+This article covers EtherFi's role in the decentralized finance landscape, highlighting its inclusion in the COIN50 Index. It discusses the project's focus on liquid restaking solutions and integration with payment capabilities.
 
 Key Points:
 

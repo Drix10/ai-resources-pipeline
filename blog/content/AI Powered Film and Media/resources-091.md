@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Chain of Thought Reasoning
 
-Research paper arguing that chain of thought prompting in large language models (LLMs) relies on pattern matching within training data rather than genuine reasoning.  The limitations of chain of thought prompting are explored.
+This article discusses a research paper arguing that chain of thought prompting in large language models (LLMs) relies on pattern matching within training data rather than genuine reasoning.  The limitations of chain of thought prompting are explored.
 
 Key Points:
 

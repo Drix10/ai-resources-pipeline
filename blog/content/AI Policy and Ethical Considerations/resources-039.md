@@ -1,6 +1,6 @@
 ### 🤖 Drones - Legal Ramifications of Shooting Down Drones
 
-AUVSI's opposition to the "Defense Against Drones Act," highlighting concerns about misidentification of aircraft and the potential consequences of authorizing drone shootdowns.
+This article discusses AUVSI's opposition to the "Defense Against Drones Act," highlighting concerns about misidentification of aircraft and the potential consequences of authorizing drone shootdowns.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Venture Capital - Investor Rights in Late-Stage Deals
 
-Risks associated with late-stage venture capital investments in 2021, particularly the lack of investor protections and the potential for underwater positions upon IPO.
+This article discusses the risks associated with late-stage venture capital investments in 2021, particularly the lack of investor protections and the potential for underwater positions upon IPO.
 
 Key Points:
 

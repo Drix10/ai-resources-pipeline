@@ -1,6 +1,6 @@
 ### 🤖 Unity Networking - Rigidbody Sync with Normcore
 
-Normcore's exceptional capability in synchronizing rigidbodies within Unity, ensuring a fluid and responsive multiplayer experience. It discusses the critical impact of this feature on game development, especially for interactive physics-based gameplay.
+This article highlights Normcore's exceptional capability in synchronizing rigidbodies within Unity, ensuring a fluid and responsive multiplayer experience. It discusses the critical impact of this feature on game development, especially for interactive physics-based gameplay.
 
 Key Points:
 

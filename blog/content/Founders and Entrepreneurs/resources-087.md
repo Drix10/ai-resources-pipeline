@@ -1,6 +1,6 @@
 ### ⚖️ Politics - Jeanine Pirro's Remarks on Government
 
-Statement made by Jeanine Pirro regarding her experiences working in government, specifically focusing on her perspective on government efficiency and spending.
+This article summarizes a statement made by Jeanine Pirro regarding her experiences working in government, specifically focusing on her perspective on government efficiency and spending.
 
 Key Points:
 

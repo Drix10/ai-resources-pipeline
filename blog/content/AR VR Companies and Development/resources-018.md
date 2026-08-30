@@ -1,6 +1,6 @@
 ### 🚀 Metaverse - Property Development
 
-Collaboration between xSPECTAR and AJ_Studios_AV in developing properties for the xSPECTAR metaverse, specifically focusing on apartment availability in the XSTOWER.
+This article discusses the collaboration between xSPECTAR and AJ_Studios_AV in developing properties for the xSPECTAR metaverse, specifically focusing on apartment availability in the XSTOWER.
 
 Key Points:
 

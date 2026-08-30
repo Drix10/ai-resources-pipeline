@@ -1,6 +1,6 @@
 ### 📈 Mercor's Rapid Growth and Funding Round
 
-Mercor's significant growth, reaching $500M ARR in 17 months, its recent $10B funding round, and potential IPO.  The information is based on publicly available data.
+This article summarizes Mercor's significant growth, reaching $500M ARR in 17 months, its recent $10B funding round, and potential IPO.  The information is based on publicly available data.
 
 Key Points:
 

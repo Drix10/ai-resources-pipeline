@@ -1,6 +1,6 @@
 ### 🤖 Home Air Quality - Managing Cedar Fever
 
-Author's approach to improving indoor air quality in Austin, Texas, specifically addressing cedar fever allergies.  The solution involves air quality monitoring and air purification.
+This article details the author's approach to improving indoor air quality in Austin, Texas, specifically addressing cedar fever allergies.  The solution involves air quality monitoring and air purification.
 
 Key Points:
 

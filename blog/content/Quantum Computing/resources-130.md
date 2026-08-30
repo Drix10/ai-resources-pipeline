@@ -1,6 +1,6 @@
 ### 🤖 Web Agents - Model Training with Qwen3-7B-VL
 
-Initial model selection for web agents, focusing on the Qwen3-7B-VL model family. It covers the strategic decision to incorporate vision capabilities and enable memory token output for handling complex, long-horizon tasks.
+This article details the initial model selection for web agents, focusing on the Qwen3-7B-VL model family. It covers the strategic decision to incorporate vision capabilities and enable memory token output for handling complex, long-horizon tasks.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Physics - Louis Witten and the Unification of Forces
 
-Work of Louis Witten, his son Ed Witten, and the historical context of their contributions to theoretical physics, particularly concerning the unification of gravity and electromagnetism.  It also addresses some apparent contradictions in the timeline of their achievements.
+This article explores the work of Louis Witten, his son Ed Witten, and the historical context of their contributions to theoretical physics, particularly concerning the unification of gravity and electromagnetism.  It also addresses some apparent contradictions in the timeline of their achievements.
 
 
 Key Points:

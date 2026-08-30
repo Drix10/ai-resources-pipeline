@@ -1,6 +1,6 @@
 ### ⚠️  Andrew Tate - Violence and Planning
 
-Tweet by Andrew Tate posing a question about planning amidst threats of violence.  It includes an image from the original tweet.
+This article discusses a tweet by Andrew Tate posing a question about planning amidst threats of violence.  It includes an image from the original tweet.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Speech Processing - Robust Long-Form Bangla ASR and Diarization
 
-Development of robust automatic speech recognition and speaker diarization systems specifically for long-form Bangla speech. It covers techniques designed to handle the complexities of extended audio recordings in a low-resource language context.
+This article focuses on the development of robust automatic speech recognition and speaker diarization systems specifically for long-form Bangla speech. It covers techniques designed to handle the complexities of extended audio recordings in a low-resource language context.
 
 Key Points:
 

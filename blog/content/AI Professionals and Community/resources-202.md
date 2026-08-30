@@ -1,6 +1,6 @@
 ### 🤖 Waymo Autonomous Vehicles - Operational Challenges
 
-User's initial experience with a Waymo autonomous vehicle, highlighting an operational issue encountered during a ride. It details the process of receiving support and the subsequent escalation for vehicle resolution.
+This article discusses a user's initial experience with a Waymo autonomous vehicle, highlighting an operational issue encountered during a ride. It details the process of receiving support and the subsequent escalation for vehicle resolution.
 
 Key Points:
 

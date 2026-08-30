@@ -1,6 +1,6 @@
 ### 🤖 AI Alignment - Theory of Mind Approach
 
-Noumenal Labs' approach to AI alignment, focusing on the theory of mind.  It summarizes key findings and upcoming data releases.
+This article discusses Noumenal Labs' approach to AI alignment, focusing on the theory of mind.  It summarizes key findings and upcoming data releases.
 
 Key Points:
 

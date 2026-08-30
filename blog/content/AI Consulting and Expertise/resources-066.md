@@ -1,6 +1,6 @@
 ### 💡 Email Etiquette - Follow-up on Delays
 
-Template for a professional follow-up email regarding a delayed response or action, focusing on polite inquiry, importance of timely resolution, and clear deadline statements.
+This article provides a template for a professional follow-up email regarding a delayed response or action, focusing on polite inquiry, importance of timely resolution, and clear deadline statements.
 
 Key Points:
 

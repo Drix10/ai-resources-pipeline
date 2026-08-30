@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Pre-computation for Movement
 
-Recent developments allowing robots to plan actions prior to execution. It covers how a new AI model integrates perception and language with physical actions.
+This article discusses recent developments allowing robots to plan actions prior to execution. It covers how a new AI model integrates perception and language with physical actions.
 
 Key Points:
 

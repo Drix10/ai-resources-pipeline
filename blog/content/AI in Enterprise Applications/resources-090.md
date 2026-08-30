@@ -1,6 +1,6 @@
 ### 🤖 AI Value Measurement - Best Practices
 
-Best practices and lessons learned in measuring the value of AI investments, addressing challenges faced by AI and data leaders.  It highlights key takeaways from a related eBook.
+This article summarizes best practices and lessons learned in measuring the value of AI investments, addressing challenges faced by AI and data leaders.  It highlights key takeaways from a related eBook.
 
 Key Points:
 

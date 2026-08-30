@@ -1,6 +1,6 @@
 ### 🔬 Pharmaceutical Funding - NIH Contributions
 
-Significant contribution of the National Institutes of Health (NIH) to pharmaceutical drug approvals between 2010 and 2019.  It also briefly discusses potential implications of reduced NIH funding.
+This article examines the significant contribution of the National Institutes of Health (NIH) to pharmaceutical drug approvals between 2010 and 2019.  It also briefly discusses potential implications of reduced NIH funding.
 
 Key Points:
 

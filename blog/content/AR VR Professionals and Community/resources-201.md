@@ -1,6 +1,6 @@
 ### 🎮 Indie Game - Visual Inspiration
 
-Indie game project that draws inspiration from established titles known for their unique aesthetics and gameplay. The developer aims to capture a similar style and player experience.
+This article covers an indie game project that draws inspiration from established titles known for their unique aesthetics and gameplay. The developer aims to capture a similar style and player experience.
 
 Key Points:
 

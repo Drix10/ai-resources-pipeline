@@ -1,6 +1,6 @@
 ### 🤖 Manufacturing - Scalable Industrial Capacity
 
-Challenges in securing scalable industrial capacity for manufacturing jet engine parts, highlighting unexpected hurdles related to global supply chains.
+This article discusses challenges in securing scalable industrial capacity for manufacturing jet engine parts, highlighting unexpected hurdles related to global supply chains.
 
 Key Points:
 

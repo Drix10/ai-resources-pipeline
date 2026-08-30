@@ -1,6 +1,6 @@
 ### 💡 Climate - Sub-Zero Temperatures in Kashmir
 
-Freezing of Dal Lake due to extreme sub-zero temperatures impacting the Kashmir region. It describes the significant cold wave affecting local conditions.
+This article covers the freezing of Dal Lake due to extreme sub-zero temperatures impacting the Kashmir region. It describes the significant cold wave affecting local conditions.
 
 Key Points:
 

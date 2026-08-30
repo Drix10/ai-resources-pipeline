@@ -1,6 +1,6 @@
 ### 🤖 Open Source Software - End-of-Life Risks
 
-Risks associated with critical open-source software projects reaching their end-of-life and strategies for mitigating those risks.  It focuses on early risk identification and protecting your software stack.
+This article discusses the risks associated with critical open-source software projects reaching their end-of-life and strategies for mitigating those risks.  It focuses on early risk identification and protecting your software stack.
 
 Key Points:
 

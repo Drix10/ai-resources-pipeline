@@ -1,6 +1,6 @@
 ### 🚀 Video Editing - Streamlining Workflow with Descript
 
-Use of Descript for video editing, focusing on its Smart Transitions feature to create smoother edits.  The author advocates for its use to improve video quality.
+This article discusses the use of Descript for video editing, focusing on its Smart Transitions feature to create smoother edits.  The author advocates for its use to improve video quality.
 
 Key Points:
 

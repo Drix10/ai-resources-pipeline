@@ -1,6 +1,6 @@
 ### 💡 Personal Journey - Taking Action on Ancestry Discoveries
 
-Common challenge of translating personal discoveries, such as ancestral origins from DNA tests, into tangible travel plans. It highlights the inertia often experienced after initial research and the delay in booking a trip.
+This article discusses the common challenge of translating personal discoveries, such as ancestral origins from DNA tests, into tangible travel plans. It highlights the inertia often experienced after initial research and the delay in booking a trip.
 
 Key Points:
 

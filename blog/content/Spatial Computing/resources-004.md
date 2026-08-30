@@ -1,6 +1,6 @@
 ### 💡 SketchUp Extensions - Timing is Key
 
-Importance of choosing the right time to use SketchUp extensions, rather than solely focusing on which extensions to use.  Effective extension implementation depends heavily on project context.
+This article discusses the importance of choosing the right time to use SketchUp extensions, rather than solely focusing on which extensions to use.  Effective extension implementation depends heavily on project context.
 
 Key Points:
 

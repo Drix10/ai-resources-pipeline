@@ -1,6 +1,6 @@
 ### 🤖 AI - Novel Idea Generation
 
-AlphaEvolve's ability to generate novel ideas, as opposed to simply remixing existing training data.  A Columbia University professor's perspective is included.
+This article discusses AlphaEvolve's ability to generate novel ideas, as opposed to simply remixing existing training data.  A Columbia University professor's perspective is included.
 
 Key Points:
 

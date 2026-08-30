@@ -1,6 +1,6 @@
 ### 🤖 IBM Quantum Departure - Reflections and Acknowledgements
 
-Departing employee's reflections on their seven-year tenure at IBM Quantum, highlighting their contributions and collaborations.
+This article summarizes a departing employee's reflections on their seven-year tenure at IBM Quantum, highlighting their contributions and collaborations.
 
 Key Points:
 

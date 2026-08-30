@@ -1,6 +1,6 @@
 ### 💡 Local Spot Accuracy - Enhancing Places Data
 
-Users can improve the accuracy of location-based data by contributing information about local spots and hidden gems.  This helps developers create better location-based experiences.
+This article discusses how users can improve the accuracy of location-based data by contributing information about local spots and hidden gems.  This helps developers create better location-based experiences.
 
 Key Points:
 

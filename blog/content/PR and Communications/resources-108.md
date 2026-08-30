@@ -1,6 +1,6 @@
 ### ⚠️ Social Commentary - Political Polarization
 
-Twitter thread discussing the increasing political polarization in the United States, focusing on the reaction to a murder and its implications.
+This article summarizes a Twitter thread discussing the increasing political polarization in the United States, focusing on the reaction to a murder and its implications.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Ethics - Leadership and Governance
 
-Ethical implications of leadership decisions in artificial intelligence development and the potential risks of unchecked control over advanced AI systems.
+This article discusses the ethical implications of leadership decisions in artificial intelligence development and the potential risks of unchecked control over advanced AI systems.
 
 Key Points:
 

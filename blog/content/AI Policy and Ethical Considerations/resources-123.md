@@ -1,6 +1,6 @@
 ### 🤖 Economic Complexity - Dynamic Models
 
-Early stages of a dynamic economic complexity model. It explains the model's capability to formally explain phenomena like conditional convergence and the product space.
+This article discusses the early stages of a dynamic economic complexity model. It explains the model's capability to formally explain phenomena like conditional convergence and the product space.
 
 Key Points:
 

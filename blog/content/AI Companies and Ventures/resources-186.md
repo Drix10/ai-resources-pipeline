@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics - Iranian Naval Strength
 
-Statement made by the Commander-in-Chief of Iran's Armed Forces, Amir Hatami, regarding the perceived and actual strength of the Iranian Navy. It highlights the strategic position and resilience of their naval forces despite external claims.
+This article discusses a statement made by the Commander-in-Chief of Iran's Armed Forces, Amir Hatami, regarding the perceived and actual strength of the Iranian Navy. It highlights the strategic position and resilience of their naval forces despite external claims.
 
 Key Points:
 

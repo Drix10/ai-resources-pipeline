@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Atomic Thought
 
-Limitations of reasoning models in mimicking human-like thought processes, introduces the Atom of Thoughts (AOT) framework, and highlights its performance improvements.
+This article discusses the limitations of reasoning models in mimicking human-like thought processes, introduces the Atom of Thoughts (AOT) framework, and highlights its performance improvements.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Cryptography - Secure Fiat-Shamir Instantiation
 
-New approach to securely instantiating the Fiat-Shamir transformation, addressing vulnerabilities exposed by a recent diagonalization attack.  It also introduces a new relativized model for analyzing the security of Fiat-Shamir.
+This article discusses a new approach to securely instantiating the Fiat-Shamir transformation, addressing vulnerabilities exposed by a recent diagonalization attack.  It also introduces a new relativized model for analyzing the security of Fiat-Shamir.
 
 Key Points:
 

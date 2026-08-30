@@ -1,6 +1,6 @@
 ### 🤖 Podcast - Future of DNA Testing
 
-Podcast episode discussing the future applications of DNA testing in dating and family planning, featuring Kian Sadeghi and Nucleus Genomics.  The episode includes timestamps for key discussion points.
+This article summarizes a podcast episode discussing the future applications of DNA testing in dating and family planning, featuring Kian Sadeghi and Nucleus Genomics.  The episode includes timestamps for key discussion points.
 
 Key Points:
 

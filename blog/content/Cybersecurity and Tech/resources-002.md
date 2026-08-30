@@ -1,6 +1,6 @@
 ### ⚠️ Geopolitical Security - Hybrid Warfare Terminology
 
-Criticism of the term "hybrid" to describe Russian acts of sabotage and subversion, highlighting the need for more precise language in geopolitical security discussions.  The article also provides a link to further reading on the topic.
+This article discusses the criticism of the term "hybrid" to describe Russian acts of sabotage and subversion, highlighting the need for more precise language in geopolitical security discussions.  The article also provides a link to further reading on the topic.
 
 Key Points:
 

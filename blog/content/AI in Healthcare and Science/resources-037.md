@@ -1,6 +1,6 @@
 ### 🤖 USCAP2025 - Proscia at Booth 213
 
-Activities at Proscia's booth (#213) during USCAP2025, including live demos and presentations.
+This article summarizes the activities at Proscia's booth (#213) during USCAP2025, including live demos and presentations.
 
 
 Key Points:

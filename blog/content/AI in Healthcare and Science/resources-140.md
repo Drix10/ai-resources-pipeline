@@ -1,6 +1,6 @@
 ### 🤖 Agentic AI - Biostatistics and the Age of Agents
 
-Intersection of Agentic AI with biostatistics and its role in an evolving landscape. It explores how these advanced AI systems are shaping future analytical processes in biological and medical research.
+This article covers the intersection of Agentic AI with biostatistics and its role in an evolving landscape. It explores how these advanced AI systems are shaping future analytical processes in biological and medical research.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Social Responsibility - Cult Leadership Accountability
 
-Moral and legal responsibility of leaders who promote extremist ideologies. It examines the potential for accountability when such teachings incite violence among followers.
+This article discusses the moral and legal responsibility of leaders who promote extremist ideologies. It examines the potential for accountability when such teachings incite violence among followers.
 
 Key Points:
 

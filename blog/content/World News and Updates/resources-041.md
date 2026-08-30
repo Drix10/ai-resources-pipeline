@@ -1,6 +1,6 @@
 ### 🤖 Vocational Education - Luban Workshop in China
 
-The Luban Workshop, a Chinese vocational education program attracting international students.  It highlights the program's focus on practical skills and fostering open-mindedness.
+This article provides an overview of the Luban Workshop, a Chinese vocational education program attracting international students.  It highlights the program's focus on practical skills and fostering open-mindedness.
 
 Key Points:
 

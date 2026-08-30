@@ -1,6 +1,6 @@
 ### 🤖 Government Processes - Streamlining Business Licensing
 
-Significant reduction in processing time for business licenses in a particular jurisdiction, achieved through process improvements.  The changes resulted in a dramatic decrease in processing time.
+This article discusses the significant reduction in processing time for business licenses in a particular jurisdiction, achieved through process improvements.  The changes resulted in a dramatic decrease in processing time.
 
 Key Points:
 

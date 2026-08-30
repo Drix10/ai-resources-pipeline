@@ -1,6 +1,6 @@
 ### 💡 Public Health - Hygiene Practices
 
-Importance of public hygiene, highlighting high-touch surfaces in public buildings. It emphasizes practices to minimize germ transmission in shared environments.
+This article discusses the importance of public hygiene, highlighting high-touch surfaces in public buildings. It emphasizes practices to minimize germ transmission in shared environments.
 
 Key Points:
 

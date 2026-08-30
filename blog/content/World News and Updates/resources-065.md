@@ -1,6 +1,6 @@
 ### 📰 India News - Sonia Gandhi's Medical Visit
 
-Reports regarding Congress leader Sonia Gandhi's visit to Indira Gandhi Medical College in Shimla and subsequent medical evaluation.  The reports detail the circumstances surrounding her visit and the medical attention she received.
+This article summarizes reports regarding Congress leader Sonia Gandhi's visit to Indira Gandhi Medical College in Shimla and subsequent medical evaluation.  The reports detail the circumstances surrounding her visit and the medical attention she received.
 
 Key Points:
 

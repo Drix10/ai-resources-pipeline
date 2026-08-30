@@ -1,6 +1,6 @@
 ### 🤖 Natural Language Inference - LLM Logical Consistency
 
-Research paper that proposes decomposing Natural Language Inference (NLI) hypotheses into atoms to evaluate the logical consistency of Large Language Models (LLMs).  The method assesses whether an LLM's entailments align with the logical implications of the premise.
+This article discusses a research paper that proposes decomposing Natural Language Inference (NLI) hypotheses into atoms to evaluate the logical consistency of Large Language Models (LLMs).  The method assesses whether an LLM's entailments align with the logical implications of the premise.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Healthcare Community - Peer Recognition
 
-Extensive network of medical professionals acknowledging contributions and fostering collaboration within the healthcare community. It emphasizes the importance of peer engagement and support.
+This article highlights the extensive network of medical professionals acknowledging contributions and fostering collaboration within the healthcare community. It emphasizes the importance of peer engagement and support.
 
 Key Points:
 

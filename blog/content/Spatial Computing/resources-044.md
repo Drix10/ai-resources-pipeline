@@ -1,6 +1,6 @@
 ### 🚀 Spectacles - New Features and Improvements
 
-Recent updates to Spectacles, including a refreshed Lens Explorer, a new mobile Lens Launcher, and improvements to developer tools.
+This article summarizes recent updates to Spectacles, including a refreshed Lens Explorer, a new mobile Lens Launcher, and improvements to developer tools.
 
 Key Points:
 

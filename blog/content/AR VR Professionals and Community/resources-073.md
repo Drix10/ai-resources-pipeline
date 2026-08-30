@@ -1,6 +1,6 @@
 ### 🤖 Lawsuit - IYO vs. OpenAI
 
-Lawsuit filed by IYO, a Google X spin-off, against OpenAI, alleging that OpenAI copied IYO's smart earbud technology after hearing their pitch.
+This article summarizes a lawsuit filed by IYO, a Google X spin-off, against OpenAI, alleging that OpenAI copied IYO's smart earbud technology after hearing their pitch.
 
 Key Points:
 

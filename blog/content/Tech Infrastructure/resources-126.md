@@ -1,6 +1,6 @@
 ### 🤖 Military Operation - Venezuela Intervention
 
-Reported military operation involving US forces in Venezuela, focusing on the alleged capture of a foreign leader and associated military strikes. It provides an overview of the events described in the initial report.
+This article details a reported military operation involving US forces in Venezuela, focusing on the alleged capture of a foreign leader and associated military strikes. It provides an overview of the events described in the initial report.
 
 Key Points:
 

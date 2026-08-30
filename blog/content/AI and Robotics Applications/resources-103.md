@@ -1,6 +1,6 @@
 ### 🤖 Labor Economics - AI's Impact on Entry-Level Employment
 
-Research paper analyzing the impact of AI on employment, specifically focusing on entry-level positions in AI-exposed industries.  The findings reveal evidence of employment declines in these roles.
+This article discusses a research paper analyzing the impact of AI on employment, specifically focusing on entry-level positions in AI-exposed industries.  The findings reveal evidence of employment declines in these roles.
 
 Key Points:
 

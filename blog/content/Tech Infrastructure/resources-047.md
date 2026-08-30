@@ -1,6 +1,6 @@
 ### 🤖 LEGO Design Generation - Physically Stable LEGO Models
 
-Research paper on generating physically stable and buildable LEGO designs from text descriptions.  The paper explores the challenges and solutions in translating textual instructions into accurate, constructible LEGO models.
+This article discusses a research paper on generating physically stable and buildable LEGO designs from text descriptions.  The paper explores the challenges and solutions in translating textual instructions into accurate, constructible LEGO models.
 
 Key Points:
 

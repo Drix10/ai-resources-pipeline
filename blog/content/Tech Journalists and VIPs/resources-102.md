@@ -1,6 +1,6 @@
 ### 🤖 Animation - WAN-S2V
 
-WAN-S2V, a system for generating realistic animation, highlighting its key differences from avatar-only systems.  The focus is on how text and audio are integrated to control global and local animation aspects, respectively.
+This article discusses WAN-S2V, a system for generating realistic animation, highlighting its key differences from avatar-only systems.  The focus is on how text and audio are integrated to control global and local animation aspects, respectively.
 
 Key Points:
 

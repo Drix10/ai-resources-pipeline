@@ -1,6 +1,6 @@
 ### ✨ MoMA - Evolving On-Chain Art Collection
 
-Museum of Modern Art's integration of on-chain art into its permanent collection. It highlights the institution's historical approach to embracing advanced and evolving art forms.
+This article discusses the Museum of Modern Art's integration of on-chain art into its permanent collection. It highlights the institution's historical approach to embracing advanced and evolving art forms.
 
 Key Points:
 

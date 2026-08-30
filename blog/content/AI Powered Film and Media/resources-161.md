@@ -1,6 +1,6 @@
 ### ✨ AI Art - Generative Visuals
 
-Creative project centered around AI-generated visuals and themes of connection. It explores how artificial intelligence can be leveraged for artistic expression and conceptual narratives.
+This article highlights a creative project centered around AI-generated visuals and themes of connection. It explores how artificial intelligence can be leveraged for artistic expression and conceptual narratives.
 
 Key Points:
 

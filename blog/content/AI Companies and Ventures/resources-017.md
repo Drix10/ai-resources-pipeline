@@ -1,6 +1,6 @@
 ### 🤖 Narrative Design - Immersive Storytelling
 
-Creative writing prompt focusing on an agent exploring an enigmatic archive filled with encrypted information.  The prompt evokes a sense of mystery and hidden knowledge.
+This article explores a creative writing prompt focusing on an agent exploring an enigmatic archive filled with encrypted information.  The prompt evokes a sense of mystery and hidden knowledge.
 
 Key Points:
 

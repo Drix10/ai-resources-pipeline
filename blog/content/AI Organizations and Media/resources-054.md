@@ -1,6 +1,6 @@
 ### 🤖 Software Engineering Model - SWE-1 Release
 
-Release of Windsurf's SWE-1, a software engineering model designed to accelerate the entire software development lifecycle.  It covers the model's capabilities and intended impact on development speed.
+This article discusses the release of Windsurf's SWE-1, a software engineering model designed to accelerate the entire software development lifecycle.  It covers the model's capabilities and intended impact on development speed.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 🤖 Solar System - Boundary Interactions
 
-NASA's New Horizons findings on the interaction between solar particles and interstellar particles at the edge of our solar system.  The research highlights a mysterious phenomenon in this region.
+This article discusses NASA's New Horizons findings on the interaction between solar particles and interstellar particles at the edge of our solar system.  The research highlights a mysterious phenomenon in this region.
 
 Key Points:
 

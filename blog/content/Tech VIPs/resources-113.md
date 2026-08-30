@@ -1,6 +1,6 @@
 ### 🤖 Research -  LLM Inference Nondeterminism
 
-Launch of Thinking Machines Lab's research blog, Connectionism, and its inaugural post focusing on defeating nondeterminism in large language model (LLM) inference.  The blog will cover various research topics.
+This article discusses the launch of Thinking Machines Lab's research blog, Connectionism, and its inaugural post focusing on defeating nondeterminism in large language model (LLM) inference.  The blog will cover various research topics.
 
 Key Points:
 

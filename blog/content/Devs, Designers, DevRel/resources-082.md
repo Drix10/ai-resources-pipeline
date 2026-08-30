@@ -1,6 +1,6 @@
 ### 💡 Design - Inspiring New Software Creations
 
-Importance of inspiring designers to create innovative software and the impact of design on shaping culture.  It highlights a collaboration aimed at encouraging experimentation and storytelling in software design.
+This article discusses the importance of inspiring designers to create innovative software and the impact of design on shaping culture.  It highlights a collaboration aimed at encouraging experimentation and storytelling in software design.
 
 Key Points:
 

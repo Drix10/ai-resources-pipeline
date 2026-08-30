@@ -1,6 +1,6 @@
 ### 💡 Career Opportunities - Product Communications at Stripe
 
-Career opportunity within Stripe's product communications team, seeking individuals with diverse backgrounds and specific skill sets. It details the desired qualifications for candidates interested in contributing to the rapidly evolving infrastructure of financial technology.
+This article outlines a career opportunity within Stripe's product communications team, seeking individuals with diverse backgrounds and specific skill sets. It details the desired qualifications for candidates interested in contributing to the rapidly evolving infrastructure of financial technology.
 
 Key Points:
 

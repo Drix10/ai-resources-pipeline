@@ -1,6 +1,6 @@
 ### 🤖 Enterprise AI - Adobe CX Enterprise for Marketing
 
-Adobe's new CX Enterprise, an agentic AI system designed for enterprise marketing. It outlines the system's architecture, leveraging goal-based AI agents to manage the customer experience lifecycle. The platform integrates technologies from major industry partners.
+This article discusses Adobe's new CX Enterprise, an agentic AI system designed for enterprise marketing. It outlines the system's architecture, leveraging goal-based AI agents to manage the customer experience lifecycle. The platform integrates technologies from major industry partners.
 
 Key Points:
 

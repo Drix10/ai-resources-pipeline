@@ -1,6 +1,6 @@
 ### 🚀 BYD - Drone System Integration
 
-BYD's upcoming drone system integration across its vehicle lineup.  The integration is expected to significantly impact the mass market.
+This article discusses BYD's upcoming drone system integration across its vehicle lineup.  The integration is expected to significantly impact the mass market.
 
 Key Points:
 

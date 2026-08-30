@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Tencent's Hunyuan-A13B
 
-Tencent's newly open-sourced large language model, Hunyuan-A13B, highlighting its key features and performance.
+This article provides an overview of Tencent's newly open-sourced large language model, Hunyuan-A13B, highlighting its key features and performance.
 
 Key Points:
 

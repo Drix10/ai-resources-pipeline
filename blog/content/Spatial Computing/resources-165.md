@@ -1,6 +1,6 @@
 ### 🤖 3DGS and XGRIDS Community Event - Akallabo Meetup
 
-Upcoming community event in Sapporo, Hokkaido, focusing on 3D Gaussian Splatting (3DGS) and XGRIDS technologies. The event will take place at the HOTnet Co-Creation Space Akallabo and will include opportunities for exhibition and lightning talks.
+This article details an upcoming community event in Sapporo, Hokkaido, focusing on 3D Gaussian Splatting (3DGS) and XGRIDS technologies. The event will take place at the HOTnet Co-Creation Space Akallabo and will include opportunities for exhibition and lightning talks.
 
 Key Points:
 

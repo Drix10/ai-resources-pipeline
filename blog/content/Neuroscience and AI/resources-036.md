@@ -1,6 +1,6 @@
 ### 💰 Finance - Religious Solicitation
 
-Claim by White House faith advisor Paula White offering "seven supernatural blessings" in exchange for a $1,000 donation before Easter.
+This article discusses a claim by White House faith advisor Paula White offering "seven supernatural blessings" in exchange for a $1,000 donation before Easter.
 
 Key Points:
 

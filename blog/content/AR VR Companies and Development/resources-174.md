@@ -1,6 +1,6 @@
 ### 💡 Game Design - Player Psychology in Failure
 
-Game design principle related to player behavior and the perception of failure. It highlights how altering the consequence of failure can encourage player experimentation and engagement.
+This article discusses a game design principle related to player behavior and the perception of failure. It highlights how altering the consequence of failure can encourage player experimentation and engagement.
 
 Key Points:
 

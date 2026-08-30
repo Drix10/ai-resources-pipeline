@@ -1,6 +1,6 @@
 ### 🗣️ Politics - Trump's Call with Freed Hostage
 
-Phone call between President Trump and freed hostage Edan Alexander, as reported on Twitter.  The call includes remarks from President Trump expressing his happiness at Alexander's release.
+This article summarizes a phone call between President Trump and freed hostage Edan Alexander, as reported on Twitter.  The call includes remarks from President Trump expressing his happiness at Alexander's release.
 
 Key Points:
 

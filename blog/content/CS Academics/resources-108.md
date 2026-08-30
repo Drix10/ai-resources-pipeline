@@ -1,6 +1,6 @@
 ### 😡 Political Commentary - Melania Trump and the Ukraine/Gaza Conflict
 
-Melania Trump's letter to Putin regarding Ukrainian children and contrasts it with the situation in Gaza.  It highlights the perceived hypocrisy and double standards in her response.
+This article discusses Melania Trump's letter to Putin regarding Ukrainian children and contrasts it with the situation in Gaza.  It highlights the perceived hypocrisy and double standards in her response.
 
 Key Points:
 

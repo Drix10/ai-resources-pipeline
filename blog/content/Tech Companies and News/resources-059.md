@@ -1,6 +1,6 @@
 ### 🤖 Investing - Early Childhood Savings
 
-Study on the impact of providing young children with investment accounts.  The study explores the correlation between early investment access and high school graduation rates.
+This article summarizes a study on the impact of providing young children with investment accounts.  The study explores the correlation between early investment access and high school graduation rates.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 🤖 AI Evaluation - Predictive and Explanatory Models
 
-New paper evaluating AI models beyond simple scoring systems on test sets, focusing on predictive and explanatory capabilities for improved performance on new tasks.
+This article discusses a new paper evaluating AI models beyond simple scoring systems on test sets, focusing on predictive and explanatory capabilities for improved performance on new tasks.
 
 Key Points:
 

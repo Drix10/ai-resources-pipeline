@@ -1,6 +1,6 @@
 ### 💡 Online Advocacy Groups - Operational Models
 
-Operational methods employed by certain online advocacy organizations, focusing on their approaches to tracking, deplatforming, and reporting. It observes a common model centered on identifying entities for various forms of action.
+This article discusses the operational methods employed by certain online advocacy organizations, focusing on their approaches to tracking, deplatforming, and reporting. It observes a common model centered on identifying entities for various forms of action.
 
 Key Points:
 

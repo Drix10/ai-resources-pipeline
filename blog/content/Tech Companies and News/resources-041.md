@@ -1,6 +1,6 @@
 ### 🤖 SecOps - AI-Driven Security Analytics
 
-AI-driven security analytics can improve SecOps workflows by focusing analysis on relevant security alerts, reducing manual effort.
+This article discusses how AI-driven security analytics can improve SecOps workflows by focusing analysis on relevant security alerts, reducing manual effort.
 
 Key Points:
 

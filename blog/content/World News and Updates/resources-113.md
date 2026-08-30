@@ -1,6 +1,6 @@
 ### 💡 Cultural Showcase - Pingcheng Paper Dragon
 
-Live performance of the Pingcheng Paper Dragon at Beijing's Shijingshan Amusement Park. It highlights the traditional craftsmanship involved in creating this cultural spectacle during the National Day holiday.
+This article details the live performance of the Pingcheng Paper Dragon at Beijing's Shijingshan Amusement Park. It highlights the traditional craftsmanship involved in creating this cultural spectacle during the National Day holiday.
 
 Key Points:
 

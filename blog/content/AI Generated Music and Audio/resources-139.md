@@ -1,6 +1,6 @@
 ### 🤖 AI Art - Conceptual Evolution
 
-Conceptual evolution of AI art through the lens of Dada and Pop art movements. It highlights how these historical art principles are reinterpreted in contemporary AI-driven creative processes, leading to novel artistic outcomes.
+This article explores the conceptual evolution of AI art through the lens of Dada and Pop art movements. It highlights how these historical art principles are reinterpreted in contemporary AI-driven creative processes, leading to novel artistic outcomes.
 
 Key Points:
 

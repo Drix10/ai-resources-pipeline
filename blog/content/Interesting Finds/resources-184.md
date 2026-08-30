@@ -1,6 +1,6 @@
 ### 💡 Environmental Event - South Florida Wildfires
 
-Significant wildfire event in South Florida, detailing the scale of the Max Road Fire across Broward and Miami-Dade counties. It also covers the severe drought conditions contributing to the spread and the resulting impacts on air quality and visibility.
+This article outlines the significant wildfire event in South Florida, detailing the scale of the Max Road Fire across Broward and Miami-Dade counties. It also covers the severe drought conditions contributing to the spread and the resulting impacts on air quality and visibility.
 
 Key Points:
 

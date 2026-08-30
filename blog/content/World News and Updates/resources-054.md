@@ -1,6 +1,6 @@
 ### 🗣️ India's Diplomacy - Response to Pahalgam Attack
 
-RJD MP Manoj Jha's comments on all-party diplomatic delegations deployed to address India's stance on the war on terror following the Pahalgam attack.  He highlighted the delegation's necessity.
+This article summarizes RJD MP Manoj Jha's comments on all-party diplomatic delegations deployed to address India's stance on the war on terror following the Pahalgam attack.  He highlighted the delegation's necessity.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Data Ownership - Reclaiming Value
 
-Growing movement to reclaim individual data value from large platforms.  It highlights the increasing awareness of how personal data fuels AI and large corporations, and the efforts to shift power dynamics.
+This article discusses the growing movement to reclaim individual data value from large platforms.  It highlights the increasing awareness of how personal data fuels AI and large corporations, and the efforts to shift power dynamics.
 
 Key Points:
 

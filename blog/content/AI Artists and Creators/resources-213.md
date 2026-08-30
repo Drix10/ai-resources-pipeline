@@ -1,6 +1,6 @@
 ### 💡 City Services - Public Cooling Initiatives
 
-Belgrade's urban initiatives aimed at enhancing public comfort and well-being, particularly during periods of warm weather. It highlights the city's efforts to provide cooling facilities and access to water for its residents.
+This article covers Belgrade's urban initiatives aimed at enhancing public comfort and well-being, particularly during periods of warm weather. It highlights the city's efforts to provide cooling facilities and access to water for its residents.
 
 Key Points:
 

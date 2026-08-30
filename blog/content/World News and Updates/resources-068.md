@@ -1,6 +1,6 @@
 ### 🌎 International Relations - Iran's Nuclear Program
 
-Statement by White House press secretary Karoline Leavitt regarding Iran's nuclear program and international consensus.
+This article summarizes a statement by White House press secretary Karoline Leavitt regarding Iran's nuclear program and international consensus.
 
 Key Points:
 

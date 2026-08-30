@@ -1,6 +1,6 @@
 ### 🗣️ Political Commentary - RFK Jr.'s Remarks on President Trump
 
-Statement made by Robert F. Kennedy Jr. praising President Trump for his focus on child safety.
+This article summarizes a statement made by Robert F. Kennedy Jr. praising President Trump for his focus on child safety.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ Design Team - Visual Designer Role
 
-Hiring initiative for a Visual Designer to expand the design team at Profound. It details the company's commitment to team growth and enhancing visual design capabilities.
+This article outlines a hiring initiative for a Visual Designer to expand the design team at Profound. It details the company's commitment to team growth and enhancing visual design capabilities.
 
 Key Points:
 

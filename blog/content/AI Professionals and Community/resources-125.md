@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Building Automation Systems
 
-Fundamental aspects of robot construction and automation. It covers the general principles involved in designing and assembling robotic systems.
+This article discusses the fundamental aspects of robot construction and automation. It covers the general principles involved in designing and assembling robotic systems.
 
 Key Points:
 

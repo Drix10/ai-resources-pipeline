@@ -1,6 +1,6 @@
 ### ✨ Character Design - Prompt Structure Examples
 
-Examples for structuring character sheets based on animal archetypes. It details the required layout and visual elements for generating consistent character designs using prompts.
+This content provides examples for structuring character sheets based on animal archetypes. It details the required layout and visual elements for generating consistent character designs using prompts.
 
 Key Points:
 

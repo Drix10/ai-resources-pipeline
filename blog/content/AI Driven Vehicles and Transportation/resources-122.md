@@ -1,6 +1,6 @@
 ### 🚀 Advanced Air Mobility - US Strategic Plan Unveiling
 
-Unveiling of the first comprehensive U.S. strategic plan for safely integrating Advanced Air Mobility (AAM) aircraft. The plan aims to accelerate innovation, enhance regulatory clarity, and reinforce the United States' leadership in this sector.
+This article details the unveiling of the first comprehensive U.S. strategic plan for safely integrating Advanced Air Mobility (AAM) aircraft. The plan aims to accelerate innovation, enhance regulatory clarity, and reinforce the United States' leadership in this sector.
 
 Key Points:
 

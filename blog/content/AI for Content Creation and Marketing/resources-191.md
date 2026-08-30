@@ -1,6 +1,6 @@
 ### 💡 Tweet Draw - Winner Selection
 
-Process for conducting a tweet draw and ensuring a fair selection of a random winner. It focuses on using appropriate tools and maintaining transparency for contest integrity.
+This article outlines the process for conducting a tweet draw and ensuring a fair selection of a random winner. It focuses on using appropriate tools and maintaining transparency for contest integrity.
 
 Key Points:
 

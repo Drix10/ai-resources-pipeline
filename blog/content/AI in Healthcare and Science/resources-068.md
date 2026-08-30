@@ -1,6 +1,6 @@
 ### 🤖 Healthcare - Reducing ICH Transfer Times
 
-Hospital system's implementation of Viz.ai to reduce intracerebral hemorrhage (ICH) transfer times by almost 50%.  The integration into the NEMAT workflow is detailed.
+This article discusses a hospital system's implementation of Viz.ai to reduce intracerebral hemorrhage (ICH) transfer times by almost 50%.  The integration into the NEMAT workflow is detailed.
 
 Key Points:
 

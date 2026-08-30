@@ -1,6 +1,6 @@
 ### 🚀 Space Exploration - Firefly Aerospace's Moon Landing
 
-Firefly Aerospace's successful Moon landing, marking a significant achievement in commercial space exploration.  It highlights the image captured by the Blue Ghost lander and briefly touches upon future plans.
+This article discusses Firefly Aerospace's successful Moon landing, marking a significant achievement in commercial space exploration.  It highlights the image captured by the Blue Ghost lander and briefly touches upon future plans.
 
 Key Points:
 

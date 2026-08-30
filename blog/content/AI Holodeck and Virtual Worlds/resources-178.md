@@ -1,6 +1,6 @@
 ### 🤖 AI Video Generation - Cursor and Scenario
 
-Creation of 100% AI-generated video content using the Cursor platform powered by Scenario.com. It highlights the potential for creating complex visual media entirely through artificial intelligence.
+This article discusses the creation of 100% AI-generated video content using the Cursor platform powered by Scenario.com. It highlights the potential for creating complex visual media entirely through artificial intelligence.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Finance - Invest America Act
 
-Recently passed Invest America Act, detailing its key provisions for providing government-funded investment accounts for US newborns.
+This article summarizes the recently passed Invest America Act, detailing its key provisions for providing government-funded investment accounts for US newborns.
 
 Key Points:
 

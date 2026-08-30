@@ -1,6 +1,6 @@
 ### 🤖 xAI Grok - Resource Allocation
 
-SemiAnalysis Dylan's observations regarding xAI Grok's resource allocation, highlighting its significant investments in compute power, research talent, and infrastructure.
+This article summarizes SemiAnalysis Dylan's observations regarding xAI Grok's resource allocation, highlighting its significant investments in compute power, research talent, and infrastructure.
 
 Key Points:
 

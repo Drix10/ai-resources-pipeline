@@ -1,6 +1,6 @@
 ### ✨ ChatGPT - New Voice Mode Capabilities
 
-Recent introduction of an enhanced voice mode for ChatGPT, which supports simultaneous listening and speaking during interactions.
+This article covers the recent introduction of an enhanced voice mode for ChatGPT, which supports simultaneous listening and speaking during interactions.
 
 Key Points:
 • ChatGPT now offers a voice mode capable of concurrent listening and speaking.

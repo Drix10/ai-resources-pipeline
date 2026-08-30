@@ -1,6 +1,6 @@
 ### 🤖 Political Commentary - Healthcare Cuts
 
-Concerns regarding potential cuts to healthcare in the US, highlighting the political context and urging for public awareness.
+This article summarizes concerns regarding potential cuts to healthcare in the US, highlighting the political context and urging for public awareness.
 
 Key Points:
 

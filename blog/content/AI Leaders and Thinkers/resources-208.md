@@ -1,6 +1,6 @@
 ### 💡 AI Art Generation - Simple Prompting Techniques
 
-Simple prompts and reference images can yield effective results in AI image generation. It demonstrates that complex instructions are not always necessary for quality outputs.
+This article outlines how simple prompts and reference images can yield effective results in AI image generation. It demonstrates that complex instructions are not always necessary for quality outputs.
 
 Key Points:
 • Achieve strong results with basic prompting.

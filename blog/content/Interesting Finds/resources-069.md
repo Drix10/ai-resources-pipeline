@@ -1,6 +1,6 @@
 ### 🤖 YouTube Analysis - Transcript and Summary Web App
 
-Need for a web application capable of extracting transcripts and summaries from YouTube videos, caching results for efficiency.  The application would address the time constraint of consuming informative YouTube content.
+This article explores the need for a web application capable of extracting transcripts and summaries from YouTube videos, caching results for efficiency.  The application would address the time constraint of consuming informative YouTube content.
 
 Key Points:
 

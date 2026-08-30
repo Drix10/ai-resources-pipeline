@@ -1,6 +1,6 @@
 ### 🤖 Decentralized Autonomous Organizations (DAOs) -  Funds Locked in OXF
 
-Incident where a DAO experienced a lock on $1 million USDC deposited with OXF, allegedly due to a Terms of Service violation.  The specifics of the violation remain undisclosed.
+This article discusses an incident where a DAO experienced a lock on $1 million USDC deposited with OXF, allegedly due to a Terms of Service violation.  The specifics of the violation remain undisclosed.
 
 Key Points:
 

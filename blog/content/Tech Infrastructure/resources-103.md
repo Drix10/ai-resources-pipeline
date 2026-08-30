@@ -1,6 +1,6 @@
 ### 🤖 CI/CD - Treating CI/CD as Code
 
-Treating CI/CD as code, enabling faster feedback loops and modular workflow composition.  It highlights a presentation on this topic by @mccallisterdev at a @localstack community meetup.
+This article discusses treating CI/CD as code, enabling faster feedback loops and modular workflow composition.  It highlights a presentation on this topic by @mccallisterdev at a @localstack community meetup.
 
 Key Points:
 

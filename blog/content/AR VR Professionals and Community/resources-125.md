@@ -1,6 +1,6 @@
 ### ✨ Dragon Quest - New Year Giveaway
 
-Dragon Quest New Year giveaway event. It outlines the participation requirements and the prize details for eligible entrants.
+This article details a Dragon Quest New Year giveaway event. It outlines the participation requirements and the prize details for eligible entrants.
 
 Key Points:
 

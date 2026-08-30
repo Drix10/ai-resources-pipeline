@@ -1,6 +1,6 @@
 ### 🤖 Point Cloud to CAD - Industrial Plant Optimization
 
-Application of LiDAR-based point cloud data for efficient CAD conversion in industrial plant layout optimization.  It highlights key benefits and provides a case study example.
+This article discusses the application of LiDAR-based point cloud data for efficient CAD conversion in industrial plant layout optimization.  It highlights key benefits and provides a case study example.
 
 Key Points:
 

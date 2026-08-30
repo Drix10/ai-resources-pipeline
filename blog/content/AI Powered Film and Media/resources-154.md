@@ -1,6 +1,6 @@
 ### ✨ Generative Art - "I See Generative" Collection
 
-"ISG 024, System ISG 02" by Iskra Velitchkova, an artwork featured within the "I See Generative, Chapter 0: Wind" collection. It showcases a specific piece from a notable generative art series.
+This article highlights "ISG 024, System ISG 02" by Iskra Velitchkova, an artwork featured within the "I See Generative, Chapter 0: Wind" collection. It showcases a specific piece from a notable generative art series.
 
 Key Points:
 

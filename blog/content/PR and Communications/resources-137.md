@@ -1,6 +1,6 @@
 ### 💡 International Relations - South Africa-Israel Diplomatic Incident
 
-Diplomatic incident involving South Africa's expulsion of the Israeli representative. It highlights the underlying factors, including local praise for Israeli assistance and scrutiny of the domestic government's performance in water provision.
+This article examines the diplomatic incident involving South Africa's expulsion of the Israeli representative. It highlights the underlying factors, including local praise for Israeli assistance and scrutiny of the domestic government's performance in water provision.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Space Exploration - Lunar Delivery
 
-Successful delivery of a suite of science investigations and tech demonstrations to the lunar surface by Firefly Aerospace.  The mission highlights scientific discovery potential on the Moon and its role as a stepping stone for future human space exploration.
+This article summarizes the successful delivery of a suite of science investigations and tech demonstrations to the lunar surface by Firefly Aerospace.  The mission highlights scientific discovery potential on the Moon and its role as a stepping stone for future human space exploration.
 
 Key Points:
 

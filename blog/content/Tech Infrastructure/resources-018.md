@@ -1,6 +1,6 @@
 ### 💡 Geopolitics - Ukraine Conflict
 
-Concerns regarding the importance of presenting a united front against Russia in the Ukraine conflict.  The lack of unity is seen as a potential vulnerability.
+This article summarizes concerns regarding the importance of presenting a united front against Russia in the Ukraine conflict.  The lack of unity is seen as a potential vulnerability.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🗣️ Healthcare - AI-Powered Language Translation
 
-AIRA, an AI-powered tool designed to overcome language barriers in healthcare settings.  It focuses on how AIRA facilitates better communication between patients and medical professionals.
+This article discusses AIRA, an AI-powered tool designed to overcome language barriers in healthcare settings.  It focuses on how AIRA facilitates better communication between patients and medical professionals.
 
 Key Points:
 

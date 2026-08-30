@@ -1,6 +1,6 @@
 ### 🤖 Software Development - Reframing the Equation
 
-Rocketdotnew is changing the landscape of software development, aiming to reduce the gap between intent and execution.  It highlights the speed of development achieved by a team in a short timeframe.
+This article discusses how Rocketdotnew is changing the landscape of software development, aiming to reduce the gap between intent and execution.  It highlights the speed of development achieved by a team in a short timeframe.
 
 Key Points:
 

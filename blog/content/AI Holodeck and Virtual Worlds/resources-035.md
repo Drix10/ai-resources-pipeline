@@ -1,6 +1,6 @@
 ### 💡 Inspiration - Richard Feynman and ElevenLabs
 
-Influence of Nobel laureate Richard Feynman on the team at ElevenLabs, highlighting his impact on their approach to making complex ideas accessible.
+This article discusses the influence of Nobel laureate Richard Feynman on the team at ElevenLabs, highlighting his impact on their approach to making complex ideas accessible.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Global Economy - Supply Chain Crisis
 
-Current global economic indicators, specifically focusing on supply chain disruptions and their broader impact beyond individual commodity shortages. It highlights the interconnectedness of global markets and economic stability.
+This article outlines current global economic indicators, specifically focusing on supply chain disruptions and their broader impact beyond individual commodity shortages. It highlights the interconnectedness of global markets and economic stability.
 
 Key Points:
 

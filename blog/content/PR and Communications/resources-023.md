@@ -1,6 +1,6 @@
 ### 🤖 Political Commentary -  Social Security and Medicare
 
-Political statement alleging that Social Security and Medicare are tools used to execute a "great replacement theory."  The statement further characterizes this as a Nazi tactic.
+This article discusses a political statement alleging that Social Security and Medicare are tools used to execute a "great replacement theory."  The statement further characterizes this as a Nazi tactic.
 
 Key Points:
 

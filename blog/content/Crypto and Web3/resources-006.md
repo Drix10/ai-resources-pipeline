@@ -1,6 +1,6 @@
 ### 🌍 Travel - New Delhi City Guide
 
-A travel guide focusing on experiencing New Delhi like a local,  highlighting tips and tours for visitors.
+This article provides a brief overview of a travel guide focusing on experiencing New Delhi like a local,  highlighting tips and tours for visitors.
 
 
 Key Points:

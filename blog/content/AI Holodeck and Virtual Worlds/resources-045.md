@@ -1,6 +1,6 @@
 ### ✨ NFTs - Project89 Proxim8
 
-Launch of Project89 Proxim8 NFTs, highlighting their unique features and associated lore.  It also provides links to relevant resources.
+This article details the launch of Project89 Proxim8 NFTs, highlighting their unique features and associated lore.  It also provides links to relevant resources.
 
 
 Key Points:

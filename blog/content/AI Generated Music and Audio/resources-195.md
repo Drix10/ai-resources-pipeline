@@ -1,6 +1,6 @@
 ### 💡 Business Strategy - Growth Framework Analysis
 
-Podcast on the Koch Industries growth framework, exploring its historical impact and the "capability-bounded thinking" that fueled its significant expansion while also presenting inherent challenges.
+This article summarizes a podcast on the Koch Industries growth framework, exploring its historical impact and the "capability-bounded thinking" that fueled its significant expansion while also presenting inherent challenges.
 
 Key Points:
 

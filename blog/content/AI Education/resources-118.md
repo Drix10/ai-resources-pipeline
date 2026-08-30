@@ -1,6 +1,6 @@
 ### 🤖 California AI Regulation - Generative AI Investment
 
-Potential impact of California's SB 243 on the generative AI investment landscape, focusing on the bill's stringent safety requirements and potential compliance costs.
+This article discusses the potential impact of California's SB 243 on the generative AI investment landscape, focusing on the bill's stringent safety requirements and potential compliance costs.
 
 Key Points:
 

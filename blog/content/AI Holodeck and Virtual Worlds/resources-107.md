@@ -1,6 +1,6 @@
 ### 🤖 Computer Use Agents - Current State and Approaches
 
-Current state of the Computer Use Agent (CUA) market and outlines different approaches to building them.  It highlights contributions from various researchers and companies in the field.
+This article discusses the current state of the Computer Use Agent (CUA) market and outlines different approaches to building them.  It highlights contributions from various researchers and companies in the field.
 
 
 Key Points:

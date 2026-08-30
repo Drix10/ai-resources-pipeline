@@ -1,6 +1,6 @@
 ### 🤖 Celestial Mechanics - Moon Position Alignment
 
-Process of integrating NASA's Moon ephemeris data and successfully aligning its position in a visualization. It demonstrates that accurate positional matching can be achieved even without in-depth knowledge of the coordinate system's orientation.
+This article outlines the process of integrating NASA's Moon ephemeris data and successfully aligning its position in a visualization. It demonstrates that accurate positional matching can be achieved even without in-depth knowledge of the coordinate system's orientation.
 
 Key Points:
 

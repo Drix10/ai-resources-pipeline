@@ -1,6 +1,6 @@
 ### 💡 Ancient Indian Governance - Aitareya Brāhmaṇa and Self-Rule
 
-Historical evidence of governance systems in ancient Indian texts, specifically highlighting the Aitareya Brāhmaṇa. It discusses early concepts of self-rule as documented centuries before other major historical periods.
+This article explores historical evidence of governance systems in ancient Indian texts, specifically highlighting the Aitareya Brāhmaṇa. It discusses early concepts of self-rule as documented centuries before other major historical periods.
 
 Key Points:
 

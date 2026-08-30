@@ -1,6 +1,6 @@
 ### 🤖 Political Commentary - Allegations of Weaponizing Government
 
-Twitter thread alleging that the Democratic party is engaging in projection and distortion regarding the weaponization of government to silence dissent.  The author claims Democrats are the ones who have historically engaged in such practices.
+This article summarizes a Twitter thread alleging that the Democratic party is engaging in projection and distortion regarding the weaponization of government to silence dissent.  The author claims Democrats are the ones who have historically engaged in such practices.
 
 Key Points:
 

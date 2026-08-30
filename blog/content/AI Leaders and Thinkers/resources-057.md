@@ -1,6 +1,6 @@
 ### 🤖 Global Software Development Salaries - Outsourcing Challenges
 
-Complexities of global software development salary variations and the challenges US companies face when outsourcing, specifically to Pakistan.  It highlights common pitfalls observed by a Fractional CTO.
+This article discusses the complexities of global software development salary variations and the challenges US companies face when outsourcing, specifically to Pakistan.  It highlights common pitfalls observed by a Fractional CTO.
 
 Key Points:
 

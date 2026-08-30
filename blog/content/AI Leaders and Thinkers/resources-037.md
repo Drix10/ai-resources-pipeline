@@ -1,6 +1,6 @@
 ### 🤖 AI in Coding - Limitations of Current Models
 
-Limitations of current AI models in code generation, highlighting instances where AI tools provide incorrect solutions and the implications for developers.  It also addresses the unrealistic expectations surrounding AI's ability to replace human developers.
+This article discusses the limitations of current AI models in code generation, highlighting instances where AI tools provide incorrect solutions and the implications for developers.  It also addresses the unrealistic expectations surrounding AI's ability to replace human developers.
 
 Key Points:
 

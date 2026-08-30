@@ -1,6 +1,6 @@
 ### 🤖 Reinforcement Learning - Fundamentals and Applications in NLP
 
-Reinforcement learning (RL), focusing on its application in natural language processing (NLP) and methods for optimizing and stabilizing the learning process.
+This article provides a brief overview of reinforcement learning (RL), focusing on its application in natural language processing (NLP) and methods for optimizing and stabilizing the learning process.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🏢 Real Estate - Small Bay Flex Industrial Properties
 
-Increasing demand for small bay flex industrial properties and explores the potential for these properties to experience a boom similar to that of the self-storage industry.  It also includes a brief overview of the author's career path.
+This article discusses the increasing demand for small bay flex industrial properties and explores the potential for these properties to experience a boom similar to that of the self-storage industry.  It also includes a brief overview of the author's career path.
 
 Key Points:
 

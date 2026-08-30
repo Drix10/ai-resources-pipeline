@@ -1,6 +1,6 @@
 ### 💡 Digital Identity - Age Verification Challenges
 
-Ineffectiveness of current age verification systems in Australia and Britain and the potential policy implications, such as VPN restrictions. It highlights challenges in policy implementation and user circumvention.
+This article discusses the ineffectiveness of current age verification systems in Australia and Britain and the potential policy implications, such as VPN restrictions. It highlights challenges in policy implementation and user circumvention.
 
 Key Points:
 

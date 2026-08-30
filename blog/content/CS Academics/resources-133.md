@@ -1,6 +1,6 @@
 ### 🚀 Linux Tools - System Monitoring Utilities
 
-Fundamental command-line utilities for monitoring system resources in Linux environments. It explains the core functionalities of tools like pidstat and netstat for system diagnostics and performance analysis.
+This article provides an overview of fundamental command-line utilities for monitoring system resources in Linux environments. It explains the core functionalities of tools like pidstat and netstat for system diagnostics and performance analysis.
 
 Key Points:
 

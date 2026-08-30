@@ -1,6 +1,6 @@
 ### 🚨 Corruption Allegations - Border Czar Bribery
 
-Allegations of bribery against former Border Czar Tom Homan, involving government contracts and the alleged cover-up by several individuals.  The information is based on public statements.
+This article summarizes allegations of bribery against former Border Czar Tom Homan, involving government contracts and the alleged cover-up by several individuals.  The information is based on public statements.
 
 Key Points:
 

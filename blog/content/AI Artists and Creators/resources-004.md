@@ -1,6 +1,6 @@
 ### ✨ Gaming - Avowed First Impressions
 
-Initial impressions of the video game Avowed, focusing on world design and combat mechanics.
+This article summarizes initial impressions of the video game Avowed, focusing on world design and combat mechanics.
 
 Key Points:
 

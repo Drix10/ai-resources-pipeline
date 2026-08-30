@@ -1,6 +1,6 @@
 ### 🤖 Foundation Models - Embodied Agents
 
-Tutorial on the intersection of foundation models (LLMs, VLMs, VLAs) and embodied agents, presented under a Markov Decision Process (MDP) framework.  The tutorial covers their categorization and applications.
+This article summarizes a tutorial on the intersection of foundation models (LLMs, VLMs, VLAs) and embodied agents, presented under a Markov Decision Process (MDP) framework.  The tutorial covers their categorization and applications.
 
 
 Key Points:

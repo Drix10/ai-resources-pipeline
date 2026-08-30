@@ -1,6 +1,6 @@
 ### 🚀 Tesla FSD - Surprise Me Feature Suggestion
 
-Proposed feature for Tesla's Full Self-Driving (FSD) system: a "Surprise Me" function allowing users to specify a category and radius, letting the car choose a destination.
+This article details a proposed feature for Tesla's Full Self-Driving (FSD) system: a "Surprise Me" function allowing users to specify a category and radius, letting the car choose a destination.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Test Drives at GTC 2025
 
-Availability of test drives for Lucid Air and Polestar 3 vehicles at the GPU Technology Conference (GTC) 2025.  Attendees can find the schedule using the GTC app or a specified online resource.
+This article details the availability of test drives for Lucid Air and Polestar 3 vehicles at the GPU Technology Conference (GTC) 2025.  Attendees can find the schedule using the GTC app or a specified online resource.
 
 Key Points:
 

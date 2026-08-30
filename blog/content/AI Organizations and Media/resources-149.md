@@ -1,6 +1,6 @@
 ### 🤖 LLM Raters - Reliability Improvement with Inferred Thinking Traces
 
-Research paper that introduces a novel method to enhance the reliability of Large Language Model (LLM) raters. It focuses on leveraging inferred thinking traces to achieve more consistent and dependable evaluations from LLMs.
+This article discusses a research paper that introduces a novel method to enhance the reliability of Large Language Model (LLM) raters. It focuses on leveraging inferred thinking traces to achieve more consistent and dependable evaluations from LLMs.
 
 Key Points:
 

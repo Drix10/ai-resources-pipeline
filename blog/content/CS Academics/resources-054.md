@@ -1,6 +1,6 @@
 ### 🤖 Surveillance - Legal and Ethical Considerations
 
-Legal and ethical implications of using material obtained through surveillance conducted without a warrant.  It emphasizes the importance of respecting civil liberties.
+This article discusses the legal and ethical implications of using material obtained through surveillance conducted without a warrant.  It emphasizes the importance of respecting civil liberties.
 
 Key Points:
 

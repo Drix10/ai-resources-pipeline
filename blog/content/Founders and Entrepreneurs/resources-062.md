@@ -1,6 +1,6 @@
 ### 📰 France - Posthumous Promotion of Alfred Dreyfus
 
-Unanimous approval by France's National Assembly Defense and Armed Forces Committee to posthumously promote Alfred Dreyfus to the rank of brigadier general.  The bill rectifies a historical injustice.
+This article discusses the unanimous approval by France's National Assembly Defense and Armed Forces Committee to posthumously promote Alfred Dreyfus to the rank of brigadier general.  The bill rectifies a historical injustice.
 
 Key Points:
 

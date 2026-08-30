@@ -1,6 +1,6 @@
 ### 🤖 Peer Review - TMLR Quality
 
-Factors contributing to improved review quality in the Transactions on Machine Learning Research (TMLR) process.  The analysis focuses on the roles of Associate Editors (AEs) and reviewer selection.
+This article discusses factors contributing to improved review quality in the Transactions on Machine Learning Research (TMLR) process.  The analysis focuses on the roles of Associate Editors (AEs) and reviewer selection.
 
 Key Points:
 

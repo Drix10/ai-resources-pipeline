@@ -1,6 +1,6 @@
 ### 🤖 AI Models - Extended Context Windows
 
-Breakthrough by MIT researchers in overcoming context window limitations for large language models. It details how 10 million-plus token prompts are now achievable by integrating context into external code environments.
+This article covers a breakthrough by MIT researchers in overcoming context window limitations for large language models. It details how 10 million-plus token prompts are now achievable by integrating context into external code environments.
 
 Key Points:
 

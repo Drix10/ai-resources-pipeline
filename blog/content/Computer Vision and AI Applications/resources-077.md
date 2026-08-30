@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Affordable Humanoid Robots for RL Experiments
 
-Need for affordable and hackable humanoid robots for reinforcement learning (RL) experiments, eliminating the need to build robots from scratch.  The focus is on readily available platforms suitable for AI research.
+This article discusses the need for affordable and hackable humanoid robots for reinforcement learning (RL) experiments, eliminating the need to build robots from scratch.  The focus is on readily available platforms suitable for AI research.
 
 
 Key Points:

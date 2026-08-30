@@ -1,6 +1,6 @@
 ### 🤖 Motion Capture - Camera Extraction in Meshcapade
 
-Integrated camera extraction feature in Meshcapade's motion capture platform, highlighting its ease of use and benefits for 3D animation.
+This article discusses the integrated camera extraction feature in Meshcapade's motion capture platform, highlighting its ease of use and benefits for 3D animation.
 
 Key Points:
 

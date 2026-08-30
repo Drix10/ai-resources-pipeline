@@ -1,6 +1,6 @@
 ### 🤖 AI Governance - Principle Review
 
-Research paper reviewing principles for effective AI governance.  It highlights key aspects of the paper and provides links to the original research and the author's contact information.
+This article summarizes a research paper reviewing principles for effective AI governance.  It highlights key aspects of the paper and provides links to the original research and the author's contact information.
 
 Key Points:
 

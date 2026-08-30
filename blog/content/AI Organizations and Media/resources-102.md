@@ -1,6 +1,6 @@
 ### 🤖 WABI25 Conference - Day 1 Recap
 
-First day of the WABI25 conference, highlighting the program chairs and local chair.
+This article summarizes the first day of the WABI25 conference, highlighting the program chairs and local chair.
 
 Key Points:
 

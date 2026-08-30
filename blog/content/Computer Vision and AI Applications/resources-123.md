@@ -1,6 +1,6 @@
 ### 🤖 Vision Learning - Next-Embedding Prediction
 
-Key concepts from the paper "Next-Embedding Prediction Makes Strong Vision Learners," exploring its approach to improving vision model training. It highlights the mechanism of using next-embedding prediction to enhance learning capabilities in vision tasks.
+This article summarizes the key concepts from the paper "Next-Embedding Prediction Makes Strong Vision Learners," exploring its approach to improving vision model training. It highlights the mechanism of using next-embedding prediction to enhance learning capabilities in vision tasks.
 
 Key Points:
 

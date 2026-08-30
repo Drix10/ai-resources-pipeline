@@ -1,6 +1,6 @@
 ### 🗣️ Social Media - Sharing Thoughts
 
-User's decision to share their thoughts on a sensitive topic on Facebook rather than X/Twitter due to concerns about attracting negative responses.
+This article discusses a user's decision to share their thoughts on a sensitive topic on Facebook rather than X/Twitter due to concerns about attracting negative responses.
 
 
 Key Points:

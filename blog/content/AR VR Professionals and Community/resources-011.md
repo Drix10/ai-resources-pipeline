@@ -1,6 +1,6 @@
 ### 🤖 VR Gaming - GORN 2 Announcement
 
-Announcement of GORN 2, a virtual reality game, for various platforms including Meta Quest, PlayStation VR2, and PC VR.  Key features and developers are highlighted.
+This article covers the announcement of GORN 2, a virtual reality game, for various platforms including Meta Quest, PlayStation VR2, and PC VR.  Key features and developers are highlighted.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 NLP Education - CS224N Poster Session
 
-Poster session for the CS224N NLP with Deep Learning course, highlighting student research and engagement.
+This article summarizes a poster session for the CS224N NLP with Deep Learning course, highlighting student research and engagement.
 
 Key Points:
 

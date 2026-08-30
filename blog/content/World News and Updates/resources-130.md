@@ -1,6 +1,6 @@
 ### 🚀 Logistics - Xinjiang Cross-border Rail Traffic
 
-Significant cross-border rail traffic recorded in ports across Northwest China's Xinjiang Uygur autonomous region in 2025. It highlights Xinjiang's role in leading the nation in rail traffic volume.
+This article discusses the significant cross-border rail traffic recorded in ports across Northwest China's Xinjiang Uygur autonomous region in 2025. It highlights Xinjiang's role in leading the nation in rail traffic volume.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Alpha1-Antitrypsin Deficiency - Liver Disease Pathway
 
-Discovery of a new protein pathway that may explain why only some individuals with alpha1-antitrypsin deficiency develop liver disease. This research offers critical insights into the variable progression of the condition.
+This article discusses the discovery of a new protein pathway that may explain why only some individuals with alpha1-antitrypsin deficiency develop liver disease. This research offers critical insights into the variable progression of the condition.
 
 Key Points:
 

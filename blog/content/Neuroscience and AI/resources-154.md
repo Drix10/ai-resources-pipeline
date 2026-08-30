@@ -1,6 +1,6 @@
 ### 🤖 Atmospheric Science - Stratospheric Aerosol Discovery
 
-New high-altitude measurements revealing a previously unknown population of organic-rich aerosol particles in the lower stratosphere. These findings suggest that ultrafine aerosols, originating from the troposphere, are far more abundant than previously understood.
+This article discusses new high-altitude measurements revealing a previously unknown population of organic-rich aerosol particles in the lower stratosphere. These findings suggest that ultrafine aerosols, originating from the troposphere, are far more abundant than previously understood.
 
 Key Points:
 

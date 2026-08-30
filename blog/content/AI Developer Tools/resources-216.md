@@ -1,6 +1,6 @@
 ### 🤖 XIAO nRF54LM20A - Hardware and Zephyr Testing
 
-Detailed first look at the XIAO nRF54LM20A microcontroller, covering its hardware breakdown and initial software tests. It demonstrates compatibility with the Zephyr RTOS using the nRF Connect SDK.
+This article provides a detailed first look at the XIAO nRF54LM20A microcontroller, covering its hardware breakdown and initial software tests. It demonstrates compatibility with the Zephyr RTOS using the nRF Connect SDK.
 
 Key Points:
 

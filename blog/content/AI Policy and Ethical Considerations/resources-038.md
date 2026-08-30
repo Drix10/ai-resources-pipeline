@@ -1,6 +1,6 @@
 ### 🤖 OpenAI Internal Dynamics - Allegations Against Sam Altman
 
-Allegations of deception and conflict between Sam Altman and Mira Murati at OpenAI, as reported in a recent article.  The details highlight internal tensions and potential power dynamics within the company.
+This article summarizes allegations of deception and conflict between Sam Altman and Mira Murati at OpenAI, as reported in a recent article.  The details highlight internal tensions and potential power dynamics within the company.
 
 Key Points:
 

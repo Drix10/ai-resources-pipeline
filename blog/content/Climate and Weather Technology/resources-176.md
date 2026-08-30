@@ -1,6 +1,6 @@
 ### 🤖 Space Surveillance - Joint Commercial Operations Training
 
-Recent graduation of No. 1 Space Surveillance Unit Operators from the Royal New Zealand Air Force (RNZAF) led Joint Commercial Operations course. It highlights their collaborative training efforts as space surveillance partners.
+This article covers the recent graduation of No. 1 Space Surveillance Unit Operators from the Royal New Zealand Air Force (RNZAF) led Joint Commercial Operations course. It highlights their collaborative training efforts as space surveillance partners.
 
 Key Points:
 

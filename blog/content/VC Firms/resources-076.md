@@ -1,6 +1,6 @@
 ### 🤖 Bitcoin - Human Rights and Fiat Devaluation
 
-Perspective that Bitcoin can be viewed as a tool to promote human rights and mitigate the effects of fiat currency devaluation.  The original tweet highlights a presentation on Bitcoin's role in these areas.
+This article discusses the perspective that Bitcoin can be viewed as a tool to promote human rights and mitigate the effects of fiat currency devaluation.  The original tweet highlights a presentation on Bitcoin's role in these areas.
 
 
 Key Points:

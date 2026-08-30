@@ -1,6 +1,6 @@
 ### 💡 Research - Title Optimization
 
-Impact of paper titles on research dissemination and citation rates, highlighting two common title types and their key differences.
+This article discusses the impact of paper titles on research dissemination and citation rates, highlighting two common title types and their key differences.
 
 Key Points:
 

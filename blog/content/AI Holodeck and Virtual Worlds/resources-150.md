@@ -1,6 +1,6 @@
 ### 🤖 AI Video Generation - Seedance 2.0 with CapCut
 
-Capabilities of Seedance 2.0 in artificial intelligence video generation and its integration with the CapCut application. It highlights the potential for creating dynamic visual media using these tools.
+This article examines the capabilities of Seedance 2.0 in artificial intelligence video generation and its integration with the CapCut application. It highlights the potential for creating dynamic visual media using these tools.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Memory Optimization - Substrata Web on iPad
 
-Memory optimization techniques used to run the Substrata web application on an iPad, reducing GPU memory usage to approximately 225 MB.
+This article details the memory optimization techniques used to run the Substrata web application on an iPad, reducing GPU memory usage to approximately 225 MB.
 
 Key Points:
 

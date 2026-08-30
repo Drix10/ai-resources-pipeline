@@ -1,6 +1,6 @@
 ### ⚖️ Data Privacy - 23andMe Fine
 
-UK ICO's £2.3 million fine levied against 23andMe for inadequate genetic data protection.  The article summarizes the key issues and provides context.
+This article discusses the UK ICO's £2.3 million fine levied against 23andMe for inadequate genetic data protection.  The article summarizes the key issues and provides context.
 
 Key Points:
 

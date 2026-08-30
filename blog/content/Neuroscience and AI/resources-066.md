@@ -1,6 +1,6 @@
 ### 🤖 Academic Credibility - Beyond Impact Factor
 
-Limitations of using impact factor as the sole metric for academic credibility and emphasizes the disconnect between citations and expertise.
+This article discusses the limitations of using impact factor as the sole metric for academic credibility and emphasizes the disconnect between citations and expertise.
 
 Key Points:
 

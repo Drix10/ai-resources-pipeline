@@ -1,6 +1,6 @@
 ### ⚖️ Legal - NSO Group Lawsuit
 
-Outcome of a lawsuit against the NSO Group, detailing the damages awarded to WhatsApp.
+This article summarizes the outcome of a lawsuit against the NSO Group, detailing the damages awarded to WhatsApp.
 
 Key Points:
 

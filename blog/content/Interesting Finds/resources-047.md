@@ -1,6 +1,6 @@
 ### 💡 Net Zero Policies - Economic Impact
 
-Concerns regarding the economic impact of net-zero policies, focusing on the potential disproportionate costs to taxpayers and benefits to corporations.
+This article discusses concerns regarding the economic impact of net-zero policies, focusing on the potential disproportionate costs to taxpayers and benefits to corporations.
 
 Key Points:
 

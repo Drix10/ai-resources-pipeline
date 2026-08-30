@@ -1,6 +1,6 @@
 ### 🤖 Cryo-EM - Ab Initio Reconstruction
 
-Publication of CryoDRGN-AI in Nature Methods, detailing its advancement in cryo-electron microscopy (cryo-EM) for biomolecule reconstruction.  It eliminates the need for input and fixed camera poses.
+This article discusses the publication of CryoDRGN-AI in Nature Methods, detailing its advancement in cryo-electron microscopy (cryo-EM) for biomolecule reconstruction.  It eliminates the need for input and fixed camera poses.
 
 Key Points:
 

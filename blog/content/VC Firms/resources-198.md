@@ -1,6 +1,6 @@
 ### 🚀 Startup Ecosystem - R[3]sidency Demo Day
 
-R[3]sidency Demo Day, featuring eight founding teams selected from over 800 applicants. It details the culmination of a 16-week program, where teams pitched to international investors.
+This article highlights the R[3]sidency Demo Day, featuring eight founding teams selected from over 800 applicants. It details the culmination of a 16-week program, where teams pitched to international investors.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 AI Video Creation - Creative Workflow with Mitte AI
 
-Process of creating videos with a specific aesthetic using AI tools. It highlights the capabilities of a particular platform in generating dynamic visual content.
+This article discusses the process of creating videos with a specific aesthetic using AI tools. It highlights the capabilities of a particular platform in generating dynamic visual content.
 
 Key Points:
 

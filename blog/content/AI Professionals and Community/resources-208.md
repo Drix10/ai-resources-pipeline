@@ -1,6 +1,6 @@
 ### 🤖 AI - Recursive Self-Improvement
 
-Realization of recursive self-improvement (RSI) in AI systems. It highlights the importance of execution design based on insights from Lilian Weng, co-founder of Thinking Machines Lab.
+This article discusses the realization of recursive self-improvement (RSI) in AI systems. It highlights the importance of execution design based on insights from Lilian Weng, co-founder of Thinking Machines Lab.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 📈 Economics - US Tourism Revenue Decline
 
-Projected decline in US foreign tourism revenue in 2025 and attributes it to strict immigration laws.
+This article discusses the projected decline in US foreign tourism revenue in 2025 and attributes it to strict immigration laws.
 
 Key Points:
 

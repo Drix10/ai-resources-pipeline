@@ -1,6 +1,6 @@
 ### 🤖 AI Accuracy - GPT-5 Hallucinations
 
-Limitations of GPT-5 in addressing AI hallucinations, despite improvements in accuracy.  It highlights the persistent risk of catastrophic failures due to distribution shifts, especially in high-stakes applications.
+This article discusses the limitations of GPT-5 in addressing AI hallucinations, despite improvements in accuracy.  It highlights the persistent risk of catastrophic failures due to distribution shifts, especially in high-stakes applications.
 
 
 Key Points:

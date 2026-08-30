@@ -1,6 +1,6 @@
 ### 🤖 Plant-Based Diets - Epigenetic Aging
 
-Study linking plant-based diets rich in methyl adaptogens to reduced epigenetic aging, as measured by DNA analysis.
+This article summarizes a study linking plant-based diets rich in methyl adaptogens to reduced epigenetic aging, as measured by DNA analysis.
 
 Key Points:
 

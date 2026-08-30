@@ -1,6 +1,6 @@
 ### 🤖 International Relations - Iran's Conditions for Peace
 
-Iran's official stance on ending a conflict, specifically its rejection of a proposal and its own set of conditions. It outlines the initial demands put forth by Iran for a resolution.
+This article details Iran's official stance on ending a conflict, specifically its rejection of a proposal and its own set of conditions. It outlines the initial demands put forth by Iran for a resolution.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Devolution Plans - Cross-Border Doubts
 
-Skepticism from leaders in Scotland, Wales, and Northern Ireland regarding Andy Burnham's devolution plans. Concerns center on whether these plans will extend beyond England, citing past missteps and a perceived lack of understanding of existing devolved powers.
+This article discusses the skepticism from leaders in Scotland, Wales, and Northern Ireland regarding Andy Burnham's devolution plans. Concerns center on whether these plans will extend beyond England, citing past missteps and a perceived lack of understanding of existing devolved powers.
 
 Key Points:
 

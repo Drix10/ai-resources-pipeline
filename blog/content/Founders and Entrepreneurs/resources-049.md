@@ -1,6 +1,6 @@
 ### 🎁 Giveaways - Mother's Day Gift
 
-Giveaway offering five Frido products to mothers.  Participants must submit screenshots from Zepto or Blinkit showing available products.
+This article details a giveaway offering five Frido products to mothers.  Participants must submit screenshots from Zepto or Blinkit showing available products.
 
 Key Points:
 

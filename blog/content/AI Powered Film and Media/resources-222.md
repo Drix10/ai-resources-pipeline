@@ -1,6 +1,6 @@
 ### 🤖 Quantum Computing - Virus Loading
 
-First instance of loading a virus, specifically Hepatitis D, onto a quantum computer. This represents a new application area for quantum computing technology.
+This article discusses the first instance of loading a virus, specifically Hepatitis D, onto a quantum computer. This represents a new application area for quantum computing technology.
 
 Key Points:
 

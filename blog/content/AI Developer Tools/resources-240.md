@@ -1,6 +1,6 @@
 ### 🤖 EU AI Act - Regulatory Deadlines and Framework
 
-Changes introduced by Regulation (EU) 2026/1744, which modifies implementation timelines and oversight for AI systems under the EU AI Act.
+This article outlines changes introduced by Regulation (EU) 2026/1744, which modifies implementation timelines and oversight for AI systems under the EU AI Act.
 
 Key Points:
 

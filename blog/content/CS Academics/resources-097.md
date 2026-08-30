@@ -1,6 +1,6 @@
 ### 🤖 AI Models - World Models and Prediction Accuracy
 
-Research paper exploring the disconnect between perfect prediction in an AI model and its understanding of the underlying world model.  It uses a specific example of planetary orbit prediction to illustrate the concept.
+This article discusses a research paper exploring the disconnect between perfect prediction in an AI model and its understanding of the underlying world model.  It uses a specific example of planetary orbit prediction to illustrate the concept.
 
 Key Points:
 

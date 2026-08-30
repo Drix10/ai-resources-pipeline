@@ -1,6 +1,6 @@
 ### ⚠️ Social Commentary - Summer Safety Concerns
 
-Twitter thread expressing concern about current social conditions in the United States and advises readers to prioritize family safety.
+This article summarizes a Twitter thread expressing concern about current social conditions in the United States and advises readers to prioritize family safety.
 
 Key Points:
 

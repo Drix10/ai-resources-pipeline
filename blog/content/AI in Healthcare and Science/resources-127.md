@@ -1,6 +1,6 @@
 ### 💡 Health Awareness - Seasonal Illness Prevention
 
-Importance of staying healthy during the holiday season by preventing common illnesses like Covid, Flu, and RSV. It introduces "bub" as a solution for maintaining wellness.
+This article highlights the importance of staying healthy during the holiday season by preventing common illnesses like Covid, Flu, and RSV. It introduces "bub" as a solution for maintaining wellness.
 
 Key Points:
 

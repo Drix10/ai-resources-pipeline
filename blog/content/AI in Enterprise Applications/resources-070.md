@@ -1,6 +1,6 @@
 ### ✨ DeepL - Recognition in Le Figaro
 
-DeepL's inclusion in Le Figaro's list of eight European AI companies to watch and subsequent user growth.
+This article discusses DeepL's inclusion in Le Figaro's list of eight European AI companies to watch and subsequent user growth.
 
 Key Points:
 

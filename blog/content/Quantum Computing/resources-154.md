@@ -1,6 +1,6 @@
 ### 🤖 Solana - Post-Quantum Cryptography with Falcon
 
-Solana's move towards integrating Falcon signatures for post-quantum (PQ) cryptography migration. It discusses the suitability of Falcon for Solana's architecture and the trade-offs involved in its adoption.
+This article explores Solana's move towards integrating Falcon signatures for post-quantum (PQ) cryptography migration. It discusses the suitability of Falcon for Solana's architecture and the trade-offs involved in its adoption.
 
 Key Points:
 

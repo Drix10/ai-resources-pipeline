@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Claude 3.7 Sonnet
 
-Release of Anthropic's Claude 3.7 Sonnet reasoning model and provides a link to a guide on its usage with the AI SDK.
+This article discusses the release of Anthropic's Claude 3.7 Sonnet reasoning model and provides a link to a guide on its usage with the AI SDK.
 
 Key Points:
 

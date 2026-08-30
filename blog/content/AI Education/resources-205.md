@@ -1,6 +1,6 @@
 ### ✨ Finance Search - Real-time Market Data
 
-Finance Search capabilities, which leverage live market data to answer complex financial questions. It explains how agents can perform various financial analyses without requiring external data provider integrations.
+This article details Finance Search capabilities, which leverage live market data to answer complex financial questions. It explains how agents can perform various financial analyses without requiring external data provider integrations.
 
 Key Points:
 

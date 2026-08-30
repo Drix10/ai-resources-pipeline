@@ -1,6 +1,6 @@
 ### 🤖 China - Guizhou Province Development
 
-President Xi Jinping's call for Guizhou province to prioritize high-quality development through deepened reform and opening-up.  The statement emphasizes confidence, hard work, and steady progress in advancing Chinese development.
+This article summarizes President Xi Jinping's call for Guizhou province to prioritize high-quality development through deepened reform and opening-up.  The statement emphasizes confidence, hard work, and steady progress in advancing Chinese development.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### ✨ Draw Things - Multi-Image Editing
 
-Multi-image editing capabilities within Draw Things 2509, explaining how users can manage and assign multiple images for creative projects. It outlines the process of utilizing a moodboard for image organization and integration.
+This article details the multi-image editing capabilities within Draw Things 2509, explaining how users can manage and assign multiple images for creative projects. It outlines the process of utilizing a moodboard for image organization and integration.
 
 Key Points:
 

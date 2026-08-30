@@ -1,6 +1,6 @@
 ### 🤖 Aviation Accident - Ahmedabad Plane Crash Preliminary Report
 
-Initial findings of the AAIB investigation into the Air India Express crash in Ahmedabad, as reported by former Indian Airlines Captain SS Panesar.  The report focuses on aircraft and pilot details, lacking comprehensive crash reasons.
+This article summarizes the initial findings of the AAIB investigation into the Air India Express crash in Ahmedabad, as reported by former Indian Airlines Captain SS Panesar.  The report focuses on aircraft and pilot details, lacking comprehensive crash reasons.
 
 Key Points:
 

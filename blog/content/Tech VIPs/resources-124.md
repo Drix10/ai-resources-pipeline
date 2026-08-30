@@ -1,6 +1,6 @@
 ### 💡 Movie Classification - Defining Christmas Films
 
-Criteria for classifying a movie as a Christmas film, specifically addressing the common debate around movies like Die Hard. It proposes that a film's designation as a Christmas movie should depend on its plot's intrinsic reliance on holiday-specific elements.
+This article discusses the criteria for classifying a movie as a Christmas film, specifically addressing the common debate around movies like Die Hard. It proposes that a film's designation as a Christmas movie should depend on its plot's intrinsic reliance on holiday-specific elements.
 
 Key Points:
 

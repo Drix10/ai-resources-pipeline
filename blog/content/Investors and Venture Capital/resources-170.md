@@ -1,6 +1,6 @@
 ### 🤖 Peer-to-Peer Networks - LimeWire Launch
 
-Launch of LimeWire, a significant peer-to-peer file sharing platform, and its founder.
+This article details the launch of LimeWire, a significant peer-to-peer file sharing platform, and its founder.
 
 Key Points:
 

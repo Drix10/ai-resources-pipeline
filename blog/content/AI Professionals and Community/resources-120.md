@@ -1,6 +1,6 @@
 ### 🤖 Policy Evaluation - Simulation Challenges
 
-Complexities of policy evaluation in AI and robotics, highlighting the difficulties in maintaining correlation between visual and physics settings. It emphasizes the significant effort required to construct accurate simulation environments.
+This article discusses the complexities of policy evaluation in AI and robotics, highlighting the difficulties in maintaining correlation between visual and physics settings. It emphasizes the significant effort required to construct accurate simulation environments.
 
 Key Points:
 

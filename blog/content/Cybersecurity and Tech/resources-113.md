@@ -1,6 +1,6 @@
 ### 🤖 AI Development - Automating Journalism
 
-Case where a developer, new to coding, successfully built an AI system to automate aspects of journalism, as challenged by Replit. It highlights the rapid progress and accessibility of AI development tools.
+This article discusses a case where a developer, new to coding, successfully built an AI system to automate aspects of journalism, as challenged by Replit. It highlights the rapid progress and accessibility of AI development tools.
 
 Key Points:
 

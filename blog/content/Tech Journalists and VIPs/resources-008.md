@@ -1,6 +1,6 @@
 ### 🤖 AI Ethics - Algorithmic Bias in Domestic Violence Risk Assessment
 
-Use of an AI algorithm in Spain to assess the risk of domestic violence recurrence and highlights the ethical concerns and flawed outcomes resulting from its implementation.
+This article discusses the use of an AI algorithm in Spain to assess the risk of domestic violence recurrence and highlights the ethical concerns and flawed outcomes resulting from its implementation.
 
 Key Points:
 

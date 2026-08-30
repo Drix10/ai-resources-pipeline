@@ -1,6 +1,6 @@
 ### 💰 Investments - XPANCEO Funding Round
 
-XPANCEO's recent $250 million funding round at a $1.35 billion pre-product valuation and its implications for the UAE's unicorn landscape.
+This article discusses XPANCEO's recent $250 million funding round at a $1.35 billion pre-product valuation and its implications for the UAE's unicorn landscape.
 
 Key Points:
 

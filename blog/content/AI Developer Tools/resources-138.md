@@ -1,6 +1,6 @@
 ### 🤖 DSPy - LLM Prompt Optimization
 
-Influence of Drew Breunig's talk on "let the LLMs write the prompts" in driving deeper engagement with DSPy, a framework for programming with language models. It highlights the impact of innovative approaches to prompt engineering.
+This article discusses the influence of Drew Breunig's talk on "let the LLMs write the prompts" in driving deeper engagement with DSPy, a framework for programming with language models. It highlights the impact of innovative approaches to prompt engineering.
 
 Key Points:
 

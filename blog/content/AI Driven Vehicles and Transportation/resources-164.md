@@ -1,6 +1,6 @@
 ### 🤖 Autonomous Vehicles - Zoox Robotaxi Design
 
-Zoox's approach to designing an autonomous robotaxi, emphasizing its purpose-built architecture. It highlights the integration of perception as a fundamental aspect of the vehicle's engineering.
+This article discusses Zoox's approach to designing an autonomous robotaxi, emphasizing its purpose-built architecture. It highlights the integration of perception as a fundamental aspect of the vehicle's engineering.
 
 Key Points:
 

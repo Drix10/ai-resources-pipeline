@@ -1,6 +1,6 @@
 ### 🤖 Solana Ecosystem - Institutional Trading Platform
 
-Dflow's institutional-grade trading platform, which facilitates billions in spot and prediction market transactions. It highlights their presentation at the Solana Accelerate APAC event.
+This article covers Dflow's institutional-grade trading platform, which facilitates billions in spot and prediction market transactions. It highlights their presentation at the Solana Accelerate APAC event.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ⚠️ Language and Regime Change
 
-Use of specific language historically associated with regime change, highlighting violations of human rights and the rule of law.
+This article discusses the use of specific language historically associated with regime change, highlighting violations of human rights and the rule of law.
 
 Key Points:
 

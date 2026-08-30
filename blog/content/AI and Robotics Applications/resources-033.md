@@ -1,6 +1,6 @@
 ### 🤖 Generative Design Model - Areas for Improvement and Optimism
 
-Two key aspects of a Generative Design Model (GDM): areas needing improvement and reasons for optimism regarding its future development.
+This article discusses two key aspects of a Generative Design Model (GDM): areas needing improvement and reasons for optimism regarding its future development.
 
 Key Points:
 

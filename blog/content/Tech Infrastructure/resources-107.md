@@ -1,6 +1,6 @@
 ### 🤖 Brand Strategy - Avoiding Common Mistakes
 
-Talk on brand strategy, focusing on common mistakes made even by successful brands.  It highlights the importance of a clearly defined strategic enemy in achieving brand success.
+This article discusses a talk on brand strategy, focusing on common mistakes made even by successful brands.  It highlights the importance of a clearly defined strategic enemy in achieving brand success.
 
 Key Points:
 

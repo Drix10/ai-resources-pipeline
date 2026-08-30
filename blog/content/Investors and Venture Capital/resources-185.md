@@ -1,6 +1,6 @@
 ### 💡 Urban Dynamics - Austin Incident Analysis
 
-Series of shootings in Austin, Texas, involving teenage suspects and random victims. It discusses the observed pattern of multiple incidents within a short timeframe.
+This article examines a series of shootings in Austin, Texas, involving teenage suspects and random victims. It discusses the observed pattern of multiple incidents within a short timeframe.
 
 Key Points:
 

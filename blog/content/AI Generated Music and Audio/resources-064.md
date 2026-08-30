@@ -1,6 +1,6 @@
 ### 🚀 n8n Integration - ElevenLabs Node
 
-Quick integration of the ElevenLabs node into the n8n workflow automation platform.  It covers the installation process and highlights key use cases.
+This article details the quick integration of the ElevenLabs node into the n8n workflow automation platform.  It covers the installation process and highlights key use cases.
 
 Key Points:
 

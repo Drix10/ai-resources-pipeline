@@ -1,6 +1,6 @@
 ### 🤖 AI-Generated Content -  Remaking Game of Thrones
 
-Potential of using current AI technologies to recreate Game of Thrones Season 8, leveraging advancements in natural language image editing, image-to-video conversion, lip syncing, and background music/sound effects generation.
+This article discusses the potential of using current AI technologies to recreate Game of Thrones Season 8, leveraging advancements in natural language image editing, image-to-video conversion, lip syncing, and background music/sound effects generation.
 
 Key Points:
 

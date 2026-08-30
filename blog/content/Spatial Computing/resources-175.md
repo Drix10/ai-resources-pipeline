@@ -1,6 +1,6 @@
 ### ✨ Anime Announcement - New Story Release
 
-Announcement of "Los Diarios de la Boticaria: El Tesoro Secreto de la Consorte Difunta." It provides information on the new story and its release schedule.
+This article details the announcement of "Los Diarios de la Boticaria: El Tesoro Secreto de la Consorte Difunta." It provides information on the new story and its release schedule.
 
 Key Points:
 

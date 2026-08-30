@@ -1,6 +1,6 @@
 ### 🌎 Environmental Concerns - Canadian Air Quality
 
-Concerning trend in Canadian air quality, highlighting a significant increase in pollution levels exceeding national standards.
+This article discusses a concerning trend in Canadian air quality, highlighting a significant increase in pollution levels exceeding national standards.
 
 Key Points:
 

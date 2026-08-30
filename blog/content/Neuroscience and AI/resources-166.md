@@ -1,6 +1,6 @@
 ### 💡 Public Health Response - Hantavirus Outbreak Communication Challenges
 
-Concerns regarding public health communication during an evolving hantavirus outbreak on a cruise ship. It highlights the challenges posed by the absence of a clear, trusted voice and the risks of premature public statements.
+This article discusses concerns regarding public health communication during an evolving hantavirus outbreak on a cruise ship. It highlights the challenges posed by the absence of a clear, trusted voice and the risks of premature public statements.
 
 Key Points:
 

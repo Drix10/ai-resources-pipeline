@@ -1,6 +1,6 @@
 ### 💡 Liberty and Security - Historical and Modern Tensions
 
-Historical tension between liberty and security, drawing parallels between 18th-century colonial struggles and contemporary concerns.  It briefly discusses the perceived trade-off between individual freedom and societal protection.
+This article examines the historical tension between liberty and security, drawing parallels between 18th-century colonial struggles and contemporary concerns.  It briefly discusses the perceived trade-off between individual freedom and societal protection.
 
 Key Points:
 

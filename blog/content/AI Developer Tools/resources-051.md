@@ -1,6 +1,6 @@
 ### 🤖 AI - Open Source Collaboration
 
-Conversation between Scarlett, a Staff Developer Advocate at Blocks, and Conor Bronsdon, focusing on the intersection of AI, open source, and developer advocacy, highlighting the success of open-source AI projects like DeepSeek.
+This article discusses a conversation between Scarlett, a Staff Developer Advocate at Blocks, and Conor Bronsdon, focusing on the intersection of AI, open source, and developer advocacy, highlighting the success of open-source AI projects like DeepSeek.
 
 Key Points:
 

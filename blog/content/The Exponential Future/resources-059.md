@@ -1,6 +1,6 @@
 ### 🤖 AI Workflow Automation - Vy's New Features
 
-Vy's new update, focusing on its task repetition capability and two secret features: workflow chaining and automated workflow creation.
+This article discusses Vy's new update, focusing on its task repetition capability and two secret features: workflow chaining and automated workflow creation.
 
 Key Points:
 

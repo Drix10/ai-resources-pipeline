@@ -1,6 +1,6 @@
 ### 🤖 AI in Life Sciences - Closing Care Gaps
 
-Q&A discussing the use of AI and real-time data to address care gaps, improve adherence to clinical guidelines, and enhance competitiveness in the life sciences industry.  The discussion featured Ryan Fukushima, Dr. Gary Grad, and Ahmed ElNawawi.
+This article summarizes a Q&A discussing the use of AI and real-time data to address care gaps, improve adherence to clinical guidelines, and enhance competitiveness in the life sciences industry.  The discussion featured Ryan Fukushima, Dr. Gary Grad, and Ahmed ElNawawi.
 
 Key Points:
 

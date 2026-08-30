@@ -1,6 +1,6 @@
 ### 🤖 Scheduling - Gauntlet AI Hiring
 
-Scheduling limitations and provides instructions on how to schedule a meeting to discuss potential employment at Gauntlet AI.
+This article discusses scheduling limitations and provides instructions on how to schedule a meeting to discuss potential employment at Gauntlet AI.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Cognitive Computation -  Brain's Computational Leanings
 
-Computational processes the brain unconsciously uses while performing tasks, particularly focusing on cooking as an example of combinatorics and phase transitions.
+This article explores the computational processes the brain unconsciously uses while performing tasks, particularly focusing on cooking as an example of combinatorics and phase transitions.
 
 Key Points:
 

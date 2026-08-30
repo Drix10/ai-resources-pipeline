@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Linear Attention Mechanisms
 
-Study exploring the effectiveness of incorporating full attention layers into primarily linear attention models within Large Language Models (LLMs) to mitigate the challenges posed by long input sequences.  The research involved training numerous models and testing various architectural designs.
+This article discusses a study exploring the effectiveness of incorporating full attention layers into primarily linear attention models within Large Language Models (LLMs) to mitigate the challenges posed by long input sequences.  The research involved training numerous models and testing various architectural designs.
 
 
 Key Points:

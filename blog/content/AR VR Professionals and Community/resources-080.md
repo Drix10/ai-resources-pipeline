@@ -1,6 +1,6 @@
 ### ⚠️ Global Travel - US Travel Advisory
 
-Travel advisory recommending against travel to the United States due to concerns about political events and alleged human rights violations.  The advisory emphasizes caution for those who must travel to the US.
+This article summarizes a travel advisory recommending against travel to the United States due to concerns about political events and alleged human rights violations.  The advisory emphasizes caution for those who must travel to the US.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Effective Altruism - Prioritizing Personal Virtue
 
-Importance of personal virtue within the effective altruism movement and cautions against prioritizing signaling over genuine ethical conduct.  The example of Sam Bankman-Fried is used to illustrate the potential pitfalls of neglecting personal integrity.
+This article discusses the importance of personal virtue within the effective altruism movement and cautions against prioritizing signaling over genuine ethical conduct.  The example of Sam Bankman-Fried is used to illustrate the potential pitfalls of neglecting personal integrity.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Physics - Invisibility Cloaking Concepts
 
-Theoretical concept of an invisibility cloak that can conceal objects not only externally but also internally, preventing detection from within.
+This article discusses the theoretical concept of an invisibility cloak that can conceal objects not only externally but also internally, preventing detection from within.
 
 Key Points:
 

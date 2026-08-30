@@ -1,6 +1,6 @@
 ### 💡 UAP - Reported Extraterrestrial Species
 
-Dr. Hal Puthoff's statement regarding the reported existence of four distinct extraterrestrial species, drawing from accounts by individuals involved in UAP recovery efforts.
+This article covers Dr. Hal Puthoff's statement regarding the reported existence of four distinct extraterrestrial species, drawing from accounts by individuals involved in UAP recovery efforts.
 
 Key Points:
 

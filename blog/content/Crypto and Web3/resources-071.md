@@ -1,6 +1,6 @@
 ### 🤖 Humanity Protocol Airdrop - Snapshot Details
 
-Humanity Protocol airdrop announcement, specifying the snapshot date and criteria for eligibility.
+This article summarizes the Humanity Protocol airdrop announcement, specifying the snapshot date and criteria for eligibility.
 
 Key Points:
 

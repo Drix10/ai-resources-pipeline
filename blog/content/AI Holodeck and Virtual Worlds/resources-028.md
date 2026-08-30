@@ -1,6 +1,6 @@
 ### 🤖 AI Design Tools - Understanding Real Design Workflows
 
-Limitations of AI creative tools in understanding real design workflows, highlighting the development of FLORA as a solution.  It also showcases how a designer uses FLORA to explore creative ideas.
+This article discusses the limitations of AI creative tools in understanding real design workflows, highlighting the development of FLORA as a solution.  It also showcases how a designer uses FLORA to explore creative ideas.
 
 Key Points:
 

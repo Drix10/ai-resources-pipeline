@@ -1,6 +1,6 @@
 ### 💡 Social Dynamics - Avoiding Reactionary Cycles
 
-Cyclical nature of reactions in social discourse and advocates for grounding communication in historically shaped social language. It aims to highlight the benefits of a proactive approach over reactive responses.
+This article discusses the cyclical nature of reactions in social discourse and advocates for grounding communication in historically shaped social language. It aims to highlight the benefits of a proactive approach over reactive responses.
 
 Key Points:
 

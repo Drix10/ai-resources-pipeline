@@ -1,6 +1,6 @@
 ### 🤖 RWX Cloud - ABQ and Captain Updates
 
-Update on the future development and support plans for ABQ and Captain within the RWX Cloud ecosystem.  It addresses continued support and planned UX improvements.
+This article provides an update on the future development and support plans for ABQ and Captain within the RWX Cloud ecosystem.  It addresses continued support and planned UX improvements.
 
 Key Points:
 

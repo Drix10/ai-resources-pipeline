@@ -1,6 +1,6 @@
 ### 🤖 AI in Design - Defining Design
 
-Discussion on the limitations of AI in design, focusing on the inherent difficulties in defining "design" itself.  The conversation highlights the multifaceted nature of design and its implications for AI development.
+This article discusses a discussion on the limitations of AI in design, focusing on the inherent difficulties in defining "design" itself.  The conversation highlights the multifaceted nature of design and its implications for AI development.
 
 
 Key Points:

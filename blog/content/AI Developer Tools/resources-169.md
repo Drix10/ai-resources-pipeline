@@ -1,6 +1,6 @@
 ### ✨ Documentation - Mintlify Implementation
 
-Use of Mintlify for creating high-quality documentation, as exemplified by Relic's implementation. It highlights the aesthetic and functional benefits of leveraging modern documentation platforms.
+This article examines the use of Mintlify for creating high-quality documentation, as exemplified by Relic's implementation. It highlights the aesthetic and functional benefits of leveraging modern documentation platforms.
 
 Key Points:
 

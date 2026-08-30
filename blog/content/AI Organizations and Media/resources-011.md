@@ -1,6 +1,6 @@
 ### 🤖 RAG Datasets - Addressing Misinformation in LLMs
 
-Challenges of misinformation in Retrieval Augmented Generation (RAG) systems and introduces RAGuard, a new dataset designed to improve the robustness of these systems against misleading information.  The dataset utilizes Reddit discussions to simulate real-world scenarios.
+This article discusses the challenges of misinformation in Retrieval Augmented Generation (RAG) systems and introduces RAGuard, a new dataset designed to improve the robustness of these systems against misleading information.  The dataset utilizes Reddit discussions to simulate real-world scenarios.
 
 Key Points:
 

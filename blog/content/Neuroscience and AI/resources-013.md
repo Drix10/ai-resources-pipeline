@@ -1,6 +1,6 @@
 ### 🤖 GPT Model - Qualitative Improvement Measurement
 
-Release of GPT 4.5 and its significance in measuring the qualitative improvement achieved through scaling pre-training in large language models.  The focus is on assessing the rate of progress rather than specific feature details.
+This article discusses the release of GPT 4.5 and its significance in measuring the qualitative improvement achieved through scaling pre-training in large language models.  The focus is on assessing the rate of progress rather than specific feature details.
 
 Key Points:
 

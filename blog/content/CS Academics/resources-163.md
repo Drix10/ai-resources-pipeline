@@ -1,6 +1,6 @@
 ### 🤖 AI Grand Prix - Autonomous Drone Racing
 
-AI Grand Prix, a fully autonomous drone racing competition designed to challenge engineers globally. It emphasizes software innovation as the sole path to success in this unique event.
+This article outlines the AI Grand Prix, a fully autonomous drone racing competition designed to challenge engineers globally. It emphasizes software innovation as the sole path to success in this unique event.
 
 Key Points:
 

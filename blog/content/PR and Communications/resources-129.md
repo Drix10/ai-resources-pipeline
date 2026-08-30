@@ -1,6 +1,6 @@
 ### 💡 Public Safety - School Bus Incident Report
 
-Recent incident involving a school bus in New Jersey where a rock was thrown, causing injury to a child. It outlines the immediate consequences of the event.
+This article details a recent incident involving a school bus in New Jersey where a rock was thrown, causing injury to a child. It outlines the immediate consequences of the event.
 
 Key Points:
 

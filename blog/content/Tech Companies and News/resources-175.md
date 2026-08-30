@@ -1,6 +1,6 @@
 ### 💡 Energy Policy - Natural Gas Utilization
 
-Strategic importance of America's natural gas resources for energy transition and meeting global energy demand. It highlights natural gas as a cleaner alternative to coal for power generation.
+This article discusses the strategic importance of America's natural gas resources for energy transition and meeting global energy demand. It highlights natural gas as a cleaner alternative to coal for power generation.
 
 Key Points:
 

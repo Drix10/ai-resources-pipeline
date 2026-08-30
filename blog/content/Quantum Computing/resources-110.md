@@ -1,6 +1,6 @@
 ### 💡 Political Analysis - Unite the Kingdom March
 
-Observations from the "Unite the Kingdom" march, focusing on attendee demographics and event occurrences.  The author's firsthand account provides a nuanced perspective on the event's impact.
+This article summarizes observations from the "Unite the Kingdom" march, focusing on attendee demographics and event occurrences.  The author's firsthand account provides a nuanced perspective on the event's impact.
 
 Key Points:
 

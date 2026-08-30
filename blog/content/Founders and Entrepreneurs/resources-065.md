@@ -1,6 +1,6 @@
 ### 💡 Geopolitics - Security Guarantees for Ukraine
 
-Statement by the former Lithuanian Foreign Minister regarding security guarantees for Ukraine and the implications for NATO membership.
+This article discusses the statement by the former Lithuanian Foreign Minister regarding security guarantees for Ukraine and the implications for NATO membership.
 
 Key Points:
 

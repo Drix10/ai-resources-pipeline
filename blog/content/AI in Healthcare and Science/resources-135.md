@@ -1,6 +1,6 @@
 ### 🤖 AI in Healthcare - Prescription Renewal
 
-AI-powered system designed for prescription renewal in Utah. It covers the system's capabilities in verifying patient information and processing common medication refill requests.
+This article details an AI-powered system designed for prescription renewal in Utah. It covers the system's capabilities in verifying patient information and processing common medication refill requests.
 
 Key Points:
 

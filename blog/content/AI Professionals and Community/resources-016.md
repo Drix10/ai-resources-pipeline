@@ -1,6 +1,6 @@
 ### 🤖 Large Language Model Training - Scaling and Performance
 
-Observed relationship between training compute and performance gains in large language models, specifically regarding GPQA and MATH benchmarks.  It also notes a surprising lack of enthusiasm for a significant performance improvement.
+This article discusses the observed relationship between training compute and performance gains in large language models, specifically regarding GPQA and MATH benchmarks.  It also notes a surprising lack of enthusiasm for a significant performance improvement.
 
 Key Points:
 
