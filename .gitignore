@@ -56,3 +56,9 @@ login-error.png
 .processed-tweet-ids.json
 .processed-tweet-ids.json.tmp
 tracker/
+
+# Dynamic View Counter Data (Persists per-deployment)
+blog/lib/views-data.json
+blog/lib/views-data.json.tmp
+views-data.json
+*.tmp
