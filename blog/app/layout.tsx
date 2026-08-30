@@ -1,3 +1,4 @@
+import HeaderLiveCounter from '@/components/HeaderLiveCounter';
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
@@ -141,6 +142,7 @@ export default function RootLayout({
             </div>
             
             <div className="flex items-center gap-2">
+              <HeaderLiveCounter />
               <a 
                 href="https://github.com/Drix10" 
                 target="_blank" 

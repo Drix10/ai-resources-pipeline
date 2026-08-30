@@ -1,12 +1,12 @@
 {
-  "totalViews": 8935,
-  "totalAiViews": 0,
-  "totalHumanViews": 8935,
+  "totalViews": 8939,
+  "totalAiViews": 1,
+  "totalHumanViews": 8938,
   "lastUpdated": "2026-08-30T06:44:51.987Z",
   "articles": {
     "linkedin-insights/ai-developer-tools-1788031114374": {
-      "views": 3,
-      "humanViews": 3,
+      "views": 5,
+      "humanViews": 5,
       "aiViews": 0
     },
     "ai-companies-and-ventures/animation-realism-physics-and-imper-resources-230": {
@@ -15,9 +15,9 @@
       "aiViews": 0
     },
     "ai-developer-tools/apify-broadcast-on-the-context-resources-230": {
-      "views": 1,
-      "humanViews": 1,
-      "aiViews": 0
+      "views": 3,
+      "humanViews": 2,
+      "aiViews": 1
     },
     "ai-education/biomolecular-prediction-nvidia-acce-resources-230": {
       "views": 1,
