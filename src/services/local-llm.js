@@ -154,6 +154,29 @@ Use "• " for all bullet points.
 `;
 
 class LocalLLMService {
+
+  /**
+   * Deterministically removes robotic AI openers from generated markdown paragraphs
+   */
+  stripMetaIntroductions(text) {
+    if (!text || typeof text !== 'string') return text;
+    const lines = text.split(/\r?\n/);
+    const pattern = /^this (content|article|post|document|thread|video|tweet|text|resource|repo|repository|guide|profile|piece|entry|overview|paper|discussion|write-up|update) (explains|describes|discusses|details|provides|summarizes|highlights|explores|examines|focuses on|delves into|covers|presents|analyzes|shows|outlines|features|looks at|breaks down|demonstrates|shares|introduces|gives|contains|walks through) (how |what |the |a |an )?/i;
+    
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trim();
+      if (line && !line.startsWith('#') && !line.startsWith('---') && !line.startsWith('🔗') && !line.startsWith('•') && !line.startsWith('>')) {
+        if (pattern.test(line)) {
+          let cleaned = line.replace(pattern, '').trim();
+          if (cleaned.length > 0) {
+            lines[i] = cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
+          }
+        }
+      }
+    }
+    return lines.join('\n');
+  }
+
   constructor() {
     this.startupPromise = null;
   }
@@ -1464,7 +1487,7 @@ Use this exact structure for every article:
 
 ### [ONE emoji] Main Topic - Subtopic
 
-[2-3 sentence introduction — no emojis, no marketing language]
+[2-3 sentence introduction — direct technical summary. NEVER start with "This article discusses...", "This content explains...", "This describes...", "In this post...". Start immediately with the core technical subject or finding.]
 
 Key Points:
 
@@ -1516,6 +1539,8 @@ ${combinedPrompt}</source_material>
 
         generatedText = generatedText.replace(/^---\s*\n/, "");
         generatedText = this.stripUnsupportedImplementations(generatedText, sourceRecords);
+        generatedText = this.stripMetaIntroductions(generatedText);
+        generatedText = this.stripMetaIntroductions(generatedText);
 
         const supportSection = `
 ---
@@ -1711,7 +1736,7 @@ Use this exact structure for every article:
 
 ### [ONE emoji] Main Topic - Subtopic
 
-[2-3 sentence introduction — no emojis, no marketing language]
+[2-3 sentence introduction — direct technical summary. NEVER start with "This article discusses...", "This content explains...", "This describes...", "In this post...". Start immediately with the core technical subject or finding.]
 
 Key Points:
 

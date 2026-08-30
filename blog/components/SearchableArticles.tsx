@@ -17,6 +17,32 @@ export default function SearchableArticles({ initialArticles, initialTotalCount,
   const [sortBy, setSortBy] = useState<SortOption>('newest');
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(30);
+  const [liveViews, setLiveViews] = useState(initialTotalCount);
+  const [liveAiViews, setLiveAiViews] = useState(0);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch('/api/views', { signal: controller.signal })
+      .then((res) => {
+        if (!res.ok) throw new Error('Network response not ok');
+        return res.json();
+      })
+      .then((data) => {
+        if (data?.totalViews) {
+          setLiveViews(data.totalViews);
+          setLiveAiViews(data.totalAiViews || 0);
+        }
+      })
+      .catch((err) => {
+        if (err.name !== 'AbortError') {
+          // Graceful fallback to initial count
+        }
+      });
+
+    return () => {
+      controller.abort();
+    };
+  }, []);
 
   const [articles, setArticles] = useState<ArticleSummary[]>(initialArticles);
   const [totalCount, setTotalCount] = useState(initialTotalCount);

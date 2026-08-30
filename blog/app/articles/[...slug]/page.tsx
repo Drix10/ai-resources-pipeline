@@ -153,6 +153,33 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
         dangerouslySetInnerHTML={{ __html: article.htmlContent }}
       />
 
+      {/* Internal Linking: Related Guides in same category for SEO/GEO crawl graph */}
+      <section className="mt-8 pt-6 border-t border-zinc-800/80">
+        <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider font-mono mb-3">
+          Related {article.category} Breakdowns
+        </h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {getAllArticles()
+            .filter((a) => a.category === article.category && a.slug !== article.slug)
+            .slice(0, 4)
+            .map((related) => (
+              <a
+                key={related.slug}
+                href={`/articles/${related.slug}`}
+                className="group p-3 rounded-xl bg-zinc-900/40 border border-zinc-800/60 hover:border-zinc-700 hover:bg-zinc-900/80 transition-all flex flex-col justify-between"
+              >
+                <div className="text-xs font-semibold text-zinc-200 group-hover:text-white line-clamp-2 mb-1.5">
+                  {related.title}
+                </div>
+                <div className="text-[11px] text-zinc-500 font-mono flex items-center justify-between">
+                  <span>{related.readingTimeMinutes}m read</span>
+                  <span className="group-hover:translate-x-0.5 transition-transform text-zinc-400">Read ↗</span>
+                </div>
+              </a>
+            ))}
+        </div>
+      </section>
+
       {/* High-DR Backlinks & Mobile Author Card */}
       <div className="mt-8 sm:mt-12 pt-6 border-t border-zinc-800 space-y-4 sm:space-y-6">
         <div className="p-4 rounded-xl bg-zinc-900/60 border border-zinc-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
