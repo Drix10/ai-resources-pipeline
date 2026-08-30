@@ -1,6 +1,6 @@
 ### 💡 Entrepreneurship - YC Office Hours Experience
 
-This article summarizes the author's experience at a Y Combinator office hours event, highlighting its impact on their perspective on startups.
+Author's experience at a Y Combinator office hours event, highlighting its impact on their perspective on startups.
 
 Key Points:
 

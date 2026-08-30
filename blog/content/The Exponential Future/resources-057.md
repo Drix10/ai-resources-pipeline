@@ -1,6 +1,6 @@
 ### 🤖 Tesla and Uber - Future Predictions
 
-This article discusses a Twitter exchange predicting future technological advancements, referencing the creation of Uber and Tesla's impact.
+Twitter exchange predicting future technological advancements, referencing the creation of Uber and Tesla's impact.
 
 Key Points:
 

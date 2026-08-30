@@ -1,6 +1,6 @@
 ### 🤖 Dell's AI Server Market - Sales Projections
 
-This article discusses Dell's projected AI server sales for the year and investor response.  It also highlights the potential shift in Dell's business focus.
+Dell's projected AI server sales for the year and investor response.  It also highlights the potential shift in Dell's business focus.
 
 Key Points:
 

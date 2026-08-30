@@ -1,6 +1,6 @@
 ### 🤖 AI and Labor - Substitutability vs. Complementarity
 
-This article discusses the relationship between compute and labor in the context of AI development, exploring scenarios where they act as substitutes or complements.
+Relationship between compute and labor in the context of AI development, exploring scenarios where they act as substitutes or complements.
 
 Key Points:
 

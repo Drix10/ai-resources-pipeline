@@ -1,6 +1,6 @@
 ### 🤖 Crypto Analysis - SentientChat#2 Live Session
 
-This article summarizes a live session on SentientChat#2, focusing on identifying potentially fraudulent cryptocurrencies. The session involved analyzing top trending coins to detect rug pull risks and assessing their underlying functionality.
+Live session on SentientChat#2, focusing on identifying potentially fraudulent cryptocurrencies. The session involved analyzing top trending coins to detect rug pull risks and assessing their underlying functionality.
 
 Key Points:
 

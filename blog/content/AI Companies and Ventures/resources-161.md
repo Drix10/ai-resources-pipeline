@@ -1,6 +1,6 @@
 ### 🤖 Agent Commerce - Permissionless Standards
 
-This article discusses the necessity of open, permissionless standards within agent commerce. It highlights the importance of removing gatekeepers to foster innovation and widespread adoption.
+Necessity of open, permissionless standards within agent commerce. It highlights the importance of removing gatekeepers to foster innovation and widespread adoption.
 
 Key Points:
 

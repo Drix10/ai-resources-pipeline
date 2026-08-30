@@ -1,6 +1,6 @@
 ### 🤖 Adobe Firefly - Nano Banana Release
 
-This article discusses the release of Nano Banana, a Gemini 2.5 Flash model, within Adobe's Firefly suite of tools.  Its use in Firefly mobile, web, and boards applications is highlighted.
+Release of Nano Banana, a Gemini 2.5 Flash model, within Adobe's Firefly suite of tools.  Its use in Firefly mobile, web, and boards applications is highlighted.
 
 Key Points:
 

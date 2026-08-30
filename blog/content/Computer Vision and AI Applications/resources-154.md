@@ -1,6 +1,6 @@
 ### 🤖 Video Models - Zero-Shot Perception Abilities
 
-This article covers Robert Geirhos's talk on research methodologies and the latest advancements in zero-shot perception within video models, based on his group's work.
+Robert Geirhos's talk on research methodologies and the latest advancements in zero-shot perception within video models, based on his group's work.
 
 Key Points:
 

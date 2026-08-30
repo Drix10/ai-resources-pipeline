@@ -1,6 +1,6 @@
 ### 🤖 TradFi and DeFi - RIV Capital's European Strategy
 
-This article summarizes RIV Capital's approach to bridging traditional finance (TradFi) and decentralized finance (DeFi) in Europe, focusing on regulated innovation and inclusive investment tools.
+RIV Capital's approach to bridging traditional finance (TradFi) and decentralized finance (DeFi) in Europe, focusing on regulated innovation and inclusive investment tools.
 
 Key Points:
 

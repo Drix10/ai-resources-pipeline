@@ -1,6 +1,6 @@
 ### 🤖 AI Ethics in India - Stakeholder Consultation
 
-This article discusses the third stakeholder consultation on the AI Readiness Assessment Methodology (RAM) in India, focusing on building a safe, fair, and ethical AI ecosystem.  The consultation took place at T-Works, Hyderabad on April 8, 2025.
+Third stakeholder consultation on the AI Readiness Assessment Methodology (RAM) in India, focusing on building a safe, fair, and ethical AI ecosystem.  The consultation took place at T-Works, Hyderabad on April 8, 2025.
 
 Key Points:
 

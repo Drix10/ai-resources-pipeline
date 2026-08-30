@@ -1,6 +1,6 @@
 ### 🤖 LLMs -  When to Think
 
-This article discusses Thinkless, an LLM designed to determine when to engage in complex reasoning and when a simpler approach suffices.  It highlights the efficiency gains achieved through this approach.
+Thinkless, an LLM designed to determine when to engage in complex reasoning and when a simpler approach suffices.  It highlights the efficiency gains achieved through this approach.
 
 Key Points:
 

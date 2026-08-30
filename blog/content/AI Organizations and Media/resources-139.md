@@ -1,6 +1,6 @@
 ### 🤖 AI - Simmish and Reward Learning
 
-This article explores the concept of combining simulation-based learning (Simmish) with reinforcement learning (RL) techniques. It highlights an advanced approach that extends beyond traditional reward-based systems.
+Concept of combining simulation-based learning (Simmish) with reinforcement learning (RL) techniques. It highlights an advanced approach that extends beyond traditional reward-based systems.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Financial Markets - Investment Strategies and Market Outlook
 
-This article summarizes key discussions from a podcast covering secondary investment strategies, risks associated with AI data center debt, and projections for the 2026 IPO market. It provides insights into current financial trends and future market potential.
+Key discussions from a podcast covering secondary investment strategies, risks associated with AI data center debt, and projections for the 2026 IPO market. It provides insights into current financial trends and future market potential.
 
 Key Points:
 

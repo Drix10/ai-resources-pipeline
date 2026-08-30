@@ -1,6 +1,6 @@
 ### 🤖 LLMs as Judges - Taming the Wild West
 
-This article discusses the challenges of using Large Language Models (LLMs) as evaluation tools and presents a Test-Driven-Development (TDD) workflow to improve their accuracy and reliability.  LLMs often produce unreliable results out-of-the-box.
+Challenges of using Large Language Models (LLMs) as evaluation tools and presents a Test-Driven-Development (TDD) workflow to improve their accuracy and reliability.  LLMs often produce unreliable results out-of-the-box.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Science and Curiosity - The Qualia Journal
 
-This article highlights the profound connection between scientific exploration and the human drive for curiosity. It references an older blog post from The Qualia Journal by Ken Mogi, emphasizing how science keeps this intrinsic curiosity alive.
+Profound connection between scientific exploration and the human drive for curiosity. It references an older blog post from The Qualia Journal by Ken Mogi, emphasizing how science keeps this intrinsic curiosity alive.
 
 Key Points:
 

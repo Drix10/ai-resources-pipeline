@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Sim2Real Success
 
-This article discusses the successful implementation of a sim2real project using LeRobotHF's accessible zero-shot approach, trained in ManiSkill and deployed in a real-world setting.  The project highlights the challenges and rewards of sim2real transfer.
+Successful implementation of a sim2real project using LeRobotHF's accessible zero-shot approach, trained in ManiSkill and deployed in a real-world setting.  The project highlights the challenges and rewards of sim2real transfer.
 
 Key Points:
 

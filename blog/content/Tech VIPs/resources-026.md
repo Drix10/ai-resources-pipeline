@@ -1,6 +1,6 @@
 ### 🤖 Bolivian Economy - Inflation Crisis
 
-This article discusses the high inflation rates in Bolivia, focusing on the impact on consumers and the rise in prices of essential goods.
+High inflation rates in Bolivia, focusing on the impact on consumers and the rise in prices of essential goods.
 
 Key Points:
 

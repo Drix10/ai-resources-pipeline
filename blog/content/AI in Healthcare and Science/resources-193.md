@@ -1,6 +1,6 @@
 ### 🤖 AI Procurement - Autonomous Supplier Management
 
-This article discusses how artificial intelligence automates procurement processes. It highlights a solution designed to streamline supplier interactions and quote management. The focus is on enhancing efficiency in business operations.
+Artificial intelligence automates procurement processes. It highlights a solution designed to streamline supplier interactions and quote management. The focus is on enhancing efficiency in business operations.
 
 Key Points:
 

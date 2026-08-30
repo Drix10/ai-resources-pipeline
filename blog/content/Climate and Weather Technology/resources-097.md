@@ -1,6 +1,6 @@
 ### 🌀 Hurricane Erin Update - August 17, 2024
 
-This article provides an update on Hurricane Erin's location, movement, and potential impact, as of August 17, 2024.  It also includes information about another tropical wave in the Atlantic.
+Update on Hurricane Erin's location, movement, and potential impact, as of August 17, 2024.  It also includes information about another tropical wave in the Atlantic.
 
 Key Points:
 

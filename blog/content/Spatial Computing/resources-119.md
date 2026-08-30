@@ -1,6 +1,6 @@
 ### 🚀 VR Training - Confined Space Safety
 
-This article highlights the benefits of using Virtual Reality for confined space training, offering a safer and more effective method for employee education. It covers critical aspects such as identifying warning signs and fostering collaborative safety practices.
+Benefits of using Virtual Reality for confined space training, offering a safer and more effective method for employee education. It covers critical aspects such as identifying warning signs and fostering collaborative safety practices.
 
 Key Points:
 

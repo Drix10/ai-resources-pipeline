@@ -1,6 +1,6 @@
 ### 💡 Venture-Backed Companies - A Selfless Act?
 
-This article explores the perspective that building a venture-backed company is a selfless act, considering the benefits extending beyond the founders.
+Perspective that building a venture-backed company is a selfless act, considering the benefits extending beyond the founders.
 
 Key Points:
 

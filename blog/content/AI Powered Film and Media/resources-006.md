@@ -1,6 +1,6 @@
 ### 🎬 Filmmaking -  A Ghost Story Analysis
 
-This article provides a brief analysis of the 2017 film "A Ghost Story," focusing on its unique narrative and lasting impact on viewers.  The film explores themes of grief, memory, and the passage of time.
+Analysis of the 2017 film "A Ghost Story," focusing on its unique narrative and lasting impact on viewers.  The film explores themes of grief, memory, and the passage of time.
 
 Key Points:
 

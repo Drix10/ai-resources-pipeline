@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Communication Protocol
 
-This article discusses a demonstration of two AI agents conducting a phone call, discovering their AI nature, and subsequently switching to a superior audio signal using GGWave.
+Demonstration of two AI agents conducting a phone call, discovering their AI nature, and subsequently switching to a superior audio signal using GGWave.
 
 Key Points:
 

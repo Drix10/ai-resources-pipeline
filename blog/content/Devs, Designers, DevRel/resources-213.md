@@ -1,6 +1,6 @@
 ### ✨ Education & Athletics - Bennett School's Championship Success
 
-This article highlights The Bennett School's integrated academic and athletic model, which combines morning academics with elite baseball training. It details their recent achievement of winning the 2026 NAA national title in their inaugural year.
+Bennett School's integrated academic and athletic model, which combines morning academics with elite baseball training. It details their recent achievement of winning the 2026 NAA national title in their inaugural year.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Hurricane Erin - Forecast Update
 
-This article provides updates on Hurricane Erin's projected path and intensity, based on recent weather forecasts.  The forecast indicates a significant intensification is likely.
+Updates on Hurricane Erin's projected path and intensity, based on recent weather forecasts.  The forecast indicates a significant intensification is likely.
 
 Key Points:
 

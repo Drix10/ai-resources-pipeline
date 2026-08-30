@@ -1,6 +1,6 @@
 ### 🤖 Memory Hierarchy - DMA Optimization
 
-This article discusses optimizing data movement between memory hierarchies using direct memory access (DMA) for improved efficiency in matrix multiplication.  It highlights the benefits of wide parallel links and low latency in this context.
+Optimizing data movement between memory hierarchies using direct memory access (DMA) for improved efficiency in matrix multiplication.  It highlights the benefits of wide parallel links and low latency in this context.
 
 Key Points:
 

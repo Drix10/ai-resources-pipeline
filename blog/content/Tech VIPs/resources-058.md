@@ -1,6 +1,6 @@
 ### 🤖 Microprocessor Technology - Human Ingenuity
 
-This article discusses the complexity of microprocessor manufacturing and explores the human ingenuity behind its creation.  The original post showcases a microscopic view of a microprocessor's intricate design.
+Complexity of microprocessor manufacturing and explores the human ingenuity behind its creation.  The original post showcases a microscopic view of a microprocessor's intricate design.
 
 Key Points:
 

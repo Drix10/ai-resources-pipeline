@@ -1,6 +1,6 @@
 ### 🤖 Weather Forecasting - ConUS Precipitation Outlook
 
-This article details the forecast for ConUS precipitation, combining radar reflectivity and model simulations with convective outlooks. It provides an overview of advanced meteorological tools used for short-term weather prediction.
+Forecast for ConUS precipitation, combining radar reflectivity and model simulations with convective outlooks. It provides an overview of advanced meteorological tools used for short-term weather prediction.
 
 Key Points:
 

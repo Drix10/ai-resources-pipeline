@@ -1,6 +1,6 @@
 ### 🚀 AI Video Generation - Cinematic Prompts
 
-This article explores how to craft detailed prompts for generating cinematic video sequences using advanced AI tools. It focuses on describing complex scenes with specific camera movements and elements.
+To craft detailed prompts for generating cinematic video sequences using advanced AI tools. It focuses on describing complex scenes with specific camera movements and elements.
 
 Key Points:
 

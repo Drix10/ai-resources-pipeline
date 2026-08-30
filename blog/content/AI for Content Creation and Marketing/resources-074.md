@@ -1,6 +1,6 @@
 ### 🚀 Social Media Management - OutreachGuy
 
-This article discusses OutreachGuy, a tool designed to automate Twitter replies, allowing users to focus on content creation.  It provides links to the tool and relevant social media accounts.
+OutreachGuy, a tool designed to automate Twitter replies, allowing users to focus on content creation.  It provides links to the tool and relevant social media accounts.
 
 Key Points:
 

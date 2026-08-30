@@ -1,6 +1,6 @@
 ### 🤖 AI - Future Warfighting
 
-This article covers the intersection of Artificial Intelligence and future military strategies, focusing on discussions by experts in the field. It highlights the strategic implications of AI in national defense.
+Intersection of Artificial Intelligence and future military strategies, focusing on discussions by experts in the field. It highlights the strategic implications of AI in national defense.
 
 Key Points:
 

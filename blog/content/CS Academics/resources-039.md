@@ -1,6 +1,6 @@
 ### 🤖 F2P Game Development - Vibe Coding
 
-This article discusses the "vibe coding" trend in game development, drawing parallels to successful free-to-play (F2P) game development strategies from the early 2000s.  It emphasizes the importance of rapid iteration and embracing imperfection.
+"vibe coding" trend in game development, drawing parallels to successful free-to-play (F2P) game development strategies from the early 2000s.  It emphasizes the importance of rapid iteration and embracing imperfection.
 
 Key Points:
 

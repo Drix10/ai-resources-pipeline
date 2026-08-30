@@ -1,6 +1,6 @@
 ### 🚀 Crexi PRO - Broker Success
 
-This article highlights Crexi PRO's features and benefits for real estate brokers, showcasing a user's positive experience and providing a link for further exploration.
+Crexi PRO's features and benefits for real estate brokers, showcasing a user's positive experience and providing a link for further exploration.
 
 Key Points:
 

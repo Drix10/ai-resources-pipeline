@@ -1,6 +1,6 @@
 ### 🤖 ECCV 2026 - Paper Review Outcome
 
-This article discusses the conclusion of the paper review period for ECCV 2026. It highlights the anticipation among authors for the results that determine their research paper acceptance.
+Conclusion of the paper review period for ECCV 2026. It highlights the anticipation among authors for the results that determine their research paper acceptance.
 
 Key Points:
 

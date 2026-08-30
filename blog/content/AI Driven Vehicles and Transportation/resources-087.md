@@ -1,6 +1,6 @@
 ### 🤖 Autonomous Vehicles - Tesla Robotaxi Experience
 
-This article summarizes the experience of two individuals who rode in Tesla's robotaxi in Austin, Texas.  Their feedback and observations are presented.
+Experience of two individuals who rode in Tesla's robotaxi in Austin, Texas.  Their feedback and observations are presented.
 
 Key Points:
 

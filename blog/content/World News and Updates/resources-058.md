@@ -1,6 +1,6 @@
 ### 💡 Workplace Dynamics - Negotiating a Raise and Promotion
 
-This article discusses the challenges of leveraging completed work to negotiate a raise and promotion, as described in an advice column.  It highlights the complexities often involved in such negotiations.
+Challenges of leveraging completed work to negotiate a raise and promotion, as described in an advice column.  It highlights the complexities often involved in such negotiations.
 
 Key Points:
 

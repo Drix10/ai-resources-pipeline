@@ -1,6 +1,6 @@
 ### 🤖 AI Agent Trust - Local Merchant Verification
 
-This article discusses a new operational model designed to establish a verifiable trust layer between AI agent recommendations and local businesses. It focuses on ensuring the reliability of AI-generated business suggestions.
+New operational model designed to establish a verifiable trust layer between AI agent recommendations and local businesses. It focuses on ensuring the reliability of AI-generated business suggestions.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Data Center Cooling - AI-Driven CO₂ Capture
 
-This article discusses the use of an AI-identified CO₂-capture agent within a dual-use chiller for data centers. It highlights the functionalization process of a sorbent support with this agent.
+Use of an AI-identified CO₂-capture agent within a dual-use chiller for data centers. It highlights the functionalization process of a sorbent support with this agent.
 
 Key Points:
 

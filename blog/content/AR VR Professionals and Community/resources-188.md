@@ -1,6 +1,6 @@
 ### ✨ Internet Culture - Iconic Flash Animation
 
-This article explores the cultural impact of "Badger Badger Badger," a flash animation by Jonti Picking that achieved iconic meme status in 2003. It highlights the animation's significance and its recent preservation within the BFI National Archive.
+Cultural impact of "Badger Badger Badger," a flash animation by Jonti Picking that achieved iconic meme status in 2003. It highlights the animation's significance and its recent preservation within the BFI National Archive.
 
 Key Points:
 

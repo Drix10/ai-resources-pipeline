@@ -1,6 +1,6 @@
 ### 💡 Professional Communication - Setting Boundaries
 
-This article outlines clear communication strategies for setting professional boundaries regarding meeting scheduling and affiliations.
+Clear communication strategies for setting professional boundaries regarding meeting scheduling and affiliations.
 
 Key Points:
 

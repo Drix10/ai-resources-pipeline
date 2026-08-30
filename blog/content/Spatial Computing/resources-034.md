@@ -1,6 +1,6 @@
 ### 🗣️ Snap Inc. - CEO Interview
 
-This article summarizes an interview with Snap Inc.'s CEO, Evan Spiegel, on The Diary of a CEO podcast.  The interview covers his vision for Spectacles and the future growth of Snap's AR community.
+Interview with Snap Inc.'s CEO, Evan Spiegel, on The Diary of a CEO podcast.  The interview covers his vision for Spectacles and the future growth of Snap's AR community.
 
 Key Points:
 

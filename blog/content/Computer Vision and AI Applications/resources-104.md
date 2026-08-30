@@ -1,6 +1,6 @@
 ### 🤖 Maritime Technology - Blue Water Autonomy
 
-This article discusses Blue Water Autonomy's contributions to U.S. Navy technology and its impact on maintaining U.S. maritime dominance.
+Blue Water Autonomy's contributions to U.S. Navy technology and its impact on maintaining U.S. maritime dominance.
 
 Key Points:
 

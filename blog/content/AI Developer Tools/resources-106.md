@@ -1,6 +1,6 @@
 ### 💡 Content Marketing - Lead Generation
 
-This article discusses a strategy for generating leads through content marketing, focusing on quality over quantity of posts.  It highlights the importance of strategic content creation for improved results.
+Strategy for generating leads through content marketing, focusing on quality over quantity of posts.  It highlights the importance of strategic content creation for improved results.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Autonomous Robotics - Agricultural Automation
 
-This article highlights Burro's presence at the MANTS event, showcasing their autonomous solutions for agricultural tasks. It focuses on how robotic technology addresses time-consuming manual labor in farming operations.
+Burro's presence at the MANTS event, showcasing their autonomous solutions for agricultural tasks. It focuses on how robotic technology addresses time-consuming manual labor in farming operations.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 ChainGPT Launchdrops - Staker Rewards
 
-This article summarizes the ChainGPT Launchdrop program, highlighting the significant returns generated for stakers and explaining the program's core mechanics.
+ChainGPT Launchdrop program, highlighting the significant returns generated for stakers and explaining the program's core mechanics.
 
 Key Points:
 

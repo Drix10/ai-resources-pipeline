@@ -1,6 +1,6 @@
 ### 🚀 Investment Strategy - Robotics and Crypto Assets
 
-This article discusses a significant investment in a robotics-related asset, comparing it to large-scale cryptocurrency investments. It highlights confidence in the robotics sector's potential for substantial capital raises.
+Significant investment in a robotics-related asset, comparing it to large-scale cryptocurrency investments. It highlights confidence in the robotics sector's potential for substantial capital raises.
 
 Key Points:
 

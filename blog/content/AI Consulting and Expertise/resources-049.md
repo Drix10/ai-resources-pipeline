@@ -1,6 +1,6 @@
 ### 💡 Starting a Business - Minimalist Approach
 
-This article discusses building a business with minimal resources, focusing on a lean approach to development and iteration.
+Building a business with minimal resources, focusing on a lean approach to development and iteration.
 
 Key Points:
 

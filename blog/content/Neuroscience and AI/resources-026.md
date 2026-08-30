@@ -1,6 +1,6 @@
 ### 🤖 Neuroscience - Visual Stability
 
-This article discusses a preprint investigating how anticipatory signals in the fovea might explain visual stability despite rapid eye movements.  The study uses a gaze-contingent setup for future fMRI studies.
+Preprint investigating how anticipatory signals in the fovea might explain visual stability despite rapid eye movements.  The study uses a gaze-contingent setup for future fMRI studies.
 
 Key Points:
 

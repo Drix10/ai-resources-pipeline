@@ -1,6 +1,6 @@
 ### 🤖 3D Animation - Mega Spinosaurs Creation
 
-This article details the creation of a Mega Spinosaurus 3D animation model, highlighting the software and techniques used.  It also acknowledges the contribution of a collaborator.
+Creation of a Mega Spinosaurus 3D animation model, highlighting the software and techniques used.  It also acknowledges the contribution of a collaborator.
 
 Key Points:
 

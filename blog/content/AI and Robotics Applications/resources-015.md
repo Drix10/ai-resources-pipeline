@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Point Policy Training
 
-This article discusses a method for training robot manipulation policies without the need for extensive resources like teleoperation, simulation-to-real transfer, generative AI, or motion planning.  The method focuses on a novel "Point Policy" approach.
+Method for training robot manipulation policies without the need for extensive resources like teleoperation, simulation-to-real transfer, generative AI, or motion planning.  The method focuses on a novel "Point Policy" approach.
 
 Key Points:
 

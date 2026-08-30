@@ -1,6 +1,6 @@
 ### 🤖 AI in Healthcare - Challenges with Medical Records
 
-This article discusses the limitations of large language models (LLMs) when processing medical records due to the inclusion of images, tables, and non-standard layouts.  LLMs struggle with these non-textual elements, hindering their full comprehension of medical information.
+Limitations of large language models (LLMs) when processing medical records due to the inclusion of images, tables, and non-standard layouts.  LLMs struggle with these non-textual elements, hindering their full comprehension of medical information.
 
 Key Points:
 

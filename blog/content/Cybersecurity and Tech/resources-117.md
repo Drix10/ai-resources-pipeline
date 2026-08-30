@@ -1,6 +1,6 @@
 ### 🤖 Cybersecurity - Cybercrime Legal Consequences
 
-This article discusses the legal ramifications for individuals involved in teaching criminals how to use malware. It highlights the serious consequences faced by those who facilitate cybercrime activities.
+Legal ramifications for individuals involved in teaching criminals how to use malware. It highlights the serious consequences faced by those who facilitate cybercrime activities.
 
 Key Points:
 

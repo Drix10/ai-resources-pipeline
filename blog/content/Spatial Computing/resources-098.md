@@ -1,6 +1,6 @@
 ### 🤖 AI Tools on Render Network - Community Update
 
-This article summarizes a community spaces discussion regarding the development of AI tools on the Render Network.  Updates from ecosystem partners on projects like Once Upon and Rendirector are highlighted.
+Community spaces discussion regarding the development of AI tools on the Render Network.  Updates from ecosystem partners on projects like Once Upon and Rendirector are highlighted.
 
 Key Points:
 

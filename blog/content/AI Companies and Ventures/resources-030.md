@@ -1,6 +1,6 @@
 ### 🤖 AI-Human Communication - Mermaid Diagrams
 
-This article discusses the use of Mermaid diagrams to improve communication between humans and Large Language Models (LLMs).  It highlights the intuitive nature of Mermaid diagrams for both LLMs and humans.
+Use of Mermaid diagrams to improve communication between humans and Large Language Models (LLMs).  It highlights the intuitive nature of Mermaid diagrams for both LLMs and humans.
 
 Key Points:
 

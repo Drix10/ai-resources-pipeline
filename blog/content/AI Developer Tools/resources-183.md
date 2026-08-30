@@ -1,6 +1,6 @@
 ### ✨ Vector Graphics - Rive Animation Efficiency
 
-This article discusses the characteristics of a vector icon created using Rive, highlighting its format and file size. It explains the benefits of using full vector graphics for animations.
+Characteristics of a vector icon created using Rive, highlighting its format and file size. It explains the benefits of using full vector graphics for animations.
 
 Key Points:
 

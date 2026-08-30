@@ -1,6 +1,6 @@
 ### 🤖 Machine Learning - Efficient Knowledge Representation
 
-This article explores the concept of embeddings and latent space in machine learning, focusing on their role in efficient knowledge representation and the advancements they enable in general models.
+Concept of embeddings and latent space in machine learning, focusing on their role in efficient knowledge representation and the advancements they enable in general models.
 
 Key Points:
 

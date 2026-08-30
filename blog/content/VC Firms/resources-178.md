@@ -1,6 +1,6 @@
 ### 🤖 AI in Customer Service - DecagonAI's Approach
 
-This article outlines how DecagonAI, led by CEO Jesse Zhang, is addressing widespread frustrations in customer service through advanced AI solutions. It highlights the company's work with major clients to enhance support experiences.
+DecagonAI, led by CEO Jesse Zhang, is addressing widespread frustrations in customer service through advanced AI solutions. It highlights the company's work with major clients to enhance support experiences.
 
 Key Points:
 

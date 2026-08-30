@@ -1,6 +1,6 @@
 ### 🤖 Cisco CCNA - Access List Configuration
 
-This article details configuring an access list to permit SSH packets, providing supplementary resources for CCNA certification.
+Configuring an access list to permit SSH packets, providing supplementary resources for CCNA certification.
 
 Key Points:
 

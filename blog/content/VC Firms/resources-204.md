@@ -1,6 +1,6 @@
 ### ✨ ZSWAP DEX - Media Coverage and Growth Phase
 
-This article discusses ZSWAP's recent media coverage announcing its next growth phase. It highlights the widespread dissemination of news across prominent crypto and tech platforms.
+ZSWAP's recent media coverage announcing its next growth phase. It highlights the widespread dissemination of news across prominent crypto and tech platforms.
 
 Key Points:
 

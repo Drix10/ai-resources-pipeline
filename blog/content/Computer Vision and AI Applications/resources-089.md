@@ -1,6 +1,6 @@
 ### 🤖 AI Experiments - Genie 3 Prototype
 
-This article summarizes experiences using Google DeepMind's Genie 3, an early research prototype.  It highlights observations from a day of testing the system.
+Experiences using Google DeepMind's Genie 3, an early research prototype.  It highlights observations from a day of testing the system.
 
 Key Points:
 

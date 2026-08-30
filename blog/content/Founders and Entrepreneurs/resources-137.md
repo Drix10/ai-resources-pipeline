@@ -1,6 +1,6 @@
 ### 🤖 Decentralized Finance - Bot Implementation
 
-This article discusses the application of a Mac Mini for running an automated trading bot on Polymarket, a decentralized prediction market platform. It highlights the technical setup for engaging in algorithmic trading strategies.
+Application of a Mac Mini for running an automated trading bot on Polymarket, a decentralized prediction market platform. It highlights the technical setup for engaging in algorithmic trading strategies.
 
 Key Points:
 

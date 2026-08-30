@@ -1,6 +1,6 @@
 ### 🤖 Onchain Finance - RWA Market Growth
 
-This article summarizes a Redstone DeFi study on the growth of tokenized real-world assets (RWAs) in onchain finance, highlighting key market trends and projections.
+Redstone DeFi study on the growth of tokenized real-world assets (RWAs) in onchain finance, highlighting key market trends and projections.
 
 Key Points:
 

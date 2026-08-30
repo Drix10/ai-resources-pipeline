@@ -1,6 +1,6 @@
 ### 🤖 Social Media - A Call to Rebellion
 
-This article discusses a social media post expressing skepticism towards perceived success narratives, urging readers to question the information presented.
+Social media post expressing skepticism towards perceived success narratives, urging readers to question the information presented.
 
 Key Points:
 

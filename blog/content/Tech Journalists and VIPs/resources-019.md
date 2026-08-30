@@ -1,6 +1,6 @@
 ### 🤖 Border Patrol - Child Predator Apprehension
 
-This article summarizes a statement by Border Patrol Chief Raul Ortiz regarding the apprehension of child predators.  The statement highlights the agency's efforts to combat illegal alien crime and protect children.
+Statement by Border Patrol Chief Raul Ortiz regarding the apprehension of child predators.  The statement highlights the agency's efforts to combat illegal alien crime and protect children.
 
 Key Points:
 

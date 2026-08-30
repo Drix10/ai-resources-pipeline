@@ -1,6 +1,6 @@
 ### ✨ Music Trends - Top Lyrics Analysis
 
-This article highlights trending lyrics across various music genres observed before the summer season. It provides insights into popular lyrical content in pop, hip-hop, K-pop, Latin, and country music.
+Trending lyrics across various music genres observed before the summer season. It provides insights into popular lyrical content in pop, hip-hop, K-pop, Latin, and country music.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 AI Video Generation - Presentation Automation
 
-This article discusses how AI video platforms can automate the creation of B2B presentations. It highlights the efficiency gained by transforming existing presentation decks into AI-generated videos.
+AI video platforms can automate the creation of B2B presentations. It highlights the efficiency gained by transforming existing presentation decks into AI-generated videos.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 AI Impact - Subscription Model Transformation
 
-This article discusses the anticipated shift from traditional per-seat subscription models to usage-based pricing, driven by the advancements in AI technology. It examines how this change is expected to influence a wide range of applications, including consumer-facing platforms.
+Anticipated shift from traditional per-seat subscription models to usage-based pricing, driven by the advancements in AI technology. It examines how this change is expected to influence a wide range of applications, including consumer-facing platforms.
 
 Key Points:
 

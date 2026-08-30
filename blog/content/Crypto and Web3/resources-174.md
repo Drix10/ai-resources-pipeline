@@ -1,6 +1,6 @@
 ### 🤖 Zcash - Investment and Cypherpunk Ideals
 
-This article discusses Multicoin's significant investment in Zcash ($ZEC) since February, aligning with the cryptocurrency's foundational cypherpunk principles.
+Multicoin's significant investment in Zcash ($ZEC) since February, aligning with the cryptocurrency's foundational cypherpunk principles.
 
 Key Points:
 

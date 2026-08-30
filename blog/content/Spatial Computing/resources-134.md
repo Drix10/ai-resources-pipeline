@@ -1,6 +1,6 @@
 ### 🤖 Unreal Engine - CES 2026 Automotive Applications
 
-This article highlights Unreal Engine's prominent presence at CES 2026, showcasing its extensive capabilities across various automotive technologies. It covers its application in both production-ready digital cockpits and advanced simulation environments.
+Unreal Engine's prominent presence at CES 2026, showcasing its extensive capabilities across various automotive technologies. It covers its application in both production-ready digital cockpits and advanced simulation environments.
 
 Key Points:
 

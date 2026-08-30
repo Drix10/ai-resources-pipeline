@@ -1,6 +1,6 @@
 ### 🤖 Space Construction - Martian City Challenges
 
-This article discusses the challenges in constructing a city on Mars, drawing lessons from the struggles faced in building Starbase in South Texas.  It highlights the need for significant advancements in construction technology.
+Challenges in constructing a city on Mars, drawing lessons from the struggles faced in building Starbase in South Texas.  It highlights the need for significant advancements in construction technology.
 
 Key Points:
 

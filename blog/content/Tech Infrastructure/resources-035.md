@@ -1,6 +1,6 @@
 ### 🚀 Alloy at ShopTalk - App Marketplaces
 
-This article discusses Alloy's presence at ShopTalk 2024 in Las Vegas, focusing on their work helping companies launch app marketplaces.  It includes information on scheduling a meeting with Alloy representatives.
+Alloy's presence at ShopTalk 2024 in Las Vegas, focusing on their work helping companies launch app marketplaces.  It includes information on scheduling a meeting with Alloy representatives.
 
 Key Points:
 

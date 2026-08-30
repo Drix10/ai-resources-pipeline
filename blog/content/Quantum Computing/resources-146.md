@@ -1,6 +1,6 @@
 ### 🤖 Drug Discovery - Machine Learning and GPCRs
 
-This article covers SandboxAQ's presentation at Drug Discovery Chemistry 2026, detailing their novel approach at the intersection of machine learning and physics-based simulation for GPCR drug discovery. GPCRs are recognized for their significant clinical importance in pharmaceutical research.
+SandboxAQ's presentation at Drug Discovery Chemistry 2026, detailing their novel approach at the intersection of machine learning and physics-based simulation for GPCR drug discovery. GPCRs are recognized for their significant clinical importance in pharmaceutical research.
 
 Key Points:
 

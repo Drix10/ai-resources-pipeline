@@ -1,6 +1,6 @@
 ### 🤖 AI Sentience - Future Implications
 
-This article discusses the implications of believing or disbelieving in the potential for computer consciousness.  It explores the societal and personal ramifications of differing perspectives on this topic.
+Implications of believing or disbelieving in the potential for computer consciousness.  It explores the societal and personal ramifications of differing perspectives on this topic.
 
 Key Points:
 

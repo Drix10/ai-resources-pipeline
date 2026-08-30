@@ -1,6 +1,6 @@
 ### 🤖 AI Ethics - OpenAI's Funding Model Evolution
 
-This article examines the shift in OpenAI's organizational structure from an open-source, nonprofit entity to a closed-source, profit-maximizing one. It discusses the implications of this change on its original mission and the broader AI ecosystem.
+Shift in OpenAI's organizational structure from an open-source, nonprofit entity to a closed-source, profit-maximizing one. It discusses the implications of this change on its original mission and the broader AI ecosystem.
 
 Key Points:
 

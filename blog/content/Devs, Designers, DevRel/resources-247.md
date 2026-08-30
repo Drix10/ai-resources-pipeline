@@ -1,6 +1,6 @@
 ### 🤖 LLM Performance - DeepSeek-V4-Flash Benchmarks
 
-This article discusses the DeepSeek-V4-Flash-0731 model and its performance relative to other models. It highlights the model's efficiency compared to its larger predecessor.
+DeepSeek-V4-Flash-0731 model and its performance relative to other models. It highlights the model's efficiency compared to its larger predecessor.
 
 Key Points:
 

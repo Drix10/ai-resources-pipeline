@@ -1,6 +1,6 @@
 ### 🤖 Onboarding - Streamlining Product Knowledge
 
-This article discusses improving onboarding processes by embedding product information directly within commonly used workspaces like Confluence and Notion.  It focuses on using interactive experiences and data insights to enhance the onboarding process.
+Improving onboarding processes by embedding product information directly within commonly used workspaces like Confluence and Notion.  It focuses on using interactive experiences and data insights to enhance the onboarding process.
 
 
 Key Points:

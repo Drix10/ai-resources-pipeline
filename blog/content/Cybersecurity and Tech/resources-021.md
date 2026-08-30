@@ -1,6 +1,6 @@
 ### 🇺🇦 Ukraine Conflict -  JD Vance's Cousin's Involvement
 
-This article details the involvement of Nate Vance, JD Vance's cousin, a former U.S. Marine, in the Ukraine conflict as part of the "Da Vinci Wolves."  It also briefly touches on a related political discussion.
+Involvement of Nate Vance, JD Vance's cousin, a former U.S. Marine, in the Ukraine conflict as part of the "Da Vinci Wolves."  It also briefly touches on a related political discussion.
 
 
 Key Points:

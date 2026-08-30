@@ -1,6 +1,6 @@
 ### 🚀 Domain Names - Special Combo Deal
 
-This article details a special offer for AI and startup-related domain names, including a "buy one, get one free" deal and additional domain name options.
+Special offer for AI and startup-related domain names, including a "buy one, get one free" deal and additional domain name options.
 
 
 Key Points:

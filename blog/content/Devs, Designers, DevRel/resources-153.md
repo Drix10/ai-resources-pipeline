@@ -1,6 +1,6 @@
 ### 🤖 STEM Workforce - PhD Mobility Trends
 
-This article discusses the reported decrease in STEM PhDs in the US within a year. It examines the implications of such a shift in the academic and professional landscape.
+Reported decrease in STEM PhDs in the US within a year. It examines the implications of such a shift in the academic and professional landscape.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Relationships - Professional Alignment
 
-This article discusses the importance of genuine care and relationships in achieving professional alignment.  It emphasizes the role of friendship and mutual respect in fostering productive collaborations.
+Importance of genuine care and relationships in achieving professional alignment.  It emphasizes the role of friendship and mutual respect in fostering productive collaborations.
 
 Key Points:
 

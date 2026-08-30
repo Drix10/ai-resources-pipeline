@@ -1,6 +1,6 @@
 ### 🤖 AI & Web3 - Consensus Hong Kong
 
-This article summarizes observations from Consensus Hong Kong, focusing on discussions about the future of AI and Web3 technologies.  The event featured conversations with leading figures in the field.
+Observations from Consensus Hong Kong, focusing on discussions about the future of AI and Web3 technologies.  The event featured conversations with leading figures in the field.
 
 
 Key Points:

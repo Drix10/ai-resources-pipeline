@@ -1,6 +1,6 @@
 ### 🤖 Google Gemini - Chatbot Issues
 
-This article discusses a reported issue with Google's Gemini chatbot, where it encounters an "infinite looping bug," repeatedly stating self-deprecating phrases.
+Reported issue with Google's Gemini chatbot, where it encounters an "infinite looping bug," repeatedly stating self-deprecating phrases.
 
 Key Points:
 

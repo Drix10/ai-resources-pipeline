@@ -1,6 +1,6 @@
 ### 🤖  Team Collaboration - House of David Season 2
 
-This article discusses a collaborative project involving the development of new workflows to support the VFX team for Season 2 of House of David.
+Collaborative project involving the development of new workflows to support the VFX team for Season 2 of House of David.
 
 Key Points:
 

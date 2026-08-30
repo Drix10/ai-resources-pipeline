@@ -1,6 +1,6 @@
 ### 🤖 Streaming Speech Recognition - Chunkwise Aligners
 
-This article examines "Chunkwise Aligners for Streaming Speech Recognition," a technical paper that proposes methods for improving the efficiency and accuracy of real-time speech processing. It focuses on how these aligners enable continuous speech recognition systems to handle audio streams effectively.
+"Chunkwise Aligners for Streaming Speech Recognition," a technical paper that proposes methods for improving the efficiency and accuracy of real-time speech processing. It focuses on how these aligners enable continuous speech recognition systems to handle audio streams effectively.
 
 Key Points:
 

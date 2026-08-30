@@ -1,6 +1,6 @@
 ### 💡 Legal Action - Responding to Misinformation
 
-This article discusses the initiation of legal action against a publication for a false report. It explains the purpose of such action in protecting an organization from misinformation and holding journalistic outlets accountable.
+Initiation of legal action against a publication for a false report. It explains the purpose of such action in protecting an organization from misinformation and holding journalistic outlets accountable.
 
 Key Points:
 

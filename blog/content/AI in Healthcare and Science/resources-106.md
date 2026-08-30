@@ -1,6 +1,6 @@
 ### 🔬 Myeloma - Minimal Residual Disease (MRD)
 
-This article discusses the nuances of minimal residual disease (MRD) in myeloma, focusing on the relationship between MRD negativity and progression-free/overall survival.  It highlights the importance of MRD in guiding treatment decisions and approvals.
+Nuances of minimal residual disease (MRD) in myeloma, focusing on the relationship between MRD negativity and progression-free/overall survival.  It highlights the importance of MRD in guiding treatment decisions and approvals.
 
 Key Points:
 

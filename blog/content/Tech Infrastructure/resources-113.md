@@ -1,6 +1,6 @@
 ### 🤖 AI in Cybersecurity - Sumo Logic's AI Agents
 
-This article discusses Sumo Logic's new AI agents built on AWS Nova LLMs, designed to automate security operations and reduce manual effort in cybersecurity analysis.  These agents streamline investigations by querying and summarizing large datasets.
+Sumo Logic's new AI agents built on AWS Nova LLMs, designed to automate security operations and reduce manual effort in cybersecurity analysis.  These agents streamline investigations by querying and summarizing large datasets.
 
 Key Points:
 

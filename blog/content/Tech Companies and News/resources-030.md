@@ -1,6 +1,6 @@
 ### ✨ Events - Infosys Swipe Right for Integrity 2025
 
-This article summarizes the highlights from the 5th annual Infosys Swipe Right for Integrity event, focusing on legal and compliance within organizations.
+Highlights from the 5th annual Infosys Swipe Right for Integrity event, focusing on legal and compliance within organizations.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 🤖 Model Details - Exploration Guide
 
-This article provides direct links to detailed information about a specific model.
+Direct links to detailed information about a specific model.
 
 Key Points:
 

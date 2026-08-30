@@ -1,6 +1,6 @@
 ### 🤖 Smart Glasses - Rokid Glasses Review
 
-This article summarizes a user's experience with Rokid Glasses, highlighting their perceived improvements over previous waveguide smart glasses.  The review focuses on intuitiveness and reliability for quick tasks.
+User's experience with Rokid Glasses, highlighting their perceived improvements over previous waveguide smart glasses.  The review focuses on intuitiveness and reliability for quick tasks.
 
 Key Points:
 

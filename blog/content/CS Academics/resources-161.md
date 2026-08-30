@@ -1,6 +1,6 @@
 ### 💡 Education - Transcript Transparency
 
-This article discusses the suggestion to include class average grades on student transcripts, mirroring practices found in Canadian education systems. It also addresses the timing of course evaluations relative to final grade disclosure in the context of grade inflation discussions.
+Suggestion to include class average grades on student transcripts, mirroring practices found in Canadian education systems. It also addresses the timing of course evaluations relative to final grade disclosure in the context of grade inflation discussions.
 
 Key Points:
 

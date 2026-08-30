@@ -1,6 +1,6 @@
 ### 🌎 Geopolitics - US-Ukraine Discussions
 
-This article summarizes President Trump's comments on the US-Ukraine conflict and sanctions review.  It includes a video related to the discussion.
+President Trump's comments on the US-Ukraine conflict and sanctions review.  It includes a video related to the discussion.
 
 Key Points:
 

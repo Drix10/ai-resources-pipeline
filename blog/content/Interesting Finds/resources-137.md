@@ -1,6 +1,6 @@
 ### ✨ Baseball History - Legendary Pitching Trios
 
-This article discusses the concept of the greatest pitching trios in baseball history, reflecting on their collective impact and legacy within the sport.
+Concept of the greatest pitching trios in baseball history, reflecting on their collective impact and legacy within the sport.
 
 Key Points:
 

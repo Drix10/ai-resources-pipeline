@@ -1,6 +1,6 @@
 ### 💡 Leadership - Embracing Change
 
-This article discusses the importance of embracing change in leadership and the risks associated with resisting it.  It highlights the need for leaders to unlearn, rethink, and make bold decisions to stay ahead.
+Importance of embracing change in leadership and the risks associated with resisting it.  It highlights the need for leaders to unlearn, rethink, and make bold decisions to stay ahead.
 
 Key Points:
 

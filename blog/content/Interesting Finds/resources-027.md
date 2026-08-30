@@ -1,6 +1,6 @@
 ### 🤖 Funding - Soros and Alinsky
 
-This article discusses the revelation of U.S. taxpayer funds used for the distribution of Saul Alinsky's "Rules for Radicals," facilitated by George Soros' Open Society Foundations.
+Revelation of U.S. taxpayer funds used for the distribution of Saul Alinsky's "Rules for Radicals," facilitated by George Soros' Open Society Foundations.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Quantum Computing - High Energy Physics Simulation
 
-This article discusses the use of quantum computing to simulate particle scattering in high-energy physics, specifically highlighting a simulation achieved using 100 qubits and over 6000 two-qubit gates.
+Use of quantum computing to simulate particle scattering in high-energy physics, specifically highlighting a simulation achieved using 100 qubits and over 6000 two-qubit gates.
 
 Key Points:
 

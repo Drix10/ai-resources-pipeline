@@ -1,6 +1,6 @@
 ### 🤖 Security - Remote Code Execution Vector
 
-This content discusses vulnerabilities found in Nintendo hardware, specifically targeting the over-the-air remote code execution capability within the Wireless Adapter packet parser. It references historical examples of game glitches that established a culture of examining system internals.
+Vulnerabilities found in Nintendo hardware, specifically targeting the over-the-air remote code execution capability within the Wireless Adapter packet parser. It references historical examples of game glitches that established a culture of examining system internals.
 
 Key Points:
 

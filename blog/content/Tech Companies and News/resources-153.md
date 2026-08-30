@@ -1,6 +1,6 @@
 ### 🤖 AI Models - Predictive Psychohistory
 
-This article explores the theoretical concept of psychohistory, as depicted in the Foundation series, interpreting it as a sophisticated diffusion model. It outlines how such a model could be trained using historical data cutoffs to extrapolate future societal trends.
+Theoretical concept of psychohistory, as depicted in the Foundation series, interpreting it as a sophisticated diffusion model. It outlines how such a model could be trained using historical data cutoffs to extrapolate future societal trends.
 
 Key Points:
 

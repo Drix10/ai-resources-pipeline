@@ -1,6 +1,6 @@
 ### 🤖 Robotic Automation - Industrial Deployment
 
-This article outlines the current status and future deployment of advanced humanoid robots in industrial settings, highlighting key manufacturers and timelines.
+Current status and future deployment of advanced humanoid robots in industrial settings, highlighting key manufacturers and timelines.
 
 Key Points:
 

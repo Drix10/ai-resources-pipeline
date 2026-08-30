@@ -1,6 +1,6 @@
 ### 💡 Social Justice - Mural Removal
 
-This article discusses the removal of a Black Lives Matter mural near the White House and its symbolic significance.  It highlights the ongoing fight for social justice.
+Removal of a Black Lives Matter mural near the White House and its symbolic significance.  It highlights the ongoing fight for social justice.
 
 Key Points:
 

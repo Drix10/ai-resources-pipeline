@@ -1,6 +1,6 @@
 ### 🤖 AI Video Generation - MiniMax3 Photorealistic Style
 
-This article details a test of Hailuo_AI's MiniMax3 for generating photorealistic video. It outlines the specific prompt parameters used to achieve a documentary film aesthetic.
+Test of Hailuo_AI's MiniMax3 for generating photorealistic video. It outlines the specific prompt parameters used to achieve a documentary film aesthetic.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Unsolved Mystery - The Vanishing Scientist
 
-This article details the mysterious disappearance of a scientist in December 1994, following his discovery of a method to manipulate reality.  The circumstances surrounding his disappearance remain unexplained.
+Mysterious disappearance of a scientist in December 1994, following his discovery of a method to manipulate reality.  The circumstances surrounding his disappearance remain unexplained.
 
 Key Points:
 

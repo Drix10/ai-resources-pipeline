@@ -1,6 +1,6 @@
 ### 🚀  Proscia - CAP2025 Conference
 
-This article summarizes Proscia's presence at the CAP2025 conference, highlighting opportunities to learn about Concentriq and Aperture.  Booth 400 and a product theater presentation are mentioned.
+Proscia's presence at the CAP2025 conference, highlighting opportunities to learn about Concentriq and Aperture.  Booth 400 and a product theater presentation are mentioned.
 
 Key Points:
 

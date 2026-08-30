@@ -1,6 +1,6 @@
 ### 💡 Social Commentary - Atlas Shrugged Relevance
 
-This article explores the striking contemporary relevance of Ayn Rand's "Atlas Shrugged" in the 21st century. It highlights observations comparing the novel's antagonists to modern ideological expressions.
+Striking contemporary relevance of Ayn Rand's "Atlas Shrugged" in the 21st century. It highlights observations comparing the novel's antagonists to modern ideological expressions.
 
 Key Points:
 

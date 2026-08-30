@@ -1,6 +1,6 @@
 ### 🤖 AI Applications - Personalized Tutors
 
-This article discusses the potential of generative AI in creating personalized tutoring systems, referencing an example from OpenAI.
+Potential of generative AI in creating personalized tutoring systems, referencing an example from OpenAI.
 
 Key Points:
 

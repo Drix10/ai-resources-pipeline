@@ -1,6 +1,6 @@
 ### 💡 Large Language Model Cost Reduction - Lean Label Formats
 
-This article discusses methods to reduce costs associated with Large Language Model (LLM) outputs by using lean label formats instead of JSON.  It focuses on achieving cost reduction without sacrificing accuracy.
+Methods to reduce costs associated with Large Language Model (LLM) outputs by using lean label formats instead of JSON.  It focuses on achieving cost reduction without sacrificing accuracy.
 
 Key Points:
 

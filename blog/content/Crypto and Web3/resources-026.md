@@ -1,6 +1,6 @@
 ### 😴 Personal Update - Friday Plans
 
-This article provides a brief personal update regarding travel and plans for the weekend.  No specific technical content is included.
+Personal update regarding travel and plans for the weekend.  No specific technical content is included.
 
 Key Points:
 

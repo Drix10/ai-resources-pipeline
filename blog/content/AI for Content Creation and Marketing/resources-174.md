@@ -1,6 +1,6 @@
 ### 🚀 Internal Tools - Feature Visibility with Trakr
 
-This article discusses how Clay addressed internal communication challenges regarding feature status by developing Trakr, an agent on Notion. It covers the problem faced by teams and the solution implemented to enhance visibility.
+Clay addressed internal communication challenges regarding feature status by developing Trakr, an agent on Notion. It covers the problem faced by teams and the solution implemented to enhance visibility.
 
 Key Points:
 

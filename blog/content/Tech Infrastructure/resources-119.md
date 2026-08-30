@@ -1,6 +1,6 @@
 ### 🚀 AI Gateway - Streamlining AI Feature Development
 
-This article discusses the value proposition of an AI Gateway. It focuses on how such a gateway simplifies development workflows for AI-powered applications. The primary goal is to accelerate the deployment of AI features.
+Value proposition of an AI Gateway. It focuses on how such a gateway simplifies development workflows for AI-powered applications. The primary goal is to accelerate the deployment of AI features.
 
 Key Points:
 

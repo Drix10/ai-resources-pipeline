@@ -1,6 +1,6 @@
 ### 🚀 DoorDash - CLI for Workflow Integration
 
-This article discusses the benefits of a command-line interface for DoorDash, enabling integration into various business workflows. It highlights how a CLI can automate tasks related to office catering, expense management, and scheduling.
+Benefits of a command-line interface for DoorDash, enabling integration into various business workflows. It highlights how a CLI can automate tasks related to office catering, expense management, and scheduling.
 
 Key Points:
 

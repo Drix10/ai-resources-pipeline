@@ -1,6 +1,6 @@
 ### 🤖 Societal Resistance and Technological Advancement
 
-This article examines the historical context of resistance to authority and explores the lyrics of a song highlighting defiance.  The connection between this resistance and the adoption of new technologies is briefly discussed.
+Historical context of resistance to authority and explores the lyrics of a song highlighting defiance.  The connection between this resistance and the adoption of new technologies is briefly discussed.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 🤖 Robotics Industry Trends - North American Market Growth
 
-This article examines the current state and growth trends within the North American robotics market. It highlights key statistics regarding robot orders, financial valuation, and specific industry sector performance.
+Current state and growth trends within the North American robotics market. It highlights key statistics regarding robot orders, financial valuation, and specific industry sector performance.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Cloud Cost Management - Public Sector Optimization
 
-This article discusses a webinar focused on optimizing cloud performance and resilience for public sector organizations.  It covers controlling cloud spending, improving visibility, and maintaining compliance.
+Webinar focused on optimizing cloud performance and resilience for public sector organizations.  It covers controlling cloud spending, improving visibility, and maintaining compliance.
 
 
 Key Points:

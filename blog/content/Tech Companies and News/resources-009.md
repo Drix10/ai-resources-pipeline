@@ -1,6 +1,6 @@
 ### ⚖️ South Korean Regulations - Upbit's Transfer Restriction
 
-This article details the three-month restriction imposed on Upbit, a South Korean cryptocurrency exchange, for violating local regulations, specifically regarding new user transfers.  The restriction impacts the onboarding of new users to the platform.
+Three-month restriction imposed on Upbit, a South Korean cryptocurrency exchange, for violating local regulations, specifically regarding new user transfers.  The restriction impacts the onboarding of new users to the platform.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Health - Chronic Inflammation
 
-This article discusses the distinction between helpful and harmful inflammation, and lists some symptoms associated with chronic inflammation.
+Distinction between helpful and harmful inflammation, and lists some symptoms associated with chronic inflammation.
 
 Key Points:
 

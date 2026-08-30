@@ -1,6 +1,6 @@
 ### 🤖 AI Reasoning - Crossword Solving with Minimal Prompts
 
-This article discusses an AI's ability to solve crossword puzzles using limited initial information. The demonstration was performed with o1-preview reasoning.
+AI's ability to solve crossword puzzles using limited initial information. The demonstration was performed with o1-preview reasoning.
 
 Key Points:
 

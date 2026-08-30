@@ -1,6 +1,6 @@
 ### 💡 Global Events - Eurovision Controversy
 
-This article discusses Israel's advancement to the Eurovision 2026 final in Vienna and the subsequent boycott from five European countries. It covers criticisms regarding the contest's participation rules and alleged double standards.
+Israel's advancement to the Eurovision 2026 final in Vienna and the subsequent boycott from five European countries. It covers criticisms regarding the contest's participation rules and alleged double standards.
 
 Key Points:
 

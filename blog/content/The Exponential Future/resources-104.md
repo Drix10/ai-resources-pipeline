@@ -1,6 +1,6 @@
 ### 🤖 Market Analysis - Discounted Entry Tier
 
-This article discusses a temporary discount on an entry-tier market analysis service.  The offer includes a 50% discount until Friday, with additional savings for annual subscriptions.
+Temporary discount on an entry-tier market analysis service.  The offer includes a 50% discount until Friday, with additional savings for annual subscriptions.
 
 Key Points:
 

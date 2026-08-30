@@ -1,6 +1,6 @@
 ### 😞 Esports - Tournament Outcome
 
-This article summarizes a player's reflection on their performance in an esports tournament, expressing disappointment but gratitude for fan support.
+Player's reflection on their performance in an esports tournament, expressing disappointment but gratitude for fan support.
 
 Key Points:
 

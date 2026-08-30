@@ -1,6 +1,6 @@
 ### ⚖️  Legal - Hate Speech and Free Speech
 
-This article discusses the evolving legal landscape surrounding hate speech and its relationship to free speech, highlighting a recent shift in perspective.
+Evolving legal landscape surrounding hate speech and its relationship to free speech, highlighting a recent shift in perspective.
 
 Key Points:
 

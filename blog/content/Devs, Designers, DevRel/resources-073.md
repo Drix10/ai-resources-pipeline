@@ -1,6 +1,6 @@
 ### 📊 Voting Data Analysis - Geographic Visualization
 
-This article discusses the visualization of voting data, highlighting the need for geographic representation to enhance understanding.  The author notes a comparison between France and China's voting patterns, suggesting improvements to the visualization.
+Visualization of voting data, highlighting the need for geographic representation to enhance understanding.  The author notes a comparison between France and China's voting patterns, suggesting improvements to the visualization.
 
 Key Points:
 

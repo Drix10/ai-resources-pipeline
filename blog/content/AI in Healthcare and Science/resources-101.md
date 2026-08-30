@@ -1,6 +1,6 @@
 ### 💡 Employee Experience - Transparency at Unlearn
 
-This article highlights an employee's positive experience at Unlearn AI, emphasizing the company's culture of transparency and its impact on team collaboration and trust.
+Employee's positive experience at Unlearn AI, emphasizing the company's culture of transparency and its impact on team collaboration and trust.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Geopolitics - Achieving Just and Lasting Peace
 
-This article discusses the challenges in achieving lasting peace, particularly in relation to the ongoing conflict in Ukraine, highlighting the complexities beyond simple ceasefires.
+Challenges in achieving lasting peace, particularly in relation to the ongoing conflict in Ukraine, highlighting the complexities beyond simple ceasefires.
 
 Key Points:
 

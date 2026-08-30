@@ -1,6 +1,6 @@
 ### 💡 Product Strategy - M5Stack Kit Edition Spread
 
-This article discusses a company's deep focus on current and new product development. It highlights the observed expansion of the M5Stack Kit edition's adoption beyond its initial fan base.
+Company's deep focus on current and new product development. It highlights the observed expansion of the M5Stack Kit edition's adoption beyond its initial fan base.
 
 Key Points:
 

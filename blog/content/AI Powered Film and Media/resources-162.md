@@ -1,6 +1,6 @@
 ### ✨ Stage Visuals - Creative Project Challenges
 
-This article discusses the development of stage visuals for a club event, highlighting the creative process involved. It also touches upon unforeseen logistical challenges that can impact event execution.
+Development of stage visuals for a club event, highlighting the creative process involved. It also touches upon unforeseen logistical challenges that can impact event execution.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💔 Bangladesh Condemns Israeli Actions in Gaza
 
-This article summarizes the statement by the Government of Bangladesh strongly condemning Israel's actions in the Gaza Strip, citing continued mass killings and human rights violations.
+Statement by the Government of Bangladesh strongly condemning Israel's actions in the Gaza Strip, citing continued mass killings and human rights violations.
 
 Key Points:
 

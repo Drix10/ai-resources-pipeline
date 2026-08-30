@@ -1,6 +1,6 @@
 ### 🤖 Token Economics - Virgen Points Revolution
 
-This article discusses the rapid growth of Virgen Points and its potential for future airdrops, highlighting its impact on token economics.
+Rapid growth of Virgen Points and its potential for future airdrops, highlighting its impact on token economics.
 
 Key Points:
 

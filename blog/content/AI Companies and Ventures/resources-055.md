@@ -1,6 +1,6 @@
 ### 💡 Communication - Enhancing Email Effectiveness
 
-This article discusses how a tool built in Wordware can improve communication, particularly in remote work environments where email interactions can be complex.  It focuses on enhancing emotional intelligence in written communication.
+A tool built in Wordware can improve communication, particularly in remote work environments where email interactions can be complex.  It focuses on enhancing emotional intelligence in written communication.
 
 Key Points:
 

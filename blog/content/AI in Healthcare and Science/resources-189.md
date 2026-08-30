@@ -1,6 +1,6 @@
 ### 💡 African Entrepreneurship - Academia-Business Bridge
 
-This article discusses an initiative in Abuja focused on bridging the gap between academic knowledge and practical business skills for African entrepreneurs. It addresses the critical need for real-world application of theoretical education.
+Initiative in Abuja focused on bridging the gap between academic knowledge and practical business skills for African entrepreneurs. It addresses the critical need for real-world application of theoretical education.
 
 Key Points:
 

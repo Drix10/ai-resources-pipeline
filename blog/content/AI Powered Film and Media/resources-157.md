@@ -1,6 +1,6 @@
 ### 🤖 AI Workshops - Mathematical Foundations
 
-This article outlines details about an upcoming workshop focusing on the mathematical underpinnings of artificial intelligence. It highlights discussions on key AI architectures and invites contributions from researchers.
+Details about an upcoming workshop focusing on the mathematical underpinnings of artificial intelligence. It highlights discussions on key AI architectures and invites contributions from researchers.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🏢 Real Estate - First Location for Tenants
 
-This article discusses a common misconception in assisting tenants find their first location, highlighting the importance of finding the right deal over maximizing profit.  It summarizes insights from a podcast interview with Jay Luchs, Vice Chairman of Newmark.
+Common misconception in assisting tenants find their first location, highlighting the importance of finding the right deal over maximizing profit.  It summarizes insights from a podcast interview with Jay Luchs, Vice Chairman of Newmark.
 
 
 Key Points:

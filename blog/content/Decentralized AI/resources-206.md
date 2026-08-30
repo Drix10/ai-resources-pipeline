@@ -1,6 +1,6 @@
 ### 🤖 NEAR Protocol - Universal Coordination Layer
 
-This article outlines NEAR's position in the blockchain ecosystem as a foundational settlement and coordination layer. It explains how NEAR operates beneath various market verticals.
+NEAR's position in the blockchain ecosystem as a foundational settlement and coordination layer. It explains how NEAR operates beneath various market verticals.
 
 Key Points:
 

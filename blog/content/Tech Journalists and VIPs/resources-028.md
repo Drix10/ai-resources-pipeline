@@ -1,6 +1,6 @@
 ### 🤖 Politics - Judicial Overreach in Foreign Policy
 
-This article discusses concerns raised regarding the potential for district court judges to interfere with foreign policy decisions, including military targeting.  The potential consequences for democratic processes are explored.
+Concerns raised regarding the potential for district court judges to interfere with foreign policy decisions, including military targeting.  The potential consequences for democratic processes are explored.
 
 
 Key Points:

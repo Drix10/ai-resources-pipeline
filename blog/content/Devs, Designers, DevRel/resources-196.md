@@ -1,6 +1,6 @@
 ### 🤖 Public Sector Data - Information Dissemination
 
-This article discusses the dissemination of public sector information. It emphasizes the importance of transparency and accessible presentation of government data.
+Dissemination of public sector information. It emphasizes the importance of transparency and accessible presentation of government data.
 
 Key Points:
 

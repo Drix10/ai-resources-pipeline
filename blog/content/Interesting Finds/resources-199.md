@@ -1,6 +1,6 @@
 ### 🤖 GPT-5.6 Sol - ARC-AGI-3 Benchmark Performance
 
-This article discusses the performance of GPT-5.6 Sol, a new model that has achieved state-of-the-art results on the ARC-AGI-3 benchmark. It highlights the model's capability in novel orientation tasks.
+Performance of GPT-5.6 Sol, a new model that has achieved state-of-the-art results on the ARC-AGI-3 benchmark. It highlights the model's capability in novel orientation tasks.
 
 Key Points:
 

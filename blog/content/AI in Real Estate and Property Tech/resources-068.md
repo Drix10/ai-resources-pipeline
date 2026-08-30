@@ -1,6 +1,6 @@
 ### 🤖 Domain Name Sales - LTO Experience
 
-This article summarizes the author's experience seeking long-term opportunities (LTO) for domain names with Afternic and AtomHQ, and their decision to explore alternative listing options with Spaceship.
+Author's experience seeking long-term opportunities (LTO) for domain names with Afternic and AtomHQ, and their decision to explore alternative listing options with Spaceship.
 
 
 Key Points:

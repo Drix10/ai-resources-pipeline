@@ -1,6 +1,6 @@
 ### 🤖 AI Image & Video Generation - Current State
 
-This article summarizes the current state of AI image and video generation, highlighting limitations and future directions.  The commentary focuses on the lack of generalization in current models and the reliance on complex workflows.
+Current state of AI image and video generation, highlighting limitations and future directions.  The commentary focuses on the lack of generalization in current models and the reliance on complex workflows.
 
 Key Points:
 

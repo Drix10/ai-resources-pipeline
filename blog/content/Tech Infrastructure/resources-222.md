@@ -1,6 +1,6 @@
 ### 🤖 AI Software Factory - In-House Build Considerations
 
-This article discusses the strategic decisions involved in building an AI software factory internally, emphasizing which components to prioritize for in-house development. It outlines the support infrastructure necessary when integrating external coding agents.
+Strategic decisions involved in building an AI software factory internally, emphasizing which components to prioritize for in-house development. It outlines the support infrastructure necessary when integrating external coding agents.
 
 Key Points:
 

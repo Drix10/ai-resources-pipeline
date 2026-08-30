@@ -1,6 +1,6 @@
 ### ✨ Algorithmic Art - Emotional Weight in Latent Ink
 
-This article discusses the emotional impact conveyed by certain pieces within the Latent Ink collection, specifically focusing on the use of deep blacks to evoke emotional weight in non-representational algorithmic art.
+Emotional impact conveyed by certain pieces within the Latent Ink collection, specifically focusing on the use of deep blacks to evoke emotional weight in non-representational algorithmic art.
 
 Key Points:
 

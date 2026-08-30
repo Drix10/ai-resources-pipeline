@@ -1,6 +1,6 @@
 ### 🤖 AI Investments - Warren Buffett's Portfolio
 
-This article details the significant portion of Warren Buffett's investment portfolio allocated to artificial intelligence stocks. It highlights how a major investor is directing substantial capital into the AI sector.
+Significant portion of Warren Buffett's investment portfolio allocated to artificial intelligence stocks. It highlights how a major investor is directing substantial capital into the AI sector.
 
 Key Points:
 

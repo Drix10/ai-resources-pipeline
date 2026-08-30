@@ -1,6 +1,6 @@
 ### 🤖 Design Wins - Valuation Factors
 
-This article discusses the factors influencing the valuation of design wins, using Smart Eye's approach as an example.  It highlights the complexities involved in estimating long-term value.
+Factors influencing the valuation of design wins, using Smart Eye's approach as an example.  It highlights the complexities involved in estimating long-term value.
 
 Key Points:
 

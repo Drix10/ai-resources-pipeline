@@ -1,6 +1,6 @@
 ### 🤖 AI Security - Lethal Trifecta of AI Agents
 
-This article discusses the security risks associated with AI agents (LLMs that call tools) that access private data, interact with untrusted content, and have external communication capabilities.  It highlights the vulnerability this combination creates.
+Security risks associated with AI agents (LLMs that call tools) that access private data, interact with untrusted content, and have external communication capabilities.  It highlights the vulnerability this combination creates.
 
 Key Points:
 

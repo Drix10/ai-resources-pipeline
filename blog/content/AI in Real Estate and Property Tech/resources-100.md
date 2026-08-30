@@ -1,6 +1,6 @@
 ### 🤖 Real Estate Tech - Crexi PRO Workflow
 
-This article discusses how Crexi PRO streamlines real estate workflows, encompassing property management, execution, marketing, and client engagement, as shared by Stephen R. Preuss Sr., Vice Chairman at Ripco Real Estate.
+Crexi PRO streamlines real estate workflows, encompassing property management, execution, marketing, and client engagement, as shared by Stephen R. Preuss Sr., Vice Chairman at Ripco Real Estate.
 
 Key Points:
 

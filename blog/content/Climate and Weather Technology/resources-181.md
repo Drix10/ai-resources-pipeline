@@ -1,6 +1,6 @@
 ### 💡 ISS Observation - Metro Vancouver Sighting
 
-This article provides details for observing the International Space Station (ISS) over Metro Vancouver, including viewing times and directions. It outlines the optimal sequence for tracking the ISS across the night sky.
+Details for observing the International Space Station (ISS) over Metro Vancouver, including viewing times and directions. It outlines the optimal sequence for tracking the ISS across the night sky.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Technology Investment - Cisco's Strategic Shifts
 
-This article discusses Cisco CEO Chuck Robbins' explanation regarding recent layoffs, focusing on the company's strategic investment priorities. It highlights key areas where increased funding is deemed necessary for future growth and innovation.
+Cisco CEO Chuck Robbins' explanation regarding recent layoffs, focusing on the company's strategic investment priorities. It highlights key areas where increased funding is deemed necessary for future growth and innovation.
 
 Key Points:
 

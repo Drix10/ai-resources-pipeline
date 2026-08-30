@@ -1,6 +1,6 @@
 ### 🚀 TripoAI and ComfyUI Integration
 
-This article covers the native integration of TripoAI with ComfyUI API Nodes, highlighting its core features and supported versions.
+Native integration of TripoAI with ComfyUI API Nodes, highlighting its core features and supported versions.
 
 Key Points:
 

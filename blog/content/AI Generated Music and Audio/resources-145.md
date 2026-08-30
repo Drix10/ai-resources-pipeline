@@ -1,6 +1,6 @@
 ### 🤖 AI in Healthcare - Cardiorespiratory Signal Processing
 
-This article discusses advanced AI techniques applied to cardiorespiratory signal processing. It focuses on methods for signal separation, data clustering, and anomaly detection in physiological data.
+Advanced AI techniques applied to cardiorespiratory signal processing. It focuses on methods for signal separation, data clustering, and anomaly detection in physiological data.
 
 Key Points:
 

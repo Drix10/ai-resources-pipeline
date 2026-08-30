@@ -1,6 +1,6 @@
 ### 🤖 Social Media Trends - Algorithm Dependence
 
-This article discusses the shift in content creation strategies, highlighting the increasing reliance on algorithms for virality and the evolution of online social dynamics.
+Shift in content creation strategies, highlighting the increasing reliance on algorithms for virality and the evolution of online social dynamics.
 
 Key Points:
 

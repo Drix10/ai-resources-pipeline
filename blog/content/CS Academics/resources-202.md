@@ -1,6 +1,6 @@
 ### ✨ Mikal Bridges - Incredible After-Whistle Shot
 
-This article highlights an incredible, though uncounted, basketball shot by Mikal Bridges. It showcases an exceptional moment of skill during a game.
+Incredible, though uncounted, basketball shot by Mikal Bridges. It showcases an exceptional moment of skill during a game.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Neural Networks - Sigmoid Activation Function
 
-This article provides a brief overview of the sigmoid function, a common activation function used in neural networks.  It explains its purpose and suitability for specific applications.
+The sigmoid function, a common activation function used in neural networks.  It explains its purpose and suitability for specific applications.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Crowdfunding - peepee.com Acquisition
 
-This article details a crowdfunding effort to purchase the domain name peepee.com.  The campaign's goal, potential outcomes, and associated social media activity are described.
+Crowdfunding effort to purchase the domain name peepee.com.  The campaign's goal, potential outcomes, and associated social media activity are described.
 
 Key Points:
 

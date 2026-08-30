@@ -1,6 +1,6 @@
 ### 🤖 Decentralized AI News Digest - Daily DeAI
 
-This article summarizes AI and AI-adjacent news from a decentralized perspective, contrasting optimistic and skeptical viewpoints on AI's future.  It also briefly touches upon the challenges faced by AI-powered hardware manufacturers.
+AI and AI-adjacent news from a decentralized perspective, contrasting optimistic and skeptical viewpoints on AI's future.  It also briefly touches upon the challenges faced by AI-powered hardware manufacturers.
 
 Key Points:
 

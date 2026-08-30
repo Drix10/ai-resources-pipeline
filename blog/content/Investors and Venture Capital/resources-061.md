@@ -1,6 +1,6 @@
 ### 💡 German Childhood - Struwwelpeter
 
-This article discusses the German children's book Struwwelpeter and its contrast with Disney-like stories.  It explores the book's themes and its impact on generations of German children.
+German children's book Struwwelpeter and its contrast with Disney-like stories.  It explores the book's themes and its impact on generations of German children.
 
 Key Points:
 

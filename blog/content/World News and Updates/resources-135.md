@@ -1,6 +1,6 @@
 ### ✨ Football Protest - Manchester United Ownership
 
-This article details the recent protest by Manchester United fans, specifically addressing their use of clown masks to express discontent with the club's current ownership. It highlights the sustained nature of fan activism against the club's proprietors.
+Recent protest by Manchester United fans, specifically addressing their use of clown masks to express discontent with the club's current ownership. It highlights the sustained nature of fan activism against the club's proprietors.
 
 Key Points:
 

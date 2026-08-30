@@ -1,6 +1,6 @@
 ### 💡 Educational Technology - Interactive Learning at ISTELive26
 
-This article highlights the interactive experience and educational sessions offered by Code.org at ISTELive26. It encourages participation in their remaining sessions and activities focused on computer science education.
+Interactive experience and educational sessions offered by Code.org at ISTELive26. It encourages participation in their remaining sessions and activities focused on computer science education.
 
 Key Points:
 

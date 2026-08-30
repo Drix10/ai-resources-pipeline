@@ -1,6 +1,6 @@
 ### 🤖 US Customs - Unexpected Invoices for Small Businesses
 
-This article discusses the unexpected high customs invoices received by small businesses importing goods from China, questioning the practicality of the system.
+Unexpected high customs invoices received by small businesses importing goods from China, questioning the practicality of the system.
 
 Key Points:
 

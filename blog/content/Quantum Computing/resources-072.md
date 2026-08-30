@@ -1,6 +1,6 @@
 ### 🤖 Engineering - Student Building a Jet Engine
 
-This article summarizes a crowdfunding campaign for a Caltech student building a jet engine for a record-breaking RC plane.  The student, Ivan, is building the engine from scratch.
+Crowdfunding campaign for a Caltech student building a jet engine for a record-breaking RC plane.  The student, Ivan, is building the engine from scratch.
 
 
 Key Points:

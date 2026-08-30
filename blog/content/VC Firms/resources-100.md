@@ -1,6 +1,6 @@
 ### 🤖 Satellite Design and Launch - Challenging Orbits
 
-This article discusses the complexities of designing, building, and launching satellites into difficult orbits, highlighting the role of physics-based design, in-house engineering, and unconventional problem-solving.
+Complexities of designing, building, and launching satellites into difficult orbits, highlighting the role of physics-based design, in-house engineering, and unconventional problem-solving.
 
 Key Points:
 

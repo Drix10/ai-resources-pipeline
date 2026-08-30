@@ -1,6 +1,6 @@
 ### 💡 Economics - Federal Reserve Policy Challenges
 
-This article discusses the current struggles faced by the Federal Reserve in managing a variety of disruptive economic policies. It highlights the complexities involved in navigating the modern economic landscape.
+Current struggles faced by the Federal Reserve in managing a variety of disruptive economic policies. It highlights the complexities involved in navigating the modern economic landscape.
 
 Key Points:
 

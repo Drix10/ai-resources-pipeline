@@ -1,6 +1,6 @@
 ### ✨ User Interface - Dark Mode Benefits
 
-This article discusses the advantages of implementing dark mode in user interfaces, highlighting its impact on user experience and device efficiency.
+Advantages of implementing dark mode in user interfaces, highlighting its impact on user experience and device efficiency.
 
 Key Points:
 

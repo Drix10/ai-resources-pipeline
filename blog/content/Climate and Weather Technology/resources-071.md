@@ -1,6 +1,6 @@
 ### 🤖 Drone Loss - Tornado Data Recovery
 
-This article discusses the loss of a drone carrying valuable tornado data and requests assistance in its recovery.  The drone's last known location is provided.
+Loss of a drone carrying valuable tornado data and requests assistance in its recovery.  The drone's last known location is provided.
 
 Key Points:
 

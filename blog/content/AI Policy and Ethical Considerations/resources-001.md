@@ -1,6 +1,6 @@
 ### ⚠️ Political Commentary - Allegations Against Rachel Reeves
 
-This article summarizes allegations of misconduct against Rachel Reeves, the Chancellor of the Exchequer.  The claims involve alleged inaccuracies in her CV and misuse of company and parliamentary credit cards.
+Allegations of misconduct against Rachel Reeves, the Chancellor of the Exchequer.  The claims involve alleged inaccuracies in her CV and misuse of company and parliamentary credit cards.
 
 Key Points:
 

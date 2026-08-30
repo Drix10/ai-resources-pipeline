@@ -1,6 +1,6 @@
 ### 💎 Archaeology - Dynastic Egyptian Jewelry Discovery
 
-This article discusses the discovery of a potential piece of Dynastic Egyptian carnelian jewelry found on the Giza Plateau.  The find was made by a tourist unfamiliar with Egyptian archaeology.
+Discovery of a potential piece of Dynastic Egyptian carnelian jewelry found on the Giza Plateau.  The find was made by a tourist unfamiliar with Egyptian archaeology.
 
 Key Points:
 

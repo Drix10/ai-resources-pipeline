@@ -1,6 +1,6 @@
 ### ✨ LatelyAI - Personalizing Voice Model Creation
 
-This article discusses LatelyAI's approach to voice model creation, emphasizing personalization and achieving results through authenticity.  It highlights the key features offered in their 7-day bootcamp.
+LatelyAI's approach to voice model creation, emphasizing personalization and achieving results through authenticity.  It highlights the key features offered in their 7-day bootcamp.
 
 Key Points:
 

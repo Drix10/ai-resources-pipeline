@@ -1,6 +1,6 @@
 ### ⚖️ Legislation - Violent Crime
 
-This article summarizes legislation introduced to strengthen violent crime laws and clarify penalties for offenses such as carjacking, robbery, kidnapping, and attacks on police officers.  The bill aims to deter future crime and support prosecution efforts.
+Legislation introduced to strengthen violent crime laws and clarify penalties for offenses such as carjacking, robbery, kidnapping, and attacks on police officers.  The bill aims to deter future crime and support prosecution efforts.
 
 Key Points:
 

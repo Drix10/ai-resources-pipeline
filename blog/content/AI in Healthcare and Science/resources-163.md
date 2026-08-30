@@ -1,6 +1,6 @@
 ### 💡 Public Health - California Flu Weekly Update
 
-This article provides a comprehensive update on influenza prevalence across California for the week of March 27, detailing statewide stabilization trends and specific city-level forecasts. It also introduces a mobile application designed for accessing public health data.
+Comprehensive update on influenza prevalence across California for the week of March 27, detailing statewide stabilization trends and specific city-level forecasts. It also introduces a mobile application designed for accessing public health data.
 
 Key Points:
 

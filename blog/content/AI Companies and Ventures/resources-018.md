@@ -1,6 +1,6 @@
 ### 🤖 Cryptocurrency - Medium Cap Coin Analysis
 
-This article summarizes recent capital flow data for medium-cap cryptocurrencies, focusing on whale activity.  The data reflects net flows over a one-hour period.
+Recent capital flow data for medium-cap cryptocurrencies, focusing on whale activity.  The data reflects net flows over a one-hour period.
 
 Key Points:
 

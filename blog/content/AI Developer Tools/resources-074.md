@@ -1,6 +1,6 @@
 ### 🚀  AI & Data - Permissionless Datasets
 
-This article discusses how Chakra AI is creating permissionless datasets to empower AI teams.  It highlights an upcoming event featuring a speaker from Akash Accelerate.
+Chakra AI is creating permissionless datasets to empower AI teams.  It highlights an upcoming event featuring a speaker from Akash Accelerate.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Clinical AI - LLM Benchmarks
 
-This article discusses the complexities of evaluating large language models in clinical settings, particularly concerning benchmark reliability for doctors.
+Complexities of evaluating large language models in clinical settings, particularly concerning benchmark reliability for doctors.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ⛈️ Severe Weather Forecasting - Piedmont Spring Tornado Outlook
 
-This article summarizes a severe weather forecast for the Piedmont region during the upcoming spring, focusing on the predicted number of tornadoes.  The forecast suggests an above-average tornado season.
+Severe weather forecast for the Piedmont region during the upcoming spring, focusing on the predicted number of tornadoes.  The forecast suggests an above-average tornado season.
 
 Key Points:
 

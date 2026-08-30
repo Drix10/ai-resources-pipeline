@@ -1,6 +1,6 @@
 ### 🤖 AI Performance - OpenAI vs. Competitors
 
-This article discusses the perceived performance of recent OpenAI updates compared to offerings from other companies. It highlights a view that some competitor models may currently outperform OpenAI's latest releases.
+Perceived performance of recent OpenAI updates compared to offerings from other companies. It highlights a view that some competitor models may currently outperform OpenAI's latest releases.
 
 Key Points:
 

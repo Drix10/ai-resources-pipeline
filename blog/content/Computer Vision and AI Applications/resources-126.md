@@ -1,6 +1,6 @@
 ### 🤖 AI Research - Mindset Shifts for Physics of AI
 
-This article discusses the challenges in "Physics of AI" research, attributing difficulties to the prevailing publishing culture. It proposes curiosity-driven open research as a viable solution to these obstacles.
+Challenges in "Physics of AI" research, attributing difficulties to the prevailing publishing culture. It proposes curiosity-driven open research as a viable solution to these obstacles.
 
 Key Points:
 

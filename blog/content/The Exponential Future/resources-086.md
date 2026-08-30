@@ -1,6 +1,6 @@
 ### 🤖 Gemini AI - Enhanced Code Development
 
-This article discusses Google's Gemini AI platform upgrade and its new command-line interface (CLI) tool for developers.  It focuses on the tool's capabilities and integration with existing coding environments.
+Google's Gemini AI platform upgrade and its new command-line interface (CLI) tool for developers.  It focuses on the tool's capabilities and integration with existing coding environments.
 
 Key Points:
 

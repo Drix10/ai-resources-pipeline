@@ -1,6 +1,6 @@
 ### 🤖 AI Meetup Highlights - Modular's Los Altos Event
 
-This article summarizes key takeaways from Modular's High-Performance AI Meetup in Los Altos, focusing on discussions about Mojo, physical AI infrastructure, and the challenges of reliable voice AI.
+Key takeaways from Modular's High-Performance AI Meetup in Los Altos, focusing on discussions about Mojo, physical AI infrastructure, and the challenges of reliable voice AI.
 
 
 Key Points:

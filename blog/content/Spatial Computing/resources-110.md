@@ -1,6 +1,6 @@
 ### 🤖 Urban Air Pollution - Impervious Surface Impact
 
-This article examines the impact of artificial impervious surfaces on PM2.5 pollution in urban areas, differentiating between areas with drastic expansion and those with slight or no change.
+Impact of artificial impervious surfaces on PM2.5 pollution in urban areas, differentiating between areas with drastic expansion and those with slight or no change.
 
 Key Points:
 

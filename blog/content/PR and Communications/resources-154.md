@@ -1,6 +1,6 @@
 ### 💡 Business Strategy - Regal Cinemas Premium Pricing
 
-This article examines Regal Cinemas' strategy of implementing premium pricing for specific movie screenings. It details the approach taken for "Dune: Part Three" opening night tickets.
+Regal Cinemas' strategy of implementing premium pricing for specific movie screenings. It details the approach taken for "Dune: Part Three" opening night tickets.
 
 Key Points:
 

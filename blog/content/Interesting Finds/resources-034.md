@@ -1,6 +1,6 @@
 ### 🤖 Media Coverage - Presidential Communication
 
-This article discusses anticipated media coverage regarding a sensitive Signal group chat and the administration's response.  It highlights the potential for conflict between the media and the administration.
+Anticipated media coverage regarding a sensitive Signal group chat and the administration's response.  It highlights the potential for conflict between the media and the administration.
 
 Key Points:
 

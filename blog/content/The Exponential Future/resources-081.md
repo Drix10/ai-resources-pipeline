@@ -1,6 +1,6 @@
 ### 🤖 AI Resistance - The Inevitability of AI Integration
 
-This article discusses the resistance to AI integration and argues against the notion of a return to a pre-AI world.  It highlights the fundamental shift AI represents and the futility of attempting to hinder its progress.
+Resistance to AI integration and argues against the notion of a return to a pre-AI world.  It highlights the fundamental shift AI represents and the futility of attempting to hinder its progress.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Women in Blockchain - Launching and Leading
 
-This article outlines five strategies for women to successfully launch and lead blockchain ventures, focusing on building inclusive and resilient foundations.
+Five strategies for women to successfully launch and lead blockchain ventures, focusing on building inclusive and resilient foundations.
 
 Key Points:
 

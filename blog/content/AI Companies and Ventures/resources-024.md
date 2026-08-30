@@ -1,6 +1,6 @@
 ### 🤖 AI Art - Futuristic Western Short Film Trailer
 
-This article details the creation of a cyberpunk-styled trailer for a futuristic western short film using AI tools.  The process involved several AI applications for image generation and lip-syncing.
+Creation of a cyberpunk-styled trailer for a futuristic western short film using AI tools.  The process involved several AI applications for image generation and lip-syncing.
 
 Key Points:
 

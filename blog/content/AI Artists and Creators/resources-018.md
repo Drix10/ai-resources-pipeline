@@ -1,6 +1,6 @@
 ### ⚖️ Law - Office of Special Counsel Independence
 
-This article summarizes a court ruling on the Office of Special Counsel's independence from the President.  The ruling affirms the OSC's authority to operate free from presidential removal without cause.
+Court ruling on the Office of Special Counsel's independence from the President.  The ruling affirms the OSC's authority to operate free from presidential removal without cause.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ Performance Tracking - Milestone Achievement
 
-This article discusses the completion of a significant 500 km achievement, highlighting the value of tracking progress and celebrating milestones. It acknowledges the dedication required to reach such a goal and the visual documentation of the journey.
+Completion of a significant 500 km achievement, highlighting the value of tracking progress and celebrating milestones. It acknowledges the dedication required to reach such a goal and the visual documentation of the journey.
 
 Key Points:
 

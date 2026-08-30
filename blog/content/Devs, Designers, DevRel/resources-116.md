@@ -1,6 +1,6 @@
 ### 🤖 Coding - The Impact of AI
 
-This article discusses the evolving landscape of coding, specifically the influence of AI tools on the coding process and the potential implications for future generations of programmers.
+Evolving landscape of coding, specifically the influence of AI tools on the coding process and the potential implications for future generations of programmers.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Mental Health - Long-Term Psychiatric Medication Use
 
-This article discusses the author's personal experience with quitting psychiatric medication and offers a perspective on the prevalence of mental health issues.  It draws a parallel between the well-being of animals in unnatural environments and the mental health challenges faced by humans.
+Author's personal experience with quitting psychiatric medication and offers a perspective on the prevalence of mental health issues.  It draws a parallel between the well-being of animals in unnatural environments and the mental health challenges faced by humans.
 
 
 Key Points:

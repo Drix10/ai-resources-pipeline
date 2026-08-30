@@ -1,6 +1,6 @@
 ### 🤖 Event Sensors - High Frame Rate Capabilities
 
-This article explores the functionality of event sensors, highlighting their asynchronous pixel change event output and the resulting pseudo high frame rate capabilities. It discusses how these sensors differ from traditional camera shutters and their potential applications.
+Functionality of event sensors, highlighting their asynchronous pixel change event output and the resulting pseudo high frame rate capabilities. It discusses how these sensors differ from traditional camera shutters and their potential applications.
 
 Key Points:
 

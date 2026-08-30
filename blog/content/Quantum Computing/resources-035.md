@@ -1,6 +1,6 @@
 ### 🤖 NLP in Collective Bargaining - Quantifying Worker Rights
 
-This article discusses a working paper that uses novel NLP methods to quantify the value of worker rights using data from 30,000 collective bargaining agreements.  The research proposes new techniques for analyzing this data.
+Working paper that uses novel NLP methods to quantify the value of worker rights using data from 30,000 collective bargaining agreements.  The research proposes new techniques for analyzing this data.
 
 
 Key Points:

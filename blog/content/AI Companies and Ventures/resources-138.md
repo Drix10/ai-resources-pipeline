@@ -1,6 +1,6 @@
 ### 💡 Financial Analysis - Crypto Perps Performance
 
-This article examines the top gainers on Hyperliquid perps over the past week, highlighting significant PnL achievements by public figures. It focuses on consistent trading execution rather than singular events.
+Top gainers on Hyperliquid perps over the past week, highlighting significant PnL achievements by public figures. It focuses on consistent trading execution rather than singular events.
 
 Key Points:
 

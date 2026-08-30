@@ -1,6 +1,6 @@
 ### 🤝 EpicWebConf - Swag and Meetups
 
-This article details the author's presence at EpicWebConf, offering attendees the chance to receive various items.
+Author's presence at EpicWebConf, offering attendees the chance to receive various items.
 
 Key Points:
 

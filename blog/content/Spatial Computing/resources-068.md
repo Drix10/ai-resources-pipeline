@@ -1,6 +1,6 @@
 ### 🤖 EDA - Cooley's DAC Troublemaker Panel
 
-This article summarizes Cadence's participation in Cooley's DAC Troublemaker Panel at DAC2025, featuring a Q&A session with Paul Cunningham.
+Cadence's participation in Cooley's DAC Troublemaker Panel at DAC2025, featuring a Q&A session with Paul Cunningham.
 
 Key Points:
 

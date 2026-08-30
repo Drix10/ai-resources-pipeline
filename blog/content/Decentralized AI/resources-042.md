@@ -1,6 +1,6 @@
 ### 🤖 Smart Contracts - AI Integration
 
-This article discusses the integration of AI agents with smart contracts and the tools required for effective operation, focusing on Space and Time's crypto-native query engine.
+Integration of AI agents with smart contracts and the tools required for effective operation, focusing on Space and Time's crypto-native query engine.
 
 Key Points:
 

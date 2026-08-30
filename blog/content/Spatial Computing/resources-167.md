@@ -1,6 +1,6 @@
 ### 🤖 XGRIDS - JXUC Event Overview
 
-This article provides an overview of developments related to XGRIDS and JXUC initiatives. It summarizes the context surrounding these technical efforts, offering insights into their general focus.
+Developments related to XGRIDS and JXUC initiatives. It summarizes the context surrounding these technical efforts, offering insights into their general focus.
 
 Key Points:
 

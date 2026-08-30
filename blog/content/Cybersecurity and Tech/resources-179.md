@@ -1,6 +1,6 @@
 ### 🤖 System Identification - Machine-ID Privacy
 
-This article discusses system identifiers such as Windows GUIDs and Linux `/etc/machine-id`. It highlights the privacy implications associated with these persistent identifiers.
+System identifiers such as Windows GUIDs and Linux `/etc/machine-id`. It highlights the privacy implications associated with these persistent identifiers.
 
 Key Points:
 • Windows systems use GUIDs hardcoded in TPM for identification.

@@ -1,6 +1,6 @@
 ### 💡 Middle East Geopolitics - Iran's Future Trajectory
 
-This article discusses the future trajectory for Iran, as highlighted in a broadcast featuring several prominent political figures. It presents a dialogue about ongoing geopolitical developments involving key international actors.
+Future trajectory for Iran, as highlighted in a broadcast featuring several prominent political figures. It presents a dialogue about ongoing geopolitical developments involving key international actors.
 
 Key Points:
 

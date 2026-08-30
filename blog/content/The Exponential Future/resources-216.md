@@ -1,6 +1,6 @@
 ### 🤖 Bitcoin Price Action - Market Commentary
 
-This content discusses the relationship between fiat currency policy and cryptocurrency valuation. It presents a direct correlation argument regarding asset price movements.
+Relationship between fiat currency policy and cryptocurrency valuation. It presents a direct correlation argument regarding asset price movements.
 
 Key Points:
 

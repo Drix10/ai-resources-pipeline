@@ -1,6 +1,6 @@
 ### ⚠️ Geopolitics - Warning from Washington's Farewell Address
 
-This article discusses a Twitter thread referencing George Washington's Farewell Address and its relevance to current geopolitical events.  The author argues that Washington foresaw the dangers of autocracy, and that his warnings remain pertinent today.
+Twitter thread referencing George Washington's Farewell Address and its relevance to current geopolitical events.  The author argues that Washington foresaw the dangers of autocracy, and that his warnings remain pertinent today.
 
 
 Key Points:

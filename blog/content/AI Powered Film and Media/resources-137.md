@@ -1,6 +1,6 @@
 ### 🤖 Pyramidal Models - Efficient Video Inference
 
-This article discusses the PyramidalWan research, which focuses on converting pretrained video models into a pyramidal structure. The primary goal is to enhance inference efficiency for generative models, particularly those involving diffusion processes.
+PyramidalWan research, which focuses on converting pretrained video models into a pyramidal structure. The primary goal is to enhance inference efficiency for generative models, particularly those involving diffusion processes.
 
 Key Points:
 

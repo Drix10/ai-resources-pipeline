@@ -1,6 +1,6 @@
 ### 🤖 LLMs - Inefficient Layer Usage
 
-This article discusses research findings indicating that a significant portion of layers in large language models like Llama 3 are underutilized, focusing on probability distribution refinement rather than complex computations.
+Research findings indicating that a significant portion of layers in large language models like Llama 3 are underutilized, focusing on probability distribution refinement rather than complex computations.
 
 Key Points:
 

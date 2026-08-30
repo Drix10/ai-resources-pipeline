@@ -1,6 +1,6 @@
 ### 🤖 Theoriq Community Posts - Allocation Strategy Breakdown
 
-This article summarizes community posts analyzing Theoriq's token allocation strategy.  It highlights key discussions regarding community sale allocations and the overall strategy.
+Community posts analyzing Theoriq's token allocation strategy.  It highlights key discussions regarding community sale allocations and the overall strategy.
 
 Key Points:
 

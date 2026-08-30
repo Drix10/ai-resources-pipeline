@@ -1,6 +1,6 @@
 ### 🤖 AI Policy - Executive Order Takeaways
 
-This article covers key takeaways from a recent Executive Order on a national policy framework for AI, clarifying its scope and impact. It emphasizes that the order establishes foundational guidelines without superseding state AI laws.
+Key takeaways from a recent Executive Order on a national policy framework for AI, clarifying its scope and impact. It emphasizes that the order establishes foundational guidelines without superseding state AI laws.
 
 Key Points:
 

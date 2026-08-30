@@ -1,6 +1,6 @@
 ### 🤖 Arduino Days - Making Innovation Accessible
 
-This article summarizes a presentation from Arduino Days, focusing on how Arduino and Adafruit support creators through open-source initiatives.  The presentation by Fabio Violante highlights accessibility in innovation.
+Presentation from Arduino Days, focusing on how Arduino and Adafruit support creators through open-source initiatives.  The presentation by Fabio Violante highlights accessibility in innovation.
 
 Key Points:
 

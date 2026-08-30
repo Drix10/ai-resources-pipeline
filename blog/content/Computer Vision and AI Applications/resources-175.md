@@ -1,6 +1,6 @@
 ### 🤖 3D Graphics - Drift Car Simulation and Neuroevolution
 
-This article discusses a 3D drift car simulation project, highlighting its graphics and driving model. It also explores the potential for implementing neuroevolution to enhance car behavior, drawing parallels with a cycling game.
+3D drift car simulation project, highlighting its graphics and driving model. It also explores the potential for implementing neuroevolution to enhance car behavior, drawing parallels with a cycling game.
 
 Key Points:
 

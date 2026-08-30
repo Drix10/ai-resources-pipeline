@@ -1,6 +1,6 @@
 ### 🤖 Productivity - Bottlenecks in AI Workflows
 
-This article discusses common bottlenecks encountered when using AI for work tasks, focusing on the limitations of user understanding, agent building, and prompt engineering.
+Common bottlenecks encountered when using AI for work tasks, focusing on the limitations of user understanding, agent building, and prompt engineering.
 
 Key Points:
 

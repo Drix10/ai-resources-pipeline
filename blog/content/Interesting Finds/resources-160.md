@@ -1,6 +1,6 @@
 ### 💡 Financial History - Yahoo! IPO Day
 
-This article covers Yahoo!'s initial public offering performance in 1996, including its stock price trajectory and the volume of shares sold. It highlights the significant first-day gains experienced by the company.
+Yahoo!'s initial public offering performance in 1996, including its stock price trajectory and the volume of shares sold. It highlights the significant first-day gains experienced by the company.
 
 Key Points:
 

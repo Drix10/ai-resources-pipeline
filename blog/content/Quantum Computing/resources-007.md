@@ -1,6 +1,6 @@
 ### 🔬 Gene Therapy - AIPL1-Associated Retinal Dystrophy
 
-This article summarizes a research paper focusing on gene therapy for children with AIPL1-associated severe retinal dystrophy, a condition causing rapid vision loss.  The study explores a potential treatment for this currently incurable disease.
+Research paper focusing on gene therapy for children with AIPL1-associated severe retinal dystrophy, a condition causing rapid vision loss.  The study explores a potential treatment for this currently incurable disease.
 
 Key Points:
 

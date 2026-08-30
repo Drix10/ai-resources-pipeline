@@ -1,6 +1,6 @@
 ### 🤖 Cancer Clinical Trials - DeLLphi304 Trial
 
-This article details the DeLLphi304 clinical trial, highlighting its findings on Tarlatamab in relapsed SCLC. It presents an overview of the trial's impact and outcomes.
+DeLLphi304 clinical trial, highlighting its findings on Tarlatamab in relapsed SCLC. It presents an overview of the trial's impact and outcomes.
 
 Key Points:
 

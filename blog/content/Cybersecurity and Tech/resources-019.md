@@ -1,6 +1,6 @@
 ### 🤖 Intel's Role in Telecom's Future
 
-This article discusses Intel's involvement in shaping the future of telecommunications through virtualization, AI, and open ecosystems, as highlighted by Sachin Katti at MWC25.
+Intel's involvement in shaping the future of telecommunications through virtualization, AI, and open ecosystems, as highlighted by Sachin Katti at MWC25.
 
 Key Points:
 

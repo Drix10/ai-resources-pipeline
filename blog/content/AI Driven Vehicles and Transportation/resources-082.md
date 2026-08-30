@@ -1,6 +1,6 @@
 ### 🤖 Tokenization Boom - Zombie Assets
 
-This article discusses the potential for a tokenization boom driven by the decline of traditional institutions and assets.  It contrasts this with the decline of established structures.
+Potential for a tokenization boom driven by the decline of traditional institutions and assets.  It contrasts this with the decline of established structures.
 
 Key Points:
 

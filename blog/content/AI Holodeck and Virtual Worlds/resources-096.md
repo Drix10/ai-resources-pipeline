@@ -1,6 +1,6 @@
 ### 🤖 Filmmaking - Scriptwriting with Saga
 
-This article summarizes the experience of a writer/director using Saga for scriptwriting, highlighting its effectiveness in meeting tight deadlines.
+Experience of a writer/director using Saga for scriptwriting, highlighting its effectiveness in meeting tight deadlines.
 
 Key Points:
 

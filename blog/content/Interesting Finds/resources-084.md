@@ -1,6 +1,6 @@
 ### 🎬 Filmmaking -  Charlie Chaplin's Stunt in Modern Times
 
-This article examines a scene from Charlie Chaplin's *Modern Times* and reveals the innovative, yet deceptively simple, filmmaking techniques used to create a seemingly dangerous stunt.
+Scene from Charlie Chaplin's *Modern Times* and reveals the innovative, yet deceptively simple, filmmaking techniques used to create a seemingly dangerous stunt.
 
 Key Points:
 

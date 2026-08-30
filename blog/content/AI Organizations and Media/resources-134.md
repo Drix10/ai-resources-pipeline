@@ -1,6 +1,6 @@
 ### 🤖 MATLAB and NVIDIA DGX Spark - Private AI Workflow
 
-This article details the integration of MATLAB with the NVIDIA DGX Spark for establishing private AI workflows. It covers the setup of Ollama on the DGX Spark to facilitate local LLM deployment and interaction with MATLAB.
+Integration of MATLAB with the NVIDIA DGX Spark for establishing private AI workflows. It covers the setup of Ollama on the DGX Spark to facilitate local LLM deployment and interaction with MATLAB.
 
 Key Points:
 

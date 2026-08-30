@@ -1,6 +1,6 @@
 ### ✨ Team Collaboration - Rapid Publication
 
-This article discusses the efficiency of a Generalist team in rapidly publishing work. It highlights the streamlined process from development to online deployment.
+Efficiency of a Generalist team in rapidly publishing work. It highlights the streamlined process from development to online deployment.
 
 Key Points:
 

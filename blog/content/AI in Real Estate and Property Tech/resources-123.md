@@ -1,6 +1,6 @@
 ### 🤖 Physical AI - Phyzical.ai Concept
 
-This article explores the concept of Physical AI, also known as Phyzical.ai, and its potential implications for technological development. It introduces the idea of AI integrated into physical systems and environments.
+Concept of Physical AI, also known as Phyzical.ai, and its potential implications for technological development. It introduces the idea of AI integrated into physical systems and environments.
 
 Key Points:
 

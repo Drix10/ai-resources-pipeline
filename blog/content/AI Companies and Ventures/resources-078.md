@@ -1,6 +1,6 @@
 ### 💡 Focusing on Progress, Not Just Results
 
-This article discusses the importance of focusing on daily progress and the learning process rather than solely on the end result, especially in fields like trading.  It emphasizes the continuous growth inherent in consistent effort.
+Importance of focusing on daily progress and the learning process rather than solely on the end result, especially in fields like trading.  It emphasizes the continuous growth inherent in consistent effort.
 
 Key Points:
 

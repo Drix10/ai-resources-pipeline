@@ -1,6 +1,6 @@
 ### 🤖 Agentic Enterprise Series - Go-to-Market Strategies
 
-This article details an upcoming executive series focused on the Agentic Enterprise. It covers discussions on future go-to-market strategies. The series features key innovators from various industries.
+Upcoming executive series focused on the Agentic Enterprise. It covers discussions on future go-to-market strategies. The series features key innovators from various industries.
 
 Key Points:
 

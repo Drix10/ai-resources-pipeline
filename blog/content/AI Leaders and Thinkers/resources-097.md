@@ -1,6 +1,6 @@
 ### 🤖 Solar Energy - Unexpected Growth
 
-This article discusses the unexpected and continued growth of the solar energy market, defying predictions of saturation.  It analyzes recent data and contrasts it with earlier forecasts.
+Unexpected and continued growth of the solar energy market, defying predictions of saturation.  It analyzes recent data and contrasts it with earlier forecasts.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Business - Kodak's Failure to Innovate
 
-This article discusses Kodak's failure to adapt to the digital photography revolution, highlighting the consequences of neglecting innovation.  The text explores the rapid technological advancements that led to Kodak's decline.
+Kodak's failure to adapt to the digital photography revolution, highlighting the consequences of neglecting innovation.  The text explores the rapid technological advancements that led to Kodak's decline.
 
 Key Points:
 

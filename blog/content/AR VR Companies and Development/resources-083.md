@@ -1,6 +1,6 @@
 ### ✈️ San Diego Comic-Con - Weta Workshop's Preparations
 
-This article details Weta Workshop's preparations for San Diego Comic-Con 2025, including packing and planning for their booth.  It showcases behind-the-scenes images of the process.
+Weta Workshop's preparations for San Diego Comic-Con 2025, including packing and planning for their booth.  It showcases behind-the-scenes images of the process.
 
 Key Points:
 

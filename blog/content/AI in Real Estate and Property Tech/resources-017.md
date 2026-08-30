@@ -1,6 +1,6 @@
 ### 🎙️ Real Estate - Multifamily Development Challenges
 
-This article summarizes a podcast episode discussing multifamily development challenges, investment strategies, and the impact of natural disasters.  The discussion includes insights on public-private sector collaboration for rebuilding efforts.
+Podcast episode discussing multifamily development challenges, investment strategies, and the impact of natural disasters.  The discussion includes insights on public-private sector collaboration for rebuilding efforts.
 
 Key Points:
 

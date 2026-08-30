@@ -1,6 +1,6 @@
 ### 🤖 AI in Protein Evolution - Enhancing Protein Design with AI
 
-This article summarizes research on using artificial intelligence to redesign starting points and outcomes for protein evolution. The approach aims to improve the efficiency and results of protein engineering efforts.
+Research on using artificial intelligence to redesign starting points and outcomes for protein evolution. The approach aims to improve the efficiency and results of protein engineering efforts.
 
 Key Points:
 

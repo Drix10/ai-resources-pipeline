@@ -1,6 +1,6 @@
 ### ✨ Gaming - Playtest Wrapped Analysis
 
-This article discusses the "Atia’s Legacy Playtest Wrapped" event, encouraging participants to share their gameplay summaries. It highlights a community initiative to review individual playtest performance and engagement.
+"Atia’s Legacy Playtest Wrapped" event, encouraging participants to share their gameplay summaries. It highlights a community initiative to review individual playtest performance and engagement.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ❤️ Gratitude - Home Construction Project
 
-This article discusses the completion of a house built for girls in Alalay and acknowledges the support of the Marta Bedoya de Claure Foundation.
+Completion of a house built for girls in Alalay and acknowledges the support of the Marta Bedoya de Claure Foundation.
 
 Key Points:
 

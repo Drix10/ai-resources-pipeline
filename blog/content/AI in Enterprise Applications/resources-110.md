@@ -1,6 +1,6 @@
 ### 🤝 Networking - Voice AI in YC
 
-This article summarizes a networking event for Y Combinator founders and alumni working with voice AI, hosted by Cartesia.  The event will feature insights from Cartesia founders.
+Networking event for Y Combinator founders and alumni working with voice AI, hosted by Cartesia.  The event will feature insights from Cartesia founders.
 
 
 Key Points:

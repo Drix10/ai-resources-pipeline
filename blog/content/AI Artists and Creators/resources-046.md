@@ -1,6 +1,6 @@
 ### ✨ AI Art - Fantasy Realism Teacup World
 
-This article details a prompt used to generate a fantasy realism illustration of an ornate world inside a teacup, inhabited by elves and featuring specific aesthetic elements.  The resulting image is showcased.
+Prompt used to generate a fantasy realism illustration of an ornate world inside a teacup, inhabited by elves and featuring specific aesthetic elements.  The resulting image is showcased.
 
 Key Points:
 

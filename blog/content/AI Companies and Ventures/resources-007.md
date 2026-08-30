@@ -1,6 +1,6 @@
 ### 🚀 AI Design Tools - Logo Creation from Doodles
 
-This article discusses Jeda.ai's AI design tools and their capability to transform hand-drawn sketches into professional logos.  The tools leverage generative AI to elevate brand imagery.
+Jeda.ai's AI design tools and their capability to transform hand-drawn sketches into professional logos.  The tools leverage generative AI to elevate brand imagery.
 
 Key Points:
 

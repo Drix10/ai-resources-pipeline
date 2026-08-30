@@ -1,6 +1,6 @@
 ### 🤖 AWS EKS - Cost Optimization
 
-This article discusses managing costs associated with Elastic Kubernetes Service (EKS) workloads on AWS by preventing idle worker nodes.
+Managing costs associated with Elastic Kubernetes Service (EKS) workloads on AWS by preventing idle worker nodes.
 
 Key Points:
 

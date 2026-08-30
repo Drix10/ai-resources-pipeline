@@ -1,6 +1,6 @@
 ### ✨ AI Art - Frozen Fractal Symphony
 
-This article details the creation of AI-generated art using a specific prompt focusing on frozen fractal patterns.  Several example images are included.
+Creation of AI-generated art using a specific prompt focusing on frozen fractal patterns.  Several example images are included.
 
 Key Points:
 

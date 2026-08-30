@@ -1,6 +1,6 @@
 ### 💡 Decision-Making - Sequoia's Alfred Lin's Approach
 
-This article summarizes Alfred Lin's approach to decision-making, drawing a distinction between Type 1 and Type 2 decisions and highlighting the importance of time constraints in decision-making processes.
+Alfred Lin's approach to decision-making, drawing a distinction between Type 1 and Type 2 decisions and highlighting the importance of time constraints in decision-making processes.
 
 Key Points:
 

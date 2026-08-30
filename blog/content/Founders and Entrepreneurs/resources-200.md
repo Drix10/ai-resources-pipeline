@@ -1,6 +1,6 @@
 ### 🤖 ClickHouse - Postgres Memory Overcommit
 
-This article discusses how ClickHouse manages memory overcommit in Postgres, focusing on how Linux handles memory allocation and the implications for database processes.
+ClickHouse manages memory overcommit in Postgres, focusing on how Linux handles memory allocation and the implications for database processes.
 
 Key Points:
 

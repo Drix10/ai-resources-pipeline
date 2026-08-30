@@ -1,6 +1,6 @@
 ### 🤖 AI in Production - Workflow vs. "Sexy" Agent
 
-This article discusses the discrepancy between the promise of sophisticated AI agents and the practical reality of simpler workflows in production environments.  It highlights the evolving nature of AI workflows towards greater agency.
+Discrepancy between the promise of sophisticated AI agents and the practical reality of simpler workflows in production environments.  It highlights the evolving nature of AI workflows towards greater agency.
 
 Key Points:
 

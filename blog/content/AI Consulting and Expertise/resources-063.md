@@ -1,6 +1,6 @@
 ### 🤖 AI Strategies - System-Level Thinking
 
-This article discusses the importance of building comprehensive AI systems for workflow management, contrasting this approach with relying on individual tools or prompts.
+Importance of building comprehensive AI systems for workflow management, contrasting this approach with relying on individual tools or prompts.
 
 Key Points:
 

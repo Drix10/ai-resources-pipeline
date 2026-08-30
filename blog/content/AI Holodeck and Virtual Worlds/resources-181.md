@@ -1,6 +1,6 @@
 ### 💡 Mobile UI Design - Bottom Navigation Best Practices
 
-This article outlines best practices for designing mobile bottom navigation bars. It focuses on critical dimensions, active/inactive states, and label visibility for optimal user experience.
+Best practices for designing mobile bottom navigation bars. It focuses on critical dimensions, active/inactive states, and label visibility for optimal user experience.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 GPT Models - GPT-5 Performance
 
-This article discusses user observations regarding the performance of GPT-5, specifically focusing on its "thinking mode."  The author finds it more focused and reasonable than previous iterations.
+User observations regarding the performance of GPT-5, specifically focusing on its "thinking mode."  The author finds it more focused and reasonable than previous iterations.
 
 Key Points:
 

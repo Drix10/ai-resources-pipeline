@@ -1,6 +1,6 @@
 ### 📊 Political Science - Shifting Democratic Support for Israel
 
-This article examines the declining support for Israel among Democrats and its potential implications.  It briefly analyzes the reported shift in party stance and its effect on the Jewish Democratic population.
+Declining support for Israel among Democrats and its potential implications.  It briefly analyzes the reported shift in party stance and its effect on the Jewish Democratic population.
 
 Key Points:
 

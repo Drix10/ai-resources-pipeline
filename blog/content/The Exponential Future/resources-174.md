@@ -1,6 +1,6 @@
 ### 🤖 Palantir Financials - Earnings Reaction
 
-This article discusses Palantir's latest financial results, highlighting its consistent "triple play" performance and the subsequent negative reaction in its stock trading.
+Palantir's latest financial results, highlighting its consistent "triple play" performance and the subsequent negative reaction in its stock trading.
 
 Key Points:
 

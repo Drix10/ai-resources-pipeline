@@ -1,6 +1,6 @@
 ### 🤖 Gate.io Proof of Reserves Report
 
-This article summarizes Gate.io's latest Proof of Reserves report, detailing the total asset value and reserve ratio.
+Gate.io's latest Proof of Reserves report, detailing the total asset value and reserve ratio.
 
 Key Points:
 

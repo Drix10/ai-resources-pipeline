@@ -1,6 +1,6 @@
 ### 💡 School Meals - Industrial Strategy
 
-This article discusses the potential of school meal programs to be a central component of a strategic industrial policy, drawing on examples from Brazil, Sweden, and Scotland.  The report "A Mission Oriented Approach to School Meals" explores this concept.
+Potential of school meal programs to be a central component of a strategic industrial policy, drawing on examples from Brazil, Sweden, and Scotland.  The report "A Mission Oriented Approach to School Meals" explores this concept.
 
 Key Points:
 

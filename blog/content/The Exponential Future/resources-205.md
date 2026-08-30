@@ -1,6 +1,6 @@
 ### 💡 YC Startup School - Participant Experience
 
-This article discusses an attendee's positive experience at Y Combinator's Startup School. It highlights the collaborative and curious nature of the participants encountered.
+Attendee's positive experience at Y Combinator's Startup School. It highlights the collaborative and curious nature of the participants encountered.
 
 Key Points:
 

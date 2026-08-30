@@ -1,6 +1,6 @@
 ### 🤖 Quantum Reality - Debate at IISER Pune
 
-This article discusses a philosophical and scientific debate held at IISER Pune regarding the fundamental nature of reality, exploring whether it is quantum-based or an illusion. It delves into the interpretations of quantum mechanics and their implications for our understanding of existence.
+Philosophical and scientific debate held at IISER Pune regarding the fundamental nature of reality, exploring whether it is quantum-based or an illusion. It delves into the interpretations of quantum mechanics and their implications for our understanding of existence.
 
 Key Points:
 

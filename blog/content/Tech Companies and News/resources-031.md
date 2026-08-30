@@ -1,6 +1,6 @@
 ### 🤖 Crypto Regulations - Swiss National Bank's Bitcoin Stance
 
-This article discusses the Swiss National Bank's decision to reject Bitcoin for its reserves, citing risks, technical issues, and legal uncertainties.  This contrasts with the US's recent move towards a strategic Bitcoin reserve.
+Swiss National Bank's decision to reject Bitcoin for its reserves, citing risks, technical issues, and legal uncertainties.  This contrasts with the US's recent move towards a strategic Bitcoin reserve.
 
 Key Points:
 

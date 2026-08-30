@@ -1,6 +1,6 @@
 ### 💡 Real Estate Strategy - Market Knowledge via Crexi
 
-This article discusses how using Crexi for a few minutes daily can benefit real estate professionals by building market knowledge, enhancing client value, and informing long-term strategy.  It highlights the perspective of Marilyn Moedinger, AIA, Founding Principal at Runcible Studios.
+Using Crexi for a few minutes daily can benefit real estate professionals by building market knowledge, enhancing client value, and informing long-term strategy.  It highlights the perspective of Marilyn Moedinger, AIA, Founding Principal at Runcible Studios.
 
 Key Points:
 

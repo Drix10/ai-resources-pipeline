@@ -1,6 +1,6 @@
 ### 🍎 Health - Apple Consumption and Doctor Visits
 
-This article summarizes a study investigating the correlation between daily apple consumption and doctor visit frequency.  The study's findings and limitations are discussed.
+Study investigating the correlation between daily apple consumption and doctor visit frequency.  The study's findings and limitations are discussed.
 
 Key Points:
 

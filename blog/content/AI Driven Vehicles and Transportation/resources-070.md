@@ -1,6 +1,6 @@
 ### 🤖 Politics - USAID Funding and NGO Contracts
 
-This article discusses the cancellation of 5,200 contracts with left-leaning NGOs and the alleged laundering of Democratic Party funding from USAID.  The claims made are presented without verification.
+Cancellation of 5,200 contracts with left-leaning NGOs and the alleged laundering of Democratic Party funding from USAID.  The claims made are presented without verification.
 
 
 Key Points:

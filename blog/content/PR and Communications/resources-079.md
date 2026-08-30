@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics - China's Renewable Energy Dominance
 
-This article discusses the potential for China to dominate the future of renewable energy and electric vehicles, as suggested by certain analysts.  The claim is attributed to China's perceived advantage in these sectors.
+Potential for China to dominate the future of renewable energy and electric vehicles, as suggested by certain analysts.  The claim is attributed to China's perceived advantage in these sectors.
 
 
 Key Points:

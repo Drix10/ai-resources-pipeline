@@ -1,6 +1,6 @@
 ### 🤖 Calcom's 4th Anniversary
 
-This article summarizes Calcom's four-year journey, highlighting its growth from an open-source project to a profitable company with over 7 million appointments scheduled.  It also showcases images from their company retreats.
+Calcom's four-year journey, highlighting its growth from an open-source project to a profitable company with over 7 million appointments scheduled.  It also showcases images from their company retreats.
 
 Key Points:
 

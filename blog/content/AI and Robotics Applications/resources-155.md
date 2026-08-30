@@ -1,6 +1,6 @@
 ### 🤖 Generative AI - Humanoid Robotics at GTC
 
-This article covers Ameca's notable presence at NVIDIA GTC, highlighting the advanced integration of generative AI with sophisticated humanoid hardware. It focuses on how computational power drives lifelike robotic motion and interaction.
+Ameca's notable presence at NVIDIA GTC, highlighting the advanced integration of generative AI with sophisticated humanoid hardware. It focuses on how computational power drives lifelike robotic motion and interaction.
 
 Key Points:
 

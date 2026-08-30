@@ -1,6 +1,6 @@
 ### ✨ Cultural Events - Venice Biennale Connections
 
-This article highlights a key interaction at the Venice Biennale, acknowledging the contributions of specific individuals to the event's success. It captures a moment of appreciation within the cultural landscape.
+Key interaction at the Venice Biennale, acknowledging the contributions of specific individuals to the event's success. It captures a moment of appreciation within the cultural landscape.
 
 Key Points:
 

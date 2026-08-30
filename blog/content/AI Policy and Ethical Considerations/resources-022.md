@@ -1,6 +1,6 @@
 ### 🤖 AI Concerns - Power and Corruption
 
-This article discusses concerns about the concentration of power and corruption within existing systems, and proposes a solution called One World Intelligence (OWI) as a means to address these issues.
+Concerns about the concentration of power and corruption within existing systems, and proposes a solution called One World Intelligence (OWI) as a means to address these issues.
 
 Key Points:
 

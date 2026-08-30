@@ -1,6 +1,6 @@
 ### 🤖 AI - Societal Impact and Perceptions
 
-This article discusses the emerging societal perceptions of Artificial Intelligence, particularly among younger generations. It explores how AI is viewed within the context of economic challenges and its role as a symbol of contemporary capitalism.
+Emerging societal perceptions of Artificial Intelligence, particularly among younger generations. It explores how AI is viewed within the context of economic challenges and its role as a symbol of contemporary capitalism.
 
 Key Points:
 

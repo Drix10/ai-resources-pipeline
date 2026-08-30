@@ -1,6 +1,6 @@
 ### 🤖 AI Infrastructure - Autonomous Agents in Bioscience
 
-This article discusses the emerging infrastructure for autonomous AI in bioscience, focusing on the BIOS system. It covers how BIOS enables agents to perform complex tasks without human intervention.
+Emerging infrastructure for autonomous AI in bioscience, focusing on the BIOS system. It covers how BIOS enables agents to perform complex tasks without human intervention.
 
 Key Points:
 

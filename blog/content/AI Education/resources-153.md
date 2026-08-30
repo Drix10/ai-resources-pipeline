@@ -1,6 +1,6 @@
 ### 💡 Education - STAAR Test Preparation Guides
 
-This article discusses the availability of free preparation guides for the STAAR® test. It highlights their design to reinforce learning and address specific knowledge gaps.
+Availability of free preparation guides for the STAAR® test. It highlights their design to reinforce learning and address specific knowledge gaps.
 
 Key Points:
 

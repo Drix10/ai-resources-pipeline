@@ -1,6 +1,6 @@
 ### 🚀 CaseGate - AI Intake for Law Firms
 
-This article discusses CaseGate, an AI-powered solution designed for personal injury law firms. It addresses common challenges related to lead abandonment during intake and after-hours call management.
+CaseGate, an AI-powered solution designed for personal injury law firms. It addresses common challenges related to lead abandonment during intake and after-hours call management.
 
 Key Points:
 

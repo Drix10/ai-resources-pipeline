@@ -1,6 +1,6 @@
 ### 💡 Community Engagement - Leadership Principles
 
-This article discusses the motivations behind community gatherings, highlighting the role of leadership in fostering non-monetary participation. It reflects on the principles that unite individuals for a common cause.
+Motivations behind community gatherings, highlighting the role of leadership in fostering non-monetary participation. It reflects on the principles that unite individuals for a common cause.
 
 Key Points:
 

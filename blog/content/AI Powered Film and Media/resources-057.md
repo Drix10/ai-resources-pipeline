@@ -1,6 +1,6 @@
 ### 🤖 OpenAI Sora - Short Film Production
 
-This article details the creation of a three-minute short film using OpenAI's Sora and provides a tutorial on the process.  The workflow is described, but specific technical details may be limited due to the personal nature of the creator's methods.
+Creation of a three-minute short film using OpenAI's Sora and provides a tutorial on the process.  The workflow is described, but specific technical details may be limited due to the personal nature of the creator's methods.
 
 Key Points:
 

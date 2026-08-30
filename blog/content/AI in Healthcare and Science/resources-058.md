@@ -1,6 +1,6 @@
 ### 🤖 AI in Healthcare - Early TB and Lung Cancer Detection
 
-This article discusses the application of AI in healthcare, specifically focusing on the early detection of tuberculosis (TB) and lung cancer.  It highlights the impact of AI solutions on improving healthcare accessibility and efficiency.
+Application of AI in healthcare, specifically focusing on the early detection of tuberculosis (TB) and lung cancer.  It highlights the impact of AI solutions on improving healthcare accessibility and efficiency.
 
 Key Points:
 

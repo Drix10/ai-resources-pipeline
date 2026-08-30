@@ -1,6 +1,6 @@
 ### 🚀 CAPP Token Launch on Uniswap - Community Collaboration
 
-This article discusses the launch of the CAPP utility token on the Uniswap exchange and the community's role in its success.  It also includes FAQs regarding a new interactive catalog creation service.
+Launch of the CAPP utility token on the Uniswap exchange and the community's role in its success.  It also includes FAQs regarding a new interactive catalog creation service.
 
 Key Points:
 

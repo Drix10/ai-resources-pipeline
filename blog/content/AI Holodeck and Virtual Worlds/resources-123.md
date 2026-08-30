@@ -1,6 +1,6 @@
 ### 🤖 Project Prediction - Engineering Metrics Analysis
 
-This article discusses the potential for predicting project outcomes by analyzing various engineering metrics. It explores how workforce characteristics and historical data can inform future project success.
+Potential for predicting project outcomes by analyzing various engineering metrics. It explores how workforce characteristics and historical data can inform future project success.
 
 Key Points:
 

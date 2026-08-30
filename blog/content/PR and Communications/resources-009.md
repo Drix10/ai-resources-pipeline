@@ -1,6 +1,6 @@
 ### 🎶 Music Events - Lady Lake Music Family Concert
 
-This article details upcoming musical events featuring the Lady Lake Music family.  The events will take place on March 1st in Massachusetts.
+Upcoming musical events featuring the Lady Lake Music family.  The events will take place on March 1st in Massachusetts.
 
 
 Key Points:

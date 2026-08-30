@@ -1,6 +1,6 @@
 ### 🤖 PyTorch - Multi-Dimensional Parameters
 
-This article covers a technical lecture series that progresses from scalar parameters to multi-dimensional tensor representations in PyTorch. It integrates foundational mathematical concepts and practical aspects of package management crucial for advanced deep learning development.
+Technical lecture series that progresses from scalar parameters to multi-dimensional tensor representations in PyTorch. It integrates foundational mathematical concepts and practical aspects of package management crucial for advanced deep learning development.
 
 Key Points:
 

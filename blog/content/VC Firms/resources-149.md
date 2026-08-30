@@ -1,6 +1,6 @@
 ### 🤖 Numerai - Introducing MCP
 
-This article discusses the introduction of Numerai MCP (Master of Ceremonies Program or a specific product/feature) at NumerCon by Noah Harasz. It highlights the significance of this new development within the Numerai ecosystem.
+Introduction of Numerai MCP (Master of Ceremonies Program or a specific product/feature) at NumerCon by Noah Harasz. It highlights the significance of this new development within the Numerai ecosystem.
 
 Key Points:
 

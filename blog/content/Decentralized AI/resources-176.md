@@ -1,6 +1,6 @@
 ### 🤖 DeFi Governance - SparkDEX Revenue Distribution
 
-This article outlines Flare's SparkDEX community governance initiative, focusing on decisions regarding protocol revenue and SPRK emissions. It details the various distribution options available for community voting.
+Flare's SparkDEX community governance initiative, focusing on decisions regarding protocol revenue and SPRK emissions. It details the various distribution options available for community voting.
 
 Key Points:
 

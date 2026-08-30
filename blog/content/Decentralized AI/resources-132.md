@@ -1,6 +1,6 @@
 ### 🤖 Mainnet NUM - Digital Provenance and Trust Stack
 
-This article outlines the launch of Mainnet NUM on KuCoin, explaining the concepts of digital provenance, ProofSnap, and the underlying trust stack. It covers the rationale and technology behind ensuring content authenticity.
+Launch of Mainnet NUM on KuCoin, explaining the concepts of digital provenance, ProofSnap, and the underlying trust stack. It covers the rationale and technology behind ensuring content authenticity.
 
 Key Points:
 

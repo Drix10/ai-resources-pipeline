@@ -1,6 +1,6 @@
 ### ✨ Community Engagement - Lunar New Year Avatar Event
 
-This article details a Lunar New Year community event hosted by Perle, involving the generation and sharing of a special fortune avatar. It outlines the steps participants need to follow to join and be eligible for a prize.
+Lunar New Year community event hosted by Perle, involving the generation and sharing of a special fortune avatar. It outlines the steps participants need to follow to join and be eligible for a prize.
 
 Key Points:
 

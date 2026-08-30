@@ -1,6 +1,6 @@
 ### 🤖 Prediction Markets - Information Aggregation
 
-This article examines how prediction markets can enhance accuracy by prioritizing information quality over audience size. The system rewards participants who provide accurate data.
+Prediction markets can enhance accuracy by prioritizing information quality over audience size. The system rewards participants who provide accurate data.
 
 Key Points:
 

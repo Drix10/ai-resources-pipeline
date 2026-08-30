@@ -1,6 +1,6 @@
 ### ✨ Women in Tech - Mapbox Leaders
 
-This article highlights three women leaders at Mapbox driving innovation in location technology across product, marketing, and sales.
+Three women leaders at Mapbox driving innovation in location technology across product, marketing, and sales.
 
 Key Points:
 

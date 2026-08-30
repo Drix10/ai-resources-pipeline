@@ -1,6 +1,6 @@
 ### 🚀 Ray Meetup - Scaling AI Workloads
 
-This article summarizes a Ray Meetup event at Grab HQ, featuring talks and insights on scaling AI workloads using Ray from teams at Ray, Grab, and Alibaba Group.  The event showcased real-world ML applications of Ray.
+Ray Meetup event at Grab HQ, featuring talks and insights on scaling AI workloads using Ray from teams at Ray, Grab, and Alibaba Group.  The event showcased real-world ML applications of Ray.
 
 Key Points:
 

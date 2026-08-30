@@ -1,6 +1,6 @@
 ### 💡 Severe Weather - Plains Outbreak Risk
 
-This article details the elevated risk of severe weather across the Northern and Central Plains. It highlights concerns for upcoming days due to atmospheric conditions conducive to a significant weather event.
+Elevated risk of severe weather across the Northern and Central Plains. It highlights concerns for upcoming days due to atmospheric conditions conducive to a significant weather event.
 
 Key Points:
 

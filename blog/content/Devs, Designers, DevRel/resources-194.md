@@ -1,6 +1,6 @@
 ### 🤖 Game Engine Development - Progress and Potential
 
-This article discusses the ongoing development of a game engine, highlighting the dedication involved and the anticipated impact of the project within the technical community.
+Ongoing development of a game engine, highlighting the dedication involved and the anticipated impact of the project within the technical community.
 
 Key Points:
 

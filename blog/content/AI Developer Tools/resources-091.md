@@ -1,6 +1,6 @@
 ### 🤖 LM Studio - Harmony Integration
 
-This article details the integration of OpenAI's Harmony prompt formatting library into LM Studio 0.3.22 b2 for improved gpt-oss model interaction.  It covers both the application's user interface and API usage.
+Integration of OpenAI's Harmony prompt formatting library into LM Studio 0.3.22 b2 for improved gpt-oss model interaction.  It covers both the application's user interface and API usage.
 
 Key Points:
 

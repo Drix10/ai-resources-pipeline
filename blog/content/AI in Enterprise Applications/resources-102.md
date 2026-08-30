@@ -1,6 +1,6 @@
 ### 🪑 Office Setup - ErgoChair Ultra 2
 
-This article discusses the author's experience with the Autonomous ErgoChair Ultra 2 office chair and provides a recommendation.
+Author's experience with the Autonomous ErgoChair Ultra 2 office chair and provides a recommendation.
 
 Key Points:
 

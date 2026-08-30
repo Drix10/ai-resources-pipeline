@@ -1,6 +1,6 @@
 ### 🚀 AI Video Generation - Cinematic Storytelling with Pixio AI
 
-This article highlights Pixio AI's video agent capabilities for automated cinematic storytelling. It covers the production of multi-episode video content with minimal human intervention.
+Pixio AI's video agent capabilities for automated cinematic storytelling. It covers the production of multi-episode video content with minimal human intervention.
 
 Key Points:
 

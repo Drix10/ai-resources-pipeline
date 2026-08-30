@@ -1,6 +1,6 @@
 ### 🤖 AI Research - Science of Intelligence Podcast
 
-This article covers a podcast from Amazon's AGI Lab, "Making a Mind," which features leading AI researchers discussing the science of intelligence. It highlights the availability of the initial episodes with AGI Lab technical staff.
+Podcast from Amazon's AGI Lab, "Making a Mind," which features leading AI researchers discussing the science of intelligence. It highlights the availability of the initial episodes with AGI Lab technical staff.
 
 Key Points:
 

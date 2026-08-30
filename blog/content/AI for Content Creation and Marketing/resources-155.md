@@ -1,6 +1,6 @@
 ### ✨ AI Tools - Mobile Accessibility for Claude
 
-This article outlines the new mobile accessibility for Claude's integrated work tools. Users can now perform various tasks and interact with applications directly from their phones.
+New mobile accessibility for Claude's integrated work tools. Users can now perform various tasks and interact with applications directly from their phones.
 
 Key Points:
 

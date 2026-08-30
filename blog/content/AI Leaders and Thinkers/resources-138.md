@@ -1,6 +1,6 @@
 ### ✨ X Monetization - Unlocking Creator Revenue
 
-This article discusses the process and requirements for unlocking monetization on the X platform. It outlines key metrics for content creators aiming to achieve revenue generation.
+Process and requirements for unlocking monetization on the X platform. It outlines key metrics for content creators aiming to achieve revenue generation.
 
 Key Points:
 

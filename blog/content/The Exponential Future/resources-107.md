@@ -1,6 +1,6 @@
 ### 🤖 Finance - Bitcoin Recommendation for Financial Advisors
 
-This article summarizes a discussion on the potential for financial advisors to recommend Bitcoin to their clients.  It also touches upon the changing landscape of portfolio management and attractive alternative assets.
+Discussion on the potential for financial advisors to recommend Bitcoin to their clients.  It also touches upon the changing landscape of portfolio management and attractive alternative assets.
 
 Key Points:
 

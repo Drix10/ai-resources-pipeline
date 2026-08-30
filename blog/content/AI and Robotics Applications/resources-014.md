@@ -1,6 +1,6 @@
 ### 🤖 Raspberry Pi CamJam 2025 - Cambridge Event
 
-This article summarizes the first Raspberry Pi CamJam event of 2025 held at the Computer Laboratory in Cambridge.  It highlights a specific attendee's project.
+First Raspberry Pi CamJam event of 2025 held at the Computer Laboratory in Cambridge.  It highlights a specific attendee's project.
 
 Key Points:
 

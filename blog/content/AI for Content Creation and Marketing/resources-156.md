@@ -1,6 +1,6 @@
 ### 💡 Local Consumer Data - Insight Generation Platform
 
-This article outlines Negozea's approach to accessing valuable local consumer data from unreadable group chats. It details how the platform surfaces these insights through a specialized Spanish-language Latino business directory and a QR-verified network.
+Negozea's approach to accessing valuable local consumer data from unreadable group chats. It details how the platform surfaces these insights through a specialized Spanish-language Latino business directory and a QR-verified network.
 
 Key Points:
 

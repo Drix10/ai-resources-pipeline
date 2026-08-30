@@ -1,6 +1,6 @@
 ### 🚀 Typefully Updates - New Features
 
-This article details recent updates to Typefully, focusing on the new draft sidebar for drag-and-drop scheduling and the queue view with a kanban board.
+Recent updates to Typefully, focusing on the new draft sidebar for drag-and-drop scheduling and the queue view with a kanban board.
 
 Key Points:
 

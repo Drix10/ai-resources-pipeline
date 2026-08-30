@@ -1,6 +1,6 @@
 ### 💡 Dstl's Role - Salisbury Nerve Agent Attack Documentary
 
-This article highlights the critical involvement of the Defence Science and Technology Laboratory (Dstl) during the Salisbury nerve agent attack. It details their feature in a new documentary series set to air on Channel 4.
+Critical involvement of the Defence Science and Technology Laboratory (Dstl) during the Salisbury nerve agent attack. It details their feature in a new documentary series set to air on Channel 4.
 
 Key Points:
 

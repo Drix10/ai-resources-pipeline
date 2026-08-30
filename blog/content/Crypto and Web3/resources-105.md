@@ -1,6 +1,6 @@
 ### 🤖 AI Consumption - Decentralized Ownership
 
-This article discusses the future of AI consumption, proposing a shift towards user-owned and monetized AI, contrasting it with the current platform-centric model.  The article uses a visual to illustrate this concept.
+Future of AI consumption, proposing a shift towards user-owned and monetized AI, contrasting it with the current platform-centric model.  The article uses a visual to illustrate this concept.
 
 Key Points:
 

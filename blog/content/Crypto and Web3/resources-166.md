@@ -1,6 +1,6 @@
 ### 🤖 Bitcoin Price - Market Movement
 
-This article discusses the recent surge in Bitcoin's price, providing context on current market activity and its implications.
+Recent surge in Bitcoin's price, providing context on current market activity and its implications.
 
 Key Points:
 

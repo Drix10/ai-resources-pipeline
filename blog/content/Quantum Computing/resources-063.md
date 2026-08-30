@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Synthetic Data for Fine-tuning
 
-This article discusses a research paper on using synthetic data generated from a Mixture-of-Agents (MoA) model to improve the fine-tuning of Large Language Models (LLMs) and reinforcement learning.  The paper suggests that a mixture of smaller agents is more efficient than using a large LLM as a teacher.
+Research paper on using synthetic data generated from a Mixture-of-Agents (MoA) model to improve the fine-tuning of Large Language Models (LLMs) and reinforcement learning.  The paper suggests that a mixture of smaller agents is more efficient than using a large LLM as a teacher.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Autonomous Industry - Economic Foundations
 
-This article discusses the long-standing research supporting the economic principles of autonomous industries. It addresses skepticism by highlighting the historical development of relevant equations and published literature.
+Long-standing research supporting the economic principles of autonomous industries. It addresses skepticism by highlighting the historical development of relevant equations and published literature.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Middle East Conflict - IRGC Leader Fatality Report
 
-This article covers the reported killing of Asghar Bakeri, a leader within the IRGC's Quds Force, by Israel. It provides an overview of the developing situation and notes Iran's lack of official comment.
+Reported killing of Asghar Bakeri, a leader within the IRGC's Quds Force, by Israel. It provides an overview of the developing situation and notes Iran's lack of official comment.
 
 Key Points:
 

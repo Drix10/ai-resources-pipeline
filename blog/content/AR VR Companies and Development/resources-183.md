@@ -1,6 +1,6 @@
 ### 🚀 VR/AR Exhibitions - SHENZHEN BIAI INTELLIGENT LIFE TECHNOLOGY CO.,LTD
 
-This article details SHENZHEN BIAI INTELLIGENT LIFE TECHNOLOGY CO.,LTD's participation in VRAR EXPO CHINA 2026. It provides information on their booth location and the event dates, inviting attendees to explore their offerings.
+SHENZHEN BIAI INTELLIGENT LIFE TECHNOLOGY CO.,LTD's participation in VRAR EXPO CHINA 2026. It provides information on their booth location and the event dates, inviting attendees to explore their offerings.
 
 Key Points:
 

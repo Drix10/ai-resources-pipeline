@@ -1,6 +1,6 @@
 ### 🤖 Dual MEK Blockade - Ras/Raf Tumor Treatment
 
-This article discusses preclinical findings on a novel dual MEK blockade strategy for treating Ras/Raf tumors. It identifies a key bypass mechanism and the distinct action of this MEK blockade.
+Preclinical findings on a novel dual MEK blockade strategy for treating Ras/Raf tumors. It identifies a key bypass mechanism and the distinct action of this MEK blockade.
 
 Key Points:
 

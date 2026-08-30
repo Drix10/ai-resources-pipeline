@@ -1,6 +1,6 @@
 ### 🤖 AI Document Retrieval - Challenges and Funding
 
-This article discusses the challenges in evaluating AI document retrieval systems and highlights a recent funding round for a company addressing these issues.  ZeroEntropy secured $4.2M in seed funding to improve AI document retrieval.
+Challenges in evaluating AI document retrieval systems and highlights a recent funding round for a company addressing these issues.  ZeroEntropy secured $4.2M in seed funding to improve AI document retrieval.
 
 Key Points:
 

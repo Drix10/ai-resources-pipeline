@@ -1,6 +1,6 @@
 ### 💡 Golf Inspiration - Post-Championship Enthusiasm
 
-This article examines the common phenomenon of increased amateur golfer activity following major professional golf championships. It highlights how professional wins can inspire local players to engage with the sport more actively.
+Common phenomenon of increased amateur golfer activity following major professional golf championships. It highlights how professional wins can inspire local players to engage with the sport more actively.
 
 Key Points:
 

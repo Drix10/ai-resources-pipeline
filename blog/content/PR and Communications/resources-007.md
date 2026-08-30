@@ -1,6 +1,6 @@
 ### 💔 Social Media - Misinformation Regarding Hostage Treatment
 
-This article examines the spread of misinformation on social media platforms concerning the treatment of hostages by Hamas. It highlights the use of staged propaganda and the contrast between this fabricated narrative and the reality of the situation.
+Spread of misinformation on social media platforms concerning the treatment of hostages by Hamas. It highlights the use of staged propaganda and the contrast between this fabricated narrative and the reality of the situation.
 
 Key Points:
 

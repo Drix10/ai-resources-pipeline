@@ -1,6 +1,6 @@
 ### ⚖️ Legal News - Charges Against Representative McIver
 
-This article discusses the charges filed against Representative McIver for allegedly assaulting law enforcement officers at an ICE facility.  The case is supported by video evidence.
+Charges filed against Representative McIver for allegedly assaulting law enforcement officers at an ICE facility.  The case is supported by video evidence.
 
 Key Points:
 

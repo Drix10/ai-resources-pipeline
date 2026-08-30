@@ -1,6 +1,6 @@
 ### 🤖 AI Safety - Shifting Evaluation Methods
 
-This article discusses the evolving landscape of AI safety evaluations, highlighting a shift from standardized benchmarks to more resource-intensive randomized controlled trials.  The limitations of benchmark-based approaches are also considered.
+Evolving landscape of AI safety evaluations, highlighting a shift from standardized benchmarks to more resource-intensive randomized controlled trials.  The limitations of benchmark-based approaches are also considered.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Video Models - Reasoning Coherence Benchmark
 
-This article discusses the challenge of maintaining reasoning coherence in AI video models. It introduces MME-CoF-Pro, a benchmark designed to evaluate video generator consistency. The benchmark helps assess how well models track narratives across frames.
+Challenge of maintaining reasoning coherence in AI video models. It introduces MME-CoF-Pro, a benchmark designed to evaluate video generator consistency. The benchmark helps assess how well models track narratives across frames.
 
 Key Points:
 

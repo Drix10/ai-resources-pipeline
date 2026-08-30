@@ -1,6 +1,6 @@
 ### ✨ SelfClaw Referral System - Platform Integration
 
-This article outlines how platforms can integrate with SelfClaw to leverage its referral system. It explains the mechanism for generating referral codes and the inherent growth incentives for ecosystem partners.
+Platforms can integrate with SelfClaw to leverage its referral system. It explains the mechanism for generating referral codes and the inherent growth incentives for ecosystem partners.
 
 Key Points:
 

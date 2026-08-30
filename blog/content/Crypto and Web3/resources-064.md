@@ -1,6 +1,6 @@
 ### 🤖 Social Media - Cryptocurrency Manipulation
 
-This article discusses the alleged transformation of a social media platform into a cryptocurrency pump-and-dump scheme, the removal of its tweet button from a game, and the impact on content creators.
+Alleged transformation of a social media platform into a cryptocurrency pump-and-dump scheme, the removal of its tweet button from a game, and the impact on content creators.
 
 Key Points:
 

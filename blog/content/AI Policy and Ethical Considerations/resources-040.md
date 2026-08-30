@@ -1,6 +1,6 @@
 ### 🤖 American Manufacturing - Reshoring Challenges
 
-This article discusses the challenges and complexities involved in reshoring manufacturing to the United States, moving beyond simplistic political rhetoric.
+Challenges and complexities involved in reshoring manufacturing to the United States, moving beyond simplistic political rhetoric.
 
 Key Points:
 

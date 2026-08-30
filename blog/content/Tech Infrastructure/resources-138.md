@@ -1,6 +1,6 @@
 ### 🤖 Nested Virtualization - AWS EC2 Performance Evaluation
 
-This article covers the evaluation of Nested Virtualization on AWS EC2, comparing its performance for slicervm and selfactuated platforms against existing PVM patches from Antgroup.
+Evaluation of Nested Virtualization on AWS EC2, comparing its performance for slicervm and selfactuated platforms against existing PVM patches from Antgroup.
 
 Key Points:
 

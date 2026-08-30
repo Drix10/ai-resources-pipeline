@@ -1,6 +1,6 @@
 ### 💡 Marine Warning - Central California Coast (Spanish)
 
-This article covers a special marine warning issued for the waters off the central California coast, from Point Pinos to Point Piedras Blancas. The warning specifies offshore distances and an expiration time for maritime users.
+Special marine warning issued for the waters off the central California coast, from Point Pinos to Point Piedras Blancas. The warning specifies offshore distances and an expiration time for maritime users.
 
 Key Points:
 

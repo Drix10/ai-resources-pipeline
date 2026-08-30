@@ -1,6 +1,6 @@
 ### 🚀 YouTube AI Tools - Content Creation Revolution
 
-This article explores two new AI tools released by YouTube that are poised to significantly impact video content creation.  The specifics of the tools are not detailed in the provided text.
+Two new AI tools released by YouTube that are poised to significantly impact video content creation.  The specifics of the tools are not detailed in the provided text.
 
 Key Points:
 

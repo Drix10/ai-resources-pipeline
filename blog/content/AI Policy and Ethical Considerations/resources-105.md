@@ -1,6 +1,6 @@
 ### 🤖 US Competitive Position - European Response to Regulations
 
-This article discusses the US pushback against regulations perceived as weakening American firms' competitive advantage and explores potential future actions for European jurisdictions.
+US pushback against regulations perceived as weakening American firms' competitive advantage and explores potential future actions for European jurisdictions.
 
 Key Points:
 

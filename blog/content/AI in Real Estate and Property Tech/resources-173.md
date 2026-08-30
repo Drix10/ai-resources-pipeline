@@ -1,6 +1,6 @@
 ### 💡 Lead Generation - Turf Services Strategy
 
-This article examines the critical role of rapid lead capture in the volatile turf services market of 2026. It highlights how an efficient lead acquisition strategy can mitigate the impact of increasing operational costs.
+Critical role of rapid lead capture in the volatile turf services market of 2026. It highlights how an efficient lead acquisition strategy can mitigate the impact of increasing operational costs.
 
 Key Points:
 

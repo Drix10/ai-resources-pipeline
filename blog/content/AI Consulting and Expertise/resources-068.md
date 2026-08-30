@@ -1,6 +1,6 @@
 ### 🤖 AI Project Development - Starting Simple
 
-This article discusses a strategy for AI project development, emphasizing the importance of beginning with a basic rule-based system before incorporating machine learning.
+Strategy for AI project development, emphasizing the importance of beginning with a basic rule-based system before incorporating machine learning.
 
 Key Points:
 

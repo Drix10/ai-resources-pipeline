@@ -1,6 +1,6 @@
 ### 🤖 AI - Generative Agents and Future of Work
 
-This article discusses the transformative nature of Artificial Intelligence, positioning it as an operating system rather than a mere application. It emphasizes the growing importance of building and maintaining AI agents for future professional relevance.
+Transformative nature of Artificial Intelligence, positioning it as an operating system rather than a mere application. It emphasizes the growing importance of building and maintaining AI agents for future professional relevance.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Communication - Multi-Agent Reinforcement Learning for Social Deduction
 
-This article summarizes a Stanford research paper introducing a multi-agent reinforcement learning framework designed to enhance social deduction capabilities in AI communication.  The framework aims to improve AI's ability to understand and navigate complex social interactions.
+Stanford research paper introducing a multi-agent reinforcement learning framework designed to enhance social deduction capabilities in AI communication.  The framework aims to improve AI's ability to understand and navigate complex social interactions.
 
 Key Points:
 

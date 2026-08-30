@@ -1,6 +1,6 @@
 ### 🤖 Camel-AI Project Meeting - Development Update
 
-This article summarizes the key discussion points from a Camel-AI project meeting focusing on new integrations and features for an upcoming development sprint.  The meeting included a visual presentation.
+Key discussion points from a Camel-AI project meeting focusing on new integrations and features for an upcoming development sprint.  The meeting included a visual presentation.
 
 Key Points:
 

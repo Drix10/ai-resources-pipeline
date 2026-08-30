@@ -1,6 +1,6 @@
 ### ⚖️ Gaza - Hamas Crackdown on Looting
 
-This article summarizes reports of Hamas executing individuals accused of looting in Gaza amidst rising tensions and anger over the Israeli blockade.  The group is intensifying its response to theft and robbery.
+Reports of Hamas executing individuals accused of looting in Gaza amidst rising tensions and anger over the Israeli blockade.  The group is intensifying its response to theft and robbery.
 
 Key Points:
 

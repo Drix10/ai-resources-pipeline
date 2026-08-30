@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Intuitive Robot Control
 
-This article discusses new research enabling intuitive robot control through simple user interactions, eliminating the need for machine learning expertise.
+New research enabling intuitive robot control through simple user interactions, eliminating the need for machine learning expertise.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Real-time Generative Art - Point Cloud Horse
 
-This article explores the creation of an interactive point cloud visualization depicting a horse. It details the various AI tools and software used to generate motion, depth, and real-time graphics controlled by a game console.
+Creation of an interactive point cloud visualization depicting a horse. It details the various AI tools and software used to generate motion, depth, and real-time graphics controlled by a game console.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Virtual Spaces - Explorable Library Generation
 
-This article discusses the process of creating explorable virtual environments from images. It highlights how a specific tool can quickly transform visual content into interactive experiences, using the Admont Abbey Library as an example.
+Process of creating explorable virtual environments from images. It highlights how a specific tool can quickly transform visual content into interactive experiences, using the Admont Abbey Library as an example.
 
 Key Points:
 

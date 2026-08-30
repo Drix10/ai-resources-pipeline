@@ -1,6 +1,6 @@
 ### 🤖 AI Models - Externalized Skills Library
 
-This article discusses a research paper on transforming past experiences into reusable skills for AI models. It details a method for mining "how-to" reasoning into a skills library and a shared workspace. At test time, the model accesses this in-context memory for improved performance.
+Research paper on transforming past experiences into reusable skills for AI models. It details a method for mining "how-to" reasoning into a skills library and a shared workspace. At test time, the model accesses this in-context memory for improved performance.
 
 Key Points:
 

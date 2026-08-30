@@ -1,6 +1,6 @@
 ### 🤖 Shipbuilding - Aegis Destroyer Production
 
-This article discusses Hyundai Heavy Industries' capacity to build Aegis destroyers for the US Navy, highlighting their production capabilities and potential for expansion.
+Hyundai Heavy Industries' capacity to build Aegis destroyers for the US Navy, highlighting their production capabilities and potential for expansion.
 
 Key Points:
 

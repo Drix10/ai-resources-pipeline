@@ -1,6 +1,6 @@
 ### 🌕 Lunar Missions - IM2 Payload Deployment
 
-This article details the March 6th landing of the IM2 lunar mission near the south pole and the deployment of its three payloads: a 3D camera, a miniature rover (AstroAnt), and an art project (HUMANS).
+March 6th landing of the IM2 lunar mission near the south pole and the deployment of its three payloads: a 3D camera, a miniature rover (AstroAnt), and an art project (HUMANS).
 
 
 Key Points:

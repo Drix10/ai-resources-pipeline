@@ -1,6 +1,6 @@
 ### 🤖 AI and Human Ingenuity - Roddenberry's Vision
 
-This article explores Gene Roddenberry's optimistic vision of humanity's responsible use of technology, contrasting it with the potential for AI to augment rather than replace human capabilities.  The article also references related online discussions.
+Gene Roddenberry's optimistic vision of humanity's responsible use of technology, contrasting it with the potential for AI to augment rather than replace human capabilities.  The article also references related online discussions.
 
 Key Points:
 

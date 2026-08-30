@@ -1,6 +1,6 @@
 ### 💡 UI/UX Design - Modal Accessibility
 
-This article details critical accessibility considerations for modal dialogs, focusing on keyboard navigation and dismissal. Implementing these features ensures a robust and inclusive user experience for all users.
+Critical accessibility considerations for modal dialogs, focusing on keyboard navigation and dismissal. Implementing these features ensures a robust and inclusive user experience for all users.
 
 Key Points:
 

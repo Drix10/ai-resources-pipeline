@@ -1,6 +1,6 @@
 ### 🤖 AI Video Generation - Cost Efficiency with MiniMax H3
 
-This article discusses MiniMax H3, a new AI video generation model. It focuses on its cost-effectiveness compared to previous models for high-resolution video production.
+MiniMax H3, a new AI video generation model. It focuses on its cost-effectiveness compared to previous models for high-resolution video production.
 
 Key Points:
 

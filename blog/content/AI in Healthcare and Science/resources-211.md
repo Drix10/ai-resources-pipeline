@@ -1,6 +1,6 @@
 ### 🤖 Silent Speech AI - Low-Data Training
 
-This article discusses a model trained by AlephNeuro that approaches silent speech modalities with minimal data. The model demonstrates effectiveness on participants outside its training set.
+Model trained by AlephNeuro that approaches silent speech modalities with minimal data. The model demonstrates effectiveness on participants outside its training set.
 
 Key Points:
 • Model trained on only 50 hours of data.

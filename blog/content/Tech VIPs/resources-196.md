@@ -1,6 +1,6 @@
 ### 💡 Journalism - Professional Standards
 
-This article discusses the distinction between journalism and political activism, emphasizing the importance of maintaining professional standards within the field. It highlights the perceived shift in journalistic practice.
+Distinction between journalism and political activism, emphasizing the importance of maintaining professional standards within the field. It highlights the perceived shift in journalistic practice.
 
 Key Points:
 

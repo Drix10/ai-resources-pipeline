@@ -1,6 +1,6 @@
 ### 💡 Constitutional Law - Protecting Scientific Research
 
-This article discusses the proposal to amend legal frameworks to protect scientific advancements like stem cell research from legislative bans. It addresses the need for constitutional review to adapt to evolving societal needs and safeguard scientific progress.
+Proposal to amend legal frameworks to protect scientific advancements like stem cell research from legislative bans. It addresses the need for constitutional review to adapt to evolving societal needs and safeguard scientific progress.
 
 Key Points:
 

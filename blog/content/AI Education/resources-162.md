@@ -1,6 +1,6 @@
 ### 🤖 Corporate Strategy - AI Investment and Job Cuts
 
-This article outlines Oracle's reported plan for significant job cuts across various divisions. This initiative is part of a broader cost-reduction strategy. It is directly linked to the company's increased spending on AI data center expansion.
+Oracle's reported plan for significant job cuts across various divisions. This initiative is part of a broader cost-reduction strategy. It is directly linked to the company's increased spending on AI data center expansion.
 
 Key Points:
 

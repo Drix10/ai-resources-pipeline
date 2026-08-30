@@ -1,6 +1,6 @@
 ### 🤖 Domain Names - AI Keyword Domains
 
-This article discusses the recent increase in value of AI-related domain names, specifically those incorporating "AI" and keywords.  It also notes an example sale price and offers a personal perspective on domain ownership.
+Recent increase in value of AI-related domain names, specifically those incorporating "AI" and keywords.  It also notes an example sale price and offers a personal perspective on domain ownership.
 
 Key Points:
 

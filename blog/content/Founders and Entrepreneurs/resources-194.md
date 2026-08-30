@@ -1,6 +1,6 @@
 ### 💡 Bike Touring - Central Europe Planning
 
-This article outlines a multi-modal journey from Munich to Belgrade, combining bus, train, and bicycle travel. It seeks advice for biking in the specified region.
+Multi-modal journey from Munich to Belgrade, combining bus, train, and bicycle travel. It seeks advice for biking in the specified region.
 
 Key Points:
 

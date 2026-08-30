@@ -1,6 +1,6 @@
 ### 🤖 Security - Compromised Password Detection
 
-This article discusses GitLab's new feature to automatically detect and alert users who log in with compromised passwords, effective June 19, 2025.  It highlights the increasing threat of credential theft.
+GitLab's new feature to automatically detect and alert users who log in with compromised passwords, effective June 19, 2025.  It highlights the increasing threat of credential theft.
 
 Key Points:
 

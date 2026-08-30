@@ -1,6 +1,6 @@
 ### 🤖 Sui Summit 2024 - Key Takeaways and Souvenirs
 
-This article summarizes key takeaways from the Sui Summit 2024 and lists the projects represented.  It also includes images of souvenirs received.
+Key takeaways from the Sui Summit 2024 and lists the projects represented.  It also includes images of souvenirs received.
 
 Key Points:
 

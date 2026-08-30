@@ -1,6 +1,6 @@
 ### 💡 Leadership - Actions vs. Words
 
-This article examines the actions of several CEOs and executives regarding products they lead, highlighting a disconnect between public promotion and personal consumption.
+Actions of several CEOs and executives regarding products they lead, highlighting a disconnect between public promotion and personal consumption.
 
 Key Points:
 

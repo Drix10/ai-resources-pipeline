@@ -1,6 +1,6 @@
 ### 🤖 AI Domain Portfolio - Investment Exploration
 
-This article explores potential investment strategies in a portfolio of AI-focused domain names, considering portfolio size and budget.  The author is considering selling a portfolio of 30-40 names, with 20 being 3-letter domains.
+Potential investment strategies in a portfolio of AI-focused domain names, considering portfolio size and budget.  The author is considering selling a portfolio of 30-40 names, with 20 being 3-letter domains.
 
 
 Key Points:

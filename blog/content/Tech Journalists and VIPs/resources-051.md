@@ -1,6 +1,6 @@
 ### 💡 Political Discourse - The Importance of Compromise
 
-This article discusses the necessity of considering trade-offs in political discussions and the compounding effects of incremental progress through compromise.
+Necessity of considering trade-offs in political discussions and the compounding effects of incremental progress through compromise.
 
 Key Points:
 

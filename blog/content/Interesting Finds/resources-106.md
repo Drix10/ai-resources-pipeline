@@ -1,6 +1,6 @@
 ### 🍻 Social Dynamics - Friday Night X
 
-This article discusses observations about social interactions in online spaces on Friday nights, focusing on the behavior of intoxicated individuals.
+Observations about social interactions in online spaces on Friday nights, focusing on the behavior of intoxicated individuals.
 
 Key Points:
 

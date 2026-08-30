@@ -1,6 +1,6 @@
 ### 💡 Natural Preservation - Asinara National Park
 
-This article highlights Asinara, a small island in Italy designated as a National Park and Marine Reserve. It describes the island as a protected area where nature thrives undisturbed.
+Asinara, a small island in Italy designated as a National Park and Marine Reserve. It describes the island as a protected area where nature thrives undisturbed.
 
 Key Points:
 

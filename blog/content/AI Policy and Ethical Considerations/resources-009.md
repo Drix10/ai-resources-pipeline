@@ -1,6 +1,6 @@
 ### 🤖 AI Law - Existing Legislation
 
-This article discusses the potential use of existing legislation to regulate AI, arguing that a rush to create new laws might hinder technological advancement.  The article highlights concerns about sacrificing American technological preeminence through hasty regulation.
+Potential use of existing legislation to regulate AI, arguing that a rush to create new laws might hinder technological advancement.  The article highlights concerns about sacrificing American technological preeminence through hasty regulation.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Investing - Infographic Ebook Access
 
-This article discusses a complimentary infographic ebook focused on investing principles. It outlines the process for accessing this valuable resource, designed to provide clear financial insights.
+Complimentary infographic ebook focused on investing principles. It outlines the process for accessing this valuable resource, designed to provide clear financial insights.
 
 Key Points:
 

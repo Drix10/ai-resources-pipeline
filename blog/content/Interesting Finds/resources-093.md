@@ -1,6 +1,6 @@
 ### ⚠️ Gaza Food Crisis - Humanitarian Aid Issues
 
-This article discusses concerns regarding the delivery of humanitarian food aid to Gaza, highlighting reports of significant losses due to looting and theft.
+Concerns regarding the delivery of humanitarian food aid to Gaza, highlighting reports of significant losses due to looting and theft.
 
 Key Points:
 

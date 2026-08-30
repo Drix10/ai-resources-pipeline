@@ -1,6 +1,6 @@
 ### 🤖 AI Development - Decentralized Personal AI
 
-This article discusses the concept of decentralized personal AI, contrasting it with server-based AI solutions.  It also announces a coding workshop focused on compiling Stable Audio.
+Concept of decentralized personal AI, contrasting it with server-based AI solutions.  It also announces a coding workshop focused on compiling Stable Audio.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Cluster Naming Conventions - Common Examples
 
-This article discusses the use of "Sol," "Terra," and "Luna" as common cluster names in technical environments. It highlights their informal adoption as naming conventions within system architecture.
+Use of "Sol," "Terra," and "Luna" as common cluster names in technical environments. It highlights their informal adoption as naming conventions within system architecture.
 
 Key Points:
 

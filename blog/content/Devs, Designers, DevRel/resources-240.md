@@ -1,6 +1,6 @@
 ### 💡 Future Tech - Surveillance Implications
 
-This article explores hypothetical scenarios where vehicle tracking technology could evolve beyond its initial scope. It outlines a progression from specific use cases to broader social control.
+Hypothetical scenarios where vehicle tracking technology could evolve beyond its initial scope. It outlines a progression from specific use cases to broader social control.
 
 Key Points:
 

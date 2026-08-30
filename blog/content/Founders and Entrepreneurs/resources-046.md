@@ -1,6 +1,6 @@
 ### 🤖 AI Platform for SMBs - Proactive Problem Detection
 
-This article discusses an AI platform designed to identify potential business problems before they impact SMBs in the healthcare and BFSI sectors.  The platform offers insights to potentially mitigate significant financial losses.  A demo is available for further exploration.
+AI platform designed to identify potential business problems before they impact SMBs in the healthcare and BFSI sectors.  The platform offers insights to potentially mitigate significant financial losses.  A demo is available for further exploration.
 
 Key Points:
 

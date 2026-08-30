@@ -1,6 +1,6 @@
 ### 🤖 AI Business Models - Sustainability of Competitive Leads
 
-This article discusses the sustainability of a short-term competitive lead in the rapidly evolving AI industry, particularly concerning its impact on long-term business models.
+Sustainability of a short-term competitive lead in the rapidly evolving AI industry, particularly concerning its impact on long-term business models.
 
 Key Points:
 

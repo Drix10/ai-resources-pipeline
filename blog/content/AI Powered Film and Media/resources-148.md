@@ -1,6 +1,6 @@
 ### 🤖 AI Art - Ballerina Generation
 
-This article explores the creation of AI-generated art, specifically focusing on a ballerina image. It highlights the use of AI tools to produce unique visual content.
+Creation of AI-generated art, specifically focusing on a ballerina image. It highlights the use of AI tools to produce unique visual content.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Healthcare - Agentic AI Implementation
 
-This article discusses a keynote on Agentic AI in healthcare, focusing on real-world deployments and strategies for improving patient experience and operational efficiency.  The keynote is presented by SoundHound and Allina Health at Reuters #DigitalHealth2025.
+Keynote on Agentic AI in healthcare, focusing on real-world deployments and strategies for improving patient experience and operational efficiency.  The keynote is presented by SoundHound and Allina Health at Reuters #DigitalHealth2025.
 
 Key Points:
 

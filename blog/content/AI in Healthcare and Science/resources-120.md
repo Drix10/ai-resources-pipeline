@@ -1,6 +1,6 @@
 ### 🤖 AI in Oncology - Poll Simulation
 
-This article details a study comparing AI model predictions of oncologist poll responses with actual survey results. It focuses on the consistency observed between AI and human oncologists regarding treatment preferences.
+Study comparing AI model predictions of oncologist poll responses with actual survey results. It focuses on the consistency observed between AI and human oncologists regarding treatment preferences.
 
 Key Points:
 

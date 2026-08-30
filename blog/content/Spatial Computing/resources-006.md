@@ -1,6 +1,6 @@
 ### 🤖 Podcast - Silicon Business and Chiplets
 
-This article summarizes a podcast interview with David Glasco, VP of Compute Solutions Group at Cadence, discussing the silicon business, product portfolio, target segments, chiplets, and collaboration with Arm.
+Podcast interview with David Glasco, VP of Compute Solutions Group at Cadence, discussing the silicon business, product portfolio, target segments, chiplets, and collaboration with Arm.
 
 Key Points:
 

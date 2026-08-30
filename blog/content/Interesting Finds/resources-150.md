@@ -1,6 +1,6 @@
 ### 💡 Public Accountability - Addressing State Fraud Allegations
 
-This article examines public discourse surrounding allegations of fraud within state governance, reflecting on how such claims are communicated and received. It provides context for the public's demand for accountability from state officials.
+Public discourse surrounding allegations of fraud within state governance, reflecting on how such claims are communicated and received. It provides context for the public's demand for accountability from state officials.
 
 Key Points:
 

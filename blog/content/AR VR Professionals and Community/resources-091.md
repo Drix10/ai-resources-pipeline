@@ -1,6 +1,6 @@
 ### 🕹️ PlayStation VR - Game Recommendations
 
-This article explores user recommendations for PlayStation VR games, focusing on nostalgia and classic titles.  The author seeks suggestions for games to replay on a newly acquired PSVR system.
+User recommendations for PlayStation VR games, focusing on nostalgia and classic titles.  The author seeks suggestions for games to replay on a newly acquired PSVR system.
 
 Key Points:
 

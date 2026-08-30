@@ -1,6 +1,6 @@
 ### 🤖 AI in Customer Feedback Analysis - Fabletics Case Study
 
-This article summarizes how Fabletics utilizes AI to enhance the efficiency and scalability of their customer feedback analysis, as shared in a Canvs AI Empathy Lab.
+How Fabletics utilizes AI to enhance the efficiency and scalability of their customer feedback analysis, as shared in a Canvs AI Empathy Lab.
 
 Key Points:
 

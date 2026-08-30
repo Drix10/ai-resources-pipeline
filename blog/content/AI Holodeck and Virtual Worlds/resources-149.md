@@ -1,6 +1,6 @@
 ### ✨ AI Art Challenge - Kling 3.0 Submission
 
-This article provides details and a reminder about the Kling 3.0 Challenge, highlighting the opportunity to create unique AI-generated art and compete for significant prizes. It emphasizes the approaching deadline for submissions.
+Details and a reminder about the Kling 3.0 Challenge, highlighting the opportunity to create unique AI-generated art and compete for significant prizes. It emphasizes the approaching deadline for submissions.
 
 Key Points:
 

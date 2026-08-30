@@ -1,6 +1,6 @@
 ### 🚀 Cryptocurrency - Market Impacts and Decentralized Healing
 
-This article discusses the recent market activity of Bitcoin and Ethereum and explores their potential impact on decentralized science and trauma care.  It also includes commentary from Vitalik Buterin and Adam Draper.
+Recent market activity of Bitcoin and Ethereum and explores their potential impact on decentralized science and trauma care.  It also includes commentary from Vitalik Buterin and Adam Draper.
 
 Key Points:
 

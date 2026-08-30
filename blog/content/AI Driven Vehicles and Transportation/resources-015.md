@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics - Ukraine as a Proxy War
 
-This article discusses the argument that the conflict in Ukraine serves as a proxy war between the United States and China, potentially shaping the future global order.  The outcome of the Ukrainian conflict is presented as a significant determinant of future global dynamics.
+Argument that the conflict in Ukraine serves as a proxy war between the United States and China, potentially shaping the future global order.  The outcome of the Ukrainian conflict is presented as a significant determinant of future global dynamics.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Business - Surge AI Profile
 
-This article summarizes a profile of Edwin Chen, CEO of Surge AI, a competitor to Scale AI, highlighting its financial performance and funding round.
+Profile of Edwin Chen, CEO of Surge AI, a competitor to Scale AI, highlighting its financial performance and funding round.
 
 Key Points:
 

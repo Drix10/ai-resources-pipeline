@@ -1,6 +1,6 @@
 ### 🤖 Healthcare AI - Documentation Automation
 
-This article discusses an AI-powered operating system designed to automate healthcare documentation. It addresses the challenges of compliance and efficiency within the French healthtech market.
+AI-powered operating system designed to automate healthcare documentation. It addresses the challenges of compliance and efficiency within the French healthtech market.
 
 Key Points:
 

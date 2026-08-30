@@ -1,6 +1,6 @@
 ### 💡 Cricket Player Transfers - Contractual Decisions
 
-This article outlines the considerations involved in professional cricket player transfers, specifically focusing on how contractual details and league opportunities influence a player's career choices. It highlights a scenario where a player prioritized a new opportunity despite a lower reported salary.
+Considerations involved in professional cricket player transfers, specifically focusing on how contractual details and league opportunities influence a player's career choices. It highlights a scenario where a player prioritized a new opportunity despite a lower reported salary.
 
 Key Points:
 

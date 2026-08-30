@@ -1,6 +1,6 @@
 ### 🤖 AI Voice UI - Self-Correction with Claude
 
-This article covers the development of a voice user interface for Claude AI running on a Mac, controllable from a phone, and observes its autonomous self-correction process.
+Development of a voice user interface for Claude AI running on a Mac, controllable from a phone, and observes its autonomous self-correction process.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Health Risks Forecast - Mobile Application
 
-This article discusses a mobile application designed to provide health risk forecasts. It covers the availability of the application across different platforms for user access.
+Mobile application designed to provide health risk forecasts. It covers the availability of the application across different platforms for user access.
 
 Key Points:
 

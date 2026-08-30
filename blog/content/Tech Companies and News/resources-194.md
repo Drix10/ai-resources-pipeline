@@ -1,6 +1,6 @@
 ### 🚀 Google Ads - Insights Carousel
 
-This article covers the Google Ads insights carousel feature. This update provides new ways to visualize campaign data directly within the Google Ads interface.
+Google Ads insights carousel feature. This update provides new ways to visualize campaign data directly within the Google Ads interface.
 
 Key Points:
 

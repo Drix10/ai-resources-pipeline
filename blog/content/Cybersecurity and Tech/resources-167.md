@@ -1,6 +1,6 @@
 ### 🤖 Cyber Threat Intelligence - FrostyNeighbor APT Activity
 
-This article details the discovery of a new compromise attributed to the FrostyNeighbor threat actor. It outlines their method of attack, which involves spearphishing governmental organizations in Ukraine.
+Discovery of a new compromise attributed to the FrostyNeighbor threat actor. It outlines their method of attack, which involves spearphishing governmental organizations in Ukraine.
 
 Key Points:
 

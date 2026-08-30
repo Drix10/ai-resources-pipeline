@@ -1,6 +1,6 @@
 ### 🤖 AI Security - Investment Impact
 
-This article discusses the security posture of AI systems, highlighting how safety can diminish without sufficient investment. It explores the critical role of security expenditure in maintaining robust AI environments.
+Security posture of AI systems, highlighting how safety can diminish without sufficient investment. It explores the critical role of security expenditure in maintaining robust AI environments.
 
 Key Points:
 

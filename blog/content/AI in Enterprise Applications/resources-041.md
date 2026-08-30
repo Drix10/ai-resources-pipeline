@@ -1,6 +1,6 @@
 ### 🚀 Photography - Online Portfolio Importance
 
-This article discusses the importance of an online portfolio for photographers and introduces a tool that simplifies the process of creating one.
+Importance of an online portfolio for photographers and introduces a tool that simplifies the process of creating one.
 
 Key Points:
 

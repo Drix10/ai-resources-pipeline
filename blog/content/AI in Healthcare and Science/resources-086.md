@@ -1,6 +1,6 @@
 ### 🤖 Spectruth DAO - Pioneering AI in Mental Health
 
-This article discusses Spectruth DAO's initiative to revolutionize mental health care using AI.  It highlights their commitment to impactful development over sensationalized news.
+Spectruth DAO's initiative to revolutionize mental health care using AI.  It highlights their commitment to impactful development over sensationalized news.
 
 Key Points:
 

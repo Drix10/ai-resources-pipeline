@@ -1,6 +1,6 @@
 ### 🤖 Productivity Enhancement - Willow Voice AI
 
-This article discusses the experience of a user who significantly improved their productivity using Willow Voice AI for managing emails and texts.
+Experience of a user who significantly improved their productivity using Willow Voice AI for managing emails and texts.
 
 Key Points:
 

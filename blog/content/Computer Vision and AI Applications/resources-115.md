@@ -1,6 +1,6 @@
 ### 🤖 3D Graphics - Splatting to 3D Displays
 
-This article discusses a novel algorithm that converts triangular and Gaussian splats into 3D display-compatible formats. This technology is being developed to support true defocus and parallax in 3D visualizations.
+Novel algorithm that converts triangular and Gaussian splats into 3D display-compatible formats. This technology is being developed to support true defocus and parallax in 3D visualizations.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 SOPs - Effective Sharing Strategies
 
-This article discusses methods for effectively sharing Standard Operating Procedures (SOPs) within a team, focusing on the features and benefits of using Scribe.
+Methods for effectively sharing Standard Operating Procedures (SOPs) within a team, focusing on the features and benefits of using Scribe.
 
 Key Points:
 

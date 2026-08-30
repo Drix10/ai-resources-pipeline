@@ -1,6 +1,6 @@
 ### ✨ AI/Platform Features - Dataset Management and Ingestion
 
-This article discusses the dataset features of Zo Computer, emphasizing how its functionalities integrate prompting, tools, and platform capabilities. It describes the data ingestion process which leverages an LLM-driven task.
+Dataset features of Zo Computer, emphasizing how its functionalities integrate prompting, tools, and platform capabilities. It describes the data ingestion process which leverages an LLM-driven task.
 
 Key Points:
 

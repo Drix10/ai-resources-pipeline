@@ -1,6 +1,6 @@
 ### 🤖 Ethical Concerns in Scientific Research - Entitlement and Justification of Wrongdoing
 
-This article discusses the justification of human rights violations and crimes based on entitlement, particularly within the context of scientific research and access to resources.  It highlights the dangers of ignoring ethical considerations when pursuing scientific advancements.
+Justification of human rights violations and crimes based on entitlement, particularly within the context of scientific research and access to resources.  It highlights the dangers of ignoring ethical considerations when pursuing scientific advancements.
 
 Key Points:
 

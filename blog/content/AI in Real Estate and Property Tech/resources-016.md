@@ -1,6 +1,6 @@
 ### 🎙️ Real Estate - Multifamily Development Challenges
 
-This article summarizes Sean Burton's discussion on multifamily development challenges, investment strategies, and disaster impact, highlighting public-private sector collaboration for rebuilding.
+Sean Burton's discussion on multifamily development challenges, investment strategies, and disaster impact, highlighting public-private sector collaboration for rebuilding.
 
 
 Key Points:

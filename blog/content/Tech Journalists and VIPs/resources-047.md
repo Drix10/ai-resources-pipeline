@@ -1,6 +1,6 @@
 ### 🤖 Political Commentary - Republican Spending
 
-This article discusses the apparent reluctance of congressional Republicans, influenced by Donald Trump, to cut spending.  The author expresses surprise at this stance.
+Apparent reluctance of congressional Republicans, influenced by Donald Trump, to cut spending.  The author expresses surprise at this stance.
 
 Key Points:
 

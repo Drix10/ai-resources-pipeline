@@ -1,6 +1,6 @@
 ### 🤖 Neuralink - Minimally Invasive Brain Implants
 
-This article summarizes Neuralink's approach to brain-computer interfaces, highlighting its minimally invasive design and the implications for patients.  The information is based on a Neuralink blog post and accompanying video.
+Neuralink's approach to brain-computer interfaces, highlighting its minimally invasive design and the implications for patients.  The information is based on a Neuralink blog post and accompanying video.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ⚠️ International Relations - The Israel-Hamas Conflict
 
-This article summarizes UN Secretary-General António Guterres's statement on the Hamas attacks and calls for a ceasefire, hostage release, and humanitarian access.  It also includes related images.
+UN Secretary-General António Guterres's statement on the Hamas attacks and calls for a ceasefire, hostage release, and humanitarian access.  It also includes related images.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💰 Domain Sales - Agentics Domain Portfolio
 
-This article discusses the sale of the Agentics.ai domain and explores the potential value of other Agentics domains with different extensions.  The author also lists their domain holdings.
+Sale of the Agentics.ai domain and explores the potential value of other Agentics domains with different extensions.  The author also lists their domain holdings.
 
 Key Points:
 

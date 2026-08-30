@@ -1,6 +1,6 @@
 ### 🤖 Scene-Graph Reconstruction - Enhanced with LLMs
 
-This article outlines the process of reconstructing an entire scene-graph using a Splat analyser, detailing its extension with broader vocabulary and LLM-generated relationships between individual detections.
+Process of reconstructing an entire scene-graph using a Splat analyser, detailing its extension with broader vocabulary and LLM-generated relationships between individual detections.
 
 Key Points:
 

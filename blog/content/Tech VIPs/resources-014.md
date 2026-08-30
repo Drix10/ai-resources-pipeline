@@ -1,6 +1,6 @@
 ### 🤖 Publishing - Giggle Academy Partnership
 
-This article discusses the partnership between Giggle Academy and author JustCuzTheBook, focusing on her decision to exclusively publish her books for free on the platform.
+Partnership between Giggle Academy and author JustCuzTheBook, focusing on her decision to exclusively publish her books for free on the platform.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Video Generation - Luma Ray 2
 
-This article details the creation of an AI-generated video using Imagine AI Art and Luma Labs AI's Ray 2 model.  The process, prompt, and resulting video are described.
+Creation of an AI-generated video using Imagine AI Art and Luma Labs AI's Ray 2 model.  The process, prompt, and resulting video are described.
 
 
 Key Points:

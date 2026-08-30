@@ -1,6 +1,6 @@
 ### 🌎 Asteroid Impact - Marine Life Boom
 
-This article discusses a scientific theory suggesting that the asteroid impact that killed the dinosaurs also triggered a significant increase in marine life.
+Scientific theory suggesting that the asteroid impact that killed the dinosaurs also triggered a significant increase in marine life.
 
 Key Points:
 

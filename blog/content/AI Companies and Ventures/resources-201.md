@@ -1,5 +1,5 @@
 ### 💡 Anatomical Gift Programs - USC Cadaver Supply
-This article details the transaction between USC's Anatomical Gift Program and the US Navy over a seven-year period. It outlines the financial aspects and the specific use of cadavers for trauma surgery training. The distinction between donated and unclaimed bodies is also addressed.
+Transaction between USC's Anatomical Gift Program and the US Navy over a seven-year period. It outlines the financial aspects and the specific use of cadavers for trauma surgery training. The distinction between donated and unclaimed bodies is also addressed.
 
 Key Points:
 

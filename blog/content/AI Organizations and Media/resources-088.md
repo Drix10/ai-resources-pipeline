@@ -1,6 +1,6 @@
 ### 🔬 Neuroscience - Protein Enhancing Brain Cell Connections
 
-This article discusses new research identifying a protein (cypin) that strengthens brain cell connections, improving memory and learning.  Higher cypin levels correlate with enhanced synaptic plasticity and slower memory loss.
+New research identifying a protein (cypin) that strengthens brain cell connections, improving memory and learning.  Higher cypin levels correlate with enhanced synaptic plasticity and slower memory loss.
 
 Key Points:
 

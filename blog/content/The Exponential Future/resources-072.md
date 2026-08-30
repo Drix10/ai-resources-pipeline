@@ -1,6 +1,6 @@
 ### 🤖 Venture Capital - Meta-LP Fund Structures
 
-This article discusses the limited alignment of interests between venture capital firms and limited partners (LPs), and proposes a potential solution using meta-LP fund of fund structures.  The core argument centers around the differing perspectives on long-term ecosystem growth versus short-term returns.
+Limited alignment of interests between venture capital firms and limited partners (LPs), and proposes a potential solution using meta-LP fund of fund structures.  The core argument centers around the differing perspectives on long-term ecosystem growth versus short-term returns.
 
 Key Points:
 

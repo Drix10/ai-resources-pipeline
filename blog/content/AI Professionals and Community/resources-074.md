@@ -1,6 +1,6 @@
 ### 🤖 Diffusion Models - Temperature Control and Composition
 
-This article discusses the control of temperature and composition in diffusion models, specifically referencing work presented at AISTATS last year.  The focus is on diversity control within the models.
+Control of temperature and composition in diffusion models, specifically referencing work presented at AISTATS last year.  The focus is on diversity control within the models.
 
 Key Points:
 

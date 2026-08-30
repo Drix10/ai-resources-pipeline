@@ -1,6 +1,6 @@
 ### 🤖 Autonomous Vehicles - Cost Reduction & Vertical Integration
 
-This article discusses the significant cost reduction achieved with the second generation of a dozer unit compared to its first generation. It highlights the impact of a vertically integrated architecture on production efficiency.
+Significant cost reduction achieved with the second generation of a dozer unit compared to its first generation. It highlights the impact of a vertically integrated architecture on production efficiency.
 
 Key Points:
 

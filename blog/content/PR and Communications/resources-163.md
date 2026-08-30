@@ -1,6 +1,6 @@
 ### 🤖 Nvidia - AI Equity Investments
 
-This article details Nvidia's substantial financial commitment to equity AI deals within the current year. It highlights the scale of their investment strategy in the artificial intelligence sector.
+Nvidia's substantial financial commitment to equity AI deals within the current year. It highlights the scale of their investment strategy in the artificial intelligence sector.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Career Opportunities - SIGGRAPH 2025 Job Fair
 
-This article provides information about the SIGGRAPH 2025 Job Fair, highlighting opportunities for career advancement in the computer graphics field.  It includes details on location and benefits for attendees.
+Information about the SIGGRAPH 2025 Job Fair, highlighting opportunities for career advancement in the computer graphics field.  It includes details on location and benefits for attendees.
 
 Key Points:
 

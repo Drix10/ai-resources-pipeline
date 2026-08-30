@@ -1,6 +1,6 @@
 ### 🤖 AI Avatars - HeyGen's Avatar IV
 
-This article discusses HeyGen's Avatar IV, a new AI avatar generation tool that produces high-quality avatars from a single photograph.  The tool's capabilities and advancements in the field are highlighted.
+HeyGen's Avatar IV, a new AI avatar generation tool that produces high-quality avatars from a single photograph.  The tool's capabilities and advancements in the field are highlighted.
 
 Key Points:
 

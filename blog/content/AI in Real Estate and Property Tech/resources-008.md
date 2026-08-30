@@ -1,6 +1,6 @@
 ### 👩‍💼 Women of Influence in Multifamily Real Estate - Trends and Predictions
 
-This article summarizes key insights from industry leaders at the GlobeSt Multifamily Event in Los Angeles, focusing on current trends in multifamily real estate, predictions for 2025, and advice for women in the commercial real estate (CRE) sector.
+Key insights from industry leaders at the GlobeSt Multifamily Event in Los Angeles, focusing on current trends in multifamily real estate, predictions for 2025, and advice for women in the commercial real estate (CRE) sector.
 
 
 Key Points:

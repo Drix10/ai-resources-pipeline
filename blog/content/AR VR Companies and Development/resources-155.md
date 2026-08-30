@@ -1,6 +1,6 @@
 ### 🤖 AI Models - Anthropic Claude Mythos Leak
 
-This article discusses the accidental leak of information regarding Anthropic's new AI model, Claude Mythos. It covers the model's positioning as a more powerful tier above Opus, indicating advancements in AI capabilities.
+Accidental leak of information regarding Anthropic's new AI model, Claude Mythos. It covers the model's positioning as a more powerful tier above Opus, indicating advancements in AI capabilities.
 
 Key Points:
 

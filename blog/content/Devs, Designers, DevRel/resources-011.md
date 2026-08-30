@@ -1,6 +1,6 @@
 ### 🤖 AI - Mixture of Experts Model Optimization
 
-This article discusses DeepEP, an open-source library designed to optimize communication within Mixture of Experts (MoE) models, enhancing efficiency and scalability in AI development.
+DeepEP, an open-source library designed to optimize communication within Mixture of Experts (MoE) models, enhancing efficiency and scalability in AI development.
 
 Key Points:
 

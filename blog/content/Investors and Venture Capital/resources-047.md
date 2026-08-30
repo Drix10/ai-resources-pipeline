@@ -1,6 +1,6 @@
 ### 🤖 Spring AI - Enterprise MCP
 
-This article discusses Spring AI's emergence as a leading contender in the Multi-Cloud Platform (MCP) space for enterprises, leveraging Spring Security and Actuator.
+Spring AI's emergence as a leading contender in the Multi-Cloud Platform (MCP) space for enterprises, leveraging Spring Security and Actuator.
 
 Key Points:
 

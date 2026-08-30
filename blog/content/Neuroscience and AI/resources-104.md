@@ -1,6 +1,6 @@
 ### 🚀 SpaceX Starship - Development Roadmap
 
-This article summarizes the projected development timeline for SpaceX's Starship program, outlining the anticipated milestones for versions V3 and V4.
+Projected development timeline for SpaceX's Starship program, outlining the anticipated milestones for versions V3 and V4.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Datasets - Voice Recording Contributions
 
-This article discusses the Silencio network's initiative to collect voice recordings for AI and robotics datasets, offering contributors rewards for their participation.  The network aims to build diverse and comprehensive datasets.
+Silencio network's initiative to collect voice recordings for AI and robotics datasets, offering contributors rewards for their participation.  The network aims to build diverse and comprehensive datasets.
 
 Key Points:
 

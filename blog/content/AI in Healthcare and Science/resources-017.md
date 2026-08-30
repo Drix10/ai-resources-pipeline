@@ -1,6 +1,6 @@
 ### ✨ Oscar Health - Expanding Healthcare Access
 
-This article discusses Oscar Health's expansion efforts to increase healthcare access for more Americans.  The company highlights its commitment and the dedication of its team in achieving this ambitious goal.
+Oscar Health's expansion efforts to increase healthcare access for more Americans.  The company highlights its commitment and the dedication of its team in achieving this ambitious goal.
 
 Key Points:
 

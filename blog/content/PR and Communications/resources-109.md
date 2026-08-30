@@ -1,6 +1,6 @@
 ### 🤖 Political Commentary - Hochul's Policies
 
-This article summarizes criticisms of New York Governor Kathy Hochul's policies, as voiced by Elise Stefanik on Fox News.  The commentary focuses on accusations of socialist leanings and policy implications.
+Criticisms of New York Governor Kathy Hochul's policies, as voiced by Elise Stefanik on Fox News.  The commentary focuses on accusations of socialist leanings and policy implications.
 
 Key Points:
 

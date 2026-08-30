@@ -1,6 +1,6 @@
 ### 💡 Motivation - Finding Driving Force in Uncertainty
 
-This article discusses a shift in motivation from anxiety about the unknown to a focus on love and responsibility for loved ones as a driving force.  It explores the concept of a "great interregnum" in the context of humanity's relationship with AI.
+Shift in motivation from anxiety about the unknown to a focus on love and responsibility for loved ones as a driving force.  It explores the concept of a "great interregnum" in the context of humanity's relationship with AI.
 
 Key Points:
 

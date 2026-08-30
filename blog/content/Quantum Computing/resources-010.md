@@ -1,6 +1,6 @@
 ### 🤖 Quantum Computing - Megaquop Origins
 
-This article explores the origins of the term "megaquop" in the context of quantum computing, examining its recent rise in popularity and tracing its usage back to before John Preskill's discussion.
+Origins of the term "megaquop" in the context of quantum computing, examining its recent rise in popularity and tracing its usage back to before John Preskill's discussion.
 
 Key Points:
 

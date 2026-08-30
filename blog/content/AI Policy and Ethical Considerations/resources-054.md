@@ -1,6 +1,6 @@
 ### 🤖 US Spectrum Allocation - Global Discrepancies
 
-This article discusses the divergence between US and global mid-band spectrum allocation policies, highlighting potential negative consequences for US leadership and hardware companies.
+Divergence between US and global mid-band spectrum allocation policies, highlighting potential negative consequences for US leadership and hardware companies.
 
 Key Points:
 

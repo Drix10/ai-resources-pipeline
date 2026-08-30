@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Interactive Learning
 
-This article highlights an interactive website designed to teach the inner workings of Large Language Models (LLMs).  It covers core LLM components from embedding to output layers.
+Interactive website designed to teach the inner workings of Large Language Models (LLMs).  It covers core LLM components from embedding to output layers.
 
 Key Points:
 

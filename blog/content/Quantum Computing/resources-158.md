@@ -1,6 +1,6 @@
 ### 💡 Movie Theory - American Psycho and Sigappu Rojakkal
 
-This article examines the ongoing discussion regarding potential narrative similarities between the American film "American Psycho" and the Tamil film "Sigappu Rojakkal." It explores the cultural conversation about cinematic influences across different industries.
+Ongoing discussion regarding potential narrative similarities between the American film "American Psycho" and the Tamil film "Sigappu Rojakkal." It explores the cultural conversation about cinematic influences across different industries.
 
 Key Points:
 

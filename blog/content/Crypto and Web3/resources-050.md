@@ -1,6 +1,6 @@
 ### 🤖 Bitcoin Lending - Strike's Approach
 
-This article discusses Strike's Bitcoin-collateralized loan offering, highlighting its key feature: the absence of rehypothecation.  It also mentions future plans for improved interest rates.
+Strike's Bitcoin-collateralized loan offering, highlighting its key feature: the absence of rehypothecation.  It also mentions future plans for improved interest rates.
 
 Key Points:
 

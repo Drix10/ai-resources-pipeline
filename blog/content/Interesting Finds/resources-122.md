@@ -1,6 +1,6 @@
 ### 💡 Permitting Reform - Achieving Certainty
 
-This article examines the ongoing discussions around permitting negotiations and proposes solutions to address issues of cancellation abuse. It outlines the need for genuine permitting certainty through smart reforms.
+Ongoing discussions around permitting negotiations and proposes solutions to address issues of cancellation abuse. It outlines the need for genuine permitting certainty through smart reforms.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🎬 Animation - SIGGRAPH Conversation
 
-This article summarizes a conversation at SIGGRAPH 2025 about the animation techniques used in "Inkwo for When the Starving Return."  The discussion highlights the blending of cutting-edge CG and traditional stop-motion animation.
+Conversation at SIGGRAPH 2025 about the animation techniques used in "Inkwo for When the Starving Return."  The discussion highlights the blending of cutting-edge CG and traditional stop-motion animation.
 
 
 Key Points:

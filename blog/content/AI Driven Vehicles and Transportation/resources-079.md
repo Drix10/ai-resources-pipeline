@@ -1,6 +1,6 @@
 ### 🤖 Computer Vision - Shape vs. Texture Bias
 
-This article discusses a study revisiting the shape-vs-texture bias in computer vision, focusing on objects composed of identical subparts.  The research uses ablations to highlight the importance of long-range attention mechanisms in transformers for global shape perception.
+Study revisiting the shape-vs-texture bias in computer vision, focusing on objects composed of identical subparts.  The research uses ablations to highlight the importance of long-range attention mechanisms in transformers for global shape perception.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 💡 Public Policy - Presidential Coinage Regulations
 
-This article outlines the regulations governing the depiction of U.S. presidents on coinage. It specifically addresses limitations concerning the images of living former or current presidents and recently deceased presidents.
+Regulations governing the depiction of U.S. presidents on coinage. It specifically addresses limitations concerning the images of living former or current presidents and recently deceased presidents.
 
 Key Points:
 

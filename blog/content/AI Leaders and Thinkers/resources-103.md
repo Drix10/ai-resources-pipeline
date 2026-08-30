@@ -1,6 +1,6 @@
 ### 🤖 Social Commentary - Predicting Future Events
 
-This article discusses a Twitter thread expressing concern about the potential consequences of political actions.  The author connects current events to historical parallels.
+Twitter thread expressing concern about the potential consequences of political actions.  The author connects current events to historical parallels.
 
 Key Points:
 

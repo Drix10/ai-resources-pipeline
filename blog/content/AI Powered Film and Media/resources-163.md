@@ -1,6 +1,6 @@
 ### 🤖 Neuroscience - Alzheimer's Disease Risk Factors
 
-This article examines research on the association between reduced LACTB expression in myeloid cells and Alzheimer's disease risk. It explores how altered LACTB levels correlate with elevated succinylcarnitine and influence disease susceptibility.
+Research on the association between reduced LACTB expression in myeloid cells and Alzheimer's disease risk. It explores how altered LACTB levels correlate with elevated succinylcarnitine and influence disease susceptibility.
 
 Key Points:
 

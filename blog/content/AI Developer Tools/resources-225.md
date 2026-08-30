@@ -1,6 +1,6 @@
 ### 🤖 Distributed AI Training - Hyperscaler Perspective
 
-This article examines Microsoft's CEO argument for distributing AI learning infrastructure to individual firms. It highlights the perspective on firms controlling their own AI learning loops.
+Microsoft's CEO argument for distributing AI learning infrastructure to individual firms. It highlights the perspective on firms controlling their own AI learning loops.
 
 Key Points:
 

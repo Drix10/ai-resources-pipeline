@@ -1,6 +1,6 @@
 ### 🌎 International Relations - Trump's Russia Policy Challenges
 
-This article discusses Steve Holland's reporting on Donald Trump's challenges in dealing with Vladimir Putin, as highlighted in a Reuters World News article.
+Steve Holland's reporting on Donald Trump's challenges in dealing with Vladimir Putin, as highlighted in a Reuters World News article.
 
 Key Points:
 

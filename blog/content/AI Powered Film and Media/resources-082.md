@@ -1,6 +1,6 @@
 ### 🎶 Music Production - AI-Assisted Jazz Album
 
-This article discusses the creation of a jazz album using AI tools, including Udio, Suno, and Bandlab.  The album's theme is astrology.
+Creation of a jazz album using AI tools, including Udio, Suno, and Bandlab.  The album's theme is astrology.
 
 Key Points:
 

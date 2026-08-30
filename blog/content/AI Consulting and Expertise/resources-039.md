@@ -1,6 +1,6 @@
 ### 🤖 Application Testing - Multi-Role Testing Strategies
 
-This article discusses strategies for effective application testing, focusing on preventing session collisions when testing multiple user roles.  It emphasizes the use of separate browser profiles and browsers to isolate test environments.
+Strategies for effective application testing, focusing on preventing session collisions when testing multiple user roles.  It emphasizes the use of separate browser profiles and browsers to isolate test environments.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Product Launch - OpenArt Consistent Characters
 
-This article discusses the launch of OpenArt Consistent Characters on Product Hunt, addressing the challenge of consistent character generation in AI.  It highlights the difficulty of this problem and the solution offered.
+Launch of OpenArt Consistent Characters on Product Hunt, addressing the challenge of consistent character generation in AI.  It highlights the difficulty of this problem and the solution offered.
 
 Key Points:
 

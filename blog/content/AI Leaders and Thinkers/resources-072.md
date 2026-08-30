@@ -1,6 +1,6 @@
 ### 🤖 Cursor AI Rules - Unexpected Rule Discovery
 
-This article discusses the process of creating effective rules within the Cursor AI system, focusing on organically discovered rules derived from repetitive manual tasks.
+Process of creating effective rules within the Cursor AI system, focusing on organically discovered rules derived from repetitive manual tasks.
 
 Key Points:
 

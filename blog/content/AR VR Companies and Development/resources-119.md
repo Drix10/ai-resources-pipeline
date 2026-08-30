@@ -1,6 +1,6 @@
 ### 💡 Housing Policy - Financial Relief Program
 
-This article discusses proposed policy changes aimed at reducing housing-related financial burdens for homeowners. It covers the waiving of certain fees and bills to enhance economic stability.
+Proposed policy changes aimed at reducing housing-related financial burdens for homeowners. It covers the waiving of certain fees and bills to enhance economic stability.
 
 Key Points:
 

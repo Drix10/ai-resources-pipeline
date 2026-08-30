@@ -1,6 +1,6 @@
 ### 📸 Stockholm Meetup - RealVision Community Gathering
 
-This article summarizes a RealVision community meetup in Stockholm, highlighting the positive atmosphere and networking opportunities.  A few photos from the event are included.
+RealVision community meetup in Stockholm, highlighting the positive atmosphere and networking opportunities.  A few photos from the event are included.
 
 Key Points:
 

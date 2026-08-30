@@ -1,6 +1,6 @@
 ### 🤖 Bolt - Version Control Challenges
 
-This article discusses the limitations of Bolt's version control system, highlighting the difficulty in reverting to specific past versions due to the lack of a dedicated version history.
+Limitations of Bolt's version control system, highlighting the difficulty in reverting to specific past versions due to the lack of a dedicated version history.
 
 Key Points:
 

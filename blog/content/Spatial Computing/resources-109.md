@@ -1,6 +1,6 @@
 ### 🚀 Placemaker Tools - Updates and Improvements
 
-This article details recent updates to Placemaker Tools, a community platform for contributing to and maintaining point-of-interest (POI) data.  The updates focus on improving search functionality.
+Recent updates to Placemaker Tools, a community platform for contributing to and maintaining point-of-interest (POI) data.  The updates focus on improving search functionality.
 
 Key Points:
 

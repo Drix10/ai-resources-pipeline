@@ -1,6 +1,6 @@
 ### 💡 Diplomatic Engagements - Tech Leaders in China
 
-This article details the presence of prominent technology leaders, Elon Musk, Lei Jun, and Tim Cook, at a state banquet in Beijing during a U.S. presidential visit to China. It highlights their interactions within a diplomatic setting.
+Presence of prominent technology leaders, Elon Musk, Lei Jun, and Tim Cook, at a state banquet in Beijing during a U.S. presidential visit to China. It highlights their interactions within a diplomatic setting.
 
 Key Points:
 

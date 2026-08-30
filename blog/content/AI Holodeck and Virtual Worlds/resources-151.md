@@ -1,6 +1,6 @@
 ### 🚀 AI Video Contest - $500,000 Action Contest
 
-This article outlines the details of the $500,000 Action Contest, including submission guidelines, eligibility, and the featured entry "TAILS OF STEEL." It covers the rules for participation and the deadline for submissions.
+Details of the $500,000 Action Contest, including submission guidelines, eligibility, and the featured entry "TAILS OF STEEL." It covers the rules for participation and the deadline for submissions.
 
 Key Points:
 

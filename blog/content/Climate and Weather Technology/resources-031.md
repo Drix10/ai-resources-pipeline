@@ -1,6 +1,6 @@
 ### 🤖 Weather's Impact on Sporting Events - Spring Season
 
-This article discusses the influence of spring weather on attendance at sporting events, based on a Twitter discussion.  It includes a question about the impact of spring weather on event attendance and related weather reports.
+Influence of spring weather on attendance at sporting events, based on a Twitter discussion.  It includes a question about the impact of spring weather on event attendance and related weather reports.
 
 Key Points:
 

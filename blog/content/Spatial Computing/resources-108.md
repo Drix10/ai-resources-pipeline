@@ -1,6 +1,6 @@
 ### 🚀 Geospatial Data - Streamlined Processing with Tiling Service
 
-This article discusses a new tiling service designed to simplify geospatial data processing and editing.  It highlights the key features and benefits of this service as presented at Connect 25.
+New tiling service designed to simplify geospatial data processing and editing.  It highlights the key features and benefits of this service as presented at Connect 25.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Development Focus - Tool Bias
 
-This article discusses the disproportionate focus on coding tools in AI labs, neglecting other work domains.  It highlights the resulting imbalance in tool development.
+Disproportionate focus on coding tools in AI labs, neglecting other work domains.  It highlights the resulting imbalance in tool development.
 
 Key Points:
 

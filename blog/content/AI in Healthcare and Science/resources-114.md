@@ -1,6 +1,6 @@
 ### 🤖 AI in Biology - Designing Organisms
 
-This article explores the potential of genome language models to design novel bacteriophages, highlighting the research on using AI to understand and manipulate evolutionary principles in biological design.
+Potential of genome language models to design novel bacteriophages, highlighting the research on using AI to understand and manipulate evolutionary principles in biological design.
 
 Key Points:
 

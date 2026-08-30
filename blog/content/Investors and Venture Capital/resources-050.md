@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Multi-turn Conversation Challenges
 
-This article discusses a common issue encountered when developing applications using Large Language Models (LLMs): their tendency to lose context in multi-turn conversations.  The article summarizes observations regarding this limitation.
+Common issue encountered when developing applications using Large Language Models (LLMs): their tendency to lose context in multi-turn conversations.  The article summarizes observations regarding this limitation.
 
 Key Points:
 

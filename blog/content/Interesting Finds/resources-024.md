@@ -1,6 +1,6 @@
 ### 🤖 Web Design - Interactive Elements with ThreeJS
 
-This article explores the creation of interactive, conceptual web design elements using ThreeJS, focusing on techniques involving GeoNodes and proximity functions.
+Creation of interactive, conceptual web design elements using ThreeJS, focusing on techniques involving GeoNodes and proximity functions.
 
 Key Points:
 

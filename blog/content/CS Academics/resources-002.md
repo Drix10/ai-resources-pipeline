@@ -1,6 +1,6 @@
 ### ⚠️ Political Commentary - Trump's Power Accumulation
 
-This article summarizes concerns regarding the accumulation of power by Donald Trump,  challenging established norms within the US political system.  The implications for American democracy are discussed.
+Concerns regarding the accumulation of power by Donald Trump,  challenging established norms within the US political system.  The implications for American democracy are discussed.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Events - Cypherpunk Congress Model
 
-This article examines the operational model for the Cypherpunk Congress, focusing on its past approach to accessibility and sustainability. It highlights how the event provided free access to content and services.
+Operational model for the Cypherpunk Congress, focusing on its past approach to accessibility and sustainability. It highlights how the event provided free access to content and services.
 
 Key Points:
 

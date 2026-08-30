@@ -1,6 +1,6 @@
 ### 🤖 Brand Management - Seamless Media Creation
 
-This article details a method to streamline media creation by incorporating custom product model information.  It focuses on using product details like brand colors and audience targeting to ensure consistent on-brand output.
+Method to streamline media creation by incorporating custom product model information.  It focuses on using product details like brand colors and audience targeting to ensure consistent on-brand output.
 
 Key Points:
 

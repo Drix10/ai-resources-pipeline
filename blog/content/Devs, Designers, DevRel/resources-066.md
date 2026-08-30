@@ -1,6 +1,6 @@
 ### 🤖 TanStack DB - Incremental Adoption
 
-This article discusses the design and benefits of TanStack DB, highlighting its incremental adoption path and similarity to TanStack Query.  The core concept involves creating a data storage and subscription system.
+Design and benefits of TanStack DB, highlighting its incremental adoption path and similarity to TanStack Query.  The core concept involves creating a data storage and subscription system.
 
 Key Points:
 

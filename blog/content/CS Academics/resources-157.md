@@ -1,6 +1,6 @@
 ### 🤖 Local-First Movement - Podcast Episode Review
 
-This article explores the concept of the 'local first' movement, discussing its principles and benefits for application development and user experience. It highlights insights from a podcast episode focusing on this technical approach.
+Concept of the 'local first' movement, discussing its principles and benefits for application development and user experience. It highlights insights from a podcast episode focusing on this technical approach.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI in Drug Discovery - Anti-Aging Research
 
-This article discusses Insilico Medicine's objective to address aging through advanced AI-driven drug discovery. It highlights the company's approach to developing novel treatments more efficiently and cost-effectively.
+Insilico Medicine's objective to address aging through advanced AI-driven drug discovery. It highlights the company's approach to developing novel treatments more efficiently and cost-effectively.
 
 Key Points:
 

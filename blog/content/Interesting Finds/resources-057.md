@@ -1,6 +1,6 @@
 ### ⚡ Electric Vehicle Charging - Ford Mexico Partnership
 
-This article details a partnership between Ford Mexico and VEMO, offering charging credits to new Ford EV owners.  The program aims to promote electric mobility in Mexico.
+Partnership between Ford Mexico and VEMO, offering charging credits to new Ford EV owners.  The program aims to promote electric mobility in Mexico.
 
 Key Points:
 

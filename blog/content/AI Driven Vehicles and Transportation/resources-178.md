@@ -1,6 +1,6 @@
 ### 🤖 AI Hardware - Post-CUDA Ecosystem
 
-This article discusses the strategic shift by DeepSeek away from NVIDIA's CUDA platform and its potential implications for the broader AI hardware ecosystem, particularly in China. It highlights the growing viability of non-CUDA hardware solutions for future AI development.
+Strategic shift by DeepSeek away from NVIDIA's CUDA platform and its potential implications for the broader AI hardware ecosystem, particularly in China. It highlights the growing viability of non-CUDA hardware solutions for future AI development.
 
 Key Points:
 

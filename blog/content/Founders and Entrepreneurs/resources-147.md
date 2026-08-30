@@ -1,6 +1,6 @@
 ### 🤖 AI Automation - Impact on White-Collar Work
 
-This article discusses Anthropic's findings on AI's current capabilities to automate white-collar tasks and the observed effects on the job market. It highlights that adoption, rather than technical capability, is the primary barrier to broader AI integration.
+Anthropic's findings on AI's current capabilities to automate white-collar tasks and the observed effects on the job market. It highlights that adoption, rather than technical capability, is the primary barrier to broader AI integration.
 
 Key Points:
 

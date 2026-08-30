@@ -1,6 +1,6 @@
 ### 🚀 NoSpoon Studios - Enhanced Video Creation
 
-This article details the new features added to NoSpoon Studios, allowing users to create videos via text chat or voice calls with AI agents.
+New features added to NoSpoon Studios, allowing users to create videos via text chat or voice calls with AI agents.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### ⚠️ Journalism - Maintaining Integrity
 
-This article discusses challenges journalists face in maintaining integrity when reporting, specifically focusing on issues of misattribution and the inclusion of off-the-record information.
+Challenges journalists face in maintaining integrity when reporting, specifically focusing on issues of misattribution and the inclusion of off-the-record information.
 
 Key Points:
 

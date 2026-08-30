@@ -1,6 +1,6 @@
 ### 🤖 Google's Future - AI, Capital, and Innovation
 
-This article covers a full discussion with Sundar Pichai about Google's strategic direction. It focuses on advancements in AI, approaches to capital allocation, and exploration of future technologies like data centers in space.
+Full discussion with Sundar Pichai about Google's strategic direction. It focuses on advancements in AI, approaches to capital allocation, and exploration of future technologies like data centers in space.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Space Exploration - Perseverance Rover Imaging
 
-This article highlights the latest imaging accomplishment of the Perseverance rover on Mars. It showcases the rover's ability to capture high-quality self-portraits, offering unique perspectives on its mission.
+Latest imaging accomplishment of the Perseverance rover on Mars. It showcases the rover's ability to capture high-quality self-portraits, offering unique perspectives on its mission.
 
 Key Points:
 

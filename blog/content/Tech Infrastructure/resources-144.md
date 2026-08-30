@@ -1,6 +1,6 @@
 ### ✨ Cybertruck - Pricing Update
 
-This article discusses the recent pricing adjustment for the Standard AWD Cybertruck. It outlines the increase in the starting price and the removal of the lease option following the expiration of an introductory offer.
+Recent pricing adjustment for the Standard AWD Cybertruck. It outlines the increase in the starting price and the removal of the lease option following the expiration of an introductory offer.
 
 Key Points:
 

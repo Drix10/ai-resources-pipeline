@@ -1,6 +1,6 @@
 ### 🤖 VR Headset Review - Play For Dream MR
 
-This article summarizes a review of the Play For Dream MR headset, highlighting its key features and capabilities, specifically its wireless PC VR streaming and Android spatial computing functionality.
+Review of the Play For Dream MR headset, highlighting its key features and capabilities, specifically its wireless PC VR streaming and Android spatial computing functionality.
 
 
 Key Points:

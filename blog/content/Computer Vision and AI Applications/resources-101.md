@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Doppelganger Detection in MageLoc
 
-This article discusses the challenges of doppelganger detection (identifying highly similar but opposite viewpoints) in the MageLoc model and proposes a solution using VGGT.
+Challenges of doppelganger detection (identifying highly similar but opposite viewpoints) in the MageLoc model and proposes a solution using VGGT.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI in Commercial Real Estate - Industry Trends
 
-This article discusses the intersection of artificial intelligence with Commercial Real Estate (CRE) and PropTech, outlining how AI drives innovation and enhances decision-making in the sector.
+Intersection of artificial intelligence with Commercial Real Estate (CRE) and PropTech, outlining how AI drives innovation and enhances decision-making in the sector.
 
 Key Points:
 

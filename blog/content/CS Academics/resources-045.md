@@ -1,6 +1,6 @@
 ### 💡 Creative Thinking - Shannon's "Tricks"
 
-This article examines Claude Shannon's essay-lecture, "Creative Thinking," focusing on his techniques for fostering creative output and intellectual breakthroughs.  The article highlights the overlap between Shannon's "tricks" and the concept of "contexts."
+Claude Shannon's essay-lecture, "Creative Thinking," focusing on his techniques for fostering creative output and intellectual breakthroughs.  The article highlights the overlap between Shannon's "tricks" and the concept of "contexts."
 
 Key Points:
 

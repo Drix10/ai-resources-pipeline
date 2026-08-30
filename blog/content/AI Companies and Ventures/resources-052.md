@@ -1,6 +1,6 @@
 ### 🤖 Pamir AI - Edge AI and Hardware Hacks Open Call
 
-This article details an open call from Pamir AI for developers to build Edge AI projects using hardware hacks.  The call outlines submission requirements and the process.
+Open call from Pamir AI for developers to build Edge AI projects using hardware hacks.  The call outlines submission requirements and the process.
 
 Key Points:
 

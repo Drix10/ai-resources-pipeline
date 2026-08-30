@@ -1,6 +1,6 @@
 ### 🤖 AI Tooling - Accelerating Internal Jobs
 
-This article discusses the use of AI tooling to optimize internal processes, specifically focusing on a case study involving marketing HR optimization using Mastra AI.
+Use of AI tooling to optimize internal processes, specifically focusing on a case study involving marketing HR optimization using Mastra AI.
 
 Key Points:
 

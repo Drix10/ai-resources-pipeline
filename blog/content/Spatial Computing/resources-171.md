@@ -1,6 +1,6 @@
 ### 🚀 VR Experience - Compass Review
 
-This article provides a brief overview of the VR application 'Compass,' highlighting its design and user experience. It summarizes key aspects from a professional review of the application.
+The VR application 'Compass,' highlighting its design and user experience. It summarizes key aspects from a professional review of the application.
 
 Key Points:
 

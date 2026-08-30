@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics - Russia's Current State
 
-This article summarizes observations on the current state of Russia, focusing on political and social aspects.  It highlights internal dynamics and challenges.
+Observations on the current state of Russia, focusing on political and social aspects.  It highlights internal dynamics and challenges.
 
 Key Points:
 

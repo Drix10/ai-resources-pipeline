@@ -1,6 +1,6 @@
 ### 🤖 Networking - Building a Global Network
 
-This article summarizes experiences in building a global professional network from scratch, focusing on challenges and strategies in a new country and field.  The context is within the web3 space in 2022.
+Experiences in building a global professional network from scratch, focusing on challenges and strategies in a new country and field.  The context is within the web3 space in 2022.
 
 Key Points:
 

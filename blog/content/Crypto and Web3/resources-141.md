@@ -1,6 +1,6 @@
 ### 💡 Cryptocurrency Launch - Ethical Gatekeeping
 
-This article explores the concept of a cryptocurrency launch platform that incorporates an ethical screening mechanism for projects. It discusses the potential benefits of such a system for fostering trust and preventing malicious activities.
+Concept of a cryptocurrency launch platform that incorporates an ethical screening mechanism for projects. It discusses the potential benefits of such a system for fostering trust and preventing malicious activities.
 
 Key Points:
 

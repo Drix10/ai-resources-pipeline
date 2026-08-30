@@ -1,6 +1,6 @@
 ### ⚠️ India-Pakistan Relations - Nuclear Sabre Rattling
 
-This article summarizes a statement by the Ministry of External Affairs regarding remarks made by the Pakistani Chief of Army Staff concerning nuclear weapons.  The statement highlights the recurring nature of such rhetoric.
+Statement by the Ministry of External Affairs regarding remarks made by the Pakistani Chief of Army Staff concerning nuclear weapons.  The statement highlights the recurring nature of such rhetoric.
 
 Key Points:
 

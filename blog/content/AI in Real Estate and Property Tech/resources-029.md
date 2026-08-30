@@ -1,6 +1,6 @@
 ### 💡 Real Estate - Office to Residential Conversions
 
-This article discusses the conversion of office spaces into residential properties as a solution for rising office vacancies.  It highlights key benefits and challenges for CRE developers.
+Conversion of office spaces into residential properties as a solution for rising office vacancies.  It highlights key benefits and challenges for CRE developers.
 
 Key Points:
 

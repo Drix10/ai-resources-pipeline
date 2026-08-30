@@ -1,6 +1,6 @@
 ### 🔬 Alzheimer's Disease - Microglia's Role in Olfactory Loss
 
-This article discusses a research study identifying the role of microglia, brain immune cells, in the olfactory loss often observed in early-stage Alzheimer's disease.  The study indicates a potential mechanism for this early symptom.
+Research study identifying the role of microglia, brain immune cells, in the olfactory loss often observed in early-stage Alzheimer's disease.  The study indicates a potential mechanism for this early symptom.
 
 Key Points:
 

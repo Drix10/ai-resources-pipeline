@@ -1,6 +1,6 @@
 ### 💡 Cognitive Function - Attention Span Recovery
 
-This article discusses the possibility of regaining focus and attention span despite widespread digital distractions. It emphasizes that with conscious effort, individuals are capable of returning to sustained long-form reading.
+Possibility of regaining focus and attention span despite widespread digital distractions. It emphasizes that with conscious effort, individuals are capable of returning to sustained long-form reading.
 
 Key Points:
 

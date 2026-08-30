@@ -1,6 +1,6 @@
 ### 🤖 Apple iPhone - All-Screen Future Delayed
 
-This article discusses the speculation surrounding an all-screen iPhone following Apple's introduction of the Dynamic Island, and reports on the likely delay in realizing this design.
+Speculation surrounding an all-screen iPhone following Apple's introduction of the Dynamic Island, and reports on the likely delay in realizing this design.
 
 
 Key Points:

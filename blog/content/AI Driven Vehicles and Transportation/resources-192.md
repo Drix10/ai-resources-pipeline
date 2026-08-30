@@ -1,6 +1,6 @@
 ### 🚀 Autonomous Mobility - Q1 2026 Earnings Update
 
-This article provides an overview of WeRide's Q1 2026 earnings, detailing its strong financial performance and continued global expansion in autonomous mobility.
+WeRide's Q1 2026 earnings, detailing its strong financial performance and continued global expansion in autonomous mobility.
 
 Key Points:
 

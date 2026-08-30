@@ -1,6 +1,6 @@
 ### 💡 Geopolitics - International Trust and Nordstream 2
 
-This article discusses geopolitical dynamics concerning trust in international relations, specifically regarding support for Ukraine and historical energy agreements like Nordstream 2. It highlights the perceived lack of trust towards certain political figures involved in these agreements.
+Geopolitical dynamics concerning trust in international relations, specifically regarding support for Ukraine and historical energy agreements like Nordstream 2. It highlights the perceived lack of trust towards certain political figures involved in these agreements.
 
 Key Points:
 

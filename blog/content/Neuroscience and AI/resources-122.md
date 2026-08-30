@@ -1,6 +1,6 @@
 ### 🤖 Neuroscience - Rethinking Brain Area Centrality
 
-This article discusses a new perspective on understanding brain function, moving beyond the traditional focus on localized brain areas. It highlights a paper that proposes a more integrated view of brain activity.
+New perspective on understanding brain function, moving beyond the traditional focus on localized brain areas. It highlights a paper that proposes a more integrated view of brain activity.
 
 Key Points:
 

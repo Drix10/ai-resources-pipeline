@@ -1,6 +1,6 @@
 ### 💡 Product Design - Shifting from Dark Patterns
 
-This article discusses the evolution of product design from relying on dark patterns for engagement to fostering healthier user relationships. It highlights a notable example of this shift in the industry.
+Evolution of product design from relying on dark patterns for engagement to fostering healthier user relationships. It highlights a notable example of this shift in the industry.
 
 Key Points:
 

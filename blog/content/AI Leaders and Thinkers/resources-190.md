@@ -1,6 +1,6 @@
 ### 🤖 AI in Sports - Human-Robot Interaction
 
-This article explores the societal implications of artificial intelligence, specifically in the context of sports umpiring. It discusses the perceived lack of conflict when dealing with automated systems compared to human interactions.
+Societal implications of artificial intelligence, specifically in the context of sports umpiring. It discusses the perceived lack of conflict when dealing with automated systems compared to human interactions.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🎶 Royalty-Free Music - Game Audio Library
 
-This article discusses Evoke Music, a provider of royalty-free music specifically for game developers.  It highlights a new music drop and provides links to recommended tracks and the Evoke Music website.
+Evoke Music, a provider of royalty-free music specifically for game developers.  It highlights a new music drop and provides links to recommended tracks and the Evoke Music website.
 
 
 Key Points:

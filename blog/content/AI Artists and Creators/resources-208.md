@@ -1,6 +1,6 @@
 ### 🤖 AI Simulations - Evolutionary Selection
 
-This article discusses the concept of selective pressures in AI simulations, highlighting how only the most effective or "interesting" models persist. It explores principles of computational evolution within AI contexts.
+Concept of selective pressures in AI simulations, highlighting how only the most effective or "interesting" models persist. It explores principles of computational evolution within AI contexts.
 
 Key Points:
 

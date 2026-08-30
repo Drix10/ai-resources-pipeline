@@ -1,6 +1,6 @@
 ### 🤝 Teamwork - Staffordshire Team Gathering
 
-This article summarizes a team-building event held in Staffordshire, highlighting collaboration and shared experiences.
+Team-building event held in Staffordshire, highlighting collaboration and shared experiences.
 
 Key Points:
 

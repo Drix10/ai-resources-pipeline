@@ -1,6 +1,6 @@
 ### 🤖 Recurrent Reasoning Models - Confidence-Based Voting
 
-This article details a proposed voting method for recurrent reasoning models, such as Hierarchical Recurrent Models (HRM). The approach leverages the model's confidence to enhance the strength and simplicity of the voting mechanism.
+Proposed voting method for recurrent reasoning models, such as Hierarchical Recurrent Models (HRM). The approach leverages the model's confidence to enhance the strength and simplicity of the voting mechanism.
 
 Key Points:
 

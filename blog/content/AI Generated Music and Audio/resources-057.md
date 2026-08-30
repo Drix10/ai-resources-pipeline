@@ -1,6 +1,6 @@
 ### 🤖 Stable Audio Open Small - Arm CPU Optimization
 
-This article discusses the launch of Stable Audio Open Small, a model optimized for Arm CPUs through collaboration with Arm.  It also announces the author's role as an Arm Ambassador.
+Launch of Stable Audio Open Small, a model optimized for Arm CPUs through collaboration with Arm.  It also announces the author's role as an Arm Ambassador.
 
 Key Points:
 

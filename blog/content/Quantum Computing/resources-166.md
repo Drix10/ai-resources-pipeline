@@ -1,6 +1,6 @@
 ### 💡 Critical Information Analysis - Evaluating Digital Content
 
-This article discusses the importance of critically evaluating information encountered online and recognizing potential misinformation. It emphasizes the necessity of maintaining a discerning perspective when consuming digital content.
+Importance of critically evaluating information encountered online and recognizing potential misinformation. It emphasizes the necessity of maintaining a discerning perspective when consuming digital content.
 
 Key Points:
 

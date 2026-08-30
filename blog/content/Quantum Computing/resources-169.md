@@ -1,6 +1,6 @@
 ### 🤖 Quantum Computing Investment - Institutional Buying Analysis
 
-This article examines institutional investment trends in IonQ, a quantum computing company. It highlights the significance of institutional buying for market sentiment and future stock analysis.
+Institutional investment trends in IonQ, a quantum computing company. It highlights the significance of institutional buying for market sentiment and future stock analysis.
 
 Key Points:
 

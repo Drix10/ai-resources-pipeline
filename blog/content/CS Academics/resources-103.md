@@ -1,6 +1,6 @@
 ### 🤖 Randomized Block Krylov - Low-Rank Approximation
 
-This article discusses the performance of Randomized Block Krylov methods in low-rank approximation, focusing on the discrepancy between theoretical analysis and practical results regarding optimal block size.
+Performance of Randomized Block Krylov methods in low-rank approximation, focusing on the discrepancy between theoretical analysis and practical results regarding optimal block size.
 
 Key Points:
 

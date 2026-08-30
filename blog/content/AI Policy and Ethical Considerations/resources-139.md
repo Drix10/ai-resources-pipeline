@@ -1,6 +1,6 @@
 ### 🤖 AI in Documentation - Addressing Note Bloat
 
-This article discusses the increasing use of AI in documentation and the subsequent emergence of "note bloat." It explores the challenges associated with AI-generated content leading to excessive detail in various professional records.
+Increasing use of AI in documentation and the subsequent emergence of "note bloat." It explores the challenges associated with AI-generated content leading to excessive detail in various professional records.
 
 Key Points:
 

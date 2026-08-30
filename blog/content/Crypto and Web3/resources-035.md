@@ -1,6 +1,6 @@
 ### 💡 Energy & Spirituality - Human Energetic Systems
 
-This article explores the concept of the human body as an energetic system, its role in spiritual work, and the potential for divine energy flow.
+Concept of the human body as an energetic system, its role in spiritual work, and the potential for divine energy flow.
 
 Key Points:
 

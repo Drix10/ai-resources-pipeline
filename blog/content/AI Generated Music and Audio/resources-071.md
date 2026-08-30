@@ -1,6 +1,6 @@
 ### 🤖 Agentic AI in Healthcare - Transforming Patient Experiences
 
-This article discusses the use of agentic AI agents to improve patient experiences and streamline workflows in healthcare.  It highlights examples from a webinar featuring Allina Health, Duke Health, and SoundHound AI.
+Use of agentic AI agents to improve patient experiences and streamline workflows in healthcare.  It highlights examples from a webinar featuring Allina Health, Duke Health, and SoundHound AI.
 
 Key Points:
 

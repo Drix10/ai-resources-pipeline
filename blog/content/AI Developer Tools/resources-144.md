@@ -1,6 +1,6 @@
 ### ✨ Dashboard - Sapien Platform Overview
 
-This article provides an overview of the Sapien dashboard, detailing its accessibility and core functionality. It covers the primary interface for managing activities within the Sapien platform.
+The Sapien dashboard, detailing its accessibility and core functionality. It covers the primary interface for managing activities within the Sapien platform.
 
 Key Points:
 

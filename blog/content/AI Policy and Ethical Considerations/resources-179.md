@@ -1,6 +1,6 @@
 ### 💡 News Reporting - Presidential Incident Coverage
 
-This article covers an incident involving a former president and White House press questions. It details the interaction between a reporter and the president regarding a security event.
+Incident involving a former president and White House press questions. It details the interaction between a reporter and the president regarding a security event.
 
 Key Points:
 

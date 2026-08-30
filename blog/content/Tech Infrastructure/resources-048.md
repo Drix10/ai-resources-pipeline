@@ -1,6 +1,6 @@
 ### 🤖 Kubernetes - kubectl-ai
 
-This article discusses kubectl-ai, a tool that simplifies Kubernetes interaction using natural language.  It leverages Google DeepMind's Gemini for processing English commands.
+Kubectl-ai, a tool that simplifies Kubernetes interaction using natural language.  It leverages Google DeepMind's Gemini for processing English commands.
 
 Key Points:
 

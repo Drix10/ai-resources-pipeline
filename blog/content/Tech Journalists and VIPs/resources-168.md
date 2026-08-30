@@ -1,6 +1,6 @@
 ### 💡 Urban Planning - Tokyo Housing Market Dynamics
 
-This article explores Tokyo's unique position as an affordable megacity despite high land costs and its efficient housing permitting processes. It compares Tokyo's approach to housing development with major Western cities like New York City, London, and Paris.
+Tokyo's unique position as an affordable megacity despite high land costs and its efficient housing permitting processes. It compares Tokyo's approach to housing development with major Western cities like New York City, London, and Paris.
 
 Key Points:
 

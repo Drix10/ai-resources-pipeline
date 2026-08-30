@@ -1,6 +1,6 @@
 ### 🤖 State-of-the-Art Models - Building a SOTA Model
 
-This article discusses a state-of-the-art model excelling in both visual and textual understanding, and provides a guide to building a similar model.  Further details regarding the model's specifics are limited in the provided text.
+State-of-the-art model excelling in both visual and textual understanding, and provides a guide to building a similar model.  Further details regarding the model's specifics are limited in the provided text.
 
 Key Points:
 

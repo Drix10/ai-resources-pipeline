@@ -1,6 +1,6 @@
 ### 💡 Funding Strategy - Leveraging Name Recognition
 
-This article discusses a funding strategy that uses the names of prominent investors to attract investment in a startup.
+Funding strategy that uses the names of prominent investors to attract investment in a startup.
 
 Key Points:
 

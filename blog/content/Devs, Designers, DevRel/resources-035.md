@@ -1,6 +1,6 @@
 ### 🤖 AI Research - ChatGPT Emotional Engagement
 
-This article summarizes a research paper on the emotional engagement of ChatGPT users, combining automated analysis of user interactions with a controlled user study.  The findings reveal that emotional engagement with the chatbot is not prevalent.
+Research paper on the emotional engagement of ChatGPT users, combining automated analysis of user interactions with a controlled user study.  The findings reveal that emotional engagement with the chatbot is not prevalent.
 
 Key Points:
 

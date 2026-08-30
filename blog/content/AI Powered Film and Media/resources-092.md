@@ -1,6 +1,6 @@
 ### 🤖 Grok Enhancements - PDF Processing
 
-This article details recent upgrades to Grok 4's PDF processing capabilities, focusing on improved handling of large files and enhanced content recognition.
+Recent upgrades to Grok 4's PDF processing capabilities, focusing on improved handling of large files and enhanced content recognition.
 
 
 Key Points:

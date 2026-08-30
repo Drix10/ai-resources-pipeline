@@ -1,6 +1,6 @@
 ### 💡 Hurricane Preparedness - Caribbean Awareness Tour
 
-This article discusses the start of the 2026 Caribbean Hurricane Awareness Tour. It highlights the importance of early preparation for the upcoming hurricane season.
+Start of the 2026 Caribbean Hurricane Awareness Tour. It highlights the importance of early preparation for the upcoming hurricane season.
 
 Key Points:
 

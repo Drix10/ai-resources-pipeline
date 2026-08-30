@@ -1,6 +1,6 @@
 ### ⚠️ Social Media Consumption - The Depleting Effect
 
-This article discusses the potential negative impact of excessive social media use, highlighting the emotional and mental toll it can take.  The accompanying image depicts a skeletal figure, symbolizing the depletion.
+Potential negative impact of excessive social media use, highlighting the emotional and mental toll it can take.  The accompanying image depicts a skeletal figure, symbolizing the depletion.
 
 Key Points:
 

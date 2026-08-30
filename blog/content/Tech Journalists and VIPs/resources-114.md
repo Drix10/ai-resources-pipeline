@@ -1,6 +1,6 @@
 ### 💡 Political Commentary - Passenger Rail Observation
 
-This article highlights an unusual observation within contemporary political discourse, specifically focusing on a right-wing perspective lamenting the decline of passenger rail. It examines the unexpected alignment of views in a broader political discussion involving historical references.
+Unusual observation within contemporary political discourse, specifically focusing on a right-wing perspective lamenting the decline of passenger rail. It examines the unexpected alignment of views in a broader political discussion involving historical references.
 
 Key Points:
 

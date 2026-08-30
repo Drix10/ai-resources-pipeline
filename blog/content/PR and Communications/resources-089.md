@@ -1,6 +1,6 @@
 ### 🤖 Political Commentary - Buttigieg's Silence on Trans Service Members' Benefits
 
-This article discusses Pete Buttigieg's perceived inaction regarding the denial of early retirement benefits to transgender service members.  It highlights the criticism surrounding his silence on the matter.
+Pete Buttigieg's perceived inaction regarding the denial of early retirement benefits to transgender service members.  It highlights the criticism surrounding his silence on the matter.
 
 Key Points:
 

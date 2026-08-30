@@ -1,6 +1,6 @@
 ### 🚀 Kling AI - Unlimited Free Masterclass
 
-This article details a limited-time offer providing unlimited free access to Kling 2.1 Master in 1080p, including 25 new presets.  The offer lasts seven days.
+Limited-time offer providing unlimited free access to Kling 2.1 Master in 1080p, including 25 new presets.  The offer lasts seven days.
 
 Key Points:
 

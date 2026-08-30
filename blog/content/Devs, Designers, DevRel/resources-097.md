@@ -1,6 +1,6 @@
 ### 🤖 API Updates - Rate Limits and Bug Fixes
 
-This article summarizes recent updates to API rate limits and bug fixes.  It also mentions planned in-app information regarding these limits.
+Recent updates to API rate limits and bug fixes.  It also mentions planned in-app information regarding these limits.
 
 Key Points:
 

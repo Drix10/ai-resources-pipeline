@@ -1,6 +1,6 @@
 ### 💡 Gaming - Parenting Guidelines
 
-This article outlines a new video series from Xbox, created in partnership with clinical psychologist Dr. Becky Kennedy, designed to help parents and caregivers engage with gaming. The series provides guidance on sharing the joy of gaming within families.
+New video series from Xbox, created in partnership with clinical psychologist Dr. Becky Kennedy, designed to help parents and caregivers engage with gaming. The series provides guidance on sharing the joy of gaming within families.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Bing Places - Mobile Friendliness
 
-This article discusses the mobile-friendly update for Bing Places for Business. It highlights the importance of mobile accessibility for local business listings. The update improves how businesses can manage their information on the platform.
+Mobile-friendly update for Bing Places for Business. It highlights the importance of mobile accessibility for local business listings. The update improves how businesses can manage their information on the platform.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Query Performance - Percentile Analysis
 
-This article discusses the interpretation of percentile metrics (p50, p95, p99, p99.9) in the context of query performance and the importance of monitoring all percentiles.  High percentiles can mask performance issues affecting a small percentage of queries.
+Interpretation of percentile metrics (p50, p95, p99, p99.9) in the context of query performance and the importance of monitoring all percentiles.  High percentiles can mask performance issues affecting a small percentage of queries.
 
 Key Points:
 

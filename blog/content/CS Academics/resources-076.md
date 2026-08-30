@@ -1,6 +1,6 @@
 ### 🤖 Physics - Feynman's Universe
 
-This article discusses a poem by Richard Feynman, illustrating the concept of the universe as a collection of atoms, and an atom within the universe.  The article also includes accompanying images.
+Poem by Richard Feynman, illustrating the concept of the universe as a collection of atoms, and an atom within the universe.  The article also includes accompanying images.
 
 Key Points:
 

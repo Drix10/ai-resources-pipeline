@@ -1,6 +1,6 @@
 ### 🤖 AI Regulation - The EU AI Act's Adaptability
 
-This article discusses the EU AI Act, its potential obsolescence, and its capacity to adapt to the rapid advancements in artificial intelligence.  It features commentary from someone involved in shaping the legislation.
+EU AI Act, its potential obsolescence, and its capacity to adapt to the rapid advancements in artificial intelligence.  It features commentary from someone involved in shaping the legislation.
 
 Key Points:
 

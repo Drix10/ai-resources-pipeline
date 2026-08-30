@@ -1,6 +1,6 @@
 ### 🤖 Fleet Management - Asset Utilization
 
-This article discusses fleet asset utilization, methods for measuring it, and strategies for improvement using real-time data and automation.  It focuses on reducing idle time and associated costs.
+Fleet asset utilization, methods for measuring it, and strategies for improvement using real-time data and automation.  It focuses on reducing idle time and associated costs.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Video-Language Models - Advanced Techniques
 
-This article summarizes key discussion points from a webinar on advancements in video-language models, focusing on compression techniques and multimodal reasoning.
+Key discussion points from a webinar on advancements in video-language models, focusing on compression techniques and multimodal reasoning.
 
 Key Points:
 

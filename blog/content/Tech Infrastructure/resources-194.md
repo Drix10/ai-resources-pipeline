@@ -1,6 +1,6 @@
 ### 💡 Event Overview - US 250th Anniversary in DC
 
-This article provides a brief overview of upcoming Independence Day celebrations in Washington D.C., anticipating the 250th anniversary of the United States. It highlights the significance of the event for attendees and the nation.
+Upcoming Independence Day celebrations in Washington D.C., anticipating the 250th anniversary of the United States. It highlights the significance of the event for attendees and the nation.
 
 Key Points:
 

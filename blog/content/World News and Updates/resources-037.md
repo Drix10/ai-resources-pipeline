@@ -1,6 +1,6 @@
 ### ⛪️ Community - Haitian Diaspora Lent Observances
 
-This article summarizes observations of Lent worship services within the Haitian community at Notre Dame d'Haiti church.  It highlights the significance of these services for this specific diaspora.
+Observations of Lent worship services within the Haitian community at Notre Dame d'Haiti church.  It highlights the significance of these services for this specific diaspora.
 
 
 Key Points:

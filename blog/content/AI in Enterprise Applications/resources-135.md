@@ -1,6 +1,6 @@
 ### 🚀 Website Monitoring - Automated Incident Response
 
-This article outlines how to set up monitoring services like Uptime Kuma to automatically trigger incident responses with tools such as Poke/Interaction when services experience downtime. It covers the process of integrating these tools to ensure rapid notification and resolution.
+To set up monitoring services like Uptime Kuma to automatically trigger incident responses with tools such as Poke/Interaction when services experience downtime. It covers the process of integrating these tools to ensure rapid notification and resolution.
 
 Key Points:
 

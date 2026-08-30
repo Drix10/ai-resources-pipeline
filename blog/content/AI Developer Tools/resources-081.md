@@ -1,6 +1,6 @@
 ### 🚀 Tools - Optimizing EKS Workloads with Ray
 
-This article summarizes a technical session focused on optimizing the price-performance of Elastic Kubernetes Service (EKS) workloads using Ray.  The session includes expert strategies, case studies, and a live demo.
+Technical session focused on optimizing the price-performance of Elastic Kubernetes Service (EKS) workloads using Ray.  The session includes expert strategies, case studies, and a live demo.
 
 Key Points:
 

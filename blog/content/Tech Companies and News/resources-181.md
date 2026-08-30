@@ -1,6 +1,6 @@
 ### 🤖 Local AI Models - Edge Inference
 
-This article discusses the trend of running AI models directly on edge devices, exemplified by Tesla's autonomous systems. It highlights the research focus on developing smaller models suitable for local execution without continuous external connectivity.
+Trend of running AI models directly on edge devices, exemplified by Tesla's autonomous systems. It highlights the research focus on developing smaller models suitable for local execution without continuous external connectivity.
 
 Key Points:
 

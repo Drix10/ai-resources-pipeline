@@ -1,6 +1,6 @@
 ### 🤖 Energy Storage - Vanadium Redox Flow Batteries
 
-This article provides a brief overview of vanadium redox flow batteries (VRFBs), highlighting their design and operational characteristics.
+Vanadium redox flow batteries (VRFBs), highlighting their design and operational characteristics.
 
 Key Points:
 

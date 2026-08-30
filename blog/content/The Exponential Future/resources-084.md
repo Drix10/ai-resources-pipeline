@@ -1,6 +1,6 @@
 ### 🤖 AI-Assisted Content Creation - Short Film Production
 
-This article discusses the creation of a short film using AI assistance, highlighting the tools and process involved.  The project leveraged AI for content generation and showcases the combined effort of AI and human creativity.
+Creation of a short film using AI assistance, highlighting the tools and process involved.  The project leveraged AI for content generation and showcases the combined effort of AI and human creativity.
 
 Key Points:
 

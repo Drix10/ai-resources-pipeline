@@ -1,6 +1,6 @@
 ### 🤖 Robotics Simulation Infrastructure - Pose Management
 
-This article provides a high-level overview of robotics simulation infrastructure, detailing an elementary example for improved pose management within such systems. It emphasizes practices that lead to more robust and efficient simulation environments.
+High-level overview of robotics simulation infrastructure, detailing an elementary example for improved pose management within such systems. It emphasizes practices that lead to more robust and efficient simulation environments.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 National Security - Collaboration in Technology Development
 
-This article discusses the importance of collaboration between technologists and military personnel in solving national security challenges.  The growth of Vannevar Labs since its Series B funding is highlighted.
+Importance of collaboration between technologists and military personnel in solving national security challenges.  The growth of Vannevar Labs since its Series B funding is highlighted.
 
 Key Points:
 

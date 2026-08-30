@@ -1,6 +1,6 @@
 ### 🤖 AI Ethics - Biometric Supply Chain
 
-This article discusses the ethical implications and supply chain dynamics of AI access, particularly focusing on biometric data. It highlights how access control mechanisms can lead to evasion and exploitation.
+Ethical implications and supply chain dynamics of AI access, particularly focusing on biometric data. It highlights how access control mechanisms can lead to evasion and exploitation.
 
 Key Points:
 

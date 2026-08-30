@@ -1,6 +1,6 @@
 ### 🤖 AI Investments - Leading AI Companies
 
-This article discusses strategic investments in prominent artificial intelligence companies, including xAI, Anthropic, and OpenAI. It highlights the focus on supporting key players in the generative AI landscape.
+Strategic investments in prominent artificial intelligence companies, including xAI, Anthropic, and OpenAI. It highlights the focus on supporting key players in the generative AI landscape.
 
 Key Points:
 

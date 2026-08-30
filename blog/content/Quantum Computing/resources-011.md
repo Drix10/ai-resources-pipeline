@@ -1,6 +1,6 @@
 ### 🤖 Quantum Computing - Deep Space Mission Applications
 
-This article discusses the potential use of a hybrid quantum approach to assist astronauts on deep space missions.  The application of quantum computing in this context is briefly explored.
+Potential use of a hybrid quantum approach to assist astronauts on deep space missions.  The application of quantum computing in this context is briefly explored.
 
 Key Points:
 

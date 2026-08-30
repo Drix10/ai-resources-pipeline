@@ -1,6 +1,6 @@
 ### 💡 Digital Literacy - Evaluating Online Information
 
-This article provides guidance on critically evaluating information encountered in digital spaces. It emphasizes the importance of verifying claims and understanding the context behind online statements to ensure accuracy.
+Guidance on critically evaluating information encountered in digital spaces. It emphasizes the importance of verifying claims and understanding the context behind online statements to ensure accuracy.
 
 Key Points:
 

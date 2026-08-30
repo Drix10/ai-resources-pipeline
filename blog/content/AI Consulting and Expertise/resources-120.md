@@ -1,6 +1,6 @@
 ### 🤖 Fine-tuning - Model Quality Comparison
 
-This article outlines the importance of layer quality metrics when fine-tuning models, ensuring performance is maintained or improved. It specifically compares an instruction fine-tuned model against its base version to evaluate these metrics.
+Importance of layer quality metrics when fine-tuning models, ensuring performance is maintained or improved. It specifically compares an instruction fine-tuned model against its base version to evaluate these metrics.
 
 Key Points:
 

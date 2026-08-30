@@ -1,6 +1,6 @@
 ### 💡 Energy Policy - German Energy Transition Analysis
 
-This article discusses the current state of electricity prices and power generation mixes in Germany and France. It highlights the challenges Germany faces in its energy transition strategy.
+Current state of electricity prices and power generation mixes in Germany and France. It highlights the challenges Germany faces in its energy transition strategy.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Social Systems - Prediction & Intervention Workshop
 
-This article details a free workshop livestream from the Simons Institute focused on bridging prediction and intervention problems within social systems. It covers the key areas of discussion and the participating organizations.
+Free workshop livestream from the Simons Institute focused on bridging prediction and intervention problems within social systems. It covers the key areas of discussion and the participating organizations.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 XRP Project Updates - Barron and XRP Degens
 
-This article summarizes updates from $BARRON, an XRP project, and XRP Degens, a value-based XRP Ledger (XRPL) token assessment group.  It includes visuals of their platform and highlights key announcements.
+Updates from $BARRON, an XRP project, and XRP Degens, a value-based XRP Ledger (XRPL) token assessment group.  It includes visuals of their platform and highlights key announcements.
 
 Key Points:
 

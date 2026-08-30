@@ -1,6 +1,6 @@
 ### 💡 Discussion Roundup - MTS Broadcast Highlights
 
-This article summarizes key topics discussed in the MTS 4/21 broadcast. It covers recent developments related to OAI, and notable figures such as Shkreli, Taylor Lorenz, and Signüll.
+Key topics discussed in the MTS 4/21 broadcast. It covers recent developments related to OAI, and notable figures such as Shkreli, Taylor Lorenz, and Signüll.
 
 Key Points:
 

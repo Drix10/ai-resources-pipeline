@@ -1,6 +1,6 @@
 ### 💡 Financial Mindset - Rich Dad Blueprint Principles
 
-This article examines Robert Kiyosaki's core conclusion regarding the wealth disparity observed over decades. It focuses on the fundamental mindset shift that distinguishes affluent individuals from those facing financial struggles.
+Robert Kiyosaki's core conclusion regarding the wealth disparity observed over decades. It focuses on the fundamental mindset shift that distinguishes affluent individuals from those facing financial struggles.
 
 Key Points:
 

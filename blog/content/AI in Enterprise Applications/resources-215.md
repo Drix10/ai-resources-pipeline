@@ -1,6 +1,6 @@
 ### 💡 User Interfaces - Conversational Paradigm
 
-This article discusses the current evolution of user interfaces. It highlights the trend of traditional UIs converging into chat-based application models.
+Current evolution of user interfaces. It highlights the trend of traditional UIs converging into chat-based application models.
 
 Key Points:
 • User interfaces are evolving from traditional graphical models.

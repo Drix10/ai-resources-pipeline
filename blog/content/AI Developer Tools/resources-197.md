@@ -1,6 +1,6 @@
 ### 💡 AI Agents - Delegating Tasks
 
-This article explores the concept of using AI agents to automate workflows, allowing users to delegate numerous tasks. It emphasizes shifting focus from manual execution to strategic oversight.
+Concept of using AI agents to automate workflows, allowing users to delegate numerous tasks. It emphasizes shifting focus from manual execution to strategic oversight.
 
 Key Points:
 

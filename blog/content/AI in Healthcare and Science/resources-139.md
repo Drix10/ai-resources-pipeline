@@ -1,6 +1,6 @@
 ### 💡 Digital Health - Cardiac Care at CES
 
-This article outlines the significant shift in health technology showcased at this year's CES, moving the focus from capabilities to patient and clinician integration. It examines major trends that will shape the future of cardiac care.
+Significant shift in health technology showcased at this year's CES, moving the focus from capabilities to patient and clinician integration. It examines major trends that will shape the future of cardiac care.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Content Creation - Technical Influencers
 
-This article highlights a prominent figure in technical content creation, emphasizing their influence and contributions to the community. It acknowledges the value of individuals who share knowledge and engage with an audience.
+Prominent figure in technical content creation, emphasizing their influence and contributions to the community. It acknowledges the value of individuals who share knowledge and engage with an audience.
 
 Key Points:
 

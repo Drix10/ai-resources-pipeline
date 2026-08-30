@@ -1,6 +1,6 @@
 ### 🤖 AI Hype - Reality Check
 
-This article discusses the perceived bursting of the AI hype bubble in Silicon Valley, highlighting the limitations of current probabilistic systems and suggesting a shift towards a more realistic assessment of AI capabilities.
+Perceived bursting of the AI hype bubble in Silicon Valley, highlighting the limitations of current probabilistic systems and suggesting a shift towards a more realistic assessment of AI capabilities.
 
 Key Points:
 

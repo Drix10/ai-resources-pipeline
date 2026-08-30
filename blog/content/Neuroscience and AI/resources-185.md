@@ -1,6 +1,6 @@
 ### 🤖 Meningococcal B Vaccine - Neisseria gonorrhoeae Infection Prevention
 
-This article covers research on the effectiveness of the meningococcal B vaccine in preventing *Neisseria gonorrhoeae* infection. The study provides data on cross-protection between the vaccines and the bacteria.
+Research on the effectiveness of the meningococcal B vaccine in preventing *Neisseria gonorrhoeae* infection. The study provides data on cross-protection between the vaccines and the bacteria.
 
 Key Points:
 

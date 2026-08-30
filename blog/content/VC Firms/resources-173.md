@@ -1,6 +1,6 @@
 ### 🚀 SpaceX - Valuation & Stock Split
 
-This article discusses recent reports regarding SpaceX's target valuation and potential stock split. It provides an overview of the financial implications for its shares.
+Recent reports regarding SpaceX's target valuation and potential stock split. It provides an overview of the financial implications for its shares.
 
 Key Points:
 

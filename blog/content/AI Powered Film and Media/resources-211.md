@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Adaptive Control Systems
 
-This article details the development of a new robotic control system. This system enables legged robots to adapt their movements to new tasks without requiring additional retraining.
+Development of a new robotic control system. This system enables legged robots to adapt their movements to new tasks without requiring additional retraining.
 
 Key Points:
 • A new robotic control system has been developed.

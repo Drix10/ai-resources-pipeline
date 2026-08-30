@@ -1,6 +1,6 @@
 ### 🤖 Robotics - ARMS IN A BOX Manufacturing Initiative
 
-This article details the initial specifications and goals of a robotic manufacturing initiative using Gemini2 for inspiration.  The project aims to build a robotic arm capable of performing simple assembly tasks.
+Initial specifications and goals of a robotic manufacturing initiative using Gemini2 for inspiration.  The project aims to build a robotic arm capable of performing simple assembly tasks.
 
 Key Points:
 

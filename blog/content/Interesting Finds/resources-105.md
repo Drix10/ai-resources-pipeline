@@ -1,6 +1,6 @@
 ### 🤖 Space Exploration - Mars Communications Orbiter
 
-This article discusses NASA's plan for a new Mars communications orbiter, including the potential involvement of Blue Origin.  The plan is funded through a recent budget reconciliation bill.
+NASA's plan for a new Mars communications orbiter, including the potential involvement of Blue Origin.  The plan is funded through a recent budget reconciliation bill.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Cell Tracking - Uncertainty Quantification
 
-This article discusses methods for incorporating uncertainty quantification into cell tracking algorithms to improve the reliability of live-cell microscopy data analysis.  The focus is on expressing when a cell tracking algorithm is unsure about its predictions.
+Methods for incorporating uncertainty quantification into cell tracking algorithms to improve the reliability of live-cell microscopy data analysis.  The focus is on expressing when a cell tracking algorithm is unsure about its predictions.
 
 Key Points:
 

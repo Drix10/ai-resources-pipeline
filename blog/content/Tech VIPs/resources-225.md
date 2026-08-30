@@ -1,6 +1,6 @@
 ### 🤖 Data Centers - AI Infrastructure Expansion
 
-This article discusses the accelerating expansion of data center infrastructure. It highlights the strategic importance of these facilities for national security and competitiveness, particularly in the context of AI.
+Accelerating expansion of data center infrastructure. It highlights the strategic importance of these facilities for national security and competitiveness, particularly in the context of AI.
 
 Key Points:
 • Data center construction is increasing rapidly for new capacities.

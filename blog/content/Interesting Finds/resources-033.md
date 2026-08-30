@@ -1,6 +1,6 @@
 ### 🤖 US Government - Presidential Appointments
 
-This article details the process for appointing a Vice President of the United States.
+Process for appointing a Vice President of the United States.
 
 Key Points:
 

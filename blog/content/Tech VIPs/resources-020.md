@@ -1,6 +1,6 @@
 ### 🤖 Economics - Tariffs and Sales Tax
 
-This article discusses the potential impact of tariffs on products from Mexico and Canada on consumers in Colorado.  It mentions a sales tax increase linked to these tariffs.
+Potential impact of tariffs on products from Mexico and Canada on consumers in Colorado.  It mentions a sales tax increase linked to these tariffs.
 
 Key Points:
 

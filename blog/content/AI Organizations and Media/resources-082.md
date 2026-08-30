@@ -1,6 +1,6 @@
 ### 🤖 Cybernetics - Art and AI
 
-This article discusses the 1968 Cybernetic Serendipity exhibition and its relevance to modern work with Large Language Models (LLMs).  The exhibition explored the intersection of cybernetics and art, a concept with parallels in current AI development.
+1968 Cybernetic Serendipity exhibition and its relevance to modern work with Large Language Models (LLMs).  The exhibition explored the intersection of cybernetics and art, a concept with parallels in current AI development.
 
 Key Points:
 

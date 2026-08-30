@@ -1,6 +1,6 @@
 ### 🤖 AI Development - Dynamic Workflows in Claude Code
 
-This article explores the concept of dynamic workflows within the Claude Code environment. It focuses on how developers can implement flexible and adaptable processes for various coding tasks using AI.
+Concept of dynamic workflows within the Claude Code environment. It focuses on how developers can implement flexible and adaptable processes for various coding tasks using AI.
 
 Key Points:
 

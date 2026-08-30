@@ -1,6 +1,6 @@
 ### 🌎 Geopolitics - Zelensky's War Strategy
 
-This article summarizes a commentary on Ukrainian President Zelenskyy's communication regarding the ongoing war.  It focuses on the perceived messaging strategy and its potential impact.
+Commentary on Ukrainian President Zelenskyy's communication regarding the ongoing war.  It focuses on the perceived messaging strategy and its potential impact.
 
 Key Points:
 

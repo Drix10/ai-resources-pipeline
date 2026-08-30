@@ -1,6 +1,6 @@
 ### 🚀 AI for Content Creation - Podcast Promotional Assets
 
-This article highlights Jasper's role in accelerating the launch of "Cardiac Cowboys," a new podcast from iHeartMedia and OSO Studios. It explains how Jasper's automation capabilities facilitated the rapid scripting of promotional assets.
+Jasper's role in accelerating the launch of "Cardiac Cowboys," a new podcast from iHeartMedia and OSO Studios. It explains how Jasper's automation capabilities facilitated the rapid scripting of promotional assets.
 
 Key Points:
 

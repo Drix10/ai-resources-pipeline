@@ -1,6 +1,6 @@
 ### 💡 Brand History - Nike's Holiday Dominance
 
-This article explores Nike's historical market presence and how the brand successfully dominated holiday seasons in the past. It provides insight into the enduring impact of established brand strategies.
+Nike's historical market presence and how the brand successfully dominated holiday seasons in the past. It provides insight into the enduring impact of established brand strategies.
 
 Key Points:
 

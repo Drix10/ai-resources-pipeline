@@ -1,6 +1,6 @@
 ### ✨ Augmented Reality - Educational Activities
 
-This article explores Quiver's augmented reality (AR) enhanced STEM activities designed to boost students' skills. It details how these engaging activities combine physical coloring with digital interaction to create playful learning experiences.
+Quiver's augmented reality (AR) enhanced STEM activities designed to boost students' skills. It details how these engaging activities combine physical coloring with digital interaction to create playful learning experiences.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ SIGGRAPH 2024 - Unveiling New Content
 
-This article summarizes the announcement of new content developed and showcased at SIGGRAPH 2024.  Significant investment in time and resources was dedicated to this project.
+Announcement of new content developed and showcased at SIGGRAPH 2024.  Significant investment in time and resources was dedicated to this project.
 
 Key Points:
 

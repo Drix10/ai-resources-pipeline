@@ -1,6 +1,6 @@
 ### 🗣️ Social Issues - Academic Discourse on Standard English
 
-This article discusses a situation where a Black professor's advocacy for teaching standard English to Black students is met with accusations of racism.  The interview linked provides further context.
+Situation where a Black professor's advocacy for teaching standard English to Black students is met with accusations of racism.  The interview linked provides further context.
 
 Key Points:
 

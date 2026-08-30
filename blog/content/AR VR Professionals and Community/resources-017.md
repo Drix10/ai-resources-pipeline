@@ -1,6 +1,6 @@
 ### 🤖 Social Security - Funding and Solvency
 
-This article discusses the solvency of the Social Security system and a proposed solution to ensure its long-term viability.  The core argument is that removing the income cap on Social Security taxes could significantly improve its financial health.
+Solvency of the Social Security system and a proposed solution to ensure its long-term viability.  The core argument is that removing the income cap on Social Security taxes could significantly improve its financial health.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🌎 Geopolitics - Canada's Aid to Ukraine
 
-This article summarizes Canada's recent announcement regarding military and financial aid to Ukraine.  The announcement details significant financial contributions and the provision of military equipment.
+Canada's recent announcement regarding military and financial aid to Ukraine.  The announcement details significant financial contributions and the provision of military equipment.
 
 Key Points:
 

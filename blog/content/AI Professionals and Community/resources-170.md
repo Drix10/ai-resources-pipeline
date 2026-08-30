@@ -1,6 +1,6 @@
 ### 🤖 Technical Equipment - Operation Discovery
 
-This article discusses the initial steps and considerations when encountering unfamiliar technical equipment. It provides general guidance on approaching new machinery for operational understanding.
+Initial steps and considerations when encountering unfamiliar technical equipment. It provides general guidance on approaching new machinery for operational understanding.
 
 Key Points:
 

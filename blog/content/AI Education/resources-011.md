@@ -1,6 +1,6 @@
 ### 🤖 AI Agent Enhancement - OriginTrail Integration
 
-This article details the integration of the Gavun WUD agent with OriginTrail's Decentralized Knowledge Graph (DKG), highlighting the improvements in data processing, verification, and response accuracy.
+Integration of the Gavun WUD agent with OriginTrail's Decentralized Knowledge Graph (DKG), highlighting the improvements in data processing, verification, and response accuracy.
 
 Key Points:
 

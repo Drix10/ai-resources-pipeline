@@ -1,6 +1,6 @@
 ### 🤖 AI Video Generation - Veo 2 Pricing
 
-This article discusses Google's Veo 2, an AI-powered video creation tool, and its pricing structure.  The focus is on the cost-effectiveness of the technology.
+Google's Veo 2, an AI-powered video creation tool, and its pricing structure.  The focus is on the cost-effectiveness of the technology.
 
 Key Points:
 

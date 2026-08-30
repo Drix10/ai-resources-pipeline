@@ -1,6 +1,6 @@
 ### 🤖 Political Advertising - Proposed Legal Action
 
-This article discusses a proposed legal action against the Democratic National Committee (DNC) for allegedly negligent omission of political advertising.  The proposed ads would feature Elon Musk and imagery relating to the impact on social security and healthcare benefits.
+Proposed legal action against the Democratic National Committee (DNC) for allegedly negligent omission of political advertising.  The proposed ads would feature Elon Musk and imagery relating to the impact on social security and healthcare benefits.
 
 Key Points:
 

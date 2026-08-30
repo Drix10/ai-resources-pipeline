@@ -1,6 +1,6 @@
 ### 🤖 AI App Development - Feedback on Bolt and Expo
 
-This article summarizes feedback on using Bolt and Expo for building a chat application, highlighting both positive and negative aspects of the development process.  The feedback is based on a video review.
+Feedback on using Bolt and Expo for building a chat application, highlighting both positive and negative aspects of the development process.  The feedback is based on a video review.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🔪 Violence - Attack on University Dean
 
-This article summarizes a reported knife attack on a university dean in Niš, Serbia.  Police apprehended the assailant. Witness accounts suggest threats of acid attack were also made.
+Reported knife attack on a university dean in Niš, Serbia.  Police apprehended the assailant. Witness accounts suggest threats of acid attack were also made.
 
 Key Points:
 

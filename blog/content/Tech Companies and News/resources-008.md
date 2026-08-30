@@ -1,6 +1,6 @@
 ### 📺 Consumer Electronics - TCL QM6K Television Review
 
-This article summarizes a review of the TCL QM6K television, highlighting its key features and overall performance.  The review emphasizes color accuracy, black levels, and backlight control.
+Review of the TCL QM6K television, highlighting its key features and overall performance.  The review emphasizes color accuracy, black levels, and backlight control.
 
 Key Points:
 

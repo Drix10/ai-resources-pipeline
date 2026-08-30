@@ -1,6 +1,6 @@
 ### 💡 Market Dynamics - Community Slang and Bidding Behavior
 
-This article explores the use of informal terminology within online financial and trading communities. It aims to clarify common slang and its application in describing market participation dynamics.
+Use of informal terminology within online financial and trading communities. It aims to clarify common slang and its application in describing market participation dynamics.
 
 Key Points:
 

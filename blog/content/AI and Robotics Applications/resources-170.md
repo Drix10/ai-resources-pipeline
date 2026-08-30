@@ -1,6 +1,6 @@
 ### 💡 Education - Challenge-Based Learning for Youth
 
-This article explores the principle that growth is accelerated through challenges rather than comfort, emphasizing the role of pressure in fostering new ideas. It advocates for engaging students in practical arenas to develop their skills and potential.
+Principle that growth is accelerated through challenges rather than comfort, emphasizing the role of pressure in fostering new ideas. It advocates for engaging students in practical arenas to develop their skills and potential.
 
 Key Points:
 

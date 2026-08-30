@@ -1,6 +1,6 @@
 ### 🤖 Detection Foundation - Multi-Part Series
 
-This article covers a multi-part series on establishing robust security detection capabilities. It discusses common challenges, essential Windows security logging, PowerShell and script logging, and the utility of Sysmon.
+Multi-part series on establishing robust security detection capabilities. It discusses common challenges, essential Windows security logging, PowerShell and script logging, and the utility of Sysmon.
 
 Key Points:
 

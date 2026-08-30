@@ -1,6 +1,6 @@
 ### 🤖 Decentralized Compute - AI Agents
 
-This article discusses a panel discussion at DeAI Day focusing on the future of AI agents and decentralized compute, specifically scalable inference on decentralized GPUs.  The discussion involved leaders from various AI and blockchain companies.
+Panel discussion at DeAI Day focusing on the future of AI agents and decentralized compute, specifically scalable inference on decentralized GPUs.  The discussion involved leaders from various AI and blockchain companies.
 
 Key Points:
 

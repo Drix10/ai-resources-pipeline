@@ -1,6 +1,6 @@
 ### 💡 Social Commentary - AI's Cultural Significance
 
-This article discusses Peter Thiel's perspective on the current fixation with AI, suggesting it's a response to a perceived lack of cultural movement.  It explores the implications of this focus and the aspirations associated with AI advancements.
+Peter Thiel's perspective on the current fixation with AI, suggesting it's a response to a perceived lack of cultural movement.  It explores the implications of this focus and the aspirations associated with AI advancements.
 
 Key Points:
 

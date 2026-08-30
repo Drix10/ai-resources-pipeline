@@ -1,6 +1,6 @@
 ### 🤖 Virtual Cell Dataset - Community Collaboration
 
-This article highlights the development of a virtual cell dataset, from initial concept to community engagement.  It showcases the collaborative efforts and progress made.
+Development of a virtual cell dataset, from initial concept to community engagement.  It showcases the collaborative efforts and progress made.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 🤖 Spectroscopy - Food Safety Analysis
 
-This article discusses the application of spectroscopy in ensuring food safety.  High-quality spectroscopic data provides the accuracy needed for effective analysis.
+Application of spectroscopy in ensuring food safety.  High-quality spectroscopic data provides the accuracy needed for effective analysis.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 🤖 Augmented Reality - Historical Preservation
 
-This article explores how augmented reality (AR) technology is used to create immersive historical experiences. It details the application of AR to bring historical figures to life in urban environments.
+Augmented reality (AR) technology is used to create immersive historical experiences. It details the application of AR to bring historical figures to life in urban environments.
 
 Key Points:
 

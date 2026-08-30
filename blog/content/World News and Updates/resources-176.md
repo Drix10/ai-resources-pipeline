@@ -1,6 +1,6 @@
 ### 💡 National Identity - Political Discourse
 
-This article discusses recent political statements regarding national identity and domestic challenges made on the eve of America's 250th anniversary. It summarizes the concerns raised about internal threats to the country.
+Recent political statements regarding national identity and domestic challenges made on the eve of America's 250th anniversary. It summarizes the concerns raised about internal threats to the country.
 
 Key Points:
 

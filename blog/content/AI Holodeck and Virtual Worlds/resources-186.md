@@ -1,6 +1,6 @@
 ### 🤖 AI - Fundamental Concepts
 
-This article discusses the fundamental nature of AI operations, clarifying that its capabilities stem from predictive models rather than human-like learning. It outlines the core mechanism behind AI successes.
+Fundamental nature of AI operations, clarifying that its capabilities stem from predictive models rather than human-like learning. It outlines the core mechanism behind AI successes.
 
 Key Points:
 

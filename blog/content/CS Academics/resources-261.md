@@ -1,6 +1,6 @@
 ### ✨ The Backrooms - Aesthetic and Design
 
-This article discusses the concept of The Backrooms, an aesthetic that merges nostalgia with novelty. Its visual style draws parallels to pseudo-3D game rendering techniques from early console eras. The design relies on familiar yet unsettling environments.
+Concept of The Backrooms, an aesthetic that merges nostalgia with novelty. Its visual style draws parallels to pseudo-3D game rendering techniques from early console eras. The design relies on familiar yet unsettling environments.
 
 Key Points:
 

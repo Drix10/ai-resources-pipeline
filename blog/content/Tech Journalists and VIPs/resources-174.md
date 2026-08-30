@@ -1,6 +1,6 @@
 ### 💡 Corporate Strategy - Headcount Management and Progression
 
-This article examines historical corporate practices where managerial progression was often linked to increasing departmental headcount. It explores the rationale behind this approach within corporate structures.
+Historical corporate practices where managerial progression was often linked to increasing departmental headcount. It explores the rationale behind this approach within corporate structures.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 📚 Books - February Amazon Idea List
 
-This article summarizes a February Amazon Idea List containing over 120 book titles.  The list is curated for diverse tastes.  Additional lists covering music and games are also available.
+February Amazon Idea List containing over 120 book titles.  The list is curated for diverse tastes.  Additional lists covering music and games are also available.
 
 Key Points:
 

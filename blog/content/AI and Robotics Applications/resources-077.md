@@ -1,6 +1,6 @@
 ### 🤖 Skill Acquisition - The Limitations of Video Tutorials
 
-This article discusses the limitations of learning highly specialized skills, such as logging and rigging, solely through online video tutorials.  It highlights the inadequacy of short video clips in conveying the necessary depth and complexity of such professions.
+Limitations of learning highly specialized skills, such as logging and rigging, solely through online video tutorials.  It highlights the inadequacy of short video clips in conveying the necessary depth and complexity of such professions.
 
 Key Points:
 

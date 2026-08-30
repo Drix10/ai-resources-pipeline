@@ -1,6 +1,6 @@
 ### 🚀 SIGGRAPH 2025 - Proposal Resources
 
-This article provides resources to help secure approval to attend SIGGRAPH 2025, whether in-person or virtually.  It highlights tools designed to demonstrate the benefits of attendance.
+Resources to help secure approval to attend SIGGRAPH 2025, whether in-person or virtually.  It highlights tools designed to demonstrate the benefits of attendance.
 
 Key Points:
 

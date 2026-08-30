@@ -1,6 +1,6 @@
 ### 🤖 AI Teammates - holaOS Beta 0.1 Launch
 
-This article covers the launch of holaOS Beta 0.1, the first product version of an open-source agent computer. It introduces the concept of AI teammates designed for sustained work over time, rather than single-session tasks.
+Launch of holaOS Beta 0.1, the first product version of an open-source agent computer. It introduces the concept of AI teammates designed for sustained work over time, rather than single-session tasks.
 
 Key Points:
 

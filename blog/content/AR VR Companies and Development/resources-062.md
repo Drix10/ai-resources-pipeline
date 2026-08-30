@@ -1,6 +1,6 @@
 ### 🤖 Playoff.gg - Weapon Statistics in NeoTokyo
 
-This article details a Twitch stream showcasing the number of shots required to kill opponents with each weapon in the Playoff.gg game, within the NeoTokyo context.  The information is presented by ThaiVikings.
+Twitch stream showcasing the number of shots required to kill opponents with each weapon in the Playoff.gg game, within the NeoTokyo context.  The information is presented by ThaiVikings.
 
 Key Points:
 

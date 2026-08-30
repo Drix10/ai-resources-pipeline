@@ -1,6 +1,6 @@
 ### 💡 Collaboration vs. Competition - Strategic Choices
 
-This article examines the dichotomy between collaboration and competition, exploring the factors influencing strategic choices in environments of abundance and scarcity.
+Dichotomy between collaboration and competition, exploring the factors influencing strategic choices in environments of abundance and scarcity.
 
 Key Points:
 

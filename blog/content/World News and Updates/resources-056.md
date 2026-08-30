@@ -1,6 +1,6 @@
 ### 🤖 Politics - US Air Force One Acquisition
 
-This article discusses the Pentagon's acceptance of a Boeing 747 from Qatar as a potential replacement for Air Force One, highlighting the ensuing constitutional concerns and congressional criticism.
+Pentagon's acceptance of a Boeing 747 from Qatar as a potential replacement for Air Force One, highlighting the ensuing constitutional concerns and congressional criticism.
 
 Key Points:
 

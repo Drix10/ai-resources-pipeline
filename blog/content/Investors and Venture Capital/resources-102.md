@@ -1,6 +1,6 @@
 ### 📈 Finance - Increased Crypto Investor Interest
 
-This article discusses the significant increase in investor interest in crypto investments observed over the past four years.
+Significant increase in investor interest in crypto investments observed over the past four years.
 
 Key Points:
 

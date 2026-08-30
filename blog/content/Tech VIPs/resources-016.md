@@ -1,6 +1,6 @@
 ### 💡 Political Activism - Overcoming Hard-Left Groups
 
-This article discusses the experience of overcoming a hard-left political group's actions, focusing on the timeline of events and the eventual dissolution of the group.
+Experience of overcoming a hard-left political group's actions, focusing on the timeline of events and the eventual dissolution of the group.
 
 Key Points:
 

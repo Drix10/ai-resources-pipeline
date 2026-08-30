@@ -1,6 +1,6 @@
 ### 🤖 Mass Deportation - Historical Context and Resistance
 
-This article examines the historical context of mass deportation and suggests that resistance to such operations is possible, despite their seeming inevitability.  It references a Nation article detailing the Trump administration's deportation plans.
+Historical context of mass deportation and suggests that resistance to such operations is possible, despite their seeming inevitability.  It references a Nation article detailing the Trump administration's deportation plans.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Opportunity Zones - Quick Overview
 
-This article provides a concise summary of Opportunity Zones, based on a podcast discussion.  It covers key insights and relevant links.
+Concise summary of Opportunity Zones, based on a podcast discussion.  It covers key insights and relevant links.
 
 Key Points:
 

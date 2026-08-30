@@ -1,6 +1,6 @@
 ### 💡 Health - Ultra-Processed Foods and Cognitive Decline
 
-This article summarizes research linking the consumption of ultra-processed foods to an increased risk of cognitive decline and related health issues.  The study followed a large cohort to assess this correlation.
+Research linking the consumption of ultra-processed foods to an increased risk of cognitive decline and related health issues.  The study followed a large cohort to assess this correlation.
 
 Key Points:
 

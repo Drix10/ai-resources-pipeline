@@ -1,6 +1,6 @@
 ### 🤖 Neuroscience - Reversing Age-Related Brain Decline
 
-This article discusses a scientific study showing that reducing the protein FTL1 in the hippocampus of aged mice led to improved memory function and neural connections.  The findings suggest potential avenues for combating age-related cognitive decline.
+Scientific study showing that reducing the protein FTL1 in the hippocampus of aged mice led to improved memory function and neural connections.  The findings suggest potential avenues for combating age-related cognitive decline.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Solana Education - Graduation from Solana School
 
-This article discusses the completion of Solana School Season 7, highlighting the learning experience and community aspect.  It also mentions the opening of the Season 8 waitlist.
+Completion of Solana School Season 7, highlighting the learning experience and community aspect.  It also mentions the opening of the Season 8 waitlist.
 
 Key Points:
 

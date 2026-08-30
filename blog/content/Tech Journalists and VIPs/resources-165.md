@@ -1,6 +1,6 @@
 ### 💡 Business Strategy - Overcoming "One-Hit Wonder" Syndrome
 
-This article discusses Airbnb's challenge despite its significant market success and the need to diversify beyond a single core offering. It highlights the strategic imperative to avoid becoming a "one-hit wonder."
+Airbnb's challenge despite its significant market success and the need to diversify beyond a single core offering. It highlights the strategic imperative to avoid becoming a "one-hit wonder."
 
 Key Points:
 

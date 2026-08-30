@@ -1,6 +1,6 @@
 ### 💡 Prompt Engineering - Example-Based Prompts
 
-This article discusses the effectiveness of using examples instead of lengthy explanations when prompting Large Language Models (LLMs).  It suggests that providing examples leverages the model's training data more efficiently.
+Effectiveness of using examples instead of lengthy explanations when prompting Large Language Models (LLMs).  It suggests that providing examples leverages the model's training data more efficiently.
 
 Key Points:
 

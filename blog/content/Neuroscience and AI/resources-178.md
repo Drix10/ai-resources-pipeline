@@ -1,6 +1,6 @@
 ### 🤖 Medical Research - Dementia Biomarker
 
-This article discusses new research identifying a blood protein in middle-aged individuals that may indicate a future risk of developing dementia. The findings could lead to earlier detection methods for neurodegenerative conditions.
+New research identifying a blood protein in middle-aged individuals that may indicate a future risk of developing dementia. The findings could lead to earlier detection methods for neurodegenerative conditions.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Functional Genomics - Interview Highlights
 
-This article highlights an interview led by a Postdoctoral Fellow in the Functional Genomics group, emphasizing contributions to ongoing research and scientific discourse. It provides an opportunity to discover more about their work.
+Interview led by a Postdoctoral Fellow in the Functional Genomics group, emphasizing contributions to ongoing research and scientific discourse. It provides an opportunity to discover more about their work.
 
 Key Points:
 

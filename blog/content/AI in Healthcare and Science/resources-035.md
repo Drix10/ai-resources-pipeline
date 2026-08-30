@@ -1,6 +1,6 @@
 ### 🤖 Google Health - Vision for Healthier Lives
 
-This article discusses Google's mission to leverage technology to improve global health outcomes, as shared by their Chief Health Officer at The CheckUp.
+Google's mission to leverage technology to improve global health outcomes, as shared by their Chief Health Officer at The CheckUp.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Tesla Optimus - Charging Port Location
 
-This article discusses the uncertainty surrounding the location of the charging port on Tesla's Optimus robot, as highlighted in a tweet by Elon Musk.
+Uncertainty surrounding the location of the charging port on Tesla's Optimus robot, as highlighted in a tweet by Elon Musk.
 
 Key Points:
 

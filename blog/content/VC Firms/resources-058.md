@@ -1,6 +1,6 @@
 ### 🤖 Venture Capital - Series A Funding Decline
 
-This article discusses the significant drop in Series A funding rates for enterprise IT and VC companies, exploring potential causes and the evolving definition of success in the venture capital landscape.  Data from Peter J. Walker is referenced.
+Significant drop in Series A funding rates for enterprise IT and VC companies, exploring potential causes and the evolving definition of success in the venture capital landscape.  Data from Peter J. Walker is referenced.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚨 UK Privacy - Apple Data Security Compromise
 
-This article discusses the removal of Apple's highest-level data security tool in the UK due to government demands for user data access.  This unprecedented action raises concerns about data privacy and security.
+Removal of Apple's highest-level data security tool in the UK due to government demands for user data access.  This unprecedented action raises concerns about data privacy and security.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 🤖 LLM Workflows - Vulnerability Discovery
 
-This article details the application of custom Large Language Model (LLM) workflows in cybersecurity, specifically focusing on their use in uncovering critical vulnerabilities such as those found in VMSVGA.
+Application of custom Large Language Model (LLM) workflows in cybersecurity, specifically focusing on their use in uncovering critical vulnerabilities such as those found in VMSVGA.
 
 Key Points:
 

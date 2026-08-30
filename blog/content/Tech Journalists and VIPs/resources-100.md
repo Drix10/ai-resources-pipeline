@@ -1,6 +1,6 @@
 ### 🤖 Navy Sailor Convicted of Espionage - Case Details
 
-This article summarizes the conviction of a U.S. Navy sailor for passing classified information to a Chinese spy.  The sailor shared sensitive data, including details about weapons systems, obtained from his service aboard the USS Essex.
+Conviction of a U.S. Navy sailor for passing classified information to a Chinese spy.  The sailor shared sensitive data, including details about weapons systems, obtained from his service aboard the USS Essex.
 
 
 Key Points:

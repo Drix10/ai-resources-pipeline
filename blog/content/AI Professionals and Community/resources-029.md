@@ -1,6 +1,6 @@
 ### 💡 Notebooks - Code Development Practices
 
-This article discusses the drawbacks of using Jupyter notebooks for software development, highlighting how they can lead to inefficient and less maintainable code.  It compares notebook use to ordering fast food—convenient but not always the best choice for a healthy and robust outcome.
+Drawbacks of using Jupyter notebooks for software development, highlighting how they can lead to inefficient and less maintainable code.  It compares notebook use to ordering fast food—convenient but not always the best choice for a healthy and robust outcome.
 
 Key Points:
 

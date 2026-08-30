@@ -1,6 +1,6 @@
 ### 🤖 Building Backends - Recommendation Engine in 80 LOC
 
-This article details a tutorial on building a scalable, fault-tolerant, and ACID-compliant recommendation engine using Rama in Clojure and Java, requiring only 80 lines of code.
+Tutorial on building a scalable, fault-tolerant, and ACID-compliant recommendation engine using Rama in Clojure and Java, requiring only 80 lines of code.
 
 
 Key Points:

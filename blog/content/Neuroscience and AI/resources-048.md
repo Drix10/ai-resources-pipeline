@@ -1,6 +1,6 @@
 ### 🧠 Neuroscience - Visual Perception During Running
 
-This article discusses the phenomenon of visual perception while running, specifically addressing why the visual world might or might not appear to bounce up and down.  It explores relevant concepts from the podcast "Inner Cosmos."
+Phenomenon of visual perception while running, specifically addressing why the visual world might or might not appear to bounce up and down.  It explores relevant concepts from the podcast "Inner Cosmos."
 
 
 Key Points:

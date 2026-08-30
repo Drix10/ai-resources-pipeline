@@ -1,6 +1,6 @@
 ### 🚀 AI Role-Play Coaches - Internal Enablement
 
-This article discusses the application of AI role-play coaches for internal team training. It highlights how these tools can significantly improve training completion rates and engagement within an organization.
+Application of AI role-play coaches for internal team training. It highlights how these tools can significantly improve training completion rates and engagement within an organization.
 
 Key Points:
 

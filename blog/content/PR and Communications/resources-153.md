@@ -1,6 +1,6 @@
 ### 🤖 AI Security - Shadow AI Risk Detection
 
-This article discusses the financial implications of undetected shadow AI incidents, which exceed the costs of standard data breaches. It addresses the challenge faced by many enterprises in systematically identifying misbehaving AI models before significant damage occurs.
+Financial implications of undetected shadow AI incidents, which exceed the costs of standard data breaches. It addresses the challenge faced by many enterprises in systematically identifying misbehaving AI models before significant damage occurs.
 
 Key Points:
 

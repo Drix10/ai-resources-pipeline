@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics - US Foreign Policy Shift
 
-This article discusses the shift in US foreign policy under the Trump administration, focusing on the rebalancing of commitments from Europe to the Far East and the strategy of containing China.
+Shift in US foreign policy under the Trump administration, focusing on the rebalancing of commitments from Europe to the Far East and the strategy of containing China.
 
 
 Key Points:

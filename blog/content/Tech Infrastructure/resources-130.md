@@ -1,6 +1,6 @@
 ### 🤖 AI Datacenters - Power as a Gating Factor
 
-This article examines the primary constraint in AI datacenter expansion, highlighting how energy access, rather than capital, dictates development. It discusses the projected growth and underlying influences on timelines within the hyperscale and cloud sectors.
+Primary constraint in AI datacenter expansion, highlighting how energy access, rather than capital, dictates development. It discusses the projected growth and underlying influences on timelines within the hyperscale and cloud sectors.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Vehicle Engineering - Aluminum Frame Alloys
 
-This article discusses aluminum alloy selection for vehicle frame components based on deformation characteristics. It focuses on different alloys required for varying bending geometries.
+Aluminum alloy selection for vehicle frame components based on deformation characteristics. It focuses on different alloys required for varying bending geometries.
 
 Key Points:
 

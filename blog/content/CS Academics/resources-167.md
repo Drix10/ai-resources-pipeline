@@ -1,6 +1,6 @@
 ### ✨ Sports - Celebrity Game Winners 2026
 
-This article highlights Team Giannis's victory in the 2026 Ruffles Celebrity Game. It covers the outcome of the event, celebrating the winning team's performance.
+Team Giannis's victory in the 2026 Ruffles Celebrity Game. It covers the outcome of the event, celebrating the winning team's performance.
 
 Key Points:
 

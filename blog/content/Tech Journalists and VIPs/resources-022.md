@@ -1,6 +1,6 @@
 ### 📺 Entertainment - The Apprentice Returns
 
-This article discusses the return of the Emmy-nominated reality television show, The Apprentice, starring Donald Trump, now streaming on Prime Video.
+Return of the Emmy-nominated reality television show, The Apprentice, starring Donald Trump, now streaming on Prime Video.
 
 Key Points:
 

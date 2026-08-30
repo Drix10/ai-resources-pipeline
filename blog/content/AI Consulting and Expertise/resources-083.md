@@ -1,6 +1,6 @@
 ### 💡 Career Advice - Navigating Low-Status Roles
 
-This article discusses strategies for navigating low-status roles, drawing from advice by @catehall and additional personal experiences.  It focuses on mindset shifts and practical techniques to improve one's situation.
+Strategies for navigating low-status roles, drawing from advice by @catehall and additional personal experiences.  It focuses on mindset shifts and practical techniques to improve one's situation.
 
 Key Points:
 

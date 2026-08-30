@@ -1,6 +1,6 @@
 ### 🤖 Theoretical Physics - Higher Dimensions
 
-This article discusses a hypothetical scenario involving a 24-cell projection and its implications for our understanding of reality.  The text suggests a limitation imposed by our perception of three spatial dimensions.
+Hypothetical scenario involving a 24-cell projection and its implications for our understanding of reality.  The text suggests a limitation imposed by our perception of three spatial dimensions.
 
 Key Points:
 

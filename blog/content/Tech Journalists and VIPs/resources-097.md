@@ -1,6 +1,6 @@
 ### 🌎 Geopolitics - Russia, India, and Oil Supply Chains
 
-This article discusses the geopolitical implications of Russia's oil production and India's consumption, highlighting concerns about unilateral actions and their impact on global supply chains.  A statement by Roman regarding the West's actions is included.
+Geopolitical implications of Russia's oil production and India's consumption, highlighting concerns about unilateral actions and their impact on global supply chains.  A statement by Roman regarding the West's actions is included.
 
 
 Key Points:

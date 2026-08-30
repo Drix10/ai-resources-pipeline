@@ -1,6 +1,6 @@
 ### ✨ CRE Industry Event - Crexi at ICSC Las Vegas
 
-This article summarizes Crexi's presence at the ICSC event in Las Vegas, highlighting their booth and platform for CRE professionals.
+Crexi's presence at the ICSC event in Las Vegas, highlighting their booth and platform for CRE professionals.
 
 
 Key Points:

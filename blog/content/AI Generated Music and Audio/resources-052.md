@@ -1,6 +1,6 @@
 ### 🚀 Tools - AI-Powered Music Scene Generation
 
-This article discusses Freebeat AI, an AI platform for generating music scenes.  The platform offers a simple workflow and produces visually stunning results.  A music video example is provided.
+Freebeat AI, an AI platform for generating music scenes.  The platform offers a simple workflow and produces visually stunning results.  A music video example is provided.
 
 Key Points:
 

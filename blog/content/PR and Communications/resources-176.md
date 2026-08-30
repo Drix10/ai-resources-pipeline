@@ -1,6 +1,6 @@
 ### 💡 Employment - Giving Notice Implications
 
-This article examines the professional implications and common concerns employees face when resigning from a position. It focuses on the potential for immediate termination after tendering notice.
+Professional implications and common concerns employees face when resigning from a position. It focuses on the potential for immediate termination after tendering notice.
 
 Key Points:
 

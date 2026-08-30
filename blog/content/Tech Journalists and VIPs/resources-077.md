@@ -1,6 +1,6 @@
 ### 🤖 Healthcare - AI-Powered Clinic
 
-This article discusses CarePod, an AI-powered clinic offering various tests without human intervention.  The process involves self-administered tests with data transmitted remotely.
+CarePod, an AI-powered clinic offering various tests without human intervention.  The process involves self-administered tests with data transmitted remotely.
 
 Key Points:
 

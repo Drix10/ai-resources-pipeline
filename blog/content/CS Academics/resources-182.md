@@ -1,6 +1,6 @@
 ### ✨ NBA History - Kevin Durant's Scoring Milestone
 
-This article outlines Kevin Durant's recent achievement of entering the top 5 on the NBA's all-time scoring list. It details the significance of surpassing Michael Jordan and his place in basketball history.
+Kevin Durant's recent achievement of entering the top 5 on the NBA's all-time scoring list. It details the significance of surpassing Michael Jordan and his place in basketball history.
 
 Key Points:
 

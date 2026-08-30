@@ -1,6 +1,6 @@
 ### 🚀 SaaS Scaling - Rapid Growth Strategies
 
-This article discusses the challenges and strategies involved in scaling a SaaS business to $20k MRR and achieving an exit within 90 days.  The focus is on the intense effort required to meet such aggressive targets.
+Challenges and strategies involved in scaling a SaaS business to $20k MRR and achieving an exit within 90 days.  The focus is on the intense effort required to meet such aggressive targets.
 
 Key Points:
 

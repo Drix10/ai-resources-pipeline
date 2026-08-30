@@ -1,6 +1,6 @@
 ### 🤖 AI Models - Qwen3.6-35B-A3B Trends
 
-This article highlights Qwen3.6-35B-A3B's achievement as the top trending model on Hugging Face, acknowledging the community's support in its recognition.
+Qwen3.6-35B-A3B's achievement as the top trending model on Hugging Face, acknowledging the community's support in its recognition.
 
 Key Points:
 

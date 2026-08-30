@@ -1,6 +1,6 @@
 ### 💡 Financial Assistance Request - Grocery Needs
 
-This article details a request for financial assistance to cover essential grocery items.  The requester is in need of milk, bread, and sugar.
+Request for financial assistance to cover essential grocery items.  The requester is in need of milk, bread, and sugar.
 
 Key Points:
 

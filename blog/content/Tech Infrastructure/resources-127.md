@@ -1,6 +1,6 @@
 ### 💡 Platform Traffic - Resource Scaling Implications
 
-This article discusses the hypothetical scenario of a major platform facing reduced traffic and its potential impact on infrastructure choices. It examines the operational adjustments that might occur in response to changes in user engagement.
+Hypothetical scenario of a major platform facing reduced traffic and its potential impact on infrastructure choices. It examines the operational adjustments that might occur in response to changes in user engagement.
 
 Key Points:
 

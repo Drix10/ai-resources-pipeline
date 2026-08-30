@@ -1,6 +1,6 @@
 ### 🚀 Commercial Real Estate - Platform Features & Event Highlights
 
-This article outlines Crexi's active December, highlighting engagement at ICSC New York and the capabilities of Crexi's PRO, Intelligence, and Auction platforms in streamlining commercial real estate processes.
+Crexi's active December, highlighting engagement at ICSC New York and the capabilities of Crexi's PRO, Intelligence, and Auction platforms in streamlining commercial real estate processes.
 
 Key Points:
 

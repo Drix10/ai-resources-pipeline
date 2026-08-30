@@ -1,6 +1,6 @@
 ### 🤖 Generative AI - Enterprise Application Use Cases
 
-This article summarizes part 3 of a blog series on implementing Generative AI in enterprise applications.  It provides implementation steps and helpful resources.
+Part 3 of a blog series on implementing Generative AI in enterprise applications.  It provides implementation steps and helpful resources.
 
 Key Points:
 

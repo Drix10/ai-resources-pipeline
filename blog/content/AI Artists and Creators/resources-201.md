@@ -1,6 +1,6 @@
 ### 💡 Geopolitics - NATO Membership Discussion
 
-This article discusses a contemporary commentary regarding NATO membership, presenting a viewpoint that suggests a re-evaluation of the alliance.
+Contemporary commentary regarding NATO membership, presenting a viewpoint that suggests a re-evaluation of the alliance.
 
 Key Points:
 

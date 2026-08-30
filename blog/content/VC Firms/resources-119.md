@@ -1,6 +1,6 @@
 ### 🤖 Project Management - Dart AI-Powered Tool
 
-This article provides a brief overview of Dart, a project management tool incorporating AI for planning and task completion.  The tool is described as having AI integrated throughout its functionality.
+Dart, a project management tool incorporating AI for planning and task completion.  The tool is described as having AI integrated throughout its functionality.
 
 Key Points:
 

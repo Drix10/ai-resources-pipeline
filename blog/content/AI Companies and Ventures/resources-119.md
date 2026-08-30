@@ -1,6 +1,6 @@
 ### 🤖 Edge AI - Human-Wildlife Acoustic Monitoring
 
-This article details the creation of an Edge AI acoustic monitor designed to mitigate human-wildlife conflict. It explains how the system detects animals in real time using ultra-low-power, field-ready technology.
+Creation of an Edge AI acoustic monitor designed to mitigate human-wildlife conflict. It explains how the system detects animals in real time using ultra-low-power, field-ready technology.
 
 Key Points:
 

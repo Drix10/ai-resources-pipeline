@@ -1,6 +1,6 @@
 ### 🤖 AI and Automation - Impact on Various Jobs
 
-This article discusses the potential impact of AI-powered humanoid robots on various job sectors, highlighting the need for proactive planning.
+Potential impact of AI-powered humanoid robots on various job sectors, highlighting the need for proactive planning.
 
 Key Points:
 

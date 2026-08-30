@@ -1,6 +1,6 @@
 ### 🤖 AI Models - Qwen3-coder-next Performance
 
-This article covers the operational performance and capabilities of the Qwen3-coder-next model. It details observations regarding its stability, effectiveness in development environments, and handling of specific technical challenges.
+Operational performance and capabilities of the Qwen3-coder-next model. It details observations regarding its stability, effectiveness in development environments, and handling of specific technical challenges.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Agents and the Future of Software
 
-This article discusses the evolving role of AI agents in software development and their impact on future software design.  It briefly touches upon the shift from user-centric design to agent-assisted workflows.
+Evolving role of AI agents in software development and their impact on future software design.  It briefly touches upon the shift from user-centric design to agent-assisted workflows.
 
 
 Key Points:

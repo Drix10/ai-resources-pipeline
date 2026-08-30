@@ -1,6 +1,6 @@
 ### 🤖 MAGA Movement - Internal Conflict
 
-This article summarizes recent public and private conflicts within the MAGA movement, highlighting prominent figures and their disagreements.  The information is based on publicly available social media posts.
+Recent public and private conflicts within the MAGA movement, highlighting prominent figures and their disagreements.  The information is based on publicly available social media posts.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Worldcoin Mini App Program - Developer Incentives
 
-This article details a program offering incentives for developers building mini-apps for Worldcoin's 12M+ verified users.  It outlines the benefits and resources provided.
+Program offering incentives for developers building mini-apps for Worldcoin's 12M+ verified users.  It outlines the benefits and resources provided.
 
 Key Points:
 

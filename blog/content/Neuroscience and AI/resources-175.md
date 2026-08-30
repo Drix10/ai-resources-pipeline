@@ -1,6 +1,6 @@
 ### 💡 Medical Guidelines - Public Input Opportunity
 
-This article highlights an opportunity to provide input on two draft medical guidelines. It covers proposed guidelines related to therapies for Spinal Muscular Atrophy and genetic testing for Cerebral Palsy.
+Opportunity to provide input on two draft medical guidelines. It covers proposed guidelines related to therapies for Spinal Muscular Atrophy and genetic testing for Cerebral Palsy.
 
 Key Points:
 

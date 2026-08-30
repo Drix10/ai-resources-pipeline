@@ -1,6 +1,6 @@
 ### 🤖 AI Research -  AI Model Abilities
 
-This article summarizes a Harvard and MIT study on the capabilities of AI models in 2025, highlighting key findings.  The researchers aimed to assess the current state and future potential of AI.
+Harvard and MIT study on the capabilities of AI models in 2025, highlighting key findings.  The researchers aimed to assess the current state and future potential of AI.
 
 Key Points:
 

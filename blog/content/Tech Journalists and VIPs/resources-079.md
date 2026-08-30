@@ -1,6 +1,6 @@
 ### 🇨🇳 China - Flood Relief and Party Oath
 
-This article discusses the actions of Chinese soldiers during flood relief efforts in Guizhou on July 1st, emphasizing the "Party members go first, troops go first" principle.  The event coincided with the CPC's founding day.
+Actions of Chinese soldiers during flood relief efforts in Guizhou on July 1st, emphasizing the "Party members go first, troops go first" principle.  The event coincided with the CPC's founding day.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 🤖 AI Game Worlds - Real-time Generation
 
-This article discusses Yan, an AI capable of generating high-fidelity game worlds in real time.  The research paper "Yan: Foundational Interactive Video Generation" details its capabilities.
+Yan, an AI capable of generating high-fidelity game worlds in real time.  The research paper "Yan: Foundational Interactive Video Generation" details its capabilities.
 
 Key Points:
 

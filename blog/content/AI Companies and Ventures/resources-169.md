@@ -1,6 +1,6 @@
 ### 🤖 Akash Network - Burn Mint Equilibrium Tokenomics
 
-This article discusses the activation of Burn Mint Equilibrium on Akash Network, a significant update to its tokenomics model. It explains how compute spending now integrates with the $AKT token.
+Activation of Burn Mint Equilibrium on Akash Network, a significant update to its tokenomics model. It explains how compute spending now integrates with the $AKT token.
 
 Key Points:
 

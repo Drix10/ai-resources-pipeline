@@ -1,6 +1,6 @@
 ### 🤖 Creator Platform Rules - Enforcement and Consequences
 
-This article discusses the consequences of rule violations on a creator platform, specifically focusing on the impact on engagement payouts.  It highlights the financial repercussions for creators who violate platform rules.
+Consequences of rule violations on a creator platform, specifically focusing on the impact on engagement payouts.  It highlights the financial repercussions for creators who violate platform rules.
 
 Key Points:
 

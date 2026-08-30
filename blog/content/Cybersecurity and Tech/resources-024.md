@@ -1,6 +1,6 @@
 ### 📚 Books - Philadelphia, IRA, and The Troubles
 
-This article discusses a newly released book exploring the connection between Philadelphia and the IRA during The Troubles.  The author is a journalist and writer.
+Newly released book exploring the connection between Philadelphia and the IRA during The Troubles.  The author is a journalist and writer.
 
 Key Points:
 

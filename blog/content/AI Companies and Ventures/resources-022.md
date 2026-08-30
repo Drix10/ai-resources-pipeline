@@ -1,6 +1,6 @@
 ### 🤖 AI and API Interaction - Simplified API Integration
 
-This article details a simplified method for teaching AI to interact with any new API or codebase using readily available tools.  The process involves compressing the repository and documentation into text files for AI processing.
+Simplified method for teaching AI to interact with any new API or codebase using readily available tools.  The process involves compressing the repository and documentation into text files for AI processing.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ Sports News - Cristiano Ronaldo's World Cup Preparation
 
-This article details Cristiano Ronaldo's training regimen as he prepares for his sixth World Cup appearance. It outlines Portugal's upcoming friendly match and their initial schedule for the World Cup 2026.
+Cristiano Ronaldo's training regimen as he prepares for his sixth World Cup appearance. It outlines Portugal's upcoming friendly match and their initial schedule for the World Cup 2026.
 
 Key Points:
 

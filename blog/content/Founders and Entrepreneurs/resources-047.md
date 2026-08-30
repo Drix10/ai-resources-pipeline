@@ -1,6 +1,6 @@
 ### 🤖 Google Search - Degraded Results
 
-This article discusses allegations that Google intentionally degraded search results to boost ad revenue and performance, citing this as a factor in a recent antitrust case.  The claim suggests a trade-off between user experience and profit maximization.
+Allegations that Google intentionally degraded search results to boost ad revenue and performance, citing this as a factor in a recent antitrust case.  The claim suggests a trade-off between user experience and profit maximization.
 
 Key Points:
 

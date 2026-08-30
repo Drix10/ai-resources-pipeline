@@ -1,6 +1,6 @@
 ### 🤖 History of Computing - Claude Shannon's Legacy
 
-This article covers the early life and academic pursuits of Claude Shannon, a pivotal figure in information theory. It highlights his foundational master's thesis that connected Boolean algebra with electrical circuits, establishing the basis for modern digital computing.
+Early life and academic pursuits of Claude Shannon, a pivotal figure in information theory. It highlights his foundational master's thesis that connected Boolean algebra with electrical circuits, establishing the basis for modern digital computing.
 
 Key Points:
 

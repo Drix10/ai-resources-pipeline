@@ -1,6 +1,6 @@
 ### 🤖 Motion Capture - Hybrid Productions
 
-This article discusses Marey, a motion capture and motion transfer tool designed for hybrid productions.  It highlights its capabilities and the production behind it.
+Marey, a motion capture and motion transfer tool designed for hybrid productions.  It highlights its capabilities and the production behind it.
 
 Key Points:
 

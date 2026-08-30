@@ -1,6 +1,6 @@
 ### 🤖 Reinforcement Learning - Costly Experiments
 
-This article discusses the high computational cost of Reinforcement Learning from Human Feedback (RLHF) and Reinforcement Learning from Language Models (RLLM) experiments, and the need for robust scaling laws to mitigate this cost.  The use of random seeds and error bars is highlighted as crucial for achieving this robustness.
+High computational cost of Reinforcement Learning from Human Feedback (RLHF) and Reinforcement Learning from Language Models (RLLM) experiments, and the need for robust scaling laws to mitigate this cost.  The use of random seeds and error bars is highlighted as crucial for achieving this robustness.
 
 Key Points:
 

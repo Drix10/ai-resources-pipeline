@@ -1,6 +1,6 @@
 ### 🤖 Food Technology - Precision Fermentation in Whey Production
 
-This article covers advancements in precision fermentation for whey production, highlighting significant improvements achieved by Vivici using technology from Enduro Genetics. It details the boost in titers and yield, showcasing progress in sustainable food solutions.
+Advancements in precision fermentation for whey production, highlighting significant improvements achieved by Vivici using technology from Enduro Genetics. It details the boost in titers and yield, showcasing progress in sustainable food solutions.
 
 Key Points:
 

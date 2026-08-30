@@ -1,6 +1,6 @@
 ### 💡 Brand Loyalty - Shifting Consumer Behavior
 
-This article examines the impact of price sensitivity on brand loyalty and highlights a key indicator of potential conversion opportunities: shoppers observed at multiple competitors within a short timeframe.
+Impact of price sensitivity on brand loyalty and highlights a key indicator of potential conversion opportunities: shoppers observed at multiple competitors within a short timeframe.
 
 Key Points:
 

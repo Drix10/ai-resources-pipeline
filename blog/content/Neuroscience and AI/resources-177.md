@@ -1,6 +1,6 @@
 ### 🤖 Science Publishing - Erratum on Photoswitched Conductivity
 
-This article discusses an erratum issued by Science for a 2016 report on photoswitched conductivity in single-molecule junctions. It highlights the correction of previously published scientific findings.
+Erratum issued by Science for a 2016 report on photoswitched conductivity in single-molecule junctions. It highlights the correction of previously published scientific findings.
 
 Key Points:
 

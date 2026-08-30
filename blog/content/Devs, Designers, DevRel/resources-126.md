@@ -1,6 +1,6 @@
 ### 💡 Legal Action - H-1B Proclamation Challenge
 
-This article details the recent filing of a lawsuit challenging the H-1B proclamation. It highlights the collaborative effort of various stakeholders involved in this significant legal undertaking.
+Recent filing of a lawsuit challenging the H-1B proclamation. It highlights the collaborative effort of various stakeholders involved in this significant legal undertaking.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Internet Safety - UMANITEK's Approach
 
-This article discusses UMANITEK's approach to setting the standard for internet safety in the age of rapidly evolving artificial intelligence.  The text highlights the challenges posed by generative AI and the need for enhanced online safety measures.
+UMANITEK's approach to setting the standard for internet safety in the age of rapidly evolving artificial intelligence.  The text highlights the challenges posed by generative AI and the need for enhanced online safety measures.
 
 
 Key Points:

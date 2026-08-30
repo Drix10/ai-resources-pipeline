@@ -1,6 +1,6 @@
 ### ⚠️ Geopolitics - Russia's War in Ukraine
 
-This article summarizes a Twitter thread discussing Russia's multifaceted war against Ukraine, extending beyond military conflict to encompass sabotage, propaganda, and economic coercion.
+Twitter thread discussing Russia's multifaceted war against Ukraine, extending beyond military conflict to encompass sabotage, propaganda, and economic coercion.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Alibaba Qwen QwQ-32B
 
-This article discusses the newly released open-source Alibaba Qwen QwQ-32B large language model, highlighting its performance and accessibility.
+Newly released open-source Alibaba Qwen QwQ-32B large language model, highlighting its performance and accessibility.
 
 Key Points:
 

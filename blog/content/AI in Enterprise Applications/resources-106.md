@@ -1,6 +1,6 @@
 ### 🚀 Gauge - Increased AI Answer Visibility
 
-This article examines how Gauge helped a company increase its visibility in AI answers by five times in under a month.  The results demonstrate a significant improvement in search engine optimization within the context of AI-generated responses.
+Gauge helped a company increase its visibility in AI answers by five times in under a month.  The results demonstrate a significant improvement in search engine optimization within the context of AI-generated responses.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Generative AI - Creator Economy Challenges
 
-This article discusses the significant problems that generative AI, specifically YouTube's Gemini Omni integration, poses for the creator economy. It highlights the emerging issues and potential impacts on content creators.
+Significant problems that generative AI, specifically YouTube's Gemini Omni integration, poses for the creator economy. It highlights the emerging issues and potential impacts on content creators.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ NBA Highlight - Jaylin Williams Performance
 
-This article highlights Jaylin Williams' career-best performance in a recent NBA game. It details his significant contribution to the Oklahoma City Thunder, impacting the game's outcome.
+Jaylin Williams' career-best performance in a recent NBA game. It details his significant contribution to the Oklahoma City Thunder, impacting the game's outcome.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Powder Coating - CCAI Wisconsin Chapter Experience
 
-This article summarizes the experience of the CCAI Wisconsin Chapter using SimSpray for powder coating applications.  The article references a blog post detailing their findings.
+Experience of the CCAI Wisconsin Chapter using SimSpray for powder coating applications.  The article references a blog post detailing their findings.
 
 Key Points:
 

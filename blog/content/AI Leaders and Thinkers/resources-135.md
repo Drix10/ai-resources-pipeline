@@ -1,6 +1,6 @@
 ### 🤖 Research Paper - Full Text Access
 
-This article provides direct access to a research paper on Arxiv, allowing readers to review the full details and findings. It ensures that the comprehensive context of the study is available for deeper understanding.
+Direct access to a research paper on Arxiv, allowing readers to review the full details and findings. It ensures that the comprehensive context of the study is available for deeper understanding.
 
 Key Points:
 

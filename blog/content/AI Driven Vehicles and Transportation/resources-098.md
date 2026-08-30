@@ -1,6 +1,6 @@
 ### 🤖 Fine-tuning GPT-OSS - A Step-by-Step Guide
 
-This article provides a step-by-step guide on fine-tuning the OpenAI GPT-OSS model, covering local training, inference, evaluation, hyperparameters, and data preparation.  It also discusses saving the fine-tuned LLM.
+Step-by-step guide on fine-tuning the OpenAI GPT-OSS model, covering local training, inference, evaluation, hyperparameters, and data preparation.  It also discusses saving the fine-tuned LLM.
 
 Key Points:
 

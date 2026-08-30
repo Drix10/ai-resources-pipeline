@@ -1,6 +1,6 @@
 ### 🤖 Manufacturing - Employment Decline
 
-This article explores a statement regarding the decline of manufacturing employment in America, contrasting it with a past expectation of substantial manual labor in the manufacturing sector.  The image included shows a relevant graph.
+Statement regarding the decline of manufacturing employment in America, contrasting it with a past expectation of substantial manual labor in the manufacturing sector.  The image included shows a relevant graph.
 
 Key Points:
 

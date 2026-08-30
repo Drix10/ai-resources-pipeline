@@ -1,6 +1,6 @@
 ### 🤖 Future of Transportation - Global Factors
 
-This article explores the multifaceted future of transportation, examining how global elements such as fluctuating oil prices and geopolitical conflicts significantly influence its trajectory. It highlights the intricate connections between international events and the evolution of transport systems.
+Multifaceted future of transportation, examining how global elements such as fluctuating oil prices and geopolitical conflicts significantly influence its trajectory. It highlights the intricate connections between international events and the evolution of transport systems.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Political Communication - Euphemism in Troop Deployment
 
-This article examines the use of euphemistic language in political communication regarding military deployments. It highlights how terms are crafted to minimize the perceived scope of involvement.
+Use of euphemistic language in political communication regarding military deployments. It highlights how terms are crafted to minimize the perceived scope of involvement.
 
 Key Points:
 

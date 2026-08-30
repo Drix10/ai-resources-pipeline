@@ -1,6 +1,6 @@
 ### 🤖 AI Risk Assessment - Control and Extinction
 
-This article discusses concerns regarding the control of superintelligent AI and the potential risk of human extinction.  Different perspectives on the probability of these outcomes are presented.
+Concerns regarding the control of superintelligent AI and the potential risk of human extinction.  Different perspectives on the probability of these outcomes are presented.
 
 Key Points:
 

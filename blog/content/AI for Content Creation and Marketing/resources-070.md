@@ -1,6 +1,6 @@
 ### 🚀 Outreach - Startup Audience Engagement
 
-This article discusses OutreachGuy, a tool designed to assist startups in maintaining consistent communication with their audience.  It aims to reduce the time spent on outreach tasks.
+OutreachGuy, a tool designed to assist startups in maintaining consistent communication with their audience.  It aims to reduce the time spent on outreach tasks.
 
 Key Points:
 

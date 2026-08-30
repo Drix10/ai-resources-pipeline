@@ -1,6 +1,6 @@
 ### 💡 Personal Growth - The Power of Attention
 
-This article discusses the profound impact of attention on personal development. It highlights how focusing attention shapes values and identity.
+Profound impact of attention on personal development. It highlights how focusing attention shapes values and identity.
 
 Key Points:
 

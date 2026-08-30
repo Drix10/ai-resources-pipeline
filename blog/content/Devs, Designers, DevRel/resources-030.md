@@ -1,6 +1,6 @@
 ### 💡 Childhood Friendships - Socioeconomic Disparity
 
-This article discusses an anecdote highlighting socioeconomic disparities affecting children's participation in school activities.  The story illustrates the impact of financial limitations on equal access to educational opportunities.
+Anecdote highlighting socioeconomic disparities affecting children's participation in school activities.  The story illustrates the impact of financial limitations on equal access to educational opportunities.
 
 
 Key Points:

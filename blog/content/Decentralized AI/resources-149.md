@@ -1,6 +1,6 @@
 ### 🚀 AI Trading - Copy Trading Performance
 
-This article highlights the significant financial performance of a specific trader and introduces the concept of replicating their success through copy trading. It encourages users to consider implementing proven trading strategies.
+Significant financial performance of a specific trader and introduces the concept of replicating their success through copy trading. It encourages users to consider implementing proven trading strategies.
 
 Key Points:
 

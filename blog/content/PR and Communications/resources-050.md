@@ -1,6 +1,6 @@
 ### 🐴 Social Media - Horse Selfies
 
-This article discusses a lighthearted social media post about the positive impact of horse selfies on one's day.
+Lighthearted social media post about the positive impact of horse selfies on one's day.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Social Commentary - Accountability for Inaction
 
-This article discusses a perspective on the ethical implications of remaining silent in the face of perceived injustice, specifically regarding the lack of vocal opposition to radical ideologies.  The author presents a viewpoint, not necessarily advocating for or against it.
+Perspective on the ethical implications of remaining silent in the face of perceived injustice, specifically regarding the lack of vocal opposition to radical ideologies.  The author presents a viewpoint, not necessarily advocating for or against it.
 
 Key Points:
 

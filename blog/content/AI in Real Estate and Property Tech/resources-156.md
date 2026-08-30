@@ -1,6 +1,6 @@
 ### ✨ Interior Design - Staircase Renovation
 
-This article focuses on enhancing staircase aesthetics through modern design principles. It provides insights into transforming staircases to better integrate with home interiors and elevate overall appeal.
+Enhancing staircase aesthetics through modern design principles. It provides insights into transforming staircases to better integrate with home interiors and elevate overall appeal.
 
 Key Points:
 

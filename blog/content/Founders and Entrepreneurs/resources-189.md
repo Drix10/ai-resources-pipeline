@@ -1,6 +1,6 @@
 ### 💡 Venture Capital - Y Combinator as a Seed Investor
 
-This article discusses the perceived value of Y Combinator as a seed-stage investor for startups. It highlights the general sentiment regarding their involvement on a company's cap table.
+Perceived value of Y Combinator as a seed-stage investor for startups. It highlights the general sentiment regarding their involvement on a company's cap table.
 
 Key Points:
 

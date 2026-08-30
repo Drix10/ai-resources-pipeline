@@ -1,6 +1,6 @@
 ### 💡 Interviews - Quality Matters
 
-This article discusses the author's experience with job interviews, highlighting a particularly high-quality interview experience.
+Author's experience with job interviews, highlighting a particularly high-quality interview experience.
 
 
 Key Points:

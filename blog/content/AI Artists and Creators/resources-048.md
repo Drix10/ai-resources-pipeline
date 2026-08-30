@@ -1,6 +1,6 @@
 ### 🤖 AI-Powered Browser - FellouAI Research Capabilities
 
-This article discusses FellouAI, a browser integrating AI agents to automate complex tasks such as in-depth research across multiple platforms.  It highlights the browser's capabilities beyond typical search and browsing functions.
+FellouAI, a browser integrating AI agents to automate complex tasks such as in-depth research across multiple platforms.  It highlights the browser's capabilities beyond typical search and browsing functions.
 
 Key Points:
 

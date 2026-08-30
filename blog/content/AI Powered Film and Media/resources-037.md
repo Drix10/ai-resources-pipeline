@@ -1,6 +1,6 @@
 ### 🤖 Security Risks - Vibe Coding in SSH
 
-This article discusses the security risks associated with "vibe coding" using an LLM in an SSH terminal within a Cursor environment on an Ubuntu server.  It addresses potential vulnerabilities and escape vectors.
+Security risks associated with "vibe coding" using an LLM in an SSH terminal within a Cursor environment on an Ubuntu server.  It addresses potential vulnerabilities and escape vectors.
 
 Key Points:
 

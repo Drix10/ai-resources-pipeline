@@ -1,6 +1,6 @@
 ### 🤖 Espionage - Epstein Files Reveal FBI Informant
 
-This article discusses recently released Epstein files revealing his role as an FBI informant while under investigation in Florida.  The documents highlight his information provision to the agency.
+Recently released Epstein files revealing his role as an FBI informant while under investigation in Florida.  The documents highlight his information provision to the agency.
 
 Key Points:
 

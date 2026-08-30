@@ -1,6 +1,6 @@
 ### 💡 Software Design - Skeuomorphism Era
 
-This article discusses the observation that modern software design is re-entering a phase reminiscent of skeuomorphism. It suggests a shift in user interface aesthetics.
+Observation that modern software design is re-entering a phase reminiscent of skeuomorphism. It suggests a shift in user interface aesthetics.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Vegetarian Nutrition - Muscle Building
 
-This article discusses the challenges vegetarians face in meeting protein requirements for muscle development and the role of supplements.
+Challenges vegetarians face in meeting protein requirements for muscle development and the role of supplements.
 
 Key Points:
 

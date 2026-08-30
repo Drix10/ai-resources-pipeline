@@ -1,6 +1,6 @@
 ### ✨ Notion AI - Typefully Social Publishing
 
-This article details the new integration allowing Notion AI agents to manage social media posts via Typefully. It explains the capabilities and general availability of this feature, facilitating easier social publishing directly within Notion.
+New integration allowing Notion AI agents to manage social media posts via Typefully. It explains the capabilities and general availability of this feature, facilitating easier social publishing directly within Notion.
 
 Key Points:
 

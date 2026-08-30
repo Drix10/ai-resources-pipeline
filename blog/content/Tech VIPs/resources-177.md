@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics - US-Iran Negotiations
 
-This article discusses the recent statement by U.S. Vice President JD Vance regarding the lack of an agreement with Iran. It outlines the implications of this outcome for both the United States and Iran.
+Recent statement by U.S. Vice President JD Vance regarding the lack of an agreement with Iran. It outlines the implications of this outcome for both the United States and Iran.
 
 Key Points:
 

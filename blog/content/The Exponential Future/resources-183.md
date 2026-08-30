@@ -1,6 +1,6 @@
 ### 💡 Market Analysis - Bullish Trends and Trading Strategy
 
-This article covers current market dynamics, specifically focusing on continued bullish trends in global indices. It provides insights into managing profitable trades using established technical indicators and prudent risk management strategies.
+Current market dynamics, specifically focusing on continued bullish trends in global indices. It provides insights into managing profitable trades using established technical indicators and prudent risk management strategies.
 
 Key Points:
 

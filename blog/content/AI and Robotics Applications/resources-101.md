@@ -1,6 +1,6 @@
 ### 🤖 Robotics - High-Mix Process Automation
 
-This article discusses General Bionix's vision-based, no-code robotics platform for automating high-mix manufacturing processes in unstructured environments.  The platform is designed for rapid setup and adaptation to new parts.
+General Bionix's vision-based, no-code robotics platform for automating high-mix manufacturing processes in unstructured environments.  The platform is designed for rapid setup and adaptation to new parts.
 
 Key Points:
 

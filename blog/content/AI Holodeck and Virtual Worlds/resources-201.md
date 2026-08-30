@@ -1,6 +1,6 @@
 ### 🚀 Retail Automation - Robot-Ready Integration
 
-This article explores a new integration that enables retailers using Cactus to become robot-ready automatically. It highlights how this solution eliminates the need for on-site engineering deployments.
+New integration that enables retailers using Cactus to become robot-ready automatically. It highlights how this solution eliminates the need for on-site engineering deployments.
 
 Key Points:
 

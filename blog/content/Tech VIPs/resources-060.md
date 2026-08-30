@@ -1,6 +1,6 @@
 ### 🤖 San Francisco - Permitting Reforms
 
-This article summarizes recent reforms and legislation aimed at simplifying the permitting process for small businesses and homeowners in San Francisco.  The changes are intended to reduce bureaucracy and improve efficiency.
+Recent reforms and legislation aimed at simplifying the permitting process for small businesses and homeowners in San Francisco.  The changes are intended to reduce bureaucracy and improve efficiency.
 
 
 Key Points:

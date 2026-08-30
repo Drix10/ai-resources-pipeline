@@ -1,6 +1,6 @@
 ### 💡 Stoic Journaling - Daily Reflection
 
-This article highlights the practice of stoic philosophy in daily life, emphasizing the role of journaling for mental clarity and personal development.
+Practice of stoic philosophy in daily life, emphasizing the role of journaling for mental clarity and personal development.
 
 Key Points:
 

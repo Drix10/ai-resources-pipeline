@@ -1,6 +1,6 @@
 ### 💡 Social Media - Content Sharing
 
-This article discusses the dynamics of casual social media interactions, focusing on content sharing and engagement. It highlights how users interact with and distribute content across platforms.
+Dynamics of casual social media interactions, focusing on content sharing and engagement. It highlights how users interact with and distribute content across platforms.
 
 Key Points:
 

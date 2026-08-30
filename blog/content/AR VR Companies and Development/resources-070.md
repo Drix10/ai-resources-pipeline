@@ -1,6 +1,6 @@
 ### 🤖 Huawei Storage - Data Infrastructure Innovations
 
-This article discusses Huawei Storage and its data infrastructure innovations, focusing on their role in enabling industry intelligence within the AI age.  A presentation by LindaGrass0 and Guo Peng is highlighted.
+Huawei Storage and its data infrastructure innovations, focusing on their role in enabling industry intelligence within the AI age.  A presentation by LindaGrass0 and Guo Peng is highlighted.
 
 Key Points:
 

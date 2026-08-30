@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Real Estate Applications
 
-This article discusses the emerging role of AI agents in Commercial Real Estate (CRE) teams. It explores current applications and potential future impacts on workflows within the industry.
+Emerging role of AI agents in Commercial Real Estate (CRE) teams. It explores current applications and potential future impacts on workflows within the industry.
 
 Key Points:
 

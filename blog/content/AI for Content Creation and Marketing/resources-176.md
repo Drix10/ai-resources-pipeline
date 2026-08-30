@@ -1,6 +1,6 @@
 ### 💡 Challenge Participation - Goal Setting with Framer
 
-This article discusses a participant's engagement in a challenge, outlining a specific financial objective. It highlights the use of Framer as a potential platform or tool within this endeavor.
+Participant's engagement in a challenge, outlining a specific financial objective. It highlights the use of Framer as a potential platform or tool within this endeavor.
 
 Key Points:
 

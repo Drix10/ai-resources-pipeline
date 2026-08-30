@@ -1,6 +1,6 @@
 ### 🤖 AWS Security - Beyond the Built-in Services
 
-This article discusses the limitations of relying solely on AWS's built-in security services (GuardDuty, Inspector, Config, Security Hub) and highlights the need for a more comprehensive security approach.
+Limitations of relying solely on AWS's built-in security services (GuardDuty, Inspector, Config, Security Hub) and highlights the need for a more comprehensive security approach.
 
 Key Points:
 

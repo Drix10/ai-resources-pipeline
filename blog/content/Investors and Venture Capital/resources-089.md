@@ -1,6 +1,6 @@
 ### 🤖 Job Application - Hugging Face
 
-This article summarizes a job application to Hugging Face and the positive experience.  The application process included a generated image as a nice touch.
+Job application to Hugging Face and the positive experience.  The application process included a generated image as a nice touch.
 
 
 Key Points:

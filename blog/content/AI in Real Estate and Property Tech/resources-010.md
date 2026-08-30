@@ -1,6 +1,6 @@
 ### 💰 Domain Sales - AI-Related Domains
 
-This article discusses the sale of two AI-related domain names, their registration details, and the subsequent reinvestment of funds.
+Sale of two AI-related domain names, their registration details, and the subsequent reinvestment of funds.
 
 Key Points:
 

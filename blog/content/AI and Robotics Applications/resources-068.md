@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Potential Impact on GDP
 
-This article discusses the potential impact of humanoid robots on the global economy, specifically concerning the replacement of human labor.
+Potential impact of humanoid robots on the global economy, specifically concerning the replacement of human labor.
 
 Key Points:
 

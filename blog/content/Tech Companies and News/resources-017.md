@@ -1,6 +1,6 @@
 ### 🎬  Film - Documentary about Orin O'Brien
 
-This article discusses the Oscar-winning documentary "The Only Girl in the Orchestra," which chronicles the life of double bassist Orin O'Brien and her groundbreaking career with the New York Philharmonic.
+Oscar-winning documentary "The Only Girl in the Orchestra," which chronicles the life of double bassist Orin O'Brien and her groundbreaking career with the New York Philharmonic.
 
 Key Points:
 

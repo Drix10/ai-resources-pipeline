@@ -1,6 +1,6 @@
 ### 💡 Extreme Weather - High-Speed Wind Gusts
 
-This article details extreme wind gusts recorded in the Western United States. It highlights specific observations comparable to hurricane-force winds in mountainous regions.
+Extreme wind gusts recorded in the Western United States. It highlights specific observations comparable to hurricane-force winds in mountainous regions.
 
 Key Points:
 

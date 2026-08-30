@@ -1,6 +1,6 @@
 ### 🌍 Syria - Humanitarian Needs
 
-This article discusses the pressing humanitarian needs in Syria, highlighting the prioritization of basic necessities over political considerations.  The statement emphasizes that progress on issues like freedom and democracy is contingent upon the provision of food, water, and electricity.
+Pressing humanitarian needs in Syria, highlighting the prioritization of basic necessities over political considerations.  The statement emphasizes that progress on issues like freedom and democracy is contingent upon the provision of food, water, and electricity.
 
 Key Points:
 

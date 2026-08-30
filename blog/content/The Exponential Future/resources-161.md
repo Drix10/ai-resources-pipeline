@@ -1,6 +1,6 @@
 ### 🤖 AI Productivity - ARK's Big Ideas 2026 Report
 
-This article discusses the AI Productivity section from ARK's Big Ideas 2026 report. It highlights insights from a deep dive conducted by JozefARK.
+AI Productivity section from ARK's Big Ideas 2026 report. It highlights insights from a deep dive conducted by JozefARK.
 
 Key Points:
 

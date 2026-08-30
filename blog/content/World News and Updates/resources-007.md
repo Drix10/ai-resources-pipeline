@@ -1,6 +1,6 @@
 ### 📰 Global News - Eastern DRC Conflict
 
-This article summarizes the escalating conflict in the eastern Democratic Republic of Congo, highlighting the impact on civilians.  The city of Goma has fallen under the control of M23 rebels.
+Escalating conflict in the eastern Democratic Republic of Congo, highlighting the impact on civilians.  The city of Goma has fallen under the control of M23 rebels.
 
 Key Points:
 

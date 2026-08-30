@@ -1,6 +1,6 @@
 ### 🤖 Real Estate - AI-Powered Lead Generation
 
-This article discusses $REI, an AI-powered real estate agent that generates and sells leads, with 5% of profits burned to deflate the token.  It operates in Philadelphia, with plans for US and global expansion.
+$REI, an AI-powered real estate agent that generates and sells leads, with 5% of profits burned to deflate the token.  It operates in Philadelphia, with plans for US and global expansion.
 
 Key Points:
 

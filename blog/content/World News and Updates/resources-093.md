@@ -1,6 +1,6 @@
 ### 🌎 International Relations - Putin's Invitation
 
-This article summarizes a joint press conference between Presidents Trump and Putin in Anchorage, Alaska, focusing on Putin's concluding statement.
+Joint press conference between Presidents Trump and Putin in Anchorage, Alaska, focusing on Putin's concluding statement.
 
 Key Points:
 

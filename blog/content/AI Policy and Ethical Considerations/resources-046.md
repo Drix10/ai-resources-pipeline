@@ -1,6 +1,6 @@
 ### 🤖 AI Concerns - Overdependence and Automation
 
-This article discusses concerns surrounding the overemphasis on AI adoption and clarifies the intended role of technology in simplifying tasks, not replacing human capabilities.
+Concerns surrounding the overemphasis on AI adoption and clarifies the intended role of technology in simplifying tasks, not replacing human capabilities.
 
 Key Points:
 

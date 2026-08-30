@@ -1,6 +1,6 @@
 ### 🚀 Space Exploration - Multiplanetary Survival
 
-This article discusses Elon Musk's statement regarding the necessity of making life multiplanetary for humanity's survival.  The text highlights the importance of this goal as a key aspect of long-term human existence.
+Elon Musk's statement regarding the necessity of making life multiplanetary for humanity's survival.  The text highlights the importance of this goal as a key aspect of long-term human existence.
 
 Key Points:
 

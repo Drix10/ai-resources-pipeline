@@ -1,6 +1,6 @@
 ### 🤖 Twitter - Five Years of Observing Online Changes
 
-This article discusses the author's five-year experience on Twitter, observing the platform's evolution and the changes in online personas over time.  The author reflects on the platform's shift from ephemeral to more enduring.
+Author's five-year experience on Twitter, observing the platform's evolution and the changes in online personas over time.  The author reflects on the platform's shift from ephemeral to more enduring.
 
 
 Key Points:

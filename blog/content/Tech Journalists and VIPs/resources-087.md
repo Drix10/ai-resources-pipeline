@@ -1,6 +1,6 @@
 ### 🤖 AI Research - Automating Discovery
 
-This article summarizes Mark Chen's (OpenAI Chief Research Officer) perspective on AI's role in automating research and making novel discoveries.  His statement highlights the potential of AI models to generate creative solutions and automate aspects of research workflows.
+Mark Chen's (OpenAI Chief Research Officer) perspective on AI's role in automating research and making novel discoveries.  His statement highlights the potential of AI models to generate creative solutions and automate aspects of research workflows.
 
 Key Points:
 

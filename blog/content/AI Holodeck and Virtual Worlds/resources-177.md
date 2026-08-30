@@ -1,6 +1,6 @@
 ### ✨ GPT Image 2 - Video Editing Workflows
 
-This article discusses the integration of GPT Image 2 into video editing workflows. It highlights the potential applications for content creators, marketing teams, and brands, focusing on its utility in practical scenarios.
+Integration of GPT Image 2 into video editing workflows. It highlights the potential applications for content creators, marketing teams, and brands, focusing on its utility in practical scenarios.
 
 Key Points:
 

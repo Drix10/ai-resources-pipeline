@@ -1,6 +1,6 @@
 ### 🗣️ Political Commentary - Tariffs
 
-This article summarizes a statement by Donald Trump regarding tariffs.  The statement expresses a positive outlook on the impact of tariffs.
+Statement by Donald Trump regarding tariffs.  The statement expresses a positive outlook on the impact of tariffs.
 
 
 Key Points:

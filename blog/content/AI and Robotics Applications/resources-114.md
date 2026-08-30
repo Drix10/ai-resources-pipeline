@@ -1,6 +1,6 @@
 ### 🤖 Quantum Computing - Consciousness Research
 
-This article explores the concept that consciousness could be rooted in quantum physics, enabled by advancements in quantum computing. It details how Nirvanic is using real-time quantum processors connected to robots to investigate quantum phenomena like superposition and wave function collapse in relation to consciousness.
+Concept that consciousness could be rooted in quantum physics, enabled by advancements in quantum computing. It details how Nirvanic is using real-time quantum processors connected to robots to investigate quantum phenomena like superposition and wave function collapse in relation to consciousness.
 
 Key Points:
 

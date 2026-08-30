@@ -1,6 +1,6 @@
 ### 💡 Social Justice - Disability Rights in Ontario
 
-This article discusses the inadequate support for people with disabilities in Ontario, highlighting the insufficient ODSP benefits and cuts to employment support programs.  It also touches upon the ableist rhetoric surrounding these issues.
+Inadequate support for people with disabilities in Ontario, highlighting the insufficient ODSP benefits and cuts to employment support programs.  It also touches upon the ableist rhetoric surrounding these issues.
 
 Key Points:
 

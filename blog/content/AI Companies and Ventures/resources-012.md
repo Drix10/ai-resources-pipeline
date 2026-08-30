@@ -1,6 +1,6 @@
 ### 🤖 Business Scaling - MrBeast's Cloning Principle
 
-This article discusses MrBeast's "cloning principle" for scaling his business, a strategy focusing on replicating tasks through training and delegation.  The core idea is to prevent founder burnout and enable sustainable growth.
+MrBeast's "cloning principle" for scaling his business, a strategy focusing on replicating tasks through training and delegation.  The core idea is to prevent founder burnout and enable sustainable growth.
 
 Key Points:
 

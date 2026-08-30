@@ -1,6 +1,6 @@
 ### 🤖 AI in Education -  Tutoring Models
 
-This article discusses the emergence of AI models designed for educational purposes, focusing on Google's LearnLM and its approach to tutoring.  It also briefly considers the implications for competing products.
+Emergence of AI models designed for educational purposes, focusing on Google's LearnLM and its approach to tutoring.  It also briefly considers the implications for competing products.
 
 Key Points:
 

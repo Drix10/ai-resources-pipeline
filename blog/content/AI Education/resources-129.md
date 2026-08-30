@@ -1,6 +1,6 @@
 ### ✨ Max Users - Guest Pass Sharing
 
-This article details a new feature allowing Max users to share guest passes with friends, offering them free access to Pro features. It outlines the benefits and access method for these passes.
+New feature allowing Max users to share guest passes with friends, offering them free access to Pro features. It outlines the benefits and access method for these passes.
 
 Key Points:
 

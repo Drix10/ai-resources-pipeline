@@ -1,6 +1,6 @@
 ### 🚀 Synthesia - London HQ Opening
 
-This article covers the opening of Synthesia's new London headquarters, highlighting the company's growth and the support it received from the City of London.
+Opening of Synthesia's new London headquarters, highlighting the company's growth and the support it received from the City of London.
 
 Key Points:
 

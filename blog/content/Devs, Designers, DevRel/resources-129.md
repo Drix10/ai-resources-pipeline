@@ -1,6 +1,6 @@
 ### 💡 Sleep - Impact on Life Expectancy
 
-This article highlights research indicating a strong association between insufficient sleep and decreased life expectancy. It emphasizes how sleep acts as a significant behavioral driver for longevity, surpassing many other factors.
+Research indicating a strong association between insufficient sleep and decreased life expectancy. It emphasizes how sleep acts as a significant behavioral driver for longevity, surpassing many other factors.
 
 Key Points:
 

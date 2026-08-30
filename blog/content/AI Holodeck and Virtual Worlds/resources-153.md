@@ -1,6 +1,6 @@
 ### ✨ AI Motion Control - Kling 3.0 Features
 
-This article details the capabilities of Kling 3.0 Motion Control on the Pollo AI platform. It highlights advancements in motion capture for dynamic scene generation and facial detail consistency.
+Capabilities of Kling 3.0 Motion Control on the Pollo AI platform. It highlights advancements in motion capture for dynamic scene generation and facial detail consistency.
 
 Key Points:
 

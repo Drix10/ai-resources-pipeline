@@ -1,6 +1,6 @@
 ### 💡 Video Production - Effective Product Walkthroughs
 
-This article discusses common pitfalls in product video creation and suggests a more effective approach for creating engaging product walkthroughs.
+Common pitfalls in product video creation and suggests a more effective approach for creating engaging product walkthroughs.
 
 Key Points:
 

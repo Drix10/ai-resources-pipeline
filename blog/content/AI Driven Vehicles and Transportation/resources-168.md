@@ -1,6 +1,6 @@
 ### 💡 Retirement - Battling Digital Habits
 
-This article examines the challenges retirees face regarding digital overconsumption and the absence of structured routines. It highlights the vulnerability to "zombie doomscrolling" when traditional work-life structures are removed.
+Challenges retirees face regarding digital overconsumption and the absence of structured routines. It highlights the vulnerability to "zombie doomscrolling" when traditional work-life structures are removed.
 
 Key Points:
 

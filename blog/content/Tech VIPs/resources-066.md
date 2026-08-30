@@ -1,6 +1,6 @@
 ### 🤖 Politics - Elon Musk's Government Service
 
-This article discusses the conclusion of Elon Musk's term as a Special Government Employee and addresses potential misinterpretations regarding his departure from certain roles.
+Conclusion of Elon Musk's term as a Special Government Employee and addresses potential misinterpretations regarding his departure from certain roles.
 
 Key Points:
 

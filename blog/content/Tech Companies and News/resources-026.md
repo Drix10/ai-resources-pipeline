@@ -1,6 +1,6 @@
 ### 📺 Entertainment - Dope Thief Premiere on Apple TV+
 
-This article discusses the premiere of Ridley Scott's crime drama series, "Dope Thief," on Apple TV+ and its positive reception.
+Premiere of Ridley Scott's crime drama series, "Dope Thief," on Apple TV+ and its positive reception.
 
 Key Points:
 

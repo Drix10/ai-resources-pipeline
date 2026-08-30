@@ -1,6 +1,6 @@
 ### 🤖 AI Model Details - Comprehensive Overview
 
-This article provides a comprehensive overview of a specific AI model. It details its core functionalities and characteristics.
+Comprehensive overview of a specific AI model. It details its core functionalities and characteristics.
 
 Key Points:
 

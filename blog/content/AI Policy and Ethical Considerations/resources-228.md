@@ -1,6 +1,6 @@
 ### 🤖 AI/LLMs - Complementarity with Human Work
 
-This article discusses the current state of AI's role in the workforce, emphasizing its complementary nature rather than its substitutability for human intellect. It highlights the sustained value of human conceptual clarity.
+Current state of AI's role in the workforce, emphasizing its complementary nature rather than its substitutability for human intellect. It highlights the sustained value of human conceptual clarity.
 
 Key Points:
 

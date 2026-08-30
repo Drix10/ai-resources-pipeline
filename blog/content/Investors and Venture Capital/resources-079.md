@@ -1,6 +1,6 @@
 ### 🤖 Web3 in Sports - Fan Engagement and Ownership
 
-This article summarizes a planned AMA exploring how Web3 technologies are transforming the sports industry, focusing on fan engagement and ownership models.  The discussion will feature CEOs from 0xfutbol and fitchinGG.
+Planned AMA exploring how Web3 technologies are transforming the sports industry, focusing on fan engagement and ownership models.  The discussion will feature CEOs from 0xfutbol and fitchinGG.
 
 Key Points:
 

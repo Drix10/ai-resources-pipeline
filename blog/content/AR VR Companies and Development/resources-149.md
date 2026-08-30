@@ -1,6 +1,6 @@
 ### 🚀 XR/VR Gaming - Jolly Match 3 MR Nomination
 
-This article details the nomination of Jolly Match 3 MR for Best XR/VR at gamescom latam @ BIG Festival. It provides information regarding the event dates and location for this industry recognition.
+Nomination of Jolly Match 3 MR for Best XR/VR at gamescom latam @ BIG Festival. It provides information regarding the event dates and location for this industry recognition.
 
 Key Points:
 

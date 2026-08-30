@@ -1,6 +1,6 @@
 ### 🚀 Educational Technology - Synth School Review
 
-This article summarizes a user's experience with Synth School, an educational technology platform, focusing on a six-year-old child's engagement with the platform.
+User's experience with Synth School, an educational technology platform, focusing on a six-year-old child's engagement with the platform.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🌎 Geopolitics - India, UAE Energy Hub in Sri Lanka
 
-This article discusses the development of a major energy hub in Sri Lanka's Trincomalee port by India and the UAE, and its implications for regional geopolitics.
+Development of a major energy hub in Sri Lanka's Trincomalee port by India and the UAE, and its implications for regional geopolitics.
 
 Key Points:
 

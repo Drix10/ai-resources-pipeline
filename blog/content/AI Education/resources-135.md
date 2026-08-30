@@ -1,6 +1,6 @@
 ### ✨ Educational Technology - FETC Conference & Kira 2.0
 
-This article details Kira Learning's participation at the FETC conference, highlighting the launch of Kira 2.0. It also covers planned activities and networking opportunities at their booth.
+Kira Learning's participation at the FETC conference, highlighting the launch of Kira 2.0. It also covers planned activities and networking opportunities at their booth.
 
 Key Points:
 

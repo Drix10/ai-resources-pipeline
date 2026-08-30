@@ -1,6 +1,6 @@
 ### 🤖 AI and Quantum Computing - SXSW Discussion
 
-This article summarizes a discussion at SXSW with IBM CEO Arvind Krishna about the intersection of AI and quantum computing, focusing on the significant opportunities presented by enterprise-centric AI.
+Discussion at SXSW with IBM CEO Arvind Krishna about the intersection of AI and quantum computing, focusing on the significant opportunities presented by enterprise-centric AI.
 
 Key Points:
 

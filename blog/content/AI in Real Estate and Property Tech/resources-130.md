@@ -1,6 +1,6 @@
 ### 💡 Real Estate Market - Apartment Rent Reductions
 
-This article details the recent trends in the apartment rental market, highlighting a consistent decline in effective asking rents. It examines the impact of softening demand on pricing over several months.
+Recent trends in the apartment rental market, highlighting a consistent decline in effective asking rents. It examines the impact of softening demand on pricing over several months.
 
 Key Points:
 

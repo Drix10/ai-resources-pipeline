@@ -1,6 +1,6 @@
 ### 🤖 Software Development - Vintage Development Environments
 
-This article discusses a vintage software development screen, challenging modern coders to recognize it. It highlights the evolution of coding environments over time.
+Vintage software development screen, challenging modern coders to recognize it. It highlights the evolution of coding environments over time.
 
 Key Points:
 

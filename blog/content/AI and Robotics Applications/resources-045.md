@@ -1,6 +1,6 @@
 ### 💡 Collaboration - Research Ideas
 
-This article discusses the importance of collaborative idea exchange in research and the benefits of diverse perspectives.
+Importance of collaborative idea exchange in research and the benefits of diverse perspectives.
 
 Key Points:
 

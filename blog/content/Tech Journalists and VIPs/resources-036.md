@@ -1,6 +1,6 @@
 ### ⚖️ Social Issues - Justice System Failures
 
-This article discusses the failure of the justice system to protect victims of sexual assault, highlighting societal issues that prioritize the abuser's protection over the victim's well-being.
+Failure of the justice system to protect victims of sexual assault, highlighting societal issues that prioritize the abuser's protection over the victim's well-being.
 
 Key Points:
 

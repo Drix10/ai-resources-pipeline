@@ -1,6 +1,6 @@
 ### ✨ Healthcare Achievement - All-Black Surgical Team
 
-This article highlights a significant moment at Johns Hopkins Hospital where an all-Black team of five surgical residents led the Trauma & Acute Care Surgery service. This event marks a historical first for the institution.
+Significant moment at Johns Hopkins Hospital where an all-Black team of five surgical residents led the Trauma & Acute Care Surgery service. This event marks a historical first for the institution.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Space Exploration - Polaris Program Collaboration
 
-This article discusses the collaboration between the Polaris Program and SpaceX, focusing on the leadership of Jared Isaacman in the pursuit of space exploration.
+Collaboration between the Polaris Program and SpaceX, focusing on the leadership of Jared Isaacman in the pursuit of space exploration.
 
 Key Points:
 

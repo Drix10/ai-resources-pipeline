@@ -1,6 +1,6 @@
 ### 💡 Weather Forecasting - Cumulus Cloud Development
 
-This article outlines the observation of cumulus cloud development over the L.A. Basin. It highlights the potential for thundershowers based on current weather patterns and timing.
+Observation of cumulus cloud development over the L.A. Basin. It highlights the potential for thundershowers based on current weather patterns and timing.
 
 Key Points:
 

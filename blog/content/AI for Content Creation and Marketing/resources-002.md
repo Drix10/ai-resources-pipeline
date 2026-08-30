@@ -1,6 +1,6 @@
 ### ✨ UI Updates - Toolbar Enhancements
 
-This article details recent updates to a toolbar, focusing on nested menus and improved user experience within an editor.
+Recent updates to a toolbar, focusing on nested menus and improved user experience within an editor.
 
 Key Points:
 

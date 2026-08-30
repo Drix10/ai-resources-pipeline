@@ -1,6 +1,6 @@
 ### 💡 College Applications - Personal Statement Analysis
 
-This article discusses the importance of personal statement quality in college applications and suggests that sharing rejected statements could be an educational resource.  The original post highlights a case where a viral rejection spurred discussion about statement quality.
+Importance of personal statement quality in college applications and suggests that sharing rejected statements could be an educational resource.  The original post highlights a case where a viral rejection spurred discussion about statement quality.
 
 
 Key Points:

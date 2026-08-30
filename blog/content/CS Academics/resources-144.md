@@ -1,6 +1,6 @@
 ### 💡 Seasonal Observation - Summer Solstice in Queensland
 
-This article highlights the observance of the summer solstice in the Southern Hemisphere, specifically referencing Mount Coot-Tha in Queensland. It notes the event's date and a specific time of observation.
+Observance of the summer solstice in the Southern Hemisphere, specifically referencing Mount Coot-Tha in Queensland. It notes the event's date and a specific time of observation.
 
 Key Points:
 

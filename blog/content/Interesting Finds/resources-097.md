@@ -1,6 +1,6 @@
 ### 🇺🇦 Zelensky's Visit to Washington D.C. - Meeting with President Trump
 
-This article summarizes Ukrainian President Zelensky's visit to Washington D.C., including his planned meeting with President Trump and discussions with European leaders.  The focus is on the reported goal of ending the ongoing war.
+Ukrainian President Zelensky's visit to Washington D.C., including his planned meeting with President Trump and discussions with European leaders.  The focus is on the reported goal of ending the ongoing war.
 
 Key Points:
 

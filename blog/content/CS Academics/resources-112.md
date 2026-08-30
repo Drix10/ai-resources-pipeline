@@ -1,6 +1,6 @@
 ### ⚖️ Law and Politics -  Judge's Ruling on Israeli Settlements
 
-This article discusses the reaction to a Christian Zionist judge's vote against an ICJ ruling on Israeli settlement activities, highlighting the hypothetical contrast with a similar ruling by a Muslim judge.
+Reaction to a Christian Zionist judge's vote against an ICJ ruling on Israeli settlement activities, highlighting the hypothetical contrast with a similar ruling by a Muslim judge.
 
 
 Key Points:

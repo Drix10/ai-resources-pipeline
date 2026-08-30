@@ -1,6 +1,6 @@
 ### 💡 Economic Policy - Incentives and Poverty
 
-This article examines Milton Friedman's perspective on economic incentives and their influence on societal outcomes. It discusses how certain policies may unintentionally affect the prevalence of poverty by altering individual motivations.
+Milton Friedman's perspective on economic incentives and their influence on societal outcomes. It discusses how certain policies may unintentionally affect the prevalence of poverty by altering individual motivations.
 
 Key Points:
 

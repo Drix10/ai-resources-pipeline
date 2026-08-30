@@ -1,6 +1,6 @@
 ### 🤖 Physics of Language Models - Tutorial II Continuation
 
-This article outlines the continuation of Tutorial II for the Physics of Language Models. It focuses on the challenges and insights gained when moving beyond large-scale, potentially noisy pretraining data into synthetic environments.
+Continuation of Tutorial II for the Physics of Language Models. It focuses on the challenges and insights gained when moving beyond large-scale, potentially noisy pretraining data into synthetic environments.
 
 Key Points:
 

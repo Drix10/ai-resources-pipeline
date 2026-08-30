@@ -1,6 +1,6 @@
 ### 🤖 Algebraic Topology - Foundational Understanding
 
-This article highlights an accessible approach to understanding complex mathematical concepts, specifically algebraic topology. It suggests that foundational knowledge can be grasped quickly with the right resources.
+Accessible approach to understanding complex mathematical concepts, specifically algebraic topology. It suggests that foundational knowledge can be grasped quickly with the right resources.
 
 Key Points:
 

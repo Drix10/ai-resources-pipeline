@@ -1,6 +1,6 @@
 ### 🤖 Hyperscaler Investment - US Megaprojects Comparison
 
-This article examines the substantial financial outlays by hyperscale technology companies, comparing their investment magnitude to that of historical US megaprojects. It highlights the vast capital flow into technology infrastructure.
+Substantial financial outlays by hyperscale technology companies, comparing their investment magnitude to that of historical US megaprojects. It highlights the vast capital flow into technology infrastructure.
 
 Key Points:
 

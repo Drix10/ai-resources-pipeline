@@ -1,6 +1,6 @@
 ### 🤖 Solana Treasury - Pantera Capital's Approach
 
-This article discusses Pantera Capital's strategy for building a Solana treasury, leveraging their experience in the Decentralized Autonomous Organization (DAO) industry.
+Pantera Capital's strategy for building a Solana treasury, leveraging their experience in the Decentralized Autonomous Organization (DAO) industry.
 
 Key Points:
 

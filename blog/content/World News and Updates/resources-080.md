@@ -1,6 +1,6 @@
 ### 🔭 Astronomy - LSST Camera and Time-Lapse Film of the Universe
 
-This article discusses the Earth's largest camera, part of the Vera Rubin Observatory's Legacy Survey of Space and Time (LSST), and its role in creating the largest time-lapse film of the universe.  It will cover the camera's capabilities and the project's goals.
+Earth's largest camera, part of the Vera Rubin Observatory's Legacy Survey of Space and Time (LSST), and its role in creating the largest time-lapse film of the universe.  It will cover the camera's capabilities and the project's goals.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 💡 Government Actions - Fraud and Pardons
 
-This article discusses the apparent contradiction in government policies regarding financial fraud. It highlights the effort to rescind federal funds from a state due to fraud while simultaneously pardoning a known fraudster within the same period.
+Apparent contradiction in government policies regarding financial fraud. It highlights the effort to rescind federal funds from a state due to fraud while simultaneously pardoning a known fraudster within the same period.
 
 Key Points:
 

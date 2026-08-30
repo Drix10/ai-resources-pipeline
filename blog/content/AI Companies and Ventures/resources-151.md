@@ -1,6 +1,6 @@
 ### 🤖 AI Model Performance - CodebuffAI Upgrade
 
-This article details CodebuffAI's recent model upgrade in its free mode, focusing on the transition to MiniMax M2.5 and its impact on benchmark performance. It also identifies the previously utilized models.
+CodebuffAI's recent model upgrade in its free mode, focusing on the transition to MiniMax M2.5 and its impact on benchmark performance. It also identifies the previously utilized models.
 
 Key Points:
 

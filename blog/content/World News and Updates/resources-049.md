@@ -1,6 +1,6 @@
 ### 📰 News - Trump's Visit to Saudi Arabia
 
-This article summarizes Al Arabiya editor Wissam Keyrouz's assessment of former President Trump's visit to Saudi Arabia, highlighting its perceived benefits for both parties.
+Al Arabiya editor Wissam Keyrouz's assessment of former President Trump's visit to Saudi Arabia, highlighting its perceived benefits for both parties.
 
 Key Points:
 

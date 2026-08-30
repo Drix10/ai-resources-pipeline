@@ -1,6 +1,6 @@
 ### 💡 Productivity - 10 Hacks to Boost Productivity
 
-This article outlines ten productivity hacks to improve efficiency and achieve goals.  These techniques focus on time management and focused work strategies.
+Ten productivity hacks to improve efficiency and achieve goals.  These techniques focus on time management and focused work strategies.
 
 Key Points:
 

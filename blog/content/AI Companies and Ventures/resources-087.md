@@ -1,6 +1,6 @@
 ### 🤖 AI & Web3 -  A Critical Discussion
 
-This article summarizes a video discussion about the intersection of Artificial Intelligence and Web3, addressing concerns about scams and the value proposition of specific AI platforms.
+Video discussion about the intersection of Artificial Intelligence and Web3, addressing concerns about scams and the value proposition of specific AI platforms.
 
 Key Points:
 

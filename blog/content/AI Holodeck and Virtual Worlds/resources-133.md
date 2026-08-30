@@ -1,6 +1,6 @@
 ### 🤖 AI Video Contest - RUN FORWARD 2026 Participation
 
-This article details participation in the "RUN FORWARD : AI VIDEO CONTEST 2026," hosted by Tokyo AI Visuals and OiiOii AI. It highlights a submission featuring a thoroughbred and notes technical adjustments made during production.
+Participation in the "RUN FORWARD : AI VIDEO CONTEST 2026," hosted by Tokyo AI Visuals and OiiOii AI. It highlights a submission featuring a thoroughbred and notes technical adjustments made during production.
 
 Key Points:
 

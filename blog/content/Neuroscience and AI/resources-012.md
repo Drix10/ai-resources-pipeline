@@ -1,6 +1,6 @@
 ### 🤖 Language Model Pretraining - Efficiency through Formal Language Training
 
-This article discusses a method to improve the efficiency of large language model pretraining by incorporating formal language training before natural language training.  The underlying mechanism is explained, referencing relevant linguistic theories.
+Method to improve the efficiency of large language model pretraining by incorporating formal language training before natural language training.  The underlying mechanism is explained, referencing relevant linguistic theories.
 
 Key Points:
 

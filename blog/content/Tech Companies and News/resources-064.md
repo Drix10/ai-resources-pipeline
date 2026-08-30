@@ -1,6 +1,6 @@
 ### 🤖 Cybersecurity - Bounty for Cyberattacks
 
-This article discusses the announcement by the Guangzhou public security bureau offering a bounty for individuals suspected of carrying out cyberattacks within China.  The announcement highlights escalating accusations against Taipei.
+Announcement by the Guangzhou public security bureau offering a bounty for individuals suspected of carrying out cyberattacks within China.  The announcement highlights escalating accusations against Taipei.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Web3 Events - AI Agent Day at ETHDenver
 
-This article provides information about AI Agent Day, an event at ETHDenver focusing on AI agents in the Web3 space.  The event includes live demos, expert insights, and networking opportunities.
+Information about AI Agent Day, an event at ETHDenver focusing on AI agents in the Web3 space.  The event includes live demos, expert insights, and networking opportunities.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Biomolecular Prediction - NVIDIA Acceleration
 
-This article discusses how NVIDIA hardware and software accelerate biomolecular structure prediction, a complex computational challenge. It highlights performance improvements in MSA search and model inference.
+NVIDIA hardware and software accelerate biomolecular structure prediction, a complex computational challenge. It highlights performance improvements in MSA search and model inference.
 
 Key Points:
 

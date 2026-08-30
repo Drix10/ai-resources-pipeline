@@ -1,6 +1,6 @@
 ### 🤖 Robotics - ManiSkill Enhancements
 
-This article discusses recent improvements to the ManiSkill robotics simulator, focusing on the integration of soft body simulations and MuJoCo/Mjx physics engine support.
+Recent improvements to the ManiSkill robotics simulator, focusing on the integration of soft body simulations and MuJoCo/Mjx physics engine support.
 
 Key Points:
 

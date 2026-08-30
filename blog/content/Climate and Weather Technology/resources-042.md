@@ -1,6 +1,6 @@
 ### 😡 Social Commentary - Wealth Inequality and Climate Change
 
-This article discusses the disproportionate influence of wealthy individuals, particularly in the fossil fuel industry, on climate change policy and its impact on the general population.
+Disproportionate influence of wealthy individuals, particularly in the fossil fuel industry, on climate change policy and its impact on the general population.
 
 Key Points:
 

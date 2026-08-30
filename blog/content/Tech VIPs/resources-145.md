@@ -1,6 +1,6 @@
 ### 🚀 Space Exploration - Starship Facility Tour
 
-This article discusses MrBeast's recent video tour of the SpaceX Starship manufacturing facility. It highlights the scale of the facility and the Starship development process. The content provides a glimpse into advanced aerospace engineering operations.
+MrBeast's recent video tour of the SpaceX Starship manufacturing facility. It highlights the scale of the facility and the Starship development process. The content provides a glimpse into advanced aerospace engineering operations.
 
 Key Points:
 

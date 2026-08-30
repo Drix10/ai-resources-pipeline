@@ -1,6 +1,6 @@
 ### 🤖 Hyperliquid - Market Performance and Exchange Listing
 
-This article discusses Hyperliquid's significant growth in the DeFi derivatives market, highlighting its impressive trading volume and technical capabilities. It also notes its recent listing on the NYSE.
+Hyperliquid's significant growth in the DeFi derivatives market, highlighting its impressive trading volume and technical capabilities. It also notes its recent listing on the NYSE.
 
 Key Points:
 

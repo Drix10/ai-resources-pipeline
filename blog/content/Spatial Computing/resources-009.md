@@ -1,6 +1,6 @@
 ### 🤖 AI Weather Prediction - Kilometer-Scale Modeling
 
-This article discusses the use of generative AI for high-resolution weather prediction, focusing on CorrDiff, a model capable of kilometer-scale weather forecasting.  The potential for mitigating risks associated with extreme weather events is highlighted.
+Use of generative AI for high-resolution weather prediction, focusing on CorrDiff, a model capable of kilometer-scale weather forecasting.  The potential for mitigating risks associated with extreme weather events is highlighted.
 
 Key Points:
 

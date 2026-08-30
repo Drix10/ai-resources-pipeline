@@ -1,6 +1,6 @@
 ### 🤖 Midjourney V1 - Cartoon Animation Capabilities
 
-This article examines the capabilities of Midjourney's V1 video model for creating cartoon-style animations, specifically focusing on its application in generating fight scenes.
+Capabilities of Midjourney's V1 video model for creating cartoon-style animations, specifically focusing on its application in generating fight scenes.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🌎 Geopolitics - Impact of US Trade Policies
 
-This article discusses the negative impacts of certain US trade policies on international relations and the potential consequences for the tourism industry.
+Negative impacts of certain US trade policies on international relations and the potential consequences for the tourism industry.
 
 
 Key Points:

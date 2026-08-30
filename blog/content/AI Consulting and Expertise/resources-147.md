@@ -1,6 +1,6 @@
 ### 🤖 Programming Language Trends - English as Code
 
-This article discusses the future trend of programming in natural English, highlighting the potential shifts in software development practices by 2026. It explores the implications of high-level abstraction in coding.
+Future trend of programming in natural English, highlighting the potential shifts in software development practices by 2026. It explores the implications of high-level abstraction in coding.
 
 Key Points:
 

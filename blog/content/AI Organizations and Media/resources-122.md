@@ -1,6 +1,6 @@
 ### 🤖 Real-time Person Detection - Spectral Imaging on Raspberry Pi
 
-This article discusses HitoMi-Cam, a real-time person detection system optimized for Raspberry Pi 5. It highlights its unique approach using clothing spectra for robust detection, particularly in challenging scenarios where traditional methods may fail.
+HitoMi-Cam, a real-time person detection system optimized for Raspberry Pi 5. It highlights its unique approach using clothing spectra for robust detection, particularly in challenging scenarios where traditional methods may fail.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI in Drug Discovery - Iambic AI Conference Participation
 
-This article summarizes Iambic AI's participation in the HCW's 2nd Annual AI-Based Drug Discovery and Development Conference.  Their CTO, Fred Manby, discussed their AI models and their application in drug discovery.
+Iambic AI's participation in the HCW's 2nd Annual AI-Based Drug Discovery and Development Conference.  Their CTO, Fred Manby, discussed their AI models and their application in drug discovery.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 AI in Education - Learning vs. Delegation
 
-This article explores the impact of AI on skill acquisition in coding education. It highlights how active engagement with AI tools fosters learning, contrasting it with the passive delegation of tasks, which impedes skill development.
+Impact of AI on skill acquisition in coding education. It highlights how active engagement with AI tools fosters learning, contrasting it with the passive delegation of tasks, which impedes skill development.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics - Iran-US Tensions
 
-This article summarizes a statement by Dan Feferman regarding potential Iranian aggression against the US and its allies, and speculates on Iran's strategic response to American demands.
+Statement by Dan Feferman regarding potential Iranian aggression against the US and its allies, and speculates on Iran's strategic response to American demands.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ Glean Integration - Gamma App
 
-This article covers the integration of Gamma as an MCP app within Glean Assistant, detailing how users can search company knowledge and transform findings into presentations directly within their chat interface.
+Integration of Gamma as an MCP app within Glean Assistant, detailing how users can search company knowledge and transform findings into presentations directly within their chat interface.
 
 Key Points:
 

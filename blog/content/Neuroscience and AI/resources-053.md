@@ -1,6 +1,6 @@
 ### 🔬 Neuroscience - Astrocyte Function in Brain Regulation
 
-This article summarizes a study revealing the active role of astrocytes in regulating brain function and behavior, challenging their previous classification as passive support cells.  The research observed astrocytes in real time to understand their dynamic contribution.
+Study revealing the active role of astrocytes in regulating brain function and behavior, challenging their previous classification as passive support cells.  The research observed astrocytes in real time to understand their dynamic contribution.
 
 Key Points:
 

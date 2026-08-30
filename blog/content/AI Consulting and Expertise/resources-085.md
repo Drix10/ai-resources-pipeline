@@ -1,6 +1,6 @@
 ### 🤖 AI's Impact on Software Engineering
 
-This article discusses the potential of AI tools to reduce the need for software engineers, drawing parallels with the impact of no-code tools.  It examines the core aspects of programming that AI might automate.
+Potential of AI tools to reduce the need for software engineers, drawing parallels with the impact of no-code tools.  It examines the core aspects of programming that AI might automate.
 
 Key Points:
 

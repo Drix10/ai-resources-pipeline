@@ -1,6 +1,6 @@
 ### 🤖 Business - Nippon Steel and US Steel Merger
 
-This article discusses the evolving business deal between Nippon Steel and US Steel, shifting from a complete acquisition to a major investment granting Nippon Steel significant control.
+Evolving business deal between Nippon Steel and US Steel, shifting from a complete acquisition to a major investment granting Nippon Steel significant control.
 
 Key Points:
 

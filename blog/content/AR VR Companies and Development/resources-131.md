@@ -1,6 +1,6 @@
 ### 💡 Financial Concepts - Extreme Compounding
 
-This article details a hypothetical, extremely aggressive compounding scenario, illustrating its rapid escalation. It showcases the dramatic increase in owed amounts over a short period.
+Hypothetical, extremely aggressive compounding scenario, illustrating its rapid escalation. It showcases the dramatic increase in owed amounts over a short period.
 
 Key Points:
 

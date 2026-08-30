@@ -1,6 +1,6 @@
 ### 🤖 CNC Machining - Upgrading a 6040 Machine
 
-This article discusses upgrading a 6040 CNC machine for improved accuracy in aluminum machining.  The focus is on replacing the bed and using specific cutting tools.
+Upgrading a 6040 CNC machine for improved accuracy in aluminum machining.  The focus is on replacing the bed and using specific cutting tools.
 
 Key Points:
 

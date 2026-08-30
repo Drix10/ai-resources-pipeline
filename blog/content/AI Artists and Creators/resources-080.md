@@ -1,6 +1,6 @@
 ### 💡 Motivation - Ego Involvement
 
-This article discusses how ego involvement can negatively impact motivation and provides insights into overcoming this challenge.  It explains the detrimental effects of tying one's self-worth to outcomes.
+Ego involvement can negatively impact motivation and provides insights into overcoming this challenge.  It explains the detrimental effects of tying one's self-worth to outcomes.
 
 Key Points:
 

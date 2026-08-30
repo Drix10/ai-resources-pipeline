@@ -1,6 +1,6 @@
 ### 🤖 Multimodal Scene Alignment - CrossOver
 
-This article discusses CrossOver, a method for aligning point clouds, CAD models, floor plans, images, and text to share scene knowledge.  It focuses on CrossOver's approach to creating a unified embedding space for seamless multi-modal alignment.
+CrossOver, a method for aligning point clouds, CAD models, floor plans, images, and text to share scene knowledge.  It focuses on CrossOver's approach to creating a unified embedding space for seamless multi-modal alignment.
 
 Key Points:
 

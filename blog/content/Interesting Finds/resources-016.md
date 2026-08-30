@@ -1,6 +1,6 @@
 ### 🔬 Biology - Newly Discovered Organism
 
-This article discusses the recent discovery of a new microscopic organism, called obelisks, found in the human body.  The organism's composition and potential implications are briefly examined.
+Recent discovery of a new microscopic organism, called obelisks, found in the human body.  The organism's composition and potential implications are briefly examined.
 
 Key Points:
 

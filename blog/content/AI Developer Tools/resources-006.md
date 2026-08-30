@@ -1,6 +1,6 @@
 ### 🤖 LLMs - Optimization for Performance and Sustainability
 
-This article discusses strategies for optimizing Large Language Model (LLM) deployments in the cloud to improve efficiency, reduce costs, and minimize energy consumption.  It focuses on deploying LLMs on Arm-based processors.
+Strategies for optimizing Large Language Model (LLM) deployments in the cloud to improve efficiency, reduce costs, and minimize energy consumption.  It focuses on deploying LLMs on Arm-based processors.
 
 Key Points:
 

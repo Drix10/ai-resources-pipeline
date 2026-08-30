@@ -1,6 +1,6 @@
 ### ⚠️ Crime - Teen Murder
 
-This article summarizes a news report about the murder of a 16-year-old boy, allegedly orchestrated by his girlfriend.
+News report about the murder of a 16-year-old boy, allegedly orchestrated by his girlfriend.
 
 Key Points:
 

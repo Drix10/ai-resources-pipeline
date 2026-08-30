@@ -1,6 +1,6 @@
 ### 💡 Marketing - Understanding Customer Intent
 
-This article discusses the limitations of using click data alone to understand customer intent and advocates for using real-world behavioral data to gain deeper insights.
+Limitations of using click data alone to understand customer intent and advocates for using real-world behavioral data to gain deeper insights.
 
 Key Points:
 

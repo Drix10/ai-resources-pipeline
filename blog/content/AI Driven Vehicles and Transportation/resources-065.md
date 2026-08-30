@@ -1,6 +1,6 @@
 ### 🤖 Embodied AI -  SXSW London Conversation
 
-This article summarizes a conversation about the future of Embodied AI at SXSW London,  including reflections on the closing of TechCrunch's European presence.
+Conversation about the future of Embodied AI at SXSW London,  including reflections on the closing of TechCrunch's European presence.
 
 Key Points:
 

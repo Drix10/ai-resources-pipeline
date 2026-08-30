@@ -1,6 +1,6 @@
 ### 🤖 Distillate Market - Singapore Diesel Tightening
 
-This article examines the recent tightening in the Singapore diesel market and its implications for spreads and arbitrage opportunities. It provides a concise update on the current state of gas oil east/west dynamics.
+Recent tightening in the Singapore diesel market and its implications for spreads and arbitrage opportunities. It provides a concise update on the current state of gas oil east/west dynamics.
 
 Key Points:
 

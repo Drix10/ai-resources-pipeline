@@ -1,6 +1,6 @@
 ### 🤖 High-Performance RC Aircraft - Community Commentary
 
-This article highlights a notable high-performance RC airplane project, drawing attention to its technical achievements. It reflects community interest in innovative engineering efforts within the aerospace hobby.
+Notable high-performance RC airplane project, drawing attention to its technical achievements. It reflects community interest in innovative engineering efforts within the aerospace hobby.
 
 Key Points:
 

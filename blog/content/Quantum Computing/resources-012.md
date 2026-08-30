@@ -1,6 +1,6 @@
 ### 🤖 Quantum Computing - Surface Code and Tesseract Errors
 
-This article discusses errors found in surface code and tesseract numbers presented at QIP2025, referencing relevant research papers.
+Errors found in surface code and tesseract numbers presented at QIP2025, referencing relevant research papers.
 
 Key Points:
 

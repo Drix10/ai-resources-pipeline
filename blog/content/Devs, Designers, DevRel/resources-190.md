@@ -1,6 +1,6 @@
 ### 💡 Custom Timelines - Content Filtering
 
-This article discusses methods for managing content within custom timelines and strategies for filtering unwanted posts. It focuses on enhancing user control over their personalized feeds.
+Methods for managing content within custom timelines and strategies for filtering unwanted posts. It focuses on enhancing user control over their personalized feeds.
 
 Key Points:
 

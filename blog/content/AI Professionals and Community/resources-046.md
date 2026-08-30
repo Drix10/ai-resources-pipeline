@@ -1,6 +1,6 @@
 ### 💡 Relationship Dynamics - Assortative Mating and Intelligence
 
-This article examines a common argument regarding the correlation between intelligence and mate selection, specifically addressing the assertion that men do not prioritize intelligence in partners.  It critiques this assertion using available data.
+Common argument regarding the correlation between intelligence and mate selection, specifically addressing the assertion that men do not prioritize intelligence in partners.  It critiques this assertion using available data.
 
 Key Points:
 

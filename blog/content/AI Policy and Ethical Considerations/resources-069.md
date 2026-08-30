@@ -1,6 +1,6 @@
 ### 🤖 Model Transparency - Quantization Disclosure
 
-This article discusses the importance of disclosing model quantization levels and the potential negative impacts of dynamically adjusting quantization without notification.
+Importance of disclosing model quantization levels and the potential negative impacts of dynamically adjusting quantization without notification.
 
 Key Points:
 

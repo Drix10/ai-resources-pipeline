@@ -1,6 +1,6 @@
 ### 🐶 Animal Welfare - Dog Adoption
 
-This article highlights the adoption of an eight-month-old dog named Chiquitin from the Downey, California Animal Care Center.  The dog is described as quiet and low-energy.
+Adoption of an eight-month-old dog named Chiquitin from the Downey, California Animal Care Center.  The dog is described as quiet and low-energy.
 
 Key Points:
 

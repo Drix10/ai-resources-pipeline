@@ -1,6 +1,6 @@
 ### 💡 Customer Understanding - Four Levels of Depth
 
-This article outlines a four-level framework for understanding customers in design projects, moving beyond surface-level data to deeper insights.  It emphasizes the limitations of relying solely on readily available data.
+Four-level framework for understanding customers in design projects, moving beyond surface-level data to deeper insights.  It emphasizes the limitations of relying solely on readily available data.
 
 Key Points:
 

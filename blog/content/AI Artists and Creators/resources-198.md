@@ -1,6 +1,6 @@
 ### 💡 Karaoke - Say It Plain Version
 
-This article discusses the concept of a karaoke version, specifically for the song "Say It Plain." It highlights how these versions provide opportunities for vocal practice and performance without original vocals.
+Concept of a karaoke version, specifically for the song "Say It Plain." It highlights how these versions provide opportunities for vocal practice and performance without original vocals.
 
 Key Points:
 

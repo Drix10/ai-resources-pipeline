@@ -1,6 +1,6 @@
 ### 🤖 AI & Security - Evolving Captcha Mechanisms
 
-This article examines the shift in captcha technology, where the role of creating these security challenges has moved from humans to artificial intelligence. It highlights the evolving landscape of bot detection and human verification.
+Shift in captcha technology, where the role of creating these security challenges has moved from humans to artificial intelligence. It highlights the evolving landscape of bot detection and human verification.
 
 Key Points:
 

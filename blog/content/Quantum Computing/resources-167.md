@@ -1,6 +1,6 @@
 ### 🤖 Quantum Computing - Controllable Quantum Memory
 
-This article explores controllable quantum memory capacity within quantum reservoir networks. It highlights the role of tunable partial-SWAP operations in influencing memory performance.
+Controllable quantum memory capacity within quantum reservoir networks. It highlights the role of tunable partial-SWAP operations in influencing memory performance.
 
 Key Points:
 

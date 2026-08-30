@@ -1,6 +1,6 @@
 ### 🤖 AI-Powered App Development - Marvel Rivals Game
 
-This article discusses the use of Twilio's AI Assistant in building a real-time application for enhancing gameplay in Marvel Rivals.  A demonstration showcased its capabilities.
+Use of Twilio's AI Assistant in building a real-time application for enhancing gameplay in Marvel Rivals.  A demonstration showcased its capabilities.
 
 Key Points:
 

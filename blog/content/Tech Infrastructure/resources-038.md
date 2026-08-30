@@ -1,6 +1,6 @@
 ### 🚀 Cohesity Data Cloud - Enhancing Cyber Resilience
 
-This article discusses Cohesity Data Cloud's expert-led demo on maximizing cyber resilience using AI-powered insights and scalable backup solutions.  The demo will cover how Cohesity's technology helps organizations improve their defenses against evolving cyber threats.
+Cohesity Data Cloud's expert-led demo on maximizing cyber resilience using AI-powered insights and scalable backup solutions.  The demo will cover how Cohesity's technology helps organizations improve their defenses against evolving cyber threats.
 
 Key Points:
 

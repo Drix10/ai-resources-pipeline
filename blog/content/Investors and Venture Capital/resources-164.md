@@ -1,6 +1,6 @@
 ### 🚀 Social VR - Experiencing Immersive Digital Spaces
 
-This article discusses the advanced state of social virtual reality, highlighting its potential to create immersive digital interaction spaces. It explores the core aspects that define a leading social VR experience.
+Advanced state of social virtual reality, highlighting its potential to create immersive digital interaction spaces. It explores the core aspects that define a leading social VR experience.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 PSVR2 - Physical Edition of Underdogs
 
-This article details the physical release of the game Underdogs for the PSVR2 headset, including its DLC content.
+Physical release of the game Underdogs for the PSVR2 headset, including its DLC content.
 
 Key Points:
 

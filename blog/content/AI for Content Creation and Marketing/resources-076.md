@@ -1,6 +1,6 @@
 ### 💡 Conversational AI - Human Interaction in Customer Experiences
 
-This article discusses the increasing consumer preference for human interaction in customer experiences and its implications for the future of conversational AI, referencing a PwC study highlighting this trend.  A book by @ChrisHood1 further explores this topic.
+Increasing consumer preference for human interaction in customer experiences and its implications for the future of conversational AI, referencing a PwC study highlighting this trend.  A book by @ChrisHood1 further explores this topic.
 
 Key Points:
 

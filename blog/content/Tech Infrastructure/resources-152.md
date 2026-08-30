@@ -1,6 +1,6 @@
 ### 💡 Geopolitics - UAE Foreign Policy
 
-This article covers the UAE Foreign Minister's response to criticism regarding the nation's stance against Iran, emphasizing a commitment to not yield to perceived threats. It highlights the direct statement made by the minister in reaction to geopolitical commentary.
+UAE Foreign Minister's response to criticism regarding the nation's stance against Iran, emphasizing a commitment to not yield to perceived threats. It highlights the direct statement made by the minister in reaction to geopolitical commentary.
 
 Key Points:
 

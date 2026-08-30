@@ -1,6 +1,6 @@
 ### 🚀 Udio Music - New Sessions Feature
 
-This article details the new Sessions feature in Udio, a timeline view for precise track editing, available for Standard and Pro subscribers.  It allows for extending or editing tracks with greater control.
+New Sessions feature in Udio, a timeline view for precise track editing, available for Standard and Pro subscribers.  It allows for extending or editing tracks with greater control.
 
 Key Points:
 

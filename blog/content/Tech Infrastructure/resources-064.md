@@ -1,6 +1,6 @@
 ### 🤖 AI at Vercel - Engineering Growth and Code Generation
 
-This article summarizes a discussion with Vercel's VP of Engineering, Lindsey Simon, covering Vercel's use of AI, particularly code generation, its impact on engineering processes, and future hiring needs.
+Discussion with Vercel's VP of Engineering, Lindsey Simon, covering Vercel's use of AI, particularly code generation, its impact on engineering processes, and future hiring needs.
 
 Key Points:
 

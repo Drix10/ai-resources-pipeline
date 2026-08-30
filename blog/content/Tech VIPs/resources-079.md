@@ -1,6 +1,6 @@
 ### 🤖 Market Access - Fee Structure
 
-This article discusses a statement regarding market access fees.  The core idea revolves around leveraging market dominance to enforce payment for access.
+Statement regarding market access fees.  The core idea revolves around leveraging market dominance to enforce payment for access.
 
 Key Points:
 

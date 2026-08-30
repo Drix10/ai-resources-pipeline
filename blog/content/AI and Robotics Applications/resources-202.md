@@ -1,6 +1,6 @@
 ### 🤖 Advanced NLP Course - Learning Resources
 
-This article outlines the publicly available materials for the CMU Advanced NLP course, including video lectures, slides, and code examples. It provides a comprehensive set of resources for learning advanced natural language processing.
+Publicly available materials for the CMU Advanced NLP course, including video lectures, slides, and code examples. It provides a comprehensive set of resources for learning advanced natural language processing.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 GPT Pro - SVG Generation
 
-This article discusses the advanced capability of GPT Pro in generating SVG images instantly. It highlights how artificial intelligence can streamline the creation of vector graphics.
+Advanced capability of GPT Pro in generating SVG images instantly. It highlights how artificial intelligence can streamline the creation of vector graphics.
 
 Key Points:
 

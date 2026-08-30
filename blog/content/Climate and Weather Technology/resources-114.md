@@ -1,6 +1,6 @@
 ### 💡 Weather Update - Utah Fall Storm
 
-This article provides information on an approaching autumn storm in Utah, detailing expected wind conditions and the arrival of a cold front. It outlines the timeline and potential impacts across the western part of the state.
+Information on an approaching autumn storm in Utah, detailing expected wind conditions and the arrival of a cold front. It outlines the timeline and potential impacts across the western part of the state.
 
 Key Points:
 

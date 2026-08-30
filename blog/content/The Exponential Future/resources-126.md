@@ -1,6 +1,6 @@
 ### 💡 Investment Strategy - Hypothetical ETF Analysis
 
-This article explores the concept of a hypothetical investment fund focused on key entrepreneurial ventures. It considers the potential for tracking growth and market trends related to specific industry leaders.
+Concept of a hypothetical investment fund focused on key entrepreneurial ventures. It considers the potential for tracking growth and market trends related to specific industry leaders.
 
 Key Points:
 

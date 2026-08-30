@@ -1,6 +1,6 @@
 ### 💡 South African Legal Challenge - Employment Equity Targets
 
-This article outlines the legal challenge initiated by four major South African law firms against new government targets for Black employment and ownership. It addresses concerns regarding the feasibility of the timeline and underlying claims of systemic prejudice.
+Legal challenge initiated by four major South African law firms against new government targets for Black employment and ownership. It addresses concerns regarding the feasibility of the timeline and underlying claims of systemic prejudice.
 
 Key Points:
 

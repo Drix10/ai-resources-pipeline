@@ -1,6 +1,6 @@
 ### 🤖 Browser Company News - Arc Browser and Recent Activity
 
-This article discusses the lack of recent posts and updates from Browser Company on X (formerly Twitter), following their announcement of shifting focus away from the Arc browser.  It analyzes the situation based on publicly available information.
+Lack of recent posts and updates from Browser Company on X (formerly Twitter), following their announcement of shifting focus away from the Arc browser.  It analyzes the situation based on publicly available information.
 
 
 Key Points:

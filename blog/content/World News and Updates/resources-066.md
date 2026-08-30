@@ -1,6 +1,6 @@
 ### 📰 India - Indore Couple Case Update
 
-This article summarizes a news report regarding the case of Raja Raghuvanshi and his wife, Sonam Raghuvanshi.  Sonam's location has been confirmed, and statements from family members are included.
+News report regarding the case of Raja Raghuvanshi and his wife, Sonam Raghuvanshi.  Sonam's location has been confirmed, and statements from family members are included.
 
 Key Points:
 

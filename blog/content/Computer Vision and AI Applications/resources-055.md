@@ -1,6 +1,6 @@
 ### 💰 Salary Negotiation - Payslip Requests
 
-This article discusses the implications of employers requesting payslips during the hiring process and suggests a counter-strategy.
+Implications of employers requesting payslips during the hiring process and suggests a counter-strategy.
 
 Key Points:
 

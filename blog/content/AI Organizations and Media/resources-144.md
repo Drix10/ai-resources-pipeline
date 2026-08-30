@@ -1,6 +1,6 @@
 ### 🤖 Maritime Technology - UAE Naval Innovation
 
-This article discusses the UAE's progress in maritime technology through the Naval Innovation Hub, a collaboration between TII and ADSB. It highlights efforts to develop autonomous vessels and foster a future-ready ecosystem.
+UAE's progress in maritime technology through the Naval Innovation Hub, a collaboration between TII and ADSB. It highlights efforts to develop autonomous vessels and foster a future-ready ecosystem.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Mathematics - Foundational Importance
 
-This article highlights the fundamental and pervasive importance of mathematics across various disciplines. It explores why mathematics is considered a cornerstone of knowledge and innovation.
+Fundamental and pervasive importance of mathematics across various disciplines. It explores why mathematics is considered a cornerstone of knowledge and innovation.
 
 Key Points:
 

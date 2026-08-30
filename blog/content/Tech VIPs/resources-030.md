@@ -1,6 +1,6 @@
 ### 🤖 NotebookLM Updates - Feature Enhancements
 
-This article details recent updates to NotebookLM, focusing on improved answer quality, citation visibility, source customization, and enhanced user experience.
+Recent updates to NotebookLM, focusing on improved answer quality, citation visibility, source customization, and enhanced user experience.
 
 Key Points:
 

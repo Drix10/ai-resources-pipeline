@@ -1,6 +1,6 @@
 ### 🤖 Biological Systems - Human Digestion Process
 
-This article provides a concise overview of the human digestive system, explaining the fundamental stages involved in breaking down food. It covers the primary organs and their roles in nutrient absorption.
+Concise overview of the human digestive system, explaining the fundamental stages involved in breaking down food. It covers the primary organs and their roles in nutrient absorption.
 
 Key Points:
 

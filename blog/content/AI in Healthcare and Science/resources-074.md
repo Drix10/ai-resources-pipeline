@@ -1,6 +1,6 @@
 ### 🤖 Deep Learning in Spliced Alignment
 
-This article discusses how deep learning models can improve the accuracy of aligning RNA and protein sequences to genomes by better predicting splice sites.  It focuses on a research paper exploring this topic.
+Deep learning models can improve the accuracy of aligning RNA and protein sequences to genomes by better predicting splice sites.  It focuses on a research paper exploring this topic.
 
 Key Points:
 

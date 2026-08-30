@@ -1,6 +1,6 @@
 ### 💡 NBA Playoff Update - Game 3 Details
 
-This article provides a concise update on critical moments during Game 3 of an NBA Playoffs series. It highlights key game events and broadcast information for the match.
+Concise update on critical moments during Game 3 of an NBA Playoffs series. It highlights key game events and broadcast information for the match.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ AI Video Generation - Runway Seedance 2.0 Feature
 
-This article covers the introduction of Seedance 2.0 by Runway, detailing its capabilities in audio-visual content generation. It highlights the availability of this advanced tool for users.
+Introduction of Seedance 2.0 by Runway, detailing its capabilities in audio-visual content generation. It highlights the availability of this advanced tool for users.
 
 Key Points:
 

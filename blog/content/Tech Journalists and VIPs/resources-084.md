@@ -1,6 +1,6 @@
 ### 🚨 Spain - Allegations of Prostitution Ring
 
-This article summarizes allegations of a prostitution ring operating across Spain, allegedly linked to the family of the wife of the Spanish Prime Minister.  The post calls for the Prime Minister's resignation and a full investigation.
+Allegations of a prostitution ring operating across Spain, allegedly linked to the family of the wife of the Spanish Prime Minister.  The post calls for the Prime Minister's resignation and a full investigation.
 
 Key Points:
 

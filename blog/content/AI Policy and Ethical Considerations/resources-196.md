@@ -1,6 +1,6 @@
 ### 🤖 AI Model Gating - Open Source Protection
 
-This article examines the current trend of large AI labs restricting access to models and contrasts it with the needs of the open-source ecosystem. It highlights the vulnerability of smaller software companies reliant on this ecosystem.
+Current trend of large AI labs restricting access to models and contrasts it with the needs of the open-source ecosystem. It highlights the vulnerability of smaller software companies reliant on this ecosystem.
 
 Key Points:
 

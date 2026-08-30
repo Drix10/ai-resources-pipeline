@@ -1,6 +1,6 @@
 ### 💡 Higher Education - Plaksha University Recommendation
 
-This article discusses Plaksha University as a higher education option for aspiring students interested in technology.  The recommendation is based on a personal experience.
+Plaksha University as a higher education option for aspiring students interested in technology.  The recommendation is based on a personal experience.
 
 Key Points:
 

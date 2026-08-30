@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Self-Hosted LLM Infrastructure
 
-This article discusses the deployment of the Hermes Agent from NousResearch on self-hosted infrastructure, highlighting the benefits of managing personal agent systems. It also mentions the use of qwen models for these operations.
+Deployment of the Hermes Agent from NousResearch on self-hosted infrastructure, highlighting the benefits of managing personal agent systems. It also mentions the use of qwen models for these operations.
 
 Key Points:
 

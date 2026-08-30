@@ -1,6 +1,6 @@
 ### 🤖 Apple History - Siri Acquisition
 
-This article discusses Steve Jobs's interest in Siri and its potential impact on Apple's AI strategy.  It highlights the aggressive acquisition approach employed by Jobs.
+Steve Jobs's interest in Siri and its potential impact on Apple's AI strategy.  It highlights the aggressive acquisition approach employed by Jobs.
 
 Key Points:
 

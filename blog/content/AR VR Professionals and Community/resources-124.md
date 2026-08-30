@@ -1,6 +1,6 @@
 ### 🚀 VR Gaming - Racing Experience in DowntownClub
 
-This article discusses the performance and experience of the DowntownClub racing game on a standalone virtual reality headset. It highlights the game's realistic feel and the limitations of its current content offering.
+Performance and experience of the DowntownClub racing game on a standalone virtual reality headset. It highlights the game's realistic feel and the limitations of its current content offering.
 
 Key Points:
 

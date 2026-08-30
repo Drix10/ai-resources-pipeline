@@ -1,6 +1,6 @@
 ### 🤖 Material Testing - Live Purity Analysis
 
-This article discusses the concept of performing random cutting and purity testing of bars in real-time, potentially for quality control or investigative purposes.  The process emphasizes randomness and transparency.
+Concept of performing random cutting and purity testing of bars in real-time, potentially for quality control or investigative purposes.  The process emphasizes randomness and transparency.
 
 Key Points:
 

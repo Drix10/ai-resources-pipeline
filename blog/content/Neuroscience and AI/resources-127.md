@@ -1,6 +1,6 @@
 ### 🤖 Lysosomes - Signaling Hubs in Longevity
 
-This article discusses the role of lysosomes beyond waste recycling, highlighting their function as signaling centers that link metabolic states to heritable epigenetic information. It explores the concept of cellular memory in the context of longevity.
+Role of lysosomes beyond waste recycling, highlighting their function as signaling centers that link metabolic states to heritable epigenetic information. It explores the concept of cellular memory in the context of longevity.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Weather Forecasting - Regional Rainfall Update
 
-This article provides an update on recent rainfall totals for inland locations, outlining expected increases overnight and into Tuesday. It also notes how thunderstorms will locally enhance these totals.
+Update on recent rainfall totals for inland locations, outlining expected increases overnight and into Tuesday. It also notes how thunderstorms will locally enhance these totals.
 
 Key Points:
 

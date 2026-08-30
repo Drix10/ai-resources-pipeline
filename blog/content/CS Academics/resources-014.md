@@ -1,6 +1,6 @@
 ### 🤖 Labor - Impact of Automation on Wages
 
-This article discusses the impact of automation on wages, specifically focusing on the recent wage increase for dockworkers and the implications of restricting automation.
+Impact of automation on wages, specifically focusing on the recent wage increase for dockworkers and the implications of restricting automation.
 
 Key Points:
 

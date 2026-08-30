@@ -1,6 +1,6 @@
 ### 💡 Seismic Activity - Nuclear Safety Protocols
 
-This article discusses a recent earthquake near the decommissioned Indian Point Nuclear Power Plant and provides details on the plant's safety measures for nuclear fuel storage.
+Recent earthquake near the decommissioned Indian Point Nuclear Power Plant and provides details on the plant's safety measures for nuclear fuel storage.
 
 Key Points:
 

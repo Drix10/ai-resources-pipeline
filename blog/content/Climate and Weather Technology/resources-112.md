@@ -1,6 +1,6 @@
 ### 🌪️ Tropical Cyclones - Neoguri and Ragasa Updates
 
-This article summarizes updates on the decay of Super Typhoons Neoguri and Ragasa, including reduced likelihood of direct impacts on Japan and exceptional sea level pressure readings recorded within Ragasa's eyewall.
+Updates on the decay of Super Typhoons Neoguri and Ragasa, including reduced likelihood of direct impacts on Japan and exceptional sea level pressure readings recorded within Ragasa's eyewall.
 
 
 Key Points:

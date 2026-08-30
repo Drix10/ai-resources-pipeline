@@ -1,6 +1,6 @@
 ### 💡 Educational Technology - Managing Anger in eTwinning Projects
 
-This article discusses the use of CuriPod in managing anger during an eTwinning project focused on emotional expression.  It highlights the tool's effectiveness in project-based learning and virtual collaboration.
+Use of CuriPod in managing anger during an eTwinning project focused on emotional expression.  It highlights the tool's effectiveness in project-based learning and virtual collaboration.
 
 Key Points:
 

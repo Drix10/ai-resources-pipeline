@@ -1,6 +1,6 @@
 ### 💡 Media Analysis - Identifying Propaganda in Bollywood Narratives
 
-This article discusses the perspectives shared by Kumar Vishwas regarding the use of Bollywood films to convey propaganda. It examines how narratives can be constructed to alter historical facts or character portrayals.
+Perspectives shared by Kumar Vishwas regarding the use of Bollywood films to convey propaganda. It examines how narratives can be constructed to alter historical facts or character portrayals.
 
 Key Points:
 

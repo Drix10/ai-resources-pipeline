@@ -1,6 +1,6 @@
 ### ✨ Intel - Intel Vision 2024
 
-This article summarizes Intel's expression of gratitude to attendees of Intel Vision 2024.
+Intel's expression of gratitude to attendees of Intel Vision 2024.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Football Insights - Team Comparison
 
-This article discusses a comparative assessment of football teams, specifically Cape Verde and Hammarby, based on market value. It highlights the potential for market value to be a misleading indicator of a team's strength.
+Comparative assessment of football teams, specifically Cape Verde and Hammarby, based on market value. It highlights the potential for market value to be a misleading indicator of a team's strength.
 
 Key Points:
 

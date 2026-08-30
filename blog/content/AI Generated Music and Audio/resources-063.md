@@ -1,6 +1,6 @@
 ### 🤖 Retrospectives - Flash Animation and Automation
 
-This article discusses the author's experience creating flash cartoons, building a Newgrounds rival, and their current work automating similar tasks.
+Author's experience creating flash cartoons, building a Newgrounds rival, and their current work automating similar tasks.
 
 Key Points:
 

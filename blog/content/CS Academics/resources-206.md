@@ -1,6 +1,6 @@
 ### ✨ NBA Record - VJ Edgecombe Game 7 Performance
 
-This article highlights VJ Edgecombe's record-setting performance in a crucial Game 7, where he achieved the highest points ever by a 76ers rookie. It details his scoring milestone and its historical significance within the team's playoff history.
+VJ Edgecombe's record-setting performance in a crucial Game 7, where he achieved the highest points ever by a 76ers rookie. It details his scoring milestone and its historical significance within the team's playoff history.
 
 Key Points:
 

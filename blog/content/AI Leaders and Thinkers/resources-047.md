@@ -1,6 +1,6 @@
 ### 🤖  MCP - Current State and Concerns
 
-This article discusses the current state of the Mattermost Cloud Platform (MCP), highlighting concerns regarding its hype and market positioning.  The author, an MCP service operator, offers a critical perspective.
+Current state of the Mattermost Cloud Platform (MCP), highlighting concerns regarding its hype and market positioning.  The author, an MCP service operator, offers a critical perspective.
 
 
 Key Points:

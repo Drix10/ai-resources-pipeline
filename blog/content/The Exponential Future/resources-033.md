@@ -1,6 +1,6 @@
 ### 🤖 Considerations on the Treatment of Domestic Terrorists
 
-This article summarizes four key considerations regarding the incarceration of domestic terrorists, including ethical concerns, potential errors in judgment, infrastructural capacity, and intelligence gathering.
+Four key considerations regarding the incarceration of domestic terrorists, including ethical concerns, potential errors in judgment, infrastructural capacity, and intelligence gathering.
 
 Key Points:
 

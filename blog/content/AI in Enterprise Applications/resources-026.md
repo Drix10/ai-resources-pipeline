@@ -1,6 +1,6 @@
 ### 🌕 Celestial Events - Lunar Eclipse Visibility
 
-This article discusses the visibility of a total lunar eclipse across the U.S. and suggests locations for optimal viewing.
+Visibility of a total lunar eclipse across the U.S. and suggests locations for optimal viewing.
 
 Key Points:
 

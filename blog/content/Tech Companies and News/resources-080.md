@@ -1,6 +1,6 @@
 ### 🤖 Cloudflare - AI Crawler Blocking
 
-This article discusses Cloudflare's new policy of blocking AI crawlers by default and its introduction of a pay-per-crawl program.  This shift impacts how AI systems access data through Cloudflare's infrastructure.
+Cloudflare's new policy of blocking AI crawlers by default and its introduction of a pay-per-crawl program.  This shift impacts how AI systems access data through Cloudflare's infrastructure.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 🤖 AI Architecture - Fable 5 Advisor Pattern
 
-This article outlines a common pattern for using Fable 5 models. It explains how Fable 5 can act as an advisor to an executor model, such as Sonnet 5. This architectural approach helps manage token usage efficiently.
+Common pattern for using Fable 5 models. It explains how Fable 5 can act as an advisor to an executor model, such as Sonnet 5. This architectural approach helps manage token usage efficiently.
 
 Key Points:
 • Fable 5 provides guidance for executor models.

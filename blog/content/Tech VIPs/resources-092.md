@@ -1,6 +1,6 @@
 ### 🤖 Cursor AI - 1.4 Release
 
-This article summarizes the key improvements and features introduced in Cursor AI version 1.4, focusing on enhanced agent capabilities and improved code handling.
+Key improvements and features introduced in Cursor AI version 1.4, focusing on enhanced agent capabilities and improved code handling.
 
 Key Points:
 

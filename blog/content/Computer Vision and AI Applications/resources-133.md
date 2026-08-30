@@ -1,6 +1,6 @@
 ### 💡 Daily Commit Streaks - Maintaining Development Momentum
 
-This article discusses the concept of daily commit streaks in software development and their role in fostering consistent coding habits. It explores the motivation behind maintaining these streaks and their impact on developer productivity.
+Concept of daily commit streaks in software development and their role in fostering consistent coding habits. It explores the motivation behind maintaining these streaks and their impact on developer productivity.
 
 Key Points:
 

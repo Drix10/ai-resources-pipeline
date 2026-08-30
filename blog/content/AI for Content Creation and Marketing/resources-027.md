@@ -1,6 +1,6 @@
 ### ✨ Women in Tech - Alice Chang's Leadership at Writer
 
-This article highlights Alice Chang's journey as Head of SDR and PLG at Writer, focusing on her experience in a male-dominated industry and the inclusive environment at Writer.
+Alice Chang's journey as Head of SDR and PLG at Writer, focusing on her experience in a male-dominated industry and the inclusive environment at Writer.
 
 Key Points:
 

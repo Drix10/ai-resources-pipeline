@@ -1,6 +1,6 @@
 ### 🤖 AI Competition - Embracing Uncertainty
 
-This article discusses the winning strategy of the KDD 2025 cup competition "Task 2: Multi-source Augmentation," which emphasized acknowledging uncertainty instead of hallucinating answers.
+Winning strategy of the KDD 2025 cup competition "Task 2: Multi-source Augmentation," which emphasized acknowledging uncertainty instead of hallucinating answers.
 
 Key Points:
 

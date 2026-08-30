@@ -1,6 +1,6 @@
 ### ✨ VRChat - Pride Month Event
 
-This article details VRChat's call for submissions for a Pride Month-themed world.  Guidelines and submission forms are available.
+VRChat's call for submissions for a Pride Month-themed world.  Guidelines and submission forms are available.
 
 Key Points:
 

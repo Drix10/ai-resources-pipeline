@@ -1,6 +1,6 @@
 ### 🎉 Event Recap - Twitter Space Recap
 
-This article summarizes a Twitter Space event and highlights key participants and links to related content.
+Twitter Space event and highlights key participants and links to related content.
 
 Key Points:
 

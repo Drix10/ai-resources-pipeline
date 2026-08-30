@@ -1,6 +1,6 @@
 ### 🤖 Veo 3 - Dialogue Capabilities
 
-This article discusses the new dialogue capabilities introduced in Veo 3, as demonstrated in a video featuring two muffins.  The example showcases the AI's ability to generate realistic dialogue within a video context.
+New dialogue capabilities introduced in Veo 3, as demonstrated in a video featuring two muffins.  The example showcases the AI's ability to generate realistic dialogue within a video context.
 
 
 Key Points:

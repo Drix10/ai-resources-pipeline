@@ -1,6 +1,6 @@
 ### 💡 Diabetes Management - GLP-1 Therapies and Risk Assessment
 
-This article highlights Diabetes Alert Day, emphasizing the need for early detection of type 2 diabetes due to its often-undetected nature. It also discusses the evolving landscape of type 2 diabetes treatment, particularly the growing use and impact of GLP-1 therapies.
+Diabetes Alert Day, emphasizing the need for early detection of type 2 diabetes due to its often-undetected nature. It also discusses the evolving landscape of type 2 diabetes treatment, particularly the growing use and impact of GLP-1 therapies.
 
 Key Points:
 

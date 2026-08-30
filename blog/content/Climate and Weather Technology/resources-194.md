@@ -1,6 +1,6 @@
 ### 💡 Weather Advisory - South Florida Heat and Storms
 
-This article discusses a current Heat Advisory for portions of Miami-Dade, Broward, and Palm Beach Counties. It also outlines expected daily weather patterns, including the potential for scattered to numerous showers and storms each afternoon and evening.
+Current Heat Advisory for portions of Miami-Dade, Broward, and Palm Beach Counties. It also outlines expected daily weather patterns, including the potential for scattered to numerous showers and storms each afternoon and evening.
 
 Key Points:
 

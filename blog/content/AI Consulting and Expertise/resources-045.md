@@ -1,6 +1,6 @@
 ### 🤖 Cryptography - A Historical and Modern Perspective
 
-This article explores the history of cryptography, its connection to various fields, and its pervasive role in modern life.  It briefly touches upon the discussion between computer scientist Boaz Barak and Janna Levin.
+History of cryptography, its connection to various fields, and its pervasive role in modern life.  It briefly touches upon the discussion between computer scientist Boaz Barak and Janna Levin.
 
 Key Points:
 

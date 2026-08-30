@@ -1,6 +1,6 @@
 ### 🤖 Politics and Donations - Trevor Milton's Contributions
 
-This article details recent political donations made by Trevor Milton, founder of Nikola Motor, following his pardon for fraud.  The information is based on FEC records.
+Recent political donations made by Trevor Milton, founder of Nikola Motor, following his pardon for fraud.  The information is based on FEC records.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics - TikTok's Presence in the US
 
-This article discusses concerns regarding TikTok's presence in the United States, drawing a parallel to Cold War communication strategies.  The core argument centers on national security implications.
+Concerns regarding TikTok's presence in the United States, drawing a parallel to Cold War communication strategies.  The core argument centers on national security implications.
 
 Key Points:
 

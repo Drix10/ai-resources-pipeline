@@ -1,6 +1,6 @@
 ### 🤖 Autonomous Vehicles - Engineering and Learning
 
-This article discusses the expanding presence of autonomous vehicles and emphasizes the importance of understanding the engineering principles behind these advanced systems.
+Expanding presence of autonomous vehicles and emphasizes the importance of understanding the engineering principles behind these advanced systems.
 
 Key Points:
 

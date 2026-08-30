@@ -1,6 +1,6 @@
 ### 🤖 Claude System Prompt - Recent Updates
 
-This article details recent updates to Claude 3.7's system prompt, including the prompt's content and date.  It also includes references to related discussions on X (formerly Twitter).
+Recent updates to Claude 3.7's system prompt, including the prompt's content and date.  It also includes references to related discussions on X (formerly Twitter).
 
 Key Points:
 

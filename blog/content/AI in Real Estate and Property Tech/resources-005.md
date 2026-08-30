@@ -1,6 +1,6 @@
 ### 🤖 AI in Architecture - Automated Design Generation
 
-This article discusses the use of artificial intelligence in architectural design, focusing on tools that simplify the creation of architectural plans.  The impact on the architectural profession is briefly considered.
+Use of artificial intelligence in architectural design, focusing on tools that simplify the creation of architectural plans.  The impact on the architectural profession is briefly considered.
 
 Key Points:
 

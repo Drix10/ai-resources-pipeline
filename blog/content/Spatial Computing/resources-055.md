@@ -1,6 +1,6 @@
 ### 🤖 Voxelmaps - High-Fidelity 3D Modeling
 
-This article discusses Voxelmaps' high-fidelity 3D modeling capabilities, highlighting its ability to capture intricate details in complex environments.  The focus is on the data derived from these models for understanding dense environments.
+Voxelmaps' high-fidelity 3D modeling capabilities, highlighting its ability to capture intricate details in complex environments.  The focus is on the data derived from these models for understanding dense environments.
 
 Key Points:
 

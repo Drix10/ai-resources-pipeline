@@ -1,6 +1,6 @@
 ### 🤖 AI Impact - Decline of Mechanical Turk
 
-This article examines the decline of Amazon Mechanical Turk (MTurk) and its displacement by Large Language Models (LLMs). It discusses how AI technology is reshaping human task procurement.
+Decline of Amazon Mechanical Turk (MTurk) and its displacement by Large Language Models (LLMs). It discusses how AI technology is reshaping human task procurement.
 
 Key Points:
 • Mechanical Turk was a primary platform for social and survey research.

@@ -1,6 +1,6 @@
 ### 🤖 AI in Medicine - FDA-Cleared Essential Tremor Watch
 
-This article discusses the FDA clearance of Felix, a wrist-worn device for treating essential tremor, and its mechanism of action.
+FDA clearance of Felix, a wrist-worn device for treating essential tremor, and its mechanism of action.
 
 Key Points:
 

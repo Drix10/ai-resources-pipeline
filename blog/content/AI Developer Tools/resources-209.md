@@ -1,6 +1,6 @@
 ### 🤖 Formal Verification - Cost and Scalability
 
-This article discusses the economic challenges associated with formal verification, highlighting its reliance on expert knowledge for specification and proof generation. It explains why its application is currently limited despite its potential benefits for critical systems.
+Economic challenges associated with formal verification, highlighting its reliance on expert knowledge for specification and proof generation. It explains why its application is currently limited despite its potential benefits for critical systems.
 
 Key Points:
 

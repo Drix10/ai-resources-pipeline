@@ -1,6 +1,6 @@
 ### 🤖 AI Generalization - Latent Learning Gap
 
-This article discusses why AI sometimes fails to generalize and proposes episodic memory as a solution to bridge the latent learning gap.  The latent learning gap is a concept unifying observations from language model weaknesses and agent navigation challenges.
+Why AI sometimes fails to generalize and proposes episodic memory as a solution to bridge the latent learning gap.  The latent learning gap is a concept unifying observations from language model weaknesses and agent navigation challenges.
 
 Key Points:
 

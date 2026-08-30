@@ -1,6 +1,6 @@
 ### 🤖 Astronomy - Vera C. Rubin Observatory's Camera
 
-This article discusses the largest digital camera ever built, a key component of the Vera C. Rubin Observatory, and its creator, Tony Tyson.
+Largest digital camera ever built, a key component of the Vera C. Rubin Observatory, and its creator, Tony Tyson.
 
 Key Points:
 

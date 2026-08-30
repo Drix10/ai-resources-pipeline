@@ -1,6 +1,6 @@
 ### 💡 Media Ethics - Case Study: Kyren Lacy
 
-This article examines a case involving media portrayal of an individual before verified evidence was released, highlighting the significant impact of early reporting. It discusses the potential consequences of media narratives on individuals and the importance of responsible journalism.
+Case involving media portrayal of an individual before verified evidence was released, highlighting the significant impact of early reporting. It discusses the potential consequences of media narratives on individuals and the importance of responsible journalism.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Drug Discovery - Takeda Collaboration
 
-This article details a strategic collaboration between Insilico Medicine and Takeda. The partnership aims to identify drug candidates using advanced AI models.
+Strategic collaboration between Insilico Medicine and Takeda. The partnership aims to identify drug candidates using advanced AI models.
 
 Key Points:
 • Collaboration targets clinically differentiated drug candidates.

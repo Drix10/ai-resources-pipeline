@@ -1,6 +1,6 @@
 ### ⚠️ Political Discourse - Allegations of Corruption
 
-This article summarizes allegations of corruption involving individuals named in relation to GAA 2025 and the DDS.  The veracity of these allegations is not confirmed within this summary.
+Allegations of corruption involving individuals named in relation to GAA 2025 and the DDS.  The veracity of these allegations is not confirmed within this summary.
 
 Key Points:
 

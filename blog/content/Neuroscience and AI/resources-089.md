@@ -1,6 +1,6 @@
 ### 🤖 Sleep Dysfunction - Links to Numerous Diseases
 
-This article summarizes a large-scale study linking sleep dysfunction to a wide range of diseases.  The study utilized objective data gathered over several years.
+Large-scale study linking sleep dysfunction to a wide range of diseases.  The study utilized objective data gathered over several years.
 
 Key Points:
 

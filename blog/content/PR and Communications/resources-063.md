@@ -1,6 +1,6 @@
 ### 🤖 Legal Action - Qatari Jet Scheme Investigation
 
-This article summarizes a request for records from the Department of Justice (DOJ) concerning a Qatari jet scheme involving President Trump and Attorney General Pam Bondi.  The request aims to shed light on the scheme and Bondi's potential ethical conflicts.
+Request for records from the Department of Justice (DOJ) concerning a Qatari jet scheme involving President Trump and Attorney General Pam Bondi.  The request aims to shed light on the scheme and Bondi's potential ethical conflicts.
 
 Key Points:
 

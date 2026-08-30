@@ -1,6 +1,6 @@
 ### 🤖 Startup Valuation - Focusing on Revenue
 
-This article discusses the impact of focusing on billion-dollar valuations instead of revenue for startup founders. It argues that emphasizing revenue is a more sustainable approach to business growth.
+Impact of focusing on billion-dollar valuations instead of revenue for startup founders. It argues that emphasizing revenue is a more sustainable approach to business growth.
 
 Key Points:
 

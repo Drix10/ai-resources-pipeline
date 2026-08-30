@@ -1,6 +1,6 @@
 ### 💡 Data Center World - C-Suite Strategy Keynote
 
-This article covers upcoming keynote speeches at Data Center World, focusing on C-suite discussions regarding critical strategic decisions within the industry. It provides insight into high-level conversations shaping future data center operations.
+Upcoming keynote speeches at Data Center World, focusing on C-suite discussions regarding critical strategic decisions within the industry. It provides insight into high-level conversations shaping future data center operations.
 
 Key Points:
 

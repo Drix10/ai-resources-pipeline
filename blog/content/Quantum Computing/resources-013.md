@@ -1,6 +1,6 @@
 ### 🤖 AI Conference Presentations - AAAI25
 
-This article summarizes presentations on causal defense in machine learning and causality in large language models at the AAAI 2025 conference.
+Presentations on causal defense in machine learning and causality in large language models at the AAAI 2025 conference.
 
 Key Points:
 

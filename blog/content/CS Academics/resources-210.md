@@ -1,6 +1,6 @@
 ### ✨ NBA - Spurs Game 2 Victory
 
-This article summarizes the San Antonio Spurs' victory in Game 2, which resulted in the series being tied 1-1 in the second round of the playoffs.
+San Antonio Spurs' victory in Game 2, which resulted in the series being tied 1-1 in the second round of the playoffs.
 
 Key Points:
 

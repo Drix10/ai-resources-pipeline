@@ -1,6 +1,6 @@
 ### 🤖 Digital Health Interview - Virtual Care, AI, and Cost Reduction
 
-This article summarizes a digital health interview discussing virtual care, AI adoption in healthcare, and strategies for cost reduction.  The interview features Alex Koshykov and Dr. Lyle MD, founder and CEO of KeyCare Inc.
+Digital health interview discussing virtual care, AI adoption in healthcare, and strategies for cost reduction.  The interview features Alex Koshykov and Dr. Lyle MD, founder and CEO of KeyCare Inc.
 
 Key Points:
 

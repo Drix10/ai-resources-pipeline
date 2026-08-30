@@ -1,6 +1,6 @@
 ### ⚖️ Legal Compliance - Big Tech Accountability
 
-This article discusses the legal accountability of large American technology companies and the potential consequences of non-compliance.  It highlights the impact on smaller competitors.
+Legal accountability of large American technology companies and the potential consequences of non-compliance.  It highlights the impact on smaller competitors.
 
 Key Points:
 

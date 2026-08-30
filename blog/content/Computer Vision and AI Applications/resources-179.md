@@ -1,6 +1,6 @@
 ### ✨ Diversity in Tech - Claude Code Keynote
 
-This article highlights an observation from a Claude Code keynote, noting the significant representation of women speakers during the initial segment of the event. It reflects on the importance of diverse voices in the technology sector.
+Observation from a Claude Code keynote, noting the significant representation of women speakers during the initial segment of the event. It reflects on the importance of diverse voices in the technology sector.
 
 Key Points:
 

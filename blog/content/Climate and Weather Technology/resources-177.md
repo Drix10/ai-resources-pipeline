@@ -1,6 +1,6 @@
 ### 💡 Hurricane Preparedness - Post-Storm Dangers
 
-This article outlines the importance of understanding post-storm hazards in hurricane preparedness and emphasizes the significant role individuals play in community safety. It highlights the need for collective awareness before, during, and after a hurricane event.
+Importance of understanding post-storm hazards in hurricane preparedness and emphasizes the significant role individuals play in community safety. It highlights the need for collective awareness before, during, and after a hurricane event.
 
 Key Points:
 

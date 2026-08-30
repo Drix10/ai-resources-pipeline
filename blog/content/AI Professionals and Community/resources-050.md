@@ -1,6 +1,6 @@
 ### 🤖 Military Intelligence - PL-15 Missile Recovery
 
-This article discusses the recovery of a Chinese PL-15 air-to-air missile by India and its potential intelligence implications.  The missile's discovery and subsequent analysis could yield significant insights into its capabilities.
+Recovery of a Chinese PL-15 air-to-air missile by India and its potential intelligence implications.  The missile's discovery and subsequent analysis could yield significant insights into its capabilities.
 
 
 Key Points:

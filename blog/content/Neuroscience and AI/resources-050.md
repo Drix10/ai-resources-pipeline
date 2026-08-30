@@ -1,6 +1,6 @@
 ### 🔬 Neuroscience - Fruit Fly Nervous System Mapping
 
-This article summarizes the first complete map of the adult fruit fly's nervous system, highlighting the sex differences revealed in this groundbreaking research.
+First complete map of the adult fruit fly's nervous system, highlighting the sex differences revealed in this groundbreaking research.
 
 Key Points:
 

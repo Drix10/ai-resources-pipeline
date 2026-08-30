@@ -1,6 +1,6 @@
 ### 🤖 Hyperliquid Market Sentiment - Short Positions Dominate
 
-This article summarizes the current net short position of leaderboard traders on Hyperliquid, highlighting the most shorted and longed assets.
+Current net short position of leaderboard traders on Hyperliquid, highlighting the most shorted and longed assets.
 
 Key Points:
 

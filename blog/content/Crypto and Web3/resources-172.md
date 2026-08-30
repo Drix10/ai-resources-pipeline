@@ -1,6 +1,6 @@
 ### 🤖 Historical Event - Louisiana Purchase
 
-This article details the historical event of the Louisiana Purchase, including the date of the transaction and the significant geographical scope of the territory involved.
+Historical event of the Louisiana Purchase, including the date of the transaction and the significant geographical scope of the territory involved.
 
 Key Points:
 

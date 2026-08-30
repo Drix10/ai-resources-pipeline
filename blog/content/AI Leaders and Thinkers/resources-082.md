@@ -1,6 +1,6 @@
 ### 🤖 Image Matching - Undiscovered Repository
 
-This article highlights the existence of an often-overlooked repository containing a variety of image matching models.  It simplifies the process of experimenting with these models.
+Existence of an often-overlooked repository containing a variety of image matching models.  It simplifies the process of experimenting with these models.
 
 Key Points:
 

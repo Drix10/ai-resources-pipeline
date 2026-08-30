@@ -1,6 +1,6 @@
 ### 🤖 Cloudflare - Global Data Privacy
 
-This article discusses Cloudflare's approach to ensuring the privacy and trust of global data transfers, highlighting recent certifications and their implications.  A video discussion with Cloudflare's privacy team is referenced.
+Cloudflare's approach to ensuring the privacy and trust of global data transfers, highlighting recent certifications and their implications.  A video discussion with Cloudflare's privacy team is referenced.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🇰🇷 LangChain - Korean Tutorial
 
-This article provides a guide to LangChain, focusing on Korean language resources. It includes documentation, videos, and practical examples covering RAG, agents, and core LangChain technologies.
+Guide to LangChain, focusing on Korean language resources. It includes documentation, videos, and practical examples covering RAG, agents, and core LangChain technologies.
 
 Key Points:
 

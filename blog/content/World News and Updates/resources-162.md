@@ -1,6 +1,6 @@
 ### 💡 Medical Response - Hantavirus Onboard
 
-This article details the medical response to a hantavirus outbreak on the MV Hondius cruise ship. It highlights the intervention of an American oncologist in assisting passengers after the ship's doctor contracted the virus.
+Medical response to a hantavirus outbreak on the MV Hondius cruise ship. It highlights the intervention of an American oncologist in assisting passengers after the ship's doctor contracted the virus.
 
 Key Points:
 

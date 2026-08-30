@@ -1,6 +1,6 @@
 ### 💡 Workplace Habits - Walking Meetings
 
-This article explores the concept of replacing traditional coffee meetings with walking meetings, highlighting the benefits for productivity and overall well-being. It suggests that a change in environment can positively impact discussion and problem-solving.
+Concept of replacing traditional coffee meetings with walking meetings, highlighting the benefits for productivity and overall well-being. It suggests that a change in environment can positively impact discussion and problem-solving.
 
 Key Points:
 

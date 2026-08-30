@@ -1,6 +1,6 @@
 ### 🤖 Bitcoin Strategy - The Blockchain Group
 
-This article summarizes The Blockchain Group's Bitcoin investment strategy, focusing on their "accumulate, hold indefinitely" approach.  It also includes a disclaimer regarding investment risk.
+Blockchain Group's Bitcoin investment strategy, focusing on their "accumulate, hold indefinitely" approach.  It also includes a disclaimer regarding investment risk.
 
 Key Points:
 

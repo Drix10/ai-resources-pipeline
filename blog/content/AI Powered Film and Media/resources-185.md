@@ -1,6 +1,6 @@
 ### 💡 Urban Architecture - Cincinnati Landmark Buildings
 
-This article examines a specific perspective on Cincinnati's architectural identity, focusing on key buildings that define its urban landscape. It provides an overview of a particular interpretation of the city's built environment.
+Specific perspective on Cincinnati's architectural identity, focusing on key buildings that define its urban landscape. It provides an overview of a particular interpretation of the city's built environment.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Large Language Model Training - Float16 Precision
 
-This article discusses challenges encountered while training a large language model using float16 precision and the strategies employed to address them.  It focuses on specific issues related to outliers and speed optimization.
+Challenges encountered while training a large language model using float16 precision and the strategies employed to address them.  It focuses on specific issues related to outliers and speed optimization.
 
 Key Points:
 

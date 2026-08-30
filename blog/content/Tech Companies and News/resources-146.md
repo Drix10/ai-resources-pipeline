@@ -1,6 +1,6 @@
 ### 🤖 Google Ads - DSA Transition to AI Max
 
-This article covers the strategic transition of Google Ads Dynamic Search Ads (DSA) into the AI-powered Performance Max campaigns. It outlines the implications and strategic shifts for advertisers adapting to these changes.
+Strategic transition of Google Ads Dynamic Search Ads (DSA) into the AI-powered Performance Max campaigns. It outlines the implications and strategic shifts for advertisers adapting to these changes.
 
 Key Points:
 

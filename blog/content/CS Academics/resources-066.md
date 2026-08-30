@@ -1,6 +1,6 @@
 ### 🤖 Scientific Integrity - Threats to Research Institutions
 
-This article discusses the detrimental effects of felonies, civil liberties violations, and fiduciary duty neglect on scientific institutions, particularly those involved in AI and cosmology research.  The text emphasizes the importance of ethical conduct within such environments.
+Detrimental effects of felonies, civil liberties violations, and fiduciary duty neglect on scientific institutions, particularly those involved in AI and cosmology research.  The text emphasizes the importance of ethical conduct within such environments.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Moonlander - Attachment Development
 
-This article outlines the development of a new series of modular attachments for a Gen 2 moonlander platform. These attachments aim to enhance the platform's versatility and expand its operational capabilities for various tasks.
+Development of a new series of modular attachments for a Gen 2 moonlander platform. These attachments aim to enhance the platform's versatility and expand its operational capabilities for various tasks.
 
 Key Points:
 

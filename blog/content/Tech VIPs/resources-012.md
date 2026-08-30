@@ -1,6 +1,6 @@
 ### 🚀 Leadership Training - Executive Career Advancement
 
-This article discusses a leadership and career advancement course offering a discount and additional benefits for a limited time.  The course is designed to help senior managers and other leaders break through to executive positions.
+Leadership and career advancement course offering a discount and additional benefits for a limited time.  The course is designed to help senior managers and other leaders break through to executive positions.
 
 Key Points:
 

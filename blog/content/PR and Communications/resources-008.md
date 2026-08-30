@@ -1,6 +1,6 @@
 ### 🤖 San Francisco Politics - Mayor Lurie's Approach
 
-This article summarizes journalist Jim Martinez's assessment of San Francisco Mayor Daniel Lurie's early tenure, highlighting his moderate Democratic approach and focus on crime reduction and economic development.
+Journalist Jim Martinez's assessment of San Francisco Mayor Daniel Lurie's early tenure, highlighting his moderate Democratic approach and focus on crime reduction and economic development.
 
 Key Points:
 

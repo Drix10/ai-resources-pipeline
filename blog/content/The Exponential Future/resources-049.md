@@ -1,6 +1,6 @@
 ### 🤖 Big Tech - Amicus Brief on US v Google
 
-This article summarizes Y Combinator's amicus brief regarding the US v Google case, highlighting concerns about the balance between fostering innovation and addressing big tech's potential excesses.
+Y Combinator's amicus brief regarding the US v Google case, highlighting concerns about the balance between fostering innovation and addressing big tech's potential excesses.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Art Generation - Realistic Image Creation
 
-This article details the models and tools required to generate highly realistic images using Stable Diffusion XL and ControlNet.  It also provides links to the necessary resources.
+Models and tools required to generate highly realistic images using Stable Diffusion XL and ControlNet.  It also provides links to the necessary resources.
 
 Key Points:
 

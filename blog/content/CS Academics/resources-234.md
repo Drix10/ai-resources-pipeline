@@ -1,6 +1,6 @@
 ### 💡 WNBA Championship - Game Highlights
 
-This article provides an update on the 2026 WNBA Commissioner’s Cup Championship, highlighting an early game performance. It details the leading scorer and the current score advantage.
+Update on the 2026 WNBA Commissioner’s Cup Championship, highlighting an early game performance. It details the leading scorer and the current score advantage.
 
 Key Points:
 

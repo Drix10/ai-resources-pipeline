@@ -1,6 +1,6 @@
 ### 🤖 Venture Capital - Publicly Traded Firms
 
-This article discusses the question of whether a specific US venture capital firm is the first to go public, citing a counterexample from the 1980s.
+Question of whether a specific US venture capital firm is the first to go public, citing a counterexample from the 1980s.
 
 Key Points:
 

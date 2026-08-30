@@ -1,6 +1,6 @@
 ### 🤖 Open-Source Models - Evolutionary Analysis
 
-This article explores the analysis of open-source models and their variants using the lens of evolutionary biology, focusing on genetic similarity and trait mutations across model families.  The analysis uses data from Hugging Face.
+Analysis of open-source models and their variants using the lens of evolutionary biology, focusing on genetic similarity and trait mutations across model families.  The analysis uses data from Hugging Face.
 
 Key Points:
 

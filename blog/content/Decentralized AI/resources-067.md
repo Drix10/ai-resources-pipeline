@@ -1,6 +1,6 @@
 ### 🚀 AI Automation - Auto-Posting to Facebook
 
-This article details a five-step AI automation workflow for generating images and captions, and auto-posting to a Facebook page using AIxBlock.  No coding is required.
+Five-step AI automation workflow for generating images and captions, and auto-posting to a Facebook page using AIxBlock.  No coding is required.
 
 Key Points:
 

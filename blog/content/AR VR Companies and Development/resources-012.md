@@ -1,6 +1,6 @@
 ### 🚀 Steam - Standout Unity Games at Next Fest
 
-This article highlights standout Unity-developed games featured during the Steam Next Fest event.  It provides links to a blog post showcasing these games.
+Standout Unity-developed games featured during the Steam Next Fest event.  It provides links to a blog post showcasing these games.
 
 Key Points:
 

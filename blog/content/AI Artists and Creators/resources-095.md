@@ -1,6 +1,6 @@
 ### 💡 Art and Imagination - Beyond the Mundane
 
-This article discusses the role of art in stimulating imagination and moving beyond the ordinary.  It critiques art that merely reflects the obvious, advocating for art that inspires imaginative engagement.
+Role of art in stimulating imagination and moving beyond the ordinary.  It critiques art that merely reflects the obvious, advocating for art that inspires imaginative engagement.
 
 Key Points:
 

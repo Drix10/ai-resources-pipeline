@@ -1,6 +1,6 @@
 ### 💡 Food Systems - Addressing Global Challenges
 
-This article discusses the interconnected challenges within our global food systems and highlights the need for innovative solutions.  It mentions the founding of an organization to address these issues.
+Interconnected challenges within our global food systems and highlights the need for innovative solutions.  It mentions the founding of an organization to address these issues.
 
 
 Key Points:

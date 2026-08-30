@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Research Evidence Access
 
-This article discusses how Elicit API and MCP server address the need for reliable evidence in AI agent research. It highlights their capability to search extensive academic and clinical trial databases.
+Elicit API and MCP server address the need for reliable evidence in AI agent research. It highlights their capability to search extensive academic and clinical trial databases.
 
 Key Points:
 

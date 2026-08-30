@@ -1,6 +1,6 @@
 ### 🚀 Character & Map Generation - Isometric Environments
 
-This article details a new update enabling the generation of any character alongside an isometric map for their exploration. It highlights the expanded creative possibilities within digital environments.
+New update enabling the generation of any character alongside an isometric map for their exploration. It highlights the expanded creative possibilities within digital environments.
 
 Key Points:
 

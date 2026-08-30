@@ -1,6 +1,6 @@
 ### 💡 Political Commentary - Reaction Analysis
 
-This article discusses James O’Brien’s critical reaction to recent statements made by Donald Trump. It summarizes the strong language used to characterize these actions.
+James O’Brien’s critical reaction to recent statements made by Donald Trump. It summarizes the strong language used to characterize these actions.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Cybersecurity - Social Engineering Attack on Insight Partners
 
-This article discusses a social engineering attack against Insight Partners, a prominent venture capital firm, and its implications for the cybersecurity industry.  The incident highlights the ongoing challenges of social engineering and its potential impact even on organizations specializing in security.
+Social engineering attack against Insight Partners, a prominent venture capital firm, and its implications for the cybersecurity industry.  The incident highlights the ongoing challenges of social engineering and its potential impact even on organizations specializing in security.
 
 Key Points:
 

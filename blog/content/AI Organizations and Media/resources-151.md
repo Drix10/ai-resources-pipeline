@@ -1,6 +1,6 @@
 ### 🤖 KDD Cup 2026 - Tencent UNI-REC Challenge
 
-This article provides an overview of the KDD Cup 2026 – Tencent UNI-REC Challenge, detailing its objectives and key participation dates. It highlights the opportunity to develop advanced recommender systems for large-scale advertising.
+The KDD Cup 2026 – Tencent UNI-REC Challenge, detailing its objectives and key participation dates. It highlights the opportunity to develop advanced recommender systems for large-scale advertising.
 
 Key Points:
 

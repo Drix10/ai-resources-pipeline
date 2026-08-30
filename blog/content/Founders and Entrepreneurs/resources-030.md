@@ -1,6 +1,6 @@
 ### 🤖 Data Processing - JFK Files Digitization
 
-This article details the process of converting the JFK files into a searchable text format using Replit AI, Gemini Flash, and GitHub.
+Process of converting the JFK files into a searchable text format using Replit AI, Gemini Flash, and GitHub.
 
 Key Points:
 

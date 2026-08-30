@@ -1,6 +1,6 @@
 ### 🤖  Accelerating Therapeutic Discoveries - A New R&D Model
 
-This article discusses a new research and development model aimed at accelerating the discovery of new therapeutics.  The model leverages data flow, aligned incentives, and global collaboration.
+New research and development model aimed at accelerating the discovery of new therapeutics.  The model leverages data flow, aligned incentives, and global collaboration.
 
 Key Points:
 

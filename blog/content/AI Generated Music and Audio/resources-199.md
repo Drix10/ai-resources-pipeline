@@ -1,6 +1,6 @@
 ### 🤖 Audio-Visual LLMs - Cross-modal Information Hubs
 
-This article discusses research on identifying cross-modal information hubs within Audio-Visual Large Language Models (LLMs). It explores how different modalities interact and where key information integration occurs within these complex models.
+Research on identifying cross-modal information hubs within Audio-Visual Large Language Models (LLMs). It explores how different modalities interact and where key information integration occurs within these complex models.
 
 Key Points:
 

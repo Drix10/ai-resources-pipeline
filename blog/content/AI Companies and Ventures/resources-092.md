@@ -1,6 +1,6 @@
 ### 🤖 GPT-5 - Integrated Model
 
-This article summarizes key features of the GPT-5 model, highlighting its integrated architecture and accessibility.  It also notes the enhanced reasoning capabilities available even at the free tier.
+Key features of the GPT-5 model, highlighting its integrated architecture and accessibility.  It also notes the enhanced reasoning capabilities available even at the free tier.
 
 Key Points:
 

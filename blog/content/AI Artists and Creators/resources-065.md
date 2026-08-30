@@ -1,6 +1,6 @@
 ### ✨ Art - Illusory Motion
 
-This article explores the creation of illusory motion in art using static patterns and strategically placed colors to evoke the perception of movement and visual instability.  Examples are provided.
+Creation of illusory motion in art using static patterns and strategically placed colors to evoke the perception of movement and visual instability.  Examples are provided.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Design and Affordability - Historical Context and Modern Relevance
 
-This article examines the historical precedence of affordable design principles in iconic architectural and furniture projects. It discusses the enduring relevance of affordability as a driver for progress in contemporary design contexts.
+Historical precedence of affordable design principles in iconic architectural and furniture projects. It discusses the enduring relevance of affordability as a driver for progress in contemporary design contexts.
 
 Key Points:
 

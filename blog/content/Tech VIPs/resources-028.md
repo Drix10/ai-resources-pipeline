@@ -1,6 +1,6 @@
 ### ✨ VR/AR - Metallica Immersive Concert Experience
 
-This article discusses the user experience of the Metallica Immersive Concert Experience on Apple Vision Pro, highlighting its superior spatial audio and visuals compared to other headset concert experiences.
+User experience of the Metallica Immersive Concert Experience on Apple Vision Pro, highlighting its superior spatial audio and visuals compared to other headset concert experiences.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🔬 Mars Exploration - Curiosity Rover's Organic Molecule Discovery
 
-This article discusses the discovery of large organic molecules by the Curiosity rover on Mars, their potential significance, and related resources.
+Discovery of large organic molecules by the Curiosity rover on Mars, their potential significance, and related resources.
 
 Key Points:
 

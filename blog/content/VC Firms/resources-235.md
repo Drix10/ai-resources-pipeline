@@ -1,6 +1,6 @@
 ### 🤖 AI - Chat Capabilities and Robotics Potential
 
-This article discusses recent developments in AI, highlighting the conversational capabilities of ChatGPT and the potential of Enigma for robotics applications.
+Recent developments in AI, highlighting the conversational capabilities of ChatGPT and the potential of Enigma for robotics applications.
 
 Key Points:
 

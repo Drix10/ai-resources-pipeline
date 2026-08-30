@@ -1,6 +1,6 @@
 ### 🤖 AI in HR - Phenom's Approach
 
-This article discusses Phenom's approach to using AI to connect people with jobs, emphasizing its focus on solving real-world challenges within the HR field.  It highlights the company's mission and values.
+Phenom's approach to using AI to connect people with jobs, emphasizing its focus on solving real-world challenges within the HR field.  It highlights the company's mission and values.
 
 Key Points:
 

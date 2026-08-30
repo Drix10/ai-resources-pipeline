@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - On-Chain Decision-Makers
 
-This article covers the evolving role of AI agents within decentralized systems, focusing on their function as autonomous on-chain decision-makers. It highlights the integration of AI capabilities into blockchain ecosystems for enhanced operational efficiency.
+Evolving role of AI agents within decentralized systems, focusing on their function as autonomous on-chain decision-makers. It highlights the integration of AI capabilities into blockchain ecosystems for enhanced operational efficiency.
 
 Key Points:
 

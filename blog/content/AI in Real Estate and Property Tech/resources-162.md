@@ -1,6 +1,6 @@
 ### ✨ Floor Plan Editing - Window and Door Functionality
 
-This article details Drafted's new feature allowing easy modification of windows and doors within floor plans. It explains how these elements critically impact home functionality and aesthetic.
+Drafted's new feature allowing easy modification of windows and doors within floor plans. It explains how these elements critically impact home functionality and aesthetic.
 
 Key Points:
 

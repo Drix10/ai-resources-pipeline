@@ -1,6 +1,6 @@
 ### 🤖 Video Models - Geometry Recovery
 
-This article discusses the evaluation of video models, suggesting that consistent geometry recovery should be prioritized over accurate physics predictions.  The focus is on a fundamental aspect of model evaluation.
+Evaluation of video models, suggesting that consistent geometry recovery should be prioritized over accurate physics predictions.  The focus is on a fundamental aspect of model evaluation.
 
 Key Points:
 

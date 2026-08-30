@@ -1,6 +1,6 @@
 ### 💡 Protest Action - Resumption of Arrests
 
-This article covers the Metropolitan Police's announcement regarding the resumption of arrests for Palestine Action protesters. It provides context on law enforcement actions concerning ongoing demonstrations.
+Metropolitan Police's announcement regarding the resumption of arrests for Palestine Action protesters. It provides context on law enforcement actions concerning ongoing demonstrations.
 
 Key Points:
 

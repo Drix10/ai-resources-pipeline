@@ -1,6 +1,6 @@
 ### ⚠️ Russia - Fare Dodgers Apprehended
 
-This article details an incident in Moscow where fare evaders faced consequences after a near-knife fight on a train.
+Incident in Moscow where fare evaders faced consequences after a near-knife fight on a train.
 
 Key Points:
 

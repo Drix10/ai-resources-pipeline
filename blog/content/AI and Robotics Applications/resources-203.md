@@ -1,6 +1,6 @@
 ### 🤖 AI Events - Bot Participation
 
-This article outlines a social gathering encouraging participants to bring their own robots. It highlights an interactive approach to engaging with robotic technology and fostering community involvement.
+Social gathering encouraging participants to bring their own robots. It highlights an interactive approach to engaging with robotic technology and fostering community involvement.
 
 Key Points:
 

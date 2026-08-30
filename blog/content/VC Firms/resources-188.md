@@ -1,6 +1,6 @@
 ### 💡 Market Observations - Large-Scale Oil Investments
 
-This article discusses recent observations regarding a significant individual investment in oil futures. It covers the reported scale of the trade and the associated market expectations.
+Recent observations regarding a significant individual investment in oil futures. It covers the reported scale of the trade and the associated market expectations.
 
 Key Points:
 

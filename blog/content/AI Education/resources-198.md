@@ -1,6 +1,6 @@
 ### ✨ Systematic Review - Elicit Platform Updates
 
-This article outlines the latest enhancements to Elicit Systematic Review, including adherence to PRISMA 2020 guidelines and expanded API capabilities. It details significant upgrades that facilitate efficient and comprehensive research processes.
+Latest enhancements to Elicit Systematic Review, including adherence to PRISMA 2020 guidelines and expanded API capabilities. It details significant upgrades that facilitate efficient and comprehensive research processes.
 
 Key Points:
 

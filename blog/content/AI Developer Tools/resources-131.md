@@ -1,6 +1,6 @@
 ### 🚀 Venice Stack - Workflow Automation
 
-This article outlines the core components of the Venice platform stack, detailing how each element contributes to various levels of automation and development. It provides clarity on tools for manual tasks, ongoing automations, and active development.
+Core components of the Venice platform stack, detailing how each element contributes to various levels of automation and development. It provides clarity on tools for manual tasks, ongoing automations, and active development.
 
 Key Points:
 

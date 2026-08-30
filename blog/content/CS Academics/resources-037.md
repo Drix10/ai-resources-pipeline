@@ -1,6 +1,6 @@
 ### 💡 Political Commentary - Future of Governance
 
-This article summarizes a Twitter thread discussing potential consequences of current MP compensation models on future governance.  The author suggests that dissatisfaction with current arrangements may lead to even less desirable outcomes.
+Twitter thread discussing potential consequences of current MP compensation models on future governance.  The author suggests that dissatisfaction with current arrangements may lead to even less desirable outcomes.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Leadership - IEEE Recognition
 
-This article highlights the recognition of Jensen Huang with the IEEE Medal of Honor at CES 2026. The award acknowledges his significant contributions to reinventing computing and advancing the AI revolution.
+Recognition of Jensen Huang with the IEEE Medal of Honor at CES 2026. The award acknowledges his significant contributions to reinventing computing and advancing the AI revolution.
 
 Key Points:
 

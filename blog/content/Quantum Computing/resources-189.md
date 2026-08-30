@@ -1,6 +1,6 @@
 ### 💡 Public Health - Meningococcal Strain Shifts in Scotland
 
-This article summarizes findings on changes in meningococcal disease strains. It focuses on observations from Scotland during the COVID-19 pandemic.
+Findings on changes in meningococcal disease strains. It focuses on observations from Scotland during the COVID-19 pandemic.
 
 Key Points:
 

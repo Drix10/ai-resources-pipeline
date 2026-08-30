@@ -1,6 +1,6 @@
 ### 💡 Data Centers - Economic Impact and Job Creation
 
-This article discusses the economic considerations surrounding the development of data centers, specifically addressing the debate around job creation figures in contrast to prior land utilization. It emphasizes the net positive economic contributions of such projects.
+Economic considerations surrounding the development of data centers, specifically addressing the debate around job creation figures in contrast to prior land utilization. It emphasizes the net positive economic contributions of such projects.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Sleep and Problem Solving - Cognitive Benefits of Napping
 
-This article examines a study exploring the link between napping and enhanced problem-solving abilities.  The research investigates the correlation between sleep stages and improved cognitive performance.
+Study exploring the link between napping and enhanced problem-solving abilities.  The research investigates the correlation between sleep stages and improved cognitive performance.
 
 Key Points:
 

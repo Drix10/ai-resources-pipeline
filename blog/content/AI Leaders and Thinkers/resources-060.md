@@ -1,6 +1,6 @@
 ### ⚖️ Law Enforcement - BYU QB Jake Retzlaff Lawsuit
 
-This article summarizes Provo Police Department's statement regarding the lawsuit against BYU quarterback Jake Retzlaff, indicating a lack of actionable leads and unsuccessful attempts to contact alleged victims.
+Provo Police Department's statement regarding the lawsuit against BYU quarterback Jake Retzlaff, indicating a lack of actionable leads and unsuccessful attempts to contact alleged victims.
 
 Key Points:
 

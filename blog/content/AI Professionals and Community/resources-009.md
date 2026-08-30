@@ -1,6 +1,6 @@
 ### 🤖 Cohere's Financials and Employee Stock Options
 
-This article discusses Cohere's recent financial performance,  its valuation, and its consideration of allowing employee and early investor stock sales.
+Cohere's recent financial performance,  its valuation, and its consideration of allowing employee and early investor stock sales.
 
 Key Points:
 

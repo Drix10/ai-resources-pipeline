@@ -1,6 +1,6 @@
 ### 🤖 VMware Community - Decline in Engagement
 
-This article discusses the perceived decline in the VMware community and its impact.  The author expresses a continued interest in the technology despite this observation.
+Perceived decline in the VMware community and its impact.  The author expresses a continued interest in the technology despite this observation.
 
 Key Points:
 

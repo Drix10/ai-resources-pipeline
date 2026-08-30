@@ -1,6 +1,6 @@
 ### 💰 International Relations - Iran Nuclear Deal Discussion
 
-This article summarizes reported discussions regarding potential US financial concessions to Iran in exchange for limitations on its nuclear program.  The discussions involve billions of dollars and sanctions relief.
+Reported discussions regarding potential US financial concessions to Iran in exchange for limitations on its nuclear program.  The discussions involve billions of dollars and sanctions relief.
 
 Key Points:
 

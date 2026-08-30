@@ -1,6 +1,6 @@
 ### 🌀 Hurricane Erin - Outer Banks Forecast
 
-This article discusses the projected path and meteorological reasoning behind Hurricane Erin's projected impact on the North Carolina Outer Banks.  No significant changes have been observed in the past 24 hours.
+Projected path and meteorological reasoning behind Hurricane Erin's projected impact on the North Carolina Outer Banks.  No significant changes have been observed in the past 24 hours.
 
 Key Points:
 

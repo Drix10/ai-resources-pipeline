@@ -1,6 +1,6 @@
 ### 💡 Philosophy - The Illusion of Neutrality
 
-This article discusses the concept of objective reality and its implications for belief systems.  It argues against the postmodern notion of inherent neutrality.
+Concept of objective reality and its implications for belief systems.  It argues against the postmodern notion of inherent neutrality.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🎤 Celebrity Interviews - Simpson Sisters Discuss New Music
 
-This article summarizes an interview between Ashlee Simpson Ross and Jessica Simpson, focusing on Jessica's new EP, "Nashville Canyon Part 1," and its creation during a period of marital transition.
+Interview between Ashlee Simpson Ross and Jessica Simpson, focusing on Jessica's new EP, "Nashville Canyon Part 1," and its creation during a period of marital transition.
 
 Key Points:
 

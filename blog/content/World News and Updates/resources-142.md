@@ -1,6 +1,6 @@
 ### 💡 Evacuee Vulnerability - Challenges in Lebanon
 
-This article highlights the diverse circumstances faced by evacuees in Lebanon and emphasizes the heightened difficulties encountered by vulnerable populations. It details the disparities in accommodation and support mechanisms.
+Diverse circumstances faced by evacuees in Lebanon and emphasizes the heightened difficulties encountered by vulnerable populations. It details the disparities in accommodation and support mechanisms.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Sonic Boom Management - Supersonic Flight
 
-This article discusses methods for mitigating sonic booms during supersonic flight, focusing on speed limitations and potential solutions.
+Methods for mitigating sonic booms during supersonic flight, focusing on speed limitations and potential solutions.
 
 Key Points:
 

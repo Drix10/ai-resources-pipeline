@@ -1,6 +1,6 @@
 ### 🤖 National Academy of Sciences Meeting - In-Person Discussion
 
-This article summarizes an in-person meeting of the National Academy of Sciences' Health Sciences Policy board.  The meeting took place in the historic Board Room where President Lincoln signed the academy's charter.
+In-person meeting of the National Academy of Sciences' Health Sciences Policy board.  The meeting took place in the historic Board Room where President Lincoln signed the academy's charter.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Political Discourse - Rhetorical Analysis
 
-This article examines critical political commentary, focusing on the analysis of rhetorical strategies employed in public statements. It highlights the impact of language choices and tone in political discourse.
+Critical political commentary, focusing on the analysis of rhetorical strategies employed in public statements. It highlights the impact of language choices and tone in political discourse.
 
 Key Points:
 

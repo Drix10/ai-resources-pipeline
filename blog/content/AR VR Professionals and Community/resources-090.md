@@ -1,6 +1,6 @@
 ### ⚖️ Legal - Banking Services and Constitutional Protections
 
-This article summarizes an executive order prohibiting denial of banking services based on constitutionally protected rights, mandating a 180-day compliance period for companies to revise their terms of service.
+Executive order prohibiting denial of banking services based on constitutionally protected rights, mandating a 180-day compliance period for companies to revise their terms of service.
 
 
 Key Points:

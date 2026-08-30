@@ -1,6 +1,6 @@
 ### 🧠 Predictive Physiology - Meta-Analysis of Unpredictable Stimuli
 
-This article summarizes a meta-analysis exploring how people anticipate seemingly unpredictable stimuli, challenging the assumption that prediction relies solely on past experiences.  The study investigates underlying physiological mechanisms.
+Meta-analysis exploring how people anticipate seemingly unpredictable stimuli, challenging the assumption that prediction relies solely on past experiences.  The study investigates underlying physiological mechanisms.
 
 Key Points:
 

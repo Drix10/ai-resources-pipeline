@@ -1,6 +1,6 @@
 ### 🤖 Political Commentary - Democratic Party Criticism
 
-This article summarizes criticism of the Democratic Party's handling of foreign policy and its perceived role in past election outcomes.  The author expresses strong negative opinions.
+Criticism of the Democratic Party's handling of foreign policy and its perceived role in past election outcomes.  The author expresses strong negative opinions.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 2025 Trends - Common Sense Comeback?
 
-This article discusses three key observations about current business trends: the need for strong leadership, the importance of action, and the value of intangible qualities.
+Three key observations about current business trends: the need for strong leadership, the importance of action, and the value of intangible qualities.
 
 
 Key Points:

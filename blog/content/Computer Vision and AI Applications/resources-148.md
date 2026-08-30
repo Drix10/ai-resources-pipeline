@@ -1,6 +1,6 @@
 ### 💡 Academic Submissions - Optica ImageSense 2026 Conference
 
-This article provides details for submitting papers to the Optica ImageSense 2026 conference. It outlines key benefits for researchers looking to publish and connect within the optical imaging and sensing community.
+Details for submitting papers to the Optica ImageSense 2026 conference. It outlines key benefits for researchers looking to publish and connect within the optical imaging and sensing community.
 
 Key Points:
 

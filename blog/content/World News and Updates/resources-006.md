@@ -1,6 +1,6 @@
 ### 📰 Politics - Nitish Kumar's Son's Potential Entry
 
-This article summarizes a statement by Union Minister Chirag Paswan regarding speculation about Bihar Chief Minister Nitish Kumar's son, Nishant Kumar, entering politics.  Paswan commented on the possibility, highlighting it as a personal decision for Nishant.
+Statement by Union Minister Chirag Paswan regarding speculation about Bihar Chief Minister Nitish Kumar's son, Nishant Kumar, entering politics.  Paswan commented on the possibility, highlighting it as a personal decision for Nishant.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Bitcoin Infrastructure Support - Hiro Systems
 
-This article discusses Hiro Systems' support for Bitcoin infrastructure, focusing on their involvement with Nakamoto, sBTC, and the broader Stacks ecosystem.  It also includes application information and links to relevant resources.
+Hiro Systems' support for Bitcoin infrastructure, focusing on their involvement with Nakamoto, sBTC, and the broader Stacks ecosystem.  It also includes application information and links to relevant resources.
 
 Key Points:
 

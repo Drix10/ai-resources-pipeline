@@ -1,6 +1,6 @@
 ### 🤖 Reinforcement Learning - Long-Running Agents
 
-This article discusses the application of Reinforcement Learning (RL) and Reinforcement Learning with Language Models (RLMs) for developing agents capable of sustained, long-term operations. It highlights key benefits and outlines general steps for implementation.
+Application of Reinforcement Learning (RL) and Reinforcement Learning with Language Models (RLMs) for developing agents capable of sustained, long-term operations. It highlights key benefits and outlines general steps for implementation.
 
 Key Points:
 

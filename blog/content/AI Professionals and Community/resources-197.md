@@ -1,6 +1,6 @@
 ### 🤖 Query Optimization - Pairwise Comparison Scaling
 
-This article details a method for improving query results through iterative refinement and ranking. It outlines a breadth-based scaling approach to enhance the quality of selected queries.
+Method for improving query results through iterative refinement and ranking. It outlines a breadth-based scaling approach to enhance the quality of selected queries.
 
 Key Points:
 

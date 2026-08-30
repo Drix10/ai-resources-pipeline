@@ -1,6 +1,6 @@
 ### ✨ visionOS - New Features
 
-This article details newly unveiled features for visionOS 3, focusing on Zoom and Live Recognition capabilities.
+Newly unveiled features for visionOS 3, focusing on Zoom and Live Recognition capabilities.
 
 Key Points:
 

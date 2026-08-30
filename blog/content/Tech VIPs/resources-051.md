@@ -1,6 +1,6 @@
 ### 💡 Company Culture - Defining Success
 
-This article explores the unseen choices that define a successful company culture, emphasizing the commitment and dedication required beyond credentials or charisma.
+Unseen choices that define a successful company culture, emphasizing the commitment and dedication required beyond credentials or charisma.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Flow State - Achieving Peak Performance
 
-This article explores the concept of flow state, a state of intense focus and immersion in an activity, and provides examples from various fields.
+Concept of flow state, a state of intense focus and immersion in an activity, and provides examples from various fields.
 
 Key Points:
 

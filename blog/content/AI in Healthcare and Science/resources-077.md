@@ -1,6 +1,6 @@
 ### 🤖 Nigeria's Tuberculosis Elimination - AI's Role
 
-This article summarizes a discussion on Nigeria's tuberculosis elimination efforts, highlighting the roles of AI and on-the-ground realities in closing the detection gap.  It focuses on challenges, successes, and future needs.
+Discussion on Nigeria's tuberculosis elimination efforts, highlighting the roles of AI and on-the-ground realities in closing the detection gap.  It focuses on challenges, successes, and future needs.
 
 Key Points:
 

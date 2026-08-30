@@ -1,6 +1,6 @@
 ### 🤖 Museums & Attractions - Mobile Wallet & Paperless Tech
 
-This article summarizes a session discussing how mobile wallet and paperless technologies are transforming visitor engagement in museums and attractions.  The session highlights key strategies and benefits for institutions adopting these technologies.
+Session discussing how mobile wallet and paperless technologies are transforming visitor engagement in museums and attractions.  The session highlights key strategies and benefits for institutions adopting these technologies.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Startup Inspiration - YC x CMU Talk
 
-This article summarizes key takeaways from a Y Combinator and Carnegie Mellon University talk on startups, highlighting the inspiring impact on attendees.
+Key takeaways from a Y Combinator and Carnegie Mellon University talk on startups, highlighting the inspiring impact on attendees.
 
 Key Points:
 

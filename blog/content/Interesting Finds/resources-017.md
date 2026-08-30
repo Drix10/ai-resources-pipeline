@@ -1,6 +1,6 @@
 ### 🚀 Spaceflight - Blue Ghost Moon Landing
 
-This article summarizes the successful moon landing of Firefly Aerospace's Blue Ghost lander, highlighting Rocket Lab's contribution to the mission.
+Successful moon landing of Firefly Aerospace's Blue Ghost lander, highlighting Rocket Lab's contribution to the mission.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Software Engineering - Vibecoding
 
-This article discusses the concept of "vibecoding" in software engineering, comparing it to the manual and automatic transmission analogy.  It explores the trade-offs between granular control and developer focus.
+Concept of "vibecoding" in software engineering, comparing it to the manual and automatic transmission analogy.  It explores the trade-offs between granular control and developer focus.
 
 Key Points:
 

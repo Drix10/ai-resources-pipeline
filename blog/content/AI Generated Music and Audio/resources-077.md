@@ -1,6 +1,6 @@
 ### 🤖 Developer Experience - Adapting to AI
 
-This article discusses the evolution of coding practices and the need to adapt developer experiences to accommodate both human and machine interactions.  It highlights learnings from experience at Stripe, Supabase, and ElevenLabs.
+Evolution of coding practices and the need to adapt developer experiences to accommodate both human and machine interactions.  It highlights learnings from experience at Stripe, Supabase, and ElevenLabs.
 
 Key Points:
 

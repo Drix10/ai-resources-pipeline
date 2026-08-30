@@ -1,6 +1,6 @@
 ### 🚀 AI Development - Rapid Prototyping with FLock API
 
-This article discusses FLock's API platform as a rapid prototyping tool for building AI applications and agents.  It highlights its ease of use and access to high-performing models.
+FLock's API platform as a rapid prototyping tool for building AI applications and agents.  It highlights its ease of use and access to high-performing models.
 
 Key Points:
 

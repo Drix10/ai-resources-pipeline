@@ -1,6 +1,6 @@
 ### 💡 Inspiration - Muneeb's Vision for the Web
 
-This article discusses the impact of Muneeb Alam's TED Talk on the author's understanding of web development and the potential for future innovation.
+Impact of Muneeb Alam's TED Talk on the author's understanding of web development and the potential for future innovation.
 
 Key Points:
 

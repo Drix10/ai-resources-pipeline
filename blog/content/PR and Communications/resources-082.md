@@ -1,6 +1,6 @@
 ### ⚠️ Emergency Alerts - Texas Flooding
 
-This article discusses the absence of Emergency Alert System (EAS) warnings on cell phones during recent Texas flooding and speculates on potential legal ramifications.
+Absence of Emergency Alert System (EAS) warnings on cell phones during recent Texas flooding and speculates on potential legal ramifications.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Lidar Technology - Ouster Rev8 Tech Talk
 
-This article covers the recent Ouster Tech Talk event held in San Francisco, which provided developers and customers with hands-on experience with the Rev8 lidar sensor. It also facilitated direct engagement with the engineering team and offered networking opportunities with professionals in robotics and Physical AI.
+Recent Ouster Tech Talk event held in San Francisco, which provided developers and customers with hands-on experience with the Rev8 lidar sensor. It also facilitated direct engagement with the engineering team and offered networking opportunities with professionals in robotics and Physical AI.
 
 Key Points:
 

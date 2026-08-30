@@ -1,6 +1,6 @@
 ### 💡 Gaming Consoles - Deals & Market Trends
 
-This article discusses recent market movements in the gaming console sector, specifically focusing on pricing strategies for the Xbox Series X and PlayStation. It highlights a stock clearance initiative by Xbox.
+Recent market movements in the gaming console sector, specifically focusing on pricing strategies for the Xbox Series X and PlayStation. It highlights a stock clearance initiative by Xbox.
 
 Key Points:
 

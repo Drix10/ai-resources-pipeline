@@ -1,6 +1,6 @@
 ### 💡 Child Development - Benefits of Imaginative Play
 
-This article explores the cognitive and emotional advantages children gain from engaging in pretend play. It discusses how imaginative activities contribute to mental stretching, empathy development, and the exploration of diverse roles and concepts.
+Cognitive and emotional advantages children gain from engaging in pretend play. It discusses how imaginative activities contribute to mental stretching, empathy development, and the exploration of diverse roles and concepts.
 
 Key Points:
 

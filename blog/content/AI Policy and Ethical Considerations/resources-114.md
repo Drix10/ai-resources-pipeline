@@ -1,6 +1,6 @@
 ### 💡 Societal Issues - The Erosion of Trust
 
-This article discusses the current climate of distrust in institutions and the challenges in defining truth.  It touches upon the feeling of widespread societal corruption and the resulting impact on public discourse.
+Current climate of distrust in institutions and the challenges in defining truth.  It touches upon the feeling of widespread societal corruption and the resulting impact on public discourse.
 
 
 Key Points:

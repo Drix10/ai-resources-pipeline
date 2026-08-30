@@ -1,6 +1,6 @@
 ### 🚀 No-Code Development - Financial Analysis Platform
 
-This article details the creation of EarningsVibeAI, a financial analysis platform built using the no-code platform Bubble. It highlights how an individual without a development background can leverage no-code tools to create sophisticated applications.
+Creation of EarningsVibeAI, a financial analysis platform built using the no-code platform Bubble. It highlights how an individual without a development background can leverage no-code tools to create sophisticated applications.
 
 Key Points:
 

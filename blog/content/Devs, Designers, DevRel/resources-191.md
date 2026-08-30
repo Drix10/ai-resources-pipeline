@@ -1,6 +1,6 @@
 ### 🤖 Enterprise Architecture - Terminology Pronunciation
 
-This article discusses the challenge of pronouncing technical terminology within complex architectural frameworks, as visually represented in an accompanying diagram. It highlights the importance of clear communication in technical discussions.
+Challenge of pronouncing technical terminology within complex architectural frameworks, as visually represented in an accompanying diagram. It highlights the importance of clear communication in technical discussions.
 
 Key Points:
 

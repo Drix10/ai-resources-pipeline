@@ -1,6 +1,6 @@
 ### 🚀 Graph Hunt - ETHDenver Riddle Game
 
-This article details a riddle-solving game, Graph Hunt, taking place at ETHDenver.  Participants solve riddles to find ecosystem members and win prizes.
+Riddle-solving game, Graph Hunt, taking place at ETHDenver.  Participants solve riddles to find ecosystem members and win prizes.
 
 Key Points:
 

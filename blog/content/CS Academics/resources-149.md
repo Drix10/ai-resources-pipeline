@@ -1,6 +1,6 @@
 ### 💡 Retro Gaming - Design Aesthetics
 
-This article discusses the appeal of retro aesthetics in modern contexts, highlighting how classic design elements can evoke nostalgia and simplicity. It explores the enduring charm of vintage styles across various media.
+Appeal of retro aesthetics in modern contexts, highlighting how classic design elements can evoke nostalgia and simplicity. It explores the enduring charm of vintage styles across various media.
 
 Key Points:
 

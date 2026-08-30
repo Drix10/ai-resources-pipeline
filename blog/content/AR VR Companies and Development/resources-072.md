@@ -1,6 +1,6 @@
 ### 💡 Travel Tips - European Roaming
 
-This article discusses the automatic activation of roaming services within the European Union, allowing for calls, texts, and internet usage at no extra cost.
+Automatic activation of roaming services within the European Union, allowing for calls, texts, and internet usage at no extra cost.
 
 Key Points:
 

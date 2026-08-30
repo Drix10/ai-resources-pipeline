@@ -1,6 +1,6 @@
 ### 💡 Mindset - Belief and Reality
 
-This article discusses the impact of beliefs on shaping one's reality, emphasizing that limiting beliefs are not facts but self-created stories.  It suggests rewriting these narratives to achieve desired outcomes.
+Impact of beliefs on shaping one's reality, emphasizing that limiting beliefs are not facts but self-created stories.  It suggests rewriting these narratives to achieve desired outcomes.
 
 Key Points:
 

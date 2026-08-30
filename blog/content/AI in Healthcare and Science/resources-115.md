@@ -1,6 +1,6 @@
 ### 🏈 American Football - QB Skill Analysis
 
-This article discusses the cognitive demands placed on quarterbacks in American football, specifically focusing on the processing speed required for quick decision-making during plays.  The author questions their own processing speed in relation to professional quarterbacks.
+Cognitive demands placed on quarterbacks in American football, specifically focusing on the processing speed required for quick decision-making during plays.  The author questions their own processing speed in relation to professional quarterbacks.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Code Review - Anthropic's Solution
 
-This article discusses Anthropic's AI-powered code review service, detailing its cost structure, availability, and performance metrics from internal testing. It highlights the depth of analysis and efficiency of the tool for code quality improvements.
+Anthropic's AI-powered code review service, detailing its cost structure, availability, and performance metrics from internal testing. It highlights the depth of analysis and efficiency of the tool for code quality improvements.
 
 Key Points:
 

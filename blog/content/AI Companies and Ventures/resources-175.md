@@ -1,6 +1,6 @@
 ### ✨ Informatica Recognition - Gartner MDM Leader
 
-This article highlights Informatica's recognition as a Leader in the 2026 Gartner® Magic Quadrant™ for MDM Solutions. It discusses the criteria for leadership in Master Data Management and Informatica's consistent performance.
+Informatica's recognition as a Leader in the 2026 Gartner® Magic Quadrant™ for MDM Solutions. It discusses the criteria for leadership in Master Data Management and Informatica's consistent performance.
 
 Key Points:
 

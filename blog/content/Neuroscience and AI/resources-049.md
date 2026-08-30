@@ -1,6 +1,6 @@
 ### 🤖 Animal Communication - Language Origins
 
-This article discusses a study revealing complex vocal combination in animals, suggesting structures resembling human language principles.  The research involved recording thousands of animal vocalizations.
+Study revealing complex vocal combination in animals, suggesting structures resembling human language principles.  The research involved recording thousands of animal vocalizations.
 
 Key Points:
 

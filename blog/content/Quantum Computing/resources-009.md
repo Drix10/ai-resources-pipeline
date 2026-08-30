@@ -1,6 +1,6 @@
 ### 🤖 High-Performance Computing - Tensor Parallelism Optimization
 
-This article discusses the nanoton framework's improvement in tensor parallelism communication hiding through DoMiNo with intra-layer communication overlapping.  It achieves significant communication reduction without impacting training loss.
+Nanoton framework's improvement in tensor parallelism communication hiding through DoMiNo with intra-layer communication overlapping.  It achieves significant communication reduction without impacting training loss.
 
 Key Points:
 

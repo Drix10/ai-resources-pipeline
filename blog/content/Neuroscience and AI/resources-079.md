@@ -1,6 +1,6 @@
 ### 🤖 Blockchain - Real-World Asset (RWA) Onboarding
 
-This article discusses EstateX's strategy to bring a portion of the projected $10 trillion real-world asset market onto their blockchain, focusing on their domain authority and the provided funnel.
+EstateX's strategy to bring a portion of the projected $10 trillion real-world asset market onto their blockchain, focusing on their domain authority and the provided funnel.
 
 Key Points:
 

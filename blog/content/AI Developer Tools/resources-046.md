@@ -1,6 +1,6 @@
 ### 🤖 Team Shoutouts - Exceptional Contributions
 
-This article highlights exceptional contributions from team members, focusing on code quality, infrastructure development, and AI model management.  It also includes links to their online profiles.
+Exceptional contributions from team members, focusing on code quality, infrastructure development, and AI model management.  It also includes links to their online profiles.
 
 Key Points:
 

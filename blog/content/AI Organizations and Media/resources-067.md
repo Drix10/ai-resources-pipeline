@@ -1,6 +1,6 @@
 ### 🤖 AI Productivity Paradox - Individual vs. Organizational Gains
 
-This article examines the discrepancy between individual productivity gains from AI usage and the lack of corresponding organizational-level improvements, based on a survey of US workers.
+Discrepancy between individual productivity gains from AI usage and the lack of corresponding organizational-level improvements, based on a survey of US workers.
 
 Key Points:
 

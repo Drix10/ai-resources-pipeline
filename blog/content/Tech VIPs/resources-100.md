@@ -1,6 +1,6 @@
 ### 🤖 GPT-5 API - Hidden System Prompt
 
-This article discusses observations about a hidden system prompt in GPT-5's API version, noting the inclusion of the current date and other potentially undocumented elements.  The need for official documentation from OpenAI is highlighted.
+Observations about a hidden system prompt in GPT-5's API version, noting the inclusion of the current date and other potentially undocumented elements.  The need for official documentation from OpenAI is highlighted.
 
 Key Points:
 

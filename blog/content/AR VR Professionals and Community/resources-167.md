@@ -1,6 +1,6 @@
 ### 🚀 Tools - VR Hardware Review Request
 
-This article discusses a user inquiry regarding a potential VR hardware review by UploadVR. It highlights the community's interest in specific devices for virtual reality experiences.
+User inquiry regarding a potential VR hardware review by UploadVR. It highlights the community's interest in specific devices for virtual reality experiences.
 
 Key Points:
 

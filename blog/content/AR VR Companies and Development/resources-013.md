@@ -1,6 +1,6 @@
 ### 🤖 Collaboration - Plattform I40 Meeting
 
-This article summarizes a meeting of Plattform I40, highlighting its alignment with research-driven impact on economic growth, sustainability, and security.
+Meeting of Plattform I40, highlighting its alignment with research-driven impact on economic growth, sustainability, and security.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Dairy Industry - Dr. Verghese Kurien's Legacy
 
-This article highlights the profound impact of Dr. Verghese Kurien on India's dairy sector, detailing his role in transforming the industry and enabling significant milk production. It acknowledges his contributions and the technological advancements under his leadership.
+Profound impact of Dr. Verghese Kurien on India's dairy sector, detailing his role in transforming the industry and enabling significant milk production. It acknowledges his contributions and the technological advancements under his leadership.
 
 Key Points:
 

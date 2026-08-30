@@ -1,6 +1,6 @@
 ### ✨  Company Culture - Forbes Ranking
 
-This article discusses Revolving Games' ranking as a top startup employer and its focus on building a world-class global startup culture.
+Revolving Games' ranking as a top startup employer and its focus on building a world-class global startup culture.
 
 Key Points:
 

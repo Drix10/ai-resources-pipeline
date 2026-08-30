@@ -1,6 +1,6 @@
 ### 🤖 Attention Mechanisms - A Personal Tutorial
 
-This article summarizes a personal tutorial on the current state of attention mechanisms in AI,  highlighting key advancements and future directions.  A video recording of the tutorial is forthcoming.
+Personal tutorial on the current state of attention mechanisms in AI,  highlighting key advancements and future directions.  A video recording of the tutorial is forthcoming.
 
 Key Points:
 

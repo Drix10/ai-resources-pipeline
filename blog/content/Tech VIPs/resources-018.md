@@ -1,6 +1,6 @@
 ### 🤖 California Politics - Healthcare Policies
 
-This article discusses Elon Musk's criticism of California's leadership and healthcare policies, specifically regarding the provision of free healthcare for undocumented immigrants.
+Elon Musk's criticism of California's leadership and healthcare policies, specifically regarding the provision of free healthcare for undocumented immigrants.
 
 Key Points:
 

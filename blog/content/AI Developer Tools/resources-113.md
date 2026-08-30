@@ -1,6 +1,6 @@
 ### 🤖 AI Game Development - Reward Design
 
-This article discusses the importance of reward design in AI game development, highlighting its impact on agent performance over large models.  It also mentions a workshop focusing on building and training AI agents in a retro game environment.
+Importance of reward design in AI game development, highlighting its impact on agent performance over large models.  It also mentions a workshop focusing on building and training AI agents in a retro game environment.
 
 Key Points:
 

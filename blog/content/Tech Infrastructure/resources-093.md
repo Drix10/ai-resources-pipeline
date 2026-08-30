@@ -1,6 +1,6 @@
 ### 🤖 GPT-5 Compute Prioritization
 
-This article details OpenAI's compute prioritization strategy for GPT-5, focusing on ensuring sufficient capacity for existing and new users.
+OpenAI's compute prioritization strategy for GPT-5, focusing on ensuring sufficient capacity for existing and new users.
 
 Key Points:
 

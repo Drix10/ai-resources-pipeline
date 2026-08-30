@@ -1,6 +1,6 @@
 ### 💡 Customer Support - Account Blocking Issue
 
-This article details a critical customer support issue involving an account blockage. It highlights unresponsive communication channels and a non-functional verification link affecting paid services.
+Critical customer support issue involving an account blockage. It highlights unresponsive communication channels and a non-functional verification link affecting paid services.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Superhuman Ecology - Collective Memory
 
-This article explores the concept of a superhuman ecology, where human society is viewed as existing within larger, overarching systems like governments and corporations.  It proposes that our collective memory is shaped by these systems.
+Concept of a superhuman ecology, where human society is viewed as existing within larger, overarching systems like governments and corporations.  It proposes that our collective memory is shaped by these systems.
 
 
 Key Points:

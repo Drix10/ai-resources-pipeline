@@ -1,6 +1,6 @@
 ### ⚠️ Maritime Security - Houthi Attacks
 
-This article summarizes recent attacks on U.S. Navy vessels and commercial shipping by Houthi forces in a key shipping lane.  The data highlights the scale and impact of these attacks.
+Recent attacks on U.S. Navy vessels and commercial shipping by Houthi forces in a key shipping lane.  The data highlights the scale and impact of these attacks.
 
 Key Points:
 

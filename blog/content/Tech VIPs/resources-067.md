@@ -1,6 +1,6 @@
 ### 💡 Sales - Lead Qualification
 
-This article discusses the importance of effective lead qualification in sales and its impact on closing deals.  It highlights how inadequate qualification can lead to wasted time and resources.
+Importance of effective lead qualification in sales and its impact on closing deals.  It highlights how inadequate qualification can lead to wasted time and resources.
 
 Key Points:
 

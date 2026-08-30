@@ -1,6 +1,6 @@
 ### ✨ AI Video Generation - Kling Challenge Participation
 
-This article outlines the steps to participate in the Kling 3.0 video challenge on OpenArt, guiding users through the creation and submission process.
+Steps to participate in the Kling 3.0 video challenge on OpenArt, guiding users through the creation and submission process.
 
 Key Points:
 

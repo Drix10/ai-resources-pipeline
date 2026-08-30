@@ -1,6 +1,6 @@
 ### ✨ Access Protocol - Content Drops
 
-This article discusses a recent content drop on the Access Protocol, highlighting its purpose within the ecosystem. The drop features new content from Disco Dave.
+Recent content drop on the Access Protocol, highlighting its purpose within the ecosystem. The drop features new content from Disco Dave.
 
 Key Points:
 

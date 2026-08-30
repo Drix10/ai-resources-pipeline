@@ -1,6 +1,6 @@
 ### 🤖 Combating Tuberculosis - AI-Accelerated Solutions
 
-This article discusses the use of AI to accelerate early detection, diagnosis, and treatment of tuberculosis (TB), a long-standing global health challenge.  It highlights the collaborative efforts and innovative technologies being deployed.
+Use of AI to accelerate early detection, diagnosis, and treatment of tuberculosis (TB), a long-standing global health challenge.  It highlights the collaborative efforts and innovative technologies being deployed.
 
 Key Points:
 

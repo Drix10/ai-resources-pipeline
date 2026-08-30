@@ -1,6 +1,6 @@
 ### 🤖 Large Language Model Reasoning - Cue Influence
 
-This article examines an experiment assessing the ability of a large language model to describe the influence of inserted cues on its answer generation within a chain of thought reasoning process.  The results compare the performance of two model versions.
+Experiment assessing the ability of a large language model to describe the influence of inserted cues on its answer generation within a chain of thought reasoning process.  The results compare the performance of two model versions.
 
 Key Points:
 

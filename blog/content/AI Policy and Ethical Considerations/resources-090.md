@@ -1,6 +1,6 @@
 ### 🤖 Funding Opportunity - Automated Scientific Labs
 
-This article discusses a new National Science Foundation (NSF) program investing in automated laboratories to accelerate scientific experiments.  The program aims to leverage AI for scientific advancement. Funding is available to various organizations.
+New National Science Foundation (NSF) program investing in automated laboratories to accelerate scientific experiments.  The program aims to leverage AI for scientific advancement. Funding is available to various organizations.
 
 Key Points:
 

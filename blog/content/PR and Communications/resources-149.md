@@ -1,6 +1,6 @@
 ### 💡 Leadership - Wise Self-Interest
 
-This article explores the concept of wise self-interest, as articulated by the Dalai Lama, highlighting its necessity for survival while advocating for a cooperative and generous approach that considers others' interests. It provides insight into balancing personal drive with collective well-being.
+Concept of wise self-interest, as articulated by the Dalai Lama, highlighting its necessity for survival while advocating for a cooperative and generous approach that considers others' interests. It provides insight into balancing personal drive with collective well-being.
 
 Key Points:
 

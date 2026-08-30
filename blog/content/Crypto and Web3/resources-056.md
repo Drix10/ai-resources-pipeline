@@ -1,6 +1,6 @@
 ### 🤖 US Senate - GENIUS Act Cloture Vote
 
-This article summarizes the Senate's vote to invoke cloture on the motion to proceed to the consideration of the GENIUS Act, highlighting the shift in Democratic votes and the implications for the bill's advancement.
+Senate's vote to invoke cloture on the motion to proceed to the consideration of the GENIUS Act, highlighting the shift in Democratic votes and the implications for the bill's advancement.
 
 Key Points:
 

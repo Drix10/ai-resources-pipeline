@@ -1,6 +1,6 @@
 ### 🤖 Government Spending - Imprisonment of Legal Immigrants
 
-This article discusses a report detailing the Trump administration's use of taxpayer money to imprison legal immigrants in subpar conditions.  The report highlights concerning details regarding the treatment of these individuals.
+Report detailing the Trump administration's use of taxpayer money to imprison legal immigrants in subpar conditions.  The report highlights concerning details regarding the treatment of these individuals.
 
 Key Points:
 

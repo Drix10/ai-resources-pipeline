@@ -1,6 +1,6 @@
 ### 🤖 AI Revolution - Transcending Civilization
 
-This article discusses Jürgen Schmidhuber's prediction of artificial scientists as the next major development in AI and the implications of this advancement for the future.
+Jürgen Schmidhuber's prediction of artificial scientists as the next major development in AI and the implications of this advancement for the future.
 
 Key Points:
 

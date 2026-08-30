@@ -1,6 +1,6 @@
 ### 💡 Gaming - Iron Rebellion Multiplayer Insights
 
-This article discusses the considerations for engaging with multiplayer-only games like Iron Rebellion, particularly concerning community size and accessibility for new players. It also highlights the game's current features and community engagement efforts.
+Considerations for engaging with multiplayer-only games like Iron Rebellion, particularly concerning community size and accessibility for new players. It also highlights the game's current features and community engagement efforts.
 
 Key Points:
 

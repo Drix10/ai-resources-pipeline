@@ -1,6 +1,6 @@
 ### 🤖 Leadership - Brex's Approach to People Management
 
-This article summarizes Brex founder Pedro Franceschi's insights into leadership, focusing on why Brex no longer employs traditional "people managers."  Franceschi's analysis reveals factors contributing to leadership success within the company.
+Brex founder Pedro Franceschi's insights into leadership, focusing on why Brex no longer employs traditional "people managers."  Franceschi's analysis reveals factors contributing to leadership success within the company.
 
 Key Points:
 

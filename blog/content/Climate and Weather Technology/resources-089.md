@@ -1,6 +1,6 @@
 ### 🤖 Storm Chasing - Gizmo Tribute
 
-This article details a coordinated storm chasing event planned as a tribute to a storm chasing dog named Gizmo.  The event will involve multiple chasers forming the name "GIZMO" across a geographical map.
+Coordinated storm chasing event planned as a tribute to a storm chasing dog named Gizmo.  The event will involve multiple chasers forming the name "GIZMO" across a geographical map.
 
 
 Key Points:

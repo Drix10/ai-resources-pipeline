@@ -1,6 +1,6 @@
 ### 🤖 AI Research - Production-Ready Releases
 
-This article covers recent advancements from Together Research, highlighting their contributions to AI and upcoming production-ready releases presented at AI Native Conf.
+Recent advancements from Together Research, highlighting their contributions to AI and upcoming production-ready releases presented at AI Native Conf.
 
 Key Points:
 

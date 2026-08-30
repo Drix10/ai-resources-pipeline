@@ -1,6 +1,6 @@
 ### 🍻 Social Habits - European Nightlife
 
-This article discusses the prevalence of alcohol consumption in the social scene of several European capitals.  It briefly touches on the integration of nightlife into daily routines.
+Prevalence of alcohol consumption in the social scene of several European capitals.  It briefly touches on the integration of nightlife into daily routines.
 
 Key Points:
 

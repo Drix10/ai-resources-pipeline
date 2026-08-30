@@ -1,6 +1,6 @@
 ### 💡 Geopolitics - Taiwan Defense and Resilience
 
-This article covers Taiwanese President Lai Ching-te's emphasis on national defense strategies. It highlights Taiwan's commitment to enhancing its security amidst recent military exercises by China.
+Taiwanese President Lai Ching-te's emphasis on national defense strategies. It highlights Taiwan's commitment to enhancing its security amidst recent military exercises by China.
 
 Key Points:
 

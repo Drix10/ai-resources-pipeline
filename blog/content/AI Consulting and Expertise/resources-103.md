@@ -1,6 +1,6 @@
 ### 💡 Content Quality - Avoiding Misinformation
 
-This article discusses the importance of verifying information before posting online, particularly on platforms like LinkedIn and X (formerly Twitter).  It highlights the negative consequences of spreading misinformation.
+Importance of verifying information before posting online, particularly on platforms like LinkedIn and X (formerly Twitter).  It highlights the negative consequences of spreading misinformation.
 
 
 Key Points:

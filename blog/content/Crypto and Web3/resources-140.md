@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Humanoid Advancements in China
 
-This article discusses the rapid advancements in humanoid robotics in China, positioning them as a symbol of the nation's technological rise. It highlights recent demonstrations of their capabilities.
+Rapid advancements in humanoid robotics in China, positioning them as a symbol of the nation's technological rise. It highlights recent demonstrations of their capabilities.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Early-Stage Investing - Secrets to Success
 
-This article summarizes insights from Alfred Lin, a Sequoia partner, on successful early-stage investing.  It focuses on the principles of capital allocation and identifying promising founders.
+Insights from Alfred Lin, a Sequoia partner, on successful early-stage investing.  It focuses on the principles of capital allocation and identifying promising founders.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Financierra Labs - Seed Funding and Structured Data
 
-This article discusses Finisterra Labs' recent $3.75M seed funding round and its mission to build the future of structured data using BaselightDB.  It briefly touches upon the company's plans for future development.
+Finisterra Labs' recent $3.75M seed funding round and its mission to build the future of structured data using BaselightDB.  It briefly touches upon the company's plans for future development.
 
 Key Points:
 

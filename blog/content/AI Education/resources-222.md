@@ -1,6 +1,6 @@
 ### 🤖 Sovereign AI - Open Models in Closed Infrastructure
 
-This article discusses the deployment of open-source AI models within restricted government environments. It outlines a strategy focused on achieving control without external dependencies.
+Deployment of open-source AI models within restricted government environments. It outlines a strategy focused on achieving control without external dependencies.
 
 Key Points:
 • US government policies restrict frontier model exports.

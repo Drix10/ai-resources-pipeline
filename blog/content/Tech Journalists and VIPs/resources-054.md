@@ -1,6 +1,6 @@
 ### ⚠️ Politics - California Water Mismanagement
 
-This article discusses allegations of mismanagement of California water resources, specifically regarding the release of billions of gallons of water to combat wildfires.  The claims suggest this action was a wasteful photo opportunity rather than a necessary measure.
+Allegations of mismanagement of California water resources, specifically regarding the release of billions of gallons of water to combat wildfires.  The claims suggest this action was a wasteful photo opportunity rather than a necessary measure.
 
 Key Points:
 

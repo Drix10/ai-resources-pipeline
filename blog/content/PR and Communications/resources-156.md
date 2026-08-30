@@ -1,6 +1,6 @@
 ### 💡 Marketing Strategy - Immersive AI Campaigns
 
-This article details Hendrick's Gin's innovative marketing campaign, which moved beyond traditional tactics. It highlights the brand's use of AI artistry and immersive theater to engage consumers effectively. The campaign aimed to cut through market saturation with a unique experiential approach.
+Hendrick's Gin's innovative marketing campaign, which moved beyond traditional tactics. It highlights the brand's use of AI artistry and immersive theater to engage consumers effectively. The campaign aimed to cut through market saturation with a unique experiential approach.
 
 Key Points:
 

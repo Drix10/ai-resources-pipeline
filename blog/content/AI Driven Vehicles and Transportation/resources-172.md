@@ -1,6 +1,6 @@
 ### ✨ Runneragent App - Feature Demonstration
 
-This article highlights a unique sequence within the Runneragent application. It encourages users to explore this new feature directly within the app.
+Unique sequence within the Runneragent application. It encourages users to explore this new feature directly within the app.
 
 Key Points:
 

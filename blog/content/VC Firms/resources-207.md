@@ -1,6 +1,6 @@
 ### ✨ AI Documentation - Collections and AI Block
 
-This article discusses the general availability of AI-native documentation features. It focuses on Collections for organizing content and the functionality of the AI block.
+General availability of AI-native documentation features. It focuses on Collections for organizing content and the functionality of the AI block.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Finance - Granite Asia's New Fund
 
-This article discusses Granite Asia's planned new fund focused on an undisclosed asset class, following their recent $250 million private credit launch.  The fund aims to support Asian founders amidst evolving trade dynamics and tighter capital markets.
+Granite Asia's planned new fund focused on an undisclosed asset class, following their recent $250 million private credit launch.  The fund aims to support Asian founders amidst evolving trade dynamics and tighter capital markets.
 
 Key Points:
 

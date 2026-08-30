@@ -1,6 +1,6 @@
 ### ✨ Music Video Spotlight - Sheri Dee's "February Challenge Mix Tape"
 
-This article highlights the upcoming feature of Sheri Dee's "February Challenge Mix Tape" on the SPINNER music video channel.  The video features a blend of genres and stunning visuals.
+Upcoming feature of Sheri Dee's "February Challenge Mix Tape" on the SPINNER music video channel.  The video features a blend of genres and stunning visuals.
 
 Key Points:
 

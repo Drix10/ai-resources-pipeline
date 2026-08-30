@@ -1,6 +1,6 @@
 ### 💡 Social Commentary - Exposing Hypocrisy
 
-This article discusses the principles outlined in Martin Luther King Jr.'s "Letter from Birmingham Jail," focusing on strategies to expose hypocrisy through public action and non-violent resistance.
+Principles outlined in Martin Luther King Jr.'s "Letter from Birmingham Jail," focusing on strategies to expose hypocrisy through public action and non-violent resistance.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Biology - Software Engineering Parallels
 
-This article explores the comparison between manipulating biological systems and software systems, highlighting the challenges and opportunities in accelerating biological research.
+Comparison between manipulating biological systems and software systems, highlighting the challenges and opportunities in accelerating biological research.
 
 Key Points:
 

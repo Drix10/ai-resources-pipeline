@@ -1,6 +1,6 @@
 ### 💡 UBI Experiments - Scale and Feasibility
 
-This article discusses the potential effects of different scales of Universal Basic Income (UBI) experiments and the challenges in implementing larger-scale trials.
+Potential effects of different scales of Universal Basic Income (UBI) experiments and the challenges in implementing larger-scale trials.
 
 Key Points:
 

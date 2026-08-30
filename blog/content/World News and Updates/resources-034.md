@@ -1,6 +1,6 @@
 ### ⚖️ EU Ruling - Renewable Energy Subsidies
 
-This article summarizes the European Commission's decision regarding Spain's renewable energy subsidy case.  The ruling instructs Spain not to pay compensation for previously cut subsidies.
+European Commission's decision regarding Spain's renewable energy subsidy case.  The ruling instructs Spain not to pay compensation for previously cut subsidies.
 
 Key Points:
 

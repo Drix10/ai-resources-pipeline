@@ -1,6 +1,6 @@
 ### 💡 Social Dynamics - Shared Experiences on Digital Platforms
 
-This article examines how social media platforms facilitate the sharing and comparison of personal narratives, highlighting the commonalities in individual experiences. It explores the role of digital communication in fostering collective memory.
+Social media platforms facilitate the sharing and comparison of personal narratives, highlighting the commonalities in individual experiences. It explores the role of digital communication in fostering collective memory.
 
 Key Points:
 

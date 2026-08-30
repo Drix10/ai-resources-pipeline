@@ -1,6 +1,6 @@
 ### 🤖 AI Capabilities - Document Generation
 
-This article discusses Claude's enhanced capabilities in generating various document formats, including Excel spreadsheets, PDFs, and Word documents, and its integration into Microsoft O365.  An example demonstrating its LaTeX resume generation is provided.
+Claude's enhanced capabilities in generating various document formats, including Excel spreadsheets, PDFs, and Word documents, and its integration into Microsoft O365.  An example demonstrating its LaTeX resume generation is provided.
 
 Key Points:
 

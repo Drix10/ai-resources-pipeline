@@ -1,6 +1,6 @@
 ### 🤖 AI Education - NSF's Commitment
 
-This article discusses the National Science Foundation's (NSF) commitment to bolstering K-12 AI education in the United States.  The pledge focuses on creating resources and learning opportunities to promote AI literacy and proficiency.
+National Science Foundation's (NSF) commitment to bolstering K-12 AI education in the United States.  The pledge focuses on creating resources and learning opportunities to promote AI literacy and proficiency.
 
 
 Key Points:

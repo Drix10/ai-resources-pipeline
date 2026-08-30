@@ -1,6 +1,6 @@
 ### 💡 Design - Moodboards in Video Production
 
-This article discusses the author's perspective on mood boards and their usefulness in video production, particularly within a specific software's version 6.1.
+Author's perspective on mood boards and their usefulness in video production, particularly within a specific software's version 6.1.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 💡 Startup Investment - Investor Challenges
 
-This article discusses the challenges faced by investors in the current economic landscape, particularly concerning startup investments. It aims to provide a professional overview of potential issues affecting investor confidence and outcomes.
+Challenges faced by investors in the current economic landscape, particularly concerning startup investments. It aims to provide a professional overview of potential issues affecting investor confidence and outcomes.
 
 Key Points:
 

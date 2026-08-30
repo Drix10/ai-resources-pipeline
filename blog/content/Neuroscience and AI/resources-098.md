@@ -1,6 +1,6 @@
 ### 🤖 Neuroscience - Tau Protein and Microtubules
 
-This article discusses the role of tau protein and microtubules in cognitive function, specifically addressing the misconception that tau itself causes cognitive dysfunction.
+Role of tau protein and microtubules in cognitive function, specifically addressing the misconception that tau itself causes cognitive dysfunction.
 
 Key Points:
 

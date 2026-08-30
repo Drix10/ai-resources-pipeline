@@ -1,6 +1,6 @@
 ### 🤖 CES 2026 - NVIDIA's Presence and AI Leadership
 
-This article highlights NVIDIA's significant visibility at CES 2026 in Las Vegas. It underscores the prominence of CEO Jensen Huang and the company's influence in the technology sector.
+NVIDIA's significant visibility at CES 2026 in Las Vegas. It underscores the prominence of CEO Jensen Huang and the company's influence in the technology sector.
 
 Key Points:
 

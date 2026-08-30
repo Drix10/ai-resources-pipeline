@@ -1,6 +1,6 @@
 ### 🤖 Anthropic AI - Claude Model Update
 
-This article discusses the potential release of a new, more advanced version of Anthropic's Claude AI model.  Speculation is based on multiple references surfacing online.  The article summarizes the expected advancements.
+Potential release of a new, more advanced version of Anthropic's Claude AI model.  Speculation is based on multiple references surfacing online.  The article summarizes the expected advancements.
 
 
 Key Points:

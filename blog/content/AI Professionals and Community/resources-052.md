@@ -1,6 +1,6 @@
 ### ✨ VisionOS - Polio’s Last Mile App
 
-This article details the development of a native visionOS application for Polio’s Last Mile, focusing on its design and implementation specifics for Apple Vision Pro.
+Development of a native visionOS application for Polio’s Last Mile, focusing on its design and implementation specifics for Apple Vision Pro.
 
 Key Points:
 

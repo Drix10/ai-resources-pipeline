@@ -1,6 +1,6 @@
 ### ✨ Pendant Updates - Version 1.0.18
 
-This article details the new features and bug fixes included in version 1.0.18 of the Pendant application.  The update focuses on improved voice recognition, signal strength monitoring, and language support.
+New features and bug fixes included in version 1.0.18 of the Pendant application.  The update focuses on improved voice recognition, signal strength monitoring, and language support.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Workflows - High-Agency Professionals
 
-This article examines an observed correlation between high-agency individuals and unconventional workflow organization.  It notes the lack of standardized tools and methods used by these professionals.
+Observed correlation between high-agency individuals and unconventional workflow organization.  It notes the lack of standardized tools and methods used by these professionals.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics - US Involvement in Palestinian Conflict
 
-This article discusses the ongoing conflict in Palestine and the role of the United States.  It highlights the controversy surrounding US actions and their perceived impact on international relations.
+Ongoing conflict in Palestine and the role of the United States.  It highlights the controversy surrounding US actions and their perceived impact on international relations.
 
 Key Points:
 

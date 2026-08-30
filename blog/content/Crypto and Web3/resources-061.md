@@ -1,6 +1,6 @@
 ### 🚀 Pragmatic Play - Mega Cash Rush Tournament
 
-This article details the Pragmatic Play Mega Cash Rush Tournament, outlining its prize pool, duration, and participation requirements.
+Pragmatic Play Mega Cash Rush Tournament, outlining its prize pool, duration, and participation requirements.
 
 
 Key Points:

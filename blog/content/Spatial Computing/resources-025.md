@@ -1,6 +1,6 @@
 ### 🤖 Solitaire Game - Work in Progress
 
-This article discusses a work-in-progress Solitaire game, its design considerations for mouse and mobile use, and its availability for testing.
+Work-in-progress Solitaire game, its design considerations for mouse and mobile use, and its availability for testing.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Quantum Computing - Production-Ready Applications
 
-This article discusses the progress made by the AWS Center for Quantum Computing towards making quantum computing suitable for real-world applications.  A significant milestone has recently been announced.
+Progress made by the AWS Center for Quantum Computing towards making quantum computing suitable for real-world applications.  A significant milestone has recently been announced.
 
 Key Points:
 

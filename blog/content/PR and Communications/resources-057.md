@@ -1,6 +1,6 @@
 ### ⚖️ Law - Habeas Corpus Suspension
 
-This article discusses the legal debate surrounding the suspension of habeas corpus, focusing on the roles of Congress and the President.  It examines a historical precedent and the constitutional basis for such actions.
+Legal debate surrounding the suspension of habeas corpus, focusing on the roles of Congress and the President.  It examines a historical precedent and the constitutional basis for such actions.
 
 Key Points:
 

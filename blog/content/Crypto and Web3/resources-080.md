@@ -1,6 +1,6 @@
 ### 🚀 Giveaways - STX Rewards
 
-This article details a giveaway offering 50 STX to five winners. Participation requires sharing a Blockstack name and following a specified Twitter account.
+Giveaway offering 50 STX to five winners. Participation requires sharing a Blockstack name and following a specified Twitter account.
 
 Key Points:
 

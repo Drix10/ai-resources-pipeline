@@ -1,6 +1,6 @@
 ### ⚠️ Severe Weather - Tornado Threat
 
-This article discusses a significant severe weather threat, including the potential for tornadoes, damaging winds, and large hail.  The forecast indicates a high likelihood of severe weather events.
+Significant severe weather threat, including the potential for tornadoes, damaging winds, and large hail.  The forecast indicates a high likelihood of severe weather events.
 
 Key Points:
 

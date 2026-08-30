@@ -1,6 +1,6 @@
 ### 🤖 AI Pricing - Market Strategies
 
-This article discusses the unsustainable pricing strategies employed by some AI labs to gain market share and the need for future price adjustments.  It also explores the analogy of AI as an employee.
+Unsustainable pricing strategies employed by some AI labs to gain market share and the need for future price adjustments.  It also explores the analogy of AI as an employee.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 3D Model Generation - Pixal3D Fidelity Improvement
 
-This article discusses Pixal3D, a tool designed for generating 3D models from images. It highlights its enhanced ability to maintain fidelity to the source image compared to previous methods.
+Pixal3D, a tool designed for generating 3D models from images. It highlights its enhanced ability to maintain fidelity to the source image compared to previous methods.
 
 Key Points:
 

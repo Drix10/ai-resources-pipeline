@@ -1,6 +1,6 @@
 ### 🚀 OpenUSD Training - GTC25
 
-This article highlights expert-led training labs at GTC25 focused on enhancing OpenUSD workflows.  The labs provide hands-on experience with various aspects of OpenUSD.
+Expert-led training labs at GTC25 focused on enhancing OpenUSD workflows.  The labs provide hands-on experience with various aspects of OpenUSD.
 
 
 Key Points:

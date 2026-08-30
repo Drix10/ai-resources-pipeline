@@ -1,6 +1,6 @@
 ### 💡 Anti-Racism Advocacy - Athlete's Commitment
 
-This article covers Vinícius Júnior's perspective on anti-racism campaigns, emphasizing the ongoing nature of the issue and the importance of collective struggle. It highlights the athlete's commitment to social justice beyond personal success.
+Vinícius Júnior's perspective on anti-racism campaigns, emphasizing the ongoing nature of the issue and the importance of collective struggle. It highlights the athlete's commitment to social justice beyond personal success.
 
 Key Points:
 

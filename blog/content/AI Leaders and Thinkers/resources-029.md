@@ -1,6 +1,6 @@
 ### 🤖 Political Commentary - Allegations and Counter-Allegations
 
-This article summarizes allegations made against various Spanish political figures, highlighting the contrast between accusations and revealed truths.  It does not offer verification or analysis of the claims.
+Allegations made against various Spanish political figures, highlighting the contrast between accusations and revealed truths.  It does not offer verification or analysis of the claims.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ NBA Summer League - Highlights & Viewing
 
-This article provides an overview of recent NBA Summer League action from Salt Lake City and the California Classic. It details key player highlights and offers guidance on broadcast platforms for watching the games.
+Recent NBA Summer League action from Salt Lake City and the California Classic. It details key player highlights and offers guidance on broadcast platforms for watching the games.
 
 Key Points:
 

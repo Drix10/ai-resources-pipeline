@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Pre-training Mechanics
 
-This article outlines the fundamental pre-training mechanics for large language models. It covers essential concepts such as tokenization for converting text into numerical representations and embeddings for generating learnable vector representations.
+Fundamental pre-training mechanics for large language models. It covers essential concepts such as tokenization for converting text into numerical representations and embeddings for generating learnable vector representations.
 
 Key Points:
 

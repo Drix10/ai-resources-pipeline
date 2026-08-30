@@ -1,6 +1,6 @@
 ### 🚀 Modular Construction Vehicle - Gen 2 Capabilities
 
-This article outlines the advanced capabilities and modular design of a new generation vehicle. It highlights how this platform surpasses previous iterations by supporting a wide range of interchangeable implements, aiming to replace diverse heavy machinery.
+Advanced capabilities and modular design of a new generation vehicle. It highlights how this platform surpasses previous iterations by supporting a wide range of interchangeable implements, aiming to replace diverse heavy machinery.
 
 Key Points:
 

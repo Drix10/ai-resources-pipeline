@@ -1,6 +1,6 @@
 ### 🤖 Data Availability - Celestia Choice
 
-This article discusses the reasons behind Viktoriya's choice of Celestia for data availability, highlighting Celestia's support and focus on gaming.
+Reasons behind Viktoriya's choice of Celestia for data availability, highlighting Celestia's support and focus on gaming.
 
 Key Points:
 

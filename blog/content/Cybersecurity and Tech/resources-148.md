@@ -1,6 +1,6 @@
 ### 🤖 Microsoft Identity Security - Common Misconfigurations
 
-This article discusses insights from an EntraChat episode focusing on Microsoft identity security. It highlights the persistent challenge of common misconfigurations in enterprise environments, even with long-standing technologies like Azure AD.
+Insights from an EntraChat episode focusing on Microsoft identity security. It highlights the persistent challenge of common misconfigurations in enterprise environments, even with long-standing technologies like Azure AD.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 NBA Draft - Darryn Peterson's Journey
 
-This article covers Darryn Peterson's draft night experience as the No. 2 overall pick. It highlights his transition into the NBA with the Utah Jazz.
+Darryn Peterson's draft night experience as the No. 2 overall pick. It highlights his transition into the NBA with the Utah Jazz.
 
 Key Points:
 

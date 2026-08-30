@@ -1,6 +1,6 @@
 ### ✨ Claude AI - Free Plan Enhancements
 
-This article details the new functionalities now accessible on the Claude AI free plan, including file creation, editing, advanced skills, and compaction capabilities. These updates enable users to handle more complex tasks efficiently.
+New functionalities now accessible on the Claude AI free plan, including file creation, editing, advanced skills, and compaction capabilities. These updates enable users to handle more complex tasks efficiently.
 
 Key Points:
 

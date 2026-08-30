@@ -1,6 +1,6 @@
 ### 💡 Dementia - Abilities and Initiative
 
-This article covers a perspective piece on the "Walking the Talk for Dementia 2025" initiative. It explores the extraordinary abilities, creativity, and love that can exist along the path of dementia. The aim is to offer a new understanding of living with the condition.
+Perspective piece on the "Walking the Talk for Dementia 2025" initiative. It explores the extraordinary abilities, creativity, and love that can exist along the path of dementia. The aim is to offer a new understanding of living with the condition.
 
 Key Points:
 

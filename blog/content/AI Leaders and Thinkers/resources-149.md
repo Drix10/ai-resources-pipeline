@@ -1,6 +1,6 @@
 ### 🤖 Approximation Theory - Lipschitz Continuous Transformers
 
-This article explores the theoretical foundations of Lipschitz continuous transformers. It covers the approximation capabilities and stability properties of these advanced neural network architectures.
+Theoretical foundations of Lipschitz continuous transformers. It covers the approximation capabilities and stability properties of these advanced neural network architectures.
 
 Key Points:
 

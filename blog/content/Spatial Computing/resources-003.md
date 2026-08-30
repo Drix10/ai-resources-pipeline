@@ -1,6 +1,6 @@
 ### 🤖 Quantum Computing - Potential Impacts
 
-This article explores the potential trillion-dollar impact of quantum computing by 2035, focusing on its applications in healthcare, fraud prevention, climate change solutions, and photonics.
+Potential trillion-dollar impact of quantum computing by 2035, focusing on its applications in healthcare, fraud prevention, climate change solutions, and photonics.
 
 Key Points:
 

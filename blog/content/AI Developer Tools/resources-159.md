@@ -1,6 +1,6 @@
 ### 🚀 Git Worktree - Docker Compose Isolation with worktree-compose
 
-This article outlines the workflow for utilizing `worktree-compose` to manage isolated Docker Compose environments alongside Git worktrees. It details the steps to set up and leverage separate development environments efficiently.
+Workflow for utilizing `worktree-compose` to manage isolated Docker Compose environments alongside Git worktrees. It details the steps to set up and leverage separate development environments efficiently.
 
 Key Points:
 

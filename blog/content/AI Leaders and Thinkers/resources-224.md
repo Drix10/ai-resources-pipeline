@@ -1,6 +1,6 @@
 ### 🤖 Disk Space - Plugin Usage
 
-This article highlights the unexpected disk space consumption by software plugins. It examines how these components can contribute to overall storage use.
+Unexpected disk space consumption by software plugins. It examines how these components can contribute to overall storage use.
 
 Key Points:
 

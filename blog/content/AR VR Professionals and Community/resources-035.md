@@ -1,6 +1,6 @@
 ### 🚀 Game Development - Vibe Riders Game
 
-This article details the creation of "Vibe Riders," a game similar to Subway Surfers, using AI-generated music and sound effects.  It also discusses reflections on the development process and the potential limitations of "vibe coding."
+Creation of "Vibe Riders," a game similar to Subway Surfers, using AI-generated music and sound effects.  It also discusses reflections on the development process and the potential limitations of "vibe coding."
 
 Key Points:
 

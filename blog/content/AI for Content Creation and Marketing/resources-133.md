@@ -1,6 +1,6 @@
 ### 🚀 Outbound Systems - Building Repeatable Campaigns
 
-This article discusses the importance of owning your outbound system for enhanced performance. It covers strategies for creating repeatable campaigns, improving offer clarity, and optimizing lead quality to drive engagement.
+Importance of owning your outbound system for enhanced performance. It covers strategies for creating repeatable campaigns, improving offer clarity, and optimizing lead quality to drive engagement.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Business History - Henry Ford's Impact on Leisure
 
-This article explores how Henry Ford significantly influenced American leisure activities by popularizing backyard grilling and picnicking. It highlights his innovative approach to marketing and product development beyond automobiles.
+Henry Ford significantly influenced American leisure activities by popularizing backyard grilling and picnicking. It highlights his innovative approach to marketing and product development beyond automobiles.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Geopolitics -  US-Iran Relations
 
-This article summarizes a Twitter user's perspective on a hypothetical US bombing of Iran and the subsequent lack of concern.
+Twitter user's perspective on a hypothetical US bombing of Iran and the subsequent lack of concern.
 
 Key Points:
 

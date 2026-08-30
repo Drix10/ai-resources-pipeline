@@ -1,6 +1,6 @@
 ### 🤖 AI - Grok's Capabilities
 
-This article summarizes the capabilities of Grok, an AI tool, highlighting its text generation, coding, fact-checking, and meme-creation features.  A link to further statistical analysis is provided.
+Capabilities of Grok, an AI tool, highlighting its text generation, coding, fact-checking, and meme-creation features.  A link to further statistical analysis is provided.
 
 Key Points:
 

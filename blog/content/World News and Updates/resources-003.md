@@ -1,6 +1,6 @@
 ### 📈 Economics - UK Inflation Rises
 
-This article summarizes the recent increase in UK inflation, reaching a ten-month high in January.  The rise is attributed to increased food and airfare costs, as well as the introduction of VAT on private school fees.
+Recent increase in UK inflation, reaching a ten-month high in January.  The rise is attributed to increased food and airfare costs, as well as the introduction of VAT on private school fees.
 
 Key Points:
 

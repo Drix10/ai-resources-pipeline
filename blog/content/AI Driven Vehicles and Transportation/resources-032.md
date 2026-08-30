@@ -1,6 +1,6 @@
 ### 🏙️ Transportation Policy - City-Level Impact
 
-This article discusses the importance of city-level involvement in transportation policy decisions.  It highlights the need for community input and local perspectives in shaping transportation impacts.
+Importance of city-level involvement in transportation policy decisions.  It highlights the need for community input and local perspectives in shaping transportation impacts.
 
 Key Points:
 

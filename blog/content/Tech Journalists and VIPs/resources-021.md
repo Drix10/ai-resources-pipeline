@@ -1,6 +1,6 @@
 ### 💡 Nonprofit Management - Addressing Ineffective Philanthropy
 
-This article discusses concerns regarding the negative consequences of ineffective philanthropy and the need for improved stewardship in the nonprofit sector.  It highlights the issue transcends political affiliations.
+Concerns regarding the negative consequences of ineffective philanthropy and the need for improved stewardship in the nonprofit sector.  It highlights the issue transcends political affiliations.
 
 Key Points:
 

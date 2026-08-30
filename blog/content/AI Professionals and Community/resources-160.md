@@ -1,6 +1,6 @@
 ### 🤖 Monero - On-Chain Privacy Scheme
 
-This article examines a highly practical scheme designed for on-chain implementation within the Monero cryptocurrency. It highlights the direct applicability of such privacy-enhancing mechanisms to the core functionalities of the network.
+Highly practical scheme designed for on-chain implementation within the Monero cryptocurrency. It highlights the direct applicability of such privacy-enhancing mechanisms to the core functionalities of the network.
 
 Key Points:
 

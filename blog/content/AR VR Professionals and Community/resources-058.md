@@ -1,6 +1,6 @@
 ### 🤖 Multithreading - Best Practices
 
-This article discusses challenges in multithreaded application performance and points to a resource offering benchmarking-supported guidance on effective multithreading practices.
+Challenges in multithreaded application performance and points to a resource offering benchmarking-supported guidance on effective multithreading practices.
 
 Key Points:
 

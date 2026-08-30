@@ -1,6 +1,6 @@
 ### 🚀 VR Gaming - Haptic Feedback Experience
 
-This article highlights an collaboration focused on enhancing virtual reality gaming experiences. It details products aimed at providing immersive haptic feedback.
+Collaboration focused on enhancing virtual reality gaming experiences. It details products aimed at providing immersive haptic feedback.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Elon Musk - Multiplanetary Life
 
-This article discusses Elon Musk's perspective on the possibility of establishing self-sustaining life on Mars, considering the history of mass extinction events on Earth.
+Elon Musk's perspective on the possibility of establishing self-sustaining life on Mars, considering the history of mass extinction events on Earth.
 
 Key Points:
 

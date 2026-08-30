@@ -1,6 +1,6 @@
 ### ✨ AR Industry - Top Articles of 2025
 
-This article summarizes the top-performing articles published by AR Insider during 2025. It highlights the most impactful content and trends within the augmented reality industry from that year.
+Top-performing articles published by AR Insider during 2025. It highlights the most impactful content and trends within the augmented reality industry from that year.
 
 Key Points:
 

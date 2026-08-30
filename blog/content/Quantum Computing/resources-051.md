@@ -1,6 +1,6 @@
 ### 🤖 Message Padding in Cryptography - Implementation Details
 
-This article details the message padding process used in cryptography, specifically focusing on padding to ensure a message length congruent to 448 mod 512 bits.  The process involves appending a '1' bit, followed by '0' bits, and a 64-bit representation of the original message length.
+Message padding process used in cryptography, specifically focusing on padding to ensure a message length congruent to 448 mod 512 bits.  The process involves appending a '1' bit, followed by '0' bits, and a 64-bit representation of the original message length.
 
 Key Points:
 

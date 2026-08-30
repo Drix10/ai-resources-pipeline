@@ -1,6 +1,6 @@
 ### 💡 Business Strategy - The Power of Silence
 
-This article discusses the concept of "STFU" as a competitive advantage in business. It explores the power of operating quietly and avoiding public disclosure of strategies.
+Concept of "STFU" as a competitive advantage in business. It explores the power of operating quietly and avoiding public disclosure of strategies.
 
 Key Points:
 • Remaining quiet can establish a unique business moat.

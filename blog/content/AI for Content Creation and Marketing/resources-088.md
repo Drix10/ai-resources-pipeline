@@ -1,6 +1,6 @@
 ### 🤖 Disruptive Change in Finance and Automation
 
-This article discusses the impact of disruptive change in the financial sector and the role of automation in accelerating processes.  It highlights the evolving landscape of regulated finance and the significant time savings achieved through automation.
+Impact of disruptive change in the financial sector and the role of automation in accelerating processes.  It highlights the evolving landscape of regulated finance and the significant time savings achieved through automation.
 
 Key Points:
 

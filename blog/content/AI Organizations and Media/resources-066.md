@@ -1,6 +1,6 @@
 ### 💡 Marketing - Tommy Hilfiger's Illusion
 
-This article examines Tommy Hilfiger's early marketing strategy, focusing on a specific campaign that effectively created a perception of pre-existing fame.
+Tommy Hilfiger's early marketing strategy, focusing on a specific campaign that effectively created a perception of pre-existing fame.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Safety - Self-Awareness in Technology
 
-This article discusses the premature exploration of self-awareness and consciousness in technology and advocates for a more cautious approach.  The author suggests focusing on established foundations before pursuing these complex concepts.
+Premature exploration of self-awareness and consciousness in technology and advocates for a more cautious approach.  The author suggests focusing on established foundations before pursuing these complex concepts.
 
 Key Points:
 

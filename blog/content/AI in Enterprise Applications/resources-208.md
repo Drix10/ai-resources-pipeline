@@ -1,6 +1,6 @@
 ### 🤖 Data Resilience - Hyperscaler Storage Challenges
 
-This article explores the concept of data resilience in the context of hyperscaler storage failures. It discusses the critical need to redefine resilience after experiencing outages with large-scale cloud providers.
+Concept of data resilience in the context of hyperscaler storage failures. It discusses the critical need to redefine resilience after experiencing outages with large-scale cloud providers.
 
 Key Points:
 

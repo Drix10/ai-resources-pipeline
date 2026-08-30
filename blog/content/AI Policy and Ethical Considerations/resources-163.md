@@ -1,6 +1,6 @@
 ### 💡 Innovation - Permissionless Innovation and Follow-up Work
 
-This article explores the evolution of the "Permissionless Innovation" framework, clarifying that while a formal third edition was not published, its concepts were expanded upon in a subsequent book. It details how the original framework was extended.
+Evolution of the "Permissionless Innovation" framework, clarifying that while a formal third edition was not published, its concepts were expanded upon in a subsequent book. It details how the original framework was extended.
 
 Key Points:
 

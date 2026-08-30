@@ -1,6 +1,6 @@
 ### 🤖 LLMs in Biomedical Applications - Drug Design
 
-This article discusses the successful application of large language models (LLMs) in biomedical tasks, specifically drug design, contradicting some assessments of current LLM capabilities.  The research highlights the potential of adequately trained LLMs in this field.
+Successful application of large language models (LLMs) in biomedical tasks, specifically drug design, contradicting some assessments of current LLM capabilities.  The research highlights the potential of adequately trained LLMs in this field.
 
 Key Points:
 

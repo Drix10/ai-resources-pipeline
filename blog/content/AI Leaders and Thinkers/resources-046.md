@@ -1,6 +1,6 @@
 ### 💡 Self-Sabotage and Success - Recognizing Warning Signs
 
-This article discusses the potential for self-sabotage when pursuing success, highlighting the importance of recognizing warning signs and prioritizing well-being.
+Potential for self-sabotage when pursuing success, highlighting the importance of recognizing warning signs and prioritizing well-being.
 
 Key Points:
 

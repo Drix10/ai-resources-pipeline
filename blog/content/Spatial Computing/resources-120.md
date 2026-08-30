@@ -1,6 +1,6 @@
 ### 🚀 Virtual Production - Location Scouting
 
-This article discusses how virtual location scouting technology is transforming production workflows. It highlights the use of digital doubles for remote planning and approval processes.
+Virtual location scouting technology is transforming production workflows. It highlights the use of digital doubles for remote planning and approval processes.
 
 Key Points:
 

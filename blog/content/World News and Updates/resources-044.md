@@ -1,6 +1,6 @@
 ### ⚠️ Gaza Blockade - Humanitarian Crisis
 
-This article summarizes the ongoing humanitarian crisis in Gaza due to a months-long Israeli blockade, highlighting the impact on food security and aid delivery.
+Ongoing humanitarian crisis in Gaza due to a months-long Israeli blockade, highlighting the impact on food security and aid delivery.
 
 Key Points:
 

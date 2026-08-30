@@ -1,6 +1,6 @@
 ### ⚠️ Geopolitics - Israeli-Palestinian Conflict
 
-This article summarizes a statement attributed to Professor Sami Al-Arian regarding the Israeli-Palestinian conflict and presents an image related to the statement.  It does not offer analysis or commentary.
+Statement attributed to Professor Sami Al-Arian regarding the Israeli-Palestinian conflict and presents an image related to the statement.  It does not offer analysis or commentary.
 
 Key Points:
 

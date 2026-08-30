@@ -1,6 +1,6 @@
 ### 🤖 Real-World Assets - Institutional Adoption on Solana
 
-This article examines the growth of tokenized real-world assets (RWA) on the Solana blockchain. It highlights key metrics and significant institutional investment in this expanding sector.
+Growth of tokenized real-world assets (RWA) on the Solana blockchain. It highlights key metrics and significant institutional investment in this expanding sector.
 
 Key Points:
 

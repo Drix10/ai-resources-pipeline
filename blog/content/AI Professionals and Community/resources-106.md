@@ -1,6 +1,6 @@
 ### 🪐 Space Exploration - Voyager 2's Final Image
 
-This article discusses Voyager 2's last image taken in 1989, showing Neptune and its moon Triton from a distance beyond Neptune's orbit.  The image highlights the challenges of capturing images from such a remote location.
+Voyager 2's last image taken in 1989, showing Neptune and its moon Triton from a distance beyond Neptune's orbit.  The image highlights the challenges of capturing images from such a remote location.
 
 Key Points:
 

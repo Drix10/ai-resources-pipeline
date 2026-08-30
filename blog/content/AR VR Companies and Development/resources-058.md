@@ -1,6 +1,6 @@
 ### ✨ FRENZIES - Into the Radius 2 Collaboration
 
-This article details a collaboration between FRENZIES and Into the Radius 2, resulting in exclusive in-game items.
+Collaboration between FRENZIES and Into the Radius 2, resulting in exclusive in-game items.
 
 Key Points:
 

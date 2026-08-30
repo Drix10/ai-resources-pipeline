@@ -1,6 +1,6 @@
 ### 🤖 Personalized Review Summarization - Online Preference Learning
 
-This article discusses a new approach to personalized review summarization, integrating online preference learning. It covers how to adapt summaries to individual user tastes by continuously learning from their interactions.
+New approach to personalized review summarization, integrating online preference learning. It covers how to adapt summaries to individual user tastes by continuously learning from their interactions.
 
 Key Points:
 

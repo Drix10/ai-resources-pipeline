@@ -1,6 +1,6 @@
 ### 🤖 Twitter Engagement - Fake Elon Musk Bots
 
-This article discusses the prevalence of fake Elon Musk bot accounts engaging with users who comment on Elon Musk's posts.  The author reports near-constant engagement from these bots.
+Prevalence of fake Elon Musk bot accounts engaging with users who comment on Elon Musk's posts.  The author reports near-constant engagement from these bots.
 
 Key Points:
 

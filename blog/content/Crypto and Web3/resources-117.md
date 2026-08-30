@@ -1,6 +1,6 @@
 ### 🚀 NEAR Mobile App - Dexscreener Ranking Performance
 
-This article discusses the NEAR Mobile app's achievement in ranking among the top projects on Dexscreener. It highlights the app's visibility and performance within the cryptocurrency trading ecosystem.
+NEAR Mobile app's achievement in ranking among the top projects on Dexscreener. It highlights the app's visibility and performance within the cryptocurrency trading ecosystem.
 
 Key Points:
 

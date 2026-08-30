@@ -1,6 +1,6 @@
 ### 💡 Kickstarter - Launching V2
 
-This article discusses the anxieties and eventual launch of a Kickstarter V2 project after 10 months of development.  The author details the challenges faced and the decision to launch despite perceived imperfections.
+Anxieties and eventual launch of a Kickstarter V2 project after 10 months of development.  The author details the challenges faced and the decision to launch despite perceived imperfections.
 
 Key Points:
 

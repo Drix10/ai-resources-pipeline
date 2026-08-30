@@ -1,6 +1,6 @@
 ### ✨ SCOR Protocol - Token Utility & Community Engagement
 
-This article discusses SCOR Protocol's shift in its rewards mechanism, integrating economic participation with its native token. It explains how this transformation converts fan engagement into direct utility.
+SCOR Protocol's shift in its rewards mechanism, integrating economic participation with its native token. It explains how this transformation converts fan engagement into direct utility.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Client Communication - Professional Services vs. Consulting
 
-This article discusses a scenario where a client misunderstood the difference between commissioned software development and general consulting services.  The key takeaway is the importance of clear communication regarding service contracts.
+Scenario where a client misunderstood the difference between commissioned software development and general consulting services.  The key takeaway is the importance of clear communication regarding service contracts.
 
 Key Points:
 

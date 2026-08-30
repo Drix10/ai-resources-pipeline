@@ -1,6 +1,6 @@
 ### 🧑‍🏫 Education - Differentiated Learning with MagicSchool
 
-This article highlights how Brendan Swider, a reading specialist, utilizes MagicSchool AI to create differentiated learning materials for students of varying reading levels.
+Brendan Swider, a reading specialist, utilizes MagicSchool AI to create differentiated learning materials for students of varying reading levels.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Cosmology - Galactic Anomalies
 
-This article explores recent observations suggesting an unknown force affecting our galaxy's movement. It discusses the phenomenon of galactic pull and its implications for understanding the universe.
+Recent observations suggesting an unknown force affecting our galaxy's movement. It discusses the phenomenon of galactic pull and its implications for understanding the universe.
 
 Key Points:
 

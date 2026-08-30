@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Nonverbal Intent Expression
 
-This article discusses research on robots expressing intent through nonverbal cues like posture, gestures, and gaze.  The research highlights the importance of these nonverbal behaviors in conveying meaning similar to human communication.
+Research on robots expressing intent through nonverbal cues like posture, gestures, and gaze.  The research highlights the importance of these nonverbal behaviors in conveying meaning similar to human communication.
 
 Key Points:
 

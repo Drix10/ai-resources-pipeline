@@ -1,6 +1,6 @@
 ### 🤖 CYPHER - US Treasury-Backed Funding
 
-This article summarizes the key aspects of the CYPHER project, including its funding, asset buybacks, and new L1 launch.
+Key aspects of the CYPHER project, including its funding, asset buybacks, and new L1 launch.
 
 Key Points:
 

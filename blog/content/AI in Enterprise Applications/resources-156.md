@@ -1,6 +1,6 @@
 ### 🤖 LLM Impact - Occupational Capabilities
 
-This article discusses Anthropic's research findings on which occupations are most and least susceptible to automation by Large Language Models (LLMs). It highlights the varying degrees of LLM capability across different sectors.
+Anthropic's research findings on which occupations are most and least susceptible to automation by Large Language Models (LLMs). It highlights the varying degrees of LLM capability across different sectors.
 
 Key Points:
 

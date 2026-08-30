@@ -1,6 +1,6 @@
 ### 🤖 Ransomware - VolkLocker Decryption
 
-This article details the discovery of a hard-coded master key within the VolkLocker ransomware, which allows for free decryption of affected systems. This vulnerability provides a method for victims to recover their data without paying the ransom.
+Discovery of a hard-coded master key within the VolkLocker ransomware, which allows for free decryption of affected systems. This vulnerability provides a method for victims to recover their data without paying the ransom.
 
 Key Points:
 

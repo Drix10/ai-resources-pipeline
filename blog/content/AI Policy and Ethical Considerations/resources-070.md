@@ -1,6 +1,6 @@
 ### 💡 Humor - Misinterpretations
 
-This article explores a personal anecdote about a joke that was misinterpreted, highlighting the subjective nature of humor and potential for miscommunication.
+Personal anecdote about a joke that was misinterpreted, highlighting the subjective nature of humor and potential for miscommunication.
 
 Key Points:
 

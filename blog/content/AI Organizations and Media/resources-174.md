@@ -1,6 +1,6 @@
 ### 🤖 Generative AI - Adoption in Switzerland
 
-This article discusses the widespread adoption of generative AI applications globally and highlights Switzerland's leading position in AI usage for work within Europe. It provides statistical insights into current AI integration.
+Widespread adoption of generative AI applications globally and highlights Switzerland's leading position in AI usage for work within Europe. It provides statistical insights into current AI integration.
 
 Key Points:
 

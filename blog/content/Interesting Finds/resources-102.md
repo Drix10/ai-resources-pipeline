@@ -1,6 +1,6 @@
 ### 🤖 Podscan Ideas Vault - Internal Scoring Logic
 
-This article discusses the development of the internal scoring logic for the Podscan Ideas Vault, focusing on the shift from crypto/NFT-related content to a more entrepreneurship-focused approach.  The challenge of accurately scoring ideas is also highlighted.
+Development of the internal scoring logic for the Podscan Ideas Vault, focusing on the shift from crypto/NFT-related content to a more entrepreneurship-focused approach.  The challenge of accurately scoring ideas is also highlighted.
 
 Key Points:
 

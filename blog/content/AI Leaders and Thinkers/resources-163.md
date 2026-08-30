@@ -1,6 +1,6 @@
 ### 🤖 AI Model Porting - Codex and VidEoMT in Transformers
 
-This article discusses the successful porting of the VidEoMT video segmentation model to the Transformers library using coding agents like Codex. It highlights a significant advancement in AI agents' ability to handle complex model integration tasks.
+Successful porting of the VidEoMT video segmentation model to the Transformers library using coding agents like Codex. It highlights a significant advancement in AI agents' ability to handle complex model integration tasks.
 
 Key Points:
 

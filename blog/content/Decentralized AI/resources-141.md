@@ -1,6 +1,6 @@
 ### 🤖 Agent Economies - Trust Infrastructure
 
-This article discusses the foundational need for trust infrastructure within agent economies to enable specialization and growth. It explains how safe commerce is critical for the development of advanced autonomous systems beyond basic chatbots.
+Foundational need for trust infrastructure within agent economies to enable specialization and growth. It explains how safe commerce is critical for the development of advanced autonomous systems beyond basic chatbots.
 
 Key Points:
 

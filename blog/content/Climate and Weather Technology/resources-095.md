@@ -1,6 +1,6 @@
 ### ⚠️ Hurricane Erin - Potential Impact on Metro Atlanta
 
-This article discusses a hypothetical scenario of Hurricane Erin impacting Metro Atlanta, comparing its potential effects to past hurricanes and expressing cautious optimism.  The author expresses concern about the potential for significant damage.
+Hypothetical scenario of Hurricane Erin impacting Metro Atlanta, comparing its potential effects to past hurricanes and expressing cautious optimism.  The author expresses concern about the potential for significant damage.
 
 Key Points:
 

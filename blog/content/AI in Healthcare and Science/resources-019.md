@@ -1,6 +1,6 @@
 ### 🚀 Supanote.ai - Streamlining SOAP Note Charting
 
-This article discusses Supanote.ai, a tool designed to simplify the process of creating SOAP notes, thereby saving time for healthcare professionals.  It integrates with existing EHR systems.
+Supanote.ai, a tool designed to simplify the process of creating SOAP notes, thereby saving time for healthcare professionals.  It integrates with existing EHR systems.
 
 Key Points:
 

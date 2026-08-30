@@ -1,6 +1,6 @@
 ### 📚 AI Book Club - "The Thinking Machine"
 
-This article discusses "The Thinking Machine: Jensen Huang, Nvidia, and the World's Most Coveted Microchip" by Stephen Witt, the 21st book selection for an AI book club.  The book explores Nvidia's significant role in the AI landscape.
+"The Thinking Machine: Jensen Huang, Nvidia, and the World's Most Coveted Microchip" by Stephen Witt, the 21st book selection for an AI book club.  The book explores Nvidia's significant role in the AI landscape.
 
 Key Points:
 

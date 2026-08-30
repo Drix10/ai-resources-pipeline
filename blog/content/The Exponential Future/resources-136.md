@@ -1,6 +1,6 @@
 ### 💡 Claude Code - Usage Tips
 
-This article provides insights into effectively using Claude Code, a tool developed by Boris. It summarizes various tips sourced directly from the Claude Code team, emphasizing diverse approaches to its application.
+Insights into effectively using Claude Code, a tool developed by Boris. It summarizes various tips sourced directly from the Claude Code team, emphasizing diverse approaches to its application.
 
 Key Points:
 

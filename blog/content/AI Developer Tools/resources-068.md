@@ -1,6 +1,6 @@
 ### 🤖 AI Collaboration - Gradio Hackathon
 
-This article summarizes the Gradio agents and MCP hackathon, highlighting participating organizations and the importance of open standards in the AI community.
+Gradio agents and MCP hackathon, highlighting participating organizations and the importance of open standards in the AI community.
 
 Key Points:
 

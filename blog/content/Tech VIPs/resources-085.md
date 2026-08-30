@@ -1,6 +1,6 @@
 ### 💡 Politics - South Dakota Disaster Resilience Funds
 
-This article discusses a press release from South Dakota Governor Kristi Noem regarding the recovery of $882 million in disaster resilience grants.  The context highlights criticism regarding the allocation of these funds.
+Press release from South Dakota Governor Kristi Noem regarding the recovery of $882 million in disaster resilience grants.  The context highlights criticism regarding the allocation of these funds.
 
 Key Points:
 

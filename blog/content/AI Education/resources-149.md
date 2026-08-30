@@ -1,6 +1,6 @@
 ### ✨ Pixio AI - Grok Integration for Video Generation
 
-This article discusses the new capabilities of Pixio AI, integrating Grok for enhanced video generation and editing. It covers the features of creating video from text or images and editing existing videos.
+New capabilities of Pixio AI, integrating Grok for enhanced video generation and editing. It covers the features of creating video from text or images and editing existing videos.
 
 Key Points:
 

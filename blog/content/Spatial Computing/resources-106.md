@@ -1,6 +1,6 @@
 ### 🤖 Autonomous Vehicles - Wayve AI in France
 
-This article discusses the deployment of Wayve AI's autonomous driving system at the Arc de Triomphe roundabout in Paris, highlighting its ability to navigate complex traffic situations.
+Deployment of Wayve AI's autonomous driving system at the Arc de Triomphe roundabout in Paris, highlighting its ability to navigate complex traffic situations.
 
 Key Points:
 

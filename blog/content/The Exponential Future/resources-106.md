@@ -1,6 +1,6 @@
 ### 🚀 Firecrawl - v2.1.0 Release
 
-This article details the new features and improvements included in Firecrawl version 2.1.0.  The update focuses on enhanced search capabilities, data extraction, and improved scraping functionality.
+New features and improvements included in Firecrawl version 2.1.0.  The update focuses on enhanced search capabilities, data extraction, and improved scraping functionality.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI in Aging Biology - Platform Development and Therapeutic Programs
 
-This article highlights Alex Zhavoronkov's contributions to building and operationalizing end-to-end AI platforms. These platforms are specifically focused on aging biology and are translated into real therapeutic programs.
+Alex Zhavoronkov's contributions to building and operationalizing end-to-end AI platforms. These platforms are specifically focused on aging biology and are translated into real therapeutic programs.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Metaverse Fashion - Digital Apparel Spending
 
-This article discusses the emerging trend of Gen Z and Alpha consumers spending more on digital fashion items than physical clothing, highlighting the shift towards digital fashion within the trillion-dollar fashion industry.  A discussion with the founders of DressX is mentioned.
+Emerging trend of Gen Z and Alpha consumers spending more on digital fashion items than physical clothing, highlighting the shift towards digital fashion within the trillion-dollar fashion industry.  A discussion with the founders of DressX is mentioned.
 
 Key Points:
 

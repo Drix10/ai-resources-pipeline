@@ -1,6 +1,6 @@
 ### ✨ NBA Game Play - Significant Moment
 
-This article details a key moment from an NBA game, highlighting a significant defensive play by Victor Wembanyama and an offensive play by Mike Conley. It provides insight into critical game sequences that impact team leads.
+Key moment from an NBA game, highlighting a significant defensive play by Victor Wembanyama and an offensive play by Mike Conley. It provides insight into critical game sequences that impact team leads.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Assistant - Windows 98 Emulation
 
-This article discusses an innovative project where Claude AI was constrained to emulate a Windows 98 environment. It details the specific rules imposed and how the AI adapted to this nostalgic, pre-internet persona.
+Innovative project where Claude AI was constrained to emulate a Windows 98 environment. It details the specific rules imposed and how the AI adapted to this nostalgic, pre-internet persona.
 
 Key Points:
 

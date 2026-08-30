@@ -1,6 +1,6 @@
 ### 💡 Landscape Design - Prairie Style Backyards
 
-This article outlines how to integrate prairie landscape aesthetics with functional backyard design. It also explores the use of AI-powered tools to generate design ideas for such spaces.
+To integrate prairie landscape aesthetics with functional backyard design. It also explores the use of AI-powered tools to generate design ideas for such spaces.
 
 Key Points:
 

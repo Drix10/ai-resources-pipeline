@@ -1,6 +1,6 @@
 ### 🤖 Durable Execution - Cloud AI Chess
 
-This article details the deployment of an infinite AI chess game utilizing Resonate Durable Execution on the Lovable cloud platform. It highlights how durable execution enables robust and continuously running applications, even for complex AI workloads.
+Deployment of an infinite AI chess game utilizing Resonate Durable Execution on the Lovable cloud platform. It highlights how durable execution enables robust and continuously running applications, even for complex AI workloads.
 
 Key Points:
 

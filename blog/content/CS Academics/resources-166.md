@@ -1,6 +1,6 @@
 ### 💡 Sports Broadcasting - Live Game Access
 
-This article provides details on how to watch the live NBA game between the Mavericks and Lakers, featuring LeBron James. It outlines the platform for streaming the event.
+Details on how to watch the live NBA game between the Mavericks and Lakers, featuring LeBron James. It outlines the platform for streaming the event.
 
 Key Points:
 

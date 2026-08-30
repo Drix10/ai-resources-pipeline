@@ -1,6 +1,6 @@
 ### 🚀 Draper Decentralized Video - Rise Pay's Success
 
-This article summarizes a Draper Decentralized video highlighting Rise Pay's achievement of over $500 million in payroll volume and its pursuit of a $1 billion milestone.  It also briefly mentions other Draper VC companies.
+Draper Decentralized video highlighting Rise Pay's achievement of over $500 million in payroll volume and its pursuit of a $1 billion milestone.  It also briefly mentions other Draper VC companies.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Parallel Agent Collaboration
 
-This article discusses challenges encountered when using multiple coding agents simultaneously on a large-scale project.  The focus is on the limitations observed when exceeding a certain codebase size.
+Challenges encountered when using multiple coding agents simultaneously on a large-scale project.  The focus is on the limitations observed when exceeding a certain codebase size.
 
 Key Points:
 

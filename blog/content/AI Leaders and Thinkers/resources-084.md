@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Gemini 2.5 Pro Token Limits
 
-This article discusses the output token limit of Google's Gemini 2.5 Pro large language model.  It highlights the implications of this limit for users and developers.
+Output token limit of Google's Gemini 2.5 Pro large language model.  It highlights the implications of this limit for users and developers.
 
 Key Points:
 

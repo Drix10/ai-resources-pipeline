@@ -1,6 +1,6 @@
 ### ✨ REPLAY - Multilingual Access
 
-This article highlights the recent expansion of availability for the book REPLAY, now accessible in multiple languages. It details the various language options provided to broaden its global reach.
+Recent expansion of availability for the book REPLAY, now accessible in multiple languages. It details the various language options provided to broaden its global reach.
 
 Key Points:
 

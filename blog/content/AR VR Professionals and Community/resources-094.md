@@ -1,6 +1,6 @@
 ### 🤖 Battlefield Open Beta Feedback - Player Experience
 
-This article summarizes player feedback regarding the Battlefield 6 Open Beta, focusing on perceived limitations and a desire for a more chaotic gameplay experience.
+Player feedback regarding the Battlefield 6 Open Beta, focusing on perceived limitations and a desire for a more chaotic gameplay experience.
 
 Key Points:
 

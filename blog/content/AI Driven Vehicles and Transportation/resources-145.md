@@ -1,6 +1,6 @@
 ### 🚀 Advanced Maritime Capabilities - Saronic's Advocacy
 
-This article highlights U.S. Senator Tim Sheehy's visit to Saronic, emphasizing the need for advanced maritime capabilities. It underscores the importance of firsthand understanding of national security threats and technological solutions.
+U.S. Senator Tim Sheehy's visit to Saronic, emphasizing the need for advanced maritime capabilities. It underscores the importance of firsthand understanding of national security threats and technological solutions.
 
 Key Points:
 

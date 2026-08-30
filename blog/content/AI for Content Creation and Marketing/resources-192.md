@@ -1,6 +1,6 @@
 ### 🚀 AI Video Generation - Voice Memo to Animated Video Workflow
 
-This article details a workflow for transforming voice memos into animated videos using AI, significantly streamlining the content creation process. It explains how a tool like Agent Opus automates scene generation and maintains visual consistency.
+Workflow for transforming voice memos into animated videos using AI, significantly streamlining the content creation process. It explains how a tool like Agent Opus automates scene generation and maintains visual consistency.
 
 Key Points:
 

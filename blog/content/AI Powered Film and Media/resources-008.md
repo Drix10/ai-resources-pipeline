@@ -1,6 +1,6 @@
 ### 🎭 Acting - Marlon Brando's Method Acting in The Godfather
 
-This article discusses Marlon Brando's use of dental prosthetics to achieve Vito Corleone's iconic look in "The Godfather," highlighting his commitment to method acting.
+Marlon Brando's use of dental prosthetics to achieve Vito Corleone's iconic look in "The Godfather," highlighting his commitment to method acting.
 
 Key Points:
 

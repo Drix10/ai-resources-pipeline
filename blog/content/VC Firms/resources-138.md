@@ -1,6 +1,6 @@
 ### 🤖 AI Due Diligence - Model Reasoning and Explainability
 
-This article covers Glasswing's thorough due diligence process for AI models, focusing on the critical need for these models to reason and explain their outcomes. It highlights the importance of transparency in AI investments.
+Glasswing's thorough due diligence process for AI models, focusing on the critical need for these models to reason and explain their outcomes. It highlights the importance of transparency in AI investments.
 
 Key Points:
 

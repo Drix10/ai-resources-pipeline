@@ -1,6 +1,6 @@
 ### 🤖 Financial Markets - Oil Price Fluctuations
 
-This article examines a significant surge in US oil prices, discussing the rapid increase and the factors contributing to such market movements. It provides an overview of the immediate financial impact observed.
+Significant surge in US oil prices, discussing the rapid increase and the factors contributing to such market movements. It provides an overview of the immediate financial impact observed.
 
 Key Points:
 

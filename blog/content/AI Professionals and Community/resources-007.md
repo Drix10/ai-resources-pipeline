@@ -1,6 +1,6 @@
 ### 🤖 LLMs - Logical Reasoning Survey
 
-This article summarizes a comprehensive survey categorizing challenges and solutions for enhancing logical reasoning capabilities in Large Language Models (LLMs), focusing on logical question answering and consistency.
+Comprehensive survey categorizing challenges and solutions for enhancing logical reasoning capabilities in Large Language Models (LLMs), focusing on logical question answering and consistency.
 
 Key Points:
 

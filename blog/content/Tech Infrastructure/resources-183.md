@@ -1,6 +1,6 @@
 ### ✨ Healthcare Innovation - Community Building at SANTEXPO
 
-This article discusses the collaborative presence of Scaleway and Galeon at SANTEXPO. It highlights their efforts to foster a community focused on advancing healthcare technology and innovation.
+Collaborative presence of Scaleway and Galeon at SANTEXPO. It highlights their efforts to foster a community focused on advancing healthcare technology and innovation.
 
 Key Points:
 

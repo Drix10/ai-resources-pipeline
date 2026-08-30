@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Optimus Development
 
-This article provides an overview of the Optimus robot. It highlights its ongoing development and potential future applications.
+The Optimus robot. It highlights its ongoing development and potential future applications.
 
 Key Points:
 

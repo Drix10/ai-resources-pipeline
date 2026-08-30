@@ -1,6 +1,6 @@
 ### 💡 Academia - The CS Assistant Professor Handbook
 
-This article summarizes the key topics covered in "The CS Assistant Professor Handbook," a free resource for new computer science professors.  It offers guidance on various aspects of the academic job.
+Key topics covered in "The CS Assistant Professor Handbook," a free resource for new computer science professors.  It offers guidance on various aspects of the academic job.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Immigration Enforcement - Hospital Relations
 
-This article examines the heightened tension at a Minnesota hospital following a controversial claim by ICE regarding a detainee's injury. It discusses the implications of such incidents on patient care and community trust.
+Heightened tension at a Minnesota hospital following a controversial claim by ICE regarding a detainee's injury. It discusses the implications of such incidents on patient care and community trust.
 
 Key Points:
 

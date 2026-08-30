@@ -1,6 +1,6 @@
 ### 🤖 Pytest - Improving Test Debugging
 
-This article discusses improving the debugging process of pytest tests by creating multiple, specific test functions instead of using tests with multiple assertions. This approach offers clearer insights into which assertion failed when a test fails.
+Improving the debugging process of pytest tests by creating multiple, specific test functions instead of using tests with multiple assertions. This approach offers clearer insights into which assertion failed when a test fails.
 
 
 Key Points:

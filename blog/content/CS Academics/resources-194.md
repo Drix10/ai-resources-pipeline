@@ -1,6 +1,6 @@
 ### ✨ Charlotte Hornets - Team Construction and Performance
 
-This article discusses the Charlotte Hornets' season turnaround and their team building approach, highlighting their performance and playoff aspirations. It details their journey from a challenging start to achieving their most wins since the 2015-16 season.
+Charlotte Hornets' season turnaround and their team building approach, highlighting their performance and playoff aspirations. It details their journey from a challenging start to achieving their most wins since the 2015-16 season.
 
 Key Points:
 

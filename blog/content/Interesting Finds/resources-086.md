@@ -1,6 +1,6 @@
 ### 🤖 Political Allegations - Stacey Abrams and NGO Funding
 
-This article summarizes allegations regarding Stacey Abrams' involvement in NGOs and subsequent funding.  The provided information lacks sufficient detail for complete analysis.
+Allegations regarding Stacey Abrams' involvement in NGOs and subsequent funding.  The provided information lacks sufficient detail for complete analysis.
 
 Key Points:
 

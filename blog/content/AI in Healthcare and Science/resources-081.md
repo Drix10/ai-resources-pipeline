@@ -1,6 +1,6 @@
 ### 🤖 Healthcare Transformation - Commure Partnership
 
-This article discusses the transformative impact of Commure's partnership with Nemours Children's Health System on clinical outcomes, as shared by Nemours' CIO.
+Transformative impact of Commure's partnership with Nemours Children's Health System on clinical outcomes, as shared by Nemours' CIO.
 
 Key Points:
 

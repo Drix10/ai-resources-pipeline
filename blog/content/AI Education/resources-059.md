@@ -1,6 +1,6 @@
 ### 💡 Educational Program - Unexpected Consequences
 
-This article discusses an educational program that unexpectedly increased a child's intelligence, leading to challenges with the school system.
+Educational program that unexpectedly increased a child's intelligence, leading to challenges with the school system.
 
 Key Points:
 

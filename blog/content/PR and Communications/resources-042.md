@@ -1,6 +1,6 @@
 ### 🧑‍💼  Interviews - Jeff Allen's Beast Games Victory
 
-This article summarizes Jeff Allen's interview, detailing his journey from a father fighting for his son's life to winning $10 million in MrBeast's Beast Games.
+Jeff Allen's interview, detailing his journey from a father fighting for his son's life to winning $10 million in MrBeast's Beast Games.
 
 Key Points:
 

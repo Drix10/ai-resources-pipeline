@@ -1,6 +1,6 @@
 ### 🤖 Open Models - Trust and Verification
 
-This article discusses the potential future of open models, emphasizing the importance of trust, verification, audit trails, and transparent web3 hosting.
+Potential future of open models, emphasizing the importance of trust, verification, audit trails, and transparent web3 hosting.
 
 Key Points:
 

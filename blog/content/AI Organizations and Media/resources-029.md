@@ -1,6 +1,6 @@
 ### ⚖️ Legal - BitMart Listing Dispute
 
-This article details a legal dispute with BitMart regarding hidden trading fees after paying for a cryptocurrency listing.  A refund request was denied.
+Legal dispute with BitMart regarding hidden trading fees after paying for a cryptocurrency listing.  A refund request was denied.
 
 Key Points:
 

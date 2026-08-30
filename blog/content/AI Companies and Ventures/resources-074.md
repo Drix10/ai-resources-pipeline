@@ -1,6 +1,6 @@
 ### 🤖 Rocket App - Out-of-the-Box Functionality
 
-This article details the functional screens available in the Rocket app upon initial setup.  The app appears to be designed for connecting users with service providers.
+Functional screens available in the Rocket app upon initial setup.  The app appears to be designed for connecting users with service providers.
 
 
 Key Points:

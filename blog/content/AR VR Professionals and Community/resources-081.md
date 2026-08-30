@@ -1,6 +1,6 @@
 ### ⚠️ Healthcare - Medicaid Cuts and Their Wider Impact
 
-This article discusses the potential consequences of significant Medicaid cuts, emphasizing their effects beyond the immediate recipients.  It highlights the broader impact on healthcare access and infrastructure.
+Potential consequences of significant Medicaid cuts, emphasizing their effects beyond the immediate recipients.  It highlights the broader impact on healthcare access and infrastructure.
 
 Key Points:
 

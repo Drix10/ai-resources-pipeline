@@ -1,6 +1,6 @@
 ### 🤖 Military Parade - Drone Technology Assessment
 
-This article discusses observations from a military parade, focusing on the perceived shortcomings in drone technology demonstration and contrasting national military capabilities.
+Observations from a military parade, focusing on the perceived shortcomings in drone technology demonstration and contrasting national military capabilities.
 
 Key Points:
 

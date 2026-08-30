@@ -1,6 +1,6 @@
 ### 💡 Social Media Video - Square Format
 
-This article discusses the advantages of using a square (1:1) video format for social media content.  It highlights the balance between visibility and versatility offered by this format.
+Advantages of using a square (1:1) video format for social media content.  It highlights the balance between visibility and versatility offered by this format.
 
 Key Points:
 

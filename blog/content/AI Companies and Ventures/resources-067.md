@@ -1,6 +1,6 @@
 ### 🤖 Energy Grid Stabilization - Behind-the-Meter Devices
 
-This article discusses the use of behind-the-meter devices owned by citizens and businesses to stabilize the energy grid, focusing on the momentum building in this area following a recent blackout in Lisbon.
+Use of behind-the-meter devices owned by citizens and businesses to stabilize the energy grid, focusing on the momentum building in this area following a recent blackout in Lisbon.
 
 Key Points:
 

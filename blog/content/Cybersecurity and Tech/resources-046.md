@@ -1,6 +1,6 @@
 ### 🤖 AI Legislation - Surge in US State Bills
 
-This article discusses the rapid increase in AI-related bills introduced in US state legislatures during the first four months of 2025, highlighting the potential negative impact on AI development and adoption.
+Rapid increase in AI-related bills introduced in US state legislatures during the first four months of 2025, highlighting the potential negative impact on AI development and adoption.
 
 Key Points:
 

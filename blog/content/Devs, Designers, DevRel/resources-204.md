@@ -1,6 +1,6 @@
 ### 💡 Productivity - Enhancing Focus
 
-This article explores the role of daily habits in maintaining productivity and cognitive function. It outlines how routines can support sustained focus and energy throughout the workday.
+Role of daily habits in maintaining productivity and cognitive function. It outlines how routines can support sustained focus and energy throughout the workday.
 
 Key Points:
 

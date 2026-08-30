@@ -1,6 +1,6 @@
 ### 🚀 Starlink - African Internet Expansion
 
-This article summarizes the expansion of Starlink satellite internet service across Africa, highlighting its impact on digital connectivity.
+Expansion of Starlink satellite internet service across Africa, highlighting its impact on digital connectivity.
 
 Key Points:
 

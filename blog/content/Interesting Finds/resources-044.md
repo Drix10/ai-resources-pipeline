@@ -1,6 +1,6 @@
 ### 🤖 App Store - Payment & Subscription Services
 
-This article discusses the shortcomings of the App Store's payment and subscription services, highlighting features lacking compared to other platforms.
+Shortcomings of the App Store's payment and subscription services, highlighting features lacking compared to other platforms.
 
 Key Points:
 

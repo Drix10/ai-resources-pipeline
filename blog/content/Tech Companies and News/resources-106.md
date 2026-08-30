@@ -1,6 +1,6 @@
 ### 🤖 Allegation - Elon Musk Alleges Murder of Former OpenAI Employee
 
-This article summarizes an allegation made by Elon Musk regarding the death of a former OpenAI employee, Suchir Balaji.  The allegation claims Balaji's death was a murder.
+Allegation made by Elon Musk regarding the death of a former OpenAI employee, Suchir Balaji.  The allegation claims Balaji's death was a murder.
 
 Key Points:
 

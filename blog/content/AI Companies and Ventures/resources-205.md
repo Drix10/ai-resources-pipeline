@@ -1,6 +1,6 @@
 ### ✨ Image Transformation - Old Hollywood Style Recreation
 
-This article explores the artistic process of transforming images to capture the distinct aesthetic of Old Hollywood. It highlights the visual elements and techniques used to evoke a vintage, classic style.
+Artistic process of transforming images to capture the distinct aesthetic of Old Hollywood. It highlights the visual elements and techniques used to evoke a vintage, classic style.
 
 Key Points:
 

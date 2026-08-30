@@ -1,6 +1,6 @@
 ### 🤖 AI in PR - Training Course Feedback
 
-This article summarizes feedback from an AI in PR training course for the Public Relations Society of Kenya (PRSK), focusing on demystifying AI applications in public relations.
+Feedback from an AI in PR training course for the Public Relations Society of Kenya (PRSK), focusing on demystifying AI applications in public relations.
 
 Key Points:
 

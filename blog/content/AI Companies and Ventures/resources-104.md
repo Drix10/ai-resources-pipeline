@@ -1,6 +1,6 @@
 ### 💡 Trading - Consistency and Compound Growth
 
-This article discusses the importance of consistency in trading and how small, incremental improvements can lead to significant long-term success.  It emphasizes the compounding effect of consistent effort even during periods of perceived failure.
+Importance of consistency in trading and how small, incremental improvements can lead to significant long-term success.  It emphasizes the compounding effect of consistent effort even during periods of perceived failure.
 
 Key Points:
 

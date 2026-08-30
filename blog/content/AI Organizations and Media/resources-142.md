@@ -1,6 +1,6 @@
 ### 🤖 AI Safety - Superintelligence Control Concerns
 
-This article discusses the critical perspective shared by an ex-OpenAI researcher regarding the current plans for controlling superintelligent AI. It highlights concerns about the perceived flimsiness and speculative nature of these proposed control strategies.
+Critical perspective shared by an ex-OpenAI researcher regarding the current plans for controlling superintelligent AI. It highlights concerns about the perceived flimsiness and speculative nature of these proposed control strategies.
 
 Key Points:
 

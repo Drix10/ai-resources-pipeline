@@ -1,6 +1,6 @@
 ### 🤖 Crypto Policy - Trump's Bitcoin Superpower Vision
 
-This article discusses President Donald Trump's stated goal of making the United States the global leader in Bitcoin and cryptocurrency.  It analyzes related statements and associated media.
+President Donald Trump's stated goal of making the United States the global leader in Bitcoin and cryptocurrency.  It analyzes related statements and associated media.
 
 Key Points:
 

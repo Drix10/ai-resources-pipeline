@@ -1,6 +1,6 @@
 ### 💡 Freedom of Speech - The Right Not to be Offended
 
-This article discusses the distinction between freedom of speech and the right not to be offended.  It argues that the former is a fundamental human right, while the latter is not.  The inherent value of unfiltered expression is highlighted.
+Distinction between freedom of speech and the right not to be offended.  It argues that the former is a fundamental human right, while the latter is not.  The inherent value of unfiltered expression is highlighted.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Terminology - Randomonium Defined
 
-This article explores the concept of "Randomonium," a term introduced as a "word of the day," and its potential implications for understanding chaotic or unpredictable systems. It examines how such a term can frame discussions around randomness in various contexts.
+Concept of "Randomonium," a term introduced as a "word of the day," and its potential implications for understanding chaotic or unpredictable systems. It examines how such a term can frame discussions around randomness in various contexts.
 
 Key Points:
 

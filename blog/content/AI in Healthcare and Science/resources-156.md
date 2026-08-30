@@ -1,6 +1,6 @@
 ### 💡 Tech Founder Insights - Daily LinkedIn Strategy
 
-This article explores the typical routine of a tech founder in San Francisco, emphasizing the essential practice of daily LinkedIn engagement for professional networking and visibility.
+Typical routine of a tech founder in San Francisco, emphasizing the essential practice of daily LinkedIn engagement for professional networking and visibility.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 AI Film - The Future of Moviemaking
 
-This article explores the potential future of AI in filmmaking, focusing on user-generated content, modding, and the creation of entirely new cinematic experiences.
+Potential future of AI in filmmaking, focusing on user-generated content, modding, and the creation of entirely new cinematic experiences.
 
 Key Points:
 

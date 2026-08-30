@@ -1,6 +1,6 @@
 ### ✨ Basketball Highlight - Player Performance
 
-This article highlights a significant scoring play and overall stat line from a professional basketball game. It details a key moment in overtime and a player's strong individual contribution.
+Significant scoring play and overall stat line from a professional basketball game. It details a key moment in overtime and a player's strong individual contribution.
 
 Key Points:
 

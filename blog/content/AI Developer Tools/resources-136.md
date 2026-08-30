@@ -1,6 +1,6 @@
 ### 🤖 AI Models - NousCoder-14B Analysis
 
-This article explores the Weights & Biases dashboard for a specific AI model. It also provides access to the full report detailing the model's performance and characteristics.
+Weights & Biases dashboard for a specific AI model. It also provides access to the full report detailing the model's performance and characteristics.
 
 Key Points:
 

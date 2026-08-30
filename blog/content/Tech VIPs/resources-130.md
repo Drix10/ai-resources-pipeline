@@ -1,6 +1,6 @@
 ### 💡 Societal Progress - Overcoming Negative Bias
 
-This article outlines how cooperation, generosity, and moral progress have developed over time. It addresses the human tendency to emphasize negativity, which can obscure significant advancements.
+Cooperation, generosity, and moral progress have developed over time. It addresses the human tendency to emphasize negativity, which can obscure significant advancements.
 
 Key Points:
 

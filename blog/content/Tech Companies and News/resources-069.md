@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics - US-China Tech Competition in Humanoid Robotics
 
-This article discusses the escalating competition between the United States and China in the field of humanoid robotics, focusing on China's significant investments and ambitions for mass production and local supply chain development.
+Escalating competition between the United States and China in the field of humanoid robotics, focusing on China's significant investments and ambitions for mass production and local supply chain development.
 
 Key Points:
 

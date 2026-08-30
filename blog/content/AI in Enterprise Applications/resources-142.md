@@ -1,6 +1,6 @@
 ### 🤖 t3 chat - Project Contribution Dynamics
 
-This article discusses the technical contributions to the t3 chat project, highlighting the impact of different contributors on its development. It reflects on the technical efforts shaping the project's evolution.
+Technical contributions to the t3 chat project, highlighting the impact of different contributors on its development. It reflects on the technical efforts shaping the project's evolution.
 
 Key Points:
 

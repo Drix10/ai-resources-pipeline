@@ -1,6 +1,6 @@
 ### 💡 Global Car Market - Chinese Brands' Growth
 
-This article examines the rapid ascent of Chinese car brands in the global sales rankings. It highlights significant market shifts and new entrants disrupting traditional automotive leadership.
+Rapid ascent of Chinese car brands in the global sales rankings. It highlights significant market shifts and new entrants disrupting traditional automotive leadership.
 
 Key Points:
 

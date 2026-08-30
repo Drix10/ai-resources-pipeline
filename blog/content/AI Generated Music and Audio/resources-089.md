@@ -1,6 +1,6 @@
 ### 💡 Philanthropy - Family Giving Tree Partnership
 
-This article discusses a nine-year partnership with Family Giving Tree to support their Back-to-School Drive, aiming to provide school supplies for Bay Area students.
+Nine-year partnership with Family Giving Tree to support their Back-to-School Drive, aiming to provide school supplies for Bay Area students.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 AI Glasses - Superhuman Intelligence
 
-This article discusses the development of AI-powered glasses designed to enhance human intelligence, following a demonstration highlighting the risks of facial recognition technology.  A $1 million funding round supported this project.
+Development of AI-powered glasses designed to enhance human intelligence, following a demonstration highlighting the risks of facial recognition technology.  A $1 million funding round supported this project.
 
 Key Points:
 

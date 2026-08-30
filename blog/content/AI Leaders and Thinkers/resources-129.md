@@ -1,6 +1,6 @@
 ### 🤖 LLMs - Critique of Knowledge Graphs
 
-This article discusses the ongoing challenges associated with creating human-interpretable data for Large Language Models (LLMs) and critiques the applicability of knowledge graphs in this domain. It highlights the potential limitations and inefficiencies of using traditional knowledge graph methods with modern LLM architectures.
+Ongoing challenges associated with creating human-interpretable data for Large Language Models (LLMs) and critiques the applicability of knowledge graphs in this domain. It highlights the potential limitations and inefficiencies of using traditional knowledge graph methods with modern LLM architectures.
 
 Key Points:
 

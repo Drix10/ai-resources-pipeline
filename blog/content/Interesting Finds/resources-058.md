@@ -1,6 +1,6 @@
 ### 🤖 Politics - Medication Approval Review
 
-This article discusses the Trump administration's planned review of a medication's approval, raising concerns about the prioritization of politics over science in healthcare decisions.  The focus is on the potential impact on women's reproductive healthcare.
+Trump administration's planned review of a medication's approval, raising concerns about the prioritization of politics over science in healthcare decisions.  The focus is on the potential impact on women's reproductive healthcare.
 
 Key Points:
 

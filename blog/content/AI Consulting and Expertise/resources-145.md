@@ -1,6 +1,6 @@
 ### 💡 Social Commentary - Political Satire
 
-This article explores a piece of social commentary, likely presented in a satirical or critical manner. It highlights a particular perspective on current events or societal trends.
+Piece of social commentary, likely presented in a satirical or critical manner. It highlights a particular perspective on current events or societal trends.
 
 Key Points:
 

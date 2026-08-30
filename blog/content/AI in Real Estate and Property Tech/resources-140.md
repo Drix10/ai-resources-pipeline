@@ -1,6 +1,6 @@
 ### 💡 Company Events - Sales Kick-Off Highlights
 
-This article highlights the key aspects of RealPage's annual Sales Kick-Off (SKO26). It covers the company's vision for the upcoming year and the emphasis on team unity and change agency. The event aimed to align employees with strategic goals.
+Key aspects of RealPage's annual Sales Kick-Off (SKO26). It covers the company's vision for the upcoming year and the emphasis on team unity and change agency. The event aimed to align employees with strategic goals.
 
 Key Points:
 

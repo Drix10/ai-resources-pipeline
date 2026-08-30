@@ -1,6 +1,6 @@
 ### 🤖 NVIDIA Nemotron 3 Nano - NVFP4 Performance
 
-This article covers the release of NVIDIA's Nemotron 3 Nano with NVFP4 and its performance benefits on Blackwell GPUs. It details the efficiency gains and architectural characteristics of this new model.
+Release of NVIDIA's Nemotron 3 Nano with NVFP4 and its performance benefits on Blackwell GPUs. It details the efficiency gains and architectural characteristics of this new model.
 
 Key Points:
 

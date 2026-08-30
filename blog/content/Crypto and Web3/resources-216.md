@@ -1,6 +1,6 @@
 ### 🤖 SaaS Economics - Upsell Strategy
 
-This content discusses revenue metrics and the sales approach for B2B software services. It focuses on initial customer acquisition versus higher-tier package sales.
+Revenue metrics and the sales approach for B2B software services. It focuses on initial customer acquisition versus higher-tier package sales.
 
 Key Points:
 

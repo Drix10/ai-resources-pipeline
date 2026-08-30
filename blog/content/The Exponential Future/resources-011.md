@@ -1,6 +1,6 @@
 ### 💡 Workplace Dynamics - Reframing Performance Feedback
 
-This article discusses alternative approaches to performance feedback in the workplace, focusing on positive reinforcement and support for underperforming employees.  The original tweet critiques a video depicting a potentially unfair portrayal of workplace dynamics.
+Alternative approaches to performance feedback in the workplace, focusing on positive reinforcement and support for underperforming employees.  The original tweet critiques a video depicting a potentially unfair portrayal of workplace dynamics.
 
 Key Points:
 

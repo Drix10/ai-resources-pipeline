@@ -1,6 +1,6 @@
 ### 🤖 AI in Design - Toronto AMA
 
-This article summarizes a Toronto AMA session focusing on using AI in design workflows.  The discussion highlighted how AI tools shift design processes towards more iterative, sculptural approaches.
+Toronto AMA session focusing on using AI in design workflows.  The discussion highlighted how AI tools shift design processes towards more iterative, sculptural approaches.
 
 Key Points:
 

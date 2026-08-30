@@ -1,6 +1,6 @@
 ### 🤖 Crypto - Technological Shifts
 
-This article discusses the evolving role of technology in the cryptocurrency market, focusing on how protocols like ACP are changing capital coordination.
+Evolving role of technology in the cryptocurrency market, focusing on how protocols like ACP are changing capital coordination.
 
 Key Points:
 

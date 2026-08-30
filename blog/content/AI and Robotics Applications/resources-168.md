@@ -1,6 +1,6 @@
 ### 🤖 AI Agent Licensing - Enterprise Software
 
-This article discusses Microsoft's new approach to enterprise software licensing in an AI-driven environment, proposing that AI agents should be charged for software seats similarly to human employees. It contrasts this with the traditional SaaS model where licenses scale with human headcount.
+Microsoft's new approach to enterprise software licensing in an AI-driven environment, proposing that AI agents should be charged for software seats similarly to human employees. It contrasts this with the traditional SaaS model where licenses scale with human headcount.
 
 Key Points:
 

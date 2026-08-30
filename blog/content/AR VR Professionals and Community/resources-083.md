@@ -1,6 +1,6 @@
 ### 🤖 Political Commentary - Epstein List and Election
 
-This article summarizes a Twitter thread discussing speculation about the release of the Epstein list in relation to the 2024 US Presidential election.  The thread connects donations to a specific candidate with the potential implications of an election outcome.
+Twitter thread discussing speculation about the release of the Epstein list in relation to the 2024 US Presidential election.  The thread connects donations to a specific candidate with the potential implications of an election outcome.
 
 Key Points:
 

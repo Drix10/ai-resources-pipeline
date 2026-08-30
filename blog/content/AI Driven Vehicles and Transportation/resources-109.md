@@ -1,6 +1,6 @@
 ### 💡 History - The Perpetua and Felicitas Story
 
-This article discusses the historical significance of Perpetua and Felicitas, focusing on why their impact on the Roman Empire stemmed from their ordinariness rather than exceptional circumstances.
+Historical significance of Perpetua and Felicitas, focusing on why their impact on the Roman Empire stemmed from their ordinariness rather than exceptional circumstances.
 
 Key Points:
 

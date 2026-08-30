@@ -1,6 +1,6 @@
 ### 🚀 AI Video Generation - Pixio AI
 
-This article highlights the capabilities of Pixio AI in generating video content. It introduces the tool's features and provides relevant resources for exploration.
+Capabilities of Pixio AI in generating video content. It introduces the tool's features and provides relevant resources for exploration.
 
 Key Points:
 

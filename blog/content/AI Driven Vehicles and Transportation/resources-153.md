@@ -1,6 +1,6 @@
 ### 💡 Reading Strategies - Barbell Approach
 
-This article examines Marc Andreessen's "barbell strategy" for information consumption. It details his preferred sources, which include real-time news and classic books, and highlights his avoidance of traditional media.
+Marc Andreessen's "barbell strategy" for information consumption. It details his preferred sources, which include real-time news and classic books, and highlights his avoidance of traditional media.
 
 Key Points:
 

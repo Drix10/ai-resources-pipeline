@@ -1,6 +1,6 @@
 ### 🚀 Space Exploration - Blue Origin's Mars Telecommunications Orbiter
 
-This article discusses Blue Origin's Mars Telecommunications Orbiter (MTO), a spacecraft designed to support NASA's Mars mission in 2028.  It leverages the Blue Ring platform for cost-effectiveness and high performance.
+Blue Origin's Mars Telecommunications Orbiter (MTO), a spacecraft designed to support NASA's Mars mission in 2028.  It leverages the Blue Ring platform for cost-effectiveness and high performance.
 
 
 Key Points:

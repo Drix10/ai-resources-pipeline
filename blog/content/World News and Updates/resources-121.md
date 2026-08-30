@@ -1,6 +1,6 @@
 ### 💡 Geopolitical Events - Regional Protests
 
-This article details ongoing protests in West Bengal following the lynching of a Hindu man in Bangladesh. It covers demonstrations by pro-Hindu organizations at various land ports along the border.
+Ongoing protests in West Bengal following the lynching of a Hindu man in Bangladesh. It covers demonstrations by pro-Hindu organizations at various land ports along the border.
 
 Key Points:
 

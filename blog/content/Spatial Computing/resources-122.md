@@ -1,6 +1,6 @@
 ### 🤖 AI Models in Workflows - Integration and Real-time Inference
 
-This article outlines how models like Claude, GPT, and Gemini can be chained together with existing applications within workflows. It covers managing API keys for these models and demonstrates real-time instance detection using RF-DETR.
+Models like Claude, GPT, and Gemini can be chained together with existing applications within workflows. It covers managing API keys for these models and demonstrates real-time instance detection using RF-DETR.
 
 Key Points:
 

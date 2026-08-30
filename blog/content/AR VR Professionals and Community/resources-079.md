@@ -1,6 +1,6 @@
 ### 🤖 US Politics - House Floor Speech
 
-This article summarizes a notable House floor speech referencing Chapter 25 of the Gospel of Matthew, highlighting its connection to prior remarks.
+Notable House floor speech referencing Chapter 25 of the Gospel of Matthew, highlighting its connection to prior remarks.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Neuroscience - Parkinson's Disease Classification
 
-This article discusses a research paper that uses a novel approach combining attention mechanisms from transformers with neuroscientific maps for Parkinson's disease classification from fMRI data.  The method adapts transformer architecture to incorporate biological information.
+Research paper that uses a novel approach combining attention mechanisms from transformers with neuroscientific maps for Parkinson's disease classification from fMRI data.  The method adapts transformer architecture to incorporate biological information.
 
 Key Points:
 

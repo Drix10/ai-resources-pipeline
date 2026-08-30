@@ -1,6 +1,6 @@
 ### 🤖 DIY Project - High-Powered Boat Engine
 
-This article discusses a project where a high-powered racing car engine was installed on a wooden boat, resulting in a significantly faster vessel.  The project highlights the creative modification of a vintage boat.
+Project where a high-powered racing car engine was installed on a wooden boat, resulting in a significantly faster vessel.  The project highlights the creative modification of a vintage boat.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Quantum-Safe Encryption - French Cybersecurity Policy
 
-This article outlines France's new cybersecurity mandate requiring quantum-safe encryption. After 2027, the national cyber agency will no longer certify security products that lack this advanced encryption, indirectly impacting sectors like cryptocurrency.
+France's new cybersecurity mandate requiring quantum-safe encryption. After 2027, the national cyber agency will no longer certify security products that lack this advanced encryption, indirectly impacting sectors like cryptocurrency.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Models - Full Details Exploration
 
-This article provides access to comprehensive details of various AI models hosted on Hugging Models. It directs users to platforms for in-depth exploration of model architectures and functionalities.
+Access to comprehensive details of various AI models hosted on Hugging Models. It directs users to platforms for in-depth exploration of model architectures and functionalities.
 
 Key Points:
 

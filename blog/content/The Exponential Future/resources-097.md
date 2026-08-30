@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Creative Writing
 
-This article examines the capabilities of several large language models (LLMs) in generating creative short fiction, using a specific prompt as a test case.  The results highlight varying strengths in stylistic imitation and narrative coherence.
+Capabilities of several large language models (LLMs) in generating creative short fiction, using a specific prompt as a test case.  The results highlight varying strengths in stylistic imitation and narrative coherence.
 
 
 Key Points:

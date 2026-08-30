@@ -1,6 +1,6 @@
 ### 💡 NBA Playoffs - Viewership Records
 
-This article details the significant viewership milestones achieved during the opening Sunday of the NBA Playoffs. It highlights key metrics and growth compared to previous seasons.
+Significant viewership milestones achieved during the opening Sunday of the NBA Playoffs. It highlights key metrics and growth compared to previous seasons.
 
 Key Points:
 

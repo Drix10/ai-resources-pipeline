@@ -1,6 +1,6 @@
 ### 🤖 AI in Healthcare - Therapist Feedback on Sidekick
 
-This article summarizes positive feedback from therapists using Sidekick, an AI-powered tool, highlighting its impact on efficiency and documentation quality.
+Positive feedback from therapists using Sidekick, an AI-powered tool, highlighting its impact on efficiency and documentation quality.
 
 Key Points:
 

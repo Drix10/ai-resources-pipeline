@@ -1,6 +1,6 @@
 ### 💡 Game Theory - Forgiveness
 
-This article explores the concept of forgiveness through the lens of game theory, specifically the Prisoner's Dilemma.  It suggests practical applications of this framework in personal and professional interactions.
+Concept of forgiveness through the lens of game theory, specifically the Prisoner's Dilemma.  It suggests practical applications of this framework in personal and professional interactions.
 
 Key Points:
 

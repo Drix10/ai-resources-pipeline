@@ -1,6 +1,6 @@
 ### 🤖 AI Reasoning - Problem Solving with Statistical Methods
 
-This article discusses an AI's capability to solve complex problems through extended reasoning and highlights the importance of specific statistical methods in data analysis.
+AI's capability to solve complex problems through extended reasoning and highlights the importance of specific statistical methods in data analysis.
 
 Key Points:
 

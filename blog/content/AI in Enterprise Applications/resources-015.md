@@ -1,6 +1,6 @@
 ### 🚀 Groq Console Updates - New Features
 
-This article summarizes recent updates to the Groq Console, focusing on new features for improved user experience and workflow efficiency.
+Recent updates to the Groq Console, focusing on new features for improved user experience and workflow efficiency.
 
 Key Points:
 

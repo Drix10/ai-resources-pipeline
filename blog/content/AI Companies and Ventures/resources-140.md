@@ -1,6 +1,6 @@
 ### 💡 AI Image/Video Tutorials - Practical Guides and Workflows
 
-This article highlights creators who provide practical, hands-on tutorials for generating and editing AI-powered visuals. It covers techniques and tools used in AI video and image workflows.
+Creators who provide practical, hands-on tutorials for generating and editing AI-powered visuals. It covers techniques and tools used in AI video and image workflows.
 
 Key Points:
 

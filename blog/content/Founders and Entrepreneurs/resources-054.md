@@ -1,6 +1,6 @@
 ### 🤖 Website Performance - Ad Overload
 
-This article discusses the negative impact of excessive ads and JavaScript tracking on website performance, specifically noting the noticeable slowdown experienced on a 2024 MacBook Air.
+Negative impact of excessive ads and JavaScript tracking on website performance, specifically noting the noticeable slowdown experienced on a 2024 MacBook Air.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Tools - Website Generation with Claude
 
-This article covers using the B12 plugin within Claude to generate websites. It explains how to describe a desired site and then access it for editing.
+Using the B12 plugin within Claude to generate websites. It explains how to describe a desired site and then access it for editing.
 
 Key Points:
 

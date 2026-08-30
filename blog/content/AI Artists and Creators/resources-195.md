@@ -1,6 +1,6 @@
 ### 🤖 3D Modeling - Blender Principles
 
-This article discusses the fundamental principles of 3D modeling within Blender. It clarifies the user's role in defining geometry versus the software's execution of model generation.
+Fundamental principles of 3D modeling within Blender. It clarifies the user's role in defining geometry versus the software's execution of model generation.
 
 Key Points:
 

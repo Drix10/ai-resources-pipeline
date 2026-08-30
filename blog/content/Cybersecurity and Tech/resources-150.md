@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Defensive Cybersecurity & Openness
 
-This article covers discussions from Hugging Face regarding defensive cybersecurity strategies, the principle of openness, and the implications for AI agents, following the announcement of Mythos. It reflects community conversations on these critical topics.
+Discussions from Hugging Face regarding defensive cybersecurity strategies, the principle of openness, and the implications for AI agents, following the announcement of Mythos. It reflects community conversations on these critical topics.
 
 Key Points:
 

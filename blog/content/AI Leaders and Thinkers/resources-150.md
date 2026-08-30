@@ -1,6 +1,6 @@
 ### 🤖 Browser-Based Game Development - Zelda Recreation with Level Editor
 
-This article details the creation of a browser-based Legend of Zelda game, complete with an interactive overworld, dungeons, combat mechanics, and a built-in level editor. The entire application runs client-side, offering a self-contained gaming experience.
+Creation of a browser-based Legend of Zelda game, complete with an interactive overworld, dungeons, combat mechanics, and a built-in level editor. The entire application runs client-side, offering a self-contained gaming experience.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Signature Schemes - Specialized Scenarios
 
-This article discusses the use of signature schemes in specialized scenarios beyond common message signing, highlighting the often-unobvious properties required.
+Use of signature schemes in specialized scenarios beyond common message signing, highlighting the often-unobvious properties required.
 
 Key Points:
 

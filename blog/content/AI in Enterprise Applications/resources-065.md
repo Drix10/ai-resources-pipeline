@@ -1,6 +1,6 @@
 ### 🤖 TaskmasterAI - Project Resumption
 
-This article discusses the ease of resuming projects using TaskmasterAI, highlighting its ability to understand and continue tasks even after interruptions.
+Ease of resuming projects using TaskmasterAI, highlighting its ability to understand and continue tasks even after interruptions.
 
 Key Points:
 

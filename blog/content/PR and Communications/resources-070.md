@@ -1,6 +1,6 @@
 ### 🤖 Economics - Senator's Economic Misunderstanding
 
-This article discusses a public statement made by Senator JD Vance concerning trade and budget deficits, highlighting the factual inaccuracies in his statements.
+Public statement made by Senator JD Vance concerning trade and budget deficits, highlighting the factual inaccuracies in his statements.
 
 Key Points:
 

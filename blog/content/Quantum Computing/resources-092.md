@@ -1,6 +1,6 @@
 ### 💡 Language - Appropriate Terminology in Journalism
 
-This article discusses the importance of accurate terminology in journalistic writing, using the example of an article in The New York Times that misused the term "esoteric."
+Importance of accurate terminology in journalistic writing, using the example of an article in The New York Times that misused the term "esoteric."
 
 Key Points:
 

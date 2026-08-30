@@ -1,6 +1,6 @@
 ### 🤖 Y Combinator - W25 Demo Day
 
-This article summarizes observations from Y Combinator's W25 Demo Day, highlighting the strength of the participating companies.
+Observations from Y Combinator's W25 Demo Day, highlighting the strength of the participating companies.
 
 Key Points:
 

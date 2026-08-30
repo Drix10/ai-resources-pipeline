@@ -1,6 +1,6 @@
 ### 🤖 VisionOS - Thumb-Based Object Control
 
-This article details DicyaninThumbController, an open-source Swift package for visionOS enabling thumb-based object manipulation.  It focuses on its ease of integration and suitability for immersive experiences.
+DicyaninThumbController, an open-source Swift package for visionOS enabling thumb-based object manipulation.  It focuses on its ease of integration and suitability for immersive experiences.
 
 Key Points:
 

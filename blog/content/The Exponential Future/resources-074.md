@@ -1,6 +1,6 @@
 ### 🤖 Startup Funding - Physical Technology
 
-This article discusses a request for startups focused on developing better physical technology in America.  It highlights the collaboration between Y Combinator, Reinventing Summit, and New Industrials.
+Request for startups focused on developing better physical technology in America.  It highlights the collaboration between Y Combinator, Reinventing Summit, and New Industrials.
 
 Key Points:
 

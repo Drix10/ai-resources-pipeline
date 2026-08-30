@@ -1,6 +1,6 @@
 ### 📰 US Politics - Capitol Plaque Dispute
 
-This article discusses the refusal of the GOP to hang a plaque honoring the heroes of January 6th in the Capitol building.  The lack of explanation from Republicans is highlighted.
+Refusal of the GOP to hang a plaque honoring the heroes of January 6th in the Capitol building.  The lack of explanation from Republicans is highlighted.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 xAI's Grok - Massive Compute Infrastructure
 
-This article summarizes Dylan's observations regarding xAI's Grok and its significant investment in computational resources and infrastructure.  The information highlights the scale of xAI's operations.
+Dylan's observations regarding xAI's Grok and its significant investment in computational resources and infrastructure.  The information highlights the scale of xAI's operations.
 
 
 Key Points:

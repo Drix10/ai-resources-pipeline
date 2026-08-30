@@ -1,6 +1,6 @@
 ### 💡 X Ads - Boosts Targeting Issue
 
-This article discusses the ineffectiveness of X (Twitter) ad boosts due to a lack of targeting options.
+Ineffectiveness of X (Twitter) ad boosts due to a lack of targeting options.
 
 Key Points:
 

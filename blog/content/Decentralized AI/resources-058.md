@@ -1,6 +1,6 @@
 ### 💡 Market Sentiment - Bitcoin Prediction
 
-This article discusses a prediction of a significant bull run in Bitcoin, contrary to widespread expectations of diminishing returns.  The author notes that Bitcoin often moves opposite to mass sentiment.
+Prediction of a significant bull run in Bitcoin, contrary to widespread expectations of diminishing returns.  The author notes that Bitcoin often moves opposite to mass sentiment.
 
 Key Points:
 

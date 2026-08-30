@@ -1,6 +1,6 @@
 ### 💡 Energy Policy - Global Briefing
 
-This article provides an overview of current global energy news, including political perspectives on oil, national clean energy initiatives, and debates around coal reserves. It summarizes key developments impacting the international energy landscape.
+Current global energy news, including political perspectives on oil, national clean energy initiatives, and debates around coal reserves. It summarizes key developments impacting the international energy landscape.
 
 Key Points:
 

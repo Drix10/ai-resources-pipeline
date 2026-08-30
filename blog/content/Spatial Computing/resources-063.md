@@ -1,6 +1,6 @@
 ### 🤖 XR Simulator Enhancement - Varjo Partnership
 
-This article details how Entrol Simulator partnered with Varjo to improve their advanced XR simulator through a hands-on workshop.  The collaboration focused on enhancing the simulator's capabilities.
+Entrol Simulator partnered with Varjo to improve their advanced XR simulator through a hands-on workshop.  The collaboration focused on enhancing the simulator's capabilities.
 
 Key Points:
 

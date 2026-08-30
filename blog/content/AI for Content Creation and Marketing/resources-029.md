@@ -1,6 +1,6 @@
 ### 🚀 LatelyAI - Streamlining Content Creation
 
-This article discusses LatelyAI, a tool designed to assist marketing agencies, freelancers, and content creators in producing content more efficiently.  It aims to reduce the time spent on crafting posts.
+LatelyAI, a tool designed to assist marketing agencies, freelancers, and content creators in producing content more efficiently.  It aims to reduce the time spent on crafting posts.
 
 Key Points:
 

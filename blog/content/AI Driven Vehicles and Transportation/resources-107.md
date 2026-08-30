@@ -1,6 +1,6 @@
 ### 💡 Parenting - Fostering a Growth Mindset in Children
 
-This article discusses the importance of creating a safe environment for children to fail and emphasizes the role of effort over innate ability in achieving success.
+Importance of creating a safe environment for children to fail and emphasizes the role of effort over innate ability in achieving success.
 
 Key Points:
 

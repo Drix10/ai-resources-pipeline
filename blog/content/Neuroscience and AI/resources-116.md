@@ -1,6 +1,6 @@
 ### 💡 Personal Development - Societal Impact
 
-This article discusses the potential impact of foundational principles on individual and societal leadership, referencing influential works. It highlights the importance of personal development in shaping broader outcomes.
+Potential impact of foundational principles on individual and societal leadership, referencing influential works. It highlights the importance of personal development in shaping broader outcomes.
 
 Key Points:
 

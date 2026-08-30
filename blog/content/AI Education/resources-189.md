@@ -1,6 +1,6 @@
 ### 🤖 Deep Learning - Learning Mechanics Theory
 
-This article discusses the emergence of "learning mechanics," a physics-style theory for deep learning. It outlines the foundational elements and characteristics defining this new scientific approach to understanding complex AI systems.
+Emergence of "learning mechanics," a physics-style theory for deep learning. It outlines the foundational elements and characteristics defining this new scientific approach to understanding complex AI systems.
 
 Key Points:
 

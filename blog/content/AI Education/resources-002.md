@@ -1,6 +1,6 @@
 ### 🤖 Decentralized Knowledge Networks - OriginTrail on Polkadot
 
-This article provides an overview of OriginTrail, a decentralized knowledge network built on Polkadot, focusing on its applications in AI and supply chains.  It highlights its use by major corporations and its contribution to data trust and transparency.
+OriginTrail, a decentralized knowledge network built on Polkadot, focusing on its applications in AI and supply chains.  It highlights its use by major corporations and its contribution to data trust and transparency.
 
 Key Points:
 

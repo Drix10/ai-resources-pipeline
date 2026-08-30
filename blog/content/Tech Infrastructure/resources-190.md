@@ -1,6 +1,6 @@
 ### 🤖 Microsoft IQ - Core Intelligence Services
 
-This article details Microsoft IQ, an integrated intelligence platform that combines three distinct services to enhance enterprise data management and agent accessibility.
+Microsoft IQ, an integrated intelligence platform that combines three distinct services to enhance enterprise data management and agent accessibility.
 
 Key Points:
 

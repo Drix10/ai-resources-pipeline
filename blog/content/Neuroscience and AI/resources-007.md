@@ -1,6 +1,6 @@
 ### ⚠️ Funding Cuts - Impact on PhD Programs
 
-This article discusses the impact of NIH indirect cost cuts on PhD program admissions.  It highlights the consequences for scientific advancement due to reduced trainee numbers and research funding.
+Impact of NIH indirect cost cuts on PhD program admissions.  It highlights the consequences for scientific advancement due to reduced trainee numbers and research funding.
 
 Key Points:
 

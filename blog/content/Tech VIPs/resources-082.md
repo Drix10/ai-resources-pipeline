@@ -1,6 +1,6 @@
 ### 💡 Epistemology - The Limits of Physics and Statistics
 
-This article explores the limitations of physics and statistics in modeling the world, particularly concerning concepts beyond the realm of quantifiable phenomena.
+Limitations of physics and statistics in modeling the world, particularly concerning concepts beyond the realm of quantifiable phenomena.
 
 Key Points:
 

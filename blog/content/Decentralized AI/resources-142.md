@@ -1,6 +1,6 @@
 ### ✨ Interactive Art - Real-Time Mirroring Installation
 
-This article details "Mirror Node," an interactive art installation by Jess Wiseman at Artechouse NYC. It covers the real-time mirroring capabilities of the Figuregot droid and its inspiration from "CYCLE RESET."
+"Mirror Node," an interactive art installation by Jess Wiseman at Artechouse NYC. It covers the real-time mirroring capabilities of the Figuregot droid and its inspiration from "CYCLE RESET."
 
 Key Points:
 

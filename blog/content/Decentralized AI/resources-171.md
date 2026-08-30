@@ -1,6 +1,6 @@
 ### 💡 Future of Work - Adaptability in Changing Landscape
 
-This article discusses predictions from Eric Weinstein regarding significant shifts in the future of work and the economy. It emphasizes the necessity of professional flexibility and interdisciplinary thinking to navigate these transformations.
+Predictions from Eric Weinstein regarding significant shifts in the future of work and the economy. It emphasizes the necessity of professional flexibility and interdisciplinary thinking to navigate these transformations.
 
 Key Points:
 

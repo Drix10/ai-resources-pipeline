@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Autonomous Laser Cutting of Structural Steel
 
-This article discusses a novel approach to autonomous laser cutting and hole boring of massive structural steel using KUKA robots, addressing challenges related to deflection.
+Novel approach to autonomous laser cutting and hole boring of massive structural steel using KUKA robots, addressing challenges related to deflection.
 
 Key Points:
 

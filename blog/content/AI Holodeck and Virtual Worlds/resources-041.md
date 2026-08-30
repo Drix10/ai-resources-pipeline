@@ -1,6 +1,6 @@
 ### 🤖 Healthcare Innovation - Founder Mode for the NIH
 
-This article discusses the need for increased experimentation and a "founder mode" approach within the National Institutes of Health (NIH) to foster innovation in healthcare.  The concept emphasizes a more agile and experimental approach to research and development.
+Need for increased experimentation and a "founder mode" approach within the National Institutes of Health (NIH) to foster innovation in healthcare.  The concept emphasizes a more agile and experimental approach to research and development.
 
 Key Points:
 

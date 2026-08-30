@@ -1,6 +1,6 @@
 ### 🤖 AI in Market Leadership - Glean's Case Study
 
-This article examines Glean's transition from explaining its market category to defining it, highlighting its unique position within the AI field.
+Glean's transition from explaining its market category to defining it, highlighting its unique position within the AI field.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics - Europe United
 
-This article discusses the statement "Europe United" in the context of a perceived challenge to shared European values.  It briefly touches upon the need for unity and a reaffirmation of core principles.
+Statement "Europe United" in the context of a perceived challenge to shared European values.  It briefly touches upon the need for unity and a reaffirmation of core principles.
 
 Key Points:
 

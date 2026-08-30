@@ -1,6 +1,6 @@
 ### ✨ Sonic Vision - Round 2 Sprint Results
 
-This article summarizes the results of the second sprint in the Sonic Vision project, highlighting collaborations and showcasing visual and audio creations.
+Results of the second sprint in the Sonic Vision project, highlighting collaborations and showcasing visual and audio creations.
 
 Key Points:
 

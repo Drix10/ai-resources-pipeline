@@ -1,6 +1,6 @@
 ### 🤖 Neuroscience - Cognitive Resilience in Aging
 
-This article discusses a new research protocol exploring the modulation of cortical excitability using rTMS. The study aims to enhance cognitive resilience in aging individuals. It focuses on the methodology and potential implications for brain health.
+New research protocol exploring the modulation of cortical excitability using rTMS. The study aims to enhance cognitive resilience in aging individuals. It focuses on the methodology and potential implications for brain health.
 
 Key Points:
 

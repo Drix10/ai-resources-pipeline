@@ -1,6 +1,6 @@
 ### 🗣️ Geopolitics - US-Russia-Ukraine Peace Prospects
 
-This article summarizes a statement by the U.S. Ambassador to NATO regarding the potential for a peace deal in the Russia-Ukraine conflict.  It also includes commentary on President Trump's purported stance on the matter.
+Statement by the U.S. Ambassador to NATO regarding the potential for a peace deal in the Russia-Ukraine conflict.  It also includes commentary on President Trump's purported stance on the matter.
 
 Key Points:
 

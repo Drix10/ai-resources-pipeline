@@ -1,6 +1,6 @@
 ### 🤖 SEO - Content Generation Tool
 
-This article discusses a content generation tool designed to improve SEO performance.  The tool aims to create high-quality content for improved search engine rankings.
+Content generation tool designed to improve SEO performance.  The tool aims to create high-quality content for improved search engine rankings.
 
 Key Points:
 

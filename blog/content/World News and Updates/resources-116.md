@@ -1,6 +1,6 @@
 ### 💡 Breaking News - Rob Reiner Report
 
-This article details the reported discovery of actor and filmmaker Rob Reiner and his wife Michele Singer Reiner in their Brentwood home. It provides an overview of the initial report regarding the incident. The information is based on initial news reports.
+Reported discovery of actor and filmmaker Rob Reiner and his wife Michele Singer Reiner in their Brentwood home. It provides an overview of the initial report regarding the incident. The information is based on initial news reports.
 
 Key Points:
 

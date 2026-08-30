@@ -1,6 +1,6 @@
 ### 🤖 AI Education - Curated Learning Path
 
-This article provides a curated list of educational resources for learning about Artificial Intelligence, specifically focusing on Large Language Models and Agentic AI. It aims to offer a clear path for understanding fundamental and advanced concepts without extensive searching.
+Curated list of educational resources for learning about Artificial Intelligence, specifically focusing on Large Language Models and Agentic AI. It aims to offer a clear path for understanding fundamental and advanced concepts without extensive searching.
 
 Key Points:
 

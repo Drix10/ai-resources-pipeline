@@ -1,6 +1,6 @@
 ### 💡 Public Health - Iowa COVID-19 Trends
 
-This article provides an update on COVID-19 prevalence trends in Iowa as of April 2. It specifically notes the current status in Cedar Rapids and Des Moines.
+Update on COVID-19 prevalence trends in Iowa as of April 2. It specifically notes the current status in Cedar Rapids and Des Moines.
 
 Key Points:
 

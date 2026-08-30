@@ -1,6 +1,6 @@
 ### ✨ Google AI - Gemini 2.0 Update
 
-This article summarizes the announcement of Google's Gemini 2.0, highlighting its advancements in image, audio, and other capabilities.
+Announcement of Google's Gemini 2.0, highlighting its advancements in image, audio, and other capabilities.
 
 Key Points:
 

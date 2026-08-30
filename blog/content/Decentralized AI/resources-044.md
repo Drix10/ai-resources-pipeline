@@ -1,6 +1,6 @@
 ### 🤖 Cryptoeconomics - Revenue Generation in Crypto Projects
 
-This article discusses the critical oversight of revenue generation in many cryptocurrency projects and the lack of understanding among retail investors regarding the path to profitability.
+Critical oversight of revenue generation in many cryptocurrency projects and the lack of understanding among retail investors regarding the path to profitability.
 
 Key Points:
 

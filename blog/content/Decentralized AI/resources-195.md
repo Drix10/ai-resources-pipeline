@@ -1,6 +1,6 @@
 ### 🤖 Agentic Payments - XRP Ledger Integration
 
-This article explores the concept of agentic payments, detailing their implementation and functionality within the XRP Ledger ecosystem. It focuses on the technical aspects and practical applications of autonomous payment systems.
+Concept of agentic payments, detailing their implementation and functionality within the XRP Ledger ecosystem. It focuses on the technical aspects and practical applications of autonomous payment systems.
 
 Key Points:
 

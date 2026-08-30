@@ -1,6 +1,6 @@
 ### 🤖 AI YouTuber - Early Text-to-Speech Issues
 
-This article discusses the initial difficulties encountered when creating an AI YouTuber three years ago. It highlights the technical limitations of text-to-speech technology at that time.
+Initial difficulties encountered when creating an AI YouTuber three years ago. It highlights the technical limitations of text-to-speech technology at that time.
 
 Key Points:
 

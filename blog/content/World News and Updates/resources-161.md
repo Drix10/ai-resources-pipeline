@@ -1,6 +1,6 @@
 ### 💡 Political Satire - SNL Impression Commentary
 
-This article discusses a recent Saturday Night Live sketch featuring Matt Damon's impression of Supreme Court Justice Brett Kavanaugh. It highlights the political commentary embedded within the comedic performance.
+Recent Saturday Night Live sketch featuring Matt Damon's impression of Supreme Court Justice Brett Kavanaugh. It highlights the political commentary embedded within the comedic performance.
 
 Key Points:
 

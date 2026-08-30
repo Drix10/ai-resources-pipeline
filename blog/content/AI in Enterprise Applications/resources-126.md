@@ -1,6 +1,6 @@
 ### 🚀 Tools - Cloud Migration with Nerdio Migrate
 
-This article covers Nerdio Migrate, a solution for transitioning from legacy systems to the Microsoft Cloud. It highlights the benefits of adopting cloud agility, security, and scalability.
+Nerdio Migrate, a solution for transitioning from legacy systems to the Microsoft Cloud. It highlights the benefits of adopting cloud agility, security, and scalability.
 
 Key Points:
 

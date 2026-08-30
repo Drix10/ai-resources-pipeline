@@ -1,6 +1,6 @@
 ### 🤖 Bitcoin Custody - Multisig Security
 
-This article discusses the security benefits of multisig wallets over singlesig setups, particularly in the event of a hardware wallet vulnerability. It explains how multisig configurations can protect assets even if individual devices are compromised.
+Security benefits of multisig wallets over singlesig setups, particularly in the event of a hardware wallet vulnerability. It explains how multisig configurations can protect assets even if individual devices are compromised.
 
 Key Points:
 

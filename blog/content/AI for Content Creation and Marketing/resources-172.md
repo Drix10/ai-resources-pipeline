@@ -1,6 +1,6 @@
 ### 🚀 Video Production - Automated Clipping and Captioning
 
-This article details how Mosaic automates video production, transforming interview content into platform-ready, captioned clips. It outlines the tool's capabilities for efficient content creation.
+Mosaic automates video production, transforming interview content into platform-ready, captioned clips. It outlines the tool's capabilities for efficient content creation.
 
 Key Points:
 

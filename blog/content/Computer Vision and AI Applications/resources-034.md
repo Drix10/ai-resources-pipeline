@@ -1,6 +1,6 @@
 ### 🤖 Image Similarity - CSD vs. DINO
 
-This article discusses the use of Content-Style Distance (CSD) and DINO for quantifying stylistic similarity between images, advocating for CSD as a superior metric.
+Use of Content-Style Distance (CSD) and DINO for quantifying stylistic similarity between images, advocating for CSD as a superior metric.
 
 Key Points:
 

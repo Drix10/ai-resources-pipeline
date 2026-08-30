@@ -1,6 +1,6 @@
 ### 💡 Geopolitics - US-Spain Diplomatic Incident
 
-This article discusses a reported incident where Spain allegedly blocked US warplanes during a conflict involving Iran, raising questions about NATO ally relations.
+Reported incident where Spain allegedly blocked US warplanes during a conflict involving Iran, raising questions about NATO ally relations.
 
 Key Points:
 

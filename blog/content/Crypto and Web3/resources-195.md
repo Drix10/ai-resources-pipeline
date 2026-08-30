@@ -1,6 +1,6 @@
 ### 🤖 DAO Governance - Voting Mechanism Vulnerability
 
-This article examines a reported instance of a decentralized autonomous organization (DAO) governance process being used for a self-benefiting proposal. It highlights how a concentrated token holder can influence outcomes.
+Reported instance of a decentralized autonomous organization (DAO) governance process being used for a self-benefiting proposal. It highlights how a concentrated token holder can influence outcomes.
 
 Key Points:
 • A large token holder can propose and pass self-serving resolutions in a DAO.

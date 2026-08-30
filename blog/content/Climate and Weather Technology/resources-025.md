@@ -1,6 +1,6 @@
 ### 😡 Political Commentary - Criticism of Education Secretary
 
-This article summarizes a criticism of the U.S. Secretary of Education's apparent lack of knowledge regarding the Individuals with Disabilities Education Act (IDEA).
+Criticism of the U.S. Secretary of Education's apparent lack of knowledge regarding the Individuals with Disabilities Education Act (IDEA).
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Government Communication - Web Content Standards
 
-This article examines the quality and tone of governmental web content. It discusses the importance of maintaining professional communication standards on official platforms.
+Quality and tone of governmental web content. It discusses the importance of maintaining professional communication standards on official platforms.
 
 Key Points:
 

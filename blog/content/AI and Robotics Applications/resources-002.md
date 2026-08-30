@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Pi Zero Flow Matching Policy
 
-This article discusses Pi Zero, a robotics framework utilizing flow matching for generalist policy, enabling zero-shot actions.  It builds upon the work of Crossformers and Octo, offering an alternative to diffusion methods.
+Pi Zero, a robotics framework utilizing flow matching for generalist policy, enabling zero-shot actions.  It builds upon the work of Crossformers and Octo, offering an alternative to diffusion methods.
 
 Key Points:
 

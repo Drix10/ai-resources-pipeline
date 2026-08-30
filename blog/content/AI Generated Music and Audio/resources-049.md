@@ -1,6 +1,6 @@
 ### 🤖 AI Voice Applications - Building with FreePlay AI and Pipecat
 
-This article discusses building voice-enabled AI applications using FreePlay AI and Pipecat, noting the timely release alongside a new Daily Maven course on Voice Agents.
+Building voice-enabled AI applications using FreePlay AI and Pipecat, noting the timely release alongside a new Daily Maven course on Voice Agents.
 
 
 Key Points:

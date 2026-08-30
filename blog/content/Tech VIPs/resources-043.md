@@ -1,6 +1,6 @@
 ### 🤖 Shopify - AI Integration Memo
 
-This article summarizes Tobi Lütke's memo outlining Shopify's approach to AI integration within its teams.  The memo is considered a significant industry moment, influencing how other organizations might adopt AI.
+Tobi Lütke's memo outlining Shopify's approach to AI integration within its teams.  The memo is considered a significant industry moment, influencing how other organizations might adopt AI.
 
 Key Points:
 

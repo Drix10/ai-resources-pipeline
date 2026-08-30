@@ -1,6 +1,6 @@
 ### 🤖 DLI2026 Conference - Poster Judging
 
-This article details the poster judging role at the DLI2026 conference, highlighting the involvement of a PhD candidate in evaluating emerging researchers.
+Poster judging role at the DLI2026 conference, highlighting the involvement of a PhD candidate in evaluating emerging researchers.
 
 Key Points:
 

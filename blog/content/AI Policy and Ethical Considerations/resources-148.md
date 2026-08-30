@@ -1,6 +1,6 @@
 ### 💡 Social Dynamics - Online Discourse Charity
 
-This article discusses an observation about "Bender" having the lowest ratio of charity extended to charity received within a particular online discourse. It highlights a perceived imbalance in contributions within that community.
+Observation about "Bender" having the lowest ratio of charity extended to charity received within a particular online discourse. It highlights a perceived imbalance in contributions within that community.
 
 Key Points:
 

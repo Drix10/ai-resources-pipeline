@@ -1,6 +1,6 @@
 ### 🤖 JPA & Hibernate - Implementing equals, hashCode, and toString
 
-This article discusses the best practices for implementing `equals`, `hashCode`, and `toString` methods when working with JPA and Hibernate entities. It aims to provide guidance on ensuring correct object identity and useful debugging information in a persistence context.
+Best practices for implementing `equals`, `hashCode`, and `toString` methods when working with JPA and Hibernate entities. It aims to provide guidance on ensuring correct object identity and useful debugging information in a persistence context.
 
 Key Points:
 

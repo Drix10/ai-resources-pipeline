@@ -1,6 +1,6 @@
 ### 💡 AI Adoption - Skilling and Education
 
-This article outlines the crucial role of AI skilling in accelerating national AI adoption by 2026. It emphasizes integrating basic AI concepts into classroom education to build foundational knowledge.
+Crucial role of AI skilling in accelerating national AI adoption by 2026. It emphasizes integrating basic AI concepts into classroom education to build foundational knowledge.
 
 Key Points:
 

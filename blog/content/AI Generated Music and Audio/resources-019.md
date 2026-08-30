@@ -1,6 +1,6 @@
 ### 🤖 AI Music Industry - Suno Music Webinar Recap
 
-This article summarizes a webinar featuring Mikey Shulman, co-founder and CEO of Suno Music, discussing the company's success and the future of AI in music.  The article also includes a video link.
+Webinar featuring Mikey Shulman, co-founder and CEO of Suno Music, discussing the company's success and the future of AI in music.  The article also includes a video link.
 
 Key Points:
 

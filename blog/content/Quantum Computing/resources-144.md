@@ -1,6 +1,6 @@
 ### 🤖 Demographics - US Fertility Rate Trends
 
-This article discusses the observed decline in the US fertility rate, examining reported contributing factors such as economic and social stability. It also offers a historical perspective on fertility trends.
+Observed decline in the US fertility rate, examining reported contributing factors such as economic and social stability. It also offers a historical perspective on fertility trends.
 
 Key Points:
 

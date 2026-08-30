@@ -1,6 +1,6 @@
 ### 🚀 Web3D - Immersive Shared Spaces
 
-This article discusses the emergence of easy-to-use tools for creating immersive shared 3D spaces on the web and mentions ongoing research and development in this area.
+Emergence of easy-to-use tools for creating immersive shared 3D spaces on the web and mentions ongoing research and development in this area.
 
 Key Points:
 

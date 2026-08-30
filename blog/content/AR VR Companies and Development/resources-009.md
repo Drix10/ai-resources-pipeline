@@ -1,6 +1,6 @@
 ### 🤖 VRChat Event - Goth Night
 
-This article details an upcoming VRChat event, providing the date, time, age restriction, and group link.
+Upcoming VRChat event, providing the date, time, age restriction, and group link.
 
 Key Points:
 

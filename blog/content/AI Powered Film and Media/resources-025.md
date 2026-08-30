@@ -1,6 +1,6 @@
 ### 🌎 Politics - Canadian Prime Minister's Background
 
-This article discusses the unusual background of Canada's recent Prime Minister, highlighting his recent relocation to Canada and his international background.
+Unusual background of Canada's recent Prime Minister, highlighting his recent relocation to Canada and his international background.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Political Satire - Yes Minister Analysis
 
-This article explores the enduring relevance of "Yes Minister," focusing on its satirical portrayal of bureaucracy and government. It delves into the show's commentary on political systems and power dynamics.
+Enduring relevance of "Yes Minister," focusing on its satirical portrayal of bureaucracy and government. It delves into the show's commentary on political systems and power dynamics.
 
 Key Points:
 

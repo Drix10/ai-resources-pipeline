@@ -1,6 +1,6 @@
 ### 🤖 NVIDIA DGX Systems - Generative AI Applications
 
-This article discusses the design and components of NVIDIA DGX systems, focusing on their role in enabling high-performance generative AI applications.  It highlights the system architecture and software integration for optimal performance.
+Design and components of NVIDIA DGX systems, focusing on their role in enabling high-performance generative AI applications.  It highlights the system architecture and software integration for optimal performance.
 
 Key Points:
 

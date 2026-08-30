@@ -1,6 +1,6 @@
 ### ✈️ Group Trip Planning - Turkey Package
 
-This article details a group trip to Turkey, including hair transplant options.  The offer includes accommodations at a Hilton hotel in Istanbul.
+Group trip to Turkey, including hair transplant options.  The offer includes accommodations at a Hilton hotel in Istanbul.
 
 
 Key Points:

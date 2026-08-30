@@ -1,6 +1,6 @@
 ### 🤖 Economics - Offshore Back Office Shifts
 
-This content discusses potential economic shifts affecting professional services economies in Europe. It suggests a structural change related to the replacement of offshore back offices with new operational models.
+Potential economic shifts affecting professional services economies in Europe. It suggests a structural change related to the replacement of offshore back offices with new operational models.
 
 Key Points:
 

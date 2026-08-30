@@ -1,6 +1,6 @@
 ### 🤖 Sparse Attention - Reverse Engineering
 
-This article discusses the findings of reverse-engineering sparse attention mechanisms in machine learning, focusing on their performance and novel attention patterns.
+Findings of reverse-engineering sparse attention mechanisms in machine learning, focusing on their performance and novel attention patterns.
 
 Key Points:
 

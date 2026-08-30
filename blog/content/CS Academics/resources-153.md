@@ -1,6 +1,6 @@
 ### 🤖 Go Concurrency - Avoiding Goroutine Leaks
 
-This article discusses concurrency patterns in Go, focusing on techniques to prevent goroutine leaks. It highlights best practices for managing goroutines to ensure efficient resource utilization in Go applications.
+Concurrency patterns in Go, focusing on techniques to prevent goroutine leaks. It highlights best practices for managing goroutines to ensure efficient resource utilization in Go applications.
 
 Key Points:
 

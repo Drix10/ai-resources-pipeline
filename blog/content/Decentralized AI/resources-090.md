@@ -1,6 +1,6 @@
 ### 🤖 X's Updated Terms of Service - AI Training on User Data
 
-This article discusses the recent update to X's Terms of Service, which allows the platform to utilize user data for AI training purposes.  The implications for user privacy and data ownership are examined.
+Recent update to X's Terms of Service, which allows the platform to utilize user data for AI training purposes.  The implications for user privacy and data ownership are examined.
 
 
 Key Points:

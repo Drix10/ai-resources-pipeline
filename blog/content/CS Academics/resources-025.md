@@ -1,6 +1,6 @@
 ### 🤖 SANER 2025 Conference - Day 2 Highlights
 
-This article summarizes key highlights from the second day of the SANER 2025 conference, including attendance figures, paper acceptance rates, and a special robot guest.
+Key highlights from the second day of the SANER 2025 conference, including attendance figures, paper acceptance rates, and a special robot guest.
 
 Key Points:
 

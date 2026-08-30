@@ -1,6 +1,6 @@
 ### 🤖 VR Gaming - VRider SBK AI Riders
 
-This article details the AI rider feature in the PSVR2 and SteamVR versions of VRider SBK, a motorcycle racing game.  It highlights the number of AI opponents and their characteristics.
+AI rider feature in the PSVR2 and SteamVR versions of VRider SBK, a motorcycle racing game.  It highlights the number of AI opponents and their characteristics.
 
 Key Points:
 

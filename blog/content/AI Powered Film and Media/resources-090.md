@@ -1,6 +1,6 @@
 ### 🤖 AI and Media - Radical Transformation
 
-This article discusses the accelerating convergence of AI research and its transformative impact on media, entertainment, and art.  The author predicts a near future where the gap between conceptualization and creation will significantly diminish.
+Accelerating convergence of AI research and its transformative impact on media, entertainment, and art.  The author predicts a near future where the gap between conceptualization and creation will significantly diminish.
 
 Key Points:
 

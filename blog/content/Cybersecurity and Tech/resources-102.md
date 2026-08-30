@@ -1,6 +1,6 @@
 ### ⚠️ Pennsylvania Elections - Misdated Mail-in Ballots
 
-This article discusses a Pennsylvania court ruling regarding misdated mail-in ballots and the implications for the upcoming elections.  The ruling impacts the handling of ballots with incorrect dates.
+Pennsylvania court ruling regarding misdated mail-in ballots and the implications for the upcoming elections.  The ruling impacts the handling of ballots with incorrect dates.
 
 Key Points:
 

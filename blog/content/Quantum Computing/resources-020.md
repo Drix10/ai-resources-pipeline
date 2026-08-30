@@ -1,6 +1,6 @@
 ### 🤖 Model Behavior - Countable Hypothesis Bounds
 
-This article discusses the limitations of Rademacher complexity and VC dimension in explaining certain model behaviors and introduces countable hypothesis bounds with a prior as an alternative explanation.
+Limitations of Rademacher complexity and VC dimension in explaining certain model behaviors and introduces countable hypothesis bounds with a prior as an alternative explanation.
 
 Key Points:
 

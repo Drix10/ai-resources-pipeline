@@ -1,6 +1,6 @@
 ### 💡 Professional Communication - Digital Greetings
 
-This article covers the fundamentals of professional digital communication through brief, positive interactions. It emphasizes the importance of consistent and courteous online greetings to foster engagement.
+Fundamentals of professional digital communication through brief, positive interactions. It emphasizes the importance of consistent and courteous online greetings to foster engagement.
 
 Key Points:
 

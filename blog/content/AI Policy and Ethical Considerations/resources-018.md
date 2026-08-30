@@ -1,6 +1,6 @@
 ### 😡 Geopolitics - Criticism of US Foreign Policy
 
-This article discusses criticism of US foreign policy, specifically focusing on alleged support for certain leaders and accusations of ignoring human rights abuses.  The author expresses strong disapproval.
+Criticism of US foreign policy, specifically focusing on alleged support for certain leaders and accusations of ignoring human rights abuses.  The author expresses strong disapproval.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 🤖 AI Economics - Compute Scarcity and Pricing Power
 
-This article examines how the scarcity of compute resources influences the economics of AI models and the market position of major AI laboratories.
+The scarcity of compute resources influences the economics of AI models and the market position of major AI laboratories.
 
 Key Points:
 

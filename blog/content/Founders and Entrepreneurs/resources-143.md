@@ -1,6 +1,6 @@
 ### 🤖 Satellite Communication - GEO vs LEO Latency
 
-This article examines the concept of media latency within satellite communication systems, specifically comparing Geostationary Earth Orbit (GEO) and Low Earth Orbit (LEO) satellites. It explains how orbital characteristics influence communication speed.
+Concept of media latency within satellite communication systems, specifically comparing Geostationary Earth Orbit (GEO) and Low Earth Orbit (LEO) satellites. It explains how orbital characteristics influence communication speed.
 
 Key Points:
 

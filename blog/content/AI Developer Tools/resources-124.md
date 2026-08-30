@@ -1,6 +1,6 @@
 ### 🤖 World App - eSIM Integration
 
-This article discusses the expansion of World App's capabilities beyond finance through a partnership with BoxoHQ. It highlights the upcoming integration of an in-app eSIM miniapp, aiming to converge messaging, money, identity, and connectivity.
+Expansion of World App's capabilities beyond finance through a partnership with BoxoHQ. It highlights the upcoming integration of an in-app eSIM miniapp, aiming to converge messaging, money, identity, and connectivity.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Geopolitics - Election Unpredictability
 
-This article outlines how Nassim Nicholas Taleb's theories on unpredictability are relevant to recent political events, specifically unexpected election outcomes. It emphasizes the challenges in forecasting results in complex socio-political landscapes.
+Nassim Nicholas Taleb's theories on unpredictability are relevant to recent political events, specifically unexpected election outcomes. It emphasizes the challenges in forecasting results in complex socio-political landscapes.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Open AI Model - Apertus
 
-This article discusses the open-source AI model Apertus, highlighting its unique approach of publicly releasing its training data, weights, and methods.  It also raises concerns regarding data quality assurance in such open models.
+Open-source AI model Apertus, highlighting its unique approach of publicly releasing its training data, weights, and methods.  It also raises concerns regarding data quality assurance in such open models.
 
 
 Key Points:

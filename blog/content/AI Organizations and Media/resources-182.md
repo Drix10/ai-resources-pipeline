@@ -1,6 +1,6 @@
 ### ✨ Creative Remix - Public Domain Film Contest
 
-This article highlights a finalist entry in the Internet Archive's 2026 Public Domain Film Remix Contest. It details the unique approach taken by Antonio Mendez in his submission, "UN MONTAGE OF THE SUNDAY SCARIES".
+Finalist entry in the Internet Archive's 2026 Public Domain Film Remix Contest. It details the unique approach taken by Antonio Mendez in his submission, "UN MONTAGE OF THE SUNDAY SCARIES".
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Writing Workflow - Search in Drafts
 
-This article discusses the need for a search function within draft documents on writing platforms, highlighting the impact on a writer's workflow.
+Need for a search function within draft documents on writing platforms, highlighting the impact on a writer's workflow.
 
 Key Points:
 

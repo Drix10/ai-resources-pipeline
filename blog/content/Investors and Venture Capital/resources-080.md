@@ -1,6 +1,6 @@
 ### 💔 The Old Guard 2 - Fan Reaction
 
-This article summarizes fan reactions to a perceived plot point in *The Old Guard 2*, focusing on the character Andy's actions and the resulting fan frustration.
+Fan reactions to a perceived plot point in *The Old Guard 2*, focusing on the character Andy's actions and the resulting fan frustration.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 OpenAI Internal Concerns - Incident Trends
 
-This article summarizes internal incidents reported by an anonymous OpenAI staffer, describing them as pre-existing issues prior to public attention. The statement points to a pattern of related events occurring internally over time.
+Internal incidents reported by an anonymous OpenAI staffer, describing them as pre-existing issues prior to public attention. The statement points to a pattern of related events occurring internally over time.
 
 Key Points:
 

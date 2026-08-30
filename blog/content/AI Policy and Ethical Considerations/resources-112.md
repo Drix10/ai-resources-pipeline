@@ -1,6 +1,6 @@
 ### 🤖 Criminal Justice System Overview - Georgia, Michigan, and Virginia
 
-This article provides a high-level overview of the criminal justice systems in Georgia, Michigan, and Virginia, focusing on pre-arrest, pretrial, and post-conviction stages.  The information is presented as a snapshot of current functionalities.
+High-level overview of the criminal justice systems in Georgia, Michigan, and Virginia, focusing on pre-arrest, pretrial, and post-conviction stages.  The information is presented as a snapshot of current functionalities.
 
 Key Points:
 

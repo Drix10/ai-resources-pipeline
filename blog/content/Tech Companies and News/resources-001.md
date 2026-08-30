@@ -1,6 +1,6 @@
 ### 🤖 Splunk Security - User Feedback
 
-This article summarizes user feedback on Splunk Security, highlighting its problem-solving capabilities.  The information is based on reviews found on PeerSpot.
+User feedback on Splunk Security, highlighting its problem-solving capabilities.  The information is based on reviews found on PeerSpot.
 
 
 Key Points:

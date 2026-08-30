@@ -1,6 +1,6 @@
 ### ✨ Digital Asset Mining - Luxury Timepiece Integration
 
-This article discusses the collaboration between Jacob & Co and GoMining, introducing a luxury timepiece that integrates with digital asset mining. It highlights the convergence of high-end horology and the cryptocurrency sector.
+Collaboration between Jacob & Co and GoMining, introducing a luxury timepiece that integrates with digital asset mining. It highlights the convergence of high-end horology and the cryptocurrency sector.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Continual Reinforcement Learning - Mitigating Plasticity Loss
 
-This article discusses the challenges of churn in continual reinforcement learning (CRL) and introduces a novel approach to mitigate plasticity loss.  The research focuses on reducing churn to improve adaptation in CRL.
+Challenges of churn in continual reinforcement learning (CRL) and introduces a novel approach to mitigate plasticity loss.  The research focuses on reducing churn to improve adaptation in CRL.
 
 Key Points:
 

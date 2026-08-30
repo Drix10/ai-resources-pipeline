@@ -1,6 +1,6 @@
 ### 🤖 Manufacturing - Defense Sector Innovation
 
-This article discusses a new manufacturing approach being demonstrated by Machina for the defense industry. It highlights the direct assembly of metal structures from CAD models.
+New manufacturing approach being demonstrated by Machina for the defense industry. It highlights the direct assembly of metal structures from CAD models.
 
 Key Points:
 

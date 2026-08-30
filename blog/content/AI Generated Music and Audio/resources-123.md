@@ -1,6 +1,6 @@
 ### 🤖 Neural Personal Sound Zones - Flexible Bright Zone Control
 
-This article discusses a research paper on neural personal sound zones. It explores methods for creating localized audio experiences with adaptable control over sound fields.
+Research paper on neural personal sound zones. It explores methods for creating localized audio experiences with adaptable control over sound fields.
 
 Key Points:
 

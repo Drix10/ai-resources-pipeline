@@ -1,6 +1,6 @@
 ### 🤖 Israeli Employment - Haredi Men
 
-This article examines a study showing the low employment rate among ultra-Orthodox men in Israel and its economic impact.  The study highlights the cost to Israeli taxpayers.
+Study showing the low employment rate among ultra-Orthodox men in Israel and its economic impact.  The study highlights the cost to Israeli taxpayers.
 
 Key Points:
 

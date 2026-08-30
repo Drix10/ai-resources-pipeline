@@ -1,6 +1,6 @@
 ### 💰 Mergers & Acquisitions - Choosing a Broker for $5M+ Businesses
 
-This article discusses the importance of carefully selecting a broker when selling a business valued at $5 million or more, highlighting potential pitfalls of choosing less experienced brokers.
+Importance of carefully selecting a broker when selling a business valued at $5 million or more, highlighting potential pitfalls of choosing less experienced brokers.
 
 Key Points:
 

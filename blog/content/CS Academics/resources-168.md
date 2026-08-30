@@ -1,6 +1,6 @@
 ### 💡 NBA Game Analysis - Victor Wembanyama's Performance
 
-This article discusses a specific play by Victor Wembanyama and provides details on how to watch the ongoing game between Team World and USA Stripes.
+Specific play by Victor Wembanyama and provides details on how to watch the ongoing game between Team World and USA Stripes.
 
 Key Points:
 

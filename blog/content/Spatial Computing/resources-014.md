@@ -1,6 +1,6 @@
 ### 💡 Steam Next Fest Tips - Interview with Citizen Sleeper 2 Dev
 
-This article summarizes a discussion with Gareth Damian Martin, developer of Citizen Sleeper 2, offering insights and tips for navigating Steam Next Fest.  The full interview is available via the provided link.
+Discussion with Gareth Damian Martin, developer of Citizen Sleeper 2, offering insights and tips for navigating Steam Next Fest.  The full interview is available via the provided link.
 
 Key Points:
 

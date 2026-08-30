@@ -1,6 +1,6 @@
 ### 🛡️ Layer 2 Security - Network Strengthening
 
-This article discusses the addition of security features to a core system, focusing on a new staking UI and rewards to incentivize network participation.
+Addition of security features to a core system, focusing on a new staking UI and rewards to incentivize network participation.
 
 
 Key Points:

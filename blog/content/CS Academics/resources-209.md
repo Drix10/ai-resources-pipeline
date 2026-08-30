@@ -1,6 +1,6 @@
 ### ✨ NBA Playoffs - Western Conference Semifinals Game 1 Summary
 
-This article summarizes the first game of the Western Conference Semifinals, highlighting a key player's performance. It details the game's outcome and previews the next match in the series.
+First game of the Western Conference Semifinals, highlighting a key player's performance. It details the game's outcome and previews the next match in the series.
 
 Key Points:
 

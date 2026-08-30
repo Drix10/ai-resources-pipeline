@@ -1,6 +1,6 @@
 ### 💡 Political Commentary - Podcast Insights
 
-This article highlights a notable discussion featuring Matt Mahan on Eric Newcomer's podcast. It provides insight into the dialogue between these public figures.
+Notable discussion featuring Matt Mahan on Eric Newcomer's podcast. It provides insight into the dialogue between these public figures.
 
 Key Points:
 

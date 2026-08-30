@@ -1,6 +1,6 @@
 ### 🤖 AI - Emotional Intelligence in AI
 
-This article discusses the emerging trend of incorporating emotional intelligence (EQ) into AI development, moving beyond traditional accuracy metrics.  The authors explore the concept of AI's "vibe check."
+Emerging trend of incorporating emotional intelligence (EQ) into AI development, moving beyond traditional accuracy metrics.  The authors explore the concept of AI's "vibe check."
 
 Key Points:
 

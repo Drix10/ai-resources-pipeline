@@ -1,6 +1,6 @@
 ### 📰  Political Commentary - Allegations of Obstruction of Justice
 
-This article summarizes allegations surrounding the death of Charlie Kirk and claims of obstruction of justice.  The text presents contrasting narratives from different political viewpoints.
+Allegations surrounding the death of Charlie Kirk and claims of obstruction of justice.  The text presents contrasting narratives from different political viewpoints.
 
 Key Points:
 

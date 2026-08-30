@@ -1,6 +1,6 @@
 ### 💡 Social Media Platforms - Monetization Strategies
 
-This article discusses recent developments regarding Facebook's potential shift towards a pay-to-play model. It explores the implications of such a change for users and content creators.
+Recent developments regarding Facebook's potential shift towards a pay-to-play model. It explores the implications of such a change for users and content creators.
 
 Key Points:
 

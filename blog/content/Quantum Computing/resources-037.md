@@ -1,6 +1,6 @@
 ### 🤖 arXiv - The Unsung Hero of Academia
 
-This article discusses arXiv, a preprint server crucial to numerous academic fields, and its creator, Paul Ginsparg.  It highlights arXiv's significance and impact.
+ArXiv, a preprint server crucial to numerous academic fields, and its creator, Paul Ginsparg.  It highlights arXiv's significance and impact.
 
 Key Points:
 

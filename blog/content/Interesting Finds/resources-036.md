@@ -1,6 +1,6 @@
 ### 🤖 Social Security - Payment Integrity
 
-This article summarizes a statement regarding the integrity of Social Security payments.  A claim is made that current events will not impact legitimate payments.  Concerns are also raised regarding potential fraudulent activities.
+Statement regarding the integrity of Social Security payments.  A claim is made that current events will not impact legitimate payments.  Concerns are also raised regarding potential fraudulent activities.
 
 Key Points:
 

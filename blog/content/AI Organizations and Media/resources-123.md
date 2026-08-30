@@ -1,6 +1,6 @@
 ### ✨ Digital Art - Project Native Sales & Philosophy
 
-This article details the successful placement of artworks from the Project Native series and reflects on the artist's perspective on precarity. It highlights the gratitude towards collectors and the supporting trust.
+Successful placement of artworks from the Project Native series and reflects on the artist's perspective on precarity. It highlights the gratitude towards collectors and the supporting trust.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Astronomy - Lenticular Galaxy NGC 7722
 
-This article covers the recent sharpest image captured by Hubble of NGC 7722, an unusual lenticular galaxy. It highlights the characteristics of this galaxy type and the significance of new observational data.
+Recent sharpest image captured by Hubble of NGC 7722, an unusual lenticular galaxy. It highlights the characteristics of this galaxy type and the significance of new observational data.
 
 Key Points:
 

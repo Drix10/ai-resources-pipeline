@@ -1,6 +1,6 @@
 ### 🤖 Tech Industry - California Exodus
 
-This article outlines concerns raised by David Friedberg regarding a significant departure of tech leaders from California. It presents an informal survey's findings on the future relocation plans of these key individuals.
+Concerns raised by David Friedberg regarding a significant departure of tech leaders from California. It presents an informal survey's findings on the future relocation plans of these key individuals.
 
 Key Points:
 

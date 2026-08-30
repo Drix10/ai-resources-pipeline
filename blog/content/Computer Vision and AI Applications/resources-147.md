@@ -1,6 +1,6 @@
 ### 💡 AI Ethics - Historical Image Generation
 
-This article examines the ethical considerations and public perception issues associated with using AI-generated images to depict historical figures in journalistic contexts. It addresses the potential impact on credibility when media outlets employ such methods.
+Ethical considerations and public perception issues associated with using AI-generated images to depict historical figures in journalistic contexts. It addresses the potential impact on credibility when media outlets employ such methods.
 
 Key Points:
 

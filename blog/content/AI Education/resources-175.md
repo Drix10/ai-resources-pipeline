@@ -1,6 +1,6 @@
 ### 🚀 Managed Agents - Rapid Infrastructure Deployment
 
-This article discusses the new Managed Agents feature offered by Vibecodeapp, designed to significantly accelerate the development and deployment of agent infrastructure. It outlines how developers can transition from an initial prompt to a deployed application without extensive setup time.
+New Managed Agents feature offered by Vibecodeapp, designed to significantly accelerate the development and deployment of agent infrastructure. It outlines how developers can transition from an initial prompt to a deployed application without extensive setup time.
 
 Key Points:
 

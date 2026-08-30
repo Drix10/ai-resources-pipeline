@@ -1,6 +1,6 @@
 ### 🤖 Cardano - Iagon Platform Release
 
-This article summarizes a report on the Iagon platform release on the Cardano blockchain, highlighting the unexpectedly high activity level without network congestion.
+Report on the Iagon platform release on the Cardano blockchain, highlighting the unexpectedly high activity level without network congestion.
 
 Key Points:
 

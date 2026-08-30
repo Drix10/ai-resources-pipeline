@@ -1,6 +1,6 @@
 ### 💡 Geopolitical Sanctions - UK Implications
 
-This article discusses the sanctioning of an individual by the US, highlighting their alleged affiliation and presence in the UK. It addresses the activities of the Palestinian Forum in Britain.
+Sanctioning of an individual by the US, highlighting their alleged affiliation and presence in the UK. It addresses the activities of the Palestinian Forum in Britain.
 
 Key Points:
 

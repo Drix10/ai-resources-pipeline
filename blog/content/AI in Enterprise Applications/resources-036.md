@@ -1,6 +1,6 @@
 ### 🚀 Slack - Glean Integration
 
-This article discusses Glean, a Slack integration designed to improve workflow efficiency by providing quick access to information within Slack.  It addresses the common issue of task interruptions caused by searching for information outside the Slack environment.
+Glean, a Slack integration designed to improve workflow efficiency by providing quick access to information within Slack.  It addresses the common issue of task interruptions caused by searching for information outside the Slack environment.
 
 Key Points:
 

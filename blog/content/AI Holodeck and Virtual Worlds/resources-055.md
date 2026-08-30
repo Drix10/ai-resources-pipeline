@@ -1,6 +1,6 @@
 ### 🤖 Game Development - Bezi AI Game Jam
 
-This article summarizes the results of a game jam focused on creating endless runner games using Bezi AI.  The event showcased the talent of participating developers and artists.
+Results of a game jam focused on creating endless runner games using Bezi AI.  The event showcased the talent of participating developers and artists.
 
 
 Key Points:

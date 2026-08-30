@@ -1,6 +1,6 @@
 ### 🚀 Add-ons - POSTAL 2 Redux & VR Enhancements
 
-This article details new add-ons for backers of POSTAL 2 Redux and POSTAL 2 VR, offering enhanced pledge options.  These add-ons provide opportunities for increased engagement and customization.
+New add-ons for backers of POSTAL 2 Redux and POSTAL 2 VR, offering enhanced pledge options.  These add-ons provide opportunities for increased engagement and customization.
 
 Key Points:
 

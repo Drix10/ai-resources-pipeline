@@ -1,6 +1,6 @@
 ### 🤖 Computational Thinking in Cooking - Combinatorial Aspects and Phase Transitions
 
-This article explores the application of computational thinking to cooking, focusing on the combinatorial nature of recipes and the role of phase transitions in culinary processes.  It draws connections between cooking techniques and broader computational concepts.
+Application of computational thinking to cooking, focusing on the combinatorial nature of recipes and the role of phase transitions in culinary processes.  It draws connections between cooking techniques and broader computational concepts.
 
 Key Points:
 

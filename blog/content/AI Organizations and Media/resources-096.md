@@ -1,6 +1,6 @@
 ### 🚀 Alchemy Stream - Onboarding and DREP Launch
 
-This article covers the onboarding process with Alchemy Stream and the upcoming launch of DREP on AppleTV and Roku.  The author expresses excitement about the collaboration and the platform's expansion.
+Onboarding process with Alchemy Stream and the upcoming launch of DREP on AppleTV and Roku.  The author expresses excitement about the collaboration and the platform's expansion.
 
 Key Points:
 

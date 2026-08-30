@@ -1,6 +1,6 @@
 ### 🤖 Meteorology - Atlantic Hurricane Season
 
-This article discusses the influence of the Madden-Julian Oscillation (MJO) on the start of the Atlantic hurricane season and shows an example of an MJO pulse over the Indian Ocean.
+Influence of the Madden-Julian Oscillation (MJO) on the start of the Atlantic hurricane season and shows an example of an MJO pulse over the Indian Ocean.
 
 
 Key Points:

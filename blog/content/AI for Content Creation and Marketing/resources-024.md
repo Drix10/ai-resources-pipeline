@@ -1,6 +1,6 @@
 ### 🚀 AI-Powered Content Creation - Scalable Video Generation
 
-This article discusses Creatify AI, a platform for generating high-quality videos at scale using AI avatars.  It highlights the platform's features and ease of use for various content creation needs.
+Creatify AI, a platform for generating high-quality videos at scale using AI avatars.  It highlights the platform's features and ease of use for various content creation needs.
 
 Key Points:
 

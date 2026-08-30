@@ -1,6 +1,6 @@
 ### 💡 NBA - Game Viewing Information
 
-This article provides information on how to access and watch NBA games. It covers general viewing guidance for fans.
+Information on how to access and watch NBA games. It covers general viewing guidance for fans.
 
 Key Points:
 

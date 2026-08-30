@@ -1,6 +1,6 @@
 ### 💡 Financial Markets - GBP/USD Recovery
 
-This article discusses the recent recovery of the British pound against the US dollar. It highlights the GBP/USD currency pair's performance and its position above a significant support level.
+Recent recovery of the British pound against the US dollar. It highlights the GBP/USD currency pair's performance and its position above a significant support level.
 
 Key Points:
 

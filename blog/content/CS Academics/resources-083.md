@@ -1,6 +1,6 @@
 ### 📈 Economics - Poverty Reduction in Argentina
 
-This article summarizes a report on poverty reduction in Argentina during the first quarter of 2025, highlighting significant decreases in both poverty and indigence rates.
+Report on poverty reduction in Argentina during the first quarter of 2025, highlighting significant decreases in both poverty and indigence rates.
 
 Key Points:
 

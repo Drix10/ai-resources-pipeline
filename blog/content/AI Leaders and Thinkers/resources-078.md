@@ -1,6 +1,6 @@
 ### 🤖 OpenAI & Microsoft - Contract Dispute
 
-This article discusses a potential legal dispute between OpenAI and Microsoft stemming from an unpublished OpenAI paper on AGI classification and its implications for their existing contract.
+Potential legal dispute between OpenAI and Microsoft stemming from an unpublished OpenAI paper on AGI classification and its implications for their existing contract.
 
 Key Points:
 

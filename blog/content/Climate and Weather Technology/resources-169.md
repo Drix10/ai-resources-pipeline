@@ -1,6 +1,6 @@
 ### 💡 Media Ethics - Discourse Analysis
 
-This article examines the intersection of media commentary, public sentiment regarding geographical locations, and the influence of financial affiliations on content related to climate change discussions. It also touches upon the role of regulatory bodies in media oversight.
+Intersection of media commentary, public sentiment regarding geographical locations, and the influence of financial affiliations on content related to climate change discussions. It also touches upon the role of regulatory bodies in media oversight.
 
 Key Points:
 

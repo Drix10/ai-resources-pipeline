@@ -1,6 +1,6 @@
 ### 🤖 Ibex Medical Analytics - Cancer Diagnostics Concerns
 
-This article summarizes a report highlighting American concerns regarding cancer diagnoses and the need for improved diagnostic tools.  The report reveals a significant percentage of Americans expressing worry about cancer diagnoses for themselves or loved ones.
+Report highlighting American concerns regarding cancer diagnoses and the need for improved diagnostic tools.  The report reveals a significant percentage of Americans expressing worry about cancer diagnoses for themselves or loved ones.
 
 Key Points:
 

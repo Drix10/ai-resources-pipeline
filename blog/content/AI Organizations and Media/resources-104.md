@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Effective Questioning
 
-This article discusses a research paper focusing on the importance of effective questioning when interacting with Large Language Models (LLMs).  It highlights the limitations of LLMs in generating insightful questions and emphasizes the need for improved prompting techniques.
+Research paper focusing on the importance of effective questioning when interacting with Large Language Models (LLMs).  It highlights the limitations of LLMs in generating insightful questions and emphasizes the need for improved prompting techniques.
 
 Key Points:
 

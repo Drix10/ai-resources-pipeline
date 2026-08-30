@@ -1,6 +1,6 @@
 ### 🤖 Robotics Manufacturing - Production Scaling
 
-This article discusses the scaling of a robotic manufacturing cell, from producing hundreds of robots annually to a projected output of 10,000+ robots by 2026.  The focus is on the expansion of production capabilities.
+Scaling of a robotic manufacturing cell, from producing hundreds of robots annually to a projected output of 10,000+ robots by 2026.  The focus is on the expansion of production capabilities.
 
 Key Points:
 

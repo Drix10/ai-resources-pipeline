@@ -1,6 +1,6 @@
 ### 💡 Startup Ecosystem - Y Combinator Engagement
 
-This article discusses an upcoming event featuring a Y Combinator partner at UIUC, aimed at students interested in entrepreneurship. It provides details for those in the early stages of building a startup.
+Upcoming event featuring a Y Combinator partner at UIUC, aimed at students interested in entrepreneurship. It provides details for those in the early stages of building a startup.
 
 Key Points:
 

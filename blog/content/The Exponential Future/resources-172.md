@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - SDK 2.0 Features
 
-This article discusses the capabilities and potential of Agents SDK 2.0, highlighting its significance in AI development. It outlines key aspects that make this SDK a powerful tool for building AI agent systems.
+Capabilities and potential of Agents SDK 2.0, highlighting its significance in AI development. It outlines key aspects that make this SDK a powerful tool for building AI agent systems.
 
 Key Points:
 

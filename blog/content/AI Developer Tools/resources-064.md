@@ -1,6 +1,6 @@
 ### 🤖 Convex - Simplified Development
 
-This article discusses the experience of using Convex, highlighting its ability to significantly reduce code complexity and minimize debugging efforts.
+Experience of using Convex, highlighting its ability to significantly reduce code complexity and minimize debugging efforts.
 
 Key Points:
 

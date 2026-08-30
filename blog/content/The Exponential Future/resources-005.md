@@ -1,6 +1,6 @@
 ### 🚀  ARK Invest Webinar - ETF Performance and Portfolio Insights
 
-This article summarizes the key takeaways from ARK Invest's recent webinar, covering ETF performance, portfolio insights, and audience questions.  The webinar also discussed charitable contributions tied to subscriber growth.
+Key takeaways from ARK Invest's recent webinar, covering ETF performance, portfolio insights, and audience questions.  The webinar also discussed charitable contributions tied to subscriber growth.
 
 Key Points:
 

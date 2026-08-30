@@ -1,6 +1,6 @@
 ### 🤖 AI Policy - Open-Source Regulation
 
-This article discusses arguments against over-regulating AI tools and potential international consequences. It highlights concerns about global AI development if restrictive policies are adopted.
+Arguments against over-regulating AI tools and potential international consequences. It highlights concerns about global AI development if restrictive policies are adopted.
 
 Key Points:
 

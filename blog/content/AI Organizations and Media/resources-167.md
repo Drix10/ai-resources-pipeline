@@ -1,6 +1,6 @@
 ### 🤖 Oncology - Clustered Metastasis Research
 
-This article discusses new research indicating that tumor cells often metastasize in clusters alongside other cells. This finding opens avenues for developing novel targeted treatments in oncology.
+New research indicating that tumor cells often metastasize in clusters alongside other cells. This finding opens avenues for developing novel targeted treatments in oncology.
 
 Key Points:
 

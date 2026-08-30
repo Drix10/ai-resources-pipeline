@@ -1,6 +1,6 @@
 ### 🤖 World of Warcraft - Season 3 Release Dates
 
-This article details the release dates for World of Warcraft's The War Within Season 3 and the Ghosts of K'Aresh campaign content.
+Release dates for World of Warcraft's The War Within Season 3 and the Ghosts of K'Aresh campaign content.
 
 Key Points:
 

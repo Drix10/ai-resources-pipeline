@@ -1,6 +1,6 @@
 ### 🤖 AI Conversations - Exploring the Unknown
 
-This article discusses the limitations of current AI knowledge regarding fundamental questions about reality, based on a Twitter thread exploring this topic.
+Limitations of current AI knowledge regarding fundamental questions about reality, based on a Twitter thread exploring this topic.
 
 Key Points:
 

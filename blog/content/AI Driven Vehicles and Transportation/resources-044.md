@@ -1,6 +1,6 @@
 ### 🚀 Jetson ONE Test Flight - Lord Vader's Review
 
-This article summarizes Lord Vader's test flight of the Jetson ONE personal electric aircraft and mentions accompanying video footage.
+Lord Vader's test flight of the Jetson ONE personal electric aircraft and mentions accompanying video footage.
 
 Key Points:
 

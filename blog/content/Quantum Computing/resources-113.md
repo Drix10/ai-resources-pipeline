@@ -1,6 +1,6 @@
 ### 🤖 Voting Systems -  Accountability Concerns
 
-This article discusses a critique of certain voting systems, highlighting their potential to reduce government accountability to public opinion.  The argument centers on the increased likelihood of coalition governments and the resulting impact on responsiveness.
+Critique of certain voting systems, highlighting their potential to reduce government accountability to public opinion.  The argument centers on the increased likelihood of coalition governments and the resulting impact on responsiveness.
 
 
 Key Points:

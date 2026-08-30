@@ -1,6 +1,6 @@
 ### 🤖 Global Finance - China's Reduction of US Debt Holdings
 
-This article discusses China's recent reduction of its US debt holdings by $18.9 billion, resulting in a total holding of $765.4 billion, and the potential implications of this move.
+China's recent reduction of its US debt holdings by $18.9 billion, resulting in a total holding of $765.4 billion, and the potential implications of this move.
 
 
 Key Points:

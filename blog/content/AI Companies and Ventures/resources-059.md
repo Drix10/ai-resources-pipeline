@@ -1,6 +1,6 @@
 ### 💡 Search Model - Kagi's Approach
 
-This article discusses Kagi's search model and its unique subscription-based approach, highlighting its focus on user intent over advertising influence.  Rory Sutherland's insights are mentioned as inspiration for Kagi's pricing strategy.
+Kagi's search model and its unique subscription-based approach, highlighting its focus on user intent over advertising influence.  Rory Sutherland's insights are mentioned as inspiration for Kagi's pricing strategy.
 
 
 Key Points:

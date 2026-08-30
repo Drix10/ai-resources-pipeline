@@ -1,6 +1,6 @@
 ### 💡 Medical Imaging - CT and MRI Scans
 
-This article outlines the distinct characteristics and applications of Low-Dose CT and MRI scans. It clarifies how each technology generates images and their specific uses in medical diagnostics.
+Distinct characteristics and applications of Low-Dose CT and MRI scans. It clarifies how each technology generates images and their specific uses in medical diagnostics.
 
 Key Points:
 

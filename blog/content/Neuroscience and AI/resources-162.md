@@ -1,6 +1,6 @@
 ### 🤖 Neurology - MS Neuromuscular Assessment
 
-This article discusses new research into quantifying subtle lower limb neuromuscular deficits in individuals with multiple sclerosis. It highlights an approach using jump assessment on a force plate to achieve this.
+New research into quantifying subtle lower limb neuromuscular deficits in individuals with multiple sclerosis. It highlights an approach using jump assessment on a force plate to achieve this.
 
 Key Points:
 

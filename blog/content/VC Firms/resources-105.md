@@ -1,6 +1,6 @@
 ### 💡 Finance for Creators - Building Scalable Businesses
 
-This article discusses the challenges creators face in transitioning from content creation to building scalable, venture-backed businesses and highlights a summit designed to address these challenges.
+Challenges creators face in transitioning from content creation to building scalable, venture-backed businesses and highlights a summit designed to address these challenges.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 3D Gaussian Splatting - Real-time Volumetric Rendering
 
-This article discusses the evolution of volumetric rendering techniques, highlighting how 3D Gaussian Splatting addresses traditional challenges. It explains its capability to transform complex simulations into efficient, real-time assets. The concept of 4D Gaussian Splats for temporal data is also introduced.
+Evolution of volumetric rendering techniques, highlighting how 3D Gaussian Splatting addresses traditional challenges. It explains its capability to transform complex simulations into efficient, real-time assets. The concept of 4D Gaussian Splats for temporal data is also introduced.
 
 Key Points:
 

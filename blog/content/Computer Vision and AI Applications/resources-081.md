@@ -1,6 +1,6 @@
 ### 🤖 NeurIPS Reviewer Policy - Coauthor Responsibility
 
-This article discusses the NeurIPS conference's policy regarding reviewer participation and its consequences for co-authors.  It highlights the implications of a co-author's failure to fulfill review responsibilities.
+NeurIPS conference's policy regarding reviewer participation and its consequences for co-authors.  It highlights the implications of a co-author's failure to fulfill review responsibilities.
 
 Key Points:
 

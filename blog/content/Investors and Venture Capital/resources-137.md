@@ -1,6 +1,6 @@
 ### 💡 Productivity - Idea Management
 
-This article outlines the importance of externalizing ideas rather than solely relying on memory. It emphasizes that the brain's primary function is generation, not storage, which supports effective idea management.
+Importance of externalizing ideas rather than solely relying on memory. It emphasizes that the brain's primary function is generation, not storage, which supports effective idea management.
 
 Key Points:
 

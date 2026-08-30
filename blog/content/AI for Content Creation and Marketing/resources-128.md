@@ -1,6 +1,6 @@
 ### 💡 Personalization - Avoiding Generic Customer Experiences
 
-This article discusses the common pitfalls of superficial personalization strategies. It highlights how treating customers uniformly can lead to a perceived lack of genuine engagement, moving beyond basic automation.
+Common pitfalls of superficial personalization strategies. It highlights how treating customers uniformly can lead to a perceived lack of genuine engagement, moving beyond basic automation.
 
 Key Points:
 

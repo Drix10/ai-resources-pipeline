@@ -1,6 +1,6 @@
 ### 💡 Real Estate Investment - Cold Storage Market Dynamics
 
-This article examines the financial characteristics of cold storage facilities, highlighting their construction costs, cap rates, rental premiums, and lease durations. It also identifies the primary market drivers for this specialized real estate sector.
+Financial characteristics of cold storage facilities, highlighting their construction costs, cap rates, rental premiums, and lease durations. It also identifies the primary market drivers for this specialized real estate sector.
 
 Key Points:
 

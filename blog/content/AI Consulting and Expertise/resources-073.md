@@ -1,6 +1,6 @@
 ### 🌎 Geopolitics - Iran and Israel
 
-This article summarizes a reported phone call where VP JD Vance reportedly pushed back against an attack on Iran, citing concerns about Israel potentially drawing the US into war.  The Israelis reportedly pressed for immediate action against Fordow.
+Reported phone call where VP JD Vance reportedly pushed back against an attack on Iran, citing concerns about Israel potentially drawing the US into war.  The Israelis reportedly pressed for immediate action against Fordow.
 
 Key Points:
 

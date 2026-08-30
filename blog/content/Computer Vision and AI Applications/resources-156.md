@@ -1,6 +1,6 @@
 ### 🤖 Computer Vision - Upsampling and Feature Aggregation
 
-This article discusses techniques for upsampling and feature aggregation in computer vision, comparing approaches presented in recent research. It specifically references methods like bilinear upsampling versus learned upsamplers and their application in feature processing.
+Techniques for upsampling and feature aggregation in computer vision, comparing approaches presented in recent research. It specifically references methods like bilinear upsampling versus learned upsamplers and their application in feature processing.
 
 Key Points:
 

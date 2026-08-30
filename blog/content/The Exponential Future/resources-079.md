@@ -1,6 +1,6 @@
 ### 🤖 Economic Analysis - Recessionary Forces
 
-This article examines the potential offsetting effects of productivity gains, new tax legislation, and AI's impact on the job market against a backdrop of recession.  Cathie Wood's analysis of employment trends and the interplay of policy, technology, and economic growth is discussed.
+Potential offsetting effects of productivity gains, new tax legislation, and AI's impact on the job market against a backdrop of recession.  Cathie Wood's analysis of employment trends and the interplay of policy, technology, and economic growth is discussed.
 
 Key Points:
 

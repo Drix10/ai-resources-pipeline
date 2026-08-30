@@ -1,6 +1,6 @@
 ### 🤖 AI Video Generation - Cinematic Sports Films
 
-This article explores the application of AI in producing cinematic sports films, demonstrating the advanced capabilities of AI video models in capturing dynamic action and storytelling.
+Application of AI in producing cinematic sports films, demonstrating the advanced capabilities of AI video models in capturing dynamic action and storytelling.
 
 Key Points:
 

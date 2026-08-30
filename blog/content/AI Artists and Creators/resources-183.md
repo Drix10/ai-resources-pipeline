@@ -1,6 +1,6 @@
 ### 💡 User Experience - Behavioral Nudges
 
-This article explores the concept of behavioral nudges, their application in user experience, and how subtle prompts can guide user actions. It highlights methods to encourage desired interactions without direct commands.
+Concept of behavioral nudges, their application in user experience, and how subtle prompts can guide user actions. It highlights methods to encourage desired interactions without direct commands.
 
 Key Points:
 

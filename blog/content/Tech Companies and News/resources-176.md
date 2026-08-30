@@ -1,6 +1,6 @@
 ### 💡 Product Design - Aesthetic Integration of Mathematical Concepts
 
-This article explores the aesthetic integration of mathematical constants in product design, specifically watches. It discusses how such design choices can appeal to specific user interests and signify unique stylistic elements.
+Aesthetic integration of mathematical constants in product design, specifically watches. It discusses how such design choices can appeal to specific user interests and signify unique stylistic elements.
 
 Key Points:
 

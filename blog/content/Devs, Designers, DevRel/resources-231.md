@@ -1,6 +1,6 @@
 ### 🤖 Memory Safety - Rust's Role in System-Level Programming
 
-This article discusses the historical context of memory safety in programming domains. It highlights Rust's specific contribution to addressing memory safety challenges at the system level.
+Historical context of memory safety in programming domains. It highlights Rust's specific contribution to addressing memory safety challenges at the system level.
 
 Key Points:
 

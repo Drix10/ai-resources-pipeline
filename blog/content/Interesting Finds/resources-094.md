@@ -1,6 +1,6 @@
 ### 🤖 Monorepo - AI-Coding Optimization
 
-This article discusses the benefits of migrating projects to a monorepo and outlines the next steps towards optimizing AI-coding capabilities within that structure for autonomous shipping.
+Benefits of migrating projects to a monorepo and outlines the next steps towards optimizing AI-coding capabilities within that structure for autonomous shipping.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AR/VR - Smart Glasses Display Simulation
 
-This article discusses a smart glasses display simulator that uses WebXR for previewing AR applications on headsets like the Meta Quest 3.  The simulator utilizes a JavaScript SDK to overcome Web Bluetooth limitations.
+Smart glasses display simulator that uses WebXR for previewing AR applications on headsets like the Meta Quest 3.  The simulator utilizes a JavaScript SDK to overcome Web Bluetooth limitations.
 
 Key Points:
 

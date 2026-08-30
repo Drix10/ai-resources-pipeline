@@ -1,6 +1,6 @@
 ### 🤖 AI in Education - Alpha School Model
 
-This article discusses AI's role in education, highlighting Alpha School's "Teachers 2.0" model and its approach to learning mastery and student progress tracking.
+AI's role in education, highlighting Alpha School's "Teachers 2.0" model and its approach to learning mastery and student progress tracking.
 
 Key Points:
 

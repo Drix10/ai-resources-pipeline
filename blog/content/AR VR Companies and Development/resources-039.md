@@ -1,6 +1,6 @@
 ### 🤖 Investment Strategies - AI Era
 
-This article discusses investment strategies in the age of artificial intelligence, focusing on areas less susceptible to AI-driven automation.
+Investment strategies in the age of artificial intelligence, focusing on areas less susceptible to AI-driven automation.
 
 Key Points:
 

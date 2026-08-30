@@ -1,6 +1,6 @@
 ### 📰 Politics - Trump's Statements on Military Aid and Tariffs
 
-This article summarizes recent statements by Donald Trump regarding US military aid to Ukraine and the imposition of tariffs on imports from Japan and South Korea.  It presents the information as reported without analysis or opinion.
+Recent statements by Donald Trump regarding US military aid to Ukraine and the imposition of tariffs on imports from Japan and South Korea.  It presents the information as reported without analysis or opinion.
 
 Key Points:
 

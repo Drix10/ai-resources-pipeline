@@ -1,6 +1,6 @@
 ### 💡 Community Engagement - Social Celebrations
 
-This article discusses the importance of community engagement through social celebrations, highlighting how brands connect with their audience. It emphasizes the value of acknowledging significant cultural events to foster positive relationships.
+Importance of community engagement through social celebrations, highlighting how brands connect with their audience. It emphasizes the value of acknowledging significant cultural events to foster positive relationships.
 
 Key Points:
 

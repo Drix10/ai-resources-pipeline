@@ -1,6 +1,6 @@
 ### 🚀 Events - LA Clippers Digital Collectible
 
-This article details an event offering a digital collectible and potential premium fan experiences to attendees.
+Event offering a digital collectible and potential premium fan experiences to attendees.
 
 Key Points:
 

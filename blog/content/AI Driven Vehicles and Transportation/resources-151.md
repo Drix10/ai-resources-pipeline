@@ -1,6 +1,6 @@
 ### 🤖 Computational Neuroscience - Fruit Fly Brain Simulation
 
-This article discusses the simulation of a fruit fly brain's connectome controlling a physics-simulated body. It highlights the integration of neural models with physical environments to observe neural activation leading to action.
+Simulation of a fruit fly brain's connectome controlling a physics-simulated body. It highlights the integration of neural models with physical environments to observe neural activation leading to action.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ Product Vision - Incented 2.0 Presentation
 
-This article summarizes the presentation of the Incented 2.0 vision, delivered shortly after its conceptualization. It highlights the forward-looking strategy and potential advancements for the platform.
+Presentation of the Incented 2.0 vision, delivered shortly after its conceptualization. It highlights the forward-looking strategy and potential advancements for the platform.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Hurricane Season Outlook - Atlantic Configuration
 
-This article discusses the latest North American Multi-Model Ensemble (NMME) forecast indicating a trend towards cooler conditions and a cool neutral ENSO for the peak of hurricane season.  The Atlantic configuration appears less favorable for hurricane development due to warmth concentrated at higher latitudes.
+Latest North American Multi-Model Ensemble (NMME) forecast indicating a trend towards cooler conditions and a cool neutral ENSO for the peak of hurricane season.  The Atlantic configuration appears less favorable for hurricane development due to warmth concentrated at higher latitudes.
 
 Key Points:
 

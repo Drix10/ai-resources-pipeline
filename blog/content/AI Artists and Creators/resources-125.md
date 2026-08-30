@@ -1,6 +1,6 @@
 ### 💡 Inspiration - Cultivating a Positive Mindset
 
-This article explores the concept of uplifting and inspiring individuals through various forms of creative expression and positive messaging. It highlights how different art forms can contribute to a constructive outlook.
+Concept of uplifting and inspiring individuals through various forms of creative expression and positive messaging. It highlights how different art forms can contribute to a constructive outlook.
 
 Key Points:
 

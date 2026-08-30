@@ -1,6 +1,6 @@
 ### 🤖 Economic Data - Argentinian Inflation Index
 
-This article covers Truflation's independent inflation data for Argentina, detailing their reported Consumer Price Index (CPI) figures and data aggregation methodology. It provides a statistical overview of recent inflation rates.
+Truflation's independent inflation data for Argentina, detailing their reported Consumer Price Index (CPI) figures and data aggregation methodology. It provides a statistical overview of recent inflation rates.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Community Building - Private X Community Strategy
 
-This article discusses strategies for building a private community on X (formerly Twitter), focusing on attracting early adopters and providing exclusive content.
+Strategies for building a private community on X (formerly Twitter), focusing on attracting early adopters and providing exclusive content.
 
 Key Points:
 

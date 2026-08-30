@@ -1,6 +1,6 @@
 ### 🤖 Nuclear Energy - AI Infrastructure Support
 
-This article outlines three new nuclear energy agreements and their projected impact on energy grids and advanced nuclear technology. It also discusses how these agreements are intended to strengthen energy independence and global AI leadership.
+Three new nuclear energy agreements and their projected impact on energy grids and advanced nuclear technology. It also discusses how these agreements are intended to strengthen energy independence and global AI leadership.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ⚠️ Political Commentary - Missing Epstein Client List
 
-This article discusses the alleged disappearance of the Epstein client list from Pam Bondi's desk, and subsequent responses from Karoline Leavitt.
+Alleged disappearance of the Epstein client list from Pam Bondi's desk, and subsequent responses from Karoline Leavitt.
 
 Key Points:
 

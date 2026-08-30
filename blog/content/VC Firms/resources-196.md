@@ -1,6 +1,6 @@
 ### 🚀 Startup Funding - BigEndian Semiconductors
 
-This article covers the recent funding round for BigEndian Semiconductors, highlighting the amount raised and key participants. It details the company's focus within the semiconductor industry.
+Recent funding round for BigEndian Semiconductors, highlighting the amount raised and key participants. It details the company's focus within the semiconductor industry.
 
 Key Points:
 

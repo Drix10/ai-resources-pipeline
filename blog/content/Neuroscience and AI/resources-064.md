@@ -1,6 +1,6 @@
 ### 🤖 Modeling Bacterial Chemotaxis - Reality Distortion in Programming
 
-This article discusses the phenomenon of "reality distortion" among programmers working extensively with computer models, using the example of bacterial chemotaxis simulations.  The focus is on how immersion in the model can lead to a disconnect from real-world considerations.
+Phenomenon of "reality distortion" among programmers working extensively with computer models, using the example of bacterial chemotaxis simulations.  The focus is on how immersion in the model can lead to a disconnect from real-world considerations.
 
 Key Points:
 

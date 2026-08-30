@@ -1,6 +1,6 @@
 ### 🚀 Questflow - September Recap
 
-This article summarizes Questflow's active September, highlighting key achievements including a major protocol launch and new partnerships. It covers significant presence at industry conferences.
+Questflow's active September, highlighting key achievements including a major protocol launch and new partnerships. It covers significant presence at industry conferences.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 AI Tools - Agentic Video Editing
 
-This article discusses changes to Claude's third-party tool support and highlights Mosaic.so as an alternative for agentic video editing. It provides an overview of how users can continue advanced video production.
+Changes to Claude's third-party tool support and highlights Mosaic.so as an alternative for agentic video editing. It provides an overview of how users can continue advanced video production.
 
 Key Points:
 

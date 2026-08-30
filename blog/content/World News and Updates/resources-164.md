@@ -1,6 +1,6 @@
 ### 💡 US-China Summit - Diplomatic Engagements and Trade Focus
 
-This article covers the US President's high-stakes visit to Beijing for a summit with the Chinese President. It outlines the primary topics of discussion, including a significant focus on Iran and ongoing trade relations.
+US President's high-stakes visit to Beijing for a summit with the Chinese President. It outlines the primary topics of discussion, including a significant focus on Iran and ongoing trade relations.
 
 Key Points:
 

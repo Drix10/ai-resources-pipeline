@@ -1,6 +1,6 @@
 ### 💡 Urban Infrastructure - Accountability in Road Maintenance
 
-This article discusses the persistent issue of potholes in Mumbai, highlighting the recurring nature of the problem despite annual repair efforts. It examines the underlying accountability challenges within urban infrastructure management.
+Persistent issue of potholes in Mumbai, highlighting the recurring nature of the problem despite annual repair efforts. It examines the underlying accountability challenges within urban infrastructure management.
 
 Key Points:
 

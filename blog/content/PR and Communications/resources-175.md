@@ -1,6 +1,6 @@
 ### ✨ Features - Chevrolet Campaign Revival
 
-This article details the return of Chevrolet's iconic "Heartbeat of America" advertising campaign. It highlights the campaign's significance in celebrating the 250th anniversary of the United States.
+Return of Chevrolet's iconic "Heartbeat of America" advertising campaign. It highlights the campaign's significance in celebrating the 250th anniversary of the United States.
 
 Key Points:
 

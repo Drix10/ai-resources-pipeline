@@ -1,6 +1,6 @@
 ### 🚀 Giveaways - Meta Quest 3 and VR Game Keys Giveaway
 
-This article details a giveaway offering a Meta Quest 3 and over 100 VR game keys and subscription codes.
+Giveaway offering a Meta Quest 3 and over 100 VR game keys and subscription codes.
 
 
 Key Points:

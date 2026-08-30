@@ -1,6 +1,6 @@
 ### 💡 Delhi - Personal Reflections and Ambiance
 
-This article explores personal experiences and observations related to various locations in Delhi. It captures the essence of daily life and social interactions within the city.
+Personal experiences and observations related to various locations in Delhi. It captures the essence of daily life and social interactions within the city.
 
 Key Points:
 

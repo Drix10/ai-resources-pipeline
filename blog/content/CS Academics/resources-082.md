@@ -1,6 +1,6 @@
 ### 🤖 Citizenship Requirements - Naturalized Citizens
 
-This article discusses the debate surrounding citizenship requirements for holding public office in the US, specifically focusing on the exclusion of naturalized citizens.  The author expresses their opinion on the matter.
+Debate surrounding citizenship requirements for holding public office in the US, specifically focusing on the exclusion of naturalized citizens.  The author expresses their opinion on the matter.
 
 Key Points:
 

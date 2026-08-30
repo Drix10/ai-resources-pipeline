@@ -1,6 +1,6 @@
 ### ✨ Art - GXD Save The Artist Installation
 
-This article details the "GXD SAVE THE ARTIST" art installation in New York City, displayed in Times Square and outside Radio City Hall.  The installation is part of Underground XI by ArtBeesGallery.
+"GXD SAVE THE ARTIST" art installation in New York City, displayed in Times Square and outside Radio City Hall.  The installation is part of Underground XI by ArtBeesGallery.
 
 
 Key Points:

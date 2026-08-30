@@ -1,6 +1,6 @@
 ### 📺 Retro Computing - CRT Televisions and Unexpected Color Quality
 
-This article discusses the surprisingly vibrant color reproduction of CRT televisions when used with retrocomputers, contrasting with their lower resolution.
+Surprisingly vibrant color reproduction of CRT televisions when used with retrocomputers, contrasting with their lower resolution.
 
 
 Key Points:

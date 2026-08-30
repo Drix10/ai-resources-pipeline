@@ -1,6 +1,6 @@
 ### 🚀 Fleet Management - Fuel Cost Reduction
 
-This article discusses the expansion of a fuel savings network and its integration with automated recommendations. It explains how these features contribute to reducing operational expenses for fleets.
+Expansion of a fuel savings network and its integration with automated recommendations. It explains how these features contribute to reducing operational expenses for fleets.
 
 Key Points:
 

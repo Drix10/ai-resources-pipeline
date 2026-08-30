@@ -1,6 +1,6 @@
 ### 🤖 Nvidia GPU Access - Ensuring Fair Distribution
 
-This article discusses Nvidia's commitment to ensuring equitable access to its next-generation GPU hardware for all companies, regardless of business deals or equity stakes.
+Nvidia's commitment to ensuring equitable access to its next-generation GPU hardware for all companies, regardless of business deals or equity stakes.
 
 Key Points:
 

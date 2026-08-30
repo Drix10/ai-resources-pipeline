@@ -1,6 +1,6 @@
 ### 💡 Leadership - Strategic Decision Making in Startups
 
-This article outlines critical leadership decisions made during a startup's journey, including declining acquisition and funding offers, transitioning to a solo founder role, and strategic team restructuring. It emphasizes the importance of swift decision-making and empowering team members.
+Critical leadership decisions made during a startup's journey, including declining acquisition and funding offers, transitioning to a solo founder role, and strategic team restructuring. It emphasizes the importance of swift decision-making and empowering team members.
 
 Key Points:
 

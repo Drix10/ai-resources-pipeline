@@ -1,6 +1,6 @@
 ### 💡 Classroom Management - Bellringer Setup
 
-This article details how to effectively set up Bellringers to optimize the first five minutes of class.  It provides guidance on maximizing student engagement and learning during this crucial time.
+To effectively set up Bellringers to optimize the first five minutes of class.  It provides guidance on maximizing student engagement and learning during this crucial time.
 
 Key Points:
 

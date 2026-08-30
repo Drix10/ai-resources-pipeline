@@ -1,6 +1,6 @@
 ### 💡 Educational Technology - Personalizing Learning with AI
 
-This article discusses the use of Magic School AI, Book Creator, and Adobe for Education to personalize learning experiences.  It highlights methods for integrating these tools into educational settings.
+Use of Magic School AI, Book Creator, and Adobe for Education to personalize learning experiences.  It highlights methods for integrating these tools into educational settings.
 
 Key Points:
 

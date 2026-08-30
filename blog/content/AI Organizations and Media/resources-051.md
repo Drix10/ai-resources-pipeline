@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Multi-Platform Control
 
-This article discusses DeepAgent and MCP, demonstrating their ability to control multiple digital platforms from a single chat interface.  The functionality and current usability are highlighted.
+DeepAgent and MCP, demonstrating their ability to control multiple digital platforms from a single chat interface.  The functionality and current usability are highlighted.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 💔 Social Issues - Atrocities and Celebrations
 
-This article discusses a report of a massacre and subsequent celebrations, highlighting the long history of violence against a specific group.  The post includes an image depicting the aftermath.
+Report of a massacre and subsequent celebrations, highlighting the long history of violence against a specific group.  The post includes an image depicting the aftermath.
 
 Key Points:
 

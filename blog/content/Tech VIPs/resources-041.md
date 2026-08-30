@@ -1,6 +1,6 @@
 ### 🤖 Legal - Deel Spy Case Allegations
 
-This article summarizes allegations from an affidavit filed in a legal case involving Deel, its lawyers, and a company spy.  The affidavit details alleged actions taken by Deel's lawyers to obstruct the legal process.
+Allegations from an affidavit filed in a legal case involving Deel, its lawyers, and a company spy.  The affidavit details alleged actions taken by Deel's lawyers to obstruct the legal process.
 
 Key Points:
 

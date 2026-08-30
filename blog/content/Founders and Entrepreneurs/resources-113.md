@@ -1,6 +1,6 @@
 ### 🤖 AI Algorithms - Human Perception Biases
 
-This article explores how advanced AI algorithms might interact with human perception biases, specifically referencing prospect theory. It discusses the concept of human risk aversion and status quo bias in relation to AI training methods.
+Advanced AI algorithms might interact with human perception biases, specifically referencing prospect theory. It discusses the concept of human risk aversion and status quo bias in relation to AI training methods.
 
 Key Points:
 

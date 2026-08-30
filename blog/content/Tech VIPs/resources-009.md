@@ -1,6 +1,6 @@
 ### 🤖 Google Cloud and Salesforce Partnership - Enterprise AI
 
-This article discusses the expanded partnership between Google Cloud and Salesforce, focusing on the integration of Google's Gemini AI and its implications for enterprise customers.
+Expanded partnership between Google Cloud and Salesforce, focusing on the integration of Google's Gemini AI and its implications for enterprise customers.
 
 Key Points:
 

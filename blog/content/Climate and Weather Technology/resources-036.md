@@ -1,6 +1,6 @@
 ### 🤖 Weather Phenomena - Pareidolia in Weather Patterns
 
-This article discusses a Twitter thread about weather patterns and the phenomenon of pareidolia, where people see familiar shapes in random patterns.  The thread includes images of cloud formations and discussions of weather events.
+Twitter thread about weather patterns and the phenomenon of pareidolia, where people see familiar shapes in random patterns.  The thread includes images of cloud formations and discussions of weather events.
 
 Key Points:
 

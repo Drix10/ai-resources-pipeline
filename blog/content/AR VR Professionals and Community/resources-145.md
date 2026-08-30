@@ -1,6 +1,6 @@
 ### ✨ Theme Park Attraction - Galacticoaster Ride Experience
 
-This article provides an overview of Legoland's new Galacticoaster ride, inspired by Space Mountain. It details the experience for visitors as Legoland expands its attractions.
+Legoland's new Galacticoaster ride, inspired by Space Mountain. It details the experience for visitors as Legoland expands its attractions.
 
 Key Points:
 

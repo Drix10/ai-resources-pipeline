@@ -1,6 +1,6 @@
 ### 🚀 ElevenHacks #6 - Game Development Challenge
 
-This article details the ElevenHacks #6 challenge, which invites developers to build a game utilizing Zed and ElevenLabs APIs. It outlines the challenge requirements, submission process, and participant benefits.
+ElevenHacks #6 challenge, which invites developers to build a game utilizing Zed and ElevenLabs APIs. It outlines the challenge requirements, submission process, and participant benefits.
 
 Key Points:
 

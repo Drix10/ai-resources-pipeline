@@ -1,6 +1,6 @@
 ### 💡 Natural Disasters - Australian Bushfires Impact
 
-This article details the significant bushfire activity in Australia's southeast, highlighting the destruction of homes and the report of missing persons. It provides information on the immediate consequences of these natural disasters.
+Significant bushfire activity in Australia's southeast, highlighting the destruction of homes and the report of missing persons. It provides information on the immediate consequences of these natural disasters.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Khan Academy - Expanding Beyond Math
 
-This article discusses Khan Academy's expansion beyond its core math curriculum to encompass history, reading, and civics.
+Khan Academy's expansion beyond its core math curriculum to encompass history, reading, and civics.
 
 Key Points:
 

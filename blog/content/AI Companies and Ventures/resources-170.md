@@ -1,6 +1,6 @@
 ### ✨ AI Generated Art - Artist Showcase
 
-This article highlights a specific AI-generated art project and introduces the artists behind it. It provides direct links to their profiles for further exploration of their work.
+Specific AI-generated art project and introduces the artists behind it. It provides direct links to their profiles for further exploration of their work.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🎙️ Podcasting -  Building a Successful Podcast and Selling a Company
 
-This article summarizes key insights shared by Casey Adams on the Delphi podcast, covering his journey to podcast success and experience in selling a company.  The discussion highlights the importance of listening skills and their application in various aspects of business.
+Key insights shared by Casey Adams on the Delphi podcast, covering his journey to podcast success and experience in selling a company.  The discussion highlights the importance of listening skills and their application in various aspects of business.
 
 Key Points:
 

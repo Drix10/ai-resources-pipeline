@@ -1,6 +1,6 @@
 ### 🤖 AI Performance - Language Models Comparison
 
-This article explores a recent comparison of processing capabilities between Grok and GPT-4o, indicating a shift in performance metrics or task handling capacity. It highlights the dynamic nature of AI model advancements.
+Recent comparison of processing capabilities between Grok and GPT-4o, indicating a shift in performance metrics or task handling capacity. It highlights the dynamic nature of AI model advancements.
 
 Key Points:
 

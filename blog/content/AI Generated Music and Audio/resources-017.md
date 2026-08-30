@@ -1,6 +1,6 @@
 ### 🎤 Podcasting - Scott Wyden's Setup
 
-This article details the podcasting setup of Scott Wyden, community manager and podcast host at Imagen, and host of the Photo Breakdown podcast.  It provides links to further information about his studio setup.
+Podcasting setup of Scott Wyden, community manager and podcast host at Imagen, and host of the Photo Breakdown podcast.  It provides links to further information about his studio setup.
 
 Key Points:
 

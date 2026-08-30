@@ -1,6 +1,6 @@
 ### 🤖 Healthcare Screening - Mammography Limitations
 
-This article discusses the current limitations of mammography as a gold standard screening method and the subsequent biopsy process. It highlights how these limitations contribute to accessibility issues within healthcare systems.
+Current limitations of mammography as a gold standard screening method and the subsequent biopsy process. It highlights how these limitations contribute to accessibility issues within healthcare systems.
 
 Key Points:
 

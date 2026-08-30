@@ -1,6 +1,6 @@
 ### 🔬 Neuroscience - Calcium Channels and Memory
 
-This article summarizes a study revealing how calcium ion channels in the brain, specifically CaV2.1 channels at synapses, remember signals and contribute to long-term memory formation by adopting various shapes based on electrical activity.  The study suggests a novel mechanism for memory consolidation.
+Study revealing how calcium ion channels in the brain, specifically CaV2.1 channels at synapses, remember signals and contribute to long-term memory formation by adopting various shapes based on electrical activity.  The study suggests a novel mechanism for memory consolidation.
 
 Key Points:
 

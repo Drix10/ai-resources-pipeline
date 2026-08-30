@@ -1,6 +1,6 @@
 ### 🤖 AI Interaction - Movement-Based Turing Tests
 
-This article discusses a novel approach to evaluating AI interaction using movement-based Turing tests, specifically the React to This (RTT) test.  It briefly touches upon the implications of this method for shaping our understanding of AI capabilities.
+Novel approach to evaluating AI interaction using movement-based Turing tests, specifically the React to This (RTT) test.  It briefly touches upon the implications of this method for shaping our understanding of AI capabilities.
 
 
 Key Points:

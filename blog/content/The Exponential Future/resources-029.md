@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Gina App Enhancements
 
-This article details recent improvements to the Gina AI agent, focusing on its expanded on-chain transaction capabilities across multiple blockchains.
+Recent improvements to the Gina AI agent, focusing on its expanded on-chain transaction capabilities across multiple blockchains.
 
 Key Points:
 

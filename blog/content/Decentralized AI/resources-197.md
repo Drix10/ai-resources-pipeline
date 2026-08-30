@@ -1,6 +1,6 @@
 ### 🤖 Artificial General Intelligence - Defining AGI
 
-This article discusses the varying definitions of Artificial General Intelligence (AGI). It highlights how current definitions often align with the selling interests of various labs.
+Varying definitions of Artificial General Intelligence (AGI). It highlights how current definitions often align with the selling interests of various labs.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Cybersecurity - Infostealer Malware Targeting Defense Contractors
 
-This article discusses a recent cybersecurity incident involving infostealer malware targeting U.S. military and defense contractors, highlighting the implications and potential mitigation strategies.
+Recent cybersecurity incident involving infostealer malware targeting U.S. military and defense contractors, highlighting the implications and potential mitigation strategies.
 
 Key Points:
 

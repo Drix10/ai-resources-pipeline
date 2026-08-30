@@ -1,6 +1,6 @@
 ### 🤖 AI Policy - Unconstrained Development
 
-This article discusses the debate surrounding AI safety and the implications of constraining AI development versus allowing market forces to drive its widespread adoption. It explores the perspective that widespread, unconstrained AI might lead to a safer future.
+Debate surrounding AI safety and the implications of constraining AI development versus allowing market forces to drive its widespread adoption. It explores the perspective that widespread, unconstrained AI might lead to a safer future.
 
 Key Points:
 

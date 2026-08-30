@@ -1,6 +1,6 @@
 ### ⚖️ Legal Cases - Drunk Driving Accident
 
-This article summarizes a legal case involving a drunk and high driver who caused a fatal accident involving a Washington state trooper.  The lawyer's argument focuses on differentiating between criminal and accidental actions.
+Legal case involving a drunk and high driver who caused a fatal accident involving a Washington state trooper.  The lawyer's argument focuses on differentiating between criminal and accidental actions.
 
 Key Points:
 

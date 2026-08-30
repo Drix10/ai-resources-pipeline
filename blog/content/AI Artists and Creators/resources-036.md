@@ -1,6 +1,6 @@
 ### 🎬 VFX - House of David Season 2
 
-This article details the experience of working as a VFX AI Prompt Artist and Photoshop Editor on Season 2 of House of David, a Prime Video and Amazon MGM Studios production.
+Experience of working as a VFX AI Prompt Artist and Photoshop Editor on Season 2 of House of David, a Prime Video and Amazon MGM Studios production.
 
 
 Key Points:

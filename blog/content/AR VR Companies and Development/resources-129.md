@@ -1,6 +1,6 @@
 ### 🤖 XR Technology - Goertek CES Innovations
 
-This article highlights Goertek's latest Extended Reality (XR) innovations showcased at CES, focusing on a lightweight headset and advanced optical technology. It details advancements in display quality, passthrough capabilities, and dynamic focus adjustment.
+Goertek's latest Extended Reality (XR) innovations showcased at CES, focusing on a lightweight headset and advanced optical technology. It details advancements in display quality, passthrough capabilities, and dynamic focus adjustment.
 
 Key Points:
 

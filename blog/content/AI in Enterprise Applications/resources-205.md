@@ -1,6 +1,6 @@
 ### 🤖 Workato at GartnerAPPs - Advancing Agentic AI
 
-This article summarizes Workato's participation at GartnerAPPs, highlighting discussions around AI and Agentic AI. It reflects on the company's presence in key market conversations and technological advancements.
+Workato's participation at GartnerAPPs, highlighting discussions around AI and Agentic AI. It reflects on the company's presence in key market conversations and technological advancements.
 
 Key Points:
 

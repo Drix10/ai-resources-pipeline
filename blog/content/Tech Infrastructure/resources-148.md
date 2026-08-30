@@ -1,6 +1,6 @@
 ### 💡 Project Management - Home Renovation Planning
 
-This article explores fundamental project management principles applied to personal projects such as home renovation. It outlines a structured approach to planning and execution for successful outcomes.
+Fundamental project management principles applied to personal projects such as home renovation. It outlines a structured approach to planning and execution for successful outcomes.
 
 Key Points:
 

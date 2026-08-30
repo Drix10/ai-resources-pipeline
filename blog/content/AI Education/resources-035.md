@@ -1,6 +1,6 @@
 ### 💡 Education - Standardized Test Score Improvement
 
-This article details a case study showing significant improvement in standardized test scores among 6th-grade students using a writing test preparation program.
+Case study showing significant improvement in standardized test scores among 6th-grade students using a writing test preparation program.
 
 Key Points:
 

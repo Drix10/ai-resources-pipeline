@@ -1,6 +1,6 @@
 ### 💡 Venture Capital - Current Market Trends
 
-This article discusses the evolving landscape of venture capital, highlighting key shifts in investment patterns. It covers the increasing influence of VC in the global economy and current investor priorities.
+Evolving landscape of venture capital, highlighting key shifts in investment patterns. It covers the increasing influence of VC in the global economy and current investor priorities.
 
 Key Points:
 

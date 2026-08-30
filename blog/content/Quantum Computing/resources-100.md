@@ -1,6 +1,6 @@
 ### 🤖 Blockchain Security - Attack Vectors
 
-This article discusses two primary attack vectors against blockchain protocols: backward and forward simulations.  These attacks exploit vulnerabilities in the consensus mechanism to manipulate the blockchain's history or future state.
+Two primary attack vectors against blockchain protocols: backward and forward simulations.  These attacks exploit vulnerabilities in the consensus mechanism to manipulate the blockchain's history or future state.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Physical AI - Business Transition & Autonomous Trucking Strategy
 
-This article discusses bridging the gap between physical AI concepts and business reality, specifically in autonomous trucking. It will highlight a key decision made by Gatik regarding their market focus.
+Bridging the gap between physical AI concepts and business reality, specifically in autonomous trucking. It will highlight a key decision made by Gatik regarding their market focus.
 
 Key Points:
 

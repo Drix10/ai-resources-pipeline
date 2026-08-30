@@ -1,6 +1,6 @@
 ### 🤖 F3 Files - WASM Data Decoding
 
-This article details the use of WebAssembly (WASM) programs embedded within F3 files for data decoding. It explains how WASM enables reading data even for new encodings not natively supported by a DBMS and discusses the performance implications.
+Use of WebAssembly (WASM) programs embedded within F3 files for data decoding. It explains how WASM enables reading data even for new encodings not natively supported by a DBMS and discusses the performance implications.
 
 Key Points:
 

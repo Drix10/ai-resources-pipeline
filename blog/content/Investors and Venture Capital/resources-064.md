@@ -1,6 +1,6 @@
 ### 🤖 AMD vs. NVDA in Robotics
 
-This article summarizes a former AMD employee's perspective on AMD and Nvidia's roles in the robotics industry, highlighting AMD's broad involvement in various robotic subsystems.
+Former AMD employee's perspective on AMD and Nvidia's roles in the robotics industry, highlighting AMD's broad involvement in various robotic subsystems.
 
 Key Points:
 

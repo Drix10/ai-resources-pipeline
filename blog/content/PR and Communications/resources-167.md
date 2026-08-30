@@ -1,6 +1,6 @@
 ### 💡 Marketing Effectiveness - Proving Value to CFOs
 
-This article discusses strategies for marketing professionals to effectively communicate their value to financial stakeholders. It focuses on shifting the perception of marketing spend from an expense to a measurable contribution to overall company value.
+Strategies for marketing professionals to effectively communicate their value to financial stakeholders. It focuses on shifting the perception of marketing spend from an expense to a measurable contribution to overall company value.
 
 Key Points:
 

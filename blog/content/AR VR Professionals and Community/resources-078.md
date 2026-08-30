@@ -1,6 +1,6 @@
 ### 🤖 Open Source - Solo Founder's Project
 
-This article discusses the creation and success of an open-source alternative to Perplexity, built by a solo founder without funding or a team.  The project achieved over 1 million searches and 60,000 monthly users.
+Creation and success of an open-source alternative to Perplexity, built by a solo founder without funding or a team.  The project achieved over 1 million searches and 60,000 monthly users.
 
 Key Points:
 

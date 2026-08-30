@@ -1,6 +1,6 @@
 ### 🚀 Virtuals - Partner CRM Update
 
-This article discusses a major update to the Virtuals platform, introducing a new Partner CRM feature. This feature allows partners to directly engage with leads within the platform.
+Major update to the Virtuals platform, introducing a new Partner CRM feature. This feature allows partners to directly engage with leads within the platform.
 
 Key Points:
 

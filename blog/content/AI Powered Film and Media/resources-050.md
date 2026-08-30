@@ -1,6 +1,6 @@
 ### 🤖 RunwayML - Precise Control in AI Image Generation
 
-This article discusses RunwayML's focus on precise and intuitive AI image generation, highlighting its free access and upcoming updates.
+RunwayML's focus on precise and intuitive AI image generation, highlighting its free access and upcoming updates.
 
 Key Points:
 

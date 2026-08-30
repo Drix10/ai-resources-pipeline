@@ -1,6 +1,6 @@
 ### 🤖 QA Pair Generation - Document-Based Methods
 
-This article discusses a novel approach for generating Question-Answering pairs from related document pairs. It highlights the method's effectiveness compared to single-document generation techniques for downstream tasks.
+Novel approach for generating Question-Answering pairs from related document pairs. It highlights the method's effectiveness compared to single-document generation techniques for downstream tasks.
 
 Key Points:
 

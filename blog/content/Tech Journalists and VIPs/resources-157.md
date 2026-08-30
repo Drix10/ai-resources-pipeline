@@ -1,6 +1,6 @@
 ### 💡 Education System - Public School Challenges
 
-This article examines critical perspectives on the public education system, highlighting potential areas where current offerings may not fully serve student needs.
+Critical perspectives on the public education system, highlighting potential areas where current offerings may not fully serve student needs.
 
 Key Points:
 

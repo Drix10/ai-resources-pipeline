@@ -1,6 +1,6 @@
 ### 🚀 AI Image Editing - Google Gemini 2.0 on Flora
 
-This article discusses the integration of Google Gemini 2.0's image editing capabilities within the Flora platform, enabling text-based image editing and commercial video creation.  A limited-time free trial is currently available.
+Integration of Google Gemini 2.0's image editing capabilities within the Flora platform, enabling text-based image editing and commercial video creation.  A limited-time free trial is currently available.
 
 Key Points:
 

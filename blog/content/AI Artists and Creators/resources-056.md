@@ -1,6 +1,6 @@
 ### ✨ The City - Game Update and Metrics
 
-This article summarizes an update to the game "The City," highlighting new features and showcasing player statistics.  A user interface overhaul is also mentioned.
+Update to the game "The City," highlighting new features and showcasing player statistics.  A user interface overhaul is also mentioned.
 
 Key Points:
 

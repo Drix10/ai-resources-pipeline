@@ -1,6 +1,6 @@
 ### 💡 Entrepreneurship - Risk vs. Reward
 
-This article discusses the principle that taking strategic risks can yield greater benefits than consistently choosing the safest option. It explores the potential for substantial growth and innovation when traditional boundaries are challenged.
+Principle that taking strategic risks can yield greater benefits than consistently choosing the safest option. It explores the potential for substantial growth and innovation when traditional boundaries are challenged.
 
 Key Points:
 

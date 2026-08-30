@@ -1,6 +1,6 @@
 ### ✨ Community Engagement - Member Recognition
 
-This article discusses the importance of community recognition platforms that allow users to highlight notable members. It specifically addresses situations where individuals might be surprisingly absent from predefined lists.
+Importance of community recognition platforms that allow users to highlight notable members. It specifically addresses situations where individuals might be surprisingly absent from predefined lists.
 
 Key Points:
 

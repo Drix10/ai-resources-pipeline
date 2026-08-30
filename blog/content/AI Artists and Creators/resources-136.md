@@ -1,6 +1,6 @@
 ### ✨ AI Art - Image Transformation Workflow
 
-This article explores AI-driven image transformation, illustrating the process from initial concept to refined final output. It highlights how artificial intelligence can modify and enhance visual content.
+AI-driven image transformation, illustrating the process from initial concept to refined final output. It highlights how artificial intelligence can modify and enhance visual content.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🎉 Events - St. Patrick's Day Party Proposal
 
-This article details a proposal for a St. Patrick's Day party at fdotinc HQ in San Francisco, targeting builders and those interested in shipping.  The proposal includes a plan to cover all expenses.
+Proposal for a St. Patrick's Day party at fdotinc HQ in San Francisco, targeting builders and those interested in shipping.  The proposal includes a plan to cover all expenses.
 
 Key Points:
 

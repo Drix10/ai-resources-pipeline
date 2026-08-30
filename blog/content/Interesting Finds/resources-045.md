@@ -1,6 +1,6 @@
 ### 🤖 AAA Game Development - Shifting Paradigms
 
-This article discusses the evolution of AAA game development, highlighting a shift from large upfront investments to a more data-driven approach leveraging AI for early player feedback and informed development decisions.
+Evolution of AAA game development, highlighting a shift from large upfront investments to a more data-driven approach leveraging AI for early player feedback and informed development decisions.
 
 Key Points:
 

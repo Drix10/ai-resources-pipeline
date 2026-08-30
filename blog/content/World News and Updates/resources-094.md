@@ -1,6 +1,6 @@
 ### 🗣️ Indian Politics - BJP MP's Comment on Rahul Gandhi's Yatra
 
-This article summarizes BJP MP Dinesh Sharma's comment on Congress's 'Voter Adhikar Yatra', stating that while Rahul Gandhi is free to undertake padyatras, people won't vote for him.  A video of the comment is available.
+BJP MP Dinesh Sharma's comment on Congress's 'Voter Adhikar Yatra', stating that while Rahul Gandhi is free to undertake padyatras, people won't vote for him.  A video of the comment is available.
 
 Key Points:
 

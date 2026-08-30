@@ -1,6 +1,6 @@
 ### 💡 Policy Impact - Degrowth Challenges in Healthcare
 
-This article discusses the observed challenges faced by European hospitals due to the implementation of degrowth policies. It highlights a specific scenario where healthcare facilities struggle with basic operational needs like temperature control.
+Observed challenges faced by European hospitals due to the implementation of degrowth policies. It highlights a specific scenario where healthcare facilities struggle with basic operational needs like temperature control.
 
 Key Points:
 

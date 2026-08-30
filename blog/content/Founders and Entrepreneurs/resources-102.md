@@ -1,6 +1,6 @@
 ### 📊 AI Measurement - Leader Perceptions
 
-This article examines the perceived understanding of AI measurement among leaders, based on data from an upcoming report.  The focus is on the discrepancy between perceived knowledge and reality.
+Perceived understanding of AI measurement among leaders, based on data from an upcoming report.  The focus is on the discrepancy between perceived knowledge and reality.
 
 Key Points:
 

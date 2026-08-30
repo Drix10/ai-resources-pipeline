@@ -1,6 +1,6 @@
 ### 💡 History - Economic Grievances and Regime Change
 
-This article examines historical instances where economic grievances have been a significant factor leading to regime change.  Several historical examples illustrate this correlation.
+Historical instances where economic grievances have been a significant factor leading to regime change.  Several historical examples illustrate this correlation.
 
 Key Points:
 

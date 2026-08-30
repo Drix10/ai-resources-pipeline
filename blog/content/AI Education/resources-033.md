@@ -1,6 +1,6 @@
 ### 💡 Education - Kami's Impact on Schools
 
-This article discusses the positive impact of Kami on student engagement and accessibility in educational settings and provides a submission link for sharing success stories.
+Positive impact of Kami on student engagement and accessibility in educational settings and provides a submission link for sharing success stories.
 
 Key Points:
 

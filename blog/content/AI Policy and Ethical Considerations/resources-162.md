@@ -1,6 +1,6 @@
 ### 💡 Social Investment - Indigenous Community Support
 
-This article details a significant financial commitment aimed at enhancing care and support services for Indigenous families across the country. It outlines the specific areas of investment intended to strengthen communities.
+Significant financial commitment aimed at enhancing care and support services for Indigenous families across the country. It outlines the specific areas of investment intended to strengthen communities.
 
 Key Points:
 

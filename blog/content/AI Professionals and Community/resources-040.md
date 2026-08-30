@@ -1,6 +1,6 @@
 ### 💡 Autism Awareness - Late Diagnosis in Women
 
-This article discusses the often-overlooked diagnosis of autism in women, highlighting the experiences of a woman diagnosed later in life.  It aims to raise awareness and reduce stigma surrounding autism.
+Often-overlooked diagnosis of autism in women, highlighting the experiences of a woman diagnosed later in life.  It aims to raise awareness and reduce stigma surrounding autism.
 
 Key Points:
 

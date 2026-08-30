@@ -1,6 +1,6 @@
 ### 🤖 Computing History - Abstraction and Implementation
 
-This article explores Ifrah's proposition regarding the deceleration of computing innovation. It focuses on the idea that a successful abstraction requires a corresponding theory of implementation.  The article uses Babbage's analytical engine as a case study.
+Ifrah's proposition regarding the deceleration of computing innovation. It focuses on the idea that a successful abstraction requires a corresponding theory of implementation.  The article uses Babbage's analytical engine as a case study.
 
 Key Points:
 

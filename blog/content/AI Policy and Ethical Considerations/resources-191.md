@@ -1,6 +1,6 @@
 ### 💡 Public Policy - Cost Diffusion in Public Services
 
-This article examines a public policy perspective on funding models for public services, discussing cost diffusion and the distribution of benefits. It considers arguments against directly billing only primary beneficiaries for services like education and policing.
+Public policy perspective on funding models for public services, discussing cost diffusion and the distribution of benefits. It considers arguments against directly billing only primary beneficiaries for services like education and policing.
 
 Key Points:
 

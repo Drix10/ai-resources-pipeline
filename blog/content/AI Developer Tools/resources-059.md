@@ -1,6 +1,6 @@
 ### 🤖 AI in Chemistry and Biology - OMol25 Dataset
 
-This article discusses the release of OMol25, a large dataset of molecular conformers, and its potential applications in AI-driven chemistry and biology research.
+Release of OMol25, a large dataset of molecular conformers, and its potential applications in AI-driven chemistry and biology research.
 
 Key Points:
 

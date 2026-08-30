@@ -1,6 +1,6 @@
 ### 🤖 Data Security - Public LLMs and Sensitive Information
 
-This article discusses the risks of sharing sensitive information with public Large Language Models (LLMs) and introduces the concept of Personal AI as an alternative.
+Risks of sharing sensitive information with public Large Language Models (LLMs) and introduces the concept of Personal AI as an alternative.
 
 Key Points:
 

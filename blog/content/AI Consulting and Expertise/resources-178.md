@@ -1,6 +1,6 @@
 ### 💡 Generational Engagement - Political Participation
 
-This article discusses the observation of multi-generational participation within a political movement, highlighting the demographic breadth from Boomers to Gen Z. It also notes the anticipation of a historically significant election in Tamil Nadu for 2026.
+Observation of multi-generational participation within a political movement, highlighting the demographic breadth from Boomers to Gen Z. It also notes the anticipation of a historically significant election in Tamil Nadu for 2026.
 
 Key Points:
 

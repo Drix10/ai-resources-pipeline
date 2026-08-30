@@ -1,6 +1,6 @@
 ### 🤖 Endpoint Security - Validating EDR Effectiveness
 
-This article discusses the critical distinction between EDR visibility and validation. It highlights the importance of actively testing EDR defenses to ensure actual protection against threats.
+Critical distinction between EDR visibility and validation. It highlights the importance of actively testing EDR defenses to ensure actual protection against threats.
 
 Key Points:
 

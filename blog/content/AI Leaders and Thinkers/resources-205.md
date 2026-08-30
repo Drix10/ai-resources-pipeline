@@ -1,6 +1,6 @@
 ### 💡 GBA Office - Bengaluru Location Details
 
-This article provides details regarding the GBA office located in Bengaluru South, specifically within Zone 2. It highlights the physical location and related visual context.
+Details regarding the GBA office located in Bengaluru South, specifically within Zone 2. It highlights the physical location and related visual context.
 
 Key Points:
 

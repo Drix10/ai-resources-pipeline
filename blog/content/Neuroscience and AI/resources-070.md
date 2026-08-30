@@ -1,6 +1,6 @@
 ### 💡 Writing - AI Prose and Existential Dilemmas
 
-This article explores why AI-generated prose often lacks depth, connecting it to C.S. Lewis's perspective on writing as a process of self-understanding and resolving existential conflicts.
+Why AI-generated prose often lacks depth, connecting it to C.S. Lewis's perspective on writing as a process of self-understanding and resolving existential conflicts.
 
 
 Key Points:

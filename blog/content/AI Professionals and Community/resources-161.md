@@ -1,6 +1,6 @@
 ### 🤖 AI Research - The AI Scientist
 
-This article discusses the "AI Scientist" project, recently published in Nature, focusing on its advancements in automated AI research. It also covers new scaling law results indicating performance improvements with increased computational resources.
+"AI Scientist" project, recently published in Nature, focusing on its advancements in automated AI research. It also covers new scaling law results indicating performance improvements with increased computational resources.
 
 Key Points:
 

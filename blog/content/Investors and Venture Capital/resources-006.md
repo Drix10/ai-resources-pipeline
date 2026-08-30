@@ -1,6 +1,6 @@
 ### 🤖 Web Agents - Current State and Future Outlook
 
-This article summarizes the current state of web agents, highlighting key players, use cases, and open questions regarding their future development.  It draws from a VentureBeat analysis.
+Current state of web agents, highlighting key players, use cases, and open questions regarding their future development.  It draws from a VentureBeat analysis.
 
 Key Points:
 

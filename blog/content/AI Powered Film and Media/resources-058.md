@@ -1,6 +1,6 @@
 ### ✨ Events - Silk Road Chapter 02 in Bali
 
-This article provides information about Silk Road Chapter 02, a five-day gathering in Bali that combines art, technology, and culture.  The event aims to foster engagement and exploration within these fields.
+Information about Silk Road Chapter 02, a five-day gathering in Bali that combines art, technology, and culture.  The event aims to foster engagement and exploration within these fields.
 
 
 Key Points:

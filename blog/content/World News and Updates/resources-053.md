@@ -1,6 +1,6 @@
 ### 🗣️ Middle East Politics - Trump's Visit Analysis
 
-This article summarizes an interview discussing former US President Trump's Middle East trip and its perceived success, featuring insights from Barbara Leaf, former US ambassador to the UAE.
+Interview discussing former US President Trump's Middle East trip and its perceived success, featuring insights from Barbara Leaf, former US ambassador to the UAE.
 
 Key Points:
 

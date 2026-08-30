@@ -1,6 +1,6 @@
 ### 🤖 Finance - Gold's Portfolio Utility
 
-This article discusses D.E. Shaw's recommendation for a gold allocation in investment portfolios, citing low correlation with stocks and projected price appreciation exceeding inflation.  The analysis references a related article on machine learning applications in finance.
+D.E. Shaw's recommendation for a gold allocation in investment portfolios, citing low correlation with stocks and projected price appreciation exceeding inflation.  The analysis references a related article on machine learning applications in finance.
 
 Key Points:
 

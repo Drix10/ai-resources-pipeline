@@ -1,6 +1,6 @@
 ### ✨ Community Progress - Milestone Achievement
 
-This article details a recent community growth update. It outlines current member counts and projected future milestones.
+Recent community growth update. It outlines current member counts and projected future milestones.
 
 Key Points:
 

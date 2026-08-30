@@ -1,6 +1,6 @@
 ### 🤖 Subnet 93 Investment - High Return
 
-This article discusses a significant return on investment in Subnet 93, highlighting the project's potential and the author's strategy.
+Significant return on investment in Subnet 93, highlighting the project's potential and the author's strategy.
 
 
 Key Points:

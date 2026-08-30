@@ -1,6 +1,6 @@
 ### 💡 Hedge Fund Operations - Lack of Hedging
 
-This article discusses a common observation in the hedge fund industry: the tendency for funds to operate without sufficient hedging strategies.
+Common observation in the hedge fund industry: the tendency for funds to operate without sufficient hedging strategies.
 
 Key Points:
 

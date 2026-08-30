@@ -1,6 +1,6 @@
 ### ⚠️ Severe Weather - High Risk Day 2
 
-This article discusses the unusually high number of high-risk weather warnings issued on Day 2 of a severe weather event.  It analyzes the three instances since 2006 and provides relevant links for further information.
+Unusually high number of high-risk weather warnings issued on Day 2 of a severe weather event.  It analyzes the three instances since 2006 and provides relevant links for further information.
 
 Key Points:
 

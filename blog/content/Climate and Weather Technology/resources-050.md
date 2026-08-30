@@ -1,6 +1,6 @@
 ### 🤖 Tornado Safety - Shelter Map Awareness
 
-This article discusses the impact of a tornado shelter map created by a Ph.D. meteorologist, highlighting its contribution to national safety awareness and the ongoing efforts to save lives.
+Impact of a tornado shelter map created by a Ph.D. meteorologist, highlighting its contribution to national safety awareness and the ongoing efforts to save lives.
 
 Key Points:
 

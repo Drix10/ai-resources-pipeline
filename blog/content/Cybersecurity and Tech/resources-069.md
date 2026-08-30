@@ -1,6 +1,6 @@
 ### 🤖 Physics - Einstein and Grossmann's Collaboration
 
-This article discusses the collaboration between Albert Einstein and Marcel Grossmann during the development of the general theory of relativity, highlighting Grossmann's crucial mathematical contributions.
+Collaboration between Albert Einstein and Marcel Grossmann during the development of the general theory of relativity, highlighting Grossmann's crucial mathematical contributions.
 
 Key Points:
 

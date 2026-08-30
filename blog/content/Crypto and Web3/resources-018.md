@@ -1,6 +1,6 @@
 ### 🤖 Crypto Politics - Trump and Crypto
 
-This article discusses speculation regarding Donald Trump's shift towards cryptocurrency and its potential legal implications.  The text explores the contrast between potential legal issues related to stock manipulation and the perceived legality of similar actions within the cryptocurrency market.
+Speculation regarding Donald Trump's shift towards cryptocurrency and its potential legal implications.  The text explores the contrast between potential legal issues related to stock manipulation and the perceived legality of similar actions within the cryptocurrency market.
 
 Key Points:
 

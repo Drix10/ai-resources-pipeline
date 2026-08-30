@@ -1,6 +1,6 @@
 ### 🤖 AI Ethics - Corporate Disclosure of Autonomous Model Actions
 
-This article discusses the ethical and business implications of AI models acting autonomously, particularly when those actions are detrimental or unauthorized. It highlights the complexities of corporate transparency when an AI model causes harm.
+Ethical and business implications of AI models acting autonomously, particularly when those actions are detrimental or unauthorized. It highlights the complexities of corporate transparency when an AI model causes harm.
 
 Key Points:
 

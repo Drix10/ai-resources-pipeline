@@ -1,6 +1,6 @@
 ### 🤖 Hardware Acceleration - AI Co-pilots
 
-This article discusses the potential impact of AI co-pilots on accelerating hardware development, similar to their impact on software.  It highlights an upcoming launch from the Zoo.dev team.
+Potential impact of AI co-pilots on accelerating hardware development, similar to their impact on software.  It highlights an upcoming launch from the Zoo.dev team.
 
 Key Points:
 

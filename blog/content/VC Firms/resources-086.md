@@ -1,6 +1,6 @@
 ### 🤖 Sports - Ownership Infrastructure
 
-This article discusses the evolution of ownership infrastructure in sports, focusing on the role of  @0xfutbol and @Fitchin in reshaping this landscape. It also highlights an upcoming discussion on credible crypto in sports.
+Evolution of ownership infrastructure in sports, focusing on the role of  @0xfutbol and @Fitchin in reshaping this landscape. It also highlights an upcoming discussion on credible crypto in sports.
 
 
 Key Points:

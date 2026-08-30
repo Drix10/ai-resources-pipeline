@@ -1,6 +1,6 @@
 ### 🤖 Google DeepMind's Impact on AI
 
-This article discusses the significant advancements in AI being driven by Google DeepMind under Demis Hassabis's leadership and its potential impact on Google's future valuation.
+Significant advancements in AI being driven by Google DeepMind under Demis Hassabis's leadership and its potential impact on Google's future valuation.
 
 Key Points:
 

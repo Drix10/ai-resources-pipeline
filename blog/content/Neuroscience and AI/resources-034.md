@@ -1,6 +1,6 @@
 ### ⚠️ Social Security - Republican Billionaire's Plan
 
-This article discusses allegations regarding a plan by Republican billionaires to undermine Social Security, focusing on actions like cutting phone lines and closing offices to hinder access to benefits.  The claim is that this strategy aims to ultimately end the Social Security program.
+Allegations regarding a plan by Republican billionaires to undermine Social Security, focusing on actions like cutting phone lines and closing offices to hinder access to benefits.  The claim is that this strategy aims to ultimately end the Social Security program.
 
 
 Key Points:

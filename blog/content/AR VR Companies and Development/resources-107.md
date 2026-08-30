@@ -1,6 +1,6 @@
 ### 🤖 Web3 Investments - Jadu & NFT Portfolio
 
-This article discusses the author's experience with Web3 investments, specifically focusing on their long-term holding of Jadu NFTs despite market downturns.  The author highlights the significance of their Jadu investment and contrasts it with other liquidated assets.
+Author's experience with Web3 investments, specifically focusing on their long-term holding of Jadu NFTs despite market downturns.  The author highlights the significance of their Jadu investment and contrasts it with other liquidated assets.
 
 Key Points:
 

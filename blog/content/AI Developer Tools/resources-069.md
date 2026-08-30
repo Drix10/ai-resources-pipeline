@@ -1,6 +1,6 @@
 ### 🤖 Lean Theorem Proving - Automated Formalization
 
-This article discusses the fully automated formalization of mathematical theorems within the Lean theorem prover, focusing on a specific example related to estimating solutions to equations.
+Fully automated formalization of mathematical theorems within the Lean theorem prover, focusing on a specific example related to estimating solutions to equations.
 
 Key Points:
 

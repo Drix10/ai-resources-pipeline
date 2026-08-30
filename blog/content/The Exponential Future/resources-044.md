@@ -1,6 +1,6 @@
 ### 🤖 Space-Based Solar Power - Aetherflux
 
-This article discusses Aetherflux, a startup aiming to revolutionize renewable energy by harvesting solar power in space and transmitting it to Earth via laser.  The company recently secured significant Series A funding.
+Aetherflux, a startup aiming to revolutionize renewable energy by harvesting solar power in space and transmitting it to Earth via laser.  The company recently secured significant Series A funding.
 
 Key Points:
 

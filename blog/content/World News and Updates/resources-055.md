@@ -1,6 +1,6 @@
 ### 💔 Celebrity News - Passing of George Wendt
 
-This article summarizes the passing of George Wendt, actor best known for his role as Norm Peterson in the sitcom *Cheers*, and includes a childhood anecdote shared by his nephew, Jason Sudeikis.
+Passing of George Wendt, actor best known for his role as Norm Peterson in the sitcom *Cheers*, and includes a childhood anecdote shared by his nephew, Jason Sudeikis.
 
 Key Points:
 

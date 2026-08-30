@@ -1,6 +1,6 @@
 ### 🤖 AI in Scientific Research - Auditing with AI Agents
 
-This article discusses the use of AI agents to audit scientific research, as detailed in an interview with Nature, a leading scientific journal.  The focus is on how AI can identify minor errors in research papers.
+Use of AI agents to audit scientific research, as detailed in an interview with Nature, a leading scientific journal.  The focus is on how AI can identify minor errors in research papers.
 
 Key Points:
 

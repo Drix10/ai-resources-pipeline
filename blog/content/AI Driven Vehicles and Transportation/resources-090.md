@@ -1,6 +1,6 @@
 ### 🤖 Finance - Electric Vehicle Fleet Financing
 
-This article discusses the financing feasibility of an electric vehicle fleet based on the size of the fleet.  It highlights the difference in financing options based on fleet size.
+Financing feasibility of an electric vehicle fleet based on the size of the fleet.  It highlights the difference in financing options based on fleet size.
 
 Key Points:
 

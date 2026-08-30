@@ -1,6 +1,6 @@
 ### 🤖 Generative Models - Building upon DreamFusion
 
-This article discusses the development of generative models, building upon the work done with DreamFusion and subsequent related updates.  It highlights key contributors and advancements in the field.
+Development of generative models, building upon the work done with DreamFusion and subsequent related updates.  It highlights key contributors and advancements in the field.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🌎 Washington State at Japan IT Week
 
-This article discusses Washington State's participation in Japan IT Week, highlighting its focus on building bridges and fostering innovation.
+Washington State's participation in Japan IT Week, highlighting its focus on building bridges and fostering innovation.
 
 Key Points:
 

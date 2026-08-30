@@ -1,6 +1,6 @@
 ### ✨ Home Decor - Modern Bedroom Design
 
-This article provides a detailed description of a modern bedroom aesthetic, highlighting specific design elements that contribute to its clean and contemporary appeal. It focuses on the strategic placement of furniture and decorative accents.
+Detailed description of a modern bedroom aesthetic, highlighting specific design elements that contribute to its clean and contemporary appeal. It focuses on the strategic placement of furniture and decorative accents.
 
 Key Points:
 

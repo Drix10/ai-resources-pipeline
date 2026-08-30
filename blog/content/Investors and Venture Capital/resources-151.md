@@ -1,6 +1,6 @@
 ### 🚀 Gaming - SpaceX Mass Driver Simulation
 
-This article discusses "MASS DRIVER," a video game operating within the DoorsXP system. It details the game's objective, which involves a time-sensitive space-related task.
+"MASS DRIVER," a video game operating within the DoorsXP system. It details the game's objective, which involves a time-sensitive space-related task.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 AI Art Pricing - Avoiding the "Cheap and Fast" Trap
 
-This article discusses the impact of undervaluing AI-generated art and filmmaking, focusing on the negative effects of promoting low prices.
+Impact of undervaluing AI-generated art and filmmaking, focusing on the negative effects of promoting low prices.
 
 
 Key Points:

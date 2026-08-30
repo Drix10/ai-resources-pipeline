@@ -1,6 +1,6 @@
 ### 🚀 Rive React Native - Performance Rewrite
 
-This article discusses the performance improvements achieved by rewriting the Rive React Native library to Nitro. The rewrite resulted in significant gains in load times and memory efficiency for animations.
+Performance improvements achieved by rewriting the Rive React Native library to Nitro. The rewrite resulted in significant gains in load times and memory efficiency for animations.
 
 Key Points:
 

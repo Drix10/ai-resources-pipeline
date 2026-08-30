@@ -1,6 +1,6 @@
 ### 💡 Academic Writing - Focused Sessions
 
-This article highlights opportunities for researchers to engage in structured, focused academic writing sessions. It describes a free weekly online event designed to support concentrated writing efforts amidst discussions about AI in research.
+Opportunities for researchers to engage in structured, focused academic writing sessions. It describes a free weekly online event designed to support concentrated writing efforts amidst discussions about AI in research.
 
 Key Points:
 

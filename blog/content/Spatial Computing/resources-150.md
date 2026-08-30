@@ -1,6 +1,6 @@
 ### 🤖 Tesla Hardware - HW3 Status
 
-This article discusses the speculation surrounding the potential end-of-life for Tesla's Hardware 3 (HW3) computing platform. It reflects on the sentiment that HW3 may be nearing obsolescence.
+Speculation surrounding the potential end-of-life for Tesla's Hardware 3 (HW3) computing platform. It reflects on the sentiment that HW3 may be nearing obsolescence.
 
 Key Points:
 

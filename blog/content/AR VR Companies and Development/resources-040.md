@@ -1,6 +1,6 @@
 ### 🚀 Hard Bullet - New Modes and Quest 3 Compatibility
 
-This article discusses the addition of classic game modes to Hard Bullet, specifically highlighting the Sandbox mode and its Dead End map, now available on Meta Quest 3.
+Addition of classic game modes to Hard Bullet, specifically highlighting the Sandbox mode and its Dead End map, now available on Meta Quest 3.
 
 
 Key Points:

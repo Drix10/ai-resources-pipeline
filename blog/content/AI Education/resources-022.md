@@ -1,6 +1,6 @@
 ### 🤖 Research Limitations - Evaluator Bias
 
-This article discusses limitations encountered during a research analysis, focusing on potential evaluator bias due to compensation.  The analysis also notes a small sample size as a contributing factor.
+Limitations encountered during a research analysis, focusing on potential evaluator bias due to compensation.  The analysis also notes a small sample size as a contributing factor.
 
 Key Points:
 

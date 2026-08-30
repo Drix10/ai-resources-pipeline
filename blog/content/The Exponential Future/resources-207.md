@@ -1,6 +1,6 @@
 ### 💰 Commodity Markets - Wheat Price Movement
 
-This article provides a brief update on recent wheat futures trading, noting a price reduction from the previous close.
+Update on recent wheat futures trading, noting a price reduction from the previous close.
 
 Key Points:
 

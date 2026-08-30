@@ -1,6 +1,6 @@
 ### 🚀 Startup Events - Dream Launch Startup Weekend
 
-This article provides information about the Dream Launch Startup Weekend event hosted by Communitech, outlining its purpose and registration details.
+Information about the Dream Launch Startup Weekend event hosted by Communitech, outlining its purpose and registration details.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🌍 Geopolitics - Saudi Arabian Deals on US Soil
 
-This article discusses why Saudi Arabia might choose not to conduct certain deals on US soil, focusing on the implications of US laws, export controls, and oversight.
+Why Saudi Arabia might choose not to conduct certain deals on US soil, focusing on the implications of US laws, export controls, and oversight.
 
 Key Points:
 

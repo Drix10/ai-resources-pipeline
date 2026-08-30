@@ -1,6 +1,6 @@
 ### 🤖 AI Safety - Feedback on Amazon's Frontier Model Safety Framework
 
-This article summarizes feedback provided on iterative drafts of Amazon's Frontier Model Safety Framework, focusing on capability thresholds related to CBRN, cyber, and automated AI R&D, and aiming to improve AI safety and security.
+Feedback provided on iterative drafts of Amazon's Frontier Model Safety Framework, focusing on capability thresholds related to CBRN, cyber, and automated AI R&D, and aiming to improve AI safety and security.
 
 Key Points:
 

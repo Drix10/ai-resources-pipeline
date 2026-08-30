@@ -1,6 +1,6 @@
 ### 🤖 Bitcoin Security - Quantum Threat Mitigation
 
-This article discusses the integration of Bitcoin Improvement Proposal 360 (BIP 360) into Bitcoin's official code repository. The proposal strengthens Bitcoin's cryptographic defenses against emerging long-term quantum computing threats.
+Integration of Bitcoin Improvement Proposal 360 (BIP 360) into Bitcoin's official code repository. The proposal strengthens Bitcoin's cryptographic defenses against emerging long-term quantum computing threats.
 
 Key Points:
 

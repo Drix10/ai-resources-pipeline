@@ -1,6 +1,6 @@
 ### 💡 Project Management - The Illusion of Scientific Frameworks
 
-This article discusses the limitations of popular project management frameworks like RICE, ICE, and Value vs. Effort, highlighting their reliance on intuition despite attempts to appear data-driven.
+Limitations of popular project management frameworks like RICE, ICE, and Value vs. Effort, highlighting their reliance on intuition despite attempts to appear data-driven.
 
 Key Points:
 

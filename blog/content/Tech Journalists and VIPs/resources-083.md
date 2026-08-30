@@ -1,6 +1,6 @@
 ### 🤖 Grok CLI - Meta-Generated IDE
 
-This article details a meta-generated Grok CLI, created by prompting Grok 4 to generate its own command-line interface.  The CLI's capabilities and functionalities are described.
+Meta-generated Grok CLI, created by prompting Grok 4 to generate its own command-line interface.  The CLI's capabilities and functionalities are described.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ Digital Updates - General Information
 
-This article provides a brief announcement regarding a new update or event. It summarizes the current context presented in the original post.
+Announcement regarding a new update or event. It summarizes the current context presented in the original post.
 
 Key Points:
 

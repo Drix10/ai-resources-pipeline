@@ -1,6 +1,6 @@
 ### ✨ Instagram - Spatial Gallery Feature
 
-This article discusses the use of iPhone photography in Apple's official profile and explores the potential of a "Shot on iPhone" campaign utilizing Apple's Spatial Gallery app.  The article also notes the spatial display capabilities of the app.
+Use of iPhone photography in Apple's official profile and explores the potential of a "Shot on iPhone" campaign utilizing Apple's Spatial Gallery app.  The article also notes the spatial display capabilities of the app.
 
 Key Points:
 

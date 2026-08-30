@@ -1,6 +1,6 @@
 ### 💡 Coding Best Practices - Explicit Types and Comments
 
-This article examines common coding practices concerning comments and explicit type declarations. It highlights how these elements contribute to code clarity and maintainability.
+Common coding practices concerning comments and explicit type declarations. It highlights how these elements contribute to code clarity and maintainability.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Assistive Technology - Voice Reconstruction
 
-This article discusses Impact Voice Lab, a project that helps individuals who have lost the ability to speak rebuild their voices using existing audio recordings.  The process involves cleaning and preparing these recordings for use.
+Impact Voice Lab, a project that helps individuals who have lost the ability to speak rebuild their voices using existing audio recordings.  The process involves cleaning and preparing these recordings for use.
 
 Key Points:
 

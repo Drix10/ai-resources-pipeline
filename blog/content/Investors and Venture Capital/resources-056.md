@@ -1,6 +1,6 @@
 ### 🤖 Knowledge Arbitrage - Platform Shifts
 
-This article discusses knowledge arbitrage, particularly the opportunities presented during shifts in social media platforms.  It highlights the expertise gained by early adopters of social media and the challenges faced during platform transitions.
+Knowledge arbitrage, particularly the opportunities presented during shifts in social media platforms.  It highlights the expertise gained by early adopters of social media and the challenges faced during platform transitions.
 
 
 Key Points:

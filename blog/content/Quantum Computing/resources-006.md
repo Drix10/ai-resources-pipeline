@@ -1,6 +1,6 @@
 ### 🤖 Corporate Reporting - Diversity and Inclusion Statements
 
-This article discusses the removal of diversity and inclusion statements from Berkshire Hathaway's annual report and the broader trend of similar actions by other companies.  It also touches upon the implications of this trend.
+Removal of diversity and inclusion statements from Berkshire Hathaway's annual report and the broader trend of similar actions by other companies.  It also touches upon the implications of this trend.
 
 Key Points:
 

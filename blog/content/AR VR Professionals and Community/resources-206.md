@@ -1,6 +1,6 @@
 ### 🤖 3D Motion Graphics - Coding Agents and Geospatial Tech
 
-This article discusses the creation of 3D motion graphics using coding agents and integrating geospatial technology for visualization. It highlights the process of animating complex data with code.
+Creation of 3D motion graphics using coding agents and integrating geospatial technology for visualization. It highlights the process of animating complex data with code.
 
 Key Points:
 

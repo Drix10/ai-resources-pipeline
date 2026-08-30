@@ -1,6 +1,6 @@
 ### ✍️ Baldwin's Legacy - Institutional Change
 
-This article discusses Darryl Pinckney's essay on the James Baldwin exhibition at the Schomburg Center, focusing on Baldwin's role as both a revolutionary and an agent of institutional change.
+Darryl Pinckney's essay on the James Baldwin exhibition at the Schomburg Center, focusing on Baldwin's role as both a revolutionary and an agent of institutional change.
 
 Key Points:
 

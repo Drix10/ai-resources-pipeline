@@ -1,6 +1,6 @@
 ### 🤖 Gaming - Season 4 Finals
 
-This article summarizes a gamer's progress throughout multiple seasons of a game, their plans for the upcoming season, and an upcoming livestream.
+Gamer's progress throughout multiple seasons of a game, their plans for the upcoming season, and an upcoming livestream.
 
 Key Points:
 

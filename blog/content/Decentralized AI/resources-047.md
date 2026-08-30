@@ -1,6 +1,6 @@
 ### 🚀 NFT Game - UnleashNFTs x MetaMask Sprint
 
-This article summarizes the UnleashNFTs x MetaMask Snap Sprint, highlighting its progress and providing details on participation.
+UnleashNFTs x MetaMask Snap Sprint, highlighting its progress and providing details on participation.
 
 Key Points:
 

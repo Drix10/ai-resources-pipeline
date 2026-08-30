@@ -1,6 +1,6 @@
 ### 🤖 Biology - Sukunaarchaeum mirabile
 
-This article discusses Sukunaarchaeum mirabile, a newly discovered organism that blurs the traditional classifications of life. It explores its unique characteristics that challenge existing biological definitions.
+Sukunaarchaeum mirabile, a newly discovered organism that blurs the traditional classifications of life. It explores its unique characteristics that challenge existing biological definitions.
 
 Key Points:
 

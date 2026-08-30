@@ -1,6 +1,6 @@
 ### 🤖 AI Strategy - Multifamily Operations
 
-This article covers a conversation on building an effective AI strategy for multifamily operators. It highlights expert insights on integrating artificial intelligence into property management.
+Conversation on building an effective AI strategy for multifamily operators. It highlights expert insights on integrating artificial intelligence into property management.
 
 Key Points:
 

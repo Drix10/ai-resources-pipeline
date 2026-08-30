@@ -1,6 +1,6 @@
 ### 🤖 RAG - Enhanced Reranking
 
-This article discusses a new reranking model from ZeroEntropy AI for Retrieval Augmented Generation (RAG) systems, highlighting its performance and cost advantages.
+New reranking model from ZeroEntropy AI for Retrieval Augmented Generation (RAG) systems, highlighting its performance and cost advantages.
 
 Key Points:
 

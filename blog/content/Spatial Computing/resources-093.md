@@ -1,6 +1,6 @@
 ### 🤖 LiDAR Technology - Artec Ray II
 
-This article provides an overview of the Artec Ray II long-range LiDAR system, highlighting its key features and specifications.
+The Artec Ray II long-range LiDAR system, highlighting its key features and specifications.
 
 Key Points:
 

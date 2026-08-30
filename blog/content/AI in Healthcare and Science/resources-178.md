@@ -1,6 +1,6 @@
 ### 🤖 Bittensor Network - Community Engagement
 
-This article details a recent gathering of Bittensor builders at the DCG Summit in Spain, focusing on collaborative discussions and sharing project developments. It highlights the importance of such interactions for the network's progress.
+Recent gathering of Bittensor builders at the DCG Summit in Spain, focusing on collaborative discussions and sharing project developments. It highlights the importance of such interactions for the network's progress.
 
 Key Points:
 

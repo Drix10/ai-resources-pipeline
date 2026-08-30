@@ -1,6 +1,6 @@
 ### 🤖 Ethereum Foundation - Block Building Insights
 
-This article covers a recent R3sidency fireside discussion, offering insights from the Ethereum Foundation and detailing the development journey of a significant Ethereum block builder.
+Recent R3sidency fireside discussion, offering insights from the Ethereum Foundation and detailing the development journey of a significant Ethereum block builder.
 
 Key Points:
 

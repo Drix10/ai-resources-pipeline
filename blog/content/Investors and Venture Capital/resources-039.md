@@ -1,6 +1,6 @@
 ### 💡 Economics - Deficit Rules in Developing Countries
 
-This article explores the applicability of one-size-fits-all deficit rules to impoverished coffee-producing nations.  It questions the suitability of standard economic models in such contexts.
+Applicability of one-size-fits-all deficit rules to impoverished coffee-producing nations.  It questions the suitability of standard economic models in such contexts.
 
 Key Points:
 

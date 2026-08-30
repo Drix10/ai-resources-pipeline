@@ -1,6 +1,6 @@
 ### ✈️ Aviation - Etihad's New Charlotte Route
 
-This article covers Etihad Airways' announcement of a new flight route from Abu Dhabi to Charlotte, beginning May 4, 2026.  The announcement highlights a significant addition to Charlotte Douglas International Airport's long-haul flight options.
+Etihad Airways' announcement of a new flight route from Abu Dhabi to Charlotte, beginning May 4, 2026.  The announcement highlights a significant addition to Charlotte Douglas International Airport's long-haul flight options.
 
 Key Points:
 

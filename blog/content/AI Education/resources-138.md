@@ -1,6 +1,6 @@
 ### ✨ OriginTrail Ecosystem - December 2025 Highlights
 
-This article summarizes the key advancements and community engagements within the OriginTrail Decentralized Knowledge Graph ecosystem during December 2025. It covers significant events, technological launches, and strategic collaborations that shaped the network's growth.
+Key advancements and community engagements within the OriginTrail Decentralized Knowledge Graph ecosystem during December 2025. It covers significant events, technological launches, and strategic collaborations that shaped the network's growth.
 
 Key Points:
 

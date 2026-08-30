@@ -1,6 +1,6 @@
 ### ✨ LLM Capabilities - Web Integration
 
-This article explores how large language models can integrate information directly from the web, enhancing their ability to provide current and comprehensive responses. This capability allows models to extend their knowledge beyond their initial training data.
+Large language models can integrate information directly from the web, enhancing their ability to provide current and comprehensive responses. This capability allows models to extend their knowledge beyond their initial training data.
 
 Key Points:
 

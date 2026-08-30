@@ -1,6 +1,6 @@
 ### 🤖 Mobile Gaming - Enhanced Visual Quality with Arm ASR
 
-This article discusses how Arm and Epic Games are improving mobile gaming visuals using the Arm Scalable Rendering (ASR) platform.  It explores the benefits of ASR over traditional methods.
+Arm and Epic Games are improving mobile gaming visuals using the Arm Scalable Rendering (ASR) platform.  It explores the benefits of ASR over traditional methods.
 
 Key Points:
 

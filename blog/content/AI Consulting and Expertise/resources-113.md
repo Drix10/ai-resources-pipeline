@@ -1,6 +1,6 @@
 ### 🤖 AI Image Generation - Free Realistic Model
 
-This article discusses the release of Higgsfield Soul, a free-to-use AI image model known for its realistic output.  Examples and prompts are provided.
+Release of Higgsfield Soul, a free-to-use AI image model known for its realistic output.  Examples and prompts are provided.
 
 Key Points:
 

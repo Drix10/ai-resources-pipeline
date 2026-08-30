@@ -1,6 +1,6 @@
 ### 💡 Geopolitical Dynamics - Population Movement in Israel
 
-This article examines reports concerning population movement from Israel, highlighting the reported dual nationality status of a significant portion of its residents. It discusses the context of these reported movements without making a judgment on their veracity or implications.
+Reports concerning population movement from Israel, highlighting the reported dual nationality status of a significant portion of its residents. It discusses the context of these reported movements without making a judgment on their veracity or implications.
 
 Key Points:
 

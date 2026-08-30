@@ -1,6 +1,6 @@
 ### 📰 Media - Potential Cancellation of The View
 
-This article discusses claims that ABC may cancel The View to appease certain political figures.  The claims suggest the cancellation is not due to low ratings, but rather, the show's willingness to challenge specific viewpoints.
+Claims that ABC may cancel The View to appease certain political figures.  The claims suggest the cancellation is not due to low ratings, but rather, the show's willingness to challenge specific viewpoints.
 
 Key Points:
 

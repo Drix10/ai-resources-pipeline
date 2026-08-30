@@ -1,6 +1,6 @@
 ### 💡 UI Design - MVP Development Workflow
 
-This article outlines a streamlined approach for developing clean UI for Minimum Viable Products (MVPs). It details a practical workflow from design inspiration to component integration.
+Streamlined approach for developing clean UI for Minimum Viable Products (MVPs). It details a practical workflow from design inspiration to component integration.
 
 Key Points:
 

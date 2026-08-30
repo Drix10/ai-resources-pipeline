@@ -1,6 +1,6 @@
 ### 🤖 Cooperative Autonomy - NVIDIA Grant Support
 
-This article outlines the academic grant received from NVIDIA to advance research in cooperative autonomy at UC Riverside. It details the powerful hardware components supporting both simulation and real-world deployment of autonomous systems.
+Academic grant received from NVIDIA to advance research in cooperative autonomy at UC Riverside. It details the powerful hardware components supporting both simulation and real-world deployment of autonomous systems.
 
 Key Points:
 

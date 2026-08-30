@@ -1,6 +1,6 @@
 ### 💡 Education - Alternative Learning Paths
 
-This article discusses the viability of online skill acquisition as an alternative to traditional college education.  It presents a personal perspective on this choice.
+Viability of online skill acquisition as an alternative to traditional college education.  It presents a personal perspective on this choice.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Meta's Smart Glasses - Project HYPERNOVA
 
-This article discusses Meta's upcoming smart glasses, codenamed HYPERNOVA, featuring a binocular display, hand gesture navigation, and an advanced camera system.  The glasses are expected to launch by year-end.
+Meta's upcoming smart glasses, codenamed HYPERNOVA, featuring a binocular display, hand gesture navigation, and an advanced camera system.  The glasses are expected to launch by year-end.
 
 Key Points:
 

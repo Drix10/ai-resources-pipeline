@@ -1,6 +1,6 @@
 ### 🤖 Solana - Account Model Notes
 
-This article provides notes on the Solana account model, covering data accounts and program accounts.  It details the structure and functionalities of different account types within the Solana ecosystem.
+Notes on the Solana account model, covering data accounts and program accounts.  It details the structure and functionalities of different account types within the Solana ecosystem.
 
 Key Points:
 

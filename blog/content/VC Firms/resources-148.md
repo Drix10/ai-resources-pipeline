@@ -1,6 +1,6 @@
 ### 🚀 Industry Transformation - Startup Hiring
 
-This article highlights Menlo-backed startups actively transforming industries with full-stack solutions. It showcases companies currently hiring and provides a link to career opportunities within their portfolio.
+Menlo-backed startups actively transforming industries with full-stack solutions. It showcases companies currently hiring and provides a link to career opportunities within their portfolio.
 
 Key Points:
 

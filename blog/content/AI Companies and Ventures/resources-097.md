@@ -1,6 +1,6 @@
 ### 🤖 Environmental Impact - Human Influence on Weather
 
-This article discusses the unintentional ways humans alter weather patterns, leading to negative consequences, and introduces companies working towards solutions.
+Unintentional ways humans alter weather patterns, leading to negative consequences, and introduces companies working towards solutions.
 
 Key Points:
 

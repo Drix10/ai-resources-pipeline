@@ -1,6 +1,6 @@
 ### ⚠️ Severe Weather - Southern Complex Breakdown
 
-This article discusses the breakdown of a southern weather complex and its eastward movement towards the Dallas-Fort Worth (DFW) area, highlighting the potential wind threat.
+Breakdown of a southern weather complex and its eastward movement towards the Dallas-Fort Worth (DFW) area, highlighting the potential wind threat.
 
 Key Points:
 

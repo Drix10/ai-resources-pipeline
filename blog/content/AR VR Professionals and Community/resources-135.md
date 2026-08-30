@@ -1,6 +1,6 @@
 ### 🤖 Societal Systems Analysis - Protest Dynamics & Economic Interruption
 
-This article examines a large-scale public demonstration in San Francisco, detailing the scope of community mobilization and its immediate economic impact. It provides an overview of how such events affect local businesses and public spaces.
+Large-scale public demonstration in San Francisco, detailing the scope of community mobilization and its immediate economic impact. It provides an overview of how such events affect local businesses and public spaces.
 
 Key Points:
 

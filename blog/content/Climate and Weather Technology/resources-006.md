@@ -1,6 +1,6 @@
 ### 🌍 Environmental Activism - Pesticide Protest in Paris
 
-This article summarizes a planned protest in Paris on April 5th, organized by Extinction Rebellion and Scientists in Rebellion, against the use of pesticides.  The protest aims to raise awareness about the detrimental effects of pesticides on biodiversity.
+Planned protest in Paris on April 5th, organized by Extinction Rebellion and Scientists in Rebellion, against the use of pesticides.  The protest aims to raise awareness about the detrimental effects of pesticides on biodiversity.
 
 
 Key Points:

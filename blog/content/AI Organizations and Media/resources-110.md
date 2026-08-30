@@ -1,6 +1,6 @@
 ### 🤖 AI in Science -  Learning as a Gateway to Intelligence
 
-This article summarizes Tomaso Poggio's remarks on the significance of machine learning in the advancement of artificial intelligence within scientific fields.  His statement highlights the crucial role of learning in achieving artificial intelligence.
+Tomaso Poggio's remarks on the significance of machine learning in the advancement of artificial intelligence within scientific fields.  His statement highlights the crucial role of learning in achieving artificial intelligence.
 
 Key Points:
 

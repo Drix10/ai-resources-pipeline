@@ -1,6 +1,6 @@
 ### 💡 Public Statement - Family Support
 
-This article details a public statement released by Becca Good, wife of Renee Good. It conveys gratitude for the widespread support received by their family from various communities.
+Public statement released by Becca Good, wife of Renee Good. It conveys gratitude for the widespread support received by their family from various communities.
 
 Key Points:
 

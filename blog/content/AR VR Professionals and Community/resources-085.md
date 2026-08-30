@@ -1,6 +1,6 @@
 ### 💡 Life Lessons - Prioritizing Peace and Purpose
 
-This article discusses the importance of prioritizing personal well-being over external validation.  It emphasizes the fleeting nature of others' opinions and the lasting value of inner peace, joy, and purpose.
+Importance of prioritizing personal well-being over external validation.  It emphasizes the fleeting nature of others' opinions and the lasting value of inner peace, joy, and purpose.
 
 
 Key Points:

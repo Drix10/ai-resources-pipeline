@@ -1,6 +1,6 @@
 ### 🤖 AI Chat App Performance - t3.chat
 
-This article discusses the performance of AI chat applications, highlighting a specific application focused on performance optimization.  It also mentions feedback provided to OpenAI regarding performance improvements.
+Performance of AI chat applications, highlighting a specific application focused on performance optimization.  It also mentions feedback provided to OpenAI regarding performance improvements.
 
 Key Points:
 

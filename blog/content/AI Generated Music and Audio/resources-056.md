@@ -1,6 +1,6 @@
 ### 🤖 Bioinformatics Security - System Security and Compliance
 
-This article discusses the security challenges and compliance considerations for bioinformatics systems, covering both cloud-based and local deployments.  It also touches upon the associated costs.
+Security challenges and compliance considerations for bioinformatics systems, covering both cloud-based and local deployments.  It also touches upon the associated costs.
 
 Key Points:
 

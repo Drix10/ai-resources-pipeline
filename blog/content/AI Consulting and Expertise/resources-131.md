@@ -1,6 +1,6 @@
 ### 🤖 AI Inference - Groq-Nvidia Licensing Agreement
 
-This article details the non-exclusive licensing agreement between Groq and Nvidia for Groq's inference technology. It also confirms the uninterrupted operation of GroqCloud services.
+Non-exclusive licensing agreement between Groq and Nvidia for Groq's inference technology. It also confirms the uninterrupted operation of GroqCloud services.
 
 Key Points:
 

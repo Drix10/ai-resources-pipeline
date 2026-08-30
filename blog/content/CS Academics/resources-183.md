@@ -1,6 +1,6 @@
 ### 🚀 Cold Chain Logistics - Facility Expansion
 
-This article details the expansion of Lineage Logistics' Louisville-Winstead facility, significantly increasing its temperature-controlled capacity. This development enhances customer support and strengthens the vital cold chain infrastructure in a key distribution market.
+Expansion of Lineage Logistics' Louisville-Winstead facility, significantly increasing its temperature-controlled capacity. This development enhances customer support and strengthens the vital cold chain infrastructure in a key distribution market.
 
 Key Points:
 

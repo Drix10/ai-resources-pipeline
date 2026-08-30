@@ -1,6 +1,6 @@
 ### 💡 AI Career Adaptation - Leveraging Automation for Job Transition
 
-This article outlines a strategic approach for individuals facing job displacement due to AI, focusing on re-evaluating existing roles through an automation lens. It covers using AI tools to identify transferable skills and automate job functions for career transition.
+Strategic approach for individuals facing job displacement due to AI, focusing on re-evaluating existing roles through an automation lens. It covers using AI tools to identify transferable skills and automate job functions for career transition.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Assistive Technology - OriHime Wheelchair System
 
-This article discusses the remote operation of the OriHime wheelchair mobility system for participation in events, enabling individuals to overcome geographical barriers. It highlights the system's role in facilitating remote presence and engagement.
+Remote operation of the OriHime wheelchair mobility system for participation in events, enabling individuals to overcome geographical barriers. It highlights the system's role in facilitating remote presence and engagement.
 
 Key Points:
 

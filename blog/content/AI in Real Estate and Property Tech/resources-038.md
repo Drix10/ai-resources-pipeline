@@ -1,6 +1,6 @@
 ### 🤖 AI-Powered Digital Agents - reAlpha Launch
 
-This article discusses the recent launch of AI-powered digital agents by AiChat, a company specializing in AI-powered chatbots and automation tools.  The agents utilize both Voice AI and Agentic AI.
+Recent launch of AI-powered digital agents by AiChat, a company specializing in AI-powered chatbots and automation tools.  The agents utilize both Voice AI and Agentic AI.
 
 Key Points:
 

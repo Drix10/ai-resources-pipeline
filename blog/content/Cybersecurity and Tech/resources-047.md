@@ -1,6 +1,6 @@
 ### ⚠️ Geopolitics - Pakistan's Internal Dynamics
 
-This article discusses concerns regarding the influence of Pakistan's military on its political landscape, referencing a tweet questioning the involvement of a military official in political matters.
+Concerns regarding the influence of Pakistan's military on its political landscape, referencing a tweet questioning the involvement of a military official in political matters.
 
 Key Points:
 

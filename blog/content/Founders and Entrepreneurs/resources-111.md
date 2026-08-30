@@ -1,6 +1,6 @@
 ### ✨ Midjourney - Double Exposure Effect
 
-This article details the prompt used to create a double-exposure image effect in Midjourney, along with the resulting image.
+Prompt used to create a double-exposure image effect in Midjourney, along with the resulting image.
 
 Key Points:
 

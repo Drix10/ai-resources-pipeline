@@ -1,6 +1,6 @@
 ### 🤖 Medical Imaging - Early NPH Detection
 
-This article discusses the use of MRI scans in the early detection of Normal Pressure Hydrocephalus (NPH).  It highlights the capabilities of Function Scans' Full Body MRI Ultimate enhancement.
+Use of MRI scans in the early detection of Normal Pressure Hydrocephalus (NPH).  It highlights the capabilities of Function Scans' Full Body MRI Ultimate enhancement.
 
 Key Points:
 

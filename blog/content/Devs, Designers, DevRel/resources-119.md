@@ -1,6 +1,6 @@
 ### 🚀 Building AI Apps - Nebiu AI Studio and Vercel
 
-This article details how to build AI-powered applications using Nebiu AI Studio with the Vercel AI SDK in 15 lines of code.  It covers installation, utilizing open-source models, and text generation.
+To build AI-powered applications using Nebiu AI Studio with the Vercel AI SDK in 15 lines of code.  It covers installation, utilizing open-source models, and text generation.
 
 Key Points:
 

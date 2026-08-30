@@ -1,6 +1,6 @@
 ### 💡 Customer Service - Dealing with Difficult Customers
 
-This article discusses strategies for handling challenging customer interactions based on anecdotal experiences in the food service industry.
+Strategies for handling challenging customer interactions based on anecdotal experiences in the food service industry.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 💡 Strategic Analysis - Geopolitical Dynamics
 
-This article explores concepts related to strategic conflict and geopolitical dynamics. It draws insights from discussions on historical and contemporary conflicts.
+Concepts related to strategic conflict and geopolitical dynamics. It draws insights from discussions on historical and contemporary conflicts.
 
 Key Points:
 

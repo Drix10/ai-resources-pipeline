@@ -1,6 +1,6 @@
 ### 💡 Communication - Technology as a Barrier
 
-This article explores the paradox of using technology for communication, highlighting the simultaneous feelings of closeness and distance it can create.  The text reflects on the potential for tools to isolate while broadcasting thoughts.
+Paradox of using technology for communication, highlighting the simultaneous feelings of closeness and distance it can create.  The text reflects on the potential for tools to isolate while broadcasting thoughts.
 
 Key Points:
 

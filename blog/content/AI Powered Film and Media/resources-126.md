@@ -1,6 +1,6 @@
 ### 🤖 Java Development - Annual Review and OpenJDK
 
-This article summarizes the recent Inside Java Newscast, which reviews the year's highlights in Java development. It also covers the current status of the six major OpenJDK projects. The newscast offers a comprehensive look at advancements and ongoing efforts within the Java ecosystem.
+Recent Inside Java Newscast, which reviews the year's highlights in Java development. It also covers the current status of the six major OpenJDK projects. The newscast offers a comprehensive look at advancements and ongoing efforts within the Java ecosystem.
 
 Key Points:
 

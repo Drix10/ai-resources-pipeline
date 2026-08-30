@@ -1,6 +1,6 @@
 ### 🚀 Gamma - 3.0 Launch
 
-This article summarizes the key features released in Gamma 3.0, including a new AI design partner, automated workflows, and enhanced visualizations.  New business plans and a "Gamma Ultra" feature are also mentioned.
+Key features released in Gamma 3.0, including a new AI design partner, automated workflows, and enhanced visualizations.  New business plans and a "Gamma Ultra" feature are also mentioned.
 
 Key Points:
 

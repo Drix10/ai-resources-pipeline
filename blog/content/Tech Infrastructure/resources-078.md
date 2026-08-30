@@ -1,6 +1,6 @@
 ### 🤖 Mergers and Acquisitions - CoreWeave and Core Scientific
 
-This article discusses the renewed acquisition talks between CoreWeave and Core Scientific, highlighting the potential implications for the AI cloud computing and bitcoin mining industries.
+Renewed acquisition talks between CoreWeave and Core Scientific, highlighting the potential implications for the AI cloud computing and bitcoin mining industries.
 
 Key Points:
 

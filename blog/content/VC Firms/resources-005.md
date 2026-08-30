@@ -1,6 +1,6 @@
 ### ✨ Fintech - Forbes Fintech 50
 
-This article highlights several portfolio companies recognized in the Forbes Fintech 50 list for their contributions to the fintech industry's transformation.  Their innovative approaches are shaping the future of financial technology.
+Several portfolio companies recognized in the Forbes Fintech 50 list for their contributions to the fintech industry's transformation.  Their innovative approaches are shaping the future of financial technology.
 
 Key Points:
 

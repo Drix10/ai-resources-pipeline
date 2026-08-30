@@ -1,6 +1,6 @@
 ### 🤖 Romania -  Incident Near Andrew Tate's Home
 
-This article summarizes an incident involving a man livestreaming near Andrew Tate's home in Romania, resulting in a police intervention.  The man allegedly carried an airsoft gun.
+Incident involving a man livestreaming near Andrew Tate's home in Romania, resulting in a police intervention.  The man allegedly carried an airsoft gun.
 
 
 Key Points:

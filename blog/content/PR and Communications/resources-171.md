@@ -1,6 +1,6 @@
 ### 💡 Change Management - Common Transformation Errors
 
-This article discusses the inherent challenges of organizational change and identifies common pitfalls companies encounter during critical transformations. It highlights that even successful change initiatives often face unexpected complexities.
+Inherent challenges of organizational change and identifies common pitfalls companies encounter during critical transformations. It highlights that even successful change initiatives often face unexpected complexities.
 
 Key Points:
 

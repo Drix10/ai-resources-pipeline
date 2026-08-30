@@ -1,6 +1,6 @@
 ### 💡 AI Workflows - Community Engagement
 
-This article discusses methods for accessing and sharing practical AI workflows, focusing on community interaction. It highlights a resource for AI playbooks.
+Methods for accessing and sharing practical AI workflows, focusing on community interaction. It highlights a resource for AI playbooks.
 
 Key Points:
 

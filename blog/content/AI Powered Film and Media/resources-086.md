@@ -1,6 +1,6 @@
 ### 💡 Letting Go of the Story - Releasing Suffering
 
-This article discusses the importance of releasing suffering and the power of mindful communication.  It highlights the expansion of thoughts and the need to focus on release rather than defense.
+Importance of releasing suffering and the power of mindful communication.  It highlights the expansion of thoughts and the need to focus on release rather than defense.
 
 Key Points:
 

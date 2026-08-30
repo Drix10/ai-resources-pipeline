@@ -1,6 +1,6 @@
 ### 🚀 Robotaxi Services - Expansion Updates
 
-This article discusses the ongoing expansion of Robotaxi services. It covers recent developments in autonomous vehicle deployment and service availability.
+Ongoing expansion of Robotaxi services. It covers recent developments in autonomous vehicle deployment and service availability.
 
 Key Points:
 

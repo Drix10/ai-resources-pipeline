@@ -1,6 +1,6 @@
 ### 💡 Mixed Emotions - Enhanced Cognition
 
-This article explores the idea that experiencing mixed emotions, such as simultaneous hope and worry, can lead to more nuanced and insightful thinking.  The article references a study suggesting this emotional complexity contributes to deeper cognitive processing.
+Idea that experiencing mixed emotions, such as simultaneous hope and worry, can lead to more nuanced and insightful thinking.  The article references a study suggesting this emotional complexity contributes to deeper cognitive processing.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 AI Model Access - OpenRouter Integration
 
-This article details the collaboration between SambaNova and OpenRouterAI, offering an affordable solution for accessing AI models. It highlights the benefits of their integrated services, including free requests and enhanced operational features.
+Collaboration between SambaNova and OpenRouterAI, offering an affordable solution for accessing AI models. It highlights the benefits of their integrated services, including free requests and enhanced operational features.
 
 Key Points:
 

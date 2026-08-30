@@ -1,6 +1,6 @@
 ### 💡 AI Learning - Newsletter Resources
 
-This article highlights a resource for AI education, providing access to courses, prompts, and practical tools. It details the valuable content available through a free subscription.
+Resource for AI education, providing access to courses, prompts, and practical tools. It details the valuable content available through a free subscription.
 
 Key Points:
 

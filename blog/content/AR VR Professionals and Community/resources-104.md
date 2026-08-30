@@ -1,6 +1,6 @@
 ### 🤖 Society - Political Polarization and Healthcare Access
 
-This article discusses the impact of political polarization on access to healthcare in the United States.  The author expresses concern about the effects of anti-science policies on healthcare access and outcomes.
+Impact of political polarization on access to healthcare in the United States.  The author expresses concern about the effects of anti-science policies on healthcare access and outcomes.
 
 Key Points:
 

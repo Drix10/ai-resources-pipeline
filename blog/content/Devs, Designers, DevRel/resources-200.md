@@ -1,6 +1,6 @@
 ### ✨ AI - Personal Intelligence with Vellum
 
-This article discusses Vellum's innovative approach to artificial intelligence, focusing on their concept of 'personal intelligence'. It highlights how their AI is designed to work effectively for individual users.
+Vellum's innovative approach to artificial intelligence, focusing on their concept of 'personal intelligence'. It highlights how their AI is designed to work effectively for individual users.
 
 Key Points:
 

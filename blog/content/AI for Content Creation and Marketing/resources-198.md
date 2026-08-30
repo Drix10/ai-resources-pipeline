@@ -1,6 +1,6 @@
 ### 💡 Reddit Marketing - Customer Acquisition
 
-This article discusses strategies for acquiring new customers by leveraging the Reddit platform. It outlines how businesses can engage with communities to grow their user base.
+Strategies for acquiring new customers by leveraging the Reddit platform. It outlines how businesses can engage with communities to grow their user base.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Voice Cloning - Warner Music Brazil Case Study
 
-This article details how Warner Music Brazil used AI to restore the voice of samba legend Cleber Augusto and provides information on how to achieve similar results using LALAL.AI.
+Warner Music Brazil used AI to restore the voice of samba legend Cleber Augusto and provides information on how to achieve similar results using LALAL.AI.
 
 Key Points:
 

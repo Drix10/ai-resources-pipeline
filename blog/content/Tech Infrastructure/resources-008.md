@@ -1,6 +1,6 @@
 ### 🤖 Node.js Upgrade - Heap Issues in Kubernetes
 
-This article discusses the memory-related performance problems encountered during a Node.js 18 to Node.js 20 upgrade within a Kubernetes environment.  It details troubleshooting and resolution strategies.
+Memory-related performance problems encountered during a Node.js 18 to Node.js 20 upgrade within a Kubernetes environment.  It details troubleshooting and resolution strategies.
 
 Key Points:
 

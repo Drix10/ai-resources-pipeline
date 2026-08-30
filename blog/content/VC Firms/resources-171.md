@@ -1,6 +1,6 @@
 ### ✨ Mobile Payments - Google Play Gift Code Discount
 
-This article details a promotional offer providing a discount on Google Play Gift Codes when purchased using SoftBank carrier billing. It highlights the benefits of this limited-time campaign for content acquisition.
+Promotional offer providing a discount on Google Play Gift Codes when purchased using SoftBank carrier billing. It highlights the benefits of this limited-time campaign for content acquisition.
 
 Key Points:
 

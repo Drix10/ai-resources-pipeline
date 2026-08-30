@@ -1,6 +1,6 @@
 ### 🤖 AI Policy - Kenya's AI Bill 2026
 
-This article discusses Kenya's proposed Artificial Intelligence Bill 2026, currently under review by the Senate. It highlights the call for community input by Ai Kenya to inform their official submission on the legislation.
+Kenya's proposed Artificial Intelligence Bill 2026, currently under review by the Senate. It highlights the call for community input by Ai Kenya to inform their official submission on the legislation.
 
 Key Points:
 

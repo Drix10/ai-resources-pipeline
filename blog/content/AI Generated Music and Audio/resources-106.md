@@ -1,6 +1,6 @@
 ### 🤖 AI Music Generation - High-Volume Production
 
-This article discusses the generation of over 3 million unique, copyright-cleared music tracks per month using AI, accessible via API.  It highlights the scale of the operation and the accessibility of the music.
+Generation of over 3 million unique, copyright-cleared music tracks per month using AI, accessible via API.  It highlights the scale of the operation and the accessibility of the music.
 
 Key Points:
 

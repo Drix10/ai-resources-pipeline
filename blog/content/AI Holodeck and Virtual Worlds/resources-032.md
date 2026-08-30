@@ -1,6 +1,6 @@
 ### 🤖 Kling AI - 5-Second Video Extension Feature
 
-This article details the new 5-second video extension features added to Kling AI version 1.6, outlining the two extension methods available: auto-extend and customized extend.  It also compares the cost-effectiveness of different generation lengths.
+New 5-second video extension features added to Kling AI version 1.6, outlining the two extension methods available: auto-extend and customized extend.  It also compares the cost-effectiveness of different generation lengths.
 
 Key Points:
 

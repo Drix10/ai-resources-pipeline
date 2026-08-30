@@ -1,6 +1,6 @@
 ### 🚀 AI Tools - AI Creator Pack
 
-This article details the AI Creator Pack, a collection of promotional codes and credits from fourteen AI companies.  The pack aims to enhance content creation capabilities.
+AI Creator Pack, a collection of promotional codes and credits from fourteen AI companies.  The pack aims to enhance content creation capabilities.
 
 
 Key Points:

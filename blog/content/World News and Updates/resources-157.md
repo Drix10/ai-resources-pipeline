@@ -1,6 +1,6 @@
 ### 💡 Maritime Assistance - Stranded Vessel Rescue
 
-This article details the recent maritime assistance provided by the Pakistan Navy to the vessel MV GAUTAM in the Arabian Sea. The operation involved rescuing seven crew members after the vessel experienced a critical technical failure during its transit.
+Recent maritime assistance provided by the Pakistan Navy to the vessel MV GAUTAM in the Arabian Sea. The operation involved rescuing seven crew members after the vessel experienced a critical technical failure during its transit.
 
 Key Points:
 

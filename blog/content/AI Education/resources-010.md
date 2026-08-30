@@ -1,6 +1,6 @@
 ### 🤖 Blockchain Revenue - OriginTrail and NeuroWebAI
 
-This article examines the high annual revenue of OriginTrail, an AI blockchain, and its relationship with NeuroWebAI, a rollup chain securing its decentralized key generation (DKG) system.  The article also highlights a real-world application.
+High annual revenue of OriginTrail, an AI blockchain, and its relationship with NeuroWebAI, a rollup chain securing its decentralized key generation (DKG) system.  The article also highlights a real-world application.
 
 Key Points:
 

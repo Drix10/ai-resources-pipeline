@@ -1,6 +1,6 @@
 ### 🤖 US Politics - Trump's Remarks on Russia
 
-This article summarizes comments made by former President Donald Trump regarding his relationship with Russian President Vladimir Putin, as reported by NBC News.  The statement was made during a meeting with the British Prime Minister.
+Comments made by former President Donald Trump regarding his relationship with Russian President Vladimir Putin, as reported by NBC News.  The statement was made during a meeting with the British Prime Minister.
 
 Key Points:
 

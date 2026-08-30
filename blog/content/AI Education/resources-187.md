@@ -1,6 +1,6 @@
 ### ✨ Platform Update - ibl.ai Frontend Enhancements
 
-This article details the latest frontend updates for the ibl.ai platform, focusing on user experience and system functionality. It covers new API integrations, revised purchase flows, and an updated memory management interface.
+Latest frontend updates for the ibl.ai platform, focusing on user experience and system functionality. It covers new API integrations, revised purchase flows, and an updated memory management interface.
 
 Key Points:
 

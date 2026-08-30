@@ -1,6 +1,6 @@
 ### 💡 ASCO26 Conference Coverage - Daily Expert Podcast Analysis
 
-This article highlights a daily podcast series offering concise expert analysis of top abstracts presented at the ASCO 2026 conference. It provides a valuable resource for staying informed on the latest oncology research.
+Daily podcast series offering concise expert analysis of top abstracts presented at the ASCO 2026 conference. It provides a valuable resource for staying informed on the latest oncology research.
 
 Key Points:
 

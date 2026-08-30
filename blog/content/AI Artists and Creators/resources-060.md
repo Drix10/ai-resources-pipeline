@@ -1,6 +1,6 @@
 ### 🧠 Animal Cognition - Problem Solving
 
-This article discusses the cognitive abilities of animals, specifically their capacity for judgment, language, and creativity in problem-solving.  The example uses dogs and other animals recalling past experiences to solve current challenges.
+Cognitive abilities of animals, specifically their capacity for judgment, language, and creativity in problem-solving.  The example uses dogs and other animals recalling past experiences to solve current challenges.
 
 Key Points:
 

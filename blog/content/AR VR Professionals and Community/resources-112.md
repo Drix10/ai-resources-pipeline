@@ -1,6 +1,6 @@
 ### 🎸 Musical Equipment Sale - Home Studio Gear
 
-This article details the sale of used musical equipment from a home studio, including a guitar and MIDI controller.  Specific details and images of the items are provided.
+Sale of used musical equipment from a home studio, including a guitar and MIDI controller.  Specific details and images of the items are provided.
 
 Key Points:
 

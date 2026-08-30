@@ -1,6 +1,6 @@
 ### 🤖 Robotics Adaptation - Reward-Free Online Learning
 
-This article details a method for improving robot success rates on challenging out-of-distribution tasks using reward-free online adaptation techniques. It explains how efficiency gains are achieved through autonomous interaction.
+Method for improving robot success rates on challenging out-of-distribution tasks using reward-free online adaptation techniques. It explains how efficiency gains are achieved through autonomous interaction.
 
 Key Points:
 

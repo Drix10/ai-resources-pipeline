@@ -1,6 +1,6 @@
 ### 💡 Human Understanding of Exponential Growth
 
-This article discusses the improved comprehension of exponential growth among individuals in recent years, contrasting it with previous limitations.
+Improved comprehension of exponential growth among individuals in recent years, contrasting it with previous limitations.
 
 Key Points:
 

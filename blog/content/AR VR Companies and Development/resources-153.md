@@ -1,6 +1,6 @@
 ### ✨ Digital Collectibles - Community Raffle
 
-This article details a recent partnership and a community raffle event. It outlines the opportunity for participants to win digital tickets and emphasizes staying informed about project developments.
+Recent partnership and a community raffle event. It outlines the opportunity for participants to win digital tickets and emphasizes staying informed about project developments.
 
 Key Points:
 

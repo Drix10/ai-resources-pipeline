@@ -1,6 +1,6 @@
 ### ⚠️ First Amendment - Attorney General's Comments on Protected Speech
 
-This article discusses a recent statement by the U.S. Attorney General regarding protected speech, highlighting concerns about the potential overreach into First Amendment rights.  The statement promises to pursue individuals for protected speech, prompting discussion and analysis.
+Recent statement by the U.S. Attorney General regarding protected speech, highlighting concerns about the potential overreach into First Amendment rights.  The statement promises to pursue individuals for protected speech, prompting discussion and analysis.
 
 Key Points:
 

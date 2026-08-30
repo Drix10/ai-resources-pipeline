@@ -1,6 +1,6 @@
 ### ✨ LichtFeld Studio - v0.4.0 Release Features
 
-This article details the new functionalities introduced in LichtFeld Studio v0.4.0. It covers enhancements for training configuration, new tools, and expanded language support.
+New functionalities introduced in LichtFeld Studio v0.4.0. It covers enhancements for training configuration, new tools, and expanded language support.
 
 Key Points:
 

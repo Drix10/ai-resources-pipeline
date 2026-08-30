@@ -1,6 +1,6 @@
 ### 🤖 Modular Development - Cost Efficiency
 
-This article examines the economic principles behind modular construction, drawing a comparison to traditional building methods. It highlights how decentralizing development and leveraging transportation can reduce overall project costs.
+Economic principles behind modular construction, drawing a comparison to traditional building methods. It highlights how decentralizing development and leveraging transportation can reduce overall project costs.
 
 Key Points:
 

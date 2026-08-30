@@ -1,6 +1,6 @@
 ### 🤖 TinyML Keyword Spotting - Multi-Objective Bayesian Optimization
 
-This article discusses the OASI method, which employs objective-aware surrogate initialization to enhance multi-objective Bayesian optimization specifically for TinyML keyword spotting applications. It aims to improve model efficiency and performance on resource-constrained devices.
+OASI method, which employs objective-aware surrogate initialization to enhance multi-objective Bayesian optimization specifically for TinyML keyword spotting applications. It aims to improve model efficiency and performance on resource-constrained devices.
 
 Key Points:
 

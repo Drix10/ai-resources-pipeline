@@ -1,6 +1,6 @@
 ### 🤖 AI Event - RAG and Agentic Shift in LLMs
 
-This article summarizes a discussion on Retrieval Augmented Generation (RAG) and the capabilities of Large Language Models (LLMs) in search.  The event featured an autopsy of RAG techniques and explored the surprising search proficiency of LLMs.
+Discussion on Retrieval Augmented Generation (RAG) and the capabilities of Large Language Models (LLMs) in search.  The event featured an autopsy of RAG techniques and explored the surprising search proficiency of LLMs.
 
 
 Key Points:

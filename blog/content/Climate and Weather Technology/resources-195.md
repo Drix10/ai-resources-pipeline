@@ -1,6 +1,6 @@
 ### 💡 Commodity Prices - El Niño Impact
 
-This article examines the significant surge in coffee and cocoa commodity prices, attributing the increase to the developing Super El Niño weather phenomenon. It discusses the market's response to these climatic shifts and the potential for continued volatility.
+Significant surge in coffee and cocoa commodity prices, attributing the increase to the developing Super El Niño weather phenomenon. It discusses the market's response to these climatic shifts and the potential for continued volatility.
 
 Key Points:
 

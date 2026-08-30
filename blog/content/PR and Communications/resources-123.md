@@ -1,6 +1,6 @@
 ### ✨ Sabrina Carpenter - Platinum Single Achievement
 
-This article details the recent achievement of Sabrina Carpenter's song "Busy Woman" reaching Platinum status. It provides information on its sales, album appearance, and production credits.
+Recent achievement of Sabrina Carpenter's song "Busy Woman" reaching Platinum status. It provides information on its sales, album appearance, and production credits.
 
 Key Points:
 

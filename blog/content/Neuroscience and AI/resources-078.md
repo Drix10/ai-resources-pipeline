@@ -1,6 +1,6 @@
 ### 🧠 Consciousness - Physics and Neuroscience
 
-This article explores the speculative idea proposed by Sir Roger Penrose and Stuart Hameroff regarding the relationship between consciousness, physics, and neuroscience.  It discusses whether subjective experience can be explained by standard scientific models.
+Speculative idea proposed by Sir Roger Penrose and Stuart Hameroff regarding the relationship between consciousness, physics, and neuroscience.  It discusses whether subjective experience can be explained by standard scientific models.
 
 Key Points:
 

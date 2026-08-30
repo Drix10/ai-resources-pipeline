@@ -1,6 +1,6 @@
 ### ✨ Bittensor TAO Wallet - Chrome Extension Features
 
-This article discusses the benefits of using the official Bittensor TAO wallet Chrome extension. It highlights its functionality and encourages adoption for managing TAO tokens.
+Benefits of using the official Bittensor TAO wallet Chrome extension. It highlights its functionality and encourages adoption for managing TAO tokens.
 
 Key Points:
 

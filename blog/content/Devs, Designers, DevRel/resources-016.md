@@ -1,6 +1,6 @@
 ### 🤖 Vector Search - Multi-vector Embeddings
 
-This article discusses the limitations of single-vector embeddings and introduces the advantages of multi-vector embeddings in vector search.  It briefly explains how they transform data into a numerical format for machine learning models.
+Limitations of single-vector embeddings and introduces the advantages of multi-vector embeddings in vector search.  It briefly explains how they transform data into a numerical format for machine learning models.
 
 Key Points:
 

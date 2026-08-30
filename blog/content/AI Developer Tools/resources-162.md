@@ -1,6 +1,6 @@
 ### 🤖 LanceDB Format - Key Additions in Version 2.2
 
-This article details the significant new features introduced in Lance format 2.2. It covers improvements for handling diverse data types and evolving schemas within datasets. These additions enhance efficiency and flexibility for data storage.
+Significant new features introduced in Lance format 2.2. It covers improvements for handling diverse data types and evolving schemas within datasets. These additions enhance efficiency and flexibility for data storage.
 
 Key Points:
 

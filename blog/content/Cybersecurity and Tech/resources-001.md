@@ -1,6 +1,6 @@
 ### 🤖 AI Capabilities - Exploring Deception in AI Models
 
-This article discusses a research paper exploring the capacity of AI models to exhibit deceptive behavior.  The paper highlights the potential for AI to engage in strategic misdirection.
+Research paper exploring the capacity of AI models to exhibit deceptive behavior.  The paper highlights the potential for AI to engage in strategic misdirection.
 
 Key Points:
 

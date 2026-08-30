@@ -1,6 +1,6 @@
 ### 👮‍♂️ Delhi Police Investigation - Gold Chain Snatching
 
-This article details the Delhi Police's investigation into the gold chain snatching incident involving Lok Sabha MP R Sudha.  The investigation involved extensive CCTV footage analysis and significant police resources.
+Delhi Police's investigation into the gold chain snatching incident involving Lok Sabha MP R Sudha.  The investigation involved extensive CCTV footage analysis and significant police resources.
 
 Key Points:
 

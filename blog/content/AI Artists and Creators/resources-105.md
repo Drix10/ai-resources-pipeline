@@ -1,6 +1,6 @@
 ### ✨ Midjourney - Whimsical Folk Art Generation
 
-This article details the creation of whimsical folk art illustrations using Midjourney V7, mimicking the styles of Tim Burton and Gary Baseman.  Specific settings and parameters are provided.
+Creation of whimsical folk art illustrations using Midjourney V7, mimicking the styles of Tim Burton and Gary Baseman.  Specific settings and parameters are provided.
 
 Key Points:
 

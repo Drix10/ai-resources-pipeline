@@ -1,6 +1,6 @@
 ### 🤖 AI in Creative Writing - Story Brainstorming
 
-This article discusses how SAGA's AI tool assists writers in the brainstorming phase of creative writing, focusing on storyline, character development, and theme.  It highlights the AI's role in prompting and suggesting ideas rather than directly writing the story.
+SAGA's AI tool assists writers in the brainstorming phase of creative writing, focusing on storyline, character development, and theme.  It highlights the AI's role in prompting and suggesting ideas rather than directly writing the story.
 
 Key Points:
 

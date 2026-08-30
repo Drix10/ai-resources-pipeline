@@ -1,6 +1,6 @@
 ### 🤖 Malware Analysis - TransferLoader Campaign
 
-This article discusses the TransferLoader malware campaign, highlighting its structure and significance for red team engagements.  The analysis focuses on understanding the techniques used in a sophisticated malware operation.
+TransferLoader malware campaign, highlighting its structure and significance for red team engagements.  The analysis focuses on understanding the techniques used in a sophisticated malware operation.
 
 Key Points:
 

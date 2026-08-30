@@ -1,6 +1,6 @@
 ### 🤖 Cloud Computing - Cloud Repatriation Trends
 
-This article discusses the observed trend of cloud repatriation, where organizations are moving workloads back on-premise.  It explores the cited reasons for this shift, focusing on cost savings, compliance, and performance.
+Observed trend of cloud repatriation, where organizations are moving workloads back on-premise.  It explores the cited reasons for this shift, focusing on cost savings, compliance, and performance.
 
 Key Points:
 

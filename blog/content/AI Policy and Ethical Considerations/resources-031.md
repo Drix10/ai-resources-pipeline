@@ -1,6 +1,6 @@
 ### 💡 Political Choices - Spending Cuts vs. Taxing the Wealthy
 
-This article discusses the political choices surrounding government spending, specifically focusing on the debate between austerity measures (spending cuts) and increased taxation of high-income earners.  It examines the argument that spending cuts, particularly those impacting social welfare programs, are often presented as unavoidable necessities rather than political decisions.
+Political choices surrounding government spending, specifically focusing on the debate between austerity measures (spending cuts) and increased taxation of high-income earners.  It examines the argument that spending cuts, particularly those impacting social welfare programs, are often presented as unavoidable necessities rather than political decisions.
 
 Key Points:
 

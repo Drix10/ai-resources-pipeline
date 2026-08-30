@@ -1,6 +1,6 @@
 ### ✨ Floot - Enhanced PDF Processing Capabilities
 
-This article outlines Floot's new capabilities for building applications that process PDFs. It focuses on the enhanced reliability for tasks such as data extraction, report generation, and PDF manipulation.
+Floot's new capabilities for building applications that process PDFs. It focuses on the enhanced reliability for tasks such as data extraction, report generation, and PDF manipulation.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Trends - The Rise of Embodied AI
 
-This article discusses the increasing prevalence of edge computing for AI and the emergence of embodied AI in various devices.
+Increasing prevalence of edge computing for AI and the emergence of embodied AI in various devices.
 
 Key Points:
 

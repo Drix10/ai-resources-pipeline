@@ -1,6 +1,6 @@
 ### 💡 Product Development - Four Crucial Steps
 
-This article discusses four critical aspects often overlooked in product development, hindering a product's potential to become a market leader.
+Four critical aspects often overlooked in product development, hindering a product's potential to become a market leader.
 
 Key Points:
 

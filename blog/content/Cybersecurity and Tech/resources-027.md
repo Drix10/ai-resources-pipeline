@@ -1,6 +1,6 @@
 ### 🤖 Multilingual AI Translation - Lex Fridman's Interviews
 
-This article discusses the use of AI to translate Lex Fridman's interviews with world leaders into multiple languages while preserving the nuances of tone, cadence, and emotion.  The focus is on the upcoming interview with Narendra Modi.
+Use of AI to translate Lex Fridman's interviews with world leaders into multiple languages while preserving the nuances of tone, cadence, and emotion.  The focus is on the upcoming interview with Narendra Modi.
 
 Key Points:
 

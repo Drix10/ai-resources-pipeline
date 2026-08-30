@@ -1,6 +1,6 @@
 ### 🤖 Medical AI - MedVR for Interpretable Diagnostics
 
-This article outlines MedVR, a significant advancement toward verifiable and interpretable medical AI. It explains how models learn to actively explore and analyze images using self-supervision, bridging the gap between text-only reasoning and dynamic, evidence-based medical diagnostics.
+MedVR, a significant advancement toward verifiable and interpretable medical AI. It explains how models learn to actively explore and analyze images using self-supervision, bridging the gap between text-only reasoning and dynamic, evidence-based medical diagnostics.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ AI Art - Biomechanical Gothic Style
 
-This article explores the aesthetic characteristics of the Crimson Biomechanical Horror style. It details the visual elements that define this unique blend of gothic, sci-fi, and dark fantasy art.
+Aesthetic characteristics of the Crimson Biomechanical Horror style. It details the visual elements that define this unique blend of gothic, sci-fi, and dark fantasy art.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ Data & AI - Data AI Summit
 
-This article summarizes the Data AI Summit, a virtual event exploring advancements in data and AI, including AI agents, frontier models, governance, and performance.  Keynotes and numerous virtual sessions are featured.
+Data AI Summit, a virtual event exploring advancements in data and AI, including AI agents, frontier models, governance, and performance.  Keynotes and numerous virtual sessions are featured.
 
 
 Key Points:

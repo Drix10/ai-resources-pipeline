@@ -1,6 +1,6 @@
 ### 🤖 Automation - Excel Column Splitting
 
-This article discusses automating tasks within spreadsheet software, specifically addressing the splitting of a column with multiple dimensions into separate numerical columns.  The example focuses on using automation to improve workflow efficiency.
+Automating tasks within spreadsheet software, specifically addressing the splitting of a column with multiple dimensions into separate numerical columns.  The example focuses on using automation to improve workflow efficiency.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Cybersecurity - BlackRoomSec Challenges
 
-This article discusses BlackRoomSec's approach to cybersecurity challenges, emphasizing their preference for difficult tasks.  The team values challenges as a means of overcoming boredom and enhancing expertise.
+BlackRoomSec's approach to cybersecurity challenges, emphasizing their preference for difficult tasks.  The team values challenges as a means of overcoming boredom and enhancing expertise.
 
 Key Points:
 

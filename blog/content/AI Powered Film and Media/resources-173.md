@@ -1,6 +1,6 @@
 ### 🤖 Robotics Events - ROSCon BoF Sessions
 
-This article outlines the reintroduction of Birds of a Feather (BoF) sessions at ROSCon Global 2026. It explains their purpose as gathering spaces for attendees and details their scheduling and participation.
+Reintroduction of Birds of a Feather (BoF) sessions at ROSCon Global 2026. It explains their purpose as gathering spaces for attendees and details their scheduling and participation.
 
 Key Points:
 

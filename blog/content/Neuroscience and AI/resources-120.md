@@ -1,6 +1,6 @@
 ### ✨ Community Highlight - User Profile Spotlight
 
-This article highlights a user profile within the community, focusing on their presence and interactions. It serves as an acknowledgment of engagement within the platform.
+User profile within the community, focusing on their presence and interactions. It serves as an acknowledgment of engagement within the platform.
 
 Key Points:
 

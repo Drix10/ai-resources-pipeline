@@ -1,6 +1,6 @@
 ### 🤖 Game Design - Post-Apocalyptic Themes
 
-This article explores common thematic elements in post-apocalyptic game design, focusing on player companionship and survival mechanics. It discusses how these elements contribute to immersive gameplay within such settings.
+Common thematic elements in post-apocalyptic game design, focusing on player companionship and survival mechanics. It discusses how these elements contribute to immersive gameplay within such settings.
 
 Key Points:
 

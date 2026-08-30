@@ -1,6 +1,6 @@
 ### 🤖 AI in Real Estate - Fast Real Estate Investor
 
-This article discusses the AI-powered real estate investment platform, Fast Real Estate Investor ($REI), its upcoming sale, business model, and token utility.  It also highlights its backing and recent media coverage.
+AI-powered real estate investment platform, Fast Real Estate Investor ($REI), its upcoming sale, business model, and token utility.  It also highlights its backing and recent media coverage.
 
 Key Points:
 

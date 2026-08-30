@@ -1,6 +1,6 @@
 ### 🚀 Product Hunt Launch - VSCode Extension Feedback
 
-This article summarizes the feedback received following the Product Hunt launch of a VSCode extension.  The feedback will be used to improve the extension. The extension achieved 5th place.
+Feedback received following the Product Hunt launch of a VSCode extension.  The feedback will be used to improve the extension. The extension achieved 5th place.
 
 Key Points:
 

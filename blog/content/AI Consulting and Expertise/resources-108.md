@@ -1,6 +1,6 @@
 ### 💡 Content Creation - Overlooked Patterns
 
-This article discusses a pattern often missed in content creation, based on the author's ten years of experience and a billion views.  It highlights advice given to founders regarding content creation strategies.
+Pattern often missed in content creation, based on the author's ten years of experience and a billion views.  It highlights advice given to founders regarding content creation strategies.
 
 Key Points:
 

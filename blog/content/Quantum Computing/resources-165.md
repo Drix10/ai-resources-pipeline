@@ -1,6 +1,6 @@
 ### 🤖 Quantum Computing - Q1 Financial Performance
 
-This article discusses the recent financial performance of quantum computing companies, highlighting a significant spike in share prices. It covers the factors contributing to the Q1 double beat reported by Fidelity Investments.
+Recent financial performance of quantum computing companies, highlighting a significant spike in share prices. It covers the factors contributing to the Q1 double beat reported by Fidelity Investments.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Interaction - AIKO App Improvement
 
-This article details an interaction with Shibui AI, where it provided code improvement suggestions for a Human-AI Interaction (HAii) system and demonstrated cultural awareness.
+Interaction with Shibui AI, where it provided code improvement suggestions for a Human-AI Interaction (HAii) system and demonstrated cultural awareness.
 
 Key Points:
 

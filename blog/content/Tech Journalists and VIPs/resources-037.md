@@ -1,6 +1,6 @@
 ### 🤖 Content Creation - AI Agent Bounties
 
-This article discusses the announcement of a new content creator bounty program utilizing AI agents, and the temporary hold on Blocklet Builder rewards.
+Announcement of a new content creator bounty program utilizing AI agents, and the temporary hold on Blocklet Builder rewards.
 
 Key Points:
 

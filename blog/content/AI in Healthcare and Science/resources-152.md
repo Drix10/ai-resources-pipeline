@@ -1,6 +1,6 @@
 ### 💡 Missouri COVID Update - Prevalence Stabilization
 
-This article provides an update on COVID-19 prevalence rates in St. Louis and Kansas City as of March 5. It details the current status and stabilization trends in both metropolitan areas.
+Update on COVID-19 prevalence rates in St. Louis and Kansas City as of March 5. It details the current status and stabilization trends in both metropolitan areas.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Cybersecurity - 2024 Incident Response Report
 
-This article summarizes Kaspersky's 2024 Incident Response report, highlighting key findings on evolving attack vectors, affected regions, and impacted industries.  The report offers insights into the landscape of cyber warfare.
+Kaspersky's 2024 Incident Response report, highlighting key findings on evolving attack vectors, affected regions, and impacted industries.  The report offers insights into the landscape of cyber warfare.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Transportation - Singapore Officials Visit WeRide HQ
 
-This article summarizes a visit by Singaporean transport officials to WeRide's Guangzhou headquarters.  The visit involved discussions between officials and WeRide leadership.
+Visit by Singaporean transport officials to WeRide's Guangzhou headquarters.  The visit involved discussions between officials and WeRide leadership.
 
 Key Points:
 

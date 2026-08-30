@@ -1,6 +1,6 @@
 ### 💡 Neurology - Article Updates
 
-This article highlights recent updates to MedLink Neurology content. It covers the latest information in neurology and neuroscience.
+Recent updates to MedLink Neurology content. It covers the latest information in neurology and neuroscience.
 
 Key Points:
 

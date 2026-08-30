@@ -1,6 +1,6 @@
 ### 🤖 Robot Combat - CES Event Preview
 
-This article discusses the presence of robot combat demonstrations at CES, highlighting the event's role in showcasing advancements in robotics and engineering. It outlines how these displays represent the cutting-edge of mechanical design and autonomous control systems.
+Presence of robot combat demonstrations at CES, highlighting the event's role in showcasing advancements in robotics and engineering. It outlines how these displays represent the cutting-edge of mechanical design and autonomous control systems.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 IndiaAI Program - Global Acceleration
 
-This article highlights the IndiaAI Startup Global Acceleration Program's role in fostering a global mindset among participants. It details how the program provides strategic insights into the international market.
+IndiaAI Startup Global Acceleration Program's role in fostering a global mindset among participants. It details how the program provides strategic insights into the international market.
 
 Key Points:
 

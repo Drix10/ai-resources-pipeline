@@ -1,6 +1,6 @@
 ### 🤖 OpenAI Codex Optimization
 
-This article details the optimization of OpenAI's Codex runner, resulting in significant improvements in build size and time.  The optimization process and results are discussed.
+Optimization of OpenAI's Codex runner, resulting in significant improvements in build size and time.  The optimization process and results are discussed.
 
 Key Points:
 

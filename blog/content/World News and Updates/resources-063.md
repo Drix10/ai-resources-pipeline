@@ -1,6 +1,6 @@
 ### 🤖 Politics - California Girls State Finals Controversy
 
-This article summarizes a social media post by Donald Trump regarding a biological male competing in and winning the California Girls State Finals.  The post mentions potential large-scale fines.
+Social media post by Donald Trump regarding a biological male competing in and winning the California Girls State Finals.  The post mentions potential large-scale fines.
 
 Key Points:
 

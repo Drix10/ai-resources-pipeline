@@ -1,6 +1,6 @@
 ### 🤖 RAG Implementation - Context Construction
 
-This article discusses challenges in Retrieval Augmented Generation (RAG) regarding how context is presented to large language models. It emphasizes the importance of effective context construction for accurate model responses.
+Challenges in Retrieval Augmented Generation (RAG) regarding how context is presented to large language models. It emphasizes the importance of effective context construction for accurate model responses.
 
 Key Points:
 

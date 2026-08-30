@@ -1,6 +1,6 @@
 ### 🚀 OpenUI Lang v0.5 - App Development
 
-This article discusses the recent release of OpenUI Lang v0.5, emphasizing its capability to build functional applications beyond just user interfaces. It highlights the advancement in enabling developers to create working solutions.
+Recent release of OpenUI Lang v0.5, emphasizing its capability to build functional applications beyond just user interfaces. It highlights the advancement in enabling developers to create working solutions.
 
 Key Points:
 

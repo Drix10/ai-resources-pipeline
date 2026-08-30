@@ -1,6 +1,6 @@
 ### 🤖 ACM SIGGRAPH - Nominations
 
-This article summarizes information on how to become part of the ACM SIGGRAPH organization, as presented by Dena Debry, the current Nominations Chair, in a recent North American Chapters Hangout.  A video recording is linked for further details.
+Information on how to become part of the ACM SIGGRAPH organization, as presented by Dena Debry, the current Nominations Chair, in a recent North American Chapters Hangout.  A video recording is linked for further details.
 
 Key Points:
 

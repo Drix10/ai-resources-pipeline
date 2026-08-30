@@ -1,6 +1,6 @@
 ### 💰 YouTube Earnings - Faceless Channels
 
-This article examines potential YouTube earnings for channels not showing the creator's face, based on viewership numbers.  The provided data shows a potential correlation between views and earnings.
+Potential YouTube earnings for channels not showing the creator's face, based on viewership numbers.  The provided data shows a potential correlation between views and earnings.
 
 Key Points:
 

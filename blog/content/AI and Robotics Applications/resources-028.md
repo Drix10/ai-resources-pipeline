@@ -1,6 +1,6 @@
 ### 🤖 STEM in America - The State of Affairs
 
-This article discusses concerns regarding the current state of STEM employment in America, focusing on the overrepresentation of tech startups and web development roles.
+Concerns regarding the current state of STEM employment in America, focusing on the overrepresentation of tech startups and web development roles.
 
 Key Points:
 

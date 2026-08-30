@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Scientific Research Connector
 
-This article details the Consensus connector's capabilities, providing AI agents with extensive access to scientific literature. It covers the scope of its database and advanced search functionalities for research purposes.
+Consensus connector's capabilities, providing AI agents with extensive access to scientific literature. It covers the scope of its database and advanced search functionalities for research purposes.
 
 Key Points:
 

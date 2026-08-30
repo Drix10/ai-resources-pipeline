@@ -1,6 +1,6 @@
 ### ✨ AI Image Generation - Seedream 4.0
 
-This article details Seedream 4.0, a unified model combining text-to-image generation and image editing capabilities.  It represents a significant advancement from previous versions.
+Seedream 4.0, a unified model combining text-to-image generation and image editing capabilities.  It represents a significant advancement from previous versions.
 
 Key Points:
 

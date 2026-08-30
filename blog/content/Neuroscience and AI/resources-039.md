@@ -1,6 +1,6 @@
 ### 🤖 Neural Networks -  Understanding Network Structure
 
-This article explores the analogy between neural network structures and road networks within a city, highlighting the relational nature of meaning in neural networks.
+Analogy between neural network structures and road networks within a city, highlighting the relational nature of meaning in neural networks.
 
 
 Key Points:

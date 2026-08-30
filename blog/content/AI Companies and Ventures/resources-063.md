@@ -1,6 +1,6 @@
 ### 💡 Human-Centered AI - The Un-LLM-able
 
-This article discusses the concept of "Un-LLM-able" tasks – work that remains uniquely human even with advancements in AI.  It highlights how AI can enhance human capabilities and awareness.
+Concept of "Un-LLM-able" tasks – work that remains uniquely human even with advancements in AI.  It highlights how AI can enhance human capabilities and awareness.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Legal Action - Trump's Use of National Guard and Marines
 
-This article discusses the legal challenge against the Department of Defense regarding the alleged illegal use of the California National Guard and U.S. Marines as a police force in an American city by Donald Trump.  The plaintiffs plan to present evidence in court to support their claim.
+Legal challenge against the Department of Defense regarding the alleged illegal use of the California National Guard and U.S. Marines as a police force in an American city by Donald Trump.  The plaintiffs plan to present evidence in court to support their claim.
 
 
 Key Points:

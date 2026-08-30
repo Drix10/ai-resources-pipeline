@@ -1,6 +1,6 @@
 ### 🤖 AI in Customer Service - Rox Global Launch
 
-This article discusses the global launch of Rox, an AI-powered platform utilizing revenue agents to enhance customer service operations.  The platform aims to improve efficiency and streamline customer lifecycle management.
+Global launch of Rox, an AI-powered platform utilizing revenue agents to enhance customer service operations.  The platform aims to improve efficiency and streamline customer lifecycle management.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💰 Domain Sales - AI Domain Acquisition
 
-This article discusses the sale of the AI.Now domain for $25,000, analyzing the return on investment and its implications for the domain market.
+Sale of the AI.Now domain for $25,000, analyzing the return on investment and its implications for the domain market.
 
 Key Points:
 

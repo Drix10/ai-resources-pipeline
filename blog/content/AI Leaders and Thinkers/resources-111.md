@@ -1,6 +1,6 @@
 ### 💡 Relationship Dynamics -  Assessing Trust Through Proxies
 
-This article explores using social media interactions and agent monitoring to assess trust and understanding in interpersonal relationships, particularly in professional contexts such as hiring, investment, or partnerships.
+Using social media interactions and agent monitoring to assess trust and understanding in interpersonal relationships, particularly in professional contexts such as hiring, investment, or partnerships.
 
 Key Points:
 

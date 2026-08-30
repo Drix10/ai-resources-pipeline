@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics - South China Sea Patrolling
 
-This article examines China's persistent patrolling of the South China Sea using facilities on artificial island bases. It highlights the strategic reach of these operations, extending up to 1,000 nautical miles from the Chinese coastline.
+China's persistent patrolling of the South China Sea using facilities on artificial island bases. It highlights the strategic reach of these operations, extending up to 1,000 nautical miles from the Chinese coastline.
 
 Key Points:
 

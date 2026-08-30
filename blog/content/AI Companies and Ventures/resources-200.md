@@ -1,6 +1,6 @@
 ### 🚀 Agricultural Technology - Farmer Market Connection
 
-This article discusses the development of an operating system to connect millions of Indian farmers with fair markets through technology. It highlights the social impact and the need for broader social reach for such an initiative.
+Development of an operating system to connect millions of Indian farmers with fair markets through technology. It highlights the social impact and the need for broader social reach for such an initiative.
 
 Key Points:
 

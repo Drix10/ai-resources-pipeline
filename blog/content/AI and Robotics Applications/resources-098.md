@@ -1,6 +1,6 @@
 ### 🔭 Astronomy - Satellite Photography
 
-This article discusses capturing images of low Earth orbit satellites using a one-second exposure near Polaris.  The visibility window and the appearance of the satellites in the image are described.
+Capturing images of low Earth orbit satellites using a one-second exposure near Polaris.  The visibility window and the appearance of the satellites in the image are described.
 
 Key Points:
 

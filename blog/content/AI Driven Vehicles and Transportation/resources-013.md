@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Scaling Laws
 
-This article discusses the scaling laws observed in Large Language Models (LLMs), focusing on the relationship between increased compute and data, and the resulting improvement in model utility.
+Scaling laws observed in Large Language Models (LLMs), focusing on the relationship between increased compute and data, and the resulting improvement in model utility.
 
 Key Points:
 

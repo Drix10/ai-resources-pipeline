@@ -1,6 +1,6 @@
 ### 💡 Human Genetics - Origin of Blue Eyes
 
-This article discusses the intriguing genetic origin of blue eyes, tracing them back to a single ancestral mutation. It explores how this unique genetic change propagated through human populations over millennia.
+Intriguing genetic origin of blue eyes, tracing them back to a single ancestral mutation. It explores how this unique genetic change propagated through human populations over millennia.
 
 Key Points:
 

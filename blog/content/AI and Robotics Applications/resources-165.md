@@ -1,6 +1,6 @@
 ### 🤖 Humanoid Robotics - Pilot Project Retirement
 
-This article discusses the conclusion of Figure AI's humanoid robot pilot program at BMW's Spartanburg plant. It covers the initial deployment of Figure 02 robots and their subsequent retirement after an 11-month trial period.
+Conclusion of Figure AI's humanoid robot pilot program at BMW's Spartanburg plant. It covers the initial deployment of Figure 02 robots and their subsequent retirement after an 11-month trial period.
 
 Key Points:
 

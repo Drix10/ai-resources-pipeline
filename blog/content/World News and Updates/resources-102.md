@@ -1,6 +1,6 @@
 ### 🤖 Indian Politics - JD(U) Leader Reacts to Rahul Gandhi's Claims
 
-This article summarizes a reaction from a JD(U) leader, Neeraj Kumar, to comments made by Rahul Gandhi regarding donations to anonymous parties in Gujarat.  Kumar calls for evidence-based statements and urges Gandhi to address similar concerns in Bihar.
+Reaction from a JD(U) leader, Neeraj Kumar, to comments made by Rahul Gandhi regarding donations to anonymous parties in Gujarat.  Kumar calls for evidence-based statements and urges Gandhi to address similar concerns in Bihar.
 
 Key Points:
 

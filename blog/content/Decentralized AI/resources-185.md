@@ -1,6 +1,6 @@
 ### 🚀 Qubic DOGE Mining - Phase 3 Advantages and Setup
 
-This article outlines Qubic's Phase 3 DOGE mining, detailing its unique economic structure for Scrypt ASICs and advantages over conventional mining pools. It covers the distinct setup and benefits for miners.
+Qubic's Phase 3 DOGE mining, detailing its unique economic structure for Scrypt ASICs and advantages over conventional mining pools. It covers the distinct setup and benefits for miners.
 
 Key Points:
 

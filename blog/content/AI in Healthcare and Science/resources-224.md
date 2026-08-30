@@ -1,6 +1,6 @@
 ### 💡 Healthcare Leadership - Physician Challenges
 
-This article discusses key operational barriers and leadership integration in healthcare. It outlines common challenges faced by physicians, including balancing clinical and administrative duties.
+Key operational barriers and leadership integration in healthcare. It outlines common challenges faced by physicians, including balancing clinical and administrative duties.
 
 Key Points:
 

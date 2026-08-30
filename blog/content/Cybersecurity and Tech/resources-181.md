@@ -1,6 +1,6 @@
 ### 🤖 Cybercrime - SMS Blaster Device Use
 
-This article discusses the conviction of an organized criminal group in London. The group utilized an SMS Blaster device to send fraudulent text messages as part of their operations.
+Conviction of an organized criminal group in London. The group utilized an SMS Blaster device to send fraudulent text messages as part of their operations.
 
 Key Points:
 • An SMS Blaster device was used in an organized criminal operation.

@@ -1,6 +1,6 @@
 ### 🚀 Crypto Trading - Automated Betting Solution
 
-This article discusses a newly developed solution aimed at automating crypto trading on platforms like Polymarket. It highlights the potential for an internal testing release to address challenges with rapid market moves.
+Newly developed solution aimed at automating crypto trading on platforms like Polymarket. It highlights the potential for an internal testing release to address challenges with rapid market moves.
 
 Key Points:
 

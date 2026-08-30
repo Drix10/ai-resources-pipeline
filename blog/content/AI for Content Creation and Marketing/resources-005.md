@@ -1,6 +1,6 @@
 ### 📅  Market Insights - Kitchen Appliance Trends
 
-This article summarizes a webinar announcement focusing on market insights within the kitchen appliance industry.  The announcement includes a registration link.
+Webinar announcement focusing on market insights within the kitchen appliance industry.  The announcement includes a registration link.
 
 
 Key Points:

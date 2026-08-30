@@ -1,6 +1,6 @@
 ### 💰 Side Hustles - High-Income Potential
 
-This article examines a claim of earning significant income through a side hustle, requiring minimal weekly work hours.  The claim promises a guide to achieving this level of income.
+Claim of earning significant income through a side hustle, requiring minimal weekly work hours.  The claim promises a guide to achieving this level of income.
 
 Key Points:
 

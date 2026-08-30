@@ -1,6 +1,6 @@
 ### 🤖 Brain Connectivity - Aging and Autism Insights
 
-This article details the application of mathematical analysis, specifically topological data techniques, to identify distinct shifts in brain connectivity patterns. It explores these changes in the context of aging and autism, pinpointing affected brain regions.
+Application of mathematical analysis, specifically topological data techniques, to identify distinct shifts in brain connectivity patterns. It explores these changes in the context of aging and autism, pinpointing affected brain regions.
 
 Key Points:
 

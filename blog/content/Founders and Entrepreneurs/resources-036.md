@@ -1,6 +1,6 @@
 ### 🕹️ Mobile Gaming - The Nostalgia of Midcore Titles
 
-This article discusses the perceived shift in quality and monetization strategies within the free-to-play mobile gaming market, specifically comparing the early-to-mid 2010s with the present day.
+Perceived shift in quality and monetization strategies within the free-to-play mobile gaming market, specifically comparing the early-to-mid 2010s with the present day.
 
 Key Points:
 

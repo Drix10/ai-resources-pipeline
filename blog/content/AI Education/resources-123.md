@@ -1,6 +1,6 @@
 ### 💡 Cognitive Impact - AI and Human Capabilities
 
-This article explores concerns raised about the potential degradation of human cognitive capabilities due to increased reliance on artificial intelligence. It discusses the idea that individuals might unknowingly lose certain intellectual faculties over time.
+Concerns raised about the potential degradation of human cognitive capabilities due to increased reliance on artificial intelligence. It discusses the idea that individuals might unknowingly lose certain intellectual faculties over time.
 
 Key Points:
 

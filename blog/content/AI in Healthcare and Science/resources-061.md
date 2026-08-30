@@ -1,6 +1,6 @@
 ### 💡 Biotech & Healthcare Insights - Perspectives from #STATBreakthrough
 
-This article summarizes the hopes and fears expressed by leading figures in biotech and healthcare at the #STATBreakthrough conference, covering topics ranging from AI to science funding.
+Hopes and fears expressed by leading figures in biotech and healthcare at the #STATBreakthrough conference, covering topics ranging from AI to science funding.
 
 
 Key Points:

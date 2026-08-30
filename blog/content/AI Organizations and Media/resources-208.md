@@ -1,6 +1,6 @@
 ### 🤖 Security - Laser-based Identity Verification
 
-This article details a laser-based system for device identity verification developed by KAUST researchers. This technology provides a secure alternative to traditional passwords.
+Laser-based system for device identity verification developed by KAUST researchers. This technology provides a secure alternative to traditional passwords.
 
 Key Points:
 • Replaces passwords with a secure laser-based system.

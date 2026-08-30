@@ -1,6 +1,6 @@
 ### 🤖 AI in Cardiovascular Care - ACC25 Observations
 
-This article summarizes key observations from Aidoc's participation in ACC25, focusing on the expanding role of AI in cardiovascular care, encompassing both clinical and operational aspects.
+Key observations from Aidoc's participation in ACC25, focusing on the expanding role of AI in cardiovascular care, encompassing both clinical and operational aspects.
 
 Key Points:
 

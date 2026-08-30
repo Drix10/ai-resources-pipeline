@@ -1,6 +1,6 @@
 ### 🚀 AI Infrastructure -  Accelerator Selection and GPU Management
 
-This article summarizes a webinar on AI infrastructure, focusing on selecting AI accelerators and managing GPUs.  The webinar includes a live demo of hosted GPUs.
+Webinar on AI infrastructure, focusing on selecting AI accelerators and managing GPUs.  The webinar includes a live demo of hosted GPUs.
 
 Key Points:
 

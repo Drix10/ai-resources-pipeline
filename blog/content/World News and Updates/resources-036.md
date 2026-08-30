@@ -1,6 +1,6 @@
 ### 🤖 Food Additive Safety - Red Dye No. 3
 
-This article discusses the potential health risks associated with Red Dye No. 3 (FD&C Red No. 3, erythrosine, E127), a widely used food additive.  It summarizes concerns raised by scientific evidence regarding its consumption.
+Potential health risks associated with Red Dye No. 3 (FD&C Red No. 3, erythrosine, E127), a widely used food additive.  It summarizes concerns raised by scientific evidence regarding its consumption.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 💡 Housing Policy - Institutional Investor Ban
 
-This article discusses a proposed policy aiming to restrict institutional investors from purchasing residential properties in the United States. It outlines the potential implications of such a ban on the housing market and individual homeownership.
+Proposed policy aiming to restrict institutional investors from purchasing residential properties in the United States. It outlines the potential implications of such a ban on the housing market and individual homeownership.
 
 Key Points:
 

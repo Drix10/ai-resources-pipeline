@@ -1,6 +1,6 @@
 ### ✨ Investment Opportunities - Private Market Access
 
-This article discusses new avenues for individual investors to access private companies before their initial public offering (IPO). It highlights how funds are democratizing access to typically exclusive investment opportunities.
+New avenues for individual investors to access private companies before their initial public offering (IPO). It highlights how funds are democratizing access to typically exclusive investment opportunities.
 
 Key Points:
 

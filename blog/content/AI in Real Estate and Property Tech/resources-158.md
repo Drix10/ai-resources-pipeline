@@ -1,6 +1,6 @@
 ### 🤖 RESI Finance - Future Outlook
 
-This article discusses the current state and upcoming developments for RESI Finance, focusing on initiatives by @resilabsai. It highlights future directions for the platform.
+Current state and upcoming developments for RESI Finance, focusing on initiatives by @resilabsai. It highlights future directions for the platform.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Commercial Real Estate - Investment Summit
 
-This article summarizes key takeaways from the 5th Annual Women's Commercial Real Estate Investment Summit, focusing on advice from Beth Azor regarding real estate investment timing.
+Key takeaways from the 5th Annual Women's Commercial Real Estate Investment Summit, focusing on advice from Beth Azor regarding real estate investment timing.
 
 Key Points:
 

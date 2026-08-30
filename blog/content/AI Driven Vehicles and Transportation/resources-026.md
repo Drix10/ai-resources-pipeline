@@ -1,6 +1,6 @@
 ### ✨ Awards - Young Communicator of the Year
 
-This article highlights Paula Accordi's achievement as Young Communicator of the Year 2023 and the valuable lesson learned from her.
+Paula Accordi's achievement as Young Communicator of the Year 2023 and the valuable lesson learned from her.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🗣️ Politics - Senate Vote on Continuing Resolution
 
-This article summarizes a call for Democratic senators to vote against a continuing resolution, citing concerns about its implications.
+Call for Democratic senators to vote against a continuing resolution, citing concerns about its implications.
 
 Key Points:
 

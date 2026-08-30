@@ -1,6 +1,6 @@
 ### ⚖️ Legal - Irish Teacher's Frozen Savings
 
-This article discusses the case of Enoch Burke, an Irish teacher whose savings were frozen due to fines resulting from his refusal to use transgender pronouns.
+Case of Enoch Burke, an Irish teacher whose savings were frozen due to fines resulting from his refusal to use transgender pronouns.
 
 Key Points:
 

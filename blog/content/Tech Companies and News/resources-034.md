@@ -1,6 +1,6 @@
 ### 🤖 AI Compute Infrastructure - Power Consumption
 
-This article discusses the increasing power consumption of AI compute infrastructure and the necessity of advanced liquid cooling solutions.
+Increasing power consumption of AI compute infrastructure and the necessity of advanced liquid cooling solutions.
 
 Key Points:
 

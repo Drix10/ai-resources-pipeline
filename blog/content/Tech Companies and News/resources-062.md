@@ -1,6 +1,6 @@
 ### 🤖 AI Partnerships - TechCrunch Sessions: AI
 
-This article discusses the upcoming TechCrunch Sessions: AI event in Berkeley on June 5th, featuring a panel discussion by Tanka Chat on the evolving role of AI as a co-founder.  The article highlights the increasing responsibilities and multifaceted roles of founders and how AI can assist.
+Upcoming TechCrunch Sessions: AI event in Berkeley on June 5th, featuring a panel discussion by Tanka Chat on the evolving role of AI as a co-founder.  The article highlights the increasing responsibilities and multifaceted roles of founders and how AI can assist.
 
 Key Points:
 

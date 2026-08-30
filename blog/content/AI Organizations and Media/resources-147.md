@@ -1,6 +1,6 @@
 ### 🤖 Advanced Textile Manufacturing - Robotics Partnership
 
-This article discusses the strategic partnership between Anatar and Chang Robotics. It highlights their joint effort to advance textile manufacturing. The collaboration aims to strengthen the domestic supply base for defense and retail textiles.
+Strategic partnership between Anatar and Chang Robotics. It highlights their joint effort to advance textile manufacturing. The collaboration aims to strengthen the domestic supply base for defense and retail textiles.
 
 Key Points:
 

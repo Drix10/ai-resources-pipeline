@@ -1,6 +1,6 @@
 ### 🤖 Data Science - East Africa Conference 2026
 
-This article provides details about the upcoming Data Science East Africa Conference in 2026. It outlines the event's focus, date, and venue for attendees.
+Details about the upcoming Data Science East Africa Conference in 2026. It outlines the event's focus, date, and venue for attendees.
 
 Key Points:
 

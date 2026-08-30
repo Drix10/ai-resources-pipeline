@@ -1,6 +1,6 @@
 ### 🤖 AI Automation - New Company Models
 
-This article discusses the seed investment by Kindred Ventures into The Corgi Company. It highlights how artificial intelligence is transforming business models by enabling unprecedented automation of complex services. The content covers the strategic shift in company building facilitated by AI.
+Seed investment by Kindred Ventures into The Corgi Company. It highlights how artificial intelligence is transforming business models by enabling unprecedented automation of complex services. The content covers the strategic shift in company building facilitated by AI.
 
 Key Points:
 

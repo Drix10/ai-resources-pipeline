@@ -1,6 +1,6 @@
 ### 🤖 Indian Politics - Rahul Gandhi's Vote Chori Allegation
 
-This article discusses the demand for Rahul Gandhi to either substantiate his "Vote Chori" (vote theft) allegations against the Election Commission of India (ECI) or issue an apology.
+Demand for Rahul Gandhi to either substantiate his "Vote Chori" (vote theft) allegations against the Election Commission of India (ECI) or issue an apology.
 
 Key Points:
 

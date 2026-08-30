@@ -1,6 +1,6 @@
 ### 🤖 Privacy-Focused Platform - Development Roadmap
 
-This article outlines the development roadmap for a platform prioritizing privacy and free speech, focusing on its core components: encrypted messaging, content tools, and text posts.
+Development roadmap for a platform prioritizing privacy and free speech, focusing on its core components: encrypted messaging, content tools, and text posts.
 
 Key Points:
 

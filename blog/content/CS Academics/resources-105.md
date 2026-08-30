@@ -1,6 +1,6 @@
 ### 💡 Education - Generative AI Public Education
 
-This article discusses the challenges and opportunities in teaching generative AI to the public, highlighting the need for PhD-level research in this area.  The lack of established methods makes this a significant research undertaking.
+Challenges and opportunities in teaching generative AI to the public, highlighting the need for PhD-level research in this area.  The lack of established methods makes this a significant research undertaking.
 
 Key Points:
 

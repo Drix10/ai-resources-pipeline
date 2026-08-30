@@ -1,6 +1,6 @@
 ### 📰 Geopolitics - Israeli-Palestinian Conflict Update
 
-This article summarizes a news report concerning the release of a Palestinian terrorist in exchange for the return of Israeli hostages' bodies.
+News report concerning the release of a Palestinian terrorist in exchange for the return of Israeli hostages' bodies.
 
 Key Points:
 

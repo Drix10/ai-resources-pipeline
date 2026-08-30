@@ -1,6 +1,6 @@
 ### 🤖 Digital Art - Vera Molnár's Hommage to Monet
 
-This article discusses Vera Molnár's digital artwork "Hommage à MONET" from 1981, highlighting its continuous dialogue with Claude Monet's "Impression, Soleil Levant" through early digital computation.
+Vera Molnár's digital artwork "Hommage à MONET" from 1981, highlighting its continuous dialogue with Claude Monet's "Impression, Soleil Levant" through early digital computation.
 
 Key Points:
 

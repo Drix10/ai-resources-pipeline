@@ -1,6 +1,6 @@
 ### 🤖 Computer Vision - High-Resolution Multi-View Humans
 
-This article summarizes a CVPR 2025 paper introducing "Pippo," a generative model for creating high-resolution videos of humans from a single image.  The model generates dense turnaround videos at 1K resolution.
+CVPR 2025 paper introducing "Pippo," a generative model for creating high-resolution videos of humans from a single image.  The model generates dense turnaround videos at 1K resolution.
 
 Key Points:
 

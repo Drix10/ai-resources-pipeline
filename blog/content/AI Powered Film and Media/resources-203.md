@@ -1,6 +1,6 @@
 ### ✨ AI Fashion Design - Wes-Inspired Oversized Dress
 
-This article explores the creation of an oversized dress design using AI, drawing inspiration from Wes Anderson's distinct aesthetic. It highlights the intersection of artificial intelligence and fashion design for unique style generation.
+Creation of an oversized dress design using AI, drawing inspiration from Wes Anderson's distinct aesthetic. It highlights the intersection of artificial intelligence and fashion design for unique style generation.
 
 Key Points:
 

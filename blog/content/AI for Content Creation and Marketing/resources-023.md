@@ -1,6 +1,6 @@
 ### 🤖 AI Models - Simultaneous Querying
 
-This article discusses the benefits of querying multiple AI models simultaneously to gather diverse insights from a single question, eliminating the need to switch between different platforms.
+Benefits of querying multiple AI models simultaneously to gather diverse insights from a single question, eliminating the need to switch between different platforms.
 
 Key Points:
 

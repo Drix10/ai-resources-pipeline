@@ -1,6 +1,6 @@
 ### 🤒 Travel and Illness - Mask Etiquette
 
-This article discusses the author's experience with illness after traveling and contrasts mask-wearing etiquette in London, San Francisco, and Singapore.
+Author's experience with illness after traveling and contrasts mask-wearing etiquette in London, San Francisco, and Singapore.
 
 Key Points:
 

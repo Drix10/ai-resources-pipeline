@@ -1,6 +1,6 @@
 ### 💡 Public Relations - Media Strategy
 
-This article discusses the strategic management of public appearances in media, focusing on podcast engagements. It considers the potential benefits of adjusting media presence for public figures.
+Strategic management of public appearances in media, focusing on podcast engagements. It considers the potential benefits of adjusting media presence for public figures.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 OriginTrail - Metcalfe Convergence Phase
 
-This article discusses OriginTrail's advancement into the Metcalfe Convergence Phase, highlighting its applications in large-scale trade networks and combating online harm using AI.
+OriginTrail's advancement into the Metcalfe Convergence Phase, highlighting its applications in large-scale trade networks and combating online harm using AI.
 
 Key Points:
 

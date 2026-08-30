@@ -1,6 +1,6 @@
 ### 🚀 Five9 at Enterprise Connect - CX Platform Decisions
 
-This article summarizes Five9's participation in Enterprise Connect, highlighting key sessions on CCaaS decisions and unified CX strategies.  The focus is on the evolution of customer experience platforms.
+Five9's participation in Enterprise Connect, highlighting key sessions on CCaaS decisions and unified CX strategies.  The focus is on the evolution of customer experience platforms.
 
 
 Key Points:

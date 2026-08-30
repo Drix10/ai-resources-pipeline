@@ -1,6 +1,6 @@
 ### 💡 Digital Asset Custody - Understanding CEXes and RWAs
 
-This article outlines the fundamental principles of digital asset custody, differentiating between Centralized Exchanges (CEXes) and Real World Assets (RWAs) in terms of key ownership and asset control.
+Fundamental principles of digital asset custody, differentiating between Centralized Exchanges (CEXes) and Real World Assets (RWAs) in terms of key ownership and asset control.
 
 Key Points:
 

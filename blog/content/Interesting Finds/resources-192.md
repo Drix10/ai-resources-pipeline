@@ -1,6 +1,6 @@
 ### 💡 GA4 Analytics - AI Traffic Reporting Challenges
 
-This article discusses the limitations of AI-assistant traffic reporting in GA4, specifically how major AI search and discovery features are categorized. It highlights the challenge of accurately measuring AI surface views.
+Limitations of AI-assistant traffic reporting in GA4, specifically how major AI search and discovery features are categorized. It highlights the challenge of accurately measuring AI surface views.
 
 Key Points:
 

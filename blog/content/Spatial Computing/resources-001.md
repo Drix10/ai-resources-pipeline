@@ -1,6 +1,6 @@
 ### 🤖 NVIDIA at NBA All-Star Weekend Technology Summit
 
-This article summarizes NVIDIA's participation in the NBA All-Star Weekend Technology Summit in San Francisco, focusing on discussions surrounding trends and innovations in sports, media, and technology.
+NVIDIA's participation in the NBA All-Star Weekend Technology Summit in San Francisco, focusing on discussions surrounding trends and innovations in sports, media, and technology.
 
 Key Points:
 

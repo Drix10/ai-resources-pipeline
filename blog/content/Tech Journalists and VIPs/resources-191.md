@@ -1,6 +1,6 @@
 ### 🚀 Solana - Tokenized Stocks and Global Market Access
 
-This article discusses the view on why tokenized stocks on the Solana blockchain are a natural market progression. It covers the demand for global investment access into successful companies.
+View on why tokenized stocks on the Solana blockchain are a natural market progression. It covers the demand for global investment access into successful companies.
 
 Key Points:
 

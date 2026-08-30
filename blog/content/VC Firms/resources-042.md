@@ -1,6 +1,6 @@
 ### 💡 Startup Life - The Evolving Playbook
 
-This article discusses the shift in the startup landscape, highlighting the impact of remote work and global talent on traditional startup models.
+Shift in the startup landscape, highlighting the impact of remote work and global talent on traditional startup models.
 
 Key Points:
 

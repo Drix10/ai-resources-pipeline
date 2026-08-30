@@ -1,6 +1,6 @@
 ### 💡 Bitcoin Market - Investment Strategy
 
-This article discusses a personal investment perspective on Bitcoin's potential price movements. It covers a strategy for accumulating Bitcoin if certain market conditions are met.
+Personal investment perspective on Bitcoin's potential price movements. It covers a strategy for accumulating Bitcoin if certain market conditions are met.
 
 Key Points:
 

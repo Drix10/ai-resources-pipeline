@@ -1,6 +1,6 @@
 ### 🚀 Text-to-Video - Hailuo AI
 
-This article discusses Hailuo AI's capabilities in text-to-video generation, highlighting its consistent, smooth, and stylish results.  An example video showcasing a junk-mech in a scrapyard is provided.
+Hailuo AI's capabilities in text-to-video generation, highlighting its consistent, smooth, and stylish results.  An example video showcasing a junk-mech in a scrapyard is provided.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Young Athletes - Performance Feedback
 
-This article discusses the importance of constructive criticism for young athletes and addresses negative online commentary regarding their performance.
+Importance of constructive criticism for young athletes and addresses negative online commentary regarding their performance.
 
 Key Points:
 

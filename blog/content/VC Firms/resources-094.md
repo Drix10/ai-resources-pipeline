@@ -1,6 +1,6 @@
 ### 🤖 Kapor Foundation's Impact - Investment in Tech Equity
 
-This article summarizes the Kapor Foundation's investments in communities of color, focusing on its impact on CS education and the tech industry.  The foundation's approach involves investing in people, policy, and pathways to address the tech equity gap.
+Kapor Foundation's investments in communities of color, focusing on its impact on CS education and the tech industry.  The foundation's approach involves investing in people, policy, and pathways to address the tech equity gap.
 
 
 Key Points:

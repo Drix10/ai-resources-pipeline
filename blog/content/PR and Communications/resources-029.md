@@ -1,6 +1,6 @@
 ### 🤖 Economics - US Trade Surplus in Services
 
-This article discusses the US trade surplus in services, attributing it to capital flow towards profitable sectors like AI and software.  It counters the misconception of a solely goods-based trade deficit.
+US trade surplus in services, attributing it to capital flow towards profitable sectors like AI and software.  It counters the misconception of a solely goods-based trade deficit.
 
 Key Points:
 

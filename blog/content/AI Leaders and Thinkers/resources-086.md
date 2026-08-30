@@ -1,6 +1,6 @@
 ### 🤖 AI Model Benchmarks - Grok 4 Performance
 
-This article summarizes the performance of Grok 4, an AI model, based on a benchmark analysis, comparing it to other leading models.  The analysis includes an Artificial Analysis Intelligence Index score.
+Performance of Grok 4, an AI model, based on a benchmark analysis, comparing it to other leading models.  The analysis includes an Artificial Analysis Intelligence Index score.
 
 Key Points:
 

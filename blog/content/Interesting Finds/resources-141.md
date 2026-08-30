@@ -1,6 +1,6 @@
 ### 💡 Geopolitics - Bearish Economic Perspectives
 
-This article discusses the economic outlooks of prominent figures Dalio and Balaji, who hold bearish views on America. It explores their rationales for potential future challenges.
+Economic outlooks of prominent figures Dalio and Balaji, who hold bearish views on America. It explores their rationales for potential future challenges.
 
 Key Points:
 

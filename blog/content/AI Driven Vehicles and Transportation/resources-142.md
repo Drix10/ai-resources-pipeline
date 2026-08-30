@@ -1,6 +1,6 @@
 ### 💡 Content Discovery - X (Twitter) Curation
 
-This article discusses the importance of content discovery and highlights methods for curating relevant information from platforms like X (formerly Twitter). It emphasizes leveraging expert accounts for valuable insights and updates.
+Importance of content discovery and highlights methods for curating relevant information from platforms like X (formerly Twitter). It emphasizes leveraging expert accounts for valuable insights and updates.
 
 Key Points:
 

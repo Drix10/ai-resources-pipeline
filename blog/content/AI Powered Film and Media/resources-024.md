@@ -1,6 +1,6 @@
 ### 🤖 Manus AI - A Powerful Agentic AI
 
-This article discusses Manus AI, a powerful AI system exceeding the capabilities of similar technologies like DeepSeek.  It highlights its advanced features and potential applications.
+Manus AI, a powerful AI system exceeding the capabilities of similar technologies like DeepSeek.  It highlights its advanced features and potential applications.
 
 Key Points:
 

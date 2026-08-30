@@ -1,6 +1,6 @@
 ### 🎨 Art - Seeking Funds for Medical Bills
 
-This article details an artist's request for financial assistance to cover urgent hospital bills.  The artist is selling their artwork on Foundation to raise funds.
+Artist's request for financial assistance to cover urgent hospital bills.  The artist is selling their artwork on Foundation to raise funds.
 
 Key Points:
 

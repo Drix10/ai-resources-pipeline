@@ -1,6 +1,6 @@
 ### 🤖 AI Note-Taking Inconsistencies
 
-This article discusses the inconsistencies observed in AI-generated meeting notes, even when using the same tool.  It highlights the challenges of relying solely on AI for accurate record-keeping.
+Inconsistencies observed in AI-generated meeting notes, even when using the same tool.  It highlights the challenges of relying solely on AI for accurate record-keeping.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Claude Code - Version Release 2.1.167
 
-This article details the release of Claude Code version 2.1.167, highlighting Command Line Interface (CLI) bug fixes, reliability improvements, and changes to available models. It summarizes the core updates and their impact on the tool's stability and functionality.
+Release of Claude Code version 2.1.167, highlighting Command Line Interface (CLI) bug fixes, reliability improvements, and changes to available models. It summarizes the core updates and their impact on the tool's stability and functionality.
 
 Key Points:
 

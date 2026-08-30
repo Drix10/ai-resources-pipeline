@@ -1,6 +1,6 @@
 ### 🤖 AI Implementation in Real Estate - Avoiding Common Pitfalls
 
-This article discusses the pitfalls of replacing humans with AI in real estate and suggests a better approach focusing on process automation and team collaboration.  It also provides a link to a newsletter with further details.
+Pitfalls of replacing humans with AI in real estate and suggests a better approach focusing on process automation and team collaboration.  It also provides a link to a newsletter with further details.
 
 Key Points:
 

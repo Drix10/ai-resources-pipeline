@@ -1,6 +1,6 @@
 ### 🤖 Community Engagement - Creator Onboarding Program
 
-This article details a community proposal to onboard creators for short-form content creation across multiple platforms to promote the game "My Pet Hooligan."  The initiative aims to increase video output and Steam wishlists before launch.
+Community proposal to onboard creators for short-form content creation across multiple platforms to promote the game "My Pet Hooligan."  The initiative aims to increase video output and Steam wishlists before launch.
 
 Key Points:
 

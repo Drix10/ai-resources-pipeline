@@ -1,6 +1,6 @@
 ### 💡 Veteran Support - Civilian Career Empowerment
 
-This article discusses the support provided for service members and veterans to transition into civilian leadership roles. It highlights the commitment to empowering them in their post-service careers.
+Support provided for service members and veterans to transition into civilian leadership roles. It highlights the commitment to empowering them in their post-service careers.
 
 Key Points:
 

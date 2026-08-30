@@ -1,6 +1,6 @@
 ### 🤖 Koios Medical - SmartUltrasound™
 
-This article discusses Koios Medical's SmartUltrasound™ technology, its commitment to improved patient outcomes, and its use of AI.
+Koios Medical's SmartUltrasound™ technology, its commitment to improved patient outcomes, and its use of AI.
 
 Key Points:
 

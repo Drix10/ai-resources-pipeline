@@ -1,6 +1,6 @@
 ### 💡 Design Trends - Future of Design in 2026
 
-This article explores a forward-looking perspective on the design profession, anticipating shifts and new demands designers may face by 2026. It considers the evolving landscape of tools and methodologies influencing creative roles.
+Forward-looking perspective on the design profession, anticipating shifts and new demands designers may face by 2026. It considers the evolving landscape of tools and methodologies influencing creative roles.
 
 Key Points:
 

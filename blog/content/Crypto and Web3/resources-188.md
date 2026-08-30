@@ -1,6 +1,6 @@
 ### 💡 Founder Evaluation - Investment Criteria
 
-This article explores the critical aspects considered when evaluating a founder for investment, particularly in high-stakes scenarios. It highlights key characteristics that contribute to a founder's potential success and why certain profiles are often favored.
+Critical aspects considered when evaluating a founder for investment, particularly in high-stakes scenarios. It highlights key characteristics that contribute to a founder's potential success and why certain profiles are often favored.
 
 Key Points:
 

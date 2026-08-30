@@ -1,6 +1,6 @@
 ### 🤖 WebXR -  Quest 3 Interaction
 
-This article details a method for detecting kicks and stomps in WebXR on a Meta Quest 3 headset using on-device machine learning and WebSockets for communication.  Haptic feedback is also incorporated.
+Method for detecting kicks and stomps in WebXR on a Meta Quest 3 headset using on-device machine learning and WebSockets for communication.  Haptic feedback is also incorporated.
 
 Key Points:
 

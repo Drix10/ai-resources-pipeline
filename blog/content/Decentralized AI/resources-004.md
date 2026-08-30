@@ -1,6 +1,6 @@
 ### 🤖 Bitcoin Analytics - Nansen Integration
 
-This article covers the integration of Bitcoin on-chain analytics on the Nansen platform, highlighting key features and upcoming functionalities.
+Integration of Bitcoin on-chain analytics on the Nansen platform, highlighting key features and upcoming functionalities.
 
 Key Points:
 

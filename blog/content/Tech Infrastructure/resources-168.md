@@ -1,6 +1,6 @@
 ### 💡 Naval Operations - USS Gerald R. Ford Deployment
 
-This article details the ongoing day and night flight operations aboard the USS Gerald R. Ford (CVN 78) in the Red Sea. It highlights the carrier strike group's mission to support maritime security in the U.S. 5th Fleet area of responsibility.
+Ongoing day and night flight operations aboard the USS Gerald R. Ford (CVN 78) in the Red Sea. It highlights the carrier strike group's mission to support maritime security in the U.S. 5th Fleet area of responsibility.
 
 Key Points:
 

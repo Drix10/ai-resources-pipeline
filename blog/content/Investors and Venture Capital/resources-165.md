@@ -1,6 +1,6 @@
 ### 💡 Business Mindset - Cultivating Skills
 
-This article focuses on reframing perceived genetic limitations into actionable skill development for business success. It emphasizes that key entrepreneurial traits are learned skills, not inherent personality characteristics.
+Reframing perceived genetic limitations into actionable skill development for business success. It emphasizes that key entrepreneurial traits are learned skills, not inherent personality characteristics.
 
 Key Points:
 

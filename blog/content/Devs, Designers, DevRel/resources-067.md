@@ -1,6 +1,6 @@
 ### ✨ Features - Dark Mode Update for OnlineOrNot Status Pages
 
-This article discusses the recent addition of dark mode support to the OnlineOrNot dashboard.  Previously, only the status pages offered this feature.
+Recent addition of dark mode support to the OnlineOrNot dashboard.  Previously, only the status pages offered this feature.
 
 Key Points:
 

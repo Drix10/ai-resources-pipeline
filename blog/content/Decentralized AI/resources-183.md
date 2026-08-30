@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Specialized Task Automation
 
-This article covers the capabilities of specialized AI in handling complex tasks, from medical imaging analysis to business intelligence. It introduces a platform designed for building, deploying, and scaling advanced AI agents to tackle challenging problems.
+Capabilities of specialized AI in handling complex tasks, from medical imaging analysis to business intelligence. It introduces a platform designed for building, deploying, and scaling advanced AI agents to tackle challenging problems.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI in Industries - Sensor Data Insights
 
-This article discusses the impact of AI on various industries and how foundation models can leverage sensor data for valuable insights.  A podcast featuring Archetype AI's CEO and Head of AI & SW is referenced.
+Impact of AI on various industries and how foundation models can leverage sensor data for valuable insights.  A podcast featuring Archetype AI's CEO and Head of AI & SW is referenced.
 
 Key Points:
 

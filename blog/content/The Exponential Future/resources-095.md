@@ -1,6 +1,6 @@
 ### 🤖 Claude Code for Firmware - Advanced Data Sheet Parsing
 
-This article discusses the use of Claude Code for parsing data sheets, specifically highlighting its application in a balancing robot project.  The project involved parsing 200 pages of Chinese technical documentation.
+Use of Claude Code for parsing data sheets, specifically highlighting its application in a balancing robot project.  The project involved parsing 200 pages of Chinese technical documentation.
 
 Key Points:
 

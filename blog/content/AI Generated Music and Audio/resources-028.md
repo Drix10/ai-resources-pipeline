@@ -1,6 +1,6 @@
 ### 🤖 AI Music Generation - Evoke Music
 
-This article discusses Evoke Music's AI, focusing on its capabilities in overcoming creative blocks and generating game sounds.  It also provides a link to explore AI-powered sounds.
+Evoke Music's AI, focusing on its capabilities in overcoming creative blocks and generating game sounds.  It also provides a link to explore AI-powered sounds.
 
 Key Points:
 

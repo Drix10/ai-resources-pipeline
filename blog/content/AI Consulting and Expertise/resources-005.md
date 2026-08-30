@@ -1,6 +1,6 @@
 ### 🤖 Societal Change - Preparing for Interstellar Travel
 
-This article explores the chaotic nature of societal transformation during preparation for interstellar travel, drawing parallels to a "fire in a madhouse."  It briefly touches upon the challenges and unpredictable nature of such a monumental undertaking.
+Chaotic nature of societal transformation during preparation for interstellar travel, drawing parallels to a "fire in a madhouse."  It briefly touches upon the challenges and unpredictable nature of such a monumental undertaking.
 
 
 Key Points:

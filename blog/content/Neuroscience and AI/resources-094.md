@@ -1,6 +1,6 @@
 ### 🤖 Generative AI - Information Pollution
 
-This article discusses the potential negative impact of generative AI on the internet's information ecosystem, comparing it to environmental pollution.
+Potential negative impact of generative AI on the internet's information ecosystem, comparing it to environmental pollution.
 
 Key Points:
 

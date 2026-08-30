@@ -1,6 +1,6 @@
 ### 🤖 Insider Threat - Honeypot Deception
 
-This article discusses a case study involving an insider threat investigation where a spy was tricked by a honeypot, leading to the implication of senior leaders at competitor companies.  A video detailing the investigation is linked.
+Case study involving an insider threat investigation where a spy was tricked by a honeypot, leading to the implication of senior leaders at competitor companies.  A video detailing the investigation is linked.
 
 Key Points:
 

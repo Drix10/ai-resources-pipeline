@@ -1,6 +1,6 @@
 ### 🤖 Oncology Research Data - Real-World Cancer Patient Journeys
 
-This article discusses Truveta's approach to providing comprehensive oncology research data, focusing on the breadth and depth of its real-world data encompassing over 7 million cancer patient journeys.
+Truveta's approach to providing comprehensive oncology research data, focusing on the breadth and depth of its real-world data encompassing over 7 million cancer patient journeys.
 
 Key Points:
 

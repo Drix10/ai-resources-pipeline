@@ -1,6 +1,6 @@
 ### 🤖 Decentralized Knowledge Graph - AI Decision-Making Transparency
 
-This article explores how the Decentralized Knowledge Graph enhances AI decision-making by providing verifiable, interconnected data. It focuses on enabling transparent and trustworthy algorithmic reasoning through a decentralized infrastructure.
+The Decentralized Knowledge Graph enhances AI decision-making by providing verifiable, interconnected data. It focuses on enabling transparent and trustworthy algorithmic reasoning through a decentralized infrastructure.
 
 Key Points:
 

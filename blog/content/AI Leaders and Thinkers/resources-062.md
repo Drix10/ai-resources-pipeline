@@ -1,6 +1,6 @@
 ### ✨ Google I/O Reflections - AI and Emotional Response
 
-This article discusses the author's emotional response to Google I/O and the new AI releases, along with their thoughts on the significance of these advancements.
+Author's emotional response to Google I/O and the new AI releases, along with their thoughts on the significance of these advancements.
 
 Key Points:
 

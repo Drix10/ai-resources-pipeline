@@ -1,6 +1,6 @@
 ### 🤖 Oil Markets - North Sea Premia Lag
 
-This article discusses the tightening spreads in oil markets and the lagging North Sea premia, exploring potential trading opportunities.  Neil Crosby, AVP Oil Analytics at Sparta, offers insights.
+Tightening spreads in oil markets and the lagging North Sea premia, exploring potential trading opportunities.  Neil Crosby, AVP Oil Analytics at Sparta, offers insights.
 
 Key Points:
 

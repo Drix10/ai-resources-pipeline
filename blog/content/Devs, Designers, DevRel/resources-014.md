@@ -1,6 +1,6 @@
 ### 🤖 Code Quality - Enhancing Cursor AI with Complexity Monitoring
 
-This article discusses integrating complexity monitoring tools, such as Code Climate, into the feedback loop of Cursor AI's agent mode to improve code quality and overall user experience.
+Integrating complexity monitoring tools, such as Code Climate, into the feedback loop of Cursor AI's agent mode to improve code quality and overall user experience.
 
 Key Points:
 

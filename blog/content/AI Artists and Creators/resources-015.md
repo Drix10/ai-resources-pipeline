@@ -1,6 +1,6 @@
 ### 🤖 AI Animation and Control - Exploration and Output
 
-This article discusses the current state of AI animation and control tools, focusing on areas for improvement and highlighting useful features for better output.
+Current state of AI animation and control tools, focusing on areas for improvement and highlighting useful features for better output.
 
 Key Points:
 

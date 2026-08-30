@@ -1,6 +1,6 @@
 ### 💡 Indie Game Development - Approaching Overseas Press
 
-This article discusses strategies for indie game developers and visual novel creators in Japan to engage with overseas press. It highlights the availability of valuable resources for approaching international media.
+Strategies for indie game developers and visual novel creators in Japan to engage with overseas press. It highlights the availability of valuable resources for approaching international media.
 
 Key Points:
 

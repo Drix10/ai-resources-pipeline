@@ -1,6 +1,6 @@
 ### 🤖 Community Initiatives - Public Transit Data Integration
 
-This article highlights how a community member successfully integrated the Roosevelt Island tram schedule into Google Maps, addressing a significant local information gap. It demonstrates the impact of individual technical initiative in public service.
+A community member successfully integrated the Roosevelt Island tram schedule into Google Maps, addressing a significant local information gap. It demonstrates the impact of individual technical initiative in public service.
 
 Key Points:
 

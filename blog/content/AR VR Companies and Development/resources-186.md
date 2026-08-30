@@ -1,6 +1,6 @@
 ### ✨ Apple Vision Pro - Immersive Video Content
 
-This article discusses the growing availability of high-quality immersive videos for Apple Vision Pro. It highlights an application designed to help users discover this content.
+Growing availability of high-quality immersive videos for Apple Vision Pro. It highlights an application designed to help users discover this content.
 
 Key Points:
 

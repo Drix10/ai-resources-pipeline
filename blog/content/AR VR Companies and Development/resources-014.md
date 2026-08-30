@@ -1,6 +1,6 @@
 ### ✨ Inspiration - Graduation Speech
 
-This article summarizes a graduation speech emphasizing the importance of belief in overcoming limitations.  The speech highlighted the power of self-belief and the support of others in achieving goals.
+Graduation speech emphasizing the importance of belief in overcoming limitations.  The speech highlighted the power of self-belief and the support of others in achieving goals.
 
 Key Points:
 

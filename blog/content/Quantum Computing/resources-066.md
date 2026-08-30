@@ -1,6 +1,6 @@
 ### 🤖 Biomedical Research - Funding Cuts and International Collaboration
 
-This article discusses the impact of funding cuts on biomedical research and the subsequent offer of international collaboration.  It highlights the swift response from a Chinese institution to a Nobel laureate following US funding reductions.
+Impact of funding cuts on biomedical research and the subsequent offer of international collaboration.  It highlights the swift response from a Chinese institution to a Nobel laureate following US funding reductions.
 
 Key Points:
 

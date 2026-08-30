@@ -1,6 +1,6 @@
 ### 💡 Societal Challenges - Economic and Educational Factors
 
-This article examines current societal issues stemming from economic and educational policies. It discusses how existing structures contribute to rising costs and impact youth education.
+Current societal issues stemming from economic and educational policies. It discusses how existing structures contribute to rising costs and impact youth education.
 
 Key Points:
 

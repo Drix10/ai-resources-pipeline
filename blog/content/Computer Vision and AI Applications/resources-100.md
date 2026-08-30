@@ -1,6 +1,6 @@
 ### 🤖 3D Vision - Linearly Scalable VGGT
 
-This article discusses VGGT, a game-changing model in 3D vision, highlighting its limitations regarding scalability and the need for improved efficiency when handling large datasets.
+VGGT, a game-changing model in 3D vision, highlighting its limitations regarding scalability and the need for improved efficiency when handling large datasets.
 
 
 Key Points:

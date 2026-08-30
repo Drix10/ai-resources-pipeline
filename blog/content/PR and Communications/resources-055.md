@@ -1,6 +1,6 @@
 ### 💡 International Aid - Gaza Aid Distribution
 
-This article discusses the UN's refusal to participate in a new Gaza aid distribution system due to concerns about Hamas stealing and reselling aid.  The UN's objection is analyzed in the context of its stated priorities for helping Palestinian civilians.
+UN's refusal to participate in a new Gaza aid distribution system due to concerns about Hamas stealing and reselling aid.  The UN's objection is analyzed in the context of its stated priorities for helping Palestinian civilians.
 
 Key Points:
 

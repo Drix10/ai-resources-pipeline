@@ -1,6 +1,6 @@
 ### 🤖 AI Collaboration - Foundation Models
 
-This article discusses the collaboration between two Y Combinator companies, Sonauto AI and the author's company, focusing on their work with foundation models for music and video.
+Collaboration between two Y Combinator companies, Sonauto AI and the author's company, focusing on their work with foundation models for music and video.
 
 Key Points:
 

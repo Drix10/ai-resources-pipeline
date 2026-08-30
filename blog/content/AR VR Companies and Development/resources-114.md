@@ -1,6 +1,6 @@
 ### 💡 Sales Strategy - Engaging Buyer Personas
 
-This article outlines the differences between analytics and observability, explains the components needed for a Retrieval Augmented Generation (RAG) system, and provides implementation guidance.This article covers differentiating sales approaches for aware and unaware buyers and effective practice methods for sales teams.
+Differences between analytics and observability, explains the components needed for a Retrieval Augmented Generation (RAG) system, and provides implementation guidance.This article covers differentiating sales approaches for aware and unaware buyers and effective practice methods for sales teams.
 
 Key Points:
 

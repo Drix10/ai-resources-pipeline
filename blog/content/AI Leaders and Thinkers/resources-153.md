@@ -1,6 +1,6 @@
 ### 🤖 AI-Assisted Design - SVG Animation with Claude AI
 
-This article explores the capabilities of Claude AI in generating SVG animations, demonstrating its ability to interpret user descriptions for custom motion graphics. It highlights how AI can simplify the creation of dynamic visual elements for applications.
+Capabilities of Claude AI in generating SVG animations, demonstrating its ability to interpret user descriptions for custom motion graphics. It highlights how AI can simplify the creation of dynamic visual elements for applications.
 
 Key Points:
 

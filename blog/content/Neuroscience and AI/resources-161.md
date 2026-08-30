@@ -1,6 +1,6 @@
 ### 💡 Conservation - Arapaima Success Story
 
-This article discusses the conservation success of the arapaima, a giant fish found in the Brazilian Amazon. It highlights how targeted efforts have led to a positive outcome for this species.
+Conservation success of the arapaima, a giant fish found in the Brazilian Amazon. It highlights how targeted efforts have led to a positive outcome for this species.
 
 Key Points:
 

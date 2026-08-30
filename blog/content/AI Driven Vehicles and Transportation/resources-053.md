@@ -1,6 +1,6 @@
 ### 🤖 Autonomous Vehicle Safety - InfoShare Recap
 
-This article summarizes the key takeaways from the 2025 AV Safety InfoShare, hosted by MITRE.  The event brought together various industry leaders to discuss advancements and challenges in autonomous vehicle safety.
+Key takeaways from the 2025 AV Safety InfoShare, hosted by MITRE.  The event brought together various industry leaders to discuss advancements and challenges in autonomous vehicle safety.
 
 
 Key Points:

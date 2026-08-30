@@ -1,6 +1,6 @@
 ### 🚀 GitHub Copilot App - Setup and Availability
 
-This article details the availability of the GitHub Copilot app across all plans. It also provides guidance for users who wish to set up the app using their own key.
+Availability of the GitHub Copilot app across all plans. It also provides guidance for users who wish to set up the app using their own key.
 
 Key Points:
 • GitHub Copilot app is accessible with all existing Copilot plans.

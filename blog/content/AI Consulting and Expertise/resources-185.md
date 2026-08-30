@@ -1,6 +1,6 @@
 ### 🤖 VFX Quality - Seedance 2 Impact
 
-This article highlights the exceptional visual effects quality achieved in Seedance 2 and discusses its significant financial implications for future filmmakers.
+Exceptional visual effects quality achieved in Seedance 2 and discusses its significant financial implications for future filmmakers.
 
 Key Points:
 

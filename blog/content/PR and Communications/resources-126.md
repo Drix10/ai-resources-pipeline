@@ -1,6 +1,6 @@
 ### 💡 Political Systems - Venezuela's Socio-Economic Outcomes
 
-This article examines the critical perspective on Venezuela's socio-economic conditions, attributing its state to the outcomes of its socialist policies. It highlights prevalent issues such as corruption, poverty, and repression.
+Critical perspective on Venezuela's socio-economic conditions, attributing its state to the outcomes of its socialist policies. It highlights prevalent issues such as corruption, poverty, and repression.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 📰 US Politics - Trump's Stance on Foreign Workers
 
-This article summarizes President Trump's statement regarding foreign workers in the United States, made ten days after the arrest of hundreds of South Korean workers in Georgia.  It contrasts his welcoming statement with the recent arrests.
+President Trump's statement regarding foreign workers in the United States, made ten days after the arrest of hundreds of South Korean workers in Georgia.  It contrasts his welcoming statement with the recent arrests.
 
 
 Key Points:

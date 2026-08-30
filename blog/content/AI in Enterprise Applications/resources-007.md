@@ -1,6 +1,6 @@
 ### 🤖 Agentic Security - Transforming Security Workflows
 
-This article discusses the limitations of traditional security models and explores the transformative potential of agentic security, illustrating real-world applications within DevOps, SecOps, and IT compliance automation.
+Limitations of traditional security models and explores the transformative potential of agentic security, illustrating real-world applications within DevOps, SecOps, and IT compliance automation.
 
 Key Points:
 

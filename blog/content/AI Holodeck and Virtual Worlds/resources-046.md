@@ -1,6 +1,6 @@
 ### 🤖 AI and Job Creation - Box Founder's Perspective
 
-This article summarizes Aaron Levie's perspective on how AI will create, rather than destroy, jobs, focusing on shifting workflows and outcomes to customers.
+Aaron Levie's perspective on how AI will create, rather than destroy, jobs, focusing on shifting workflows and outcomes to customers.
 
 Key Points:
 

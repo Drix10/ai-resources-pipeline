@@ -1,6 +1,6 @@
 ### 🤖 Automation - Intent-Driven Systems
 
-This article explores the concept of intent-driven automation, highlighting its significance in creating more intelligent and adaptable systems. It explains how a missing layer elevates automation beyond mere sequences of events.
+Concept of intent-driven automation, highlighting its significance in creating more intelligent and adaptable systems. It explains how a missing layer elevates automation beyond mere sequences of events.
 
 Key Points:
 

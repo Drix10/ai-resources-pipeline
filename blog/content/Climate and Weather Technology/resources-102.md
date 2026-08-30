@@ -1,6 +1,6 @@
 ### 💰 Foreign Military Aid - Ukraine FMS Package
 
-This article discusses a $850 million Foreign Military Sale (FMS) package approved for Ukraine, financed by European nations.  It also provides a brief update on total military aid provided under the Trump administration.
+$850 million Foreign Military Sale (FMS) package approved for Ukraine, financed by European nations.  It also provides a brief update on total military aid provided under the Trump administration.
 
 Key Points:
 

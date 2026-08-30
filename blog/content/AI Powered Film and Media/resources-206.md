@@ -1,6 +1,6 @@
 ### 🤖 ML Engineering - Transfer-Efficient Skill Accumulation
 
-This article discusses a research paper proposing a method for hierarchical skill accumulation in machine learning engineering. The approach aims to improve transfer efficiency in ML systems.
+Research paper proposing a method for hierarchical skill accumulation in machine learning engineering. The approach aims to improve transfer efficiency in ML systems.
 
 Key Points:
 

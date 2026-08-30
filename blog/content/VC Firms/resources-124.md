@@ -1,6 +1,6 @@
 ### 🚀 Frontier Tech - India's Global Leadership
 
-This article examines the current momentum in frontier technology, highlighting India's emergence as a global leader. It details the key factors contributing to this growth, including government support, talent, and private investment.
+Current momentum in frontier technology, highlighting India's emergence as a global leader. It details the key factors contributing to this growth, including government support, talent, and private investment.
 
 Key Points:
 

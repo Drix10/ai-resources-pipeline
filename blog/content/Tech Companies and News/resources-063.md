@@ -1,6 +1,6 @@
 ### 🚀 Salesforce - Slack Integration
 
-This article discusses the integration of Salesforce and Slack using Salesforce Channels, enabling real-time data access and communication within a unified workflow.
+Integration of Salesforce and Slack using Salesforce Channels, enabling real-time data access and communication within a unified workflow.
 
 Key Points:
 

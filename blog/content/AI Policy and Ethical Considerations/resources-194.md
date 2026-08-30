@@ -1,6 +1,6 @@
 ### 💡 Risk Management - Capability Asymmetry
 
-This article discusses the concept of capability asymmetry in risk management and its implications for equilibrium and stability. It emphasizes the importance of balancing capabilities to mitigate potential risks.
+Concept of capability asymmetry in risk management and its implications for equilibrium and stability. It emphasizes the importance of balancing capabilities to mitigate potential risks.
 
 Key Points:
 

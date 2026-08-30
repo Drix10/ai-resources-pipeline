@@ -1,6 +1,6 @@
 ### 💡 Educational Content - Math YouTube Channel Anniversary
 
-This article details the one-year anniversary of a YouTube channel dedicated to teaching mathematics, specifically geometry and topology. The channel aims to provide educational content from a learner's perspective.
+One-year anniversary of a YouTube channel dedicated to teaching mathematics, specifically geometry and topology. The channel aims to provide educational content from a learner's perspective.
 
 Key Points:
 

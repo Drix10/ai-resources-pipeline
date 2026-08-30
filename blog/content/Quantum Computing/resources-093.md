@@ -1,6 +1,6 @@
 ### 🤖 Sygaldry - Hiring and Focus
 
-This article discusses Sygaldry's hiring efforts and its focus on addressing data challenges in AI training.  It highlights the company's perspective on the relative importance of data versus compute in AI.
+Sygaldry's hiring efforts and its focus on addressing data challenges in AI training.  It highlights the company's perspective on the relative importance of data versus compute in AI.
 
 Key Points:
 

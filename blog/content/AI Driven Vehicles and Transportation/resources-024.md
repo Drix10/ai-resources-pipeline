@@ -1,6 +1,6 @@
 ### ✨ Charity Event - Orpheus Centre Trust
 
-This article details a charity performance supporting the Orpheus Centre Trust, featuring singer-pianist Joe Stilgoe and students from the center.  The event aims to raise awareness and funds for the organization.
+Charity performance supporting the Orpheus Centre Trust, featuring singer-pianist Joe Stilgoe and students from the center.  The event aims to raise awareness and funds for the organization.
 
 Key Points:
 

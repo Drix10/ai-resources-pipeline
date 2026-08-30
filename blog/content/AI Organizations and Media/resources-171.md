@@ -1,6 +1,6 @@
 ### 🤖 Robotics - 2026 Technology Strategy
 
-This article outlines the key pillars of the 2026 technology strategy for robotics, focusing on enhancing performance, usability, and modern development practices. It details the strategic directions for supporting physical AI systems.
+Key pillars of the 2026 technology strategy for robotics, focusing on enhancing performance, usability, and modern development practices. It details the strategic directions for supporting physical AI systems.
 
 Key Points:
 

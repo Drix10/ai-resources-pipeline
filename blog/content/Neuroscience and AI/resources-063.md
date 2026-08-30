@@ -1,6 +1,6 @@
 ### 🤖 Neuroscience - Dense Associative Memory
 
-This article discusses a newly published paper in PNAS on Dense Associative Memory, highlighting its capabilities and potential applications.  The paper explores the model's ability to store and retrieve large amounts of information with strong error correction.
+Newly published paper in PNAS on Dense Associative Memory, highlighting its capabilities and potential applications.  The paper explores the model's ability to store and retrieve large amounts of information with strong error correction.
 
 Key Points:
 

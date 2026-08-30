@@ -1,6 +1,6 @@
 ### 🤖 Python Package Security - Mitigating PyPi Risks with UV
 
-This article discusses a method to enhance Python package security for UV users. It specifically addresses concerns regarding potential compromises within PyPi packages.
+Method to enhance Python package security for UV users. It specifically addresses concerns regarding potential compromises within PyPi packages.
 
 Key Points:
 

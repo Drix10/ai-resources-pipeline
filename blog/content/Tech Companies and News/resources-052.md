@@ -1,6 +1,6 @@
 ### 💡 Social Engineering - Increasing Sophistication
 
-This article discusses the rising sophistication of social engineering tactics, highlighting examples like requests for emails, DMs, and selfies for verification purposes.
+Rising sophistication of social engineering tactics, highlighting examples like requests for emails, DMs, and selfies for verification purposes.
 
 
 Key Points:

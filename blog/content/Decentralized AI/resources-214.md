@@ -1,6 +1,6 @@
 ### 🤖 Machine Learning - Visual Neural Network Resource
 
-This article highlights a TensorFlow resource as a valuable tool for understanding and teaching visual neural networks.
+TensorFlow resource as a valuable tool for understanding and teaching visual neural networks.
 
 Key Points:
 

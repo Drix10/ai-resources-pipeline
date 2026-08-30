@@ -1,6 +1,6 @@
 ### 🤖 AI Models - Personal Fine-Tuning
 
-This article discusses fine-tuning AI models using specific tools, enabling individuals to gain more control over AI behavior. It contrasts this with methods used by larger AI labs.
+Fine-tuning AI models using specific tools, enabling individuals to gain more control over AI behavior. It contrasts this with methods used by larger AI labs.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ AI Film Festival - Commercial Advertisement Showcasing
 
-This article discusses the fourth day of the Pixio AI Film Festival, focusing on the creation and showcasing of AI-generated commercial advertisements. It provides an overview of the event's activities and related resources.
+Fourth day of the Pixio AI Film Festival, focusing on the creation and showcasing of AI-generated commercial advertisements. It provides an overview of the event's activities and related resources.
 
 Key Points:
 

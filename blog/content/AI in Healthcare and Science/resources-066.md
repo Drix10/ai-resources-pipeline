@@ -1,6 +1,6 @@
 ### 🤖 Oncology Research - VERITAC-2 Trial Results
 
-This article summarizes the primary results of the VERITAC-2 clinical trial, comparing vepdegestrant to fulvestrant in ER+/HER2– metastatic breast cancer patients post-CDK4/6i.  The focus is on progression-free survival (PFS) and objective response rate (ORR).
+Primary results of the VERITAC-2 clinical trial, comparing vepdegestrant to fulvestrant in ER+/HER2– metastatic breast cancer patients post-CDK4/6i.  The focus is on progression-free survival (PFS) and objective response rate (ORR).
 
 Key Points:
 

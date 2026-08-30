@@ -1,6 +1,6 @@
 ### 🚀 VR Gaming - VRacer Hoverbike Review
 
-This article provides a brief review of the VRacer Hoverbike game, including a link to purchase it at a discounted price.
+Review of the VRacer Hoverbike game, including a link to purchase it at a discounted price.
 
 
 Key Points:

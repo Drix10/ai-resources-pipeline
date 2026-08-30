@@ -1,6 +1,6 @@
 ### 💡 Nutrition - Diversifying Protein Sources
 
-This article discusses the benefits of diversifying protein intake through whole food sources. It highlights various natural protein options and their nutritional advantages over supplements.
+Benefits of diversifying protein intake through whole food sources. It highlights various natural protein options and their nutritional advantages over supplements.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Startup Growth - Measuring Success
 
-This article discusses the factors to consider when evaluating the growth of an AI startup and its potential for success in today's investor market.  It summarizes insights from a podcast interview.
+Factors to consider when evaluating the growth of an AI startup and its potential for success in today's investor market.  It summarizes insights from a podcast interview.
 
 Key Points:
 

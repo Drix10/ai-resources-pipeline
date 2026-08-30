@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Claude SDK Integration
 
-This article discusses the integration of the Claude Agent SDK with CRM and Slack platforms. It highlights the potential for automating tasks using defined tools.
+Integration of the Claude Agent SDK with CRM and Slack platforms. It highlights the potential for automating tasks using defined tools.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Cryptocurrency - Funding for AI Training Platform
 
-This article discusses Perle Labs' $17.5M funding round to develop a crypto-native platform for training AI systems using human experts.  The funding will allow Perle to reward data providers crucial to AI model improvement.
+Perle Labs' $17.5M funding round to develop a crypto-native platform for training AI systems using human experts.  The funding will allow Perle to reward data providers crucial to AI model improvement.
 
 
 Key Points:

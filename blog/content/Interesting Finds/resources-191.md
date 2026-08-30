@@ -1,6 +1,6 @@
 ### 🚀 Cryptocurrency - Coinbase Evolution
 
-This article discusses the evolution of Coinbase from a simple Bitcoin exchange to a comprehensive financial management platform. It highlights its expanded services over the past 14 years.
+Evolution of Coinbase from a simple Bitcoin exchange to a comprehensive financial management platform. It highlights its expanded services over the past 14 years.
 
 Key Points:
 

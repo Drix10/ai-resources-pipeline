@@ -1,6 +1,6 @@
 ### 🚀 Captions and ElevenLabs Partnership
 
-This article details a new partnership between Captions and ElevenLabs, enabling users to easily add studio-grade AI voices to their videos.  The integration simplifies the process of creating multilingual video content.
+New partnership between Captions and ElevenLabs, enabling users to easily add studio-grade AI voices to their videos.  The integration simplifies the process of creating multilingual video content.
 
 Key Points:
 

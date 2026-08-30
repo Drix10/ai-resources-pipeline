@@ -1,6 +1,6 @@
 ### 🤖 AI and Quality Engineering - Native AI Agentic Cloud Platform
 
-This article outlines LambdaTest's participation at the Microsoft AI Tour in Bengaluru to discuss the integration of Generative AI in testing. The company is showcasing its Native AI Agentic Cloud Platform during the event.
+LambdaTest's participation at the Microsoft AI Tour in Bengaluru to discuss the integration of Generative AI in testing. The company is showcasing its Native AI Agentic Cloud Platform during the event.
 
 Key Points:
 

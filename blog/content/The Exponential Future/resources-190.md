@@ -1,6 +1,6 @@
 ### 💡 Demographics - Wealth Distribution by Age
 
-This article examines the recent shift in household wealth distribution within the United States. It highlights the significant portion of wealth now concentrated among the older demographic. This trend reflects evolving economic patterns across different age groups.
+Recent shift in household wealth distribution within the United States. It highlights the significant portion of wealth now concentrated among the older demographic. This trend reflects evolving economic patterns across different age groups.
 
 Key Points:
 

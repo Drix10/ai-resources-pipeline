@@ -1,6 +1,6 @@
 ### 💡 Historical Writing Habits - 19th Century Practices
 
-This article examines the documented daily routines of 19th-century writers. It details their unconventional schedules and common stimulant use during their creative processes. The content provides a glimpse into historical literary practices.
+Documented daily routines of 19th-century writers. It details their unconventional schedules and common stimulant use during their creative processes. The content provides a glimpse into historical literary practices.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Quantum Error Correction - Surface Codes
 
-This article discusses the current state of quantum error correction research, focusing on surface codes and their potential application in building fault-tolerant quantum computers.  It highlights the challenges and future directions in this field.
+Current state of quantum error correction research, focusing on surface codes and their potential application in building fault-tolerant quantum computers.  It highlights the challenges and future directions in this field.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ BitCraft - Twitch Drops Campaign
 
-This article details the BitCraft Twitch Drops campaign, outlining how players can earn in-game rewards. It covers the campaign's duration and the specific items available.
+BitCraft Twitch Drops campaign, outlining how players can earn in-game rewards. It covers the campaign's duration and the specific items available.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI - Conversational Interfaces
 
-This article explores the evolution of user interfaces, from graphical to touch-based, and highlights conversational AI as the next significant advancement. It discusses the potential of voice as a defining interface for future innovation, featuring insights from a GV General Partner.
+Evolution of user interfaces, from graphical to touch-based, and highlights conversational AI as the next significant advancement. It discusses the potential of voice as a defining interface for future innovation, featuring insights from a GV General Partner.
 
 Key Points:
 

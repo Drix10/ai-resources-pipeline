@@ -1,6 +1,6 @@
 ### 🤖 Quantum Computing - Fast Charging Quantum Batteries
 
-This article discusses research on using Liouvillian spectral control to achieve rapid charging of quantum batteries. It explores theoretical approaches to enhance the charging speed of these novel energy storage devices.
+Research on using Liouvillian spectral control to achieve rapid charging of quantum batteries. It explores theoretical approaches to enhance the charging speed of these novel energy storage devices.
 
 Key Points:
 

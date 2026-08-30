@@ -1,6 +1,6 @@
 ### 🤖 EEG Synchronization - SuperLab and Neuroelectrics Integration
 
-This article discusses a webinar showcasing the integration of SuperLab and Neuroelectrics systems for improved EEG synchronization and experiment design in neuroscience research.  The webinar covers enhanced event marker accuracy using LSL.
+Webinar showcasing the integration of SuperLab and Neuroelectrics systems for improved EEG synchronization and experiment design in neuroscience research.  The webinar covers enhanced event marker accuracy using LSL.
 
 Key Points:
 

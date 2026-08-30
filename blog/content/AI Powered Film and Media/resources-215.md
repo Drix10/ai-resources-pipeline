@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Evaluation for Reliability
 
-This article discusses the importance of evaluation in selecting and building reliable AI agent systems. It highlights how evaluation is central to trusting AI agents for various tasks.
+Importance of evaluation in selecting and building reliable AI agent systems. It highlights how evaluation is central to trusting AI agents for various tasks.
 
 Key Points:
 

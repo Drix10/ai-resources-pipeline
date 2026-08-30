@@ -1,6 +1,6 @@
 ### 💡 Terminology - Defensive Acceleration
 
-This article discusses the challenges in naming the concept of "defensive acceleration" in the context of AI and suggests alternative phrasing.
+Challenges in naming the concept of "defensive acceleration" in the context of AI and suggests alternative phrasing.
 
 Key Points:
 

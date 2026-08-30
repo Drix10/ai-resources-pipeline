@@ -1,6 +1,6 @@
 ### 🤖 Quantum Computing - In-Memory Stochastic Processors
 
-This article discusses a novel quantum-in-memory stochastic processor designed for secure and robust AI applications at the edge. It outlines the foundational concepts and potential impacts of this advanced technology.
+Novel quantum-in-memory stochastic processor designed for secure and robust AI applications at the edge. It outlines the foundational concepts and potential impacts of this advanced technology.
 
 Key Points:
 

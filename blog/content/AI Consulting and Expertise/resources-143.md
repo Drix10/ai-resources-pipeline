@@ -1,6 +1,6 @@
 ### 🤖 Homomorphic Encryption - Secure Data Computation
 
-This article discusses homomorphic encryption, a cryptographic method that allows computations on encrypted data without decrypting it first. It highlights the benefits of this technology for maintaining data privacy during processing.
+Homomorphic encryption, a cryptographic method that allows computations on encrypted data without decrypting it first. It highlights the benefits of this technology for maintaining data privacy during processing.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Space-Based Data Centers - An Emerging Concept
 
-This article explores the concept of building data centers in space, outlining potential benefits and challenges.  The idea aims to improve global data transfer, reduce environmental impact, and leverage unlimited solar power.
+Concept of building data centers in space, outlining potential benefits and challenges.  The idea aims to improve global data transfer, reduce environmental impact, and leverage unlimited solar power.
 
 
 Key Points:

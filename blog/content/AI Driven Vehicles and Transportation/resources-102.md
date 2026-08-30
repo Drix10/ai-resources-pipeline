@@ -1,6 +1,6 @@
 ### 🤖 Reading Habits and Engineering - A Retrospective
 
-This article discusses the author's extensive reading habits from a young age and their influence on their career as an engineer.  It touches on the changes in information access between then and now.
+Author's extensive reading habits from a young age and their influence on their career as an engineer.  It touches on the changes in information access between then and now.
 
 Key Points:
 

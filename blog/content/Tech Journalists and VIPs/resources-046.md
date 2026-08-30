@@ -1,6 +1,6 @@
 ### 🤖 Amazon Tariffs - Cancelled Orders
 
-This article discusses the cancellation of Amazon orders brokered by Bohrer due to Amazon's unwillingness to pay tariffs on goods originating from China.  The situation highlights the impact of trade policies on businesses.
+Cancellation of Amazon orders brokered by Bohrer due to Amazon's unwillingness to pay tariffs on goods originating from China.  The situation highlights the impact of trade policies on businesses.
 
 Key Points:
 

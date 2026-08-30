@@ -1,6 +1,6 @@
 ### 🤖 Compute Power - AI Acceleration
 
-This article discusses the dramatic increase in compute power over the last decade and its impact on the development of modern AI.  It highlights the speed improvements and the resulting shift in training methodologies.
+Dramatic increase in compute power over the last decade and its impact on the development of modern AI.  It highlights the speed improvements and the resulting shift in training methodologies.
 
 Key Points:
 

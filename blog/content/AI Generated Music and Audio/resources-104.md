@@ -1,6 +1,6 @@
 ### 🤖 Music Production - Breaking Creative Patterns
 
-This article discusses how AI tools can assist music producers in overcoming creative blocks and developing new approaches to music production.  A professional songwriter and producer's experience with such tools is highlighted.
+AI tools can assist music producers in overcoming creative blocks and developing new approaches to music production.  A professional songwriter and producer's experience with such tools is highlighted.
 
 Key Points:
 

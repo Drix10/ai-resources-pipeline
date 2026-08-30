@@ -1,6 +1,6 @@
 ### 🤖 Climate Change - Expert Opinions on Existential Risk
 
-This article summarizes opinions from biologists, ecologists, climate scientists, and nuclear weapons experts regarding the potential for billions of deaths and near-term human extinction due to climate change and related factors.  It presents a brief overview of expressed concerns.
+Opinions from biologists, ecologists, climate scientists, and nuclear weapons experts regarding the potential for billions of deaths and near-term human extinction due to climate change and related factors.  It presents a brief overview of expressed concerns.
 
 Key Points:
 

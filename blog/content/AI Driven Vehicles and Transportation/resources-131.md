@@ -1,6 +1,6 @@
 ### 🤖 Autonomous Vehicles - Rider Identification
 
-This article examines Waymo's rooftop display feature for rider identification in autonomous taxis. It discusses the practical benefits of such a system for enhancing passenger pickup efficiency.
+Waymo's rooftop display feature for rider identification in autonomous taxis. It discusses the practical benefits of such a system for enhancing passenger pickup efficiency.
 
 Key Points:
 

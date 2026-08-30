@@ -1,6 +1,6 @@
 ### 💡 Cultural Theory - Origins of Critical Thought
 
-This article discusses the historical origins of certain ideologies influencing American education. It traces their roots to the Frankfurt School in 1920s Germany and notes their subsequent integration into American university systems by the 1960s.
+Historical origins of certain ideologies influencing American education. It traces their roots to the Frankfurt School in 1920s Germany and notes their subsequent integration into American university systems by the 1960s.
 
 Key Points:
 

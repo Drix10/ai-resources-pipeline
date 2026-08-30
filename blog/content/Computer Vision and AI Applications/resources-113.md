@@ -1,6 +1,6 @@
 ### 🤖 Microsoft Internal Guidance - H-1B Visas
 
-This article summarizes leaked internal Microsoft guidance regarding H-1B visas, advising employees on actions to take based on their location.
+Leaked internal Microsoft guidance regarding H-1B visas, advising employees on actions to take based on their location.
 
 Key Points:
 

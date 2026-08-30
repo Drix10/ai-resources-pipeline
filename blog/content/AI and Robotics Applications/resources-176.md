@@ -1,6 +1,6 @@
 ### 💡 AI Optimization - Reducing Claude Token Usage
 
-This article discusses a practical method for significantly reducing AI token consumption, specifically for Claude. It proposes a clear approach to measure and optimize usage over time.
+Practical method for significantly reducing AI token consumption, specifically for Claude. It proposes a clear approach to measure and optimize usage over time.
 
 Key Points:
 

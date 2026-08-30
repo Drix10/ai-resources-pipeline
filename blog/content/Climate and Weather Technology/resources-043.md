@@ -1,6 +1,6 @@
 ### ⚖️ Supreme Court Ruling - Alien Enemies Act
 
-This article summarizes a Supreme Court ruling regarding the use of the Alien Enemies Act for deportations, highlighting the differing opinions of the justices.
+Supreme Court ruling regarding the use of the Alien Enemies Act for deportations, highlighting the differing opinions of the justices.
 
 Key Points:
 

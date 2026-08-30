@@ -1,6 +1,6 @@
 ### 🎤 Music - Eason Chan's Fear and Dreams Tour Finale
 
-This article summarizes the conclusion of Cantonese pop star Eason Chan's Fear and Dreams world tour and the subsequent release of a digital live album.
+Conclusion of Cantonese pop star Eason Chan's Fear and Dreams world tour and the subsequent release of a digital live album.
 
 Key Points:
 

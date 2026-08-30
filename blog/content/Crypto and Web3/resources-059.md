@@ -1,6 +1,6 @@
 ### 🤖 AI - Intelligence Supernova
 
-This article discusses the concept of an "Intelligence Supernova," a hypothetical event representing a significant advancement in artificial intelligence.  The original post uses poetic language to describe this concept.
+Concept of an "Intelligence Supernova," a hypothetical event representing a significant advancement in artificial intelligence.  The original post uses poetic language to describe this concept.
 
 Key Points:
 

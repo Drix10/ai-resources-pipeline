@@ -1,6 +1,6 @@
 ### 💡 Academic Writing - Protected Time
 
-This article discusses the importance of dedicated time for academic writing and how it fosters thoughtful work. It highlights the benefits of structured writing periods for researchers to enhance productivity and focus.
+Importance of dedicated time for academic writing and how it fosters thoughtful work. It highlights the benefits of structured writing periods for researchers to enhance productivity and focus.
 
 Key Points:
 

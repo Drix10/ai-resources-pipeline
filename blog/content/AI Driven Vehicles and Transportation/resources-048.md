@@ -1,6 +1,6 @@
 ### 🤖 Space-Based Solar Power - Japan's Initiative
 
-This article discusses Japan's project to beam solar energy from space to Earth, utilizing space-based solar panels and wireless power transmission.  The project represents a significant advancement in renewable energy technology.
+Japan's project to beam solar energy from space to Earth, utilizing space-based solar panels and wireless power transmission.  The project represents a significant advancement in renewable energy technology.
 
 Key Points:
 

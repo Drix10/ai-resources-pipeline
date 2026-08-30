@@ -1,6 +1,6 @@
 ### 💡 Social Issues - DEI and Admissions Policies
 
-This article discusses criticisms of Diversity, Equity, and Inclusion (DEI) initiatives in higher education, focusing on claims that such initiatives disproportionately favor non-white males.  The article presents opposing viewpoints on the matter.
+Criticisms of Diversity, Equity, and Inclusion (DEI) initiatives in higher education, focusing on claims that such initiatives disproportionately favor non-white males.  The article presents opposing viewpoints on the matter.
 
 Key Points:
 

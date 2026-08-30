@@ -1,6 +1,6 @@
 ### 🤖 Power Transformer Diagnostics - Fuzzy Approach for Insulation Health Monitoring
 
-This article summarizes a research publication detailing a novel fuzzy approach for assessing the health of winding paper insulation in oil-immersed power transformers using non-destructive failure parameters.  The method aims to improve the accuracy and reliability of transformer insulation diagnostics.
+Research publication detailing a novel fuzzy approach for assessing the health of winding paper insulation in oil-immersed power transformers using non-destructive failure parameters.  The method aims to improve the accuracy and reliability of transformer insulation diagnostics.
 
 Key Points:
 

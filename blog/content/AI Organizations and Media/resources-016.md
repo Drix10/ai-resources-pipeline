@@ -1,6 +1,6 @@
 ### 🚀 Social Media Management - Replier
 
-This article discusses Replier, a tool designed to automate social media responses across multiple platforms.  It highlights its time-saving benefits and potential impact on content creation workflow.
+Replier, a tool designed to automate social media responses across multiple platforms.  It highlights its time-saving benefits and potential impact on content creation workflow.
 
 
 Key Points:

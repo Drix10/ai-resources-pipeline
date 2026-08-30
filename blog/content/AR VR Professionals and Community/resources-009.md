@@ -1,6 +1,6 @@
 ### 💔 US Politics - National Parks Funding
 
-This article discusses concerns regarding the National Parks System's budget allocation within the federal budget.  The author expresses strong disapproval of potential funding cuts.
+Concerns regarding the National Parks System's budget allocation within the federal budget.  The author expresses strong disapproval of potential funding cuts.
 
 Key Points:
 

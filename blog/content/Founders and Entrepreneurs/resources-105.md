@@ -1,6 +1,6 @@
 ### 💡 Healthcare - Current Challenges
 
-This article outlines three significant problems currently facing the healthcare system: its reactive nature, fragmented data systems, and data silos.
+Three significant problems currently facing the healthcare system: its reactive nature, fragmented data systems, and data silos.
 
 Key Points:
 

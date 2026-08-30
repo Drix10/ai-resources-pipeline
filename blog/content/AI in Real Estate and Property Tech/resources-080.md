@@ -1,6 +1,6 @@
 ### 🚀 Real Estate Tech - Rechat Platform
 
-This article examines Rechat, a platform serving as an operating system for major real estate brokerages.  It explores the platform's significance within the industry's technological landscape.
+Rechat, a platform serving as an operating system for major real estate brokerages.  It explores the platform's significance within the industry's technological landscape.
 
 Key Points:
 

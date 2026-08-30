@@ -1,6 +1,6 @@
 ### ✨ HighLevel - Weekly Platform Updates
 
-This article provides an overview of recent updates to the HighLevel platform. It also directs to the latest Release Radar episode for a detailed review of new features.
+Recent updates to the HighLevel platform. It also directs to the latest Release Radar episode for a detailed review of new features.
 
 Key Points:
 

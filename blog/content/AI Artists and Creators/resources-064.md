@@ -1,6 +1,6 @@
 ### 🚀 RunwayML - ComfyUI Integration
 
-This article discusses the integration of RunwayML's image and video models into ComfyUI API nodes, enabling users to incorporate these models into custom workflows.
+Integration of RunwayML's image and video models into ComfyUI API nodes, enabling users to incorporate these models into custom workflows.
 
 Key Points:
 

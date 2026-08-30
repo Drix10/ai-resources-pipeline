@@ -1,6 +1,6 @@
 ### 🚀 Crypto Launchdrop - Agentwood Studio
 
-This article provides information about the Agentwood Studio launchdrop registration and timing.  Registration details and the launchdrop page link are included.
+Information about the Agentwood Studio launchdrop registration and timing.  Registration details and the launchdrop page link are included.
 
 Key Points:
 

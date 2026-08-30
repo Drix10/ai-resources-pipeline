@@ -1,6 +1,6 @@
 ### ✨ Lovart AI - Expanding Your Creative Network
 
-This article details a referral program offered by Lovart AI, allowing users to invite friends and earn bonus credits.  Both the inviter and the invited receive credits.
+Referral program offered by Lovart AI, allowing users to invite friends and earn bonus credits.  Both the inviter and the invited receive credits.
 
 Key Points:
 

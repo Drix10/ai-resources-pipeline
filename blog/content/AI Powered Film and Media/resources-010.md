@@ -1,6 +1,6 @@
 ### ✨ Filmmaking - Production and Awards
 
-This article discusses a filmmaker's production process and their recent award nominations.  It highlights the filmmaker's creative vision and the recognition received for their work.
+Filmmaker's production process and their recent award nominations.  It highlights the filmmaker's creative vision and the recognition received for their work.
 
 Key Points:
 

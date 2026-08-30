@@ -1,6 +1,6 @@
 ### 🤖 AI's Impact on Job Roles - Expanding Capabilities
 
-This article discusses how AI is not replacing jobs, but rather expanding the capabilities of existing roles, allowing individuals to cross traditional professional boundaries.
+AI is not replacing jobs, but rather expanding the capabilities of existing roles, allowing individuals to cross traditional professional boundaries.
 
 Key Points:
 

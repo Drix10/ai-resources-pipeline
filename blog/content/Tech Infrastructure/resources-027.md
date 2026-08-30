@@ -1,6 +1,6 @@
 ### 💡 Political Engagement - Local Outreach
 
-This article discusses the importance of local political engagement and amplifies a specific instance of a politician addressing constituent concerns.
+Importance of local political engagement and amplifies a specific instance of a politician addressing constituent concerns.
 
 Key Points:
 

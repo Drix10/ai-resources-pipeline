@@ -1,6 +1,6 @@
 ### 🤖 Video Generation - Long Context Challenges
 
-This article discusses a research paper focusing on generating one-minute videos from text storyboards, highlighting the challenges posed by long context requirements for current video Transformers and the proposed solution using Test-Time Training (TTT) layers.
+Research paper focusing on generating one-minute videos from text storyboards, highlighting the challenges posed by long context requirements for current video Transformers and the proposed solution using Test-Time Training (TTT) layers.
 
 Key Points:
 

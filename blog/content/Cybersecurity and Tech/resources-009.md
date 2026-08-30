@@ -1,6 +1,6 @@
 ### 🤖 Workplace Changes - Compensation Adjustments
 
-This article summarizes recent changes in employee compensation, including upward movement on titles for some, a 50% reduction in overall compensation packages, increased quotas, and the implementation of commission caps.
+Recent changes in employee compensation, including upward movement on titles for some, a 50% reduction in overall compensation packages, increased quotas, and the implementation of commission caps.
 
 Key Points:
 

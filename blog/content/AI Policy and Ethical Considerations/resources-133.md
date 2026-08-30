@@ -1,5 +1,5 @@
 ### 🤖 AI Policy - Electricity Rates and Infrastructure
-This article discusses the policy considerations regarding electricity rates in the context of the growing AI industry, referencing a specific FERC order and a senator's response. It examines the interplay between technological advancement and energy infrastructure.
+Policy considerations regarding electricity rates in the context of the growing AI industry, referencing a specific FERC order and a senator's response. It examines the interplay between technological advancement and energy infrastructure.
 
 Key Points:
 

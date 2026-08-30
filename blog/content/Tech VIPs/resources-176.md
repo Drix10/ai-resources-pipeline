@@ -1,6 +1,6 @@
 ### 💡 Journalism - Evolving Practices
 
-This article discusses observations regarding the changing landscape of journalism and media reporting. It addresses the perceived shift in the nature and depth of content provided by established news organizations.
+Observations regarding the changing landscape of journalism and media reporting. It addresses the perceived shift in the nature and depth of content provided by established news organizations.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Investment Trends - US Dividend Funds
 
-This article examines the recent increase in investor interest in US dividend funds. It explores the reasons behind these strong flows, primarily driven by a search for stability and income.
+Recent increase in investor interest in US dividend funds. It explores the reasons behind these strong flows, primarily driven by a search for stability and income.
 
 Key Points:
 

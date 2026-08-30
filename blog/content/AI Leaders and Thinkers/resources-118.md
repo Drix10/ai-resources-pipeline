@@ -1,6 +1,6 @@
 ### 🤖 AI Model Customization - Tinker Platform
 
-This article explores the capabilities of Tinker, a platform enabling users to shape and customize large-scale AI model behavior directly on their personal devices. It highlights the accessibility of advanced AI manipulation and its potential for fostering creativity.
+Capabilities of Tinker, a platform enabling users to shape and customize large-scale AI model behavior directly on their personal devices. It highlights the accessibility of advanced AI manipulation and its potential for fostering creativity.
 
 Key Points:
 

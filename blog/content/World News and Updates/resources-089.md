@@ -1,6 +1,6 @@
 ### 🏅 World Games - Day 3 Medal Count
 
-This article summarizes the medal count from the third day of the 12th World Games in Chengdu, China.  The day featured the highest number of gold medals awarded since the Games began.
+Medal count from the third day of the 12th World Games in Chengdu, China.  The day featured the highest number of gold medals awarded since the Games began.
 
 Key Points:
 

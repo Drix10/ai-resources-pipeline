@@ -1,6 +1,6 @@
 ### ⚠️ Severe Weather Outlook - Texas, Oklahoma, and Kansas
 
-This article provides an overview of a severe weather outlook for parts of Texas, Oklahoma, and Kansas, highlighting the primary hazards and potential impacts.
+A severe weather outlook for parts of Texas, Oklahoma, and Kansas, highlighting the primary hazards and potential impacts.
 
 Key Points:
 

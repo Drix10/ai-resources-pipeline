@@ -1,6 +1,6 @@
 ### 💡 Tax Administration - Accountability and Citizen Rights
 
-This article outlines a specific incident where French tax authorities acknowledged an inappropriate response to a former hostage regarding his tax declarations. It highlights the importance of fair administrative procedures even under exceptional circumstances.
+Specific incident where French tax authorities acknowledged an inappropriate response to a former hostage regarding his tax declarations. It highlights the importance of fair administrative procedures even under exceptional circumstances.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Public Health - Missouri COVID Update
 
-This article covers the COVID prevalence data for St. Louis and Kansas City as of January 29, indicating a decrease in both regions.
+COVID prevalence data for St. Louis and Kansas City as of January 29, indicating a decrease in both regions.
 
 Key Points:
 

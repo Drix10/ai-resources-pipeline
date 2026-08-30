@@ -1,6 +1,6 @@
 ### 🤖 Robotics - 3D Gripper Animation & Design
 
-This article examines a 3D robotic gripper animation, highlighting its precise actuation, visible internal mechanisms, and smooth motion. It details how the visualization aids in understanding the mechanical design and key structural components.
+3D robotic gripper animation, highlighting its precise actuation, visible internal mechanisms, and smooth motion. It details how the visualization aids in understanding the mechanical design and key structural components.
 
 Key Points:
 

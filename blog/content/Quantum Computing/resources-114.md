@@ -1,6 +1,6 @@
 ### 🤖 Theoretical Physics - Q-balls and Early Universe
 
-This article discusses the theoretical concept of a Q-ball, describing it as a macroscopic quantum object. It explains its hypothesized origin as a remnant from the Big Bang, surviving as a region with different physical laws.
+Theoretical concept of a Q-ball, describing it as a macroscopic quantum object. It explains its hypothesized origin as a remnant from the Big Bang, surviving as a region with different physical laws.
 
 Key Points:
 

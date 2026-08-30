@@ -1,6 +1,6 @@
 ### 🤖 Counter UAS - Sensing Solicitation
 
-This article discusses the new solicitation for Counter Unmanned Aerial Systems (UAS) sensing solutions. It highlights the collaboration between DIU, US Army, and JIATF-401, leveraging insights from previous defense challenges.
+New solicitation for Counter Unmanned Aerial Systems (UAS) sensing solutions. It highlights the collaboration between DIU, US Army, and JIATF-401, leveraging insights from previous defense challenges.
 
 Key Points:
 

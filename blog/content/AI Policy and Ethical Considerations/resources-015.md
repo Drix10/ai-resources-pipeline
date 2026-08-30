@@ -1,6 +1,6 @@
 ### 🤖 AI Intelligence - MENSA-Level AI
 
-This article discusses the recent achievement of an AI reaching a MENSA-level IQ of 133, highlighting the rapid advancement in AI intelligence.  The significant jump in IQ points within a short timeframe is analyzed.
+Recent achievement of an AI reaching a MENSA-level IQ of 133, highlighting the rapid advancement in AI intelligence.  The significant jump in IQ points within a short timeframe is analyzed.
 
 Key Points:
 

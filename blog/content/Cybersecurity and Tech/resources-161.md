@@ -1,6 +1,6 @@
 ### 🤖 Cybersecurity - Canvas LMS Breach
 
-This article discusses the recent cyberattack on Canvas LMS by ShinyHunters, which resulted in a ransom-style message displayed across the platform. It highlights the impact on educational institutions globally.
+Recent cyberattack on Canvas LMS by ShinyHunters, which resulted in a ransom-style message displayed across the platform. It highlights the impact on educational institutions globally.
 
 Key Points:
 

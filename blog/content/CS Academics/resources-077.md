@@ -1,6 +1,6 @@
 ### 📸 Physics Collaboration - Quantum Cosmology
 
-This article discusses a collaboration between Murray and Jim Hartle in quantum cosmology, including a workshop on the arrows of time.  A photograph is included.
+Collaboration between Murray and Jim Hartle in quantum cosmology, including a workshop on the arrows of time.  A photograph is included.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ VR - App Discovery
 
-This article highlights three noteworthy VR applications/experiences released this week.  It aims to address the challenge of app discovery within the VR ecosystem.
+Three noteworthy VR applications/experiences released this week.  It aims to address the challenge of app discovery within the VR ecosystem.
 
 
 Key Points:

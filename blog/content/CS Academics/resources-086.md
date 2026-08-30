@@ -1,6 +1,6 @@
 ### 🤖 Physics - The Nature of Matter
 
-This article discusses the fundamental nature of matter, based on a physicist's perspective emphasizing the role of forces in its existence.
+Fundamental nature of matter, based on a physicist's perspective emphasizing the role of forces in its existence.
 
 Key Points:
 

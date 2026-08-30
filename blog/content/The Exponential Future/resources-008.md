@@ -1,6 +1,6 @@
 ### 🤖 Early Natural Language Processing - ELIZA
 
-This article discusses ELIZA, an early natural language processing program, its functionality, and its historical significance in the development of AI.
+ELIZA, an early natural language processing program, its functionality, and its historical significance in the development of AI.
 
 Key Points:
 

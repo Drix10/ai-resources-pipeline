@@ -1,6 +1,6 @@
 ### 💡 Social Psychology - Policy Applications
 
-This article discusses the application of social psychology perspectives to real-world policy issues. It covers topics like migration, climate change, and mental health.
+Application of social psychology perspectives to real-world policy issues. It covers topics like migration, climate change, and mental health.
 
 Key Points:
 • Social psychology offers insights into policy challenges.

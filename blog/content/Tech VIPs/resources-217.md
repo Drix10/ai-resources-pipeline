@@ -1,6 +1,6 @@
 ### 💡 Personal Growth - Reaction vs. Event
 
-This article explores the psychological principle that an individual's reaction to events holds significantly more impact than the events themselves. It emphasizes the power of perspective and internal control over external circumstances.
+Psychological principle that an individual's reaction to events holds significantly more impact than the events themselves. It emphasizes the power of perspective and internal control over external circumstances.
 
 Key Points:
 

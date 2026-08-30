@@ -1,6 +1,6 @@
 ### 💡 IntelliJ IDEA - Productivity Tips
 
-This article covers productivity and debugging tips presented by Marit van Dijk at #JNation. It provides insights into optimizing development workflow using IntelliJ IDEA features.
+Productivity and debugging tips presented by Marit van Dijk at #JNation. It provides insights into optimizing development workflow using IntelliJ IDEA features.
 
 Key Points:
 • IntelliJ IDEA offers various built-in features to enhance developer productivity.

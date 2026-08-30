@@ -1,6 +1,6 @@
 ### ⚠️ Severe Weather Warnings - Louisiana and Mississippi
 
-This article summarizes severe thunderstorm and flash flood warnings issued for specific counties in Louisiana and Mississippi on February 15th.  It provides details on affected areas and recommended actions.
+Severe thunderstorm and flash flood warnings issued for specific counties in Louisiana and Mississippi on February 15th.  It provides details on affected areas and recommended actions.
 
 Key Points:
 

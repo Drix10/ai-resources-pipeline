@@ -1,6 +1,6 @@
 ### 💡 Journalism - Integrity and Professional Standards
 
-This article discusses historical broadcast journalism standards compared to contemporary practices. It highlights the perceived decline in journalistic curiosity and depth in modern media.
+Historical broadcast journalism standards compared to contemporary practices. It highlights the perceived decline in journalistic curiosity and depth in modern media.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 GitHub Workflow - Issue Resolution
 
-This article details a streamlined GitHub workflow for resolving issues, leveraging the GitHub CLI for efficiency.  The process covers issue fetching, branching, testing, and pull request creation.
+Streamlined GitHub workflow for resolving issues, leveraging the GitHub CLI for efficiency.  The process covers issue fetching, branching, testing, and pull request creation.
 
 
 Key Points:

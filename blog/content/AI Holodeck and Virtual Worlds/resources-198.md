@@ -1,6 +1,6 @@
 ### 🚀 Architecture Visualization - Instant 3D Worlds
 
-This article explores how Mint transforms architectural design by enabling the creation of fully explorable 3D worlds from uploaded photos. It highlights the streamlining of the design-to-construction pipeline through immersive visualization.
+Mint transforms architectural design by enabling the creation of fully explorable 3D worlds from uploaded photos. It highlights the streamlining of the design-to-construction pipeline through immersive visualization.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Medical Publishing - Manuscript Preparation Tips
 
-This article covers manuscript preparation for journal publication, focusing on insights from an editorial team. It offers guidance to enhance the quality and submission readiness of manuscripts.
+Manuscript preparation for journal publication, focusing on insights from an editorial team. It offers guidance to enhance the quality and submission readiness of manuscripts.
 
 Key Points:
 

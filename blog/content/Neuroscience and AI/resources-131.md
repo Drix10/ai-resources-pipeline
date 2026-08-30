@@ -1,6 +1,6 @@
 ### 💡 Election Reform - System Reconsideration
 
-This article discusses the current state of the Japanese election system and highlights the critical need for a comprehensive review and reconsideration of its foundational principles. It addresses concerns about the integrity and effectiveness of democratic processes.
+Current state of the Japanese election system and highlights the critical need for a comprehensive review and reconsideration of its foundational principles. It addresses concerns about the integrity and effectiveness of democratic processes.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Philanthropy - Unpaid Work for Public Good
 
-This article discusses an anecdote about two individuals dedicating significant time to a project benefiting the American public without receiving salaries.  The contrast with perceived inaction from a political group is also noted.
+Anecdote about two individuals dedicating significant time to a project benefiting the American public without receiving salaries.  The contrast with perceived inaction from a political group is also noted.
 
 Key Points:
 

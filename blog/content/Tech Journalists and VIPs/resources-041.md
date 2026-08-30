@@ -1,6 +1,6 @@
 ### 🤖 3D Graphics - Touchable Holographic Displays
 
-This article discusses the development of touchable, floating 3D graphics technology by a team from the Public University of Navarra (UPNA), eliminating the need for VR glasses.  The technology is detailed, along with relevant links for further information.
+Development of touchable, floating 3D graphics technology by a team from the Public University of Navarra (UPNA), eliminating the need for VR glasses.  The technology is detailed, along with relevant links for further information.
 
 
 Key Points:

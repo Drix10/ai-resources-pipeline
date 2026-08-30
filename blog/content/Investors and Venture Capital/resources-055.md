@@ -1,6 +1,6 @@
 ### 💡 Crypto Projects - Maintaining Momentum
 
-This article discusses factors contributing to the failure of cryptocurrency projects, focusing on founder communication and maintaining enthusiasm.
+Factors contributing to the failure of cryptocurrency projects, focusing on founder communication and maintaining enthusiasm.
 
 Key Points:
 

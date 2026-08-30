@@ -1,6 +1,6 @@
 ### 🚀 Comma.ai - Hardware Price Trends
 
-This article discusses the observed trend of decreasing average prices for comma.ai hardware. It highlights the implications of this cost reduction for accessibility and adoption of their assisted driving technology.
+Observed trend of decreasing average prices for comma.ai hardware. It highlights the implications of this cost reduction for accessibility and adoption of their assisted driving technology.
 
 Key Points:
 

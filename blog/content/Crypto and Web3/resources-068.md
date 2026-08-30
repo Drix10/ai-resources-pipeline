@@ -1,6 +1,6 @@
 ### 🤖 AI in Medicine - Diagnostic Accuracy
 
-This article discusses the impact of AI on medical diagnosis, focusing on improved accuracy rates and the potential future implications for medical malpractice.
+Impact of AI on medical diagnosis, focusing on improved accuracy rates and the potential future implications for medical malpractice.
 
 Key Points:
 

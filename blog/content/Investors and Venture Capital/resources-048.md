@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics - India-Pakistan Economic Disparity
 
-This article examines the significant economic disparity between India and Pakistan, particularly in the context of historical events.  It explores the arguments surrounding this gap and its implications.
+Significant economic disparity between India and Pakistan, particularly in the context of historical events.  It explores the arguments surrounding this gap and its implications.
 
 Key Points:
 

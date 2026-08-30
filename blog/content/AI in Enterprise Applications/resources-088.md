@@ -1,6 +1,6 @@
 ### 🤖 Open Source Contributions - Alex Yang's Impact
 
-This article highlights the significant open-source contributions of Alex Yang, focusing on his involvement in projects related to Node.js and large language model (LLM) tools.
+Significant open-source contributions of Alex Yang, focusing on his involvement in projects related to Node.js and large language model (LLM) tools.
 
 Key Points:
 

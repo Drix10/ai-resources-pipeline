@@ -1,6 +1,6 @@
 ### 🤖 Content Provenance - Digital Identity and Verification
 
-This article discusses the concept of content provenance, emphasizing the importance of embedding machine-readable identities into digital content at its creation. It highlights how cryptographic fingerprinting ensures content integrity from its inception.
+Concept of content provenance, emphasizing the importance of embedding machine-readable identities into digital content at its creation. It highlights how cryptographic fingerprinting ensures content integrity from its inception.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Whole-Body Control Foundation Model
 
-This article discusses a new neural network for controlling humanoid robots.  The network is designed for robustness to disturbances and handling heavy objects, serving as a platform for learning new whole-body skills.
+New neural network for controlling humanoid robots.  The network is designed for robustness to disturbances and handling heavy objects, serving as a platform for learning new whole-body skills.
 
 Key Points:
 

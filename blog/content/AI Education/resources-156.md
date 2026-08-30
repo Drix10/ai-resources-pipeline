@@ -1,6 +1,6 @@
 ### 🤖 AI Models - Self-Correcting Masked Diffusion (ProSeCo)
 
-This article outlines how a new approach, ProSeCo, addresses limitations in traditional masked diffusion models. It explains how ProSeCo integrates revision steps to enhance the quality of generated outputs by fixing errors during the generation process.
+A new approach, ProSeCo, addresses limitations in traditional masked diffusion models. It explains how ProSeCo integrates revision steps to enhance the quality of generated outputs by fixing errors during the generation process.
 
 Key Points:
 

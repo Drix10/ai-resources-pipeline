@@ -1,6 +1,6 @@
 ### 🤖 Drone Incident - Copenhagen Airport Disruption
 
-This article details a drone incident that caused significant disruption at Copenhagen and Oslo airports.  Multiple large drones flew over the airports for an extended period, leading to flight cancellations and diversions. The perpetrators remain unidentified.
+Drone incident that caused significant disruption at Copenhagen and Oslo airports.  Multiple large drones flew over the airports for an extended period, leading to flight cancellations and diversions. The perpetrators remain unidentified.
 
 Key Points:
 

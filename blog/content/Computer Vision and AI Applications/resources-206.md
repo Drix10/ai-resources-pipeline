@@ -1,6 +1,6 @@
 ### 🤖 AI in Filmmaking - Deepfake Video Game Level Creation
 
-This article discusses the use of Claude Fable to generate content for a deepfakes video game level in an indie movie. The process presented challenges for the production team.
+Use of Claude Fable to generate content for a deepfakes video game level in an indie movie. The process presented challenges for the production team.
 
 Key Points:
 

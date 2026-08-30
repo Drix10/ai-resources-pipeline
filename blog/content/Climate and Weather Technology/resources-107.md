@@ -1,6 +1,6 @@
 ### 🏈 NFL - Steelers Injury Update
 
-This article summarizes the injury status updates for several Pittsburgh Steelers players before their home opener against the Seattle Seahawks.
+Injury status updates for several Pittsburgh Steelers players before their home opener against the Seattle Seahawks.
 
 Key Points:
 

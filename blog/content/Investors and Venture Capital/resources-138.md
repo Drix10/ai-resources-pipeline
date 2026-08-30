@@ -1,6 +1,6 @@
 ### 💡 Economic Indicator - Heavy Truck Sales
 
-This article examines the historical correlation between heavy truck sales and economic recessions. It highlights recent trends in heavy truck sales and their potential implications for economic forecasts.
+Historical correlation between heavy truck sales and economic recessions. It highlights recent trends in heavy truck sales and their potential implications for economic forecasts.
 
 Key Points:
 

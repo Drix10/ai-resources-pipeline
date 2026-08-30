@@ -1,6 +1,6 @@
 ### 🤖 VS Code - Enhanced GitHub Copilot with MCP
 
-This article discusses the integration of the Model Connectivity Protocol (MCP) with Visual Studio Code (VS Code) to improve GitHub Copilot's agent mode.  It explains how MCP allows Copilot to interact with external tools and services.
+Integration of the Model Connectivity Protocol (MCP) with Visual Studio Code (VS Code) to improve GitHub Copilot's agent mode.  It explains how MCP allows Copilot to interact with external tools and services.
 
 
 Key Points:

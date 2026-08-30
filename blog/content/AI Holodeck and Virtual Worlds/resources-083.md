@@ -1,6 +1,6 @@
 ### ✨ Generative AI - 4D Experiences
 
-This article provides a brief overview of a project exploring 4D AI experiences using generative AI.  It showcases creative collaboration in the development process.
+A project exploring 4D AI experiences using generative AI.  It showcases creative collaboration in the development process.
 
 Key Points:
 

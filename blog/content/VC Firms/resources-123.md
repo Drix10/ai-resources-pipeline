@@ -1,6 +1,6 @@
 ### 💡 Tech Policy - Equity Advocacy
 
-This article details the Kapor Center's approach to advancing policy, emphasizing equity, lived experiences, and community impact. It highlights the role of the Vice President of Technology Policy and Government Affairs in leading advocacy efforts.
+Kapor Center's approach to advancing policy, emphasizing equity, lived experiences, and community impact. It highlights the role of the Vice President of Technology Policy and Government Affairs in leading advocacy efforts.
 
 Key Points:
 

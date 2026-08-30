@@ -1,6 +1,6 @@
 ### 🚀 Canva Pro - Free Lifetime Access
 
-This article details steps claimed to provide free lifetime access to Canva Pro.  The validity of this claim is not verified.
+Steps claimed to provide free lifetime access to Canva Pro.  The validity of this claim is not verified.
 
 Key Points:
 

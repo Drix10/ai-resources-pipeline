@@ -1,6 +1,6 @@
 ### 🇺🇸 Politics - REAL ID and US Security
 
-This article discusses the limitations of REAL ID in enhancing US security, highlighting the need for a more comprehensive approach beyond simple identification checks.  The article references a commemoration of 9/11 and contrasts it with ongoing security vulnerabilities.
+Limitations of REAL ID in enhancing US security, highlighting the need for a more comprehensive approach beyond simple identification checks.  The article references a commemoration of 9/11 and contrasts it with ongoing security vulnerabilities.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Geopolitical Analysis - Iran's Political Landscape
 
-This article examines recent political developments in Iran, focusing on discussions surrounding leadership changes and the surprising resurgence of a historical political figure. It highlights public sentiment and expert observations regarding a potential societal shift.
+Recent political developments in Iran, focusing on discussions surrounding leadership changes and the surprising resurgence of a historical political figure. It highlights public sentiment and expert observations regarding a potential societal shift.
 
 Key Points:
 

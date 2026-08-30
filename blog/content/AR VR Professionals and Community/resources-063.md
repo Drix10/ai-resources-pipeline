@@ -1,6 +1,6 @@
 ### 🤖 Automation Predictions - Job Displacement
 
-This article discusses predictions regarding the automation of various job sectors within the next decade.  It projects significant job displacement across manufacturing, transportation, software development, and white-collar professions.
+Predictions regarding the automation of various job sectors within the next decade.  It projects significant job displacement across manufacturing, transportation, software development, and white-collar professions.
 
 Key Points:
 

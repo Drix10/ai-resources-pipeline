@@ -1,6 +1,6 @@
 ### ✨ Solflare - Wallet Upgrade
 
-This article details the recent updates to the Solflare Solana wallet, focusing on its new design, features, and improved performance.
+Recent updates to the Solflare Solana wallet, focusing on its new design, features, and improved performance.
 
 Key Points:
 

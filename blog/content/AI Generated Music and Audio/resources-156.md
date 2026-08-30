@@ -1,6 +1,6 @@
 ### 🤖 Neural Audio Codecs - Self-Supervised Reconstruction
 
-This article details a new approach to neural audio codecs, focusing on self-supervised representation reconstruction. It aims to achieve both high intelligibility and low latency for streaming audio applications.
+New approach to neural audio codecs, focusing on self-supervised representation reconstruction. It aims to achieve both high intelligibility and low latency for streaming audio applications.
 
 Key Points:
 

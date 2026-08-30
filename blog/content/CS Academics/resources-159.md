@@ -1,6 +1,6 @@
 ### 🤖 Self-Distillation - Privileged Information
 
-This article discusses the concept of self-distillation when augmented with privileged information. It explores how a model's performance can be influenced by access to additional, often subtle, data during training.
+Concept of self-distillation when augmented with privileged information. It explores how a model's performance can be influenced by access to additional, often subtle, data during training.
 
 Key Points:
 

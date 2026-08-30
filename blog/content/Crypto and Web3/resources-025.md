@@ -1,6 +1,6 @@
 ### 🤖 Bitcoin Security - Air-Gapped Signing with Blockstream Jade Plus and Sparrow Wallet
 
-This article details how to enhance Bitcoin security using the Blockstream Jade Plus hardware wallet in QR code mode with the Sparrow Wallet software.  This method eliminates USB and Bluetooth connections for increased security.
+To enhance Bitcoin security using the Blockstream Jade Plus hardware wallet in QR code mode with the Sparrow Wallet software.  This method eliminates USB and Bluetooth connections for increased security.
 
 Key Points:
 

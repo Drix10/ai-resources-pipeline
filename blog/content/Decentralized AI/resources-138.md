@@ -1,6 +1,6 @@
 ### 🚀 Agentic Wallet - CDP Data API Integration
 
-This article outlines the availability of the CDP Data API for agents and its integration with the Agentic Wallet package. It explains how this new functionality enables streamlined, autonomous workflows.
+Availability of the CDP Data API for agents and its integration with the Agentic Wallet package. It explains how this new functionality enables streamlined, autonomous workflows.
 
 Key Points:
 

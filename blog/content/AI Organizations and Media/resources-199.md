@@ -1,6 +1,6 @@
 ### 🤖 Java - Portability and Legacy
 
-This article discusses the foundational impact of Java's creation in the early 1990s by James Gosling. It explains how Java popularized the concept of platform independence and its role in shaping the modern internet.
+Foundational impact of Java's creation in the early 1990s by James Gosling. It explains how Java popularized the concept of platform independence and its role in shaping the modern internet.
 
 Key Points:
 

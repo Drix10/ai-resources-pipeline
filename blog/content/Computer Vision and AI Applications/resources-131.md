@@ -1,6 +1,6 @@
 ### 🤖 View Synthesis - Better Input Methods
 
-This article discusses advancements in feed-forward view synthesis, focusing on novel input methods to improve reconstruction quality. It highlights a pipeline that transforms context views into projection images for fine-tuning.
+Advancements in feed-forward view synthesis, focusing on novel input methods to improve reconstruction quality. It highlights a pipeline that transforms context views into projection images for fine-tuning.
 
 Key Points:
 

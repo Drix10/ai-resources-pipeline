@@ -1,6 +1,6 @@
 ### ⚠️ Social Commentary - Political Polarization and Violence
 
-This article discusses concerns about the potential for violence against protesters, linking it to the militarization of the US government and certain narratives.
+Concerns about the potential for violence against protesters, linking it to the militarization of the US government and certain narratives.
 
 Key Points:
 

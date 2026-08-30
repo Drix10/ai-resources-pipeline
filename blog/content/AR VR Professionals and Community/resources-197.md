@@ -1,6 +1,6 @@
 ### 🤖 Multiplayer Game Development - VR Foundations
 
-This article discusses the fundamental concepts of multiplayer game development. It highlights the focus on social VR environments. The content is derived from a session on building multiplayer experiences.
+Fundamental concepts of multiplayer game development. It highlights the focus on social VR environments. The content is derived from a session on building multiplayer experiences.
 
 Key Points:
 • The session covers core principles for creating multiplayer games.

@@ -1,6 +1,6 @@
 ### 🤖 3D Animation - Asset Interaction
 
-This article covers the technical aspects of animating object interaction in 3D environments, specifically focusing on realistic physics and movement.
+Technical aspects of animating object interaction in 3D environments, specifically focusing on realistic physics and movement.
 
 Key Points:
 

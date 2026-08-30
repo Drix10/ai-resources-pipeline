@@ -1,6 +1,6 @@
 ### 🤖 AI's Arrival - Unanswered Questions
 
-This article highlights three key concerns raised by Kevin Roose in the New York Times regarding the arrival of Artificial General Intelligence (AGI).  These concerns revolve around the lack of preparedness for the economic, political, and technological ramifications of AGI.
+Three key concerns raised by Kevin Roose in the New York Times regarding the arrival of Artificial General Intelligence (AGI).  These concerns revolve around the lack of preparedness for the economic, political, and technological ramifications of AGI.
 
 
 Key Points:

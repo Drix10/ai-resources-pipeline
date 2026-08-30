@@ -1,6 +1,6 @@
 ### 💡 Public Policy - Perspectives on Crime and Policing
 
-This article explores a perspective on differing societal views regarding responsibility in criminal incidents involving law enforcement and perpetrators. It highlights a critical stance on how political ideologies may influence urban crime problems.
+Perspective on differing societal views regarding responsibility in criminal incidents involving law enforcement and perpetrators. It highlights a critical stance on how political ideologies may influence urban crime problems.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ Atmospheric Phenomena - Scenic Observation
 
-This article highlights striking atmospheric observations, showcasing natural beauty captured in scenic views. It references local accounts known for sharing regional events and imagery.
+Striking atmospheric observations, showcasing natural beauty captured in scenic views. It references local accounts known for sharing regional events and imagery.
 
 Key Points:
 

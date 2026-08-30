@@ -1,6 +1,6 @@
 ### 💡 Interview Preparation - Framework for Answering Questions
 
-This article outlines a framework developed from multiple interviews, focusing on a key factor for effectively answering common interview questions.
+Framework developed from multiple interviews, focusing on a key factor for effectively answering common interview questions.
 
 Key Points:
 

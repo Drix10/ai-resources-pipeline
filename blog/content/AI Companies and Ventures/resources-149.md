@@ -1,6 +1,6 @@
 ### 🤖 AI Models - Kimi and Rubik's Cube Solver
 
-This article highlights the capabilities of the new Kimi AI model, showcased through its application in a Rubik's Cube challenge. It also touches upon the availability of these models and other AI resources on the Yupp AI platform.
+Capabilities of the new Kimi AI model, showcased through its application in a Rubik's Cube challenge. It also touches upon the availability of these models and other AI resources on the Yupp AI platform.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Healthcare - Patient Data Rights & Interoperability
 
-This article discusses the importance of patient data rights and interoperability in healthcare, emphasizing their role in building trust rather than just meeting compliance.
+Importance of patient data rights and interoperability in healthcare, emphasizing their role in building trust rather than just meeting compliance.
 
 Key Points:
 

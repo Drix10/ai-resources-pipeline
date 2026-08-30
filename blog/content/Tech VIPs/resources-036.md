@@ -1,6 +1,6 @@
 ### 🗣️ Interviews - Cyan Banister's Journey
 
-This article summarizes a conversation with Cyan Banister, covering her life journey from homelessness to becoming a Silicon Valley investor.  The interview highlights her experiences and perspectives.
+Conversation with Cyan Banister, covering her life journey from homelessness to becoming a Silicon Valley investor.  The interview highlights her experiences and perspectives.
 
 Key Points:
 

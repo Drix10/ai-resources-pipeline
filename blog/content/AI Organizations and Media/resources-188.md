@@ -1,6 +1,6 @@
 ### 💡 AI Education - Graduate Advice
 
-This article summarizes the advice given by Eric Xing, President of the Mohamed bin Zayed University of Artificial Intelligence, to graduating students. His message encourages graduates to pursue challenging problems and seek real-world solutions. It emphasizes contributing meaningfully to the field of artificial intelligence.
+Advice given by Eric Xing, President of the Mohamed bin Zayed University of Artificial Intelligence, to graduating students. His message encourages graduates to pursue challenging problems and seek real-world solutions. It emphasizes contributing meaningfully to the field of artificial intelligence.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Machine Learning - Logic Programming with Dyna
 
-This article explores Dyna, a framework integrating logic programming and machine learning to enhance AI capabilities.  It briefly describes the core concept and provides relevant resources.
+Dyna, a framework integrating logic programming and machine learning to enhance AI capabilities.  It briefly describes the core concept and provides relevant resources.
 
 Key Points:
 

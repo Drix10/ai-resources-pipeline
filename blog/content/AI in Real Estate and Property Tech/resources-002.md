@@ -1,6 +1,6 @@
 ### 🤖 Real Estate Technology Survey - Brokerage Insights
 
-This article discusses a survey aimed at gathering insights from real estate leaders to shape the future of brokerage technology.  The survey focuses on the technology needs and preferences of real estate professionals.
+Survey aimed at gathering insights from real estate leaders to shape the future of brokerage technology.  The survey focuses on the technology needs and preferences of real estate professionals.
 
 
 Key Points:

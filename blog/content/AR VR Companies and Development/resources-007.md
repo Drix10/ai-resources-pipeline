@@ -1,6 +1,6 @@
 ### 🤖 VR Gaming - Sniper Rifle Development in VR
 
-This article discusses the development of a VR sniper rifle game, focusing on the game's features and availability.
+Development of a VR sniper rifle game, focusing on the game's features and availability.
 
 Key Points:
 

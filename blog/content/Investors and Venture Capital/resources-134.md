@@ -1,6 +1,6 @@
 ### 🤖 Stablecoins - Adoption Hurdles
 
-This article discusses research conducted by Stablewatch HQ on the challenges hindering stablecoin adoption. It incorporates insights from interviews with founders and executives across leading decentralized finance applications.
+Research conducted by Stablewatch HQ on the challenges hindering stablecoin adoption. It incorporates insights from interviews with founders and executives across leading decentralized finance applications.
 
 Key Points:
 

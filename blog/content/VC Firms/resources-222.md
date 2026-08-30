@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Public Demonstrations
 
-This article details the appearance and performance of the Atlas robot at the FIFA World Cup 2026™. The robot executed player celebrations and assisted with the second half kick-off.
+Appearance and performance of the Atlas robot at the FIFA World Cup 2026™. The robot executed player celebrations and assisted with the second half kick-off.
 
 Key Points:
 • Atlas robot participated in a public sporting event.

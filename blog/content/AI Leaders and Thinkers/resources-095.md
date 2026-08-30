@@ -1,6 +1,6 @@
 ### 🤖 AI's Impact - India's Service-Driven Job Market
 
-This article discusses concerns about the impact of artificial intelligence on India's service-driven job market.  The author expresses worry about the speed at which AI is replacing backend jobs.
+Concerns about the impact of artificial intelligence on India's service-driven job market.  The author expresses worry about the speed at which AI is replacing backend jobs.
 
 Key Points:
 

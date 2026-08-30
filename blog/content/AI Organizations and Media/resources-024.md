@@ -1,6 +1,6 @@
 ### 🤖 Game Development - HUD and Collision Detection
 
-This article discusses the development process of a game, focusing on the styling of the heads-up display (HUD) and status bars, and plans for implementing collision detection and damage calculations.
+Development process of a game, focusing on the styling of the heads-up display (HUD) and status bars, and plans for implementing collision detection and damage calculations.
 
 Key Points:
 

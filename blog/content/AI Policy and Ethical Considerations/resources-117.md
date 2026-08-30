@@ -1,6 +1,6 @@
 ### 💡 Constitutional Rights - DHS Operations
 
-This article discusses the profound constitutional implications of broad law enforcement actions, such as detaining all residents of an apartment building for checks. It highlights the potential for legal challenges against such actions and underscores the importance of safeguarding civil liberties.
+Profound constitutional implications of broad law enforcement actions, such as detaining all residents of an apartment building for checks. It highlights the potential for legal challenges against such actions and underscores the importance of safeguarding civil liberties.
 
 Key Points:
 

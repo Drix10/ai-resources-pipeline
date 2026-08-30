@@ -1,6 +1,6 @@
 ### ✨ Community Engagement - AMA Recap and Rewards
 
-This article provides a summary of Spectruth DAO's recent Ask Me Anything (AMA) session, detailing the token rewards for participants and recognizing a key community contributor.
+Spectruth DAO's recent Ask Me Anything (AMA) session, detailing the token rewards for participants and recognizing a key community contributor.
 
 Key Points:
 

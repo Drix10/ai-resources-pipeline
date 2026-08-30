@@ -1,6 +1,6 @@
 ### 🤖 AI Investment Strategies - Winner Takes All?
 
-This article discusses a conversation on whether AI will follow a "winner takes all" market dynamic, highlighting arguments for investing across the AI stack.
+Conversation on whether AI will follow a "winner takes all" market dynamic, highlighting arguments for investing across the AI stack.
 
 Key Points:
 

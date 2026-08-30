@@ -1,6 +1,6 @@
 ### 💡 Business Insights - Key Learnings from 2025
 
-This article summarizes key takeaways from the past year, as shared by the FLF team. It reflects on significant lessons learned over the last twelve months.
+Key takeaways from the past year, as shared by the FLF team. It reflects on significant lessons learned over the last twelve months.
 
 Key Points:
 

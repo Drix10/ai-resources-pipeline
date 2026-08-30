@@ -1,6 +1,6 @@
 ### 🤖 Kubernetes Certifications - Certification Roadmap
 
-This article details a personal journey towards becoming a Kubernetes expert, outlining achieved and planned certifications.
+Personal journey towards becoming a Kubernetes expert, outlining achieved and planned certifications.
 
 Key Points:
 

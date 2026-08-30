@@ -1,6 +1,6 @@
 ### 🤖 Remote Construction - Excavator Teleoperation
 
-This article discusses the use of advanced teleoperation technology in the construction industry, specifically focusing on remote control of excavators.  The advantages of this technology over traditional methods are highlighted.
+Use of advanced teleoperation technology in the construction industry, specifically focusing on remote control of excavators.  The advantages of this technology over traditional methods are highlighted.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Medical Breakthrough - Lab-Grown Oesophagus
 
-This article discusses the successful replacement of a full oesophageal segment using lab-grown tissue, highlighting its significance for medical advancements. It details the process and benefits, particularly for children with long-gap oesophageal atresia.
+Successful replacement of a full oesophageal segment using lab-grown tissue, highlighting its significance for medical advancements. It details the process and benefits, particularly for children with long-gap oesophageal atresia.
 
 Key Points:
 

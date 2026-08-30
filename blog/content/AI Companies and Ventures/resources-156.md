@@ -1,6 +1,6 @@
 ### 🤖 Spanish PII Detection - Healthcare Compliance
 
-This article covers the importance of native Spanish PII detection for healthcare data, emphasizing compliance and data sovereignty. It highlights the system's ability to identify numerous Spanish-specific entity types.
+Importance of native Spanish PII detection for healthcare data, emphasizing compliance and data sovereignty. It highlights the system's ability to identify numerous Spanish-specific entity types.
 
 Key Points:
 

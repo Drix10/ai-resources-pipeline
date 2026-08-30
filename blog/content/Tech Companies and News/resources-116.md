@@ -1,6 +1,6 @@
 ### 🚀 Mobile Videography - Gimbal Stabilization
 
-This article covers the capabilities of the Osmo Mobile 8, a device designed to enhance mobile video recording. It focuses on how the tool transforms amateur handheld footage into professional-grade, stable content.
+Capabilities of the Osmo Mobile 8, a device designed to enhance mobile video recording. It focuses on how the tool transforms amateur handheld footage into professional-grade, stable content.
 
 Key Points:
 

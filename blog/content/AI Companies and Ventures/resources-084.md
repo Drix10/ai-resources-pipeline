@@ -1,6 +1,6 @@
 ### 🚀 Crypto Trading - $ALPHA Analysis
 
-This article discusses a bullish divergence observed in the $ALPHA cryptocurrency, resulting in a significant price increase.  The analysis was shared in real-time with Discord members.
+Bullish divergence observed in the $ALPHA cryptocurrency, resulting in a significant price increase.  The analysis was shared in real-time with Discord members.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 ChatGPT - Improving Output Clarity
 
-This article outlines a technique to enhance the clarity and interpretability of ChatGPT's responses by requesting specific categorizations of information. This method allows users to better understand the nature of the AI's generated content.
+Technique to enhance the clarity and interpretability of ChatGPT's responses by requesting specific categorizations of information. This method allows users to better understand the nature of the AI's generated content.
 
 Key Points:
 

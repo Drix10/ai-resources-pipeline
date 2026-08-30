@@ -1,6 +1,6 @@
 ### 🤖 Meta Ads - Scaling AI MVP Builders
 
-This article discusses the initial findings from testing Meta Ads for scaling AI MVP Builders to $100K MRR.  The focus is on early observations regarding ad campaign performance.
+Initial findings from testing Meta Ads for scaling AI MVP Builders to $100K MRR.  The focus is on early observations regarding ad campaign performance.
 
 Key Points:
 

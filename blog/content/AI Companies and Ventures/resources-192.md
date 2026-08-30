@@ -1,6 +1,6 @@
 ### ✨ AI Agents - PayAI Integrations
 
-This article details the capabilities of AI agents when integrated with the PayAI platform, highlighting the diverse range of services accessible. It covers functionalities from on-chain intelligence to creative AI and geographical data.
+Capabilities of AI agents when integrated with the PayAI platform, highlighting the diverse range of services accessible. It covers functionalities from on-chain intelligence to creative AI and geographical data.
 
 Key Points:
 

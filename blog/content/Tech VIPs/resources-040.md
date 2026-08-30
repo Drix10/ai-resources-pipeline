@@ -1,6 +1,6 @@
 ### 🤖 AI Development - Compute Resource Constraints
 
-This article discusses the impact of computational resources on the pace of AI development, highlighting the widening gap between organizations with abundant resources and those with limited access.
+Impact of computational resources on the pace of AI development, highlighting the widening gap between organizations with abundant resources and those with limited access.
 
 Key Points:
 

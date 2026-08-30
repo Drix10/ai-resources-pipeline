@@ -1,6 +1,6 @@
 ### 💡 Disney Games - Steam Delisting Impact
 
-This article discusses the recent delisting of various Disney-published games from the Steam platform and the implications for both new and existing players.
+Recent delisting of various Disney-published games from the Steam platform and the implications for both new and existing players.
 
 Key Points:
 

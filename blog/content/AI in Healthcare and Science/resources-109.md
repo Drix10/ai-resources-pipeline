@@ -1,6 +1,6 @@
 ### 🤖 Oncology - WCLC 2025 Updates
 
-This article summarizes observations from the World Conference on Lung Cancer (WCLC) 2025, focusing on the FLAURA2, ACROSS, and HARMONi trials and their implications for EGFR mutation-positive NSCLC treatment.  The frequency of metastasis-directed therapy for acquired resistance is noted as absent from headline endpoints.
+Observations from the World Conference on Lung Cancer (WCLC) 2025, focusing on the FLAURA2, ACROSS, and HARMONi trials and their implications for EGFR mutation-positive NSCLC treatment.  The frequency of metastasis-directed therapy for acquired resistance is noted as absent from headline endpoints.
 
 
 Key Points:

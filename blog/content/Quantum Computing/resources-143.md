@@ -1,6 +1,6 @@
 ### 🤖 Quantum Information - Superconducting Oscillators
 
-This article outlines Aniket Sule's thesis from Yale University, focusing on the critical aspects of controlling and protecting quantum information within superconducting oscillators. It details the technical challenges and solutions explored in this advanced quantum computing research.
+Aniket Sule's thesis from Yale University, focusing on the critical aspects of controlling and protecting quantum information within superconducting oscillators. It details the technical challenges and solutions explored in this advanced quantum computing research.
 
 Key Points:
 

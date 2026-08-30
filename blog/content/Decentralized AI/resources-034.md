@@ -1,6 +1,6 @@
 ### 🤖 AI Infrastructure - Scalable Compute for AI
 
-This article discusses Exabits' approach to providing scalable and affordable compute resources for AI applications, bridging the gap between innovation and infrastructure.
+Exabits' approach to providing scalable and affordable compute resources for AI applications, bridging the gap between innovation and infrastructure.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ⛈️ Alabama Weather - Scattered Showers and Storms
 
-This article provides a brief overview of the weather forecast for Alabama, highlighting the expected showers and storms.  A low-end severe weather threat is possible.
+The weather forecast for Alabama, highlighting the expected showers and storms.  A low-end severe weather threat is possible.
 
 Key Points:
 

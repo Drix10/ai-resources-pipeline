@@ -1,6 +1,6 @@
 ### ✨ Marketing Campaign - Tombola Street Party
 
-This article discusses the Tombola campaign, highlighting its focus on creating a street-party atmosphere. It examines the campaign's approach to engaging audiences and fostering a community feel.
+Tombola campaign, highlighting its focus on creating a street-party atmosphere. It examines the campaign's approach to engaging audiences and fostering a community feel.
 
 Key Points:
 

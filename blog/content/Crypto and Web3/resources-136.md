@@ -1,6 +1,6 @@
 ### 🤖 LLM Code Analysis - JavaScript Documentation
 
-This article explores the process of analyzing code, particularly JavaScript, with the aid of large language models (LLMs) and by referencing documentation. It emphasizes how understanding a project's structure and existing documentation can enhance development workflows.
+Process of analyzing code, particularly JavaScript, with the aid of large language models (LLMs) and by referencing documentation. It emphasizes how understanding a project's structure and existing documentation can enhance development workflows.
 
 Key Points:
 

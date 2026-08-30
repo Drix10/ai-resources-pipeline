@@ -1,6 +1,6 @@
 ### 🚀 AEXLAB - VAIL VR Platform Overview
 
-This article provides an overview of AEXLAB and its connection to the VAIL VR platform. It highlights their presence within the competitive virtual reality gaming community.
+AEXLAB and its connection to the VAIL VR platform. It highlights their presence within the competitive virtual reality gaming community.
 
 Key Points:
 

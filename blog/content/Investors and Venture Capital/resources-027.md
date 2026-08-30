@@ -1,6 +1,6 @@
 ### 🤖 AI Industry Dynamics - LeCun and Zuckerberg
 
-This article discusses the potential divergence between Yann LeCun and Mark Zuckerberg based on their differing political views and the implications for the future of AI research at Meta.
+Potential divergence between Yann LeCun and Mark Zuckerberg based on their differing political views and the implications for the future of AI research at Meta.
 
 Key Points:
 

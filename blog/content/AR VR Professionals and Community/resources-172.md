@@ -1,6 +1,6 @@
 ### ✨ Digital Art - Visual Effects Enhancement
 
-This article discusses the application of visual enhancements to a digital image, specifically referencing the addition of googly eyes and the resolution of ghosting artifacts. It explores creative modifications in digital art.
+Application of visual enhancements to a digital image, specifically referencing the addition of googly eyes and the resolution of ghosting artifacts. It explores creative modifications in digital art.
 
 Key Points:
 

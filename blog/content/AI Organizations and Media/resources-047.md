@@ -1,6 +1,6 @@
 ### 🤖 Health Data Integration - LLM Applications
 
-This article explores the concept of integrating personal health data from wearables like Apple Watch and Oura ring into Large Language Models (LLMs) for personalized health evaluations.  The goal is to leverage AI for insights comparable to consultations with doctors and fitness coaches.
+Concept of integrating personal health data from wearables like Apple Watch and Oura ring into Large Language Models (LLMs) for personalized health evaluations.  The goal is to leverage AI for insights comparable to consultations with doctors and fitness coaches.
 
 Key Points:
 

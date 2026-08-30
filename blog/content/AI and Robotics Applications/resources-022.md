@@ -1,6 +1,6 @@
 ### 🤖 Humanoid Robotics - Apptronik Discussion
 
-This article summarizes a discussion between Mark Jeffrey, Jeff Cardenas (Founder & CEO of Apptronik), and Kelly Perdew regarding Apptronik, a humanoid robotics company.
+Discussion between Mark Jeffrey, Jeff Cardenas (Founder & CEO of Apptronik), and Kelly Perdew regarding Apptronik, a humanoid robotics company.
 
 Key Points:
 

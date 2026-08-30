@@ -1,6 +1,6 @@
 ### 💡 Severe Weather - Mesoscale Discussion 0761
 
-This article discusses Mesoscale Discussion 0761 issued by the Storm Prediction Center. It covers an ongoing weather event affecting multiple states in the central United States.
+Mesoscale Discussion 0761 issued by the Storm Prediction Center. It covers an ongoing weather event affecting multiple states in the central United States.
 
 Key Points:
 

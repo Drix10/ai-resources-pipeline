@@ -1,6 +1,6 @@
 ### 🤖 OpenAI's New Computer-Use Model
 
-This article summarizes initial tests of a new OpenAI computer-use model, exploring its capabilities across diverse tasks.  The model's free playground allows for public experimentation.
+Initial tests of a new OpenAI computer-use model, exploring its capabilities across diverse tasks.  The model's free playground allows for public experimentation.
 
 Key Points:
 

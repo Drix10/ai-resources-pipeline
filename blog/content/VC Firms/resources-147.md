@@ -1,6 +1,6 @@
 ### 🚀 Infinex TGE - Decentralized Exchange Future
 
-This article discusses Infinex's Token Generation Event (TGE) and its role in addressing challenges within the cryptocurrency exchange landscape. It highlights the platform's focus on improving user experience for both crypto natives and non-natives.
+Infinex's Token Generation Event (TGE) and its role in addressing challenges within the cryptocurrency exchange landscape. It highlights the platform's focus on improving user experience for both crypto natives and non-natives.
 
 Key Points:
 

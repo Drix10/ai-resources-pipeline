@@ -1,6 +1,6 @@
 ### 🤖 Codex Performance - /fast Option Verification
 
-This article discusses observations regarding the expected performance of Codex with the `/fast` option and introduces an open-source tool for independent verification. It aims to clarify potential discrepancies in advertised performance metrics.
+Observations regarding the expected performance of Codex with the `/fast` option and introduces an open-source tool for independent verification. It aims to clarify potential discrepancies in advertised performance metrics.
 
 Key Points:
 

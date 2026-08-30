@@ -1,6 +1,6 @@
 ### 🤖 AI & Entertainment Summit - Experiments in AI Filmmaking
 
-This article summarizes a session from the Digital Hollywood AI & Entertainment Summit, focusing on experiments in AI filmmaking and the role of human artists.  The session took place on July 22, 2025.
+Session from the Digital Hollywood AI & Entertainment Summit, focusing on experiments in AI filmmaking and the role of human artists.  The session took place on July 22, 2025.
 
 Key Points:
 

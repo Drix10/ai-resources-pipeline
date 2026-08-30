@@ -1,6 +1,6 @@
 ### 💡 Graphics Rendering - Artistic Control Over Automation
 
-This article discusses a rendering approach where direct artistic influence on visual elements, such as color gradients based on height, can yield distinct results compared to relying solely on automated shader or lighting techniques. It emphasizes intentional design over procedural generation for specific aesthetic goals.
+Rendering approach where direct artistic influence on visual elements, such as color gradients based on height, can yield distinct results compared to relying solely on automated shader or lighting techniques. It emphasizes intentional design over procedural generation for specific aesthetic goals.
 
 Key Points:
 

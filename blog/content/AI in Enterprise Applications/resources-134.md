@@ -1,6 +1,6 @@
 ### 💡 Financial Insights - Missed Opportunities
 
-This article discusses Warren Buffett and Charlie Munger's perspective on passing on Google's 2004 IPO. It highlights their insights into Google's early business performance through their experience at GEICO.
+Warren Buffett and Charlie Munger's perspective on passing on Google's 2004 IPO. It highlights their insights into Google's early business performance through their experience at GEICO.
 
 Key Points:
 

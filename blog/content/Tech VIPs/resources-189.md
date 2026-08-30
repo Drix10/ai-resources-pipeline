@@ -1,6 +1,6 @@
 ### 💡 Community Engagement - Office Hours at UC San Diego
 
-This article details an upcoming office hours event at UC San Diego, providing an opportunity for engagement and discussion. It outlines the correct schedule and location for attendees.
+Upcoming office hours event at UC San Diego, providing an opportunity for engagement and discussion. It outlines the correct schedule and location for attendees.
 
 Key Points:
 

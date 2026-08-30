@@ -1,6 +1,6 @@
 ### 💡 Political Economy - Corporate Affiliations
 
-This article examines Robert Habeck's current advisory role at Urban Partners in Denmark. It highlights the ownership structure of Urban Partners and its connection to the Viessmann Generation Group. The discussion also notes Viessmann's prior sale of its climate technology division.
+Robert Habeck's current advisory role at Urban Partners in Denmark. It highlights the ownership structure of Urban Partners and its connection to the Viessmann Generation Group. The discussion also notes Viessmann's prior sale of its climate technology division.
 
 Key Points:
 

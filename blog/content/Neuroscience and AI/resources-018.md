@@ -1,6 +1,6 @@
 ### 🤖 Neuroscience - Brain-Machine Interfaces using Neural Value Signals
 
-This article discusses a new research paper exploring the development of brain-machine interfaces (BMIs) using neural value signals as opposed to traditional motor or sensory signals.  The research proposes a novel approach to BMI design.
+New research paper exploring the development of brain-machine interfaces (BMIs) using neural value signals as opposed to traditional motor or sensory signals.  The research proposes a novel approach to BMI design.
 
 Key Points:
 

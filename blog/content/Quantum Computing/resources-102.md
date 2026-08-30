@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics and the Future of Humanity
 
-This article discusses a Twitter thread expressing skepticism about the belief that disclosing information about aliens will promote global peace, and highlighting concerns about the lack of progress on fusion energy due to economic factors.
+Twitter thread expressing skepticism about the belief that disclosing information about aliens will promote global peace, and highlighting concerns about the lack of progress on fusion energy due to economic factors.
 
 Key Points:
 

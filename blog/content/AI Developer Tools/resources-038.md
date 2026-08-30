@@ -1,6 +1,6 @@
 ### 🤖 AI Startup Idea - GPT Trained on Influencers
 
-This article details a business concept: creating GPT models trained on prominent figures' content.  It outlines the development process and monetization strategy.
+Business concept: creating GPT models trained on prominent figures' content.  It outlines the development process and monetization strategy.
 
 
 Key Points:

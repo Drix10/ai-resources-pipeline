@@ -1,6 +1,6 @@
 ### 🚀 Finance - Global USD Account for International Businesses
 
-This article discusses the launch of Global USD, a platform providing international businesses with real USD accounts without the complexities of LLCs, EINs, or stringent compliance procedures.  The platform facilitates ACH transfers, wire transfers, and USDC/USDT transactions.
+Launch of Global USD, a platform providing international businesses with real USD accounts without the complexities of LLCs, EINs, or stringent compliance procedures.  The platform facilitates ACH transfers, wire transfers, and USDC/USDT transactions.
 
 Key Points:
 

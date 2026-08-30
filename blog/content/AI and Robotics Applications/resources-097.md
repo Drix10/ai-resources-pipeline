@@ -1,6 +1,6 @@
 ### 🤖 AI in Healthcare and Fitness - Gemini's Performance
 
-This article discusses a Google DeepMind paper demonstrating a fine-tuned Gemini model's ability to provide sleep and fitness coaching comparable to human experts.  The model utilizes wearable data for analysis and personalized recommendations.
+Google DeepMind paper demonstrating a fine-tuned Gemini model's ability to provide sleep and fitness coaching comparable to human experts.  The model utilizes wearable data for analysis and personalized recommendations.
 
 
 Key Points:

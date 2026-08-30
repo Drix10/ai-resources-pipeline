@@ -1,6 +1,6 @@
 ### 📈 Finance - Enerflex ($EFXT) Partial Profit Booking
 
-This article discusses a partial profit booking decision for Enerflex ($EFXT) stock due to its significant price increase and strong financial performance.  The remaining position is maintained due to an undemanding valuation.
+Partial profit booking decision for Enerflex ($EFXT) stock due to its significant price increase and strong financial performance.  The remaining position is maintained due to an undemanding valuation.
 
 Key Points:
 

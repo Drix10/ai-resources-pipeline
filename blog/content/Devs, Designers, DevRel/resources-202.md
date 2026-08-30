@@ -1,6 +1,6 @@
 ### 🤖 AI Security - Malicious Model Insertion
 
-This article discusses the critical security risks associated with embedding malicious code into AI models, especially through serialization formats like pickle, and the challenges this poses for conventional security scanning.
+Critical security risks associated with embedding malicious code into AI models, especially through serialization formats like pickle, and the challenges this poses for conventional security scanning.
 
 Key Points:
 

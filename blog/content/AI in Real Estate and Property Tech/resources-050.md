@@ -1,6 +1,6 @@
 ### ✨ YouTube - Coinage Media's Silver Play Button
 
-This article discusses Coinage Media's achievement of 100,000 YouTube subscribers and their subsequent Silver Play Button award,  a milestone for a community-owned media DAO.  The celebration includes tokenizing the award on Solana.
+Coinage Media's achievement of 100,000 YouTube subscribers and their subsequent Silver Play Button award,  a milestone for a community-owned media DAO.  The celebration includes tokenizing the award on Solana.
 
 
 Key Points:

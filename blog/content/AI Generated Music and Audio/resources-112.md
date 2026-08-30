@@ -1,6 +1,6 @@
 ### 💡 Startup Advice - Long-Term Commitment
 
-This article discusses the importance of long-term commitment in building a successful product, highlighting the need for patience and persistence beyond the initial three-month mark.
+Importance of long-term commitment in building a successful product, highlighting the need for patience and persistence beyond the initial three-month mark.
 
 Key Points:
 

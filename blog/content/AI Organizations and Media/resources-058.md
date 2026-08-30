@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Quaternion Drive
 
-This article discusses Scott Walter's proposed "Quaternion Drive" for robotics and its potential impact.  The article includes a link to a video explaining the concept in detail.
+Scott Walter's proposed "Quaternion Drive" for robotics and its potential impact.  The article includes a link to a video explaining the concept in detail.
 
 Key Points:
 

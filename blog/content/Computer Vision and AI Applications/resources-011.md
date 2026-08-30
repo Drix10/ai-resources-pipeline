@@ -1,6 +1,6 @@
 ### 🤖 AI Conference - Poster Presentation
 
-This article summarizes a poster presentation on scaling trends for data poisoning in large language models (LLMs) presented at the AAAI conference.  The presentation details research on the challenges of scaling data poisoning attacks against LLMs.
+Poster presentation on scaling trends for data poisoning in large language models (LLMs) presented at the AAAI conference.  The presentation details research on the challenges of scaling data poisoning attacks against LLMs.
 
 Key Points:
 

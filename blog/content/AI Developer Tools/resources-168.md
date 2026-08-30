@@ -1,6 +1,6 @@
 ### 🚀 DIY Electronics - F1 Display Lighting
 
-This article details a DIY project to create a wirelessly controlled, dynamically lit F1-style display stand for 1:64 scale Hot Wheels cars. It highlights the components and technologies used to achieve multi-color lighting effects.
+DIY project to create a wirelessly controlled, dynamically lit F1-style display stand for 1:64 scale Hot Wheels cars. It highlights the components and technologies used to achieve multi-color lighting effects.
 
 Key Points:
 

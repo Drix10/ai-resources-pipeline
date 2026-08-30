@@ -1,6 +1,6 @@
 ### 🤖 Startup Growth - Assessing Growth Velocity
 
-This article discusses the factors to consider when evaluating the growth rate of an AI startup and its implications for success in the current investor market.  It summarizes insights from a podcast interview.
+Factors to consider when evaluating the growth rate of an AI startup and its implications for success in the current investor market.  It summarizes insights from a podcast interview.
 
 Key Points:
 

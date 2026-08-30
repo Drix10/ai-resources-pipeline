@@ -1,6 +1,6 @@
 ### 🤖 The Desktop Metaphor - Its Origins in the Office Model
 
-This article explores the origins of the desktop metaphor, revealing its unexpected roots in a model of the physical office space.  It examines the key elements that contributed to this influential design paradigm.
+Origins of the desktop metaphor, revealing its unexpected roots in a model of the physical office space.  It examines the key elements that contributed to this influential design paradigm.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 AI-Powered Hackathon - Card Detection
 
-This article summarizes a hands-on workshop focused on building a card detection system using AI.  The workshop, part of the SensAI Hackademy, features practical instruction and engaging activities.
+Hands-on workshop focused on building a card detection system using AI.  The workshop, part of the SensAI Hackademy, features practical instruction and engaging activities.
 
 Key Points:
 

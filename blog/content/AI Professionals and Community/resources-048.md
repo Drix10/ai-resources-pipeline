@@ -1,6 +1,6 @@
 ### 🤖 Mathematics - The Importance of Foundational Skills
 
-This article discusses the enduring relevance of fundamental mathematical skills, even in the age of readily available computational tools.  It argues that neglecting these skills can lead to significant disadvantages later on.
+Enduring relevance of fundamental mathematical skills, even in the age of readily available computational tools.  It argues that neglecting these skills can lead to significant disadvantages later on.
 
 Key Points:
 

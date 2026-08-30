@@ -1,6 +1,6 @@
 ### 💡 Web User Experience - Disruptive Design Patterns
 
-This article discusses the challenges in web user experience, particularly concerning intrusive elements like cookie consent banners and pop-up advertisements. It highlights how certain design choices can disrupt user flow and engagement on websites.
+Challenges in web user experience, particularly concerning intrusive elements like cookie consent banners and pop-up advertisements. It highlights how certain design choices can disrupt user flow and engagement on websites.
 
 Key Points:
 

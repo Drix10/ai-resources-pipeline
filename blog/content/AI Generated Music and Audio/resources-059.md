@@ -1,6 +1,6 @@
 ### 🤖 Restaurant Innovation - Collaboration at 2025 Restaurant Show
 
-This article summarizes a collaboration showcased at booth 6466 of the 2025 Restaurant Show, highlighting innovative technologies for the restaurant industry.
+Collaboration showcased at booth 6466 of the 2025 Restaurant Show, highlighting innovative technologies for the restaurant industry.
 
 
 Key Points:

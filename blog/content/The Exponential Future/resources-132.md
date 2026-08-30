@@ -1,6 +1,6 @@
 ### 💡 Digital Art - Investment Potential of Beeple's GIGACHAD
 
-This article explores the investment potential of Beeple's GIGACHAD 1/100 digital art series. It discusses the perceived future value and iconic status of these pieces in comparison to traditional art.
+Investment potential of Beeple's GIGACHAD 1/100 digital art series. It discusses the perceived future value and iconic status of these pieces in comparison to traditional art.
 
 Key Points:
 

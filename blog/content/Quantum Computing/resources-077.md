@@ -1,6 +1,6 @@
 ### 🤖 Bitcoin - Future Risks
 
-This article discusses warnings about potential threats to Bitcoin, including fiat currency instability, wrench attacks, ossification, and quantum computing.  It highlights the importance of community awareness and preparedness.
+Warnings about potential threats to Bitcoin, including fiat currency instability, wrench attacks, ossification, and quantum computing.  It highlights the importance of community awareness and preparedness.
 
 Key Points:
 

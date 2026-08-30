@@ -1,6 +1,6 @@
 ### 🤖 AI Regulation - GPT-5.6 Staggered Release
 
-This article outlines the federal government's request to OpenAI regarding the release of GPT-5.6, indicating increased regulatory oversight. It details the controlled access approach for the upcoming model.
+Federal government's request to OpenAI regarding the release of GPT-5.6, indicating increased regulatory oversight. It details the controlled access approach for the upcoming model.
 
 Key Points:
 

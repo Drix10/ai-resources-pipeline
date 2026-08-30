@@ -1,6 +1,6 @@
 ### 🤖 Ethics in Surveillance - Determining Accountability
 
-This article discusses a method for determining accountability regarding surveillance activities, focusing on participation in or review of surveillance materials.  It proposes a simple question to assess culpability.
+Method for determining accountability regarding surveillance activities, focusing on participation in or review of surveillance materials.  It proposes a simple question to assess culpability.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Demo Day - The Residency Founder Houses
 
-This article summarizes the Demo Day event hosted by _The Residency_, showcasing projects from its global network of founder houses.  The event featured presentations and networking opportunities.
+Demo Day event hosted by _The Residency_, showcasing projects from its global network of founder houses.  The event featured presentations and networking opportunities.
 
 
 Key Points:

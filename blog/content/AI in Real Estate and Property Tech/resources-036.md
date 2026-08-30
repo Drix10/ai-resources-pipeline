@@ -1,6 +1,6 @@
 ### 🤖 Y Combinator W25 Batch Reflection
 
-This article summarizes a reflection by the CTO and CEO of Harper Insure on their journey building a YC company, their early dreams, and future plans.
+Reflection by the CTO and CEO of Harper Insure on their journey building a YC company, their early dreams, and future plans.
 
 Key Points:
 

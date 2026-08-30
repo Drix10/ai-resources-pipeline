@@ -1,6 +1,6 @@
 ### ✨ App Features - Annual User Summaries
 
-This article discusses the concept of creating an annual "wrapped" summary feature for an application. It covers the benefits of such a feature for user engagement and provides initial considerations for development.
+Concept of creating an annual "wrapped" summary feature for an application. It covers the benefits of such a feature for user engagement and provides initial considerations for development.
 
 Key Points:
 

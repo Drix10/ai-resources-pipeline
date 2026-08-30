@@ -1,6 +1,6 @@
 ### 🤖 Offline Reinforcement Learning - Android Performance Boost
 
-This article discusses the application of offline reinforcement learning with Vision-Language Models (VLMs) to achieve performance improvements in Android environments.  The results demonstrate scalability and eliminate the need for online interactions or complex RL techniques.
+Application of offline reinforcement learning with Vision-Language Models (VLMs) to achieve performance improvements in Android environments.  The results demonstrate scalability and eliminate the need for online interactions or complex RL techniques.
 
 Key Points:
 

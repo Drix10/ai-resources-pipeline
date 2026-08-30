@@ -1,6 +1,6 @@
 ### 🤖 AI Interpretability - LLM Faithfulness Evaluation
 
-This article discusses research on evaluating the mechanistic faithfulness of Large Language Model (LLM) self-explanations. It focuses on assessing how well LLMs explain their internal workings at a concept level.
+Research on evaluating the mechanistic faithfulness of Large Language Model (LLM) self-explanations. It focuses on assessing how well LLMs explain their internal workings at a concept level.
 
 Key Points:
 

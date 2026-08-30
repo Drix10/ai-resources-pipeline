@@ -1,6 +1,6 @@
 ### 💡 Zo Computer - Vision and User Meetup
 
-This article discusses an inaugural user meetup for Zo Computer, where the vision and future direction of the platform were shared. It highlights a community-driven event designed to engage users with the project's evolution.
+Inaugural user meetup for Zo Computer, where the vision and future direction of the platform were shared. It highlights a community-driven event designed to engage users with the project's evolution.
 
 Key Points:
 

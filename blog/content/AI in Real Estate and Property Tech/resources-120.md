@@ -1,6 +1,6 @@
 ### 💡 AI Domains - Funding and Value
 
-This article discusses the recent significant funding secured by an AI-related domain name and highlights the increasing value of domain assets in the artificial intelligence sector. It also touches upon opportunities for connecting domain owners with potential investors and startups.
+Recent significant funding secured by an AI-related domain name and highlights the increasing value of domain assets in the artificial intelligence sector. It also touches upon opportunities for connecting domain owners with potential investors and startups.
 
 Key Points:
 

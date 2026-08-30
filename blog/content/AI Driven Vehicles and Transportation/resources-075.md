@@ -1,6 +1,6 @@
 ### 🤖 Personal Sacrifice - Prioritizing Work Over Health Screening
 
-This article discusses a personal anecdote where the author prioritized work commitments over immediate medical testing for a potential genetic disease.
+Personal anecdote where the author prioritized work commitments over immediate medical testing for a potential genetic disease.
 
 Key Points:
 

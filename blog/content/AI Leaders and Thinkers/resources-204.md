@@ -1,6 +1,6 @@
 ### 💡 Zero-Knowledge Proofs - Social Media Engagement
 
-This article discusses common approaches to creating engaging content about Zero-Knowledge Proofs on social media platforms. It outlines methods often observed in discussions surrounding ZK technology.
+Common approaches to creating engaging content about Zero-Knowledge Proofs on social media platforms. It outlines methods often observed in discussions surrounding ZK technology.
 
 Key Points:
 

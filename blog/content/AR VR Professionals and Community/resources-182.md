@@ -1,6 +1,6 @@
 ### 💡 Tax Policy - Founder Risk
 
-This article discusses the unique financial risks undertaken by startup founders. It advocates for a tax system that acknowledges these risks, differentiating them from less speculative investments.
+Unique financial risks undertaken by startup founders. It advocates for a tax system that acknowledges these risks, differentiating them from less speculative investments.
 
 Key Points:
 

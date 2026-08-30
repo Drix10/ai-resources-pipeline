@@ -1,6 +1,6 @@
 ### 🤖 Venture Capital - Berachain Investment
 
-This article discusses Hack VC's significant investment in Berachain and the resulting positive impact on the blockchain's network security and DeFi liquidity.
+Hack VC's significant investment in Berachain and the resulting positive impact on the blockchain's network security and DeFi liquidity.
 
 Key Points:
 

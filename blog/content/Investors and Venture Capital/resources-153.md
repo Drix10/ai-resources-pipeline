@@ -1,6 +1,6 @@
 ### 💡 Search Engine Optimization - State of Search Reports
 
-This article discusses the collaborative effort behind the "State of Search" reports, highlighting their impact and upcoming release. It acknowledges the in-person meeting of key contributors.
+Collaborative effort behind the "State of Search" reports, highlighting their impact and upcoming release. It acknowledges the in-person meeting of key contributors.
 
 Key Points:
 

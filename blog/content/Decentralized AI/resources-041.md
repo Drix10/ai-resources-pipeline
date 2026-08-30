@@ -1,6 +1,6 @@
 ### 🤖 NFTs - Beyond Bored Apes
 
-This article discusses the potential of NFTs to represent more than just digital art, encompassing identity and AI agents.  The information is based on a podcast interview with Aleksanda Mitrovic, founder of Unique NFTchain.
+Potential of NFTs to represent more than just digital art, encompassing identity and AI agents.  The information is based on a podcast interview with Aleksanda Mitrovic, founder of Unique NFTchain.
 
 
 Key Points:

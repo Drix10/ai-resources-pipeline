@@ -1,6 +1,6 @@
 ### ✨ STEM Education - Community Initiative
 
-This article details the recent unveiling of a new STEM Lab at Washington Irving Elementary School, a collaborative effort involving several organizations. It highlights the engagement of students with new technology and participation in a sports clinic.
+Recent unveiling of a new STEM Lab at Washington Irving Elementary School, a collaborative effort involving several organizations. It highlights the engagement of students with new technology and participation in a sports clinic.
 
 Key Points:
 

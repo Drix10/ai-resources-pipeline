@@ -1,6 +1,6 @@
 ### ✨ Medieval Dynasty - Winning Settlement Showcase
 
-This article highlights the winning settlement from the Medieval Dynasty Settlement of the Year contest, focusing on its decorative elements.
+Winning settlement from the Medieval Dynasty Settlement of the Year contest, focusing on its decorative elements.
 
 Key Points:
 

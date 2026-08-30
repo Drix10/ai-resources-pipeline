@@ -1,6 +1,6 @@
 ### 🤖 Severe Weather Potential - Mid-Atlantic Region
 
-This article discusses a potential severe weather setup in the Mid-Atlantic region, including the possibility of hail, wind, and a brief spin-up.  Model monitoring is crucial for accurate prediction.
+Potential severe weather setup in the Mid-Atlantic region, including the possibility of hail, wind, and a brief spin-up.  Model monitoring is crucial for accurate prediction.
 
 Key Points:
 

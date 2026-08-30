@@ -1,6 +1,6 @@
 ### 🤖 Graphics - Compute Shaders with Groupshared Memory
 
-This article discusses the implementation of compute shaders with groupshared memory in HypeHype, following the deprecation of WebGL2/GLES3.  It highlights efficient LDS usage.
+Implementation of compute shaders with groupshared memory in HypeHype, following the deprecation of WebGL2/GLES3.  It highlights efficient LDS usage.
 
 Key Points:
 

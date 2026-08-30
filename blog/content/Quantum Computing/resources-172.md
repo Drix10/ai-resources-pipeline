@@ -1,6 +1,6 @@
 ### 💡 Australian Investment - Startup Taxation Risks
 
-This article discusses the perceived risk to investment in Australian startups due to potential changes in tax policy on illiquid assets. It highlights how such uncertainty could negatively impact Australia's competitive position against other markets like the US.
+Perceived risk to investment in Australian startups due to potential changes in tax policy on illiquid assets. It highlights how such uncertainty could negatively impact Australia's competitive position against other markets like the US.
 
 Key Points:
 

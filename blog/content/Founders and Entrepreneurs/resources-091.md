@@ -1,6 +1,6 @@
 ### ⚾️ Baseball Biomechanics - Kinetic Chain Analysis
 
-This article discusses the importance of hip rotation in baseball pitching, focusing on how internal and external rotation impact velocity, efficiency, and injury prevention.  The provided video further illustrates these concepts.
+Importance of hip rotation in baseball pitching, focusing on how internal and external rotation impact velocity, efficiency, and injury prevention.  The provided video further illustrates these concepts.
 
 Key Points:
 

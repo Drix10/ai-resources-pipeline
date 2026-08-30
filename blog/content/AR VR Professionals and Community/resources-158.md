@@ -1,6 +1,6 @@
 ### ✨ Auto Spatialization - Performance and Issues
 
-This article discusses the functionality and current challenges observed with the Auto Spatialization feature. It highlights its potential for immersive experiences while noting its tendency to deactivate.
+Functionality and current challenges observed with the Auto Spatialization feature. It highlights its potential for immersive experiences while noting its tendency to deactivate.
 
 Key Points:
 

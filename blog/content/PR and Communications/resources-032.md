@@ -1,6 +1,6 @@
 ### 🤖 International Relations - UN Worker Incident in Gaza
 
-This article discusses an incident involving a UN worker injured in Gaza and subsequently treated in an Israeli hospital, where Nazi tattoos were discovered.  The incident prompted an investigation request from Israel.
+Incident involving a UN worker injured in Gaza and subsequently treated in an Israeli hospital, where Nazi tattoos were discovered.  The incident prompted an investigation request from Israel.
 
 Key Points:
 

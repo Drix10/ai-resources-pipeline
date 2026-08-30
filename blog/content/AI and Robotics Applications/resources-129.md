@@ -1,6 +1,6 @@
 ### 💡 Decentralized Physical Infrastructure - Earning with IoT Devices
 
-This article explores how everyday IoT devices can generate income by participating in decentralized physical infrastructure networks. It highlights specific examples from the peaq app's Hardware Store.
+Everyday IoT devices can generate income by participating in decentralized physical infrastructure networks. It highlights specific examples from the peaq app's Hardware Store.
 
 Key Points:
 

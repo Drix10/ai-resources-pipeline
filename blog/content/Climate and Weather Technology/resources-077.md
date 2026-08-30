@@ -1,6 +1,6 @@
 ### ⛈️ Severe Weather - Northwest Arkansas
 
-This article provides a brief overview of severe weather expected in Northwest Arkansas, including potential threats and relevant resources.
+Severe weather expected in Northwest Arkansas, including potential threats and relevant resources.
 
 Key Points:
 

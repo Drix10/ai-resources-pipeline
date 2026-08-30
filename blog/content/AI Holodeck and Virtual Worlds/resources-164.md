@@ -1,6 +1,6 @@
 ### ✨ Morph Studio - Video Watermark Removal
 
-This article covers the new video watermark remover feature available on Morph Studio, detailing its capabilities for cleaning video frames while maintaining original quality.
+New video watermark remover feature available on Morph Studio, detailing its capabilities for cleaning video frames while maintaining original quality.
 
 Key Points:
 

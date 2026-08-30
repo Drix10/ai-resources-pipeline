@@ -1,6 +1,6 @@
 ### 🤖 AI Browsers - Genspark AI Browser
 
-This article examines the Genspark AI Browser, highlighting its capabilities for enhancing web browsing through AI-powered features.  The example demonstrates its use in creating AI podcasts and summarizing websites.
+Genspark AI Browser, highlighting its capabilities for enhancing web browsing through AI-powered features.  The example demonstrates its use in creating AI podcasts and summarizing websites.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Internet Search - Quality vs. Quantity
 
-This article discusses the limitations of current internet search, highlighting the disparity between the total number of web pages and the number of high-quality pages available.  It proposes increasing the amount of high-quality knowledge online as a solution.
+Limitations of current internet search, highlighting the disparity between the total number of web pages and the number of high-quality pages available.  It proposes increasing the amount of high-quality knowledge online as a solution.
 
 Key Points:
 

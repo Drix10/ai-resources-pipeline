@@ -1,6 +1,6 @@
 ### 📰 23andMe - Bankruptcy and New Ownership
 
-This article summarizes the recent events surrounding 23andMe, including a data breach, bankruptcy filing, and change in ownership.
+Recent events surrounding 23andMe, including a data breach, bankruptcy filing, and change in ownership.
 
 Key Points:
 

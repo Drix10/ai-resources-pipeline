@@ -1,6 +1,6 @@
 ### 🚀 Neural Smash Growth - Campaign Update
 
-This article summarizes the growth metrics of the Neural Smash campaign on day 6, highlighting user acquisition and engagement increases.
+Growth metrics of the Neural Smash campaign on day 6, highlighting user acquisition and engagement increases.
 
 Key Points:
 

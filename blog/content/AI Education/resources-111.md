@@ -1,6 +1,6 @@
 ### 🚀 Descript Underlord - Streamlining Video Editing with Templates
 
-This article discusses Descript's Underlord AI co-editor and its new template feature designed to simplify video editing workflows.  The focus is on how templates mitigate the potential for overwhelm presented by the tool's extensive capabilities.
+Descript's Underlord AI co-editor and its new template feature designed to simplify video editing workflows.  The focus is on how templates mitigate the potential for overwhelm presented by the tool's extensive capabilities.
 
 
 Key Points:

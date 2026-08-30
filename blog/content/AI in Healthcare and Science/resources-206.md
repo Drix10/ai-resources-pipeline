@@ -1,6 +1,6 @@
 ### ✨ Partnership - Boltz Bio and GSK Collaboration
 
-This article details the new partnership between Boltz Bio and GSK, focusing on their shared mission to advance biological research. It outlines the strategic goals of this collaboration in reshaping biology for future health solutions.
+New partnership between Boltz Bio and GSK, focusing on their shared mission to advance biological research. It outlines the strategic goals of this collaboration in reshaping biology for future health solutions.
 
 Key Points:
 

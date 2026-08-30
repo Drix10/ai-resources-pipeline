@@ -1,6 +1,6 @@
 ### 🤖 CFO Personas During Exit Processes
 
-This article discusses three common CFO profiles encountered during exit processes and suggests a checklist to mitigate associated stress.  It highlights challenges and dependencies that can complicate the process.
+Three common CFO profiles encountered during exit processes and suggests a checklist to mitigate associated stress.  It highlights challenges and dependencies that can complicate the process.
 
 Key Points:
 

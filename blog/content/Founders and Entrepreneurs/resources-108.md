@@ -1,6 +1,6 @@
 ### 💡 Motivation - Overcoming Discomfort
 
-This article discusses the importance of pushing through discomfort as a signal of personal growth and trying new things.  The original post references a motivational speech given within a team setting.
+Importance of pushing through discomfort as a signal of personal growth and trying new things.  The original post references a motivational speech given within a team setting.
 
 Key Points:
 

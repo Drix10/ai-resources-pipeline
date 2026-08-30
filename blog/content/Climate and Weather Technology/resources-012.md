@@ -1,6 +1,6 @@
 ### 🤖 Meteorology - Private Sector Growth and NWS Dependence
 
-This article discusses the growth of the private sector meteorology industry, its relationship with the National Weather Service (NWS), and concerns regarding NWS understaffing and underfunding.
+Growth of the private sector meteorology industry, its relationship with the National Weather Service (NWS), and concerns regarding NWS understaffing and underfunding.
 
 Key Points:
 

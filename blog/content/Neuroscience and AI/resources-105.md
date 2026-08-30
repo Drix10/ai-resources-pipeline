@@ -1,6 +1,6 @@
 ### 🤖 Consciousness Research - Time Smearing and Egregores
 
-This article discusses research on consciousness, exploring the concept of "time smearing" and its potential implications for the existence of egregores.  EEG recordings of approach-avoid reactions are also analyzed.
+Research on consciousness, exploring the concept of "time smearing" and its potential implications for the existence of egregores.  EEG recordings of approach-avoid reactions are also analyzed.
 
 Key Points:
 

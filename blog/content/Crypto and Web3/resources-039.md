@@ -1,6 +1,6 @@
 ### 🚀 Game Launch - Promotional Campaign
 
-This article discusses the promotional launch campaign for a new game and addresses concerns about the game's viability.
+Promotional launch campaign for a new game and addresses concerns about the game's viability.
 
 Key Points:
 

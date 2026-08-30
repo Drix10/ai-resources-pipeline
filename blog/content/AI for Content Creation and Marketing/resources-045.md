@@ -1,6 +1,6 @@
 ### 💡 Growth Hacking - Smart Trade-offs
 
-This article discusses the concept of prioritizing smart trade-offs over perfection in growth hacking, using the example of calorie-counting apps.  It highlights how focusing on efficiency can lead to significant user acquisition.
+Concept of prioritizing smart trade-offs over perfection in growth hacking, using the example of calorie-counting apps.  It highlights how focusing on efficiency can lead to significant user acquisition.
 
 Key Points:
 

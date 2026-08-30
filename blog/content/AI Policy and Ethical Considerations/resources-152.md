@@ -1,6 +1,6 @@
 ### ✨ Community Engagement - Promotional Stickers
 
-This article highlights recent promotional materials for the Join FAI community, focusing on their role in fostering engagement and visibility. It showcases how physical assets can contribute to community building efforts.
+Recent promotional materials for the Join FAI community, focusing on their role in fostering engagement and visibility. It showcases how physical assets can contribute to community building efforts.
 
 Key Points:
 

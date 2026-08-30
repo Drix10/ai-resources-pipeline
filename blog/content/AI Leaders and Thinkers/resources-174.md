@@ -1,6 +1,6 @@
 ### 🤖 AI Acquisitions - Vision Capabilities Rollout
 
-This article explores the significance of the Codex x Skybysoftware acquisition by OpenAI. It discusses the anticipated rollout of advanced AI vision capabilities for real-world computer use.
+Significance of the Codex x Skybysoftware acquisition by OpenAI. It discusses the anticipated rollout of advanced AI vision capabilities for real-world computer use.
 
 Key Points:
 

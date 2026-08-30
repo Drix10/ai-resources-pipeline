@@ -1,6 +1,6 @@
 ### 🤖 AI Conversation - GPU, LSD Model, and Real-Time Video
 
-This article summarizes a conversation about the use of GPUs, a new live-stream diffusion (LSD) model, and the potential of real-time video in consumer AI.  The discussion highlights the advancements and future implications of these technologies.
+Conversation about the use of GPUs, a new live-stream diffusion (LSD) model, and the potential of real-time video in consumer AI.  The discussion highlights the advancements and future implications of these technologies.
 
 Key Points:
 

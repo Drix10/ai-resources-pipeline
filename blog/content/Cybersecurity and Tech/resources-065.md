@@ -1,6 +1,6 @@
 ### 🤖 US Immigration - Travel Restrictions
 
-This article details a recent US travel ban impacting foreign nationals from twelve specified countries.  The ban's specifics and affected regions are outlined below.
+Recent US travel ban impacting foreign nationals from twelve specified countries.  The ban's specifics and affected regions are outlined below.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI in Architecture - Biomimetic Design
 
-This article explores how AI facilitates biomimetic design studies in architecture, translating natural forms and performance into parametric building types. It details the conceptual sequence from natural observation to architectural realization.
+AI facilitates biomimetic design studies in architecture, translating natural forms and performance into parametric building types. It details the conceptual sequence from natural observation to architectural realization.
 
 Key Points:
 

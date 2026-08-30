@@ -1,6 +1,6 @@
 ### 🤖 Agentic Automation - Fraud, Waste, and Abuse Detection
 
-This article discusses how leaders from GAO and CMS identify high-risk areas for fraud, waste, and abuse within their operations. It details how agentic automation supports pattern recognition and facilitates decisive action to mitigate these risks.
+Leaders from GAO and CMS identify high-risk areas for fraud, waste, and abuse within their operations. It details how agentic automation supports pattern recognition and facilitates decisive action to mitigate these risks.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Developer Experience - Four Pillars of DX
 
-This article summarizes a discussion on enhancing developer productivity, focusing on four key pillars identified to improve developer experience.  The discussion included representatives from Razorpay, Google, AWS, and DevRev.
+Discussion on enhancing developer productivity, focusing on four key pillars identified to improve developer experience.  The discussion included representatives from Razorpay, Google, AWS, and DevRev.
 
 Key Points:
 

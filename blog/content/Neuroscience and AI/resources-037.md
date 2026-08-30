@@ -1,6 +1,6 @@
 ### 🤖 Minimum Wage and University Stipulations - Punjab
 
-This article discusses concerns regarding a university's low pay, potentially below the legal minimum wage in Punjab for unskilled workers, and the frequent requirement of paperwork for ranking purposes.
+Concerns regarding a university's low pay, potentially below the legal minimum wage in Punjab for unskilled workers, and the frequent requirement of paperwork for ranking purposes.
 
 Key Points:
 

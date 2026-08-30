@@ -1,6 +1,6 @@
 ### 💡 Career Advice - Maintaining a Positive Mindset
 
-This article summarizes career advice emphasizing the importance of perseverance and a positive attitude in navigating professional challenges.  The advice is shared by Ina Montejo, Assistant Vice President at PACELoanGroup.
+Career advice emphasizing the importance of perseverance and a positive attitude in navigating professional challenges.  The advice is shared by Ina Montejo, Assistant Vice President at PACELoanGroup.
 
 Key Points:
 

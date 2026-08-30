@@ -1,6 +1,6 @@
 ### 🤖 Podcast Recording - Autonomous Vehicle
 
-This article discusses the recording of a tech podcast episode in the backseat of a Wayve AI-powered autonomous vehicle.  It highlights the evolution of podcast recording locations from a conference room to a self-driving car.
+Recording of a tech podcast episode in the backseat of a Wayve AI-powered autonomous vehicle.  It highlights the evolution of podcast recording locations from a conference room to a self-driving car.
 
 Key Points:
 

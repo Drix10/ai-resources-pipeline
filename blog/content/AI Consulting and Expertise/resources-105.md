@@ -1,6 +1,6 @@
 ### 🚀 TikTok Monetization - AI Content Strategy
 
-This article outlines a strategy for using AI to create profitable TikTok content.  The approach focuses on workflow automation and content optimization.
+Strategy for using AI to create profitable TikTok content.  The approach focuses on workflow automation and content optimization.
 
 Key Points:
 

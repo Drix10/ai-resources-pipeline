@@ -1,6 +1,6 @@
 ### 🤖 LoRA Implementation - Custom and Imported Models
 
-This article discusses the implementation of Locally Optimized RAms (LoRAs) in a system, covering both custom and imported models.  It highlights the ease of importing and combining pre-trained LoRAs.
+Implementation of Locally Optimized RAms (LoRAs) in a system, covering both custom and imported models.  It highlights the ease of importing and combining pre-trained LoRAs.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Data Acquisition Strategy
 
-This article highlights the critical role of unique datasets in gaining a competitive edge within the robotics industry, emphasizing the strategic challenges in acquiring proprietary information.
+Critical role of unique datasets in gaining a competitive edge within the robotics industry, emphasizing the strategic challenges in acquiring proprietary information.
 
 Key Points:
 

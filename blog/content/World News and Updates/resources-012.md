@@ -1,6 +1,6 @@
 ### 📰 India - Hindi Language Debate
 
-This article summarizes a statement by Congress leader Vijay Wadettiwar regarding Tamil Nadu CM Stalin's comments on the Hindi language.  Wadettiwar's response emphasizes the importance of Hindi as a national language while also respecting regional languages.
+Statement by Congress leader Vijay Wadettiwar regarding Tamil Nadu CM Stalin's comments on the Hindi language.  Wadettiwar's response emphasizes the importance of Hindi as a national language while also respecting regional languages.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 🤖 AI Scientist - Hackathon Win for Disease Prediction
 
-This article details the Apoptosis AI project, a hackathon winner. It describes a system that evaluates disease targets and suggests experiments.
+Apoptosis AI project, a hackathon winner. It describes a system that evaluates disease targets and suggests experiments.
 
 Key Points:
 

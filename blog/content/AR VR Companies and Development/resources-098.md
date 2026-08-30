@@ -1,6 +1,6 @@
 ### 🤖 CARV Game Nights - Weekly Events
 
-This article details the weekly game nights hosted by CARV, including the types of games offered and how to participate.  Daily action and rewards are available.
+Weekly game nights hosted by CARV, including the types of games offered and how to participate.  Daily action and rewards are available.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ AI Video Generation - Controllable Elements
 
-This article discusses advanced capabilities in AI-driven video generation, focusing on the granular control over various creative elements. It highlights how these tools enable precise frame-by-frame storytelling.
+Advanced capabilities in AI-driven video generation, focusing on the granular control over various creative elements. It highlights how these tools enable precise frame-by-frame storytelling.
 
 Key Points:
 

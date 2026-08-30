@@ -1,6 +1,6 @@
 ### 🤖 Bitcoin - Quantum Resistance Discovery
 
-This article details the discovery of vestigial features within Bitcoin's original code, which enable limited transaction introspection and quantum-resistant signatures. It discusses how these functionalities indicate that Bitcoin launched with a degree of quantum resistance in 2009.
+Discovery of vestigial features within Bitcoin's original code, which enable limited transaction introspection and quantum-resistant signatures. It discusses how these functionalities indicate that Bitcoin launched with a degree of quantum resistance in 2009.
 
 Key Points:
 

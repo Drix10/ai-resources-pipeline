@@ -1,6 +1,6 @@
 ### ⚠️ Social Media - Allegations Against CME Group
 
-This article discusses allegations of harassment against the Chicago Mercantile Exchange (CME) targeting a 17-year-old for exercising free speech.  The incident involves a protest and subsequent alleged harassment.
+Allegations of harassment against the Chicago Mercantile Exchange (CME) targeting a 17-year-old for exercising free speech.  The incident involves a protest and subsequent alleged harassment.
 
 Key Points:
 

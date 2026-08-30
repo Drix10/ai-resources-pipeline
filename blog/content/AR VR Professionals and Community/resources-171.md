@@ -1,6 +1,6 @@
 ### 🚀 FNAF: Secret of the Mimic - VR Release Schedule
 
-This article outlines the upcoming release schedule for "FNAF: Secret of the Mimic" across various virtual reality platforms. It provides an overview of the current development and availability status for PC VR, PS VR2, and Quest versions.
+Upcoming release schedule for "FNAF: Secret of the Mimic" across various virtual reality platforms. It provides an overview of the current development and availability status for PC VR, PS VR2, and Quest versions.
 
 Key Points:
 

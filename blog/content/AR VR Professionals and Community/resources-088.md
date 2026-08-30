@@ -1,6 +1,6 @@
 ### 🤖 Video Game Predictions - Future Trends
 
-This article discusses predicted future trends in video game aesthetics and player preferences, suggesting a shift from hyperrealism to a more artistic style.
+Predicted future trends in video game aesthetics and player preferences, suggesting a shift from hyperrealism to a more artistic style.
 
 Key Points:
 

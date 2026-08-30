@@ -1,6 +1,6 @@
 ### 🤖 AI Progress - Qualitative Assessment
 
-This article discusses the challenges in quantitatively measuring advanced AI progress, suggesting that traditional metrics are becoming insufficient. It explores the shift towards qualitative evaluations as AI capabilities evolve beyond simple metrics.
+Challenges in quantitatively measuring advanced AI progress, suggesting that traditional metrics are becoming insufficient. It explores the shift towards qualitative evaluations as AI capabilities evolve beyond simple metrics.
 
 Key Points:
 

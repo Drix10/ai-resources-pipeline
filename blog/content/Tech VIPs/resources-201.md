@@ -1,6 +1,6 @@
 ### ✨ Human Achievement - Ultramarathon Record
 
-This article details Rachel Entrekin's recent ultramarathon victory. It covers her record-breaking performance in the Cocodona 250, marking a significant moment in ultrarunning history.
+Rachel Entrekin's recent ultramarathon victory. It covers her record-breaking performance in the Cocodona 250, marking a significant moment in ultrarunning history.
 
 Key Points:
 

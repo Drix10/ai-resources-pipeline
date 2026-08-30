@@ -1,6 +1,6 @@
 ### 🤖  Technology Announcements - Spatial Scenes Launch
 
-This article covers the announcement of the launch of "Spatial Scenes" into iOS 26, its compatibility with various devices, and its potential impact on consumer access to spatial technology.
+Announcement of the launch of "Spatial Scenes" into iOS 26, its compatibility with various devices, and its potential impact on consumer access to spatial technology.
 
 
 Key Points:

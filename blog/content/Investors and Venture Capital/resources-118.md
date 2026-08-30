@@ -1,6 +1,6 @@
 ### 🤖 AI Integration - Ecolab Cooling Products
 
-This article discusses Ecolab's entry into the AI market with new cooling products designed for AI infrastructure. It examines the potential impact of these offerings on a traditional dividend company's portfolio.
+Ecolab's entry into the AI market with new cooling products designed for AI infrastructure. It examines the potential impact of these offerings on a traditional dividend company's portfolio.
 
 Key Points:
 

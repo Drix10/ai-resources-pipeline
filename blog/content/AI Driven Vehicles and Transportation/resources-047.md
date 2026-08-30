@@ -1,6 +1,6 @@
 ### 🤖 US Policy - Stablecoin Regulation
 
-This article discusses the failure of the GENIUS Act to advance in the Senate, highlighting its potential impact on the global adoption of stablecoins and digital assets.
+Failure of the GENIUS Act to advance in the Senate, highlighting its potential impact on the global adoption of stablecoins and digital assets.
 
 Key Points:
 

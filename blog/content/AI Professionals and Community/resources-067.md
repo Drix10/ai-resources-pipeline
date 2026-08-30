@@ -1,6 +1,6 @@
 ### 🤖 LLMs - Granular Attribution with LAQuer
 
-This article discusses LAQuer, a method for providing more granular attribution in Large Language Model (LLM) outputs.  It focuses on reducing the amount of text users need to read to understand the source of generated facts.
+LAQuer, a method for providing more granular attribution in Large Language Model (LLM) outputs.  It focuses on reducing the amount of text users need to read to understand the source of generated facts.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ⚖️ Legal - Due Process Concerns
 
-This article discusses concerns regarding the lack of due process in a specific case and the use of online tactics instead of legal channels.
+Concerns regarding the lack of due process in a specific case and the use of online tactics instead of legal channels.
 
 Key Points:
 

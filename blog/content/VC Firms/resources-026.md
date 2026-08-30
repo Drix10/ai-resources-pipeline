@@ -1,6 +1,6 @@
 ### 🤖 Robotics in Manufacturing - Reindustrialization
 
-This article discusses the role of robotics in the reindustrialization of the United States, focusing on its application across various manufacturing sectors.
+Role of robotics in the reindustrialization of the United States, focusing on its application across various manufacturing sectors.
 
 Key Points:
 

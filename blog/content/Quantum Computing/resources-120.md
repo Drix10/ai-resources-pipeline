@@ -1,6 +1,6 @@
 ### 💡 Science Communication - Recognition at Royal Institution
 
-This article highlights the achievement of a science talk being recognized among the top 10 most watched at The Royal Institution. It underscores the impact of accessible science communication.
+Achievement of a science talk being recognized among the top 10 most watched at The Royal Institution. It underscores the impact of accessible science communication.
 
 Key Points:
 

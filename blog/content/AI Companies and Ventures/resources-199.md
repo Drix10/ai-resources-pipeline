@@ -1,6 +1,6 @@
 ### 🚀 Startup Tools - AI Credit Access
 
-This article discusses a program designed to help startups manage AI credit costs during MVP development. It highlights a partnership that offers premium AI credits and product visibility.
+Program designed to help startups manage AI credit costs during MVP development. It highlights a partnership that offers premium AI credits and product visibility.
 
 Key Points:
 

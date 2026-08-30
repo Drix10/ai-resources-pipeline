@@ -1,6 +1,6 @@
 ### 🤖 Open-Source Models - Kimi K2 Performance
 
-This article discusses the positive reception of the open-source model Kimi K2 for front-end coding, noting its performance despite having few parameters.  The author suggests that open-sourcing similar models would be beneficial.
+Positive reception of the open-source model Kimi K2 for front-end coding, noting its performance despite having few parameters.  The author suggests that open-sourcing similar models would be beneficial.
 
 Key Points:
 

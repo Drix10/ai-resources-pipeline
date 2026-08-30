@@ -1,6 +1,6 @@
 ### 👶 Language Acquisition - Human Uniqueness of Baby Talk
 
-This article examines recent research indicating that child-directed speech, or "baby talk," is uniquely prevalent among humans compared to our closest primate relatives.  The study observed five great ape species to determine the prevalence of this communication style.
+Recent research indicating that child-directed speech, or "baby talk," is uniquely prevalent among humans compared to our closest primate relatives.  The study observed five great ape species to determine the prevalence of this communication style.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💰 YouTube - Faceless Channel Monetization
 
-This article explores the potential earnings of a faceless YouTube channel based on viewership and provides a link to further information.
+Potential earnings of a faceless YouTube channel based on viewership and provides a link to further information.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Corporate Social Responsibility - CEO's Role
 
-This article discusses the influence of a CEO's morals and patriotism on a company's decision-making regarding profit maximization versus national interest.  It explores the potential for CEOs to prioritize societal good over shareholder profit.
+Influence of a CEO's morals and patriotism on a company's decision-making regarding profit maximization versus national interest.  It explores the potential for CEOs to prioritize societal good over shareholder profit.
 
 Key Points:
 

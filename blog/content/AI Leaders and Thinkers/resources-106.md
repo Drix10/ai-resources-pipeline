@@ -1,6 +1,6 @@
 ### 🤖 Open Source AI - Access for Junior Developers
 
-This article discusses the increased accessibility of powerful AI tools like Ollama and GPT-OSS-20B for junior developers, highlighting the advancements in open-source technology.
+Increased accessibility of powerful AI tools like Ollama and GPT-OSS-20B for junior developers, highlighting the advancements in open-source technology.
 
 Key Points:
 

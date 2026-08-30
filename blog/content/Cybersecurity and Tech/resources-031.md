@@ -1,6 +1,6 @@
 ### 🚨 Political Commentary - Wisconsin Voter Incident
 
-This article discusses a video circulating online showing an individual allegedly looking for a deceased voter in Wisconsin.  The context is a political commentary.
+Video circulating online showing an individual allegedly looking for a deceased voter in Wisconsin.  The context is a political commentary.
 
 Key Points:
 

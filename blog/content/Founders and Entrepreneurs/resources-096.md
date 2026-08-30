@@ -1,6 +1,6 @@
 ### 💡 Gambling -  +EV Betting Strategies
 
-This article discusses a strategy for consistently profitable betting, emphasizing the importance of learning and adapting to limitations.
+Strategy for consistently profitable betting, emphasizing the importance of learning and adapting to limitations.
 
 Key Points:
 

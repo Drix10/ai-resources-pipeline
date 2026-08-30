@@ -1,6 +1,6 @@
 ### 🤖 Oncology Drug Review - Camizestrant in SERENA-6 Trial
 
-This article discusses the recent posting of materials by the FDA Oncology division for the ODAC review of camizestrant in the SERENA-6 trial. It highlights the critical role of Progression-Free Survival (PFS) and PFS2 in the upcoming discussion.
+Recent posting of materials by the FDA Oncology division for the ODAC review of camizestrant in the SERENA-6 trial. It highlights the critical role of Progression-Free Survival (PFS) and PFS2 in the upcoming discussion.
 
 Key Points:
 

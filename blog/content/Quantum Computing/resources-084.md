@@ -1,6 +1,6 @@
 ### 🤖 Quantum Computing - Scaling Superconducting Chip Fabrication
 
-This article discusses the SUPREME project, which aims to enhance the production of superconducting quantum chips in Europe, improving accessibility for researchers and industries.
+SUPREME project, which aims to enhance the production of superconducting quantum chips in Europe, improving accessibility for researchers and industries.
 
 Key Points:
 

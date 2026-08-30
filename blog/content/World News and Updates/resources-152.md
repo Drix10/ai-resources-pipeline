@@ -1,6 +1,6 @@
 ### 💡 Geopolitics - Colombian Election Impact
 
-This article covers the potential influence of the upcoming Colombian presidential election on the U.S. and Trump administration's counternarcotics and counterterrorism priorities in the region. It highlights the strategic importance of the election for regional policy.
+Potential influence of the upcoming Colombian presidential election on the U.S. and Trump administration's counternarcotics and counterterrorism priorities in the region. It highlights the strategic importance of the election for regional policy.
 
 Key Points:
 

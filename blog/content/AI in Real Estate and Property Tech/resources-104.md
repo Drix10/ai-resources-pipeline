@@ -1,6 +1,6 @@
 ### 🤖 Real Estate - Crexi PRO Workflow Enhancement
 
-This article discusses how Crexi PRO streamlines real estate workflows, focusing on its use in property cataloging, execution, marketing, and client engagement as described by Stephen R. Preuss Sr.
+Crexi PRO streamlines real estate workflows, focusing on its use in property cataloging, execution, marketing, and client engagement as described by Stephen R. Preuss Sr.
 
 Key Points:
 

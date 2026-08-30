@@ -1,6 +1,6 @@
 ### 💡 Productivity - Identifying Focus Areas
 
-This article discusses a simple method for identifying activities that contribute to a sense of flow and reduced mental clutter.  It suggests focusing on tasks that promote this feeling to improve overall productivity.
+Simple method for identifying activities that contribute to a sense of flow and reduced mental clutter.  It suggests focusing on tasks that promote this feeling to improve overall productivity.
 
 Key Points:
 

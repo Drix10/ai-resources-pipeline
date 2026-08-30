@@ -1,6 +1,6 @@
 ### ✨ Cowork_os - Version 0.5.45 Release
 
-This article details the enhancements and fixes introduced in Cowork_os version 0.5.45. It covers improvements in system reliability, security, and performance across various application functionalities.
+Enhancements and fixes introduced in Cowork_os version 0.5.45. It covers improvements in system reliability, security, and performance across various application functionalities.
 
 Key Points:
 

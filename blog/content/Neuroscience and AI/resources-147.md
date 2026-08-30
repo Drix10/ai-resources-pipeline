@@ -1,6 +1,6 @@
 ### 💡 Inner Speech - Aphantasia and Related Phenomena
 
-This article examines the spectrum of inner speech, drawing parallels to aphantasia. It covers concepts like endophasia and anendophasia, describing the variations in mental auditory experiences.
+Spectrum of inner speech, drawing parallels to aphantasia. It covers concepts like endophasia and anendophasia, describing the variations in mental auditory experiences.
 
 Key Points:
 

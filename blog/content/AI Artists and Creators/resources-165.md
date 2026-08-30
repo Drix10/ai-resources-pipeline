@@ -1,6 +1,6 @@
 ### ✨ New Content - Sneak Peek
 
-This article provides a brief overview of anticipated content, offering an early glimpse into upcoming developments. It serves as an initial introduction to new material that will be fully unveiled soon.
+Anticipated content, offering an early glimpse into upcoming developments. It serves as an initial introduction to new material that will be fully unveiled soon.
 
 Key Points:
 

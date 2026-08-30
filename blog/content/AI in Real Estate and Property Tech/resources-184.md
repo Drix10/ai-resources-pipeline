@@ -1,6 +1,6 @@
 ### 🤖 AI Architectural Design - Enhancing School Environments
 
-This article explores the application of AI in architectural design for creating safer and more engaging school environments. It highlights how AI can facilitate the development of child-friendly urban spaces and colorful pedestrian zones.
+Application of AI in architectural design for creating safer and more engaging school environments. It highlights how AI can facilitate the development of child-friendly urban spaces and colorful pedestrian zones.
 
 Key Points:
 

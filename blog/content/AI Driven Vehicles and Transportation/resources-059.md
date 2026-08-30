@@ -1,6 +1,6 @@
 ### 🚀 Autonomous Vehicles - Nuro's Expansion
 
-This article discusses Nuro's expansion of its autonomous vehicle testing to Dallas, Miami, and San Diego.  The company is focusing on route mapping, community engagement, and driver training in these new locations.
+Nuro's expansion of its autonomous vehicle testing to Dallas, Miami, and San Diego.  The company is focusing on route mapping, community engagement, and driver training in these new locations.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### ✨ Generative Art - Exceeding Current Sci-Fi Cinema
 
-This article discusses the observation that current generative art surpasses the visual quality of recent science fiction cinema.  It highlights the rapid advancement of AI and its impact on artistic expression.
+Observation that current generative art surpasses the visual quality of recent science fiction cinema.  It highlights the rapid advancement of AI and its impact on artistic expression.
 
 Key Points:
 

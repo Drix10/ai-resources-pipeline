@@ -1,6 +1,6 @@
 ### 💔 Friendship - Dissolution of a Professional Collaboration
 
-This article discusses the breakdown of a professional friendship due to a disagreement over public image and reputation management.  The situation highlights the challenges of maintaining professional relationships in the public sphere.
+Breakdown of a professional friendship due to a disagreement over public image and reputation management.  The situation highlights the challenges of maintaining professional relationships in the public sphere.
 
 Key Points:
 

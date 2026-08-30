@@ -1,6 +1,6 @@
 ### 🤖 EdTech - VibeGrade at FETC
 
-This article discusses VibeGrade, an EdTech company founded by two teenagers, Daniel Martinez and Musa Aqeel, whose work was showcased at the Future of Education Technology Conference (FETC).  The article highlights their innovative approach to educational technology.
+VibeGrade, an EdTech company founded by two teenagers, Daniel Martinez and Musa Aqeel, whose work was showcased at the Future of Education Technology Conference (FETC).  The article highlights their innovative approach to educational technology.
 
 
 Key Points:

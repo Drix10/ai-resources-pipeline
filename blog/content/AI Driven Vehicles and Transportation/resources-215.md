@@ -1,6 +1,6 @@
 ### 🤖 Autonomous Vehicles - Industry Challenges and Outlook
 
-This article summarizes a discussion with veteran technology journalist Junko Yoshida regarding the current state and emerging challenges within the autonomous vehicle industry. It draws insights from "The Driverless Digest" podcast.
+Discussion with veteran technology journalist Junko Yoshida regarding the current state and emerging challenges within the autonomous vehicle industry. It draws insights from "The Driverless Digest" podcast.
 
 Key Points:
 

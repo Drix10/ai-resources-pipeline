@@ -1,6 +1,6 @@
 ### 🤖 AI Assistants - Alternatives to ChatGPT
 
-This article discusses five alternative AI assistants to ChatGPT, highlighting European and Nordic contenders.  It briefly examines their capabilities and potential advantages.
+Five alternative AI assistants to ChatGPT, highlighting European and Nordic contenders.  It briefly examines their capabilities and potential advantages.
 
 Key Points:
 

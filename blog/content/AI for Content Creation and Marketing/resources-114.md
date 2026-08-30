@@ -1,6 +1,6 @@
 ### 🤖 Multimodal Knowledge - Bridging the Gap for Marketers
 
-This article discusses the importance of multimodal knowledge for marketers and how it facilitates the creation of various content formats from non-text assets.
+Importance of multimodal knowledge for marketers and how it facilitates the creation of various content formats from non-text assets.
 
 Key Points:
 

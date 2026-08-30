@@ -1,6 +1,6 @@
 ### 📸 360 Photography - Fisheye Effects
 
-This article explores the distinctive visual style achieved using 360-degree cameras, focusing on the extreme fisheye lens effect and its impact on perspective and image distortion.  It showcases examples of this photographic technique.
+Distinctive visual style achieved using 360-degree cameras, focusing on the extreme fisheye lens effect and its impact on perspective and image distortion.  It showcases examples of this photographic technique.
 
 Key Points:
 

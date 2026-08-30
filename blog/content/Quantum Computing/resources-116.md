@@ -1,6 +1,6 @@
 ### 💡 Digital Literacy - User Proficiency Challenges
 
-This article examines the difficulties individuals encounter with computer proficiency and emphasizes the ongoing need for improved digital literacy in a rapidly evolving technological landscape. It highlights the importance of adapting to new systems and maintaining foundational digital skills.
+Difficulties individuals encounter with computer proficiency and emphasizes the ongoing need for improved digital literacy in a rapidly evolving technological landscape. It highlights the importance of adapting to new systems and maintaining foundational digital skills.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Commercial Real Estate - Survey Participation
 
-This article discusses an ongoing survey for Commercial Real Estate (CRE) professionals. It emphasizes the importance of participation before its closure on December 31, 2025. The survey aims to gather perspectives for future industry insights and conversations.
+Ongoing survey for Commercial Real Estate (CRE) professionals. It emphasizes the importance of participation before its closure on December 31, 2025. The survey aims to gather perspectives for future industry insights and conversations.
 
 Key Points:
 

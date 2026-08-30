@@ -1,6 +1,6 @@
 ### 🤖 Enterprise Creativity - AI Acceleration with NVIDIA
 
-This article details the expanded partnership between Adobe and NVIDIA, focusing on the full-stack acceleration of enterprise creativity through deeper generative AI integration.
+Expanded partnership between Adobe and NVIDIA, focusing on the full-stack acceleration of enterprise creativity through deeper generative AI integration.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Machine Learning - Uber Driver Availability
 
-This article examines how Uber leverages machine learning to enhance driver availability at airports. It covers the specific models used to predict and optimize driver supply for improved service efficiency.
+Uber leverages machine learning to enhance driver availability at airports. It covers the specific models used to predict and optimize driver supply for improved service efficiency.
 
 Key Points:
 

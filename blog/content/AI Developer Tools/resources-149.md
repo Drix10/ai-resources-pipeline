@@ -1,6 +1,6 @@
 ### 💡 AI in Academia - Literature Review Acceleration
 
-This article discusses the application of AI in accelerating academic literature reviews, enabling researchers to complete extensive documentation efficiently. It focuses on AI's capability to manage discovery, organization, and citation verification.
+Application of AI in accelerating academic literature reviews, enabling researchers to complete extensive documentation efficiently. It focuses on AI's capability to manage discovery, organization, and citation verification.
 
 Key Points:
 

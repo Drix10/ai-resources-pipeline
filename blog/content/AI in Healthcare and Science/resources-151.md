@@ -1,6 +1,6 @@
 ### 🤖 Drug Distribution - Plasma Protein Binding (PPB)
 
-This article discusses Plasma Protein Binding (PPB) as a key aspect of drug distribution. It explains how the unbound fraction of a drug influences its ability to reach targets and exert its effects. Understanding PPB is crucial for predicting drug efficacy and pharmaceutical outcomes.
+Plasma Protein Binding (PPB) as a key aspect of drug distribution. It explains how the unbound fraction of a drug influences its ability to reach targets and exert its effects. Understanding PPB is crucial for predicting drug efficacy and pharmaceutical outcomes.
 
 Key Points:
 

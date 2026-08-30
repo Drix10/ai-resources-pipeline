@@ -1,6 +1,6 @@
 ### 🤖 Continual Learning - Real-time Model Adaptation
 
-This article discusses a scaling-focused approach to continual learning by enabling model weights to adapt in real-time. It explores the concept of models autonomously determining important features.
+Scaling-focused approach to continual learning by enabling model weights to adapt in real-time. It explores the concept of models autonomously determining important features.
 
 Key Points:
 

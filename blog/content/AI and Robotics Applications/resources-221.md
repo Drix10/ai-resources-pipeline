@@ -1,6 +1,6 @@
 ### 🤖 Computer Vision - University Course Material
 
-This article highlights an academic course offered by TUM's Computer Vision Group. It covers specific topics within computer vision, presented through lecture materials.
+Academic course offered by TUM's Computer Vision Group. It covers specific topics within computer vision, presented through lecture materials.
 
 Key Points:
 

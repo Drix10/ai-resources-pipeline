@@ -1,6 +1,6 @@
 ### 🤖 AI Video Generation - Kling.ai Motion Control
 
-This article examines a motion control test conducted within Kling.ai, showcasing its capabilities in character animation and expression. The demonstration features a well-known character, highlighting the platform's precision.
+Motion control test conducted within Kling.ai, showcasing its capabilities in character animation and expression. The demonstration features a well-known character, highlighting the platform's precision.
 
 Key Points:
 

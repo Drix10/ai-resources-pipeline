@@ -1,6 +1,6 @@
 ### 🤖 Tropical Cyclones - Typhoon Sinlaku Characteristics
 
-This article discusses the characteristics of Typhoon Sinlaku, highlighting its exceptional strength for an April typhoon. It also considers its context within Western Pacific climatology during El Niño years.
+Characteristics of Typhoon Sinlaku, highlighting its exceptional strength for an April typhoon. It also considers its context within Western Pacific climatology during El Niño years.
 
 Key Points:
 

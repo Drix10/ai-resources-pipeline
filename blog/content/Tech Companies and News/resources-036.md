@@ -1,6 +1,6 @@
 ### 🤖 Partnership - Austrian Lotteries and F5
 
-This article discusses the partnership between Austrian Lotteries and F5, focusing on the implementation of F5's Distributed Cloud Platform to support Austrian Lotteries' growth.
+Partnership between Austrian Lotteries and F5, focusing on the implementation of F5's Distributed Cloud Platform to support Austrian Lotteries' growth.
 
 Key Points:
 

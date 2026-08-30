@@ -1,6 +1,6 @@
 ### 🤖 AGI - Exploration
 
-This article provides a brief mention of AGIbot. It highlights a general interaction or observation related to artificial general intelligence.
+Mention of AGIbot. It highlights a general interaction or observation related to artificial general intelligence.
 
 Key Points:
 

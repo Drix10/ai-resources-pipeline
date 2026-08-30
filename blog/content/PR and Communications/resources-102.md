@@ -1,6 +1,6 @@
 ### 🎶 Music Review - Sam Demas' "You & I"
 
-This article provides a review of Sam Demas' new song, "You & I,"  including listener reactions.  A link to the full review is included.
+Review of Sam Demas' new song, "You & I,"  including listener reactions.  A link to the full review is included.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Market Insight - GOOGL Stock Tracking
 
-This article provides a brief overview related to $GOOGL, a prominent stock, highlighting where relevant discussions and information might be found.
+Overview related to $GOOGL, a prominent stock, highlighting where relevant discussions and information might be found.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ⚽ Champions League - Semifinal Results and Final
 
-This article summarizes the results of the UEFA Champions League semifinals and announces the final matchup.
+Results of the UEFA Champions League semifinals and announces the final matchup.
 
 Key Points:
 

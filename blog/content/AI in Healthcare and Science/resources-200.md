@@ -1,6 +1,6 @@
 ### 💡 Youth Sports - Coaching a Basketball Season
 
-This article provides essential tips for new volunteer youth basketball coaches to help them navigate their first season effectively. It focuses on strategies to maintain organization and foster a positive environment.
+Essential tips for new volunteer youth basketball coaches to help them navigate their first season effectively. It focuses on strategies to maintain organization and foster a positive environment.
 
 Key Points:
 

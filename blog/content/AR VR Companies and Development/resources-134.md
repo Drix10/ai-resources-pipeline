@@ -1,6 +1,6 @@
 ### 🤖 3D Character Design - 2D-like Style
 
-This article highlights a creative project by Thomas Jordan Wanless, showcasing a 3D model rendered with a distinctive 2D-like aesthetic. It covers the artistic approach to combining different visual styles in character design.
+Creative project by Thomas Jordan Wanless, showcasing a 3D model rendered with a distinctive 2D-like aesthetic. It covers the artistic approach to combining different visual styles in character design.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ Sports Achievement - Team Recognition
 
-This article highlights a significant achievement by the Cape Verde team, recognizing their success and the broader impact of such accomplishments within sports. It acknowledges individual contributions and the celebratory spirit.
+Significant achievement by the Cape Verde team, recognizing their success and the broader impact of such accomplishments within sports. It acknowledges individual contributions and the celebratory spirit.
 
 Key Points:
 

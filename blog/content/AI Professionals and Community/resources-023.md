@@ -1,6 +1,6 @@
 ### 🤖 Immigration - Case of Misidentification
 
-This article discusses a reported case of misidentification by ICE officers, leading to the wrongful arrest of an individual possessing a green card.  The details highlight potential systemic issues within the immigration enforcement process.
+Reported case of misidentification by ICE officers, leading to the wrongful arrest of an individual possessing a green card.  The details highlight potential systemic issues within the immigration enforcement process.
 
 Key Points:
 

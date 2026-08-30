@@ -1,6 +1,6 @@
 ### 🤖 Web3 Ecosystem - Decentralized PTSD Care
 
-This article discusses Spectruth DAO's approach to leveraging a Web3 ecosystem for mental health care, specifically focusing on PTSD treatment.  It highlights the decentralized governance model and commitment to data privacy.
+Spectruth DAO's approach to leveraging a Web3 ecosystem for mental health care, specifically focusing on PTSD treatment.  It highlights the decentralized governance model and commitment to data privacy.
 
 Key Points:
 

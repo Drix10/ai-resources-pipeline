@@ -1,6 +1,6 @@
 ### 🤖 Honesty - Child's Act in Tamil Nadu
 
-This article details an act of honesty by a child in Tamil Nadu, India, who returned a significant sum of money found on the road to the police.
+Act of honesty by a child in Tamil Nadu, India, who returned a significant sum of money found on the road to the police.
 
 Key Points:
 

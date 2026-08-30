@@ -1,6 +1,6 @@
 ### 🤖 AI-Assisted Shader Development - WebGL Eye-Opening Effect
 
-This article discusses the use of AI in creating a WebGL shader resulting in an eye-opening visual effect.  The author highlights the process and expresses skepticism regarding the ease of replicating the result without detailed documentation.
+Use of AI in creating a WebGL shader resulting in an eye-opening visual effect.  The author highlights the process and expresses skepticism regarding the ease of replicating the result without detailed documentation.
 
 Key Points:
 

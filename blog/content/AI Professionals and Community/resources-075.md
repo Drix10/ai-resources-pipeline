@@ -1,6 +1,6 @@
 ### 🤖 Generative Modeling - Identity Learning Approach
 
-This article discusses a novel "identity learning" approach for generative modeling, focusing on the relationship between instantaneous/average velocity and identity.  The approach is detailed in a research paper.
+Novel "identity learning" approach for generative modeling, focusing on the relationship between instantaneous/average velocity and identity.  The approach is detailed in a research paper.
 
 Key Points:
 

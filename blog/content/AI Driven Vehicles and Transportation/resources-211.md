@@ -1,6 +1,6 @@
 ### 🤖 Autonomous Vehicles - Driverless Mining Operations
 
-This article details the deployment of a 320-ton driverless truck in a mining operation. It highlights the scale and experience of autonomous hauling systems in industrial settings.
+Deployment of a 320-ton driverless truck in a mining operation. It highlights the scale and experience of autonomous hauling systems in industrial settings.
 
 Key Points:
 

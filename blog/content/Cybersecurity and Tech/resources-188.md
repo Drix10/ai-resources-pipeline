@@ -1,6 +1,6 @@
 ### 🤖 Exposed AI Models - Public Access Vulnerability
 
-This article highlights the discovery of AI models left exposed on the internet, allowing public access to potentially large and sensitive models.
+Discovery of AI models left exposed on the internet, allowing public access to potentially large and sensitive models.
 
 Key Points:
 

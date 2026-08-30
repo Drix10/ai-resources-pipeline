@@ -1,6 +1,6 @@
 ### 🤖 ImageNet Classifier Generalization - A Caltech Perspective
 
-This article discusses a research paper presented at Caltech which explored the generalization capabilities of state-of-the-art ImageNet classifiers around 2019.  The study recreated ImageNet to evaluate model performance.
+Research paper presented at Caltech which explored the generalization capabilities of state-of-the-art ImageNet classifiers around 2019.  The study recreated ImageNet to evaluate model performance.
 
 
 Key Points:

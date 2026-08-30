@@ -1,6 +1,6 @@
 ### 🤖 Internal Government Concerns - Federal Workforce Reduction
 
-This article summarizes concerns expressed by senior Canadian civil servants regarding the state of the federal government and the need for significant workforce reductions.  It highlights statements regarding internal dysfunction and the urgency of personnel cuts.
+Concerns expressed by senior Canadian civil servants regarding the state of the federal government and the need for significant workforce reductions.  It highlights statements regarding internal dysfunction and the urgency of personnel cuts.
 
 Key Points:
 

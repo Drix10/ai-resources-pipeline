@@ -1,6 +1,6 @@
 ### 🚀 AI Video Generation - Sports Content & Brand Posters
 
-This article covers AI-powered features for video generation, including automating highlight reels and creating brand collaboration posters. It also touches on real-time translation for global content.
+AI-powered features for video generation, including automating highlight reels and creating brand collaboration posters. It also touches on real-time translation for global content.
 
 Key Points:
 

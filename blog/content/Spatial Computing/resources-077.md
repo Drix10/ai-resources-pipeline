@@ -1,6 +1,6 @@
 ### 🚀 Snap AR - Dual Camera Lens Challenge
 
-This article details a Snap AR challenge encouraging the use of both front and rear cameras in lens creation.  Submissions are open until July 31st.
+Snap AR challenge encouraging the use of both front and rear cameras in lens creation.  Submissions are open until July 31st.
 
 Key Points:
 

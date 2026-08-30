@@ -1,6 +1,6 @@
 ### 💡 Flood Insurance - Norfolk Coverage Essentials
 
-This article discusses critical aspects of flood insurance coverage in Norfolk, highlighting that standard policies often exclude flood damage. It also addresses the misconception that flood risks are limited to high-risk zones.
+Critical aspects of flood insurance coverage in Norfolk, highlighting that standard policies often exclude flood damage. It also addresses the misconception that flood risks are limited to high-risk zones.
 
 Key Points:
 

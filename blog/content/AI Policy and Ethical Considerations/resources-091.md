@@ -1,6 +1,6 @@
 ### 💡 Physics Education - Maxwell's Equations
 
-This article discusses the teaching of the discovery of light as an electromagnetic wave in an optics course for physics majors, referencing a quote from James Clerk Maxwell.
+Teaching of the discovery of light as an electromagnetic wave in an optics course for physics majors, referencing a quote from James Clerk Maxwell.
 
 Key Points:
 

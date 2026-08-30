@@ -1,6 +1,6 @@
 ### 🤖 Domain Names - Chat-Related Domains
 
-This article discusses the author's experience and observations regarding the acquisition and potential of various chat-related domain names, including those with the ".chat" and ".com" extensions.  A selection of domain names are listed and an image is provided.
+Author's experience and observations regarding the acquisition and potential of various chat-related domain names, including those with the ".chat" and ".com" extensions.  A selection of domain names are listed and an image is provided.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Self-Supervised Models - Linguistic Structure Emergence
 
-This article outlines research on how linguistic structures emerge within self-supervised models that learn directly from speech data. It explores the mechanisms by which these models acquire and represent language properties.
+Research on how linguistic structures emerge within self-supervised models that learn directly from speech data. It explores the mechanisms by which these models acquire and represent language properties.
 
 Key Points:
 

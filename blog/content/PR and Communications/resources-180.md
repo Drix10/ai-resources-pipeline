@@ -1,6 +1,6 @@
 ### 💡 Data Strategy - Organizational Change
 
-This article examines the common misconception that data-related issues are purely technical. It proposes that many data problems originate from underlying change management challenges within an organization.
+Common misconception that data-related issues are purely technical. It proposes that many data problems originate from underlying change management challenges within an organization.
 
 Key Points:
 • Data problems often reflect organizational resistance to new processes.

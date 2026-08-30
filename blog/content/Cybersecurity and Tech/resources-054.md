@@ -1,6 +1,6 @@
 ### 🤖 Financial Planning - Inflationary Pressures
 
-This article discusses the significant impact of inflation and foreign exchange pressures on income growth between 2018 and 2024.  It highlights the necessary annual income growth rate to maintain purchasing power.
+Significant impact of inflation and foreign exchange pressures on income growth between 2018 and 2024.  It highlights the necessary annual income growth rate to maintain purchasing power.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Product Design - Simple Surface, Powerful Primitives
 
-This article discusses a product design philosophy prioritizing a simple user interface while offering underlying advanced functionalities for expert users.
+Product design philosophy prioritizing a simple user interface while offering underlying advanced functionalities for expert users.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Education - Introductory Number Theory
 
-This article discusses the experience of teaching introductory number theory to a community. It highlights the value of educational contributions within technical fields.
+Experience of teaching introductory number theory to a community. It highlights the value of educational contributions within technical fields.
 
 Key Points:
 

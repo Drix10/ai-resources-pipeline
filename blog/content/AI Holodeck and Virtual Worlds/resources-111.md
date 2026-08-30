@@ -1,6 +1,6 @@
 ### 🤖 Character Design - Consistent Character Art Across Scenes
 
-This article details a method for maintaining consistent character designs across multiple scenes using AI image generation tools.  The process involves providing reference images and a descriptive prompt to guide the AI.
+Method for maintaining consistent character designs across multiple scenes using AI image generation tools.  The process involves providing reference images and a descriptive prompt to guide the AI.
 
 Key Points:
 

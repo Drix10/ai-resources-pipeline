@@ -1,6 +1,6 @@
 ### 🚀 Cryptocurrency Trends - Iroha on Moby
 
-This article discusses the recent trending performance of $Iroha on the Moby platform. It highlights its significant price movement from initial detection to its peak.
+Recent trending performance of $Iroha on the Moby platform. It highlights its significant price movement from initial detection to its peak.
 
 Key Points:
 

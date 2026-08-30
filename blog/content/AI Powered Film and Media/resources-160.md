@@ -1,6 +1,6 @@
 ### 💡 Carnatic Music - Śrī Muttusvāmi Dīkṣita 250th Anniversary
 
-This article highlights the commemoration of Śrī Muttusvāmi Dīkṣita's 250th birth anniversary by IIT Madras, in collaboration with IIT (BHU) and the Indian Knowledge Systems Division. It focuses on the significance of this event in preserving and promoting Carnatic music heritage.
+Commemoration of Śrī Muttusvāmi Dīkṣita's 250th birth anniversary by IIT Madras, in collaboration with IIT (BHU) and the Indian Knowledge Systems Division. It focuses on the significance of this event in preserving and promoting Carnatic music heritage.
 
 Key Points:
 

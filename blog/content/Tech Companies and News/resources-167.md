@@ -1,6 +1,6 @@
 ### 💡 Augmented Reality - Early Adoption and Vision
 
-This article examines Cyan Banister's early predictions regarding augmented reality. It outlines the initial skepticism encountered and the observational basis for her conviction.
+Cyan Banister's early predictions regarding augmented reality. It outlines the initial skepticism encountered and the observational basis for her conviction.
 
 Key Points:
 

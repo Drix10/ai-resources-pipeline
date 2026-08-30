@@ -1,6 +1,6 @@
 ### 💡 Political Climate - California Exodus
 
-This article discusses the observed increase in Californians considering moving to other states, such as Florida and Texas, and emphasizes the importance of voting in upcoming elections.
+Observed increase in Californians considering moving to other states, such as Florida and Texas, and emphasizes the importance of voting in upcoming elections.
 
 Key Points:
 

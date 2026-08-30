@@ -1,6 +1,6 @@
 ### 🤖 AI Privacy - OpenAI's "Temporary Chat"
 
-This article examines OpenAI's "temporary chat" feature, advertised as a data-privacy solution, and discusses concerns regarding its actual data handling practices.
+OpenAI's "temporary chat" feature, advertised as a data-privacy solution, and discusses concerns regarding its actual data handling practices.
 
 Key Points:
 

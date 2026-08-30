@@ -1,6 +1,6 @@
 ### 🤖 Manufacturing - Segmented Outrunner Motors
 
-This article discusses the rarity and manufacturing complexity of torque-dense, lightweight, segmented outrunner motors with high fill ratios.  It also notes the difficulty in acquiring these motors.
+Rarity and manufacturing complexity of torque-dense, lightweight, segmented outrunner motors with high fill ratios.  It also notes the difficulty in acquiring these motors.
 
 Key Points:
 

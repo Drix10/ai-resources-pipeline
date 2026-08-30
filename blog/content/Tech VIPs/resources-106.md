@@ -1,6 +1,6 @@
 ### 🤖 Dell Technologies - Financial Results
 
-This article summarizes the recent financial results announcement from Dell Technologies, highlighting key points from the announcement and mentioning some of the individuals involved.
+Recent financial results announcement from Dell Technologies, highlighting key points from the announcement and mentioning some of the individuals involved.
 
 Key Points:
 

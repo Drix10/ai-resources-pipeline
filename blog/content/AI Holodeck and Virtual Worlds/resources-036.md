@@ -1,6 +1,6 @@
 ### 🤖 AI Video Editing - Podcast Analysis
 
-This article details the analysis of a podcast using Mosaic, an AI video editing agent, focusing on segments discussing video communication, AI human emulation, and a Google co-scientist's contributions.
+Analysis of a podcast using Mosaic, an AI video editing agent, focusing on segments discussing video communication, AI human emulation, and a Google co-scientist's contributions.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Art Generation - Rapid Creation with Pika
 
-This article details a quick AI art creation process using Pika Labs and ReveImage, resulting in a generated image and video in under five minutes.
+Quick AI art creation process using Pika Labs and ReveImage, resulting in a generated image and video in under five minutes.
 
 
 Key Points:

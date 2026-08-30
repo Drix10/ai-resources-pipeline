@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics - US Involvement in Ukraine
 
-This article discusses the economic consequences of US involvement in the Ukraine conflict, focusing on the depletion of US stockpiles, increased national debt, and potential impact on the dollar's value.  The Istanbul Agreement and its potential role in avoiding these consequences is also considered.
+Economic consequences of US involvement in the Ukraine conflict, focusing on the depletion of US stockpiles, increased national debt, and potential impact on the dollar's value.  The Istanbul Agreement and its potential role in avoiding these consequences is also considered.
 
 
 Key Points:

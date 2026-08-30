@@ -1,6 +1,6 @@
 ### 🤖 Security - Collaborative Solutions
 
-This article details how Optiv, Cisco, and Splunk partnered to enhance a customer's security posture. It focuses on closing security gaps within end-user environments through a unified and scalable approach, demonstrating the benefits of strong collaboration.
+Optiv, Cisco, and Splunk partnered to enhance a customer's security posture. It focuses on closing security gaps within end-user environments through a unified and scalable approach, demonstrating the benefits of strong collaboration.
 
 Key Points:
 

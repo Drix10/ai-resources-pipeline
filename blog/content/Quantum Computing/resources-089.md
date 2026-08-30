@@ -1,6 +1,6 @@
 ### 🤖 Conferences - AI Security and Def Con
 
-This article summarizes the author's attendance at the AI Security Forum and Def Con in Las Vegas following a visit to Berkeley for the Scalable Bayes Conference.
+Author's attendance at the AI Security Forum and Def Con in Las Vegas following a visit to Berkeley for the Scalable Bayes Conference.
 
 
 Key Points:

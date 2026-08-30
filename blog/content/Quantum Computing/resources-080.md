@@ -1,6 +1,6 @@
 ### 🤖 Quantum Computing Investments - QEDMA Series A Funding
 
-This article discusses the Series A funding round secured by QEDMA, a company focused on quantum computing, highlighting the involvement of IBM and other investors.  The article will also briefly describe the company's focus.
+Series A funding round secured by QEDMA, a company focused on quantum computing, highlighting the involvement of IBM and other investors.  The article will also briefly describe the company's focus.
 
 Key Points:
 

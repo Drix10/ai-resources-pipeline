@@ -1,6 +1,6 @@
 ### 😡 Discrimination - Student Complaint
 
-This article discusses a discrimination complaint filed against a university due to the negative impact of proctoring software and plagiarism detection systems on students.
+Discrimination complaint filed against a university due to the negative impact of proctoring software and plagiarism detection systems on students.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI & CX Platform Demonstration
 
-This article summarizes a demonstration of an AI agent and customer experience (CX) platform, showcasing its capabilities in providing live energy AI insights and personalized recommendations.
+Demonstration of an AI agent and customer experience (CX) platform, showcasing its capabilities in providing live energy AI insights and personalized recommendations.
 
 Key Points:
 

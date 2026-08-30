@@ -1,6 +1,6 @@
 ### 🤖 Micro:bit Programming - Transitioning from Scratch
 
-This article discusses using the Micro:bit to teach text-based programming to students with prior Scratch experience, leveraging MakeCode's dual Python/block coding interface.
+Using the Micro:bit to teach text-based programming to students with prior Scratch experience, leveraging MakeCode's dual Python/block coding interface.
 
 Key Points:
 

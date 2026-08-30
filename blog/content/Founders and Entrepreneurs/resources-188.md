@@ -1,6 +1,6 @@
 ### 🚀 AppleTV App Development - SpaceX Flight Tracker
 
-This article details the creation of an AppleTV application designed to simplify watching SpaceX flights, outlining its architecture for status retrieval and video streaming.
+Creation of an AppleTV application designed to simplify watching SpaceX flights, outlining its architecture for status retrieval and video streaming.
 
 Key Points:
 

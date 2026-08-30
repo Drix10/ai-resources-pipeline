@@ -1,6 +1,6 @@
 ### 🤖 Project Management - Final Contribution
 
-This article discusses the nature of final contributions to a technical project, emphasizing the importance of concluding tasks effectively. It highlights the strategic considerations involved in wrapping up project engagements.
+Nature of final contributions to a technical project, emphasizing the importance of concluding tasks effectively. It highlights the strategic considerations involved in wrapping up project engagements.
 
 Key Points:
 

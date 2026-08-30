@@ -1,6 +1,6 @@
 ### 💡 Economic Trends - Generational Wealth
 
-This article examines a notable economic trend in the United States, specifically focusing on the accumulation of wealth across different generations. It highlights the observation that each successive US generation has achieved a higher level of wealth than its predecessors.
+Notable economic trend in the United States, specifically focusing on the accumulation of wealth across different generations. It highlights the observation that each successive US generation has achieved a higher level of wealth than its predecessors.
 
 Key Points:
 

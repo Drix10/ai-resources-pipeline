@@ -1,6 +1,6 @@
 ### ✨ Gemini Enterprise - No-Code AI Agent Development
 
-This article explores Gemini Enterprise's visual interface for designing and deploying AI agents. It highlights the platform's capability to enable team members to build powerful AI agents without requiring coding skills.
+Gemini Enterprise's visual interface for designing and deploying AI agents. It highlights the platform's capability to enable team members to build powerful AI agents without requiring coding skills.
 
 Key Points:
 

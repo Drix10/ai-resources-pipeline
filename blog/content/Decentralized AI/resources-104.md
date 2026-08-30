@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Building Winning Agents for Hackathon
 
-This article provides three examples to help build winning AI agents for the NextGen Agents hackathon.  It outlines resources for using the uAgents framework and deploying agents on AgentVerse.
+Three examples to help build winning AI agents for the NextGen Agents hackathon.  It outlines resources for using the uAgents framework and deploying agents on AgentVerse.
 
 Key Points:
 

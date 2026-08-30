@@ -1,6 +1,6 @@
 ### 📰 India - Tech Entrepreneur Alleges Harassment
 
-This article summarizes allegations made by a tech entrepreneur, Prasanna Sankar, regarding harassment by his estranged wife and the Chennai Police.  The allegations were made public via social media posts.
+Allegations made by a tech entrepreneur, Prasanna Sankar, regarding harassment by his estranged wife and the Chennai Police.  The allegations were made public via social media posts.
 
 Key Points:
 

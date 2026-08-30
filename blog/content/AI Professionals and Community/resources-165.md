@@ -1,6 +1,6 @@
 ### 🤖 Agent Frameworks - Founder Trust & Project Viability
 
-This article discusses the critical considerations involved in trusting an AI agent framework, particularly when its founder transitions to another major AI organization. It explores the potential implications of such leadership changes on the framework's future development and stability.
+Critical considerations involved in trusting an AI agent framework, particularly when its founder transitions to another major AI organization. It explores the potential implications of such leadership changes on the framework's future development and stability.
 
 Key Points:
 

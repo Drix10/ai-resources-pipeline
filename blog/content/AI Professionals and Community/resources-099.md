@@ -1,6 +1,6 @@
 ### 🤖 Transformer Architectures - Evolution and Scaling
 
-This article discusses the evolution of Transformer architectures since 2017, highlighting changes in best practices and emphasizing that architectural innovation remains crucial beyond simply scaling models.
+Evolution of Transformer architectures since 2017, highlighting changes in best practices and emphasizing that architectural innovation remains crucial beyond simply scaling models.
 
 Key Points:
 

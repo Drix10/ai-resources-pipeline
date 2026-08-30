@@ -1,6 +1,6 @@
 ### ⚖️ Legal - Physician-Patient Privilege and Fifth Amendment
 
-This article discusses the invocation of physician-patient privilege and the Fifth Amendment by President Biden's doctor in response to a request for information.  The statement highlights the legal protections afforded to medical professionals and individuals.
+Invocation of physician-patient privilege and the Fifth Amendment by President Biden's doctor in response to a request for information.  The statement highlights the legal protections afforded to medical professionals and individuals.
 
 Key Points:
 

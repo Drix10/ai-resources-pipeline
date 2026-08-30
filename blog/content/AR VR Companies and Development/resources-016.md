@@ -1,6 +1,6 @@
 ### 🤖 NFTs - Utility and Failure
 
-This article discusses the disconnect between the promised utility of NFTs and the reality of their often underwhelming implementations, leading to market failure.  It uses xSPECTAR as a case study of successful NFT utility.
+Disconnect between the promised utility of NFTs and the reality of their often underwhelming implementations, leading to market failure.  It uses xSPECTAR as a case study of successful NFT utility.
 
 Key Points:
 

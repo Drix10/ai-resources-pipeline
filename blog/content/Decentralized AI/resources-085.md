@@ -1,6 +1,6 @@
 ### 🚀 Crypto Investment - $MOBY Opportunity
 
-This article discusses a potential investment opportunity in the $MOBY cryptocurrency protocol, highlighting its market capitalization and the team behind it.
+Potential investment opportunity in the $MOBY cryptocurrency protocol, highlighting its market capitalization and the team behind it.
 
 Key Points:
 

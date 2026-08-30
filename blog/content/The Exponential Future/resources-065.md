@@ -1,6 +1,6 @@
 ### 🤖 Founders & Forward-Deployed Engineers
 
-This article discusses insights from Garry Tan on lessons founders can learn from forward-deployed engineers (FDEs), highlighting the importance of hands-on experience and understanding of the intricacies of a system.
+Insights from Garry Tan on lessons founders can learn from forward-deployed engineers (FDEs), highlighting the importance of hands-on experience and understanding of the intricacies of a system.
 
 
 Key Points:

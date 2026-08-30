@@ -1,6 +1,6 @@
 ### 🌍 Global Health - Foreign Aid Impact
 
-This article discusses the significant role of foreign aid in achieving major global health milestones, despite relatively low investment from wealthy nations.  It highlights the impact on reducing polio cases as a prime example.
+Significant role of foreign aid in achieving major global health milestones, despite relatively low investment from wealthy nations.  It highlights the impact on reducing polio cases as a prime example.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Model Deployment - Overcoming Implementation Challenges
 
-This article discusses the challenges of deploying a trained AI model, focusing on the shift from model building to addressing infrastructural gaps.
+Challenges of deploying a trained AI model, focusing on the shift from model building to addressing infrastructural gaps.
 
 Key Points:
 

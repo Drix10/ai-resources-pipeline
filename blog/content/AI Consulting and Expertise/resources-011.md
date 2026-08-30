@@ -1,6 +1,6 @@
 ### 👽 UFO Disclosure - Potential Impacts
 
-This article discusses Jacques Vallée's concerns regarding potential consequences of sudden UFO disclosure, highlighting the diverse interpretations and potential societal impacts.
+Jacques Vallée's concerns regarding potential consequences of sudden UFO disclosure, highlighting the diverse interpretations and potential societal impacts.
 
 Key Points:
 

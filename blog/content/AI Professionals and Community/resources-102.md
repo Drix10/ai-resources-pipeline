@@ -1,6 +1,6 @@
 ### 💡 Social Programs - UBI and Genetic Factors
 
-This article discusses the limitations of Universal Basic Income (UBI) in addressing societal issues, particularly concerning genetic predispositions to negative outcomes.  It also touches upon the potential of advancements in medicine to improve overall public well-being.
+Limitations of Universal Basic Income (UBI) in addressing societal issues, particularly concerning genetic predispositions to negative outcomes.  It also touches upon the potential of advancements in medicine to improve overall public well-being.
 
 Key Points:
 

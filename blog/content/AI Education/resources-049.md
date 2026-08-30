@@ -1,6 +1,6 @@
 ### 🚀 Marketing - Gamma Platform Introduction
 
-This article provides an overview of a live session showcasing the Gamma platform for marketers, covering its functionality and use cases.  The session aims to assist both new and experienced users.
+A live session showcasing the Gamma platform for marketers, covering its functionality and use cases.  The session aims to assist both new and experienced users.
 
 Key Points:
 

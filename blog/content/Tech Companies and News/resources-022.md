@@ -1,6 +1,6 @@
 ### 🌊 Ocean Engineering - A Day in the Life
 
-This article provides a glimpse into the diverse field of ocean engineering through a Q&A with Brandy Armstrong.  The discussion covers various aspects of a career in this field.
+Glimpse into the diverse field of ocean engineering through a Q&A with Brandy Armstrong.  The discussion covers various aspects of a career in this field.
 
 Key Points:
 

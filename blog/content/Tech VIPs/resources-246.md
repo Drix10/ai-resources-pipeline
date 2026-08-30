@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Mathematical Discoveries
 
-This article discusses the intersection of large language models and mathematics. It explores how these models are being used to aid mathematicians in making new breakthroughs.
+Intersection of large language models and mathematics. It explores how these models are being used to aid mathematicians in making new breakthroughs.
 
 Key Points:
 

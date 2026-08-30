@@ -1,6 +1,6 @@
 ### 💰 Domain Names - Ai.com Sale
 
-This article discusses the sale of the Ai.com domain name and its implications for the domain name industry.  The sale reportedly reached a significant sum, impacting buyers and sellers alike.
+Sale of the Ai.com domain name and its implications for the domain name industry.  The sale reportedly reached a significant sum, impacting buyers and sellers alike.
 
 Key Points:
 

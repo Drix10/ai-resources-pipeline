@@ -1,6 +1,6 @@
 ### 💡 Virtual Reality Gaming - Horror Experiences
 
-This article discusses the immersive potential of virtual reality (VR) for horror gaming, referencing a first-time experience with Phasmophobia. It highlights how VR enhances the feeling of dread and suspense in cooperative gameplay.
+Immersive potential of virtual reality (VR) for horror gaming, referencing a first-time experience with Phasmophobia. It highlights how VR enhances the feeling of dread and suspense in cooperative gameplay.
 
 Key Points:
 

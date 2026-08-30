@@ -1,6 +1,6 @@
 ### 💡 Social Psychology - Parasocial Relationship Research
 
-This article explores the concept of parasocial relationships, focusing on research conducted by University of Toronto PhD student Alvina Lai into one-sided attachments formed with public figures. It covers the nature and potential impact of these relationships.
+Concept of parasocial relationships, focusing on research conducted by University of Toronto PhD student Alvina Lai into one-sided attachments formed with public figures. It covers the nature and potential impact of these relationships.
 
 Key Points:
 

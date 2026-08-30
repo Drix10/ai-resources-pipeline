@@ -1,6 +1,6 @@
 ### 🤖 DeepSeek - A High-Margin Open-Source AI
 
-This article discusses DeepSeek, an AI company operating with a high profit margin while simultaneously releasing open-source tools and models.  Its business model and implications are analyzed.
+DeepSeek, an AI company operating with a high profit margin while simultaneously releasing open-source tools and models.  Its business model and implications are analyzed.
 
 
 Key Points:

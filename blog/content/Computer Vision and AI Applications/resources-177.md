@@ -1,6 +1,6 @@
 ### 🤖 Multimodal Agents - Native Foundation Models
 
-This article discusses the GLM-5V-Turbo project, which aims to develop a native foundation model for multimodal agents. It highlights the current limitations of vision integration in existing multimodal systems, often leading to reasoning failures.
+GLM-5V-Turbo project, which aims to develop a native foundation model for multimodal agents. It highlights the current limitations of vision integration in existing multimodal systems, often leading to reasoning failures.
 
 Key Points:
 

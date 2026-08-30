@@ -1,6 +1,6 @@
 ### 🇫🇷 History - Bayeux Tapestry Loan
 
-This article discusses the loan of the Bayeux Tapestry from France to Britain, highlighting the significance of this cultural exchange.
+Loan of the Bayeux Tapestry from France to Britain, highlighting the significance of this cultural exchange.
 
 Key Points:
 

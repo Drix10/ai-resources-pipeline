@@ -1,6 +1,6 @@
 ### ✨ Social Commentary - Historical Perspectives
 
-This article discusses the concept of "white guilt" and offers a perspective on reframing historical narratives. It aims to provide insights into individual and collective historical responsibility.
+Concept of "white guilt" and offers a perspective on reframing historical narratives. It aims to provide insights into individual and collective historical responsibility.
 
 Key Points:
 

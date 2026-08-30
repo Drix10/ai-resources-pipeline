@@ -1,6 +1,6 @@
 ### 🤖 AI Coding Assistants - Rethinking Vector Databases
 
-This article discusses the potential drawbacks of using vector databases with coding assistants and proposes an alternative approach.  It suggests that allowing coding assistants to explore codebases naturally may be more effective.
+Potential drawbacks of using vector databases with coding assistants and proposes an alternative approach.  It suggests that allowing coding assistants to explore codebases naturally may be more effective.
 
 Key Points:
 

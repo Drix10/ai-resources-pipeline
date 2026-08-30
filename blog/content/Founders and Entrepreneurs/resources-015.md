@@ -1,6 +1,6 @@
 ### 🤖 GoLand IDE - Indexing Issues
 
-This article discusses recent reports of degraded indexing performance in the GoLand IDE, impacting user experience.  It highlights the reported decrease in software quality and the frustration experienced by users.
+Recent reports of degraded indexing performance in the GoLand IDE, impacting user experience.  It highlights the reported decrease in software quality and the frustration experienced by users.
 
 
 Key Points:

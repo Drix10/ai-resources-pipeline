@@ -1,6 +1,6 @@
 ### 🤖 Multi-agent Systems - Overengineering in AI
 
-This article discusses the evolving perception of multi-agent AI systems, highlighting the risk of overcomplication in their design and implementation. It explores the balance between architectural complexity and practical efficacy in AI development.
+Evolving perception of multi-agent AI systems, highlighting the risk of overcomplication in their design and implementation. It explores the balance between architectural complexity and practical efficacy in AI development.
 
 Key Points:
 

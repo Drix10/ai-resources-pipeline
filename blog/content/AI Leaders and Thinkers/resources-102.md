@@ -1,6 +1,6 @@
 ### 🤖 Code Quality - LLM-Assisted Development
 
-This article discusses the observation of a rise in unconventional pull requests (PRs), potentially attributed to the use of large language models (LLMs) without sufficient human oversight.  The impact on code quality and the importance of experienced developers are highlighted.
+Observation of a rise in unconventional pull requests (PRs), potentially attributed to the use of large language models (LLMs) without sufficient human oversight.  The impact on code quality and the importance of experienced developers are highlighted.
 
 
 Key Points:

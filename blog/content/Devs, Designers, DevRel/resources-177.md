@@ -1,6 +1,6 @@
 ### 🤖 AI Ethics - Copyright Infringement in Music
 
-This article discusses the emerging ethical and legal challenges surrounding artificial intelligence and intellectual property in the music industry. It highlights instances where AI technologies are used to replicate an artist's unique style and voice, leading to complex issues of ownership and compensation.
+Emerging ethical and legal challenges surrounding artificial intelligence and intellectual property in the music industry. It highlights instances where AI technologies are used to replicate an artist's unique style and voice, leading to complex issues of ownership and compensation.
 
 Key Points:
 

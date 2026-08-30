@@ -1,6 +1,6 @@
 ### 💡 Privacy - NYPD's Suspect DNA Index
 
-This article discusses a federal lawsuit supported by civil rights groups against the NYPD's 'Suspect DNA Index'. It examines the challenges to the index's legality and its privacy implications.
+Federal lawsuit supported by civil rights groups against the NYPD's 'Suspect DNA Index'. It examines the challenges to the index's legality and its privacy implications.
 
 Key Points:
 

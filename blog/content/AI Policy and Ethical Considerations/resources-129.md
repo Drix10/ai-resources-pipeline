@@ -1,6 +1,6 @@
 ### ✨ Annual Reflection - Technical Goal Setting
 
-This article provides guidance on leveraging the start of a new year for technical reflection and goal setting. It encourages planning for future projects and skill development.
+Guidance on leveraging the start of a new year for technical reflection and goal setting. It encourages planning for future projects and skill development.
 
 Key Points:
 

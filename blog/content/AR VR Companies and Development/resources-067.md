@@ -1,6 +1,6 @@
 ### 🤖 Dungeons of Eternity - Behind the Scenes Dungeon Creation
 
-This article provides a behind-the-scenes look at the creation of a new dungeon chamber for the Dungeons of Eternity update in the game.  The process of designing the layout, adding terrain, and fine-tuning details is showcased.
+Behind-the-scenes look at the creation of a new dungeon chamber for the Dungeons of Eternity update in the game.  The process of designing the layout, adding terrain, and fine-tuning details is showcased.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Ethereum - Foundation Staking Update
 
-This article details the Ethereum Foundation's recent significant ETH deposit for staking, marking its largest single-day contribution. It outlines the current total staked holdings, reflecting continued network participation.
+Ethereum Foundation's recent significant ETH deposit for staking, marking its largest single-day contribution. It outlines the current total staked holdings, reflecting continued network participation.
 
 Key Points:
 

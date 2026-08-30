@@ -1,6 +1,6 @@
 ### 🤖 Internet Capital Markets - A New Paradigm
 
-This article explores the concept of Internet Capital Markets (ICM) as a potential replacement for traditional Venture Capital and other financing methods, focusing on its application for creators, independent developers, and cultural communities.
+Concept of Internet Capital Markets (ICM) as a potential replacement for traditional Venture Capital and other financing methods, focusing on its application for creators, independent developers, and cultural communities.
 
 Key Points:
 

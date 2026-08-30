@@ -1,6 +1,6 @@
 ### 🚀 Drone Market - Regulatory Challenges
 
-This article discusses Jeff Bezos's 2013 prediction for a rapidly active drone market and the subsequent hurdles encountered due to the Federal Aviation Administration (FAA) and risk-averse regulators. It explores the implications of these regulatory obstacles on American innovation and market development.
+Jeff Bezos's 2013 prediction for a rapidly active drone market and the subsequent hurdles encountered due to the Federal Aviation Administration (FAA) and risk-averse regulators. It explores the implications of these regulatory obstacles on American innovation and market development.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Creative Prompting - AI Optimization
 
-This article summarizes tips on creative prompting, controlling AI, and optimizing prompts for various tools, shared during an "Abundance Wednesdayz" session.
+Tips on creative prompting, controlling AI, and optimizing prompts for various tools, shared during an "Abundance Wednesdayz" session.
 
 Key Points:
 

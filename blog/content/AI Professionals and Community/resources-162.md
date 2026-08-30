@@ -1,6 +1,6 @@
 ### 🤖 Neuroscience - Prefrontal Cortex Function
 
-This article explores the distinct functional role of the prefrontal cortex (PFC) in relation to motor actions. It highlights how the PFC operates differently from most other cortical areas.
+Distinct functional role of the prefrontal cortex (PFC) in relation to motor actions. It highlights how the PFC operates differently from most other cortical areas.
 
 Key Points:
 

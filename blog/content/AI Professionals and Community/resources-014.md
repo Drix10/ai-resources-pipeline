@@ -1,6 +1,6 @@
 ### 🤖 AI Model Developments - GPT-4.5 and Pricing
 
-This article discusses the release of OpenAI's GPT-4.5, highlighting its performance and addressing its high pricing relative to GPT-4.  The article also mentions concerns regarding scaling expectations.
+Release of OpenAI's GPT-4.5, highlighting its performance and addressing its high pricing relative to GPT-4.  The article also mentions concerns regarding scaling expectations.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Whale Activity - Small Cap Coin Analysis
 
-This article summarizes recent whale activity in specific small-cap cryptocurrencies, focusing on net capital flows within a 12-hour period.  The data highlights significant movements in certain coins.
+Recent whale activity in specific small-cap cryptocurrencies, focusing on net capital flows within a 12-hour period.  The data highlights significant movements in certain coins.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Quantum Algorithms - Hidden Constants in SDP
 
-This article discusses the importance of hidden constants in SDP-based quantum algorithms, highlighting that asymptotic speedups might not always translate to practical advantages in relevant problem size regimes.  David Gross's talk in Cologne is the subject of this analysis.
+Importance of hidden constants in SDP-based quantum algorithms, highlighting that asymptotic speedups might not always translate to practical advantages in relevant problem size regimes.  David Gross's talk in Cologne is the subject of this analysis.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Bitcoin - Energy-Based Wealth
 
-This article examines Buckminster Fuller's 1967 assertion that wealth is energy, not gold, and his prediction of a scientific accounting system for wealth. It connects these historical insights to the conceptual framework of Bitcoin.
+Buckminster Fuller's 1967 assertion that wealth is energy, not gold, and his prediction of a scientific accounting system for wealth. It connects these historical insights to the conceptual framework of Bitcoin.
 
 Key Points:
 

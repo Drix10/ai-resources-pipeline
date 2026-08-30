@@ -1,6 +1,6 @@
 ### 🚀 Funding Announcements - Profound's Series B
 
-This article summarizes the Series B funding announcement for Profound, a platform transitioning SEO to Generative Engine Optimization.  It highlights the company's rapid growth and the importance of this paradigm shift.
+Series B funding announcement for Profound, a platform transitioning SEO to Generative Engine Optimization.  It highlights the company's rapid growth and the importance of this paradigm shift.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Transportation Funding - EV Infrastructure
 
-This article discusses the need for funding to support the transition to electric vehicles (EVs) and maintain road infrastructure.  It highlights the financial challenges of balancing EV adoption with the continued upkeep of roads.
+Need for funding to support the transition to electric vehicles (EVs) and maintain road infrastructure.  It highlights the financial challenges of balancing EV adoption with the continued upkeep of roads.
 
 Key Points:
 

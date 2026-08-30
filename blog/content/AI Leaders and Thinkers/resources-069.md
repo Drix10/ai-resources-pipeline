@@ -1,6 +1,6 @@
 ### 💡 Self-Improvement - Focusing on Internal Change
 
-This article discusses the importance of internal change as a prerequisite for achieving self-improvement goals.  It emphasizes that consistent effort toward self-improvement requires more than just discipline.
+Importance of internal change as a prerequisite for achieving self-improvement goals.  It emphasizes that consistent effort toward self-improvement requires more than just discipline.
 
 
 Key Points:

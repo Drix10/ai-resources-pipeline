@@ -1,6 +1,6 @@
 ### 🤖 AI Funding - Featherless AI Series A
 
-This article details Featherless AI's successful $20M Series A funding round, co-led by AMD Ventures and Airbus Ventures. It highlights the company's strategic focus that differentiates it from conventional inference startups in the AI sector.
+Featherless AI's successful $20M Series A funding round, co-led by AMD Ventures and Airbus Ventures. It highlights the company's strategic focus that differentiates it from conventional inference startups in the AI sector.
 
 Key Points:
 

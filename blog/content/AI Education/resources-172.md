@@ -1,6 +1,6 @@
 ### 💡 Education Resources - April Library & Test-Taking Strategies
 
-This article outlines a comprehensive collection of April educational resources, designed to support events like National Librarian Day and provide effective test-taking strategy templates.
+Comprehensive collection of April educational resources, designed to support events like National Librarian Day and provide effective test-taking strategy templates.
 
 Key Points:
 

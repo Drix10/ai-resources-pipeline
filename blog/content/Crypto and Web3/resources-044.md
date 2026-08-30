@@ -1,6 +1,6 @@
 ### 💰 Simple Niche - High Profit Potential
 
-This article discusses a niche business opportunity with low effort, low cost, and high potential return on investment (ROI).  Specific details are available upon request.
+Niche business opportunity with low effort, low cost, and high potential return on investment (ROI).  Specific details are available upon request.
 
 Key Points:
 

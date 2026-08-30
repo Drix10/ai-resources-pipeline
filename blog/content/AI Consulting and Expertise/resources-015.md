@@ -1,6 +1,6 @@
 ### 🌎 Geopolitics - The Russia-Ukraine Conflict
 
-This article summarizes Jeffrey Sachs's briefing to the EU Parliament on the Russia-Ukraine conflict, highlighting the complexities often omitted from mainstream narratives.
+Jeffrey Sachs's briefing to the EU Parliament on the Russia-Ukraine conflict, highlighting the complexities often omitted from mainstream narratives.
 
 Key Points:
 

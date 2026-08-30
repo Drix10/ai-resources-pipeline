@@ -1,6 +1,6 @@
 ### 💡 Homelessness Solutions - Policy and Political Lessons from San Jose
 
-This article covers insights from Matt Mahan on the political and policy lessons derived from efforts to reduce unsheltered homelessness in San Jose to zero. It explores the challenges and strategies involved in addressing this complex societal issue.
+Insights from Matt Mahan on the political and policy lessons derived from efforts to reduce unsheltered homelessness in San Jose to zero. It explores the challenges and strategies involved in addressing this complex societal issue.
 
 Key Points:
 

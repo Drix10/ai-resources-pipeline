@@ -1,6 +1,6 @@
 ### 🤖 Catastrophe Theory - Historical Impact and Enduring Concepts
 
-This article outlines the historical trajectory of catastrophe theory, initially popularized by Christopher Zeeman in the 1960s. It explains how, despite early widespread application and subsequent decline in hype, the fundamental concepts underpinning the theory have retained their relevance.
+Historical trajectory of catastrophe theory, initially popularized by Christopher Zeeman in the 1960s. It explains how, despite early widespread application and subsequent decline in hype, the fundamental concepts underpinning the theory have retained their relevance.
 
 Key Points:
 

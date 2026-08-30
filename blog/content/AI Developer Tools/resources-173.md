@@ -1,6 +1,6 @@
 ### 🤖 AI Development - Automated Code Review
 
-This article discusses the concept of employing native coding agents to autonomously review each other's code. It highlights a paradigm shift towards AI-driven collaborative development.
+Concept of employing native coding agents to autonomously review each other's code. It highlights a paradigm shift towards AI-driven collaborative development.
 
 Key Points:
 

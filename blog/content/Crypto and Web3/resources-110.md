@@ -1,6 +1,6 @@
 ### 🤖 Social Justice Movements - Shifting Political Landscape
 
-This article discusses the changing political landscape and its potential impact on social justice movements.  It reflects on past predictions about the consequences of cancel culture.
+Changing political landscape and its potential impact on social justice movements.  It reflects on past predictions about the consequences of cancel culture.
 
 Key Points:
 

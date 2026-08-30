@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Automated Material Handling
 
-This article discusses the application of wheeled robots for material handling in various industries, focusing on a specific robot capable of carrying heavy loads.
+Application of wheeled robots for material handling in various industries, focusing on a specific robot capable of carrying heavy loads.
 
 Key Points:
 

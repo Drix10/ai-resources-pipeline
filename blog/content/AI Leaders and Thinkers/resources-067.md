@@ -1,6 +1,6 @@
 ### 🤖 Shell History Management - Atuin
 
-This article discusses the challenges of managing shell history across different development environments and presents Atuin as a solution.  It outlines the benefits of using Atuin for maintaining a consolidated, merged shell history.
+Challenges of managing shell history across different development environments and presents Atuin as a solution.  It outlines the benefits of using Atuin for maintaining a consolidated, merged shell history.
 
 Key Points:
 

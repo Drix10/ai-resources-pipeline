@@ -1,6 +1,6 @@
 ### 🤖 Ukraine's Army of Drones - Incentivizing Soldiers
 
-This article discusses Ukraine's new points system, "Army of Drones," designed to incentivize soldiers and ensure efficient unit supply.  The system rewards soldiers for actions like eliminating enemy combatants and destroying enemy equipment.
+Ukraine's new points system, "Army of Drones," designed to incentivize soldiers and ensure efficient unit supply.  The system rewards soldiers for actions like eliminating enemy combatants and destroying enemy equipment.
 
 
 Key Points:

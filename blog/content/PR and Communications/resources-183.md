@@ -1,6 +1,6 @@
 ### 🤖 Cybersecurity - Supply Chain Attack Impact
 
-This article details a cybersecurity incident where a supplier breach affected a major retailer's operations without direct compromise of the retailer's internal systems. It highlights the operational consequences of such an indirect attack.
+Cybersecurity incident where a supplier breach affected a major retailer's operations without direct compromise of the retailer's internal systems. It highlights the operational consequences of such an indirect attack.
 
 Key Points:
 

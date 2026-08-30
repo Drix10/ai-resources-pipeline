@@ -1,6 +1,6 @@
 ### 🤖 Databricks Collaboration - Agent Optimization
 
-This article discusses a collaboration focused on optimizing AI agents, addressing the challenges of specialization without pre-trained datasets.  It highlights the need for efficient agent optimization techniques and the lack of readily available training data.
+Collaboration focused on optimizing AI agents, addressing the challenges of specialization without pre-trained datasets.  It highlights the need for efficient agent optimization techniques and the lack of readily available training data.
 
 Key Points:
 

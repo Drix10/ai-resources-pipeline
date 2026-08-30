@@ -1,6 +1,6 @@
 ### 🤖 Political Commentary - Economic Discontent
 
-This article summarizes a Twitter thread expressing frustration with established political figures and advocating for supporting local businesses.
+Twitter thread expressing frustration with established political figures and advocating for supporting local businesses.
 
 Key Points:
 

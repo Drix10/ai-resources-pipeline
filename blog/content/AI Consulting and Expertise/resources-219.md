@@ -1,6 +1,6 @@
 ### 🚀 Avalonia ProGPU - WebGPU Rendering Backend
 
-This article discusses the ongoing development of the Avalonia ProGPU and Silk.NET platform. It focuses on a new GPU rendering backend for Avalonia that uses ProGPU over WebGPU for cross-platform, high-performance graphics and compute.
+Ongoing development of the Avalonia ProGPU and Silk.NET platform. It focuses on a new GPU rendering backend for Avalonia that uses ProGPU over WebGPU for cross-platform, high-performance graphics and compute.
 
 Key Points:
 

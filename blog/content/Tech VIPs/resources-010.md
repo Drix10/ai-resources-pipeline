@@ -1,6 +1,6 @@
 ### 💡 Legal Issues - CEQA and Environmental Impact Definitions
 
-This article discusses the ambiguity surrounding the definition of "environmental impacts" within the California Environmental Quality Act (CEQA) and its implications for legal interpretations.
+Ambiguity surrounding the definition of "environmental impacts" within the California Environmental Quality Act (CEQA) and its implications for legal interpretations.
 
 Key Points:
 

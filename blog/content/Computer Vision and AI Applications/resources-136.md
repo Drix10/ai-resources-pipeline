@@ -1,6 +1,6 @@
 ### 🤖 Pancreatic Cancer Research - KRAS Gene Therapy
 
-This article discusses a new study demonstrating a three-drug combination's effectiveness in eliminating pancreatic cancer in mice. The approach targets the KRAS gene through multiple mechanisms.
+New study demonstrating a three-drug combination's effectiveness in eliminating pancreatic cancer in mice. The approach targets the KRAS gene through multiple mechanisms.
 
 Key Points:
 

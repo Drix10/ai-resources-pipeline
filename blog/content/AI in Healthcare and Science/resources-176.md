@@ -1,6 +1,6 @@
 ### 🤖 Prosthetic Design - Socket Fittings and Hero PRO Trials
 
-This article discusses the ongoing process of prosthetic socket fittings and design choices, highlighting transparency in development. It also mentions the availability of trials for the Hero PRO device.
+Ongoing process of prosthetic socket fittings and design choices, highlighting transparency in development. It also mentions the availability of trials for the Hero PRO device.
 
 Key Points:
 

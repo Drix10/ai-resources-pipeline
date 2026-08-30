@@ -1,6 +1,6 @@
 ### 🤖 Concentrated Solar Power - Molten Salt Storage
 
-This article examines China's Dunhuang solar power plant, detailing its use of concentrated solar power technology with molten salt for energy storage. It explains how this system captures solar energy and converts it into dispatchable electricity.
+China's Dunhuang solar power plant, detailing its use of concentrated solar power technology with molten salt for energy storage. It explains how this system captures solar energy and converts it into dispatchable electricity.
 
 Key Points:
 

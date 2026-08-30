@@ -1,6 +1,6 @@
 ### 🤖 Real Estate Tech - Omnichannel Support Automation
 
-This article discusses Casa Platform, an omnichannel support solution designed to automate tasks for real estate professionals.  It highlights its current pilot program and openness to strategic investment.
+Casa Platform, an omnichannel support solution designed to automate tasks for real estate professionals.  It highlights its current pilot program and openness to strategic investment.
 
 Key Points:
 

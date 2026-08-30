@@ -1,6 +1,6 @@
 ### 💡 Industry Updates - Weekly Summaries
 
-This article highlights a weekly summary from Eric Soda, emphasizing its value in providing concise industry updates. It points to the individuals involved in curating these summaries.
+Weekly summary from Eric Soda, emphasizing its value in providing concise industry updates. It points to the individuals involved in curating these summaries.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ⚠️ Foreign Policy - USAID's Demise
 
-This article discusses concerns surrounding the potential dismantling of USAID and its implications for US foreign policy competitiveness.
+Concerns surrounding the potential dismantling of USAID and its implications for US foreign policy competitiveness.
 
 Key Points:
 

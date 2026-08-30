@@ -1,6 +1,6 @@
 ### 🤖 Cloud Primitives - Two-Phase Programs
 
-This article explores the concept of cloud primitives and how programs are structured in a two-phase deployment model. It details the separation of resource planning from runtime code execution in cloud environments.
+Concept of cloud primitives and how programs are structured in a two-phase deployment model. It details the separation of resource planning from runtime code execution in cloud environments.
 
 Key Points:
 

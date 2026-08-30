@@ -1,6 +1,6 @@
 ### 💡 IMGN Subscription Discounts - Loyalty Reward
 
-This article details the discounts offered by IMGN on their subscriptions as a thank you to loyal users during a payment transition.  The discounts are one-time use only.
+Discounts offered by IMGN on their subscriptions as a thank you to loyal users during a payment transition.  The discounts are one-time use only.
 
 Key Points:
 

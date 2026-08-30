@@ -1,6 +1,6 @@
 ### 🤖 Sound Events Curation - FSD50K-Solo Automated Curation
 
-This article discusses FSD50K-Solo, a method for automated curation of single-source sound events. It highlights an innovative approach to improve sound event dataset quality.
+FSD50K-Solo, a method for automated curation of single-source sound events. It highlights an innovative approach to improve sound event dataset quality.
 
 Key Points:
 

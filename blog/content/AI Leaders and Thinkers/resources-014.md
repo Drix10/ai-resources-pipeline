@@ -1,6 +1,6 @@
 ### 🤖 Realtime Video Analysis - Continuous Information Extraction
 
-This article discusses a system capable of extracting continuous information from live video streams with low latency using text prompts.  An example application demonstrates near-instantaneous response to visual cues within a video feed.
+System capable of extracting continuous information from live video streams with low latency using text prompts.  An example application demonstrates near-instantaneous response to visual cues within a video feed.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI in Digital Pathology - Accelerating Drug Safety Decisions
 
-This article discusses how AI-driven digital pathology is accelerating drug safety decisions in preclinical studies, streamlining both GLP and non-regulatory studies through a unified platform.
+AI-driven digital pathology is accelerating drug safety decisions in preclinical studies, streamlining both GLP and non-regulatory studies through a unified platform.
 
 Key Points:
 

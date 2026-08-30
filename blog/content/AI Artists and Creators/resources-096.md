@@ -1,6 +1,6 @@
 ### 🤖 AI Scriptwriting - Micro-Series Template
 
-This article details a micro-series template designed for YouTube and TikTok, leveraging GPT-5 for screenplay generation.  The template streamlines the process of defining a story premise and generating multiple short episodes.
+Micro-series template designed for YouTube and TikTok, leveraging GPT-5 for screenplay generation.  The template streamlines the process of defining a story premise and generating multiple short episodes.
 
 Key Points:
 

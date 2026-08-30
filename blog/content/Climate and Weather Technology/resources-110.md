@@ -1,6 +1,6 @@
 ### ⚠️ Tropical Cyclone Development - LPA 09d
 
-This article discusses the upgrade of LPA 09d to a medium chance of tropical cyclone development by DOST-PAGASA and JTWC.  It highlights the potential impact on Northern Luzon.
+Upgrade of LPA 09d to a medium chance of tropical cyclone development by DOST-PAGASA and JTWC.  It highlights the potential impact on Northern Luzon.
 
 
 Key Points:

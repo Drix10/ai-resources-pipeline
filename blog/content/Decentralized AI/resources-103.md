@@ -1,6 +1,6 @@
 ### ✨ NFTs - Superhero-Inspired Digital Assets
 
-This article explores the concept of creating an NFT collection based on a favorite superhero, focusing on the powers and features these digital assets would possess.
+Concept of creating an NFT collection based on a favorite superhero, focusing on the powers and features these digital assets would possess.
 
 Key Points:
 

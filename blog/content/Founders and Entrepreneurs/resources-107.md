@@ -1,6 +1,6 @@
 ### 🤖 Market Analysis - Vertical Software Expansion
 
-This article discusses the expansion of the total addressable market (TAM) in vertical software due to market segmentation and the enabling effects of AI.
+Expansion of the total addressable market (TAM) in vertical software due to market segmentation and the enabling effects of AI.
 
 Key Points:
 

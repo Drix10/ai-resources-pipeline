@@ -1,6 +1,6 @@
 ### 💡 Social Media - Billionaires and Mental Health
 
-This article discusses a social media post expressing concern about the anger and negativity displayed by some wealthy individuals online.  It suggests that these individuals should prioritize their well-being.
+Social media post expressing concern about the anger and negativity displayed by some wealthy individuals online.  It suggests that these individuals should prioritize their well-being.
 
 Key Points:
 

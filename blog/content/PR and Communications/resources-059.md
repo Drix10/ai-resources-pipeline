@@ -1,6 +1,6 @@
 ### 🤖 Political Hearing -  Aid to Milwaukee
 
-This article summarizes a portion of a political hearing concerning the provision of aid to Milwaukee, focusing on conflicting statements regarding the level of assistance provided.
+Portion of a political hearing concerning the provision of aid to Milwaukee, focusing on conflicting statements regarding the level of assistance provided.
 
 Key Points:
 

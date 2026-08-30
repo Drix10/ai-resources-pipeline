@@ -1,6 +1,6 @@
 ### 🤖  Large Language Models - Conversation Degradation in GROK 4
 
-This article discusses observations regarding conversation degradation in GROK 4, specifically the tendency to mix older posts and lose the conversational thread in longer discussions.  User experiences are highlighted.
+Observations regarding conversation degradation in GROK 4, specifically the tendency to mix older posts and lose the conversational thread in longer discussions.  User experiences are highlighted.
 
 Key Points:
 

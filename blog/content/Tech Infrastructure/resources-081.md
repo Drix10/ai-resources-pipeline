@@ -1,6 +1,6 @@
 ### 🤖 Mobile Servers -  Turning Your Phone into a Server
 
-This article details how to use a smartphone as a server, leveraging Ngrok for local or public hosting.  It outlines the process and associated commands.
+To use a smartphone as a server, leveraging Ngrok for local or public hosting.  It outlines the process and associated commands.
 
 Key Points:
 

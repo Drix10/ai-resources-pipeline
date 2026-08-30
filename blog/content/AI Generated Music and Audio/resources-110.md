@@ -1,6 +1,6 @@
 ### 💡 Artist Life - Content Creation
 
-This article discusses the challenges artists face in balancing creative work with consistent content creation for audience building.  It highlights the importance of proactive audience engagement between releases.
+Challenges artists face in balancing creative work with consistent content creation for audience building.  It highlights the importance of proactive audience engagement between releases.
 
 Key Points:
 

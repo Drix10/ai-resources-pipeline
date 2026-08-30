@@ -1,6 +1,6 @@
 ### 🤖 SwiftUI - List Row Height Animations
 
-This article outlines inherent design flaws in SwiftUI List's row height animations. It presents a native SwiftUI solution using custom Layout, a decoupled state machine, and animatable spacing.
+Inherent design flaws in SwiftUI List's row height animations. It presents a native SwiftUI solution using custom Layout, a decoupled state machine, and animatable spacing.
 
 Key Points:
 

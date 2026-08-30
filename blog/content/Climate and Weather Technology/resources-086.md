@@ -1,6 +1,6 @@
 ### 🤖 Media Bias - Analysis of News Presenters
 
-This article examines the perceived objectivity of two news presenters, Harry Enten from CNN and Bret Baier from FOX, based on observations of their reporting styles.
+Perceived objectivity of two news presenters, Harry Enten from CNN and Bret Baier from FOX, based on observations of their reporting styles.
 
 Key Points:
 

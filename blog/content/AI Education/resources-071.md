@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Query Caching
 
-This article discusses Expected Parrot's LLM query caching system, which returns identical responses to identical queries without additional LLM calls.
+Expected Parrot's LLM query caching system, which returns identical responses to identical queries without additional LLM calls.
 
 
 Key Points:

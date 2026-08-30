@@ -1,6 +1,6 @@
 ### 🤖 AI Ethics - Pro-Human AI Coalition
 
-This article discusses the emergence of a pro-human AI coalition focused on developing trustworthy and controllable AI tools. It highlights the movement's rejection of an AI development paradigm that prioritizes human replacement.
+Emergence of a pro-human AI coalition focused on developing trustworthy and controllable AI tools. It highlights the movement's rejection of an AI development paradigm that prioritizes human replacement.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 City Planning - Community Well-being
 
-This article discusses Scottsdale's recognition as a top happy city, highlighting factors contributing to its residents' quality of life. It also outlines key responsibilities for city leaders in maintaining this status.
+Scottsdale's recognition as a top happy city, highlighting factors contributing to its residents' quality of life. It also outlines key responsibilities for city leaders in maintaining this status.
 
 Key Points:
 

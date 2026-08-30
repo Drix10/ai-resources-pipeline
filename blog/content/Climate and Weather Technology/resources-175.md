@@ -1,6 +1,6 @@
 ### 🤖 Climate Science - El Niño Impact on Global Temperatures
 
-This article discusses the current state of the climate, highlighting the significant influence of El Niño and its projected impact on global temperatures, potentially making 2026 the second-warmest year on record.
+Current state of the climate, highlighting the significant influence of El Niño and its projected impact on global temperatures, potentially making 2026 the second-warmest year on record.
 
 Key Points:
 

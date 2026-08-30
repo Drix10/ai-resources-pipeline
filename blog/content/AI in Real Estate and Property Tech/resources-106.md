@@ -1,6 +1,6 @@
 ### 📄 Q2 2025 Shareholder Letter - reAlpha
 
-This article summarizes the Q2 2025 shareholder letter from reAlpha CEO Mike Logozzo, covering the company's progress and outlook on building a more affordable path to homeownership.
+Q2 2025 shareholder letter from reAlpha CEO Mike Logozzo, covering the company's progress and outlook on building a more affordable path to homeownership.
 
 Key Points:
 

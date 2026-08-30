@@ -1,6 +1,6 @@
 ### 🚀 KORUS Remix Competition - Battle Mode Soundtrack
 
-This article details the KORUS remix competition for the upcoming Battle Mode Soundtrack in Basejump.  Submissions involve remixing music and sharing screen recordings.
+KORUS remix competition for the upcoming Battle Mode Soundtrack in Basejump.  Submissions involve remixing music and sharing screen recordings.
 
 Key Points:
 

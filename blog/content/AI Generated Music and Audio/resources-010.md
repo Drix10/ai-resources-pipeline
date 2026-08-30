@@ -1,6 +1,6 @@
 ### 💡 Social Media Metrics - Beyond the Numbers
 
-This article discusses the limitations of relying solely on social media metrics like follower count and emphasizes the importance of genuine engagement and community building.
+Limitations of relying solely on social media metrics like follower count and emphasizes the importance of genuine engagement and community building.
 
 Key Points:
 

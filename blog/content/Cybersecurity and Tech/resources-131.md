@@ -1,6 +1,6 @@
 ### 💡 Public Discourse - Accountability and Media Representation
 
-This article examines how individuals and events are presented in public discourse, focusing on discussions around accountability. It explores the role of visual media in shaping public opinion.
+Individuals and events are presented in public discourse, focusing on discussions around accountability. It explores the role of visual media in shaping public opinion.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Healthcare Safety - Patient Neglect
 
-This article details a critical incident in healthcare where systemic failures led to severe patient neglect and tragic consequences. It highlights the vulnerabilities of patients with disabilities and the critical importance of robust care protocols.
+Critical incident in healthcare where systemic failures led to severe patient neglect and tragic consequences. It highlights the vulnerabilities of patients with disabilities and the critical importance of robust care protocols.
 
 Key Points:
 

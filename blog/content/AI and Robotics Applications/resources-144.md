@@ -1,6 +1,6 @@
 ### 🤖 Robot Policies - Steerable Policies & VLM Reasoning
 
-This article discusses how robot policies can leverage Vision-Language Models (VLMs) and Chain-of-Thought (CoT) reasoning to improve generalization. It highlights the concept of Steerable Policies as a key approach for flexible control in robotic applications.
+Robot policies can leverage Vision-Language Models (VLMs) and Chain-of-Thought (CoT) reasoning to improve generalization. It highlights the concept of Steerable Policies as a key approach for flexible control in robotic applications.
 
 Key Points:
 

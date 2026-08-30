@@ -1,6 +1,6 @@
 ### 🤖 AI Agent - LocalCowork Performance
 
-This article details LocalCowork, an open-source AI agent designed for local execution on MacBooks. It highlights key performance metrics related to its operation and resource utilization.
+LocalCowork, an open-source AI agent designed for local execution on MacBooks. It highlights key performance metrics related to its operation and resource utilization.
 
 Key Points:
 

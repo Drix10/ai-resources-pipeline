@@ -1,6 +1,6 @@
 ### ✨ Cortex Search - New Features
 
-This article details new features enhancing Cortex Search's scalability, customizability, and functionality for search and agentic applications using Snowflake data.
+New features enhancing Cortex Search's scalability, customizability, and functionality for search and agentic applications using Snowflake data.
 
 Key Points:
 

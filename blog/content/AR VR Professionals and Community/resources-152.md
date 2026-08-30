@@ -1,6 +1,6 @@
 ### 🚀 Microsoft Flight Simulator - PSVR 2 Gameplay
 
-This article details the revealed PSVR 2 gameplay for Microsoft Flight Simulator. It covers the immersive experience and anticipated updates, highlighting the technical advancements in virtual reality simulation.
+Revealed PSVR 2 gameplay for Microsoft Flight Simulator. It covers the immersive experience and anticipated updates, highlighting the technical advancements in virtual reality simulation.
 
 Key Points:
 

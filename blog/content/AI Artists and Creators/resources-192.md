@@ -1,6 +1,6 @@
 ### 🤖 AI-Assisted Game Design - RPG Concept Creation
 
-This article explores the creation of an RPG game concept named "Dust and Damnation," detailing the use of AI-assisted workflows for various creative stages. It outlines how artificial intelligence contributes to world-building and visual development.
+Creation of an RPG game concept named "Dust and Damnation," detailing the use of AI-assisted workflows for various creative stages. It outlines how artificial intelligence contributes to world-building and visual development.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 UI Design - Vertical Rhythm Consistency
 
-This article outlines the importance of consistent vertical rhythm in user interface design. It explains how standardizing vertical gaps between elements enhances visual hierarchy, readability, and overall user experience.
+Importance of consistent vertical rhythm in user interface design. It explains how standardizing vertical gaps between elements enhances visual hierarchy, readability, and overall user experience.
 
 Key Points:
 

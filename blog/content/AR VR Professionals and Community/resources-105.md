@@ -1,6 +1,6 @@
 ### 💡 App Development - Feedback Iteration
 
-This article discusses the challenges of incorporating user feedback into an app's development, specifically focusing on meeting user expectations based on a concise app description.
+Challenges of incorporating user feedback into an app's development, specifically focusing on meeting user expectations based on a concise app description.
 
 Key Points:
 

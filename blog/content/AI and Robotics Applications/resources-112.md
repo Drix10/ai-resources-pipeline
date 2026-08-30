@@ -1,6 +1,6 @@
 ### 🤖 AGI's Impact - The Future of Work
 
-This article discusses a research paper exploring the implications of Artificial General Intelligence (AGI) on human labor and economic growth, suggesting that computing power, not human labor, will become the primary constraint on growth in an AGI-driven world.
+Research paper exploring the implications of Artificial General Intelligence (AGI) on human labor and economic growth, suggesting that computing power, not human labor, will become the primary constraint on growth in an AGI-driven world.
 
 Key Points:
 

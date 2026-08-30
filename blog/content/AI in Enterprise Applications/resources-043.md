@@ -1,6 +1,6 @@
 ### 🚀 Google Cloud Next 2025 - Back Office Hyperautomation
 
-This article discusses Hyperscience's presence at Google Cloud Next 2025, focusing on their solutions for back-office process transformation using hyperautomation.  Their booth number and booking link are provided.
+Hyperscience's presence at Google Cloud Next 2025, focusing on their solutions for back-office process transformation using hyperautomation.  Their booth number and booking link are provided.
 
 Key Points:
 

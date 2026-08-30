@@ -1,6 +1,6 @@
 ### 💡 Note-Taking - Atomic Notes for ADHD
 
-This article discusses the benefits of using atomic notes for idea development, contrasting them with longer notes and commonplace notebooks.  The author highlights the effectiveness of concise notes and linking them for improved idea generation.
+Benefits of using atomic notes for idea development, contrasting them with longer notes and commonplace notebooks.  The author highlights the effectiveness of concise notes and linking them for improved idea generation.
 
 Key Points:
 

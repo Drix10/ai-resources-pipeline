@@ -1,3 +1,5 @@
+import ArticleViewTracker from '@/components/ArticleViewTracker';
+import { getArticleViews } from '@/lib/views-manager';
 import { getAllArticles, getArticleBySlug } from '@/lib/markdown';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
@@ -137,6 +139,12 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
         <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-zinc-100 tracking-tight leading-snug sm:leading-tight">
           {article.title}
         </h1>
+
+        <ArticleViewTracker
+          slug={article.slug}
+          initialViews={getArticleViews(article.slug).views}
+          initialAiViews={getArticleViews(article.slug).aiViews}
+        />
       </header>
 
       {/* Article Prose with Mobile Overflow Protection */}

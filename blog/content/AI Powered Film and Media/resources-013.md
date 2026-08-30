@@ -1,6 +1,6 @@
 ### 🚀 Video Generation - Pika Labs 2.2
 
-This article discusses the release of Pika Labs 2.2 and showcases its capabilities in generating high-quality video content, specifically an example of an alien spaceship battle.
+Release of Pika Labs 2.2 and showcases its capabilities in generating high-quality video content, specifically an example of an alien spaceship battle.
 
 Key Points:
 

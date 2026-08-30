@@ -1,6 +1,6 @@
 ### 🤖 Cyber Security - Water Systems Vulnerability
 
-This article discusses the cyberattack vulnerability of America's water and sewer infrastructure, as highlighted by a report published shortly before an attack on municipal water systems in Minnesota.
+Cyberattack vulnerability of America's water and sewer infrastructure, as highlighted by a report published shortly before an attack on municipal water systems in Minnesota.
 
 Key Points:
 

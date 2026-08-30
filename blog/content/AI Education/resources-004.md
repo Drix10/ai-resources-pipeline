@@ -1,6 +1,6 @@
 ### 💡 Research Efficiency - Prioritizing Papers
 
-This article discusses strategies for efficient research paper review, focusing on prioritizing the most relevant papers to maximize research output.
+Strategies for efficient research paper review, focusing on prioritizing the most relevant papers to maximize research output.
 
 Key Points:
 

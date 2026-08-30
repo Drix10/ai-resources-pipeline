@@ -1,6 +1,6 @@
 ### 🤖 LLMs - Aligning Models Through Reward Signals
 
-This article discusses the limitations of pre-trained LLMs and introduces "Learning from Rewards" as a solution to improve model alignment and reasoning capabilities.
+Limitations of pre-trained LLMs and introduces "Learning from Rewards" as a solution to improve model alignment and reasoning capabilities.
 
 Key Points:
 

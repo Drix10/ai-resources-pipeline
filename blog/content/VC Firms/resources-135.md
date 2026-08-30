@@ -1,6 +1,6 @@
 ### 🚀 Partnership - IAN Group & IIT Madras Global MOU
 
-This article details the Memorandum of Understanding signed between IAN Group and IIT Madras Global Research Foundation. It highlights the strategic collaboration aimed at fostering deep tech innovation and its commercialization.
+Memorandum of Understanding signed between IAN Group and IIT Madras Global Research Foundation. It highlights the strategic collaboration aimed at fostering deep tech innovation and its commercialization.
 
 Key Points:
 

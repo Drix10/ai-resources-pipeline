@@ -1,6 +1,6 @@
 ### 🤖 Mobileye's Scalable ADAS and Autonomy Solutions
 
-This article provides a brief overview of Mobileye's product spectrum, highlighting its scalability from basic Advanced Driver-Assistance Systems (ADAS) to full autonomy.  The technology's layered approach is emphasized.
+Mobileye's product spectrum, highlighting its scalability from basic Advanced Driver-Assistance Systems (ADAS) to full autonomy.  The technology's layered approach is emphasized.
 
 
 Key Points:

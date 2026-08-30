@@ -1,6 +1,6 @@
 ### ⚠️ Hurricane Preparedness - Post-Storm Hazards
 
-This article highlights the dangers that persist after a hurricane has passed, emphasizing the importance of safe return procedures.  It also includes a relevant image illustrating post-storm damage.
+Dangers that persist after a hurricane has passed, emphasizing the importance of safe return procedures.  It also includes a relevant image illustrating post-storm damage.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Dreamcast - VMU Emulator Integration
 
-This article discusses the integration of an ElysianVMU VMU emulator core into VMU Pro and its planned support within KallistiOS for Dreamcast.
+Integration of an ElysianVMU VMU emulator core into VMU Pro and its planned support within KallistiOS for Dreamcast.
 
 Key Points:
 

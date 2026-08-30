@@ -1,6 +1,6 @@
 ### ✨ Obsidian - 1.9.4 Early Access Features
 
-This article highlights the new features available in Obsidian 1.9.4 early access for Catalyst members, focusing on improvements to cards, tables, and image rendering.
+New features available in Obsidian 1.9.4 early access for Catalyst members, focusing on improvements to cards, tables, and image rendering.
 
 Key Points:
 

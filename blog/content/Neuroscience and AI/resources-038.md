@@ -1,6 +1,6 @@
 ### 📖 Ancient Greek - Ligatures in a Manuscript
 
-This article discusses the discovery of previously unseen ligatures in an ancient Greek manuscript, comparing them to Wallace's catalogue.  The image shows an example of these ligatures.
+Discovery of previously unseen ligatures in an ancient Greek manuscript, comparing them to Wallace's catalogue.  The image shows an example of these ligatures.
 
 Key Points:
 

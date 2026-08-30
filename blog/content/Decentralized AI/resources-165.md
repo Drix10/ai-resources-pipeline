@@ -1,6 +1,6 @@
 ### 🤖 Decentralized GPU - Access and Pricing
 
-This article outlines the significant surge in global GPU demand for AI and the resulting price increases due to supply chain constraints. It introduces Aethir's decentralized model as a solution to provide more competitive pricing and access to these critical resources.
+Significant surge in global GPU demand for AI and the resulting price increases due to supply chain constraints. It introduces Aethir's decentralized model as a solution to provide more competitive pricing and access to these critical resources.
 
 Key Points:
 

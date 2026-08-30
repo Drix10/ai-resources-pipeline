@@ -1,6 +1,6 @@
 ### 💡 Dating - Modern Relationship Expectations
 
-This article discusses the evolving expectations in modern dating, focusing on the multifaceted roles men are expected to fulfill.
+Evolving expectations in modern dating, focusing on the multifaceted roles men are expected to fulfill.
 
 Key Points:
 

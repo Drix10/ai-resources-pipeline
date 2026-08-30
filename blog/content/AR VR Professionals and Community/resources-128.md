@@ -1,6 +1,6 @@
 ### 💡 Social Media Content - Historical Persistence and Platform Moderation
 
-This article discusses a specific historical social media post, examining its removal and non-restoration on the platform. It explores aspects of content moderation and the persistence of certain historical records on social media.
+Specific historical social media post, examining its removal and non-restoration on the platform. It explores aspects of content moderation and the persistence of certain historical records on social media.
 
 Key Points:
 

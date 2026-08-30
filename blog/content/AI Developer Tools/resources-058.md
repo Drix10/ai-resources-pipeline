@@ -1,6 +1,6 @@
 ### 🤖 AI in Software Development - Future of Code Creation
 
-This article discusses the evolving role of AI in software development, predicting a shift from direct code writing to AI-driven code generation and human-AI collaboration.  The impact on future developers and the nature of their interaction with AI tools is explored.
+Evolving role of AI in software development, predicting a shift from direct code writing to AI-driven code generation and human-AI collaboration.  The impact on future developers and the nature of their interaction with AI tools is explored.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Social Commentary - Disinformation and Defiance
 
-This article discusses the impact of disinformation on societal understanding and the resulting defiant opposition, even in the face of negative consequences.  The text highlights the inability or unwillingness of certain groups to comprehend complex realities due to prolonged exposure to misinformation.
+Impact of disinformation on societal understanding and the resulting defiant opposition, even in the face of negative consequences.  The text highlights the inability or unwillingness of certain groups to comprehend complex realities due to prolonged exposure to misinformation.
 
 Key Points:
 

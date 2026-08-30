@@ -1,6 +1,6 @@
 ### 💡 Social Media - Public Opinion Dynamics
 
-This article examines the dynamics of public opinion as expressed through social media, focusing on how specific comments can trigger widespread online discourse and reactions. It explores the mechanisms by which online communities engage with and amplify commentary regarding public figures.
+Dynamics of public opinion as expressed through social media, focusing on how specific comments can trigger widespread online discourse and reactions. It explores the mechanisms by which online communities engage with and amplify commentary regarding public figures.
 
 Key Points:
 

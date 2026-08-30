@@ -1,6 +1,6 @@
 ### 🤖 Meteorological Models - Canadian Model Performance
 
-This article discusses the performance of the Canadian weather model, highlighting its significant impact on recent forecasts. It implies a strong or particularly accurate prediction from this model.
+Performance of the Canadian weather model, highlighting its significant impact on recent forecasts. It implies a strong or particularly accurate prediction from this model.
 
 Key Points:
 

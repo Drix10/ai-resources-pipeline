@@ -1,6 +1,6 @@
 ### 🤖 US Politics - FBI Leadership Controversy
 
-This article summarizes a statement by Senator Murphy regarding concerns about the nominee to lead the FBI.  The statement alleges that the nominee believes the FBI secretly organized the January 6th Capitol riot.
+Statement by Senator Murphy regarding concerns about the nominee to lead the FBI.  The statement alleges that the nominee believes the FBI secretly organized the January 6th Capitol riot.
 
 Key Points:
 

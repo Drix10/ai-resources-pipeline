@@ -1,6 +1,6 @@
 ### 🤖 Funding and Partnerships - Redpanda Data Series D
 
-This article discusses Redpanda Data's Series D funding round and highlights key partnerships.
+Redpanda Data's Series D funding round and highlights key partnerships.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Secure Crypto Connections - MPC and Para Server Wallets
 
-This article discusses the challenges of securely connecting to crypto assets and introduces Para server wallets as a solution using Multi-Party Computation (MPC).
+Challenges of securely connecting to crypto assets and introduces Para server wallets as a solution using Multi-Party Computation (MPC).
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Biotech Investment - Thrive's Strategic Backing
 
-This article highlights Thrive Capital's significant investment in a company positioned as the "OpenAI of biology." It details a major move in the biotechnology sector, indicating advancements at the intersection of AI and biological sciences.
+Thrive Capital's significant investment in a company positioned as the "OpenAI of biology." It details a major move in the biotechnology sector, indicating advancements at the intersection of AI and biological sciences.
 
 Key Points:
 

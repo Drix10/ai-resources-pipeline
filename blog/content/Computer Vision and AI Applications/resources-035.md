@@ -1,6 +1,6 @@
 ### 🤖 3D Vision Challenges - C3DV Competitions
 
-This article discusses two 3D vision challenges: 3DCoMPaT-200 and the Language-Based Part Grounding Challenge, focusing on 3D object composition and understanding.  The challenges are hosted as part of the Computer Vision and Pattern Recognition (CVPR) conference.
+Two 3D vision challenges: 3DCoMPaT-200 and the Language-Based Part Grounding Challenge, focusing on 3D object composition and understanding.  The challenges are hosted as part of the Computer Vision and Pattern Recognition (CVPR) conference.
 
 Key Points:
 

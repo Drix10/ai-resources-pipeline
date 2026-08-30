@@ -1,6 +1,6 @@
 ### 🤖 Bitcoin Upgrades - CTV + CSFS Proposal
 
-This article summarizes discussions regarding a proposed Bitcoin upgrade incorporating CTV (CoinType Value) and CSFS (Coin Selection Function Script).  The proposal's details are still being formalized.
+Discussions regarding a proposed Bitcoin upgrade incorporating CTV (CoinType Value) and CSFS (Coin Selection Function Script).  The proposal's details are still being formalized.
 
 Key Points:
 

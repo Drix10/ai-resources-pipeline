@@ -1,6 +1,6 @@
 ### 💡 Philosophy - Meaning and Purpose
 
-This article discusses key insights from "Man's Search for Meaning." It highlights the book's core themes regarding human purpose and resilience.
+Key insights from "Man's Search for Meaning." It highlights the book's core themes regarding human purpose and resilience.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Computer Vision - Cost Optimization
 
-This article discusses strategies for minimizing GPU dependency in large-scale computer vision deployments, focusing on edge preprocessing as a cost-effective solution.
+Strategies for minimizing GPU dependency in large-scale computer vision deployments, focusing on edge preprocessing as a cost-effective solution.
 
 Key Points:
 

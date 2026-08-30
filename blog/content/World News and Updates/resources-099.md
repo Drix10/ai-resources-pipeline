@@ -1,6 +1,6 @@
 ### 🤖 Political Commentary - Jonathan Capehart on Presidential Retribution
 
-This article summarizes Jonathan Capehart's commentary on the president's actions towards critics, highlighting a pattern of retribution.  The commentary discusses the president's disregard for norms and decency in pursuing revenge.
+Jonathan Capehart's commentary on the president's actions towards critics, highlighting a pattern of retribution.  The commentary discusses the president's disregard for norms and decency in pursuing revenge.
 
 Key Points:
 

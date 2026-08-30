@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Community Events
 
-This article discusses robot fight and dance events in San Francisco, highlighting their role in fostering community and networking. It also briefly touches on the vibrant tech event scene in the city.
+Robot fight and dance events in San Francisco, highlighting their role in fostering community and networking. It also briefly touches on the vibrant tech event scene in the city.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Legal - SSA Data Breach Allegation
 
-This article summarizes allegations of unauthorized access to sensitive Social Security Administration (SSA) data, as detailed in a federal court affidavit.  The affidavit describes actions by Elon Musk's deputies.
+Allegations of unauthorized access to sensitive Social Security Administration (SSA) data, as detailed in a federal court affidavit.  The affidavit describes actions by Elon Musk's deputies.
 
 Key Points:
 

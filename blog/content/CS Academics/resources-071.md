@@ -1,6 +1,6 @@
 ### 🤖 Physics - Angular Momentum of a Rotating Disk
 
-This article explores the concept of angular momentum in the context of a rotating disk, explaining how momentum vectors contribute to the overall angular momentum.  The explanation uses a simplified model to illustrate the underlying principles.
+Concept of angular momentum in the context of a rotating disk, explaining how momentum vectors contribute to the overall angular momentum.  The explanation uses a simplified model to illustrate the underlying principles.
 
 Key Points:
 

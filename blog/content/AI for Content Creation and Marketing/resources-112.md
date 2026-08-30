@@ -1,6 +1,6 @@
 ### 🤖 AI Implementation - Enterprise Challenges
 
-This article discusses the challenges of implementing AI at enterprise scale, highlighting the collaborative approach needed for successful deployment.  It uses the MindMakers example to illustrate three stages of AI implementation.
+Challenges of implementing AI at enterprise scale, highlighting the collaborative approach needed for successful deployment.  It uses the MindMakers example to illustrate three stages of AI implementation.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ NFTs - PlayerZero x Meebits Wearables Mint
 
-This article details the public mint of PlayerZero x Meebits wearables, outlining participation details and rewards.
+Public mint of PlayerZero x Meebits wearables, outlining participation details and rewards.
 
 Key Points:
 

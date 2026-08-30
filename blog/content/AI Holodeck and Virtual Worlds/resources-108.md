@@ -1,6 +1,6 @@
 ### 🚀 AI Music Video Challenge - Win $50!
 
-This article details a challenge to create a music video using AI, outlining the steps and providing relevant links.
+Challenge to create a music video using AI, outlining the steps and providing relevant links.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Summit - Cornell Tech's Frontiers of AI
 
-This article outlines the inaugural Frontiers of AI Summit hosted by Cornell Tech, featuring a diverse lineup of speakers. It covers the event's focus on groundbreaking advancements in artificial intelligence and opportunities to attend.
+Inaugural Frontiers of AI Summit hosted by Cornell Tech, featuring a diverse lineup of speakers. It covers the event's focus on groundbreaking advancements in artificial intelligence and opportunities to attend.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI in Education - Improved Academic Performance
 
-This article discusses a study showing improved academic performance through consistent use of CENTURY's AI-powered platform at Brighton Hill School.  The findings are supported by data.
+Study showing improved academic performance through consistent use of CENTURY's AI-powered platform at Brighton Hill School.  The findings are supported by data.
 
 Key Points:
 

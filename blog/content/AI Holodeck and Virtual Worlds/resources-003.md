@@ -1,6 +1,6 @@
 ### 🤖 Retro Gaming - AI-Powered Lemmings Remake
 
-This article discusses the recreation of the classic Lemmings game using AI, detailing the development process and future plans.
+Recreation of the classic Lemmings game using AI, detailing the development process and future plans.
 
 Key Points:
 

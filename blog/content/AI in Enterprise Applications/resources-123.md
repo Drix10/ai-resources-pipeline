@@ -1,6 +1,6 @@
 ### 💡 Community Engagement - Remembering Service
 
-This article highlights a community initiative focused on remembrance and support for deployed individuals. It emphasizes the collective effort in acknowledging service members.
+Community initiative focused on remembrance and support for deployed individuals. It emphasizes the collective effort in acknowledging service members.
 
 Key Points:
 

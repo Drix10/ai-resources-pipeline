@@ -1,6 +1,6 @@
 ### 🤖 Data Governance - Unified Governance at SAP Sapphire
 
-This article discusses Collibra's presentation at SAP Sapphire, showcasing its role in unifying data and AI governance across SAP and non-SAP environments.  A case study highlighting AstraZeneca's implementation is also presented.
+Collibra's presentation at SAP Sapphire, showcasing its role in unifying data and AI governance across SAP and non-SAP environments.  A case study highlighting AstraZeneca's implementation is also presented.
 
 Key Points:
 

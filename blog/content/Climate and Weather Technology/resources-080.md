@@ -1,6 +1,6 @@
 ### 🤖 Weather Forecast - Weekend Outlook
 
-This article provides a brief weather forecast for the weekend, including potential rain and a tropical system.
+Weather forecast for the weekend, including potential rain and a tropical system.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Neuroscience - Prozac's Timing and Long-Term Effects
 
-This article discusses research findings on the impact of fluoxetine (Prozac) administration timing during development on long-term mood and brain changes in male rodents.
+Research findings on the impact of fluoxetine (Prozac) administration timing during development on long-term mood and brain changes in male rodents.
 
 Key Points:
 

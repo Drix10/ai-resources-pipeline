@@ -1,6 +1,6 @@
 ### 💡 Productivity - Prioritization Through Focused Selection
 
-This article discusses the importance of prioritizing tasks by selectively choosing high-impact opportunities over numerous less impactful ones.  It emphasizes the value of focused effort for increased productivity.
+Importance of prioritizing tasks by selectively choosing high-impact opportunities over numerous less impactful ones.  It emphasizes the value of focused effort for increased productivity.
 
 Key Points:
 

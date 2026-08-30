@@ -1,6 +1,6 @@
 ### 💡 Public Relations - Effective Quote Writing
 
-This article discusses Ann Wylie's advice on crafting impactful quotes, moving beyond clichés to create memorable soundbites.  It highlights the importance of thoughtful quote construction in public relations.
+Ann Wylie's advice on crafting impactful quotes, moving beyond clichés to create memorable soundbites.  It highlights the importance of thoughtful quote construction in public relations.
 
 Key Points:
 

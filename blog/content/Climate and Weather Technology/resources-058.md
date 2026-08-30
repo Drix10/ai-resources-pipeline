@@ -1,6 +1,6 @@
 ### ⚠️ Severe Weather - Southern Plains and New England
 
-This article summarizes severe weather forecasts for parts of the southern Plains and New England.  The main threats are large hail and heavy rain with gusty winds.
+Severe weather forecasts for parts of the southern Plains and New England.  The main threats are large hail and heavy rain with gusty winds.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Near-Future Impact
 
-This article discusses the potential of narrowly focused AI agents, highlighting their current limitations and future prospects based on the use of Claude Code, Manus, and OpenAI Deep Research.
+Potential of narrowly focused AI agents, highlighting their current limitations and future prospects based on the use of Claude Code, Manus, and OpenAI Deep Research.
 
 Key Points:
 

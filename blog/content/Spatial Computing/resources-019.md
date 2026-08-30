@@ -1,6 +1,6 @@
 ### 🤖 Parental Controls - App Store Integration
 
-This article discusses the need for a streamlined parental control system within app stores to verify children's ages and grant app download permissions while preserving user privacy.  Several states are already recognizing the importance of app stores in this process.
+Need for a streamlined parental control system within app stores to verify children's ages and grant app download permissions while preserving user privacy.  Several states are already recognizing the importance of app stores in this process.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Phishing - Digital Wallet Fraud
 
-This article covers how phishing leads to digital wallet fraud without physical card theft, emphasizing the role of malicious links in compromising financial security.
+Phishing leads to digital wallet fraud without physical card theft, emphasizing the role of malicious links in compromising financial security.
 
 Key Points:
 

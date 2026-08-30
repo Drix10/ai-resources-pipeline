@@ -1,6 +1,6 @@
 ### ✨ Anthropic Claude - Harmony Feature
 
-This article provides an early preview of Anthropic's upcoming Harmony feature for Claude, which grants full access to a local directory for enhanced content research and operation.  The potential implications for AI agents are discussed.
+Early preview of Anthropic's upcoming Harmony feature for Claude, which grants full access to a local directory for enhanced content research and operation.  The potential implications for AI agents are discussed.
 
 Key Points:
 

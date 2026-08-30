@@ -1,6 +1,6 @@
 ### 🤖 Reinforcement Learning - Action Chunking in RL
 
-This article explores the application of action chunking, a successful technique in imitation learning, to reinforcement learning (RL), focusing on its efficiency improvements.
+Application of action chunking, a successful technique in imitation learning, to reinforcement learning (RL), focusing on its efficiency improvements.
 
 Key Points:
 

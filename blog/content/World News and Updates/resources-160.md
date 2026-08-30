@@ -1,6 +1,6 @@
 ### 💡 Gaming Regulation - Roulette in Paris
 
-This article covers the recent introduction of roulette into gaming clubs across Paris. It explains the implications of this development for both the gaming industry and patrons in the region.
+Recent introduction of roulette into gaming clubs across Paris. It explains the implications of this development for both the gaming industry and patrons in the region.
 
 Key Points:
 

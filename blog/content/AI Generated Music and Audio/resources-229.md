@@ -1,6 +1,6 @@
 ### 💡 Discipline & Mental Resilience - Jocko Willink's Perspective on Action and Detachment
 
-This article discusses the challenges of high-stress environments and presents insights from Jocko Willink on mental resilience. It highlights his views on discipline over motivation and the importance of emotional detachment.
+Challenges of high-stress environments and presents insights from Jocko Willink on mental resilience. It highlights his views on discipline over motivation and the importance of emotional detachment.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Product Management - Shifting from Feature-First Thinking
 
-This article discusses the pitfalls of a feature-first approach in product management and offers a strategy to prioritize outcome-driven development.  It emphasizes the importance of shifting from focusing on features to focusing on desired outcomes.
+Pitfalls of a feature-first approach in product management and offers a strategy to prioritize outcome-driven development.  It emphasizes the importance of shifting from focusing on features to focusing on desired outcomes.
 
 Key Points:
 

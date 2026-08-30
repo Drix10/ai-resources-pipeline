@@ -1,6 +1,6 @@
 ### 🤖 Seeing Machines - European GSR Update
 
-This article summarizes a London Town Hall event featuring Seeing Machines and automotive industry experts discussing the General Safety Regulation (GSR) in Europe.  The event included a panel discussion on the lead-up to the GSR implementation.
+London Town Hall event featuring Seeing Machines and automotive industry experts discussing the General Safety Regulation (GSR) in Europe.  The event included a panel discussion on the lead-up to the GSR implementation.
 
 Key Points:
 

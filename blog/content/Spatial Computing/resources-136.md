@@ -1,6 +1,6 @@
 ### ✨ Horizon OS 2.1 - Window Magnetism Feature
 
-This article details the "Window Magnetism" feature, part of Horizon OS 2.1, which enhances user experience by automatically anchoring virtual windows to flat surfaces in both Passthrough and VR modes.
+"Window Magnetism" feature, part of Horizon OS 2.1, which enhances user experience by automatically anchoring virtual windows to flat surfaces in both Passthrough and VR modes.
 
 Key Points:
 

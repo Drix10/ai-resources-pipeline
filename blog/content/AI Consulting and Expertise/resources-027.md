@@ -1,6 +1,6 @@
 ### 💡 Human Qualities in the Age of AI
 
-This article discusses the importance of preserving and emphasizing uniquely human traits as AI technology advances.  It explores the potential for humans to become even more human in response to increasing AI capabilities.
+Importance of preserving and emphasizing uniquely human traits as AI technology advances.  It explores the potential for humans to become even more human in response to increasing AI capabilities.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Standardized Testing - Impact on Admissions and Learning
 
-This article discusses the University of California's decision in 2020 to remove standardized tests from its admissions requirements, a move made in the name of equity. It examines the perceived outcomes of this policy, suggesting the experiment has not been successful.
+University of California's decision in 2020 to remove standardized tests from its admissions requirements, a move made in the name of equity. It examines the perceived outcomes of this policy, suggesting the experiment has not been successful.
 
 Key Points:
 

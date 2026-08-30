@@ -1,6 +1,6 @@
 ### 🤖 FSD V14 Lite - Performance Observations
 
-This article summarizes early performance observations of FSD V14 Lite during a 100km drive, highlighting specific behavioral instances.
+Early performance observations of FSD V14 Lite during a 100km drive, highlighting specific behavioral instances.
 
 Key Points:
 

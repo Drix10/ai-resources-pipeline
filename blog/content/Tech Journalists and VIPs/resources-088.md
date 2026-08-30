@@ -1,6 +1,6 @@
 ### 💡 Philosophy - Arguments for God's Existence
 
-This article discusses the cumulative case for the existence of God, focusing on the relative strengths of individual arguments like the Argument from Contingency and the Argument from Causality.
+Cumulative case for the existence of God, focusing on the relative strengths of individual arguments like the Argument from Contingency and the Argument from Causality.
 
 Key Points:
 

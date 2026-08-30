@@ -1,6 +1,6 @@
 ### 💡 Workplace Communication - Generational Gaps
 
-This article discusses a communication mishap stemming from a generational difference in cultural references, highlighting the challenges of intergenerational communication in the workplace.
+Communication mishap stemming from a generational difference in cultural references, highlighting the challenges of intergenerational communication in the workplace.
 
 
 Key Points:

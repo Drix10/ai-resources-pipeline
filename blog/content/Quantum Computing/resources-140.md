@@ -1,6 +1,6 @@
 ### 🤖 Physics - Discrete Space-Time Crystals
 
-This article discusses the observation of discrete space-time crystal analogs in chiral liquid crystal systems, specifically focusing on Majorana-like quasiparticles. It highlights the classical observation of 1+1 and 2+1 dimensional discrete space-time crystals driven by Floquet electrical signals.
+Observation of discrete space-time crystal analogs in chiral liquid crystal systems, specifically focusing on Majorana-like quasiparticles. It highlights the classical observation of 1+1 and 2+1 dimensional discrete space-time crystals driven by Floquet electrical signals.
 
 Key Points:
 

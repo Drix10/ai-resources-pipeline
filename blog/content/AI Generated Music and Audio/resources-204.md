@@ -1,5 +1,5 @@
 ### 🤖 Text-to-Speech - Prosodic Dynamics Modeling
-This article discusses a novel approach for modeling sharp prosodic dynamics in diffusion-based text-to-speech systems. It introduces an adaptive oscillatory inductive bias to enhance the naturalness and expressiveness of synthesized speech.
+Novel approach for modeling sharp prosodic dynamics in diffusion-based text-to-speech systems. It introduces an adaptive oscillatory inductive bias to enhance the naturalness and expressiveness of synthesized speech.
 
 Key Points:
 

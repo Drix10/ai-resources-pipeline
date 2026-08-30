@@ -1,6 +1,6 @@
 ### 🚀 Gemini App - Recent Progress
 
-This article summarizes recent progress on Gemini models and applications, including improvements to existing features and the addition of new capabilities.
+Recent progress on Gemini models and applications, including improvements to existing features and the addition of new capabilities.
 
 Key Points:
 

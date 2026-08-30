@@ -1,6 +1,6 @@
 ### 🤖 Universal Commerce Protocol - Ecosystem Integration
 
-This article outlines a new open standard designed to encompass the entire e-commerce transaction flow. It details the protocol's comprehensive coverage from cart management to returns and highlights its broad industry adoption.
+New open standard designed to encompass the entire e-commerce transaction flow. It details the protocol's comprehensive coverage from cart management to returns and highlights its broad industry adoption.
 
 Key Points:
 

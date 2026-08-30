@@ -1,6 +1,6 @@
 ### 🤖 Social Issues - Transgender Regret and Shooting
 
-This article discusses a shooting and connects it to concerns regarding data on transgender regret and the American Medical Association's practices.  It highlights related news coverage.
+Shooting and connects it to concerns regarding data on transgender regret and the American Medical Association's practices.  It highlights related news coverage.
 
 Key Points:
 

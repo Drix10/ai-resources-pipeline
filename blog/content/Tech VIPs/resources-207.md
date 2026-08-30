@@ -1,6 +1,6 @@
 ### ✨ AMD FSR 4 - Advancing Gaming Experiences
 
-This article discusses the ongoing evolution of AMD FSR 4, highlighting efforts to enhance gaming experiences. It outlines AMD's commitment to pushing technology forward across various gaming components.
+Ongoing evolution of AMD FSR 4, highlighting efforts to enhance gaming experiences. It outlines AMD's commitment to pushing technology forward across various gaming components.
 
 Key Points:
 

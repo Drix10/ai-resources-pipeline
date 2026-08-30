@@ -1,6 +1,6 @@
 ### 💡 Cryptocurrency Market - ETF Inflows
 
-This article covers the recent positive net inflow trends for US spot Bitcoin and Ethereum Exchange-Traded Funds, based on data provided by SoSoValue. It details the consecutive days of inflows and the total amounts recorded for each cryptocurrency ETF.
+Recent positive net inflow trends for US spot Bitcoin and Ethereum Exchange-Traded Funds, based on data provided by SoSoValue. It details the consecutive days of inflows and the total amounts recorded for each cryptocurrency ETF.
 
 Key Points:
 

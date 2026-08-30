@@ -1,6 +1,6 @@
 ### 💡 Weather Alert - Central Texas Severe Storm
 
-This article details a severe weather event in Central Texas. It covers storm movement and areas impacted by large hail.
+Severe weather event in Central Texas. It covers storm movement and areas impacted by large hail.
 
 Key Points:
 

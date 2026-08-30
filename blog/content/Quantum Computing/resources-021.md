@@ -1,6 +1,6 @@
 ### 🤖 Quantum Computing - From Theory to Real-World Impact
 
-This article summarizes a message from the International Year of Quantum opening ceremony, highlighting the shift from theoretical quantum computing to practical applications and integration with existing workflows.
+Message from the International Year of Quantum opening ceremony, highlighting the shift from theoretical quantum computing to practical applications and integration with existing workflows.
 
 Key Points:
 

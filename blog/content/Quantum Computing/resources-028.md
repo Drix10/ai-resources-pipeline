@@ -1,6 +1,6 @@
 ### 🤖 Machine Learning - Predictive Data Selection
 
-This article discusses Predictive Data Selection (PreSelect), a method where data predictive of model losses is used to improve learning efficiency.  The core idea is that data which indicates future model performance is prioritized during training.
+Predictive Data Selection (PreSelect), a method where data predictive of model losses is used to improve learning efficiency.  The core idea is that data which indicates future model performance is prioritized during training.
 
 Key Points:
 

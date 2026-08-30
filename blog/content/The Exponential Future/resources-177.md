@@ -1,6 +1,6 @@
 ### 💡 Market Analysis - Non-Farm Payrolls and Live Trading
 
-This article covers market reactions to Non-Farm Payrolls data and features live trading sessions focusing on capital preservation strategies. It highlights key participants involved in the discussion and trading.
+Market reactions to Non-Farm Payrolls data and features live trading sessions focusing on capital preservation strategies. It highlights key participants involved in the discussion and trading.
 
 Key Points:
 

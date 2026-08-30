@@ -1,6 +1,6 @@
 ### 💡 Political Discourse - Bipartisan Moments
 
-This article discusses rare instances of political agreement and the public perception surrounding such events. It highlights how social media platforms often document these developments.
+Rare instances of political agreement and the public perception surrounding such events. It highlights how social media platforms often document these developments.
 
 Key Points:
 

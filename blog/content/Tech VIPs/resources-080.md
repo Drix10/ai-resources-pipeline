@@ -1,6 +1,6 @@
 ### 🤖 Organizational Behavior - Meta-Stupidity in Institutions
 
-This article discusses the phenomenon of "meta-stupidity" within organizations, using prestigious universities as a case study.  It explores how intelligent individuals can contribute to systemic irrationality and resistance to change.
+Phenomenon of "meta-stupidity" within organizations, using prestigious universities as a case study.  It explores how intelligent individuals can contribute to systemic irrationality and resistance to change.
 
 Key Points:
 

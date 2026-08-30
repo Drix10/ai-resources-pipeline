@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Token Importance in Chain-of-Thought
 
-This article discusses the impact of token importance on Chain-of-Thought (CoT) reasoning in large language models (LLMs) and introduces TokenSkip, a technique to improve efficiency.
+Impact of token importance on Chain-of-Thought (CoT) reasoning in large language models (LLMs) and introduces TokenSkip, a technique to improve efficiency.
 
 Key Points:
 

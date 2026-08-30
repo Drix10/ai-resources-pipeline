@@ -1,6 +1,6 @@
 ### 🚀 Mobile Learning - Upskilling App
 
-This article discusses a mobile application offering various learning paths and courses across different domains, featuring a built-in AI tutor and shareable certificates.  It also covers availability on Apple and Android platforms.
+Mobile application offering various learning paths and courses across different domains, featuring a built-in AI tutor and shareable certificates.  It also covers availability on Apple and Android platforms.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Social Media Management - Follower Cleanup
 
-This article discusses the process of identifying and removing low-quality followers to improve social media engagement and content reach. It highlights the benefits of maintaining a relevant audience.
+Process of identifying and removing low-quality followers to improve social media engagement and content reach. It highlights the benefits of maintaining a relevant audience.
 
 Key Points:
 

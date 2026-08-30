@@ -1,6 +1,6 @@
 ### 💡 Spirituality - Surrender and Letting Go
 
-This article explores the concept of surrendering to a higher power and releasing anxieties for peace and relief.  It suggests trusting in a positive outcome.
+Concept of surrendering to a higher power and releasing anxieties for peace and relief.  It suggests trusting in a positive outcome.
 
 Key Points:
 

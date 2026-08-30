@@ -1,6 +1,6 @@
 ### 💡 Global Finance - Diversifying Away From US Assets
 
-This article discusses the challenges of diversifying investments away from US assets, focusing on the potential of gold as an alternative store of value.  It explores the reasons why some nations might seek alternatives and some of the considerations involved.
+Challenges of diversifying investments away from US assets, focusing on the potential of gold as an alternative store of value.  It explores the reasons why some nations might seek alternatives and some of the considerations involved.
 
 Key Points:
 

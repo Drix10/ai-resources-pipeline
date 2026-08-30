@@ -1,6 +1,6 @@
 ### 🤖 AI Model Behavior - Opus 5 Performance Anomalies
 
-This article discusses observed behavioral patterns in the Opus 5 AI model, specifically noting inconsistencies in its processing and memory handling during generation tasks.
+Observed behavioral patterns in the Opus 5 AI model, specifically noting inconsistencies in its processing and memory handling during generation tasks.
 
 Key Points:
 

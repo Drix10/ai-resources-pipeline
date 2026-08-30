@@ -1,6 +1,6 @@
 ### 🚀 Autonomous Vehicles - Cybercab Deployment in Miami
 
-This article highlights the initial deployment of a Cybercab vehicle in Miami. It provides a glimpse into the ongoing integration of autonomous transportation systems into urban environments.
+Initial deployment of a Cybercab vehicle in Miami. It provides a glimpse into the ongoing integration of autonomous transportation systems into urban environments.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Agent Benchmarks - Challenges and Limitations
 
-This article discusses the challenges in evaluating AI agents using current benchmarks, highlighting inaccuracies and proposing the need for improved evaluation methods.
+Challenges in evaluating AI agents using current benchmarks, highlighting inaccuracies and proposing the need for improved evaluation methods.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖  AI Assistants and Empathy - A Literary Comparison
 
-This article explores the limitations of AI assistants, drawing a parallel with a poem by Edith Södergran that reflects a similar theme of unmet expectations.
+Limitations of AI assistants, drawing a parallel with a poem by Edith Södergran that reflects a similar theme of unmet expectations.
 
 Key Points:
 

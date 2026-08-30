@@ -1,6 +1,6 @@
 ### 🤖 Rescue Operation in Rishikesh - Chandra Bhagha River
 
-This article details a rescue operation conducted by the SDRF Uttarakhand Police in Rishikesh after heavy rainfall caused flooding.  Three individuals were rescued from the Chandra Bhagha River.
+Rescue operation conducted by the SDRF Uttarakhand Police in Rishikesh after heavy rainfall caused flooding.  Three individuals were rescued from the Chandra Bhagha River.
 
 Key Points:
 

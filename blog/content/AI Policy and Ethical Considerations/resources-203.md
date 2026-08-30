@@ -1,6 +1,6 @@
 ### 🤖 AI/ML Models - Transformer Architectures
 
-This article discusses insights on Transformer models, referencing a specific take on the subject. It aims to highlight key perspectives on this fundamental AI architecture.
+Insights on Transformer models, referencing a specific take on the subject. It aims to highlight key perspectives on this fundamental AI architecture.
 
 Key Points:
 

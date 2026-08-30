@@ -1,6 +1,6 @@
 ### 🤖 AI - Knowledge Work and Product Leadership
 
-This article explores the perspective that knowledge work functions as a form of universal basic income. It highlights insights from Max Schoening, a prominent figure in product leadership and AI's impact on software development.
+Perspective that knowledge work functions as a form of universal basic income. It highlights insights from Max Schoening, a prominent figure in product leadership and AI's impact on software development.
 
 Key Points:
 

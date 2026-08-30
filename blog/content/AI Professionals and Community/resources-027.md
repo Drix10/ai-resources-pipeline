@@ -1,6 +1,6 @@
 ### 🤖 Immigration Law - Green Card Restrictions
 
-This article discusses anecdotal accounts of unexpected restrictions and potential consequences for green card holders during their first five years.
+Anecdotal accounts of unexpected restrictions and potential consequences for green card holders during their first five years.
 
 Key Points:
 

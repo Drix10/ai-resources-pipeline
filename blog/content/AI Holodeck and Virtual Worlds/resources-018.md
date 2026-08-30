@@ -1,6 +1,6 @@
 ### ✨ Rive Animation - Interactive Design
 
-This article discusses the creation of interactive animations using the Rive software.  A concept design is shown, with plans for a future course covering the process.
+Creation of interactive animations using the Rive software.  A concept design is shown, with plans for a future course covering the process.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ Player Highlights - Anthony Edwards and Kevin Garnett
 
-This article highlights notable content related to basketball players Anthony Edwards and Kevin Garnett. It curates media and links associated with these athletes from a recent social media thread.
+Notable content related to basketball players Anthony Edwards and Kevin Garnett. It curates media and links associated with these athletes from a recent social media thread.
 
 Key Points:
 

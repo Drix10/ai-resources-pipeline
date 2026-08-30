@@ -1,6 +1,6 @@
 ### 🚀 3D Scanning - Smartphone Applications
 
-This article covers the process of capturing real-world environments in 3D using only a smartphone and viewing them in a web browser. It highlights how readily available technology enables users to create and archive immersive travel memories.
+Process of capturing real-world environments in 3D using only a smartphone and viewing them in a web browser. It highlights how readily available technology enables users to create and archive immersive travel memories.
 
 Key Points:
 

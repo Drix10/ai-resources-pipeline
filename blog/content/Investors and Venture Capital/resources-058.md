@@ -1,6 +1,6 @@
 ### 🤖 Bitcoin Finance - Smart Debt and Collateral Loops
 
-This article discusses Fluid's Smart Debt + Smart Collateral loops for Bitcoin, focusing on their potential yield.  A disclaimer notes that personal funds have not yet been used to test this strategy.
+Fluid's Smart Debt + Smart Collateral loops for Bitcoin, focusing on their potential yield.  A disclaimer notes that personal funds have not yet been used to test this strategy.
 
 Key Points:
 

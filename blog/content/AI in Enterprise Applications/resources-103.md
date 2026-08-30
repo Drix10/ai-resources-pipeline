@@ -1,6 +1,6 @@
 ### 🤖 AI Research - Autonomous LLM Agents
 
-This article summarizes a presentation on advancements in computer use agents, focusing on SimularAI and Agent S contributions to the IVADO_Qc Bootcamp's Thematic Semester on Autonomous LLM Agents.  The presentation highlighted key research insights.
+Presentation on advancements in computer use agents, focusing on SimularAI and Agent S contributions to the IVADO_Qc Bootcamp's Thematic Semester on Autonomous LLM Agents.  The presentation highlighted key research insights.
 
 Key Points:
 

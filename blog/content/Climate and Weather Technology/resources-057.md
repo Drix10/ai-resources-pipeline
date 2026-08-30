@@ -1,6 +1,6 @@
 ### 💡 Climate Action - Addressing Climate Change Denial
 
-This article discusses the importance of addressing climate change denial in order to effectively advance climate action initiatives.  It highlights the need for a common understanding of facts to facilitate progress.
+Importance of addressing climate change denial in order to effectively advance climate action initiatives.  It highlights the need for a common understanding of facts to facilitate progress.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 AI Economics - Value and Investment
 
-This article discusses current perspectives on AI's economic implications and investment considerations. It highlights the importance of understanding value in emerging AI markets.
+Current perspectives on AI's economic implications and investment considerations. It highlights the importance of understanding value in emerging AI markets.
 
 Key Points:
 

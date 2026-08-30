@@ -1,6 +1,6 @@
 ### 💡 Historical Predictions - Bitcoin's Conceptual Origin
 
-This article discusses Buckminster Fuller's 1967 prediction regarding a scientific accounting system for wealth, aligning with the laws of physics, and its conceptual relevance to modern digital currencies like Bitcoin.
+Buckminster Fuller's 1967 prediction regarding a scientific accounting system for wealth, aligning with the laws of physics, and its conceptual relevance to modern digital currencies like Bitcoin.
 
 Key Points:
 

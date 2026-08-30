@@ -1,6 +1,6 @@
 ### 🤖 Motion Estimation - Using Motion Blur in SLAM/SfM
 
-This article discusses a novel approach to motion estimation in SLAM/SfM algorithms, leveraging motion blur instead of treating it as a hindrance.  The research explores how a single motion-blurred image can be used for robust motion estimation.
+Novel approach to motion estimation in SLAM/SfM algorithms, leveraging motion blur instead of treating it as a hindrance.  The research explores how a single motion-blurred image can be used for robust motion estimation.
 
 
 Key Points:

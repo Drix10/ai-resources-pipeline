@@ -1,6 +1,6 @@
 ### 🤖 TON Cryptocurrency - Early Adoption and Potential
 
-This article discusses the potential for significant returns on investment in TON cryptocurrency, highlighting the risks associated with early adoption and the importance of understanding its potential.
+Potential for significant returns on investment in TON cryptocurrency, highlighting the risks associated with early adoption and the importance of understanding its potential.
 
 Key Points:
 

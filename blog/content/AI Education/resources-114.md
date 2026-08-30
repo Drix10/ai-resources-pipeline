@@ -1,6 +1,6 @@
 ### 🤖 Collaboration - Tanaki and Spark
 
-This article discusses the potential collaboration between Tanaki and Spark, exploring the unique advantages of an open-source approach outside traditional corporate structures.
+Potential collaboration between Tanaki and Spark, exploring the unique advantages of an open-source approach outside traditional corporate structures.
 
 Key Points:
 

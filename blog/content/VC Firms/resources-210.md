@@ -1,6 +1,6 @@
 ### 💡 Family Office Insights - Newsletter Highlights
 
-This article summarizes key discussions from a recent Family Office Buzz newsletter, covering investment strategies, wealth accumulation, and decisions related to wealth management.
+Key discussions from a recent Family Office Buzz newsletter, covering investment strategies, wealth accumulation, and decisions related to wealth management.
 
 Key Points:
 

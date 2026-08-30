@@ -1,6 +1,6 @@
 ### 💡 Political Discourse - Public Safety and Personal Experience
 
-This article examines contrasting statements made by Los Angeles Councilman Nithya Raman regarding homeless encampments. It highlights a difference between her public stance on safety near schools and her personal reaction to an encampment near her residence.
+Contrasting statements made by Los Angeles Councilman Nithya Raman regarding homeless encampments. It highlights a difference between her public stance on safety near schools and her personal reaction to an encampment near her residence.
 
 Key Points:
 

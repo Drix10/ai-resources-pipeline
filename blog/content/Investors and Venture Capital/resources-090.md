@@ -1,6 +1,6 @@
 ### 💡 Happiness - Elusive Nature
 
-This article explores Luciano Floridi's reflection on the elusive nature of happiness, comparing it to a shy creature resistant to scrutiny.  The piece argues that happiness isn't easily defined or achieved through direct pursuit.
+Luciano Floridi's reflection on the elusive nature of happiness, comparing it to a shy creature resistant to scrutiny.  The piece argues that happiness isn't easily defined or achieved through direct pursuit.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ⚖️  Judicial Reform - Restructuring Federal Courts
 
-This article discusses a proposed movement to pressure Congress into restructuring federal court districts, citing concerns about activist judges undermining the republic.  The author believes Congress's constitutional authority to reshape the judiciary offers a powerful tool for addressing these concerns.
+Proposed movement to pressure Congress into restructuring federal court districts, citing concerns about activist judges undermining the republic.  The author believes Congress's constitutional authority to reshape the judiciary offers a powerful tool for addressing these concerns.
 
 
 Key Points:

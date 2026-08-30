@@ -1,6 +1,6 @@
 ### 🤖 visionOS Development - API Evolution and Application Matching
 
-This article covers the evolution of visionOS APIs and their application in experimental apps, highlighting recent API additions. It discusses how new APIs provide expanded functionalities for developers.
+Evolution of visionOS APIs and their application in experimental apps, highlighting recent API additions. It discusses how new APIs provide expanded functionalities for developers.
 
 Key Points:
 

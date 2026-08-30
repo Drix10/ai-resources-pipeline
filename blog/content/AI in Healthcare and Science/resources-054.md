@@ -1,6 +1,6 @@
 ### 🤖 Spectruth AI - A Busy Day
 
-This article summarizes the activities of Spectruth AI on a particular day, including collaborations, advocacy work, and podcast appearances.
+Activities of Spectruth AI on a particular day, including collaborations, advocacy work, and podcast appearances.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ⚠️ Severe Weather - Early Morning Update
 
-This article provides an update on a severe weather threat, outlining the expected timing and intensity of the event.  The information is based on current weather models.
+Update on a severe weather threat, outlining the expected timing and intensity of the event.  The information is based on current weather models.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Astronomical Event - Total Solar Eclipse
 
-This article details a total solar eclipse, a celestial event where the Moon passes between the Sun and Earth, completely obscuring the Sun. It highlights the rarity and visual impact of such occurrences.
+Total solar eclipse, a celestial event where the Moon passes between the Sun and Earth, completely obscuring the Sun. It highlights the rarity and visual impact of such occurrences.
 
 Key Points:
 

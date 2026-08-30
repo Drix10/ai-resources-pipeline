@@ -1,6 +1,6 @@
 ### 🤖 6G Workshop Summary - Key Takeaways
 
-This article summarizes key takeaways from the chair's summary at the 3GPP 6G Workshop in Incheon, focusing on next steps and areas of interest.  The discussed aspects align with the focus of Deepsignl and the AI-RAN Alliance.
+Key takeaways from the chair's summary at the 3GPP 6G Workshop in Incheon, focusing on next steps and areas of interest.  The discussed aspects align with the focus of Deepsignl and the AI-RAN Alliance.
 
 Key Points:
 

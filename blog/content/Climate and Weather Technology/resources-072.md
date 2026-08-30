@@ -1,6 +1,6 @@
 ### 💡 Climate Change Communication - Combating Denial
 
-This article examines the challenges of communicating about climate change, focusing on the prevalence of denial and the need for effective counter-strategies.  It highlights the role of social media in this discourse.
+Challenges of communicating about climate change, focusing on the prevalence of denial and the need for effective counter-strategies.  It highlights the role of social media in this discourse.
 
 Key Points:
 

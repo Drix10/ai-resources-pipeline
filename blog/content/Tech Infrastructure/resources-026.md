@@ -1,6 +1,6 @@
 ### 🤖 RAG Latency - Windsurf's Approach
 
-This article discusses the latency challenges in multidimensional retrieval for Retrieval Augmented Generation (RAG) and explains how Windsurf addresses this issue.
+Latency challenges in multidimensional retrieval for Retrieval Augmented Generation (RAG) and explains how Windsurf addresses this issue.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Large Language Models - Data Cleaning Efforts
 
-This article highlights ongoing efforts by researchers to improve the quality and reliability of large language models by addressing issues related to data inconsistencies and inaccuracies.  It lists several projects focusing on data cleanup and verification.
+Ongoing efforts by researchers to improve the quality and reliability of large language models by addressing issues related to data inconsistencies and inaccuracies.  It lists several projects focusing on data cleanup and verification.
 
 Key Points:
 

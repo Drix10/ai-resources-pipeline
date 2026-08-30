@@ -1,6 +1,6 @@
 ### 🤖 Radiology - Anatomic Volume Modeling
 
-This article discusses a study focused on modeling whole-body, CT-derived anatomic volumes. The research aims to establish comprehensive reference charts for the adult human lifespan using these models.
+Study focused on modeling whole-body, CT-derived anatomic volumes. The research aims to establish comprehensive reference charts for the adult human lifespan using these models.
 
 Key Points:
 

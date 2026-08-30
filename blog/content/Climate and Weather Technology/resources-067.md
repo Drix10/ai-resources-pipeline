@@ -1,6 +1,6 @@
 ### 🌊 Sargassum - Forecast for Puerto Rico and Dominican Republic
 
-This article summarizes a forecast regarding sargassum seaweed density in Puerto Rico and the Dominican Republic, indicating sustained high levels with a secondary peak in July and August.  The information is based on a presentation at UNOC3.
+Forecast regarding sargassum seaweed density in Puerto Rico and the Dominican Republic, indicating sustained high levels with a secondary peak in July and August.  The information is based on a presentation at UNOC3.
 
 Key Points:
 

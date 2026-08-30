@@ -1,6 +1,6 @@
 ### 💡 Personal Growth - Commitment and Effort
 
-This article explores the principle of full commitment in endeavors, highlighting its role in achieving significant outcomes. It discusses the mindset required for dedication and perseverance.
+Principle of full commitment in endeavors, highlighting its role in achieving significant outcomes. It discusses the mindset required for dedication and perseverance.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Sports Philosophy - Embracing Outcomes in Competition
 
-This article covers a perspective on competitive sports, focusing on the mindset required when pursuing excellence. It discusses accepting both success and failure in high-stakes environments.
+Perspective on competitive sports, focusing on the mindset required when pursuing excellence. It discusses accepting both success and failure in high-stakes environments.
 
 Key Points:
 

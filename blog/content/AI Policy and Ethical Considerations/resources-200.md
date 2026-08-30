@@ -1,6 +1,6 @@
 ### 💡 California Housing Policy - Political Discourse
 
-This article examines the nature of political discourse surrounding complex issues like housing affordability in California. It draws a parallel to discussions on private healthcare costs, highlighting the challenges of attributing systemic problems to individual political figures.
+Nature of political discourse surrounding complex issues like housing affordability in California. It draws a parallel to discussions on private healthcare costs, highlighting the challenges of attributing systemic problems to individual political figures.
 
 Key Points:
 

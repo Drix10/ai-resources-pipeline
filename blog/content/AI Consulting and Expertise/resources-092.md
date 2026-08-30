@@ -1,6 +1,6 @@
 ### 💡 Workshops - AI Agents in Practice
 
-This article discusses the author's experience leading a workshop on AI agents for managers, highlighting the value of workshops for impactful learning.  The article includes an image from the workshop.
+Author's experience leading a workshop on AI agents for managers, highlighting the value of workshops for impactful learning.  The article includes an image from the workshop.
 
 Key Points:
 

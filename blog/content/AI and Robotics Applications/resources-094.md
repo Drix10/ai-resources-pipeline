@@ -1,6 +1,6 @@
 ### 🤖 Bitcoin Trading - AI-Powered Alerts
 
-This article details a session using Perplexity Comet and TradingView to analyze Bitcoin's all-time high and generate trading alerts.  The session explored the feasibility of buying Bitcoin at its peak and leveraged AI for automated alert creation at various price points.
+Session using Perplexity Comet and TradingView to analyze Bitcoin's all-time high and generate trading alerts.  The session explored the feasibility of buying Bitcoin at its peak and leveraged AI for automated alert creation at various price points.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 💡 Biology - Exceptions to the Rule
 
-This article discusses the inherent exceptions within biological rules, highlighting the dynamic and unpredictable nature of the field.  The example focuses on the nucleus.
+Inherent exceptions within biological rules, highlighting the dynamic and unpredictable nature of the field.  The example focuses on the nucleus.
 
 Key Points:
 

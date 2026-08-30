@@ -1,6 +1,6 @@
 ### 🤖 Oncology Research - HCC Treatment Strategies
 
-This article discusses emerging research in hepatocellular carcinoma (HCC) treatment, highlighting the role of angiogenesis in combination therapies. It contrasts findings on rate-limiting axes in different cancer types.
+Emerging research in hepatocellular carcinoma (HCC) treatment, highlighting the role of angiogenesis in combination therapies. It contrasts findings on rate-limiting axes in different cancer types.
 
 Key Points:
 

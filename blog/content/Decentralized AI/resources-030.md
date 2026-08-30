@@ -1,6 +1,6 @@
 ### 🤖 Local Software Skills - Future of Work
 
-This article discusses the prediction that in three years, basic local software skills will be essential for all laptop workers.  It highlights the need for understanding Git, package management, local application execution, cloud API interaction, and basic security.
+Prediction that in three years, basic local software skills will be essential for all laptop workers.  It highlights the need for understanding Git, package management, local application execution, cloud API interaction, and basic security.
 
 Key Points:
 

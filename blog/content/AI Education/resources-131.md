@@ -1,6 +1,6 @@
 ### 💡 Education - Authentic Assessments
 
-This article discusses the resurgence of paper and oral assessments, focusing on how digital tools can support authentic evaluation methods. It highlights the importance of adapting traditional assessment practices for modern educational environments.
+Resurgence of paper and oral assessments, focusing on how digital tools can support authentic evaluation methods. It highlights the importance of adapting traditional assessment practices for modern educational environments.
 
 Key Points:
 

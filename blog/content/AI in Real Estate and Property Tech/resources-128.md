@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Physical AI Integration
 
-This article explores Phyzical.AI, a concept representing advanced integration of artificial intelligence with physical systems. It focuses on the practical applications and capabilities of AI within tangible robotic domains.
+Phyzical.AI, a concept representing advanced integration of artificial intelligence with physical systems. It focuses on the practical applications and capabilities of AI within tangible robotic domains.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Authoritarianism - Characteristics and Implications
 
-This article outlines the defining characteristics of authoritarian governance, drawing parallels to historical patterns of state overreach and suppression of civil liberties. It examines various methods employed in such systems, including the absence of due process and profiling.
+Defining characteristics of authoritarian governance, drawing parallels to historical patterns of state overreach and suppression of civil liberties. It examines various methods employed in such systems, including the absence of due process and profiling.
 
 Key Points:
 

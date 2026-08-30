@@ -1,6 +1,6 @@
 ### 🚀 Partnerships - ForrB2BSummit
 
-This article summarizes a partnership announcement made at the ForrB2BSummit, highlighting a collaboration between Informa TechTarget and Demandbase.  The announcement includes images showcasing the partnership event.
+Partnership announcement made at the ForrB2BSummit, highlighting a collaboration between Informa TechTarget and Demandbase.  The announcement includes images showcasing the partnership event.
 
 Key Points:
 

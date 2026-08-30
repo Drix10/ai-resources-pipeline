@@ -1,6 +1,6 @@
 ### 🤖 AI Video - ASMR Visuals
 
-This article examines the use of AI-generated visuals in ASMR-style videos, highlighting their potential as a creative and effective format.  The example uses the Veo 3 model on Leonardo AI.
+Use of AI-generated visuals in ASMR-style videos, highlighting their potential as a creative and effective format.  The example uses the Veo 3 model on Leonardo AI.
 
 
 Key Points:

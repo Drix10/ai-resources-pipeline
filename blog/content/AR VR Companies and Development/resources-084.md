@@ -1,6 +1,6 @@
 ### ✨ 3D Modeling - Sutro Tower Splat Update
 
-This article discusses an update to a 3D model of the Sutro Tower, focusing on improvements in sharpness, color fidelity, and stability.  The updated model maintains a small file size.
+Update to a 3D model of the Sutro Tower, focusing on improvements in sharpness, color fidelity, and stability.  The updated model maintains a small file size.
 
 Key Points:
 

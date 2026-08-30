@@ -1,6 +1,6 @@
 ### 🤖 AI in Biotechnology - Autonomous Experimentation
 
-This article discusses an innovative closed-loop experiment where an autonomous laboratory was integrated with OpenAI's GPT-5. The system designed and optimized cell-free protein synthesis reactions through an iterative process.
+Innovative closed-loop experiment where an autonomous laboratory was integrated with OpenAI's GPT-5. The system designed and optimized cell-free protein synthesis reactions through an iterative process.
 
 Key Points:
 

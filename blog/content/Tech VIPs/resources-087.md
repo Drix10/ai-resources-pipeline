@@ -1,6 +1,6 @@
 ### 🤖 Podcast - Early Cursor AI Interview
 
-This article discusses an early podcast interview with the founders and engineers of Cursor AI, offering a historical perspective on the company's early days.
+Early podcast interview with the founders and engineers of Cursor AI, offering a historical perspective on the company's early days.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Sanskrit Literature Project - IITB Initiative
 
-This article highlights a free, non-profit project by an IIT Bombay senior to organize all Sanskrit literature in a user-friendly online platform.  The project aims to improve accessibility to this body of knowledge.
+Free, non-profit project by an IIT Bombay senior to organize all Sanskrit literature in a user-friendly online platform.  The project aims to improve accessibility to this body of knowledge.
 
 Key Points:
 

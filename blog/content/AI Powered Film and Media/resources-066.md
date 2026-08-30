@@ -1,6 +1,6 @@
 ### ✨ Veo and Flow - Empowering Artistic Storytelling
 
-This article highlights Veo and Flow, tools designed to assist artists in creating compelling narratives.  A video showcasing creators' work using these tools is included.
+Veo and Flow, tools designed to assist artists in creating compelling narratives.  A video showcasing creators' work using these tools is included.
 
 Key Points:
 

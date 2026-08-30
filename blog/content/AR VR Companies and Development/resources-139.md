@@ -1,6 +1,6 @@
 ### 💡 Marine Conservation - Humpback Whale Importance
 
-This article highlights the significance of humpback whales, recognizing their strength, elegance, and crucial role in maintaining healthy ocean ecosystems.
+Significance of humpback whales, recognizing their strength, elegance, and crucial role in maintaining healthy ocean ecosystems.
 
 Key Points:
 

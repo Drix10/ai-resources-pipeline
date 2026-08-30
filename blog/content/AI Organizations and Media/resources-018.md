@@ -1,6 +1,6 @@
 ### 💡 Relationship Dynamics - Adjusting Expectations
 
-This article discusses the concept of adjusting expectations in relationships instead of immediately cutting people off when they don't meet those expectations.  It highlights the importance of accepting individuals for who they are while still adapting the relationship dynamic.
+Concept of adjusting expectations in relationships instead of immediately cutting people off when they don't meet those expectations.  It highlights the importance of accepting individuals for who they are while still adapting the relationship dynamic.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Strategy - Open, Efficient, and Owned AI
 
-This article discusses the strategic direction for artificial intelligence development, focusing on open, efficient, and owned systems. It highlights policy discussions concerning national AI approaches.
+Strategic direction for artificial intelligence development, focusing on open, efficient, and owned systems. It highlights policy discussions concerning national AI approaches.
 
 Key Points:
 

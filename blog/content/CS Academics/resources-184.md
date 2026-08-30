@@ -1,6 +1,6 @@
 ### ✨ Basketball - LaMelo Ball Game Highlights
 
-This article highlights LaMelo Ball's offensive skills and his performance during a recent NBA game. It details specific moves that contributed to his scoring midway through the second quarter.
+LaMelo Ball's offensive skills and his performance during a recent NBA game. It details specific moves that contributed to his scoring midway through the second quarter.
 
 Key Points:
 

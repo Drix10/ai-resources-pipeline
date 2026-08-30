@@ -1,6 +1,6 @@
 ### ✨ Creative AI - Photo Transformation
 
-This article explores a creative application that transforms casual phone photos into a miniature museum exhibit. It details how ordinary images can be presented in a unique artistic context, mimicking gallery displays with specialized lighting and informational plaques.
+Creative application that transforms casual phone photos into a miniature museum exhibit. It details how ordinary images can be presented in a unique artistic context, mimicking gallery displays with specialized lighting and informational plaques.
 
 Key Points:
 

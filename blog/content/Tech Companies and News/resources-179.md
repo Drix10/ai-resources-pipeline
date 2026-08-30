@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Asbestos Removal
 
-This article discusses the application of robots for asbestos removal tasks. It highlights the development of specialized robotic systems designed to operate in hazardous environments.
+Application of robots for asbestos removal tasks. It highlights the development of specialized robotic systems designed to operate in hazardous environments.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Investments - Angel Investing in Niantic
 
-This article details the investment strategy employed by Cyantist, an angel investor in Niantic Labs, leading to a significant return following Niantic's sale of its games division.
+Investment strategy employed by Cyantist, an angel investor in Niantic Labs, leading to a significant return following Niantic's sale of its games division.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Digital Rights - Free Speech and Censorship
 
-This article explores the ongoing debate surrounding online free speech and the extent to which government entities and technology companies influence digital expression. It discusses the necessity of an open internet for public discourse.
+Ongoing debate surrounding online free speech and the extent to which government entities and technology companies influence digital expression. It discusses the necessity of an open internet for public discourse.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Investment Philosophy - Market Volatility and Shareholding
 
-This article discusses Charlie Munger's perspective on investor temperament for common shareholders. It highlights the necessity of enduring significant market declines to achieve long-term investment success.
+Charlie Munger's perspective on investor temperament for common shareholders. It highlights the necessity of enduring significant market declines to achieve long-term investment success.
 
 Key Points:
 

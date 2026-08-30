@@ -1,6 +1,6 @@
 ### ✨ Basketball Play - Offensive Sequence
 
-This article details a fundamental offensive play sequence in basketball, breaking down the key actions involved from possession to scoring. It illustrates the progression of a successful scoring attempt.
+Fundamental offensive play sequence in basketball, breaking down the key actions involved from possession to scoring. It illustrates the progression of a successful scoring attempt.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Cricket Analysis - Elite Bowling Performance
 
-This article examines the exceptional performance of Jasprit Bumrah, highlighting a specific instance of his impactful bowling. It provides insights into consistent high-level athletic achievement.
+Exceptional performance of Jasprit Bumrah, highlighting a specific instance of his impactful bowling. It provides insights into consistent high-level athletic achievement.
 
 Key Points:
 

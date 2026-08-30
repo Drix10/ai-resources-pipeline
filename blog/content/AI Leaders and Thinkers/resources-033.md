@@ -1,6 +1,6 @@
 ### 🤖 Bias Correction in Dr. GRPO - Leave-One-Out Proximal Policy
 
-This article discusses a bias correction method for Dr. GRPO, a group-based policy optimization algorithm.  The correction addresses a bias more pronounced in smaller group sizes, leading to a more unbiased alternative called LOOP (Leave-One-Out Proximal Policy).
+Bias correction method for Dr. GRPO, a group-based policy optimization algorithm.  The correction addresses a bias more pronounced in smaller group sizes, leading to a more unbiased alternative called LOOP (Leave-One-Out Proximal Policy).
 
 Key Points:
 

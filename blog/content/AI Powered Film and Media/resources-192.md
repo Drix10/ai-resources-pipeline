@@ -1,6 +1,6 @@
 ### 🤖 India's AI Ambition - Accelerating Model Development
 
-This article discusses India's imperative to accelerate AI model development to compete globally. It highlights the perspective of a prominent AI industry leader regarding the nation's strategic focus on AI.
+India's imperative to accelerate AI model development to compete globally. It highlights the perspective of a prominent AI industry leader regarding the nation's strategic focus on AI.
 
 Key Points:
 

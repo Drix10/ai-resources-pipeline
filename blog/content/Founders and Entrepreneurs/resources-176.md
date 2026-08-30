@@ -1,6 +1,6 @@
 ### 💡 Live Podcast Recording - Engaging with MacGeekGab
 
-This article discusses the live recording of the MacGeekGab podcast, providing information on how to watch and participate in the discussion. It outlines the channels for live interaction during the broadcast.
+Live recording of the MacGeekGab podcast, providing information on how to watch and participate in the discussion. It outlines the channels for live interaction during the broadcast.
 
 Key Points:
 

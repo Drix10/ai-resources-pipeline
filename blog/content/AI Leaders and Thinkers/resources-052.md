@@ -1,6 +1,6 @@
 ### 🤖 Visa Issue in Singapore - Denied Entry Despite Valid Visa
 
-This article discusses a reported issue of visa denial upon arrival in Singapore despite possessing a valid multiple-entry visa and a valid US visa.  The individual had completed all prior application forms and received acknowledgement.
+Reported issue of visa denial upon arrival in Singapore despite possessing a valid multiple-entry visa and a valid US visa.  The individual had completed all prior application forms and received acknowledgement.
 
 Key Points:
 

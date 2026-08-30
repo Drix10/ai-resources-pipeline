@@ -1,6 +1,6 @@
 ### 🤖 AI Engineering World Fair - Gender Imbalance
 
-This article discusses observations made at the AI Engineering World Fair regarding the significant lack of female representation.  It also touches upon the potential impact of alternative marketing aesthetics on the field.
+Observations made at the AI Engineering World Fair regarding the significant lack of female representation.  It also touches upon the potential impact of alternative marketing aesthetics on the field.
 
 Key Points:
 

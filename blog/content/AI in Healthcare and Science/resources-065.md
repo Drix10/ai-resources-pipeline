@@ -1,6 +1,6 @@
 ### 🤖 Butterfly Network - Rapid Whole-Body Assessment
 
-This article discusses Butterfly Network's handheld ultrasound device, emphasizing its role in providing rapid whole-body assessments for timely diagnosis and treatment, particularly in emergency situations.
+Butterfly Network's handheld ultrasound device, emphasizing its role in providing rapid whole-body assessments for timely diagnosis and treatment, particularly in emergency situations.
 
 Key Points:
 

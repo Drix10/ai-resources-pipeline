@@ -1,6 +1,6 @@
 ### 🤖 Alzheimer's Disease - Early Detection Blood Test
 
-This article highlights a new study published in The Lancet, which suggests a blood test can identify signs of Alzheimer’s Disease decades before symptoms appear.
+New study published in The Lancet, which suggests a blood test can identify signs of Alzheimer’s Disease decades before symptoms appear.
 
 Key Points:
 

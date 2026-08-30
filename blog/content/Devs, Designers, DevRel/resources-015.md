@@ -1,6 +1,6 @@
 ### 🤖 Data Ethics - Anthropic AI Data Collection
 
-This article discusses concerns regarding Anthropic AI's data collection practices for its Computer Use API, specifically the lack of informed consent and opt-out options.  The subsequent use of this data to train an ethical classifier raises further ethical questions.
+Concerns regarding Anthropic AI's data collection practices for its Computer Use API, specifically the lack of informed consent and opt-out options.  The subsequent use of this data to train an ethical classifier raises further ethical questions.
 
 Key Points:
 

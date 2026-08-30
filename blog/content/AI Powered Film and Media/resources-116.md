@@ -1,6 +1,6 @@
 ### 🤖  India's Participation in UNGA - India Day 2025
 
-This article summarizes the participation of the Secretary, Ministry of Electronics and Information Technology, India, at India Day 2025 during the UN General Assembly.
+Participation of the Secretary, Ministry of Electronics and Information Technology, India, at India Day 2025 during the UN General Assembly.
 
 Key Points:
 

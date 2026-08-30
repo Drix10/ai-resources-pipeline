@@ -1,6 +1,6 @@
 ### 🚀 Snap Inc. - A Reality Event 2025
 
-This article summarizes key information about Snap Inc.'s presence at A Reality Event 2025, including keynotes and opportunities for attendees.
+Key information about Snap Inc.'s presence at A Reality Event 2025, including keynotes and opportunities for attendees.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 DevOps Hiring - Research Productivity
 
-This article outlines the qualities and skills sought in a DevOps engineer focused on research productivity and team velocity.  The primary success metric is the speed at which new features are deployed.
+Qualities and skills sought in a DevOps engineer focused on research productivity and team velocity.  The primary success metric is the speed at which new features are deployed.
 
 Key Points:
 

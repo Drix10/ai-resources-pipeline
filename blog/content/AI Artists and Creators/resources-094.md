@@ -1,6 +1,6 @@
 ### 🤖 Social Media - Unexpected Economic Impact
 
-This article discusses a fictional scenario where a minor celebrity's OnlyFans launch unexpectedly becomes the world's largest economy.  The article highlights the absurdity of the situation and the reactions from various entities.
+Fictional scenario where a minor celebrity's OnlyFans launch unexpectedly becomes the world's largest economy.  The article highlights the absurdity of the situation and the reactions from various entities.
 
 Key Points:
 

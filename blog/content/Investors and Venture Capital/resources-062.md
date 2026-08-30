@@ -1,6 +1,6 @@
 ### 💡 Education - Mississippi's Literacy Initiative
 
-This article discusses Mississippi's successful literacy initiative, which mandated grade repetition for fourth-graders unable to read proficiently.  The initiative led to a significant improvement in reading literacy rates among the state's lowest-performing students.
+Mississippi's successful literacy initiative, which mandated grade repetition for fourth-graders unable to read proficiently.  The initiative led to a significant improvement in reading literacy rates among the state's lowest-performing students.
 
 Key Points:
 

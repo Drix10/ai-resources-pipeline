@@ -1,6 +1,6 @@
 ### 🤖 AI Access - Subscription Limitations
 
-This article discusses the limitations of using personal AI subscriptions within other applications.  It explores why AI providers don't allow direct integration of existing subscriptions.
+Limitations of using personal AI subscriptions within other applications.  It explores why AI providers don't allow direct integration of existing subscriptions.
 
 Key Points:
 

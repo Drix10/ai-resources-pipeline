@@ -1,6 +1,6 @@
 ### 🤖 Amazon's Ocelot Quantum Computing Chip
 
-This article discusses Amazon's new Ocelot quantum computing chip, focusing on its design, qubit count, and potential impact on the field.  It highlights the chip's efficiency compared to competitors.
+Amazon's new Ocelot quantum computing chip, focusing on its design, qubit count, and potential impact on the field.  It highlights the chip's efficiency compared to competitors.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Animation Contest - Gamma Animation Contest
 
-This article details the rules for an animation contest using the Gamma animation software.  Participants must create an animation within Gamma, share it publicly, and include a specific hashtag.
+Rules for an animation contest using the Gamma animation software.  Participants must create an animation within Gamma, share it publicly, and include a specific hashtag.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Summarization - Video Content Processing with Grok
 
-This article covers the application of AI, specifically Grok, in summarizing extensive video content. It demonstrates how artificial intelligence can efficiently condense long-form media to provide quick insights.
+Application of AI, specifically Grok, in summarizing extensive video content. It demonstrates how artificial intelligence can efficiently condense long-form media to provide quick insights.
 
 Key Points:
 

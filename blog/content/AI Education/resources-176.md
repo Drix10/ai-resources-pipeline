@@ -1,6 +1,6 @@
 ### 💡 Prompt Engineering - Professional Prompting Techniques
 
-This article discusses the importance of effective prompt engineering and its impact on interacting with AI models. It covers fundamental aspects of crafting prompts to achieve desired outcomes.
+Importance of effective prompt engineering and its impact on interacting with AI models. It covers fundamental aspects of crafting prompts to achieve desired outcomes.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### ✨ Professional Journey - Passion and Career Integration
 
-This article highlights the journey of Vishwadeep Rao, a Nagarro Practice Lead, and his lifelong engagement with Bharatanatyam. It explores how personal passions can integrate with a professional career.
+Journey of Vishwadeep Rao, a Nagarro Practice Lead, and his lifelong engagement with Bharatanatyam. It explores how personal passions can integrate with a professional career.
 
 Key Points:
 

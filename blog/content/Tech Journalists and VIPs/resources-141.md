@@ -1,6 +1,6 @@
 ### 🤖 Quantum Computing - Qubit Automation and Scaling
 
-This article discusses the advancements in automating the tuning of quantum dots, which are fundamental to scalable quantum computing. It highlights the necessity of automation for developing future quantum processors with millions of qubits.
+Advancements in automating the tuning of quantum dots, which are fundamental to scalable quantum computing. It highlights the necessity of automation for developing future quantum processors with millions of qubits.
 
 Key Points:
 

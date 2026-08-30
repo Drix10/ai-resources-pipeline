@@ -1,6 +1,6 @@
 ### 💡 Public Safety in India - Regional Variations
 
-This article summarizes findings from the India Today Gross Domestic Behaviour (GDB) survey on public safety in India, highlighting significant regional disparities in perceived safety.  The survey reveals contrasting views on issues such as stray dogs and women's safety.
+Findings from the India Today Gross Domestic Behaviour (GDB) survey on public safety in India, highlighting significant regional disparities in perceived safety.  The survey reveals contrasting views on issues such as stray dogs and women's safety.
 
 Key Points:
 

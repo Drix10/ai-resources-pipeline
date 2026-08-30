@@ -1,6 +1,6 @@
 ### 🤖 Immersive Sound Design - Amadeus Code
 
-This article discusses the use of Amadeus Code's "Sound Effects" tool to create immersive soundscapes, specifically focusing on recreating the tension of a forbidden territory using only audio.
+Use of Amadeus Code's "Sound Effects" tool to create immersive soundscapes, specifically focusing on recreating the tension of a forbidden territory using only audio.
 
 Key Points:
 

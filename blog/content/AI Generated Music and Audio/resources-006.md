@@ -1,6 +1,6 @@
 ### 💡 Video Marketing -  A Six-Figure Strategy
 
-This article summarizes key takeaways from a webinar with a content creator who successfully built a six-figure YouTube business.  The webinar focuses on a video-first strategy for brand growth.
+Key takeaways from a webinar with a content creator who successfully built a six-figure YouTube business.  The webinar focuses on a video-first strategy for brand growth.
 
 
 Key Points:

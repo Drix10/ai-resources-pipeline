@@ -1,6 +1,6 @@
 ### 🚀 Tenderly - Website Redesign
 
-This article summarizes the redesign of the Tenderly website and highlights its key features.  The redesign aims to provide a comprehensive platform for blockchain development.
+Redesign of the Tenderly website and highlights its key features.  The redesign aims to provide a comprehensive platform for blockchain development.
 
 Key Points:
 

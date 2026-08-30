@@ -1,6 +1,6 @@
 ### 💡 Media Content - New Documentary Announcement
 
-This article discusses a new documentary announcement, presented with a suspenseful tone. It highlights the initial perception and the actual nature of the content.
+New documentary announcement, presented with a suspenseful tone. It highlights the initial perception and the actual nature of the content.
 
 Key Points:
 

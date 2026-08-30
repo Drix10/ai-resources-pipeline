@@ -1,6 +1,6 @@
 ### 💡 Market Trends - Reversal Indicator
 
-This article discusses a potential reversal in market trends, hinted at by recent observations. It aims to provide a concise overview of the noted movement.
+Potential reversal in market trends, hinted at by recent observations. It aims to provide a concise overview of the noted movement.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Legal Compliance - Department of Justice Transparency
 
-This article examines the divergence between the requirements of the Epstein Files Transparency Act and the Department of Justice's response regarding the disclosure of internal communications. It highlights the asserted privilege by the DOJ in withholding certain materials.
+Divergence between the requirements of the Epstein Files Transparency Act and the Department of Justice's response regarding the disclosure of internal communications. It highlights the asserted privilege by the DOJ in withholding certain materials.
 
 Key Points:
 

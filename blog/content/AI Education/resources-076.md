@@ -1,6 +1,6 @@
 ### 🚀 Video Translation - Descript Integration
 
-This article discusses the video translation feature within Descript, highlighting its ease of use and the number of languages supported.
+Video translation feature within Descript, highlighting its ease of use and the number of languages supported.
 
 Key Points:
 

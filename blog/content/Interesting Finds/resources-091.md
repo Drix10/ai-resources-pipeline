@@ -1,6 +1,6 @@
 ### 💡 Social Commentary - Naivete Regarding Budget Allocation
 
-This article discusses a critique of a person's naive understanding of how large budgets are used to spread influence.  The author argues for a greater awareness of this dynamic.
+Critique of a person's naive understanding of how large budgets are used to spread influence.  The author argues for a greater awareness of this dynamic.
 
 Key Points:
 

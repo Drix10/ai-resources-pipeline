@@ -1,6 +1,6 @@
 ### 🤖 Generative AI - Game Industry Perception
 
-This article discusses recent findings from the GDC survey regarding generative AI in the game development industry. It highlights developer sentiments and adoption rates of AI tools across different roles.
+Recent findings from the GDC survey regarding generative AI in the game development industry. It highlights developer sentiments and adoption rates of AI tools across different roles.
 
 Key Points:
 

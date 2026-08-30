@@ -1,6 +1,6 @@
 ### 🤖 Network Connectivity - Troubleshooting Persistent Reconnections
 
-This article discusses common issues leading to persistent "reconnecting forever" messages in applications, exploring the underlying causes and potential user-side troubleshooting steps. It aims to provide clarity on such connectivity challenges.
+Common issues leading to persistent "reconnecting forever" messages in applications, exploring the underlying causes and potential user-side troubleshooting steps. It aims to provide clarity on such connectivity challenges.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Voice AI - VapiCon 2024
 
-This article summarizes key information about VapiCon 2024, a voice AI event featuring prominent figures in the industry.  It highlights speakers and the event's focus on the intersection of voice, code, and product development.
+Key information about VapiCon 2024, a voice AI event featuring prominent figures in the industry.  It highlights speakers and the event's focus on the intersection of voice, code, and product development.
 
 Key Points:
 

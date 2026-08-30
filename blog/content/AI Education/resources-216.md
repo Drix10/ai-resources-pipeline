@@ -1,6 +1,6 @@
 ### ✨ Custom Chatbots - MagicSchool AI Integration
 
-This article details the implementation of custom chatbots powered by MagicSchool AI. It highlights their utility in educational settings, enhancing interactive learning experiences.
+Implementation of custom chatbots powered by MagicSchool AI. It highlights their utility in educational settings, enhancing interactive learning experiences.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Reverse Engineering - Kormani Code
 
-This article explores the concept of "Kormani Code," a term often associated with specific coding styles or obfuscation techniques encountered in reverse engineering and security analysis. It touches upon the characteristics and implications of such code in technical contexts.
+Concept of "Kormani Code," a term often associated with specific coding styles or obfuscation techniques encountered in reverse engineering and security analysis. It touches upon the characteristics and implications of such code in technical contexts.
 
 Key Points:
 

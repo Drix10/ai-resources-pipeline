@@ -1,6 +1,6 @@
 ### 💡 Political Discourse - January 6th Legal Context
 
-This article discusses a segment of political commentary regarding legal actions related to the January 6th events. It highlights a question about the perceived disparity in charging decisions. The discussion points to the ongoing public debate surrounding these legal proceedings.
+Segment of political commentary regarding legal actions related to the January 6th events. It highlights a question about the perceived disparity in charging decisions. The discussion points to the ongoing public debate surrounding these legal proceedings.
 
 Key Points:
 

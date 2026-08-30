@@ -1,6 +1,6 @@
 ### 🤖 AI Alignment - Mitigating Emergent Misalignment
 
-This article discusses a research paper on techniques for reducing emergent misalignment during AI fine-tuning, highlighting the trade-off between mitigating misalignment and preserving learning capacity.
+Research paper on techniques for reducing emergent misalignment during AI fine-tuning, highlighting the trade-off between mitigating misalignment and preserving learning capacity.
 
 Key Points:
 

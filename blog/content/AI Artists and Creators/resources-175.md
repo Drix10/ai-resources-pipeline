@@ -1,6 +1,6 @@
 ### ✨ AI Creativity - Digital Art & Community
 
-This article discusses the use of AI tools for creative expression and generating unique digital art. It highlights how platforms facilitate artistic endeavors through AI.
+Use of AI tools for creative expression and generating unique digital art. It highlights how platforms facilitate artistic endeavors through AI.
 
 Key Points:
 

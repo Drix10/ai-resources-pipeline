@@ -1,6 +1,6 @@
 ### 🤖 AI-Assisted Art Creation - Banana Gundam Project
 
-This article details the creation process of a "Banana Gundam" artwork using various AI tools for image generation and sound design.  The process leverages different AI tools for distinct aspects of the artwork.
+Creation process of a "Banana Gundam" artwork using various AI tools for image generation and sound design.  The process leverages different AI tools for distinct aspects of the artwork.
 
 Key Points:
 

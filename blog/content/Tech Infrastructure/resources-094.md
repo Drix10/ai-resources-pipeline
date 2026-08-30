@@ -1,6 +1,6 @@
 ### 🚀 AI Tools - DigitalOcean Gradient AI
 
-This article covers DigitalOcean Gradient AI, a suite of tools for building and deploying AI applications.  It provides an overview of its capabilities for both foundational model development and integration into existing workflows.
+DigitalOcean Gradient AI, a suite of tools for building and deploying AI applications.  It provides an overview of its capabilities for both foundational model development and integration into existing workflows.
 
 Key Points:
 

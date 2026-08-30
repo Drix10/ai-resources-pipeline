@@ -1,6 +1,6 @@
 ### 💡 Women in CRE - Data-Driven Investment Platforms
 
-This article discusses opportunities for women in commercial real estate (CRE) and highlights the role of data-driven investment and advisory platforms.  Crexi Intelligence is presented as a tool supporting this trend.
+Opportunities for women in commercial real estate (CRE) and highlights the role of data-driven investment and advisory platforms.  Crexi Intelligence is presented as a tool supporting this trend.
 
 Key Points:
 

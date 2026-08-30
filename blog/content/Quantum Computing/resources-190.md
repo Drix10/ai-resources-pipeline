@@ -1,6 +1,6 @@
 ### 🤖 AI in Science - Peer Review Costs
 
-This article discusses the rising costs of scientific peer review in the era of AI and explores the need to restructure scientific methodologies. The proliferation of AI-generated content challenges traditional publishing processes.
+Rising costs of scientific peer review in the era of AI and explores the need to restructure scientific methodologies. The proliferation of AI-generated content challenges traditional publishing processes.
 
 Key Points:
 

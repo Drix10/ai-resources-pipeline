@@ -1,6 +1,6 @@
 ### 💡 Global Commerce - Maritime Shipping Investment
 
-This article highlights the critical role of maritime shipping in global commerce and supply chains, while also discussing the historical inaccessibility of this sector to everyday investors.
+Critical role of maritime shipping in global commerce and supply chains, while also discussing the historical inaccessibility of this sector to everyday investors.
 
 Key Points:
 

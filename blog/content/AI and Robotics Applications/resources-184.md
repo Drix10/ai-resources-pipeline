@@ -1,6 +1,6 @@
 ### 🤖 Robotic Dynamics - Lie Group Formulation
 
-This article examines a novel Lie Group formulation for recursive dynamics algorithms. It focuses on higher-order representations for floating-base robots, offering an advanced approach to motion modeling.
+Novel Lie Group formulation for recursive dynamics algorithms. It focuses on higher-order representations for floating-base robots, offering an advanced approach to motion modeling.
 
 Key Points:
 

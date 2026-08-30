@@ -1,6 +1,6 @@
 ### 🤖 AI in Oncology - Predicting TNBC Poll Responses
 
-This article outlines how leading AI models were used to simulate oncologist poll responses concerning Triple-negative breast cancer (TNBC). The predictions were then compared against actual survey results to evaluate their accuracy and applicability in medical forecasting.
+Leading AI models were used to simulate oncologist poll responses concerning Triple-negative breast cancer (TNBC). The predictions were then compared against actual survey results to evaluate their accuracy and applicability in medical forecasting.
 
 Key Points:
 

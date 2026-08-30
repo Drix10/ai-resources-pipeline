@@ -1,6 +1,6 @@
 ### ✨ Digital Marketing - Sports Partnerships
 
-This article discusses the collaboration between WhatsApp, Facebook, and Arsenal Football Club. It highlights their joint initiative to celebrate fan engagement through digital group chats.
+Collaboration between WhatsApp, Facebook, and Arsenal Football Club. It highlights their joint initiative to celebrate fan engagement through digital group chats.
 
 Key Points:
 

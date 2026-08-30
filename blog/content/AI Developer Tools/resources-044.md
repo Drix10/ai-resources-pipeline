@@ -1,6 +1,6 @@
 ### ✨ Event Recap - Novita Labs Success
 
-This article summarizes a successful event hosted by Novita Labs, highlighting participant achievements and expressing gratitude to the host.
+Successful event hosted by Novita Labs, highlighting participant achievements and expressing gratitude to the host.
 
 
 Key Points:

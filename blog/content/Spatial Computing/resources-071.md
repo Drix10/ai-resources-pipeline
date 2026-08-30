@@ -1,6 +1,6 @@
 ### 🚀 Mobile Game Development - Judge's Choice Awards
 
-This article highlights the winners of the $1M Mobile Genre Showdown's Judge's Choice Awards, showcasing innovative mobile game creations that blend genres and enhance gameplay.  Winners can be found via the provided link.
+Winners of the $1M Mobile Genre Showdown's Judge's Choice Awards, showcasing innovative mobile game creations that blend genres and enhance gameplay.  Winners can be found via the provided link.
 
 Key Points:
 

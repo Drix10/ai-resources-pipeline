@@ -1,6 +1,6 @@
 ### 🤖 Agentic AI - Impact on Industries
 
-This article discusses the rise of agentic AI, its definition, and its potential impact on software development and customer service.  It also explores the emergence of autonomous AI tools.
+Rise of agentic AI, its definition, and its potential impact on software development and customer service.  It also explores the emergence of autonomous AI tools.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Renewable Energy - Intermittency Challenges
 
-This article discusses the inherent challenge of intermittency in solar and wind power generation. It explores the necessity of backup energy sources to ensure grid stability and reliable energy supply.
+Inherent challenge of intermittency in solar and wind power generation. It explores the necessity of backup energy sources to ensure grid stability and reliable energy supply.
 
 Key Points:
 

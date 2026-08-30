@@ -1,6 +1,6 @@
 ### 📈 Cryptocurrency - TROLL Price Drop
 
-This article discusses a significant drop in the price of the cryptocurrency TROLL, from 260 million to 140 million, and the author's reaction to this event.
+Significant drop in the price of the cryptocurrency TROLL, from 260 million to 140 million, and the author's reaction to this event.
 
 Key Points:
 

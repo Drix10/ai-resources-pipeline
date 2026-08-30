@@ -1,6 +1,6 @@
 ### 😡 Political Commentary - UK Immigration and Human Rights
 
-This article summarizes a Twitter thread expressing strong criticism of the UK government's immigration policies, particularly concerning the prioritization of illegal migrants over the safety of British citizens.  The thread calls for the removal of the current government and repeal of the Human Rights Act.
+Twitter thread expressing strong criticism of the UK government's immigration policies, particularly concerning the prioritization of illegal migrants over the safety of British citizens.  The thread calls for the removal of the current government and repeal of the Human Rights Act.
 
 Key Points:
 

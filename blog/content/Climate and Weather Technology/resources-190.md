@@ -1,6 +1,6 @@
 ### 🤖 Weather Forecasting - Severe Storm Prediction
 
-This article discusses the forecast for severe weather in southeastern Saskatchewan, specifically highlighting the potential for intense supercells, large hail, and tornadoes. It details the targeted zone and the expected timeframe for these significant weather events.
+Forecast for severe weather in southeastern Saskatchewan, specifically highlighting the potential for intense supercells, large hail, and tornadoes. It details the targeted zone and the expected timeframe for these significant weather events.
 
 Key Points:
 

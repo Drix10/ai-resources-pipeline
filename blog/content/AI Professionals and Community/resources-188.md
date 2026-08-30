@@ -1,6 +1,6 @@
 ### 💡 Political Analysis - Alleged Russian Influence
 
-This article discusses public concerns regarding political appointments and potential foreign lobbying efforts within the government. It highlights perceptions of increasing influence from specific foreign entities.
+Public concerns regarding political appointments and potential foreign lobbying efforts within the government. It highlights perceptions of increasing influence from specific foreign entities.
 
 Key Points:
 

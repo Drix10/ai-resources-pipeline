@@ -1,6 +1,6 @@
 ### 💡 Business Strategy - Salesforce Disruption
 
-This article discusses how market incumbents like Salesforce are disrupted not by direct competition, but by sideways innovation that changes industry paradigms. It explores how new approaches can negate the need for existing solutions.
+Market incumbents like Salesforce are disrupted not by direct competition, but by sideways innovation that changes industry paradigms. It explores how new approaches can negate the need for existing solutions.
 
 Key Points:
 

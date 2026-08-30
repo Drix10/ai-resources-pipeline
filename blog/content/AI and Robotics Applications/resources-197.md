@@ -1,6 +1,6 @@
 ### 🤖 Computer Vision - Bitter Lessons Workshop
 
-This article details the upcoming workshop at CVPR 2026, focusing on "Bitter Lessons in Computer Vision." It aims to foster community discussion around challenges and insights from past experiences in the field.
+Upcoming workshop at CVPR 2026, focusing on "Bitter Lessons in Computer Vision." It aims to foster community discussion around challenges and insights from past experiences in the field.
 
 Key Points:
 

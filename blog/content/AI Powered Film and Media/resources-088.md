@@ -1,6 +1,6 @@
 ### 🎬 Filmmaking - Madeira Island Story
 
-This article discusses two upcoming films and a story about a Madeira island, allegedly off-limits due to a wolf spider infestation.
+Two upcoming films and a story about a Madeira island, allegedly off-limits due to a wolf spider infestation.
 
 Key Points:
 

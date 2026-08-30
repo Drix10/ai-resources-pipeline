@@ -1,6 +1,6 @@
 ### ✨ WNBA - Georgia Amoore Debut
 
-This article highlights Georgia Amoore's impactful debut game with the Washington Mystics during the WNBA Tip-Off 2026. It focuses on her performance and the significance of her first appearance.
+Georgia Amoore's impactful debut game with the Washington Mystics during the WNBA Tip-Off 2026. It focuses on her performance and the significance of her first appearance.
 
 Key Points:
 

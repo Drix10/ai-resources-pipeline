@@ -1,6 +1,6 @@
 ### 💡 Political Program Analysis - Legal and Economic Feasibility
 
-This article outlines an analysis of a political program's proposals, evaluating their feasibility against established legal frameworks and economic realities. It examines key claims related to expulsions, public savings, and asylum rights.
+Analysis of a political program's proposals, evaluating their feasibility against established legal frameworks and economic realities. It examines key claims related to expulsions, public savings, and asylum rights.
 
 Key Points:
 

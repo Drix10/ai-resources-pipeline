@@ -1,6 +1,6 @@
 ### 🤖 AI Music Generation - Evoke Music's AI
 
-This article discusses Evoke Music's new AI tool for music creation, highlighting its features and benefits for overcoming creative blocks and enhancing game sound design.
+Evoke Music's new AI tool for music creation, highlighting its features and benefits for overcoming creative blocks and enhancing game sound design.
 
 
 Key Points:

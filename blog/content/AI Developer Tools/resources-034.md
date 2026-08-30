@@ -1,6 +1,6 @@
 ### 🤖 AI and Free Speech - Control over Thought
 
-This article discusses the implications of large language models and the filtering of AI-generated content, focusing on the tension between free expression and control.  It examines the potential for AI to control the generation of thoughts.
+Implications of large language models and the filtering of AI-generated content, focusing on the tension between free expression and control.  It examines the potential for AI to control the generation of thoughts.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Cybersecurity - Bybit Multisig Compromise
 
-This article discusses a targeted attack compromising all devices of Bybit signers.  The incident is isolated and poses no risk to other multisigs.
+Targeted attack compromising all devices of Bybit signers.  The incident is isolated and poses no risk to other multisigs.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Public Safety - AI Reimagination
 
-This article summarizes Axon CEO Rick's vision for using AI to improve public safety, as presented at AI WEEK 2025 in Milan.  His speech focused on enhancing operational efficiency and effectiveness within public safety organizations.
+Axon CEO Rick's vision for using AI to improve public safety, as presented at AI WEEK 2025 in Milan.  His speech focused on enhancing operational efficiency and effectiveness within public safety organizations.
 
 
 Key Points:

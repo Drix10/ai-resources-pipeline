@@ -1,6 +1,6 @@
 ### 🤖 OpenAI's Future - Large Language Model Computing
 
-This article discusses OpenAI's current focus on securing computing capacity for its own operations and its potential future plans regarding providing such capacity to others.  The statement suggests a potential future business model but not an immediate priority.
+OpenAI's current focus on securing computing capacity for its own operations and its potential future plans regarding providing such capacity to others.  The statement suggests a potential future business model but not an immediate priority.
 
 
 Key Points:

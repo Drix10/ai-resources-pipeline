@@ -1,6 +1,6 @@
 ### ✨ AI Design - GPT Image 2 Capabilities
 
-This article outlines the significant advancements introduced by GPT Image 2 in the field of design creation. It explains how this technology enables comprehensive campaign generation from a single prompt, integrated within the Lovart platform.
+Significant advancements introduced by GPT Image 2 in the field of design creation. It explains how this technology enables comprehensive campaign generation from a single prompt, integrated within the Lovart platform.
 
 Key Points:
 

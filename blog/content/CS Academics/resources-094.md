@@ -1,6 +1,6 @@
 ### 🤖 Ethical Considerations in Project Collaboration
 
-This article discusses ethical concerns related to project participation, specifically addressing issues like surveillance, collusion, and extortion.  It highlights the importance of ethical conduct in collaborative projects.
+Ethical concerns related to project participation, specifically addressing issues like surveillance, collusion, and extortion.  It highlights the importance of ethical conduct in collaborative projects.
 
 Key Points:
 

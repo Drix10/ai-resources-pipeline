@@ -1,6 +1,6 @@
 ### 🤖 AI Events - Community Meetup
 
-This article details an upcoming community event combining an AI meetup with a speed chess tournament in Williamsburg. It provides information on participating organizations and how to register.
+Upcoming community event combining an AI meetup with a speed chess tournament in Williamsburg. It provides information on participating organizations and how to register.
 
 Key Points:
 

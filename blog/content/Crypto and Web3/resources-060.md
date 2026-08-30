@@ -1,6 +1,6 @@
 ### 💡 Market Trends - Labubu Dolls
 
-This article discusses the author's perspective on the Labubu doll trend, noting its duration and mixed reception.  The author also comments on perceived weaknesses in the market strategy.
+Author's perspective on the Labubu doll trend, noting its duration and mixed reception.  The author also comments on perceived weaknesses in the market strategy.
 
 Key Points:
 

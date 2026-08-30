@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Task Automation
 
-This article discusses the evolving role of AI from answering questions to directly performing tasks. It highlights the shift where AI agents execute actions, with human oversight primarily for final approval.
+Evolving role of AI from answering questions to directly performing tasks. It highlights the shift where AI agents execute actions, with human oversight primarily for final approval.
 
 Key Points:
 

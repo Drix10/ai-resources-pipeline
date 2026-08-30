@@ -1,6 +1,6 @@
 ### 🤖 Drone Project - ROS Driver Development
 
-This article details the challenges encountered while developing a ROS driver for DJI drones, specifically the necessity for reverse engineering due to the unavailability of open-source drivers.
+Challenges encountered while developing a ROS driver for DJI drones, specifically the necessity for reverse engineering due to the unavailability of open-source drivers.
 
 Key Points:
 

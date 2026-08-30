@@ -1,6 +1,6 @@
 ### 💡 Startup Team Building - AI Era Dynamics
 
-This article discusses the evolving approach to building startup teams, particularly in the artificial intelligence sector. It highlights how traditional playbooks for hiring the first 100 employees have fundamentally changed.
+Evolving approach to building startup teams, particularly in the artificial intelligence sector. It highlights how traditional playbooks for hiring the first 100 employees have fundamentally changed.
 
 Key Points:
 

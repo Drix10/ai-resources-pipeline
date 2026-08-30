@@ -1,6 +1,6 @@
 ### 🤖 AI-Augmented Auditory Perception
 
-This article discusses Professor Gollakota's research on using AI to enhance human auditory perception, focusing on AI's ability to isolate, spatially contextualize, and manipulate sounds for the listener.
+Professor Gollakota's research on using AI to enhance human auditory perception, focusing on AI's ability to isolate, spatially contextualize, and manipulate sounds for the listener.
 
 Key Points:
 

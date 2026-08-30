@@ -1,6 +1,6 @@
 ### 💡 Weather Phenomenon - Thundersnow in New York
 
-This article outlines a significant weather event involving lake-effect snow, thundersnow, and snow lightning across western New York on New Year’s Eve. Meteorologist Justin Michaels provides an explanation of this rare spectacle.
+Significant weather event involving lake-effect snow, thundersnow, and snow lightning across western New York on New Year’s Eve. Meteorologist Justin Michaels provides an explanation of this rare spectacle.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Historical Engineering - Sutro Baths Revitalization Concept
 
-This article explores a conceptual proposal for resurrecting the historic Sutro Baths, focusing on adaptive reuse for unique recreational activities like indoor trireme battles. It considers the potential for repurposing historical infrastructure for modern entertainment.
+Conceptual proposal for resurrecting the historic Sutro Baths, focusing on adaptive reuse for unique recreational activities like indoor trireme battles. It considers the potential for repurposing historical infrastructure for modern entertainment.
 
 Key Points:
 

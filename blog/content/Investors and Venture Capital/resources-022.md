@@ -1,6 +1,6 @@
 ### 🤖 India - Political Commentary
 
-This article summarizes observations on Indian politics, focusing on criticism of the Prime Minister and concerns regarding the disappearance of an individual.
+Observations on Indian politics, focusing on criticism of the Prime Minister and concerns regarding the disappearance of an individual.
 
 Key Points:
 

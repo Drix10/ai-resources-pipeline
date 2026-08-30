@@ -1,6 +1,6 @@
 ### 🤖 History - USS Missouri Plaque
 
-This article details the creation of a new plaque for the USS Missouri, using pennies donated by former crew members.  The original plaque had become too worn.
+Creation of a new plaque for the USS Missouri, using pennies donated by former crew members.  The original plaque had become too worn.
 
 
 Key Points:

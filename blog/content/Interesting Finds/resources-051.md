@@ -1,6 +1,6 @@
 ### 🤖 Cancer Evolution - Thermal Set Point
 
-This article discusses the observation that tumors may adapt to lower thermal set points during evolution, impacting cancer treatment strategies.  The high cost of cancer's rapid evolution is also highlighted.
+Observation that tumors may adapt to lower thermal set points during evolution, impacting cancer treatment strategies.  The high cost of cancer's rapid evolution is also highlighted.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💣 Geopolitics - Israel-Iran Conflict
 
-This article summarizes a former CIA officer's assessment of the Israeli strikes on Iranian targets as a series of assassinations and an act of war.  The post includes images related to the event.
+Former CIA officer's assessment of the Israeli strikes on Iranian targets as a series of assassinations and an act of war.  The post includes images related to the event.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Autonomous Vehicles - Real-World Operations
 
-This article examines incidents involving autonomous vehicles, highlighting public perception and specific operational behaviors. It details an event where an autonomous vehicle facilitated a police interaction.
+Incidents involving autonomous vehicles, highlighting public perception and specific operational behaviors. It details an event where an autonomous vehicle facilitated a police interaction.
 
 Key Points:
 • Public perception of autonomous vehicle security influences adoption.

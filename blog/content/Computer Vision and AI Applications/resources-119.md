@@ -1,6 +1,6 @@
 ### ✨ Scientific Career - Recognition and Collaborations
 
-This article highlights the significant academic achievements throughout a scientific career, emphasizing the importance of long-standing collaborations and external recognition. It acknowledges the dedication and contributions that lead to multiple prestigious awards and participation in key industry events.
+Significant academic achievements throughout a scientific career, emphasizing the importance of long-standing collaborations and external recognition. It acknowledges the dedication and contributions that lead to multiple prestigious awards and participation in key industry events.
 
 Key Points:
 

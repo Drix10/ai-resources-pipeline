@@ -1,6 +1,6 @@
 ### 🤖 SiftHub - Positive User Feedback
 
-This article summarizes positive user feedback regarding SiftHub, highlighting its value and widespread adoption within an organization.  The feedback comes from Congruent Solutions' Chief Revenue Officer.
+Positive user feedback regarding SiftHub, highlighting its value and widespread adoption within an organization.  The feedback comes from Congruent Solutions' Chief Revenue Officer.
 
 Key Points:
 

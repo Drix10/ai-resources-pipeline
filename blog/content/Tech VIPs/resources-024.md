@@ -1,6 +1,6 @@
 ### 🤖 AI Tools - ManusAI Capabilities
 
-This article discusses the capabilities of ManusAI, highlighting its unique approach to document recreation compared to other AI writing tools.
+Capabilities of ManusAI, highlighting its unique approach to document recreation compared to other AI writing tools.
 
 Key Points:
 

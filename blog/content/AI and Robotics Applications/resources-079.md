@@ -1,6 +1,6 @@
 ### 🤖 Sim2Real - Accessible Zero-Shot Project Reproduction
 
-This article discusses the successful reproduction of an accessible zero-shot sim2real project, highlighting its training process and real-world deployment.  The project leverages ManiSkill for training and demonstrates the challenges and rewards of sim2real transfer.
+Successful reproduction of an accessible zero-shot sim2real project, highlighting its training process and real-world deployment.  The project leverages ManiSkill for training and demonstrates the challenges and rewards of sim2real transfer.
 
 
 Key Points:

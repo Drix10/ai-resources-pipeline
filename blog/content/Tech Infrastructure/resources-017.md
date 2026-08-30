@@ -1,6 +1,6 @@
 ### 🤖 Political Commentary - Funding Ineffective Resistance
 
-This article discusses a commentary on the funding of a political movement deemed ineffective.  The author criticizes the financial allocation and its perceived lack of results.
+Commentary on the funding of a political movement deemed ineffective.  The author criticizes the financial allocation and its perceived lack of results.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 🚀 AI Art Tools - Kaiber AI's Film Superstudio Pro
 
-This article provides an overview of Kaiber AI's Film Superstudio Pro, a node-based canvas for AI-assisted video creation.  It highlights its capabilities and workflow.
+Kaiber AI's Film Superstudio Pro, a node-based canvas for AI-assisted video creation.  It highlights its capabilities and workflow.
 
 Key Points:
 

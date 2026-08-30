@@ -1,6 +1,6 @@
 ### 🚀 Tesla Infrastructure - Supercharger Network Expansion
 
-This article details the opening of a new Tesla Supercharger station in Anaheim, California. It provides information on the expanded charging capabilities for Tesla vehicle owners.
+Opening of a new Tesla Supercharger station in Anaheim, California. It provides information on the expanded charging capabilities for Tesla vehicle owners.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Communication - The Importance of Listening
 
-This article discusses the evolutionary basis of human communication, highlighting the significance of listening skills in social interaction and survival.  A quote from Cliff Weitzman, founder of SpeechifyAI, emphasizes the importance of listening.
+Evolutionary basis of human communication, highlighting the significance of listening skills in social interaction and survival.  A quote from Cliff Weitzman, founder of SpeechifyAI, emphasizes the importance of listening.
 
 
 Key Points:

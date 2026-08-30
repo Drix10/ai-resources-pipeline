@@ -1,6 +1,6 @@
 ### 🤖 AI Voice Technology - ElevenLabs on Google Cloud
 
-This article discusses the partnership between ElevenLabs and Google Cloud, enabling the deployment of human-like voices at scale using Google Cloud's infrastructure and Gemini 2.0 Flash.
+Partnership between ElevenLabs and Google Cloud, enabling the deployment of human-like voices at scale using Google Cloud's infrastructure and Gemini 2.0 Flash.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 🚀 VMware Cloud Foundation - Self-Service Private Cloud with VCF 9.1
 
-This article details how VMware Cloud Foundation 9.1, powered by Broadcom, empowers organizations to accelerate, streamline, and gain greater control over their self-service private cloud environments. It highlights key capabilities for modern hybrid cloud operations.
+VMware Cloud Foundation 9.1, powered by Broadcom, empowers organizations to accelerate, streamline, and gain greater control over their self-service private cloud environments. It highlights key capabilities for modern hybrid cloud operations.
 
 Key Points:
 

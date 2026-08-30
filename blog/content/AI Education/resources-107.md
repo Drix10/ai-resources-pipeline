@@ -1,6 +1,6 @@
 ### 🤖 Social Media Analysis - Twitter Usage
 
-This article summarizes a research paper exploring the multifaceted uses of social media platforms, particularly Twitter, highlighting both its benefits and potential drawbacks.  The focus is on understanding how individuals utilize this platform.
+Research paper exploring the multifaceted uses of social media platforms, particularly Twitter, highlighting both its benefits and potential drawbacks.  The focus is on understanding how individuals utilize this platform.
 
 Key Points:
 

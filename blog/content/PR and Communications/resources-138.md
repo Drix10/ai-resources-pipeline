@@ -1,6 +1,6 @@
 ### 🤖 AI Answer Engines - Ad Targeting Integration
 
-This article discusses Yahoo Scout, an AI answer engine currently in beta. It outlines how this platform is designed to leverage user data for enhanced ad targeting.
+Yahoo Scout, an AI answer engine currently in beta. It outlines how this platform is designed to leverage user data for enhanced ad targeting.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 Partnerships - Jio and Polygon in India
 
-This article discusses the partnership between Reliance Jio and Polygon, focusing on its potential to expand blockchain accessibility in India.
+Partnership between Reliance Jio and Polygon, focusing on its potential to expand blockchain accessibility in India.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Models - GPT-5.6 Early Capabilities
 
-This article summarizes early observations regarding GPT-5.6. It highlights specific improvements in model performance and internal processing.
+Early observations regarding GPT-5.6. It highlights specific improvements in model performance and internal processing.
 
 Key Points:
 • GPT-5.6 demonstrates increased persistence, completing tasks without interruption.

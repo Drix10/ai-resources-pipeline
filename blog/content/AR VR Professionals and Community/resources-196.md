@@ -1,6 +1,6 @@
 ### 🚀 Gaming Technology - MSFS24 PSVR2 Visual Update
 
-This article discusses the visual enhancements in the MSFS24 PSVR2 Beta update. It highlights the improved clarity addressing previous blurriness concerns.
+Visual enhancements in the MSFS24 PSVR2 Beta update. It highlights the improved clarity addressing previous blurriness concerns.
 
 Key Points:
 • MSFS24 PSVR2 Beta received a visual update.

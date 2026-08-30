@@ -1,6 +1,6 @@
 ### 💡 Personal Productivity - Goal Setting
 
-This article discusses the importance of focus and commitment towards achieving significant personal or professional goals. It emphasizes the need to prioritize efforts for impactful outcomes.
+Importance of focus and commitment towards achieving significant personal or professional goals. It emphasizes the need to prioritize efforts for impactful outcomes.
 
 Key Points:
 

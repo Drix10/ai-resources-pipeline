@@ -1,6 +1,6 @@
 ### 🚀 Tools - AI-Powered Landing Page Creation
 
-This article details the use of GPT-4, Midjourney, and Polymetai to create a landing page hero section.  The process involved using GPT-4 for concept shaping, Midjourney for video creation, and Polymetai for page development. Results were close to expectations.
+Use of GPT-4, Midjourney, and Polymetai to create a landing page hero section.  The process involved using GPT-4 for concept shaping, Midjourney for video creation, and Polymetai for page development. Results were close to expectations.
 
 
 Key Points:

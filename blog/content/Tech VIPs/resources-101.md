@@ -1,6 +1,6 @@
 ### 💡 Urban Planning - Homeless Encampments
 
-This article discusses the prevalence of homeless encampments in major cities and the approaches taken by city leaders.  It analyzes the effectiveness of past strategies and highlights the need for comprehensive solutions.
+Prevalence of homeless encampments in major cities and the approaches taken by city leaders.  It analyzes the effectiveness of past strategies and highlights the need for comprehensive solutions.
 
 Key Points:
 

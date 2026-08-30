@@ -1,6 +1,6 @@
 ### 🤖 GPU Acceleration - Flux on H100s
 
-This article details a method for accelerating Flux operations on H100 GPUs using the `flux-fast` recipe.  The method offers a significant performance improvement.
+Method for accelerating Flux operations on H100 GPUs using the `flux-fast` recipe.  The method offers a significant performance improvement.
 
 Key Points:
 

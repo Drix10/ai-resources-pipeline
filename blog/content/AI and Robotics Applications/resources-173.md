@@ -1,6 +1,6 @@
 ### 💡 Southern Poverty Law Center - Allegations of Misconduct
 
-This article discusses serious allegations concerning the Southern Poverty Law Center, specifically regarding claims of defrauding donors and funding groups it ostensibly opposed. It examines the nature of these accusations as reported.
+Serious allegations concerning the Southern Poverty Law Center, specifically regarding claims of defrauding donors and funding groups it ostensibly opposed. It examines the nature of these accusations as reported.
 
 Key Points:
 

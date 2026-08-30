@@ -1,6 +1,6 @@
 ### 💡 Energy Crisis - Cuba's Power Grid Failures
 
-This article discusses the recent power outages in Cuba, highlighting the frequency of nationwide electrical failures. It provides context on the challenges faced by the country's energy infrastructure.
+Recent power outages in Cuba, highlighting the frequency of nationwide electrical failures. It provides context on the challenges faced by the country's energy infrastructure.
 
 Key Points:
 

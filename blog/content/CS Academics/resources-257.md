@@ -1,6 +1,6 @@
 ### 🤖 Network Monitoring - Proactive Health for Meraki
 
-This article discusses methods for identifying branch network issues before they impact users. It contrasts reactive monitoring with a proactive approach to maintain service health in Meraki networks.
+Methods for identifying branch network issues before they impact users. It contrasts reactive monitoring with a proactive approach to maintain service health in Meraki networks.
 
 Key Points:
 

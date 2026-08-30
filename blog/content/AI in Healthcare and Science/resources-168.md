@@ -1,6 +1,6 @@
 ### 🚀 Medical Tools - Point-of-Care Ultrasound with Butterfly iQ3
 
-This article discusses the utility of Butterfly iQ3, a point-of-care ultrasound device. It highlights the widespread applicability of POCUS in various medical settings.
+Utility of Butterfly iQ3, a point-of-care ultrasound device. It highlights the widespread applicability of POCUS in various medical settings.
 
 Key Points:
 

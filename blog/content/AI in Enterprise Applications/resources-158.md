@@ -1,6 +1,6 @@
 ### 🤖 AI Orchestration - Mitigating Business Silos
 
-This article discusses the inherent risks of perfect workers operating with imperfect information, emphasizing how siloed optimization can fragment business objectives. It introduces Frontal as a solution for achieving true autonomy through centralized orchestration.
+Inherent risks of perfect workers operating with imperfect information, emphasizing how siloed optimization can fragment business objectives. It introduces Frontal as a solution for achieving true autonomy through centralized orchestration.
 
 Key Points:
 

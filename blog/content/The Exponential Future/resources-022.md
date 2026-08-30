@@ -1,6 +1,6 @@
 ### 🤖 Y Combinator W25 Alumni Demo Day Highlights
 
-This article summarizes key innovations presented at the Y Combinator W25 Alumni Demo Day, focusing on advancements in fusion technology, space exploration, robotics, and AI.
+Key innovations presented at the Y Combinator W25 Alumni Demo Day, focusing on advancements in fusion technology, space exploration, robotics, and AI.
 
 
 Key Points:

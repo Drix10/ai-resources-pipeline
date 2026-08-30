@@ -1,6 +1,6 @@
 ### 🤖 Sofia Kindergarten Admissions - 2024 Results
 
-This article summarizes the results of the 2024 kindergarten and nursery admissions in Sofia, Bulgaria, highlighting the number of accepted children and remaining vacancies.
+Results of the 2024 kindergarten and nursery admissions in Sofia, Bulgaria, highlighting the number of accepted children and remaining vacancies.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 VPN Security - Unsigned File Vulnerability
 
-This article discusses a critical vulnerability identified in Private Internet Access (PIA) VPN related to its software update mechanism. It highlights the risk of unsigned file execution originating from a potentially compromised Content Delivery Network (CDN).
+Critical vulnerability identified in Private Internet Access (PIA) VPN related to its software update mechanism. It highlights the risk of unsigned file execution originating from a potentially compromised Content Delivery Network (CDN).
 
 Key Points:
 

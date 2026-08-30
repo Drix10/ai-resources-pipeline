@@ -1,6 +1,6 @@
 ### 🤖 Defense Technology Summit - AI and Real-Time Decision Making
 
-This article summarizes key discussions from the DX25 Defense Tech Summit, focusing on advancements in AI and real-time decision-making within the defense industrial base.  The summit explored autonomy for overmatch and game-changing AI applications.
+Key discussions from the DX25 Defense Tech Summit, focusing on advancements in AI and real-time decision-making within the defense industrial base.  The summit explored autonomy for overmatch and game-changing AI applications.
 
 
 Key Points:

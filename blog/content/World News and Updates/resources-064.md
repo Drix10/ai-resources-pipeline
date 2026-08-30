@@ -1,6 +1,6 @@
 ### 🤖 Indian Politics - Operation Sindoor Statements
 
-This article summarizes statements made by Shiv Sena MP Shrikant Shinde regarding Operation Sindoor, addressing criticisms from Congress leaders and Rahul Gandhi's comments on US involvement.
+Statements made by Shiv Sena MP Shrikant Shinde regarding Operation Sindoor, addressing criticisms from Congress leaders and Rahul Gandhi's comments on US involvement.
 
 
 Key Points:

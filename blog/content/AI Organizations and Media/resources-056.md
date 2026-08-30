@@ -1,6 +1,6 @@
 ### 💰 Finance - High-Net-Worth Individuals at Monster Jam
 
-This article discusses the surprising concentration of wealth at Monster Jam events, highlighting the involvement of high-net-worth individuals and investment firms.
+Surprising concentration of wealth at Monster Jam events, highlighting the involvement of high-net-worth individuals and investment firms.
 
 Key Points:
 

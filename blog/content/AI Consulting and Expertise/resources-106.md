@@ -1,6 +1,6 @@
 ### 🚀 Tools -  Coffee Shop Advert Creation using AI
 
-This article details the creation of a coffee shop advertisement using AI tools, leveraging a single logo image as the starting point.  The process involved image generation and animation tools.
+Creation of a coffee shop advertisement using AI tools, leveraging a single logo image as the starting point.  The process involved image generation and animation tools.
 
 
 Key Points:

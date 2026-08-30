@@ -1,6 +1,6 @@
 ### 🤖 Agent Memory - Rethinking Retrieval
 
-This article explores a novel perspective on agent memory, moving beyond traditional storage paradigms. It introduces an approach that challenges the conventional understanding of memory as a retrieval problem. This perspective aims to foster a deeper understanding of how AI agents manage information.
+Novel perspective on agent memory, moving beyond traditional storage paradigms. It introduces an approach that challenges the conventional understanding of memory as a retrieval problem. This perspective aims to foster a deeper understanding of how AI agents manage information.
 
 Key Points:
 

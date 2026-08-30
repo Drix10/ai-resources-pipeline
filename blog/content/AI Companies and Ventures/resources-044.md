@@ -1,6 +1,6 @@
 ### ✨ Video Editing - AI Image to Video
 
-This article discusses Filmora Mobile's AI Image to Video feature, which transforms photos into animated scenes.  A tutorial is offered upon request.
+Filmora Mobile's AI Image to Video feature, which transforms photos into animated scenes.  A tutorial is offered upon request.
 
 Key Points:
 

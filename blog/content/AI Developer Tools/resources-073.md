@@ -1,6 +1,6 @@
 ### 🤖 AI Applications - Mathematical Theorem Proving
 
-This article discusses the careful application of AI, specifically LLMs, in assisting with mathematical theorem proving, highlighting the role of human verification.
+Careful application of AI, specifically LLMs, in assisting with mathematical theorem proving, highlighting the role of human verification.
 
 Key Points:
 

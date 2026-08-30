@@ -1,6 +1,6 @@
 ### 🤖 AI Video Generation - Progress Assessment
 
-This article examines the advancements in AI-generated video content over the past three years, specifically comparing the quality improvement of complex scenarios. It highlights the rapid development in AI's ability to render realistic and detailed actions.
+Advancements in AI-generated video content over the past three years, specifically comparing the quality improvement of complex scenarios. It highlights the rapid development in AI's ability to render realistic and detailed actions.
 
 Key Points:
 

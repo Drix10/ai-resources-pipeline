@@ -1,6 +1,6 @@
 ### 🚀 Career Growth - Residency Program Kickoff
 
-This article details the transition into a new residency program, following a period of personal reflection and reset. It outlines the intent to engage with a new community and to consistently share progress on upcoming projects.
+Transition into a new residency program, following a period of personal reflection and reset. It outlines the intent to engage with a new community and to consistently share progress on upcoming projects.
 
 Key Points:
 

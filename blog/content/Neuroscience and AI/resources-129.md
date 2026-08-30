@@ -1,6 +1,6 @@
 ### 💡 The Mattering Instinct - Key Ideas from a Must-Read Book
 
-This article discusses the book "The Mattering Instinct" being selected by The Next Big Idea Club. It highlights the availability of five key ideas presented from the book.
+Book "The Mattering Instinct" being selected by The Next Big Idea Club. It highlights the availability of five key ideas presented from the book.
 
 Key Points:
 

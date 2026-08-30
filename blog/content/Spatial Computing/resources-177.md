@@ -1,6 +1,6 @@
 ### 💡 Digital Wellness - Disconnecting from Online Platforms
 
-This article discusses the benefits of disconnecting from platforms like YouTube to promote digital wellness. It explores the idea of a "purer" online experience through reduced consumption of curated content.
+Benefits of disconnecting from platforms like YouTube to promote digital wellness. It explores the idea of a "purer" online experience through reduced consumption of curated content.
 
 Key Points:
 

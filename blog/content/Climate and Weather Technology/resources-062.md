@@ -1,6 +1,6 @@
 ### ⛈️ Charlotte Weather - Afternoon Thunderstorms
 
-This article provides a brief weather forecast for the Charlotte, NC area, highlighting expected conditions for the morning, midday, and afternoon.
+Weather forecast for the Charlotte, NC area, highlighting expected conditions for the morning, midday, and afternoon.
 
 Key Points:
 

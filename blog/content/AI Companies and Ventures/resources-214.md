@@ -1,6 +1,6 @@
 ### 🤖 GLM 5.2 Providers - Cost-Effective Options
 
-This article highlights $ward as a potentially cost-effective provider for GLM 5.2 models. It details where users can access information regarding this offering and its pricing.
+$ward as a potentially cost-effective provider for GLM 5.2 models. It details where users can access information regarding this offering and its pricing.
 
 Key Points:
 

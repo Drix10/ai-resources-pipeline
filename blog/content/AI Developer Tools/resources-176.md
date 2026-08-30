@@ -1,6 +1,6 @@
 ### 🤖 Distributed Systems - Resilient Order Processing
 
-This article details how Telenor Sweden resolved order loss issues caused by network call failures. It explains their approach to ensuring transaction success without requiring additional infrastructure changes.
+Telenor Sweden resolved order loss issues caused by network call failures. It explains their approach to ensuring transaction success without requiring additional infrastructure changes.
 
 Key Points:
 

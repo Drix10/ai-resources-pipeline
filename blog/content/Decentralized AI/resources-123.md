@@ -1,6 +1,6 @@
 ### 🤖 AI Models - Structural Break ML Challenge
 
-This article outlines the Crunch Podcast's first episode, featuring Dr. Humberto Brandão, winner of the $100K ADIA Lab Structural Break ML Challenge. It details the AI model and the approach that achieved approximately 90% out-of-sample performance.
+Crunch Podcast's first episode, featuring Dr. Humberto Brandão, winner of the $100K ADIA Lab Structural Break ML Challenge. It details the AI model and the approach that achieved approximately 90% out-of-sample performance.
 
 Key Points:
 

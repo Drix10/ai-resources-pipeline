@@ -1,6 +1,6 @@
 ### 💡 Weather Forecast - Canadian Wildfire Smoke
 
-This article provides a brief forecast regarding the impact of Canadian wildfire smoke on a specific area.  The forecast predicts minimal impact.
+Forecast regarding the impact of Canadian wildfire smoke on a specific area.  The forecast predicts minimal impact.
 
 Key Points:
 

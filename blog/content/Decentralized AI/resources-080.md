@@ -1,6 +1,6 @@
 ### 🤖 Blockchain and AI Agents - Sovereign Internet Activity
 
-This article discusses the potential of blockchains to enable locally run AI agents with identity, memory, and financial capabilities, shaping a new era of agent-driven and sovereign internet activity.  This is based on a discussion with Illia Polosukhin.
+Potential of blockchains to enable locally run AI agents with identity, memory, and financial capabilities, shaping a new era of agent-driven and sovereign internet activity.  This is based on a discussion with Illia Polosukhin.
 
 
 Key Points:

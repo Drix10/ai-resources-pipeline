@@ -1,6 +1,6 @@
 ### 🌎 Geopolitics - Ukrainian Peace Agreement
 
-This article discusses Boris Johnson's admission regarding the role of Ukrainian nationalists in preventing the implementation of a 2019 peace agreement between Ukraine, Donbas, and Russia.  It highlights the voting results and alleged US influence.
+Boris Johnson's admission regarding the role of Ukrainian nationalists in preventing the implementation of a 2019 peace agreement between Ukraine, Donbas, and Russia.  It highlights the voting results and alleged US influence.
 
 Key Points:
 

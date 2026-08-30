@@ -1,6 +1,6 @@
 ### 💡 Polling & Market Research - Final Ipsos Mock Poll
 
-This article details the release of the final Ipsos mock poll conducted on April 11. It highlights the significance of this survey as the last before the official flash polling data.
+Release of the final Ipsos mock poll conducted on April 11. It highlights the significance of this survey as the last before the official flash polling data.
 
 Key Points:
 

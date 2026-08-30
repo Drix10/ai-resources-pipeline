@@ -1,6 +1,6 @@
 ### 🚀 Binance - Astra Nova Booster Campaign
 
-This article details the Astra Nova booster campaign on Binance, outlining its duration, rewards, and participation requirements.
+Astra Nova booster campaign on Binance, outlining its duration, rewards, and participation requirements.
 
 Key Points:
 

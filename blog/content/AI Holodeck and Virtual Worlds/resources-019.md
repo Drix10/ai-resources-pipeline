@@ -1,6 +1,6 @@
 ### 🚀 AI Image Generation - Pinterest-like Platform Concept
 
-This article discusses the concept of a Pinterest-like platform for organizing and sharing AI-generated image and video prompts.  The goal is to facilitate easier sharing and discovery of effective prompts.
+Concept of a Pinterest-like platform for organizing and sharing AI-generated image and video prompts.  The goal is to facilitate easier sharing and discovery of effective prompts.
 
 Key Points:
 

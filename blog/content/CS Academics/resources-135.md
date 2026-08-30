@@ -1,6 +1,6 @@
 ### 💡 Industry Commentary - TIME Person of the Year Response
 
-This article examines commentary regarding the TIME Person of the Year selection. It reflects on the public discourse and various viewpoints surrounding this annual recognition.
+Commentary regarding the TIME Person of the Year selection. It reflects on the public discourse and various viewpoints surrounding this annual recognition.
 
 Key Points:
 

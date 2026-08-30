@@ -1,6 +1,6 @@
 ### 📈 Business - Direct Selling in India
 
-This article examines the success of foreign direct selling companies in India and explores the potential for Indian brands to replicate this model.  The analysis focuses on the significant market opportunity presented by this approach.
+Success of foreign direct selling companies in India and explores the potential for Indian brands to replicate this model.  The analysis focuses on the significant market opportunity presented by this approach.
 
 Key Points:
 

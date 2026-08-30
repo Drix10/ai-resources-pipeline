@@ -1,6 +1,6 @@
 ### ✨ Digital Art - Creative Expression
 
-This article examines a digital art series, exploring its thematic elements and visual presentation. It covers the context provided in the thread.
+Digital art series, exploring its thematic elements and visual presentation. It covers the context provided in the thread.
 
 Key Points:
 

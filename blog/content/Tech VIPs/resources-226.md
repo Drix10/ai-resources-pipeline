@@ -1,6 +1,6 @@
 ### 🤖 AI in Hiring - Employment Algorithms
 
-This article discusses the application of AI in the hiring and employment process. It highlights how AI systems analyze candidate behavior during interviews.
+Application of AI in the hiring and employment process. It highlights how AI systems analyze candidate behavior during interviews.
 
 Key Points:
 • AI systems evaluate candidate facial movements and expressions.

@@ -1,6 +1,6 @@
 ### 🤖 Geopolitics and AI - The AI Diffusion Rule
 
-This article discusses the proposed repeal of the Biden administration's AI Diffusion Rule by the Trump administration, focusing on its potential impact on the global AI race.  The analysis is based on a machine-translated Haaretz article.
+Proposed repeal of the Biden administration's AI Diffusion Rule by the Trump administration, focusing on its potential impact on the global AI race.  The analysis is based on a machine-translated Haaretz article.
 
 Key Points:
 

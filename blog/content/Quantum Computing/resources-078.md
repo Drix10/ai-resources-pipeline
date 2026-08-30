@@ -1,6 +1,6 @@
 ### ⚠️ Geopolitics - Russia's Intentions in Ukraine
 
-This article summarizes statements from Putin and his allies regarding Russia's goals in Ukraine, indicating an intention to conquer Ukraine and potentially expand into Europe afterward.
+Statements from Putin and his allies regarding Russia's goals in Ukraine, indicating an intention to conquer Ukraine and potentially expand into Europe afterward.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Data Visualization - Hexagonal Grid Implementation
 
-This article discusses the use of triangular or hexagonal grids in data visualization. It highlights their utility in representing spatial data and creating efficient tiling patterns.
+Use of triangular or hexagonal grids in data visualization. It highlights their utility in representing spatial data and creating efficient tiling patterns.
 
 Key Points:
 

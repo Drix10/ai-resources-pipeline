@@ -1,6 +1,6 @@
 ### 🤖 Academic Conference - ACL 2026 Registration
 
-This article covers the opening of Phase 1 registration for ACL 2026 in San Diego. It details who is eligible to register during this initial phase for the conference.
+Opening of Phase 1 registration for ACL 2026 in San Diego. It details who is eligible to register during this initial phase for the conference.
 
 Key Points:
 

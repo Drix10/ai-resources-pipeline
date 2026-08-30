@@ -1,6 +1,6 @@
 ### 💡 Social Commentary - Rising Cost of Living
 
-This article discusses the increasing difficulty of being poor due to rising living standards and legal restrictions on alternative living arrangements.
+Increasing difficulty of being poor due to rising living standards and legal restrictions on alternative living arrangements.
 
 Key Points:
 

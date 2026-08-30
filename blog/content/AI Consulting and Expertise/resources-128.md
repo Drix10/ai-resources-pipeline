@@ -1,6 +1,6 @@
 ### 🚀 SpaceX - Recent Accomplishments
 
-This article highlights the ongoing progress and significant efforts demonstrated by the SpaceX team. It acknowledges their continued contributions to space technology and exploration.
+Ongoing progress and significant efforts demonstrated by the SpaceX team. It acknowledges their continued contributions to space technology and exploration.
 
 Key Points:
 

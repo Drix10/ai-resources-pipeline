@@ -1,6 +1,6 @@
 ### 🚀 Giveaways - RTX 4080 SUPER Giveaway
 
-This article details how to enter a giveaway for an RTX 4080 SUPER graphics card.  Entry requires participation in an NVIDIA GTC session.
+To enter a giveaway for an RTX 4080 SUPER graphics card.  Entry requires participation in an NVIDIA GTC session.
 
 Key Points:
 

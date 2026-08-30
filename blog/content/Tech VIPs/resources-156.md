@@ -1,6 +1,6 @@
 ### 💡 Voter Registration - System Anomalies
 
-This article discusses an reported instance of a dog being successfully registered to vote in California. It highlights potential vulnerabilities or unusual occurrences within voter registration systems.
+Reported instance of a dog being successfully registered to vote in California. It highlights potential vulnerabilities or unusual occurrences within voter registration systems.
 
 Key Points:
 

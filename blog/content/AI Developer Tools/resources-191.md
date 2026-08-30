@@ -1,6 +1,6 @@
 ### 💡 Digital Culture - Early Internet Creation
 
-This article explores the "Living Web" exhibit, which showcases how the internet became a platform for widespread personal creation. It highlights the early era when millions built homepages, profiles, and pages without formal instructions or business models.
+"Living Web" exhibit, which showcases how the internet became a platform for widespread personal creation. It highlights the early era when millions built homepages, profiles, and pages without formal instructions or business models.
 
 Key Points:
 

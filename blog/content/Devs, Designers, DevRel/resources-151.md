@@ -1,6 +1,6 @@
 ### 🚀 Design Handoff - AI Prototypes in Figma
 
-This article details how design teams leverage AI-generated prototypes within Figma to enhance the engineering handoff process. It explains how these prototypes improve clarity and understanding of interaction design for development teams.
+Design teams leverage AI-generated prototypes within Figma to enhance the engineering handoff process. It explains how these prototypes improve clarity and understanding of interaction design for development teams.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🗣️ Geopolitics - US Influence in Europe
 
-This article discusses the perceived decline of US soft power in Europe and the implications for US foreign policy, particularly concerning the situation in Ukraine.  It also includes commentary on the roles of various European nations.
+Perceived decline of US soft power in Europe and the implications for US foreign policy, particularly concerning the situation in Ukraine.  It also includes commentary on the roles of various European nations.
 
 Key Points:
 

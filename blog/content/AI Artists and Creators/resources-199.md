@@ -1,6 +1,6 @@
 ### 🤖 AI Art Generation - DALL-E Creations
 
-This article explores the use of DALL-E for generating digital art. It highlights the accessibility and capabilities of artificial intelligence in creative visual production.
+Use of DALL-E for generating digital art. It highlights the accessibility and capabilities of artificial intelligence in creative visual production.
 
 Key Points:
 

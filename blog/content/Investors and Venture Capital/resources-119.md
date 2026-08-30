@@ -1,6 +1,6 @@
 ### 💡 Content Discovery - Curated Content Lists
 
-This article discusses the process of finding and engaging with curated content lists on social media platforms. It outlines how direct links can guide users to specific discussions or profiles for content exploration.
+Process of finding and engaging with curated content lists on social media platforms. It outlines how direct links can guide users to specific discussions or profiles for content exploration.
 
 Key Points:
 

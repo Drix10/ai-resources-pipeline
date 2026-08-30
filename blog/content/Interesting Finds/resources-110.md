@@ -1,6 +1,6 @@
 ### ⚠️ Social Media - Milo Yiannopoulos's Return
 
-This article discusses the return of Milo Yiannopoulos to social media following the controversies surrounding Charlie Kirk and other figures.  It highlights the potential for further conflict and emotional responses.
+Return of Milo Yiannopoulos to social media following the controversies surrounding Charlie Kirk and other figures.  It highlights the potential for further conflict and emotional responses.
 
 
 Key Points:

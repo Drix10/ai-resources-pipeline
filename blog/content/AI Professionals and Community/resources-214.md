@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Long Context Implications
 
-This article discusses the impact of extended context windows in AI models on robotics applications. It explores how these capabilities allow robots to maintain state and process complex instructions over longer periods.
+Impact of extended context windows in AI models on robotics applications. It explores how these capabilities allow robots to maintain state and process complex instructions over longer periods.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Reinforcement Learning - Hyperparameter Sweep Analysis
 
-This article summarizes the findings of a study comparing reinforcement learning algorithms on hidden-information games with billions of states.  The research involved extensive hyperparameter sweeps to determine optimal algorithm performance.
+Findings of a study comparing reinforcement learning algorithms on hidden-information games with billions of states.  The research involved extensive hyperparameter sweeps to determine optimal algorithm performance.
 
 Key Points:
 

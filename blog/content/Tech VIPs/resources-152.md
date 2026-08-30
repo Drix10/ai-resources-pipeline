@@ -1,6 +1,6 @@
 ### 🤖 AI Exploration - Probabilistic Journeys
 
-This article discusses the nature of exploration driven by AI systems, highlighting the experience of navigating complex, probabilistic information landscapes. It reflects on the depth and breadth of insights AI can uncover.
+Nature of exploration driven by AI systems, highlighting the experience of navigating complex, probabilistic information landscapes. It reflects on the depth and breadth of insights AI can uncover.
 
 Key Points:
 

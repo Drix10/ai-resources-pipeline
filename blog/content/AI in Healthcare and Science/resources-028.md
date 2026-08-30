@@ -1,6 +1,6 @@
 ### 🤖 AI in Drug Discovery - Nova $TAO Subnet 68
 
-This article summarizes a podcast episode discussing the application of AI in drug discovery, specifically within the context of Nova $TAO Subnet 68 and its role in molecular search.  The episode also touches upon patenting and community value considerations.
+Podcast episode discussing the application of AI in drug discovery, specifically within the context of Nova $TAO Subnet 68 and its role in molecular search.  The episode also touches upon patenting and community value considerations.
 
 Key Points:
 

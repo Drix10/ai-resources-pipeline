@@ -1,6 +1,6 @@
 ### 💡 California Politics - Eric Swalwell's Departure
 
-This article discusses Eric Swalwell's withdrawal from the California governor's race. His departure has impacted the field of contenders and revealed challenges within the Democratic Party in California.
+Eric Swalwell's withdrawal from the California governor's race. His departure has impacted the field of contenders and revealed challenges within the Democratic Party in California.
 
 Key Points:
 

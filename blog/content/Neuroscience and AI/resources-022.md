@@ -1,6 +1,6 @@
 ### 🤖 Genetics - ITSN1 Variant and Disease Risk
 
-This article discusses a study identifying a rare genetic variant in the ITSN1 gene linked to increased Parkinson's disease and ASD risk.  The study analyzed genetic data from a large population to establish this correlation.
+Study identifying a rare genetic variant in the ITSN1 gene linked to increased Parkinson's disease and ASD risk.  The study analyzed genetic data from a large population to establish this correlation.
 
 Key Points:
 

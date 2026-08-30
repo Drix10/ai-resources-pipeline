@@ -1,6 +1,6 @@
 ### 🤖 Multimodal AI - Qwen3-VL Chatbot Implementation
 
-This article details the creation of a multimodal chatbot capable of understanding and responding to both image and text inputs. It utilizes the Qwen3-VL Instruct and Thinking models for advanced interactive conversations.
+Creation of a multimodal chatbot capable of understanding and responding to both image and text inputs. It utilizes the Qwen3-VL Instruct and Thinking models for advanced interactive conversations.
 
 Key Points:
 

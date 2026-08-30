@@ -1,6 +1,6 @@
 ### ✨ Codex CLI - Web Search Integration
 
-This article details the new web search capability integrated into the Codex CLI and IDE Extension. It explains the default caching mechanism and options for live result retrieval.
+New web search capability integrated into the Codex CLI and IDE Extension. It explains the default caching mechanism and options for live result retrieval.
 
 Key Points:
 

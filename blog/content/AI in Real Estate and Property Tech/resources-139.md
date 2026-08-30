@@ -1,6 +1,6 @@
 ### ✨ Decor8 AI - Virtual Staging Feature
 
-This article discusses Decor8 AI's virtual staging capabilities for adding furniture to empty rooms. It highlights the efficiency and cost-effectiveness of this feature.
+Decor8 AI's virtual staging capabilities for adding furniture to empty rooms. It highlights the efficiency and cost-effectiveness of this feature.
 
 Key Points:
 

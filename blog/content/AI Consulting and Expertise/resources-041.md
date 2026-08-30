@@ -1,6 +1,6 @@
 ### 🚀 Fitness - Combating Burnout in Indie Hacking
 
-This article discusses the creation of a fitness tool, feelbetterfa.st, designed to combat the physical and mental strain often associated with indie hacking.  The tool focuses on short, daily workouts to improve energy levels and reduce anxiety.
+Creation of a fitness tool, feelbetterfa.st, designed to combat the physical and mental strain often associated with indie hacking.  The tool focuses on short, daily workouts to improve energy levels and reduce anxiety.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 🤖 Manufacturing - US vs. China
 
-This article discusses a comparison of the industrial bases of the United States and China, particularly within the context of electric vehicles and heavy industry.  The author expresses concern about China's apparent technological advancement in these sectors.
+Comparison of the industrial bases of the United States and China, particularly within the context of electric vehicles and heavy industry.  The author expresses concern about China's apparent technological advancement in these sectors.
 
 Key Points:
 

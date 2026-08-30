@@ -1,6 +1,6 @@
 ### ✨ NBA Game Update - Pistons vs. [Opponent] Q4 Lead
 
-This article provides an update on the current status of Game 2, highlighting the Pistons' performance as they enter the fourth quarter.
+Update on the current status of Game 2, highlighting the Pistons' performance as they enter the fourth quarter.
 
 Key Points:
 

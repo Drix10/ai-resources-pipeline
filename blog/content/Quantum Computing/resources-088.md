@@ -1,6 +1,6 @@
 ### 🤖  AI Model Bias - Attention Logit Bias
 
-This article discusses the application of learnable bias to attention logits in AI models, specifically focusing on a technique where bias is added before the softmax function and then removed afterward.  The approach is compared to a similar method described in an ICLR2025 paper.
+Application of learnable bias to attention logits in AI models, specifically focusing on a technique where bias is added before the softmax function and then removed afterward.  The approach is compared to a similar method described in an ICLR2025 paper.
 
 Key Points:
 

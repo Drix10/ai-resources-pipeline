@@ -1,6 +1,6 @@
 ### 🤖 Cybersecurity - Foxconn Data Breach Impact
 
-This article discusses the recent cyberattack on Foxconn, a major iPhone manufacturer, highlighting the inherent risks associated with centralizing vast amounts of sensitive data. It examines the broader implications for supply chain security and data protection in the technology industry.
+Recent cyberattack on Foxconn, a major iPhone manufacturer, highlighting the inherent risks associated with centralizing vast amounts of sensitive data. It examines the broader implications for supply chain security and data protection in the technology industry.
 
 Key Points:
 

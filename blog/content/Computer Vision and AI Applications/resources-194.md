@@ -1,6 +1,6 @@
 ### 💡 Optimization - Bootcamp & Resources
 
-This article outlines the availability of a new optimization bootcamp on YouTube, details its content release schedule, and provides information regarding a forthcoming book and its free PDF version. It serves as a guide to upcoming educational resources in optimization.
+Availability of a new optimization bootcamp on YouTube, details its content release schedule, and provides information regarding a forthcoming book and its free PDF version. It serves as a guide to upcoming educational resources in optimization.
 
 Key Points:
 

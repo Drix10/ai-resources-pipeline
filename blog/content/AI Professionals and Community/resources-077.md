@@ -1,6 +1,6 @@
 ### 🤖 AI Development - Recursive Self-Improvement
 
-This article discusses Ilya Sutskever's insights on AI recursively building better AI, its potential benefits and risks in biomedical research, and the challenges of prediction in such systems.
+Ilya Sutskever's insights on AI recursively building better AI, its potential benefits and risks in biomedical research, and the challenges of prediction in such systems.
 
 Key Points:
 

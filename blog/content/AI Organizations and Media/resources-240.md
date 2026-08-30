@@ -1,6 +1,6 @@
 ### 🤖 Infrastructure - Scale Assessment
 
-This content discusses the scale of a proposed construction project, referencing its physical dimensions and associated hardware acquisition efforts. The focus remains on sheer size metrics rather than technical implementation details.
+Scale of a proposed construction project, referencing its physical dimensions and associated hardware acquisition efforts. The focus remains on sheer size metrics rather than technical implementation details.
 
 Key Points:
 

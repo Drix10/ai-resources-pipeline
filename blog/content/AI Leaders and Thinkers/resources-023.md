@@ -1,6 +1,6 @@
 ### 🤖 3D Rendering Workflow - Claude, Magnific, Runway
 
-This article details a workflow for creating stylized 3D renders using Claude 3.7, Magnific, and Runway's Restyle.  The process involves generating renders, manipulating camera angles, and then using AI for stylistic enhancement.
+Workflow for creating stylized 3D renders using Claude 3.7, Magnific, and Runway's Restyle.  The process involves generating renders, manipulating camera angles, and then using AI for stylistic enhancement.
 
 Key Points:
 

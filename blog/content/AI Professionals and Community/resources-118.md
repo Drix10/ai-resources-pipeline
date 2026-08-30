@@ -1,6 +1,6 @@
 ### 🤖 AI Investment - Market Dynamics
 
-This article discusses Jeff Bezos's perspective on the current state of AI investment, characterized as an "industrial bubble." It highlights the rapid capital influx into early-stage AI ventures, often without established products.
+Jeff Bezos's perspective on the current state of AI investment, characterized as an "industrial bubble." It highlights the rapid capital influx into early-stage AI ventures, often without established products.
 
 Key Points:
 

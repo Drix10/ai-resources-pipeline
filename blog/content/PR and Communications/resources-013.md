@@ -1,6 +1,6 @@
 ### 🤖 AI - Decentralized Local AI
 
-This article discusses the potential future of AI running locally and transparently on personal devices, referencing a TED talk by Thom Wolf on open-source AI.
+Potential future of AI running locally and transparently on personal devices, referencing a TED talk by Thom Wolf on open-source AI.
 
 Key Points:
 

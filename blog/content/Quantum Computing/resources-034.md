@@ -1,6 +1,6 @@
 ### 🤖 Physics - Geomagnetic Field Voltage Generation
 
-This article discusses the possibility of generating a steady electric voltage using the Earth's rotation within its geomagnetic field, presenting a counter-intuitive experimental result.
+Possibility of generating a steady electric voltage using the Earth's rotation within its geomagnetic field, presenting a counter-intuitive experimental result.
 
 Key Points:
 

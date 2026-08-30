@@ -1,6 +1,6 @@
 ### 🏙️ Seattle Business - Regulatory Burden
 
-This article discusses the challenges faced by a small, long-standing Seattle business due to cumulative regulatory burdens, including taxes and bureaucratic processes.  The narrative highlights the potential for such cumulative effects to negatively impact businesses.
+Challenges faced by a small, long-standing Seattle business due to cumulative regulatory burdens, including taxes and bureaucratic processes.  The narrative highlights the potential for such cumulative effects to negatively impact businesses.
 
 Key Points:
 

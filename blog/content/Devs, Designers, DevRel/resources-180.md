@@ -1,6 +1,6 @@
 ### 🚀 Tools - Game Development with Wonder 3D
 
-This article explores the process of creating mobile game assets using Wonder 3D within Autodesk Flow Studio. It highlights how this approach accelerates the transformation of ideas into interactive virtual worlds.
+Process of creating mobile game assets using Wonder 3D within Autodesk Flow Studio. It highlights how this approach accelerates the transformation of ideas into interactive virtual worlds.
 
 Key Points:
 

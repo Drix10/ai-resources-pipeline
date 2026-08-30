@@ -1,6 +1,6 @@
 ### 💡 Legal Cases - Iranian Student in Alabama
 
-This article discusses the case of an Iranian student detained in Alabama, highlighting the lack of publicly available information regarding the reasons for his detention.
+Case of an Iranian student detained in Alabama, highlighting the lack of publicly available information regarding the reasons for his detention.
 
 Key Points:
 

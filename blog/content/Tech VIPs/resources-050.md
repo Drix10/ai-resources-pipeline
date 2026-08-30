@@ -1,6 +1,6 @@
 ### 🗣️  Interview - Jmechner and Eric Chahi
 
-This article summarizes a user's discovery of an interview featuring Jmechner and Eric Chahi, referencing a prior in-person meeting.
+User's discovery of an interview featuring Jmechner and Eric Chahi, referencing a prior in-person meeting.
 
 Key Points:
 

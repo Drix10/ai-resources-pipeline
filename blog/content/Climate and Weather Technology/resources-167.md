@@ -1,6 +1,6 @@
 ### 🤖 Tornado Confirmation - EF1 Damage Assessment
 
-This article details the confirmation of an EF1 tornado near Clovis, California. It covers the meteorological survey findings and the characteristics of an EF1 tornado.
+Confirmation of an EF1 tornado near Clovis, California. It covers the meteorological survey findings and the characteristics of an EF1 tornado.
 
 Key Points:
 

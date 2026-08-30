@@ -1,6 +1,6 @@
 ### 🤖 College Admissions - Bias and Merit
 
-This article discusses the case of Stanley Zhong, an 18-year-old prodigy rejected by 16 colleges despite receiving a Google L4 offer.  It highlights concerns about bias in college admissions processes.
+Case of Stanley Zhong, an 18-year-old prodigy rejected by 16 colleges despite receiving a Google L4 offer.  It highlights concerns about bias in college admissions processes.
 
 Key Points:
 

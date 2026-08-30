@@ -1,6 +1,6 @@
 ### 🤖  AI Systems - Beyond LLMs
 
-This article discusses the importance of designing comprehensive systems around LLMs, rather than focusing solely on the models themselves, using peek.money as an example.
+Importance of designing comprehensive systems around LLMs, rather than focusing solely on the models themselves, using peek.money as an example.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Security - Application Layer Gaps in MITRE ATT&CK
 
-This article discusses the limitations of the MITRE ATT&CK framework in addressing application-layer attacks and how Oligo Security aims to improve this.
+Limitations of the MITRE ATT&CK framework in addressing application-layer attacks and how Oligo Security aims to improve this.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - One-Shot vs. Multi-Shot Loops
 
-This article outlines the definition of one-shot versus multi-shot AI agent loops, focusing on human intervention as the distinguishing factor. It examines how agent restarts without human involvement fit into this categorization.
+Definition of one-shot versus multi-shot AI agent loops, focusing on human intervention as the distinguishing factor. It examines how agent restarts without human involvement fit into this categorization.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Image & Video Generation - Current State
 
-This article summarizes the current state of AI image and video generation, highlighting the challenges and limitations of existing models.  It focuses on the need for improved generalization and workflow optimization.
+Current state of AI image and video generation, highlighting the challenges and limitations of existing models.  It focuses on the need for improved generalization and workflow optimization.
 
 Key Points:
 

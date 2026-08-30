@@ -1,6 +1,6 @@
 ### 🤖 AI - Intuitive Physics from Self-Supervised Learning
 
-This article discusses a research paper demonstrating that a self-supervised video model, V-JEPA, develops an understanding of intuitive physics without explicit prior knowledge.  The findings contribute to the field of artificial intelligence and machine learning.
+Research paper demonstrating that a self-supervised video model, V-JEPA, develops an understanding of intuitive physics without explicit prior knowledge.  The findings contribute to the field of artificial intelligence and machine learning.
 
 Key Points:
 

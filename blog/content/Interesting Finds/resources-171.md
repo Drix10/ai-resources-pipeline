@@ -1,6 +1,6 @@
 ### ✨ Architectural Design - Optical Experience
 
-This article explores the unique visual characteristics of Rocchetta Mattei in Italy, highlighting how architectural elements create compelling optical experiences. It also points to resources for enhancing design skills.
+Unique visual characteristics of Rocchetta Mattei in Italy, highlighting how architectural elements create compelling optical experiences. It also points to resources for enhancing design skills.
 
 Key Points:
 

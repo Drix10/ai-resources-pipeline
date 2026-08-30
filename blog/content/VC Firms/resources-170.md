@@ -1,6 +1,6 @@
 ### 🤖 Unitree Robotics - IPO and Humanoid Robot Market
 
-This article covers Unitree Robotics' recent IPO filing on the Shanghai Stock Exchange and its implications for the humanoid robot market. It details the company's financial goals and strategic objectives for the raised capital.
+Unitree Robotics' recent IPO filing on the Shanghai Stock Exchange and its implications for the humanoid robot market. It details the company's financial goals and strategic objectives for the raised capital.
 
 Key Points:
 

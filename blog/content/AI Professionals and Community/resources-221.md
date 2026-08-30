@@ -1,6 +1,6 @@
 ### 🤖 AI Model Analysis - Kibitzer's Size-to-Strength Ratio
 
-This article examines Kibitzer's achievement in AI model performance, specifically its size-to-strength ratio, developed without reinforcement learning. It highlights the methods used and architectural considerations.
+Kibitzer's achievement in AI model performance, specifically its size-to-strength ratio, developed without reinforcement learning. It highlights the methods used and architectural considerations.
 
 Key Points:
 

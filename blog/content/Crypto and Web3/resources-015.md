@@ -1,6 +1,6 @@
 ### 🤖 Crypto Twitter - New Account
 
-This article discusses a new cryptocurrency Twitter account and encourages engagement.  The author promotes their younger brother's account and seeks followers to help build his community.
+New cryptocurrency Twitter account and encourages engagement.  The author promotes their younger brother's account and seeks followers to help build his community.
 
 Key Points:
 

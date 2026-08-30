@@ -1,6 +1,6 @@
 ### 💡 Solar Energy - Addressing Chinese Dominance
 
-This article discusses concerns regarding the dominance of Chinese manufacturers in the solar panel market and proposes a need for more efficient and cost-effective alternatives.
+Concerns regarding the dominance of Chinese manufacturers in the solar panel market and proposes a need for more efficient and cost-effective alternatives.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💣 Economics - Retail Industry and Tariffs
 
-This article discusses the potential impact of tariffs on the retail industry, as predicted by Peter Schiff, including price increases, job losses, and financial instability.
+Potential impact of tariffs on the retail industry, as predicted by Peter Schiff, including price increases, job losses, and financial instability.
 
 Key Points:
 

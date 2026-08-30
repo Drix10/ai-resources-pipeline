@@ -1,6 +1,6 @@
 ### 🤖 Bodycam Technology - Incident Recording
 
-This article discusses the role of bodycam technology in capturing incidents. It highlights how these devices record interactions, providing objective visual and audio evidence for various situations.
+Role of bodycam technology in capturing incidents. It highlights how these devices record interactions, providing objective visual and audio evidence for various situations.
 
 Key Points:
 

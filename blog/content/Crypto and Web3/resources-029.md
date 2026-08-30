@@ -1,6 +1,6 @@
 ### 💡 Political Science - Fertility Rates and Democracy
 
-This article discusses the correlation between low fertility rates and the challenges faced by democracies in the 21st century.  It highlights the resulting strain on social welfare systems.
+Correlation between low fertility rates and the challenges faced by democracies in the 21st century.  It highlights the resulting strain on social welfare systems.
 
 Key Points:
 

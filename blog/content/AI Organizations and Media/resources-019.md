@@ -1,6 +1,6 @@
 ### 🚀 Tools - Utilizing Trae for AI Model Comparison
 
-This article discusses the use of Trae, an AI coding IDE, to simultaneously utilize Claude 3.7 and DeepSeek AI models.  It highlights the benefits of this parallel approach.
+Use of Trae, an AI coding IDE, to simultaneously utilize Claude 3.7 and DeepSeek AI models.  It highlights the benefits of this parallel approach.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Limitations - Dataset Restrictions
 
-This article discusses the limitations of AI models due to dataset restrictions, focusing on a specific model's inability to access information beyond March 2025.
+Limitations of AI models due to dataset restrictions, focusing on a specific model's inability to access information beyond March 2025.
 
 Key Points:
 

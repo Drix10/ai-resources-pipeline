@@ -1,6 +1,6 @@
 ### 💡 Strategic Messiness - Culture Establishment
 
-This article explores the concept of establishing a culture of strategic messiness within an organization. It details how this approach functions as an institutional design, focusing on creating controlled experimental zones for innovation.
+Concept of establishing a culture of strategic messiness within an organization. It details how this approach functions as an institutional design, focusing on creating controlled experimental zones for innovation.
 
 Key Points:
 

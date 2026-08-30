@@ -1,6 +1,6 @@
 ### 🤖 Japanese Yen - Market Dynamics
 
-This article examines the ongoing depreciation of the Japanese yen against major currencies. It discusses the factors contributing to its multi-decade lows, driven by market expectations regarding the Bank of Japan's monetary policy.
+Ongoing depreciation of the Japanese yen against major currencies. It discusses the factors contributing to its multi-decade lows, driven by market expectations regarding the Bank of Japan's monetary policy.
 
 Key Points:
 

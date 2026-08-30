@@ -1,6 +1,6 @@
 ### 🤖 AI-Driven Incident Response - Streamlining with Datadog and RapDev
 
-This article summarizes a webinar by Datadog and RapDev on February 26th, focusing on how AI-driven event correlation and automated workflows can improve incident response.  The webinar details how to reduce alert fatigue and streamline incident management processes.
+Webinar by Datadog and RapDev on February 26th, focusing on how AI-driven event correlation and automated workflows can improve incident response.  The webinar details how to reduce alert fatigue and streamline incident management processes.
 
 Key Points:
 

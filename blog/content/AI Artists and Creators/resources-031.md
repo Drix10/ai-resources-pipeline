@@ -1,6 +1,6 @@
 ### 🤖 Midjourney - 3D Feature Delays
 
-This article discusses the prolonged delays in the release of the 3D feature for Midjourney and explores alternative approaches to 3D image generation.
+Prolonged delays in the release of the 3D feature for Midjourney and explores alternative approaches to 3D image generation.
 
 Key Points:
 

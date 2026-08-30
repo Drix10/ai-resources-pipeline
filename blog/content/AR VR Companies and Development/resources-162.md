@@ -1,6 +1,6 @@
 ### 🚀 VR News - Latest Game Updates and Podcast
 
-This article covers a new VR news podcast episode discussing recent game launches, updates, and general VR industry news. It provides access to both audio and video formats for comprehensive coverage of the virtual reality landscape.
+New VR news podcast episode discussing recent game launches, updates, and general VR industry news. It provides access to both audio and video formats for comprehensive coverage of the virtual reality landscape.
 
 Key Points:
 

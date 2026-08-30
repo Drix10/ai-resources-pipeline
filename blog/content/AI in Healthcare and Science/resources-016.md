@@ -1,6 +1,6 @@
 ### 🤖 Glioblastoma Research - Winning Hackathon Projects
 
-This article summarizes the winning projects from a glioblastoma moonshot hackathon, highlighting their approaches to understanding and treating this aggressive brain cancer.
+Winning projects from a glioblastoma moonshot hackathon, highlighting their approaches to understanding and treating this aggressive brain cancer.
 
 Key Points:
 

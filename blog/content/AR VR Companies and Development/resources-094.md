@@ -1,6 +1,6 @@
 ### 🤖 AI Stack Deep Dive - Part 4 Discussion
 
-This article summarizes a discussion on part 4 of an AI stack deep dive, featuring various experts in the field.  The discussion centers around identifying the winning components within a comprehensive AI system architecture.
+Discussion on part 4 of an AI stack deep dive, featuring various experts in the field.  The discussion centers around identifying the winning components within a comprehensive AI system architecture.
 
 
 Key Points:

@@ -1,6 +1,6 @@
 ### 🤖 Pokémon - Bastiodon Viability in Reg I
 
-This article discusses the findings of a six-week test on the viability of Bastiodon in Pokémon Reg I, concluding with its lack of a viable niche.
+Findings of a six-week test on the viability of Bastiodon in Pokémon Reg I, concluding with its lack of a viable niche.
 
 Key Points:
 

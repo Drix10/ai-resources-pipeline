@@ -1,6 +1,6 @@
 ### 🤖 AI Filmmaking - "AYE, AXEMAN"
 
-This article discusses the creation of the AI film "AYE, AXEMAN: A Black Axe Gangster Film," including a visual preview.
+Creation of the AI film "AYE, AXEMAN: A Black Axe Gangster Film," including a visual preview.
 
 Key Points:
 

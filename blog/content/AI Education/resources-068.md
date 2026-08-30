@@ -1,6 +1,6 @@
 ### 🤖 AI in Recruiting - Transforming Hiring Practices
 
-This article discusses the impact of AI on modern recruitment processes, highlighting how tools like Udao Scout are streamlining candidate selection.  It focuses on the benefits of AI-powered tools in reducing bias and improving efficiency.
+Impact of AI on modern recruitment processes, highlighting how tools like Udao Scout are streamlining candidate selection.  It focuses on the benefits of AI-powered tools in reducing bias and improving efficiency.
 
 Key Points:
 

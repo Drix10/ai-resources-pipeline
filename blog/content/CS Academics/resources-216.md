@@ -1,6 +1,6 @@
 ### 💡 Sports News - WNBA Game Update
 
-This article provides an update on a live WNBA game featuring the Liberty against the Mystics. It highlights the real-time nature of sports events and fan engagement opportunities.
+Update on a live WNBA game featuring the Liberty against the Mystics. It highlights the real-time nature of sports events and fan engagement opportunities.
 
 Key Points:
 

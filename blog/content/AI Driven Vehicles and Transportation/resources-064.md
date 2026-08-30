@@ -1,6 +1,6 @@
 ### 🤖 Tax Engine Development - Complexity of AI Tax Systems
 
-This article discusses the complexity involved in building and operating a continuous tax engine, highlighting the cascading dependencies within the tax code.  The example focuses on the challenges faced even with a simple W-2 tax return.
+Complexity involved in building and operating a continuous tax engine, highlighting the cascading dependencies within the tax code.  The example focuses on the challenges faced even with a simple W-2 tax return.
 
 Key Points:
 

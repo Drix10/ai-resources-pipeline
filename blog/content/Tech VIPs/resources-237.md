@@ -1,6 +1,6 @@
 ### 💡 Startup & OpenAI - Sam Altman Interview Takeaways
 
-This article summarizes discussion points from an interview with Sam Altman, covering startup formation, exponential growth, and operating in challenging environments.
+Discussion points from an interview with Sam Altman, covering startup formation, exponential growth, and operating in challenging environments.
 
 Key Points:
 

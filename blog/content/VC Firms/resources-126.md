@@ -1,6 +1,6 @@
 ### 💡 Financial Indicators - AI Trade Health
 
-This article discusses monitoring Oracle's credit default swaps as a potential early warning sign for the broader artificial intelligence market. It highlights a specific financial instrument for market analysis.
+Monitoring Oracle's credit default swaps as a potential early warning sign for the broader artificial intelligence market. It highlights a specific financial instrument for market analysis.
 
 Key Points:
 

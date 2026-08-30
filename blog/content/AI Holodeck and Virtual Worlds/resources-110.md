@@ -1,6 +1,6 @@
 ### 🤖 CYAN Software - Version 1.6.8 Update
 
-This article details the key features and improvements included in the latest update to CYAN software, version 1.6.8.  The update focuses on UI enhancements, language support, and improved motion capture.
+Key features and improvements included in the latest update to CYAN software, version 1.6.8.  The update focuses on UI enhancements, language support, and improved motion capture.
 
 Key Points:
 

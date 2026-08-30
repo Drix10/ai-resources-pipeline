@@ -1,6 +1,6 @@
 ### 🤖 AI Research - AlexNet Code Release
 
-This article discusses the public release of the AlexNet code, a seminal work in deep convolutional neural networks for image classification.  It highlights the collaboration between Google and the Computer History Museum.
+Public release of the AlexNet code, a seminal work in deep convolutional neural networks for image classification.  It highlights the collaboration between Google and the Computer History Museum.
 
 Key Points:
 

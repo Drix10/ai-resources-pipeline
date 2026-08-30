@@ -1,6 +1,6 @@
 ### 🎙️ Radio Interview - Prof. Sir Anton Muscatelli
 
-This article summarizes a radio interview with Professor Sir Anton Muscatelli, discussing leadership, research, students, and the future of the University of Glasgow.  The interview premiered on Jambo Radio Scotland.
+Radio interview with Professor Sir Anton Muscatelli, discussing leadership, research, students, and the future of the University of Glasgow.  The interview premiered on Jambo Radio Scotland.
 
 Key Points:
 

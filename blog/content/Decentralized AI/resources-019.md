@@ -1,6 +1,6 @@
 ### 🤖 XRP Discussion - Upcoming Twitter Space
 
-This article details an upcoming Twitter Space discussion focused on XRP.  The event will feature several speakers and co-hosts providing insights and commentary.
+Upcoming Twitter Space discussion focused on XRP.  The event will feature several speakers and co-hosts providing insights and commentary.
 
 
 Key Points:

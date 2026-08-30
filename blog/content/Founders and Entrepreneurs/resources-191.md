@@ -1,6 +1,6 @@
 ### 💡 UAP Disclosure - Material Retrieval Claims
 
-This article summarizes public statements made by Luis Elizondo regarding the alleged retrieval of unidentified aerial phenomenon (UAP) materials. It outlines specific claims concerning exotic materials recovered by the US government.
+Public statements made by Luis Elizondo regarding the alleged retrieval of unidentified aerial phenomenon (UAP) materials. It outlines specific claims concerning exotic materials recovered by the US government.
 
 Key Points:
 

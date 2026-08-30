@@ -1,6 +1,6 @@
 ### ✨ Art & Creativity - Jennifer Panepinto's Artistic Journey
 
-This article covers Jennifer Panepinto's initial foray into art, inspired by her grandfather's early lessons in photography. It highlights the formative experiences that shaped her artistic foundation and approach.
+Jennifer Panepinto's initial foray into art, inspired by her grandfather's early lessons in photography. It highlights the formative experiences that shaped her artistic foundation and approach.
 
 Key Points:
 

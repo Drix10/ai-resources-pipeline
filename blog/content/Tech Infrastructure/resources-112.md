@@ -1,6 +1,6 @@
 ### 🤖 Software Development - Immutable Tagging
 
-This article discusses best practices for tagging images in software development, emphasizing immutability for improved reliability and reproducibility.
+Best practices for tagging images in software development, emphasizing immutability for improved reliability and reproducibility.
 
 Key Points:
 

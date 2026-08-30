@@ -1,6 +1,6 @@
 ### 💡 Scientific Progress - Spatial Insights in Medicine
 
-This article highlights Nucleai's commitment to advancing medical science through technology and innovation. It emphasizes the importance of spatial insights in pushing boundaries within medicine and fostering a collaborative community.
+Nucleai's commitment to advancing medical science through technology and innovation. It emphasizes the importance of spatial insights in pushing boundaries within medicine and fostering a collaborative community.
 
 Key Points:
 

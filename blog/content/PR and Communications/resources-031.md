@@ -1,6 +1,6 @@
 ### 🤖 FTC Bipartisanship and Minority Commissioners
 
-This article discusses FTC Chair Lina Khan's defense of the FTC's bipartisan nature and the subsequent attempt to remove minority commissioners.  It explores the timing of Khan's comments in relation to the removal attempt.
+FTC Chair Lina Khan's defense of the FTC's bipartisan nature and the subsequent attempt to remove minority commissioners.  It explores the timing of Khan's comments in relation to the removal attempt.
 
 Key Points:
 

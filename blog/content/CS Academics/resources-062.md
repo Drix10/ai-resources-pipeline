@@ -1,6 +1,6 @@
 ### ⚽ Premier League - Impact of Managers
 
-This article discusses the positive impact several managers had on the Premier League, raising its overall level of play.
+Positive impact several managers had on the Premier League, raising its overall level of play.
 
 Key Points:
 

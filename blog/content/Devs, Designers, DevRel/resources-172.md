@@ -1,6 +1,6 @@
 ### 💡 Social Media Trends - Discourse Analysis
 
-This article explores the concept of "discoursemaxxing" within online communities and examines how opinions and discussions can be concentrated within specific "simclusters." It reflects on the nature of online agreement and disagreement.
+Concept of "discoursemaxxing" within online communities and examines how opinions and discussions can be concentrated within specific "simclusters." It reflects on the nature of online agreement and disagreement.
 
 Key Points:
 

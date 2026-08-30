@@ -1,6 +1,6 @@
 ### 🚀 Space Shuttle Thermal Protection - Textile Blankets
 
-This article discusses the use of thermal blankets on the space shuttle, highlighting their role in protecting the spacecraft during reentry. It explains why textiles were preferred over traditional ceramic tiles.
+Use of thermal blankets on the space shuttle, highlighting their role in protecting the spacecraft during reentry. It explains why textiles were preferred over traditional ceramic tiles.
 
 Key Points:
 

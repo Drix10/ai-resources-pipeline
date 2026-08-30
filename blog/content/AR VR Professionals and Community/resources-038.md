@@ -1,6 +1,6 @@
 ### 💔 Layoffs - Eidos Montreal Studio
 
-This article summarizes a layoff announcement from Eidos Montreal, affecting up to 75 employees due to a project's conclusion.  The statement emphasizes that the layoffs are not a reflection of employee performance.
+Layoff announcement from Eidos Montreal, affecting up to 75 employees due to a project's conclusion.  The statement emphasizes that the layoffs are not a reflection of employee performance.
 
 Key Points:
 

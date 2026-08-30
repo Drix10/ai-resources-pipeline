@@ -1,6 +1,6 @@
 ### 🤖 AI in Education - Freshman Physics Course Development
 
-This article discusses the use of AI in developing a freshman physics course using a mastery learning style.  The authors describe their approach and contrast it with other "AI education" companies.
+Use of AI in developing a freshman physics course using a mastery learning style.  The authors describe their approach and contrast it with other "AI education" companies.
 
 Key Points:
 

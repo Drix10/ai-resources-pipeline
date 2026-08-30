@@ -1,6 +1,6 @@
 ### ✨ CVPR - Art Tour
 
-This article provides details about an art tour event held at CVPR 2026. It highlights the opportunity for attendees to explore unique art installations within the conference setting.
+Details about an art tour event held at CVPR 2026. It highlights the opportunity for attendees to explore unique art installations within the conference setting.
 
 Key Points:
 

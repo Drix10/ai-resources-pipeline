@@ -1,6 +1,6 @@
 ### 🤖 AI Tools - ManusAI Capabilities
 
-This article discusses ManusAI, highlighting its ability to recreate documents by assembling raw materials into separate files, mimicking a researcher's workflow.  This contrasts with inline writing approaches used by other AI tools.
+ManusAI, highlighting its ability to recreate documents by assembling raw materials into separate files, mimicking a researcher's workflow.  This contrasts with inline writing approaches used by other AI tools.
 
 Key Points:
 

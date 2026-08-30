@@ -1,6 +1,6 @@
 ### 🤖 Decentralized Knowledge Graphs - OriginTrail DKG V8
 
-This article discusses the launch of OriginTrail's Decentralized Knowledge Graph (DKG) version 8, highlighting its AI-powered microeconomic approach to data creation, ownership, and interaction.
+Launch of OriginTrail's Decentralized Knowledge Graph (DKG) version 8, highlighting its AI-powered microeconomic approach to data creation, ownership, and interaction.
 
 Key Points:
 

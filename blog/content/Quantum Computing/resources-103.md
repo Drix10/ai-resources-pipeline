@@ -1,6 +1,6 @@
 ### 🤖 Quantum Computing - Biological Qubits
 
-This article discusses the creation of the first biological qubits, a significant advancement in quantum computing.  It briefly explains the context and provides relevant links.
+Creation of the first biological qubits, a significant advancement in quantum computing.  It briefly explains the context and provides relevant links.
 
 Key Points:
 

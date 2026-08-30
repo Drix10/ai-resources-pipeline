@@ -1,6 +1,6 @@
 ### 🤖 Generative AI - Video Remixing
 
-This article discusses the emerging ease of video remixing using Generative AI, drawing a parallel to the impact of turntables on audio remixing in the 1980s.  The potential for improving existing video content is highlighted.
+Emerging ease of video remixing using Generative AI, drawing a parallel to the impact of turntables on audio remixing in the 1980s.  The potential for improving existing video content is highlighted.
 
 Key Points:
 

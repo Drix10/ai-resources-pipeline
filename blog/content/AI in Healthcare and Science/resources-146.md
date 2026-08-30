@@ -1,6 +1,6 @@
 ### 💡 Health Risks - Daily Information
 
-This article provides an overview of daily health risks and emphasizes the importance of staying informed. It highlights the availability of regular updates to promote safety.
+Daily health risks and emphasizes the importance of staying informed. It highlights the availability of regular updates to promote safety.
 
 Key Points:
 

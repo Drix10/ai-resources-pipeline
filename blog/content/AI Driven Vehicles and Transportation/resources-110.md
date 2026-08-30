@@ -1,6 +1,6 @@
 ### 🚀 Autonomous Vehicles - Industry Updates
 
-This article summarizes recent developments in the autonomous vehicle industry, including deployments of autonomous trucks and robotaxis.
+Recent developments in the autonomous vehicle industry, including deployments of autonomous trucks and robotaxis.
 
 Key Points:
 

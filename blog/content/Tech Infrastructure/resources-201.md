@@ -1,6 +1,6 @@
 ### 🤖 Tesla FSD V14 Lite - Seoul Driving Test
 
-This article discusses the performance of Tesla's Full Self-Driving (FSD) V14 Lite software in Seoul, specifically within a 2022 Model 3 Ryzen. It references a live video demonstration of the system's capabilities.
+Performance of Tesla's Full Self-Driving (FSD) V14 Lite software in Seoul, specifically within a 2022 Model 3 Ryzen. It references a live video demonstration of the system's capabilities.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Robotics - Nature-Inspired Drones
 
-This article discusses the work of Jane Pauline Ramos Ramirez, a PhD researcher developing nature-inspired drones capable of both land and air locomotion.  Her research blends natural design principles with engineering mechanics.
+Work of Jane Pauline Ramos Ramirez, a PhD researcher developing nature-inspired drones capable of both land and air locomotion.  Her research blends natural design principles with engineering mechanics.
 
 Key Points:
 

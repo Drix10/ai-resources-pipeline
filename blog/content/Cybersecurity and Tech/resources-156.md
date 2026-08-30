@@ -1,6 +1,6 @@
 ### 🤖 Cybersecurity - Responsible Disclosure and Bug Bounties
 
-This article discusses the ongoing debate around responsible disclosure in cybersecurity and proposes bug bounty programs as a structured solution. It highlights the role of intermediaries in facilitating effective communication between security researchers and companies.
+Ongoing debate around responsible disclosure in cybersecurity and proposes bug bounty programs as a structured solution. It highlights the role of intermediaries in facilitating effective communication between security researchers and companies.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 AI Workflows - Innovators Think Tank Finale
 
-This article summarizes the final event of Ideas to Impact Season 7, showcasing AI workflows developed by participants and exploring their potential impact.
+Final event of Ideas to Impact Season 7, showcasing AI workflows developed by participants and exploring their potential impact.
 
 Key Points:
 

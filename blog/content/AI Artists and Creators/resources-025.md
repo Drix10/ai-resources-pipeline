@@ -1,6 +1,6 @@
 ### 🤖 Unreal Engine 5 - 24-Hour Render
 
-This article discusses the creation of a 3D render in Unreal Engine 5 completed within 24 hours.  It highlights the capabilities of the software and available tutorials.
+Creation of a 3D render in Unreal Engine 5 completed within 24 hours.  It highlights the capabilities of the software and available tutorials.
 
 Key Points:
 

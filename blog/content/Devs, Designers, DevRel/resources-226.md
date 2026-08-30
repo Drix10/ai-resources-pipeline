@@ -1,6 +1,6 @@
 ### 🚀 Game Development - Balloon Physics
 
-This article highlights the introduction of new balloon physics within game development. It addresses updates related to simulation and interaction.
+Introduction of new balloon physics within game development. It addresses updates related to simulation and interaction.
 
 Key Points:
 

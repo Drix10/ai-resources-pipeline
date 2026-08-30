@@ -1,6 +1,6 @@
 ### 🚀 Games - Hawthorn Kickstarter Campaign
 
-This article covers the launch of the Hawthorn Kickstarter campaign, a cooperative sandbox RPG developed by former Bethesda developers.  The game draws inspiration from works like Redwall and Lord of the Rings.
+Launch of the Hawthorn Kickstarter campaign, a cooperative sandbox RPG developed by former Bethesda developers.  The game draws inspiration from works like Redwall and Lord of the Rings.
 
 Key Points:
 

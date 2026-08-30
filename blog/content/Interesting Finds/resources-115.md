@@ -1,6 +1,6 @@
 ### 💡 Business Strategy - Media Perception Management
 
-This article discusses the challenges leaders of publicly traded companies face regarding external media scrutiny. It explores the perspective of maintaining focus and strategic direction despite public commentary from outlets like the Wall Street Journal.
+Challenges leaders of publicly traded companies face regarding external media scrutiny. It explores the perspective of maintaining focus and strategic direction despite public commentary from outlets like the Wall Street Journal.
 
 Key Points:
 

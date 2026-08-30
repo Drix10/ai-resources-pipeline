@@ -1,6 +1,6 @@
 ### 💡 Public Safety - Impact of Disruptive Protests
 
-This article examines the varying degrees of impact associated with different forms of public protest actions. It highlights the critical difference between localized disruptions and actions that impede essential services.
+Varying degrees of impact associated with different forms of public protest actions. It highlights the critical difference between localized disruptions and actions that impede essential services.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 UX Design - X Button Usability
 
-This article discusses a UX observation regarding button usage on the X platform and explores potential reasons for the existence of an alternative "@ grok" feature.
+UX observation regarding button usage on the X platform and explores potential reasons for the existence of an alternative "@ grok" feature.
 
 Key Points:
 

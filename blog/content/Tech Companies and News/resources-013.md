@@ -1,6 +1,6 @@
 ### 🚀 AI Video Race - Runway's Strategy
 
-This article discusses Runway's strategy in the competitive AI video market, highlighting its efforts to maintain a leading position against major players like OpenAI and Google.  The article briefly analyzes the competitive landscape and Runway's approach.
+Runway's strategy in the competitive AI video market, highlighting its efforts to maintain a leading position against major players like OpenAI and Google.  The article briefly analyzes the competitive landscape and Runway's approach.
 
 Key Points:
 

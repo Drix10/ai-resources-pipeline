@@ -1,6 +1,6 @@
 ### 🤖 Custom GPTs - Model Selection
 
-This article discusses the new feature allowing users to select a recommended model when creating custom GPTs, and the model options available to paid users.
+New feature allowing users to select a recommended model when creating custom GPTs, and the model options available to paid users.
 
 Key Points:
 

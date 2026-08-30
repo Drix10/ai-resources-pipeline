@@ -1,6 +1,6 @@
 ### 💔 Social Issues - Rainbow Crosswalk Removal
 
-This article discusses the removal of a rainbow crosswalk in Orlando, Florida, and the ensuing controversy.  The removal is viewed as disrespectful to victims, families, and advocates for equality.
+Removal of a rainbow crosswalk in Orlando, Florida, and the ensuing controversy.  The removal is viewed as disrespectful to victims, families, and advocates for equality.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Few-shot Acoustic Synthesis - Multimodal Flow Matching
 
-This article discusses research into few-shot acoustic synthesis using multimodal flow matching. It explains how this technique enables the generation of high-quality audio from limited examples by leveraging advanced modeling approaches. The focus is on the technical aspects and benefits of this method.
+Research into few-shot acoustic synthesis using multimodal flow matching. It explains how this technique enables the generation of high-quality audio from limited examples by leveraging advanced modeling approaches. The focus is on the technical aspects and benefits of this method.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Australian Economic Policy - Labor Government Performance
 
-This article discusses recent criticisms regarding the Australian Labor government's economic performance. It highlights concerns about fiscal management and its potential impact on citizens.
+Recent criticisms regarding the Australian Labor government's economic performance. It highlights concerns about fiscal management and its potential impact on citizens.
 
 Key Points:
 

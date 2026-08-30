@@ -1,6 +1,6 @@
 ### 🤖 Spartan Project Update - New Version Release
 
-This article discusses the upcoming release of a new version of the Spartan project, highlighting team efforts and upcoming features.  The development team has been working on this update, and it is expected to be well-received.
+Upcoming release of a new version of the Spartan project, highlighting team efforts and upcoming features.  The development team has been working on this update, and it is expected to be well-received.
 
 
 Key Points:

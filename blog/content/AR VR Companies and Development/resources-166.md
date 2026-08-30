@@ -1,6 +1,6 @@
 ### 🤖 Gen AI - Music Democratization
 
-This article discusses how Generative AI is making music production accessible to a wider audience. It highlights the potential for anyone to create high-quality tracks without needing extensive studio equipment.
+Generative AI is making music production accessible to a wider audience. It highlights the potential for anyone to create high-quality tracks without needing extensive studio equipment.
 
 Key Points:
 

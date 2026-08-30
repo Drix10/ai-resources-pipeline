@@ -1,6 +1,6 @@
 ### 📰 Social Justice - Protest and Repression
 
-This article discusses a protest in which police forcefully removed a rabbi participating in a demonstration against the abduction of Mahmoud Khalil.  The event highlights concerns about the suppression of protest and questions about priorities in ensuring public safety.
+Protest in which police forcefully removed a rabbi participating in a demonstration against the abduction of Mahmoud Khalil.  The event highlights concerns about the suppression of protest and questions about priorities in ensuring public safety.
 
 Key Points:
 

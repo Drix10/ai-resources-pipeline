@@ -1,6 +1,6 @@
 ### 🤖 Autonomous Driving - FSD Safety Metrics
 
-This article discusses the safety performance of Full Self-Driving (FSD) systems. It highlights FSD's collision rate compared to manual driving based on extensive mileage data.
+Safety performance of Full Self-Driving (FSD) systems. It highlights FSD's collision rate compared to manual driving based on extensive mileage data.
 
 Key Points:
 

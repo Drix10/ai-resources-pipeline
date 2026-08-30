@@ -1,6 +1,6 @@
 ### 🤖 Political Commentary -  Trump, Musk, and South Africa
 
-This article summarizes a Twitter thread discussing a purported interaction between Donald Trump and the President of South Africa, highlighting contrasting viewpoints.
+Twitter thread discussing a purported interaction between Donald Trump and the President of South Africa, highlighting contrasting viewpoints.
 
 Key Points:
 

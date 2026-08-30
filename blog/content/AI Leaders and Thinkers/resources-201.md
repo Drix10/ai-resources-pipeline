@@ -1,6 +1,6 @@
 ### 💡 User Engagement - Streak Management
 
-This article discusses user engagement metrics, specifically daily streaks, as a measure of consistent platform interaction. It highlights the concept of achieving extended streaks within a user community.
+User engagement metrics, specifically daily streaks, as a measure of consistent platform interaction. It highlights the concept of achieving extended streaks within a user community.
 
 Key Points:
 

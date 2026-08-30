@@ -1,6 +1,6 @@
 ### 🌎 Meteorology - Queensland Floods and Vegetation Growth
 
-This article discusses the impact of heavy rains and subsequent flooding in Queensland, Australia, and the resulting increase in vegetation growth in arid regions.
+Impact of heavy rains and subsequent flooding in Queensland, Australia, and the resulting increase in vegetation growth in arid regions.
 
 Key Points:
 

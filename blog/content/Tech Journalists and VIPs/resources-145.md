@@ -1,6 +1,6 @@
 ### 🤖 User Interface - Evolution and Future
 
-This article discusses the evolution of user interfaces and computing history, focusing on a presented talk about the transition from static software UIs. It highlights key ideas regarding the future of user interaction.
+Evolution of user interfaces and computing history, focusing on a presented talk about the transition from static software UIs. It highlights key ideas regarding the future of user interaction.
 
 Key Points:
 

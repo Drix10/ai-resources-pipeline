@@ -1,6 +1,6 @@
 ### 🤖 Machine Unlearning -  Robust Method for LLMs
 
-This article discusses a novel method for machine unlearning in large language models (LLMs), presented in a paper accepted to ACL Findings 2025.  The method, called Unilogit, aims for robustness and state-of-the-art performance.
+Novel method for machine unlearning in large language models (LLMs), presented in a paper accepted to ACL Findings 2025.  The method, called Unilogit, aims for robustness and state-of-the-art performance.
 
 Key Points:
 

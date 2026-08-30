@@ -1,6 +1,6 @@
 ### 💡 Real Estate SEO - Keyword Optimization for Leads
 
-This article explores the importance of optimizing real estate SEO keywords to capture future leads. It focuses on strategies for adapting keyword research to anticipate market trends and consumer search behavior for 2026.
+Importance of optimizing real estate SEO keywords to capture future leads. It focuses on strategies for adapting keyword research to anticipate market trends and consumer search behavior for 2026.
 
 Key Points:
 

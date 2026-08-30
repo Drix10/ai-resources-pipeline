@@ -1,6 +1,6 @@
 ### 💡 Gaming News - Masters of Albion Preview
 
-This article covers the exclusive announcement of Peter Molyneux's new project, "Masters of Albion," presented to Jörg Langer. It highlights the upcoming detailed preview and interview available on GamersGlobal.
+Exclusive announcement of Peter Molyneux's new project, "Masters of Albion," presented to Jörg Langer. It highlights the upcoming detailed preview and interview available on GamersGlobal.
 
 Key Points:
 

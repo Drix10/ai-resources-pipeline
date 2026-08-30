@@ -1,6 +1,6 @@
 ### 💡 AI Project Definition - Clarity and Problem Statements
 
-This article discusses the importance of clear problem statements in AI initiatives, advocating for a sanity check by replacing "AI" with "math" to identify vague objectives.
+Importance of clear problem statements in AI initiatives, advocating for a sanity check by replacing "AI" with "math" to identify vague objectives.
 
 Key Points:
 • Vague AI project descriptions can be identified by substituting "AI" with "math".

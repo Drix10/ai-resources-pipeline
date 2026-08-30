@@ -1,6 +1,6 @@
 ### 💡 FIFA World Cup - Controversial Changes
 
-This article examines recent criticisms directed at FIFA regarding changes implemented in the World Cup. It specifically addresses concerns about hydration breaks and alleged unequal treatment of nations.
+Recent criticisms directed at FIFA regarding changes implemented in the World Cup. It specifically addresses concerns about hydration breaks and alleged unequal treatment of nations.
 
 Key Points:
 

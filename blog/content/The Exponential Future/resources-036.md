@@ -1,6 +1,6 @@
 ### 🤖 Neural Networks - Algorithmic Mimicry of Brain Neurons
 
-This article summarizes Dr. Warren McCulloch's explanation of how artificial neurons algorithmically mimic brain neurons.  It briefly mentions the author's connection to Bell Labs.
+Dr. Warren McCulloch's explanation of how artificial neurons algorithmically mimic brain neurons.  It briefly mentions the author's connection to Bell Labs.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Evaluation and Scaling
 
-This article discusses the process of evaluating and scaling AI agents after initial prototyping.  It covers deployment and iterative improvement based on feedback.
+Process of evaluating and scaling AI agents after initial prototyping.  It covers deployment and iterative improvement based on feedback.
 
 Key Points:
 

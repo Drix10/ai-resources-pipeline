@@ -1,6 +1,6 @@
 ### 🤖 Machine Learning - Uncertainty Quantification Research
 
-This article summarizes research on uncertainty quantification (UQ) in machine learning, focusing on a new uncertainty metric for binary classification.  The research has been accepted for presentation at AISTATS 2025.
+Research on uncertainty quantification (UQ) in machine learning, focusing on a new uncertainty metric for binary classification.  The research has been accepted for presentation at AISTATS 2025.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚀 GTC25 - Test Drives
 
-This article details the availability of test drives for Lucid Air, Polestar 3, and Rivian vehicles at GTC25.  Attendees can find the schedule through the GTC app or the Nvidia website.
+Availability of test drives for Lucid Air, Polestar 3, and Rivian vehicles at GTC25.  Attendees can find the schedule through the GTC app or the Nvidia website.
 
 Key Points:
 

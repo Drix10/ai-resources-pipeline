@@ -1,6 +1,6 @@
 ### 💡 Advocacy - Working Persons' Association
 
-This article discusses the idea of forming a new advocacy group for working individuals under 50. It explores the concept and potential scope of such an organization, highlighting the need for dedicated representation.
+Idea of forming a new advocacy group for working individuals under 50. It explores the concept and potential scope of such an organization, highlighting the need for dedicated representation.
 
 Key Points:
 

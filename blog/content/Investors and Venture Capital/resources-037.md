@@ -1,6 +1,6 @@
 ### 🚨 Legal - Porn Startup Lawsuit
 
-This article summarizes allegations of legal violations involving a porn startup and its founder, Lucy Guo, focusing on potential Child Sexual Abuse Material (CSAM) and child pornography related laws.
+Allegations of legal violations involving a porn startup and its founder, Lucy Guo, focusing on potential Child Sexual Abuse Material (CSAM) and child pornography related laws.
 
 Key Points:
 

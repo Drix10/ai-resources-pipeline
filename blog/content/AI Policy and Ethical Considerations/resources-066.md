@@ -1,6 +1,6 @@
 ### 🤖 AI Market Predictions - Potential Short-Term Crash
 
-This article discusses the possibility of a short-term crash in the AI market within the next one to two years, citing factors such as over-investment and potential efficiency gains reducing the need for large-scale infrastructure.
+Possibility of a short-term crash in the AI market within the next one to two years, citing factors such as over-investment and potential efficiency gains reducing the need for large-scale infrastructure.
 
 Key Points:
 

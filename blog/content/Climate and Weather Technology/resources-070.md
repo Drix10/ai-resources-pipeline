@@ -1,6 +1,6 @@
 ### ⚠️ Severe Weather - East Coast
 
-This article summarizes severe weather warnings issued for portions of the East Coast, highlighting the potential hazards and affected areas.  Specific times and locations are noted.
+Severe weather warnings issued for portions of the East Coast, highlighting the potential hazards and affected areas.  Specific times and locations are noted.
 
 Key Points:
 

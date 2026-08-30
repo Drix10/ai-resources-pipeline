@@ -1,6 +1,6 @@
 ### 🤖 Football Management - Player Selection
 
-This article discusses the challenges of player selection in football management, contrasting the simplicity of video game selections with the complexities of real-world scenarios.
+Challenges of player selection in football management, contrasting the simplicity of video game selections with the complexities of real-world scenarios.
 
 Key Points:
 

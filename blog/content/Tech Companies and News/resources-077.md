@@ -1,6 +1,6 @@
 ### ✨ TNW Conference 2025 - Recap
 
-This article summarizes the highlights of the TNW Conference 2025, including inspiring talks, networking opportunities, and available on-demand sessions.
+Highlights of the TNW Conference 2025, including inspiring talks, networking opportunities, and available on-demand sessions.
 
 Key Points:
 

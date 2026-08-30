@@ -1,6 +1,6 @@
 ### 🤖 Marketing - AI Influencers
 
-This article discusses the potential implications of using AI influencers in user-generated content (UGC) marketing campaigns.  It suggests that brands resorting to this may lack confidence in their products and real customer feedback.
+Potential implications of using AI influencers in user-generated content (UGC) marketing campaigns.  It suggests that brands resorting to this may lack confidence in their products and real customer feedback.
 
 Key Points:
 

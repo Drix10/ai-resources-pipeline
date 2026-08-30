@@ -1,6 +1,6 @@
 ### 🤖 AI Legal - User Risk and Responsibility
 
-This article examines OpenAI's legal posture regarding user risk and responsibility, highlighting a perceived inconsistency in how liability is attributed for different user demographics and content types. It explores the implications of these varying stipulations.
+OpenAI's legal posture regarding user risk and responsibility, highlighting a perceived inconsistency in how liability is attributed for different user demographics and content types. It explores the implications of these varying stipulations.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🚨 Immigration - Wrongful Deportations
 
-This article discusses multiple reported instances of wrongful deportations by ICE, highlighting the administrative errors leading to these incidents.
+Multiple reported instances of wrongful deportations by ICE, highlighting the administrative errors leading to these incidents.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 Amplifying Membership Signal - Chained Regeneration
 
-This article discusses a technical paper focusing on enhancing membership signals through a process called chained regeneration in machine learning contexts. It explores methods to improve data utility and model robustness.
+Technical paper focusing on enhancing membership signals through a process called chained regeneration in machine learning contexts. It explores methods to improve data utility and model robustness.
 
 Key Points:
 

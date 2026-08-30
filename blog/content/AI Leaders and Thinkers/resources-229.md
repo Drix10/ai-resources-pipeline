@@ -1,6 +1,6 @@
 ### 🤖 AI in Biotechnology - Recent Progress
 
-This article summarizes recent developments in artificial intelligence applications within biotechnology. It highlights new capabilities in large language models and specific AI tools for biological research and medical diagnostics.
+Recent developments in artificial intelligence applications within biotechnology. It highlights new capabilities in large language models and specific AI tools for biological research and medical diagnostics.
 
 Key Points:
 

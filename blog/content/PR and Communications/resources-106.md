@@ -1,6 +1,6 @@
 ### 🤖 COVID-19 Gene Therapies - Call for Withdrawal
 
-This article summarizes three scientific papers calling for the withdrawal of COVID-19 gene therapies and provides links to the original sources.  The author references previous calls for this action.
+Three scientific papers calling for the withdrawal of COVID-19 gene therapies and provides links to the original sources.  The author references previous calls for this action.
 
 Key Points:
 

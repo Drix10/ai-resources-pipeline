@@ -1,6 +1,6 @@
 ### 🤖 International Olympiad in AI - Senegalese Delegation Selection
 
-This article details the national selection process organized by GalsenAI to form the Senegalese delegation for the International Olympiad in Artificial Intelligence (IOAI). The process involved multiple phases across various regions, coordinated with academic inspectorates.
+National selection process organized by GalsenAI to form the Senegalese delegation for the International Olympiad in Artificial Intelligence (IOAI). The process involved multiple phases across various regions, coordinated with academic inspectorates.
 
 Key Points:
 

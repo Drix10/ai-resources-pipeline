@@ -1,6 +1,6 @@
 ### 🤖 GPT-5 Rollout - Unexpected User Preferences
 
-This article discusses the unexpected challenges encountered during the GPT-5 rollout, specifically regarding user preferences and the prioritization of certain features over improved overall performance.
+Unexpected challenges encountered during the GPT-5 rollout, specifically regarding user preferences and the prioritization of certain features over improved overall performance.
 
 Key Points:
 

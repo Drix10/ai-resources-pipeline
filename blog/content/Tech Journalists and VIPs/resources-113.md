@@ -1,6 +1,6 @@
 ### 🤖 AI Economy - Industrial Bubbles
 
-This article examines Jeff Bezos's perspective on the current AI boom, distinguishing it from traditional financial bubbles. It highlights his argument that industrial bubbles yield lasting inventions despite fluctuating hype.
+Jeff Bezos's perspective on the current AI boom, distinguishing it from traditional financial bubbles. It highlights his argument that industrial bubbles yield lasting inventions despite fluctuating hype.
 
 Key Points:
 

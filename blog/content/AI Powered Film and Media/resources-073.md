@@ -1,6 +1,6 @@
 ### 🤖 Amazon Customer Service - Metric Verification
 
-This article details a story recounted by Jeff Bezos about verifying a customer service metric by personally calling Amazon's customer service line.  The anecdote highlights the importance of data accuracy and hands-on leadership.
+Story recounted by Jeff Bezos about verifying a customer service metric by personally calling Amazon's customer service line.  The anecdote highlights the importance of data accuracy and hands-on leadership.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 ChatGPT Prompts - VHS Anime Style
 
-This article details a prompt style for ChatGPT-4 to generate images in the style of 1980s Japanese OVA animation, mimicking the look of classic VHS tapes.  The prompt provides a specific aesthetic.
+Prompt style for ChatGPT-4 to generate images in the style of 1980s Japanese OVA animation, mimicking the look of classic VHS tapes.  The prompt provides a specific aesthetic.
 
 Key Points:
 

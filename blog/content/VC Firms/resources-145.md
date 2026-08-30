@@ -1,6 +1,6 @@
 ### 🤖 Saudi Coffee Industry Transformation - PIF Investment Impact
 
-This article outlines how Public Investment Fund (PIF) investment is revitalizing Saudi Arabia's coffee industry. It highlights the role of the Saudi Coffee Company in creating new opportunities for farmers and businesses nationwide.
+Public Investment Fund (PIF) investment is revitalizing Saudi Arabia's coffee industry. It highlights the role of the Saudi Coffee Company in creating new opportunities for farmers and businesses nationwide.
 
 Key Points:
 

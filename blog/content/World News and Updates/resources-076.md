@@ -1,6 +1,6 @@
 ### 🤖 Indian Politics - Congress Party Internal Dynamics
 
-This article discusses the unusual internal dynamics of the Indian National Congress party, highlighting a statement by its national president regarding the existence of a separate, unincluded "high command."
+Unusual internal dynamics of the Indian National Congress party, highlighting a statement by its national president regarding the existence of a separate, unincluded "high command."
 
 Key Points:
 

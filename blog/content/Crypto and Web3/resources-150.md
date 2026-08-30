@@ -1,6 +1,6 @@
 ### 🤖 AI & Health - Custom mRNA Vaccine Design
 
-This article details how an individual without a biology background utilized advanced AI tools to design a custom mRNA vaccine for his dog, highlighting the accessibility of modern scientific design.
+An individual without a biology background utilized advanced AI tools to design a custom mRNA vaccine for his dog, highlighting the accessibility of modern scientific design.
 
 Key Points:
 

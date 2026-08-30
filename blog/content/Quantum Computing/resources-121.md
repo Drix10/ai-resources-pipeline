@@ -1,6 +1,6 @@
 ### 🤖 Mathematics - Ramanujan's Number Theory Methods
 
-This article examines Srinivasa Ramanujan's unique approach to advanced mathematics, emphasizing his reliance on elliptic integrals and hypergeometric series. It highlights his ability to achieve profound results without utilizing modern theories such as Eisenstein series or Hecke operators.
+Srinivasa Ramanujan's unique approach to advanced mathematics, emphasizing his reliance on elliptic integrals and hypergeometric series. It highlights his ability to achieve profound results without utilizing modern theories such as Eisenstein series or Hecke operators.
 
 Key Points:
 

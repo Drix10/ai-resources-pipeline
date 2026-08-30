@@ -1,6 +1,6 @@
 ### ✨ Storytelling - The Foundation of Success
 
-This article discusses the importance of storytelling in building strong teams, successful projects, and thriving businesses.  It highlights how narratives shape a company's past, present, and future.
+Importance of storytelling in building strong teams, successful projects, and thriving businesses.  It highlights how narratives shape a company's past, present, and future.
 
 Key Points:
 

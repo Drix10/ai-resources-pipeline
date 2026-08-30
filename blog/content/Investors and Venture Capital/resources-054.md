@@ -1,6 +1,6 @@
 ### 🤖 OKRs - Implementation and Template
 
-This article discusses the implementation of Objectives and Key Results (OKR) frameworks, a common practice in early-stage companies.  It also provides a link to a downloadable OKR template.
+Implementation of Objectives and Key Results (OKR) frameworks, a common practice in early-stage companies.  It also provides a link to a downloadable OKR template.
 
 Key Points:
 

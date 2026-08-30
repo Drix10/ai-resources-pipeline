@@ -1,6 +1,6 @@
 ### 📜 History - Portuguese Inquisition Archives in India
 
-This article discusses the near-destruction and subsequent partial preservation of the Portuguese Inquisition archives in India.  A significant portion of the records were almost lost, highlighting the fragility of historical records.
+Near-destruction and subsequent partial preservation of the Portuguese Inquisition archives in India.  A significant portion of the records were almost lost, highlighting the fragility of historical records.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 💡 Poverty Reduction - India's Progress
 
-This article discusses the recent announcement by the Finance Minister regarding a significant reduction in multi-dimensional poverty. It highlights the progress made in India's efforts to uplift its population. The data reflects the impact of various government initiatives.
+Recent announcement by the Finance Minister regarding a significant reduction in multi-dimensional poverty. It highlights the progress made in India's efforts to uplift its population. The data reflects the impact of various government initiatives.
 
 Key Points:
 

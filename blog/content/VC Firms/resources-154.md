@@ -1,6 +1,6 @@
 ### 💡 Entrepreneurship - Founder Journeys
 
-This article discusses the early stages of an entrepreneur's journey, highlighting the foundational experiences that precede startup creation. It features insights from Dimittris Choudbury on his background, offering a look into the personal stories driving ventures.
+Early stages of an entrepreneur's journey, highlighting the foundational experiences that precede startup creation. It features insights from Dimittris Choudbury on his background, offering a look into the personal stories driving ventures.
 
 Key Points:
 

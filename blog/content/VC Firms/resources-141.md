@@ -1,6 +1,6 @@
 ### 🤖 Pharmaceutical AI - Licensing Virtual Cell Models
 
-This article details GSK's strategic shift to license AI models from Noetik for drug discovery initiatives. The agreement focuses on utilizing virtual cell models to advance research in lung and colon cancer. This marks a significant investment in AI-driven pharmaceutical development.
+GSK's strategic shift to license AI models from Noetik for drug discovery initiatives. The agreement focuses on utilizing virtual cell models to advance research in lung and colon cancer. This marks a significant investment in AI-driven pharmaceutical development.
 
 Key Points:
 

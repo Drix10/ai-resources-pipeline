@@ -1,6 +1,6 @@
 ### 💡 Startup Strategy - Forming New Companies
 
-This article discusses the fundamental role of new companies in economic development and innovation. It highlights how the creation of new ventures serves as a solution to various market needs and drives progress.
+Fundamental role of new companies in economic development and innovation. It highlights how the creation of new ventures serves as a solution to various market needs and drives progress.
 
 Key Points:
 

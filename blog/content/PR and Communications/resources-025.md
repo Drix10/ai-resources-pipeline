@@ -1,6 +1,6 @@
 ### 🎨 Art & Cryptocurrency - Bank Runners
 
-This article discusses the artwork and concept behind "Bank Runners," highlighting its themes of cypherpunk values and decentralized finance.
+Artwork and concept behind "Bank Runners," highlighting its themes of cypherpunk values and decentralized finance.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Video Generation - Mobile Content Creation
 
-This article discusses the use of Google DeepMind's VEO2 for generating films, highlighting improvements to its recall library and mobile download functionality.  The author emphasizes their high mobile content creation rate.
+Use of Google DeepMind's VEO2 for generating films, highlighting improvements to its recall library and mobile download functionality.  The author emphasizes their high mobile content creation rate.
 
 Key Points:
 

@@ -1,6 +1,6 @@
 ### 🤖 AI Privacy - De-anonymization Risks
 
-This article discusses a study revealing how AI, specifically large language models (LLMs), can unmask anonymous social media accounts. It highlights the urgent need for enhanced privacy safeguards, particularly for firms in Europe's AI hub, to prevent potential data breaches.
+Study revealing how AI, specifically large language models (LLMs), can unmask anonymous social media accounts. It highlights the urgent need for enhanced privacy safeguards, particularly for firms in Europe's AI hub, to prevent potential data breaches.
 
 Key Points:
 

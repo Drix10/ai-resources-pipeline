@@ -1,6 +1,6 @@
 ### 🇮🇳  Indian Politics - Nana Peshwa Rao Jayanti
 
-This article summarizes a statement made by Chief Minister Yogi Adityanath regarding Nana Peshwa Rao Jayanti and the significance of Bithoor.
+Statement made by Chief Minister Yogi Adityanath regarding Nana Peshwa Rao Jayanti and the significance of Bithoor.
 
 
 Key Points:

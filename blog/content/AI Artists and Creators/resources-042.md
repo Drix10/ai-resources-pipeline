@@ -1,6 +1,6 @@
 ### 🤖 Auction - "Blaze Hunter and Pyro" Art
 
-This article summarizes a Twitter auction for artwork titled "Blaze Hunter and Pyro," highlighting the bidding process and participants.
+Twitter auction for artwork titled "Blaze Hunter and Pyro," highlighting the bidding process and participants.
 
 Key Points:
 

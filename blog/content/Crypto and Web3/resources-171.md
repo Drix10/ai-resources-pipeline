@@ -1,6 +1,6 @@
 ### 🤖 Bitcoin - Node Enforcement and Economic Incentives
 
-This article discusses the fundamental debate concerning whether Bitcoin's rules are primarily set by miner economic incentives or by principles enforced by nodes. It highlights insights from "The Blocksize War" to clarify Bitcoin's operational and governance mechanisms.
+Fundamental debate concerning whether Bitcoin's rules are primarily set by miner economic incentives or by principles enforced by nodes. It highlights insights from "The Blocksize War" to clarify Bitcoin's operational and governance mechanisms.
 
 Key Points:
 

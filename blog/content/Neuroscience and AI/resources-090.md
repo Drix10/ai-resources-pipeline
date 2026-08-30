@@ -1,6 +1,6 @@
 ### 💡 Music Perception - Specific Musical Anhedonia
 
-This article discusses specific musical anhedonia, a rare condition where individuals experience no pleasure from music despite normal hearing and enjoyment of other rewards.  Research suggests a disconnect between brain regions responsible for processing music and reward.
+Specific musical anhedonia, a rare condition where individuals experience no pleasure from music despite normal hearing and enjoyment of other rewards.  Research suggests a disconnect between brain regions responsible for processing music and reward.
 
 Key Points:
 

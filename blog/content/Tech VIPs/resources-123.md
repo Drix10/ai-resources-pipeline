@@ -1,6 +1,6 @@
 ### 🚀 AR Development - Interactive Pinball with react-three/xr
 
-This article explores the creation of interactive augmented reality experiences. It focuses on implementing an AR pinball table using the react-three/xr library, demonstrating its efficiency for spatial computing.
+Creation of interactive augmented reality experiences. It focuses on implementing an AR pinball table using the react-three/xr library, demonstrating its efficiency for spatial computing.
 
 Key Points:
 

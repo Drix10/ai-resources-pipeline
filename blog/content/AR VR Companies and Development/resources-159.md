@@ -1,6 +1,6 @@
 ### 🤖 AI Training Data - Copyright Infringement Claims Against Apple
 
-This article covers the lawsuit filed by Ethan Klein and other YouTubers against Apple. It details their claims that Apple illegally used their video content to train its artificial intelligence models without authorization.
+Lawsuit filed by Ethan Klein and other YouTubers against Apple. It details their claims that Apple illegally used their video content to train its artificial intelligence models without authorization.
 
 Key Points:
 

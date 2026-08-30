@@ -1,6 +1,6 @@
 ### 🤖 Simulation Trust and Validation
 
-This article discusses the challenges of building trust in simulation results and the planned validation work to address these challenges.
+Challenges of building trust in simulation results and the planned validation work to address these challenges.
 
 Key Points:
 

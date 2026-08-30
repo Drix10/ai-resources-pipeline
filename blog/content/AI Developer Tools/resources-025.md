@@ -1,6 +1,6 @@
 ### 🤖 AI Agents - Deep Research with MCP
 
-This article explores the capabilities of the MCP AI agent, demonstrating its potential beyond simple tool-calling through the construction of a deep research agent.  The example showcases a more complex application of MCP.
+Capabilities of the MCP AI agent, demonstrating its potential beyond simple tool-calling through the construction of a deep research agent.  The example showcases a more complex application of MCP.
 
 Key Points:
 

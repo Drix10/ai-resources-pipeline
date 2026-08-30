@@ -1,6 +1,6 @@
 ### 🤖 AugmentCode's Coding Model - Secret Model Revealed
 
-This article discusses AugmentCode's coding model, recently transitioning from Sonnet 4 to a yet-unrevealed model.  It briefly touches upon the company's use of large language models for coding purposes.
+AugmentCode's coding model, recently transitioning from Sonnet 4 to a yet-unrevealed model.  It briefly touches upon the company's use of large language models for coding purposes.
 
 Key Points:
 

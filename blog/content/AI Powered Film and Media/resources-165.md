@@ -1,6 +1,6 @@
 ### 🤖 Neuroscience - Parkinson's Early Detection and Prevention
 
-This article explores the future of Parkinson's research, focusing on the potential for early detection years before symptom onset and strategies to slow its progression. It covers insights from Prof. Tiago Outeiro on diagnosis and emerging prevention methods.
+Future of Parkinson's research, focusing on the potential for early detection years before symptom onset and strategies to slow its progression. It covers insights from Prof. Tiago Outeiro on diagnosis and emerging prevention methods.
 
 Key Points:
 

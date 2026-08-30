@@ -1,6 +1,6 @@
 ### 💡 Animal Welfare - Impact of Donations
 
-This article discusses the significant impact that even small donations can have on improving animal welfare standards, specifically focusing on chickens. It highlights how contributions lead to better living conditions for these animals.
+Significant impact that even small donations can have on improving animal welfare standards, specifically focusing on chickens. It highlights how contributions lead to better living conditions for these animals.
 
 Key Points:
 

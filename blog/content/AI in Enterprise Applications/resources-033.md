@@ -1,6 +1,6 @@
 ### 🤖 Generative AI - Understanding Business Audiences
 
-This article discusses how generative AI assists businesses in understanding their audiences by structuring previously unstructured data.  It highlights the use of AI for audience analysis.
+Generative AI assists businesses in understanding their audiences by structuring previously unstructured data.  It highlights the use of AI for audience analysis.
 
 
 Key Points:

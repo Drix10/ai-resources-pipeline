@@ -1,6 +1,6 @@
 ### 💡 Abstract Art - Repetition and Mood
 
-This article explores the concept of repetition in abstract art, likening it to cyclical thought patterns. It discusses how recurring shapes and colors can evoke shifting moods and subtle alterations.
+Concept of repetition in abstract art, likening it to cyclical thought patterns. It discusses how recurring shapes and colors can evoke shifting moods and subtle alterations.
 
 Key Points:
 

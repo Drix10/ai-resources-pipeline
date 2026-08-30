@@ -1,6 +1,6 @@
 ### 🤖 India Politics - Congratulatory Message to Vice President-elect
 
-This article summarizes a statement by Congress leader Udit Raj congratulating C P Radhakrishnan on his election as Vice President of India.  The statement also includes a hope for national unity above political ideologies.
+Statement by Congress leader Udit Raj congratulating C P Radhakrishnan on his election as Vice President of India.  The statement also includes a hope for national unity above political ideologies.
 
 
 Key Points:

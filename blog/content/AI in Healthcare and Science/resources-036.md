@@ -1,6 +1,6 @@
 ### 🤖 Health Data Monetization - Rejuve AI
 
-This article discusses Rejuve AI, a platform that allows users to monetize their health data by connecting wearable devices and earning tokens.  The platform emphasizes user control and ownership of their data.
+Rejuve AI, a platform that allows users to monetize their health data by connecting wearable devices and earning tokens.  The platform emphasizes user control and ownership of their data.
 
 Key Points:
 

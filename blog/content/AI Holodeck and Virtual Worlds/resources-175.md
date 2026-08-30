@@ -1,6 +1,6 @@
 ### ✨ Descript - Latest Feature Updates
 
-This article details the recent updates and new features introduced in Descript, a video editing and podcasting tool. It covers enhancements to the API, video generation, live captions, and transitions.
+Recent updates and new features introduced in Descript, a video editing and podcasting tool. It covers enhancements to the API, video generation, live captions, and transitions.
 
 Key Points:
 

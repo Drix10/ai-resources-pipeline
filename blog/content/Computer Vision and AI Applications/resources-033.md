@@ -1,6 +1,6 @@
 ### 🤖 VR Demo - 4D Gaussian Splatting
 
-This article discusses a live demonstration of 4D Gaussian Splatting in VR, showcasing its capabilities and user reaction.  The scene optimization utilized the QUEEN tool from NVIDIA AI.
+Live demonstration of 4D Gaussian Splatting in VR, showcasing its capabilities and user reaction.  The scene optimization utilized the QUEEN tool from NVIDIA AI.
 
 Key Points:
 

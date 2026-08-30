@@ -1,6 +1,6 @@
 ### 🤖 AI Strategy - Becoming AI-Native
 
-This article discusses the strategic approach for traditional enterprises to transition into AI-native companies. It outlines key considerations for integrating artificial intelligence into core business operations.
+Strategic approach for traditional enterprises to transition into AI-native companies. It outlines key considerations for integrating artificial intelligence into core business operations.
 
 Key Points:
 

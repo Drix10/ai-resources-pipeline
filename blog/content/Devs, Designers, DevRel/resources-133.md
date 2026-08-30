@@ -1,6 +1,6 @@
 ### 🤖 VLM Model Training - PrimeIntellect Instance Setup
 
-This article details the process of initiating a new instance on PrimeIntellect for training Vision-Language Models (VLMs). It highlights the practical application of this platform for advanced model development.
+Process of initiating a new instance on PrimeIntellect for training Vision-Language Models (VLMs). It highlights the practical application of this platform for advanced model development.
 
 Key Points:
 

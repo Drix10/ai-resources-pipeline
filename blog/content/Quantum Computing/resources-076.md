@@ -1,6 +1,6 @@
 ### 🤖 Programming Languages - Multi-Stage Programming with Splice Variables
 
-This article discusses a new language designed for flexible, type-safe code generation, utilizing splice variables for advanced features like code pattern matching.  The research paper detailing this language has been accepted to ICFP'25.
+New language designed for flexible, type-safe code generation, utilizing splice variables for advanced features like code pattern matching.  The research paper detailing this language has been accepted to ICFP'25.
 
 Key Points:
 

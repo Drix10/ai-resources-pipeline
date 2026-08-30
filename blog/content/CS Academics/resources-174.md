@@ -1,6 +1,6 @@
 ### 💡 Basketball Statistics - Record-Breaking Performance
 
-This article details the Boston Celtics' exceptional shooting performance from a recent game, highlighting their record-setting efficiency. It covers key statistics that underscore their historic offensive output.
+Boston Celtics' exceptional shooting performance from a recent game, highlighting their record-setting efficiency. It covers key statistics that underscore their historic offensive output.
 
 Key Points:
 

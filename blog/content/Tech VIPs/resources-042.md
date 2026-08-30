@@ -1,6 +1,6 @@
 ### 🤖 Brave Browser Metrics - March 2025 Update
 
-This article summarizes Brave browser's user metrics for March 2025, highlighting key performance indicators such as Monthly Active Users (MAU), Daily Active Users (DAU), and User-minutes per day.
+Brave browser's user metrics for March 2025, highlighting key performance indicators such as Monthly Active Users (MAU), Daily Active Users (DAU), and User-minutes per day.
 
 Key Points:
 

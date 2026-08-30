@@ -1,6 +1,6 @@
 ### 💡 Public Health - West Flu Weekly Update
 
-This article provides an update on flu prevalence across several Western US states as of April 17. It details the current trends in flu activity for Washington, Oregon, California, Arizona, Colorado, and Nevada.
+Update on flu prevalence across several Western US states as of April 17. It details the current trends in flu activity for Washington, Oregon, California, Arizona, Colorado, and Nevada.
 
 Key Points:
 

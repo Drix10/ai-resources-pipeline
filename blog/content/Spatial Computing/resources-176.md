@@ -1,6 +1,6 @@
 ### 🚀 Blender - VisionPro USDZ Export Workflow
 
-This article discusses the new USDZ export feature within Blender running on Apple VisionPro, enabling a streamlined workflow for 3D content creation and spatial placement. It highlights the capability to complete the entire process within the XR device without network dependency.
+New USDZ export feature within Blender running on Apple VisionPro, enabling a streamlined workflow for 3D content creation and spatial placement. It highlights the capability to complete the entire process within the XR device without network dependency.
 
 Key Points:
 

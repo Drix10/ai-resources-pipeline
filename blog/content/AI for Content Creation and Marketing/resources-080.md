@@ -1,6 +1,6 @@
 ### 💡 Branding - Authenticity in a Crowded Market
 
-This article summarizes Patrick Schwarzenegger's insights on building a successful brand through authenticity, emphasizing the importance of a strong mission and values over solely focusing on profit.
+Patrick Schwarzenegger's insights on building a successful brand through authenticity, emphasizing the importance of a strong mission and values over solely focusing on profit.
 
 Key Points:
 

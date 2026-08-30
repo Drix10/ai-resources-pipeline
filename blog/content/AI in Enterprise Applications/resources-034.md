@@ -1,6 +1,6 @@
 ### 🤖 Enterprise GenAI - Business Use Cases
 
-This article discusses the increasing adoption of Generative AI by businesses, highlighting examples of successful implementations and their impact.
+Increasing adoption of Generative AI by businesses, highlighting examples of successful implementations and their impact.
 
 Key Points:
 

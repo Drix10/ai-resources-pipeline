@@ -1,6 +1,6 @@
 ### ⚖️ Indian Legislation - Online Gaming Regulation
 
-This article summarizes the passage of the Promotion and Regulation of Online Gaming Bill, 2025, in the Lok Sabha and the anticipated legal challenges from industry players.
+Passage of the Promotion and Regulation of Online Gaming Bill, 2025, in the Lok Sabha and the anticipated legal challenges from industry players.
 
 Key Points:
 

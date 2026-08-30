@@ -1,6 +1,6 @@
 ### 🤖 Spoof Detection - Low-Resource Language Evaluation
 
-This article examines the evaluation of spoof detectors across a wide array of languages, specifically focusing on performance within low-resource linguistic environments. It highlights the challenges and methodologies for assessing anti-spoofing systems.
+Evaluation of spoof detectors across a wide array of languages, specifically focusing on performance within low-resource linguistic environments. It highlights the challenges and methodologies for assessing anti-spoofing systems.
 
 Key Points:
 

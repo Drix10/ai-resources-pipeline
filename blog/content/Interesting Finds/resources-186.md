@@ -1,6 +1,6 @@
 ### 💡 Media Scrutiny - Identifying Misinformation
 
-This article discusses common patterns in media reporting and encourages a critical approach to information consumption. It highlights instances where media narratives may present information misleadingly.
+Common patterns in media reporting and encourages a critical approach to information consumption. It highlights instances where media narratives may present information misleadingly.
 
 Key Points:
 

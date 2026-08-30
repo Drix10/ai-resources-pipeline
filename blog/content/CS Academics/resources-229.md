@@ -1,6 +1,6 @@
 ### ✨ NBA Finals 2026 - Dylan Harper Highlight
 
-This article covers a significant play by Dylan Harper during Game 2 of the 2026 NBA Finals, capturing a memorable moment of the game. It highlights the impact of individual performances in high-stakes matches.
+Significant play by Dylan Harper during Game 2 of the 2026 NBA Finals, capturing a memorable moment of the game. It highlights the impact of individual performances in high-stakes matches.
 
 Key Points:
 

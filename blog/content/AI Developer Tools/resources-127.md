@@ -1,6 +1,6 @@
 ### ✨ Z-Image - LOMO Ic-a Style Generation
 
-This article explores the use of Z-Image with the LOMO Ic-a style to create artistic, film-like visuals. It highlights the creative application of image generation for unique scene compositions.
+Use of Z-Image with the LOMO Ic-a style to create artistic, film-like visuals. It highlights the creative application of image generation for unique scene compositions.
 
 Key Points:
 

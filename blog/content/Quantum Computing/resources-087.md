@@ -1,6 +1,6 @@
 ### 🤖  Singular Value Behavior in mclip3 - NS Iterations
 
-This article discusses unexpected singular value dropping behavior observed in the mclip3 model after increasing the number of NS iterations.  A solution involving nested msigns is presented.
+Unexpected singular value dropping behavior observed in the mclip3 model after increasing the number of NS iterations.  A solution involving nested msigns is presented.
 
 Key Points:
 

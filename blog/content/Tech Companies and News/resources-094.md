@@ -1,6 +1,6 @@
 ### 🤖 Rugged Smartphones - Armor X16 Pro
 
-This article provides a brief overview of the Armor X16 Pro smartphone, highlighting its durability and long battery life.
+The Armor X16 Pro smartphone, highlighting its durability and long battery life.
 
 Key Points:
 

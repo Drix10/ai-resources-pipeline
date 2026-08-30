@@ -1,6 +1,6 @@
 ### 🤖 Earth Observation - AI at CES
 
-This article details SkyFi's presence at CES 2026, highlighting Kate Van Dam's speaking engagement on Earth Observation with AI. It provides opportunities to connect with the SkyFi team at the event.
+SkyFi's presence at CES 2026, highlighting Kate Van Dam's speaking engagement on Earth Observation with AI. It provides opportunities to connect with the SkyFi team at the event.
 
 Key Points:
 

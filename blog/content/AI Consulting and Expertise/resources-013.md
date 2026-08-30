@@ -1,6 +1,6 @@
 ### 🤖 WeightWatcher Layer Quality Metrics Walkthrough
 
-This article provides a walkthrough of the WeightWatcher layer quality metrics, using the codebase from section 6 of a research paper.  The walkthrough details the process of reproducing the experiments presented in the paper.
+Walkthrough of the WeightWatcher layer quality metrics, using the codebase from section 6 of a research paper.  The walkthrough details the process of reproducing the experiments presented in the paper.
 
 Key Points:
 

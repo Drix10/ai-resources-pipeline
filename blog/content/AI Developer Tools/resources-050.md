@@ -1,6 +1,6 @@
 ### 🚀 Hackathon - Roblox Fireside
 
-This article details a gaming hackathon leading into a fireside chat with the Roblox CEO.  Participants receive access to Replit and OpenAI resources.
+Gaming hackathon leading into a fireside chat with the Roblox CEO.  Participants receive access to Replit and OpenAI resources.
 
 Key Points:
 

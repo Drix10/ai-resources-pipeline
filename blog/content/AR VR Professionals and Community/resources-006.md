@@ -1,6 +1,6 @@
 ### 🎬 Film Industry - The Unsustainable State of Indie Film
 
-This article summarizes Sean Baker's reflections on the current challenges faced by independent filmmakers, highlighting the need for systemic change within the film industry.
+Sean Baker's reflections on the current challenges faced by independent filmmakers, highlighting the need for systemic change within the film industry.
 
 Key Points:
 

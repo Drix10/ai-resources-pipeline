@@ -1,6 +1,6 @@
 ### 🚀 Commercial Real Estate - Data Enrichment for Outreach
 
-This article discusses the acceleration of activity in commercial real estate and CREXinc's approach to improving market access. It highlights how data enrichment supports more effective outreach.
+Acceleration of activity in commercial real estate and CREXinc's approach to improving market access. It highlights how data enrichment supports more effective outreach.
 
 Key Points:
 

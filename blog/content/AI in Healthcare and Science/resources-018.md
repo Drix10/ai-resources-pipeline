@@ -1,6 +1,6 @@
 ### 💡 Multivitamins - Longevity Benefits
 
-This article examines the current research on the relationship between multivitamin intake and longevity.  The findings suggest that the impact of multivitamins on long-term health is not universally consistent.
+Current research on the relationship between multivitamin intake and longevity.  The findings suggest that the impact of multivitamins on long-term health is not universally consistent.
 
 
 Key Points:

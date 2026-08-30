@@ -1,6 +1,6 @@
 ### 💡 Concept Art - Future Boy Design
 
-This article explores a conceptual art piece titled "The boy from the future," showcasing imaginative character design. It highlights the creative process and thematic elements often found in such visual works.
+Conceptual art piece titled "The boy from the future," showcasing imaginative character design. It highlights the creative process and thematic elements often found in such visual works.
 
 Key Points:
 

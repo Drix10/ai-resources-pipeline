@@ -1,6 +1,6 @@
 ### 💡 Socioeconomic Outlook - India's Economic Trajectory
 
-This article discusses the prediction of India remaining a middle-income country for the foreseeable future, drawing parallels with similar situations in South America and highlighting the potential benefits from technological megatrends.
+Prediction of India remaining a middle-income country for the foreseeable future, drawing parallels with similar situations in South America and highlighting the potential benefits from technological megatrends.
 
 Key Points:
 

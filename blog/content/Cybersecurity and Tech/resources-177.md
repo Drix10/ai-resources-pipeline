@@ -1,6 +1,6 @@
 ### 💡 Barbecue Preparation - Upcoming Cook
 
-This article provides a brief update on upcoming barbecue activities, highlighting the anticipation for a new cooking session. It aims to share the enthusiasm for outdoor grilling.
+Update on upcoming barbecue activities, highlighting the anticipation for a new cooking session. It aims to share the enthusiasm for outdoor grilling.
 
 Key Points:
 

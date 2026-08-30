@@ -1,6 +1,6 @@
 ### 💡 Web3 Content Publishing - Scaling through Web2 Learnings
 
-This article discusses the observation that Web3 adopting the "creators as publishers" model signifies learning from Web2's successful scaling strategies. It highlights how this approach facilitates broader growth.
+Observation that Web3 adopting the "creators as publishers" model signifies learning from Web2's successful scaling strategies. It highlights how this approach facilitates broader growth.
 
 Key Points:
 

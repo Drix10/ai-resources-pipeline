@@ -1,6 +1,6 @@
 ### 💡 Psilocybin Therapy - Alzheimer's Case Study
 
-This article discusses a case study involving an 80-year-old woman with advanced Alzheimer's disease who showed significant improvements after a single dose of psilocybin mushrooms. It outlines the reported changes in her condition following the experimental treatment.
+Case study involving an 80-year-old woman with advanced Alzheimer's disease who showed significant improvements after a single dose of psilocybin mushrooms. It outlines the reported changes in her condition following the experimental treatment.
 
 Key Points:
 
