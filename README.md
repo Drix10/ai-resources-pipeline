@@ -23,7 +23,7 @@
 
 ## 📖 Overview
 
-**ai-knowledge-pipeline** is an enterprise-grade autonomous system that continuously collects high-signal AI engineering updates from Twitter/X and LinkedIn, synthesizes structured technical breakdowns via local and cloud LLM engines, commits them to an authoritative Git Knowledge Base, and powers a **sub-second Next.js 14 Knowledge Hub** ([blogs.drix10.com](https://blogs.drix10.com)) with automated multi-platform syndication to **DEV.to**.
+**ai-resources-pipeline** is an autonomous system that curates AI engineering updates, synthesizes structured technical breakdowns via local LLMs, and powers a **sub-second Next.js 14 Knowledge Hub** ([blogs.drix10.com](https://blogs.drix10.com)) with automated DEV.to syndication.
 
 ---
 
@@ -88,8 +88,8 @@ flowchart TD
 
 ### 1. Installation
 ```bash
-git clone https://github.com/Drix10/ai-knowledge-pipeline.git
-cd ai-knowledge-pipeline
+git clone https://github.com/Drix10/ai-resources-pipeline.git
+cd ai-resources-pipeline
 npm install
 cd blog && npm install && cd ..
 ```

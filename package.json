@@ -1,5 +1,5 @@
 {
-  "name": "ai-knowledge-pipeline",
+  "name": "ai-resources-pipeline",
   "version": "1.0.0",
   "description": "Autonomous AI Knowledge & Multi-Channel Syndication Engine",
   "main": "index.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Drix10/ai-knowledge-pipeline.git"
+    "url": "git+https://github.com/Drix10/ai-resources-pipeline.git"
   },
   "dependencies": {
     "@octokit/rest": "^22.0.1",
