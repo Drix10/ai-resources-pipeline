@@ -1,8 +1,29 @@
-# 🚀 ai-knowledge-pipeline
+<p align="center">
+  <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Markdown-Dark.svg" width="80" alt="Markdown Knowledge Hub" />
+</p>
 
-> **Autonomous AI Knowledge Curation, Multi-Platform Syndication & High-Performance Next.js Knowledge Hub**
+<h1 align="center">⚡ Autonomous AI Knowledge & Multi-Channel Syndication Engine</h1>
 
-An enterprise-grade, autonomous pipeline that collects high-signal AI engineering updates from Twitter/X and LinkedIn, synthesizes structured technical breakdowns via local and cloud LLM engines, publishes to an authoritative Git-backed Knowledge Base, and powers a **sub-second Next.js 14 Knowledge Hub** (`blogs.drix10.com`) with automated multi-platform cross-posting (DEV.to / Hashnode).
+<p align="center">
+  <strong>Continuous Technical Curation • Dual-Engine LLM Pipeline • Next.js Knowledge Hub • Multi-Platform Developer Syndication</strong>
+</p>
+
+<p align="center">
+  <a href="https://blogs.drix10.com"><img src="https://img.shields.io/badge/LIVE_HUB-BLOGS.DRIX10.COM-10b981?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Hub" /></a>
+  <img src="https://img.shields.io/badge/DUAL_LLM-OLLAMA_%26_NVIDIA_NIM-76b900?style=for-the-badge&logo=nvidia&logoColor=white" alt="Dual LLM" />
+  <img src="https://img.shields.io/badge/WEB-NEXT.JS_14_APP_ROUTER-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js 14" />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/SYNDICATION-DEV.TO_%7C_HASHNODE-0a0a0a?style=for-the-badge&logo=devdotto&logoColor=white" alt="Syndication" />
+  <img src="https://img.shields.io/badge/SOCIAL-LINKEDIN_SELENIUM_POSTER-0077b5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Poster" />
+</p>
+
+---
+
+## 📖 Overview
+
+**ai-knowledge-pipeline** is an enterprise-grade autonomous system that continuously collects high-signal AI engineering updates from Twitter/X and LinkedIn, synthesizes structured technical breakdowns via local and cloud LLM engines, commits them to an authoritative Git Knowledge Base, and powers a **sub-second Next.js 14 Knowledge Hub** ([blogs.drix10.com](https://blogs.drix10.com)) with automated multi-platform syndication to **DEV.to** and **Hashnode**.
 
 ---
 
@@ -30,6 +51,7 @@ flowchart TD
 - **Sub-60ms In-Memory Search & Filtering** with tokenized search indexes (`blog/lib/articles-index.json`).
 - **Hybrid Incremental Static Regeneration (ISR)**: Builds in under 8 seconds with zero worker timeouts.
 - **Minimalist Mobile-First UI**: Dark zinc palette, swipeable topic carousel, touch-optimized pagination ($44px+$ targets), and clean avatar header.
+- **Live Deployment**: Hosted at [https://blogs.drix10.com](https://blogs.drix10.com).
 
 ### 👁️ 2. Dual Human + AI Agent View Counter Engine
 - **Real-Time Persistent Counter**: Tracks genuine visits on each reader page and across the global blog.
@@ -42,13 +64,13 @@ flowchart TD
 - **Security Headers**: `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`.
 
 ### 🚀 4. Automated Multi-Platform Syndication
-- **DEV.to API Integration**: Automatically cross-posts new articles with canonical backlinks pointing to `https://blogs.drix10.com`.
+- **DEV.to API Integration**: Automatically cross-posts new articles with canonical backlinks pointing to [https://blogs.drix10.com](https://blogs.drix10.com).
 - **Hashnode GraphQL API**: Direct multi-platform broadcasting with tag sanitization and rate-limit spacing.
 - **Single-Batch Deployments**: Rebuilds search indexes and triggers only 1 consolidated commit per cycle.
 
 ### 🌐 5. Programmatic SEO (pSEO) & Generative Engine Optimization (GEO)
 - **`/llms.txt`**: Standardized Markdown context for LLM agents and answer engines (ChatGPT, Claude, Perplexity).
-- **Triple-Stacked JSON-LD**: `TechArticle`, `BreadcrumbList`, and `SearchAction` schemas linking author credentials (`drix10.com` / LinkedIn).
+- **Triple-Stacked JSON-LD**: `TechArticle`, `BreadcrumbList`, and `SearchAction` schemas linking author credentials ([drix10.com](https://drix10.com) / LinkedIn).
 - **Related Guides Graph**: Deep internal cross-linking to prevent orphan pages and optimize crawl depth.
 
 ---
