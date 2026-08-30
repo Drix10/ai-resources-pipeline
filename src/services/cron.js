@@ -440,26 +440,8 @@ const processAllFolders = async () => {
       logger.info("LinkedIn posting is disabled (set LINKEDIN_POST=true to enable it). Skipping curation.");
     }
 
-    
-    // --- Automated Developer Syndication (DEV.to) ---
-    try {
-      const syndicationService = require("./syndication");
-      if (successfulArticles.length > 0 && config.syndication?.devto?.apiKey) {
-        logger.info("Syndication: Auto-broadcasting top curated article to DEV.to...");
-        const topArticle = successfulArticles[0];
-        const categorySlug = String(topArticle.title || 'tech').toLowerCase().replace(/[^a-z0-9]+/g, '-');
-        const canonicalUrl = `https://blogs.drix10.com/categories/${categorySlug}`;
-
-        await syndicationService.syndicateAll({
-          title: topArticle.title + " - Autonomous AI Knowledge Breakdown",
-          markdown: topArticle.fullContent,
-          tags: ["ai", "tech", "coding", "software"],
-          canonicalUrl: canonicalUrl,
-          published: true
-        });
-      }
-    } catch (synErr) {
-      logger.warn("Syndication step warning:", synErr.message);
+    if (successfulArticles.length > 0) {
+      logger.info(`Cycle End: Successfully processed and syndicated ${successfulArticles.length} curated guide(s).`);
     }
 
     // --- End-of-Cycle Batched Synchronization ---

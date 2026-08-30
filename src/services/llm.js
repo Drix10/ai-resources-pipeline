@@ -1815,31 +1815,29 @@ Follow ALL rules from the SYSTEM_PROMPT (banned words, senior-engineer tone, sen
 
 Use this exact structure for every article:
 
-### [ONE emoji] Main Topic - Subtopic
+### [ONE emoji] Category - Specific Topic
 
-[2-3 sentence introduction — direct technical summary. NEVER start with "This article discusses...", "This content explains...", "This describes...", "In this post...". Start immediately with the core technical subject or finding.]
+[2-3 sentence introduction — direct technical summary. NEVER start with meta phrases like "This article discusses...", "This content explains...", "In this post...". Start immediately with the core technical subject, architecture, or benchmark.]
 
 Key Points:
 
-• Point one (single line, no emojis, no bold, no italic)
+• Point one (single line, no emojis, no bold, no italic, direct technical finding)
 
-• Point two (single line, no emojis, no bold, no italic)
+• Point two (single line, no emojis, no bold, no italic, direct technical finding)
 
-🚀 Implementation:          (only if the source itself gives reproducible steps)
-1. Step one
-2. Step two
+• Point three (single line, no emojis, no bold, no italic, direct technical finding)
 
-🔗 Resources:               (required)
+🔗 Resources:
 • [Original source](exact source post URL) - Original source
-• [Tool Name](verified source URL) - Brief description (max 10 words, no colons inside descriptions)
+• [Tool/Entity Name](verified source URL) - Brief description (max 8 words, no colons inside descriptions)
 ![Image](url)
 
 Strict rules:
 - Exact spacing with double newlines between Key Points (bullet points starting with "•").
-- Maximum 3-5 Key Points and 3-5 Implementation steps.
+- 3-5 clear, substantive Key Points per article.
+- Focus purely on high-signal Key Points and Resources. Never write placeholder sections or invent "No implementation steps provided".
 - Every article with an "Original post URL" MUST include that exact URL as the first Resources link. Never change, shorten, or invent it.
-- Only use verified links and images directly present in the matching source text. Never invent, expand, or guess URLs.
-- Do not infer setup steps. Add an Implementation section only when the source explicitly supplies at least two ordered setup, command, configuration, or operational steps. Announcements, benchmarks, opinions, and product descriptions must not get generic implementation steps.
+- Only use verified links and images directly present in the matching source text. Never invent, expand, or guess URLs. Never use placeholder domains like example.com.
 - Every factual Key Point must be stated directly in its matching source. Do not turn likely implications into facts.
 - No bold, italic, extra emojis, or extra sections.
 - Make one formatted article for each high-quality content item provided.
@@ -2522,21 +2520,12 @@ Include 10-15 highly targeted, relevant hashtags on their own block at the very 
   }
 
   stripUnsupportedImplementations(markdown, sourceRecords) {
-    let sourceIndex = 0;
     return String(markdown || "")
-      .split(/(?=^###\s+)/gm)
-      .map((chunk) => {
-        if (!/^###\s+/.test(chunk) || /^### ⭐️ Support/m.test(chunk)) return chunk;
-        const record = sourceRecords[sourceIndex++];
-        if (!record || this.sourceHasExplicitImplementation(record.text)) return chunk;
-        return chunk
-          .replace(/\n🚀 Implementation:\s*[\s\S]*?(?=\n🔗 Resources:|\n---\s*$|$)/m, "")
-          // Some models emit a final numbered line outside the heading block.
-          // A numbered list immediately before Resources is still an invented
-          // implementation section when the source supplied no ordered steps.
-          .replace(/\n(?:\s*\d+[.)]\s+[^\n]+\n?)+(?=\n🔗 Resources:)/gm, "");
-      })
-      .join("");
+      .replace(/(?:###\s*)?(?:🚀\s*)?Implementation:\s*(?:(?:\d+[.)]|•|-|\*)\s*(?:No specific|Not provided|N\/A|None|No steps)[^\n]*\n?)+/gim, "")
+      .replace(/(?:###\s*)?(?:🚀\s*)?Implementation:\s*\n*(?=(?:###\s*)?(?:🔗\s*)?Resources:|---|\n*$|$)/gim, "")
+      .replace(/(?:###\s*)?(?:🚀\s*)?Implementation:\s*1\.\s*No specific[^\n]*\n?/gim, "")
+      .replace(/(?:•\s*\[[^\]]+\]\(https?:\/\/(?:example\.com|test\.com)[^\)]*\)[^\n]*\n?)/gim, "")
+      .replace(/(\n•\s*\[[^\]]+\]\([^\)]+\)[^\n]*)(?:\n\1)+/gim, "$1");
   }
 
   assertMarkdownGrounding(markdown, sourceRecords = []) {
