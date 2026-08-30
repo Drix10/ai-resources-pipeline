@@ -1755,6 +1755,8 @@ ${combinedPrompt}</source_material>
       if (groupedThreads.length === 0 && curatedLinkedinPosts.length === 0) {
         throw new Error("No pre-vetted source content was provided; skipping publication.");
       }
+
+      const sourceCount = groupedThreads.length + curatedLinkedinPosts.length;
       let combinedPrompt = "";
 
       if (groupedThreads.length > 0) {
