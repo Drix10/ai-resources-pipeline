@@ -1,7 +1,7 @@
 {
-  "totalViews": 8939,
+  "totalViews": 8940,
   "totalAiViews": 1,
-  "totalHumanViews": 8938,
+  "totalHumanViews": 8939,
   "lastUpdated": "2026-08-30T06:44:51.987Z",
   "articles": {
     "linkedin-insights/ai-developer-tools-1788031114374": {
@@ -15,8 +15,8 @@
       "aiViews": 0
     },
     "ai-developer-tools/apify-broadcast-on-the-context-resources-230": {
-      "views": 3,
-      "humanViews": 2,
+      "views": 4,
+      "humanViews": 3,
       "aiViews": 1
     },
     "ai-education/biomolecular-prediction-nvidia-acce-resources-230": {
