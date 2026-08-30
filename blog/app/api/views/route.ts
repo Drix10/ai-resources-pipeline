@@ -1,11 +1,31 @@
 import { getGlobalViewsStats, getArticleViews, recordView } from '@/lib/views-manager';
 import { checkRateLimit, getClientIp } from '@/lib/rate-limiter';
 import { NextRequest, NextResponse } from 'next/server';
+import fs from 'fs';
+import path from 'path';
 import indexData from '@/lib/articles-index.json';
 
-const validSlugsSet = new Set<string>();
-for (const a of indexData.articles) {
-  validSlugsSet.add(a.slug.toLowerCase());
+let cachedSlugs = new Set<string>();
+
+function getValidSlugs(): Set<string> {
+  if (cachedSlugs.size > 0) return cachedSlugs;
+
+  try {
+    const indexPath = path.join(process.cwd(), 'lib', 'articles-index.json');
+    if (fs.existsSync(indexPath)) {
+      const raw = fs.readFileSync(indexPath, 'utf8');
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed?.articles)) {
+        cachedSlugs = new Set(parsed.articles.map((a: any) => String(a.slug).toLowerCase()));
+        return cachedSlugs;
+      }
+    }
+  } catch (e) {}
+
+  if (Array.isArray(indexData?.articles)) {
+    cachedSlugs = new Set(indexData.articles.map((a: any) => String(a.slug).toLowerCase()));
+  }
+  return cachedSlugs;
 }
 
 export async function GET(request: NextRequest) {
@@ -48,14 +68,20 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Missing or invalid slug' }, { status: 400 });
     }
 
-    let cleanSlug = rawSlug.toLowerCase().trim();
+    let cleanSlug = rawSlug.toLowerCase().trim().slice(0, 180);
     try {
       cleanSlug = decodeURIComponent(cleanSlug).toLowerCase().trim();
     } catch (e) {}
 
-    // Security Gate: Reject unindexed / arbitrary slugs to prevent json store corruption
-    if (!validSlugsSet.has(cleanSlug)) {
-      return NextResponse.json({ error: 'Invalid article slug' }, { status: 404 });
+    const validSlugs = getValidSlugs();
+    // Security Gate: Reject unindexed / arbitrary slugs to prevent storage corruption
+    if (!validSlugs.has(cleanSlug)) {
+      // Re-read once in case the file was just added
+      cachedSlugs.clear();
+      const freshSlugs = getValidSlugs();
+      if (!freshSlugs.has(cleanSlug)) {
+        return NextResponse.json({ error: 'Invalid article slug' }, { status: 404 });
+      }
     }
 
     const userAgent = request.headers.get('user-agent') || '';

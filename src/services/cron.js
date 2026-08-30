@@ -470,6 +470,20 @@ const processAllFolders = async () => {
         rebuildBlogIndex();
         logger.info("Cycle End: Rebuilt local Knowledge Hub search index.");
       }
+
+      // Automatically git commit & push newly synced articles so Vercel deploys the updated Knowledge Hub
+      if (successfulArticles.length > 0) {
+        try {
+          const { execSync } = require("child_process");
+          execSync('git add blog/content blog/lib/articles-index.json && git commit -m "feat(blog): sync new curated AI resource guides" && git push origin main', {
+            stdio: "ignore",
+            timeout: 30000
+          });
+          logger.info("Cycle End: Pushed updated Knowledge Hub articles to origin main (Triggered automated Vercel deploy).");
+        } catch (gitErr) {
+          logger.warn(`Cycle End: Automated git push skipped: ${gitErr.message}`);
+        }
+      }
     } catch (indexErr) {
       logger.warn("Cycle End: Index rebuild skipped:", indexErr.message);
     }

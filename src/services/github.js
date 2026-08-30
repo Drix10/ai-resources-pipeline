@@ -182,6 +182,17 @@ class GithubService {
 
       const fileUrl = `https://github.com/${owner}/${repo}/blob/main/${urlSafeFolder}/${fileName}`;
 
+      // Save locally to blog/content as well so local Knowledge Hub is instantly in sync
+      try {
+        const localBlogContentDir = path.join(process.cwd(), 'blog', 'content', decodedFolder);
+        if (!fs.existsSync(localBlogContentDir)) {
+          fs.mkdirSync(localBlogContentDir, { recursive: true });
+        }
+        fs.writeFileSync(path.join(localBlogContentDir, fileName), fileBuffer, 'utf8');
+      } catch (localErr) {
+        logger.warn(`Local blog save warning (non-fatal): ${localErr.message}`);
+      }
+
       // Asynchronously syndicate to enabled developer platforms (DEV.to) with canonical URL protection
       syndicationService
         .syndicateMarkdownArticle({

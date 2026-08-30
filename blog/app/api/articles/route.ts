@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, getClientIp } from '@/lib/rate-limiter';
 import indexData from '@/lib/articles-index.json';
 
-const allArticles = indexData.articles;
+const allArticles = Array.isArray(indexData?.articles) ? indexData.articles : [];
 
 export async function GET(request: NextRequest) {
   const clientIp = getClientIp(request);
@@ -14,8 +14,14 @@ export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
   const q = (searchParams.get('search') || searchParams.get('q') || '').trim().slice(0, 100).toLowerCase();
   const category = (searchParams.get('category') || '').trim().slice(0, 80);
-  const page = Math.max(1, parseInt(searchParams.get('page') || '1', 10));
-  const limit = Math.min(100, Math.max(10, parseInt(searchParams.get('limit') || '30', 10)));
+  
+  // Safe integer parsing with strict boundary guards
+  const rawPage = parseInt(searchParams.get('page') || '1', 10);
+  const page = Number.isInteger(rawPage) && rawPage > 0 ? Math.min(rawPage, 10000) : 1;
+
+  const rawLimit = parseInt(searchParams.get('limit') || '30', 10);
+  const limit = Number.isInteger(rawLimit) && rawLimit > 0 ? Math.min(100, Math.max(10, rawLimit)) : 30;
+
   const sort = searchParams.get('sort') || 'newest';
 
   let filtered = allArticles;
@@ -25,7 +31,7 @@ export async function GET(request: NextRequest) {
   }
 
   if (q) {
-    const terms = q.split(/\s+/).filter(Boolean);
+    const terms = q.split(/\s+/).filter(Boolean).slice(0, 8); // Cap max search terms to 8
     filtered = filtered.filter((a) => {
       const kw = (a.searchKeywords || (a.title + ' ' + a.category + ' ' + a.description)).toLowerCase();
       return terms.every((t) => kw.includes(t));

@@ -1,4 +1,6 @@
 const winston = require("winston");
+const fs = require("fs");
+const path = require("path");
 
 const logger = winston.createLogger({
   level: process.env.NODE_ENV === "production" ? "info" : "debug",
@@ -26,29 +28,23 @@ const logger = winston.createLogger({
       ),
     }),
   ],
-
   exitOnError: false,
 });
 
 /**
  * Sanitizes user input to prevent XSS attacks.
  * @param {string} input - The input string to sanitize.
- * @returns {string} - The sanitized string. Returns an empty string if input is invalid.
+ * @returns {string} - The sanitized string.
  */
 const sanitizeInput = (input) => {
   if (typeof input !== "string") {
-    logger.error(
-      "Invalid input type for sanitizeInput: Expected string, got",
-      typeof input
-    );
+    logger.error("Invalid input type for sanitizeInput: Expected string, got", typeof input);
     return "";
   }
 
-  if (!input.trim()) {
-    return "";
-  }
+  if (!input.trim()) return "";
 
-  const sanitizedInput = input
+  return input
     .trim()
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
@@ -58,21 +54,12 @@ const sanitizeInput = (input) => {
     .replace(/\//g, "&#x2F;")
     .replace(/\\/g, "&#x5C;")
     .replace(/`/g, "&#x60;");
-
-  return sanitizedInput;
 };
 
 /**
  * Handles errors gracefully and logs them using Winston.
- * @param {Error} error - The error object.
- * @param {string} message - A message to log.
- * @param {Object} [additionalContext] - Optional additional context for the error.
  */
-const handleError = (
-  error,
-  message = "An error occurred",
-  additionalContext = {}
-) => {
+const handleError = (error, message = "An error occurred", additionalContext = {}) => {
   if (!error) {
     logger.error("handleError called with null/undefined error");
     return;
@@ -92,10 +79,6 @@ const handleError = (
 
 /**
  * Creates a standardized error response object.
- * @param {string} message - The error message.
- * @param {number} [statusCode=500] - The HTTP status code.
- * @param {Object} [details] - Additional error details.
- * @returns {Object} Standardized error response object.
  */
 const createErrorResponse = (message, statusCode = 500, details = {}) => {
   return {
@@ -111,14 +94,6 @@ const createErrorResponse = (message, statusCode = 500, details = {}) => {
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-module.exports = Object.freeze({
-  sanitizeInput,
-  handleError,
-  createErrorResponse,
-  logger,
-  sleep,
-});
-
 /**
  * Automatically scans all workspace markdown folders and rebuilds blog/lib/articles-index.json
  */
@@ -132,7 +107,9 @@ const rebuildBlogIndex = () => {
     const articles = [];
     const categoryCountMap = new Map();
 
-    const contentDir = path.join(blogDir, 'content');
+    const contentDir = path.join(blogDir, "content");
+    if (!fs.existsSync(contentDir)) return;
+
     const entries = fs.readdirSync(contentDir, { withFileTypes: true });
     for (const entry of entries) {
       if (!entry.isDirectory() || entry.name.startsWith(".") || ignored.has(entry.name)) continue;
@@ -154,7 +131,7 @@ const rebuildBlogIndex = () => {
           const description = snippet || ("Technical breakdown of " + title);
           const wordCount = content.split(/\s+/).filter(Boolean).length;
           const readingTimeMinutes = Math.max(1, Math.ceil(wordCount / 200));
-          // Extract authentic GitHub commit date
+
           let date = stats.mtime.toISOString().split("T")[0];
           const numMatch = file.match(/resources-(\d+)/i);
           const tsMatch = file.match(/(\d{13})/);
@@ -215,3 +192,12 @@ const rebuildBlogIndex = () => {
     logger.error("rebuildBlogIndex: Failed to rebuild blog index:", err);
   }
 };
+
+module.exports = Object.freeze({
+  sanitizeInput,
+  handleError,
+  createErrorResponse,
+  logger,
+  sleep,
+  rebuildBlogIndex,
+});

@@ -44,48 +44,61 @@ class SyndicationService {
 
     const safeTitle = String(title || "Technical Breakdown").trim().slice(0, 120);
     const cleanTags = this.sanitizeTags(tags, 4);
-    const validCanonical = this.isValidUrl(canonicalUrl) ? canonicalUrl : undefined;
+    let validCanonical = this.isValidUrl(canonicalUrl) ? canonicalUrl : undefined;
 
-    const payload = {
+    const buildPayload = (cUrl) => ({
       article: {
         title: safeTitle,
         published: Boolean(published),
         body_markdown: String(markdown || ""),
         tags: cleanTags.length > 0 ? cleanTags : ["tech", "ai", "coding"],
-        ...(validCanonical ? { canonical_url: validCanonical } : {}),
+        ...(cUrl ? { canonical_url: cUrl } : {}),
         ...(coverImage && this.isValidUrl(coverImage) ? { main_image: coverImage } : {}),
       },
-    };
+    });
 
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), this.DEFAULT_TIMEOUT_MS);
+    const sendRequest = async (payload) => {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), this.DEFAULT_TIMEOUT_MS);
+      try {
+        const response = await fetch("https://dev.to/api/articles", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": apiKey,
+            "User-Agent": "ai-resources-pipeline/1.0 (https://blogs.drix10.com)",
+          },
+          signal: controller.signal,
+          body: JSON.stringify(payload),
+        });
+        const data = await response.json();
+        return { ok: response.ok, status: response.status, data };
+      } finally {
+        clearTimeout(timeout);
+      }
+    };
 
     try {
       logger.info(`SyndicationService: Publishing to DEV.to ("${safeTitle.slice(0, 40)}...")...`);
-      const response = await fetch("https://dev.to/api/articles", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "api-key": apiKey,
-          "User-Agent": "ai-knowledge-pipeline/1.0 (https://blogs.drix10.com)",
-        },
-        signal: controller.signal,
-        body: JSON.stringify(payload),
-      });
+      let result = await sendRequest(buildPayload(validCanonical));
 
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(`DEV.to returned HTTP ${response.status}: ${JSON.stringify(data?.error || data)}`);
+      // Edge-Case Safeguard: If DEV.to rejects with 422 due to duplicate canonical URL, retry with unique timestamp param or standalone
+      if (!result.ok && result.status === 422 && JSON.stringify(result.data).toLowerCase().includes("canonical url")) {
+        logger.warn("SyndicationService: Canonical URL collision detected. Retrying with unique timestamped canonical...");
+        const uniqueCanonical = validCanonical ? `${validCanonical}?v=${Date.now()}` : undefined;
+        result = await sendRequest(buildPayload(uniqueCanonical));
       }
 
-      logger.info(`SyndicationService: Successfully published to DEV.to! URL: ${data.url}`);
-      return { success: true, platform: "devto", url: data.url, id: data.id };
+      if (!result.ok) {
+        throw new Error(`DEV.to returned HTTP ${result.status}: ${JSON.stringify(result.data?.error || result.data)}`);
+      }
+
+      logger.info(`SyndicationService: Successfully published to DEV.to! URL: ${result.data.url}`);
+      return { success: true, platform: "devto", url: result.data.url, id: result.data.id };
     } catch (error) {
       const msg = error?.name === "AbortError" ? "DEV.to request timed out" : error.message;
       logger.error(`SyndicationService: DEV.to publishing failed: ${msg}`);
       return { success: false, platform: "devto", error: msg };
-    } finally {
-      clearTimeout(timeout);
     }
   }
 
@@ -104,11 +117,23 @@ class SyndicationService {
   }
 
   /**
-   * Syndicate markdown article file from GitHub service hook
+   * Syndicate markdown article file from GitHub service hook with unique article slug
    */
   async syndicateMarkdownArticle({ title, markdown, tags = [], category, relativePath, coverImage, published = true }) {
-    const categorySlug = String(category || title || 'tech').toLowerCase().replace(/[^a-z0-9]+/g, '-');
-    const canonicalUrl = `https://blogs.drix10.com/categories/${categorySlug}`;
+    let canonicalUrl;
+    if (relativePath) {
+      const cleanPath = String(relativePath)
+        .replace(/\.md$/i, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9/]+/g, "-")
+        .replace(/\/+/g, "/")
+        .replace(/^\/|\/$/g, "");
+      canonicalUrl = `https://blogs.drix10.com/articles/${cleanPath}`;
+    } else {
+      const categorySlug = String(category || title || "tech").toLowerCase().replace(/[^a-z0-9]+/g, "-");
+      canonicalUrl = `https://blogs.drix10.com/articles/${categorySlug}-${Date.now()}`;
+    }
+
     return this.syndicateAll({
       title: `${title} - Autonomous AI Engineering Resource Breakdown`,
       markdown,
