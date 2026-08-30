@@ -4,7 +4,16 @@ import React, { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 export default function HeaderLiveCounter() {
-  const [totalViews, setTotalViews] = useState<number | null>(null);
+  const [totalViews, setTotalViews] = useState<number>(() => {
+    if (typeof window !== 'undefined') {
+      const cached = localStorage.getItem('drix10_total_views');
+      if (cached && !isNaN(Number(cached))) {
+        return Math.max(8941, Number(cached));
+      }
+    }
+    return 8941;
+  });
+
   const pathname = usePathname();
 
   const fetchViews = () => {
@@ -15,15 +24,33 @@ export default function HeaderLiveCounter() {
       })
       .then((data) => {
         if (data?.totalViews) {
-          setTotalViews(data.totalViews);
+          const val = Math.max(8941, data.totalViews);
+          setTotalViews(val);
+          if (typeof window !== 'undefined') {
+            localStorage.setItem('drix10_total_views', String(val));
+          }
         }
       })
       .catch(() => {});
   };
 
-  // Fetch on initial mount and whenever pathname changes (route visit)
   useEffect(() => {
     fetchViews();
+
+    const handleViewRecorded = (e: any) => {
+      if (e?.detail?.totalViews) {
+        const val = Math.max(8941, e.detail.totalViews);
+        setTotalViews(val);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('drix10_total_views', String(val));
+        }
+      }
+    };
+
+    window.addEventListener('viewRecorded', handleViewRecorded);
+    return () => {
+      window.removeEventListener('viewRecorded', handleViewRecorded);
+    };
   }, [pathname]);
 
   return (
@@ -37,7 +64,7 @@ export default function HeaderLiveCounter() {
       </span>
       <span className="text-zinc-400">👁️</span>
       <span className="font-bold text-zinc-100">
-        {totalViews ? totalViews.toLocaleString() : '8,941'}
+        {totalViews.toLocaleString()}
       </span>
       <span className="hidden md:inline text-zinc-500 text-[11px]">reads</span>
     </div>

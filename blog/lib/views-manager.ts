@@ -16,76 +16,55 @@ export interface ViewsStore {
   articles: Record<string, ArticleViews>;
 }
 
-// Baseline fallback in case views-data.json is not present
+const BASE_TOTAL_VIEWS = 8941;
+const BASE_AI_VIEWS = 142;
+const BASE_HUMAN_VIEWS = 8799;
+
 const defaultStore: ViewsStore = {
-  totalViews: 8941,
-  totalAiViews: 142,
-  totalHumanViews: 8799,
+  totalViews: BASE_TOTAL_VIEWS,
+  totalAiViews: BASE_AI_VIEWS,
+  totalHumanViews: BASE_HUMAN_VIEWS,
   lastUpdated: new Date().toISOString(),
   articles: {},
 };
 
 function getViewsFilePath(): string {
   if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
-    return path.join(os.tmpdir(), 'views-data.json');
+    return path.join(os.tmpdir(), 'ai-knowledge-views.json');
   }
   return path.join(process.cwd(), 'lib', 'views-data.json');
 }
 
-function loadInitialStore(): ViewsStore {
+function loadStoreFromDisk(): ViewsStore {
+  const filePath = getViewsFilePath();
   try {
-    const filePath = getViewsFilePath();
     if (fs.existsSync(filePath)) {
-      const data = fs.readFileSync(filePath, 'utf8');
-      return JSON.parse(data);
-    }
-  } catch (e) {}
-
-  // Try local fallback
-  try {
-    const localPath = path.join(process.cwd(), 'lib', 'views-data.json');
-    if (fs.existsSync(localPath)) {
-      const data = fs.readFileSync(localPath, 'utf8');
-      return JSON.parse(data);
+      const raw = fs.readFileSync(filePath, 'utf8');
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed.totalViews === 'number') {
+        // Ensure totalViews is at least the base count
+        parsed.totalViews = Math.max(BASE_TOTAL_VIEWS, parsed.totalViews);
+        parsed.articles = parsed.articles || {};
+        return parsed;
+      }
     }
   } catch (e) {}
 
   return defaultStore;
 }
 
-let store: ViewsStore = loadInitialStore();
-let saveTimeout: NodeJS.Timeout | null = null;
+let store: ViewsStore = loadStoreFromDisk();
 
-function scheduleSave() {
-  if (saveTimeout) return;
-  saveTimeout = setTimeout(() => {
-    try {
-      const filePath = getViewsFilePath();
-      const dir = path.dirname(filePath);
-      if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-      }
-      const tempPath = filePath + '.tmp';
-      fs.writeFileSync(tempPath, JSON.stringify(store, null, 2), 'utf8');
-      try {
-        fs.renameSync(tempPath, filePath);
-      } catch (err: any) {
-        if (['EEXIST', 'EPERM'].includes(err.code)) {
-          fs.rmSync(filePath, { force: true });
-          fs.renameSync(tempPath, filePath);
-        } else {
-          throw err;
-        }
-      }
-    } catch (e) {
-      // In read-only runtime, in-memory counter continues uninterrupted
-    } finally {
-      saveTimeout = null;
+function saveStoreToDisk(): void {
+  const filePath = getViewsFilePath();
+  try {
+    const dir = path.dirname(filePath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
     }
-  }, 2000);
-
-  if (saveTimeout?.unref) {
-    saveTimeout.unref();
+    fs.writeFileSync(filePath, JSON.stringify(store, null, 2), 'utf8');
+  } catch (e) {
+    // In strict read-only environments, in-memory store continues
   }
 }
 
@@ -96,40 +75,67 @@ export function isAiCrawler(userAgent: string): boolean {
   return AI_BOT_REGEX.test(userAgent.slice(0, 500));
 }
 
-export function recordView(slug: string, userAgent: string): { slug: string; stats: ArticleViews; isAi: boolean } {
+export function recordView(slug: string, userAgent: string): {
+  slug: string;
+  stats: ArticleViews;
+  isAi: boolean;
+  totalViews: number;
+  totalHumanViews: number;
+  totalAiViews: number;
+} {
+  // Sync from disk to capture increments from any other worker process
+  const diskStore = loadStoreFromDisk();
+  store = diskStore;
+
   const isAi = isAiCrawler(userAgent);
+
   if (!store.articles[slug]) {
-    store.articles[slug] = { views: 1, humanViews: isAi ? 0 : 1, aiViews: isAi ? 1 : 0 };
+    store.articles[slug] = {
+      views: 1,
+      humanViews: isAi ? 0 : 1,
+      aiViews: isAi ? 1 : 0,
+    };
   } else {
-    store.articles[slug].views += 1;
+    store.articles[slug].views = (store.articles[slug].views || 0) + 1;
     if (isAi) {
-      store.articles[slug].aiViews += 1;
+      store.articles[slug].aiViews = (store.articles[slug].aiViews || 0) + 1;
     } else {
-      store.articles[slug].humanViews += 1;
+      store.articles[slug].humanViews = (store.articles[slug].humanViews || 0) + 1;
     }
   }
 
-  store.totalViews += 1;
+  store.totalViews = Math.max(BASE_TOTAL_VIEWS, store.totalViews) + 1;
   if (isAi) {
-    store.totalAiViews += 1;
+    store.totalAiViews = (store.totalAiViews || BASE_AI_VIEWS) + 1;
   } else {
-    store.totalHumanViews += 1;
+    store.totalHumanViews = (store.totalHumanViews || BASE_HUMAN_VIEWS) + 1;
   }
   store.lastUpdated = new Date().toISOString();
 
-  scheduleSave();
-  return { slug, stats: store.articles[slug], isAi };
+  // Persist synchronously so subsequent reads immediately reflect this increment
+  saveStoreToDisk();
+
+  return {
+    slug,
+    stats: store.articles[slug],
+    isAi,
+    totalViews: store.totalViews,
+    totalHumanViews: store.totalHumanViews,
+    totalAiViews: store.totalAiViews,
+  };
 }
 
 export function getArticleViews(slug: string): ArticleViews {
-  return store.articles[slug] || { views: 1, humanViews: 1, aiViews: 0 };
+  const current = loadStoreFromDisk();
+  return current.articles[slug] || { views: 1, humanViews: 1, aiViews: 0 };
 }
 
 export function getGlobalViewsStats() {
+  const current = loadStoreFromDisk();
   return {
-    totalViews: store.totalViews,
-    totalAiViews: store.totalAiViews,
-    totalHumanViews: store.totalHumanViews,
-    lastUpdated: store.lastUpdated,
+    totalViews: Math.max(BASE_TOTAL_VIEWS, current.totalViews),
+    totalAiViews: Math.max(BASE_AI_VIEWS, current.totalAiViews),
+    totalHumanViews: Math.max(BASE_HUMAN_VIEWS, current.totalHumanViews),
+    lastUpdated: current.lastUpdated,
   };
 }

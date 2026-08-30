@@ -25,6 +25,9 @@ export default function ArticleViewTracker({ slug, initialViews, initialAiViews 
           setViews(data.stats.views);
           setAiViews(data.stats.aiViews);
         }
+        if (data?.totalViews && typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('viewRecorded', { detail: data }));
+        }
       })
       .catch(() => {});
   }, [slug]);
