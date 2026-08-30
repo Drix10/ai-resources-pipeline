@@ -1,25 +1,3 @@
-### ✨ Sports News - Cristiano Ronaldo's World Cup Preparation
-
-This article details Cristiano Ronaldo's training regimen as he prepares for his sixth World Cup appearance. It outlines Portugal's upcoming friendly match and their initial schedule for the World Cup 2026.
-
-Key Points:
-
-• Cristiano Ronaldo is training for his sixth World Cup participation.
-
-• Portugal will play a friendly match against Chile.
-
-• The team's first World Cup 2026 game is scheduled for June 18 in the US.
-
-
-🔗 Resources:
-
-• [Al Jazeera English](https://x.com/AJEnglish) - Source news platform
-
-• [AJE Sport Updates](https://x.com/AJE_Sport) - Sports news source
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2063076541291282432/img/KPeih1Pj_JY6xb8C.jpg)
-
----
 ### 💡 Geopolitical Update - Iran IRGC Attacks
 
 This article reports on claims made by Iran's IRGC concerning attacks on "enemy bases in the region." It provides access to ongoing live updates regarding the developing situation.
@@ -114,26 +92,6 @@ Key Points:
 • [Washington Post News](https://x.com/washingtonpost) - Source news platform
 
 • [Washington Post Article](https://t.co/H2fJJ5jHG) - Legal project dispute
-
----
-### ✨ Sports Weekend - Major Event Previews
-
-This article provides an "Inside Track" preview of the upcoming sports weekend, highlighting key events. It covers F1 in Monaco, Scottie Scheffler's golf ambitions, and the final friendly matches for World Cup teams.
-
-Key Points:
-
-• F1 prepares for the Monaco Grand Prix with Antonelli in strong form.
-
-• Scottie Scheffler aims for a Memorial Tournament hat-trick.
-
-• World Cup teams are concluding their final friendly matches.
-
-
-🔗 Resources:
-
-• [Reuters News](https://x.com/Reuters) - Source news platform
-
-• [Reuters Article](https://t.co/Jm31rjOFLC) - Sports weekend preview
 
 ---
 ### 💡 Economic Impact - Yemeni Unemployment

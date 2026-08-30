@@ -34,24 +34,6 @@ Key Points:
 • [Mihir Neal](https://x.com/mihirneal) - Researcher contributing to CortexMAE.
 
 ---
-### 💡 Sports Medicine - Concussion Protocol Efficiency
-
-This article details a new protocol for on-pitch soccer concussion checks. The method aims to quickly rule out concussion while maintaining player safety.
-
-Key Points:
-• Concussion checks completed in under 3 minutes.
-
-• New protocol rules out concussion during matches.
-
-• Substitution still required after one warning sign.
-
-
-🔗 Resources:
-• [Medical Xpress](https://x.com/medical_xpress) - Source for medical news.
-• [JAMA Neurology](https://x.com/JAMANeuro) - Journal for neurology research.
-• [Article Link](https://t.co/O3Rua9JH0b) - Research paper on the protocol.
-
----
 ### 💡 Public Health - Outbreak Management Challenges
 
 This article discusses a significant Bundibugyo outbreak, revealing the impact of delayed lab testing. Slow testing hinders critical public health measures like isolation and contact tracing.

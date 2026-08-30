@@ -128,22 +128,6 @@ Key Points:
 ---
 
 ---
-### ✨ Event Coverage - SoftBank CUP 2026 Basketball
-
-This content details coverage for the "SoftBank CUP 2026" basketball tournament in Tokyo. It provides promotional material related to the event's atmosphere and participants.
-
-Key Points:
-
-• The event is the SoftBank CUP 2026 (Tokyo Tournament) Basketball Men's Japan
-• Content includes imagery of a family member supporting the team
-• Associated accounts mentioned are @SoftBank and @sbg_news
-
-
-🔗 Resources:               
-• https://x.com/sbg_news/status/2093235878932168726 - Original source post URL
-![Image](https://pbs.twimg.com/media/HPrYbz3aoAANgsC?format=png&name=240x240)
-
----
 ### 🤖 Chemistry Modeling - Compound Generation Update
 
 onepot CORE 2 Triangulum is available. It supports 30 billion compounds and 16 transformations, including multi-component and multistep chemistry for the first time. Pricing is set at two tiers: $250 or $375 per compound. Access is available via onepot.ai or through an API.

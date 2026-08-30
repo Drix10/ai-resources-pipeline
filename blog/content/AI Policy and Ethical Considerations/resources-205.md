@@ -118,26 +118,6 @@ Key Points:
 • [Nick Caputo on X (Part 2)](https://x.com/nickacaputo/status/2073118161491169320) - Tweet providing the link to the SSRN paper
 
 ---
-### 💡 Sports Events - Public Image and Controversy
-
-This article addresses a situation that has negatively impacted the public image of the World Cup. It highlights how certain events can generate controversy and affect the reputation of major international sporting competitions.
-
-Key Points:
-
-• Major sporting events face scrutiny over their public image.
-
-• Controversies can quickly arise and damage reputation.
-
-• Effective event management includes addressing public perception.
-
-
-🔗 Resources:
-
-• [Kay Jebelli on X](https://x.com/KayJebelli/status/2073117814542541236) - Original tweet noting a negative World Cup appearance
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2072801118850101248/img/wlbqfpRMimNRhSO5.jpg)
-
----
 ### ✨ Government Policy - Canada Groceries and Essentials Benefit
 
 This article details the Canada Groceries and Essentials Benefit, a government program designed to help eligible Canadians with daily living costs. Payments are distributed to support expenses such as groceries, rent, and utilities.

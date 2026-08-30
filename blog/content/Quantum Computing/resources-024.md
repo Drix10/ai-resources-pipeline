@@ -29,34 +29,6 @@ Key Points:
 
 ---
 
-### 🚀 Sports News - Seahawks Acquire Sam Darnold
-
-This article reports on Sam Darnold's signing with the Seattle Seahawks, a three-year deal valued at nearly $100 million, replacing Geno Smith.
-
-Key Points:
-
-• Sam Darnold is the new quarterback for the Seattle Seahawks.
-
-
-•  He signed a three-year contract worth approximately $100 million.
-
-
-•  Darnold was considered the favorite to acquire the position.
-
-
-• The trade replaces Geno Smith.
-
-
-🔗 Resources:
-
-• [RapSheet](https://x.com/RapSheet) - NFL insider
-
-
-![Image](https://pbs.twimg.com/media/GlsvjUEW0AAk5Ym?format=jpg&name=small)
-
-
----
-
 ### 🤖 Video Generation - VideoPhy-2
 
 This article announces VideoPhy-2, a new model designed to assess the physical realism of generated videos depicting real-world actions.

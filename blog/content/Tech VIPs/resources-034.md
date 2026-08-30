@@ -82,30 +82,6 @@ Key Points:
 
 ---
 
-### 🚀 Community Development - Utah Ice Rinks
-
-This article presents a proposal to establish ice rinks in every Utah municipality, citing the state's young and growing demographics and existing basketball infrastructure.
-
-Key Points:
-
-•  Proposal to build ice rinks in all Utah municipalities.
-
-
-•  Utah's young and growing population is a key factor.
-
-
-•  Comparison with the existing robust basketball infrastructure.
-
-
-![Image](https://pbs.twimg.com/media/GmhtHERaEAAKSm2?format=jpg&name=small)
-
-🔗 Resources:
-
-• [Ryan Smith](https://x.com/RyanQualtrics) - Founder and Chairman of Qualtrics
-
-
----
-
 ### 💡 Social Commentary - Deportations and Justice
 
 This article discusses the potential negative consequences of deportations, emphasizing the risk of harming innocent individuals and highlighting the imperfection of law enforcement.

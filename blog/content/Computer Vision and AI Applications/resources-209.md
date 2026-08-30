@@ -46,24 +46,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/ext_tw_video_thumb/2081790745674240000/pu/img/bmxEFh6hcnn14bI.jpg)
 
 ---
-### 🤖 MLPs and Transformers - Fact Storage Without Training
-
-This research explores methods for directly encoding facts into Multilayer Perceptrons (MLPs) within Transformer models, bypassing traditional training processes. The work proposes a closed-form recipe for this process.
-
-Key Points:
-
-• MLPs can store factual information within language models.
-
-• A method exists to write facts into Transformer-ready MLPs without additional training.
-
-• This approach offers a closed-form recipe for fact injection.
-
-• The research was accepted at COLM 2026.
-
-🔗 Resources:
-![Image](https://pbs.twimg.com/media/HN2TRJbaAAAjc4h?format=jpg&name=small)
-
----
 ### 💰 Ethereum - Large Withdrawal Activity
 
 This article details recent large-scale Ethereum withdrawals from Binance by a specific address, indicating cryptocurrency movement. The activity involves millions of dollars in ETH.

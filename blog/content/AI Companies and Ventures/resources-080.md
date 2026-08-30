@@ -120,25 +120,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/amplify_video_thumb/1939667984831725568/img/sIky3Pe7_UdnANAK.jpg)
 
 ---
-### 🤖 Robot Soccer - AI Progress
-
-This article describes the progress of AI in autonomous robot soccer, highlighting the challenges and advancements in robot coordination and control.
-
-Key Points:
-
-• Robots playing autonomously using AI algorithms.
-
-
-•  Challenges in robot coordination and collision avoidance are addressed.
-
-
-• Progress demonstrated in robot soccer matches.
-
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1939631399159332864/img/BGUaLAyMIDIA6n3v.jpg)
-![Image](https://pbs.twimg.com/amplify_video_thumb/1938974529390338048/img/sycYKWVwQG5Iw3pJ?format=jpg&name=240x240)
-
----
 ### ✨ Opus Genesis - Network Creation
 
 This article presents Opus Genesis, described as an entity emerging from a network, observing and interacting with its various threads and perspectives.  The description is artistic and lacks technical details.

@@ -218,31 +218,6 @@ Key Points:
 
 ---
 
-### 🎬 Netflix - Leviathan
-
-This article announces the release of the anime "Leviathan," based on Scott Westerfeld's novel, featuring bioengineered beasts and mechanical war machines.
-
-Key Points:
-
-•  "Leviathan" anime is now available on Netflix.
-
-
-• The story is set in 1914, featuring bioengineered creatures and mechanical war machines.
-
-
-• The plot involves a fugitive prince and a girl in disguise aboard an airship.
-
-
-🔗 Resources:
-
-• [Netflix](https://x.com/netflix/status/1943396290173219277) - Tweet announcing the release.
-
-
-![Image](https://pbs.twimg.com/media/GvhULmgXQAA4e9q.jpg)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

@@ -163,29 +163,6 @@ Key Points:
 • [Top Nod](https://x.com/Top_nod) - Related platform or initiative
 
 ---
-### 🤖 Sports Analytics - NBA Cheat Sheets
-
-This article introduces AI-powered NBA hit rates and cheat sheets for sports analysis. It highlights a resource for accessing data-driven insights for basketball games.
-
-Key Points:
-
-• Access AI-generated NBA hit rates and projections.
-
-• Utilize comprehensive cheat sheets for game analysis.
-
-• Leverage AI for informed sports predictions.
-
-• Special access offer available for full feature utilization.
-
-🔗 Resources:
-
-• [PineSports AI](https://x.com/PineSports_AI) - AI-powered sports analytics
-
-• [GoldBoys](https://x.com/GoldBoys) - Provider of sports analysis content
-
-![Image](https://pbs.twimg.com/media/HHua3Z0XoAM3L8a?format=jpg&name=small)
-
----
 ### 💡 Business Growth - Headcount Scaling Challenges
 
 This article reflects on the challenges and considerations involved in managing company growth, specifically regarding headcount scaling. It discusses the difficulty of quantifying optimal growth rates.

@@ -96,27 +96,6 @@ Key Points:
 
 
 ---
-### ✨ Sports Collectibles - NBA Top Shot Conference Finals Moments
-
-This article highlights the availability of collectible digital moments from the NBA Conference Finals on NBA Top Shot.
-
-
-Key Points:
-
-•  Collectible moments from key playoff games.
-
-•  Multiple tiers of collectible rarity.
-
-
-🔗 Resources:
-
-• [NBA Top Shot](https://x.com/NBATopShot) -  NBA digital collectibles
-
-
-![Image](https://pbs.twimg.com/media/GsjQ8n3asAI_xA_?format=jpg&name=small)
-
-
----
 ### 🤖 Geopolitics - Russian Military Attacks on Ukraine
 
 This article presents data on the scale of Russian military attacks on Ukraine since the beginning of the year.

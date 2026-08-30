@@ -86,22 +86,6 @@ Key Points:
 
 
 ---
-### 🤖 Ethics in AI - A Twitter Exchange
-
-This article presents a short exchange on Twitter discussing the ethical implications of AI, comparing it to an "ethics olympics."
-
-Key Points:
-
-•  Ethical considerations in AI development are highlighted.
-
-
-• Importance of verifiable sources and truth-telling emphasized.
-
-
-• Focus shifts towards factual accuracy in AI output.
-
-
----
 ### 🤖 Ethics in AI - A Twitter Exchange (continued)
 
 This article continues the previous Twitter exchange on the ethical implications of AI, emphasizing the need for verifiable sources and factual accuracy.

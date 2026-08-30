@@ -1,33 +1,3 @@
-### 💡 Healthcare - Physician Weight & Lifestyle
-
-This article discusses potential reasons for higher rates of overweight and obesity among physicians, focusing on stress and time constraints.
-
-Key Points:
-
-• Irregular work hours contribute to poor dietary choices.
-
-
-• Stress leads to increased cortisol levels, potentially increasing appetite and weight gain.
-
-
-• Lack of time for healthy meal preparation and exercise is a significant factor.
-
-
-
-🔗 Resources:
-
-• [Ayush Bardhan](https://x.com/AyushBardhan99) - Physician perspective
-
-
-• [Dr. Aditya](https://x.com/DrAditya2935) - Additional insights
-
-
-• [Tweet](https://x.com/DrAditya2935/status/1907833342759784600) - Original discussion
-
-
-
----
-
 ### 🤖 Retro Computing - Sega Genesis OS
 
 This article explores the concept of a modern operating system for the Sega Genesis/Megadrive console.

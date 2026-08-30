@@ -1,20 +1,3 @@
-### 💡 MLB Trade - Dodgers Acquire Skubal
-
-The Los Angeles Dodgers have acquired pitcher Tarik Skubal from another organization. This transaction involves sending multiple prospects in exchange.
-
-Key Points:
-
-• The Dodgers received pitcher Tarik Skubal.
-
-• Outfielder Zyhir Hope, right-hander River Ryan, and right-hander Brady Smith were traded.
-
-• The trade details were reported by sources including Jeff Passan.
-
-🔗 Resources:
-![Image](https://pbs.twimg.com/media/HOsAzPHWIAACeag?format=jpg&name=small)
-
----
-
 ### 💡 Golf Update - Minnesota Tournament Progress
 
 A golf tournament is underway in Minnesota, with participants having completed the initial portion of their rounds. More play is scheduled to continue.

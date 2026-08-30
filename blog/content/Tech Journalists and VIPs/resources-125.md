@@ -58,33 +58,6 @@ Key Points:
 • [HiHello](https://x.com/HiHello) - Digital business card platform
 
 ---
-### ✨ Art & Design - Conceptual Chandeliers
-
-This article presents the "Basketball Hoop Chandelier" by Jana Brevick, a conceptual art piece that blends sports aesthetics with design.
-
-Key Points:
-
-• Jana Brevick's work is a conceptual art installation.
-
-• The piece uniquely combines everyday objects with high design.
-
-• It challenges traditional aesthetic and functional expectations.
-
-• The artwork, created in 2009, reflects contemporary artistic trends.
-
-🔗 Resources:
-
-• [Hiten Shah](https://x.com/hnshah) - Entrepreneur and investor
-
-• [Ramin Nasibov](https://x.com/RaminNasibov) - Art and design curator
-
-• [Ramin Nasibov Status](https://x.com/RaminNasibov/status/2007618070114635880) - Original tweet about the art
-
-• [Ramin Nasibov Photo](https://x.com/RaminNasibov/status/2007618070114635880/photo/1) - Direct link to the image
-
-![Image](https://pbs.twimg.com/media/G9x9_uaXYAAMpib?format=jpg&name=small)
-
----
 ### 🤖 Real-time AI - Webcam Demo with SmolVLM
 
 This article showcases a real-time webcam demonstration built using HuggingFace's SmolVLM and llama.cpp, highlighting the capabilities of efficient, on-device AI inference.

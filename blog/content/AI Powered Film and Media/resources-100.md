@@ -26,28 +26,6 @@ Key Points:
 
 ---
 
-### 🎬 AI Film - 1984 Tribute
-
-This article describes an AI-generated short film tribute to George Orwell's *1984*.  The post includes a link to the video.
-
-Key Points:
-
-•  AI-generated short film.
-
-•  Tribute to George Orwell's *1984*.
-
-•  Contains potentially sensitive content.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1930650488657080320/img/rb0NQk2SZXJsi1ks.jpg)
-
-• [JusChadneo](https://x.com/JusChadneo) - Film creator
-
-
----
-
 ### 🎶 Music & Social Media - Smashing Pumpkins Encounter
 
 This article discusses a personal encounter with Billy Corgan of The Smashing Pumpkins, and reflections on social media usage.
@@ -148,64 +126,6 @@ Key Points:
 •  Assessment of various social media platforms' effectiveness.
 
 •  Prioritizing a personal touch in content creation.
-
-
----
-
-### 🎬 Video Production - Flow by Google Channel Launch
-
-This article announces the launch of a new YouTube channel dedicated to Flow by Google video editing software.
-
-Key Points:
-
-•  New YouTube channel for Flow by Google.
-
-•  Content will include product updates, tutorials, and behind-the-scenes content.
-
-•  Focuses on sharing creative processes using Flow.
-
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1957472835300945920/img/yC59eRPWpM7UYgRB.jpg)
-
-• [Flow by Google](https://x.com/FlowbyGoogle) - Video editing software
-
-
----
-
-### 🎬 Filmmaking - "What Remains" Project Announcement
-
-This article announces a new narrative film or series project titled "What Remains," detailing its genre and the AI tools used in its production.
-
-Key Points:
-
-•  New crime action drama film or series.
-
-•  Utilizes multiple AI tools for image generation and editing.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1927720576145412096/img/hO2DrXGU52NdEpLY.jpg)
-
-• [WordTrafficker](https://x.com/WordTrafficker) - Filmmaker
-
-• [Midjourney](https://x.com/midjourney) - AI art generator
-
-• [RunwayML](https://x.com/runwayml) - AI video editing tool
-
-• [OpenAI](https://x.com/OpenAI) - AI model provider
-
-• [Photoshop](https://x.com/Photoshop) - Image editing software
-
-• [Kling AI](https://x.com/Kling_ai) - AI tool
-
-• [LumaLabs AI](https://x.com/LumaLabsAI) - AI tool
-
-• [PixVerse](https://x.com/PixVerse_) - AI tool
-
 
 
 ---

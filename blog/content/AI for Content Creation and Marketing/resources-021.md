@@ -1,25 +1,3 @@
-### 🏀 NBA - Utah Jazz Player Performance Projections
-
-This article discusses the potential performance increase for certain Utah Jazz players due to the absence of several key players in a game against the Washington Wizards.
-
-Key Points:
-
-• Increased playing time for bench players.
-
-
-• Potential for higher scoring and rebounding outputs.
-
-
-• Opportunity for role players to demonstrate increased capabilities.
-
-
-🔗 Resources:
-
-• [PineSports_AI](https://x.com/PineSports_AI) - NBA analysis
-
-
----
-
 ### 💡 Food and Beverage - Content Workflow
 
 This article describes a workflow for generating content tailored to the food and beverage industry using a "Magic Flow" tool.  The user provides a topic or need, and the tool generates relevant content.

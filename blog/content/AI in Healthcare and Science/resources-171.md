@@ -205,32 +205,6 @@ Key Points:
 • [CP3](https://x.com/CP3) - Public figure involved in health advocacy.
 
 ---
-### 🤖 Medical Research - Dietary Patterns and MGUS
-
-This article reviews findings from a large population-based screening study indicating no association between dietary patterns and MGUS. It highlights the importance of evidence-based recommendations before suggesting dietary interventions to patients.
-
-Key Points:
-
-• A large study found no link between diet and MGUS.
-
-• Emphasizes evidence-based patient recommendations.
-
-• Discourages premature dietary intervention burdens.
-
-• Highlights the significance of negative study results.
-
-
-🔗 Resources:
-
-• [KolPulseAI](https://x.com/KolPulseAI) - Related to AI in medical research or KOL engagement.
-
-• [Raj Shekhar](https://x.com/rajshekharucms) - Medical professional providing commentary on the study.
-
-• [iStopMM](https://x.com/iStopMM) - Research group that published the study.
-
-![Image](https://pbs.twimg.com/media/HFfp6A1bQAMEukE?format=jpg&name=small)
-
----
 ### 🤖 AI in Oncology - Clinical Validation
 
 This article presents the clinical validation of a neuro-symbolic, multi-agent AI system for oncology screening. It highlights significant improvements in screening speed and performance, detailed in a published paper.

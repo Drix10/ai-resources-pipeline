@@ -17,33 +17,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HHkUb46WYAYOR60?format=png&name=360x360)
 
 ---
-### 🚀 Prediction Markets - IPL and Crypto
-
-This article introduces TMB, a platform designed for prediction markets, focusing on the Indian Premier League (IPL) and cryptocurrency events. It highlights its functionality as a prediction market.
-
-Key Points:
-
-• TMB offers a prediction market for IPL matches.
-
-• The platform also supports predictions on cryptocurrency events.
-
-• Users can engage in market predictions without traditional analysis.
-
-
-🚀 Implementation:
-1. Access the TMB Platform: Navigate to the application's website.
-2. Select a Market: Choose between IPL or crypto prediction opportunities.
-3. Place a Prediction: Engage with the market by making your chosen prediction.
-
-🔗 Resources:
-
-• [TMB Prediction Market](https://app.tmb.fun) - Platform for IPL and crypto predictions.
-
-• [X Paid Partnerships Policy](https://help.x.com/rules-and-policies/paid-partnerships-policy) - Information on platform paid content guidelines.
-
-• [Original Tweet Source](https://x.com/greyvese/status/2051645203573059799) - Source of this announcement.
-
----
 ### ✨ AI/ML Platforms - Hugging Face Space Recognition
 
 This article acknowledges Hugging Face's recognition of "ACTION" as a featured space of the week. Hugging Face Spaces provide a platform for deploying and sharing machine learning applications.
@@ -116,33 +89,6 @@ Key Points:
 • [Original Tweet Source](https://x.com/MaxVOAO/status/2051666206566883564) - Source of this ambitious vision.
 
 ![Image](https://pbs.twimg.com/media/HHj7e_sXAAA396J?format=jpg&name=small)
-
----
-### 🚀 Prediction Markets - Streamlined IPL Predictions
-
-This article details the simplified approach of TMB for Indian Premier League (IPL) predictions, emphasizing direct user engagement without reliance on external analysis. The platform aims to offer a straightforward prediction experience.
-
-Key Points:
-
-• TMB enables direct user predictions for IPL matches.
-
-• The platform bypasses traditional sports analysis and pundit opinions.
-
-• Users can commit to predictions and let match outcomes determine results.
-
-
-🚀 Implementation:
-1. Visit the TMB Platform: Access `tmb.fun` to begin.
-2. Choose Your Team: Select the team you predict will win.
-3. Lock in Prediction: Confirm your choice to enter the market.
-
-🔗 Resources:
-
-• [TMB Prediction Platform](https://tmb.fun) - Direct access to the IPL prediction market.
-
-• [Original Tweet Source](https://x.com/tmbfun/status/2047299884475392135) - Source of this announcement.
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2047299507499757568/img/lJJJUjr-PQxFQbku.jpg)
 
 ---
 ### 🤖 Digital Asset Development - Project Status

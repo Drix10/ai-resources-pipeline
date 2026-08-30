@@ -91,25 +91,6 @@ Key Points:
 
 ---
 
-### 🥊 Domain Names - Fight-Related Domain Acquisition and Traffic
-
-This article focuses on the domain FIGHTT.com, noting its increased traffic due to the popularity of a seemingly unrelated event and mentions the author's acquisition of other fight-related domains.
-
-
-Key Points:
-
-•  Increased traffic to FIGHTT.com.
-
-• Acquisition of additional fight-related domains.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/GhmNRQDWgAA3NKX?format=jpg&name=small)
-
-
----
-
 ### 🚀 PropTech - Magic Door Property Management Solution
 
 This article introduces Magic Door, an AI-powered property management platform offering various features to streamline operations.

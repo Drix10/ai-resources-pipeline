@@ -92,32 +92,6 @@ Key Points:
 
 ---
 
-### 🎬 Video Marketing - Six-Figure Strategy
-
-This article discusses a webinar featuring content creator Jade Beason sharing her video-first strategy to grow a six-figure YouTube business.
-
-Key Points:
-
-•  Provides a proven strategy for video marketing success.
-
-
-•  Offers insights into leveraging video for business growth.
-
-
-•  Shares practical steps to increase online visibility.
-
-
-
-🔗 Resources:
-
-• [Riverside.fm](https://x.com/RiversidedotFM) -  Webinar platform
-
-
-![Image](https://pbs.twimg.com/media/GkJi7UFXoAAN_eH?format=jpg&name=small)
-
-
----
-
 ### 🎶 MIDI Art - Pixel Animation
 
 This article describes a pixel MIDI art animation of EvokeMusicAI's logo using Neo Sfx.

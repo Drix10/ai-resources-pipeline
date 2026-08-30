@@ -135,31 +135,6 @@ Key Points:
 
 ---
 
-### 🤖 Smart Money Analysis - Cryptocurrency Market Inflows
-
-This article analyzes smart money flows in the cryptocurrency market, highlighting significant inflows into several assets.
-
-Key Points:
-
-•  $FIFA shows the highest smart money inflow (9750.7K).
-
-
-• $wstETH and $stETH show balanced institutional flows.
-
-
-• $USDC and $HONEY show moderate tagged wallet activity.
-
-
-🔗 Resources:
-
-• [Unit00x0's Tweet](https://x.com/unit00x0/status/1900667191961251888) - Smart money analysis
-
-
-![Image](https://pbs.twimg.com/media/GmCGu5NbcAMAoJg?format=png&name=small)
-
-
----
-
 ### 💡 Political Theory - Fukuyama's "End of History"
 
 This article discusses Francis Fukuyama's "End of History" thesis, clarifying its meaning and addressing common misunderstandings.

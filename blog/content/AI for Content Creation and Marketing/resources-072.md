@@ -57,40 +57,6 @@ Key Points:
 
 
 ---
-### 🤖 AI Sports Betting - jaXon Research Tool
-
-This article introduces jaXon, an AI-powered sports betting research tool, focusing on its application to MLB K Props.
-
-Key Points:
-
-• Provides AI-driven sports betting insights.
-
-
-• Focuses on MLB K Props analysis.
-
-
-• Offers a 25% discount with code JP25.
-
-
-• Facilitates data-driven betting decisions.
-
-
-• Improves chances of winning.
-
-
-
-🔗 Resources:
-
-• [PineSports_AI](http://pine-sports.com/subscribe/) - AI sports betting research tool
-
-
-• [jaXon](https://x.com/hashtag/jaXon?src=hashtag_click) -  Hashtag for the tool
-
-
-• [MLB](https://x.com/hashtag/MLB?src=hashtag_click) - Relevant hashtag
-
-
----
 ### 🚀 Video Content - OpusSearch Trend Monetization
 
 This article describes OpusSearch, a tool that helps creators monetize existing video content by automatically surfacing and matching clips to trending topics.

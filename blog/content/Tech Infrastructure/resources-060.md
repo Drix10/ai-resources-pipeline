@@ -56,29 +56,6 @@ Key Points:
 
 ---
 
-### ✨ Snowflake - Official Data Collaboration Provider of LA28 Olympics
-
-This article announces Snowflake as the official data collaboration provider for the 2028 Los Angeles Olympic and Paralympic Games.
-
-Key Points:
-
-• Snowflake will provide data collaboration for the LA28 Olympic and Paralympic Games.
-
-
-• Data will support various aspects, from wearables to fan engagement.
-
-
-• Data plays a critical role in the Olympic and Paralympic experience.
-
-
-🔗 Resources:
-
-
-![Image](https://pbs.twimg.com/media/Gr9ZJI7XwAAIcx-?format=png&name=small)
-
-
----
-
 ### 🤖 Generative AI - AI Shopping Experts Beta
 
 This article discusses a new GenAI beta featuring two AI shopping experts that analyze product details and customer reviews to provide key highlights.

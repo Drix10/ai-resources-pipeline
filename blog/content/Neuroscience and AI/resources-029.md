@@ -155,29 +155,6 @@ Key Points:
 
 ---
 
-### ☕ Coffee - Expert Opinions on Ethiopian Yirgacheffe
-
-This article presents contrasting opinions on the Ethiopian Yirgacheffe coffee bean from two individuals with varying levels of coffee expertise.
-
-Key Points:
-
-• One coffee expert highlights the unique blueberry flavor and slight spiciness of Ethiopian Yirgacheffe.
-
-
-• Another, more experienced expert suggests McDonald's coffee as a preferable option.
-
-
-🔗 Resources:
-
-• [Brad Theilman](https://x.com/bradtheilman)
-
-
-• [Burger Krang](https://x.com/burgerkrang)
-
-
-
----
-
 ### 🤖 Biology - Action Potentials in Fungi
 
 This article discusses the surprising discovery of action potentials in fungi and questions its prevalence in biology education.

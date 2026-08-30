@@ -45,30 +45,6 @@ Key Points:
 
 
 ---
-### 🍔 Food Review - Katz's Delicatessen
-
-This article provides a review of Katz's Delicatessen, highlighting both its positive and negative aspects.  Despite its flaws, the quality of its pastrami is praised.
-
-
-Key Points:
-
-• Overpriced and crowded establishment.
-
-• Annoying ticket system for ordering.
-
-• Serves arguably the best pastrami in the world.
-
-
-🔗 Resources:
-
-• [Fintech Frank](https://x.com/fintechfrank) - User's opinion
-
-• [Jeremiah D Johns](https://x.com/JeremiahDJohns) - User's opinion
-
-![Image](https://pbs.twimg.com/media/GyKq8bXXgAAT_2k?format=png&name=small)
-
-
----
 ### 🌎 Economics - China's Role in Global Goods
 
 This article discusses the impact of readily available, inexpensive, high-quality goods from China on the global economy, particularly focusing on the relationship between China, American consumers, and the strength of the US dollar.

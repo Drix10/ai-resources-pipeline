@@ -1,23 +1,3 @@
-### 💡 Business Leaders - Personal Encounters
-
-This article documents a personal observation regarding the dining habits of a prominent business leader, Warren Buffett. It details the specific items consumed during a single meeting with him.
-
-Key Points:
-
-• Warren Buffett consumed three cherry cokes.
-
-• He also had an enormous vanilla sundae.
-
-• A Caesar salad with chicken was ordered but largely uneaten.
-
-
-🔗 Resources:
-
-• [Warren Buffett Encounter](https://x.com/chamath/status/2030677113406448022) - Original tweet detailing the personal observation
-
-![Image](https://pbs.twimg.com/media/HC1o-BWWcAEg9D2?format=jpg&name=small)
-
----
 ### 🤖 Market Analysis - Oil Price Impact
 
 This article summarizes a market prediction based on recent geopolitical events and historical economic trends. It highlights the potential for oil price surges and their historical correlation with market crashes.

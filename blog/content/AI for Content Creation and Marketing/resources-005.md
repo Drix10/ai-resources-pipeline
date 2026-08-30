@@ -180,25 +180,6 @@ Key Points:
 
 ---
 
-### 📈 Sports Analytics - Consistency Sheet
-
-This article presents a consistency sheet tracking key trends for specific basketball players,  highlighting consistent performance metrics.
-
-
-Key Points:
-
-•  Provides data on player performance consistency.
-
-•  Tracks multiple key performance indicators (KPIs).
-
-•  Offers insights into player trends.
-
-
-![Image](https://pbs.twimg.com/media/GkPtm_iWAAA1bj5?format=jpg&name=small)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

@@ -60,29 +60,6 @@ Key Points:
 • [DaydreamLiveAI](https://x.com/DaydreamLiveAI) - Developer of AI-powered creative tools
 
 ---
-### ✨ Event Coverage - Los Angeles Latino International Film Festival
-
-This article covers Jennifer Lopez's attendance at the 25th Edition of The Los Angeles Latino International Film Festival. The event took place at the TCL Chinese Theatre in Hollywood, California.
-
-Key Points:
-
-• Features celebrity presence at cultural events.
-
-• Highlights major film festival editions.
-
-• Provides visual documentation of public appearances.
-
-🔗 Resources:
-
-• [GettyImages](https://x.com/GettyImages) - Source for event photography
-
-• [GettyVIP](https://x.com/GettyVIP) - VIP event coverage
-
-• [LALIFF 2026 Footage](shorturl.at/tLWpm) - Direct link to event video content
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2059934350448242693/img/C2M60Z-NRbYmnf59.jpg)
-
----
 ### ✨ Event Coverage - Sesame Workshop Annual Benefit
 
 This article reports on Will.i.am's attendance at the Sesame Workshop's 2026 Annual Benefit. The event was held at Cipriani 42nd Street in New York City.

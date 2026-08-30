@@ -64,25 +64,6 @@ Key Points:
 
 
 ---
-### 🤖 Crime - Murder of Former Soccer Player
-
-This article reports on the alleged murder of a former University of Michigan soccer player by his brother, a former Wesleyan University soccer player, near Princeton University.
-
-Key Points:
-
-• Alleged murder of a former University of Michigan soccer player.
-
-
-• Suspect is the victim's brother, a former Wesleyan University player.
-
-
-• Incident occurred near Princeton University.
-
-
-(No resources provided in the original tweet)
-
-
----
 ### ✨ Events - Maha Kumbh Mela 2025 Feedback
 
 This article presents a statement by Swami Chidanand Saraswati regarding the Maha Kumbh Mela 2025, describing it as an amazing and unifying event.

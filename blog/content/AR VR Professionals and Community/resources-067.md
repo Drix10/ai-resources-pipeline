@@ -20,28 +20,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/amplify_video_thumb/1931054513827262464/img/IwaFwAlPx-1CbGVv.jpg)
 
 ---
-### 🚀 PSVR2 Games - Just Hoops
-
-This article promotes Just Hoops, a retro arcade-style basketball game for PSVR2. The game features diverse levels and a nostalgic gameplay experience.
-
-Key Points:
-
-• Retro arcade-style basketball gameplay.
-
-• Numerous levels with varied themes (dinosaurs, tombstones, invaders).
-
-• PSVR2 exclusive title.
-
-
-🔗 Resources:
-
-• [Just Hoops Game](https://x.com/JustHoopsGame) - PSVR2 basketball game
-
-• [PSVR Fanatic](https://x.com/PsvrFanatic) - VR gaming news
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1931065426156421120/img/uDZjEEw8ZUrMpNkY.jpg)
-
----
 ### 🤖 AI Video Creation - Higgsfield Speak
 
 This article announces the launch of Higgsfield Speak, a tool for creating motion-driven talking videos using AI.  The tool simplifies video production by handling animation, voice, and emotion.

@@ -1,34 +1,3 @@
-### 🎬 Film - Gaspar Noé on AIFF 2025 Jury
-
-This article announces Gaspar Noé's participation as a jury member for the AIFF 2025, highlighting his influence on cinema.  His unique approach to capturing memory, time, and perception is discussed.
-
-
-Key Points:
-
-• Gaspar Noé joins the AIFF 2025 Jury.
-
-
-• Noé's work is highly influential in cinema.
-
-
-• His films innovatively depict memory, time, and perception.
-
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/GmRpzbgbYAASYgw?format=jpg&name=360x360)
-
-![Image](https://pbs.twimg.com/media/GmRp9plXYAADxqM?format=jpg&name=360x360)
-
-![Image](https://pbs.twimg.com/media/GmRqBfNbYAAekTQ?format=jpg&name=360x360)
-
-![Image](https://pbs.twimg.com/media/GmRqKDJW0AAPGM1?format=jpg&name=360x360)
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1901625080209174528/pu/img/bP-Ztvo0hlpM-5_P?format=jpg&name=240x240)
-
----
-
 ### ✨ AI Art - Artist Reflection on Breakthrough
 
 This article shares an artist's reflection on achieving recognition within the AI art community after a year of dedicated work.
@@ -109,30 +78,6 @@ Key Points:
 • The incident highlights potential issues with taxi navigation in the city.
 
 
-
----
-
-### 🎬  Archive Footage - Ángel Nieto Interviews Marc Márquez
-
-This article highlights a rediscovered interview of Marc Márquez by Ángel Nieto from one of Márquez's early 125cc races.
-
-
-Key Points:
-
-• An archival interview of Marc Márquez by Ángel Nieto is highlighted.
-
-
-• Nieto described a 15-year-old Márquez as "fast and good".
-
-
-• Márquez has now equalled Nieto's record of 90 Grand Prix victories.
-
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1901592909176295424/pu/img/xaR-cEzIo3XOWBqR.jpg)
-https://rtve.es/n/16494032/
 
 ---
 

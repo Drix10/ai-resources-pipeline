@@ -1,27 +1,3 @@
-### ⚔️ History - Untold Story of Mahabali Jograj Singh Gurjar
-
-This article recounts a lesser-known historical narrative about Mahabali Jograj Singh Gurjar's military victories against Taimur.  The story highlights the role of women warriors in his army.
-
-Key Points:
-
-• Taimur, responsible for the deaths of approximately 100,000 Hindus in Delhi, faced repeated defeats.
-
-• Mahabali Jograj Singh Gurjar's army effectively repelled Taimur's forces.
-
-
-• 40,000 village women, trained in guerrilla warfare, significantly contributed to Jograj's success.
-
-
-🔗 Resources:
-
-• [MeAmarVyas](https://x.com/MeAmarVyas) - Narrator of the story
-
-• [Sangam Talks](https://x.com/sangamtalks) - Source of the information
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1921165899966423040/pu/img/kFVhxs1r9lSTAyo6.jpg)
-
-
----
 ### 🤖 AI Image Generation - NoSpoon Integration
 
 This article discusses the potential integration of standalone image generation into the NoSpoon application, leveraging style and character references.

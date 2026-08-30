@@ -76,28 +76,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HA-olZRXwAAL-eD.jpg)
 
 ---
-### 🤖 Health Research - Intermittent Fasting Review
-
-This article presents findings from a systematic analysis of intermittent fasting, comparing its efficacy against standard dietary advice for weight loss and other health outcomes. It summarizes the conclusions drawn from 22 randomized trials.
-
-Key Points:
-
-• Systematic review evaluated 22 randomized trials on intermittent fasting.
-
-• Found no clear advantage for intermittent fasting over regular diets.
-
-• Results apply to weight loss, metabolic health, and other health outcomes.
-
-
-🔗 Resources:
-
-• [Cochrane Review](https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD015509.pub2/full) - Full systematic analysis from Cochrane
-
-• [Original Post](https://x.com/EricTopol/status/2023200954468966597) - Tweet discussing the research findings
-
-![Image](https://pbs.twimg.com/media/HBPRI-ObQAEce98?format=jpg&name=small)
-
----
 ### 💡 Societal Trends - Exponential Growth
 
 This article explores the concept of living in an era characterized by exponential growth, particularly concerning technological advancements and their societal implications. It touches upon the accelerating pace of change across various domains.
@@ -116,26 +94,6 @@ Key Points:
 • [Exponential Living](https://x.com/jxnlco/status/2023232012383895747) - Discussion on living in exponential times
 
 • [Sam Altman Post](https://x.com/sama/status/2023150230905159801) - Related thoughts on rapid progress
-
----
-### 💡 Sports Innovation - Jousting Reimagined
-
-This article discusses the popular cultural idea of reintroducing jousting as a modern competitive sport, potentially for events like the Olympics or a new international league. It considers the appeal of historical combat sports in a contemporary context.
-
-Key Points:
-
-• Explores the concept of jousting as a contemporary Olympic sport.
-
-• Suggests potential for an international competitive league, "League of the Lance".
-
-• Highlights cultural interest in reimagining historical martial arts.
-
-
-🔗 Resources:
-
-• [Jousting Proposal](https://x.com/Schizointel/status/2023150758779064808) - Original tweet proposing jousting as a sport
-
-![Image](https://pbs.twimg.com/media/HBNZ4rabMAAso3k?format=jpg&name=small)
 
 ---
 ### ✨ Cultural Impact - K-pop Global Reach

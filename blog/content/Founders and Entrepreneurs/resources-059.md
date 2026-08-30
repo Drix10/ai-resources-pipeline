@@ -21,27 +21,6 @@ Key Points:
 
 
 ---
-### 📊 NFL Data - Ravens AFC North Primetime Games
-
-This article presents a statistical overview of the Baltimore Ravens' primetime games against their AFC North rivals since 2000, categorized by opponent and home/away status.
-
-Key Points:
-
-•  Significant disparity in the number of road vs. home primetime games.
-
-
-•  The Ravens have played considerably more primetime games on the road against AFC North opponents.
-
-
-•  Data includes Monday Night Football games.
-
-
-🔗 Resources:
-
-• [Twitter User: DrTanio](https://x.com/DrTanio) - Source of the data
-
-
----
 ### ✨ Historical Figures - Scatman Crothers' Birthday
 
 This article commemorates the birthday of Scatman Crothers, highlighting his diverse career as a musician, actor, and voice artist.

@@ -109,28 +109,6 @@ Key Points:
 • [Mark Suster](https://x.com/msuster) - Entrepreneur and investor sharing data
 
 ---
-### 💡 Leadership - Seeking Club Leader
-
-This article discusses the search for a new leader for Club Bolívar, a prominent football institution in Bolivia. It emphasizes the club's significant standing and the extensive experience sought in a new leadership candidate.
-
-Key Points:
-
-• A new leader is being sought for Club Bolívar.
-
-• Club Bolívar is the biggest football club in Bolivia.
-
-• The institution holds a significant and unique position.
-
-• Experience in building companies and teams is valued.
-
-
-🔗 Resources:
-
-• [Marcelo Claure](https://x.com/marceloclaure) - Entrepreneur and chairman of Club Bolívar
-
-• [Club Bolívar](https://x.com/Bolivar_Oficial) - Official X profile of the football club
-
----
 ### 🤖 Artificial Intelligence - Execution at Scale
 
 This article summarizes discussions from the Monty Summit, highlighting a significant transition in Artificial Intelligence from model development to achieving tangible business outcomes. It identifies execution at scale as the primary differentiator for success in the AI landscape.

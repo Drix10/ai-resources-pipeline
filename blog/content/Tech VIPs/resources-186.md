@@ -71,27 +71,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HGo278aWwAAMiHS?format=jpg&name=small)
 
 ---
-### 💡 Leadership Insights - NFL Security Officer's Journey
-
-This article announces a new podcast episode featuring Cathy Lanier, Chief Security Officer for the NFL. It covers her career trajectory and her responsibilities within the league.
-
-Key Points:
-
-• Gain insights into the role of a Chief Security Officer at NFL.
-
-• Explore Cathy Lanier's career journey and leadership experience.
-
-• Understand the scope of security operations in professional sports.
-
-🔗 Resources:
-
-• [Tim Ferriss](https://x.com/tferriss) - Tim Ferriss's Twitter profile
-
-• [Original Status](https://x.com/tferriss/status/2047473872694292685) - Tweet status by Tim Ferriss
-
-![Image](https://pbs.twimg.com/media/HGoWnL1XEAALTR5?format=jpg&name=small)
-
----
 ### 💡 Podcast Resources - Supplemental Materials
 
 This article provides a compilation of all discussed links and supplemental materials related to the Cathy Lanier podcast episode. It offers direct access to additional information.
@@ -111,25 +90,6 @@ Key Points:
 • [Original Status](https://x.com/tferriss/status/2047473957545083070) - Tweet status by Tim Ferriss
 
 • [Podcast Links](https://t.co/jNycJHyeZf) - General link to discussed materials
-
----
-### 💡 Podcast Access - Full Cathy Lanier Interview
-
-This article provides direct access to the complete interview with Cathy Lanier, NFL Chief Security Officer. It allows users to watch the full discussion in its entirety.
-
-Key Points:
-
-• Directly access the full video interview with Cathy Lanier.
-
-• Engage with the complete conversation and insights.
-
-• View the entire discussion for a comprehensive understanding.
-
-🔗 Resources:
-
-• [Tim Ferriss](https://x.com/tferriss) - Tim Ferriss's Twitter profile
-
-• [Original Status](https://x.com/tferriss/status/2047473958820217159) - Tweet status by Tim Ferriss
 
 ---
 ### 💡 Political Analysis - Future Outlook for Bolivia

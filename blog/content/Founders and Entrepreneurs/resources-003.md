@@ -1,24 +1,3 @@
-### 🎬 Film Production - Filming at Normansfield Theatre
-
-This article documents the filming of "Waffle the Wonder Dog" at the Normansfield Theatre in Hampton Wick, Teddington, London.  The post includes hashtags related to film production, location, and the local area.
-
-Key Points:
-
-• Filming took place at Normansfield Theatre.
-
-
-• The production involved a film crew.
-
-
-• The location is in Hampton Wick, Teddington, London.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/GkIZml-XgAAnYa2?format=jpg&name=small)
-
-
----
 ### 🏃 Running - Morning Run in Hampton Wick
 
 This article details a morning run in Hampton Wick and Teddington, referencing distances and using hashtags related to running and the local area.
@@ -173,23 +152,6 @@ Key Points:
 
 
 ---
-### 🏎️ Formula 1 - F1 Season Launch 2025 Review
-
-This article provides a brief review of the Formula 1 2025 season launch event, noting its format and reception from fans.
-
-Key Points:
-
-• The F1 75 Live event was the first comprehensive season launch.
-
-
-•  All 10 teams and their 2025 liveries were showcased.
-
-
-•  Fan reception was mixed but generally positive.
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

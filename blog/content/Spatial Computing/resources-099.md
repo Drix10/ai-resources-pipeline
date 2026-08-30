@@ -111,20 +111,6 @@ Key Points:
 
 
 ---
-### 🚀 Retail & Dining - New Product Launches and Marketplaces
-
-This article reports on new product launches by Johnny Rockets and Pepsi, and the launch of a third-party digital marketplace by Best Buy.
-
-Key Points:
-
-• Johnny Rockets and Pepsi launched two new mixed beverages.
-
-
-• Best Buy launched a new third-party digital marketplace.
-
-
-
----
 ### 🤖 Unreal Engine - Technical Content Grimoire Volume 2
 
 This article announces the presentation of Volume 2 of the Technical Content Grimoire at Unreal Fest Stockholm by Tomislav Božić, focusing on content pipelines and tools for content authoring.

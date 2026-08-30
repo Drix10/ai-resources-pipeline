@@ -90,32 +90,6 @@ Key Points:
 
 
 ---
-### 🚀 Sports Betting Model - PineSports_AI MLB Predictions
-
-This article describes a model, created with JaXon by PineSports_AI, that successfully predicted Yandy Diaz as the top home run prop in an MLB game.
-
-
-Key Points:
-
-• Successful prediction of MLB home run prop.
-
-
-• Model's performance despite lack of historical data.
-
-
-• Unique prediction methodology.
-
-
-
-![Image](https://pbs.twimg.com/media/Gy7G2jkWQAAUk1Z?format=jpg&name=small)
-![Image](https://pbs.twimg.com/amplify_video_thumb/1958721528511463424/img/l8trHZVfUZYKXKU-.jpg)
-
-🔗 Resources:
-
-• [PineSports_AI](https://x.com/PineSports_AI) - Sports betting model
-
-
----
 ### 💡 Journalism and Tech - Vibe Coding at Notion
 
 This article discusses an embedded journalist's experience working with a tech team at Notion to understand vibe coding and its impact on engineering.

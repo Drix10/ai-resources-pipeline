@@ -180,30 +180,6 @@ Key Points:
 
 ---
 
-### 💡 Film Review - Dead to Rights (Nanjing Zhao Xiang Guan)
-
-This article presents a Japanese viewer's review of the film "Dead to Rights" (Nanjing Zhao Xiang Guan), a movie about the Nanjing Massacre.  The review emphasizes the film's emotional impact and its potential to foster reflection.
-
-Key Points:
-
-•  A Japanese viewer shares their perspective on the film's emotional impact.
-
-
-•  The review emphasizes the film's potential for cross-cultural understanding.
-
-
-
-🔗 Resources:
-
-
-![Image](https://pbs.twimg.com/media/GyDo9rKboAA-nAl?format=jpg&name=small)
-
-
-![Image](https://pbs.twimg.com/media/GyDo9rQaoAARomd?format=jpg&name=small)
-
-
----
-
 ### 💡 Conspiracy Theories - Project Blue Beam
 
 This article discusses the Project Blue Beam conspiracy theory, using it as an example to illustrate the importance of critical thinking and discernment in evaluating information related to extraterrestrial life.

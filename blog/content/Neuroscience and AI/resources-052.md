@@ -88,46 +88,6 @@ Key Points:
 
 ---
 
-### 🎬 Film Review - Eterno Visionario
-
-This article reviews "Eterno Visionario," a biopic of Luigi Pirandello, highlighting its honest and insightful portrayal of the Nobel Prize-winning author.  The review focuses on the film's impact and the context of its viewing on a plane journey.
-
-Key Points:
-
-• The film offers an honest and piercing portrait of Luigi Pirandello.
-
-
-•  The review emphasizes the film's shocking honesty.
-
-
-• The viewing experience was enhanced by the travel context.
-
-
-![Image](https://pbs.twimg.com/media/Gq44GjkbMAAbwg8?format=jpg&name=900x900)
-
-
----
-
-### 🎬 Film Review - Reading Lolita in Tehran
-
-This article reviews the film adaptation of "Reading Lolita in Tehran," a memoir by Azar Nafisi. The review focuses on the cultural insights and broader human observations offered by the film.
-
-Key Points:
-
-• The film provides insights into Iranian culture.
-
-
-•  The review highlights observations about human nature.
-
-
-• The film is described as stunningly beautiful.
-
-
-![Image](https://pbs.twimg.com/media/Gq41N5AbgAAwgBr?format=jpg&name=900x900)
-
-
----
-
 ### 💻 Personal Statement - AI and Intelligence
 
 This article presents a personal statement written in 1993 about the author's interest in artificial intelligence, specifically focusing on identifying computational principles underlying intelligence and goal-directed behavior.

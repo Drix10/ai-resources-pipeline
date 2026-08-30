@@ -44,28 +44,6 @@ Key Points:
 • [Grok Imagine](https://grok.com/imagine/post/389fbba7-2227-4a38-8066-18bf871325c) - Related AI content platform
 
 ---
-### 🚀 AI Video Generation - Cinematic Scenes
-
-This article introduces Seedance 2.0 on Vadoo AI, a platform enabling the creation of Hollywood-style cinematic action scenes. It highlights the capabilities for generating complex visual sequences.
-
-Key Points:
-
-• Vadoo AI facilitates the generation of intricate cinematic action scenes.
-
-• Seedance 2.0 offers advanced tools for realistic visual effects.
-
-• AI empowers creators to produce high-quality film content efficiently.
-
-
-🔗 Resources:
-
-• [Vadoo AI](https://x.com/vadooai) - AI platform for video generation
-
-• [Tweet Status](https://x.com/vadooai/status/2030499859065974808) - Original social media post
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2030499725515096064/img/whef-Vi4SFRbQHhS.jpg)
-
----
 ### ✨ AI Image Generation - New Model Release
 
 This article announces the upcoming launch of Mirrorize AI's new Lulu image generator model. It signifies an expansion in their AI image generation capabilities.

@@ -107,36 +107,6 @@ Key Points:
 
 
 ---
-### ✨ Theta Network - FC Seoul Sponsorship
-
-This article highlights the appearance of the Theta Network logo at an FC Seoul soccer game, celebrating a team win and goal scored by Jesse Lingard.
-
-Key Points:
-
-• Theta Network logo visible at FC Seoul game.
-
-• Jesse Lingard scored the first goal.
-
-• FC Seoul secured a victory.
-
-
-🔗 Resources:
-
-• [Mitch Liu](https://x.com/mitchliu) - Tweet about the event
-
-• [Theta Network](https://x.com/Theta_Network) - Blockchain technology
-
-• [Jesse Lingard](https://x.com/JesseLingard) - Soccer player
-
-• [FC Seoul](https://youtube.com/@fcseoul) - Soccer team
-
-![Image](https://pbs.twimg.com/media/GuxRlrCWEAA0ItJ?format=jpg&name=small)
-![Image](https://pbs.twimg.com/media/GuxRlrBXEAADI_c?format=360x360)
-![Image](https://pbs.twimg.com/media/GuxRlrNXsAAIQuh?format=jpg&name=small)
-![Image](https://pbs.twimg.com/media/GuxRlq-WAAAOvUH?format=jpg&name=small)
-
-
----
 ### 🤖 AI Agent Development - Iterative Process
 
 This article emphasizes that building an AI agent is an iterative process, going beyond simply writing a prompt and deploying.

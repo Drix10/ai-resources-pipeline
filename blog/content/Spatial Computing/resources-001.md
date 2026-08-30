@@ -1,25 +1,3 @@
-### 🤖 NVIDIA at NBA All-Star Weekend Technology Summit
-
-This article summarizes NVIDIA's participation in the NBA All-Star Weekend Technology Summit in San Francisco, focusing on discussions surrounding trends and innovations in sports, media, and technology.
-
-Key Points:
-
-• NVIDIA's founder and CEO, Jensen Huang, was a featured speaker.
-
-• The summit covered the latest advancements in sports, media, and technology.
-
-•  Discussions likely involved AI,  GPU computing, and their applications in these fields.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/Gjy1mJqaIAAjGma?format=jpg&name=small)
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1890490733888696320/pu/img/ZtEzWqMW4_rksPru?format=jpg&name=240x240)
-
-
----
-
 ### ✨ Three.js Shader Improvements - Refraction and Frosted Glass Effects
 
 This article discusses improvements made to a Three.js shader, specifically focusing on refraction and an attempted (but ultimately repurposed) frosted glass effect.

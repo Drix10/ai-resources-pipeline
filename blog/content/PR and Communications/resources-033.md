@@ -46,57 +46,6 @@ Key Points:
 
 ---
 
-### ✨ FIFA Mobile - Antonio Rüdiger Player Review
-
-This article provides a review of Antonio Rüdiger as a player in the FIFA Mobile game, highlighting his defensive capabilities.
-
-Key Points:
-
-• Rüdiger is considered a strong defensive player in the game.
-
-
-• He excels in both aerial and ground defense.
-
-
-
-![Image](https://pbs.twimg.com/media/GmoJrp5aEAAAUjz?format=jpg&name=small)
-
-🔗 Resources:
-
-• [contz's X Profile](https://x.com/contz) - Author's perspective on the issue
-
-
-• [Tweet with Image](https://x.com/contz/status/1903346351762706567) - Original Tweet with image
-
-
----
-
-### 🤔 US Hosting of International Events - Concerns about Human Rights
-
-This article expresses concerns about the US hosting the 2026 World Cup and 2028 Olympics, given allegations of human rights abuses involving tourists, asylum seekers, and visa holders.
-
-Key Points:
-
-• Question of why international athletes and fans would attend events in a country with alleged human rights abuses.
-
-
-• Concerns about the reported disappearance of tourists, asylum seekers, and visa holders to foreign prisons.
-
-
-
-🔗 Resources:
-
-• [John Bates' X Profile](https://x.com/johnbates) - Mentioned in the tweet
-
-
-• [rothschildmd's X Profile](https://x.com/rothschildmd) - Author of the original tweet
-
-
-• [Original Tweet](https://x.com/rothschildmd/status/1903150465350840646) - Context of the concerns
-
-
----
-
 ### ⚠️ Political Allegations - Impending Insurrection Act and Concentration Camps
 
 This article discusses an allegation that the Insurrection Act will be invoked to round up individuals deemed undesirable and place them in concentration camps.

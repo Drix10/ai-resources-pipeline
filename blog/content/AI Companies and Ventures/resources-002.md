@@ -1,22 +1,3 @@
-### ✨ Awards - Manu Bhaker's BBC Indian Sportswoman of the Year Award
-
-This article highlights Manu Bhaker's achievement of winning the BBC Indian Sportswoman of the Year Award following her performance at the Paris Olympics.
-
-Key Points:
-
-• Manu Bhaker won the BBC Indian Sportswoman of the Year Award.
-
-
-• The award recognizes her outstanding performance in pistol shooting at the Paris Olympics.
-
-
-• Her achievement continues to inspire millions.
-
-
-
-🔗 Resources:
-
-
 ### 🤖 Robotics - Leafbot's Tri-Terrain Locomotion
 
 This article discusses Leafbot, a bio-inspired soft robot capable of traversing land, water, and amphibious environments.

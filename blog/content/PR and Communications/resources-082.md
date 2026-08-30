@@ -26,41 +26,6 @@ Key Points:
 
 ---
 
-### ✨ Community Engagement - Jaylen Brown's Event
-
-This article describes an event hosted by Celtics player Jaylen Brown at Canobie Lake Park, where he distributed amusement park tickets and interacted with fans.
-
-Key Points:
-
-• Brown provided 200 tickets to Canobie Lake Park.
-
-
-• He spent hours meeting with fans.
-
-
-• The event highlights Brown's community involvement.
-
-
-
-🔗 Resources:
-
-• [Peter Delevett](https://x.com/peterdelevett) - Related tweet
-
-
-• [Noa Dalzell](https://x.com/NoaDalzell) -  Twitter thread on the event
-
-
-• [Fritz GLC](https://x.com/fritzglc/status/1941926627488784518) - Images from the event
-
-
-• [Image 1](https://pbs.twimg.com/media/GvMb5SnW4AAqMS2?format=jpg&name=small)
-
-
-• [Image 2](https://pbs.twimg.com/media/GvMb9IFXoAAd2hn?format=jpg&name=small)
-
-
----
-
 ### 🇺🇸 Political Commentary - Adam Kinzinger on Trump
 
 This article summarizes a statement by former GOP Rep. Adam Kinzinger regarding Donald Trump's legacy and calls for retweets in support.

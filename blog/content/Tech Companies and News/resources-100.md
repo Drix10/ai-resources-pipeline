@@ -71,33 +71,6 @@ Key Points:
 
 
 ---
-### 💡 Founder Cocktail Class - Sales Tax and Cocktails
-
-This article summarizes a Founder Cocktail Class event in San Francisco, highlighting the contrast between the complexities of sales tax and the simplicity of cocktail making.
-
-Key Points:
-
-•  Networking event for founders.
-
-
-•  Discussion on sales tax complexities.
-
-
-•  Focus on straightforward cocktail recipes.
-
-
-🔗 Resources:
-
-• [Intercom](https://x.com/intercom) - Event collaborator
-
-
-• [Fondo](https://x.com/tryfondo) - Event collaborator
-
-
-![Image](https://pbs.twimg.com/media/Gy8idhCW8AAd72h?format=jpg&name=small)
-
-
----
 ### 🤖 Secure SD-Branch Solution - Retail Security
 
 This article details how Alcampo, a major Spanish retailer, implemented a Secure SD-Branch solution from Fortinet to unify security and networking, resulting in significant cost and time savings.

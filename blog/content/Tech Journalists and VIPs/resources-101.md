@@ -85,27 +85,6 @@ Key Points:
 
 
 ---
-### 🎭 Society - Rapper's Concerns about LGBTQ+ Representation in Media
-
-This article discusses a rapper's statement expressing concern about his grandson's potential exposure to LGBTQ+ couples in movies.
-
-Key Points:
-
-• A convicted rapper expressed apprehension about his grandson seeing same-sex couples in films.
-
-
-•  This statement is perceived as contradictory and surprising.
-
-
-• The situation highlights societal complexities and conflicting viewpoints.
-
-
-🔗 Resources:
-
-• [Deggans' Tweet](https://x.com/Deggans/status/1960165016318939372) - The rapper's statement
-
-
----
 ### 🇮🇱 History - Global Response to the October 7th Events
 
 This article challenges the narrative of widespread global sympathy for Israel following the events of October 7th, suggesting a more nuanced reality.

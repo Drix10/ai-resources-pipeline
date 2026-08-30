@@ -112,29 +112,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/GcTAfXfXcAATgZz?format=jpg&name=small)
 
 ---
-### 💡 Career Advice for Young Professionals and Athletes - Relentlessness and Networking
-
-This article summarizes career advice given by Justin Pugh, a former NFL player and current investor, emphasizing the importance of relentlessness, networking, and focus.
-
-Key Points:
-
-• Be relentless in pursuing your goals.
-
-
-• Actively network to expand your opportunities.
-
-
-• Maintain focus on your objectives.
-
-
-🔗 Resources:
-
-• [Justin Pugh](https://x.com/JustinPugh) - Former NFL player and investor
-
-
-• [NFL](https://x.com/NFL) - National Football League
-
----
 ### ✨ BIM - As-Built Rating Feature for On-Site Element Status
 
 This article highlights a feature that compares on-site elements with BIM models, providing an as-built rating to assess model accuracy.

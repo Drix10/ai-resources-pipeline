@@ -106,28 +106,6 @@ Key Points:
 
 ---
 
-### 🤖 Optimized Fine-Tuning - VLAs
-
-This article introduces OFT (Optimized Fine-Tuning), a recipe for fine-tuning Vision-Language Agents (VLAs), highlighting significant improvements in speed and performance.
-
-Key Points:
-
-• Achieves 25-50x faster inference speed.
-
-
-• Delivers state-of-the-art (SOTA) accuracy (97.1% average success rate).
-
-
-• Enables high-frequency control with a 7B model on real bimanual robots.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1895496207637856257/pu/img/SAid-YhrZGDsdcWL.jpg)
-
-
----
-
 ### 🤖 Robotics Legend - Rodney Brooks
 
 This article highlights a meeting with robotics legend Rodney Brooks, known for his contributions to iRobot and current work on autonomous logistics robots.

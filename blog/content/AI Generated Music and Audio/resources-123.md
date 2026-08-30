@@ -86,37 +86,6 @@ Key Points:
 • [voiceswapai](https://x.com/voiceswapai) - Company offering the ML Engineer position
 
 ---
-### 🚀 AI Fan Activation - Conversational Experience with ElevenLabs
-
-This article describes how Toyota, in partnership with @HL_AdAgency and ElevenLabs, created an AI-powered fan activation. It highlights a live, conversational experience featuring an AI version of NFL quarterback Brock Purdy.
-
-Key Points:
-
-• Toyota utilized AI for a fan engagement event.
-
-• ElevenLabs Agents Platform powered the experience.
-
-• Featured an AI-powered conversational NFL quarterback.
-
-• Provided a unique interactive trivia experience.
-
-🚀 Implementation:
-1. Partner with an AI voice synthesis platform.
-2. Utilize an AI agent platform for conversational design.
-3. Develop custom voice models for specific personalities.
-4. Integrate conversational AI into a live interactive experience.
-
-🔗 Resources:
-
-• [ElevenLabs](https://x.com/elevenlabsio) - Provider of the AI Agents Platform
-
-• [HL Ad Agency](https://x.com/HL_AdAgency) - Creative agency partner in the project
-
-• [49ers Trivia](https://t.co/CwamgscVRf) - Test knowledge on the 49ers with AI
-
-![Image](https://pbs.twimg.com/media/G7U9ywLWkAAt50S?format=jpg&name=small)
-
----
 ### 🤖 Spatial Audio Research - HRTF Dataset and Metrics Toolbox
 
 This article highlights a research paper introducing the Extended SONICOM HRTF Dataset and Spatial Audio Metrics Toolbox. It provides resources for advanced research in spatial audio and personalized sound experiences.

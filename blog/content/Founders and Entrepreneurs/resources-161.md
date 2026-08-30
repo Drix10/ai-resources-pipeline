@@ -1,29 +1,3 @@
-### ✨ Football Statistics - Home Goal Performance Analysis
-
-This article presents a statistical overview of the most home goals scored by football clubs across all domestic competitions during the current season. It highlights the top-performing teams based on their offensive output at their home venues.
-
-Key Points:
-
-• Grimsby Town and Man City share the highest home goal tally.
-
-• Lincoln City ranks closely behind in home goal performance.
-
-• Huddersfield, Cardiff, and Luton show strong home scoring records.
-
-• These statistics highlight team offensive capabilities at home venues.
-
-
-🔗 Resources:
-
-• [Playmaker_EN](https://x.com/playmaker_EN) - Source for football statistics and analysis
-
-• [Grimsby Town Official](https://x.com/officialgtfc) - Official account for Grimsby Town Football Club
-
-• [GTFC Hashtag](https://x.com/hashtag/GTFC?src=hashtag_click) - Explore discussions related to Grimsby Town FC
-
-![Image](https://pbs.twimg.com/media/HFyZAq4XUAAkDsF?format=jpg&name=small)
-
----
 ### ✨ Team Building - New Member Acquisitions
 
 This article discusses the acquisition of new team members, highlighting the positive impact these additions are expected to bring. It reflects on the enthusiasm surrounding recent signings for a team.
@@ -130,32 +104,6 @@ Key Points:
 • [Pat McAfee at The Masters](https://x.com/i/status/2043723312912552093) - Video of Pat McAfee attending The Masters
 
 ![Image](https://pbs.twimg.com/amplify_video_thumb/2043722553269878784/img/fQ6Q9vouAxgG-wlW.jpg)
-
----
-### 🚀 Sports Tech Funding - Real Social Box Score App
-
-This article details the recent funding round for Real, a social box score application, led by The Chernin Group. It highlights the participation of notable investors, including NBA players and sports industry executives.
-
-Key Points:
-
-• Real, a social box score app, secured a funding round.
-
-• The Chernin Group led this significant investment.
-
-• NBA players Tyrese Haliburton and Grayson Allen are investors.
-
-• CAA Sports co-head Mike Levine also participated in the funding.
-
-
-🔗 Resources:
-
-• [FOS Adam](https://x.com/FOSAdam) - Source covering sports business news
-
-• [Front Office Sports](https://x.com/FOS) - Publisher of sports business insights
-
-• [Sports Rapport](https://x.com/sportsrapport) - Journalist covering sports industry developments
-
-• [Real App Funding Report](https://frontofficesports.com/chernin-group-funding-round-real-app/?utm_source=TWITTER&utm_medium=Article&utm_campaign=Editorial) - Front Office Sports report on Real app funding
 
 ---
 ### 💡 Regional Economics - El Salvador Fuel Price Analysis

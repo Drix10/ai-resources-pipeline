@@ -144,28 +144,6 @@ Key Points:
 
 ---
 
-### 🤖 AI Governance - Hollywood vs. Reality
-
-This article contrasts Hollywood's portrayal of AI-governed dystopias with a perspective suggesting AI could be a tool for combating corruption.
-
-Key Points:
-
-• Hollywood depicts AI governance as dystopian.
-
-•  Counter-argument suggests AI could combat corruption.
-
-•  The potential of benevolent AI for global governance is explored.
-
-
-🔗 Resources:
-
-• [AI Intellius](https://x.com/Al_Intellius) -  AI commentary
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1898691259272728576/pu/img/oOKrswTKAuPhe7w6.jpg)
-
-
----
-
 ### ✨ International Women's Day - Prof. Alondra Nelson
 
 This article highlights the work of Professor Alondra Nelson on science, technology, and society, in celebration of International Women's Day.

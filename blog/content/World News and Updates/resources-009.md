@@ -84,30 +84,6 @@ Key Points:
 
 ---
 
-### 💡 School Uniform Costs - Gender Disparity
-
-This article highlights data showing that parents pay more for girls' school uniforms than for boys', with secondary school costs rising significantly.
-
-Key Points:
-
-•  Higher uniform costs for girls than boys.
-
-• Secondary school uniform costs are significantly higher.
-
-
----
-
-### 💡 School Uniform Costs - Education Secretary's Statement
-
-This article provides a quote from the Education Secretary expressing concern about the high cost of school uniforms, particularly for girls.
-
-Key Points:
-
-• High school uniform costs are unfair to families.
-
-
----
-
 ### 🤖 US Foreign Policy - Russia-Ukraine War
 
 This article discusses the United States' vote against a UN resolution condemning Russia's invasion of Ukraine under the Trump administration, highlighting the strain on US-EU relations.

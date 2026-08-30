@@ -37,32 +37,6 @@ Key Points:
 
 ---
 
-### ✨ Machine Learning - Optimized Fine-Tuning for VLAs
-
-This article introduces OFT, an optimized fine-tuning recipe for Vision-Language Agents (VLAs), highlighting its performance improvements in speed and accuracy.
-
-Key Points:
-
-• 25-50x faster inference compared to baseline methods.
-
-• Achieves state-of-the-art (SOTA) accuracy (97.1% average success rate) in LIBERO benchmark.
-
-
-• Enables high-frequency control with a 7B parameter model on a real bimanual robot.
-
-
-• Outperforms several existing VLA methods, including π₀, RDT-1B, DiT Policy, MDT, Diffusion Policy, and ACT.
-
-
-🔗 Resources:
-
-• [Pepijn](https://x.com/pepijn2233) - Co-author of OFT
-
-• [Moo Jin Kim](https://x.com/moo_jin_kim) - Co-author of OFT
-
-
----
-
 ### 💡 Geopolitics - Global Political Reallignment
 
 This article briefly discusses the author's perspective on a shift in global political alliances, identifying a potential conflict between the ascendant right and the global left.  The provided context is limited and lacks sufficient detail for in-depth analysis.

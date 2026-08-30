@@ -141,23 +141,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/ext_tw_video_thumb/1894055065834467328/pu/img/wJdBOWoyp9o05wG-.jpg)
 
 
-### 🎬 Television - Andor Season 2
-
-This article provides a quote from the creator of Andor regarding the upcoming second season, focusing on the scale and depth of the storytelling.
-
-Key Points:
-
-• The scale and number of characters in Andor are highlighted as key elements.
-
-
-• The show focuses on a diverse cast of characters.
-
-
-• The creator emphasizes the realism of the characters and their decisions.
-
-![Image](https://pbs.twimg.com/media/GklXvqcW8AASqca?format=jpg&name=small)
-
-
 ### 🇺🇦 International Relations - Ukraine Support
 
 This article discusses continued support for Ukraine in its conflict with Russia.

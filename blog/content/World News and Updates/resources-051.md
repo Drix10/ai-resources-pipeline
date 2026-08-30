@@ -208,31 +208,6 @@ Key Points:
 
 
 ---
-### 🤖 Sports - Brock Purdy Contract
-
-This article announces that San Francisco 49ers quarterback Brock Purdy is finalizing a five-year, $265 million contract.
-
-Key Points:
-
-• Brock Purdy is finalizing a massive contract with the 49ers.
-
-
-• The contract is worth $265 million over five years.
-
-
-•  The deal includes a significant amount of guaranteed money.
-
-
-🔗 Resources:
-
-• [ABC7 News Bay Area](https://x.com/abc7newsbayarea) - Reporting on Purdy's contract
-
-
-![Image](https://pbs.twimg.com/media/GrGefAvWEAASO7-?format=jpg&name=small)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

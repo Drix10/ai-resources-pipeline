@@ -34,26 +34,6 @@ Key Points:
 • [X Post](https://x.com/origin_trail/status/2073376285871755663) - Details OriginTrail and GS1 use in Swiss rail
 
 ---
-### ✨ Decentralized Knowledge Graph - Real-time Sports Data
-
-This article describes the ingestion of FIFA World Cup match data into a decentralized knowledge graph. This system provides a shared context powered by OriginTrail and structured with IPTC Sport Schema.
-
-Key Points:
-• FIFA World Cup data is ingested onto a decentralized knowledge graph.
-
-• OriginTrail powers the real-time context graph for sports data.
-
-• IPTC Sport Schema structures the collected sports information.
-
-🔗 Resources:
-
-• [OriginTrail](https://origintrail.io/) - Decentralized Knowledge Graph technology provider
-
-• [X Post](https://x.com/DrevZiga/status/2073858088726135249) - FIFA World Cup data on DKG
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2073858011085373440/img/Okm0jtr3PJFZpO2L.jpg)
-
----
 ### 🤖 AI Agents - Shared Memory with Verifiable Provenance
 
 This article discusses the requirement for AI agents to possess shared memory and verifiable provenance, beyond simple context. It introduces DKG V10 for converting Open Knowledge Format bundles into verifiable and queryable knowledge.

@@ -47,30 +47,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/amplify_video_thumb/1939738257107165186/img/bjjt-o2NohLzzkLR.jpg)
 
 ---
-### 💡 New Jersey Politics - Mansion Tax Increase
-
-This article reports on the New Jersey state Assembly's approval of a bill that doubles the real estate transfer fee on homes valued over $2 million.
-
-Key Points:
-
-•  The bill increases the tax rate on homes sold for over $2 million to 2%.
-
-
-•  Homes sold for over $2.5-$3.5 million will face further increased tax rates.
-
-
-•  The bill passed with a vote of 41-35.
-
-
-🔗 Resources:
-
-• [Jamie Lars H](https://x.com/JamieLarsH) - Reporting on the bill.
-
-• [One Jersey Schorr](https://x.com/OneJerseySchorr) -  Source for the news.
-
-![Image](https://pbs.twimg.com/media/Gutjin9W4AEGj_O?format=jpg&name=small)
-
----
 ### 💡 US Politics - Controversial Bill
 
 This article discusses public and political reaction to a currently debated bill in the United States.

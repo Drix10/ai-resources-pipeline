@@ -111,27 +111,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/G-Kbs3tX0AAIF-m?format=jpg&name=small)
 
 ---
-### ✨ Corporate Sponsorship - Vanta's Security & Compliance Promotion
-
-This article details Vanta's sponsorship of the Golden State Warriors, showcasing their commitment to compliance and security. The partnership highlights Vanta's brand presence at events and reinforces their connection to security principles.
-
-Key Points:
-
-• Vanta sponsors the Golden State Warriors, increasing brand visibility.
-
-• Promotes compliance and security awareness in public venues.
-
-• Integrates brand messaging into fan experiences at Chase Center.
-
-• Reinforces Vanta's dedication to trust and security standards.
-
-🔗 Resources:
-
-• [Vanta](https://vanta.com/) - Security and compliance automation platform
-
-![Image](https://pbs.twimg.com/media/G-KAINEXgAEDUZb?format=jpg&name=small)
-
----
 ### 💡 Digital Health Plan Solutions - Enhancing Medicaid Member Experiences
 
 This article addresses challenges faced by Medicaid health plans in meeting member expectations and managing staffing constraints. It highlights how five plans use HIPAA-secure digital experiences to streamline redeterminations, boost HRA and HEDIS measures, and provide scalable multilingual support.

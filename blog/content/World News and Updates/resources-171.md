@@ -98,28 +98,6 @@ Key Points:
 • [Archived Link 2](https://t.co/ube22vYDCc) - Additional linked content
 
 ---
-### ✨ Public Policy - World Cup Ticket Lottery
-
-This article examines the controversy surrounding NYC Mayor Zohran Mamdani's announcement of a lottery for $50 World Cup tickets for city residents. The program has faced criticism from New Jersey members of Congress, who labeled it a "publicity stunt."
-
-Key Points:
-
-• NYC Mayor Zohran Mamdani announced a World Cup ticket lottery.
-
-• Residents of the five boroughs can win $50 tickets.
-
-• Matches will be held at MetLife Stadium.
-
-• New Jersey Congress members criticized the program.
-
-
-🔗 Resources:
-
-• [CBS News](https://x.com/CBSNews) - Source for news reports
-
-• [CBS News Status Update](https://x.com/CBSNews/status/2060451962374774807) - Original status update
-
----
 ### ✨ Geopolitical Events - Military Operations
 
 This article reports on Israeli forces crossing a key Lebanon river as part of an expanded ground offensive. This action marks an escalation in ongoing military operations in the region.
@@ -196,30 +174,6 @@ Key Points:
 • [Archived Link 1](https://t.co/17eC8trJ9o) - Additional linked content
 
 • [Archived Link 2](https://t.co/17eC8trJ9o) - Additional linked content
-
----
-### ✨ International Security - World Cup Preparations
-
-This article announces a live broadcast detailing the FBI's comprehensive security crackdown in anticipation of the upcoming World Cup. The broadcast provides insights into the intense measures being implemented to ensure safety during the event.
-
-Key Points:
-
-• The FBI is detailing an intense security crackdown.
-
-• These measures are in preparation for the World Cup.
-
-• The information is being broadcast live.
-
-• Security efforts aim to ensure safety for the event.
-
-
-🔗 Resources:
-
-• [Fox News](https://x.com/FoxNews) - Source for news broadcasts
-
-• [Fox News Status Update](https://x.com/FoxNews/status/2060423640970076610) - Original status update
-
-• [Live Broadcast Link](https://x.com/i/broadcasts/1nGeLLBrydAKX) - Link to the FBI security detail broadcast
 
 ---
 ### ✨ Monetary Policy - New Currency Bill Proposal

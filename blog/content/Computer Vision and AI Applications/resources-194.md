@@ -22,26 +22,6 @@ Key Points:
 • [Optimization Tweet](https://x.com/eigensteve/status/2072765892463616411) - Original announcement tweet
 
 ---
-### 🤖 Sports Technology - Ball Tracking Systems
-
-This article discusses the critical impact of advanced ball technology on sports outcomes, specifically referencing a recent football match. It highlights how integrated technical innovations in sports equipment are used to influence and determine game decisions.
-
-Key Points:
-
-• Modern sports balls incorporate advanced tracking technologies.
-
-• These technologies enable precise decision-making during competitive games.
-
-• Ball technology can significantly influence the outcome of matches.
-
-
-🔗 Resources:
-
-• [Ball Technology in Football](https://x.com/LearnOpenCV/status/2072850736665518484) - LearnOpenCV tweet discussing advanced ball technology
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2072682910465822720/img/MxyGRIdQnIQ2A7A4.jpg)
-
----
 ### 🤖 LLMs & Self-Improving Agents - Curriculum Learning with Meta-RL
 
 This article explores a novel approach where Large Language Models (LLMs) generate their own learning curricula for complex, previously unsolved problems through self-play and meta-reinforcement learning. It also discusses the work's extensibility to larger models and its presentation at ICML2026. This method demonstrates how synthetic data can be leveraged for performance gains.

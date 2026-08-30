@@ -163,33 +163,6 @@ Key Points:
 • [Original Thread](https://x.com/rgb_prithvi/status/1973121018945216662) - Full Twitter thread on LLM agents and context engineering
 
 ---
-### 💡 Geopolitics - International Sporting Politics
-
-This article analyzes a political development impacting international sports governance, specifically the blocking of a vote to exclude Israel from UEFA. It examines the interplay between political strategies and decisions made by major sporting organizations.
-
-Key Points:
-
-• A specific political plan influenced a recent UEFA decision.
-
-• Efforts to exclude Israel from UEFA were reportedly blocked.
-
-• This outcome reduces external pressure on Israeli policy.
-
-• Highlights the influence of geopolitics on international sports bodies.
-
-🔗 Resources:
-
-• [vedax](https://x.com/vedax) - Twitter profile of vedax
-
-• [Francesk Albs](https://x.com/FranceskAlbs) - Twitter profile of Francesk Albs
-
-• [Original Thread](https://x.com/FranceskAlbs/status/1973340747878506654) - Full Twitter thread on sporting politics
-
-• [UEFA](https://x.com/UEFA) - Official Twitter profile of UEFA
-
-• [Related News](https://x.com/DropSiteNews/status/1973112940690649407) - Related news update on the topic
-
----
 ### 🤖 Agentic AI - Model Context Protocol (MCP)
 
 This article announces the second London Agentic AI meetup, focusing on Agentic AI and the Model Context Protocol (MCP). It highlights the growing community interest in these advanced AI topics and the collaborative nature of the event.

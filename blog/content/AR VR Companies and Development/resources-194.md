@@ -207,42 +207,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HLtZ4GFbkAA3lCW?format=jpg&name=small)
 
 ---
-### 🤖 Machine Learning - RF-DETR Keypoint Fine-tuning
-
-This article introduces a new step-by-step guide for fine-tuning RF-DETR for keypoint detection tasks. It covers adapting a pretrained model for specific applications like basketball court landmark detection.
-
-Key Points:
-
-• Access a step-by-step guide for RF-DETR keypoint fine-tuning.
-
-• Leverage a pretrained model capable of 17-point human pose detection.
-
-• Adapt the model for specific applications like court landmark detection.
-
-• Improve accuracy for custom keypoint detection tasks.
-
-
-🚀 Implementation:
-1. Review the Guide: Read the step-by-step instructions on the blog.
-2. Clone the Repository: Obtain the RF-DETR code from GitHub.
-3. Prepare Your Dataset: Annotate keypoints for your target domain.
-4. Execute Fine-tuning: Apply the guide to train your custom model.
-
-🔗 Resources:
-
-• [RF-DETR GitHub Repo](https://github.com/roboflow/rf-detr) - Source code and model implementation
-
-• [Fine-tuning RF-DETR Blog](https://blog.roboflow.com/train-rf-detr-keypoints/) - Step-by-step guide for keypoint detection
-
-• [Roboflow on X](https://x.com/roboflow) - Updates on computer vision tools and datasets
-
-• [Piotr Skalski on X](https://x.com/skalskip92) - Author of the fine-tuning guide
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2070546609792757760/img/07PPpW9WP7iNYKwH.jpg)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

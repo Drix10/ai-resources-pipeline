@@ -173,25 +173,6 @@ Key Points:
 
 ---
 
-### 🤖 Sports Analytics - NHL Shot Block Predictions (2/24/25)
-
-This article provides predictions for NHL shot blockers on February 24th/25th, offering over/under betting propositions with associated probabilities.
-
-
-Key Points:
-
-•  Provides predictions for top NHL shot blockers.
-
-•  Includes over/under betting lines and probabilities.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/GklFQy9XsAA_ThB?format=jpg&name=small)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

@@ -114,26 +114,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HHx7Mb9boAAQHPH?format=jpg&name=small)
 
 ---
-### 🤖 AI/NLP - FinRAG-12B for Grounded QA in Banking
-
-This article introduces FinRAG-12B, a production-validated Retrieval Augmented Generation (RAG) recipe specifically designed for grounded question answering in the banking sector. It details its application in financial contexts.
-
-Key Points:
-
-• FinRAG-12B delivers accurate and reliable question answering in banking.
-
-• The model is production-validated for real-world financial applications.
-
-• Retrieval Augmented Generation enhances answer grounding and relevance in responses.
-
-
-🔗 Resources:
-
-• [arXiv Paper](https://arxiv.org/abs/2605.05482) - Research paper on RAG for banking question answering
-
-![Image](https://pbs.twimg.com/media/HHxcs74XMAAkG4q?format=png&name=small)
-
----
 ### 🤖 AI Safety - LLMs and Misinformation Threat Models
 
 This article discusses how Large Language Models (LLMs) are fundamentally altering the misinformation threat model. They enable false claims to be paraphrased, contextualized, and scaled with minimal surface-level detection signals.

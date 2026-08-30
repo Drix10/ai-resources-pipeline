@@ -1,26 +1,3 @@
-### 🎬 AI-Driven Cinema - ST^TIC Saturday Movie Night
-
-This article details the film lineup for ST^TIC's Saturday AI-driven cinema event, including titles, creators, and viewing links.
-
-Key Points:
-
-•  Feature films utilizing AI in their creation.
-
-•  Showtimes at 7 PM and 9 PM PT.
-
-
-🔗 Resources:
-
-• [Flyover Base](https://x.com/FlyoverBase) -  Event organizer
-
-• [Brian James Gage](https://x.com/brianjamesgage) - Director, THE CHEEP 1-4
-
-• [Edit9](https://x.com/___Edit9) - Director, LATE
-
-• [AI Music Video](https://x.com/aimusicvideo/status/1923917060763226289) -  Film, Neighborhood Watch: Act I
-
-
----
 ### 📈 Cryptocurrency Market Analysis - Bitcoin, Ethereum, and Solana
 
 This article provides a brief overview of the current market sentiment for Bitcoin, Ethereum, and Solana.
@@ -164,31 +141,6 @@ Key Points:
 
 
 ---
-### 🎬 Film Showcase - Silent Witness, Too Much, I Married a Vampire in Vegas, and Philosophy
-
-This article lists a lineup of films to be shown at a specific time.
-
-
-Key Points:
-
-• Showcase of various films.
-
-• Show time at 4:30PM PT.
-
-
-🔗 Resources:
-
-• [Rich Silver](https://x.com/RichSilverX) -  Director, Silent Witness
-
-• [Sheri Dee Studios](https://x.com/SheriBanks) -  Director, Too Much
-
-• [Cybermetal Records](https://x.com/CyberMetalRec) -  Producer, I Married a Vampire in Vegas
-
-• [AI Music Video](https://x.com/aimusicvideo/status/1923881235836961058) -  Producer, Philosophy
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

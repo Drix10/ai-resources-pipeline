@@ -19,29 +19,6 @@ Key Points:
 
 
 ---
-### 🚨 Public Safety - Fan Violence in Wrocław
-
-This article reports on a clash between Real Betis and Chelsea football fans in Wrocław, Poland, ahead of the UEFA Europa Conference League final.
-
-Key Points:
-
-• Violence erupted in Wrocław's Market Square and Salt Square.
-
-• Fans threw chairs, bottles, and restaurant furniture.
-
-• The incident occurred before the football match.
-
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1927458451862532096/img/QN9HYoLzsul7jf1s.jpg)
-
-🔗 Resources:
-
-• [kowalskr](https://x.com/kowalskr) - News source
-
-• [thepolandnews_](https://x.com/thepolandnews_) - News source
-
-
----
 ### 🤖 Entra Connect Sync - Modern Authentication Implementation
 
 This article announces the availability of modern authentication for Entra Connect Sync, shifting from user/password to service principal authentication with certificates.

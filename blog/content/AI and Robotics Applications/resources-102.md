@@ -62,22 +62,6 @@ Key Points:
 
 
 ---
-### 💡 Health - Exercise and Metabolic Health
-
-This article highlights the importance of physical activity for metabolic health, emphasizing its significance over diet alone.
-
-Key Points:
-
-• Regular, intense exercise is crucial for metabolic health.
-
-
-•  Dietary choices are less impactful than sufficient physical activity.
-
-
-🔗 Resources:
-
-
----
 ### 🤖 Autonomous Vehicles - Policy Response to Safety Data
 
 This article discusses the lack of policy response to Waymo's autonomous vehicle safety data, which shows significantly fewer injuries compared to human-driven cars.

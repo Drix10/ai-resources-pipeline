@@ -92,29 +92,6 @@ Key Points:
 
 
 ---
-### 💡 Conference Logistics - Venue Changes and City Conditions
-
-This article discusses difficulties encountered at a conference due to venue closures and overall city conditions.
-
-Key Points:
-
-• Closure of the expected convention eatery caused logistical problems.
-
-
-• City streets described as dangerous, hostile, and unclean.
-
-
-• Newly opened grocery store and restaurant provide some relief.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/GsygFAZawAAhPrw?format=jpg&name=small)
-
-![Image](https://pbs.twimg.com/media/GsygGNgbIAE1P7F?format=jpg&name=small)
-
-
----
 ### 💡 Humanitarian Work - Transition to Non-profit Leadership
 
 This article discusses Amy Weaver's transition from corporate leadership to humanitarian work with Direct Relief, as detailed in an interview.

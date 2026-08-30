@@ -214,40 +214,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/G8y4Gb5WIAAENe8?format=jpg&name=small)
 
 ---
-### 💡 Sports Training - Off-Season Workouts
-
-This article documents a winter baseball training session conducted in unusually warm 70-degree weather, highlighting the dedication to athletic development at a specific baseball facility during the off-season.
-
-Key Points:
-
-• Baseball players are conducting winter training sessions.
-
-• The training occurs under unexpectedly mild weather conditions.
-
-• This demonstrates continuous commitment to athletic improvement.
-
-• Elco Baseball provides facilities for year-round development.
-
-
-🔗 Resources:
-
-• [X Profile](https://x.com/RayMc209) - User profile of RayMc209
-
-• [X Profile](https://x.com/RomanMack2010) - User profile of Roman Mack
-
-• [X Post](https://x.com/RomanMack2010/status/2003510795142046010) - Original tweet showcasing winter training
-
-• [X Profile](https://x.com/elcobaseball) - Official profile for Elco Baseball
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2003510696076546049/img/pL0if27k4GddTjbH.jpg)
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2003510696072347648/img/T949i22l7zGCLBe_.jpg)
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2003510696076521473/img/kRpZRAmMXXlIjtPe.jpg)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

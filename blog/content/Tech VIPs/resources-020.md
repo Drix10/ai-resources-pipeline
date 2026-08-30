@@ -51,32 +51,6 @@ Key Points:
 
 ---
 
-### 🤖 Politics -  Debate on Transgender Athletes in Women's Sports
-
-This article summarizes a debate regarding transgender athletes' participation in women's sports.
-
-Key Points:
-
-• A male individual injured female athletes during a girls' basketball game.
-
-
-•  The incident highlights concerns about fairness and safety in women's sports.
-
-
-• The Senate voted against policies to keep men out of women's sports.
-
-
-
-🔗 Resources:
-
-• [Elon Musk](https://x.com/elonmusk) -  Tech entrepreneur and public figure
-
-
-• [Libs of TikTok](https://x.com/libsoftiktok) -  Account focused on social and political issues
-
-
----
-
 ### 🚀 Space Exploration - Lunar Sunrise and Firefly Space's Blue Ghost Lander
 
 This article discusses the lunar sunrise observed by Firefly Space's Blue Ghost lander and upcoming lunar activities.

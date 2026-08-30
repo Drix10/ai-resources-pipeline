@@ -64,26 +64,6 @@ Key Points:
 
 ---
 
-### ✨ Gamescom 2025 - Ubisoft's Lineup
-
-This article announces Ubisoft's presence at Gamescom 2025, highlighting playable titles and a live stream for those unable to attend in Cologne.
-
-Key Points:
-
-• Anno 117: Pax Romana will be playable at Ubisoft's immersive booth.
-
-
-•  Upcoming titles Morbid Metal, The Rogue Prince of Persia, and Heroes of Might & Magic: Olden Era will be showcased.
-
-
-• A live stream will provide remote access to the event.
-
-
-![Image](https://pbs.twimg.com/media/Gyu99lSWIAAf9DN?format=jpg&name=small)
-
-
----
-
 ### ✨ AI and AR Marketing - Cadbury Chocolate
 
 This article describes an innovative marketing campaign by Cadbury, using AI and AR to personalize chocolate bars into interactive gifts, powered by 8th Wall.

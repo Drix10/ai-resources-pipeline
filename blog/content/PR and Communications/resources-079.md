@@ -232,42 +232,6 @@ Key Points:
 
 
 ---
-### 🚀 Sports News - Devin Jackson's Commitment to Oregon
-
-This article announces four-star safety Devin Jackson's commitment to play football for the University of Oregon.
-
-
-Key Points:
-
-• Devin Jackson commits to Oregon.
-
-
-•  He chose Oregon over Nebraska and Miami.
-
-
-
-🔗 Resources:
-
-• [Corey Du](https://x.com/coreydu) - Sports Journalist
-
-
-• [Hayes Fawcett](https://x.com/Hayesfawcett3) - Sports Journalist
-
-
-• [Rivals](https://x.com/Rivals) - Sports Recruiting Website
-
-
-• [On3](https://on3.com/rivals/devin-jackson-180857) - Sports Recruiting Website
-
-
-• [Hayes Fawcett's Tweet](https://x.com/Hayesfawcett3/status/1940819168624005505) - Original Tweet
-
-
-![Image](https://pbs.twimg.com/media/Gu8svxuWkAEbvuc?format=jpg&name=small)
-
-
-
----
 ### 💡 Social Commentary -  Jewish Representation and Commentary
 
 This article discusses the complexities of speaking for an entire group, specifically focusing on Jewish representation and commentary.

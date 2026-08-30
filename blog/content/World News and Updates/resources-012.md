@@ -38,28 +38,6 @@ Key Points:
 
 
 ---
-### 📰 Obituary - Gene Hackman
-
-This article announces the death of actor Gene Hackman.  The cause of death is currently unknown.
-
-
-Key Points:
-
-• Gene Hackman, a renowned character actor, passed away.
-
-
-•  He won two Oscars during his career.
-
-
-•  He died at his home in Santa Fe, New Mexico.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/Gk2Kx6oaoAEOLGK.jpg)
-
-
----
 ### 📰 India - UP Assembly Session
 
 This article notes the arrival of Uttar Pradesh Chief Minister Yogi Adityanath at the Vidhan Sabha in Lucknow for an assembly session.
@@ -183,24 +161,6 @@ Key Points:
 
 
 ---
-### 🏀 Sports - Stephen Curry's Record-Breaking Performance
-
-This article highlights Stephen Curry's exceptional performance in a recent basketball game, scoring 56 points and setting a new record for three-pointers made.
-
-
-Key Points:
-
-• Stephen Curry scored 56 points in a game.
-
-
-•  He made 12 three-pointers, including one from beyond half-court.
-
-
-•  The Golden State Warriors secured their fifth consecutive win.
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

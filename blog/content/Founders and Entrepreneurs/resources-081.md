@@ -20,31 +20,6 @@ Key Points:
 
 
 ---
-### ⚽ Sports - Mu'nas Dabbur and Israeli Football
-
-This article discusses Mu'nas Dabbur, a Muslim Israeli-Arab citizen who played for the Israeli National Football Team, highlighting his achievements and contributions to Israeli sports.
-
-Key Points:
-
-• Dabbur's success in Israeli football.
-
-
-• His pride in representing Israel.
-
-
-• The complexities of his identity within the Israeli context.
-
-
-
-🔗 Resources:
-
-• [Image](https://pbs.twimg.com/media/GvHRuwrWEAAMtsU?format=jpg&name=small)
-
-
-• [Image](https://pbs.twimg.com/media/GvCFsv0XQAAZTNl?format=jpg&name=240x240)
-
-
----
 ### 💡 Social Issues - Addressing Drug Addiction in France
 
 This article discusses the need for reform in drug addiction treatment programs in France, emphasizing the non-political nature of the issue.
@@ -164,23 +139,6 @@ Key Points:
 
 
 • Contrasting scaling laws affect investment strategies in different AI sectors.
-
-
----
-### 💡 Sociology - Brian Eno's Perspective on Gossip
-
-This article discusses Brian Eno's view of gossip as a form of philosophy, highlighting its role in shaping moral understanding and social norms.
-
-Key Points:
-
-• Brian Eno's perspective on gossip as philosophy.
-
-
-• Gossip's role in shaping moral understanding.
-
-
-• Gossip as a form of informal social theory building.
-
 
 
 ---

@@ -51,31 +51,6 @@ Key Points:
 
 ---
 
-### 🤖 NBA - Data-Driven Strategies
-
-This article explores the NBA's use of data and the potential for future applications in sports business.
-
-Key Points:
-
-• The NBA utilizes data extensively for strategic decisions.
-
-
-• Granular data collection and advanced machine learning models are key.
-
-
-• Future possibilities in sports business are being redefined.
-
-
-🔗 Resources:
-
-• [mlxdoing Tweet](https://x.com/mlxdoing) -  Relevant insights
-
-
-• [KwekuOA Tweet](https://x.com/KwekuOA/status/1930830665538220328) -  Discussion on data in NBA
-
-
----
-
 ### 🚀 Marketing - AI-Powered Marketing Agent
 
 This article introduces PhotoG AI Agent, an AI-powered marketing tool for content generation, editing, and publishing.

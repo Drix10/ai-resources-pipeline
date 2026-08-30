@@ -88,29 +88,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/amplify_video_thumb/2054597136764071936/img/yTq9Qu8taPpSyNtI?format=jpg&name=240x240)
 
 ---
-### 💡 Nutritional Tips - Glycemic Index Reduction
-
-This article discusses a novel dietary practice observed at the Heartfulness Institute, involving the combination of ghee and mango. It explores the claim of reducing the glycemic index through this food pairing.
-
-Key Points:
-
-• Introduces a unique food combination: ghee on mango.
-
-• Highlights a purported health benefit of reducing the glycemic index.
-
-• Shares a positive personal taste experience.
-
-🔗 Resources:
-
-• [Vivek Wadhwa](https://x.com/wadhwa) - Author's social media profile
-
-• [Tweet Source](https://x.com/wadhwa/status/2054766480378712083) - Original post about the dietary practice
-
-• [Heartfulness Institute](https://x.com/heartfulness) - Organization where the practice was observed
-
-![Image](https://pbs.twimg.com/media/HIP_HvVbEAAvr7z?format=jpg&name=small)
-
----
 ### ✨ iOS 26 Design - Award Recognition
 
 This article reports on Apple's iOS 26 Liquid Glass design winning a Gold Cube award at the Art Directors Club Awards. It emphasizes the positive reception of the design among professional designers.

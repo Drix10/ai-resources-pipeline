@@ -1573,6 +1573,7 @@ JSON schema:
 
     generatedText = generatedText.replace(/^---\s*\n/, "");
     generatedText = this.stripUnsupportedImplementations(generatedText, sourceRecords);
+    generatedText = this.stripOffTopicSections(generatedText);
     generatedText = this.stripMetaIntroductions(generatedText);
 
     const supportSection = `
@@ -2553,6 +2554,22 @@ Include 10-15 highly targeted, relevant hashtags on their own block at the very 
       .replace(/(?:###\s*)?(?:🚀\s*)?Implementation:\s*1\.\s*No specific[^\n]*\n?/gim, "")
       .replace(/(?:•\s*\[[^\]]+\]\(https?:\/\/(?:example\.com|test\.com)[^\)]*\)[^\n]*\n?)/gim, "")
       .replace(/(\n•\s*\[[^\]]+\]\([^\)]+\)[^\n]*)(?:\n\1)+/gim, "$1");
+  }
+
+  stripOffTopicSections(markdown) {
+    const offtopicPatterns = [
+      /🏀|⚽|🏈|⚾|🎾|💄|👗|👠/,
+      /\b(nba|nfl|mlb|pacers|lakers|warriors|celtics|touchdown|slam dunk|jersey|uniforms?|fragrance|perfume|cologne|lipstick|haute couture|ootd)\b/i
+    ];
+    return String(markdown || "")
+      .split(/(?=^###\s+)/gm)
+      .filter(chunk => {
+        if (!/^###\s+/.test(chunk) || /^### ⭐️ Support/m.test(chunk)) return true;
+        const titleMatch = chunk.match(/^###\s+(.+)$/m);
+        const title = titleMatch ? titleMatch[1] : "";
+        return !offtopicPatterns.some(p => p.test(title));
+      })
+      .join("");
   }
 
   assertMarkdownGrounding(markdown, sourceRecords = []) {

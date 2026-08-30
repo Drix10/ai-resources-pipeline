@@ -48,21 +48,6 @@ Key Points:
 
 ---
 
-### 🎬 PS5 Pro Setup Guide - Video Adaptation
-
-This article notes the adaptation of a written guide on PS5 Pro setup into a video format, featuring the original author and additional commentary.  No further details on the guide's content are provided.
-
-Key Points:
-
-• Existing written guide on PS5 Pro setup has been adapted into a video.
-
-
-• Video includes additional commentary and presentation.
-
-
-
----
-
 ### 🕵️‍♂️ Prisoner Exchange - Insider Trading Implications
 
 This article highlights the involvement of an individual linked to a major insider trading case in a significant US-Russia prisoner exchange.  Further details regarding the case are not provided.

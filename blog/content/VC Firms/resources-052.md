@@ -240,33 +240,6 @@ Key Points:
 
 ---
 
-### 💡 Generational Differences - Parental Involvement in Youth Sports
-
-This article discusses a generational shift in parental involvement in children's baseball games, contrasting past and present levels of participation.
-
-Key Points:
-
-• Limited parental attendance at youth baseball games in the past.
-
-
-• Increased parental involvement in recent times.
-
-
-• A significant change in cultural norms.
-
-
-![Image](https://pbs.twimg.com/media/GqdiwouXAAA7JhY?format=jpg&name=small)
-
-🔗 Resources:
-
-• [NewFounding](https://x.com/NewFounding) -  Information on societal trends
-
-
-• [Chris Man](https://x.com/chrisman) -  Commentary on generational differences
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

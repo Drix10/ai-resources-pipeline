@@ -172,27 +172,6 @@ Key Points:
 
 ![Image](https://pbs.twimg.com/media/G-esSV4bEAAsZA_?format=jpg&name=small)
 ---
-### 💡 Tokyo Olympics 1964 - Symbolic Moments and Controversies
-
-This article briefly touches upon a specific moment from the 1964 Tokyo Olympics, referencing a symbolic element that captured attention and generated discussion during the historic event.
-
-Key Points:
-
-• The 1964 Tokyo Olympics marked a significant moment in history.
-
-• Symbolic elements during opening ceremonies often carry deep meaning.
-
-• Historical events sometimes include unexpected or controversial incidents.
-
-
-🔗 Resources:
-
-• [Ken Mogi](https://x.com/kenmogi) - User profile
-
-• [Tweet Status](https://x.com/kenmogi/status/2011024803474583764) - Original tweet context
-
-• [Togetter Article](https://togetter.com/li/2260682) - Contextual information on the event
----
 ### 🤖 AI Model Training - Long Sequence Processing
 
 This article discusses an advanced training paradigm designed for extra-long sequences, combining Test-Time Training (TTT-E2E) with active example selection from PretrainZero across a three-phase process.

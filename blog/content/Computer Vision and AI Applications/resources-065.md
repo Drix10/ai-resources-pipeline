@@ -1,25 +1,3 @@
-### 🤖 Football Analytics - PSG's Attacking Prowess
-
-This article analyzes Paris Saint-Germain's attacking performance during the season, highlighting their exceptional goal-scoring and chance creation statistics.
-
-Key Points:
-
-• PSG scored nearly 3 goals per 90 minutes.
-
-• They created close to 15 chances per match.
-
-• Their attacking output surpassed all other top 5 league champions.
-
-
-🔗 Resources:
-
-• [WeBuildScore](https://x.com/webuildscore) - Football analytics
-
-![Image](https://pbs.twimg.com/media/Gsg5fzrXEAAI0Gl?format=jpg&name=small)
-
-
----
-
 ### 🤖 Robotics - SmolVLA Neural Network
 
 This article introduces SmolVLA, a compact neural network for robotics, emphasizing its speed, efficiency, and open-source training data.

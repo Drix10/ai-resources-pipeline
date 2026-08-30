@@ -187,27 +187,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/G_7OtcZXkAEDCWA?format=jpg&name=small)
 
 ---
-### 💡 Economic Impact - Academia's Influence on Sports
-
-This article highlights a personal reflection on the indirect contribution of academic mentorship, specifically in economics, to the improvement of NFL football. It humorously questions the perceived utility of economists.
-
-Key Points:
-
-• Academic training can indirectly influence various professional fields.
-
-• Economists' skills in analysis and strategy can be broadly applicable.
-
-• Mentorship relationships contribute to professional development.
-
-• The impact of education extends beyond immediate professional roles.
-
-🔗 Resources:
-
-• [X Post by ojblanchard1](https://x.com/ojblanchard1/status/2017586311599702180) - Original social media post
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

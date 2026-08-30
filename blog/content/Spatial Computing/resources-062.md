@@ -16,24 +16,6 @@ Key Points:
 
 ---
 
-### 💡 Chicago Cubs Game - A Healthy Experience
-
-This article shares a personal experience of watching a Chicago Cubs baseball game from a nearby location.  The author highlights the enjoyment and health benefits of this activity, and the city's passion for the team.
-
-Key Points:
-
-• Enjoyment of watching the Cubs game.
-
-• Health benefits of outdoor viewing.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1928920071457345536/pu/img/csURKM2eZRNxN-L3.jpg)
-
-
----
-
 ### 🚀 Game Studio Success - GDC Session
 
 This article provides access to a recording of a GDC session featuring leaders from top-performing game studios. The session discusses driving success through community building and strategic marketing.

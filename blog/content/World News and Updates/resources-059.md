@@ -193,33 +193,6 @@ Key Points:
 
 
 ---
-### 🤖 Archaeology - 5,000-Year-Old Bread Recreated
-
-This article reports on the discovery and recreation of 5,000-year-old bread unearthed in central Turkey. Multiple images showcase the bread.
-
-Key Points:
-
-• 5,000-year-old bread discovered in central Turkey.
-
-
-• Recipe recreated with the help of archaeologists.
-
-
-• Images of the ancient and recreated bread.
-
-
-🔗 Resources:
-
-• [AFP](https://x.com/AFP) - News source
-
-
-![Image](https://pbs.twimg.com/media/GsAoUTQWcAAQDiN?format=jpg&name=360x360)
-![Image](https://pbs.twimg.com/media/GsAoUV-XQAA767O?format=jpg&name=360x360)
-![Image](https://pbs.twimg.com/media/GsAoUS-WkAA_NEN?format=jpg&name=360x360)
-![Image](https://pbs.twimg.com/media/GsAoUT1XIAAuWvh?format=jpg&name=360x360)
-
-
----
 ### 🤖 Business - Southwest Airlines Announces Checked Bag Fee Increase
 
 This article reports on Southwest Airlines' announcement of a checked bag fee increase, starting Wednesday. A video accompanies the report.

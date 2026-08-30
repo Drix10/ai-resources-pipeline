@@ -20,28 +20,6 @@ Key Points:
 
 ---
 
-### 💡 Club World Cup Analysis - Top xG Overachievers
-
-This article analyzes the top expected goals (xG) overachievers at the Club World Cup, highlighting players who significantly outperformed their xG.
-
-Key Points:
-
-• Wessam Abou Ali exceeded xG by nearly 3 goals.
-
-• Kenan Yildiz and Michael Olise also significantly outperformed their xG.
-
-• Analysis explores the role of skill versus luck in these performances.
-
-
-🔗 Resources:
-
-• [WeBuildScore](https://x.com/webuildscore/status/1939639617172689368/photo/1) - Club World Cup xG analysis
-
-![Image](https://pbs.twimg.com/media/Gur7iT0W8AALjRe?format=jpg&name=small)
-
-
----
-
 ### 🤖 AI's Impact on Job Security
 
 This article discusses the increasing impact of AI on traditional job roles, based on insights shared by CEOs.

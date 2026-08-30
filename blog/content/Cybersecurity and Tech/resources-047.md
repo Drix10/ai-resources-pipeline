@@ -156,22 +156,6 @@ Key Points:
 
 
 ---
-### 🏈  Sports - The Hail Mary Pass
-
-This article uses the analogy of a Hail Mary pass in American football to illustrate a high-stakes, high-risk strategy.
-
-Key Points:
-
-• A Hail Mary pass represents a last-ditch effort to achieve victory.
-
-
-• It symbolizes taking a considerable risk when other options are exhausted.
-
-
-• The success of the Hail Mary pass depends on a combination of skill, luck, and timing.
-
-
----
 ### 🔒 Cybersecurity - Cryptographic Proofs of Inability to Comply
 
 This article explores the concept of cryptographic proofs of inability to comply, particularly in the context of preventing coercion in non-custodial crypto wallets.

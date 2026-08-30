@@ -113,31 +113,6 @@ Key Points:
 
 ---
 
-### 💡 Career Advice - Justin Pugh
-
-This article shares career advice from Justin Pugh, a former NFL offensive lineman and current investor, focusing on the importance of relentlessness, networking, and focus.
-
-Key Points:
-
-•  Relentlessness is key to career success.
-
-• Networking is crucial for career advancement.
-
-• Staying focused on goals is essential.
-
-
-🔗 Resources:
-
-• [Justin Pugh](https://x.com/JustinPugh) - Former NFL player and investor
-
-• [CREXinc](https://x.com/CREXinc) - Real estate investment information
-
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1856787531557474307/pu/img/6AK9I5US0taovfTC.jpg)
-
-
----
-
 ### ✨ BIM Model Accuracy - IMERSO3D
 
 This article highlights a feature that compares on-site elements with BIM models, generating an As-built rating to assess model accuracy.

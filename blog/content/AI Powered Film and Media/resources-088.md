@@ -1,30 +1,3 @@
-### 🎬 Filmmaking - Madeira Island Story
-
-This article discusses two upcoming films and a story about a Madeira island, allegedly off-limits due to a wolf spider infestation.
-
-Key Points:
-
-• Two new films are in development.
-
-• The films' treatments are well-received.
-
-
-• A story from Madeira, Portugal details an island infested with wolf spiders, making it inaccessible to humans.
-
-
-🔗 Resources:
-
-• [Dustin Hollywood](https://x.com/dustinhollywood) - Filmmaker's profile
-
-![Image](https://pbs.twimg.com/media/GvoFuJGXgAAAhC3?format=jpg&name=360x360)
-
-![Image](https://pbs.twimg.com/media/GvoFuJHWcAAWrp9?format=jpg&name=360x360)
-
-![Image](https://pbs.twimg.com/media/GvoFuJIX0AE9DiE?format=jpg&name=360x360)
-
-![Image](https://pbs.twimg.com/media/GvoFuJTWwAAHkhx?format=jpg&name=360x360)
-
----
 ### 🤖 AI Image Generation - Veo3 Prompts
 
 This article explores the use of fast JSON prompts with Veo3 for AI image generation, inspired by another user's work.
@@ -149,29 +122,6 @@ Key Points:
 • [RunwayML](https://x.com/runwayml) - AI tool used
 
 ![Image](https://pbs.twimg.com/amplify_video_thumb/1943786475201425408/img/TCjVaRN0elPOPK46.jpg)
-
-
----
-### 🎬 Filmmaking - Alien Invasion Story
-
-This article describes a 40-minute film about an alien invasion, broken into three parts.
-
-Key Points:
-
-• The film is a 40-minute epic conclusion.
-
-
-• The story is presented as a triptych, in three parts.
-
-
-• A central theme involves a conflict between humans and aliens.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/GvmljIsW8AA-uiD?format=jpg&name=small)
-
-![Image](https://pbs.twimg.com/media/Gvml8OsXMAAmRws?format=jpg&name=small)
 
 
 ---

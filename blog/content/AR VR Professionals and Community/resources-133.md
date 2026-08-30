@@ -69,29 +69,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/amplify_video_thumb/2015946554214092800/img/uam04EOx6_Qt81Qk.jpg)
 
 ---
-### 💡 Sports Analysis - College Football Recruiting
-
-This article presents a perspective on college football team rankings, specifically regarding the Miami Hurricanes. It discusses the significant impact of a potential recruit, Darian Mensah, on team standing.
-
-Key Points:
-
-• Miami's ranking is tied to Darian Mensah's recruitment.
-
-• Mensah joining elevates Miami to the number one team.
-
-• Reflects the influence of key recruits on team perception.
-
-🔗 Resources:
-
-• [Khambrel21 Profile](https://x.com/Khambrel21) - Commentator's Twitter profile
-
-• [CFBChuckk Profile](https://x.com/CFBChuckk) - College football analyst profile
-
-• [On3 Profile](https://x.com/On3) - Sports media company Twitter profile
-
-![Image](https://pbs.twimg.com/media/G_mYYopXgAALaGD?format=jpg&name=small)
-
----
 ### ✨ Game Feature - Fracture SMG
 
 This article describes a specific in-game weapon, the Fracture SMG. It details the weapon's primary utility in combat scenarios against drones.

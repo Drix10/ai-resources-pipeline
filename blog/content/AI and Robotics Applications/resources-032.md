@@ -198,25 +198,6 @@ Key Points:
 
 ---
 
-### ✨ Sports Commentary - Croatia's Success
-
-This article highlights Croatia's consistent strong performance in international football competitions despite being a small country, often underestimated by odds-makers.
-
-Key Points:
-
-•  Croatia consistently performs well in international football.
-
-
-•  The team is often underestimated due to the country's size.
-
-
-•  Croatia's recent success highlights this underestimation.
-
-
-![Image](https://pbs.twimg.com/media/Gmg872uaEAAnors?format=jpg&name=small)
-
----
-
 ### 🤖 3D Printing - Wrist Prototype
 
 This article describes progress on a 3D-printed wrist prototype, focusing on the completion of the upper part and the need to finish the lower part for testing.

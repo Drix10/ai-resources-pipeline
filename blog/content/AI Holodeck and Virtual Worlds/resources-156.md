@@ -1,24 +1,3 @@
-### 🚀 AI Video Generation - Sports Content & Brand Posters
-
-This article covers AI-powered features for video generation, including automating highlight reels and creating brand collaboration posters. It also touches on real-time translation for global content.
-
-Key Points:
-
-• Generate World Cup highlight reels using event templates.
-
-• Utilize AI for background replacement in brand collaboration posters.
-
-• Translate match quotes in real-time for global content.
-
-🔗 Resources:
-
-• [GlbGPT Video Generator](https://glbgpt.com/video-generato) - AI tools for video content creation.
-
-• [GlbGPT X Profile](https://x.com/GlbGPT) - Official X account for GlbGPT updates.
-
-• [Original GlbGPT Tweet](https://x.com/GlbGPT/status/2031276513593803047) - Source of original post details.
-
----
 ### 🤖 AI Agents - Real-world Perception & Workflows
 
 This article discusses upcoming meetups focusing on advanced AI agent topics. Key areas include real-world perception for agents, real-time AI workflows, and OpenClaw agents managing YouTube channels.

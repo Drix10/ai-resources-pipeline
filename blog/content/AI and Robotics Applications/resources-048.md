@@ -18,23 +18,6 @@ Key Points:
 
 
 ---
-### 💡 Football - Alfie Whiteman's Post-Match Activities
-
-This article briefly notes the contrasting post-match activities of a football team and their goalkeeper, Alfie Whiteman.
-
-Key Points:
-
-• Team celebrated by going out.
-
-• Goalkeeper watched an independent Swedish film.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/GqfaJcvXYAAA6KV?format=jpg&name=small)
-
-
----
 ### 🤖 Computer Architecture - Machine Code Execution
 
 This article explains how modern CPUs execute machine code, highlighting the concept of out-of-order execution.

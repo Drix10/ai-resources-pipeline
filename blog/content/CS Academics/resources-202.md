@@ -1,25 +1,3 @@
-### ✨ Mikal Bridges - Incredible After-Whistle Shot
-
-This article highlights an incredible, though uncounted, basketball shot by Mikal Bridges. It showcases an exceptional moment of skill during a game.
-
-Key Points:
-
-• Highlights an extraordinary, skillful shot by Mikal Bridges.
-
-• Demonstrates remarkable no-look and seated shooting ability.
-
-• Occurred after the whistle, emphasizing raw talent beyond game play.
-
-
-🔗 Resources:
-
-• [NBA on X](https://x.com/NBA) - Official updates and information from the NBA.
-
-• [Mikal Bridges Shot Status](https://x.com/NBA/status/2048179356602695847) - Specific status update for this play.
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2048176689688031233/img/JBT58PV39OfGrWMv.jpg)
-
----
 ### ✨ New York Knicks - Exceptional Ball Movement
 
 This article focuses on the New York Knicks' impressive ball movement during Game 4. It highlights their strategic play that led to a significant lead.
@@ -38,48 +16,6 @@ Key Points:
 • [NBA on X](https://x.com/NBA) - Official updates and information from the NBA.
 
 • [Knicks Ball Movement Status](https://x.com/NBA/status/2048178571642818869) - Specific status update for this game moment.
-
----
-### 💡 NBA Game Broadcast - NYK vs. ATL Game 4
-
-This article provides information regarding the ongoing NBA series between the New York Knicks and the Atlanta Hawks. It details the current series standing and broadcast details for Game 4.
-
-Key Points:
-
-• Atlanta Hawks lead the series against the New York Knicks 2-1.
-
-• Game 4 is available for viewing on NBC and Peacock.
-
-• Provides guidance on how to watch the game live.
-
-
-🔗 Resources:
-
-• [NBA How to Watch Games](https://nba.com/how-to-watch-g) - Official guide for viewing NBA games.
-
-• [NBA on X](https://x.com/NBA) - Official updates and information from the NBA.
-
-• [NYK/ATL Game 4 Status](https://x.com/NBA/status/2048178754409660765) - Specific game status and broadcast information.
-
----
-### ✨ Los Angeles Lakers - Thrilling Comeback Victory
-
-This article highlights the Los Angeles Lakers' remarkable comeback victory, overcoming a significant deficit in the final seconds. It showcases their ability to secure a win under extreme pressure.
-
-Key Points:
-
-• Lakers achieved a stunning win despite being down by 6 points.
-
-• Victory secured with less than 30 seconds remaining and no possession.
-
-• Advanced their series lead to an impressive 3-0.
-
-
-🔗 Resources:
-
-• [NBA on X](https://x.com/NBA) - Official updates and information from the NBA.
-
-• [Lakers Comeback Status](https://x.com/NBA/status/2048049390615466023) - Specific status update for this game moment.
 
 ---
 ### 💡 Sleep Routines - Analogue Approaches for Insomnia
@@ -120,50 +56,6 @@ Key Points:
 • [NBA on X](https://x.com/NBA) - Official updates and information from the NBA.
 
 • [Avdija/Williams Alley-Oops Status](https://x.com/NBA/status/2047877777311842492) - Specific status update for these plays.
-
----
-### 💡 NBA Game Broadcast - SAS vs. POR Game 3
-
-This article provides information regarding the ongoing NBA series between San Antonio Spurs and Portland Trail Blazers. It details the current series standing and broadcast details for Game 3.
-
-Key Points:
-
-• The series between San Antonio Spurs and Portland is currently tied 1-1.
-
-• Game 3 is available for viewing on Prime Video.
-
-• Provides instructions on how to access the live game broadcast.
-
-
-🔗 Resources:
-
-• [NBA How to Watch Games](https://nba.com/how-to-watch-g) - Official guide for viewing NBA games.
-
-• [NBA on X](https://x.com/NBA) - Official updates and information from the NBA.
-
-• [SAS/POR Game 3 Status](https://x.com/NBA/status/2047877854667436108) - Specific game status and broadcast information.
-
----
-### 💡 NBA Postgame Presser - Lakers vs. Rockets Game 3
-
-This article announces the live postgame press conference following Game 3 of the series between the Lakers and the Rockets. It provides direct access to post-game insights and commentary.
-
-Key Points:
-
-• Offers live access to the postgame press conference for Lakers vs. Rockets Game 3.
-
-• Provides immediate insights from players and coaches after the game.
-
-• Allows viewers to hear direct commentary on game performance.
-
-
-🔗 Resources:
-
-• [NBA Postgame Broadcast](https://x.com/i/broadcasts/1nGnRYnpWMNGO) - Live stream of the postgame press conference.
-
-• [NBA on X](https://x.com/NBA) - Official updates and information from the NBA.
-
-• [Lakers/Rockets Postgame Status](https://x.com/NBA/status/2047876849871499387) - Specific status update for the presser.
 
 ---
 ### ✨ Nickeil Alexander-Walker - Congratulatory Moment

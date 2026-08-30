@@ -19,27 +19,6 @@ Key Points:
 • [Original Tweet](https://x.com/PTI_News/status/2008164577197052329) - Specific report details
 
 ---
-### 💡 National Holiday - Scotland's World Cup Day Off
-
-This article discusses Scotland's decision to grant a bank holiday for its first World Cup match. It highlights the contrasting approach compared to England, which has no similar plans.
-
-Key Points:
-
-• Scotland declared a bank holiday for its inaugural World Cup match.
-
-• This decision allows fans to watch the game.
-
-• England has not implemented a similar public holiday.
-
-• The policy reveals differing national approaches to major sporting events.
-
-🔗 Resources:
-
-• [Daily Mail](https://x.com/DailyMail) - Source for UK news
-
-• [Original Tweet](https://x.com/DailyMail/status/2008164506539618353) - Details on the World Cup holiday
-
----
 ### 💡 International Relations - US Intervention Concerns in Venezuela
 
 This article examines the implications of Nicolas Maduro's abduction and its potential to increase fears of US intervention in other nations. It references US President Trump's escalating threats as discussed by Al Jazeera.

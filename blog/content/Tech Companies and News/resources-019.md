@@ -1,25 +1,3 @@
-### 🎬 Netflix - Wish Your Death
-
-This article announces the upcoming Netflix horror series, "Wish Your Death," detailing its cast and premise.
-
-Key Points:
-
-• New horror series coming to Netflix.
-
-• Features a cast including Jeon So-young, Kang Mi-na, Baek Sun-ho, Hyun Woo-seok, and Lee Hyo-je.
-
-• Centers around high school friends receiving death warnings from a mysterious app.
-
-
-🔗 Resources:
-
-• [Netflix](https://x.com/netflix) - Streaming service
-
-![Image](https://pbs.twimg.com/media/GlT0OlGXcAEsxaS?format=jpg&name=small)
-
-
----
-
 ### ✨ VFX - Dune: Part Two Oscar Win
 
 This article highlights the Best Effects Oscar win for Dune: Part Two, acknowledging the VFX artists and AMD's Threadripper PRO contribution.

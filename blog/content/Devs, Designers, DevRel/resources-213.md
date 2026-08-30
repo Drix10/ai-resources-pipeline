@@ -1,28 +1,3 @@
-### ✨ Education & Athletics - Bennett School's Championship Success
-
-This article highlights The Bennett School's integrated academic and athletic model, which combines morning academics with elite baseball training. It details their recent achievement of winning the 2026 NAA national title in their inaugural year.
-
-Key Points:
-
-• The program integrates rigorous academics with elite athletic training.
-
-• The Bennett School achieved a national championship title in its first year.
-
-• The baseball team demonstrated strong offensive performance with 62 home runs.
-
-• The school operates in partnership with Alpha School ATX and TX Sports Academy.
-
-🔗 Resources:
-
-• [The Bennett School](https://x.com/tbsbsbl) - Official account for the athletic program
-
-• [Alpha School ATX](https://x.com/AlphaSchoolATX) - Academic partner for the school
-
-• [TX Sports Academy](https://x.com/TXSportsAcademy) - Athletic training partner
-
-• [Original Tweet](https://x.com/jliemandt/status/2056137182948061435) - Details on the championship victory
-
----
 ### ✨ a16z - New Media Retreat Overview
 
 This article provides an overview of the a16z new media retreat, an event designed to convene key online personalities. It highlights the gathering of influential individuals at a notable location.

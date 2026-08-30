@@ -159,24 +159,6 @@ Key Points:
 
 
 ---
-### ✨ OLMoTrace - Tracing OLMo Generations
-
-This article introduces OLMoTrace, a feature enabling traceability of OLMo generations back to their training data, enhancing explainability.
-
-
-Key Points:
-
-• Enhanced model explainability.
-
-
-• Open data and open training recipe.
-
-
-• Fast search through trillions of tokens.
-
-
-
----
 ### 💡 Dev-as-Marketing - Lead Generation Strategy
 
 This article describes a developer-led marketing project using a self-contained feature as a lead generation strategy for LeaveMeAloneApp.

@@ -109,21 +109,6 @@ Key Points:
 
 
 ---
-### 🚀 eSports - 776 Portco's PlayGOALS Event
-
-This article announces a live e-sports event hosted by 776 Portco's PlayGOALS in Sweden, highlighting the game's focus on competitive gameplay.
-
-Key Points:
-
-•  Showcases a modern football game designed for competitive play.
-
-•  Announces playtest availability on Steam, PlayStation, and Xbox.
-
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1943399845353385984/pu/img/fKEbbX4IcGjdReZx.jpg)
-
-
----
 ### 🤖 RAG - Reranking Providers
 
 This article highlights the addition of a new reranking model from ZeroEntropy_AI, emphasizing its performance advantages and cost-effectiveness compared to Cohere.

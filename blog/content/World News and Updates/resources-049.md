@@ -200,31 +200,6 @@ Key Points:
 
 
 ---
-### 📰 Sports - Shoeless Joe Jackson and Pete Rose
-
-This article discusses the contrasting media coverage of Shoeless Joe Jackson and Pete Rose's baseball Hall of Fame inductions, emphasizing the importance of remembering Jackson's story.
-
-Key Points:
-
-• Pete Rose's reinstatement overshadowed Shoeless Joe Jackson's story.
-
-
-• Recency bias may have contributed to the unequal coverage.
-
-
-• Jackson's story deserves recognition from baseball fans.
-
-
-
-🔗 Resources:
-
-• [Chicago Tribune](https://x.com/chicagotribune) - News source
-
-
-• [Tweet](https://x.com/chicagotribune/status/1922782252359950633) - Original report
-
-
----
 ### 📰 Education - Pepper Spray Incident at Oak Park High School
 
 This article reports on a pepper spray incident at Oak Park and River Forest High School, resulting in a temporary lockdown and police investigation.

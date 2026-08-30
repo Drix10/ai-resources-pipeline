@@ -122,29 +122,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/Gs1z3RhaIAAxpsx?format=png&name=small)
 
 ---
-### 🎾 Sports News - Leander Paes on Republic Legends
-
-This article announces an upcoming episode of Republic Legends featuring tennis legend Leander Paes.  The episode will showcase his defining moments and inspirational journey.
-
-Key Points:
-
-• Leander Paes is featured in an upcoming episode of Republic Legends.
-
-•  The episode will air on Saturday at 6 PM and Sunday at 12 PM & 6 PM.
-
-•  It highlights his passion, resilience, and inspiration.
-
-
-🔗 Resources:
-
-• [Republic](https://x.com/republic/status/1931327073991147971) - News source
-• [@Leander](https://x.com/Leander) - Leander Paes' Twitter account
-• [#RepublicLegends](https://x.com/hashtag/RepublicLegends?src=hashtag_click) - Show Hashtag
-
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1931325891231236096/img/wuA7A9uyj1PJAS3w.jpg)
-
----
 ### 🗣️ International News - Lobsang Sangay on China's Actions
 
 This article highlights an interview with former Tibetan Prime Minister Lobsang Sangay, discussing China's actions regarding a fake Dalai Lama, water weaponization, and potential Indian countermeasures.

@@ -152,27 +152,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HHSTlDyacAAWB1z?format=jpg&name=small)
 
 ---
-### 💡 Literature - T.S. Eliot Quote from The Cocktail Party
-
-This article presents a notable quote attributed to T.S. Eliot from his work, "The Cocktail Party." It provides a glimpse into the literary content and themes from the play.
-
-Key Points:
-
-• Features a quote from T.S. Eliot.
-
-• Originates from the play "The Cocktail Party."
-
-• Offers a brief insight into the literary work.
-
-• Presents content from a renowned author.
-
-🔗 Resources:
-
-• [Source Tweet](https://x.com/dmcroley/status/2050302934257369230) - Original discussion on T.S. Eliot quote
-
-![Image](https://pbs.twimg.com/media/HHQjpopaMAAybNH?format=jpg&name=small)
-
----
 ### 💡 Game Industry - Half-Life 3 Anticipation and Declining Interest
 
 This article discusses the ongoing anticipation for Half-Life 3 and observes a perceived decline in public interest for the title. It highlights community sentiment regarding Valve's release strategy.

@@ -39,50 +39,6 @@ Key Points:
 
 ---
 
-### ⚽ Sports News - Kevin De Bruyne Transfer Rumor
-
-This article reports on a potential transfer of Kevin De Bruyne to San Diego FC.  The rumor suggests a free transfer upon his Manchester City contract expiration.
-
-Key Points:
-
-• Kevin De Bruyne may join San Diego FC.
-
-
-• Potential free transfer.
-
-
-• Transfer contingent on contract expiration.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/GkdwTS5WUAAK6qY?format=jpg&name=small)
-
-
----
-
-### ⚽ Sports News - Kevin De Bruyne Transfer Rumor (Duplicate)
-
-This article is a duplicate of the previous one, reporting on the same potential transfer of Kevin De Bruyne to San Diego FC.
-
-Key Points:
-
-• Kevin De Bruyne may join San Diego FC.
-
-
-• Potential free transfer.
-
-
-• Transfer contingent on contract expiration.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/Gkfp7KDXoAA4C8B?format=jpg&name=small)
-
-
----
-
 ### ✨ Apple Apps - Stereoscope 3D Viewer
 
 This article announces the release of Stereoscope, a free app for Apple Vision Pro that allows users to view side-by-side stereographs in 3D.

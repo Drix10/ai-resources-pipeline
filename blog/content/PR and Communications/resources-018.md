@@ -98,44 +98,6 @@ Key Points:
 
 
 ---
-### 🎬 Film Criticism - No Other Land and Coexistence
-
-This article critiques the film "No Other Land" and its portrayal of coexistence in the context of the Israeli-Palestinian conflict.
-
-Key Points:
-
-•  Highlights discrepancies between the film's message and reality.
-
-
-🔗 Resources:
-
-• [Donna Grif](https://x.com/Donna_Grif) -  Commentary on the film
-
-• [Shabbos K](https://x.com/ShabbosK) - Analysis of the film's message
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1896388849732853760/img/xXhD5lFOHwiYIUut.jpg)
-
-
----
-### 🗳️ Politics - New Jersey Political Debate
-
-This article discusses the author's approach to political debates and uses New Jersey's pension system as an example of complex issues requiring detailed responses.
-
-Key Points:
-
-•  Critiques the simple hand-raise format for political debates.
-
-
-🔗 Resources:
-
-• [Lis Smith](https://x.com/Lis_Smith) -  Related commentary
-
-• [Mikie Sherrill](https://x.com/MikieSherrill) - Author of the statement
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1896357271786999808/pu/img/e6UtWRQ4YvBdgxwN.jpg)
-
-
----
 ### ⚖️ Politics - Foreign Influence and US Politics
 
 This article alleges Pam Bondi's ties to Qatar and its alleged funding of Hamas, raising concerns about foreign influence in US politics.

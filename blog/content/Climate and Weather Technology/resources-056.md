@@ -159,24 +159,6 @@ Key Points:
 
 ---
 
-### ☢️ Politics - Bill Clinton and Nuclear Codes
-
-This article is the beginning of a thread discussing Bill Clinton's time in office and his relationship with the nuclear codes.
-
-Key Points:
-
-•  The author was an Air Force Military Aide and carried the "nuclear football."
-
-
-• The author lived and worked in the White House during Bill Clinton's presidency.
-
-
-• The thread is intended to focus on Bill Clinton's time in office.
-
-
-
----
-
 ### ❄️ Meteorology - Early Season Storm Prediction
 
 This article discusses a prediction for an early-season storm based on weather patterns.

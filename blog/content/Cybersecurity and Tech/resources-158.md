@@ -85,29 +85,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HHJAh9wXsAABVhj?format=jpg&name=900x900)
 
 ---
-### ✨ Sports Highlights - NHL Game Event
-
-This article captures a key moment from an NHL game, specifically an early rally in Raleigh. It highlights a notable play initiated by 'The Captain' during the match between the Flyers and the Hurricanes.
-
-Key Points:
-
-• Highlights a significant early play in an NHL game
-
-• Features an influential action by "The Captain"
-
-• Documents a notable event from the PHI vs CAR matchup
-
-🔗 Resources:
-
-• [InfoSecSherpa](https://x.com/InfoSecSherpa) - InfoSecSherpa X account
-• [NHLFlyers](https://x.com/NHLFlyers) - Official NHL Flyers X account
-• [NHLFlyers Game Tweet](https://x.com/NHLFlyers/status/2051442515350339848) - Original NHL Flyers game tweet
-• [#PHIvsCAR](https://x.com/hashtag/PHIvsCAR) - Hashtag for NHL game matchup
-• [#IgniteTheOrange](https://x.com/hashtag/IgniteTheOrange) - Team promotional hashtag
-
-![Image](https://pbs.twimg.com/media/HHgvrUPWIAExbu2.jpg)
-
----
 ### 💡 Cybersecurity Insights - Expert Interview
 
 This article highlights a recorded conversation featuring Chloé Messdaghi, a prominent figure in the cybersecurity community. The discussion aims to provide valuable insights into current industry trends and challenges.

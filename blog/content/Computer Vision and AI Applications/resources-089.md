@@ -167,25 +167,6 @@ Key Points:
 
 
 ---
-### 💡 Life Reflections - Childhood vs. Adulthood
-
-This article presents a personal reflection contrasting the author's current professional life with their childhood memories of playing football, highlighting the irony of life choices and aspirations.
-
-
-Key Points:
-
-
-• Personal reflection on the contrasts between childhood and adulthood.
-
-
-• Highlights the different perspectives on work and play.
-
-
-• Evokes the irony of life's trajectory.
-
-
-
----
 ### 🤖 AI - World Models and Action Conditioning
 
 This article discusses the evolution of the term "world model" in AI, clarifying its meaning and emphasizing that the necessary complexity of a world model depends on the task at hand.

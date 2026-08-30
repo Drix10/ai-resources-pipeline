@@ -179,29 +179,6 @@ Key Points:
 
 ---
 
-### ✨  Ne Zha 2 - Box Office Success
-
-This article reports on the box office success of the animated film Ne Zha 2, highlighting its achievement as China's highest-grossing film. The original post includes several Twitter handles, which are not included here.
-
-
-Key Points:
-
-•  Achieved highest-grossing film status in China.
-
-
-•  Represents a significant milestone for Chinese animation.
-
-
-•  Demonstrates the popularity of the Ne Zha franchise.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/GjlCUXnaIAIYtgS.jpg)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

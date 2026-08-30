@@ -142,25 +142,6 @@ Key Points:
 • [RLC Article](https://rlc.org/republican-liberty-caucus-backs-rand-pauls-s-3853-and-paul-gosars-h-r-4668-to-end-vaccine-manufacturer-liability-shields/) - Information on liability shield bills
 
 ---
-### ✨ Social Commentary - Human Rights
-
-This article highlights the positive story of five players from Iran’s national football team finding joy and starting new lives after escaping to Australia.
-
-Key Points:
-
-• Iranian national football team players successfully sought refuge.
-
-• They have begun new lives in Australia, experiencing freedom.
-
-• The event underscores personal liberation from oppressive regimes.
-
-🔗 Resources:
-
-• [Original Tweet](https://x.com/Kanthan2030/status/2031387464204755398) - News on Iranian football players' new life
-
-![Image](https://pbs.twimg.com/media/HDDwIboacAAfzdf?format=jpg&name=small)
-
----
 ### 💡 Public Policy - Bureaucracy
 
 This article discusses the controversy surrounding New York City's requirement for five forms of identification for emergency snow shovelers, drawing public critique regarding bureaucratic inefficiency.

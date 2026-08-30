@@ -50,31 +50,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/GyP0vnYaoAA24R9?format=jpg&name=small)
 
 ---
-### 🎬 Marketing - Branded Content Case Study: Angry Orchard & Jason
-
-This article discusses a branded content campaign featuring Angry Orchard and Jason, highlighting the successful integration of the brand into a mini-movie.
-
-Key Points:
-
-• Successful integration of Angry Orchard into a Jason-focused mini-movie.
-
-
-• Minimal but impactful brand presence within the content.
-
-
-
-🔗 Resources:
-
-• [Angry Orchard](https://x.com/AngryOrchard) - Cider brand
-
-
-• [Jason Universe](https://x.com/JasonUniverse13) -  Jason's social media
-
-
-• [Ken Bruno](https://x.com/kenbruno) -  Marketing professional
-
-
----
 ### 🇺🇸 Politics - California Redistricting and Implications
 
 This article discusses the impact of missed redistricting deadlines in California,  potentially affecting the upcoming election and the balance of power in the House of Representatives.

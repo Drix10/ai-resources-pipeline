@@ -197,30 +197,6 @@ Key Points:
 
 ---
 
-### 雹 Hailstorm - Kerrville, TX
-
-This article describes a significant hailstorm that occurred near Kerrville, Texas, featuring golf ball to baseball-sized hail.
-
-
-Key Points:
-
-• Large hail (golf ball to baseball sized) fell in Kerrville, TX.
-
-
-• Some hail may have been even larger.
-
-
-•  It is dangerous to go outside during a hailstorm.
-
-
-
-🔗 Resources:
-
-• [Video of hailstorm](https://pbs.twimg.com/ext_tw_video_thumb/1904241880235458560/pu/img/ZFrNnF2EVOY268B3.jpg)
-
-
----
-
 ### ⚠️ Pacific Northwest Weather - Severe Weather Risk
 
 This article discusses an unusual forecast for the Pacific Northwest: a low-level risk of severe weather three days in advance.

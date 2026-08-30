@@ -217,32 +217,6 @@ Key Points:
 • [Original Post](https://x.com/kirsten_lum_/status/2008932634093854738) - Discussion on human responses
 
 ---
-### ✨ Creative Concepts - Dino-Horse
-
-This article presents the concept of a "dino-horse," a hypothetical creature characterized by its speed and unique dietary preferences, blending elements of prehistoric and modern animals.
-
-Key Points:
-
-• The "dino-horse" is a conceptual hybrid creature.
-
-• It combines attributes of dinosaurs and horses.
-
-• Its speed is described as faster than a velociraptor.
-
-• It exhibits unusual dietary habits, including large prey.
-
-
-🔗 Resources:
-
-• [Emmanuel](https://x.com/emmanuel_2m) - Emmanuel's X profile
-
-• [Original Post](https://x.com/emmanuel_2m/status/2008932496084279762) - Post introducing the dino-horse concept
-
-![Image](https://pbs.twimg.com/media/G-EoYAEWgAAKaT1?format=jpg&name=small)
-
-![Image](https://pbs.twimg.com/media/G-EodUXWgAEisrI?format=png&name=small)
-
----
 ### 💡 Startup Ecosystems - EU Value Capture
 
 This article discusses the paradox of supporting European startups while acknowledging that the ultimate value capture, in terms of exits and large-scale growth, often occurs outside Europe.

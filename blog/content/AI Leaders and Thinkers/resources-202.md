@@ -103,27 +103,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HL1SAkFXcAAOjNn?format=jpg&name=small)
 
 ---
-### 💡 Entrepreneurship - Founder Mindset
-
-This article examines the critical attributes sought in founders, emphasizing a rebellious and change-oriented mindset over traditional business metrics like industry verticals or investment theses. It describes the psychological makeup of disruptive entrepreneurs.
-
-Key Points:
-
-• A founder's mindset is crucial for driving significant innovation and change.
-
-• Rebellious and creative individuals often create market-altering solutions.
-
-• Passion for challenging established norms defines successful entrepreneurial ventures.
-
-🔗 Resources:
-
-• [prithjourney Profile](https://x.com/prithjourney) - Profile for entrepreneurial insights
-
-• [Dara Venture Profile](https://x.com/dara_venture) - Profile for venture capital commentary
-
-• [Tweet Context](https://x.com/dara_venture/status/2070926140580176085) - Original tweet on founder characteristics
-
----
 ### ✨ AI Community - Networking Event
 
 This article announces an upcoming ping-pong event for the @aiDotEngineer community, providing details on participation and schedule for networking and competition. It highlights opportunities for community members to engage socially.

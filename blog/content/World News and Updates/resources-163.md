@@ -108,33 +108,6 @@ Key Points:
 • [ABC News Article](https://t.co/YAgr0q1fWS) - Reports on the upcoming ICE director transition
 
 ---
-### ✨ Arts & Culture - Cannes Film Festival Opening
-
-This article covers the opening of the Cannes Film Festival, noting the attendance of various celebrities. It highlights the festival's themes, including the impact of AI, and the notable absence of direct Hollywood backing.
-
-Key Points:
-
-• Celebrities attended the opening of the Cannes Film Festival.
-
-• The festival opened without significant Hollywood industry backing.
-
-• Discussions at the event included the impact of artificial intelligence.
-
-• High-profile stars like Demi Moore and Elijah Wood were present.
-
-🔗 Resources:
-
-• [AFP Tweet](https://x.com/AFP/status/2054382399023161581) - Original report on Cannes Film Festival opening
-
-![Image](https://pbs.twimg.com/media/HIKh58KXcAEglwf?format=jpg&name=360x360)
-
-![Image](https://pbs.twimg.com/media/HIKh52oX0AAVHba?format=jpg&name=360x360)
-
-![Image](https://pbs.twimg.com/media/HIKh54FWsAA_t_Y?format=jpg&name=360x360)
-
-![Image](https://pbs.twimg.com/media/HIKh54gWIAAbdmA?format=jpg&name=360x360)
-
----
 ### 💡 Human Interest - Refugee Detention Incident
 
 This article details a concerning incident involving a half-blind refugee who was mistakenly detained and then left by Border Patrol agents. It recounts the family's subsequent search and raises questions about refugee treatment.

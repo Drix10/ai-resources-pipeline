@@ -45,21 +45,6 @@ Key Points:
 
 ---
 
-### 🏟️ Baseball Umpire Controversy
-
-A recent controversy surrounding a baseball umpire has sparked debate. A tweet highlights the issue and possible solutions.
-
-Key Points:
-• The umpire's decision was questionable.
-• The umpire may need glasses or have a different strike zone.
-• The issue highlights the importance of accurate umpiring in sports.
-
-🔗 Resources:
-• [Original post](https://x.com/Daddys_Tired/status/2093798994099028441) - Original Twitter post
-• [Baseball](https://en.wikipedia.org/wiki/Baseball) - Wikipedia article on baseball
-
----
-
 ### 🤖 PS VITA Android Auto Project
 
 A recent project aims to turn the PS VITA into a wired Android Auto unit. The project is currently in development.

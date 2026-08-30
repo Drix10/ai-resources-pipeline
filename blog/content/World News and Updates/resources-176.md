@@ -55,47 +55,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HMW1oRJW8AAstYf?format=jpg&name=small)
 
 ---
-### ✨ Sports - World Cup Match Results
-
-This article reports on a significant World Cup match where Argentina secured a narrow victory over Cape Verde. It also mentions Egypt's progression to the last 16 after defeating Australia.
-
-Key Points:
-
-• Highlights Argentina's challenging 3-2 victory over Cape Verde.
-
-• Reports on Egypt's advancement to the last 16.
-
-• Describes the match as a World Cup classic.
-
-🔗 Resources:
-
-• [AFP Report](u.afp.com/SKQH) - News report on World Cup match outcomes.
-
-![Image](https://pbs.twimg.com/media/HMW0ocaXsAA483Z?format=jpg&name=small)
-
----
-### ✨ Sports - FIFA World Cup Match Summary
-
-This article provides a summary of the FIFA World Cup match between Argentina and Cabo Verde, which concluded with Argentina winning 3-2. It highlights the competitive nature of the game and its outcome.
-
-Key Points:
-
-• Details Argentina's 3-2 victory over Cabo Verde.
-
-• Emphasizes the intense, back-and-forth nature of the match.
-
-• Confirms Cabo Verde's elimination from the World Cup.
-
-🔗 Resources:
-
-• [Al Jazeera Match Coverage](aje.news/7ezvbq) - Live coverage summary of the FIFA World Cup match.
-
-![Image](https://pbs.twimg.com/media/HMWEvWcbsAAoly_?format=jpg&name=small)
-![Image](https://pbs.twimg.com/media/HMWEvYSbEAAOtni?format=jpg&name=small)
-![Image](https://pbs.twimg.com/media/HMWEvWMbUAArNNt?format=jpg&name=small)
-![Image](https://pbs.twimg.com/media/HMWEvWSasAAhoR1?format=jpg&name=small)
-
----
 ### 💡 Social Issues - School Lunch Policy Controversy
 
 This article reports on a controversy in an Indian state following the decision to remove eggs from the school lunch menu. It highlights the public reaction and debate surrounding this policy change.
@@ -111,23 +70,6 @@ Key Points:
 🔗 Resources:
 
 • [BBC News Report](https://t.co/cgMDR5ccxP) - News on the Indian school lunch menu row.
-
----
-### ✨ Fashion - Celebrity Style - Dior Haute Couture
-
-This article discusses a significant moment in fashion, where a prominent pop star opted for a Dior Haute Couture design by Jonathan Anderson. It marks the culmination of a year-long fashion trend.
-
-Key Points:
-
-• Highlights a pop star's choice of Dior Haute Couture.
-
-• Features a specific design by Jonathan Anderson.
-
-• Marks the conclusion of a year-long fashion trend.
-
-🔗 Resources:
-
-• [WSJ Fashion Report](https://t.co/xyEPS33pm7) - Article on a significant fashion choice.
 
 ---
 ### 💡 Politics - German Political Landscape

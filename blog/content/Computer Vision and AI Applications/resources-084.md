@@ -181,28 +181,6 @@ Key Points:
 
 ---
 
-### 🤖 Community Scout - Richard Rios
-
-This article profiles Richard Rios, a midfielder who has attracted interest from clubs like Inter and West Ham United following strong performances at the Club World Cup.
-
-Key Points:
-
-• Excels in tackles, interceptions, and ball recoveries.
-
-• Strong performances have drawn interest from European clubs.
-
-• Potential move to Europe is discussed.
-
-
-
-🔗 Resources:
-
-• [WeBuildScore's Tweet](https://x.com/webuildscore/status/1941837032038228205) - Profile of Richard Rios
-![Image](https://pbs.twimg.com/media/GvLIkEiW8AAhyCW?format=jpg&name=small)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

@@ -37,25 +37,6 @@ Key Points:
 
 
 ---
-### ✨ Football Player Appreciation - Alexis Saelemaekers
-
-This article shares a quote from Massimiliano Allegri praising the performance and technical skills of footballer Alexis Saelemaekers.
-
-Key Points:
-
-• Allegri praises Saelemaekers' consistent top performances.
-
-• He highlights Saelemaekers' fantastic work rate.
-
-
-🔗 Resources:
-
-• [Twitter Post](https://x.com/MilanCentel/status/1969507497728713023) - Source of quote
-
-![Image](https://pbs.twimg.com/media/G1UYob3WAAAp00w?format=jpg&name=small)
-
-
----
 ### 🤖 News Source Reliability - Issues with Twitter/X
 
 This article discusses the declining reliability of Twitter/X as a source of credible news, highlighting the prevalence of unreliable accounts and bots.

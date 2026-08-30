@@ -137,28 +137,6 @@ Key Points:
 
 ---
 
-### 🤖 WeBuildScore - Club World Cup Analysis
-
-This article provides a brief analysis of the Club World Cup match between Al-Hilal and Fluminense, highlighting key players and their contributions.
-
-
-Key Points:
-
-• Al-Hilal's key players: Ruben Neves, Salem Al-Dawsari, and Milinković-Savić.
-
-• Fluminense's key players: Jhon Arias and Gabriel Fuentes.
-
-
-
-🔗 Resources:
-
-• [WeBuildScore](https://x.com/webuildscore) - Sports analytics platform
-
-![Image](https://pbs.twimg.com/media/GvCB32RW8AAiCmH?format=jpg&name=small)
-
-
----
-
 ### 💡 Yobi App - Exporting the American Dream
 
 This article discusses the concept of exporting the American Dream and features the author's work showcased at MCAADs gallery in DC.

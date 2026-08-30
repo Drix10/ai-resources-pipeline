@@ -29,11 +29,6 @@ Key Points:
 • [LLM4SD Research Paper](https://doi.org/g86bpb) -  Details on methodology and results
 
 
-### 🔮 Predictive Trends - TikTok Birthday Prediction
-
-This article briefly describes a TikTok trend that uses the top box office movie from a user's 10th birthday to predict the outcome of their year 2025.  No further information is provided.
-
-
 ### 💲 E-commerce Deals -  Unspecified Daily Deal
 
 This article lacks sufficient detail to provide a comprehensive description. The provided text only mentions a daily deal on electronics but lacks specifics on the product, vendor, or discount details.

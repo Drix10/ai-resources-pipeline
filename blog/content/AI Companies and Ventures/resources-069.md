@@ -175,32 +175,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/GsmUuIwWUAAPtua?format=jpg&name=360x360)
 
 ---
-### 🚀 Unreal Engine - Digital Twins
-
-This article announces a live session at UnrealFest on practical digital twins, including a demo of a Major League Soccer stadium.
-
-Key Points:
-
-• Live session on practical digital twins at UnrealFest.
-
-
-•  Includes an interactive demo of a Major League Soccer stadium.
-
-
-•  Demonstrates mapping physical environments, running simulations, and faster iteration.
-
-
-🔗 Resources:
-
-• [UnrealFest](https://x.com/hashtag/UnrealFest?src=hashtag_click) -  Event featuring the session.
-
-
-• [WW Technology](http://ms.spr.ly/6011SmI6L) - Link to more information
-
-
-![Image](https://pbs.twimg.com/media/GsncLDYWQAEql2N?format=jpg&name=small)
-
----
 ### 🤖 Mistral Agents API -  Hands-On Guide
 
 This article provides a hands-on guide to the Mistral Agents API, highlighting its key features for developers.

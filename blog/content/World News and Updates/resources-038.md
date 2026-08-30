@@ -96,31 +96,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/Gnm3X0GWkAArK9S?format=jpg&name=small)
 
 ---
-### ⚽️ Sports - Barcelona Player Eligibility
-
-Spain's National Sports Council allowed Barcelona players Dani Olmo and Pau Victor to play until the end of the season, a decision LaLiga plans to appeal.
-
-
-Key Points:
-
-• Olmo and Victor can play for Barcelona until season's end.
-
-
-• The decision was made by Spain's National Sports Council.
-
-
-• LaLiga will appeal the decision.
-
-
-
-🔗 Resources:
-
-• [Reuters](https://reuters.com/sports/soccer/sports-council-allows-olmo-victor-play-barca-until-end-season-2025-04-03/?taid=67ef13142263bc00012f98cc&utm_campaign=trueAnthem%3A+Trending+Content&utm_medium=trueAnthem&utm_source=twitter) - News report on the appeal
-
-
-![Image](https://pbs.twimg.com/media/GnpVYiqXwAAwt7v?format=jpg&name=small)
-
----
 ### 👪 Social Issues - Natal Conference Backlash
 
 The Natal Conference, held in Austin, Texas, faced significant criticism for its association with far-right ideologies and promotion of pronatalism.

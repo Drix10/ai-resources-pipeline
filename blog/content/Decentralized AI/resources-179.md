@@ -158,24 +158,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HHx5AqhXwAQy9PM?format=jpg&name=240x240)
 
 ---
-### 🤖 Robotics - Community Engagement
-
-This article notes a social event centered around robot soccer, indicating community engagement with robotics technology. It highlights informal gatherings that blend technical interests with social activities.
-
-Key Points:
-
-• Robot soccer showcases applied robotics engineering in a competitive setting.
-
-• Community events foster broader interest and participation in technology.
-
-• Social gatherings can promote networking within specialized tech fields.
-
-
-🔗 Resources:
-
-• [Auki](https://x.com/Auki) - Original poster organizing robot soccer event
-
----
 ### 🤖 Blockchain Interoperability - Cross-chain Collaborations
 
 This article discusses "The Federation of StrkBTC," highlighting a collaboration involving NEAR Intents, Starknet, and Twinstake. It focuses on advancements in cross-chain compatibility and decentralized finance solutions.

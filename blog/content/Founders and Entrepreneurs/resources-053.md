@@ -135,50 +135,6 @@ Key Points:
 
 ---
 
-### ✨ Sports Event - Washington Mystics Victory
-
-This article shares information about a sold-out Washington Mystics basketball game and mentions attendees from other sports teams.
-
-Key Points:
-
-• Washington Mystics win their season opener.
-
-
-• Sold-out crowd at the game.
-
-
-• Attendance by players from other Washington sports teams.
-
-
-
-🔗 Resources:
-
-• [Ted Leonsis' X Profile](https://x.com/TedLeonsis) -  Original poster
-
-
-• [Washington Mystics' X Profile](https://x.com/WashMystics) -  Team mentioned
-
-
-• [Washington Wizards' X Profile](https://x.com/WashWizards) -  Team mentioned
-
-
-• [Washington Commanders' X Profile](https://x.com/Commanders) -  Team mentioned
-
-
-• [Jay D's X Profile](https://x.com/JayD__5) -  Person mentioned
-
-
-• [Tweet with Images](https://x.com/TedLeonsis/status/1923564992508432630) -  Original Tweet context
-
-
-
-![Image](https://pbs.twimg.com/media/GrHf4TDXgAAOilB?format=jpg&name=360x360)
-![Image](https://pbs.twimg.com/media/GrHf4SwXgAARJVC?format=jpg&name=360x360)
-![Image](https://pbs.twimg.com/media/GrHf4SHWcAAvqum?format=jpg&name=small)
-![Image](https://pbs.twimg.com/media/GrHf8ZIXsAAIv0P?format=jpg&name=small)
-
----
-
 ### 🤖 Military Activity - IDF Operations in Gaza
 
 This article reports on loud explosions heard in Ashkelon and Ashdod, attributed to IDF activity in Gaza.

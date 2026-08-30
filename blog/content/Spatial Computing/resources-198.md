@@ -142,26 +142,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HQkvI6ZXYAACkCy?format=jpg&name=small)
 
 ---
-### 🚴 Topic - Content Creation Status
-
-This content provides a status update regarding video production. The author noted physical limitations affecting the editing process.
-
-Key Points:
-
-• Progress was made on a YouTube video last night.
-
-• Editing proved difficult due to recent mountain biking activity.
-
-• A cut on the left hand slowed the work.
-
-
-🔗 Resources:
-• [https://x.com/Dilmerv/status/2092255044146233598](https://x.com/Dilmerv/status/2092255044146233598) - Original source
-• [https://x.com/Dilmerv](https://x.com/Dilmerv) - Author profile link
-
----
-
----
 ### 🤖 Motion Reconstruction - Monocular Video Analysis
 
 This work addresses the challenge of reconstructing three-dimensional motion solely from a single camera video feed. It proposes methods to resolve positional ambiguity using physical constraints derived from gravity and gaze direction. The approach estimates motion per frame, mitigating errors associated with time passage across frames.

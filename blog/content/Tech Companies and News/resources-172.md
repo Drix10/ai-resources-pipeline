@@ -113,26 +113,6 @@ Key Points:
 • [Noam Seggev](https://x.com/noamseg) - Partner leading survey design and analysis
 
 ---
-### 💡 Startup Culture - San Francisco Cafe Availability
-
-This article explores the operational challenges faced by startups in San Francisco, specifically focusing on the limited availability of cafes and dining options after standard business hours. It highlights how this impacts the work habits of dedicated startup teams.
-
-Key Points:
-
-• San Francisco faces issues with early closing times for cafes and restaurants.
-
-• This impacts productivity and convenience for startup employees.
-
-• The situation presents a challenge for intense startup work schedules.
-
-
-🔗 Resources:
-
-• [Harry Stebbings](https://x.com/HarryStebbings) - Source of the discussion
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2060685430094225409/img/Y6rbSaSCX4IBFM6c.jpg)
-
----
 ### 💡 Hiring Practices - Work Trials and Culture Fit
 
 This article discusses a rigorous hiring strategy that involves comprehensive work trials for candidates. It emphasizes the importance of mutual understanding regarding job expectations and company culture through practical, hands-on experience.

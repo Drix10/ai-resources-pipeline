@@ -1,32 +1,3 @@
-### 🏆 AI Art - Jury Selection
-
-This article discusses the selection of "Apparitions of the Psychiatric Ward, My Grandmother’s Memories" by Ivon Tau as a winning entry in an AI art competition,  featuring commentary from juror Boris Eldagsen.
-
-
-Key Points:
-
-• Ivon Tau's artwork was chosen for its unique qualities.
-
-
-• The artwork was described as "stammering," "shimmering," and "getting it wrong."
-
-•  The piece was praised for its innovative approach to AI art.
-
-
-🔗 Resources:
-
-• [Boris Eldagsen](https://x.com/BorisEldagsen) - AI art juror
-
-• [Ivon Tau](https://x.com/ivonatau) - Artist
-
-• [The AI Art Mag](https://x.com/the_ai_art_mag/status/1968262461942849685) -  Source of the announcement
-
-![Image](https://pbs.twimg.com/media/G1CsRrMWQAApx4l?format=jpg&name=small)
-![Image](https://pbs.twimg.com/media/G1CsRqEW0AA8je_?format=png&name=small)
-![Image](https://pbs.twimg.com/media/G1CsRqqW8AAFXXy?format=png&name=small)
-![Image](https://pbs.twimg.com/media/G1CsRs4WUAA8PAa?format=jpg&name=small)
-
----
 ### 🤖 AI Payments - Agent Payments Protocol
 
 This article summarizes the launch of the Agent Payments Protocol (AP2), an open-source payment standard for AI agents developed by Google in partnership with Coinbase and the Ethereum Foundation.

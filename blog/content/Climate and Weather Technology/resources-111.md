@@ -78,32 +78,6 @@ Key Points:
 
 ---
 
-### ✨ Personal Anecdote - Baseball First Pitch
-
-This article details a personal experience of throwing the first pitch at a baseball game, connecting past and present family memories.
-
-
-Key Points:
-
-• Throwing the first pitch at a Rays game.
-
-
-•  A nostalgic connection to past memories.
-
-
-•  Image of the event.
-
-
-
-🔗 Resources:
-
-• [Tweet](https://x.com/tropicalupdate/status/1968489624512135202) -  Personal account
-
-![Image](https://pbs.twimg.com/media/G1F5lHGWcAAHj2K?format=jpg&name=small)
-
-
----
-
 ### 🤖 Sports Commentary - Aaron Rodgers and an Interception
 
 This article provides commentary on an interception thrown by Aaron Rodgers, with a quote from Ben Roethlisberger.

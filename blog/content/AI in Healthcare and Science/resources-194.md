@@ -16,26 +16,6 @@ Key Points:
 • [Original Announcement](https://x.com/polsia/status/2054494193813459348) - Tweet detailing the new company's initiative
 
 ---
-### 🚀 SharpEdge AI - Sports Betting Intelligence
-
-This article introduces SharpEdge AI, an analytics platform designed to provide intelligence for football bettors. It emphasizes the tool's focus on data-driven insights over simple betting recommendations.
-
-Key Points:
-
-• SharpEdge AI offers advanced intelligence for football betting analysis.
-
-• The platform tracks odds movement and identifies sharp signals.
-
-• It includes features for betslip analysis and discipline tracking.
-
-
-🔗 Resources:
-
-• [SharpEdge AI Platform](https://sharpedge-ai.polsia.app) - AI-powered sports betting intelligence tool
-
-• [Original Announcement](https://x.com/polsia/status/2054494178311303631) - Tweet announcing SharpEdge AI's capabilities
-
----
 ### 🤖 AI Development - Agency Operations & Transparency
 
 This article outlines an AI-native development agency composed of competitive programming engineers from Manila. It highlights the company's significant funding and unique transparency practices.

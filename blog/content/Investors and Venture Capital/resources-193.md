@@ -21,26 +21,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/profile_images/2071532616747225088/XHIkIcU-_normal.jpg)
 
 ---
-### 💡 Sports Officiating - VAR Rule Misinterpretation
-
-This article addresses the controversy surrounding a referee's use of Video Assistant Referee (VAR) in a football match. It highlights a specific red card decision, arguing it resulted from a misapplication of FIFA's VAR rules.
-
-Key Points:
-
-• A recent football match saw a controversial red card decision.
-
-• The decision is questioned due to perceived misuse of VAR.
-
-• The referee's application of VAR reportedly did not align with FIFA's rules.
-
-• The outcome led to debates regarding the fairness of the call.
-
-
-🔗 Resources:
-
-• [Original Post](https://x.com/jltho/status/2073861892074787106) - Discussion on VAR application in football
-
----
 ### 💡 Real Estate Trends - Unforeseen Rent Increases
 
 This article examines a notable real estate trend observed since January 2020, where rents in Albuquerque, New Mexico, have seen a three-fold increase compared to San Francisco. It highlights an unexpected shift in housing market dynamics.
@@ -138,28 +118,6 @@ Key Points:
 • [Original Post](https://x.com/gabrielchua/status/2074158639791948273) - Discussion on Appshots and context sharing
 
 • [Appshots](https://appshots.co/) - Tool for enhanced context sharing
-
----
-### 💡 Sports Analysis - NBA Player Trade Speculation
-
-This article reflects on recent NBA trade discussions involving the Lakers, specifically their reported interest in acquiring a more defensive and "wing-y" player. It assesses whether Jonathan Kuminga fits this desired player profile.
-
-Key Points:
-
-• The Lakers are reportedly seeking a stronger defensive wing player.
-
-• There is speculation regarding Jonathan Kuminga's fit for this role.
-
-• His off-ball defensive skills are a particular point of consideration.
-
-• The outcome of potential roster changes remains uncertain.
-
-
-🔗 Resources:
-
-• [Original Post](https://x.com/netgarden/status/2074156697678196745) - Commentary on NBA trade rumors
-
-![Image](https://pbs.twimg.com/media/HMjfUixXYAAYt0f?format=jpg&name=small)
 
 ---
 ### 💡 Business Strategy - Valuing Transparency in Growth Metrics

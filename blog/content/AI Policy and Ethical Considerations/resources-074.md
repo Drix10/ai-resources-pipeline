@@ -213,32 +213,6 @@ Key Points:
 
 
 ---
-### 🔬 Diet - Review of Calorie Restriction Diet
-
-This article reviews a calorie restriction diet consisting of rice and fruit, highlighting its limitations and comparing its effectiveness to other dietary approaches.
-
-Key Points:
-
-• The diet caused persistent hunger.
-
-
-•  Weight loss was not significantly better than other methods.
-
-
-• The diet was unsustainable for the participant.
-
-
-![Image](https://pbs.twimg.com/media/GuCSCCIXwAEAJHe?format=jpg&name=small)
-
-🔗 Resources:
-
-• [Eliezer Yudkowsky](https://x.com/ESYudkowsky) - Commentary on the diet
-
-• [ExFatloss](https://x.com/exfatloss) - The diet review itself
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

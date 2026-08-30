@@ -201,28 +201,6 @@ Key Points:
 
 
 ---
-### 💡 Baseball Strategy - Pitching Management
-
-This article briefly touches upon an in-game baseball strategy concerning pitcher usage. It suggests a situation where multiple pitchers might be required to contribute for short durations, indicating a high-leverage or extended game scenario.
-
-Key Points:
-
-• Effective pitching management is critical for game success.
-
-• Strategic use of multiple pitchers optimizes team resources.
-
-• In-game scenarios often dictate dynamic pitching decisions.
-
-
-🔗 Resources:
-
-• [Adam Conner](https://x.com/adamconner) - Commentary on sports and analytics
-
-• [Tyler Stafford](https://x.com/tylercstafford) - Sports analysis and insights
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

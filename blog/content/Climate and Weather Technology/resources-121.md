@@ -77,27 +77,6 @@ Key Points:
 • [SNL Sketch Video](https://x.com/i/status/1606484293949456384) - Link to the video content of the sketch
 
 ---
-### ✨ Sports Commentary - CFP Equity Debate
-
-This article discusses the ongoing debate surrounding Notre Dame's potential inclusion in the college football playoffs and critiques common post-season arguments.
-
-Key Points:
-
-• There is a contention that Notre Dame deserved a playoff spot.
-
-• Frustration exists regarding hypothetical "would have beaten" scenarios from fans.
-
-• The primary focus of discontent should be on the College Football Playoff (CFP) equity.
-
-• The inclusion of teams like JMU and Tulane in certain bowls is questioned regarding fairness.
-
-🔗 Resources:
-
-• [Big Joe Bastardi](https://x.com/BigJoeBastardi) - Commentary on sports and weather
-
-• [Original Tweet](https://x.com/BigJoeBastardi/status/2002566250510102799) - Discussing College Football Playoff equity
-
----
 ### 💡 Weather Event - Front Range Wind Storm
 
 This article describes the severe impact of a recent wind storm across the Front Range, detailing the damage and the fortunate avoidance of major fires despite high risk.

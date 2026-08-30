@@ -166,27 +166,6 @@ Key Points:
 
 
 ---
-### 🏎️ Sports - Young Racing Champion Atiqa Mir
-
-This article profiles Atiqa Mir, a young racing champion who is the first Asian signed by the Formula 1 Academy for girls.
-
-Key Points:
-
-• Atiqa Mir is a young racing champion.
-
-• She is the first Asian signed by the Formula 1 Academy for girls.
-
-
-🔗 Resources:
-
-• [Hindustan Times](https://x.com/htTweets) - News source
-
-• [Hindustan Times Tweet](https://x.com/htTweets/status/1901176097745539572) - Article on Atiqa Mir
-
-• [Ronnie Sandip](https://x.com/ronnie_sandip) - Quoted expert
-
-
----
 ### 🇮🇳 Indian Politics - Bihar Law and Order
 
 This article provides a statement from BJP leader Sanjay Mayukh on the law and order situation in Bihar.

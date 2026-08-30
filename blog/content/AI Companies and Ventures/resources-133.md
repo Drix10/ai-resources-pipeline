@@ -105,33 +105,6 @@ Key Points:
 • [New Year Greeting](https://x.com/VeedoAI/status/2006630865926046043) - Original greeting post
 
 ---
-### 🚀 AI and Robotics - 2026 Outlook
-
-This article shares New Year greetings and highlights upcoming advancements in AI and robotics for 2026 from Menlo Research. It provides resources for immediate use, such as a recipe AI, and introduces early-stage, buildable robots.
-
-Key Points:
-
-• Menlo Research anticipates more capable AI agents in 2026.
-
-• New products and open-source repositories are expected from Menlo.
-
-• Access recipe generation via chat.jan.ai for immediate utility.
-
-• Explore self-buildable robot projects from Asimov Inc.
-
-🔗 Resources:
-
-• [Jan.ai](https://x.com/jandotai) - Official X account for Jan.ai
-
-• [Menlo Research](https://x.com/menloresearch) - Official X account for Menlo Research updates
-
-• [Chat.Jan.ai](https://t.co/XmaRhz5fig) - AI-powered recipe generation tool
-
-• [Asimov Inc.](https://x.com/asimovinc) - X account for buildable robot projects
-
-![Image](https://pbs.twimg.com/media/G9ez8ejaYAY-kfw?format=jpg&name=small)
-
----
 ### ✨ Pudu Robotics - 2025 Achievements and 2026 Vision
 
 This article reflects on Pudu Robotics' significant achievements in 2025, including substantial growth and global robot deployments. It also introduces the company's vision for "Empowering 2026" and new horizons in robotics solutions.

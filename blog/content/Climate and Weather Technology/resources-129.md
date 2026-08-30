@@ -1,26 +1,3 @@
-### 💡 College Football - Championship Contenders
-
-This article details the latest update regarding the Miami team's advancement to the CFP National Championship. It highlights their preparation to compete for a national title on their home field.
-
-Key Points:
-
-• Miami has secured a spot in the CFP National Championship.
-
-• The team will play for the title at their home stadium.
-
-• Carson Beck is identified as a key player for the Canes.
-
-🔗 Resources:
-
-• [NbergWX](https://x.com/NbergWX) - Original poster providing updates
-
-• [ESPN](https://x.com/espn) - Sports news and coverage
-
-• [ESPN Status](https://x.com/espn/status/2009482631457509500) - Specific tweet on championship news
-
-![Image](https://pbs.twimg.com/media/G-MdzctWIAA51AI?format=jpg&name=small)
-
----
 ### 🤖 Foundation Models - Earth System Applications
 
 This article explores the fundamental concepts behind Earth foundation models and their potential applications. It discusses how these models are built to understand complex global systems.
@@ -101,25 +78,6 @@ Key Points:
 • [Sekai_WX Status](https://x.com/Sekai_WX/status/2009465862156357786) - Tweet on supercell radar signature
 
 ![Image](https://pbs.twimg.com/media/G-MOc2-XEAEDxDQ?format=jpg&name=small)
-
----
-### 💡 Sports Analysis - Kicking Performance in Football
-
-This article provides a brief analysis of a specific kicking performance during the Fiesta Bowl football game. It details the progression of a kicker's attempts, culminating in a successful play.
-
-Key Points:
-
-• Kicking performance can vary during a single game.
-
-• Successful field goals are critical game-changing moments.
-
-• Perseverance in execution leads to positive outcomes.
-
-🔗 Resources:
-
-• [RyanBretonWX](https://x.com/RyanBretonWX) - Sports commentator sharing game updates
-
-• [RyanBretonWX Status](https://x.com/RyanBretonWX/status/2009465688596074607) - Specific tweet about the Fiesta Bowl play
 
 ---
 ### 🤖 Meteorological Analysis - January Weather Anomalies

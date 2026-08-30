@@ -20,25 +20,6 @@ Key Points:
 
 ---
 
-### 🏀 Sports - Oklahoma City Thunder's NBA Western Conference Finals Victory
-
-This article summarizes the Oklahoma City Thunder's victory over the Minnesota Timberwolves in Game 5 of the Western Conference Finals, marking their return to the NBA Finals after 2012.
-
-Key Points:
-
-• Oklahoma City Thunder advanced to the NBA Finals.
-
-
-• This win avenges a 2016 loss to the Golden State Warriors.
-
-
-🔗 Resources:
-
-• [Washington Post Article](https://t.co/HLubRwJryu) - Thunder's Finals return
-
-
----
-
 ### 🇺🇸 Politics - Trump's 2026 Presidential Campaign Strategy
 
 This article discusses Donald Trump's strategy for the 2026 presidential election and his efforts to maintain Republican control.

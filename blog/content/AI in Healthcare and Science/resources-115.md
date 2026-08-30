@@ -1,22 +1,3 @@
-### 🏈 American Football - QB Skill Analysis
-
-This article discusses the cognitive demands placed on quarterbacks in American football, specifically focusing on the processing speed required for quick decision-making during plays.  The author questions their own processing speed in relation to professional quarterbacks.
-
-Key Points:
-
-• High-level quarterback play requires rapid processing of multiple inputs.
-
-•  Quick decision-making under pressure is a crucial skill for quarterbacks.
-
-
-🔗 Resources:
-
-• [EyeScoutNFL_AI](https://x.com/EyeScoutNFL_AI) - NFL AI analysis
-
-• [Kurt Warner](https://x.com/kurt13warner) - Former NFL quarterback
-
-
----
 ### ✨ Healthcare - Revenue Cycle Management (RCM) Innovation
 
 This article summarizes key findings from a MEDITECH Live event focusing on advancements in Revenue Cycle Management.  The discussion highlighted the positive impact of RCM innovation on patient collections, denial resolution, and clinician workflow.

@@ -44,32 +44,6 @@ Key Points:
 
 
 ---
-### 💡 Nutrition and Mental Health - Creatine and Depression
-
-This article summarizes a study investigating the correlation between dietary creatine intake and the risk of depression in U.S. adults. Creatine's role in brain energy metabolism is explored as a potential factor.
-
-Key Points:
-
-•  Examines the relationship between creatine intake and depression risk.
-
-
-•  Explores creatine's impact on brain energy metabolism.
-
-
-•  Provides insights into nutritional factors influencing mental health.
-
-
-![Image](https://pbs.twimg.com/media/Gl6zOuiXUAEZEdR?format=jpg&name=small)
-
-🔗 Resources:
-
-• [Full Paper](https://openread.academy/en/paper/reading?corpusId=211139047) - Research study
-• [BensenHsu](https://x.com/BensenHsu) - Twitter user
-• [eileenwongai](https://x.com/eileenwongai) - Twitter user
-• [NTFabiano](https://x.com/NTFabiano) - Twitter user
-
-
----
 ### 🚀 Quantum Computing - Educational Chatbot
 
 This article describes a web-based chatbot created to explain complex quantum physics concepts to investors and newcomers. The chatbot was developed due to the investors' lack of understanding of the quantum physics vision.

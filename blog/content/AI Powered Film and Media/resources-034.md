@@ -1,24 +1,3 @@
-### 🤖 Generative AI Updates - Freepik & Hollywood AI Landscape
-
-This article summarizes recent updates in generative AI, focusing on Freepik's new "Objects" feature and the impact of AI on Hollywood.
-
-Key Points:
-
-• Freepik's "Objects" allows users to create LoRAs for image and video generation from uploaded photos.
-
-
-•  The report reveals the current state of AI adoption in the Hollywood film industry.
-
-
-🔗 Resources:
-
-• [JesusPlazaX Tweet](https://x.com/JesusPlazaX/status/1903735470225273149) - Generative AI updates
-
-
-![Image](https://pbs.twimg.com/media/Gmrj5CdbMAIZfGJ?format=jpg&name=small)
-
-
----
 ### 🚀 Sora - Image-to-Video Capabilities
 
 This article briefly discusses initial experiences using Sora, an image-to-video AI model, highlighting its potential and limitations.

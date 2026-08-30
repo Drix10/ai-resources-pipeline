@@ -150,34 +150,6 @@ Key Points:
 • Securing IP and early contracts are initial, not final, steps
 
 ---
-### 🤖 AI in Sports - Soccer Kicking Posture Learning
-
-This article announces the acceptance of a paper focused on learning soccer kicking posture through advanced visual augmentation techniques. The proposed approach leverages Augmented Reality (AR) with two distinct methods: Spot Projection and Portrait Playback.
-
-Key Points:
-
-• Paper on soccer kicking posture learning accepted
-
-• Proposes an approach using visual augmentation with AR
-
-• Leverages Spot Projection for training enhancement
-
-• Incorporates Portrait Playback for visual guidance
-
----
-🚀 Implementation:
-1. Integrate Visual Augmentation: Apply AR techniques to enhance posture learning.
-2. Implement Spot Projection: Utilize projected visual cues for training.
-3. Apply Portrait Playback: Use recorded playback for comparative learning.
-4. Evaluate Posture Improvement: Assess the effectiveness of AR-based training.
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/G2THIYdbMAEHUt1?format=jpg&name=small)
-
-![Image](https://pbs.twimg.com/media/G2THIXIbMAM3Lo9?format=small)
-
----
 ### 🚀 AI-Assisted Programming - "solveit" Solution
 
 This article introduces "solveit," a new tool designed to address the challenges programmers face when integrating AI into their workflows. It aims to mitigate frustration, offering a practical solution that has been rigorously tested by a large base of preview users.

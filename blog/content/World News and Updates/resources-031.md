@@ -91,29 +91,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/GmpUBVAWsAAh7NW.jpg)
 
 ---
-### 💡 Film Review - The Alto Knights
-
-This article presents a review of the film "The Alto Knights," focusing on the criticism that the film's backstories are underdeveloped and presented in a rushed manner.
-
-Key Points:
-
-• Film review of "The Alto Knights".
-
-
-• Criticism of rushed storytelling and underdeveloped backstories.
-
-
-
-🔗 Resources:
-
-• [The New Yorker](https://x.com/NewYorker) - Film review by Justin Chang
-
-
-• [Justin Chang](https://x.com/JustinCChang) - Film critic
-
-
-
----
 ### 🤖 UK Airport Substation Fire - Sabotage Investigation
 
 This article reports on a fire at a key UK substation that led to significant flight cancellations and passenger disruptions, prompting investigations into potential sabotage by UK terror police and MI5.
@@ -130,24 +107,6 @@ Key Points:
 
 
 ![Image](https://pbs.twimg.com/media/GmpGPB5agAAJM4P?format=jpg&name=small)
-
----
-### 💡 Jimmy Butler's Career - Golden State Warriors
-
-This article discusses Jimmy Butler's basketball career, highlighting his achievements in Miami and arguing that his time with the Golden State Warriors represents the best team of his career, despite being relatively recent.
-
-Key Points:
-
-• Analysis of Jimmy Butler's career trajectory.
-
-
-• Argument that Golden State Warriors represent his best team.
-
-
-🔗 Resources:
-
-• [Bruce Jenkins article](https://trib.al/rwVdHG8) -  Analysis of Jimmy Butler's career
-
 
 ---
 ### 💡 Public Safety in India - Women's Experiences

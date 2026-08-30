@@ -94,31 +94,6 @@ Key Points:
 
 
 ---
-### ✨ Spectacles - Software Update
-
-This article highlights a new update for Spectacles, featuring new lenses, updates from Niantic Labs, Utopia Labs, and Games Wabi Sabi, and a revamped Basketball Lens.
-
-Key Points:
-
-• New Lenses and updates from multiple developers.
-
-• Revamped Basketball Lens.
-
-• Numerous unspecified features included in the update.
-
-
-🔗 Resources:
-
-• [Niantic Labs](https://x.com/NianticLabs) - AR technology company
-
-• [Utopia Labs](https://x.com/utopialabs_) -  Technology company
-
-• [Games Wabi Sabi](https://x.com/GamesWabisabi) - Game development studio
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1901708562063368192/pu/img/0ZZChmFioXH_KAas.jpg)
-
-
----
 ### 💡 Email Newsletter - Weekly Digest
 
 This article announces an upcoming email newsletter featuring daily updates compiled into a weekly digest with exclusive content.  A link is provided to sign up.

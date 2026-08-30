@@ -108,23 +108,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HGfBqnhXsAAezum?format=jpg&name=small)
 
 ---
-### 💡 Event Planning - NFL Draft Attendance Projections
-
-This article discusses the significant attendance projections for the upcoming NFL Draft in Pittsburgh, with local officials expecting between 500,000 and 700,000 visitors. This influx is notable given Pittsburgh's resident population of 300,000.
-
-Key Points:
-
-• NFL Draft attendance is projected at 500,000 to 700,000 people.
-
-• Pittsburgh's population is significantly smaller at 300,000 residents.
-
-• This highlights a major logistical challenge for the city.
-
-🔗 Resources:
-
-• [NBC News Report](https://t.co/sAetqgKKEX) - Information on NFL draft attendance expectations
-
----
 ### 🤖 Defense Logistics - US Missile Stockpile Status
 
 This article reports on the significant strain on US missile stockpiles, as indicated by recent media reports, due to ongoing geopolitical conflicts. It provides specific depletion rates for various missile systems.

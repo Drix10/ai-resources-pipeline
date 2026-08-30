@@ -51,30 +51,6 @@ Key Points:
 
 ---
 
-### ✨ Corporate Events - SalesforceVC WNBA Game
-
-This article describes a corporate event hosted by SalesforceVC, featuring a WNBA game between the Golden State Valkyries and the Chicago Sky.
-
-Key Points:
-
-• SalesforceVC hosted a WNBA game viewing event.
-
-• The event involved their San Francisco team and portfolio companies.
-
-• The event was part of a broader WNBA Summer Game Series on the West Coast.
-
-
-🔗 Resources:
-
-• [SalesforceVC](https://x.com/SalesforceVC) - Salesforce's venture capital arm
-
-![Image](https://pbs.twimg.com/media/GutiQXqXcAA6A0i?format=jpg&name=small)
-![Image](https://pbs.twimg.com/media/GutiQXfWQAEYUTU?format=jpg&name=small)
-![Image](https://pbs.twimg.com/media/GutiQXfW0AAkU10?format=jpg&name=small)
-
-
----
-
 ### 🚀 Space Communication - NASA+ on Netflix
 
 This article discusses NASA's partnership with Netflix to stream live space content, including rocket launches and ISS views, on the NASA+ channel.

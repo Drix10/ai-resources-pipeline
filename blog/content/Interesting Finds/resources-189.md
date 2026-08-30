@@ -21,31 +21,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/amplify_video_thumb/2060430831039188992/img/RcP77K8qzyaeNjJU.jpg)
 
 ---
-### ✨ Film Industry - Box Office Performance Anomaly
-
-This article highlights an unusual event in the film industry where a movie titled "Obsession" achieved stronger box office performance than "Star Wars." This occurred despite "Obsession" being screened in significantly fewer theaters.
-
-Key Points:
-
-• The film "Obsession" was released a week prior to "Star Wars."
-
-• "Obsession" is showing in 1700 fewer screens than "Star Wars."
-
-• Despite fewer screens, "Obsession" is currently outperforming "Star Wars" in revenue.
-
-• This situation represents an uncommon occurrence in box office trends.
-
-🔗 Resources:
-
-• [Peter Pham's X Profile](https://x.com/peterpham) - User's social media profile
-
-• [WolfmansGotNard's X Profile](https://x.com/WolfmansGotNard) - User's social media profile
-
-• [Original Thread Context](https://x.com/WolfmansGotNard/status/2060492887935115267) - Provides the source of the discussion
-
-![Image](https://pbs.twimg.com/media/HJhXXObWoAIoofS?format=jpg&name=small)
-
----
 ### 💡 AI Impact - Professional Services and Ethics
 
 This article addresses the discussion surrounding the use of Artificial Intelligence in various professional fields, including accounting, law, and medicine. It examines the sentiment that concerns about AI's role in these areas may stem from self-serving motivations rather than broader ethical considerations.

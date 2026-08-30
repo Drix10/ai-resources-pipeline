@@ -73,26 +73,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HEEtGkobwAA0SKQ?format=jpg&name=360x360)
 
 ---
-### 🚀 Development Tools - Uniform Sandbox Access
-
-This article discusses the benefits of interchangeable providers and standardized access to powerful sandbox environments. It highlights the vision for a protocol that ensures consistent developer experience.
-
-Key Points:
-
-• Provider interoperability enhances development flexibility.
-
-• Uniform sandbox access streamlines testing workflows.
-
-• A protocol for sandboxes standardizes development environments.
-
-
-🔗 Resources:
-
-• [Hyperterse](https://x.com/hyperterse) - Provides context on the platform's development philosophy
-
-![Image](https://pbs.twimg.com/media/HEH-MutaIAI3EzW?format=png&name=small)
-
----
 ### ✨ Event Recap - NVIDIA GTC Highlights
 
 This article recaps key activities and engagements from NVIDIA GTC in San Jose, featuring Crusoe's presence. It highlights interactive sessions and demonstrations from the event.

@@ -203,32 +203,6 @@ Key Points:
 
 ---
 
-### 🚀 Football Scouting - Kenan Yildiz Analysis
-
-This article provides a scouting report on Kenan Yildiz, a promising young attacker in Serie A, highlighting his skills and potential.
-
-Key Points:
-
-•  Promising young attacker in Serie A.
-
-
-•  High ranking in progressive carries into the box.
-
-
-•  Confident, direct playing style.
-
-
-
-🔗 Resources:
-
-• [WeBuildScore](https://x.com/webuildscore) - Football analytics
-
-
-![Image](https://pbs.twimg.com/media/GuOq4k6WQAAIIW2?format=jpg&name=small)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

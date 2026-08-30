@@ -42,30 +42,6 @@ Key Points:
 • [Original Tweet](https://x.com/BAD91BANG/status/2071242211963158589) - Source of the geopolitical update
 
 ---
-### 💡 Cricket Analysis - Pitch Impact on Batting Form
-
-This article discusses the perceived impact of flat pitches in the Indian Premier League (IPL) on the batting form of Indian players. It connects this observation to their performance in international matches.
-
-Key Points:
-
-• Flat pitches in IPL can lead to a focus on aggressive hitting over nuanced technique.
-
-• This might hinder adaptability to diverse pitch conditions in international cricket.
-
-• The transition between domestic and international match environments poses challenges for player form.
-
-
-🔗 Resources:
-
-• [BAD91BANG Profile](https://x.com/BAD91BANG) - Profile of the original poster
-
-• [Original Tweet](https://x.com/BAD91BANG/status/2071241414839882012) - Source of the cricket commentary
-
-• [IREvIND Hashtag](https://x.com/hashtag/IREvIND?src=hashtag_click) - Context for the Ireland vs India match
-
-![Image](https://pbs.twimg.com/media/HL6GeqJbcAA7Xt1?format=jpg&name=small)
-
----
 ### 🚀 Video Editing Tools - Mobile App Access
 
 This article provides direct links for accessing a video editing application on both iOS and Android platforms. It facilitates easy installation for users looking to utilize the tool on mobile devices.
@@ -221,51 +197,6 @@ Key Points:
 • [Original Tweet](https://x.com/RockportAI/status/2070739415807267161) - Source for the full podcast episode link
 
 ---
-### ✨ Video Effects - Dome Transformation with Seedance 2.0
-
-This article showcases the creative application of Seedance 2.0, transforming Science World's iconic dome into a soccer ball, demonstrating its advanced video effects capabilities. It highlights a unique visual project using Filmora.
-
-Key Points:
-
-• Seedance 2.0 allows for innovative visual transformations of real-world objects.
-
-• The effect was used to creatively represent Science World as a giant soccer ball.
-
-• Filmora 15 is utilized for producing dynamic and engaging video content.
-
-• The project demonstrates advanced digital effects for promotional purposes.
-
-
-🚀 Implementation:
-1. Access Effect: Visit the provided `bit.ly` link to explore Seedance 2.0 effects.
-2. Utilize Filmora: Apply the effect within the Filmora 15 video editing software.
-3. Create Transformation: Implement the glow-up or soccer ball effect on chosen footage.
-
-🔗 Resources:
-
-• [Filmora Editor Profile](https://x.com/Filmora_Editor) - Official profile for Filmora video editor
-
-• [Try Seedance 2.0 Effect](https://bit.ly/49IN3DG) - Access the transformative video effect
-
-• [Original Tweet](https://x.com/Filmora_Editor/status/2070733865891856584) - Source showcasing the dome transformation
-
-• [Wondershare Hashtag](https://x.com/hashtag/wondershare?src=hashtag_click) - Explore content from Wondershare
-
-• [Filmora15 Hashtag](https://x.com/hashtag/filmora15?src=hashtag_click) - Discover projects made with Filmora 15
-
-• [MadeWithFilmora Hashtag](https://x.com/hashtag/madewithfilmora?src=hashtag_click) - View creations using Filmora
-
-• [Seedance2 Hashtag](https://x.com/hashtag/Seedance2?src=hashtag_click) - Content related to Seedance 2.0 effects
-
-• [Vancouver Hashtag](https://x.com/hashtag/Vancouver?src=hashtag_click) - Discussions about Vancouver city
-
-• [ScienceWorld Hashtag](https://x.com/hashtag/ScienceWorld?src=hashtag_click) - Information on Science World events
-
-• [FIFA2026 Hashtag](https://x.com/hashtag/fifa2026?src=hashtag_click) - Updates on FIFA 2026 events
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

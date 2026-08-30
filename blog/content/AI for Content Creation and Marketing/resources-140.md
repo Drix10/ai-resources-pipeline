@@ -223,33 +223,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HA78jpuakAAO_BP?format=jpg&name=small)
 
 ---
-### 💡 E-commerce Strategy - Scaling DTC Fashion Brands
-
-This article announces an industry panel hosted by Aimerce, coinciding with New York Fashion Week. The panel focuses on strategies for Direct-to-Consumer (DTC) fashion brands to achieve scalable growth. Industry experts will share insights on transforming runway trends into revenue.
-
-Key Points:
-
-• Aimerce organized a panel for fashion DTC brands during New York Fashion Week.
-
-• Industry experts will discuss scaling strategies for DTC brands.
-
-• The panel title is "From Runway to Revenue: How DTC Brands Can Scale."
-
-• The event aims to provide insights into market growth.
-
-• Top experts will share their knowledge on achieving scale.
-
-🔗 Resources:
-
-• [Aimerce AI](https://x.com/aimerce_ai) - Official account for Aimerce AI.
-
-• [Fashion DTC Panel](https://x.com/aimerce_ai/status/2021596226349572295) - Original announcement tweet for the panel discussion.
-
-![Image](https://pbs.twimg.com/media/HA4nAZqW8AE8x1x?format=png&name=small)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

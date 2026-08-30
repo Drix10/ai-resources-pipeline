@@ -57,52 +57,6 @@ Key Points:
 
 ---
 
-### ✨ UEFA Champions League Statistics - Liverpool vs PSG
-
-This article presents statistics from the Liverpool vs PSG UEFA Champions League match, focusing on shot disparity and goalkeeping performance.
-
-
-Key Points:
-
-• Liverpool won despite having significantly fewer shots than PSG.
-
-
-• Alisson Becker achieved a record number of saves for a Liverpool goalkeeper in a Champions League match.
-
-
-• The shot difference represents a significant anomaly in Champions League knockout stage history.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/GlT30-ZWcAALtse?format=png&name=small)
-
-
----
-
-### ✨ UEFA Champions League Statistics - Alisson Becker's Performance
-
-This article highlights Alisson Becker's record-breaking performance in the Liverpool vs PSG UEFA Champions League match.
-
-
-Key Points:
-
-• Alisson Becker made nine saves, the most by a Liverpool goalkeeper in a Champions League game.
-
-
-• This was also his highest save count in any match for Liverpool across all competitions.
-
-
-• His performance was crucial to Liverpool's victory.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/GlT3M2HWUAApEvS?format=jpg&name=small)
-
-
----
-
 ### 💡 Public Opinion on AI Alignment
 
 This article discusses the divergence in beliefs about AI alignment, between informed and uninformed populations.

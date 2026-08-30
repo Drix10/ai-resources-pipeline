@@ -24,28 +24,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/tweet_video_thumb/HFOJmyuboAA3Pj0.jpg)
 
 ---
-### 💡 Urban Development - Kansas City's Soccer Investment
-
-This article discusses Kansas City's significant investment in soccer infrastructure. It explores the city's ambition to become a central hub for U.S. soccer.
-
-Key Points:
-
-• Kansas City invested $650 million in new soccer facilities.
-
-• The city aims to become the U.S. capital for soccer.
-
-• This investment includes world-class training facilities and stadiums.
-
-• Economic development initiatives often focus on specific industries.
-
-
-🔗 Resources:
-
-• [The Wall Street Journal](https://x.com/WSJ) - Business and financial news
-
-• [WSJ Article](https://t.co/oszL7aVvaK) - Detailed report on Kansas City soccer investment
-
----
 ### 🤖 Middle East Conflict - Attack on Iran Petrochemical Facility
 
 This article details reported attacks on Iran's South Pars petrochemical facility. It provides context on ongoing regional escalations and mentions journalist reports.

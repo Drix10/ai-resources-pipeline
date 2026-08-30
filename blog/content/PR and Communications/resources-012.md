@@ -15,23 +15,6 @@ Key Points:
 
 
 ---
-### 🎬 Film - Gene Hackman and Young Frankenstein
-
-This article discusses Gene Hackman's involvement in the film *Young Frankenstein*, highlighting a connection through Gene Wilder.
-
-Key Points:
-
-• Details Gene Hackman's casting in *Young Frankenstein*.
-
-• Explains the role of Gene Wilder in facilitating Hackman's involvement.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/Gk1cjegXMAA2JkR?format=jpg&name=small)
-
-
----
 ### 📰 News - Allegations Against Donald Trump
 
 This article summarizes allegations of assault against Donald Trump, referencing sworn testimony from Katie Johnson.

@@ -197,31 +197,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HA8usLNbYAAYhYD?format=jpg&name=240x240)
 
 ---
-### ✨ Basketball - Rising Stars Game Selection
-
-This article announces Bub's selection as a Rising Star, confirming his participation in the upcoming Rising Stars game as a replacement player on Team T-Mac. It highlights his achievement in the basketball community.
-
-Key Points:
-
-• Bub has been officially named a Rising Star in basketball.
-
-• He will join Team T-Mac for the upcoming Rising Stars game.
-
-• His selection is as a replacement player for Alex.
-
-🔗 Resources:
-
-• [Ted Leonsis](https://x.com/TedLeonsis) - Owner of Monumental Sports
-
-• [Washington Wizards](https://x.com/WashWizards) - Official NBA team account
-
-• [NBA News](https://on.nba.com/4kuElhg) - Official article on player selection
-
-![Image](https://pbs.twimg.com/media/HA-UQvPWEAEityc?format=jpg&name=small)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

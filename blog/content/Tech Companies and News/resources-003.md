@@ -167,29 +167,6 @@ Key Points:
 
 ---
 
-### ✨ Features - Skims' Rapid Revenue and Valuation Growth
-
-This article outlines the significant revenue and valuation growth experienced by Kim Kardashian's Skims brand, speculating on a potential upcoming IPO.
-
-
-Key Points:
-
-• Skims' revenue has grown exponentially from 2021 to 2023.
-
-
-• Its valuation has also increased significantly.
-
-
-• An IPO is speculated to be imminent.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/GkGRTnBWYAA_FH4?format=jpg&name=small)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

@@ -1,22 +1,3 @@
-### 💡 Event Recap - FIFA World Cup 2026 Promo Production
-
-This article recaps a live session detailing the production of the FIFA World Cup 2026 promo. It covers the creative decisions, technical execution, and challenges faced during the filming process.
-
-Key Points:
-
-• Gain insights into professional video production workflows.
-
-• Understand the decision-making process for complex projects.
-
-• Learn from challenges encountered during high-stakes productions.
-
-🔗 Resources:
-
-• [AI Mastery Post](https://aimastery.mytsiapps.org/posts/10376882) - Recap of FIFA World Cup 2026 promo production
-
-• [TSI Org](https://x.com/tsi_org) - Organization behind the promo event
-
----
 ### 💡 Digital Fluency - Real Classroom Implementation
 
 This article describes an interactive experience at #ISTELive26 showcasing digital fluency in a classroom setting. It highlights opportunities for engagement and collaborative learning sessions at the event.

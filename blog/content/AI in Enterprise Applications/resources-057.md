@@ -43,27 +43,6 @@ Key Points:
 
 
 ---
-### 💡 Tips - Lagos Restaurant Recommendations
-
-This article provides five restaurant recommendations in Lagos, Nigeria.  The recommendations are presented without detailed descriptions.
-
-Key Points:
-
-• Five restaurant options in Lagos.
-
-• Variety to suit different dining preferences.
-
-
-🔗 Resources:
-
-• [Rect Labs](https://x.com/rectlabs) - Source of recommendation
-• [Bimpe AI](https://x.com/BimpeAI) - Source of recommendation
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1923345982088966144/pu/img/u7KUDsRxYcY0Fsan.jpg)
-
-
-
----
 ### 🤖 AI Assistants - Howie AI for Scheduling
 
 This article showcases Howie AI's ability to reschedule meetings.  The example demonstrates its ease of use and efficiency.

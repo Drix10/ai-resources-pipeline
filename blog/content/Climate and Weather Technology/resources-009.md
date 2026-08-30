@@ -45,28 +45,6 @@ Key Points:
 
 
 ---
-### ⛈️ Severe Hailstorm - Grinnell, Iowa
-
-This article describes a severe hailstorm that impacted Grinnell, Iowa in May 2023, noting the significant size of the hailstones.
-
-Key Points:
-
-• Baseball-sized or larger hailstones reported.
-
-
-• Significant damage likely occurred.
-
-
-• Event highlights the potential for extreme weather events.
-
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1894251023453110272/pu/img/1tG6J8aNLPJ5LPsz.jpg)
-
-
----
 ### ⛈️ Severe Weather - Pacific Northwest
 
 This article summarizes a severe weather event in the Pacific Northwest, reporting tree damage and advising caution regarding weather information sources.

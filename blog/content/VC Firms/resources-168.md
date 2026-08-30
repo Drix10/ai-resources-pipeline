@@ -211,33 +211,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/amplify_video_thumb/2033603846837309446/img/sMdYL10fexCkysaW.jpg)
 
 ---
-### ✨ Gaming - GOALS Open Beta Launch
-
-This article announces the open beta launch of GOALS, a football game now available on PC, PS5, and Xbox Series X|S, emphasizing its responsive gameplay experience.
-
-Key Points:
-
-• Experience the GOALS football game in its open beta phase.
-
-• Access the game across multiple major gaming platforms.
-
-• Enjoy highly responsive and engaging gameplay mechanics.
-
-• Participate in early testing and feedback for a new sports title.
-
-
-🚀 Implementation:
-1. Access the Beta: Download GOALS on your preferred platform (PC, PS5, Xbox Series X|S).
-2. Begin Playing: Engage with the game to experience its responsive football gameplay.
-3. Provide Feedback: Contribute to the game's development by sharing your experiences.
-
-🔗 Resources:
-
-• [Banana Capital](https://x.com/BananaCap_) - Associated with the game's development or funding.
-
-• [Play GOALS](https://x.com/PlayGOALS) - Official GOALS game account.
-
----
 ### ✨ Automotive - Impressive Car Collections
 
 This article offers a reflection on visiting an impressive car collection, celebrating the appreciation for unique automotive models and the passion of collectors.

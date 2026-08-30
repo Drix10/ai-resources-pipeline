@@ -117,30 +117,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HFuCt2XWoAAfxTO?format=jpg&name=small)
 
 ---
-### 💡 Baseball - Matt Olson Pre-Game Warmup
-
-This article provides details on Matt Olson of the Atlanta Braves during his pre-game warm-up. It mentions his preparation before a game against the Cleveland Guardians.
-
-Key Points:
-
-• Matt Olson participated in batting practice.
-
-• The warm-up occurred before facing the Cleveland Guardians.
-
-• The event took place at Truist Park in Atlanta, Georgia.
-
-
-🔗 Resources:
-
-• [Getty Images](https://x.com/GettyImages) - Official Getty Images account
-
-• [Getty Sport](https://x.com/GettySport) - Official Getty Sport account
-
-• [Matt Olson Warmup Video](https://www.gettyimages.com/detail/video/matt-olson-28-of-the-atlanta-braves-warms-up-during-batting-news-footage/2042738509178638788) - Video footage of Matt Olson's batting practice
-
-• [TheOnlyCox](https://x.com/TheOnlyCox) - Mentioned user in the tweet
-
----
 ### ✨ Design and AI - Utopai Studios Designer Reveal
 
 This article discusses a moment from Utopai Studios where a designer is revealed. It highlights an unexpected interaction between the designer and a friend.

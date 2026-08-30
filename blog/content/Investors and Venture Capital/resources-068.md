@@ -115,30 +115,6 @@ Key Points:
 
 ---
 
-### ⚾ Baseball - Player Trade Rumors
-
-This article summarizes reported conversations between Rafael Devers and Red Sox management regarding a potential trade.
-
-
-Key Points:
-
-•  Devers expressed a desire to remain with the Red Sox but feels unappreciated.
-
-• He requested a trade if the team doesn't want to keep him.
-
-• The situation highlights player-management dynamics in professional sports.
-
-
-🔗 Resources:
-
-• [Kane Newman](https://x.com/kanewman) - Relevant commentator
-• [Mike Deportes](https://x.com/mikedeportes) - Relevant commentator
-
-![Image](https://pbs.twimg.com/media/GthmYFkbcAAvUt0?format=jpg&name=small)
-
-
----
-
 ### 💡 Governance - Constitutional Principles
 
 This article discusses the nature of a constitution and its reflection of societal values, citing John Adams.

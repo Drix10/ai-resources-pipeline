@@ -71,33 +71,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HILreC2aEAAYooh?format=jpg&name=small)
 
 ---
-### 💡 Social Impact - Remembering Jason Collins
-
-This article acknowledges the passing of Jason Collins, a significant figure known for his courage and authenticity. It highlights his pioneering role as the first openly gay NBA player and his contributions to the Billie Jean King Foundation.
-
-Key Points:
-
-• Jason Collins was recognized as the first openly gay NBA player.
-
-• He served as a founding advisory board member for the Billie Jean King Foundation.
-
-• Collins was influential in helping others feel seen and accepted.
-
-• His actions demonstrated courage and authenticity, impacting many lives.
-
-🔗 Resources:
-
-• [Misan Harriman Profile](https://x.com/misanharriman) - Twitter profile of user misanharriman
-
-• [Billie Jean King Profile](https://x.com/BillieJeanKing) - Twitter profile of user BillieJeanKing
-
-• [Billie Jean King Foundation](https://x.com/BJK_Foundation) - Official Twitter account for BJK Foundation
-
-• [Billie Jean King Status Update](https://x.com/BillieJeanKing/status/2054350100785135955) - Specific tweet mourning Jason Collins
-
-![Image](https://pbs.twimg.com/media/HIKEhx-WQAApXKw?format=jpg&name=small)
-
----
 ### 🤖 Battlefield Transparency - Challenges in Large Area Sensing
 
 This article examines the evolution and limitations of battlefield transparency, drawing comparisons between past and present military operations. It focuses on the persistent challenges of effective sensing across expansive geographical areas.

@@ -209,26 +209,6 @@ Key Points:
 
 ---
 
-### ✨ Sports - College Baseball Player Transfer Portal Announcement
-
-This article is an announcement by a college baseball player entering the transfer portal.
-
-Key Points:
-
-•  The player has one year of eligibility remaining.
-
-
-•  Extensive playing experience in multiple positions.
-
-
-•  Strong batting and fielding statistics are provided.
-
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1929706679760732160/img/8JHDpgSKsRSwwjw-.jpg)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

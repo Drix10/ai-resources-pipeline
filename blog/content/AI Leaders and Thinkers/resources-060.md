@@ -1,26 +1,3 @@
-### ⚖️ Law Enforcement - BYU QB Jake Retzlaff Lawsuit
-
-This article summarizes Provo Police Department's statement regarding the lawsuit against BYU quarterback Jake Retzlaff, indicating a lack of actionable leads and unsuccessful attempts to contact alleged victims.
-
-Key Points:
-
-• Provo PD found no actionable investigative leads.
-
-• Victim advocates made multiple attempts to offer services.
-
-• No response was received from potential victims.
-
-
-🔗 Resources:
-
-• [Provo PD Statement](https://x.com/clintcarlos) - Provo Police Department's statement
-
-
-![Image](https://pbs.twimg.com/media/GrhBOLIboAA-jGW?format=png&name=small)
-
-
-
----
 ### 🚀 AI Development - Codex 101
 
 This article provides a brief overview of Codex, explaining its potential to disrupt the technology industry, particularly for solo developers and small teams.  A longer explanation is promised in a future video.
@@ -116,26 +93,6 @@ Key Points:
 🔗 Resources:
 
 • [Source on the Project](https://x.com/rahulsood) - Information on the AI project
-
-
----
-### 🎬 Filmmaking - Future of Social Storytelling
-
-This article discusses the author's work on innovative social storytelling using AI-powered lip-sync technology, formatted for vertical video platforms.
-
-
-Key Points:
-
-• New IP is being developed using AI-powered lip-sync technology.
-
-• The format is optimized for vertical video platforms.
-
-• The author encourages exploring new storytelling methods.
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1925367217819987969/img/JZdzg5VOqzKMHZqm.jpg)
-
 
 
 ---

@@ -113,44 +113,6 @@ Key Points:
 ---
 
 ---
-### 🏀 Basketball Update - Game Performance
-
-Shakira Austin recorded a high-scoring half in the recent WNBA matchup. She contributed 15 points, 5 rebounds, and 2 blocks during the first half. The Fire team held a lead over the Mystics at halftime on League Pass.
-
-Key Points:
-
-• Shakira Austin scored 15 points in the first half.
-
-• She also recorded 5 rebounds and 2 blocks.
-
-• The Fire led the Mystics at halftime.
-
-
-🔗 Resources:
-• https://x.com/NBA/status/2091677369698517224 - Original post URL
-• https://x.com/NBA - NBA account link
-• https://x.com/NBA - NBA account link
-
----
-
----
-### ✨ Sports Update - Player Performance
-
-A'ja Wilson scored 13 points in the first half, shooting 6-8 from the field. She also recorded 4 rebounds and 2 steals during that period. Watch the second half of Aces vs Tempo on WNBA League Pass for more action.
-
-Key Points:
-
-• A'ja Wilson finished the first half with 13 PTS (6-8 FGM)
-• She accumulated 4 REB and 2 STL in the first half
-• The game featured Aces versus Tempo
-• Viewing is available on WNBA League Pass
-
-
-🔗 Resources:               
-• https://x.com/NBA/status/2091676602250006995 - Original post URL
-![Image](https://pbs.twimg.com/amplify_video_thumb/2091674124951150592/img/jTHuz6D2HRojyZ0X.jpg)
-
----
 ### 🤖 GitHub Integration - Agentic Experience Update
 
 This update details the release of an enhanced Slack and Teams application for GitHub. The focus is on providing a fully collaborative agentic experience within those communication channels.

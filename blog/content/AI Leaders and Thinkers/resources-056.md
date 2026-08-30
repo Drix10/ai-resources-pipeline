@@ -19,29 +19,6 @@ Key Points:
 
 
 ---
-### 💡 Film Industry - Ryan Coogler's Success
-
-This article discusses the financial success of Ryan Coogler's film "Sinners," highlighting its box office performance and impact on Coogler's career.
-
-Key Points:
-
-• "Sinners" grossed over $300 million worldwide.
-
-• It's the third highest-grossing horror film in US history.
-
-• Demonstrates Coogler's significant box-office appeal.
-
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1923936443467964416/img/iq9_5uXhQ9S80-WI.jpg)
-
-🔗 Resources:
-
-• [JasonPatel13](https://x.com/JasonPatel13) - Film industry analysis
-• [CinemaTweets1](https://x.com/CinemaTweets1) - Film news and reviews
-
-
-
----
 ### 💡 Work Ethic -  A Work Ethic Philosophy
 
 This article presents a work ethic philosophy found in an old photograph, emphasizing dedication, continuous improvement, and attention to detail.

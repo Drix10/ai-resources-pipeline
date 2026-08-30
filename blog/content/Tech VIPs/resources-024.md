@@ -135,21 +135,6 @@ Key Points:
 
 
 ---
-### 💡 Real Estate - Private Restaurants in Luxury Buildings
-
-This article notes the prevalence of private restaurants within newer luxury buildings in Manhattan.
-
-
-Key Points:
-
-• Private dining rooms are common in luxury towers.
-
-• Access is limited to residents.
-
-• Represents a unique luxury amenity.
-
-
----
 ### 🤖 AI in Business - AI Agents and SaaS Business Models
 
 This article discusses the application of AI agents in enterprise software and their impact on SaaS business models.

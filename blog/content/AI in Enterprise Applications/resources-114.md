@@ -1,28 +1,3 @@
-### 🎬 Marketing - Upcoming Campaign and Event
-
-This article briefly describes an upcoming marketing campaign shot on film and a phone-free event.  Details are forthcoming.
-
-
-Key Points:
-
-• New ad campaign shot on film, releasing next week.
-
-
-• Phone-free event planned for the end of the month; details to follow.
-
-
-🔗 Resources:
-
-• [Meadow](https://x.com/meadow_so) -  Event reservation
-
-
-![Image](https://pbs.twimg.com/media/G06wdtHaEAMCgO5?format=jpg&name=small)
-![Image](https://pbs.twimg.com/media/G06wf4laAAAqD2H?format=jpg&name=small)
-
-
-
----
-
 ### 💡 Career Advice - AI Opportunities for PhDs
 
 This article discusses high-paying AI opportunities available to PhDs beyond traditional academic roles.

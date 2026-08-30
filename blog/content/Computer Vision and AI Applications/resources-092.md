@@ -190,28 +190,6 @@ Key Points:
 
 ---
 
-### 🚀 Software - Score Vision Layer Development
-
-This article discusses the growing interest in the Score Vision Layer and its potential applications beyond football.
-
-Key Points:
-
-• The Score Vision Layer is gaining traction.
-
-
-• Teams are exploring its use in various verticals.
-
-
-• Interest extends beyond the football domain.
-
-
-🔗 Resources:
-
-• [Image](https://pbs.twimg.com/media/Gx2hGKgWoAA8Twb?format=jpg&name=small)
-
-
----
-
 ### 🚀 AI - GPT-5 Rollout Updates
 
 This article provides updates on the GPT-5 rollout, focusing on rate limits and model selection options for ChatGPT Plus users.

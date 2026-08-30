@@ -23,32 +23,6 @@ Key Points:
 
 
 ---
-### 🤖 Malaria Case in New Jersey - Public Health Concerns
-
-This article discusses the first locally acquired malaria case in New Jersey in over 30 years.  The case highlights the re-emergence of malaria transmission within the United States, focusing on the Anopheles mosquito as a vector.
-
-
-Key Points:
-
-• A locally acquired malaria case was reported in New Jersey.
-
-
-• The Anopheles mosquito, capable of transmitting malaria, is present in the tri-state area.
-
-
-• Health officials emphasize that the risk to the general public remains low.
-
-
-
-🔗 Resources:
-
-• [Mario Nawfal's Tweet](https://x.com/MarioNawfal/status/1959415359112376400) - New Jersey Malaria case
-
-![Image](https://pbs.twimg.com/media/GzENZMMXEAA2-7G?format=jpg&name=small)
-![Image](https://pbs.twimg.com/amplify_video_thumb/1938195849739165696/img/zEN_dxGgAnJUzaGu?format=jpg&name=360x360)
-
-
----
 ### 🤖 OpenAI Warning - Unauthorized Investment Vehicles
 
 This article discusses a warning issued by OpenAI regarding unauthorized attempts to gain exposure to OpenAI equity through Special Purpose Vehicles (SPVs).  The warning highlights the increasing interest from investors seeking access to AI company equity.

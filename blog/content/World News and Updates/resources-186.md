@@ -90,25 +90,6 @@ Key Points:
 
 ---
 
-### 🌍 Sports - World Cup Referee Appointment
-
-FIFA named Slovenian referee Slavko Vincic for the World Cup final between Argentina and Spain. His selection brought renewed attention to a previous arrest from which he was released without charge.
-
-Key Points:
-
-• Slavko Vincic will officiate the World Cup final.
-
-• His appointment renewed discussion about a 2020 arrest.
-
-• Vincic was released without charges after the arrest.
-
-🔗 Resources:
-![Image](https://pbs.twimg.com/media/HNcPO0MbMAAW5s0?format=jpg&name=small)
-• [AJEnglish](https://x.com/AJEnglish) - News updates
-• [AJESport](https://x.com/AJE_Sport) - Sports news
-
----
-
 ### 🌍 Politics - Senate Endorsement
 
 President Trump announced his endorsement for the late Senator Lindsey Graham's sister. She is expected to fill his Senate seat permanently.
@@ -155,23 +136,6 @@ Key Points:
 
 🔗 Resources:
 • [MiddleEastEye](https://x.com/MiddleEastEye) - News source
-
----
-
-### 🌍 Sports - NFL Recognition
-
-Former NFL player Chris Johnson, who announced his ALS diagnosis in June, will be inducted into the Tennessee Titans Ring of Honor.
-
-Key Points:
-
-• Chris Johnson, a former NFL star, has ALS.
-
-• He will join the Tennessee Titans Ring of Honor.
-
-🔗 Resources:
-• [ABC](https://x.com/ABC) - News source
-• [ABC News Article](https://t.co/odgddSdxep) - Report on Chris Johnson
-
 
 ---
 

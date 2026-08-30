@@ -113,25 +113,6 @@ Key Points:
 
 
 ---
-### 🤖 AI - Hollywood Impact
-
-This article shares the author's reaction to Cameron's statement expressing doubt about AI replacing Hollywood jobs.
-
-Key Points:
-
-• Cameron believes AI should assist workers, not replace them.
-
-
-• The author expresses relief at this perspective.
-
-
-
-🔗 Resources:
-
-• [Diesol Tweet](https://x.com/Diesol/status/1910177484894876020) -  Cameron's statement on AI in Hollywood
-
-
----
 ### 🤖 Business - OpenAI and Studio Ghibli
 
 This article discusses the financial implications of OpenAI's "Ghibli" breakthrough and questions whether compensation was provided to Studio Ghibli.

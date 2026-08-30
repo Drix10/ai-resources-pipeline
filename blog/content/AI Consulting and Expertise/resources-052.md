@@ -177,35 +177,6 @@ Key Points:
 
 
 ---
-### 🤖 Sports AI - Basketball Analysis Project
-
-This article describes a project focused on building AI for basketball analysis, outlining the planned functionalities, including player and ball tracking, team clustering, and shot distance calculation.
-
-
-Key Points:
-
-•  AI for basketball analysis is being developed.
-
-
-•  Includes player and ball tracking.
-
-
-•  Calculates shot distances and clusters players.
-
-
-
-🔗 Resources:
-
-• [GitHub Repository](https://github.com/roboflow/sports) - Project code
-
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1921926655020244992/img/ynYiRFN8r2JzDutf.jpg)
-
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1816161903229476864/pu/img/sk_uJuGuwQeb8eCq?format=jpg&name=240x240)
-
-
----
 ### 🤖 3D Object Detection - Meta's Locate 3D Model
 
 This article introduces Meta's open-source Locate 3D model, which enables robots to pinpoint objects in six degrees of freedom using lightweight RGB-D inputs.  This facilitates improved object manipulation for various robotic applications.

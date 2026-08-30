@@ -63,27 +63,6 @@ Key Points:
 • [Katrina Manson Account](https://x.com/KatrinaManson) - Author and interviewee's account
 
 ---
-### ✨ Sports Highlight - Basketball Play
-
-This article details a specific play in basketball, where Brandon Miller successfully completed a lob pass from LaMelo Ball. It describes a moment of teamwork and athletic execution on the court.
-
-Key Points:
-
-• Highlights a significant scoring play in a basketball game.
-
-• Showcases the collaborative effort between two key players.
-
-• Emphasizes the athletic skill involved in executing a lob and finish.
-
-🔗 Resources:
-
-• [AJV Account](https://x.com/ajv) - Mentioned account
-
-• [NBA Philippines Account](https://x.com/NBA_Philippines) - Sports media account
-
-• [Original Tweet](https://x.com/NBA_Philippines/status/2044238016710095330) - Thread context
-
----
 ### 💡 Social Commentary - Interpretations of Behavior
 
 This article presents a critical interpretation of an individual's actions, suggesting a specific underlying motive. It offers an analysis of observed behavior in a given context, questioning motivations.

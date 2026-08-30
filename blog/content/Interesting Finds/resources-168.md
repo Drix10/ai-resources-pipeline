@@ -1,24 +1,3 @@
-### ✨ Human Interest - Wedding Day Baseball Fans
-
-This article highlights a unique human interest story of a couple attending a professional baseball game on their wedding day. It celebrates their shared passion and unconventional approach to their special occasion.
-
-Key Points:
-
-• A couple celebrated their wedding day by attending a baseball game.
-
-• This event showcases their strong bond and shared interests.
-
-• The story highlights a unique and memorable way to commemorate a wedding.
-
-🔗 Resources:
-
-• [White Sox Photo Tweet](https://x.com/whitesox/status/2048168668761075719/photo/1) - Photo from the Chicago White Sox on the wedding day.
-
-• [Evan's Tweet](https://x.com/thevoiceofevan/status/2048242564646441340) - Original tweet recounting the couple's wedding day celebration.
-
-![Image](https://pbs.twimg.com/media/HGyOiJpXoAEpupv?format=jpg&name=small)
-
----
 ### 🤖 Digital Twin & AI - Industrial Transformation
 
 This article outlines an upcoming conference focused on digital twins, artificial intelligence, and industrial data strategies. It explores how these technologies are revolutionizing operations within the energy and industrial sectors.

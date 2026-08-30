@@ -122,31 +122,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HBGG3JyboAAGngR?format=jpg&name=small)
 
 ---
-### 💡 Intellectual Property - AI Integration Strategy in Creative Industries
-
-This article discusses a strategic approach for protecting intellectual property while exploring AI applications, specifically referencing Disney's potential model for Hollywood. It raises questions about partnership formation within the evolving AI landscape.
-
-Key Points:
-
-• Companies like Disney aim to protect IP while experimenting with AI.
-
-• This balanced approach is considered palatable for Hollywood.
-
-• Questions arise regarding which companies are securing AI development deals.
-
-• The potential for Chinese IP owners to partner with Chinese tech companies is noted.
-
-🔗 Resources:
-
-• [ABAOProductions](https://x.com/ABAOProductions) - Source of initial comment
-
-• [minhsmind](https://x.com/minhsmind) - User sharing the perspective
-
-• [Variety](https://x.com/Variety/status/2022465493958082596) - Referenced article source
-
-![Image](https://pbs.twimg.com/media/HBE9pgSbUAEE_bE?format=jpg&name=small)
-
----
 ### ✨ Digital Media - ST^TIC Friday Features Glitch Art Music Videos
 
 This article announces "ST^TIC Friday Features," highlighting AI-generated music videos with a glitch art aesthetic. It directs viewers to watch the content and includes a viewer discretion advisory due to its nature.

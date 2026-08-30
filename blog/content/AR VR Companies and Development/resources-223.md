@@ -73,21 +73,6 @@ Key Points:
 
 ---
 
-### 🏆 Legends Retold - Gamescom Award
-
-We are extremely proud to announce that #LegendsRetold has won the @gamescom Award of Best Nintendo Switch 2 Game.
-
-Key Points:
-• Legends Retold has won the @gamescom Award of Best Nintendo Switch 2 Game.
-• The game was recognized for its innovation and quality.
-• Legends Retold is a Nintendo Switch 2 game.
-
-🔗 Resources:
-• [Original post](https://x.com/RaymanGame/status/2093369306117497059) - Original source
-• Legends Retold - Game
-
----
-
 ### 🎮 Black Flag Resynced - Collector's Edition
 
 Who wants to win a Collector's Edition of Black Flag Resynced (OR EVEN TWO)? Join us NOW on twitch.tv/ubisoft for a chance to win!

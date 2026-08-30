@@ -15,25 +15,6 @@ Key Points:
 
 
 ---
-### ✨ MLB - Shohei Ohtani's Homecoming
-
-This article covers MLB star Shohei Ohtani's return to Japan for an exhibition game and a subsequent interview discussing his homecoming.
-
-Key Points:
-
-• Ohtani played in front of a Japanese home crowd for the first time since winning the World Series.
-
-• Ohtani gave a rare interview about his experience.
-
-
-🔗 Resources:
-
-• [CBS News](https://x.com/CBSEveningNews/status/1901774172188991992) - Interview with Shohei Ohtani
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1901773997282381824/img/Jaa0-D3zk405EebY.jpg)
-
-
----
 ### 🤖 Voice of America - Trump Administration Actions
 
 This article details the Trump administration's actions that effectively shut down Voice of America, a government-run news outlet.

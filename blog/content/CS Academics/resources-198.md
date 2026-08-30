@@ -1,37 +1,3 @@
-### 💡 NBA Live Broadcast - POR/SAS Game 2
-
-This article provides information regarding the live broadcast of Game 2 between the Portland Trail Blazers and San Antonio Spurs. It details the platforms available for viewers to watch the game in real-time.
-
-Key Points:
-
-• Informs viewers about a live NBA game broadcast.
-
-• Details the teams playing and the specific game number.
-
-• Provides platforms for accessing the live stream.
-
-🔗 Resources:
-
-• [How to Watch](https://t.co/PDo5wP9EiT) - Official viewing guide for the game
-
----
-### ✨ Fashion Curation - Must-Have Closet Items
-
-This article highlights a curated selection of fashion pieces intended to enhance a personal wardrobe. It draws attention to specific items considered desirable for immediate acquisition.
-
-Key Points:
-
-• Highlights a selection of 31 desirable fashion pieces.
-
-• Focuses on items for personal wardrobe enhancement.
-
-• Suggests immediacy for acquiring featured products.
-
-🔗 Resources:
-
-• [BuzzFeed Article](https://t.co/TlV1vYHh3i) - Curated list of fashion items
-
----
 ### 🤖 Multimodal AI - Gemini 3.1 Flash Live API
 
 This article introduces a new real-time multimodal AI vision agent, built leveraging the Gemini 3.1 Flash Live API. It describes the agent's advanced capabilities including vision, audio processing, speech generation, and music creation.
@@ -91,55 +57,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HGcX2kmboAAhnhj?format=png&name=small)
 
 ---
-### 💡 NBA Game Commentary - Mitchell's Excellence
-
-This article highlights commentary on Donovan Mitchell's exceptional performance in an NBA playoff game. It also reports on the Cleveland Cavaliers securing a 2-0 series lead in the first round.
-
-Key Points:
-
-• Features commentary praising Donovan Mitchell's exceptional skills.
-
-• Highlights the Cleveland Cavaliers securing a 2-0 series lead.
-
-• Showcases key moments from the NBA playoff round.
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2046437868466470912/img/Am6Oq4W_kBNZXPAa.jpg)
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2046404615126810624/img/cvojHE4Oo-kHnZa6?format=jpg&name=240x240)
-
----
-### 💡 NBA Game Update - Timberwolves vs. Nuggets Highlights
-
-This article provides a live update on Game 2 between the Minnesota Timberwolves and Denver Nuggets. It highlights key scoring plays and individual player point totals during the second quarter.
-
-Key Points:
-
-• Reports on scoring exchanges between Anthony Edwards and Jamal Murray.
-
-• Updates on individual player point totals during the game.
-
-• Indicates the current score and quarter of the game.
-
----
-### 💡 NBA Live Broadcast - MIN/DEN Game 2
-
-This article provides information regarding the live broadcast of Game 2 between the Minnesota Timberwolves and Denver Nuggets. It details the platforms available for viewers to watch the game in real-time.
-
-Key Points:
-
-• Announces the live broadcast of an NBA playoff game.
-
-• Identifies the teams playing in Game 2.
-
-• Specifies the broadcasting platforms for live viewing.
-
-🔗 Resources:
-
-• [How to Watch](https://t.co/YrcgoPY1Fw) - Official viewing guide for the game
-
----
 ### 🚀 Google AI Studio - Subscriber Feature Enhancements
 
 This article announces new premium features for Google AI Pro or Ultra subscribers within Google AI Studio, aimed at simplifying the transition from prototype to production. These include higher usage limits and access to advanced Gemini models.
@@ -164,23 +81,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HGYR-ynXEAEYTUT.jpg)
 
 ---
-### 💡 NBA Draft 2026 - Tie-Breaking Results
-
-This article reports on the official results of random drawings conducted to resolve ties among teams for the NBA Draft 2026 selection order. It confirms six ties were broken, affecting teams with identical regular-season records.
-
-Key Points:
-
-• Announces the breaking of six ties for the NBA Draft 2026 selection order.
-
-• Tie-breaking was determined through random drawings.
-
-• Specifies that results impact teams with identical regular-season records.
-
-• Provides an example result with the Utah Jazz.
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

@@ -171,26 +171,6 @@ Key Points:
 
 ---
 
-### ✨ Entertainment - "Coco" Sequel Announced by Disney and Pixar
-
-This article announces a sequel to the acclaimed animated film "Coco" by Disney and Pixar.
-
-Key Points:
-
-• "Coco" sequel is in development.
-
-• The original "Coco" was a significant box office success.
-
-• The original film won two Academy Awards.
-
-
-🔗 Resources:
-
-• [San Francisco Chronicle X Post](https://x.com/sfchronicle/status/1903991932264571354) - News report about the sequel announcement
-
-
----
-
 ### ☀️ USA - Unusually Warm Weather Forecast
 
 This article reports on a forecast predicting unusually warm weather, with temperatures 15-20 degrees above average and the possibility of record highs.

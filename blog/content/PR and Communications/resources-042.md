@@ -56,34 +56,6 @@ Key Points:
 
 
 ---
-### 🎬  Reviews - Mr. Mercedes TV Series
-
-This article reviews the Peacock TV series "Mr. Mercedes," focusing on its crime drama aspects, writing, and performances.
-
-
-Key Points:
-
-•  Praises the series' strong crime drama elements and writing.
-
-
-•  Highlights the acting of Brendan Gleeson and Harry Treadaway.
-
-
-•  Notes mixed feelings about the third season's necessity.
-
-
-![Image](https://pbs.twimg.com/media/GoDtYyTWsAA8n-n?format=jpg&name=small)
-
-🔗 Resources:
-
-• [shinobi602's Tweet](https://x.com/shinobi602/status/1909787256635654329)
-
-
-• [Image from the Tweet](https://x.com/shinobi602/status/1909787256635654329/photo/1)
-
-
-
----
 ### 📰 News - Peter Navarro and the Trump Economic Advisor Search
 
 This article discusses the selection of Peter Navarro as an economic advisor during Trump's first campaign, highlighting the unusual circumstances surrounding his appointment.

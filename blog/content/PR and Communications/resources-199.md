@@ -45,21 +45,6 @@ Key Points:
 
 ---
 
-### 🍔 Five Guys - Store Closures
-
-Five Guys closed 31 stores last year, despite growing its presence overall. The closures were likely due to various factors such as location, competition, and consumer preferences.
-
-Key Points:
-• Five Guys closed 31 stores last year.
-• The closures were likely due to factors such as location, competition, and consumer preferences.
-• Five Guys grew its presence overall despite the store closures.
-
-🔗 Resources:
-• [Original post](https://x.com/FastCompany/status/2093373837106675815) - Original source
-• [Fast Company](https://www.fastcompany.com/) - Business news website
-
----
-
 ### 🚫 Conspiracy Theories - Dolly Parton
 
 Baseless conspiracy theories about Dolly Parton's death flooded social media, with one theory blaming the Covid vaccine. This theory was promoted by Trump-aligned pundits and far-right conspiracists.

@@ -1,25 +1,3 @@
-### 🎬 Film Industry - The Unsustainable State of Indie Film
-
-This article summarizes Sean Baker's reflections on the current challenges faced by independent filmmakers, highlighting the need for systemic change within the film industry.
-
-Key Points:
-
-• Independent filmmaking is currently unsustainable.
-
-
-• Systemic changes are necessary to support indie film production.
-
-
-• Sean Baker's comments were made at the Spirit Awards.
-
-
-🔗 Resources:
-
-• [The Hollywood Reporter Article](https://hollywoodreporter.com/movies/movie-news/independent-spirit-awards-2025-sean-baker-best-director-anora-1236144122/) - Sean Baker's comments on indie film
-
-
----
-
 ### 🌎 Global Politics - Webinar on the Gaza Genocide and Erosion of Global Order
 
 This article announces an upcoming webinar discussing the Gaza genocide and its impact on the global order.  The webinar features Francesc Vendrell, UN Special Rapporteur on human rights in the Palestinian territories.

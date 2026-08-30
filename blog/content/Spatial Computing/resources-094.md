@@ -153,21 +153,6 @@ Key Points:
 
 
 ---
-### 🚀 VR Gaming - Clawball
-
-This article introduces Clawball, a free-to-play VR multiplayer soccer game with cat avatars and playful physics.
-
-Key Points:
-
-•  Free-to-play VR multiplayer soccer game.
-
-•  Features cat avatars and humorous physics.
-
-•  Suitable for both competitive and casual play.
-
-
-
----
 ### 🤖 Mathematics - Cosine of Imaginary Number
 
 This article explores the surprising result that the cosine of the imaginary number *i* is (e⁻¹ + e)/2, explaining how this arises from the definition of cosine despite the lack of a geometric interpretation with right triangles.

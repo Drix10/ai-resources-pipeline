@@ -1,22 +1,3 @@
-### 🎬 Film Review - Jurassic World: Rebirth
-
-This article provides a brief review of the film Jurassic World: Rebirth, focusing on its plot and production values.  The review highlights both positive and negative aspects of the film.
-
-Key Points:
-
-• Strong performances from the actors.
-
-• High-quality CGI, direction, and cinematography.
-
-• Weak and unoriginal storyline.
-
-
-🔗 Resources:
-
-• [Rogerstigers X Post](https://x.com/Rogerstigers/status/1941331023230534081) - Film review
-
-
----
 ### 🇺🇸 Social Commentary - Patriotism and Diversity
 
 This article presents a personal observation about the diverse representation of people at a local amusement park, all celebrating American patriotism.

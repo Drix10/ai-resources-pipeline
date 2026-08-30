@@ -171,28 +171,6 @@ Key Points:
 
 ---
 
-### 🤖 Reinforcement Learning - Minimalist Recipe for R1-Zero Training
-
-This article describes a minimalist recipe for R1-Zero training, achieving state-of-the-art results using a specific algorithm, data, template, and compute resources.
-
-
-Key Points:
-
-•  A minimalist recipe for R1-Zero training is presented.
-
-
-•  The approach uses Dr. GRPO algorithm and MATH level 3-5 questions.
-
-
-•  It achieves a 7B SOTA in the Zero-RL setting on AIME 2024.
-
-
-
-![Image](https://pbs.twimg.com/media/Gmld3nvaEAEdkwA?format=jpg&name=small)
-
-
----
-
 ### 🤖 Reinforcement Learning - GRPO Bias Analysis
 
 This article analyzes biases in the GRPO reinforcement learning algorithm, specifically length bias and difficulty bias.  The analysis identifies and explains these shortcomings.

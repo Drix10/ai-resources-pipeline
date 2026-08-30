@@ -49,57 +49,6 @@ Key Points:
 • [Reuters Article](https://reut.rs/483wuSP) - Details on Antonelli's racing performance
 
 ---
-### ✨ Sports Highlights - Kraken vs. Sabres Preview
-
-This article previews an upcoming NHL game between the Kraken and the Sabres, focusing on the performance expectations for Bobby McMann and Brandon Montour of the Kraken. It addresses their recent strong play and their goal to maintain momentum.
-
-Key Points:
-
-• Bobby McMann aims to continue his strong performance.
-
-• Brandon Montour also seeks to maintain his hot streak.
-
-• The Kraken face the Sabres in an important matchup.
-
-🔗 Resources:
-
-• [Reuters Article](https://reut.rs/4tbkx5w) - Preview of the Kraken versus Sabres game
-
----
-### ✨ Sports Highlights - Warriors Improve Play-in Standing
-
-This article reports on the Golden State Warriors' victory over the Washington Wizards, detailing how the win positively impacted their position in the league's play-in tournament standings. The outcome helps secure their path to the playoffs.
-
-Key Points:
-
-• The Warriors secured a victory against the Wizards.
-
-• This win significantly improved their play-in tournament standing.
-
-• The team is working to secure a playoff berth.
-
-🔗 Resources:
-
-• [Reuters Article](https://reut.rs/3Q67rIw) - Report on the Warriors' recent victory
-
----
-### ✨ Sports Highlights - NHL Playoff Push Dynamics
-
-This article discusses the current state of the NHL playoff races, focusing on the Montreal Canadiens (Habs) and Nashville Predators. Both teams are actively seeking to gain an advantageous position amidst the competitive playoff landscape.
-
-Key Points:
-
-• The Canadiens are actively vying for a playoff spot.
-
-• The Predators are also pushing for playoff contention.
-
-• Teams are searching for strategic advantages in the standings.
-
-🔗 Resources:
-
-• [Reuters Article](https://reut.rs/4bDjC8d) - Insights into NHL playoff races
-
----
 ### ✨ Sports Highlights - Dodgers World Series Memories
 
 This article captures the emotional experience of Los Angeles Dodgers fans and the team itself, as World Series memories were vividly rekindled during a Friday night event at Dodger Stadium. The atmosphere was filled with nostalgia and strong emotions.

@@ -1,23 +1,3 @@
-### ✨ NBA - Charlotte Hornets Trade Update
-
-This article reports on the recent trade involving the Charlotte Hornets, detailing the departure of Miles Bridges. It summarizes the team's ongoing roster adjustments within a short timeframe.
-
-Key Points:
-
-• Charlotte Hornets completed their second major trade within a week.
-
-• Veteran forward Miles Bridges was sent to Phoenix.
-
-• The trade also involved a draft pick for the acquiring team.
-
-
-🔗 Resources:
-
-• [USA TODAY Article](https://www.usatoday.com/story/sports/nba/hornets/2024/09/27/miles-bridges-phoenix-suns-trade-charlotte-hornets/75429813007/) - Details on the Miles Bridges trade
-
-• [USA TODAY Tweet](https://x.com/USATODAY/status/2071378166577242152) - Original social media announcement of the trade
-
----
 ### ✨ UK Politics - Power Shift Proposal
 
 This article discusses the prospective UK leader Andy Burnham's plan to decentralize power from London. It outlines his proposals for regional governance reform.

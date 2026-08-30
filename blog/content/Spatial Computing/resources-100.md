@@ -39,32 +39,6 @@ Key Points:
 
 ---
 
-### 💡 Movie Releases - Box Office Impact on Foot Traffic
-
-This article analyzes the impact of summer movie releases on foot traffic at movie theaters, using data from Placer.ai. It highlights the top-performing movies based on their premiere weekend performance.
-
-
-Key Points:
-
-• Data shows a significant surge in foot traffic at movie theaters during the summer movie season.
-
-
-• Placer.ai's analysis reveals the movies that had the biggest impact on this surge.
-
-
-• The analysis compares premiere weekend foot traffic to the average of a January-July 2025 weekend.
-
-
-🔗 Resources:
-
-• [Placer.ai](https://x.com/Placer_ai/status/1958650317031047432) - Foot traffic data analysis
-
-
-![Image](https://pbs.twimg.com/media/Gy6GFHuWMAAbyo5?format=jpg&name=small)
-
-
----
-
 ### 🤖 3D Modeling - Community Project File Contribution
 
 This article describes a community contribution: a project file for 3D modeling. The file facilitates loading datasets and camera images, allowing users to switch between them.

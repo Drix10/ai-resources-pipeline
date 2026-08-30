@@ -1,24 +1,3 @@
-### 🤖 Computer Vision - NBA Player Position Mapping
-
-This article describes a project to map NBA players' positions from a camera perspective onto a court map, including plans for future development to detect shooting motions.
-
-Key Points:
-
-• Real-time mapping of player positions from camera feed to court coordinates.
-
-• Future implementation of shooting motion detection and shot location marking.
-
-• Codebase partially migrated to a public repository.
-
-
-🔗 Resources:
-
-• [roboflow/sports](https://github.com/roboflow/sports) -  Partial code repository
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1927030360740593664/img/-DhqIiFoFBbfOZ87.jpg)
-
-
----
 ### 🚀 Tools - MCP Information Portal
 
 This article details a tool built to aggregate information on the MCP (presumably, a community or technology) from Reddit, where a significant portion of related discussions occurs.

@@ -196,28 +196,6 @@ Key Points:
 
 ---
 
-### 🤖 Sports Analytics - Moneyball for NBA
-
-This article discusses the potential consequences of applying Moneyball-style analytics to the NBA, including overfitting and the need for game-theoretic approaches.
-
-Key Points:
-
-• Overfitting of computer models may lead to poor player selection.
-
-
-•  Play selection and player training should account for strategic interactions.
-
-
-• Game-theoretic approaches are necessary for optimal player and play selection.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1927030360740593664/img/-DhqIiFoFBbfOZ87.jpg)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

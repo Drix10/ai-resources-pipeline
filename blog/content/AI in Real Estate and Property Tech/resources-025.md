@@ -115,20 +115,6 @@ Key Points:
 
 
 ---
-### 💡 Career Advice from Justin Pugh - Relentlessness, Networking, and Focus
-
-This article shares career advice from Justin Pugh, a former NFL offensive lineman and current investor, emphasizing the importance of relentlessness, networking, and focus.
-
-Key Points:
-
-• Relentlessness is key to career success.
-
-• Networking is crucial for career advancement.
-
-• Maintaining focus on goals is essential.
-
-
----
 ### ✨ IMERSO3D - As-Built Rating Feature
 
 This article highlights a feature from IMERSO3D that provides a clear status of on-site elements compared to BIM models, generating an As-built rating to assess model accuracy.

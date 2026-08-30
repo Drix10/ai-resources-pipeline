@@ -17,28 +17,6 @@ Key Points:
 ![Robotaxi Wait Time](https://pbs.twimg.com/media/HNDWsMTWMAEzYuu?format=jpg&name=small)
 
 ---
-### 💡 Football Rules - Outside Interference
-
-This article discusses a football (soccer) goal controversy involving potential outside interference. It outlines the perspective on how external elements can impact game play.
-
-Key Points:
-
-• A disputed equalizer goal occurred after the ball reportedly hit a FIFA aerial camera.
-
-• Zlatan Ibrahimovic commented that if a camera cable alters the ball's trajectory, it constitutes outside interference.
-
-• Interference of this nature should, according to regulations, lead to a disallowed goal.
-
-• The ball's path was reportedly changed by contact with the camera.
-
-🔗 Resources:
-![Zlatan Image 1](https://pbs.twimg.com/media/HM-9-1KXEAA5v7s?format=jpg&name=small)
-![Zlatan Image 2](https://pbs.twimg.com/media/HM-9-1LXcAAablr?format=jpg&name=small)
-![Goal Interference Image 1](https://pbs.twimg.com/media/HM--CPWWMAA-12H?format=jpg&name=small)
-![Goal Interference Image 2](https://pbs.twimg.com/media/HM--CPUW8AAY35K?format=jpg&name=360x360)
-![Goal Interference Image 3](https://pbs.twimg.com/media/HM--CPXWcAId4uD?format=jpg&name=360x360)
-
----
 ### 🤖 NVFP4 - Multilingual LLM Calibration
 
 This article introduces the release of a sample implementation for NVFP4 calibration. This calibration method focuses on improving multilingual understanding and tool utilization in language models.

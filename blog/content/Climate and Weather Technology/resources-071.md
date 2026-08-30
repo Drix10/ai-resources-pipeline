@@ -142,37 +142,6 @@ Key Points:
 
 ---
 
-### 💡 Weather Safety - Heat Safety for Umpires
-
-This article highlights heat-related concerns for baseball umpires, referencing a specific situation in Chicago and recommending hydration strategies.
-
-
-Key Points:
-
-• Heat stress concerns for umpires.
-
-• WBGT app used to monitor conditions.
-
-• Hydration and self-care recommended.
-
-
-🔗 Resources:
-
-• [jjrennie](https://x.com/jjrennie) -  Original post
-
-• [SpencerWeather](https://x.com/SpencerWeather) -  Weather information
-
-• [ZelusWBGT](https://x.com/ZelusWBGT) - WBGT app
-
-• [MLB](https://x.com/MLB) - Related organization
-
-![Image](https://pbs.twimg.com/media/Gt_mW17WkAAbah5?format=jpg&name=small)
-![Image](https://pbs.twimg.com/media/Gt_mW2AWUAA1igx?format=jpg&name=360x360)
-![Image](https://pbs.twimg.com/media/Gt_mW1_XEAAPn_O?format=jpg&name=small)
-
-
----
-
 ### 🤖 Meteorology - Severe Storm Damage
 
 This article describes extensive damage caused by a severe storm near Sheldon, North Dakota, including significant damage to a train.  A video is referenced.

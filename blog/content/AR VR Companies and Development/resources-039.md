@@ -125,32 +125,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/GnolZAUXcAAAo5Y?format=jpg&name=small)
 
 ---
-### ✨ Game Update - Just Hoops
-
-This article announces the integration of bHaptics technology into the game Just Hoops, enhancing the gaming experience.
-
-Key Points:
-
-• Enhanced interactivity in Just Hoops.
-
-
-• Haptic feedback for a more immersive experience.
-
-
-• Improved basketball shooting practice.
-
-
-🔗 Resources:
-
-• [Just Hoops Game](https://x.com/JustHoopsGame) - Basketball VR game
-
-
-• [bHaptics](https://x.com/bhaptics) - Haptic technology provider
-
-
-![Image](https://pbs.twimg.com/media/GnoEhuDWoAA5Lfj?format=jpg&name=small)
-
----
 ### ✨ Game Announcement - Wanderer: The Fragments of Fate
 
 This article announces the release of the time travel adventure game Wanderer: The Fragments of Fate on Meta Quest.

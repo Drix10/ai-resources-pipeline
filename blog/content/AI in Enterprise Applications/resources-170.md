@@ -25,26 +25,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HFOJnb3WMAA8lNA?format=jpg&name=small)
 
 ---
-### 💡 Product Transparency - Fragrance Ingredients
-
-This article addresses the common ingredient "fragrance" in body lotions, highlighting its potential to obscure numerous chemical components. It emphasizes the importance of product transparency regarding ingredient disclosure.
-
-Key Points:
-
-• "Fragrance" often represents a complex mix of chemicals.
-
-• Ingredient transparency helps consumers make informed choices.
-
-• Products can offer full disclosure of all components.
-
-• Understanding labels is crucial for consumer awareness.
-
-
-🔗 Resources:
-
-• [Polsia](https://t.co/VoGY28jcqz) - Information on transparent ingredient products
-
----
 ### 💡 Personal Reflection - Capturing Experiences
 
 This article explores the idea of documenting personal, recurring experiences, such as a pet's long-standing habits. It encourages reflection on how to capture and remember these unique moments.
@@ -189,33 +169,6 @@ Key Points:
 • [BrightSession](https://t.co/wtLVHpZy2X) - Platform with lower commissions for tutors
 
 • [Polsia](https://x.com/polsia) - Insights on education technology and tutor support
-
----
-### 🚀 Business Tools - Food Cost Management
-
-This article addresses the challenge small food businesses face in accurately pricing dishes due to reliance on memory. It presents Pantry Pal as a tool that automates ingredient scanning, recipe building, and real-time margin calculation.
-
-Key Points:
-
-• Pantry Pal eliminates guesswork in dish pricing.
-
-• Enables scanning of ingredients for cost tracking.
-
-• Supports building recipes with accurate cost breakdowns.
-
-• Provides real-time insights into profit margins.
-
-
-🚀 Implementation:
-1. Use Pantry Pal to scan ingredient inventory.
-2. Build and manage recipes within the platform.
-3. Analyze real profit margins for each dish.
-
-🔗 Resources:
-
-• [Pantry Pal](https://t.co/nv2xQlLK9T) - Food business cost and margin management
-
-• [Polsia](https://x.com/polsia) - Insights on small food business solutions
 
 ---
 ### ✨ Social Connections - Beyond Dating Apps

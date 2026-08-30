@@ -121,31 +121,6 @@ Key Points:
 
 ---
 
-### ⚽ Sports -  Over 40 Football Team
-
-This article discusses a recreational football team, highlighting the longevity of players' involvement and team camaraderie.
-
-
-Key Points:
-
-• A long-standing over-40 football team.
-
-
-• Team members have a history of playing together.
-
-
-• Participation emphasizes competition and camaraderie.
-
-
-🔗 Resources:
-
-• [David Mullings' Tweet](https://x.com/davidmullings/status/1957237314389950796) -  Team photo
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1957237256852271104/img/2cwD6ZE7zd41YX-7.jpg)
-
-
----
-
 ### 💔 Geopolitics - Gaza Conflict
 
 This article presents a controversial quote attributed to a former Israeli intelligence chief regarding the death toll in Gaza.

@@ -1,26 +1,3 @@
-### 🎬 Filmmaking -  Charlie Chaplin's Stunt in Modern Times
-
-This article examines a scene from Charlie Chaplin's *Modern Times* and reveals the innovative, yet deceptively simple, filmmaking techniques used to create a seemingly dangerous stunt.
-
-Key Points:
-
-• The scene depicts Chaplin roller-skating blindfolded near a ledge.
-
-• The illusion of danger was achieved without CGI.
-
-•  The use of glass and paint created a convincing visual effect.
-
-
-🔗 Resources:
-
-• [Tweet by @tdohrmann](https://x.com/tdohrmann) - Contextual information
-
-• [Tweet by @MarioNawfal](https://x.com/MarioNawfal) - Further details
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1942921228345384960/img/GyJbnW9vvLRS2G5V.jpg)
-
-
----
 ### 🔬 Animal Behavior - Ant Self-Awareness
 
 This article discusses a research study suggesting self-awareness in ants.  The study involved marking ants and observing their reactions to their reflections.

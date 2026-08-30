@@ -90,23 +90,6 @@ Key Points:
 
 
 ---
-### 🚀 Sports Predictions - West Ham vs. Leicester City
-
-This article presents predictions for a football match between West Ham and Leicester City, using the PredX platform.
-
-Key Points:
-
-• Match prediction for West Ham vs Leicester City.
-
-• Prediction platform: PredX.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/GkzzQnTaoAQKuKz?format=jpg&name=small)
-
-
----
 ### 🤖 AI Development - Libertai Knowledge Base
 
 This article highlights the importance of data quality in AI and introduces a platform for building private knowledge bases.

@@ -108,29 +108,6 @@ Key Points:
 
 ---
 
-### 🤖 Animal Behavior - Vegetarian Orcas and Mischievous Curiosity
-
-This article briefly mentions a report on the dietary habits of snow leopards and orcas, noting a surprising similarity in their behavior.  The report suggests a natural curiosity and mischievousness in orcas.
-
-Key Points:
-
-•  Unexpected dietary observations in snow leopards.
-
-
-•  Reports of similar behavior in orcas.
-
-
-•  The interest in further research to confirm observations.
-
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/GyCX_k7bwAAKzet?format=jpg&name=small)
-
-
----
-
 ### 💡 Quantitative Finance - Myths and Realities of Quant Firms
 
 This article discusses misconceptions surrounding the activities of quantitative finance firms, contrasting common assumptions with a more realistic perspective. The author suggests a more likely involvement in tech company R&D.

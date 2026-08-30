@@ -15,23 +15,6 @@ Key Points:
 
 ---
 
-### 🚀 Visualization - Backrooms Wiki Surfer
-
-This tool converts the Backrooms wiki into an interactive neon graph, enabling users to explore its content visually. It offers an alternative navigation method by mapping connections between entries.
-
-Key Points:
-
-• The Backrooms Surfer transforms the Backrooms wiki into a navigable graph interface.
-
-• Users can roam, filter, and zoom through different wiki entries.
-
-• This approach provides a non-linear way to explore the wiki's content and relationships.
-
-🔗 Resources:
-• [Backrooms Surfer](https://neonbackroomssurfer.netlify.app) - Interactive graph visualization of the Backrooms wiki
-
----
-
 ### 🤖 AI - DeepSeek-V4-Flash API Public Beta
 
 The DeepSeek-V4-Flash official API is now available in public beta. This release includes enhancements to its Agent capabilities, showing improved performance over the V4-Pro-Preview in benchmarks.

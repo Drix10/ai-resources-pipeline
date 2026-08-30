@@ -83,22 +83,6 @@ Key Points:
 
 
 ---
-### 🎭 Celebrity News - Zuckerberg's Birthday Surprise
-
-This article covers Mark Zuckerberg surprising his wife with a jumpsuit similar to one worn by Benson Boone at the Grammys.
-
-Key Points:
-
-• Mark Zuckerberg surprised Priscilla Chan for her 40th birthday.
-
-
-• He wore a jumpsuit similar to Benson Boone's Grammy outfit.
-
-
-• Benson Boone commented on the situation on Instagram.
-
-
----
 ### 🏥 Healthcare - Uttarakhand Avalanche Victims
 
 This article summarizes the statement from Meenu Singh, Director of AIIMS Rishikesh, regarding avalanche victims.

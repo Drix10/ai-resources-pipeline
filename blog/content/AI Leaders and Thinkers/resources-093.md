@@ -173,36 +173,6 @@ Key Points:
 
 ---
 
-### ✨ Film Review - 'WEAPONS' Box Office Success
-
-This article summarizes the critical and commercial success of the film "WEAPONS," highlighting its high ratings and box office performance.
-
-Key Points:
-
-• Received high ratings from CinemaScore and Rotten Tomatoes.
-
-
-• Achieved #1 position at the worldwide box office.
-
-
-•  Estimated to have a strong opening weekend.
-
-
-
-🔗 Resources:
-
-
-• [DiscussingFilm](https://x.com/DiscussingFilm) - Film review and analysis.
-
-
-• [Article](http://bit.ly/WeaponsDF) - Film review.
-
-
-![Image](https://pbs.twimg.com/media/Gx69vBvXsAAb31d?format=jpg&name=small)
-
-
----
-
 ### 💡 Database Configuration - System Design Trade-offs
 
 This article emphasizes the importance of understanding database configuration within the context of distributed systems, highlighting the critical trade-offs involved.

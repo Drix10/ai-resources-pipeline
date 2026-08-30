@@ -134,34 +134,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HOXeH-3XwAIWyBY?format=jpg&name=small)
 
 ---
-### ✨ Entertainment - Hollywood Walk of Fame Class
-
-This article announces the Hollywood Walk of Fame Class of 2027 inductees. It specifically congratulates Karol G, Lil Wayne, and Waylon Jennings for their recognition.
-
-Key Points:
-
-• Karol G, Lil Wayne, and Waylon Jennings are new inductees.
-
-• They will receive stars in the Hollywood Walk of Fame Class of 2027.
-
-🔗 Resources:
-
-• [Read more](https://t.co/ydpVNNhpmR) - Full details on the inductees
-
----
-### ✨ Sports - Basketball Highlight Clip
-
-This article features a basketball highlight clip showcasing an impressive combo move by AG (Aaron Gordon) from a previous November game.
-
-Key Points:
-
-• The content highlights a combo move by AG (Aaron Gordon).
-
-• The play occurred in November.
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

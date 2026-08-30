@@ -126,46 +126,6 @@ Key Points:
 
 
 ---
-### ✨ Chainsaw Man Movie Review - Part 1
-
-This article is a review of the Chainsaw Man movie, focusing on the author's personal experience and initial impressions.
-
-Key Points:
-
-• The author enjoyed the movie.
-
-• The author and others in attendance dressed up for the viewing.
-
-• The film is described as having a balance of buildup, betrayal, and action.
-
-
-🔗 Resources:
-
-• [ktosopl's X Profile](https://x.com/ktosopl) - Author's review
-
-![Image](https://pbs.twimg.com/media/G1XvXpwbUAA5ha8?format=jpg&name=small)
-
----
-### ✨ Chainsaw Man Movie Review - Part 2
-
-This article concludes a review of the Chainsaw Man movie, focusing on specific scenes and characters.
-
-Key Points:
-
-• The bomb demon scenes and sound effects were highlighted.
-
-• Other cast members received praise for their performances.
-
-• The character Beam was considered annoying but his shark scenes were enjoyable.
-
-
-🔗 Resources:
-
-• [ktosopl's X Profile](https://x.com/ktosopl) - Author's review
-
-![Image](https://pbs.twimg.com/media/G1XvYZeacAA-1O7?format=jpg&name=small)
-
----
 ### 💡 Personal Decisions - Marriage and Career
 
 This article discusses the author's reluctance to marry due to family pressure and a desire to establish financial independence first.

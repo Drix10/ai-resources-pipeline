@@ -122,28 +122,6 @@ Key Points:
 
 ---
 
-### ⚾️ Sports - San Francisco Giants
-
-This article discusses the San Francisco Giants' history of unsuccessful young player promotions.  A link to an article is included.
-
-Key Points:
-
-• The Giants have a history of young players failing to meet expectations.
-
-• The article explores why Tyler Fitzgerald might break this trend.
-
-
-🔗 Resources:
-
-• [San Francisco Chronicle](https://x.com/sfchronicle) - Newspaper
-
-• [Susan Slusser](https://x.com/susanslusser) - Sports journalist
-
-• [Article](https://sfchronicle.com/sports/giants/article/tyler-fitzgerald-snap-giants-streak-20210428.php?utm_campaign=CMS%20Sharing%20Tools%20(Premium)&utm_source=t.co&utm_medium=referral) - Analysis of Tyler Fitzgerald
-
-
----
-
 ### 🇺🇸 Economics - Trump's Industrial Policy
 
 This article discusses Donald Trump's push for industrial firms to return production to the US and the impact of tariffs on investment. A video is included.
@@ -180,24 +158,6 @@ Key Points:
 • [People's Daily, China](https://x.com/PDChina) - Chinese newspaper
 
 ![Image](https://pbs.twimg.com/media/GltL2m7WsAAF_So?format=jpg&name=small)
-
-
----
-
-### 🏀 Sports - Golden State Warriors Injuries
-
-This article reports on injuries to Golden State Warriors players Jonathan Kuminga and Brandin Podziemski.
-
-Key Points:
-
-• Jonathan Kuminga will miss his 31st consecutive game.
-
-• Brandin Podziemski is out with a back strain.
-
-
-🔗 Resources:
-
-• [San Francisco Chronicle](https://x.com/sfchronicle) - Newspaper
 
 
 ---

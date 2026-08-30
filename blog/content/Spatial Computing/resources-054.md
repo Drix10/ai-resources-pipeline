@@ -46,32 +46,6 @@ Key Points:
 
 ---
 
-### 💡 Tips - Retail and Dining Industry News
-
-This article summarizes recent news in the retail and dining industries, focusing on key acquisitions and new store openings.
-
-Key Points:
-
-• Dick's Sporting Goods acquires Foot Locker.
-
-• Nintendo opens a new flagship store.
-
-
-🔗 Resources:
-
-• [Dick's Sporting Goods](https://x.com/DICKS) - Retailer
-
-• [Foot Locker](https://x.com/footlocker) - Retailer
-
-• [Nike](https://x.com/Nike) - Apparel brand
-
-• [Adidas](https://x.com/adidas) - Apparel brand
-
-• [Nintendo America](https://x.com/NintendoAmerica) - Video game company
-
-
----
-
 ### ✨ Features - MapTiler Award
 
 This article announces MapTiler's win of the Map of the Year 2024 award from the Czech Cartographic Society.

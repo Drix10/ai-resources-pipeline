@@ -174,29 +174,6 @@ Key Points:
 
 ---
 
-### 🤖 Robotics - Recent Advances in Robotics Technology
-
-This article summarizes recent news and developments in robotics, including applications in soccer, medicine, and other fields.
-
-
-Key Points:
-
-•  Advances in humanoid robotics and applications.
-
-•  Microrobotics for medical treatments.
-
-•  Improved efficiency in survey bot technology.
-
-
-🔗 Resources:
-
-• [TheRundownAI's Twitter Thread](https://x.com/TheRundownAI/status/1939700520467185800) - Recent advancements in robotics
-
-![Image](https://pbs.twimg.com/media/GuszV6NWQAABLFG?format=jpg&name=small)
-
-
----
-
 ### 💡 AI Adoption - Maturity Gap in Generative AI
 
 This article discusses the observed maturity gap in AI adoption, with some companies deploying AI agents while others are still unfamiliar with basic concepts like LLMs.

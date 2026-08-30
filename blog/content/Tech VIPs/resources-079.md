@@ -54,33 +54,6 @@ Key Points:
 
 ---
 
-### ✨ Georgetown Basketball - NBA Draft Success
-
-This article highlights the recent success of Georgetown basketball under Coach Ed Cooley, noting a significant improvement in NBA draft representation compared to the previous era.
-
-Key Points:
-
-• Two Georgetown players were drafted in the NBA Draft.
-
-
-• This marks a significant turnaround from the previous coach's tenure.
-
-
-•  A new era of success has begun for Georgetown basketball.
-
-
-![Image](https://pbs.twimg.com/media/GudtEKDXUAAJThb?format=jpg&name=small)
-
-🔗 Resources:
-
-• [Chris Kelly](https://x.com/thatchriskelly) - Commentator
-
-
-• [CBKReport](https://x.com/CBKReport) - Source
-
-
----
-
 ### 🚀 1Password - Wayland Compatibility
 
 This article announces the release of a Wayland-compatible 1Password build on the Arch Linux AUR, resolving copy-paste issues for Wayland Linux users.

@@ -176,28 +176,6 @@ Key Points:
 
 ---
 
-### 🤖 FIFA World Cup 2026 - Immigration Policies
-
-This article summarizes comments by Vice President JD Vance on immigration policies in relation to the 2026 FIFA World Cup in the USA.
-
-Key Points:
-
-•  Vice President Vance stated that visitors are welcome for the World Cup.
-
-
-•  He added that visitors must depart after the event.
-
-
-•  He referenced the involvement of Secretary Noem in enforcing departure.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1920071896135069696/img/NEKQs5m-D4Vtj5ZQ.jpg)
-
-
----
-
 ### 🤖 UK Politics - PMQs Debate
 
 This article summarizes a portion of Prime Minister's Questions (PMQs) in the UK Parliament.

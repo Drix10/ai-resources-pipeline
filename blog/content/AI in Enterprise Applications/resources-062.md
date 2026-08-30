@@ -41,31 +41,6 @@ Key Points:
 
 
 ---
-### 🚀 Data Collaboration - LA28 Olympic Games Partnership
-
-This article announces a partnership between Snowflake, LA28 Olympics, and Team USA, utilizing AI-powered data collaboration for athletes and fans during the games.
-
-Key Points:
-
-• AI-powered data collaboration will enhance the LA28 Olympic experience.
-
-• Snowflake is the official data collaboration provider.
-
-•  The partnership aims to improve data accessibility for athletes and fans.
-
-
-🔗 Resources:
-
-• [Snowflake](https://x.com/Snowflake) - Data cloud company
-
-• [LA28](https://x.com/LA28) - Los Angeles 2028 Olympic and Paralympic Games
-
-• [Team USA](https://x.com/TeamUSA) - United States Olympic & Paralympic Committee
-
-![Image](https://pbs.twimg.com/media/Gr9ShwJWgAAOm_G?format=png&name=small)
-
-
----
 ### ✨ Data Governance - Collibra Product Premiere
 
 This article announces the Collibra Product Premiere, a virtual event showcasing the latest innovations in the Collibra Platform for data governance.

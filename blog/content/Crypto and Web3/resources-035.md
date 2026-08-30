@@ -86,47 +86,6 @@ Key Points:
 
 ---
 
-### 🚀 Web3 & Rewards -  Chess Not Checkers: PSA Card Promotion
-
-This article outlines a step-by-step process for receiving rewards by subscribing to a pop culture and TCG issue, redeeming credits, and participating in a VeeFriends show.
-
-Key Points:
-
-•  Receive $60 credit on Fanatics Live.
-
-
-•  Redeem credit on upcoming VeeFriends show.
-
-
-•  Receive May issue of PSA magazine.
-
-
-
-🚀 Implementation:
-
-1. Subscribe to @PSAcard Pop Culture & TCG Issue by March 31st.
-2. Receive $60 credit on Fanatics Live within 24 hours.
-3. Redeem on your Fanatics Live account.
-4. Use credit on the upcoming @veefriends show.
-5. Receive the May issue of PSA magazine.
-
-
-🔗 Resources:
-
-• [PSAcard](https://x.com/PSAcard) - Pop Culture & TCG
-
-
-• [veefriends](https://x.com/veefriends) -  NFT Project
-
-
-![Image](https://pbs.twimg.com/media/Gm2OrMBXsAAGz71?format=jpg&name=900x900)
-![Image](https://pbs.twimg.com/media/Gm2OrL3XcAAXAaH?format=jpg&name=900x900)
-![Image](https://pbs.twimg.com/media/Gm2OrMfbwAAFbHa?format=jpg&name=900x900)
-![Image](https://pbs.twimg.com/media/Gm2OrL1W8AApg-0?format=jpg&name=360x360)
-
-
----
-
 ### 💡 Reading & Intellectualism -  The Value of Deep Reading
 
 This article argues that the depth of reading is more important than the quantity, suggesting that superficial reading does not indicate erudition or intellect.

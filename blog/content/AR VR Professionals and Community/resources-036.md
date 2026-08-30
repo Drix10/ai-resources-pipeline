@@ -1,25 +1,3 @@
-### 🏆 IBJJF Boston Open 2018 - Winning Match Account
-
-This article recounts a Brazilian Jiu-Jitsu match at the 2018 IBJJF Boston Open, focusing on the author's victory and the opponent's unsportsmanlike conduct during the final seconds.
-
-Key Points:
-
-• Victory at the IBJJF Boston Open 2018.
-
-
-• Opponent resorted to illegal tactics in the final seconds.
-
-
-•  Reflects on the experience and maintains a humble perspective.
-
-
-🔗 Resources:
-
-• [DscrufflesVR](https://x.com/DscrufflesVR) -  Brazilian Jiu-Jitsu competitor
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1904747252884660224/img/p9Lsblv3ksEswSkC.jpg)
-
----
 ### ✨ Generative AI - Design Perspective
 
 This article offers a designer's perspective on generative AI, emphasizing its inspirational potential and focusing on the post-generation creative process.

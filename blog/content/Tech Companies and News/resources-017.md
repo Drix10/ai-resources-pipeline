@@ -1,28 +1,3 @@
-### 🎬  Film - Documentary about Orin O'Brien
-
-This article discusses the Oscar-winning documentary "The Only Girl in the Orchestra," which chronicles the life of double bassist Orin O'Brien and her groundbreaking career with the New York Philharmonic.
-
-Key Points:
-
-•  Highlights the challenges faced by women in classical music in the 1960s.
-
-•  Showcases O'Brien's perseverance and talent.
-
-•  Provides a glimpse into the history of the New York Philharmonic.
-
-
-🔗 Resources:
-
-• [Netflix](https://x.com/netflix) - Streaming service featuring the documentary
-
-• [Netflix Tudum](https://x.com/NetflixTudum) - Official Netflix news and updates
-
-
-![Image](https://pbs.twimg.com/media/GlFQbWvXsAAJdU4?format=jpg&name=small)
-
-![Image](https://pbs.twimg.com/media/GlFQh0zWMAA2ssd?format=jpg&name=small)
-
----
 ### 🤖  Railways - 5G-Based FRMCS Testing
 
 This article covers the MORANE-2 project, which is testing 5G-based FRMCS (Future Railway Mobile Communication System) to improve railway safety and efficiency.

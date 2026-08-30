@@ -178,23 +178,6 @@ Key Points:
 
 ---
 
-### 💡  Historical Note - Arthur Rimbaud's Career Change
-
-This article notes the abrupt career change of poet Arthur Rimbaud from acclaimed poet to arms, ivory, and coffee bean trader in Ethiopia at age 19.
-
-
-Key Points:
-
-
-• Rimbaud's early success as a poet.
-
-
-• His unexpected transition to a different career path.
-
-
-
----
-
 ### 🚀 Livestream Event - Solana Hackathon and OSCAFest
 
 This article announces a 6-hour livestream event focusing on the Solana Students Africa Hackathon and preparations for an OSCAFest 2025 talk.

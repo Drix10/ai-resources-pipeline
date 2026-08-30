@@ -112,32 +112,6 @@ Key Points:
 
 ---
 
-### ✨ Silent Fang - Digital Art Series
-
-This article showcases a digital art series titled "Silent Fang," depicting characters described as living epics, warriors with blades and scars, and wearing heirlooms.
-
-Key Points:
-
-• Digital art series depicting epic warriors.
-
-• Characters described as living epics, armored in gods.
-
-• Detailed imagery focusing on blades, scars, and heirlooms.
-
-
-🔗 Resources:
-
-• [LudovicCreator](https://x.com/LudovicCreator) - Digital artist
-
-![Image](https://pbs.twimg.com/media/GvcRsQRXkAAaB3B?format=jpg&name=small)
-![Image](https://pbs.twimg.com/media/GvcRsddWsAAVAWk?format=jpg&name=small)
-![Image](https://pbs.twimg.com/media/GvcRssnXkAEClL_?format=jpg&name=small)
-![Image](https://pbs.twimg.com/media/GvcRs6hXIAAIIwR?format=jpg&name=small)
-
-
-
----
-
 ### 💡 Physical Magazines - Explorers of AI Edition
 
 This article expresses appreciation for a physical magazine from Explorers of AI, highlighting the aesthetic appeal and the experience of reading a print edition.

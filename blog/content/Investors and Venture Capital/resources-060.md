@@ -19,29 +19,6 @@ Key Points:
 
 
 ---
-### 🎭 Humor - Soviet Jokes Adapted for the UK
-
-This article presents a Soviet-era joke, adapted for the current situation in the UK. The joke highlights a judge's amusement at a funny situation.
-
-Key Points:
-
-• A short joke is provided for entertainment.
-
-
-• The joke's context is related to current events in the UK.
-
-
-
-🔗 Resources:
-
-• [JTLonsdale](https://x.com/JTLonsdale) - Humor
-
-
-• [VerminusM](https://x.com/VerminusM) -  Political commentary
-
-
-
----
 ### 💡 Technology - Misconceptions of Existing Privacy Features
 
 This article discusses the misconception that many people have about how privacy-enhancing technology works. It encourages users to learn how existing systems function and to share ideas for improvements.

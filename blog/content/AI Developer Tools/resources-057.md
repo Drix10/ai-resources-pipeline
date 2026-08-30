@@ -1,34 +1,3 @@
-### 🎬 Python - Documentary Premiere
-
-This article announces the premiere of a documentary about Python's history and its impact on data science and machine learning.  It also notes the appearance of Anaconda's Wang in the film.
-
-Key Points:
-
-• Documentary chronicles Python's evolution.
-
-
-• Covers Python's role in data science and ML.
-
-
-• Features Anaconda's @pwang.
-
-
-🔗 Resources:
-
-• [Anaconda](https://x.com/anacondainc) -  Python distribution company
-
-
-• [PyCon2025](https://x.com/hashtag/PyCon2025?src=hashtag_click) - Python conference
-
-
-• [CultRepo](https://x.com/CultRepo) - Documentary creators
-
-
-• [Documentary Trailer](https://t.co/OYuAkcSGXz) - Watch the trailer
-
-
-
----
 ### 🚀 Data Pipelines - Mage AI and InfluxDB
 
 This article briefly describes the use of Mage, an open-source data pipeline tool, for building materialized views of time-series data within InfluxDB.

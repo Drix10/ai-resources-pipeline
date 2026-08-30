@@ -213,35 +213,6 @@ Key Points:
 
 ---
 
-### 🚀 Fantasy Sports - Pigskin.fun
-
-This article introduces Pigskin.fun, a crypto-based fantasy football game, and highlights its potential for growth.
-
-Key Points:
-
-• Pigskin.fun is a fantasy football game built on crypto.
-
-
-• It has a small following but significant backing.
-
-
-•  The article provides information on how to participate.
-
-
-
-🔗 Resources:
-
-• [footballdotfun](https://x.com/footballdotfun) - Related project
-
-
-• [pigskindotfun](https://x.com/pigskindotfun) - Fantasy football game
-
-
-![Image](https://pbs.twimg.com/media/GzkF6QnXIAAS9UA?format=jpg&name=small)
-
-
----
-
 ### 💡 Teamwork - Diversity in Difficult Tasks
 
 This article discusses how the difficulty of a task can minimize biases related to race, sex, and other factors in team selection.  When a task is challenging, the focus shifts to finding competent individuals regardless of background.

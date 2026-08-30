@@ -199,28 +199,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HL1hnM4XcAALn6p?format=jpg&name=small)
 
 ---
-### 💡 Event Forecast - Soccer Match Weather
-
-This article provides a weather forecast for the upcoming Portugal vs. Colombia soccer match at Miami Stadium. It predicts mostly dry but very humid conditions with a low chance of stray showers.
-
-Key Points:
-
-• Weather forecast for Portugal vs. Colombia match.
-
-• Expected conditions include minimal rain and high humidity.
-
-• Game to be played at Miami Stadium tonight.
-
-
-🔗 Resources:
-
-• [Brandon Orr WPLG](https://x.com/BrandonOrrWPLG) - Local meteorologist providing weather updates
-
-![Image](https://pbs.twimg.com/media/HL1hJTwXYAAFIco?format=jpg&name=small)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

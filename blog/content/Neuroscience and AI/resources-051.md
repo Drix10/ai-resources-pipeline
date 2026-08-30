@@ -87,25 +87,6 @@ Key Points:
 
 ---
 
-### 💡 Film Review - Minari
-
-This article provides a brief review of the 2020 film Minari.
-
-Key Points:
-
-•  A positive review of the film, described as a masterpiece.
-
-•  Highlights the acting and universal themes of human resilience.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/Gq4VOfibAAIkuMI?format=jpg&name=small)
-
-
-
----
-
 ### 💡  Business Strategy - Identifying Low-Hanging Fruit
 
 This article discusses a business strategy focusing on identifying and exploiting easily achievable improvements within an organization.

@@ -159,31 +159,6 @@ Key Points:
 
 
 ---
-### 🚀 Sports Betting - AI-Powered Home Run Projections
-
-This article showcases the use of PineSports_AI to generate home run projections for baseball games. A discount code is also provided.
-
-
-Key Points:
-
-•  Provides top home run projections using AI.
-
-
-•  Leverages recent EV logs and matchups for analysis.
-
-
-•  Offers a discount code for accessing the tool.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1919880087287025664/img/IZUnjAXEVFY7MtHZ.jpg)
-![Image](https://pbs.twimg.com/media/GqTIxHTXQAA9m0e?format=jpg&name=small)
-
-• [PineSports_AI](https://x.com/PineSports_AI) - AI-powered sports betting tool
-
-
----
 ### ✨ AI Avatars - HeyGen Avatar IV
 
 This article announces the release of HeyGen Avatar IV, an advanced AI avatar model capable of interpreting vocal tone and rhythm.

@@ -97,59 +97,6 @@ Key Points:
 • [BuzzFeed Article](https://t.co/QCWB3SLiJK) - Essential gardening tools list
 
 ---
-### 💡 Sports Broadcasting - NBA Game Access
-
-This article provides information on how to access and watch NBA games, guiding users to official platforms and methods for live broadcast viewing.
-
-Key Points:
-
-• Provides direct guidance on accessing NBA game broadcasts.
-
-• Lists methods for watching live National Basketball Association events.
-
-• Ensures users can find scheduled games and related content.
-
-• Facilitates engagement with professional basketball viewing options.
-
-🔗 Resources:
-
-• [NBA How-to-Watch](https://t.co/WC3652pRP8) - Guide for accessing NBA games
-
----
-### ✨ Basketball Highlights - Maxey's Buzzer Beater
-
-This article reports on a notable event in a basketball game where Maxey executed a full-court shot immediately after the game buzzer sounded. The shot, while remarkable, was not counted towards the final score.
-
-Key Points:
-
-• Describes a full-court shot made by Maxey after the game buzzer.
-
-• Clarifies that the impressive shot did not count in the game.
-
-• Highlights the exceptional skill and range demonstrated.
-
-• Captures a memorable, though unofficial, moment in basketball.
-
----
-### ✨ Sports Culture - Kevin Durant and WNBA Season 30
-
-This article highlights Kevin Durant showcasing the Season 30 Logo, signifying support for the Women's National Basketball Association.
-
-Key Points:
-
-• Features Kevin Durant supporting the WNBA.
-
-• Highlights the official Season 30 logo.
-
-• Connects NBA prominence with WNBA recognition.
-
-• Promotes awareness of WNBA's milestone season.
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2042760167788335104/img/IvAw_YASJ3fxXLUs.jpg)
-
----
 ### ✨ Music Release - Holly Humberstone's Second Album
 
 This article announces the release of Holly Humberstone's second album, coinciding with her upcoming performance at the Coachella music festival.
@@ -171,27 +118,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HFjXHfcWsAAzeOJ?format=jpg&name=small)
 
 ---
-### 💡 Basketball Strategy - Full-Court Press Analysis
-
-This article presents an in-depth discussion on the resurgence and tactical advantages of the full-court press in basketball, featuring insights from NBA All-Star Chet Holmgren.
-
-Key Points:
-
-• Explores the strategic depth of the full-court press in basketball.
-
-• Provides expert analysis from NBA All-Star Chet Holmgren.
-
-• Discusses how defensive disruption can create game advantages.
-
-• Offers detailed perspectives on basketball tactics.
-
-🔗 Resources:
-
-• [NBA YouTube](https://youtu.be/59hzUXwM97w) - Chet Holmgren on full-court press
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

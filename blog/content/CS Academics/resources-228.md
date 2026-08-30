@@ -55,23 +55,6 @@ Key Points:
 • [Original Tweet](https://x.com/BuzzFeed/status/2062098715872014795) - Source of the content
 
 ---
-### ✨ Sports Insights - Player Relationships
-
-This article details Josh Hart's candid initial impressions of Jalen Brunson and Mikal Bridges during their collegiate careers at Villanova. It provides a look into the early dynamics between future NBA players.
-
-Key Points:
-
-• Josh Hart initially disliked Jalen Brunson as a "5-star recruit."
-
-• He held similar first impressions of Mikal Bridges.
-
-• These comments reveal insights into player relationships at Villanova.
-
-🔗 Resources:
-
-• [Original Tweet](https://x.com/NBA/status/2061896458534531237) - Josh Hart's comments on Brunson and Bridges
-
----
 ### 🤖 Microservices - Zero Trust Communication
 
 This article explains Plaid's approach to implementing secure service-to-service communication across a large microservices architecture. It details the development of Plaid STS, developer guardrails, and a transition to Zero Trust gRPC traffic.

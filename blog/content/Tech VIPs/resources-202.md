@@ -80,24 +80,6 @@ Key Points:
 • [David Sacks](https://x.com/DavidSacks) - Twitter profile of David Sacks
 
 ---
-### 💡 Basketball Analysis - Knicks First Half Performance
-
-This article presents a statistical insight into the New York Knicks' first-half performance, highlighting the impact of their three-point shooting on their overall score against the Philadelphia 76ers.
-
-Key Points:
-
-• Knicks' three-point scoring significantly impacts their lead.
-
-• Their overall lead surpasses their three-point contribution.
-
-• This illustrates a dominant offensive performance beyond just perimeter shooting.
-
-
-🔗 Resources:
-
-• [Tom Mendoza Talks](https://x.com/TomMendozaTalks) - Twitter profile of Tom Mendoza Talks
-
----
 ### 🤖 Cyberpunk Literature - "The Gibson Architecture" from Neuromancer
 
 This article explores "The Gibson Architecture," a conceptual framework derived from William Gibson's seminal cyberpunk novel, Neuromancer, and its thematic significance. It acknowledges the impactful cultural resonance of the literary reference.

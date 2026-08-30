@@ -166,30 +166,6 @@ Key Points:
 • [Original Tweet](https://x.com/trq212/status/2072814903170408784) - View the original Fable subscription update.
 
 ---
-### ✨ Sports Highlights - Luka Modrić World Cup Journey
-
-This article reflects on Luka Modrić's remarkable performance and journey in the World Cup. It acknowledges the significant impact he had on the tournament and his lasting legacy.
-
-Key Points:
-
-• Celebrates a memorable World Cup campaign by Luka Modrić.
-
-• Highlights the athlete's impressive contribution to the sport.
-
-• Recognizes a significant moment in recent football history.
-
-
-🔗 Resources:
-
-• [BR Football](https://x.com/brfootball) - Source for football news and highlights.
-
-• [Siawashkasra](https://x.com/siawashkasra) - Profile related to sports commentary.
-
-• [Original Tweet](https://x.com/brfootball/status/2072872398211190791) - View the original post on Luka Modrić.
-
-![Image](https://pbs.twimg.com/media/HMRSczyW4AAwvkt?format=jpg&name=small)
-
----
 ### 🤖 Tech Industry Trends - Frontier Labs to Compute Providers
 
 This article discusses a common trajectory observed in the technology industry, particularly for "frontier labs" in AI and research. It highlights the evolution from pure research to providing computational resources.

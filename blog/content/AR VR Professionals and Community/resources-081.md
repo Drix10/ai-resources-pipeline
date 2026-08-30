@@ -95,25 +95,6 @@ Key Points:
 
 ---
 
-### 🍎 Nutrition - Examining the Correlation Between Diet and Heart Disease
-
-This article discusses the observed correlation between changes in dietary habits and the rise in heart disease rates. It contrasts traditional diets with modern ones.
-
-Key Points:
-
-• Traditional diets rich in butter, eggs, and red meat had lower heart disease rates.
-
-
-• The shift to processed foods like margarine, cereal, and canola oil correlated with a significant increase in heart disease.
-
-
-🔗 Resources:
-
-• [HumbleFlow's Tweet](https://x.com/HumbleFlow/status/1941229275782447344) -  Comparison of dietary shifts and heart disease rates.
-
-
----
-
 ### ✨ Design - The Pursuit of Design Excellence
 
 This article explores the dedication and iterative process required to achieve mastery in design, drawing parallels with high-end brands.

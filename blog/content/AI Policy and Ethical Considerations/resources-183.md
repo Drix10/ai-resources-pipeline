@@ -57,26 +57,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HHaG2pQXcAEdVLn?format=jpg&name=small)
 
 ---
-### 💡 Human Performance - Age and Activity
-
-This article presents a humorous anecdote about Bernie Sanders' basketball performance, drawing a comparison to a professional sports team's recent game. It implicitly highlights the surprising capabilities and activity levels that can be maintained at an advanced age.
-
-Key Points:
-
-• Bernie Sanders demonstrated notable physical prowess at 84 years old.
-
-• The performance was humorously contrasted with a professional basketball team.
-
-• The observation offers an insight into maintaining activity across age groups.
-
-🔗 Resources:
-
-• [Original Tweet Discussion](https://x.com/hjessy_/status/2050698365613048105) - Discussion on Bernie Sanders' basketball performance
-
-![Image](https://pbs.twimg.com/media/HHWLS9RXsAAJbi3?format=jpg&name=small)
-![Image](https://pbs.twimg.com/amplify_video_thumb/2050683493928116224/img/L1N00Ks409CjpQWk?format=jpg&name=240x240)
-
----
 ### 💡 Digital Wellness - The Value of Reading
 
 This article proposes reading as a primary remedy for the various negative aspects of the digital world, including constant distractions, personal data exploitation, and the simplification of complex ideas. It advocates for widespread, enjoyable reading as a path to intellectual freedom.

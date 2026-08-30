@@ -98,34 +98,6 @@ Key Points:
 
 ---
 
-### 🚀 Pine Sports AI - MLB Homerun Predictions
-
-This article discusses Pine Sports AI and its MLB homerun prediction model, highlighting successful predictions and user-created models using JaXon.  It also provides a link to daily predictions.
-
-Key Points:
-
-• Provides MLB homerun predictions.
-
-
-• Features user-built models through JaXon platform.
-
-
-• Showcases successful prediction track record.
-
-
-🔗 Resources:
-
-• [Pine Sports AI](https://x.com/PineSports_AI) - Sports AI prediction platform
-
-
-• [The Outlets](https://theoutletsv.com/post/today-s-mlb-top-homerun-props-for-6-4-25…) - Daily MLB homerun predictions
-
-
-![Image](https://pbs.twimg.com/media/GsmjEpEWAAEQD1h?format=jpg&name=small)
-
-
----
-
 ### 🤖 OpenAI - Connector Updates and Livestream
 
 This article announces upcoming connector updates to OpenAI's platform, including integrations with GitHub and Google Docs. It also promotes a livestream event detailing the updates.

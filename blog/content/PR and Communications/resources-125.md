@@ -19,32 +19,6 @@ Key Points:
 • [Music Release Link](https://t.co/MMKrvkkXOx) - Link to Excide's "Call Box" music
 
 ---
-### 💡 Sports Management - College Football Reform
-
-This article presents specific proposals aimed at reforming the structure and scheduling of college football. It focuses on optimizing the playoff timeline and managing player/staff transitions.
-
-Key Points:
-
-• Consolidate the college football playoff schedule into December for efficiency.
-
-• Maintain the player transfer portal closure until after the season concludes.
-
-• Restrict coaching and staff movement to occur only after the season's end.
-
-🚀 Implementation:
-1. Collapse the playoff schedule into December: Shift the National Championship to early January.
-2. Keep the portal closed: Prevent player transfers until after the season.
-3. Disallow coaching/staff moves: Restrict team personnel changes until after the season.
-
-🔗 Resources:
-
-• [Corey Du](https://x.com/coreydu) - Corey Du's Twitter profile
-
-• [College Football Reform Tweet](https://x.com/coreydu/status/2007123793249235301) - Original tweet outlining reform ideas
-
-![Image](https://pbs.twimg.com/media/G9q8YOEboAEMiyT?format=jpg&name=small)
-
----
 ### ✨ Film Industry - 2026 Oscar Best Actor Predictions
 
 This article presents a speculative list of potential nominees for the Best Actor in a Leading Role category at the 2026 Academy Awards. It highlights actors and their associated film projects.

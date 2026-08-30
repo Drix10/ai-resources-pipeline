@@ -78,24 +78,6 @@ Key Points:
 
 ---
 
-### 💡  Local Observation - New Jersey Eatery
-
-This article is a brief anecdotal observation about a local Italian eatery in a New Jersey suburb.
-
-Key Points:
-
-• The establishment was frequented by older Italian men.
-
-
-
-🔗 Resources:
-
-• [Brian Roemmele](https://x.com/BrianRoemmele) -  Author
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1895714030750167040/pu/img/62JgaVWh2Os9GliE.jpg)
-
-
----
-
 ### ✨ Pillars of Creation - Hubble vs. James Webb
 
 This article compares images of the Pillars of Creation taken by the Hubble and James Webb Space Telescopes, highlighting differences in their infrared capabilities.

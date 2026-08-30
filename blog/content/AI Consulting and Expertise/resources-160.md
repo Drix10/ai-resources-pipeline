@@ -91,66 +91,6 @@ Key Points:
 • [Project Repository Link](https://t.co/jNovhyEZmv) - Direct link to the project's code repository
 
 ---
-### 💡 Sports Event - Celebration Dynamics
-
-This article captures the widespread public celebrations in Ahmedabad following India's victory in the World Cup final, reflecting the collective joy and enthusiasm of fans.
-
-Key Points:
-
-• Celebrations erupted in Ahmedabad after India's World Cup final victory.
-
-• The event triggered a display of widespread public enthusiasm.
-
-• Highlights the community impact and shared joy of major sports wins.
-
-
-🔗 Resources:
-
-• [Manoj Nayak Profile](https://x.com/manojknayak) - Social media profile for related updates
-
-• [Jake Jeakings Profile](https://x.com/JakeJeakings1) - Social media profile
-
-• [Celebration Thread Status](https://x.com/JakeJeakings1/status/2030968494741983604) - Original tweet capturing the celebrations
-
-• [Cricket Hashtag](https://x.com/hashtag/cricket?src=hashtag_click) - Related discussions on cricket
-
-• [India Hashtag](https://x.com/hashtag/india?src=hashtag_click) - Related discussions on India
-
-• [World Cup Hashtag](https://x.com/hashtag/worldcup?src=hashtag_click) - Related discussions on the World Cup
-
-• [Ahmedabad Hashtag](https://x.com/hashtag/ahmedabad?src=hashtag_click) - Related discussions on Ahmedabad
-
-• [T20 World Cup Hashtag](https://x.com/hashtag/t20worldcup?src=hashtag_click) - Related discussions on the T20 World Cup
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2030968030474493952/img/KPJpCW5qkarnxnpZ.jpg)
-
----
-### 💡 Sports Culture - Social Commentary
-
-This article presents a visual commentary related to the T20 World Cup, using a concise phrase to highlight perceived similarities and differences within the event.
-
-Key Points:
-
-• A visual comparison is presented under the theme "Same same but different."
-
-• This reflects nuances and subtle distinctions within the T20 World Cup.
-
-• It utilizes a common phrase for social commentary in sports.
-
-
-🔗 Resources:
-
-• [Manoj Nayak Profile](https://x.com/manojknayak) - Social media profile for related sports content
-
-• [ICC Profile](https://x.com/ICC) - Official International Cricket Council profile
-
-• [T20 World Cup Thread Status](https://x.com/ICC/status/2030719117024719355) - Original tweet containing the image
-
-• [T20 World Cup Hashtag](https://x.com/hashtag/T20WorldCup?src=hashtag_click) - Related discussions on the T20 World Cup
-
-![Image](https://pbs.twimg.com/media/HC6QRfSakAAR01z?format=jpg&name=small)
-
----
 ### 💡 Life Lessons - Resilience in Sports Careers
 
 This article reflects on the careers of cricketers Sanju Samson and Ishan Kishan, drawing parallels to life lessons about resilience, perseverance, and trusting in future opportunities.
@@ -171,31 +111,6 @@ Key Points:
 • [Vikrant Gupta Profile](https://x.com/vikrantgupta73) - Social media profile for cricket analysis
 
 • [Life Lessons Thread Status](https://x.com/vikrantgupta73/status/2030885921378451775) - Original reflection on cricketers' careers
-
----
-### ✨ Social Advocacy - Athlete Protection
-
-This article details J.K. Rowling's public appeal for the protection of the Iranian women's football team, expressing concerns about potential severe repercussions upon their return to Iran.
-
-Key Points:
-
-• J.K. Rowling called for the protection of the Iranian women’s football team.
-
-• Concerns were raised regarding severe consequences for the team in Iran.
-
-• The appeal urges football associations to intervene for athlete safety.
-
-
-🔗 Resources:
-
-• [Manoj Nayak Profile](https://x.com/manojknayak) - Social media profile for news updates
-
-• [Oli London TV Profile](https://x.com/OliLondonTV) - Social media profile
-
-• [Advocacy Thread Status](https://x.com/OliLondonTV/status/2030818395659333764) - Original tweet detailing the call for protection
-
-![Image](https://pbs.twimg.com/media/HC7qafwbEAA-WEm?format=jpg&name=small)
-![Image](https://pbs.twimg.com/media/HC7qkPcawAAXsOU?format=jpg&name=small)
 
 ---
 ### 💡 Personal Growth - Moment of Realization

@@ -1,31 +1,3 @@
-### 🎬 AI Filmmaking - Short Film Trailer Release
-
-This article announces the release of the trailer for an AI-generated short film, "Echoes of Regret," and provides links to view the full film.
-
-Key Points:
-
-• Trailer released for new AI short film.
-
-
-• Full film available on EscapeAI Media.
-
-
-• Film uses AI in its creation.
-
-
-🔗 Resources:
-
-• [@escapeaimedia](https://x.com/escapeaimedia) - AI film platform
-
-
-• [@pressmanc](https://x.com/pressmanc) - Filmmaker
-
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1887561371492986880/img/LC8mg7ulAGqBk-4X.jpg)
-
-
----
-
 ### ✨ AI Filmmaking - Early Film Access for Subscribers
 
 This article announces an exclusive early release of a portion of an AI-generated film for X account subscribers.
@@ -227,38 +199,6 @@ Key Points:
 🔗 Resources:
 
 • [@maxescu](https://x.com/maxescu) - AI tool reviewer
-
-
----
-
-### 🎬 AI Filmmaking - T2 Remake Anniversary
-
-This article commemorates the one-year anniversary of an AI-generated Terminator 2 remake and teases upcoming announcements.
-
-Key Points:
-
-• One-year anniversary of T2 AI remake.
-
-
-• Project involved many prominent figures.
-
-
-• Exciting announcements coming soon.
-
-
-
-🔗 Resources:
-
-• [@t2remake](https://x.com/t2remake) - AI Terminator 2 Remake
-
-
-• [@NemPerez](https://x.com/NemPerez) - Collaborator
-
-
-• [@pressmanc](https://x.com/pressmanc) - Collaborator
-
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1760329838164840448/pu/img/VpcUsHvLkPcqKDI_.jpg)
 
 
 ---

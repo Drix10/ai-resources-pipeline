@@ -1,26 +1,3 @@
-### 🏀 College Basketball - Bracket Challenge
-
-This article describes a college basketball bracket challenge hosted on X.  Participants can compete for bragging rights.  Instructions for joining the league are provided.
-
-Key Points:
-
-• Compete in a college basketball bracket challenge.
-
-• Win bragging rights.
-
-• Join the league to submit your bracket.
-
-
-🔗 Resources:
-
-• [Adam Scrabble's X Profile](https://x.com/adamscrabble) - Challenge organizer
-
-• [Sean Davis's X Profile](https://x.com/seanmdav) - Challenge organizer
-
-• [League Invite](https://x.com/i/jf/ncaamb/invite/league/id/1902183662827008407) - Join the bracket challenge
-
-
----
 ### 🤖 Wearables Research - Compound's Research Day
 
 This article announces Compound's Research Day on wearables, implantables, and ingestibles, taking place in San Francisco on April 24th.  The event features various speakers.

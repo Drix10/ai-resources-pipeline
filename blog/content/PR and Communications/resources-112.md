@@ -86,30 +86,6 @@ Key Points:
 
 
 ---
-### 🗣️ Politics and Allegations -  Sexual Predator Accusations
-
-This article summarizes allegations against Jim Jordan, involving knowledge of sexual misconduct by Dr. Strauss.  The statement is attributed to a wrestling referee.
-
-Key Points:
-
-•  Allegation that Jim Jordan knew of Dr. Strauss's predatory behavior.
-
-
-•  Witness testimony from a wrestling referee.
-
-
-•  Serious accusations of inaction and potential complicity.
-
-
-🔗 Resources:
-
-• [John Bates](https://x.com/johnbates) - Twitter User
-
-
-• [Highbrow Nobrow](https://x.com/highbrow_nobrow) - Twitter User
-
-
----
 ### 🗣️ International Relations -  Baltic Security and Congressional Action
 
 This article discusses the increase in Baltic Security Initiative spending by the House, contrasting this with the Pentagon's position. It criticizes the Undersecretary for Policy's worldview.

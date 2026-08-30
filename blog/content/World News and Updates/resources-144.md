@@ -122,26 +122,6 @@ Key Points:
 • [The Wall Street Journal](https://x.com/WSJ) - Official X account for The Wall Street Journal
 
 ---
-### ✨ Sports News - Chris-Payton Jones's Passing
-
-This article reports on the death of former NFL and UFL cornerback Chris-Payton Jones following a crash. It provides details regarding the passing of the notable sports figure.
-
-Key Points:
-
-• Former NFL and UFL cornerback Chris-Payton Jones died.
-
-• Jones passed away as a result of a crash.
-
-• The news impacts the professional football community.
-
-
-🔗 Resources:
-
-• [Reuters Article](https://reut.rs/3OCrqyj) - Report on Chris-Payton Jones's death
-
-• [Reuters](https://x.com/Reuters) - Official X account for Reuters News Agency
-
----
 ### ✨ Political Commentary - Trump and Pope Leo XIV
 
 This article details the public exchange between President Trump and Pope Leo XIV, focusing on Trump's criticisms of the Pope's stance on the Iran war and the Pope's response to the insults. It highlights the clash of political and religious perspectives.

@@ -140,38 +140,6 @@ Key Points:
 
 
 ---
-### ✨ Google Cloud x MLB Hackathon -  Gemini-Powered Baseball Analyzer
-
-This article announces the grand prize winner of the Google Cloud x MLB Hackathon and highlights their Gemini-powered baseball pitching analyzer.
-
-
-Key Points:
-
-•  Showcases a successful application of Gemini AI in sports analytics.
-
-
-•  Features a live demo at the Google Cloud Next Developer Keynote.
-
-
-•  Highlights the innovative use of AI in baseball.
-
-
-
-🔗 Resources:
-
-• [GoogleCloudTech](https://x.com/GoogleCloudTech) -  Google Cloud Technology
-
-
-• [jakediba](https://x.com/jakediba) -  Hackathon winner
-
-
-• [MLB](https://x.com/MLB) - Major League Baseball
-
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1918842279172743168/img/w3kUDnKVBjV9MdWX.jpg)
-
-
----
 ### 💡 Remembrance and Celebration -  May 4th and 5th Traditions
 
 This article describes a personal tradition of commemorating war casualties and celebrating freedom on May 4th and 5th, emphasizing reflection on the capacity for both good and evil in humanity.

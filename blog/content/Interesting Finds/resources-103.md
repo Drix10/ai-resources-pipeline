@@ -1,27 +1,3 @@
-### 🏈 American Football - Pass Interference Call
-
-This article discusses a specific pass interference call in an NFL game between the Kansas City Chiefs and another team, focusing on whether the call was correctly made.  The author expresses a strong opinion on the matter.
-
-Key Points:
-
-• A pass interference penalty was called.
-
-
-• The author believes the call was incorrect.
-
-
-• The game involved the Kansas City Chiefs.
-
-
-• The incident occurred in October 2023.
-
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/GzS9O6vX0AABDg7?format=jpg&name=small)
-
----
 ### 🏠 Home Improvement - Walk-up Attic Renovation Cost
 
 This article seeks to estimate the cost of finishing a 900 square foot walk-up attic in the Dallas-Fort Worth area.  The author is soliciting opinions on reasonable pricing from those with relevant experience.

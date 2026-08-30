@@ -143,26 +143,6 @@ Key Points:
 
 
 ---
-### 🤖 Data and Marketing - Fanatics and Snowflake Collaboration
-
-This article highlights a collaboration between Fanatics and Snowflake, focusing on how Snowflake's data platform is enhancing Fanatics' fan experience and marketing strategies.
-
-Key Points:
-
-• Data is crucial for enhancing fan experience and marketing.
-
-• Snowflake's platform unifies data across Fanatics' platform.
-
-
-🔗 Resources:
-
-• [Snowflake](https://x.com/Snowflake) - Data cloud platform
-
-
-![Image](https://pbs.twimg.com/media/GybFvc3WQAABq_D.jpg)
-
-
----
 ### 🚀 AI Buildathon - Vectara Sponsorship
 
 This article announces Vectara's sponsorship of a Buildathon focused on innovative AI solutions, providing details on the event's location, date, and livestream availability.

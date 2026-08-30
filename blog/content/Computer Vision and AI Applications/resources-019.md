@@ -25,20 +25,6 @@ Key Points:
 
 
 ---
-### 💡 Winning Awards - Patterns in Oscars and Nobels
-
-This article observes patterns in award-winning works and inventions, suggesting correlations between thematic choices and technological advancements.
-
-Key Points:
-
-• Rich/poor parables frequently win Oscars.
-
-• Development of new instruments often leads to Nobel Prizes.
-
-• These patterns reveal trends in artistic and scientific achievements.
-
-
----
 ### 🚀 Kitware Hiring - Computer Vision and AI Roles
 
 Kitware is recruiting for roles in AI, machine learning, computer vision, and NLP.  They are attending WACV 2025 and inviting attendees to visit their booth.

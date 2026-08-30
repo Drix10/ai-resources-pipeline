@@ -76,31 +76,6 @@ Key Points:
 
 
 ---
-### 🤖 AI in Sports - Football Match Labeling
-
-This article explains how Score uses its miners to label football matches and train its neural networks.  It also highlights the storage of this data for future use.
-
-Key Points:
-
-• Miners label football matches.
-
-
-• Data used to train neural networks.
-
-
-• Data stored for future use.
-
-
-🔗 Resources:
-
-• [Score](https://youtube.com/watch?v=iP1BQc_snxg) -  Full episode explaining the process
-
-• [tm0klc](https://x.com/tm0klc) - Score's Co-Founder & CTO
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1955239398334697472/img/agF7Pq6jSWBtoRC4.jpg)
-
-
----
 ### ✨ Features - Immune System Insights
 
 This article promotes early access to a platform providing insights into immune health.

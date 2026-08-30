@@ -86,26 +86,6 @@ Key Points:
 • [Tornado Damage Photo 7](https://pbs.twimg.com/media/HF6LF3FXEAAdzws)
 
 ---
-### 🤖 Sports Analytics - Future Baseball Performance Prediction
-
-This article explores the concept of analyzing future sports performance, specifically in baseball, to predict team outcomes and fan experience for upcoming seasons. It considers data-driven projections and factors influencing team dynamics.
-
-Key Points:
-
-• Projecting future team performance involves historical data analysis.
-
-• Player development and roster changes are key predictive factors.
-
-• Fan experience is influenced by both on-field success and team engagement.
-
-
-🔗 Resources:
-
-• [Eric Fisher](https://x.com/ericfisher) - Source for commentary, potentially sports-related
-
-• [Red Sox Commentary](https://x.com/ericfisher/status/2044232391468720527) - Original post related to Red Sox
-
----
 ### 💡 Severe Weather Alerts - Tornado Warning Communication
 
 This article details an ongoing tornado warning, highlighting the immediate threat to specific Wisconsin locations and the importance of precise, timely alerts for public safety.

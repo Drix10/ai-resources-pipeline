@@ -84,54 +84,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/G95NfNqXEAABjnn?format=png&name=small)
 
 ---
-### 💡 Nutritional Guidance - Healthy Eating Principles
-
-This article introduces the concept of a balanced meal, drawing a contrast between traditional dietary habits and structured nutritional guidelines such as the "Harvard Healthy Eating Plate."
-
-Key Points:
-
-• Balanced nutrition is essential for maintaining overall well-being.
-
-• The Harvard Healthy Eating Plate provides a visual guide for meal composition.
-
-• Conscious dietary choices significantly impact long-term health outcomes.
-
-• Mindful meal preparation can contribute to improved nutritional intake.
-
-🔗 Resources:
-
-• [raxpost](https://x.com/raxpost) - Original tweet author
-
-![Image](https://pbs.twimg.com/media/G91J7DwWgAAcS9a?format=jpg&name=small)
-
----
-### ✨ Tech Events - Future Planning
-
-This article provides a personal perspective on upcoming major events, including CES 2026 and the Super Bowl, highlighting their future hosting locations and implications.
-
-Key Points:
-
-• CES is a premier technology trade show showcasing innovation.
-
-• Major sporting events like the Super Bowl attract global attention.
-
-• Host cities benefit significantly from large-scale events.
-
-• Future event planning requires extensive logistical coordination.
-
-🔗 Resources:
-
-• [Sarbjeet Johal](https://x.com/sarbjeetjohal) - Original tweet author
-
-• [CTA Tech](https://x.com/CTATech) - Consumer Technology Association, organizing CES
-
-• [Fly SJC](https://x.com/FlySJC) - San Jose International Airport
-
-• [Super Bowl](https://x.com/SuperBowl) - Official Super Bowl account
-
-![Image](https://pbs.twimg.com/media/G932Ai4W0AAvucX?format=jpg&name=small)
-
----
 ### 💡 Software Management - AI Tool Disablement
 
 This article presents a method for permanently disabling GitHub Copilot by blocking its core communication domain, providing a direct technical solution for users.

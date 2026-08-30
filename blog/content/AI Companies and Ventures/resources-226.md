@@ -91,31 +91,6 @@ Key Points:
 
 ---
 
-### ✨ Esports - LoL Pick'Em Challenge
-
-A platform is launching a League of Legends Pick'Em Challenge for the Esports World Cup. Users are invited to predict specific game outcomes for matches.
-
-Key Points:
-
-• A LoL Pick'Em Challenge is available for the Esports World Cup.
-
-• Participants predict outcomes for specific game events.
-
-• Key predictions include First Blood, First Dragon, and Game Length.
-
-🚀 Implementation:
-1. Select a match (e.g., SEN vs GEN).
-2. Predict First Blood outcome (SEN or GEN).
-3. Predict First Dragon outcome (SEN or GEN).
-4. Predict Game Length (Over or Under 30.5 min).
-5. Share your picks.
-
-🔗 Resources:
-• [Prophet Market AI on X](https://x.com/prophetmarketai) - Official Prophet Market AI X account
-![Image](https://pbs.twimg.com/media/HNSnf4EXoAAUWzd?format=jpg&name=small)
-
----
-
 ### ✨ Promise AI - Creative Story Development
 
 Promise AI is collaborating with filmmakers to develop original stories. This process involves pairing directors with established screenwriters to enhance content creation.

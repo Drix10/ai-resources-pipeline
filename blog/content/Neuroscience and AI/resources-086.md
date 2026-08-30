@@ -29,35 +29,6 @@ Key Points:
 
 ---
 
-### 🤖 Neuroscience - Youth Football and Brain Health
-
-This article summarizes a study examining the relationship between playing youth football and the development of brain protein buildup associated with neurodegenerative diseases.  The study challenges the common belief that youth football significantly increases this risk.
-
-Key Points:
-
-• Study analyzed 174 donated brains.
-
-
-• Investigated link between youth football and brain protein buildup.
-
-
-• Challenged existing beliefs about the impact of youth football on brain health.
-
-
-• Findings cast doubt on widely held beliefs.
-
-
-
-🔗 Resources:
-
-• [@NeuroscienceNew](https://x.com/NeuroscienceNew) - Neuroscience News
-
-
-![Image](https://pbs.twimg.com/media/Gvm1OTVW4AAbX14?format=jpg&name=small)
-
-
----
-
 ### ✨ Neuroscience - GRCPsychedelics Conference
 
 This article announces participation in the GRCPsychedelics conference, highlighting a poster presentation and involvement in a trainee mixer.

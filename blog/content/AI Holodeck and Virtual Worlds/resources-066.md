@@ -46,24 +46,6 @@ Key Points:
 
 ---
 
-### 💡  Nutrition - Salad Benefits
-
-This article briefly outlines the nutritional benefits of salads, focusing on their vitamin, mineral, and fiber content.
-
-Key Points:
-
-• Rich in vitamins (A, C, K).
-
-• Contains minerals (potassium, folate).
-
-• Provides dietary fiber.
-
-• Supports digestion, heart health, and immune function.
-
-
-
----
-
 ### 🚀 Events - Berlin Block Week
 
 This article highlights events at the Berlin startup village during Berlin Block Week, specifically mentioning a Superteam demo day.

@@ -93,56 +93,6 @@ Key Points:
 
 
 ---
-### 🎬 Filmmaking - Video Production Workflow
-
-This article describes the workflow behind a video production, highlighting the significant amount of discarded material.
-
-
-Key Points:
-
-• A large proportion of filmed material is usually discarded.
-
-• The workflow involves selecting the best shots.
-
-• A 2:36 clip of discarded shots is provided.
-
-
-🔗 Resources:
-
-• [NigelWatsonTFTC](https://x.com/NigelWatsonTFTC/status/1895857431403696516) - Relevant Tweet
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1895850962981425152/pu/img/fHnJl_s1Y3u21Qoc.jpg)
-
-
----
-### 🎬 Filmmaking - Collaboration and Partnerships
-
-This article discusses the importance of collaborations and partnerships in filmmaking, specifically thanking several individuals and organizations for their support.
-
-
-Key Points:
-
-• The author acknowledges the essential role of CPPs in their work.
-
-• Several individuals and organizations are specifically thanked for their contributions.
-
-• Opportunities for partnership are offered to other organizations.
-
-
-🔗 Resources:
-
-• [LumaLabsAI](https://x.com/LumaLabsAI) - Collaborator mentioned
-
-• [pika_labs](https://x.com/pika_labs) - Collaborator mentioned
-
-• [Kyrannio](https://x.com/Kyrannio) - Collaborator mentioned
-
-• [krea_ai](https://x.com/krea_ai) - Potential collaborator
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1895856214816272384/pu/img/bZ0Y6MA-K5D3-6mj.jpg)
-
-
----
 ### 💡 Geopolitics - Nuclear Deterrence
 
 This article presents a hypothetical scenario where a small democracy faces a larger, hostile neighbor and explores two potential responses: military buildup or secret nuclear development.
@@ -186,47 +136,6 @@ Key Points:
 
 
 ---
-### ✨ Filmmaking - Awards Nomination
-
-This article announces the author's nomination for two categories at the ESCAPE Awards, an alternative Oscars for AI filmmakers.
-
-
-Key Points:
-
-• The author is nominated for two categories at the ESCAPE Awards.
-
-• ESCAPE Awards is described as an alternative Oscars for AI filmmakers.
-
-• The awards are founded by John Gaeta (The Matrix).
-
-
-🔗 Resources:
-
-• [byarlooo](https://x.com/byarlooo/status/1895843902625870025/photo/1) - Image related to the Tweet
-
-![Image](https://pbs.twimg.com/media/Gk9j-uhWAAADVuO?format=jpg&name=medium)
-
-
----
-### 🎬 Filmmaking - New Series Announcement
-
-This article announces a new series titled "Dark Tales," focusing on illustrated-book-inspired videos with handwritten texts.
-
-
-Key Points:
-
-• A new series called "Dark Tales" is announced.
-
-• The series is inspired by illustrated books.
-
-• The videos will include handwritten texts.
-
-
----
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

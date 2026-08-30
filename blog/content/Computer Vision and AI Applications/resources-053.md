@@ -134,24 +134,6 @@ Key Points:
 
 ---
 
-### ✨  Romania - Year of Nadia Comăneci
-
-This article announces the Romanian Senate's decision to designate 2026 as the "Year of Nadia Comăneci," celebrating the 50th anniversary of her perfect 10 at the Montreal Olympics.
-
-Key Points:
-
-• 2026 designated as the "Year of Nadia Comăneci" in Romania.
-
-• Commemorates the 50th anniversary of her historic Olympic performance.
-
-
-• Celebrates her perfect 10 score.
-
-
-![Image](https://pbs.twimg.com/media/GrAGYjHXgAAoXKL?format=jpg&name=900x900)
-
----
-
 ### 🤖 Linear Algebra - Improvements in Computational Linear Algebra
 
 This article discusses the ongoing potential for improvement in computational linear algebra, contrasting it with common assumptions in machine learning.

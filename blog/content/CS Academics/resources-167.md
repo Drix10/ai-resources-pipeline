@@ -211,29 +211,6 @@ Key Points:
 • [Celebrity Game Preview Announcement](https://x.com/NBA/status/2022184943355658504) - Original tweet previewing the game
 
 ---
-### ✨ Sports - LeBron James Triple-Double Performance
-
-This article highlights LeBron James' recent triple-double performance in an NBA game. It details his statistical achievement and the notable crowd reaction upon his exit.
-
-Key Points:
-
-• LeBron James achieved a triple-double with 28 points, 10 rebounds, and 12 assists.
-
-• His performance contributed to a Los Angeles Lakers victory.
-
-• The crowd gave him a standing ovation as he exited the game.
-
-🔗 Resources:
-
-• [NBA Official X Profile](https://x.com/NBA) - Official NBA news and updates
-
-• [LeBron James Highlight Tweet](https://x.com/NBA/status/2022182957499449642) - Original tweet highlighting the performance
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2022182426097876992/img/l40OAQFgnCiXJguH.jpg)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

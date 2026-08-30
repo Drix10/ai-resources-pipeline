@@ -64,38 +64,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/G9j3t-eWMAEa4YQ?format=jpg&name=small)
 
 ---
-### 💡 Personal Discipline - Diet and Fitness Goals
-
-This article explores the challenges of maintaining strict dietary and fitness regimes, highlighting the internal struggle between indulgence and commitment. It reflects on the dynamic nature of setting and pursuing personal health goals.
-
-Key Points:
-
-• Discusses the common struggle with dietary self-control.
-
-• Highlights the immediate gratification versus long-term health goals.
-
-• Emphasizes commitment to exercise through running and lifting.
-
-• Illustrates the cyclical nature of diet pledges.
-
-
-🔗 Resources:
-
-• [Steve Hou](https://x.com/stevehou) - Original author's profile.
-
-• [Tweet Status](https://x.com/stevehou/status/2006757324619444362) - Original tweet on diet struggles.
-
-• [0xdoug Status](https://x.com/0xdoug/status/2006588248144171502) - Related content from another profile.
-
-![Image](https://pbs.twimg.com/media/G9lvJmVaMAMydE_?format=jpg&name=small)
-
-![Image](https://pbs.twimg.com/media/G9lvJmNaEAADkFC?format=jpg&name=small)
-
-![Image](https://pbs.twimg.com/media/G9jVXbIW0AAFMx_?format=jpg&name=240x240)
-
-![Image](https://pbs.twimg.com/media/G9jVXbLXsAAESLF?format=jpg&name=240x240)
-
----
 ### 💡 Political Commentary - Government Critique
 
 This article presents a critical view on governmental systems, advising against partisan alignment. It suggests that the federal government, across all political divisions, may operate fraudulently.

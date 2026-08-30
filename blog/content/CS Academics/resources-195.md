@@ -44,39 +44,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/amplify_video_thumb/2044832111631228928/img/2lhu9-P5uS0uFf3u.jpg)
 
 ---
-### ✨ NBA Play-In - Orlando Magic vs. Philadelphia 76ers
-
-This article summarizes key moments and the atmosphere from the NBA Play-In game between the Orlando Magic and Philadelphia 76ers. It highlights player performance, fan engagement, and the significance of the game's outcome.
-
-Key Points:
-
-• VJ Edgecombe expressed enthusiasm for his postseason debut.
-
-• The game featured VJ Edgecombe's impactful plays and honest reactions.
-
-• Allen Iverson was present, enhancing the game day atmosphere.
-
-• The winner of this Play-In battle secured the East #7 seed.
-
-• The Sixers held a 4-point lead at halftime during the game.
-
-🔗 Resources:
-
-• [NBA](https://x.com/NBA) - Official X account for the NBA
-
-• [SoFi](https://x.com/SoFi) - Official X account for SoFi
-
-• [NBA How to Watch](https://t.co/KnpaVfVzBl) - Information on watching NBA games
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2044655518359109632/img/_hfhPc0sLXrtNMnb.jpg)
-
-![Image](https://pbs.twimg.com/media/HF_lFr8WAAAo1nQ?format=jpg&name=240x240)
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2044578490251407360/img/X2-rktKzkq94HBJo?format=jpg&name=240x240)
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2044577851890925568/img/97Fi7HX6gqMlc5fR.jpg)
-
----
 ### 🤖 Gemini - macOS Integration and AI Capabilities
 
 This article details the functionalities of the Gemini application on macOS, emphasizing its screen sharing, local file support, and creative generative AI features. It also outlines the application's availability, system requirements, and cost.

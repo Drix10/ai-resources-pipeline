@@ -1,31 +1,3 @@
-### 🤝 Partnerships - Getty Images and MLB Collaboration
-
-This article details the continued partnership between Getty Images and MLB, focusing on their support for emerging talent within the HBCU community.  The partnership supported the third annual HBCU Swingman Classic.
-
-Key Points:
-
-• Getty Images and MLB collaborate to support HBCU talent.
-
-
-• Partnership highlights include support for the HBCU Swingman Classic.
-
-
-• Three recent HBCU graduates are now part of Getty Images’ HBCU Photography program.
-
-
-🔗 Resources:
-
-• [Getty Images](https://x.com/GettyImages) - Photography and visual media
-
-
-• [MLB](https://x.com/MLB) - Major League Baseball
-
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1953175207587328000/img/mDYoTqspgtozykUE.jpg)
-
-
----
-
 ### 🚀 Tools - Scenario's Style-Preserving Upscaling
 
 This article discusses Scenario's new style-preserving upscaling feature, addressing limitations of previous upscaling techniques that often lost the original style of images.

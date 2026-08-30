@@ -60,26 +60,6 @@ Key Points:
 
 ---
 
-### 🚀 Filmmaking - Hailuo 02 CGI
-
-This article discusses the creation of a CGI clip using Hailuo 02, contrasting it with expensive Hollywood productions.
-
-Key Points:
-
-•  Hailuo 02 allows for quick and cost-effective CGI creation.
-
-
-•  The clip demonstrates the capabilities of Hailuo 02.
-
-
-•  High-quality results achieved without extensive resources.
-
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1956881534969085952/img/k3SMsTi-8e9xSEZe.jpg)
-
-
----
-
 ### ✨ Art Exhibition - Birthday Gallery
 
 This article announces an art exhibition to be held in celebration of a birthday.
@@ -138,29 +118,6 @@ Key Points:
 
 
 ![Image](https://pbs.twimg.com/media/Gyd-8uAa4AA38dp?format=png&name=small)
-
-
----
-
-### 🎬 Film Review - Nosferatu
-
-This article reviews Robert Eggers' Nosferatu, praising Willem Dafoe's performance and the film's overall quality.
-
-Key Points:
-
-•  High praise for Willem Dafoe's performance.
-
-
-•  Masterful cinematography and shot composition.
-
-
-•  Considered the best vampire movie ever made.
-
-
-![Image](https://pbs.twimg.com/media/Gyh6CbsWUAABwih?format=jpg&name=small)
-![Image](https://pbs.twimg.com/media/Gyh6CbtXkAEY5ii?format=jpg&name=360x360)
-![Image](https://pbs.twimg.com/media/Gyh6CbuXwAEXPhb?format=jpg&name=360x360)
-![Image](https://pbs.twimg.com/media/Gyh6CbtXMAAG_JJ?format=jpg&name=360x360)
 
 
 ---

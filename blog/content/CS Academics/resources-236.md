@@ -74,28 +74,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/amplify_video_thumb/2072891342737555456/img/MwZKvV31PuHvVSf-.jpg)
 
 ---
-### ✨ Community News - Isaiah Joe Birthday
-
-This article celebrates the 27th birthday of basketball player Isaiah Joe. It serves as a brief announcement acknowledging this personal milestone.
-
-Key Points:
-
-• Celebrating Isaiah Joe's 27th birthday.
-
-• Acknowledging significant personal milestones.
-
-• Fostering community engagement.
-
-
-🔗 Resources:
-
-• [NBA](https://x.com/NBA) - Official X account for the NBA
-
-• [NBA Status Update](https://x.com/NBA/status/2072651510211596400) - Original birthday message for Isaiah Joe
-
-![Image](https://pbs.twimg.com/media/HMCRKkzbsAEh9qy?format=jpg&name=small)
-
----
 ### 🤖 Biomedical Research - RNAi Therapeutics for Neurology
 
 This article discusses Alnylam's research into RNAi Therapeutics as a promising approach for neurological diseases. It highlights their efforts to silence brain diseases such as Alzheimer’s and Huntington’s disease, emphasizing the potential impact of this scientific advancement.
@@ -120,52 +98,6 @@ Key Points:
 • [Alnylam Status Update](https://x.com/Alnylam/status/2072641457974845871) - Original post on RNAi Therapeutics research
 
 ![Image](https://pbs.twimg.com/media/HMOAZ_UXYAAJ8x4?format=png&name=small)
-
----
-### ✨ Sports Highlight - WNBA Action
-
-This article highlights a significant play by Jewell Loyd in a WNBA game, featuring a bucket and a foul. The play reduced the game's deficit to six points heading into the second quarter, broadcast live on Prime.
-
-Key Points:
-
-• Jewell Loyd executed a strong move resulting in a bucket and a foul.
-
-• The play narrowed the game to a 6-point deficit.
-
-• The WNBA game was broadcast live on Prime.
-
-
-🔗 Resources:
-
-• [NBA](https://x.com/NBA) - Official X account for the NBA
-
-• [NBA Status Update](https://x.com/NBA/status/2072103878842109973) - Original post featuring Jewell Loyd's highlight
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2072102629878980608/img/ah_TxGzC6a18XIkH.jpg)
-
----
-### ✨ Sports Event - WNBA Commissioner's Cup
-
-This article announces the live broadcast of the Aces/Liberty WNBA Commissioner's Cup Championship on Prime. The event features notable personalities like Bam Adebayo and Tom Brady, highlighting the importance of the game.
-
-Key Points:
-
-• The Aces/Liberty WNBA Commissioner's Cup Championship is live.
-
-• The game is being broadcast on Prime.
-
-• Notable personalities like Bam Adebayo and Tom Brady are involved.
-
-
-🔗 Resources:
-
-• [NBA](https://x.com/NBA) - Official X account for the NBA
-
-• [Bam Adebayo](https://x.com/Bam1of1) - Official X account for Bam Adebayo
-
-• [Tom Brady](https://x.com/TomBrady) - Official X account for Tom Brady
-
-• [NBA Status Update](https://x.com/NBA/status/2072103318520770799) - Original announcement of the Commissioner's Cup broadcast
 
 ---
 ### ✨ Cultural Event - Global Beatles Day Celebration
@@ -196,32 +128,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HMA4i_UWQAA-RrS?format=jpg&name=small)
 
 ![Image](https://pbs.twimg.com/media/HMA4i_aWIAAuv2Q?format=jpg&name=small)
-
----
-### 💡 Community Engagement - Athlete Recognizes First Responders
-
-This article details Knicks star Karl-Anthony Towns' visit to FDNY Engine 1/Ladder 24 following his NBA Championship win. The visit allowed him to meet firehouse members and express gratitude for their service, highlighting community appreciation.
-
-Key Points:
-
-• Karl-Anthony Towns visited FDNY Engine 1/Ladder 24.
-
-• He met members of the fire department.
-
-• The visit was to thank them for their service.
-
-• This occurred after his NBA Championship win.
-
-
-🔗 Resources:
-
-• [Fanatics](https://x.com/Fanatics) - Official X account for Fanatics
-
-• [FDNY](https://x.com/FDNY) - Official X account for the FDNY
-
-• [FDNY Status Update](https://x.com/FDNY/status/2071690226704019698) - Original post about Karl-Anthony Towns' visit
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2071687745915715584/img/Opi4gflPLl9iK9Us.jpg)
 
 ---
 ### ✨ Athlete Recognition - A'ja Wilson Achievement

@@ -20,30 +20,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HE7VnmtXcAAxPnw?format=jpg&name=small)
 
 ---
-### 💡 Sports Analytics - Collin Gillespie Record
-
-This article details Collin Gillespie's achievement of becoming the Suns' single-season leader in three-pointers, surpassing a long-standing record. It highlights a significant milestone in NBA history for the player and team.
-
-Key Points:
-
-• Collin Gillespie set a new Suns single-season record with 227 three-pointers.
-
-• This achievement surpasses Quentin Richardson's previous record from the 2004-05 season.
-
-• Marks a significant individual performance milestone for the player and team.
-
-
-🔗 Resources:
-
-• [NBA](https://x.com/NBA) - Official X profile for the NBA
-
-• [Record Announcement](https://x.com/NBA/status/2039854850746253745) - Original tweet announcing the record
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2039853477564694528/img/pK4pE9hvCv3xGuok.jpg)
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2039852483644682240/img/Tl8p17iKEuXqhpIa?format=jpg&name=240x240)
-
----
 ### ✨ Music Industry - Olivia Rodrigo Album Release
 
 This article announces the upcoming release of Olivia Rodrigo's third album, "you seem pretty sad for a girl so in love," scheduled for June 12th. It highlights the artist's personal connection to the new record and its immediate availability for preorder.
@@ -92,58 +68,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HE6bSTDXQAAaN1d?format=jpg&name=small)
 
 ---
-### 💡 Sports Analytics - NBA Game Recap
-
-This article summarizes Wednesday's NBA final scores, highlighting the Philadelphia 76ers' road victory driven by strong individual performances. It details key scoring contributions from multiple players during the game.
-
-Key Points:
-
-• The Philadelphia 76ers secured a road victory with notable player contributions.
-
-• PG achieved 39 points, his highest scoring total as a Sixer.
-
-• Tyrese Maxey contributed 28 points and 9 assists to the team's success.
-
-• VJ Edgecombe recorded 23 points and 10 assists, demonstrating strong playmaking.
-
-
-🔗 Resources:
-
-• [NBA](https://x.com/NBA) - Official X profile for the NBA
-
-• [Sixers](https://x.com/sixers) - Official X profile for the Philadelphia 76ers
-
-• [Game Recap](https://x.com/NBA/status/2039571756118110324) - Original tweet summarizing the game
-
-![Image](https://pbs.twimg.com/media/HE4DYZEX0AAwOj1?format=jpg&name=small)
-
----
-### 💡 Sports Analytics - NBA Player Performance Records
-
-This article highlights Victor Wembanyama's exceptional performance during the San Antonio Spurs' 10-game win streak, positioning him alongside NBA legends Shaquille O'Neal and Hakeem Olajuwon. It details the specific statistical totals that mark this historical achievement.
-
-Key Points:
-
-• Wembanyama achieved a rare statistical feat during a 10-game win streak.
-
-• He accumulated 275 points, 132 rebounds, and 34 blocks in this period.
-
-• Joins Shaquille O'Neal and Hakeem Olajuwon as the only players to reach these totals.
-
-• This performance underscores his impact on San Antonio's recent success.
-
-
-🔗 Resources:
-
-• [NBA](https://x.com/NBA) - Official X profile for the NBA
-
-• [Wemby Record](https://x.com/NBA/status/2039570538708771247) - Original tweet detailing Wemby's achievement
-
-![Image](https://pbs.twimg.com/media/HE4CASlaYAA77Mt?format=jpg&name=small)
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2039566650085928960/img/nmSJcMNZo0t9YSlo?format=jpg&name=240x240)
-
----
 ### 🚀 Space Exploration - Artemis II Mission
 
 This article discusses the Artemis II mission, a significant NASA endeavor that aims to send astronauts around the moon and back for the first time in over five decades. It outlines the mission's objective to test spacecraft systems during its approximately 10-day voyage.
@@ -168,28 +92,6 @@ Key Points:
 • [#GoogleDoodle](https://x.com/hashtag/GoogleDoodle?src=hashtag_click) - Hashtag for Google Doodle
 
 • [Artemis II Doodle](https://x.com/Google/status/2039468626701352976) - Original tweet celebrating the mission
-
----
-### 💡 Sports Highlights - NBA Game Play
-
-This article highlights an impressive half-court hook shot made by JT, showcasing a moment of exceptional skill in an NBA game. It also provides information on where and when to catch the player and his team in action.
-
-Key Points:
-
-• JT successfully executed a half-court hook shot.
-
-• The play demonstrates significant skill and athleticism.
-
-• Viewers can watch Tatum and the Celtics play against MIA tonight.
-
-
-🔗 Resources:
-
-• [NBA](https://x.com/NBA) - Official X profile for the NBA
-
-• [JT Shot](https://x.com/NBA/status/2039468144557715652) - Original tweet featuring the shot
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2039467442330558464/img/EVcbPAr8yVXCQ1HP.jpg)
 
 ---
 ### ✨ Brand Engagement - Roku Content Discovery

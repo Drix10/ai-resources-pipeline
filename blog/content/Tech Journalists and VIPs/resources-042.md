@@ -23,29 +23,6 @@ Key Points:
 
 ---
 
-### 🎬 Politics - Moviemaking Capabilities and National Security
-
-This article summarizes a statement by Donald Trump regarding the alleged theft of American moviemaking capabilities by other countries.  The statement also mentions the role of a governor in this alleged loss.
-
-
-Key Points:
-
-• Trump claims other countries have stolen US moviemaking capabilities.
-
-
-• He attributes this to incompetence on the part of a governor.
-
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1919223522225774592/img/7txtN_Nw-pEtxI4V.jpg)
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1919213392323031041/img/Ia_60g_Luo1uReCO?format=jpg&name=240x240)
-
-
----
-
 ### ⚠️ Media - Defamatory Statements and Lab Leak Allegations
 
 This article discusses a Twitter exchange regarding potentially defamatory statements and their legal implications.  It references a photograph of a lab leak at USAMRIID.

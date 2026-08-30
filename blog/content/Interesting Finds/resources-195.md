@@ -140,26 +140,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HMaZgtyboAAWZyy?format=jpg&name=small)
 
 ---
-### ✨ Sports News - FIFA Review Request
-
-This article reports on a request made by President Donald Trump to FIFA regarding a red card incident in a recent World Cup match. It details the call for review concerning U.S. striker Folarin Balogun's ejection.
-
-Key Points:
-
-• President Trump requested FIFA to review a red card decision.
-
-• The incident involved U.S. striker Folarin Balogun.
-
-• The request pertains to a World Cup match against Bosnia and Herzegovina.
-
-
-🔗 Resources:
-
-• [Fortune Magazine](https://x.com/FortuneMagazine) - Business and financial news
-
-• [Article on FIFA Review](https://fortune.com/2024/07/08/trump-fifa-red-card-folarin-balogun-world-cup/) - Details on the request
-
----
 ### 🤖 Defense Contracts - Pentagon Award Details
 
 This article details an announcement from the Pentagon regarding a contract award. It identifies Army Contracting Command Detroit Arsenal as the specified contracting activity for the award.

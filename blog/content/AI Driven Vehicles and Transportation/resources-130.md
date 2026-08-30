@@ -154,29 +154,6 @@ Key Points:
 
 • [Original Tweet Context](https://x.com/BoyuanChen0/status/2008269201694495227) - Introducing the LVP-14B robot foundation model
 ---
-### 💡 AI Planning - Multi-Component Planning (MCP) for Travel
-
-This article describes an experiment utilizing Multi-Component Planning (MCP) for personalized travel itineraries, integrating user preferences for dining and attractions.
-
-Key Points:
-
-• Demonstrates Multi-Component Planning (MCP) in a travel context.
-
-• Utilizes user-specific food and venue preferences for itinerary generation.
-
-• Creates personalized plans, including follow-up activities like dinner.
-
-• Showcases a practical application of AI in personalized service.
-
-
-🔗 Resources:
-
-• [MCP Experiment Video](https://www.youtube.com/watch?v=3Ch2My) - YouTube video demonstrating the MCP experiment
-
-• [AutouraHQ](https://autoura.com/) - Platform for personalized travel experiences
-
-• [Original Tweet Context](https://x.com/alexbainbridge/status/2008507883118620936) - Discusses MCP experiment for travel planning
----
 ### 🤖 Autonomous Drones - High-Speed Self-Driving Pipeline
 
 This article highlights a highly efficient full-self-driving pipeline for drones, capable of real-time operation with minimal resources and no pre-mapping requirements.

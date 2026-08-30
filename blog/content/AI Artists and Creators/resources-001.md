@@ -1,32 +1,3 @@
-### 🎬 Film Showcase - ST^TIC Film Block
-
-This article showcases a film block featuring three short films: "The Cold Goodbye," "Ruler of the Sea Call of Cthulhu," and "Uncanny Planet," along with a fourth film, "Aye, Axeman."  The block aired at 7 PM and 10 PM PT.
-
-Key Points:
-
-• Showcase of independent short films.
-
-• Diverse range of film styles and genres.
-
-• Features works from multiple artists.
-
-
-🔗 Resources:
-
-• [@FlyoverBase](https://twitter.com/FlyoverBase) - Director of "The Cold Goodbye"
-
-• [@GenR8tiv_art](https://twitter.com/GenR8tiv_art) - Director of "Ruler of the Sea Call of Cthulhu"
-
-• [@jae_kingsley](https://twitter.com/jae_kingsley) - Director of "Uncanny Planet"
-
-• [Tasha M. Caufield](https://twitter.com/search?q=%23TashaMCaufield&src=typed_query) - Director of "Aye, Axeman"
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1890951295676141569/pu/img/hxaC1fdQiLk6MEbN.jpg)
-![Image](https://pbs.twimg.com/media/Gj4CL2qWEAA6PZG?format=jpg&name=medium)
-
-
-
----
 ### 🤖 AI Art - Vidu AI Application
 
 This article briefly describes a user's positive experience using Vidu AI to generate art based on a video image.  The user highlights the speed and accuracy of the tool.
@@ -97,31 +68,6 @@ Key Points:
 
 
 ![Image](https://pbs.twimg.com/ext_tw_video_thumb/1890980316808200192/pu/img/gRdsYKrXoV0Vw_zT.jpg)
-
-
----
-### 🎬 Filmmaking - Short Film Production
-
-This article discusses the creation of a short horror film using Luma Labs AI and Pika Labs.
-
-Key Points:
-
-• Short film production using AI tools.
-
-• Horror film genre focus.
-
-• Utilizing AI for film production.
-
-
-🔗 Resources:
-
-• [@LumaLabsAI](https://twitter.com/LumaLabsAI) - AI-powered filmmaking tools
-
-• [@pika_labs](https://twitter.com/pika_labs) - AI-powered image generation
-
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1890494295846662144/pu/img/L5Zr5tgr_8Jj3ZLK.jpg)
-
 
 
 ---

@@ -208,29 +208,6 @@ Key Points:
 
 
 ---
-### 💡 Film Editing - Dustin Hollywood
-
-This article is a brief update from a filmmaker on their editing progress.
-
-Key Points:
-
-• Completed two film edits totaling six minutes of footage.
-
-
-• Celebrates completing a minor deadline.
-
-
-•  Expresses excitement about sharing the finished product.
-
-
-![Image](https://pbs.twimg.com/media/GyXcj8EWwAoh7Ix?format=jpg&name=360x360)
-![Image](https://pbs.twimg.com/media/GyXcj8HWsAE67XA?format=jpg&name=360x360)
-![Image](https://pbs.twimg.com/media/GyXcj8CW8AUluOZ?format=jpg&name=360x360)
-![Image](https://pbs.twimg.com/media/GyXcj8BWMAAU9hM?format=jpg&name=360x360)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

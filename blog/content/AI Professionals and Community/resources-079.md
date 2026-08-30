@@ -1,24 +1,3 @@
-### 🤖 GPU Acceleration - Flux on H100s
-
-This article details a method for accelerating Flux operations on H100 GPUs using the `flux-fast` recipe.  The method offers a significant performance improvement.
-
-Key Points:
-
-• 2.5x speedup achieved on H100 GPUs
-
-• Simple implementation with `flux-fast` recipe
-
-• Supports Kontext
-
-
-🔗 Resources:
-
-• [flux-fast code](https://github.com/huggingface/flux-fast) -  Flux acceleration code
-
-![Image](https://pbs.twimg.com/media/GusvtIdbUAAVYCI?format=jpg&name=small)
-
-
----
 ### 🚀 LLM Serving - LMCache
 
 This article describes LMCache, an LLM serving engine extension designed to reduce tail latency and boost throughput, particularly in long-context scenarios.

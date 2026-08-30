@@ -114,23 +114,6 @@ Key Points:
 
 
 ---
-### 💡 Societal Impact - Hollywood's Portrayal of the Future
-
-This article critiques Hollywood's tendency to depict dystopian futures, arguing for a more optimistic and positive vision to inspire progress.
-
-Key Points:
-
-•  Critiques the prevalence of dystopian themes in Hollywood.
-
-
-•  Advocates for a shift towards more positive and aspirational future narratives.
-
-
-•  Highlights the need for a constructive vision of the future.
-
-
-
----
 ### 🤖 Academia - Remembering Kaya
 
 This article is a tribute to Kaya, a highly involved individual in a university lab, despite not being formally enrolled in a Computer Science program.  Her contributions and impact are acknowledged.

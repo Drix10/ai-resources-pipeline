@@ -25,23 +25,6 @@ Key Points:
 
 
 ---
-### 🎬 Animation - Papercraft Stop-Motion
-
-This article describes two stop-motion animation concepts utilizing papercraft techniques: a sandcastle and a summer evening scene.
-
-Key Points:
-
-•  Sandcastle animation from a paper base.
-
-
-• Summer evening scene with translucent paper elements.
-
-
-•  Paper-crafted aesthetic throughout both animations.
-
-
-
----
 ### 🗄️ Excel Spreadsheet - Customer Manager
 
 This article introduces a custom-built Excel spreadsheet designed to manage customer data, invoices, and work orders efficiently.

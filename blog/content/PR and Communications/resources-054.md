@@ -221,37 +221,6 @@ Key Points:
 
 ---
 
-### 🏈 Sports - Passing of Willhans Ili
-
-This article reports the death of Willhans Ili, a former football player for Bishop Amat High School.
-
-Key Points:
-
-• Willhans Ili, a Bishop Amat football Hall of Famer, passed away.
-
-
-• He was a highly decorated player, including CIF-SS Division 1 Player of the Year.
-
-
-• His death occurred while he was traveling in New York.
-
-
-🔗 Resources:
-
-• [clipperrob](https://x.com/clipperrob) - Source of information
-
-• [SGVNSports](https://x.com/SGVNSports) - Source of information
-
-• [Willhans Ili](https://x.com/willhansili) - Mentioned individual
-
-• [SGVNSports Tweet](https://x.com/SGVNSports/status/1923784900341387717) - Original tweet
-
-![Image](https://pbs.twimg.com/media/GrKoKlWXMAA7h_I?format=jpg&name=small)
-![Image](https://pbs.twimg.com/media/GrKoKlQW4AA_5SV?format=jpg&name=small)
-
-
----
-
 ### 🔬 Science - Arc's Search for a Chief Scientific Officer
 
 This article announces Arc's search for a Chief Scientific Officer, highlighting the organization's ambition in biological research.

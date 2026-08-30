@@ -106,20 +106,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/ext_tw_video_thumb/1895455934027378688/pu/img/UUoJHCXlyJ4eLUQm.jpg)
 
 
-### 🎬 Oscars - "The Brutalist" and Saint John's Abbey Church
-
-This article highlights the Saint John's Abbey Church in Minnesota as the setting for "The Brutalist," an Oscar contender.
-
-Key Points:
-
-• Saint John's Abbey Church is featured in the film "The Brutalist."
-
-• "The Brutalist" is a potential Best Picture winner at the Oscars.
-
-
-![Image](https://pbs.twimg.com/media/Gk3keZ5XEAAGrJa.jpg)
-
-
 ### 🍎 Food - Colorful Fruit and Vegetable Crisps
 
 This article showcases colorful fruit and vegetable crisps produced by a food company in Zibo, Shandong province.

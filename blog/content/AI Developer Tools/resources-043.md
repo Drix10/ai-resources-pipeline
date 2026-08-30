@@ -52,29 +52,6 @@ Key Points:
 
 ---
 
-### 🤖 Open-Source Reasoning Model - DeepCoder-14B-Preview
-
-This article introduces DeepCoder-14B-Preview, a fully open-sourced reasoning model capable of high performance in coding and mathematical tasks.  The entire model, dataset, code, and training recipe are released publicly.
-
-Key Points:
-
-• DeepCoder-14B-Preview achieves high performance on coding and math benchmarks.
-
-
-• The model, dataset, code, and training recipe are all open-sourced.
-
-
-• This allows for reproducibility and community contribution.
-
-
-
-🔗 Resources:
-
-• [Image](https://pbs.twimg.com/media/GoCeF4wbwAE24ln?format=jpg&name=small)
-
-
----
-
 ### 💡 Security in Model Context Protocol (MCP)
 
 This article emphasizes the importance of security when using large language models (LLMs) that interact with live company data or execute tools via MCP.

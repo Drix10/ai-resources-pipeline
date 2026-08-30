@@ -106,29 +106,6 @@ Key Points:
 
 ---
 
-### 💡 Personal Anecdote - Meeting a Baseball Hero
-
-This article recounts a personal encounter with Orel Hershiser after a significant baseball game.
-
-Key Points:
-
-•  A personal meeting with baseball player Orel Hershiser.
-
-• The author attended game 7 of the 1988 World Series.
-
-• The author briefly ran onto the field post-game.
-
-
-🔗 Resources:
-
-• [Bill Gross's X Post](https://x.com/Bill_Gross/status/1961472531678007505) -  Anecdotal story and images
-
-![Image](https://pbs.twimg.com/media/GziMiZsbkAII3Fy?format=jpg&name=small)
-![Image](https://pbs.twimg.com/media/GziMkbnawAAzO6j?format=jpg&name=small)
-
-
----
-
 ### 🤖 Software Development - Vercel and Developer Experience (DX)
 
 This article critiques a tweet praising Vercel's developer tools, arguing that focusing solely on the "happy path" neglects important trade-offs.

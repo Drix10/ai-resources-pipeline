@@ -49,26 +49,6 @@ Key Points:
 
 **Article 3**
 
-### ✨ Valentine's Day Event - Poetry at LAX
-
-This article highlights a Valentine's Day event at Los Angeles International Airport (LAX) featuring a poet laureate writing custom love poems.
-
-Key Points:
-
-• Free custom love poems written on-site.
-
-
-• West Hollywood's Poet Laureate, Brian Sonia-Wallace, is participating.
-
-
-• Event is being held at LAX.
-
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1890528969528684544/pu/img/xcIJNlsO-FDu72PY.jpg)
-
-
-**Article 4**
-
 ### 💔 Geopolitics - Sanctions on Russia
 
 This article discusses claims of the Trump administration's efforts to lift sanctions on Russia.

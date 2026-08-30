@@ -105,26 +105,6 @@ Key Points:
 
 
 ---
-### 🚀 RenderCon 2025 - AI & 3D Conference
-
-This article announces RenderCon 2025, a conference focusing on the future of AI and 3D, taking place in Hollywood.
-
-
-Key Points:
-
-• First-ever in-person conference.
-
-• Features AI pioneers and top 3D artists.
-
-• Discounted hotel rates before March 28th.
-
-
-
-🔗 Resources:
-
-• [Render Network](https://x.com/rendernetwork) - Conference information
-
----
 ### ✨ Decentraland - Music Talent Trail
 
 This article announces the Decentraland Music Talent Trail, featuring live performances and virtual events.

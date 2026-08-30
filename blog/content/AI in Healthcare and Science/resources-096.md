@@ -136,29 +136,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/GyKaqGbWwAAsajp?format=jpg&name=small)
 
 ---
-### 🤖 Football Analytics - Savinho's Potential
-
-This article provides a performance analysis of footballer Savinho, highlighting his strengths and areas for improvement.  It discusses his potential to become a standout player in the EPL.
-
-Key Points:
-
-•  Savinho possesses strong dribbling and carrying abilities.
-
-
-•  Creates chances from both flanks and recorded 8 assists last season.
-
-
-•  Improving finishing could elevate him to a top EPL winger.
-
-
-🔗 Resources:
-
-• [We Build Score](https://x.com/webuildscore) - Football analytics
-
-
-![Image](https://pbs.twimg.com/media/GyFrtqIXkAAGpbT?format=jpg&name=small)
-
----
 ### 🚀 DeSci Investments - Binance and Emerging Projects
 
 This article discusses the growing DeSci (Decentralized Science) movement on Binance, highlighting BioProtocol as the only currently listed project and mentioning several other promising unlisted projects in biotech, AI-health, and genomics.
@@ -199,26 +176,6 @@ Key Points:
 
 
 ---
-### 💡 Colorectal Cancer Prevention - Actionable Steps
-
-This article provides actionable steps to reduce the risk of colorectal cancer, including tracking biomarkers, screening, and dietary changes.
-
-Key Points:
-
-• Track biomarkers linked to higher risk.
-
-
-• Screen for cancers yearly.
-
-
-• Modify diet to reduce risk.
-
-
----
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

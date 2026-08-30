@@ -189,30 +189,6 @@ Key Points:
 
 ---
 
-### 🤖 Sevilla FC - AI-Driven Scout Advisor
-
-This article discusses Sevilla FC's use of an AI-driven scout advisor built with Llama and IBM watsonX to improve talent scouting efficiency.
-
-
-Key Points:
-
-• AI improves soccer talent scouting.
-
-
-• Reduced evaluation time with AI tools.
-
-
-• Advanced generative AI capabilities utilized.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/Gk5n1sMW0AAidWA?format=jpg&name=small)
-
-
-
----
-
 ### 🤖 VRNA - VR Training for CNA and EMS
 
 This article describes VRNA, a virtual reality training platform for CNA and EMS skills, highlighting its cost-effectiveness and engagement benefits.

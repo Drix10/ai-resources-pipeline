@@ -167,30 +167,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/amplify_video_thumb/2022293274766286848/img/My23iF0LB4CQChwW.jpg)
 
 ---
-### 🤖 AI Security - Guardrail Jailbreak Tactics
-
-This article discusses a "Hex Recipe Book" tactic, enabling a multiple model guardrail jailbreak. It highlights a discovered vulnerability in generative AI models and credits Ansh Maheshwari for the finding.
-
-Key Points:
-
-• A novel "Hex Recipe Book" tactic bypasses AI model guardrails.
-
-• This method facilitates jailbreaking across multiple generative AI models.
-
-• The discovery underscores ongoing challenges in AI safety and security.
-
-• Research into model vulnerabilities is critical for robust AI development.
-
-
-🔗 Resources:
-
-• [Original Tweet](https://x.com/0dinai/status/2022393495059861587) - Announcing a multi-model guardrail jailbreak.
-
-• [Disclosure Report](https://0din.ai/disclosures/06) - Detailed report on the "Hex Recipe Book" jailbreak tactic.
-
-• [0din.ai Profile](https://x.com/0dinai) - Information about AI security and model scanning.
-
----
 ### 💡 Data Science Applications - Driving Business Impact
 
 This article focuses on leveraging data science frameworks to generate significant business impact. It outlines how strategic application of data insights can lead to tangible organizational benefits.

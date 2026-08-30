@@ -161,23 +161,6 @@ Key Points:
 
 ---
 
-### ⚽ Sports Commentary - Club América Transfers
-
-This article presents commentary on the transfer dealings of Club América, criticizing the decisions made by a sports executive.
-
-
-Key Points:
-
-• Critiques of Santiago Baños's tenure.
-
-• Questions the rationale behind player transfers.
-
-
-![Image](https://pbs.twimg.com/media/GvdZjOyWAAA3Vyf?format=jpg&name=small)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

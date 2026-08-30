@@ -103,27 +103,6 @@ Key Points:
 
 
 ---
-### 🤖 AI Agent Development - NBA AI Agent Project
-
-This article discusses a college student's project to build an NBA AI agent to replace slow, outdated software and integrate with real-time data using OpenAI's SDK.
-
-Key Points:
-
-• Building an NBA AI agent for real-time data integration.
-
-• Transitioning from a time-consuming prompt-based approach.
-
-• Enhanced efficiency through improved development methodology.
-
-
-🔗 Resources:
-
-• [Keywords AI](https://x.com/keywordsai) - AI-powered tools and resources
-
-![Image](https://pbs.twimg.com/media/Gk5sKBtWAAAZuf-?format=jpg&name=small)
-
-
----
 ### 🤖 Python Dependency Management - uv Package Manager
 
 This article highlights the uv package manager for addressing the challenges of Python dependency management, particularly in AI development on single machines.

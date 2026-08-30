@@ -137,25 +137,6 @@ Key Points:
 • [The Big View Podcast](https://t.co/zGVLrsDNgH) - Episode on financial infrastructure challenges
 
 ---
-### ✨ Sports - Ipswich Town's Premier League Return
-
-This article reports on Ed Sheeran's celebration with Ipswich Town following their return to the Premier League. It details the dressing room singalong, highlighting the celebratory mood after the team's achievement.
-
-Key Points:
-
-• Ed Sheeran celebrated Ipswich Town's promotion to the Premier League.
-
-• Celebrations included a dressing room singalong with the team.
-
-• This marks Ipswich Town's return to the top football league.
-
-🔗 Resources:
-
-• [Sky News](https://x.com/SkyNews) - Source for sports and entertainment news
-
-• [Sky News Video](https://t.co/L5LqKxraj3) - Footage of Ed Sheeran's celebration
-
----
 ### 💡 Geopolitics - US-Iran Military Tensions
 
 This article reports on President Trump's statements concerning potential American military strikes on Iran as he departed Florida. It covers his direct remarks to reporters regarding the possibility of such actions.

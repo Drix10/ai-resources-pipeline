@@ -1,28 +1,3 @@
-### ⚽ Club World Cup - Top xG Overachievers
-
-This article analyzes the top performers at the Club World Cup who significantly outperformed their expected goals (xG) metrics.  It examines the discrepancy between actual goals scored and predicted goals based on shot quality.
-
-Key Points:
-
-• Wessam Abou Ali scored 4 goals with an xG of only 1.12.
-
-
-• Kenan Yildiz and Michael Olise each scored 3 goals from under 1 xG.
-
-
-• The data highlights the role of skill and luck in goal scoring.
-
-
-🔗 Resources:
-
-• [WeBuildScore](https://x.com/webuildscore) - Football analytics
-
-
-![Image](https://pbs.twimg.com/media/Gur7iT0W8AALjRe?format=jpg&name=small)
-
-
----
-
 ### 🚀 X (formerly Twitter) - Client-Side Enhancements
 
 This article discusses the emerging trend of Chrome extensions for X and explores the lack of similar solutions for mobile platforms, specifically iOS and Safari.

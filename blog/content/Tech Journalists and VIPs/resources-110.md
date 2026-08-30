@@ -29,39 +29,6 @@ Key Points:
 
 ---
 
-### 🛡️ Security - Super Bowl-Level Security in Glendale
-
-This article details the extensive security measures implemented for the Kirk Memorial in Glendale, Arizona, mirroring those of Super Bowl LVII.
-
-Key Points:
-
-• Unified Command structure led by the Secret Service.
-
-
-• Joint Operations Center with multiple agencies involved.
-
-
-• Approximately 4,000 personnel deployed.
-
-
-• Multi-agency collaboration for enhanced security.
-
-
-
-🔗 Resources:
-
-• [Mario Nawfal](https://x.com/MarioNawfal) - Source of information
-
-
-![Image](https://pbs.twimg.com/media/G1YB6XWWsAArzk7?format=jpg&name=small)
-
-
-![Image](https://pbs.twimg.com/media/G1X_pekWgAAWM4W?format=jpg&name=240x240)
-
-
-
----
-
 ### ⚠️ Geopolitical Commentary - Empires and the Jewish People
 
 This article presents a provocative commentary on the historical relationship between empires and the Jewish people, suggesting potential consequences for nations perceived as hostile towards them.

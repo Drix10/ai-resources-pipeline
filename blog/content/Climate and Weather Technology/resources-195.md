@@ -48,26 +48,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/amplify_video_thumb/2074140700380151808/img/fdQF9aO6iQ2AEKma?format=jpg&name=240x240)
 
 ---
-### ✨ Weather Education - Interactive Learning Initiatives
-
-This article introduces the "Weather World Cup," an interactive poll-based competition designed to engage audiences with meteorological topics. The initiative aims to present weather information in an accessible and engaging format.
-
-Key Points:
-
-• Interactive polls can enhance audience engagement in weather topics.
-
-• Creative formats make complex scientific information accessible.
-
-• Structured competition fosters curiosity about meteorological phenomena.
-
-
-🔗 Resources:
-
-• [Jaydon Shaw WX](https://x.com/JaydonShawwx) - Creator of the Weather World Cup initiative.
-
-![Image](https://pbs.twimg.com/media/HMjcuO_aEAAlwNu?format=png&name=small)
-
----
 ### 🤖 Severe Weather Alerts - Flash Flood Warnings
 
 This article provides critical information regarding an active Flash Flood Warning issued for Curtice, OH, and Williston, OH. It details the duration of the warning, emphasizing immediate regional weather concerns.

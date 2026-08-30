@@ -127,23 +127,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HOi2l-8XYAA7yVn?format=jpg&name=small)
 
 ---
-### ✨ Brand Partnership - Zendaya Joins Prada Beauty
-
-Actress Zendaya has been named the new global brand ambassador for Prada Beauty. She will specifically represent the Prada Paradoxe fragrance line.
-
-Key Points:
-
-• Zendaya is the new global brand ambassador.
-
-• She represents Prada Beauty.
-
-• Her role focuses on the Prada Paradoxe fragrance line.
-
-🔗 Resources:
-• [Campaign TR Article](https://campaigntr.com/genel/zendaya-) - Article on Zendaya's ambassador role
-![Image](https://pbs.twimg.com/media/HOgiK67W0AE97wV?format=jpg&name=small)
-
----
 ### ✨ Corporate Merger - Omnicom's New Agency Name
 
 Omnicom has trademarked a new agency name following the merger of Hearts & Science and Mediahub. This consolidates their combined operations under a new identity.

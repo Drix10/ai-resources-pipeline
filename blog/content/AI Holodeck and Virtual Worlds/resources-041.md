@@ -130,34 +130,6 @@ Key Points:
 
 ---
 
-### ✨ Contest - Hollywood Takeover Raffle
-
-This article announces a raffle hosted by Angry Dynomites, in partnership with Codex Sandy and Sandwatch AI, inviting participants to create movie posters or scenes for a chance to win prizes.
-
-Key Points:
-
-•  Participants create Sandy Codex movie posters or scenes.
-
-
-• Prizes include $SANDY and Mainnet tokens.
-
-
-• The contest aims to discover the next blockbuster star.
-
-
-🔗 Resources:
-
-• [Sandwatch AI](https://x.com/SandwatchAI) - Partner organization
-
-
-• [$SANDY](https://x.com/search?q=%24SANDY&src=cashtag_click) -  Prize currency
-
-
-![Image](https://pbs.twimg.com/media/GnsS0iCbcAEWM2U?format=jpg&name=small)
-
-
----
-
 ### 🤖 AI & Wikipedia - Navigate AI's Solution
 
 This article discusses the excessive scraping of Wikipedia data by AI bots and introduces Navigate AI's efforts to address the issue of AI models training on community-built data without reciprocal benefit.

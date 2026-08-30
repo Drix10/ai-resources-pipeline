@@ -100,29 +100,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HL0gtQ5WkAAODtj?format=jpg&name=small)
 
 ---
-### ✨ Community Events - World Cup Watch Party
-
-This article announces an upcoming community event, a World Cup watch party hosted by Lighthouse. It provides details for participation, fostering engagement and camaraderie within the community.
-
-Key Points:
-
-• Hosts a community event for sports viewing.
-
-• Encourages social interaction among participants.
-
-• Provides an opportunity for networking.
-
-
-🚀 Implementation:
-1. Confirm Event Details: Verify date, time, and location of the watch party.
-2. Distribute Invitations: Share event information with the target audience.
-3. Facilitate Attendance: Provide necessary links or instructions for joining.
-
-🔗 Resources:
-
-• [LighthouseHQ](https://x.com/lighthousehq_) - Information on Lighthouse and its initiatives
-
----
 ### 💡 Productivity - Email & AI Insights
 
 This article summarizes key insights from Superhuman Mail Founder Rahul Vohra on the enduring importance of email and the transformative impact of AI on productivity. It also covers strategic considerations in the age of AI.

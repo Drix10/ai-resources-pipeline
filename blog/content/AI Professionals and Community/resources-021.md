@@ -90,32 +90,6 @@ Key Points:
 
 
 ---
-### 🤖 Biotechnology -  Personal Aging Rate and Rejuvenation Olympics
-
-This article mentions an individual's reported exceptionally slow aging rate and their ranking in a rejuvenation competition.
-
-
-Key Points:
-
-•  Reportedly slow rate of aging.
-
-
-•  High ranking in a rejuvenation competition.
-
-
-
-🔗 Resources:
-
-• [Grant Lenaarts' Twitter](https://x.com/GrantLenaarts) -  Source of claim
-
-
-• [Bryan Johnson's Twitter](https://x.com/bryan_johnson) -  Possibly related
-
-
-![Image](https://pbs.twimg.com/media/GlSpauha4AIqzIF?format=jpg&name=small)
-
-
----
 ### 💡 Humanitarian Issues - War Crimes and Food Insecurity
 
 This article addresses the ongoing war crimes and humanitarian crisis, specifically mentioning the starvation of a large population.

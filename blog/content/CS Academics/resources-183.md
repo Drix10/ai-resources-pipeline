@@ -109,46 +109,6 @@ Key Points:
 • [BuzzFeed X](https://x.com/BuzzFeed) - Official X profile for BuzzFeed content
 
 ---
-### ✨ NBA Player Spotlight - John Konchar's Birthday
-
-This article acknowledges the 30th birthday of John Konchar, a professional basketball player for the Utah Jazz.
-
-Key Points:
-
-• Celebrates the 30th birthday of John Konchar.
-
-• Recognizes his affiliation with the Utah Jazz team.
-
-• Highlights a personal milestone for an NBA player.
-
-🔗 Resources:
-
-• [NBA X](https://x.com/NBA) - Official X profile for the National Basketball Association
-
-• [Utah Jazz X](https://x.com/utahjazz) - Official X profile for the Utah Jazz team
-
-![Image](https://pbs.twimg.com/media/HDjLDupaQAAxa79?format=jpg&name=small)
-
----
-### 💡 NBA Access - Official Viewing Guide
-
-This article provides guidance on how to access and watch official NBA games through available platforms.
-
-Key Points:
-
-• Direct access to NBA game viewing options.
-
-• Official resources for watching live basketball.
-
-• Comprehensive guide for NBA enthusiasts.
-
-🔗 Resources:
-
-• [NBA How to Watch](https://www.nba.com/how-to-watch-games) - Official guide on watching NBA games
-
-• [NBA X](https://x.com/NBA) - Official X profile for the National Basketball Association
-
----
 ### ✨ Social Media Engagement - Humorous Interactions
 
 This article explores the nature of humorous social media interactions, highlighting an example of playful online engagement.
@@ -193,29 +153,6 @@ Key Points:
 • [Elon Musk X](https://x.com/elonmusk) - Official X profile of Elon Musk
 
 ---
-### 💡 Makeup Trends - Natural-Look Concealers
-
-This article provides recommendations for concealers designed for individuals who prefer a natural appearance and minimal makeup application.
-
-Key Points:
-
-• Focuses on concealers that provide a natural finish.
-
-• Caters to preferences for a subtle makeup look.
-
-• Highlights products for light coverage and enhancement.
-
-• Offers solutions for a "no-makeup" makeup aesthetic.
-
-🔗 Resources:
-
-• [BuzzFeed Article](https://www.buzzfeed.com/buzzfeeders/best-concealers-no-makeup-look) - Concealers for a natural, no-makeup appearance
-
-• [BuzzFeed X](https://x.com/BuzzFeed) - Official X profile for BuzzFeed content
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

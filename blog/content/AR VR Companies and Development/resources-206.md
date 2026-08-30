@@ -1,38 +1,3 @@
-### 💡 Film Industry - Diverse Theatrical Lineup
-
-This article outlines Hollywood's shift towards diverse film lineups and the reasons behind it, as observed by movie theater exhibitors.
-
-Key Points:
-
-• Exhibitors acknowledge the value of varied theatrical releases.
-
-• Successes like "Project Hail Mary," "Obsession," and "Backrooms" demonstrate this value.
-
-• Hollywood is moving beyond reliance on franchise films for box office success.
-
-🔗 Resources:
-![Image](https://pbs.twimg.com/media/HNNgKUQXsAA526Z?format=jpg&name=small)
-
----
-
-### 💡 Film Industry Analysis - Box Office Slump Causes
-
-This article presents Jason Blum's analysis of the recent box office decline, attributing it to Hollywood's choice of films.
-
-Key Points:
-
-• Jason Blum states the box office slump resulted from creating unsuitable films.
-
-• Older intellectual property appealed more to previous generations.
-
-• A younger audience exists but was not served with relevant content.
-
-🔗 Resources:
-![Image](https://pbs.twimg.com/media/HNNiON7WgAAU75p?format=jpg&name=small)
-![Image](https://pbs.twimg.com/media/HNNiPV6XwAAeJw5?format=jpg&name=small)
-
----
-
 ### 🚀 Game Release - Project Blue Files: Classified
 
 This article introduces "Project Blue Files: Classified," a first-person horror game based on declassified UFO investigations.

@@ -17,19 +17,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HL1pu9fWsAAoXF1?format=jpg&name=small)
 
 ---
-### 💡 Sports Economy - World Cup Fan Costs
-
-This article explores the financial commitment required for fans attending the World Cup, including soaring ticket prices. It also touches on fan strategies to save money and notable moments from the tournament.
-
-Key Points:
-
-• World Cup ticket costs are a significant financial consideration for fans.
-
-• Fans adopt strategies like camping to reduce expenses.
-
-• The Pitchside podcast discusses Messi's records and tournament dynamics.
-
----
 ### 💡 International Relations - France-Burkina Faso Diplomatic Rupture
 
 This article details the escalating tensions between France and Burkina Faso, leading to the severance of diplomatic ties. It outlines France's consideration of reciprocal measures following this decision.
@@ -64,19 +51,6 @@ Key Points:
 • [On Assignment Podcast](https://t.co/CHU69qgdd6) - Learn about the Reuters Climate Monitor's functionality
 
 ![Image](https://pbs.twimg.com/media/HL1oWpLWMAA_vyS?format=jpg&name=small)
-
----
-### 💡 Sports Analysis - Team USA Soccer Prospects
-
-This article examines Team USA's successful progression through the World Cup group stage and their upcoming challenge in the knockout rounds. It highlights Christian Pulisic as a key player for the team.
-
-Key Points:
-
-• Team USA advanced to the knockout rounds by clinching first place.
-
-• The team secured two impressive wins in the group stage.
-
-• Christian Pulisic is a key player for Team USA in the next match.
 
 ---
 ### 🤖 AI Policy - Anthropic Fable 5 Model Approval

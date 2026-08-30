@@ -1,27 +1,3 @@
-### 🎬 Filmmaking -  A Ghost Story Analysis
-
-This article provides a brief analysis of the 2017 film "A Ghost Story," focusing on its unique narrative and lasting impact on viewers.  The film explores themes of grief, memory, and the passage of time.
-
-Key Points:
-
-• Evocative storytelling: The film uses minimal dialogue and relies heavily on visuals to convey its emotional impact.
-
-
-• Unique narrative structure:  The unconventional storytelling creates a haunting and unforgettable viewing experience.
-
-
-• Exploration of grief: "A Ghost Story" delves deeply into the complexities of grief and loss, offering a unique perspective.
-
-
-🔗 Resources:
-
-• [A Ghost Story (IMDb)](https://www.imdb.com/title/tt5776466/) - Synopsis and reviews.
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1893598606147428353/pu/img/Vy0W27LiW6YU7Sjn.jpg)
-
-
-
----
 ### ✨ AI Art - Niji Style Animation
 
 This article showcases an animation created using the Niji style and Hailuo AI Director Model.  The piece highlights the capabilities of these AI tools in generating creative visuals.

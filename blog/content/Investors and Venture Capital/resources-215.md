@@ -74,21 +74,6 @@ Key Points:
 
 ---
 
-### 💼 Business - Corporate Culture
-
-A private equity shop in Charlotte has a strict dress code, with employees getting their hair cut once a week.
-
-Key Points:
-• A private equity shop in Charlotte has a strict dress code.
-• Employees get their hair cut once a week.
-• The dress code is seen as a reflection of the company's culture.
-
-🔗 Resources:
-• [Original source](https://x.com/friedmandave/status/2093824963643940947) - Original source
-• [Private equity](https://en.wikipedia.org/wiki/Private_equity) - Investment firm
-
----
-
 ### 📚 Books - Imagination Library
 
 Dolly Parton's Imagination Library has delivered over 300 million free books to children around the world.

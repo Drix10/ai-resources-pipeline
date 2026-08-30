@@ -1,22 +1,3 @@
-### 💡 NBA - Game Viewing Information
-
-This article provides information on how to access and watch NBA games. It covers general viewing guidance for fans.
-
-Key Points:
-
-• Find official broadcast schedules for upcoming games.
-
-• Access live streams and on-demand content for NBA matches.
-
-• Stay informed about various viewing platforms available.
-
-🔗 Resources:
-
-• [NBA Watch Guide](https://nba.com/how-to-watch-g) - Official guide on how to watch games
-
-• [NBA on X](https://x.com/NBA) - Official NBA X (formerly Twitter) page
-
----
 ### 💡 Storytelling - Disturbing Narratives
 
 This article compiles a collection of dark and disturbing stories designed to challenge reader perceptions. It aims to provide engaging, thought-provoking narratives.
@@ -112,42 +93,6 @@ Key Points:
 • [BuzzFeed on X](https://x.com/BuzzFeed) - Official BuzzFeed X (formerly Twitter) page
 
 ---
-### 💡 NBA Culture - Steph Curry's Celebration
-
-This article highlights Steph Curry's widely recognized on-court celebration. It discusses its broad appeal across different age groups and its cultural impact.
-
-Key Points:
-
-• Observe Steph Curry's popular on-court celebration.
-
-• Understand the universal appeal of his unique gestures.
-
-• Recognize the cultural influence of sports figures.
-
-🔗 Resources:
-
-• [NBA on X](https://x.com/NBA) - Official NBA X (formerly Twitter) page
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2040474834032013313/img/yJbWTcDSUqGQuE4C.jpg)
-
----
-### 💡 NFL Analysis - Underrated Running Backs
-
-This article poses a question to spark discussion about historically underrated NFL running backs. It encourages fans to consider players who may not receive due recognition for their contributions.
-
-Key Points:
-
-• Engage in a discussion about NFL running back legacies.
-
-• Identify players often overlooked in historical rankings.
-
-• Contribute perspectives on various player's impact.
-
-🔗 Resources:
-
-• [Fanatics on X](https://x.com/Fanatics) - Official Fanatics X (formerly Twitter) page
-
----
 ### 🚀 GitHub - Personal Productivity
 
 This article explores how GitHub, typically used for code management, can be leveraged for personal productivity and task organization. It outlines methods to manage daily life tasks within the GitHub ecosystem.
@@ -175,31 +120,6 @@ Key Points:
 • [GitHub on X](https://x.com/github) - Official GitHub X (formerly Twitter) page
 
 ---
-### 💡 NBA Game Recap - Atlanta Hawks Performance
-
-This article provides a recap of Friday's NBA game, highlighting the Atlanta Hawks' recent strong performance. It details key player statistics from their latest victory.
-
-Key Points:
-
-• Review the Atlanta Hawks' impressive 18-win streak in 20 games.
-
-• Analyze key individual player statistics from the recent game.
-
-• Stay updated on the latest NBA game results and team performance.
-
-🔗 Resources:
-
-• [NBA on X](https://x.com/NBA) - Official NBA X (formerly Twitter) page
-
-• [Atlanta Hawks on X](https://x.com/ATLHawks) - Official Atlanta Hawks X (formerly Twitter) page
-
-![Image](https://pbs.twimg.com/media/HFB0EoPWEAA5ciy?format=jpg&name=small)
-
-![Image](https://pbs.twimg.com/media/HFBsM6mbIAAB4n1?format=jpg&name=240x240)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

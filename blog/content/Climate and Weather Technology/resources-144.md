@@ -107,27 +107,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HCtFnv9awAADw8l?format=jpg&name=small)
 
 ---
-### 💡 Severe Weather - Tornado Confirmation
-
-This article confirms another tornado touchdown in extreme southern Kansas, located east of Buff City. It provides real-time information on active severe weather events.
-
-Key Points:
-
-• Confirms active severe weather occurrences
-
-• Pinpoints specific geographic locations
-
-• Contributes to comprehensive regional hazard updates
-
-🔗 Resources:
-
-• [PettusWX](https://x.com/PettusWX) - Weather reporting and storm chasing
-
-• [Original Confirmation Post](https://x.com/PettusWX/status/2029792928462234016) - Original tornado confirmation tweet
-
-![Image](https://pbs.twimg.com/media/HCtF1yvXgAAy5If?format=jpg&name=small)
-
----
 ### 🤖 Meteorology - Dual-Pol Doppler Data Analysis
 
 This article details a confirmed tornado in Grant County, Oklahoma, utilizing dual-polarization Doppler radar data. It specifies the tornado's location south of Wakita, debris lofting heights, and its projected movement toward Clyde.

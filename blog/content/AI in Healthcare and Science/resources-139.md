@@ -107,30 +107,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/G-ukbULbQAINVC9?format=jpg&name=small)
 
 ---
-### 🤖 AI Applications - Webuildscore Partnerships
-
-This article discusses Webuildscore's recent real-world partnerships over the past two months, focusing on the integration of their Computer Vision AI. It highlights collaborations with a football club and another entity for Vision AI development.
-
-Key Points:
-
-• Webuildscore announced five real-world partnerships.
-
-• Computer Vision AI integrates into Reading FC performance and operations.
-
-• Reading FC is a third-tier English football club.
-
-• AVIA partnership focuses on building Vision AI.
-
-
-🔗 Resources:
-
-• [Webuildscore](https://x.com/webuildscore) - AI solutions for sports and vision applications
-
-• [DreadBong0](https://x.com/DreadBong0) - Provides updates on Webuildscore and AI
-
-![Image](https://pbs.twimg.com/media/G-q6ohobQAQqai_?format=jpg&name=small)
-
----
 ### 🤖 Biotech Tools - Cradle for Protein Engineering
 
 This article highlights the adoption of Cradle by scientists in leading pharmaceutical companies. It emphasizes Cradle's role in accelerating and improving protein engineering processes.

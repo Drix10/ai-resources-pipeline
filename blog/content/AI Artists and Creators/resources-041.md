@@ -43,30 +43,6 @@ Key Points:
 
 
 ---
-### ✨ AI in Filmmaking - 'DUCK' Series
-
-This article discusses the creation of the short film series "DUCK," which uses AI to bring back old Hollywood stars in a new context.  The series explores themes of truth and power.
-
-Key Points:
-
-• AI is used to resurrect old Hollywood actors in a modern setting.
-
-
-• "DUCK" explores themes of reality versus perception.
-
-
-
-🔗 Resources:
-
-• [Fellowship AI](https://x.com/FellowshipAi) - AI tools used in filmmaking
-
-
-• [Rachel Maclean](https://x.com/Maclean_Rachel) - Director of 'DUCK'
-
-
-![Image](https://pbs.twimg.com/media/GnpwuzAaQAAwEWp?format=jpg&name=small)
-
----
 ### 💡 Identity Politics -  Exploring Self-Definition
 
 This article reflects on the author's aversion to identity politics, highlighting a perceived lack of imagination in self-definition.

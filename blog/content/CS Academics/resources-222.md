@@ -65,42 +65,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/tweet_video_thumb/HIStV1qXkAAKCsJ.jpg)
 
 ---
-### ✨ NBA Game Update - Detroit Performance
-
-This article highlights a significant scoring run by Detroit during an NBA game, emphasizing a player's contribution to their team's momentum.
-
-Key Points:
-
-• Showcases a notable scoring run during a game.
-
-• Highlights a specific player's contribution to the team.
-
-• Captures an exciting moment in an ongoing basketball match.
-
-🔗 Resources:
-
-• [NBA](https://x.com/NBA) - Official NBA account
-
----
-### ✨ NBA Playoff Update - Game 5 Broadcast
-
-This article provides an update on the status of an NBA playoff series, announcing a tied series and broadcast information for the upcoming Game 5.
-
-Key Points:
-
-• Informs about a tied series status between CLE and DET.
-
-• Announces the schedule for the critical Game 5.
-
-• Provides details on where to watch the next playoff match.
-
-🔗 Resources:
-
-• [NBA How-to-Watch](https://nba.com/how-to-watch-g) - Guide on watching NBA games
-
-• [NBA](https://x.com/NBA) - Official NBA account
-
----
 ### 💡 Home Cleaning - Product Recommendations
 
 This article presents a curated list of 30 cleaning products available at Walmart, aimed at helping consumers maintain a cleaner home.
@@ -166,50 +130,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/amplify_video_thumb/2054291997067005952/img/QGRvoNx-Morngznu.jpg)
 
 ---
-### ✨ NBA Playoffs - Game 5 Recap
-
-This article provides a recap of Game 5 of the NBA Playoffs Round 2, detailing the final scores, key player performances, and the resulting series lead.
-
-Key Points:
-
-• Summarizes key statistics and outcomes from Game 5.
-
-• Highlights significant individual player performances.
-
-• Updates on the series lead in the NBA Playoffs.
-
-🔗 Resources:
-
-• [NBA](https://x.com/NBA) - Official NBA account
-
-• [Spurs](https://x.com/spurs) - Official account for the San Antonio Spurs
-
-• [Google](https://x.com/Google) - Official Google account
-
-![Image](https://pbs.twimg.com/media/HIKw56aXkAAlHcb?format=jpg&name=small)
-
----
-### ✨ NBA Playoff Series - Western Conference Semifinals Update
-
-This article provides an update on the Western Conference Semifinals, announcing the series lead held by the Spurs and detailing the schedule and broadcast information for the upcoming Game 6.
-
-Key Points:
-
-• Informs about the current series lead in the Western Conference Semifinals.
-
-• Provides details for Game 6, including date and time.
-
-• Identifies the broadcast platform for the next game.
-
-🔗 Resources:
-
-• [NBA](https://x.com/NBA) - Official NBA account
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2054392053119713280/img/EbK8hxo1RT66kGR7?format=jpg&name=240x240)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

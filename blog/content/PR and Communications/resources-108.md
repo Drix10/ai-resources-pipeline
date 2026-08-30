@@ -190,30 +190,6 @@ Key Points:
 
 
 ---
-### 🏈 Sports Analysis - Miami Dolphins vs. New England Patriots
-
-This article summarizes a Twitter thread analyzing the historical performance of the Miami Dolphins against the New England Patriots at home.
-
-Key Points:
-
-• Dolphins' dominant record against Patriots at home.
-
-
-• Historical context of Patriots' wins in Miami.
-
-
-🔗 Resources:
-
-• [DadsBetBaseball's Twitter](https://x.com/DadsBetBaseball) - Related Tweet
-
-
-• [Spotify link](https://open.spotify.com/episode/3bDhNT…) -  Podcast episode
-
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1966113418504515584/img/DNjnrGwrPX4IetHc.jpg)
-
-
----
 ### 🤖 Social Commentary - AI-Generated Bots and Civil War
 
 This article summarizes a Twitter thread expressing concern about AI-generated bots promoting civil war on social media.

@@ -213,35 +213,6 @@ Key Points:
 
 ---
 
-### ✨ Fashion - Wearable Art Collection at NYFW
-
-This article announces the showcase of a wearable art collection at New York Fashion Week.
-
-Key Points:
-
-• The author showcases their wearable art collection at NYFW.
-
-
-• The event is a culmination of years of creative work.
-
-
-• The collection combines fashion, art, music, and ambiance.
-
-
-
-🔗 Resources:
-
-• [Creatress Art's Twitter](https://x.com/creatressart) - Mentioned user
-• [Archana Aneja's Twitter](https://x.com/archanaaneja_) - Author's Twitter profile
-
-![Image](https://pbs.twimg.com/media/G0bJq0ubgAUNp1X?format=jpg&name=small)
-![Image](https://pbs.twimg.com/media/G0bJq0paUAAEKGZ?format=jpg&name=small)
-![Image](https://pbs.twimg.com/media/G0bJq0wakAACHLi?format=jpg&name=360x360)
-![Image](https://pbs.twimg.com/media/G0bJq0sa0AA63d0?format=jpg&name=360x360)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

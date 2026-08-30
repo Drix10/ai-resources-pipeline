@@ -20,28 +20,6 @@ Key Points:
 
 ---
 
-### 💡 Proposed Punishment for Court Disturbance
-
-This article presents a proposed, highly controversial punishment for disrupting a WNBA game by throwing a dildo onto the court.
-
-Key Points:
-
-•  Proposed punishment involves restraint and public humiliation.
-
-
-•  Includes the dissemination of high-resolution images to family and employers.
-
-
-•  The severity of the punishment is intended as a significant deterrent.
-
-
-🔗 Resources:
-
-• [mgogel's Tweet](https://x.com/mgogel/status/1953653603421319192) -  The proposed punishment
-
-
----
-
 ### 🤖 Humanitarian Aid and Hamas Collaboration
 
 This article discusses allegations of UN truck drivers collaborating with Hamas in the distribution of aid.

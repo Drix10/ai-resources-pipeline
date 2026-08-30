@@ -78,19 +78,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HIrUncwbsAAULiE?format=jpg&name=small)
 
 ---
-### ✨ AI - Video Manipulation in Sports Footage
-
-This article discusses a demonstration where AI technology was used to integrate an individual into World Cup footage. It highlights the capabilities of current AI video manipulation techniques.
-
-Key Points:
-
-• AI can seamlessly integrate individuals into existing video content.
-
-• The technology enables advanced and realistic video manipulation.
-
-• Such applications demonstrate significant progress in AI capabilities.
-
----
 ### 🤖 Architectural Engineering - Sagrada Família Construction Materials
 
 This article outlines the extended construction timeline of the Sagrada Família, focusing on the historical challenge of sourcing specific building materials. It details the rigorous process required to identify a suitable replacement stone.

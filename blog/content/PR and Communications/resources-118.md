@@ -21,27 +21,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/amplify_video_thumb/2000453623587713025/img/1b7JZy0zsZlB4ih_.jpg)
 
 ---
-### 💡 Sports - Athlete's Journey
-
-This article highlights the Mendoza family's influence on Indiana Football QB Fernando Mendoza's athletic journey. It discusses the critical role loved ones played in his ascent to prominence.
-
-Key Points:
-
-• The Mendoza family is highlighted.
-
-• Article features Fernando Mendoza, Indiana Football QB.
-
-• Emphasizes the impact of loved ones on his career.
-
-🔗 Resources:
-
-• [Indiana Football Profile](https://x.com/IndianaFootball) - Official team account
-
-• [Big Ten Network Profile](https://x.com/BigTenNetwork) - Sports media network
-
-• [Original Tweet](https://x.com/BigTenNetwork/status/2000242727380816128) - Featuring the Mendoza family journey
-
----
 ### 💡 Public Health - COVID-19 Impact
 
 This article discusses the absence of a causal link between COVID-19 vaccination and sudden deaths in young adults. It explains that the SARS-CoV-2 virus itself directly impacts blood vessels, increasing the risk of cardiovascular events.

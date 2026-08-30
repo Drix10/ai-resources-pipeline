@@ -234,29 +234,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HIjSK-AXgAAX13g?format=jpg&name=900x900)
 
 ---
-### 💡 Weather Alert - Destructive Thunderstorm in Bay City
-
-This article reports a Destructive Severe Thunderstorm Warning for Bay City, Michigan. It highlights the presence of baseball-sized hail and urges immediate safety actions.
-
-Key Points:
-
-• Destructive Severe Thunderstorm Warning issued for Bay City, Michigan
-
-• The storm is currently producing baseball-sized hail
-
-• Immediate shelter is advised for residents in the area
-
-• Large hail can cause significant damage to property and pose danger
-
-🔗 Resources:
-
-• [Weathertrackus](https://x.com/weathertrackus) - Weather tracking and updates
-
-![Image](https://pbs.twimg.com/media/HIjRyz7a0AEm_ie?format=jpg&name=small)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

@@ -15,25 +15,6 @@ Key Points:
 • [Reuters Article](https://reut.rs/4cen8WP) - Explores investor interest in dividend funds.
 
 ---
-### 🤖 Sports Technology - Automated Umpire System Incident
-
-This article details a recent incident involving the MLB's Automated Balls and Strikes (ABS) system. It highlights the system's impact on game decisions and the resulting managerial reaction.
-
-Key Points:
-
-• Automated Balls and Strikes system influences game outcomes.
-
-• Manager ejected due to a controversial ABS system call.
-
-• The technology overturned a walk, changing a critical play.
-
-🔗 Resources:
-
-• [Fox News Tweet](https://x.com/FoxNews/status/2038640986864136359) - Original report on the ABS system incident.
-
-![Image](https://pbs.twimg.com/media/HEq1I9HWkAAZo_i?format=jpg&name=small)
-
----
 ### 💡 Mental Health Awareness - Destigmatizing Grief
 
 This article reflects on the four-year effort to destigmatize grief, acknowledging the personal and professional support received. It underscores the importance of open conversations surrounding loss.
@@ -68,23 +49,6 @@ Key Points:
 🔗 Resources:
 
 • [USA TODAY Tweet](https://x.com/USATODAY/status/2038601375857213749) - Reports on the White House construction project.
-
----
-### ✨ College Basketball - Player Performance Spotlight
-
-This article highlights Yaxel Lendeborg's pivotal role in Michigan's Elite Eight victory against Tennessee. It discusses his emergent status as a potential standout player for the Final Four.
-
-Key Points:
-
-• Yaxel Lendeborg was key to Michigan's Elite Eight win.
-
-• His performance drove the team's success against Tennessee.
-
-• Lendeborg is recognized as a rising star for the Final Four.
-
-🔗 Resources:
-
-• [USA TODAY Tweet](https://x.com/USATODAY/status/2038557074964062245) - Details Yaxel Lendeborg's impact in the game.
 
 ---
 ### 💡 Geopolitical Developments - Israel-Lebanon Conflict Update
@@ -155,25 +119,6 @@ Key Points:
 • [Reuters Article](https://reut.rs/4sGYQL6) - Reports on BOJ's focus on foreign exchange movements.
 
 ---
-### ✨ NFL Player Updates - Patrick Mahomes Status
-
-This article provides an update on quarterback Patrick Mahomes, delivered by coach Andy Reid. The statement was made in anticipation of the NFL's annual league meetings.
-
-Key Points:
-
-• Andy Reid provided an update on Patrick Mahomes.
-
-• The update precedes the NFL's annual league meetings.
-
-• Details about Mahomes' status were shared.
-
-🔗 Resources:
-
-• [USA TODAY Tweet](https://x.com/USATODAY/status/2038421128327139678) - Reports on Andy Reid's update for Patrick Mahomes.
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

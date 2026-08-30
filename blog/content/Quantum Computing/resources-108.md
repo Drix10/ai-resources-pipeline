@@ -1,27 +1,3 @@
-### 🤖 Quantum Algorithms - Hidden Constants in SDP
-
-This article discusses the importance of hidden constants in SDP-based quantum algorithms, highlighting that asymptotic speedups might not always translate to practical advantages in relevant problem size regimes.  David Gross's talk in Cologne is the subject of this analysis.
-
-Key Points:
-
-• Asymptotic speedups in quantum algorithms don't guarantee practical benefits.
-
-
-• Hidden constants significantly impact performance in realistic scenarios.
-
-
-• The relevance of theoretical speedups depends heavily on problem size.
-
-
-🔗 Resources:
-
-• [Victor Valbert's X Post](https://x.com/victorvalbert/status/1965816722549850508) - Discussion on SDP quantum algorithms
-
-![Image](https://pbs.twimg.com/media/G0f75FGXMAA1Y9d?format=jpg&name=small)
-
-
----
-
 ### 💡 Geopolitical Events and Quantum Zeno Effect
 
 This article briefly mentions the reported invasion of Poland's airspace, the reported assassination of Charlie Kirk, and the invocation of Article 4, relating these events to the concept of the Quantum Zeno effect and its implications for the Chronovisor.

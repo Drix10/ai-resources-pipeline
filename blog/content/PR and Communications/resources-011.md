@@ -70,27 +70,6 @@ Key Points:
 
 ---
 
-### 🤖 NFL - 2025 Salary Cap Announcement
-
-This article reports the official announcement of the 2025 NFL salary cap, providing the per-club amount and total projected player costs.  Year-over-year comparison is also included.
-
-Key Points:
-
-• 2025 NFL salary cap set at $279,200,000 per club.
-
-• Total projected player costs at $362,480,000.
-
-
-• Year-over-year cap change is illustrated graphically.
-
-
-🔗 Resources:
-
-• [NFL Salary Cap Chart](https://pbs.twimg.com/media/Gk0Bd_AXwAAm6QQ?format=jpg&name=900x900)
-
-
----
-
 ### 🤖 Government Contracts - Elon Musk and Starlink
 
 This article alleges that Elon Musk is attempting to have Verizon's FAA contract canceled to award the contract to his company, Starlink.  This action is described as a potential conflict of interest and possibly illegal.

@@ -1,26 +1,3 @@
-### 💡 Youth Sports - Coaching a Basketball Season
-
-This article provides essential tips for new volunteer youth basketball coaches to help them navigate their first season effectively. It focuses on strategies to maintain organization and foster a positive environment.
-
-Key Points:
-
-• Establish clear expectations with players and parents early in the season.
-
-• Prioritize fundamental skills development over complex strategies for young athletes.
-
-• Organize practice plans efficiently to maximize engagement and learning for the team.
-
-• Communicate regularly with team members and their families to build cohesion.
-
-• Maintain a positive and encouraging attitude to support player development.
-
-🔗 Resources:
-
-• [Tweet Context](https://x.com/polsia/status/2056736820193591538) - Original tweet discussion
-
-• [Further Information](https://t.co/rokEAvWleX) - Associated coaching content
-
----
 ### 🤖 AI Agent - Home Energy Renovation Management
 
 This article introduces Caleor, an AI agent designed to streamline the entire home energy renovation process in France. It highlights the agent's comprehensive capabilities from audit to paperwork.

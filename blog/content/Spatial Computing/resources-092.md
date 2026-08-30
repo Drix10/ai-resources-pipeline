@@ -1,26 +1,3 @@
-### 🎬 Animation - SIGGRAPH Conversation
-
-This article summarizes a conversation at SIGGRAPH 2025 about the animation techniques used in "Inkwo for When the Starving Return."  The discussion highlights the blending of cutting-edge CG and traditional stop-motion animation.
-
-
-Key Points:
-
-•  Blending of CG and stop-motion techniques.
-
-
-• Powerful storytelling through animation.
-
-
-•  Discussion of innovative animation methods.
-
-
-
-🔗 Resources:
-
-• [SIGGRAPH](https://x.com/siggraph) - Information on SIGGRAPH events
-
-
----
 ### 📊  Market Analysis - Video Game Sales
 
 This article discusses the sales performance of a video game (likely the AVP) and contrasting expectations against the actual sales figures.  It also references an article (currently unavailable) suggesting Apple's positive reaction to the sales results.
@@ -159,26 +136,6 @@ Key Points:
 
 
 ![Image](https://pbs.twimg.com/ext_tw_video_thumb/1955347450861961216/pu/img/rsSh5FwiVt3hBa3i.jpg)
-
-
----
-### 🎬 Animation - Dark Roast Shorts at SIGGRAPH
-
-This article highlights the "Dark Roast Shorts" program at SIGGRAPH 2025, showcasing student and professional animation work with intense, haunting, and emotionally charged themes.
-
-
-Key Points:
-
-•  Showcase of student and professional animation work.
-
-
-•  Focus on intense, haunting, and emotionally charged themes.
-
-
-
-🔗 Resources:
-
-• [SIGGRAPH Tweet](https://x.com/siggraph/status/1955347318800093618) -  Information about Dark Roast Shorts at SIGGRAPH.
 
 
 ---

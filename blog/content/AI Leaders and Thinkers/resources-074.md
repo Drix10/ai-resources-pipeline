@@ -162,30 +162,6 @@ Key Points:
 
 ---
 
-### 🤖 FIFA Club World Cup - Group Stage Results
-
-This article presents the results of several matches in the group stage of the FIFA Club World Cup.
-
-
-Key Points:
-
-•  Provides match results for Group G and H of the FIFA Club World Cup.
-
-
----
-
-### 🤖 FIFA Club World Cup - Upcoming Matches
-
-This article presents the schedule for several upcoming matches in the group stage of the FIFA Club World Cup.
-
-
-Key Points:
-
-• Presents the schedule for several matches in Groups A and B of the FIFA Club World Cup.
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

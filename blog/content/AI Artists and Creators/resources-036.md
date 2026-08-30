@@ -1,23 +1,3 @@
-### 🎬 VFX - House of David Season 2
-
-This article details the experience of working as a VFX AI Prompt Artist and Photoshop Editor on Season 2 of House of David, a Prime Video and Amazon MGM Studios production.
-
-
-Key Points:
-
-•  Involved in a major international production.
-
-•  Utilizing AI prompt engineering for VFX.
-
-
-🔗 Resources:
-
-• [CharaspowerAI](https://x.com/CharaspowerAI) - VFX AI Prompt Artist
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1903837614026686464/pu/img/yjgB3uG6sjUoncnq.jpg)
-
-
----
 ### 🤖 ChatGPT - GPT-5 Release
 
 This article discusses the upcoming release of GPT-5, highlighting its tiered access model including free, plus, and pro versions.

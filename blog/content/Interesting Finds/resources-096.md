@@ -98,26 +98,6 @@ Key Points:
 
 ---
 
-### 🎬  Media Review - Alien: Earth
-
-This article provides a brief review of the first episode of "Alien: Earth."
-
-Key Points:
-
-• The reviewer found the pacing slow.
-
-• The reviewer was surprised by the positive reception.
-
-• The reviewer might watch the second episode.
-
-
-🔗 Resources:
-
-• [zcichy's Tweet](https://x.com/zcichy/status/1955887858050589131) - Review of Alien: Earth
-
-
----
-
 ### 💣 Weaponry - Rods from God
 
 This article describes a theoretical space-based weapon system known as "Rods from God."

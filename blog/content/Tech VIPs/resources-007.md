@@ -57,29 +57,6 @@ Key Points:
 
 ---
 
-### ✨ Sports - Andre Iguodala's Legacy with the Golden State Warriors
-
-This article celebrates Andre Iguodala's career with the Golden State Warriors, highlighting his contributions to their dynasty.
-
-Key Points:
-
-• Iguodala played 8 seasons with the Golden State Warriors.
-
-
-• He was instrumental in 4 championship wins.
-
-
-• His jersey number 9 will be retired.
-
-
-🔗 Resources:
-
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1893695292714725376/img/iDLedCbze92jth9t.jpg)
-
-
----
-
 ### 🇺🇦 Geopolitics -  Ukraine's Resilience
 
 This article briefly addresses the ongoing conflict in Ukraine, emphasizing the resilience of the Ukrainian people and their armed forces.

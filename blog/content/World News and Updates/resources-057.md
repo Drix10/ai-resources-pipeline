@@ -177,35 +177,6 @@ Key Points:
 
 
 ---
-### 💄 Economics - Beauty Spending During Economic Turmoil
-
-This article discusses shifts in consumer spending on makeup and beauty products during economic downturns.
-
-Key Points:
-
-• Consumer behavior regarding beauty spending changes during economic hardship.
-
-
-• Lipstick and DIY haircuts are cited as examples of past trends.
-
-
-• The article explores the lessons learned from past economic crises.
-
-
-🔗 Resources:
-
-• [Bloomberg Business](https://x.com/business) -  Podcast discussing beauty spending trends
-
-• [Ben Steverman](https://x.com/BSteverman) -  Participant in the podcast
-
-• [Jenny Neumann](https://x.com/JENeumann) -  Participant in the podcast
-
-• [Sarah Holder](https://x.com/sarahsholder) -  Host of the podcast
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1926045813395816448/img/aZ2D2ImvF5mvw8EL.jpg)
-
-
----
 ### 🌎 Geopolitics - Stephen Moore on China
 
 This article presents Stephen Moore's view on China, calling it the "new Evil Empire" and advocating for decoupling the US and the world from Chinese influence.

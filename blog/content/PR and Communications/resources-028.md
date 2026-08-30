@@ -19,30 +19,6 @@ Key Points:
 
 
 ---
-### ⚽️ Football Tactics - Thuram's Role in a Three-CB Defense
-
-This article discusses the optimal role of Thuram in a three-center-back defensive formation within a football (soccer) strategy,  as described by a user.  The user shares their preferred defensive setup and accompanying image examples.
-
-
-Key Points:
-
-• Thuram's best position is as a third center-back.
-
-•  Defensive setup utilizes wing-backs and three central defenders.
-
-• Images illustrate the described defensive formation on the pitch.
-
-
-🔗 Resources:
-
-• [contz's Tweet](https://x.com/contz/status/1900725472356630906) - Discussing Thuram's role and formation
-
-![Image](https://pbs.twimg.com/media/GmC6jaFbcAAyQal?format=jpg&name=small)
-![Image](https://pbs.twimg.com/media/GmC6jblbcAQtK2O?format=jpg&name=360x360)
-![Image](https://pbs.twimg.com/media/GmC6jaPbcAE-Ttj?format=jpg&name=360x360)
-
-
----
 ### 🎶 Music History - Def Leppard's Debut Album
 
 This article commemorates the 45th anniversary of Def Leppard's debut album, "On Through the Night," highlighting its chart performance and key tracks.
@@ -165,27 +141,6 @@ Key Points:
 • [Hesamation's Tweet](https://x.com/Hesamation/status/1900553810977714226) -  Study findings
 
 ![Image](https://pbs.twimg.com/media/GmAci8sXQAAqMeB?format=jpg&name=small)
-
-
----
-### ⛳️ Sports - Menlo School Boys' Golf Match
-
-This article reports on a boys' golf match where Menlo School defeated Nueva and Design Tech.  Individual player scores are included.
-
-Key Points:
-
-• Menlo School wins golf match.
-
-• Jack Earnhardt leads Menlo with a score of 40.
-
-•  Scores from other Menlo players are listed.
-
-
-🔗 Resources:
-
-• [MenloKnights' Tweet](https://x.com/MenloKnights/status/1900420405472719025) - Match results
-
-![Image](https://pbs.twimg.com/media/Gl-mSRUbYAAHhtc?format=jpg&name=small)
 
 
 ---

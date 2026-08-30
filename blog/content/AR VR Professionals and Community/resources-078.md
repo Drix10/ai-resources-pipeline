@@ -47,27 +47,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/ext_tw_video_thumb/1864399596232802304/pu/img/fow7KB9nCWF1LGSk?format=jpg&name=240x240)
 
 ---
-### 💡 MLB - Alex Bregman's Contract Talks
-
-This article summarizes Alex Bregman's statement regarding his openness to contract extension talks and his desire to remain with his current team.
-
-Key Points:
-
-• Alex Bregman is willing to engage in contract extension negotiations.
-
-
-• He prioritizes finding a long-term home with a team.
-
-
-• He expresses his enjoyment of playing for his current team.
-
-
-🔗 Resources:
-
-• [Chris Cotillo](https://x.com/ChrisCotillo) - Reporter covering Bregman's statement.
-
-
----
 ### 🤖 VR Game Development - Personal Account
 
 This article shares the experience of a VR game developer, highlighting the challenges and rewards of the profession.

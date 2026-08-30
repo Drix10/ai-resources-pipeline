@@ -132,25 +132,6 @@ Key Points:
 
 ---
 
-### ✨ Sports Technology - Prediction Market Partnership
-
-The New York Mets have partnered with Novig, a prediction-market startup. This agreement marks Major League Baseball's first official prediction-market collaboration.
-
-Key Points:
-
-• The NY Mets selected Novig as their official prediction-market partner.
-
-• This is the first such partnership in Major League Baseball.
-
-• It indicates prediction markets are expanding into professional sports.
-
-🔗 Resources:
-• [Article Link](https://t.co/VqVKx30MJv) - Report on the Mets-Novig partnership
-• [NY Mets](https://x.com/Mets) - Official Twitter profile for the baseball team
-• [Novig](https://x.com/Novig) - Prediction-market startup Twitter profile
-
----
-
 ### 🤖 AI Development - Verification Speed and Value
 
 The rate of AI improvement is linked to how quickly its outputs can be verified. Different domains have varying verification timelines.

@@ -158,23 +158,6 @@ Key Points:
 
 
 ---
-### 🏀 Golden State Warriors - Draft Picks and Roster Decisions
-
-This article discusses the Golden State Warriors' draft-day decisions and subsequent roster implications.
-
-
-Key Points:
-
-• The Warriors traded back in the second round of the draft.
-
-
-• They are pleased with the value received for their 41st pick.
-
-
-• Roster decisions for Toohey and Richard depend on free agency and G League placement.
-
-
----
 ### 🚦 UK - Red Light Camera Availability
 
 This article details Sky News findings on the low number of operational red light cameras in the UK.

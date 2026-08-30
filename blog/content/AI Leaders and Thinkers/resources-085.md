@@ -93,30 +93,6 @@ Key Points:
 
 ---
 
-### 🚀  AI-Powered Basketball Coaching
-
-This article describes a personal project using an AI-powered system to provide real-time basketball coaching feedback.
-
-Key Points:
-
-• AI system provides real-time feedback through earphones.
-
-• Achieves ~3-second latency.
-
-
-• Aims for lower latency in future development.
-
-
-🔗 Resources:
-
-• [FarzaTV](https://x.com/FarzaTV) - Compared system
-
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1942409751318650882/img/es93SuIL0HHmtm7W.jpg)
-
-
----
-
 ### 🚨 Account Reinstatement Appeal
 
 This article describes a creator appealing for account reinstatement on a platform, highlighting their commitment to community engagement and value addition.

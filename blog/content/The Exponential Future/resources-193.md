@@ -1,26 +1,3 @@
-### 💡 World Cup - Egypt's Engagement
-
-This article highlights the general sentiment and engagement surrounding Egypt's participation in the FIFA World Cup. It captures the atmosphere of joy and national pride associated with the tournament.
-
-Key Points:
-
-• Showcases fan engagement during major international sports events
-
-• Reflects national pride and excitement through social media interactions
-
-• Illustrates the global reach and cultural impact of the World Cup
-
-🔗 Resources:
-
-• [FIFA World Cup](https://x.com/FIFAWorldCup) - Official account for the global football tournament
-
-• [FIFA en español](https://x.com/fifacom_ar) - Official Spanish language FIFA account
-
-• [Original Post](https://x.com/elerianm/status/2073165357922025924) - Source of this social media update
-
-![Image](https://pbs.twimg.com/media/HMVc59UXEAArZl8?format=jpg&name=small)
-
----
 ### 💡 Sportsmanship - Mo Salah's Conduct
 
 This article discusses an instance of notable sportsmanship displayed by a prominent athlete in a competitive setting. It highlights an act of compassion following a significant sporting event.
@@ -80,27 +57,6 @@ Key Points:
 • [Original Post](https://x.com/latestinspace/status/2072857991855169816) - Source of this social media update
 
 ![Image](https://pbs.twimg.com/media/HMRFWs4agAEB5fV?format=jpg&name=small)
-
----
-### 💡 Sports Event - Egypt's World Cup Progress
-
-This article covers Egypt's participation in the FIFA World Cup, specifically their match against Australia in the Round of 32. It highlights the team's unbeaten group stage run and the potential for historic achievement.
-
-Key Points:
-
-• Celebrates national team achievements in international competitions
-
-• Emphasizes the significance of advancing in major tournaments
-
-• Fosters national support and optimism for sports teams
-
-🔗 Resources:
-
-• [ElerianM Profile](https://x.com/elerianm) - Source profile for this update
-
-• [Original Post](https://x.com/elerianm/status/2073095573180125681) - Source of this social media update
-
-![Image](https://pbs.twimg.com/media/HMUdbqYWAA-Lc-?format=jpg&name=small)
 
 ---
 ### 🤖 International Relations - US Sanctions Brazilian Official
@@ -189,29 +145,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HMTOpQoXoAA-0Wv?format=jpg&name=small)
 
 ---
-### 💡 Public Safety - World Cup Pub Hours Controversy
-
-This article reports on police criticism regarding the extended operating hours for pubs during a World Cup match. Concerns are raised about the strain on police resources and the potential for increased public order issues.
-
-Key Points:
-
-• Addresses public safety challenges during major sporting events
-
-• Highlights the impact of extended hours on law enforcement resources
-
-• Considers the potential for increased incidents related to late-night operations
-
-🔗 Resources:
-
-• [PiQ Markets](https://x.com/PiQMarkets) - Source for market intelligence and financial news
-
-• [Original Post](https://x.com/PiQMarkets/status/2073008740224078107) - Source of this social media update
-
-• [External Article](https://t.co/HIadlKEsho) - Detailed report on the police criticism
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

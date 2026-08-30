@@ -175,26 +175,6 @@ Key Points:
 
 
 ---
-### 🎬 Film Production Details
-
-This article provides a brief glimpse into a film shoot, detailing the planned shooting locations and the cast's considerations for safety and efficiency. The language suggests a Bollywood or similar South Asian context.
-
-Key Points:
-
-• Film shoot planned in two locations.
-
-• Safety and efficiency considerations mentioned.
-
-
-🔗 Resources:
-
-• [The Skin Doctor Tweet](https://x.com/theskindoctor13/status/1937018393032630554) - Film Production details
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1937018262669099008/pu/img/sNPFia9m6eEwmSlr.jpg)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

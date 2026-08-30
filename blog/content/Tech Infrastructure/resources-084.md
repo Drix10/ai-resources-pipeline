@@ -45,32 +45,6 @@ Key Points:
 
 
 ---
-### ✨ Stock Market - Predictive Analysis
-
-This article explores a playful attempt to correlate stock market predictions with American Football Quarterback choices.
-
-Key Points:
-
-• A lighthearted approach to investment decision making.
-
-
-• An example of using unconventional methods for analysis.
-
-
-• A humorous connection between sports and finance.
-
-
-![Image](https://pbs.twimg.com/media/GvdlESwWYAAJAK6?format=jpg&name=small)
-
-🔗 Resources:
-
-• [brockpurdy13](https://x.com/brockpurdy13) - San Francisco 49ers Quarterback
-
-
-• [ShadeOGreen](http://ShadeOGreen.com) - Website with further details
-
-
----
 ### 🚀 DevOps Skills - AI-Powered Tutor
 
 This article highlights a new AI tutor tool for learning various technology topics, particularly beneficial for busy DevOps professionals.

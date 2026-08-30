@@ -67,26 +67,6 @@ Key Points:
 
 
 ---
-### 🤖 Computer Vision - NBA Player Position Mapping
-
-This article details progress on a project to map NBA players' positions from camera perspective onto a court map.
-
-
-Key Points:
-
-• Maps player positions from camera to court map.
-
-• Plans to detect shooting motions and mark shot locations.
-
-• Code migrated to Roboflow's GitHub repository.
-
-
-🔗 Resources:
-
-• [Roboflow's GitHub](https://github.com/roboflow/sports) - Project code repository
-
-
----
 ### 🤖 AI & Education - ChatGPT Performance on JEE Advanced
 
 This article discusses the performance of ChatGPT on the IIT JEE Advanced exam.

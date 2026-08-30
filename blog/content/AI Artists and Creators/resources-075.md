@@ -1,33 +1,3 @@
-### 🎬 Visual Art - Refraction/Reflection
-
-This article describes a short video work titled "Refraction/Reflection," which juxtaposes visual serenity with jarring audio.  The piece explores contrasting sensory experiences.
-
-Key Points:
-
-• Visually serene presentation of colored refraction and reflection patterns in water.
-
-
-• Juxtaposition of serene visuals with the harsh sound of a hotel breakfast service.
-
-
-• Exploration of contrasting sensory experiences and their impact on the viewer.
-
-
-🔗 Resources:
-
-• [ArtistryNeural](https://x.com/ArtistryNeural) - Artist's profile
-
-
-• [Alex May Arts](https://x.com/alexmayarts) - Artist's profile
-
-
-• [Video](https://x.com/alexmayarts/status/1936691740372603112) - The short film
-
-
-![Image](https://pbs.twimg.com/media/GuCC37dXUAAetzO?format=jpg&name=small)
-
-
----
 ### 🚀  Gaming - SPARK Leaderboard
 
 This article summarizes a progress update on the SPARK leaderboard, showing strong performance and outlining remaining time.

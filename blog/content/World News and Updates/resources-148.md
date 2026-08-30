@@ -1,25 +1,3 @@
-### 💡 Public Transport - World Cup Fares
-
-This article discusses the public reaction to proposed $150 train fares for World Cup attendees traveling to Meadowlands stadium in New Jersey. It highlights the concerns of New York City residents regarding the high cost of transportation for the event.
-
-Key Points:
-
-• World Cup fans face a significant $150 train fare for travel to Meadowlands stadium.
-
-• New York City residents express strong opposition to the proposed ticket price.
-
-• High transport costs could impact event accessibility for many attendees.
-
-
-🔗 Resources:
-
-• [AFP](https://x.com/AFP) - Global news and media agency
-
-• [AFP Status](https://x.com/AFP/status/2046514331769012639) - Original report on World Cup ticket reactions
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/2046514302564073472/pu/img/GDnNSUXilaZJXNko.jpg)
-
----
 ### 💡 Global Economy - Inflation and Debt
 
 This article reports on discussions from the IMF and World Bank meetings concerning the global economic landscape. It focuses on the challenges faced by countries burdened with debt in managing inflation amidst rising oil prices.

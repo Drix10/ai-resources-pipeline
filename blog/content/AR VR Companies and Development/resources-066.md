@@ -180,30 +180,6 @@ Key Points:
 
 ---
 
-### 🚀 VR Baseball Game - GymClass VR and MLB Partnership
-
-This article announces a partnership between GymClass VR and Major League Baseball, adding official MLB team uniforms and ballpark sounds to their VR baseball game.
-
-
-Key Points:
-
-• Partnership between GymClass VR and Major League Baseball.
-
-
-• Addition of official MLB team uniforms and ballpark sounds.
-
-
-• Enhanced VR baseball game experience.
-
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1929879999584075776/img/e50DfBdwgal24Uqe.jpg)
-
-
----
-
 ### 🤖 VR Particle Simulation - OMG Particle Life in Somnium Space
 
 This article describes a new VR world, "OMG Particle Life," featuring a mind-blowing 10K particle interaction simulation within Somnium Space, overcoming initial performance limitations through the use of the Burst Compiler.

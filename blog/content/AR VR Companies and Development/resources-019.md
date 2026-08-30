@@ -1,32 +1,3 @@
-### 🎬 VR/AR - Trailblazer VR Experience
-
-This article announces the launch of "Trailblazer: The Untold Story of Mrs. Benz," a VR experience featuring Daisy Ridley's voice.  It provides details on the release date and a link to wishlist the experience.
-
-Key Points:
-
-• VR experience featuring Daisy Ridley's voice.
-
-
-• Launches on Meta Quest VR on March 7th.
-
-
-• Available to wishlist now.
-
-
-
-🔗 Resources:
-
-• [Meta Quest VR](https://meta.com/experiences/8402304603203451) - Wishlist and purchase the experience.
-
-• [Arthands VR](https://x.com/arthands_vr) - Developer of the experience.
-
-• [Singer Studios UK](https://x.com/SingerStudiosUK) - Another developer of the experience.
-
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1896646365536464896/pu/img/Ab9-qDcWAPWmTyvC.jpg)
-
-
----
 ### ✨ NFTs - XS Tower Units Sale and NFT Minting
 
 This article announces the sale of XS Tower units and the upcoming minting of these units as NFTs.  It also mentions discounts for Genesis NFT holders.

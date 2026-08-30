@@ -172,25 +172,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HFfY4fHW8AAMlVo.jpg)
 
 ---
-### 💡 Regulatory Scrutiny - NFL Antitrust Investigation
-
-This article reports on a Justice Department investigation into the NFL regarding potential anticompetitive practices. The inquiry stems from fan dissatisfaction with the league's shift to subscription-based TV services for game broadcasts.
-
-Key Points:
-
-• Justice Department is investigating NFL for anticompetitive practices.
-
-• Fan frustration centers on NFL's move to subscription TV.
-
-• The investigation addresses concerns over market competition.
-
-🔗 Resources:
-
-• [Washington Post](https://x.com/washingtonpost) - Source for news and updates
-
-• [Article on NFL Probe](https://t.co/AcOBl1BnZ) - Report on the antitrust investigation
-
----
 ### 💡 News Program Preview - CBS Evening News
 
 This article provides a preview of the upcoming broadcast of the CBS Evening News. It highlights the content scheduled to be featured with anchor Tony Dokoupil.

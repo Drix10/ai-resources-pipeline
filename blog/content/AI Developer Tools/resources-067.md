@@ -159,30 +159,6 @@ Key Points:
 
 
 ---
-### ✨ AI Game Night - FractionAI Event
-
-This article announces a Game Night event hosted by FractionAI.
-
-Key Points:
-
-• Game Night event on Saturday.
-
-
-•  Future "AI Games Olympics" event teased.
-
-
-• Games include Smash Karts, Gartic, and Kirka.
-
-
-
-![Image](https://pbs.twimg.com/media/GsRUJC8XMAAUtet?format=png&name=small)
-
-🔗 Resources:
-
-• [Zek_eth](https://x.com/Zek_eth) -  Master of Games
-
-
----
 ### 🚀 AI Docuseries - The World's Largest Hackathon
 
 This article announces a docuseries about the world's largest hackathon.

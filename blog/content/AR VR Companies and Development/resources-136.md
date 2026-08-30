@@ -242,37 +242,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/G_6kEupW0AAWciS?format=jpg&name=360x360)
 
 ---
-### 🚀 Immersive Sports Experience - NFL AR/VR Collaboration
-
-This article details a collaboration between House of V and the NFL to create an immersive AR/VR experience. It invites users to engage in a virtual journey towards the Lombardi Trophy.
-
-Key Points:
-
-• Development of an interactive AR/VR experience
-
-• Collaboration with the National Football League (NFL)
-
-• Engagement in a sports-themed virtual challenge
-
-• Utilization of augmented and virtual reality technologies
-
-
-🚀 Implementation:
-1. Access the experience: Follow the provided link to launch the NFL AR/VR journey.
-2. Navigate virtual obstacles: Participate in the interactive elements of the simulation.
-3. Progress towards the goal: Aim to reach the Lombardi Trophy within the experience.
-
-🔗 Resources:
-
-• [NFL AR/VR Experience](https://brnw.ch/21wZxps) - Official link to the NFL immersive experience
-
-• [House of V](https://x.com/thisishouseofv) - Developers of the AR/VR experience
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/2017367054102220800/pu/img/88NxFvytIcqL0NmT.jpg)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

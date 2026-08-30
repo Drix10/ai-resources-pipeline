@@ -134,36 +134,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HImB5_MXIAArdG1?format=jpg&name=small)
 
 ---
-### 🤖 Autonomous Vehicles - Waymo Miami Expansion
-
-This article details Waymo's expanded service area in Miami, predicting its availability to connect major city points to Hard Rock Stadium by the FIFA World Cup kickoff.
-
-Key Points:
-
-• Waymo has significantly expanded its autonomous vehicle service in Miami.
-
-• The expanded zone approaches Hard Rock Stadium.
-
-• Anticipated service will connect Brickell and Miami Beach to the stadium.
-
-• This expansion demonstrates Waymo's growth in urban mobility.
-
-
-🔗 Resources:
-
-• [RoadToAutonomy](https://x.com/RoadToAutonomy) - Source for updates on autonomous vehicle development
-
-• [Waymo](https://x.com/Waymo) - Official presence for autonomous driving technology
-
-• [Hard Rock Stadium](https://x.com/HardRockStadium) - Venue mentioned in the Waymo service expansion
-
-• [FIFA World Cup](https://x.com/FIFAWorldCup) - Event associated with the predicted service availability
-
-• [Tweet Context](https://x.com/RoadToAutonomy/status/2056034507711537420) - Original post discussing Waymo's Miami expansion
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2055679168759685120/img/9rPW5bd4-5Gm2T3a.jpg)
-
----
 ### 🤖 Autonomous Vehicles - Zoox Urban Navigation
 
 This article highlights Zoox's autonomous vehicles navigating urban traffic, demonstrating their capabilities in a dynamic city environment.

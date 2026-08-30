@@ -130,27 +130,6 @@ Key Points:
 
 ---
 
-### 🤖 Football Match Analysis - WeBuildScore
-
-This article analyzes the Manchester City vs. Al-Hilal match, highlighting Rúben Neves's performance as City's MVP.
-
-
-Key Points:
-
-• Rúben Neves was Manchester City's MVP, contributing significantly to the team's success.
-
-
-•  His performance included a high pass completion rate and key passes leading to assists.
-
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/GuxUGPxXAAAp4Qx?format=jpg&name=small)
-
-
----
-
 ### 🤖 Premier AI Platform - RapidAI
 
 This article discusses the key features of a premier AI platform, focusing on clinical insights and decision-making improvements for healthcare.

@@ -1,25 +1,3 @@
-### ✨ Sports Achievement - India's Squash World Cup Victory
-
-This article commemorates India's historic victory at the Squash World Cup 2025. It details the significance of this achievement as the nation's first-ever win in the sport's global championship.
-
-Key Points:
-
-• India secured its inaugural Squash World Cup championship in 2025.
-
-• This victory marks a significant milestone in the nation's sporting history.
-
-• The win demonstrates consistent development and effort in the sport.
-
-
-🔗 Resources:
-
-• [Manoj K Nayak's Tweet](https://x.com/manojknayak) - Original announcement of the victory
-
-• [HPhobiaWatch's Tweet](https://x.com/HPhobiaWatch/status/2000262237546803350) - Sharing the historic achievement
-
-![Image](https://pbs.twimg.com/media/G8Jb53IbgAAIuMt?format=jpg&name=small)
-
----
 ### 💡 Social Commentary - Disinformation on Public Incidents
 
 This article addresses a reported claim regarding the Sydney attack, where an account based in Europe labeled the event as a false flag operation. It highlights concerns about individuals disseminating such interpretations.

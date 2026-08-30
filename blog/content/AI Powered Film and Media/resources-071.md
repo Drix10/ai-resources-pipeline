@@ -1,25 +1,3 @@
-### 🎬 Generative AI - Post-Apocalyptic Sci-Fi Short Film
-
-This article discusses a short concept trailer for a post-apocalyptic sci-fi film, "Dustborn," created entirely using generative AI storyboarding.  The trailer features imagery of a paw print, a broken hourglass, and a fallen angel.
-
-Key Points:
-
-• Generative AI used for entire storyboarding process.
-
-• 55-second trailer showcases key visual elements.
-
-• Post-apocalyptic, mystic, sci-fi themes.
-
-
-🔗 Resources:
-
-• [Shikoba_86 Twitter](https://x.com/shikoba_86) - Dustborn creator
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1934578970671882240/img/3NFbpWqP_yNJbEhb.jpg)
-
-
----
-
 ### 💡 Web Development -  Nospoon Application State Persistence
 
 This article briefly addresses the persistent state functionality within the Nospoon application. The key takeaway is that the application maintains its state even after a browser refresh or closure.
@@ -120,28 +98,6 @@ Key Points:
 
 ![Image](https://pbs.twimg.com/amplify_video_thumb/1934552353765498880/img/jUwScDbzWCtL8ywI.jpg)
 
-
-
----
-
-### 🎬 Generative AI - Prithvi: A Poetic Film about Rebirth
-
-This article describes a film titled "Prithvi – The Living Earth," a poetic film about rebirth inspired by the Earth Goddess, emphasizing themes of healing and the divine feminine.
-
-Key Points:
-
-•  Film focuses on themes of rebirth and healing.
-
-•  Inspired by the Earth Goddess.
-
-•  Features a soul-anthem titled "She Rises with the".
-
-
-🔗 Resources:
-
-• [FutureVibesAi Twitter](https://x.com/FutureVibesAi) - Film creator
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1930935400882974720/img/PiNyja0_qBq3Bu_Y.jpg)
 
 
 ---

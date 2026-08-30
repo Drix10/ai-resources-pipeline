@@ -80,28 +80,6 @@ Key Points:
 
 
 
-### ✨ Historical Photograph - HMS Warboat
-
-This article presents a historical photograph of HMS Warboat and provides context about its role during the 1926 London Olympics.
-
-
-Key Points:
-
-• Depicts HMS Warboat passing through London Bridge in 1926.
-
-
-• Served as a base for Super Boat Soldiers, a fast aquatic response team.
-
-
-• Photographed from Canberra.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/Gkd6ULkXEAA9Y3x?format=jpg&name=small)
-
-
-
 ### 🚀 AI-Powered YouTube Shorts - Monetization Strategy
 
 This article discusses a faceless YouTube channel leveraging AI to generate income through YouTube Shorts.

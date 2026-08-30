@@ -52,26 +52,6 @@ Key Points:
 • [New Scientist Book Club](https://t.co/AhdvBpAbGt) - Book club discussion on "Red Mars".
 
 ---
-### ✨ Tech Leaders - Personal Engagements
-
-This article captures a personal interaction involving Google CEO Sundar Pichai and NBA player Stephen Curry, highlighting a notable item received by Pichai. It offers a glimpse into connections between technology and sports figures.
-
-Key Points:
-
-• Sundar Pichai received an item related to Stephen Curry.
-
-• Showcases an engagement between prominent figures.
-
-• Provides a personal insight into professional interactions.
-
-
-🔗 Resources:
-
-• [Sundar Pichai Tweet](https://x.com/sundarpichai/status/2052411065204715928) - Original social media post about the item.
-
-![Image](https://pbs.twimg.com/media/HHugd3qboAAksxV?format=jpg&name=small)
-
----
 ### 💡 Paleontology - Australian Fauna
 
 This article presents fossil evidence indicating the existence of at least two koala species in Australia during the early human arrival period. It details how one species became extinct approximately 30,000 years ago due to aridification in the continent's west.

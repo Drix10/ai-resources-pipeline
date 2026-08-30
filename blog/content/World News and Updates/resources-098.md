@@ -73,24 +73,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/Gy3BgdXagAAjP0B?format=jpg&name=small)
 
 ---
-### 🛍️ Business - Louis Vuitton's China Expansion
-
-This article reports on Louis Vuitton's opening of its first global fragrance and beauty boutique in Nanjing, China, and the simultaneous launch of its beauty line online.
-
-Key Points:
-
-•  First global fragrance and beauty boutique opened in Nanjing.
-
-• Online launch of beauty line on official website and mini program.
-
-
-🔗 Resources:
-
-• [Global Times](https://x.com/globaltimesnews) - News source
-
-![Image](https://pbs.twimg.com/media/Gy2-Y-5bcAAyzQ4?format=jpg&name=small)
-
----
 ### 🏛️ Politics - Lok Sabha Incident
 
 This article covers BJP MP Nishikant Dubey's statement regarding an incident in the Lok Sabha, emphasizing his role in preventing a physical altercation.

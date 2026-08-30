@@ -129,25 +129,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HH2IFvMW0AYwgGi?format=jpg&name=small)
 
 ---
-### 💡 Public Health - Fentanyl Warning for World Cup Visitors
-
-This article details the warning issued by US authorities to World Cup visitors regarding the dangers of recreational drug use. It specifically emphasizes the significant risk of exposure to deadly doses of fentanyl, a powerful synthetic opioid.
-
-Key Points:
-
-• US authorities issued a fentanyl warning for World Cup visitors.
-
-• Recreational drugs can contain deadly doses of fentanyl.
-
-• Fentanyl is a powerful synthetic opioid posing serious health risks.
-
-🔗 Resources:
-
-• [AFP](https://www.afp.com/en/news/15/us-warns-world-cup-fans-fentanyl-risk-recreational-drugs-doc-1149e91) - Warning for World Cup visitors about fentanyl
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

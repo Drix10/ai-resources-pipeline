@@ -138,32 +138,6 @@ Key Points:
 
 ---
 
-### ⚾️ Sports - Kapil Dev and Ian Botham
-
-This article briefly describes a memorable cricket match between India and England in 1982, focusing on the performance of Kapil Dev and Ian Botham.
-
-Key Points:
-
-• Highlights a memorable 1982 cricket match between India and England.
-
-• Focuses on the impressive performances of Kapil Dev and Ian Botham.
-
-• Describes their sportsmanship and camaraderie.
-
-
-🔗 Resources:
-
-• [Nimish Dubey's Tweet](https://x.com/nimishdubey/status/1903368346940416148) - Photos from the match
-
-![Image](https://pbs.twimg.com/media/GmoezeraUAAgEqw?format=png&name=small)
-
-![Image](https://pbs.twimg.com/media/Gmoe2DhboAAI13C?format=jpg&name=360x360)
-
-![Image](https://pbs.twimg.com/media/Gmoe4YQagAAx8x-?format=jpg&name=360x360)
-
-
----
-
 ### 💡 Geopolitics - Misconceptions about European Economy
 
 This article discusses a misconception within the MAGA movement regarding the relative economic strength of Europe compared to Russia.

@@ -175,34 +175,6 @@ Key Points:
 
 ---
 
-### 🤖 AI Model - DeepCoder-14B-Preview
-
-This article announces the release of DeepCoder-14B-Preview, a fully open-sourced reasoning model for coding and math.  The release includes the model, dataset, code, and training recipe.
-
-Key Points:
-
-• Fully open-sourced.
-
-
-• High performance in coding and math tasks.
-
-
-• Complete resources for training provided.
-
-
-![Image](https://pbs.twimg.com/media/GoCeF4wbwAE24ln?format=jpg&name=small)
-
-🔗 Resources:
-
-• [Together Compute](https://x.com/togethercompute) - Organization releasing the model
-
-
-• [Agentica](https://x.com/Agentica_) -  Organization involved in the project
-
-
-
----
-
 ### 💡 Cloud Computing - IaaS, PaaS, and SaaS
 
 This article explains the three main models of cloud services: IaaS, PaaS, and SaaS, comparing their pros and cons.  A link to a more detailed explanation is provided.

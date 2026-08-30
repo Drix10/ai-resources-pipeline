@@ -73,30 +73,6 @@ Key Points:
 
 
 ---
-### 🤖 Sports - Bolivia vs. Uruguay Match Analysis
-
-This article briefly analyzes a soccer match between Bolivia and Uruguay, highlighting the performance of Ramiro Vaca and the overall implications for Bolivia's World Cup qualification.
-
-Key Points:
-
-•  Uruguay dominated the match against Bolivia.
-
-
-• Ramiro Vaca gave a strong individual performance.
-
-
-• The result impacts Bolivia's World Cup qualification hopes.
-
-
-
-![Image](https://pbs.twimg.com/media/Gm7R04yWQAAYsOo?format=jpg&name=small)
-
-🔗 Resources:
-
-• [Marcelo Claure's X Thread](https://x.com/marceloclaure/status/1904690846781608160) - Commentary on the match
-
-
----
 ### 🤖 Children and Coding -  8-Year-Old's Coding Experience
 
 This article discusses an eight-year-old's experience building a theme park simulator using Claude Code, Cloudflare Workers, and Hono.js.  Observations on the coding process are shared.
@@ -115,29 +91,6 @@ Key Points:
 🔗 Resources:
 
 • [East Dakota's X Thread](https://x.com/rickyrobinett/status/1904296075768320208) - Description of the child's coding project
-
-
----
-### ✨ Youth Soccer - Bolivar's Contribution to Bolivian National Team
-
-This article celebrates the contribution of Bolivar's soccer academy to Bolivia's under-17 national team, noting seven players from the academy were selected for the South American tournament.
-
-Key Points:
-
-• Seven players from Bolivar's academy were selected for Bolivia's under-17 team.
-
-
-• This demonstrates the success of Bolivar's youth development program.
-
-
-•  The City Football Group method is highlighted as a key factor in their success.
-
-
-![Image](https://pbs.twimg.com/media/Gm7Qt9dbYAEz8vW?format=jpg&name=small)
-
-🔗 Resources:
-
-• [Marcelo Claure's X Post](https://x.com/marceloclaure/status/1904689186504081569) - Announcement of the player selections
 
 
 ---

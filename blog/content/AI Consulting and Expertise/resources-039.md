@@ -45,28 +45,6 @@ Key Points:
 
 ---
 
-### 💡 Prompt Engineering - Context as a Recipe
-
-This article explores the concept of prompt engineering, framing prompts as recipes with contextual ingredients.  The importance of context in generating meaningful outputs is emphasized.
-
-Key Points:
-
-• Prompts are analogous to recipes, with context acting as the ingredients.
-
-
-•  Access to diverse and relevant contextual information is crucial for successful prompt engineering.
-
-
-•  Variations in context lead to diverse outputs.
-
-
-🔗 Resources:
-
-• [zeroshotnothing](https://x.com/zeroshotnothing) - Prompt engineering insights
-
-
----
-
 ### 💡 Agency Ownership - System for Breaking Free
 
 This article briefly discusses challenges faced by agency owners and introduces a system used by top-performing owners to overcome daily grind.  More details on the specific system are needed for a more comprehensive explanation.

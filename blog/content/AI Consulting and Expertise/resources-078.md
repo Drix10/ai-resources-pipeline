@@ -20,25 +20,6 @@ Key Points:
 
 
 ---
-### 🎬 Film Analysis - Salaam Bombay! and Poverty Porn
-
-This article examines the film *Salaam Bombay!* and its critical reception, specifically addressing accusations of "poverty porn."
-
-Key Points:
-
-• The film depicts the harsh realities of poverty in Bombay.
-
-
-• Its Oscar nomination sparked debate on representation of poverty in cinema.
-
-
-
-🔗 Resources:
-
-• [sanjaykalra](https://x.com/sanjaykalra) - Film commentary and analysis
-
-
----
 ### 🤖 AI Models - o4-mini-deep-research and o3-deep-research
 
 This article introduces two new OpenAI deep research models: o4-mini-deep-research and o3-deep-research, highlighting their capabilities and cost-effectiveness.

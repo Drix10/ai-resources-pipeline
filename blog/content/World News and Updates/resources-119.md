@@ -161,28 +161,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/G8qL0OYbsAE2o1T?format=png&name=small)
 
 ---
-### 💡 Sports Analysis - NBA Player Performance
-
-This article highlights Jordan Clarkson's impactful performance for the Knicks, emphasizing his significant contribution from the bench.
-
-Key Points:
-
-• Jordan Clarkson provides a significant spark for the Knicks
-
-• His contributions come from the bench
-
-• His performance validates his role on the team
-
-• He is a key player in the team's strategy
-
-
-🔗 Resources:
-
-• [NY Post Sports](https://nypost.com/2024/12/15/sports/jordan-clarkson-providing-big-spark-off-bench-for-knicks-why-hes-here/) - Report on Jordan Clarkson's impact for Knicks
-
-![Image](https://pbs.twimg.com/media/G8qicr8WoAANZT_?format=jpg&name=small)
-
----
 ### 💡 Legal Proceedings - Accident Compensation Award
 
 This article reports on a legal outcome where a cyclist, who lost a leg in a truck accident, was awarded a substantial compensation by MACT.

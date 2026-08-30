@@ -74,56 +74,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/amplify_video_thumb/2054282570867810304/img/TZ6dOL9RmrmD0A74.jpg)
 
 ---
-### ✨ NBA Playoffs - Current Bracket Standings
-
-This article provides an update on the current NBA Playoff bracket, detailing recent series outcomes in both the Eastern and Western Conference Semifinals. It also includes information on upcoming playoff games.
-
-Key Points:
-
-• Cavaliers even their Eastern Conference Semifinals series.
-
-• Thunder advance to the Western Conference Finals.
-
-• Next playoff game features Timberwolves and Spurs on NBC & Peacock.
-
-
-🔗 Resources:
-
-• [NBA X Account](https://x.com/NBA) - Official NBA news and updates
-
-• [X Status Link](https://x.com/NBA/status/2054089176841158828) - Tweet updating NBA playoff bracket
-
-• [Cleveland Cavaliers X Account](https://x.com/cavs) - Team updates and news
-
-• [Oklahoma City Thunder X Account](https://x.com/okcthunder) - Team updates and news
-
-• [Google X Account](https://x.com/Google) - NBA Playoffs presenting sponsor
-
-![Image](https://pbs.twimg.com/media/HIGV3tqXEAAQ3Nx?format=jpg&name=small)
-
----
-### ✨ NBA Playoff Highlights - OKC Advances to Finals
-
-This article covers Shai Gilgeous-Alexander's commentary on LeBron James following a playoff series, celebrating the Oklahoma City Thunder's advancement to the Western Conference Finals. It highlights their dominant performance with a second consecutive 4-0 series win.
-
-Key Points:
-
-• SGA comments on LeBron James after Round 2 battle.
-
-• Oklahoma City Thunder secure second 4-0 series win.
-
-• Thunder advance to Western Conference Finals for second straight season.
-
-
-🔗 Resources:
-
-• [NBA X Account](https://x.com/NBA) - Official NBA news and highlights
-
-• [X Status Link](https://x.com/NBA/status/2054086962647110123) - Tweet on OKC's advance and SGA's comments
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2054072556848570368/img/sX1prY0n97Uut6-G?format=jpg&name=240x240)
-
----
 ### ✨ Prime Video - Major Content Lineup Expansion
 
 This article details the significant content lineup expansion announced by Prime Video at Amazon's annual Upfront presentation. It highlights new and returning series, including major additions to the platform's offerings.
@@ -177,52 +127,6 @@ Key Points:
 • [Details Link](https://t.co/EAuNZkOMgX) - Additional information on content lineup
 
 • [X Status Link](https://x.com/amazon/status/2053989181454725611) - Tweet providing link to content details
-
----
-### ✨ NBA Playoff - LeBron Game 4 Arrival
-
-This article captures LeBron James's arrival for Game 4 of the Lakers' playoff series, emphasizing the team's objective to remain in contention. It provides details on the game's timing and broadcast platform.
-
-Key Points:
-
-• LeBron James arrives for a critical Game 4.
-
-• Lakers aim to extend their season in the playoffs.
-
-• Game 4 is broadcast on Prime at 10:30pm/et.
-
-
-🔗 Resources:
-
-• [NBA X Account](https://x.com/NBA) - Official NBA game coverage
-
-• [X Status Link](https://x.com/NBA/status/2053986047562846635) - Tweet on LeBron's Game 4 arrival
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2053985490785685504/img/_tqssRaZbjV50kHG.jpg)
-
----
-### ✨ NBA Playoff Highlight - Ayo Dosunmu's Clutch Play
-
-This article highlights a critical defensive play by Ayo Dosunmu during a playoff game, emphasizing how minute details can determine game outcomes in the postseason. It details his save and subsequent clutch free throws that impacted the series.
-
-Key Points:
-
-• Ayo Dosunmu executes an unbelievable save in the postseason.
-
-• Clutch plays significantly impact playoff game results.
-
-• Dosunmu followed his save with two crucial free throws.
-
-• The play helped even the series at 2-2.
-
-
-🔗 Resources:
-
-• [NBA X Account](https://x.com/NBA) - Official NBA highlights and news
-
-• [X Status Link](https://x.com/NBA/status/2053857662492697022) - Tweet featuring Dosunmu's critical save
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2053661186525110272/img/l2xUkbYiak08xJx3.jpg)
 
 ---
 ### 💡 Social Commentary - Conservative Identity

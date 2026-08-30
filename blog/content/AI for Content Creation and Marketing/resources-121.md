@@ -1,25 +1,3 @@
-### 🤖 Sports Analytics - NBA Betting Props
-
-This article details the NBA Best Props Sheet, powered by AI for data-driven insights into player and game statistics. It highlights the availability of these sheets for betting analysis.
-
-Key Points:
-
-• Access daily NBA betting proposition sheets.
-
-• Utilize AI-powered analytics for informed decisions.
-
-• Benefit from detailed sports data insights.
-
-
-🔗 Resources:
-
-• [PineSports AI](https://x.com/PineSports_AI) - Provides AI-driven sports analytics.
-
-• [Pine-Sports Subscription](https://pine-sports.com/subscribe/?fpr) - Special offer for platform access.
-
-![Image](https://pbs.twimg.com/media/G8YyQhrWkAABHdM?format=jpg&name=small)
-
----
 ### ✨ Digital Reading - ElevenReader Explore Access
 
 This article announces a special holiday credit for users to discover and engage with a vast library of digital books through the ElevenReader Explore page.

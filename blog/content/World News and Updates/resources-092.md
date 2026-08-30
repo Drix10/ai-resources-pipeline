@@ -1,25 +1,3 @@
-### 🎬 Bollywood - Sholay's 50th Anniversary
-
-This article discusses the 50th anniversary of the Bollywood film Sholay and its filming location in Karnataka's Ramdevra Betta.  Local accounts of the filming are included.
-
-Key Points:
-
-• Sholay's filming largely took place in Ramdevra Betta, Karnataka.
-
-
-• Local residents recall Dharmendra's generosity during filming.
-
-
-• The article highlights the film's enduring legacy.
-
-
-🔗 Resources:
-
-• [YouTube Video](https://youtu.be/yqb1N9cbl_g?si=gRUVBQfZHTIwmBkA) -  Video report on Sholay's anniversary
-
-
----
-
 ### 📰 Crime - Hathras Honour Killing
 
 This article reports on the alleged murder and beheading of a 19-year-old woman in Hathras, Uttar Pradesh, suspected to be an honour killing.

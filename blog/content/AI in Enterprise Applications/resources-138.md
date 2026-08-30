@@ -1,22 +1,3 @@
-### ✨ AI Tools - Cocktail Menu Generation
-
-This article introduces BarGPT's Menu Planner, an AI tool designed to simplify cocktail selection for events. It explains how the tool generates complete cocktail lineups quickly.
-
-Key Points:
-
-• Generate complete cocktail menus in seconds.
-
-• Simplify event planning by automating drink choices.
-
-• Enhance guest experience with a well-curated beverage selection.
-
-🔗 Resources:
-
-• [BarGPT](https://t.co/5ZODHeUqhA) - AI-powered cocktail menu planner for events
-
-![Image](https://pbs.twimg.com/media/G-QS37CXAAA4IgG?format=jpg&name=small)
-
----
 ### 🤖 AI/ML - Time-Series Forecasting Fine-Tuning
 
 This article discusses the fine-tuning of Moirai, a time-series foundation model, on extensive CloudOps data. It highlights the development of a Salesforce-specific forecasting engine.

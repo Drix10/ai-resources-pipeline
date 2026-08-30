@@ -164,28 +164,6 @@ Key Points:
 • [Opinion Piece](https://t.co/iZhCNLRBjj) - David Alvarado's article on Latino belonging
 
 ---
-### 💡 Sports News - O'Neill at Celtic
-
-This article reports on Martin O'Neill's reflections regarding his past role at Celtic Football Club. It conveys his sentiment that he would have preferred to continue in his position. The piece offers insight into his perspective on his departure.
-
-Key Points:
-
-• O'Neill stated he 'would happily have stayed on' at Celtic.
-
-• His comments reflect on his tenure with the club.
-
-• The article discusses his feelings about his departure.
-
-
-🔗 Resources:
-
-• [BBC Scotland News](https://x.com/BBCScotlandNews) - News source on Twitter
-
-• [BBC Scotland Status](https://x.com/BBCScotlandNews/status/2000536356842266699) - Specific tweet about O'Neill's comments
-
-• [News Article](https://t.co/500Pg9Wa4a) - Full story on O'Neill's remarks
-
----
 ### 💡 News Commentary - Weekend Briefing
 
 This article presents 'The Morning Briefing,' which provides a summary of significant events from a recent weekend. It focuses on incidents perceived as reflecting negative human actions. The briefing aims to encapsulate notable news stories.

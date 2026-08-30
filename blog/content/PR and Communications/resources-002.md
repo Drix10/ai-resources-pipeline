@@ -182,28 +182,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/amplify_video_thumb/1891621447694450688/img/0ZSeE20N9qaB01iz.jpg)
 
 
-### 🏈 Sports News - NFL Scouts at HBCU Combine
-
-This article reports on the presence of NFL scouts at the HBCU Combine in New Orleans.
-
-Key Points:
-
-• Every NFL team had representation at the HBCU Combine.
-
-
-• The combine took place in New Orleans.
-
-
-• Further information is available on NFL Network.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/GkBnk-YWEAA2wRD?format=jpg&name=small)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

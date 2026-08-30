@@ -132,28 +132,6 @@ Key Points:
 
 ---
 
-### 🎬 Film - Movie Preferences
-
-This article presents a casual list of movies mentioned in a tweet, reflecting personal preferences with no further commentary or analysis.
-
-Key Points:
-
-• The Breakfast Club
-
-
-• Lean on Me
-
-
-• Who Framed Roger Rabbit (and potentially others)
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/GkM2MuSWAAA5L8u?format=jpg&name=small)
-
-
----
-
 ### 💔 Conservation - Illegal Wildlife Trade
 
 This article discusses a tweet expressing sadness and outrage over illegal wildlife trade and calls for stricter enforcement and social stigma against such practices.

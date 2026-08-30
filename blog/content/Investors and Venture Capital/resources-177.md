@@ -40,27 +40,6 @@ Key Points:
 • [Original Tweet](https://x.com/packyM/status/2053444468146160085) - Provides context for the quote.
 
 ---
-### 💡 Sportsmanship - Addressing Fan Misconduct in Football
-
-This article addresses recent fan behavior during a football match, distinguishing between excusable errors and unacceptable acts of violence. It emphasizes the importance of maintaining proper conduct in sports.
-
-Key Points:
-
-• Differentiates between rule infractions and violent fan actions.
-
-• Highlights the negative impact of individual misconduct on sports.
-
-• Underscores the importance of responsible fan behavior.
-
-🔗 Resources:
-
-• [David Hajek](https://x.com/hajekd) - Social media account.
-
-• [Michal Koliandr](https://x.com/Michal_Koliandr) - Social media account discussing sports.
-
-• [Original Tweet](https://x.com/Michal_Koliandr/status/2053289516593475792) - Provides context on the football incident.
-
----
 ### 💡 Market Inefficiencies - Uncovering Hidden Value
 
 This article explores the concept of market inefficiencies, explaining how imperfections in information, processes, or value perception create opportunities for profit and wealth generation.

@@ -30,42 +30,6 @@ Key Points:
 
 ---
 
-### 🎣 Fishing - Bass Pond Access in Northwest Arkansas
-
-This article details a request from a baseball team seeking access to private bass ponds in Northwest Arkansas for recreational fishing.
-
-
-Key Points:
-
-• A baseball team seeks permission to fish in private bass ponds.
-
-
-•  The team is seeking pond owners willing to grant access.
-
-
-• Contact is requested via direct message.
-
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/GspPvPNWAAAkJr2?format=jpg&name=small)
-
-![Image](https://pbs.twimg.com/media/GspPvPQWAAA7oSt?format=jpg&name=small)
-
-![Image](https://pbs.twimg.com/media/GspPvPOWMAAlIZ5?format=jpg&name=small)
-
-![Image](https://pbs.twimg.com/media/GspPvPSWcAAZw7L?format=jpg&name=small)
-
-• [Razorback Baseball](https://x.com/RazorbackBSB) - University of Arkansas baseball team
-
-
-• [KATV James](https://x.com/KATVJames) - Relevant user
-
-
-
----
-
 ### ⛈️ Weather Forecast - Overnight Rain
 
 This article provides a weather update regarding rain expected overnight and into the following morning.

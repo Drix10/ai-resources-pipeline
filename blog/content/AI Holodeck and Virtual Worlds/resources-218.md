@@ -28,23 +28,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HNSm1JBXQAAuO7z?format=jpg&name=small)
 
 ---
-### 🤖 AI Art Generation - Fan-made Anime with YouArt
-
-This article showcases a fan-made football anime created using YouArt Studio. It highlights the platform's ability to generate specific visual content and artistic styles.
-
-Key Points:
-• YouArt Studio enables the creation of fan-made animated content.
-
-• The platform supports generating specific artistic styles, such as anime.
-
-• A creator used YouArt to produce a football-themed anime.
-
-🔗 Resources:
-• [YouArt Studio](https://x.com/YouArtStudio) - AI art generation platform
-• [BudiJournal](https://x.com/BudiJournal) - Creator of the fan-made anime
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/2077433764594991107/pu/img/A7eHJR9MI3GIXrZa.jpg)
-
----
 ### 🚀 Web Development - three.js Open Source Applications
 
 This article announces the open-sourcing of four three.js applications from a previous demo. Developers can now access these projects for learning and building.

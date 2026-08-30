@@ -60,28 +60,6 @@ Key Points:
 • [Alfred Lin](https://x.com/Alfred_Lin) - Technology investor commentary
 
 ---
-### ✨ Sports Technology - SoftBank Jr. Basketball DX Action
-
-This article highlights SoftBank's initiative to address challenges in regional sports environments, specifically within youth basketball. It explains how digital transformation (DX) is being leveraged to support children who want to continue and improve in the sport.
-
-Key Points:
-
-• Many regions face challenges in sports, such as insufficient players or specialized coaches.
-
-• SoftBank is implementing the "SoftBank Jr. Basketball DX Action" program.
-
-• This program utilizes DX technology to help children continue playing basketball.
-
-• The goal is to empower young athletes to improve their skills and participation.
-
-
-🔗 Resources:
-
-• [SoftBank](https://x.com/SoftBank) - Program details and updates
-
-![Image](https://pbs.twimg.com/media/HE6RAHMbYAAri0L?format=jpg&name=small)
-
----
 ### 🤖 AI Development - Generalist AI's GEN-1
 
 This article discusses the advancement in physical AI, specifically highlighting Generalist AI's GEN-1. It details how the system leverages extensive prior training to rapidly acquire new physical tasks.

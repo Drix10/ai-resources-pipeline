@@ -146,25 +146,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/G8JfG4pasAAfUmS?format=jpg&name=small)
 
 ---
-### 💡 Sports Policy - Football Alcohol Sales
-
-This article reports on the decision to permit Aberdeen fans to purchase alcohol at a Premiership match. It covers the policy change related to spectator experience at sporting events.
-
-Key Points:
-
-• Details a new policy regarding alcohol sales at sports events.
-
-• Highlights changes to fan experience at football matches.
-
-• Discusses specific regulations for Premiership games.
-
-• Informs spectators of updated stadium rules.
-
-🔗 Resources:
-
-• [BBC Scotland News Article](https://t.co/sZmleEKdJX) - Alcohol sales at matches
-
----
 ### 💡 Travel Advisory - NYC Airport Delays
 
 This article details the extensive six-hour delays impacting NYC airports due to a major snowstorm. It highlights the significant disruptions to holiday travel plans.

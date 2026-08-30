@@ -119,24 +119,6 @@ Key Points:
 
 ---
 
-### 💡 Health - Keto/Carnivore Diet Response
-
-This article notes a strong and immediate patient response to ketogenic and carnivore diets compared to other dietary approaches.
-
-Key Points:
-
-• Keto/Carnivore diets show immediate, strong, and sustainable results.
-
-
-🔗 Resources:
-
-• [KenDBerryMD](https://x.com/KenDBerryMD) - Observations on patient responses to various diets
-
-![Image](https://pbs.twimg.com/media/Gk-UMvXXEAADrkZ?format=png&name=small)
-
-
----
-
 ### 📊 Politics - Telangana Election Results
 
 This article discusses the results of the Hyderabad municipal corporation elections, focusing on the allocation of seats for Backward Castes (BCs).

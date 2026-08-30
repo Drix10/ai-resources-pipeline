@@ -113,30 +113,6 @@ Key Points:
 • [Research Paper](https://t.co/pZRAgnCW1M) - Details on nitrogen deposition and soil enzymes
 
 ---
-### ✨ Sports Announcement - World Baseball Classic Roster
-
-This article announces Bryce Harper's confirmed participation in the upcoming World Baseball Classic. He will be representing the United States national team in the prestigious international tournament.
-
-Key Points:
-
-• Bryce Harper has been selected to represent Team USA.
-
-• He will compete in the World Baseball Classic.
-
-• This selection highlights his standing in international baseball.
-
-
-🔗 Resources:
-
-• [Bryce Harper](https://x.com/bryceharper3) - Official profile of Bryce Harper
-
-• [Philadelphia Phillies](https://x.com/Phillies) - Bryce Harper's MLB team
-
-• [World Baseball Classic](https://x.com/hashtag/WorldBaseballClassic?src=hashtag_click) - Event hashtag for related news
-
-![Image](https://pbs.twimg.com/media/G83TekpWkAAms7g?format=jpg&name=small)
-
----
 ### 🤖 Historical Weather - Severe Storm Impact
 
 This article details a historical severe thunderstorm event that occurred 34 years ago in South Carolina. It describes the storm's impact on Pickens, Greenville, and Spartanburg counties, including property damage and injuries.

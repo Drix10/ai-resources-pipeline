@@ -251,29 +251,6 @@ Key Points:
 
 ---
 
-### ✨ Baseball History - Griffith Stadium's Home Plate Marker
-
-This article details the location of the home plate marker from Griffith Stadium, the former home of the Washington Senators. It highlights the significance of the location and a notable home run hit from that spot.
-
-Key Points:
-
-• Griffith Stadium's home plate marker is located inside Howard University Hospital.
-
-
-•  The location is significant in baseball history.
-
-
-•  A possibly record-breaking home run by Mickey Mantle was hit from this location.
-
-![Image](https://pbs.twimg.com/media/Gsif2eBWEAE2bgf?format=png&name=small)
-
-🔗 Resources:
-
-• [Nut History's Tweet](https://x.com/nut_history/status/1929968211165897160) - Information about the home plate marker
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

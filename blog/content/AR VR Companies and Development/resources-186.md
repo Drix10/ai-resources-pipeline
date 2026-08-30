@@ -144,25 +144,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HIOfFJwWEAE0wzM?format=jpg&name=small)
 
 ---
-### 🚀 Mixed Reality Gaming - Just Hoops Nano
-
-This article introduces Just Hoops Nano, a mixed reality game bringing the arcade basketball experience to users. Designed for Meta Quest, it allows playing in any small space by transforming a table into a court.
-
-Key Points:
-
-• Just Hoops Nano offers an arcade basketball experience.
-
-• It utilizes Mixed Reality technology for flexible gameplay.
-
-• The game is coming soon to Meta Quest, enabling play in compact spaces.
-
-🔗 Resources:
-
-• [RealcastAR](https://x.com/RealcastAR) - Developer of mixed reality games
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2054662270278369280/img/HE-3ZH0lWst_4dv4.jpg)
-
----
 ### ✨ VR Gaming - Pistol Whip
 
 This article highlights Pistol Whip, a popular virtual reality rhythm-action game. It implies an invitation to experience its unique blend of music and combat.

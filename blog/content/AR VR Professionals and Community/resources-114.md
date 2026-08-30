@@ -96,32 +96,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/G2RJY0wXkAAvG3f?format=jpg&name=small)
 
 ---
-### 💡 College Football - Maddux Madsen's Performance
-
-This article spotlights Maddux Madsen's impressive recent performance for Boise State, urging attention to their upcoming game against Notre Dame. It provides key statistics showcasing his effectiveness.
-
-Key Points:
-
-• Maddux Madsen's strong performance since week 1 loss.
-
-• Achieved 904 passing yards in recent games.
-
-• Contributed 9 total touchdowns, leading to a 3-0 record.
-
-• Highlights the upcoming Boise State vs. Notre Dame matchup.
-
-
-🔗 Resources:
-
-• [SVMichanco](https://x.com/svmichanco) - Sports commentator
-
-• [Sleeper CFB](https://x.com/SleeperCFB) - College Football updates
-
-• [Madsen Performance Tweet](https://x.com/SleeperCFB/status/1973450932445950043) - Original tweet discussing Madsen's performance
-
-![Image](https://pbs.twimg.com/media/G2MbKfxaIAULWOp?format=jpg&name=small)
-
----
 ### 🚀 Gravitas Reader - Vision Pro Article Experience
 
 This article introduces Gravitas Reader, an experimental Vision Pro app designed for an immersive article reading experience. It highlights features like museum mode and direct clipboard reading.

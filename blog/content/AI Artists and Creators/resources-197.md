@@ -59,25 +59,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HHxqXogWMAE4o0t?format=jpg&name=small)
 
 ---
-### 💡 Horticulture - Heirloom Rose Cultivation
-
-This article showcases the initial bloom of an heirloom rose on an Oregon homestead. It highlights the plant's unique fragrance and potential historical lineage, suggesting its origin from a century-old plant.
-
-Key Points:
-
-• Features the first seasonal bloom of a cherished rose.
-
-• Possesses a distinct and potent fragrance.
-
-• Potentially an heirloom variety, over a hundred years old.
-
-• Exhibits a once-a-year blooming characteristic.
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/HHvNNl1bIAA_X3K?format=jpg&name=small)
-
----
 ### 💡 Horticulture - Rose Diversity
 
 This article notes the extensive variety of roses available, indicating that their diversity caters to numerous preferences. It suggests that there is a suitable rose for every individual's taste or gardening interest.

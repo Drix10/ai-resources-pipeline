@@ -182,54 +182,6 @@ Key Points:
 • [SynthesiaIO](https://x.com/synthesiaIO) - Official X account for Synthesia updates
 
 ---
-### 🤖 Sports Analytics - NHL Game Breakdown
-
-This article provides an analytical breakdown of a four-game NHL slate, identifying clear competitive advantages and matchup trends powered by AI. It details key situational factors for each game.
-
-Key Points:
-
-• Provides detailed insights for upcoming NHL games.
-
-• Identifies strong situational advantages for teams.
-
-• Utilizes matchup trends for comprehensive analysis.
-
-• Offers data-driven perspectives on team performance.
-
-
-🔗 Resources:
-
-• [PineSports_AI](https://x.com/PineSports_AI) - AI-powered sports analytics platform
-
-• [Capper_Kale](https://x.com/Capper_Kale) - Official X account for sports betting insights
-
-![Image](https://pbs.twimg.com/media/G-otadHb0AASodJ?format=jpg&name=small)
-
----
-### 🤖 Sports Betting Analytics - NBA Player Prop Predictions
-
-This article delivers NBA player point prop predictions for an upcoming Wednesday slate, leveraging AI-powered analytics from PineSports_AI. It offers data-driven insights for betting.
-
-Key Points:
-
-• Provides data-driven NBA player point prop predictions.
-
-• Leverages AI technology for enhanced prediction accuracy.
-
-• Offers insights beneficial for sports betting strategies.
-
-
-🔗 Resources:
-
-• [PineSports_AI](https://x.com/PineSports_AI) - AI-powered sports analytics platform
-
-• [MCbets__](https://x.com/MCbets__) - Official X account for sports betting insights
-
-![Image](https://pbs.twimg.com/media/G-ofMfDagAAnE7D?format=jpg&name=small)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

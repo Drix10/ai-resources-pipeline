@@ -1,20 +1,3 @@
-### ✨ Sports Achievements - WNBA Milestones
-
-Caitlin Clark recently achieved multiple career milestones in a WNBA game, contributing to an Indiana Fever victory. This event marked several historical firsts within the league.
-
-Key Points:
-
-• Clark recorded the first 40+ point and 10+ assist game in WNBA history.
-
-• Her performance resulted in a win for the Indiana Fever.
-
-🔗 Resources:
-![Image](https://pbs.twimg.com/media/HNehxT2WYAAHvak?format=jpg&name=small)
-![Image](https://pbs.twimg.com/media/HNehxT9XYAA3DGW?format=jpg&name=small)
-![Image](https://pbs.twimg.com/media/HNehxUAXsAATG3q?format=jpg&name=small)
-
----
-
 ### ✨ Music Release - Displace
 
 Gud Vibrations has released new music titled "Displace." This release is now available from the record label.

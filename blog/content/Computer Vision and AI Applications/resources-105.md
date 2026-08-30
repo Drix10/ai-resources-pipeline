@@ -38,30 +38,6 @@ Key Points:
 
 
 ---
-### ✨ Partnerships - Qualcomm and San Diego FC
-
-This article describes a partnership between Qualcomm and San Diego FC, focusing on the future of soccer and community engagement through youth development and related activations.
-
-Key Points:
-
-• Collaboration extends to youth development initiatives.
-
-
-• Deepens Qualcomm's connection with the San Diego community.
-
-🔗 Resources:
-
-• [Qualcomm](https://x.com/Qualcomm) - Technology partner
-
-• [San Diego FC](https://x.com/sandiegofc) - Soccer club
-
-• [Right To Dream Academy](https://x.com/right2dream) - Youth academy
-
-
-![Image](https://pbs.twimg.com/media/GzXws1_WEAAJCM2?format=jpg&name=small)
-
-
----
 ### 🤖 Software Development - Daily Stand-up
 
 This article provides a snapshot of a daily stand-up meeting, highlighting team members' progress and challenges.

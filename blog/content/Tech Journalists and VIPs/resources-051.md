@@ -44,44 +44,6 @@ Key Points:
 
 ---
 
-### ✨ Women's Sports - The Growth of the WNBA
-
-This article highlights the growth and success of the WNBA, focusing on the long-term investment and vision that contributed to its thriving ecosystem.
-
-Key Points:
-
-• Long-term investment is crucial for the growth of women's sports.
-
-
-•  A thriving ecosystem supports the success of women's sports leagues.
-
-
-• The WNBA's success demonstrates the positive impact of sustained support.
-
-
-
-🔗 Resources:
-
-• [Ted Leonsis' Twitter](https://x.com/TedLeonsis) -  Perspective on the WNBA
-
-
-• [Zachary Leonsis' Twitter](https://x.com/ZacharyLeonsis) - Perspective on the WNBA
-
-
-• [Washington Mystics](https://x.com/WashMystics) - WNBA team
-
-
-• [Monumental Sports & Entertainment](https://x.com/MSE) -  Parent company of the Washington Mystics
-
-
-![Image](https://pbs.twimg.com/media/GrG8RB8XMAAekUY?format=jpg&name=small)
-
-
-![Image](https://pbs.twimg.com/media/GrG8RB4WEAET6iQ?format=jpg&name=small)
-
-
----
-
 ### 💡  Foreign Policy - Ambassador Brink's Resignation
 
 This article presents a statement from Bridget Brink, former U.S. ambassador to Ukraine, regarding her resignation due to Trump's foreign policy.

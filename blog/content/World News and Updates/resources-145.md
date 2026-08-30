@@ -36,25 +36,6 @@ Key Points:
 • [Article Link](reut.rs/4vrcnYZ) - Full report on ambassador's statement
 
 ---
-### 💡 Sports Journalism - Dianna Russini Resignation
-
-This article covers the resignation of NFL reporter Dianna Russini from The Athletic. Her departure occurred amidst an ongoing ethics investigation concerning her relationship with Coach Mike Vrabel.
-
-Key Points:
-
-• Dianna Russini resigned from her position at The Athletic.
-
-• Her resignation followed an ethics investigation.
-
-• The investigation concerned her relationship with NFL Coach Mike Vrabel.
-
-🔗 Resources:
-
-• [Washington Post](https://x.com/washingtonpost) - Source for sports and ethics news
-
-• [Article Link](https://t.co/08vyecMH2B) - Full details on Russini's departure
-
----
 ### 💡 Legal News - Jan. 6 Convictions Vacated
 
 This article reports on a significant development concerning the January 6 Capitol attack. The Department of Justice has moved to vacate seditious conspiracy convictions for certain individuals.
@@ -110,44 +91,6 @@ Key Points:
 • [Article Link](reut.rs/483gQaa) - Full report on Lebanon-Israel discussions
 
 ![Image](https://pbs.twimg.com/amplify_video_thumb/2044140346276470784/img/9mpusfaj_dyE2JG.jpg)
-
----
-### 💡 Football News - Inter Miami Coach Departure
-
-This article reports on a significant change within Inter Miami's leadership. Coach Mascherano has left the club.
-
-Key Points:
-
-• Inter Miami coach Mascherano has departed from the club.
-
-• This marks a notable change in the team's coaching staff.
-
-• The report confirms the end of his tenure with Inter Miami.
-
-🔗 Resources:
-
-• [Reuters](https://x.com/Reuters) - Source for sports updates and news
-
-• [Article Link](reut.rs/48GFHkb) - Full details on coach's departure
-
----
-### 💡 Basketball Performance - Reed Sheppard's Mental Training
-
-This article examines the role of mental training in Reed Sheppard's successful basketball season. His preparation is highlighted as the Rockets gear up for their playoff series against the Lakers.
-
-Key Points:
-
-• Reed Sheppard experienced a breakout season in basketball.
-
-• His mental training significantly contributed to this success.
-
-• The Rockets are preparing for a playoff series against the Lakers.
-
-🔗 Resources:
-
-• [USA TODAY](https://x.com/USATODAY) - Source for sports performance news
-
-• [Article Link](https://t.co/IzvTZkTv2A) - Full report on Sheppard's training
 
 ---
 ### 💡 Political Fallout - Swalwell Allegations and Donor Response

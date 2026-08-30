@@ -1,31 +1,3 @@
-### 🎬 Immersive Cinema - Behind the Scenes of Encounter Dinosaurs
-
-This article provides a brief overview of the creative process behind the immersive cinema experience "Encounter Dinosaurs," as shared at Apple's developer event.  It also notes a personal reflection on the event.
-
-
-Key Points:
-
-• Insight into the creation of "Encounter Dinosaurs."
-
-•  A personal account of meeting collaborators in person.
-
-
-🔗 Resources:
-
-• [Apple](https://x.com/Apple) - Technology company
-
-• [Sandwich](https://x.com/sandwich) -  Team behind Encounter Dinosaurs
-
-• [Pereira RB](https://x.com/pereirarb1) -  Individual's Twitter Profile
-
-• [Zachary Handshoe](https://x.com/zacharyhandshoe) -  Individual's Twitter Profile
-
-
-![Image](https://pbs.twimg.com/media/Gk6WDMtXgAAbjVq?format=jpg&name=small)
-
-
-
----
 ### 🚀 ZKSync - Community Program Announcement
 
 This article summarizes the announcement of a new ZKSync Community Program, designed to provide structured engagement, growth opportunities, and rewards for contributors.
@@ -75,30 +47,6 @@ Key Points:
 
 
 ![Image](https://pbs.twimg.com/media/Gk_2RhVW4AA9XFW?format=jpg&name=small)
-
-
-
----
-### 🚀 Spaceflight - Firefly Aerospace Lunar Lander Descent
-
-This article provides a brief update on the final stages of Firefly Aerospace's lunar lander mission, "Blue Ghost," as it prepares for a soft touchdown on the Moon.
-
-
-Key Points:
-
-•  Lunar lander is 12 hours from touchdown.
-
-•  Live updates will be provided.
-
-
-🔗 Resources:
-
-• [Firefly Aerospace](https://x.com/Firefly_Space) - Space exploration company
-
-• [Rabovitz](https://x.com/rabovitz) - Individual's Twitter Profile
-
-
-![Image](https://pbs.twimg.com/media/Gk-3ReIWEAEJ-Gm?format=jpg&name=small)
 
 
 

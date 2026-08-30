@@ -123,30 +123,6 @@ Key Points:
 
 ---
 
-### 💡 Geopolitics - Hollywood's Portrayal of Iran
-
-This article claims that Hollywood screenwriters, identifying as Jewish, have promoted a pro-war narrative against Iran in various films and TV shows.
-
-
-Key Points:
-
-• Allegation of biased portrayal of Iran in popular media.
-
-
-• Focus on specific films and shows as examples.
-
-
-• Assertion of a long-term influence campaign.
-
-
-🔗 Resources:
-
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1936771965534048256/img/_gBX1r370rAr5qsP.jpg)
-
-
----
-
 ### 🤖 Military Technology - Stealth Fighter Strike on Iranian Nuclear Sites
 
 This article reports on a US stealth fighter strike on Iranian nuclear facilities, highlighting the technological advantage demonstrated.

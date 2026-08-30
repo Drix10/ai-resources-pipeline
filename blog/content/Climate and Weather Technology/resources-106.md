@@ -118,23 +118,6 @@ Key Points:
 
 
 ---
-### 🤖 NFL Contract - Player Details
-
-This article details the financial breakdown of an NFL player's contract, outlining the signing bonus and yearly salaries.
-
-Key Points:
-
-•  $44 million signing bonus in 2025.
-
-
-•  Guaranteed salary and option bonuses spanning multiple years.
-
-
-•  Contract details include base salary and injury guarantees.
-
-
-
----
 ### 🤖 Severe Weather - Funnel Cloud
 
 This article describes a near-ground funnel cloud spotted in Belle Plaine, Minnesota, accompanied by thunderstorms.

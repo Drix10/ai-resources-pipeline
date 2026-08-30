@@ -97,24 +97,6 @@ Key Points:
 
 ---
 
-### ✨ Hardware - Asus Fragrance Mouse
-
-This article discusses the Asus Fragrance Mouse, a unique device featuring a refillable compartment for aromatic oils.
-
-Key Points:
-
-•  The mouse incorporates a novel feature for scent personalization.
-
-
-•  Its design opens possibilities for unique user experiences.
-
-
-•  The product presents potential for both practical and playful applications.
-
-
-
----
-
 ### 💡 Finance - 1099-K Tax Implications
 
 This article explains the implications of the increased number of 1099-K forms being issued to Americans due to the proliferation of third-party payment apps and lowered IRS income thresholds.

@@ -72,29 +72,6 @@ Key Points:
 • Publicly documented modules offer clarity on system functionalities.
 
 ---
-### 🤖 OSINT - Sports Analytics and Information Gathering
-
-This article explores the application of Open-Source Intelligence (OSINT) to the domain of baseball. It introduces a curated guide designed to help users navigate and analyze public information related to the sport.
-
-Key Points:
-
-• OSINT techniques are versatile and applicable across diverse fields.
-
-• Analyzing publicly available baseball data can reveal unique insights.
-
-• Curated intelligence guides simplify the process of information gathering.
-
-• Understanding data sources enhances analytical capabilities in sports.
-
-• Open-source information provides valuable context for sports events.
-
-🔗 Resources:
-
-• [Search Party: OSINT of Baseball](https://open.substack.com/pub/sherpainte) - Guide to baseball OSINT.
-
-![Image](https://pbs.twimg.com/media/HEJcB5daIAAN9LF?format=jpg&name=small)
-
----
 ### 💡 Problem Solving - DIY vs Expert Intervention
 
 This article reflects on the challenges of undertaking complex tasks independently, using a personal plumbing repair as an analogy. It implicitly suggests that relying solely on basic knowledge and quick tutorials may be insufficient for specialized issues.

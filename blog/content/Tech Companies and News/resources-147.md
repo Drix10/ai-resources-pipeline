@@ -57,25 +57,6 @@ Key Points:
 • [Original Tweet](https://x.com/rustybrick/status/2045144373617209728) - Context on Bing's new feature
 
 ---
-### 💡 Travel Tips - Mexico City Bar Guide
-
-This article provides a brief overview of exploring cocktail bars in the Roma Norte neighborhood of Mexico City. It serves as a starting point for discovering local nightlife.
-
-Key Points:
-
-• Roma Norte is known for its vibrant cocktail bar scene.
-
-• Exploring local bars offers a unique cultural experience.
-
-• Mexico City's nightlife presents diverse options for visitors.
-
-🔗 Resources:
-
-• [Roma Norte Cocktail Bars Guide](https://t.co/f7On8rZRAV) - Guide to cocktail bars in Mexico City
-
-• [Original Tweet](https://x.com/thurrott/status/2045142035351658714) - Context for Mexico City bars
-
----
 ### 🤖 AI Hardware - Vision-Enabled Earbuds
 
 This article introduces VueBuds, a novel concept for earbuds equipped with tiny cameras and an on-device vision language model. It explores how wearable technology can integrate advanced AI for environmental understanding.

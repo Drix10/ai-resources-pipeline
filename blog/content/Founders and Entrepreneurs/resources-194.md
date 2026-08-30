@@ -62,24 +62,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/HMj4p6cXIAAO9bc?format=jpg&name=360x360)
 
 ---
-### 💡 Governance - Sports Citizenship Controversies
-
-This article discusses alleged issues in football governance in Malaysia, specifically concerning the fraudulent granting of citizenship through birth certificates. It acknowledges the Home Ministry's role in the citizenship process.
-
-Key Points:
-
-• Concerns raised regarding governance practices within Malaysian football
-
-• Allegations surfaced about manipulating birth certificates for citizenship
-
-• The Home Ministry is credited for its involvement in granting citizenship
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/HMjlmYzXgAAV9Z5?format=jpg&name=small)
-
----
 ### ✨ Technology - AI and DeFi Convergence with Senpi
 
 This article introduces Senpi, a new platform emerging from the convergence of Artificial Intelligence and Decentralized Finance. It highlights the collaboration between BetaShop and Senpi AI on this innovative project.

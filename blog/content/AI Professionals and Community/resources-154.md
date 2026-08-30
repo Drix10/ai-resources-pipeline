@@ -194,31 +194,6 @@ Key Points:
 
 
 ---
-### ✨ Sports Achievement - Baseball Tournament Success
-
-This article celebrates the Korean national baseball team's remarkable victory against Australia in the WBC 2026 tournament held at Tokyo Dome. The team met challenging victory conditions, securing their advancement to the second round, notably with a diving catch by Lee Jung-hoo.
-
-Key Points:
-
-• Highlights a significant achievement in international baseball.
-
-• Celebrates a team's successful performance under difficult conditions.
-
-• Features a memorable play by a key player in the tournament.
-
-
-🔗 Resources:
-
-• [JungWoo Ha](https://x.com/JungWooHa2) - Individual sharing the sports update and congratulations.
-
-• [Sports Hashtag](https://x.com/hashtag/%EC%8A%A4%ED%8F%AC%EC%B8%A0) - Related discussions and content about sports.
-
-• [WBC2026 Hashtag](https://x.com/hashtag/WBC2026) - Information and updates on the World Baseball Classic 2026.
-
-![Image](https://pbs.twimg.com/media/HC-PXO5boAENpj0?format=jpg&name=medium)
-
-
----
 ### 🤖 Computer Vision Research - Matting Model Advancement
 
 This article announces that MatAnyone 2 has been accepted to #CVPR2026, marking a significant advancement in computer vision. MatAnyone 2 is described as a stronger version with finer details and enhanced robustness compared to its predecessor.

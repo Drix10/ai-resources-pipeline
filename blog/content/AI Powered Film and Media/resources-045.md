@@ -60,22 +60,6 @@ Key Points:
 
 
 ---
-### 🤖 Probability Distributions - Uniform Distribution
-
-This article describes the uniform distribution, a probability distribution where all outcomes within a range are equally likely.
-
-Key Points:
-
-• All outcomes within a specified range have equal probability.
-
-
-• Characterized by two parameters: minimum and maximum values.
-
-
-• Simple to understand and apply in various scenarios.
-
-
----
 ### 🤖 Probability Distributions - Geometric Distribution
 
 This article describes the geometric distribution, which models the number of Bernoulli trials needed for the first success.

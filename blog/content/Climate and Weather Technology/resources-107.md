@@ -1,27 +1,3 @@
-### 🏈 NFL - Steelers Injury Update
-
-This article summarizes the injury status updates for several Pittsburgh Steelers players before their home opener against the Seattle Seahawks.
-
-Key Points:
-
-• Derrick Harmon (DT), DeShon Elliott (S), and Malik Harrison (LB) are ruled out for the game.
-
-
-•  All three players' injuries are related to their knees.
-
-
-• The head coach expressed optimism regarding the recovery of a cornerback (player not specified).
-
-
-🔗 Resources:
-
-• [Steelers Update](https://x.com/SteelersUpdate1/status/1965507293920846121) - Steelers injury report
-
-![Image](https://pbs.twimg.com/media/G0biWLzXwAAlqXE?format=jpg&name=small)
-
-
----
-
 ### 📈 Economics - Brent Crude Oil Price Forecast
 
 This article presents the Energy Information Administration's (EIA) forecast for Brent crude oil prices in the coming months and years, citing reasons for the predicted decline.

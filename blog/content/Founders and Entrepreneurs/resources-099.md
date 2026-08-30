@@ -223,29 +223,6 @@ Key Points:
 
 ---
 
-### 🚀  NSSpain Learning Experience - Logroño and San Sebastián
-
-This article shares an individual's experience participating in a program in Spain, including plans for learning and dining.
-
-
-Key Points:
-
-•  A three-month program participation is announced.
-
-
-•  The program will take place in Logroño, with dining plans in San Sebastián.
-
-
-•  A call for participation is extended.
-
-
-🔗 Resources:
-
-• [NSSpain](https://x.com/NSSpain) -  Organization hosting the program.
-
-
----
-
 ### 💡 The Next Decade - Tastemakers and AI
 
 This article predicts the importance of tastemakers in the age of AI-generated content.

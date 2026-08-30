@@ -93,23 +93,6 @@ Key Points:
 • [NBC News Article](https://t.co/fvTyQNHTHe) - Analysis of declining marriage and birth rates in China
 
 ---
-### 💡 International Travel Policy - US Visa Bonds for World Cup
-
-This article details the United States' decision to waive visa bonds for World Cup ticketholders from certain countries. This policy adjustment aims to facilitate travel for international fans attending the event.
-
-Key Points:
-
-• The U.S. government is waiving visa bonds for specific travelers.
-
-• This policy applies to World Cup ticketholders from designated countries.
-
-• The change simplifies entry requirements for international sports fans.
-
-🔗 Resources:
-
-• [TIME Article](https://t.co/zEBGLcXRWw) - Details on visa bond waivers for World Cup attendees
-
----
 ### 🤖 Legal Ruling - Transgender Care Records Protection
 
 This article reports on a U.S. judge's decision to block the Justice Department's attempt to access transgender care records from a Rhode Island hospital. The ruling addresses critical issues concerning patient privacy and legal oversight.

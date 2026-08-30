@@ -107,29 +107,6 @@ Key Points:
 
 ---
 
-### 🤖 Sports - NBA Draft Prospect Rankings
-
-This article summarizes The Athletic's ranking of top NBA draft prospects from the last 10 years, highlighting the positions of specific players.
-
-
-Key Points:
-
-• Victor Wembanyama ranked first overall.
-
-
-• Ausar Thompson ranked second overall.
-
-
-•  Scoot Henderson ranked 14th overall.
-
-
-🔗 Resources:
-
-• [The Athletic Article](https://t.co/Zz71LnRWom) - Top 20 draft prospects
-
-
----
-
 ### 🤖 Infrastructure - High-Speed Rail Comparison
 
 This article compares the progress of high-speed rail projects in the UK (HS2) and China, highlighting the significant difference in development speed.

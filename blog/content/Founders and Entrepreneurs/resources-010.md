@@ -24,21 +24,6 @@ Key Points:
 
 
 
-### 🤖 Sports Analytics -  Analyzing Defensive Play
-
-This article briefly analyzes a defensive football play, highlighting the actions of a player (Tre'von Moehrig) and their impact on the game.
-
-Key Points:
-
-•  The analysis focuses on a specific defensive play.
-
-• The player demonstrates good awareness and technique.
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1866240434525102080/pu/img/pnZ-oG9VOM6iBHBv.jpg)
-
-
 ### 🌎 Geopolitics - US-China Relations and Internal Issues
 
 This article discusses the perceived arrogance of American opinions on Chinese governance, contrasting it with China's perceived rapid economic and social progress.

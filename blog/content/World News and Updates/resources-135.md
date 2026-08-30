@@ -1,24 +1,3 @@
-### ✨ Football Protest - Manchester United Ownership
-
-This article details the recent protest by Manchester United fans, specifically addressing their use of clown masks to express discontent with the club's current ownership. It highlights the sustained nature of fan activism against the club's proprietors.
-
-Key Points:
-
-• Fans organized a protest to express dissatisfaction with Manchester United's ownership.
-
-• Participants utilized clown masks as a symbolic gesture during the demonstration.
-
-• The protest reflects ongoing efforts by supporters to advocate for changes in club leadership.
-
-🔗 Resources:
-
-• [Protest Coverage](https://t.co/wJCMtfTi2u) - Details on the fan protest against club owners
-
-• [Tweet Source](https://x.com/IExpressSports/status/2018025178908004753) - Original social media announcement of the protest
-
-• [Manchester United Hashtag](https://x.com/hashtag/ManchesterUnited?src=hashtag_click) - Related discussions on fan engagement
-
----
 ### 💡 Tennis - Australian Open Post-Match Commentary
 
 This article covers Novak Djokovic's comments following his loss to Carlos Alcaraz at the Australian Open, specifically his humorous tribute to Rafael Nadal. It highlights Djokovic's sportsmanship and acknowledgment of his competitors.
@@ -57,46 +36,6 @@ Key Points:
 • [Obituary Details](https://t.co/Tdj8wo3bBe) - Further information on Demond Wilson's life and career
 
 • [Tweet Source](https://x.com/WashTimes/status/2018024900611420204) - Original social media announcement of his passing
-
----
-### ✨ Entertainment News - Taylor Swift at the Grammys
-
-This article explores the potential reasons behind Taylor Swift's absence from the upcoming Grammy Awards, revealing initial details. It speculates on the factors influencing her decision regarding the prestigious event.
-
-Key Points:
-
-• Taylor Swift's potential absence from tonight's Grammy Awards is being discussed.
-
-• Initial details regarding the reasons for her possible skip have been revealed.
-
-• This development is a significant topic in entertainment news.
-
-🔗 Resources:
-
-• [Grammys Details](https://t.co/28aPqJAgH4) - Further insights into Taylor Swift's potential Grammy absence
-
-• [Tweet Source](https://x.com/htTweets/status/2018020212025819579) - Original social media update on the topic
-
----
-### ✨ Celebrity News - Pre-Grammys Relationship Update
-
-This article reports on Justin Herbert and Madison Beer attending a pre-Grammys event, observing their interaction and suggesting developments in their relationship. The public appearance indicates an evolving connection between the two figures.
-
-Key Points:
-
-• Justin Herbert and Madison Beer attended a pre-Grammys celebration.
-
-• Their interaction suggests a developing relationship between them.
-
-• This public appearance has generated celebrity news interest.
-
-🔗 Resources:
-
-• [Relationship Article](https://t.co/gbS6E4Jzk9) - Details on their interaction at the pre-Grammys bash
-
-• [Tweet Source](https://x.com/nypost/status/2018020184447938648) - Original social media post reporting the news
-
-![Image](https://pbs.twimg.com/media/HAFyqBgWwAMLVVk?format=jpg&name=small)
 
 ---
 ### 💡 Geopolitics - Gaza Aid Operations

@@ -55,25 +55,6 @@ Key Points:
 • [6LE0IKJuGv](https://t.co/6LE0IKJuGv) - Link to The New York Times opinion piece
 
 ---
-### 💡 Sports News - Managerial Obituary
-
-This article reports on the passing of legendary Braves manager Bobby Cox at the age of 84. It acknowledges his significant impact on the sport.
-
-Key Points:
-
-• Legendary Braves manager Bobby Cox passed away at 84.
-
-• He was a prominent figure in baseball management.
-
-• The announcement was made by Reuters.
-
-🔗 Resources:
-
-• [Reuters](https://x.com/Reuters/status/2053296473526182331) - Original tweet from Reuters
-
-• [4uK7SHT](https://t.co/R7bnuRgcfW) - Link to the Reuters obituary article
-
----
 ### 💡 Sports News - Player Contract Signing
 
 This article announces that Carnell Tate, a first-round wide receiver for the Titans, has signed his contract. This marks a key step for the team and player.

@@ -34,23 +34,6 @@ Key Points:
 
 ---
 
-### 💡 Tips -  Analyzing Underperforming Players
-
-This article analyzes soccer players who underperformed relative to their expected goals (xG).
-
-Key Points:
-
-•  Identifies players whose actual goals significantly lagged behind xG.
-
-•  Highlights the disparity between expected and actual performance.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/media/Gs68ad3WoAAQjDr?format=jpg&name=small)
-
----
-
 ### 🤖 Machine Learning - Stable Sparse Autoencoders
 
 This article discusses the instability of traditional Sparse Autoencoders (SAE) and introduces Archetypal SAE for improved stability and consistency.

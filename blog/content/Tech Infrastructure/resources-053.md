@@ -1,24 +1,3 @@
-### 👨‍👩‍👧‍👦 Family - Basketball Game
-
-This article briefly discusses a forfeited basketball game and the positive time spent with family afterward.
-
-Key Points:
-
-• A basketball game was forfeited.
-
-• Quality time was spent with son.
-
-• Son performed a reverse in warmups.
-
-
-🔗 Resources:
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1923549599668592640/img/nGQZbL2yhrOpblOf.jpg)
-
-![Image](https://pbs.twimg.com/media/GrHHY8sWcAAG-rQ?format=jpg&name=240x240)
-
-
----
 ### 🤖 AI - Gemini 2.5 Pro Performance
 
 This article highlights the performance of Gemini 2.5 Pro (I/O edition) in coding benchmarks and its application in reinforcement learning papers.  A talk on its reasoning is also mentioned.

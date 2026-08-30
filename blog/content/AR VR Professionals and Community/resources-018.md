@@ -144,47 +144,6 @@ Key Points:
 
 
 ---
-### 🎬 Filmmaking - Independent Film Production
-
-This article discusses a filmmaker's journey of creating a feature film independently, highlighting the benefits of hands-on learning.
-
-Key Points:
-
-•  Learning by doing is highlighted as the best approach.
-
-
-•  The filmmaker completed the project entirely independently.
-
-
-•  The film received recognition at the Annecy International Animated Film Festival.
-
-
-
-🔗 Resources:
-
-• [Video showcasing the film](https://x.com/gintszilbalodis/status/1880681073912545674) -  Trailer of the film "Away"
-
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1880675930542067713/pu/img/5RLHACboqPqTygNl.jpg)
-
-
----
-### 🎬 Filmmaking -  Independent Film Success
-
-This article emphasizes the importance of proactive self-reliance in filmmaking, using a filmmaker's success story as an example.
-
-Key Points:
-
-•  The success is attributed to the filmmaker's self-driven approach.
-
-
-•  The film was created with minimal resources.
-
-
-•  This serves as inspiration for aspiring filmmakers to pursue their goals independently.
-
-
----
 ### 💡 Creativity -  Perseverance in Creative Work
 
 This article is a motivational message advocating for the creation of art despite challenges or setbacks.

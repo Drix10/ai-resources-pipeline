@@ -1,26 +1,3 @@
-### 🎬 Cinema - Marlon Brando's Enduring Legacy
-
-This article reflects on the lasting impact of Marlon Brando's cinematic career, particularly his final scene with Al Pacino in *The Godfather*, on the occasion of his 101st birthday.
-
-Key Points:
-
-• Brando's performance in *The Godfather* remains a benchmark in cinematic history.
-
-• His influence continues to inspire aspiring actors and filmmakers.
-
-• His legacy transcends generations of moviegoers.
-
-
-🔗 Resources:
-
-• [Logan Frederick](https://x.com/LoganFrederick) - Film critic
-
-• [CinemaTweets1](https://x.com/CinemaTweets1) - Film news
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1907835003301744640/img/arNDtQvzzVwdU_w_.jpg)
-
-
----
 ### 🤖 Networking - RFCs from OpenAI
 
 This article discusses two RFCs authored by individuals affiliated with OpenAI, highlighting the involvement of AI in standards development.  One RFC details the VP9 video codec wire format, while the other focuses on AI sarcasm detection.

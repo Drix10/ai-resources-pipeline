@@ -168,31 +168,6 @@ Key Points:
 
 ---
 
-### 🚀 Sports Betting - MLB Homerun Predictions
-
-This article discusses using an AI model (JaXon by Pine Sports AI) to predict high-value MLB home run bets.
-
-
-Key Points:
-
-•  AI-powered model for predicting home run bets.
-
-
-•  Focus on high-value betting opportunities.
-
-
-•  Successful track record throughout the season.
-
-
-🔗 Resources:
-
-• [Pine Sports AI](https://x.com/PineSports_AI) - AI-powered sports betting model
-
-• [The Outlet](https://x.com/TheOutlet_SV) - Sports betting analysis and predictions
-
-
----
-
 ### ✨ WRITER - EU Code of Practice for AI
 
 This article announces WRITER's adherence to the EU Code of Practice for General-Purpose AI Models.

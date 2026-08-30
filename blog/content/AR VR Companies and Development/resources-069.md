@@ -85,30 +85,6 @@ Key Points:
 
 
 ---
-### ✨ VR Games - Badminton Time VR for PSVR2
-
-This article announces the release of Badminton Time VR for PlayStation VR2, highlighting its positive review and release dates.
-
-Key Points:
-
-• Received a 7.5/10 rating from Controller-Warriors.de.
-
-
-• Leverages the strengths of the PlayStation VR2 headset.
-
-
-• Available digitally and physically.
-
-
-🔗 Resources:
-
-• [Perp Games](https://t.co/VHC6bX4I2f) - Developer of Badminton Time VR
-
-
-![Image](https://pbs.twimg.com/media/GtjaiiQXsAAMRC2?format=jpg&name=small)
-
-
----
 ### ✨ NFTs - Shapets NFT Drop on OpenSea
 
 This article announces the release of Shapets NFTs on OpenSea and details the allowlist process.

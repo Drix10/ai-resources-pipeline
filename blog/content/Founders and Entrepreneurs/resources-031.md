@@ -116,21 +116,6 @@ Key Points:
 
 ![Image](https://pbs.twimg.com/media/GmAysJ0XoAAXlRU?format=jpg&name=small)
 
-### 💡 College Athletics - Financial Sustainability of Non-Revenue Sports
-
-This article addresses the financial imbalance in college athletics, where revenue-generating sports like football and basketball subsidize other sports.
-
-Key Points:
-
-• Football and men's basketball generate the majority of revenue in college athletics.
-
-
-• Other sports operate at a financial loss.
-
-
-• The financial model impacts the sustainability of non-revenue sports.
-
-
 ### 💡 Wealth Inequality - Addressing Wealth Disparity through Taxation
 
 This article presents a proposal to address wealth inequality through taxation.  It suggests a 1% tax on individuals with a net worth exceeding a specific threshold.

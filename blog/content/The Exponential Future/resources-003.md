@@ -39,23 +39,6 @@ Key Points:
 
 ---
 
-### ✨ Hollywood and AI - The Future of Video
-
-This article summarizes insights into the impact of AI on Hollywood and the future of video creation.  It highlights the potential of AI models to understand and generate new forms of video content.
-
-Key Points:
-
-•  AI's transformative role in video production and understanding.
-
-
-•  Potential for creating novel video content with AI.
-
-
-•  A discussion on the future of Hollywood in the age of AI.
-
-
----
-
 ### 🚀  From the Desk of Anthony Pompliano - Launch Coverage
 
 This article briefly notes the media coverage of the launch of "From the Desk of Anthony Pompliano," highlighting its partnership with X (formerly Twitter).

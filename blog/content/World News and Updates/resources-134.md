@@ -132,30 +132,6 @@ Key Points:
 • [Slate Tweet Status](https://x.com/Slate/status/2017480673695531143) - Original social media post
 
 ---
-### ✨ Sports Governance - ICC Challenges for T20 World Cup 2026
-
-This article discusses new concerns facing the International Cricket Council (ICC) in preparation for the T20 World Cup 2026, specifically in light of a recent dispute involving Bangladesh. It highlights the complexities of managing international cricket events.
-
-Key Points:
-
-• ICC facing new concerns.
-
-• Ahead of T20 World Cup 2026.
-
-• Context of Bangladesh row.
-
-• Challenges in tournament preparation.
-
-
-🔗 Resources:
-
-• [NDTV Sports Article](https://sports.ndtv.com/t20-world-cup-) - Details on ICC concerns and Bangladesh row
-
-• [NDTV Cricket Tweet Status](https://x.com/CricketNDTV/status/2017461287262032311) - Original social media post
-
-![Image](https://pbs.twimg.com/media/G_92V_rbEAAf9m4?format=jpg&name=small)
-
----
 ### 💡 International Relations - Oman-India Diplomatic Visit
 
 This article reports on the arrival of Oman's Foreign Minister, Sayyid Badr Bin Hamad Bin Hamood Albusaidi, in Delhi. It highlights a key diplomatic engagement between Oman and India.

@@ -210,33 +210,6 @@ Key Points:
 
 
 ---
-### 🤖 NBA Player Tracking - Computer Vision Project
-
-This article discusses a computer vision project focused on mapping NBA players' positions from a camera perspective onto a court map.  Future development involves detecting shooting motions and marking shot locations.
-
-Key Points:
-
-• Mapping player positions onto a court.
-
-
-• Future implementation of shot detection.
-
-
-• Code migration to Roboflow's GitHub repository.
-
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1927030360740593664/img/-DhqIiFoFBbfOZ87.jpg)
-
-🔗 Resources:
-
-• [Roboflow GitHub](https://github.com/roboflow/sports) - Project code
-
-
-• [Skalskip92's Tweet](https://x.com/skalskip92/status/1927035196928340046) - NBA player tracking project
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

@@ -118,32 +118,6 @@ Key Points:
 
 
 ---
-### 🤖 Semantic Search - Kino AI for Video Footage Retrieval
-
-This article briefly introduces Kino AI, a platform designed for semantic search of video footage.
-
-
-Key Points:
-
-• Kino AI enables efficient footage retrieval from large video datasets.
-
-
-•  The platform is used by Hollywood studios.
-
-
-
-🔗 Resources:
-
-• [jxnlco's Twitter](https://x.com/jxnlco) - AI and engineering insights
-
-
-• [Kino AI discussion](https://x.com/jxnlco/status/1924904311387021389) - Original tweet about Kino AI
-
-
-• [Kino AI Website](https://t.co/XDZED7vNwd) - Kino AI Website
-
-
----
 ### 🤖 Google I/O 2025 -  Gemini AI and Project Astra Updates
 
 This article highlights key announcements from Google I/O 2025, focusing on Gemini AI and Project Astra.

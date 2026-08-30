@@ -45,33 +45,6 @@ Key Points:
 
 ---
 
-### ✨  Announcements - MADE Hoops New Hire
-
-This article announces Marcus Helton's appointment as Director of Written Content at MADE Hoops.
-
-Key Points:
-
-• Marcus Helton joins MADE Hoops.
-
-
-• He will lead the editorial team.
-
-
-• Helton is known in the grassroots basketball community.
-
-
-
-🔗 Resources:
-
-• [MADE Hoops announcement](https://madehoops.com/made-society/articles/marcus-helton-joins-made-hoops.aspx) - Official announcement
-
-
-![Image](https://pbs.twimg.com/media/GmWmtlLWoAA2fXs?format=jpg&name=small)
-
-
-
----
-
 ### 🤖  Political Analysis - JFK Files Classification
 
 This article expresses confusion regarding the continued classification of JFK files.
@@ -107,28 +80,6 @@ Key Points:
 
 
 ![Image](https://pbs.twimg.com/media/GmWbwzOXQAAo0XN?format=jpg&name=small)
-
-
----
-
-### 🤖 Sports Analysis - Dont'e Thornton's Performance
-
-This article analyzes Dont'e Thornton's football performance, highlighting his speed and agility.
-
-
-Key Points:
-
-• Thornton displays impressive speed.
-
-
-• He demonstrates good technique in his movements.
-
-
-• His performance is deemed noteworthy.
-
-
-
-![Image](https://pbs.twimg.com/ext_tw_video_thumb/1902072840175902720/pu/img/BanKWOsZJ8hlH9dp.jpg)
 
 
 ---

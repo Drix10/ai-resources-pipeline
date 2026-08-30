@@ -38,26 +38,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/amplify_video_thumb/1921445269515776000/img/z8gz5fTew08lJhI8.jpg)
 
 ---
-### 🇮🇳  Indian Army Soldiers Honored in Uttar Pradesh
-
-This article reports on a video showing civilians expressing appreciation for Indian Army soldiers.
-
-Key Points:
-
-• Viral video depicts civilians showering flowers on soldiers.
-
-
-• Event took place at a roadside eatery in Uttar Pradesh.
-
-
-
-🔗 Resources:
-
-• [IndiaToday](https://x.com/IndiaToday) - News source
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1921444865243783168/img/kyQfIpkLIg41l0wv.jpg)
-
----
 ### 🎶 3 Doors Down Cancels Performances Due to Frontman's Illness
 
 This article announces the cancellation of 3 Doors Down's performances due to frontman Brad Arnold's kidney cancer diagnosis.

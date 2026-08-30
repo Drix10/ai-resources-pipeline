@@ -199,36 +199,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/G-ArHNMX0AAB7ue?format=jpg&name=small)
 
 ---
-### 🚀 Gaming - Basketball: Zero on Roblox
-
-This article highlights the game Basketball: Zero on the Roblox platform, inviting players to experience specific gameplay mechanics. It introduces a character within the game environment.
-
-Key Points:
-
-• Basketball: Zero is available on the Roblox platform.
-
-• Players can assume the role of the character Luka.
-
-• The game features specific basketball moves like the step-back.
-
-🚀 Implementation:
-1. Access Roblox Platform: Ensure the Roblox application is installed or accessible via web browser.
-2. Locate Basketball: Zero: Search for "Basketball: Zero" within the Roblox game directory.
-3. Begin Gameplay: Start the game and select the character Luka to play.
-
-🔗 Resources:
-
-• [Roblox](https://x.com/Roblox) - Online gaming platform
-
-• [Basketball: Zero Game Link](https://t.co/8XZ3Qiy8n3) - Direct link to play the game on Roblox
-
-• [Roblox Status Update](https://x.com/Roblox/status/2008652703388623015) - Original tweet promoting the game
-
-![Image](https://pbs.twimg.com/media/G-Aq0EybcAAsgu3?format=jpg&name=small)
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.

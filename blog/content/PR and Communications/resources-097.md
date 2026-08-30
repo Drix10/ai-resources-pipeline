@@ -162,28 +162,6 @@ Key Points:
 
 
 ---
-### 🎬 Film - Marvel's Departure from Georgia
-
-This article discusses Marvel's relocation of filming from Georgia to the UK due to lower labor costs in the UK, highlighting the impact on Georgia's film industry.
-
-Key Points:
-
-• Marvel filmed 22 movies and TV shows in Georgia.
-
-
-• Relocated to the UK due to lower labor costs.
-
-
-• Negative impact on middle-class crew workers in Georgia.
-
-🔗 Resources:
-
-• [alexvoica](https://x.com/alexvoica) -  Commentary
-
-
-• [benfritz](https://x.com/benfritz) - Reporting on the impact
-
----
 ### 💡 Politics - The President's Dementia
 
 This article discusses the author's changing perspective on reporting on the president's alleged dementia, expressing lost faith in the Washington press corps' objectivity.

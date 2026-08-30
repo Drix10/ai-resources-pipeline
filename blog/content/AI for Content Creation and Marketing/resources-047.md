@@ -170,34 +170,6 @@ Key Points:
 
 
 ---
-### 🚀 Sports Betting - Pine Sports AI Tool
-
-This article promotes Pine Sports AI, a tool for predicting homerun projections in baseball.  It features a discount code for users.
-
-Key Points:
-
-• Provides top homerun projections based on recent data and matchups.
-
-
-• Leverages AI to improve prediction accuracy.
-
-
-• Offers a 25% discount with the code "KYLE".
-
-
-•  A user shares their positive experience with the tool.
-
-
-🔗 Resources:
-
-• [Pine Sports AI](https://x.com/PineSports_AI) - AI-powered sports betting tool
-
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1919880087287025664/img/IZUnjAXEVFY7MtHZ.jpg)
-![Image](https://pbs.twimg.com/media/GqTIxHTXQAA9m0e?format=jpg&name=small)
-
-
----
 ### 🚀 Video Editing - OpusClip Thumbnail Generator
 
 This article announces the launch of OpusClip Thumbnail, a free AI tool for generating video thumbnails. The tool automatically analyzes videos and creates engaging thumbnails without user prompts.

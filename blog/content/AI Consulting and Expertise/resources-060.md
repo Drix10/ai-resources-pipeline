@@ -1,26 +1,3 @@
-### 🍕 Events - Bitcoin Pizza Day Park Party
-
-This article announces a public Bitcoin Pizza Day party in Heritage Park, Palo Alto.  The event includes food and socializing.
-
-Key Points:
-
-• Public Bitcoin Pizza Day celebration
-
-•  Food and refreshments provided
-
-• Networking opportunity
-
-
-🔗 Resources:
-
-• [Veneh Software](https://x.com/venehsoftw)
-
-• [Aptos Labs](https://x.com/AptosLabs)
-
-• [Event RSVP](https://lu.ma/SCMAY) - Register for the event
-
-
----
 ### 🤖 Machine Learning - Embedding Model Similarity
 
 This article discusses a research finding showing significant similarity between embeddings from different machine learning models.  The research demonstrates mapping between embeddings based solely on structure, without paired data.

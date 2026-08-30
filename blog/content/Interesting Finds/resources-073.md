@@ -23,35 +23,6 @@ Key Points:
 
 ---
 
-### 🚀 Sports - Portland Trail Blazers Trade
-
-This article summarizes a trade involving the Portland Trail Blazers and the Boston Celtics, focusing on the reacquisition of a player and the implications for both teams.
-
-
-Key Points:
-
-•  Portland reacquired a player previously traded to Boston.
-
-
-•  The trade involved multiple players and draft picks.
-
-
-•  The move significantly impacts both teams' roster composition.
-
-
-
-![Image](https://pbs.twimg.com/media/GuLdNZhWcAAC6ec?format=jpg&name=small)
-
-🔗 Resources:
-
-• [Darrison](https://x.com/darbison) - Reporting on the trade
-
-
-• [Shams Charania](https://x.com/ShamsCharania) -  Trade details
-
-
----
-
 ### 💡 E-commerce - Shopify Development
 
 This article discusses the author's experience developing customizations for Shopify and concludes that third-party tools may be unnecessary due to Shopify's capabilities.

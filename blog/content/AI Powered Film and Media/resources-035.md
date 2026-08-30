@@ -25,28 +25,6 @@ Key Points:
 
 
 ---
-### 🚀 GenMakers in Hollywood - House of David
-
-This article details GenMakers' involvement in the production of Season 2 of House of David, currently ranked #2 on Amazon Prime.
-
-Key Points:
-
-•  GenMakers' contribution to a top-ranking Amazon Prime series.
-
-•  Over a month of work dedicated to the project.
-
-•  Successful integration into a high-profile production.
-
-
-🔗 Resources:
-
-• [SMKP_Films](https://x.com/SMKP_Films) -  Production company
-• [Gen_makers Tweet](https://x.com/Gen_makers/status/1903750177069887537) - Project announcement
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1903750099467202560/img/2rWacmZLxR1B_lZ-.jpg)
-
-
----
 ### 💡  Fast Iteration in Game Development - Vibe Coding
 
 This article discusses the "vibe coding" trend in game development, drawing parallels to successful strategies used in F2P game development over the past two decades.
@@ -87,29 +65,6 @@ Key Points:
 • [mezdez](https://x.com/mezdez) - Project contributor
 • [watchonwonder](https://x.com/watchonwonder) - Project contributor
 • [HBCoop_ Tweet](https://x.com/HBCoop_/status/1903923705702465747) - Project update
-
-
----
-### 💡  Creative Courage - Chaplin's Dictator Speech
-
-This article recounts the story of Charlie Chaplin's decision to include the iconic final speech in "The Great Dictator," despite concerns about its potential box office impact.
-
-Key Points:
-
-•  Chaplin's unwavering commitment to his artistic vision.
-
-•  Prioritization of artistic integrity over potential financial risk.
-
-•  A testament to the power of bold creative choices.
-
-
-🔗 Resources:
-
-• [Rob101Ai](https://x.com/Rob101Ai) -  Discussion contributor
-• [TheMonologist](https://x.com/TheMonologist) - Discussion contributor
-• [TheMonologist Tweet](https://x.com/TheMonologist/status/1903912397019984318) - Discussion on Chaplin's decision
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1780192645005910016/img/sCPr9pbzi2fuiA5m.jpg)
 
 
 ---

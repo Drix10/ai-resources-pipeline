@@ -7,6 +7,17 @@ const path = require("path");
 
 const PROCESSED_IDS_PATH = path.join(process.cwd(), ".processed-tweet-ids.json");
 
+const NON_TECH_PATTERNS = [
+  /\b(nba|nfl|mlb|premier league|champions league|football|soccer|basketball|baseball|touchdown|pacers|lakers|warriors|celtics|quarterback|referee|halftime score|slam dunk|all-star voting)\b/i,
+  /\b(perfume|fragrance|cologne|lipstick|makeup|eyeliner|haute couture|ootd|fashion week|runway model|dress code|wardrobe)\b/i,
+  /\b(kardashian|grammys|oscars red carpet|box office weekend|celebrity dating|paparazzi|gossip)\b/i
+];
+
+function isOfftopicTweet(text) {
+  if (!text || typeof text !== "string") return false;
+  return NON_TECH_PATTERNS.some((pattern) => pattern.test(text));
+}
+
 class TwitterService {
   constructor() {
     this.driver = null;
@@ -556,6 +567,12 @@ class TwitterService {
             const hasEnoughSourceDetail =
               wordCount >= MIN_TOTAL_WORDS ||
               (hasExternalLink && wordCount >= MIN_WORDS_WITH_EXTERNAL_LINK);
+
+            // Filter out off-topic non-technical tweets (sports, perfume, fashion, pop gossip)
+            if (isOfftopicTweet(combinedText)) {
+              logger.debug(`Tweet ${tweetId} is non-technical / off-topic content, skipping`);
+              continue;
+            }
 
             if (hasEnoughSourceDetail) {
               // Keep it local until GitHub confirms publication. Marking it now

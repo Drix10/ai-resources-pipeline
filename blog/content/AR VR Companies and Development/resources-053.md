@@ -103,27 +103,6 @@ Key Points:
 ![Image](https://pbs.twimg.com/media/GrF9AxwWAAA5ric?format=jpg&name=small)
 
 ---
-### ✨ Gym Class VR - NBA Park Activation
-
-This article highlights the success of Gym Class VR's activation at NBA Park, showcasing impressive participation numbers and points scored.
-
-Key Points:
-
-• Over 32,000 demos of Gym Class VR at NBA Park.
-
-• Participants scored over 61,000 points.
-
-• Successful activation across various locations.
-
-
-🔗 Resources:
-
-• [Gym Class VR](https://x.com/Gymclassvr) - VR fitness game
-
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1923427024456081408/img/-sYqD2VydwGajcY6.jpg)
-
----
 ### 🤖 Qualcomm - AI Model Optimization
 
 This article announces the availability of optimized Phi-4-reasoning and Phi-4-mini-reasoning models for Snapdragon-powered Copilot+ PCs.

@@ -89,39 +89,6 @@ Key Points:
 • [Kentucky Derby Training Video](https://shorturl.at/O9vrT) - Video of Renegade's training
 
 ---
-### ✨ Baseball Photography - MLB Pre-game Footage
-
-This article presents pre-game footage from an MLB matchup, focusing on Juan Soto of the New York Mets. It captures him during batting practice at Citi Field, preparing to face the Washington Nationals.
-
-Key Points:
-
-• Features Juan Soto of the New York Mets during pre-game activities.
-
-• Showcases batting practice ahead of an MLB game at Citi Field.
-
-• Provides professional sports video coverage by Elsa Garrison for Getty Images.
-
-🔗 Resources:
-
-• [Getty Images](https://x.com/GettyImages) - Official account for Getty Images
-
-• [Getty Sport](https://x.com/GettySport) - Official account for Getty Sport
-
-• [New York Mets](https://x.com/Mets) - Official account for the New York Mets
-
-• [Washington Nationals](https://x.com/Nationals) - Official account for the Washington Nationals
-
-• [Citi Field](https://x.com/CitiField) - Official account for Citi Field
-
-• [MLB](https://x.com/MLB) - Official account for Major League Baseball
-
-• [Elsa Garrison](https://x.com/ElsaGarrison) - Profile of photographer Elsa Garrison
-
-• [Juan Soto Pre-game Video](https://shorturl.at/gMcsC) - Video of Juan Soto during batting practice
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/2049259802035990528/img/uWDOhTWG3s2Ekwj6.jpg)
-
----
 ### 💡 Digital Transformation - Internet Adoption in India
 
 This article examines the significant increase in internet access across India over the past decade. It highlights the primary role of mobile phones in expanding connectivity from 15% to 70% of the population.

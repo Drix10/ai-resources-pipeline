@@ -100,26 +100,6 @@ Key Points:
 
 ---
 
-### 🤖 Robotics - Humanoid Robot Soccer Match in China
-
-This article reports on China's first 3-on-3 humanoid robot soccer matches, showcasing advancements in autonomous robotics.
-
-Key Points:
-
-• Four university teams programmed robots to play autonomously.
-
-
-•  Matches served as a preview for the World Humanoid Robot Games.
-
-
-• The event highlights progress in humanoid robot technology.
-
-
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1939711023348342784/img/6EID_TtcjDG79YHi.jpg)
-
----
-
 ### 🤖 AI - Egocentric Video Data and Whole-Body Pose Trajectories
 
 This article discusses the potential of combining egocentric video data from AR glasses with whole-body pose trajectories to improve the training of Vision-Language Models (VLMs).

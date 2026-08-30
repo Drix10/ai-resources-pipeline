@@ -20,39 +20,6 @@ Key Points:
 
 ---
 
-### 🤖 Computer Vision - Basketball Shot Detection
-
-This article describes a computer vision model capable of detecting and classifying basketball shots in NBA games, calculating shot distance, and marking shot location.
-
-Key Points:
-
-• Detects jump shots, layups, and dunks.
-
-• Classifies shots as made or missed.
-
-• Calculates shot distance from the basket.
-
-• Marks shot location on the court.
-
-
-🚀 Implementation:
-
-1. Acquire NBA game footage.
-2. Train a computer vision model on a labeled dataset of basketball shots.
-3. Deploy the model to process game footage.
-4. Visualize shot detection and classification results.
-
-
-🔗 Resources:
-
-• [Roboflow Sports Repository](https://github.com/roboflow/sports) - Source code and model weights
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1955654868825227264/img/2pLXiFvi_ZwbeIR-.jpg)
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1923047354271154176/img/xiL6d1oLsIiDoVgG?format=jpg&name=240x240)
-
----
-
 ### 🚀 AI Hype Cycles - Market Projections and OpenAI Network
 
 This article analyzes the hype cycle of Artificial Intelligence, focusing on its current stage and future market potential, particularly referencing OpenAI Network's role in unlocking that potential.

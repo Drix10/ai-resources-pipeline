@@ -1,31 +1,3 @@
-### 🎬 Video Editing - Cinematic Rain Effect
-
-This article demonstrates how to create a cinematic rain effect in Filmora using a simple spray bottle and in-app effects.  The technique offers a cost-effective alternative to complex methods.
-
-Key Points:
-
-• Achieve professional-looking rain effects.
-
-
-• Requires minimal equipment (spray bottle).
-
-
-• Simple implementation within Filmora.
-
-
-• Budget-friendly solution for cinematic visuals.
-
-
-
-🔗 Resources:
-
-• [Filmora](https://bit.ly/4k6ytda) - Video editing software
-
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1953996907887689728/img/Ev4xD5ueDVn9UIdw.jpg)
-
-
----
 ### 🚀 AI Tools - AnythingAI for Video Merging
 
 This article describes a quick test of AnythingAI during their hackathon, focusing on its ability to merge multiple YouTube videos into a unified document.
@@ -132,37 +104,6 @@ Key Points:
 
 • Strong performance with drawing and sketch-based video creation.
 
-
-
-![Image](https://pbs.twimg.com/amplify_video_thumb/1954107429135790080/img/S7rbNog4tdMXVsI6.jpg)
-
-
----
-### 🎬 Filmmaking - Beyond The Loop Anthology Film
-
-This article announces the second film in the Beyond The Loop anthology, highlighting the tools and technologies used in its creation.
-
-Key Points:
-
-• Second film in the Beyond The Loop anthology.
-
-
-• Utilizes various AI and creative tools.
-
-
-
-🔗 Resources:
-
-• [ElevenLabs](https://x.com/elevenlabsio) - AI voice generation
-
-
-• [FAL](https://x.com/FAL) - Tool used in production
-
-
-• [Freepik](https://x.com/freepik) - Stock assets
-
-
-• [Kling AI](https://x.com/kling_ai) - Tool used in production
 
 
 ![Image](https://pbs.twimg.com/amplify_video_thumb/1954107429135790080/img/S7rbNog4tdMXVsI6.jpg)

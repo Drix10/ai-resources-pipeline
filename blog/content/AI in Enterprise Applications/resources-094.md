@@ -223,29 +223,6 @@ Key Points:
 
 ---
 
-### ✨ ComputerX - Referral Program
-
-This article describes a referral program for ComputerX, offering bonus credits to both referrer and referee.
-
-Key Points:
-
-• Earn 3,000 credits by referring friends.
-
-
-• No payment required.
-
-
-
-🔗 Resources:
-
-• [Image showing referral program details](https://pbs.twimg.com/media/Gx7G7H_aEAAbaYP?format=jpg&name=small) - Instructions
-
-
-• [Tweet announcing the referral program](https://x.com/ComputerXAI/status/1954218873328370112) - Further details
-
-
----
-
 ### ⭐️ Support
 
 If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.
