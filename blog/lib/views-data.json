@@ -1,8 +1,8 @@
 {
-  "totalViews": 8942,
-  "totalAiViews": 1,
-  "totalHumanViews": 8941,
-  "lastUpdated": "2026-08-30T06:44:51.987Z",
+  "totalViews": 8956,
+  "totalAiViews": 2,
+  "totalHumanViews": 8954,
+  "lastUpdated": "2026-08-30T10:06:43.576Z",
   "articles": {
     "linkedin-insights/ai-developer-tools-1788031114374": {
       "views": 7,
@@ -15,8 +15,8 @@
       "aiViews": 0
     },
     "ai-developer-tools/apify-broadcast-on-the-context-resources-230": {
-      "views": 4,
-      "humanViews": 3,
+      "views": 9,
+      "humanViews": 8,
       "aiViews": 1
     },
     "ai-education/biomolecular-prediction-nvidia-acce-resources-230": {
@@ -44668,6 +44668,11 @@
       "views": 1,
       "humanViews": 1,
       "aiViews": 0
+    },
+    "tech-infrastructure/resources-001": {
+      "views": 9,
+      "humanViews": 8,
+      "aiViews": 1
     }
   }
 }

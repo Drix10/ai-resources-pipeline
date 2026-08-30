@@ -2,16 +2,21 @@
 
 import React, { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import initialViewsData from '@/lib/views-data.json';
+
+const SEED_TOTAL_VIEWS = typeof (initialViewsData as any)?.totalViews === 'number' 
+  ? (initialViewsData as any).totalViews 
+  : 8950;
 
 export default function HeaderLiveCounter() {
   const [totalViews, setTotalViews] = useState<number>(() => {
     if (typeof window !== 'undefined') {
       const cached = localStorage.getItem('drix10_total_views');
       if (cached && !isNaN(Number(cached))) {
-        return Math.max(8941, Number(cached));
+        return Math.max(SEED_TOTAL_VIEWS, Number(cached));
       }
     }
-    return 8941;
+    return SEED_TOTAL_VIEWS;
   });
 
   const pathname = usePathname();
@@ -24,7 +29,7 @@ export default function HeaderLiveCounter() {
       })
       .then((data) => {
         if (data?.totalViews) {
-          const val = Math.max(8941, data.totalViews);
+          const val = Math.max(SEED_TOTAL_VIEWS, data.totalViews);
           setTotalViews(val);
           if (typeof window !== 'undefined') {
             localStorage.setItem('drix10_total_views', String(val));
@@ -39,7 +44,7 @@ export default function HeaderLiveCounter() {
 
     const handleViewRecorded = (e: any) => {
       if (e?.detail?.totalViews) {
-        const val = Math.max(8941, e.detail.totalViews);
+        const val = Math.max(SEED_TOTAL_VIEWS, e.detail.totalViews);
         setTotalViews(val);
         if (typeof window !== 'undefined') {
           localStorage.setItem('drix10_total_views', String(val));

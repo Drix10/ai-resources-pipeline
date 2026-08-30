@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
+import seedData from './views-data.json';
 
 export interface ArticleViews {
   views: number;
@@ -16,23 +17,37 @@ export interface ViewsStore {
   articles: Record<string, ArticleViews>;
 }
 
-const BASE_TOTAL_VIEWS = 8941;
-const BASE_AI_VIEWS = 142;
-const BASE_HUMAN_VIEWS = 8799;
+// Dynamically seed from the committed views-data.json
+const BASE_TOTAL_VIEWS = typeof (seedData as any)?.totalViews === 'number' ? (seedData as any).totalViews : 8950;
+const BASE_AI_VIEWS = typeof (seedData as any)?.totalAiViews === 'number' ? (seedData as any).totalAiViews : 1;
+const BASE_HUMAN_VIEWS = typeof (seedData as any)?.totalHumanViews === 'number' ? (seedData as any).totalHumanViews : BASE_TOTAL_VIEWS - BASE_AI_VIEWS;
 
 const defaultStore: ViewsStore = {
   totalViews: BASE_TOTAL_VIEWS,
   totalAiViews: BASE_AI_VIEWS,
   totalHumanViews: BASE_HUMAN_VIEWS,
   lastUpdated: new Date().toISOString(),
-  articles: {},
+  articles: ((seedData as any)?.articles as Record<string, ArticleViews>) || {},
 };
 
 function getViewsFilePath(): string {
+  // On Vercel / serverless lambdas, write to /tmp
   if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
     return path.join(os.tmpdir(), 'ai-knowledge-views.json');
   }
-  return path.join(process.cwd(), 'lib', 'views-data.json');
+
+  // Resolve locally across possible cwd locations
+  const candidates = [
+    path.join(process.cwd(), 'lib', 'views-data.json'),
+    path.join(process.cwd(), 'blog', 'lib', 'views-data.json'),
+    path.resolve(__dirname, 'views-data.json'),
+  ];
+
+  for (const p of candidates) {
+    if (fs.existsSync(p)) return p;
+  }
+
+  return candidates[0];
 }
 
 function loadStoreFromDisk(): ViewsStore {
@@ -42,7 +57,6 @@ function loadStoreFromDisk(): ViewsStore {
       const raw = fs.readFileSync(filePath, 'utf8');
       const parsed = JSON.parse(raw);
       if (parsed && typeof parsed.totalViews === 'number') {
-        // Ensure totalViews is at least the base count
         parsed.totalViews = Math.max(BASE_TOTAL_VIEWS, parsed.totalViews);
         parsed.articles = parsed.articles || {};
         return parsed;
@@ -50,7 +64,11 @@ function loadStoreFromDisk(): ViewsStore {
     }
   } catch (e) {}
 
-  return defaultStore;
+  return {
+    ...defaultStore,
+    totalViews: Math.max(BASE_TOTAL_VIEWS, defaultStore.totalViews),
+    articles: { ...defaultStore.articles }
+  };
 }
 
 let store: ViewsStore = loadStoreFromDisk();
@@ -83,7 +101,6 @@ export function recordView(slug: string, userAgent: string): {
   totalHumanViews: number;
   totalAiViews: number;
 } {
-  // Sync from disk to capture increments from any other worker process
   const diskStore = loadStoreFromDisk();
   store = diskStore;
 
@@ -104,15 +121,15 @@ export function recordView(slug: string, userAgent: string): {
     }
   }
 
+  // Guaranteed strictly monotonic increment
   store.totalViews = Math.max(BASE_TOTAL_VIEWS, store.totalViews) + 1;
   if (isAi) {
-    store.totalAiViews = (store.totalAiViews || BASE_AI_VIEWS) + 1;
+    store.totalAiViews = (store.totalAiViews || 0) + 1;
   } else {
-    store.totalHumanViews = (store.totalHumanViews || BASE_HUMAN_VIEWS) + 1;
+    store.totalHumanViews = (store.totalHumanViews || 0) + 1;
   }
   store.lastUpdated = new Date().toISOString();
 
-  // Persist synchronously so subsequent reads immediately reflect this increment
   saveStoreToDisk();
 
   return {
@@ -126,16 +143,31 @@ export function recordView(slug: string, userAgent: string): {
 }
 
 export function getArticleViews(slug: string): ArticleViews {
-  const current = loadStoreFromDisk();
-  return current.articles[slug] || { views: 1, humanViews: 1, aiViews: 0 };
+  const diskStore = loadStoreFromDisk();
+  store = diskStore;
+
+  return (
+    store.articles[slug] || {
+      views: 0,
+      humanViews: 0,
+      aiViews: 0,
+    }
+  );
 }
 
-export function getGlobalViewsStats() {
-  const current = loadStoreFromDisk();
+export function getGlobalViewsStats(): {
+  totalViews: number;
+  totalAiViews: number;
+  totalHumanViews: number;
+  lastUpdated: string;
+} {
+  const diskStore = loadStoreFromDisk();
+  store = diskStore;
+
   return {
-    totalViews: Math.max(BASE_TOTAL_VIEWS, current.totalViews),
-    totalAiViews: Math.max(BASE_AI_VIEWS, current.totalAiViews),
-    totalHumanViews: Math.max(BASE_HUMAN_VIEWS, current.totalHumanViews),
-    lastUpdated: current.lastUpdated,
+    totalViews: Math.max(BASE_TOTAL_VIEWS, store.totalViews),
+    totalAiViews: store.totalAiViews,
+    totalHumanViews: store.totalHumanViews,
+    lastUpdated: store.lastUpdated,
   };
 }
