@@ -5,7 +5,7 @@
 <h1 align="center">⚡ Autonomous AI Knowledge & Multi-Channel Syndication Engine</h1>
 
 <p align="center">
-  <strong>Continuous Technical Curation • Dual-Engine LLM Pipeline • Next.js Knowledge Hub • Multi-Platform Developer Syndication</strong>
+  <strong>Continuous Technical Curation • Dual-Engine LLM Pipeline • Next.js Knowledge Hub • Automated DEV.to Syndication</strong>
 </p>
 
 <p align="center">
@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/SYNDICATION-DEV.TO_%7C_HASHNODE-0a0a0a?style=for-the-badge&logo=devdotto&logoColor=white" alt="Syndication" />
+  <img src="https://img.shields.io/badge/SYNDICATION-DEV.TO-0a0a0a?style=for-the-badge&logo=devdotto&logoColor=white" alt="DEV.to Syndication" />
   <img src="https://img.shields.io/badge/SOCIAL-LINKEDIN_SELENIUM_POSTER-0077b5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Poster" />
 </p>
 
@@ -23,7 +23,7 @@
 
 ## 📖 Overview
 
-**ai-knowledge-pipeline** is an enterprise-grade autonomous system that continuously collects high-signal AI engineering updates from Twitter/X and LinkedIn, synthesizes structured technical breakdowns via local and cloud LLM engines, commits them to an authoritative Git Knowledge Base, and powers a **sub-second Next.js 14 Knowledge Hub** ([blogs.drix10.com](https://blogs.drix10.com)) with automated multi-platform syndication to **DEV.to** and **Hashnode**.
+**ai-knowledge-pipeline** is an enterprise-grade autonomous system that continuously collects high-signal AI engineering updates from Twitter/X and LinkedIn, synthesizes structured technical breakdowns via local and cloud LLM engines, commits them to an authoritative Git Knowledge Base, and powers a **sub-second Next.js 14 Knowledge Hub** ([blogs.drix10.com](https://blogs.drix10.com)) with automated multi-platform syndication to **DEV.to**.
 
 ---
 
@@ -36,7 +36,7 @@ flowchart TD
     C --> D["Git Knowledge Repository (Drix10/ai-resources)"]
     C --> E["LinkedIn Live Carousel & Insights Poster"]
     C --> F["Next.js 14 Knowledge Hub (blog/content/)"]
-    F --> G["Multi-Platform Syndication Engine (DEV.to / Hashnode)"]
+    F --> G["Automated Developer Syndication (DEV.to REST API)"]
     F --> H["Real-Time Dual Human + AI View Counter"]
     F --> I["High-DR SEO & GEO Protocols (/llms.txt, /robots.txt)"]
     G --> J["Consolidated 1-Commit Automated Vercel Deploy"]
@@ -63,9 +63,8 @@ flowchart TD
 - **Anti-Tampering Slug Whitelist**: Only indexed articles can receive view increments, preventing storage corruption.
 - **Security Headers**: `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`.
 
-### 🚀 4. Automated Multi-Platform Syndication
+### 🚀 4. Automated DEV.to Developer Syndication
 - **DEV.to API Integration**: Automatically cross-posts new articles with canonical backlinks pointing to [https://blogs.drix10.com](https://blogs.drix10.com).
-- **Hashnode GraphQL API**: Direct multi-platform broadcasting with tag sanitization and rate-limit spacing.
 - **Single-Batch Deployments**: Rebuilds search indexes and triggers only 1 consolidated commit per cycle.
 
 ### 🌐 5. Programmatic SEO (pSEO) & Generative Engine Optimization (GEO)
@@ -81,7 +80,7 @@ flowchart TD
 - **Markdown Engine**: Zero-dependency Regex Parser, Marked, KaTeX math rendering
 - **Automation**: Node.js, Selenium WebDriver, Node-Cron, Winston Logger
 - **AI Synthesis**: Local Ollama (`gemma4`) / NVIDIA NIM API (`llama-3.2-11b-vision-instruct`)
-- **Syndication**: DEV.to REST API, Hashnode GraphQL API, GitHub Octokit REST
+- **Syndication**: DEV.to REST API, GitHub Octokit REST
 
 ---
 
@@ -105,12 +104,9 @@ GITHUB_PAT=your_github_personal_access_token
 GITHUB_USERNAME=Drix10
 GITHUB_REPONAME=ai-resources
 
-# Syndication API Keys
+# DEV.to Multi-Platform Automated Syndication
 DEVTO_API_KEY=your_devto_api_key
 DEVTO_AUTO_PUBLISH=true
-HASHNODE_TOKEN=your_hashnode_token
-HASHNODE_PUBLICATION_ID=your_hashnode_publication_id
-HASHNODE_AUTO_PUBLISH=true
 
 # LLM Settings
 USE_LOCAL_LLM=true

@@ -441,11 +441,11 @@ const processAllFolders = async () => {
     }
 
     
-    // --- Automated Multi-Platform Syndication (DEV.to / Hashnode) ---
+    // --- Automated Developer Syndication (DEV.to) ---
     try {
       const syndicationService = require("./syndication");
-      if (successfulArticles.length > 0 && (config.syndication?.devto?.apiKey || config.syndication?.hashnode?.publicationId)) {
-        logger.info(`Syndication: Auto-broadcasting top curated article to external developer platforms...`);
+      if (successfulArticles.length > 0 && config.syndication?.devto?.apiKey) {
+        logger.info("Syndication: Auto-broadcasting top curated article to DEV.to...");
         const topArticle = successfulArticles[0];
         const categorySlug = String(topArticle.title || 'tech').toLowerCase().replace(/[^a-z0-9]+/g, '-');
         const canonicalUrl = `https://blogs.drix10.com/categories/${categorySlug}`;

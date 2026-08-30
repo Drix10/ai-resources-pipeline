@@ -1,5 +1,5 @@
 const config = require("../../config");
-const { logger, sleep } = require("../utils/helpers");
+const { logger } = require("../utils/helpers");
 
 class SyndicationService {
   constructor() {
@@ -90,99 +90,13 @@ class SyndicationService {
   }
 
   /**
-   * Publish an article to Hashnode via GraphQL API with canonical URL backlink protection
+   * Broadcast an article across enabled syndication destinations (DEV.to)
    */
-  async publishToHashnode({ title, markdown, tags = [], canonicalUrl, subtitle }) {
-    const token = config.syndication?.hashnode?.token;
-    const publicationId = config.syndication?.hashnode?.publicationId;
-
-    if (!token || !publicationId) {
-      logger.warn("SyndicationService: Hashnode token or publicationId missing. Skipping Hashnode publish.");
-      return { success: false, platform: "hashnode", error: "Missing HASHNODE_TOKEN or HASHNODE_PUBLICATION_ID" };
-    }
-
-    const safeTitle = String(title || "Technical Breakdown").trim().slice(0, 150);
-    const cleanTags = this.sanitizeTags(tags, 4).map((t) => ({ name: t, slug: t }));
-    const slug = safeTitle
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-|-$/g, "")
-      .slice(0, 80);
-    const validCanonical = this.isValidUrl(canonicalUrl) ? canonicalUrl : undefined;
-
-    const mutation = `
-      mutation PublishPost($input: PublishPostInput!) {
-        publishPost(input: $input) {
-          post {
-            id
-            title
-            url
-            slug
-          }
-        }
-      }
-    `;
-
-    const input = {
-      title: safeTitle,
-      ...(subtitle ? { subtitle: String(subtitle).slice(0, 200) } : {}),
-      publicationId: publicationId,
-      contentMarkdown: String(markdown || ""),
-      tags: cleanTags.length > 0 ? cleanTags : [{ name: "Tech", slug: "tech" }],
-      slug: slug || "article-" + Date.now(),
-      ...(validCanonical ? { originalArticleURL: validCanonical } : {}),
-    };
-
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), this.DEFAULT_TIMEOUT_MS);
-
-    try {
-      logger.info(`SyndicationService: Publishing to Hashnode ("${safeTitle.slice(0, 40)}...")...`);
-      const response = await fetch("https://gql.hashnode.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-          "User-Agent": "ai-knowledge-pipeline/1.0",
-        },
-        signal: controller.signal,
-        body: JSON.stringify({ query: mutation, variables: { input } }),
-      });
-
-      const data = await response.json();
-      if (!response.ok || data?.errors?.length > 0) {
-        const errMsg = data?.errors?.[0]?.message || `HTTP ${response.status}`;
-        throw new Error(`Hashnode returned error: ${errMsg}`);
-      }
-
-      const post = data?.data?.publishPost?.post;
-      logger.info(`SyndicationService: Successfully published to Hashnode! URL: ${post?.url}`);
-      return { success: true, platform: "hashnode", url: post?.url, id: post?.id };
-    } catch (error) {
-      const msg = error?.name === "AbortError" ? "Hashnode request timed out" : error.message;
-      logger.error(`SyndicationService: Hashnode publishing failed: ${msg}`);
-      return { success: false, platform: "hashnode", error: msg };
-    } finally {
-      clearTimeout(timeout);
-    }
-  }
-
-  /**
-   * Broadcast an article across all enabled platforms in parallel with graceful fallbacks
-   */
-  async syndicateAll({ title, markdown, tags = [], canonicalUrl, coverImage, subtitle, published = true }) {
+  async syndicateAll({ title, markdown, tags = [], canonicalUrl, coverImage, published = true }) {
     const results = [];
 
-    // 1. DEV.to
     if (config.syndication?.devto?.enabled || config.syndication?.devto?.apiKey) {
       const res = await this.publishToDevTo({ title, markdown, tags, canonicalUrl, coverImage, published });
-      results.push(res);
-      await sleep(1000); // 1s rate limit spacing
-    }
-
-    // 2. Hashnode
-    if (config.syndication?.hashnode?.enabled && config.syndication?.hashnode?.publicationId) {
-      const res = await this.publishToHashnode({ title, markdown, tags, canonicalUrl, subtitle });
       results.push(res);
     }
 

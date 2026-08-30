@@ -182,7 +182,7 @@ class GithubService {
 
       const fileUrl = `https://github.com/${owner}/${repo}/blob/main/${urlSafeFolder}/${fileName}`;
 
-      // Asynchronously syndicate to enabled platforms (DEV.to, Medium, Hashnode) with canonical URL protection
+      // Asynchronously syndicate to enabled developer platforms (DEV.to) with canonical URL protection
       syndicationService
         .syndicateMarkdownArticle({
           title: `${decodedFolder} #${nextNumber}`,
