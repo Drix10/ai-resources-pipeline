@@ -45,7 +45,7 @@ const config = {
       enabled: process.env.MEDIUM_AUTO_PUBLISH === "true",
     },
     hashnode: {
-      token: process.env.HASHNODE_TOKEN || "",
+      token: process.env.HASHNODE_TOKEN || process.env.HASHNODE_ACCESS_TOKEN || "",
       publicationId: process.env.HASHNODE_PUBLICATION_ID || "",
       enabled: process.env.HASHNODE_AUTO_PUBLISH === "true",
     },

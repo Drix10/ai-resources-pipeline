@@ -440,6 +440,28 @@ const processAllFolders = async () => {
       logger.info("LinkedIn posting is disabled (set LINKEDIN_POST=true to enable it). Skipping curation.");
     }
 
+    
+    // --- Automated Multi-Platform Syndication (DEV.to / Hashnode) ---
+    try {
+      const syndicationService = require("./syndication");
+      if (successfulArticles.length > 0 && (config.syndication?.devto?.apiKey || config.syndication?.hashnode?.publicationId)) {
+        logger.info(`Syndication: Auto-broadcasting top curated article to external developer platforms...`);
+        const topArticle = successfulArticles[0];
+        const categorySlug = String(topArticle.title || 'tech').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        const canonicalUrl = `https://blogs.drix10.com/categories/${categorySlug}`;
+
+        await syndicationService.syndicateAll({
+          title: topArticle.title + " - Autonomous AI Knowledge Breakdown",
+          markdown: topArticle.fullContent,
+          tags: ["ai", "tech", "coding", "software"],
+          canonicalUrl: canonicalUrl,
+          published: true
+        });
+      }
+    } catch (synErr) {
+      logger.warn("Syndication step warning:", synErr.message);
+    }
+
     // --- End-of-Cycle Batched Synchronization ---
     // Automatically rebuilds the blog index and synchronizes all new articles in ONE single consolidated batch commit
     try {
