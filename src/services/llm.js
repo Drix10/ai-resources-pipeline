@@ -1755,63 +1755,6 @@ ${combinedPrompt}</source_material>
       if (groupedThreads.length === 0 && curatedLinkedinPosts.length === 0) {
         throw new Error("No pre-vetted source content was provided; skipping publication.");
       }
-
-      // Smaller local models are inconsistent when asked to write many
-      // independent articles in one response. Generate small validated batches
-      // and merge them so no source is silently omitted.
-      const sourceCount = groupedThreads.length + curatedLinkedinPosts.length;
-      if (sourceCount > 3 && !batching) {
-        const sources = [
-          ...groupedThreads.map((thread) => ({ thread })),
-          ...curatedLinkedinPosts.map((post) => ({ post })),
-        ];
-
-        // Gemma 8B routinely blends two unrelated posts into generic filler.
-        // One source per pass is slower, but it gives each article a clear
-        // factual boundary and lets the grounding gate reject bad drafts.
-        // Batches are independent, so they can optionally run with bounded
-        // concurrency (config.llm.batchConcurrency, default 1 = sequential,
-        // identical to prior behavior) to cut wall-clock time on providers
-        // that can handle parallel requests.
-        const batchSize = 1;
-        const concurrency = Math.max(1, Math.min(sources.length, Number(config.llm?.batchConcurrency) || 1));
-        const batchResults = new Array(sources.length);
-        let nextIndex = 0;
-
-        const runWorker = async () => {
-          while (true) {
-            const current = nextIndex++;
-            if (current >= sources.length) return;
-            const batch = sources.slice(current, current + batchSize);
-            logger.info(`LocalLLMService: Generating local LLM resource batch ${current + 1}/${sources.length}...`);
-            batchResults[current] = await this.generateMarkdownFromCombined(
-              batch.filter((source) => source.thread).map((source) => source.thread),
-              batch.filter((source) => source.post).map((source) => source.post),
-              retries,
-              true,
-              validationFeedback,
-            );
-          }
-        };
-
-        await Promise.all(Array.from({ length: concurrency }, () => runWorker()));
-
-        const supportPattern = /\n---\n\s*### ⭐️ Support[\s\S]*$/m;
-        const supportSection = batchResults[0].match(supportPattern)?.[0] || "";
-        const mergedMarkdown = batchResults
-          .map((result) => result.replace(supportPattern, "").trim())
-          .join("\n\n---\n") + supportSection;
-
-        try {
-          this.assertPublishableMarkdown(mergedMarkdown, sourceCount, { finalDocument: true });
-          this.assertMarkdownGrounding(mergedMarkdown, sourceRecords);
-        } catch (error) {
-          this.recordMetric("markdownRejections");
-          throw error;
-        }
-        return mergedMarkdown;
-      }
-
       let combinedPrompt = "";
 
       if (groupedThreads.length > 0) {

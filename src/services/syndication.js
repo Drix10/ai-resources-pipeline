@@ -102,6 +102,22 @@ class SyndicationService {
 
     return results;
   }
+
+  /**
+   * Syndicate markdown article file from GitHub service hook
+   */
+  async syndicateMarkdownArticle({ title, markdown, tags = [], category, relativePath, coverImage, published = true }) {
+    const categorySlug = String(category || title || 'tech').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    const canonicalUrl = `https://blogs.drix10.com/categories/${categorySlug}`;
+    return this.syndicateAll({
+      title: `${title} - Autonomous AI Engineering Resource Breakdown`,
+      markdown,
+      tags: this.sanitizeTags(tags),
+      canonicalUrl,
+      coverImage,
+      published,
+    });
+  }
 }
 
 module.exports = new SyndicationService();
