@@ -32,13 +32,10 @@ const BANNED_WORDS = [
   "revolutionary", "groundbreaking", "moreover", "furthermore", "in conclusion",
   "shines a light", "treasure trove", "leverage", "robust", "key takeaway",
   "elevate", "cutting-edge", "beacon", "look no further", "significant",
-  "significantly", "significant shifts", "advanced", "major", "majorly",
-  "making waves", "advance", "powerful", "next-gen", "wild", "impressive",
-  "critical", "critical step", "sophisticated", "most powerful", "signaling", "broader reach",
+  "significantly", "significant shifts", "making waves", "next-gen", "wild",
+  "sophisticated", "most powerful", "signaling", "broader reach",
   "push boundaries", "pushing boundaries", "extensibility", "masterclass",
-  "paving the way", "incredible ways", "blurring lines", "dive", "deep dive",
-  "fundamental", "ensure", "core", "platform", "platforms", "dashboard",
-  "dashboards", "web app", "webapp"
+  "paving the way", "incredible ways", "blurring lines", "deep dive"
 ];
 
 const WEAK_CTA_PATTERNS = [
@@ -398,32 +395,35 @@ class LocalLLMService {
     if (!text || typeof text !== "string") return text;
     let result = text;
     const replacements = [
-      [/\bleveraging\b/gi, "using"],
-      [/\bleverage\b/gi, "use"],
+      [/\bleverag(?:e|es|ed|ing)\b/gi, "use"],
       [/\bdeep dive\b/gi, "breakdown"],
       [/\bdive into\b/gi, "look into"],
-      [/\bdive\b/gi, "explore"],
-      [/\badvanced\b/gi, "modern"],
-      [/\badvances\b/gi, "developments"],
-      [/\badvance\b/gi, "progress"],
-      [/\brobust\b/gi, "resilient"],
-      [/\bgame-changer\b/gi, "shift"],
-      [/\bseamlessly\b/gi, "directly"],
-      [/\bseamless\b/gi, "smooth"],
+      [/\bdiv(?:e|es|ed|ing)\b/gi, "explore"],
+      [/\bdelv(?:e|es|ed|ing)(?:\s+into)?\b/gi, "explore"],
+      [/\btestament\b/gi, "proof"],
+      [/\btapestry\b/gi, "mix"],
+      [/\bunlock(?:s|ed|ing)?\b/gi, "enable"],
+      [/\belevat(?:e|es|ed|ing)\b/gi, "improve"],
+      [/\bgame-changer\b/gi, "major shift"],
+      [/\bseamless(?:ly)?\b/gi, "smooth"],
       [/\bcutting-edge\b/gi, "modern"],
       [/\bnext-gen\b/gi, "new"],
       [/\brevolutionary\b/gi, "innovative"],
       [/\bgroundbreaking\b/gi, "innovative"],
-      [/\bsignificant\b/gi, "notable"],
-      [/\bsignificantly\b/gi, "noticeably"],
-      [/\bdelve\b/gi, "look"],
-      [/\btestament\b/gi, "proof"],
-      [/\btapestry\b/gi, "mix"],
-      [/\bunlock\b/gi, "enable"],
-      [/\belevate\b/gi, "improve"],
+      [/\bsignificant(?:ly)?\b/gi, "notable"],
+      [/\bimpressive\b/gi, "strong"],
+      [/\bwild\b/gi, "notable"],
       [/\bmoreover\b/gi, "also"],
       [/\bfurthermore\b/gi, "also"],
-      [/\bin conclusion\b/gi, "finally"]
+      [/\bin conclusion\b/gi, "finally"],
+      [/\bcritical step\b/gi, "key step"],
+      [/\bmasterclass\b/gi, "practical guide"],
+      [/\bpaving the way\b/gi, "leading the way"],
+      [/\bpush(?:ing)? boundaries\b/gi, "advancing"],
+      [/\bshines a light\b/gi, "highlights"],
+      [/\btreasure trove\b/gi, "collection"],
+      [/\bmaking waves\b/gi, "gaining attention"],
+      [/\blook no further\b/gi, "consider this"]
     ];
 
     for (const [pattern, replacement] of replacements) {
@@ -1376,6 +1376,13 @@ JSON schema:
 
   validatePostText(postData, githubUrl, sourceBulletCount = 0, manualPoints = []) {
     const errors = [];
+    if (postData.postText) postData.postText = this.sanitizeBannedWords(postData.postText);
+    if (postData.title) postData.title = this.sanitizeBannedWords(postData.title);
+    if (postData.slideTagline) postData.slideTagline = this.sanitizeBannedWords(postData.slideTagline);
+    if (Array.isArray(postData.slidePoints)) {
+      postData.slidePoints = postData.slidePoints.map(p => this.sanitizeBannedWords(p));
+    }
+
     const postText = postData.postText || "";
 
     const allText = [
@@ -2149,9 +2156,9 @@ ${pointText}
 
 Structural approach for this post (vary the narrative rhythm to match this, without breaking the mandatory sections below): ${structure.label} — ${structure.description}
 
-3. MANDATORY @MENTIONS (CRITICAL):
+3. MANDATORY @MENTIONS:
 You MUST actively include at least 2 to 4 prominent @mentions using the '@' prefix for the relevant companies, organizations, frameworks, or leaders (e.g. @Meta, @OpenAI, @Anthropic, @Google, @CompTIA, @ISC2, @EC-Council, @CynuxEra, or the specific engineering team behind the technology).
-CRITICAL RULES:
+IMPORTANT GUIDELINES:
 - Every mention MUST begin with the '@' symbol (e.g. "@Meta", "@OpenAI", "@Anthropic", "@Google", "@CynuxEra").
 - NEVER output placeholder brackets like "[Company Name]". Use the real name with '@'.
 
@@ -2177,6 +2184,7 @@ Include 10-15 highly targeted, relevant hashtags on their own block at the very 
 - NEVER USE EM DASHES ("—" or "--"). Use colons, commas, periods, or hyphens instead.
 - Use clean double-spaced paragraphs for high readability.
 - Write genuinely in first-person ("I", "my").
+- Keep total post length concise and punchy (around 1,100 to 1,800 characters).
 - NO generic AI buzzwords: ${BANNED_WORDS.join(", ")}.
 - Do NOT add random survey questions or marketing CTAs.
 - Return ONLY the full, ready-to-post text.
@@ -2185,7 +2193,7 @@ Include 10-15 highly targeted, relevant hashtags on their own block at the very 
     try {
       let body = await this.generateText(prompt, {
         temperature: 0.25,
-        num_predict: 2500,
+        num_predict: 600,
       });
 
       body = String(body || "")
@@ -2197,6 +2205,17 @@ Include 10-15 highly targeted, relevant hashtags on their own block at the very 
         .trim();
 
       body = this.sanitizeBannedWords(body);
+
+      // Guard against model verbosity exceeding LinkedIn's character bounds
+      if (body.length > 2400) {
+        const hashtagsMatch = body.match(/(?:#[a-zA-Z0-9_]+\s*)+$/);
+        const hashtags = hashtagsMatch ? hashtagsMatch[0].trim() : "";
+        const mainText = hashtags ? body.slice(0, -hashtags.length).trim() : body;
+        const trimmed = mainText.slice(0, 2100);
+        const lastPunctuation = Math.max(trimmed.lastIndexOf("\n\n"), trimmed.lastIndexOf(". "));
+        const cleanMain = lastPunctuation > 600 ? trimmed.slice(0, lastPunctuation + 1) : trimmed;
+        body = `${cleanMain}\n\n${hashtags}`.trim();
+      }
 
       // Auto-tag well-known tech entities with '@' if the model omitted the '@'
       const knownEntities = [
@@ -2219,6 +2238,14 @@ Include 10-15 highly targeted, relevant hashtags on their own block at the very 
         // Only replace if not already preceded by '@'
         const regex = new RegExp(`(?<!@)\\b${entity}\\b`, 'g');
         body = body.replace(regex, replacement);
+      }
+
+      // Ensure post has at least 5 hashtags
+      const hashtagsFound = body.match(/#[a-zA-Z0-9_]+/g) || [];
+      if (hashtagsFound.length < 5) {
+        const topicSlug = String(cleanTitle || "AI").replace(/[^a-zA-Z0-9]/g, "");
+        const fallbackHashtags = `\n\n#AI #${topicSlug} #SoftwareEngineering #TechInnovation #MachineLearning #DeveloperCommunity #TechResources`;
+        body = body + fallbackHashtags;
       }
 
       if (!body) throw new Error("Local model returned an empty LinkedIn post body");

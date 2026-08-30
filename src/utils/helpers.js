@@ -142,9 +142,12 @@ const rebuildBlogIndex = () => {
             } catch (e) {}
           } else if (numMatch) {
             try {
-              const datesMap = require(path.join(blogDir, "lib/commit-dates-map.json"));
               const num = parseInt(numMatch[1], 10);
-              if (datesMap[num]) date = datesMap[num];
+              // Only consult historical commit dates for old archival collections
+              if (num < 200) {
+                const datesMap = require(path.join(blogDir, "lib/commit-dates-map.json"));
+                if (datesMap[num]) date = datesMap[num];
+              }
             } catch (e) {}
           }
 
@@ -167,7 +170,8 @@ const rebuildBlogIndex = () => {
             date,
             readingTimeMinutes,
             wordCount,
-            canonicalUrl: "https://blogs.drix10.com/articles/" + slug
+            canonicalUrl: "https://blogs.drix10.com/articles/" + slug,
+            mtimeMs: stats.mtimeMs
           });
 
           categoryCountMap.set(entry.name, {
@@ -179,7 +183,22 @@ const rebuildBlogIndex = () => {
       } catch (e) {}
     }
 
-    articles.sort((a, b) => b.date.localeCompare(a.date));
+    // Sort newest articles first:
+    // 1. By Date (YYYY-MM-DD) descending
+    // 2. By Resource collection number descending (e.g. resources-242 before resources-001)
+    // 3. By file modification timestamp descending
+    articles.sort((a, b) => {
+      if (a.date !== b.date) {
+        return b.date.localeCompare(a.date);
+      }
+      const numA = parseInt(a.filename.match(/resources-(\d+)/i)?.[1] || "0", 10);
+      const numB = parseInt(b.filename.match(/resources-(\d+)/i)?.[1] || "0", 10);
+      if (numA !== numB) {
+        return numB - numA;
+      }
+      return (b.mtimeMs || 0) - (a.mtimeMs || 0);
+    });
+
     const categories = Array.from(categoryCountMap.values()).sort((a, b) => b.count - a.count);
 
     fs.writeFileSync(
