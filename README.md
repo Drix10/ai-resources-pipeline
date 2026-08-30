@@ -84,7 +84,7 @@ flowchart TD
 │   │   ├── cron.js           # Randomized UTC scheduling and automated workflows
 │   │   ├── github.js         # GitHub repository committer & rate limit manager
 │   │   ├── linkedin.js       # Selenium browser automation for LinkedIn publishing
-│   │   ├── local-llm.js      # Dual LLM engine (Ollama & NVIDIA NIM) & virality formulas
+│   │   ├── llm.js      # Dual LLM engine (Ollama & NVIDIA NIM) & virality formulas
 │   │   ├── syndication.js    # Multi-platform API publisher (DEV.to, Medium, Hashnode)
 │   │   └── twitter.js        # Headless authenticated data ingestion
 │   └── utils/

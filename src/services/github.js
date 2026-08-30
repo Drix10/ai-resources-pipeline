@@ -1,7 +1,7 @@
 const { Octokit } = require("@octokit/rest");
 const config = require("../../config");
 const { logger, handleError } = require("../utils/helpers");
-const localLlmService = require("./local-llm");
+const llmService = require("./llm");
 const syndicationService = require("./syndication");
 
 class GithubService {
@@ -55,10 +55,10 @@ class GithubService {
         throw new Error("GitHub repository configuration is missing");
       }
 
-      const markdownContent = await localLlmService.generateMarkdown(threads);
-      localLlmService.assertPublishableMarkdown(
+      const markdownContent = await llmService.generateMarkdown(threads);
+      llmService.assertPublishableMarkdown(
         markdownContent,
-        localLlmService.normalizeCollectedThreads(threads).length,
+        llmService.normalizeCollectedThreads(threads).length,
       );
       const fileBuffer = Buffer.from(markdownContent);
 
@@ -98,11 +98,11 @@ class GithubService {
         throw new Error("GitHub repository configuration is missing");
       }
 
-      const markdownContent = await localLlmService.generateMarkdownFromCombined(safeThreads, safeLinkedinPosts);
+      const markdownContent = await llmService.generateMarkdownFromCombined(safeThreads, safeLinkedinPosts);
       // This is a final defensive boundary: no model response can create a
       // repository file (or social announcement) unless it contains a real article.
-      const expectedArticleCount = localLlmService.normalizeCollectedThreads(safeThreads).length + safeLinkedinPosts.filter(Boolean).length;
-      localLlmService.assertPublishableMarkdown(markdownContent, expectedArticleCount);
+      const expectedArticleCount = llmService.normalizeCollectedThreads(safeThreads).length + safeLinkedinPosts.filter(Boolean).length;
+      llmService.assertPublishableMarkdown(markdownContent, expectedArticleCount);
       const fileBuffer = Buffer.from(markdownContent);
 
       const result = await this.uploadMarkdownFile(

@@ -14,7 +14,7 @@
 const fs = require("fs");
 const path = require("path");
 const config = require("./config");
-const localLlmService = require("./src/services/local-llm");
+const llmService = require("./src/services/llm");
 const githubService = require("./src/services/github");
 const { logger } = require("./src/utils/helpers");
 
@@ -186,7 +186,7 @@ async function generateLinkedInPreviews() {
 
     // 1b. If a single markdown file contains multiple sub-articles, flatten them so
     // the topic selector returns a valid index for one focused topic.
-    const flattenedArticles = localLlmService.splitArticlesIntoSubArticles(articles);
+    const flattenedArticles = llmService.splitArticlesIntoSubArticles(articles);
 
     console.log(`\n📚 Loaded ${flattenedArticles.length} total articles for evaluation:`);
     flattenedArticles.forEach((art, idx) => {
@@ -195,7 +195,7 @@ async function generateLinkedInPreviews() {
 
     // 2. Select the best article using selectBestArticlesForLinkedIn
     console.log("\n🤖 Step 1: Querying local LLM to select the single best topic for LinkedIn...");
-    const selectedIndices = await localLlmService.selectBestArticlesForLinkedIn(flattenedArticles);
+    const selectedIndices = await llmService.selectBestArticlesForLinkedIn(flattenedArticles);
     console.log(`✅ Selected indices from local LLM: ${JSON.stringify(selectedIndices)}`);
 
     const uniqueIndices = [...new Set(selectedIndices.map((idx) => Number(idx)))];
@@ -219,7 +219,7 @@ async function generateLinkedInPreviews() {
 
     // 3. Generate LinkedIn post data using generateLinkedInMasterPost
     console.log("\n🤖 Step 2: Running optimized 2026 virality formulas to generate LinkedIn post...");
-    const postData = await localLlmService.generateLinkedInMasterPost(selectedArticles);
+    const postData = await llmService.generateLinkedInMasterPost(selectedArticles);
 
     console.log("\n=============================================================");
     console.log("🔥 GENERATED LINKEDIN POST PREVIEW 🔥");

@@ -7,7 +7,7 @@ const TwitterService = new twitterService();
 const linkedinService = require("./linkedin");
 const LinkedInService = new linkedinService();
 const GithubService = require("./github");
-const localLlmService = require("./local-llm");
+const llmService = require("./llm");
 const cron = require("node-cron");
 
 const MAX_RETRIES = 3;
@@ -256,8 +256,8 @@ const runEndofRunCuration = async (successfulArticles) => {
   if (successfulArticles.length > 0) {
     logger.info(`Starting LinkedIn Agentic Curation Flow for ${successfulArticles.length} raw files (flattening sub-articles)...`);
     try {
-      const flattenedArticles = localLlmService.splitArticlesIntoSubArticles(successfulArticles);
-      const selectedIndices = await localLlmService.selectBestArticlesForLinkedIn(flattenedArticles);
+      const flattenedArticles = llmService.splitArticlesIntoSubArticles(successfulArticles);
+      const selectedIndices = await llmService.selectBestArticlesForLinkedIn(flattenedArticles);
       logger.info(`LinkedIn Curation: Selected article indices: ${JSON.stringify(selectedIndices)}`);
 
       const uniqueIndices = [...new Set(selectedIndices)];
@@ -289,7 +289,7 @@ const runEndofRunCuration = async (successfulArticles) => {
           for (let attempt = 1; attempt <= maxGenerationAttempts; attempt++) {
             logger.info(`LinkedIn Curation: Generating mega post draft (attempt ${attempt}/${maxGenerationAttempts})...`);
             try {
-              megaPostData = await localLlmService.generateLinkedInMasterPost(selectedArticles, 3, validationFeedback);
+              megaPostData = await llmService.generateLinkedInMasterPost(selectedArticles, 3, validationFeedback);
             } catch (generationError) {
               if (generationError.code !== "LOCAL_LLM_QUALITY_REJECTED" || attempt === maxGenerationAttempts) {
                 throw generationError;
@@ -299,7 +299,7 @@ const runEndofRunCuration = async (successfulArticles) => {
               continue;
             }
             const githubUrl = selectedArticles[0].githubUrl || "";
-            const sourceBulletCount = localLlmService.countSourceBullets(selectedArticles[0].fullContent || "");
+            const sourceBulletCount = llmService.countSourceBullets(selectedArticles[0].fullContent || "");
 
             // Prefer the validation that ran inside generateLinkedInMasterPost (with hook-filtered manual points).
             const internalValidation = megaPostData && megaPostData.isValid !== undefined;
@@ -309,7 +309,7 @@ const runEndofRunCuration = async (successfulArticles) => {
                   qualityScore: megaPostData.qualityScore,
                   errors: megaPostData.validationErrors || []
                 }
-              : localLlmService.validatePostText(megaPostData, githubUrl, sourceBulletCount);
+              : llmService.validatePostText(megaPostData, githubUrl, sourceBulletCount);
 
             if (validation.isValid) {
               logger.info(`LinkedIn Curation: Mega post passed quality validation (score: ${validation.qualityScore})`);
@@ -346,7 +346,7 @@ const runEndofRunCuration = async (successfulArticles) => {
             if (postSuccess) {
               logger.info("LinkedIn Curation: Post submitted successfully.");
               const recentTopic = megaPostData.sourceTitle || selectedArticles[0].title;
-              localLlmService.saveRecentTopic(recentTopic);
+              llmService.saveRecentTopic(recentTopic);
             } else {
               logger.warn("LinkedIn Curation: Post submission returned failure status.");
             }
@@ -572,7 +572,7 @@ const stopCronJob = async () => {
     logger.error("Error cleaning up LinkedIn service:", error);
   }
   try {
-    localLlmService.cleanup();
+    llmService.cleanup();
     logger.info("Local LLM service cleaned up");
   } catch (error) {
     logger.error("Error cleaning up local LLM service:", error);
