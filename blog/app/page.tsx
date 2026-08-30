@@ -13,7 +13,7 @@ export default function HomePage() {
           Technical Notes & Architectural Breakdowns
         </h1>
         <p className="text-zinc-400 text-sm">
-          Curated continuous engineering research, system designs, cybersecurity notes, and developer toolkits.
+          Curated continuous engineering research, system designs, cybersecurity notes, and developer toolkits by <strong className="text-zinc-200 font-semibold">Drishtant Ghosh (Drix10)</strong>.
         </p>
       </div>
 

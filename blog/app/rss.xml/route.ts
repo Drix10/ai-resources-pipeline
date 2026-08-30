@@ -14,16 +14,19 @@ export async function GET() {
       <pubDate>${new Date(article.date).toUTCString()}</pubDate>
       <description><![CDATA[${article.description}]]></description>
       <category>${article.category}</category>
+      <author>drishtant@drix10.com (Drishtant Ghosh (Drix10))</author>
     </item>`)
     .join('');
 
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Drix10 Blogs — AI & Engineering Knowledge Hub</title>
+    <title>Drishtant Ghosh (Drix10) — Technical Research & Engineering Hub</title>
     <link>${siteUrl}</link>
-    <description>Curated technical research, system architectures, cybersecurity breakdowns, and AI engineering notes by Drix10.</description>
+    <description>Curated technical research, system architectures, cybersecurity breakdowns, and AI engineering notes by Drishtant Ghosh (Drix10).</description>
     <language>en</language>
+    <managingEditor>drishtant@drix10.com (Drishtant Ghosh)</managingEditor>
+    <webMaster>drishtant@drix10.com (Drishtant Ghosh)</webMaster>
     <atom:link href="${siteUrl}/rss.xml" rel="self" type="application/rss+xml"/>
     ${rssItems}
   </channel>

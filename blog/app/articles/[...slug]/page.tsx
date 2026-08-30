@@ -27,13 +27,13 @@ export async function generateMetadata({ params }: { params: { slug: string[] } 
       canonical: article.canonicalUrl,
     },
     openGraph: {
-      title: article.title + ' | Drix10 Blogs',
+      title: article.title + ' | Drishtant Ghosh (Drix10)',
       description: article.description,
       url: article.canonicalUrl,
       type: 'article',
       publishedTime: article.date,
-      authors: ['https://drix10.com'],
-      tags: [article.category, 'Cybersecurity', 'AI', 'Engineering'],
+      authors: ['https://drix10.com', 'Drishtant Ghosh (Drix10)'],
+      tags: [article.category, 'Drishtant Ghosh', 'Drix10', 'Cybersecurity', 'AI Engineering'],
     },
     twitter: {
       card: 'summary_large_image',
@@ -59,17 +59,28 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
     wordCount: article.wordCount,
     author: {
       '@type': 'Person',
-      name: 'Drix10',
+      '@id': 'https://drix10.com/#person',
+      name: 'Drishtant Ghosh',
+      alternateName: ['Drix10', 'drix10'],
       url: 'https://drix10.com',
+      image: 'https://blogs.drix10.com/avatar.png',
       sameAs: [
         'https://github.com/Drix10',
         'https://www.linkedin.com/in/drix10',
+        'https://peerlist.io/drix10',
+        'https://medium.com/@drix10',
+        'https://dev.to/drix10',
+        'https://x.com/Drix_10',
       ],
     },
     publisher: {
       '@type': 'Organization',
       name: 'Drix10 Blogs',
       url: 'https://blogs.drix10.com',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://blogs.drix10.com/avatar.png',
+      },
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
@@ -191,19 +202,23 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
       <div className="mt-8 sm:mt-12 pt-6 border-t border-zinc-800 space-y-4 sm:space-y-6">
         <div className="p-4 rounded-xl bg-zinc-900/60 border border-zinc-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
-            <a href="https://drix10.com" target="_blank" rel="noreferrer" className="shrink-0">
+            <a href="https://drix10.com" target="_blank" rel="noreferrer" className="shrink-0" title="Drishtant Ghosh (Drix10)">
               <Image
                 src="/avatar.png"
-                alt="Drix10"
+                alt="Drishtant Ghosh (Drix10)"
                 width={44}
                 height={44}
                 className="w-11 h-11 rounded-full object-cover border border-zinc-700 shadow-md hover:border-zinc-400 transition-colors"
               />
             </a>
             <div className="space-y-0.5">
-              <div className="text-xs font-semibold text-zinc-200">Written by Drix10</div>
+              <div className="text-xs font-semibold text-zinc-200 flex items-center gap-1.5">
+                <span>Written by <strong className="text-white">Drishtant Ghosh (Drix10)</strong></span>
+                <span>•</span>
+                <Link href="/about" className="text-zinc-400 hover:text-zinc-200 underline text-[11px]">About</Link>
+              </div>
               <p className="text-xs text-zinc-400">
-                Co founder @ PartPilot | 1 x Acquired Founder | Canopy @ f.inc | Cybersec @ DSU | 2x International Hackathon 🏆. Read more on <a href="https://drix10.com" target="_blank" rel="noreferrer" className="text-zinc-200 underline">drix10.com</a>.
+                AI Engineer & Serial Founder | Canopy @ f.inc | 1x Acquired Founder | Researching autonomous agent pipelines, cybersecurity, and system architecture. Read more on <a href="https://drix10.com" target="_blank" rel="noreferrer" className="text-zinc-200 underline">drix10.com</a>.
               </p>
             </div>
           </div>
@@ -215,7 +230,15 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
               rel="noreferrer"
               className="flex-1 sm:flex-initial px-3 py-2 rounded-md bg-zinc-100 text-zinc-950 font-semibold text-xs hover:bg-zinc-200 transition-colors text-center min-h-[36px] flex items-center justify-center"
             >
-              Connect on LinkedIn
+              LinkedIn
+            </a>
+            <a
+              href="https://peerlist.io/drix10"
+              target="_blank"
+              rel="noreferrer"
+              className="flex-1 sm:flex-initial px-3 py-2 rounded-md bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 text-xs transition-colors text-center min-h-[36px] flex items-center justify-center"
+            >
+              Peerlist
             </a>
             <a
               href="https://github.com/Drix10/ai-resources"

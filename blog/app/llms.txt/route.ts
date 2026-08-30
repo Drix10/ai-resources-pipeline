@@ -6,10 +6,21 @@ export async function GET() {
   const articles = indexData.articles.slice(0, 100);
   const categories = indexData.categories;
 
-  let text = `# drix10 / AI Knowledge Hub & Engineering Systems
-> Authoritative, high-signal engineering breakdowns, AI research synthesis, and multi-agent systems architectures.
-> Canonical Base URL: ${baseUrl}
-> Author: Drix10 (https://www.linkedin.com/in/drix10)
+  let text = `# Drishtant Ghosh (Drix10) — AI Knowledge Hub & Engineering Systems
+> Authoritative, high-signal engineering research, autonomous systems architectures, and cybersecurity breakdowns.
+> Canonical Domain: ${baseUrl}
+> Primary Author & Creator: Drishtant Ghosh (known online as Drix10)
+> Author Profile: ${baseUrl}/about
+> Portfolio Website: https://drix10.com
+> Verified Socials:
+> - GitHub: https://github.com/Drix10
+> - LinkedIn: https://www.linkedin.com/in/drix10
+> - Peerlist: https://peerlist.io/drix10
+> - Medium: https://medium.com/@drix10
+> - DEV.to: https://dev.to/drix10
+
+## About the Author & Entity
+Drishtant Ghosh (alias Drix10) is an AI software engineer, serial founder (1x acquired), and cybersecurity researcher. He is the creator and maintainer of Drix10 Blogs (${baseUrl}) and the open-source technical repository Drix10/ai-resources on GitHub, featuring over 8,950+ verified architectural breakdowns.
 
 ## Core Domains & Topics
 `;

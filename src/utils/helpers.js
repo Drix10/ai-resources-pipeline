@@ -170,6 +170,7 @@ const rebuildBlogIndex = () => {
             date,
             readingTimeMinutes,
             wordCount,
+            author: "Drishtant Ghosh (Drix10)",
             canonicalUrl: "https://blogs.drix10.com/articles/" + slug,
             mtimeMs: stats.mtimeMs
           });
