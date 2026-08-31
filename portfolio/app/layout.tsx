@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     siteName: 'Drishtant Ghosh (Drix10)',
     title: 'Drishtant Ghosh (Drix10) — Co-Founder @ PartPilot | AI Systems Engineer',
     description:
-      'Co-Founder @ PartPilot, 1x Acquired Founder (ReeF), Canopy @ Founders, Inc., and Cybersecurity Researcher. Author of 8,950+ technical breakdowns at Drix10 Blogs.',
+      'Co-Founder @ PartPilot, 1x Acquired Founder (ReeF), Canopy @ Founders, Inc., and Cybersecurity Researcher. Author of technical breakdowns at Drix10 Blogs.',
     images: [
       {
         url: '/avatar.png',
@@ -85,7 +85,7 @@ export const metadata: Metadata = {
     title: 'Drishtant Ghosh (Drix10) — Co-Founder @ PartPilot | AI Systems Engineer',
     description:
       'Co-Founder @ PartPilot, 1x Acquired Founder (ReeF), Canopy @ Founders, Inc., and Cybersecurity Researcher at DSU.',
-    creator: '@drix10',
+    creator: '@DrishtantGhosh',
     images: ['/avatar.png'],
   },
   alternates: {
@@ -109,6 +109,7 @@ export default function RootLayout({
         url: 'https://drix10.com',
         image: 'https://drix10.com/avatar.png',
         jobTitle: 'Co-Founder @ PartPilot & AI Systems Engineer',
+        email: 'ggdrishtant@gmail.com',
         worksFor: {
           '@type': 'Organization',
           name: 'PartPilot',
@@ -134,14 +135,14 @@ export default function RootLayout({
         },
         award: '2x International Hackathon Winner',
         description:
-          'Drishtant Ghosh (known online as Drix10) is a Co-Founder @ PartPilot, 1x Acquired Serial Founder (ReeF), and Cybersecurity Researcher at Dayananda Sagar University. Creator of CosLynx and author of 8,950+ technical breakdowns at Drix10 Blogs.',
+          'Drishtant Ghosh (known online as Drix10) is a Co-Founder @ PartPilot, 1x Acquired Serial Founder (ReeF), and Cybersecurity Researcher at Dayananda Sagar University. Creator of CosLynx and author of technical breakdowns at Drix10 Blogs.',
         sameAs: [
           'https://github.com/Drix10',
           'https://www.linkedin.com/in/drix10',
           'https://peerlist.io/drix10',
           'https://medium.com/@drix10',
           'https://dev.to/drix10',
-          'https://x.com/Drix_10',
+          'https://x.com/DrishtantGhosh',
           'https://blogs.drix10.com',
         ],
         knowsAbout: [
@@ -221,7 +222,7 @@ export default function RootLayout({
                 rel="noreferrer"
                 className="text-emerald-400 hover:text-emerald-300 font-mono flex items-center gap-1 transition-colors font-semibold"
               >
-                <span>Blogs (8.9k+)</span>
+                <span>Blogs</span>
                 <span>↗</span>
               </a>
             </nav>
@@ -264,7 +265,7 @@ export default function RootLayout({
 
             <div className="flex flex-wrap items-center justify-center gap-4 text-zinc-400">
               <a href="https://blogs.drix10.com" target="_blank" rel="noreferrer" className="hover:text-zinc-100 hover:underline">
-                Drix10 Blogs (8,950+ Guides)
+                Drix10 Blogs
               </a>
               <a href="https://github.com/Drix10" target="_blank" rel="noreferrer" className="hover:text-zinc-100 hover:underline">
                 GitHub
@@ -275,7 +276,7 @@ export default function RootLayout({
               <a href="https://peerlist.io/drix10" target="_blank" rel="noreferrer" className="hover:text-zinc-100 hover:underline">
                 Peerlist
               </a>
-              <a href="https://x.com/Drix_10" target="_blank" rel="noreferrer" className="hover:text-zinc-100 hover:underline">
+              <a href="https://x.com/DrishtantGhosh" target="_blank" rel="noreferrer" className="hover:text-zinc-100 hover:underline">
                 X / Twitter
               </a>
             </div>

@@ -126,6 +126,7 @@ const rebuildBlogIndex = () => {
           const titleMatch = content.match(/^#\s+(.+)$/m) || content.match(/^###\s+(.+)$/m);
           const rawTitle = titleMatch ? titleMatch[1] : (entry.name + " - " + file.replace(".md", ""));
           const title = String(rawTitle).replace(/^#+\s*/, "").trim();
+          const isPersonal = entry.name.toLowerCase() === "personal";
 
           const snippet = content.replace(/^#+.*$/gm, "").replace(/\*\*|__|\*|_/g, "").replace(/```[\s\S]*?```/g, "").trim().slice(0, 180);
           const description = snippet || ("Technical breakdown of " + title);
@@ -171,6 +172,7 @@ const rebuildBlogIndex = () => {
             readingTimeMinutes,
             wordCount,
             author: "Drishtant Ghosh (Drix10)",
+            isPersonal,
             canonicalUrl: "https://blogs.drix10.com/articles/" + slug,
             mtimeMs: stats.mtimeMs
           });

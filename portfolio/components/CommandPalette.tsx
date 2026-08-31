@@ -23,7 +23,7 @@ export default function CommandPalette() {
 
   const ACTIONS = [
     {
-      label: 'Explore 8,950+ Technical Guides',
+      label: 'Read Technical Blogs & Personal Notes',
       category: 'Publications',
       href: 'https://blogs.drix10.com',
       external: true,
@@ -44,6 +44,13 @@ export default function CommandPalette() {
       icon: User,
     },
     {
+      label: 'Follow on X (@DrishtantGhosh)',
+      category: 'Social',
+      href: 'https://x.com/DrishtantGhosh',
+      external: true,
+      icon: ExternalLink,
+    },
+    {
       label: 'View CosLynx AI Repository',
       category: 'Projects',
       href: 'https://github.com/Drix10/CosLynx',
@@ -51,24 +58,10 @@ export default function CommandPalette() {
       icon: Terminal,
     },
     {
-      label: 'View AI Resources Pipeline Repository',
+      label: 'View AI Resources Repository',
       category: 'Projects',
       href: 'https://github.com/Drix10/ai-resources',
       external: true,
-      icon: Laptop,
-    },
-    {
-      label: 'Jump to Featured Startups',
-      category: 'Navigation',
-      href: '#startups',
-      external: false,
-      icon: Terminal,
-    },
-    {
-      label: 'Jump to Technical Projects',
-      category: 'Navigation',
-      href: '#projects',
-      external: false,
       icon: Laptop,
     },
     {
@@ -79,9 +72,16 @@ export default function CommandPalette() {
       icon: User,
     },
     {
+      label: 'Jump to Featured Projects',
+      category: 'Navigation',
+      href: '#projects',
+      external: false,
+      icon: Laptop,
+    },
+    {
       label: 'Send Direct Email',
       category: 'Contact',
-      href: 'mailto:drix10.official@gmail.com',
+      href: 'mailto:ggdrishtant@gmail.com',
       external: false,
       icon: Mail,
     },

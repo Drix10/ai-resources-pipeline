@@ -219,9 +219,16 @@ export default function SearchableArticles({ initialArticles, initialTotalCount,
                 className="block p-3.5 sm:p-4 rounded-xl bg-zinc-900/30 hover:bg-zinc-900/80 border border-zinc-800/80 hover:border-zinc-700 transition-all duration-150 group active:scale-[0.99]"
               >
                 <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1.5 text-xs text-zinc-500">
-                  <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 font-mono text-[11px] text-zinc-400 truncate max-w-[180px]">
-                    {article.category}
-                  </span>
+                  {article.category === 'Personal' || (article as any).isPersonal ? (
+                    <span className="px-2 py-0.5 rounded-md bg-amber-950/80 border border-amber-800/80 font-mono text-[11px] text-amber-300 font-semibold flex items-center gap-1">
+                      <span>✍️</span>
+                      <span>Author Note / Personal</span>
+                    </span>
+                  ) : (
+                    <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 font-mono text-[11px] text-zinc-400 truncate max-w-[180px]">
+                      {article.category}
+                    </span>
+                  )}
                   <span>•</span>
                   <time dateTime={article.date}>{article.date}</time>
                   <span>•</span>

@@ -58,11 +58,11 @@ const PROJECTS: Project[] = [
     category: 'AI & LLMs',
     period: 'Dec 2024 — Present',
     description:
-      'Autonomous system curating senior-level AI engineering updates, synthesizing structured breakdowns via local & NVIDIA LLMs, and static-generating 8,950+ guides on blogs.drix10.com.',
+      'Autonomous system curating senior-level AI engineering updates, synthesizing structured breakdowns via local & NVIDIA LLMs, and static-generating curated engineering breakdowns on blogs.drix10.com.',
     tags: ['Next.js 14', 'Selenium', 'NVIDIA NIM', 'TypeScript', 'Ollama', 'SEO Pipeline'],
     github: 'https://github.com/Drix10/ai-resources',
     live: 'https://blogs.drix10.com',
-    highlight: '8,950+ Guides • 100+ Stars',
+    highlight: 'Autonomous Hub • 100+ Stars',
   },
   {
     title: 'Intent Canvas',

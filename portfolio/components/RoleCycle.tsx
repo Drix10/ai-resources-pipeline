@@ -9,7 +9,7 @@ const ROLES = [
   'Canopy @ Founders, Inc.',
   'Cybersecurity Researcher @ DSU',
   '2x International Hackathon Winner 🏆',
-  'Author of 8,950+ Technical Breakdowns',
+  'Author @ Drix10 Blogs',
 ];
 
 export default function RoleCycle() {

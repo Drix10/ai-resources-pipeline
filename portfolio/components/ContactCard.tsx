@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 export default function ContactCard() {
   const [copied, setCopied] = useState(false);
-  const email = 'drix10.official@gmail.com';
+  const email = 'ggdrishtant@gmail.com';
 
   const copyEmail = () => {
     if (typeof navigator !== 'undefined') {
@@ -28,7 +28,7 @@ export default function ContactCard() {
           Let’s build the future together.
         </h2>
         <p className="text-xs sm:text-sm text-zinc-400 max-w-xl leading-relaxed">
-          Whether you are exploring autonomous multi-agent pipelines, cybersecurity architectures, or founding a new venture, feel free to reach out directly.
+          Whether you are exploring autonomous multi-agent pipelines, hardware supply chain intelligence, or founding a new venture, feel free to reach out directly.
         </p>
       </div>
 
@@ -51,12 +51,12 @@ export default function ContactCard() {
         </a>
 
         <a
-          href="https://x.com/Drix_10"
+          href="https://x.com/DrishtantGhosh"
           target="_blank"
           rel="noreferrer"
           className="px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-200 text-xs font-semibold transition-colors"
         >
-          X / Twitter DM ↗
+          X / Twitter (@DrishtantGhosh) ↗
         </a>
       </div>
     </div>
