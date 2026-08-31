@@ -17,6 +17,30 @@ const nextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: '/blog',
+        destination: 'https://blogs.drix10.com',
+        permanent: true,
+      },
+      {
+        source: '/blogs',
+        destination: 'https://blogs.drix10.com',
+        permanent: true,
+      },
+      {
+        source: '/articles/:path*',
+        destination: 'https://blogs.drix10.com/articles/:path*',
+        permanent: true,
+      },
+      {
+        source: '/categories/:path*',
+        destination: 'https://blogs.drix10.com/categories/:path*',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

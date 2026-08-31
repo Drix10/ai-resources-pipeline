@@ -17,6 +17,15 @@ const nextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: '/about',
+        destination: 'https://drix10.com',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

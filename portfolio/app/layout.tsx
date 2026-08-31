@@ -21,26 +21,27 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://drix10.com'),
   title: {
-    default: 'Drishtant Ghosh (Drix10) — AI Engineer & Serial Founder',
+    default: 'Drishtant Ghosh (Drix10) — Co-Founder @ PartPilot | AI Systems Engineer & 1x Acq Founder',
     template: '%s | Drishtant Ghosh (Drix10)',
   },
   description:
-    'Drishtant Ghosh (known online as Drix10) is an AI Software Engineer, 1x acquired serial founder, and cybersecurity researcher. Creator of CosLynx, ReeF, and the Drix10 Blogs autonomous curation hub with 8,950+ technical breakdowns.',
+    'Drishtant Ghosh (Drix10) is a Co-Founder @ PartPilot, 1x Acquired Serial Founder (ReeF), Canopy @ Founders, Inc., and Cybersecurity Researcher at Dayananda Sagar University. Building autonomous LLM architectures and high-performance full-stack products.',
   keywords: [
     'Drishtant Ghosh',
     'Drix10',
+    'PartPilot',
     'Drix10 Portfolio',
     'Drishtant Ghosh AI',
     'Drishtant Ghosh Founder',
-    'Drishtant Ghosh Resume',
     'CosLynx',
-    'ReeF Discord Bot',
-    'AI Engineer India',
+    'ReeF Discord Game',
+    'Canopy Founders Inc',
+    'AI Systems Engineer',
+    'Dayananda Sagar University Cybersecurity',
+    'IBM AI Engineering Professional Certificate',
+    'Bengaluru AI Engineer',
     'Autonomous Multi-Agent Systems',
-    'Cybersecurity Researcher',
-    'Full Stack Engineer',
-    'LLM Engineering',
-    'Next.js Specialist'
+    'Next.js 14 Specialist'
   ],
   authors: [{ name: 'Drishtant Ghosh (Drix10)', url: 'https://drix10.com' }],
   creator: 'Drishtant Ghosh (Drix10)',
@@ -67,9 +68,9 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://drix10.com',
     siteName: 'Drishtant Ghosh (Drix10)',
-    title: 'Drishtant Ghosh (Drix10) — AI Engineer & Serial Founder',
+    title: 'Drishtant Ghosh (Drix10) — Co-Founder @ PartPilot | AI Systems Engineer',
     description:
-      'AI Engineer, 1x acquired serial founder, and cybersecurity researcher. Creator of CosLynx, ReeF, and the Drix10 Blogs autonomous curation hub.',
+      'Co-Founder @ PartPilot, 1x Acquired Founder (ReeF), Canopy @ Founders, Inc., and Cybersecurity Researcher. Author of 8,950+ technical breakdowns at Drix10 Blogs.',
     images: [
       {
         url: '/avatar.png',
@@ -81,9 +82,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Drishtant Ghosh (Drix10) — AI Engineer & Serial Founder',
+    title: 'Drishtant Ghosh (Drix10) — Co-Founder @ PartPilot | AI Systems Engineer',
     description:
-      'AI Engineer, 1x acquired serial founder, and cybersecurity researcher. Creator of CosLynx and ReeF.',
+      'Co-Founder @ PartPilot, 1x Acquired Founder (ReeF), Canopy @ Founders, Inc., and Cybersecurity Researcher at DSU.',
     creator: '@drix10',
     images: ['/avatar.png'],
   },
@@ -107,9 +108,33 @@ export default function RootLayout({
         alternateName: ['Drix10', 'drix10', 'Drix'],
         url: 'https://drix10.com',
         image: 'https://drix10.com/avatar.png',
-        jobTitle: 'Founder & AI Engineer',
+        jobTitle: 'Co-Founder @ PartPilot & AI Systems Engineer',
+        worksFor: {
+          '@type': 'Organization',
+          name: 'PartPilot',
+        },
+        alumniOf: [
+          {
+            '@type': 'EducationalOrganization',
+            name: 'Dayananda Sagar University',
+          },
+          {
+            '@type': 'EducationalOrganization',
+            name: "St. Xavier's High School",
+          },
+        ],
+        hasCredential: {
+          '@type': 'EducationalOccupationalCredential',
+          name: 'IBM AI Engineering Professional Certificate',
+          credentialCategory: 'Professional Certificate',
+          recognizedBy: {
+            '@type': 'Organization',
+            name: 'IBM',
+          },
+        },
+        award: '2x International Hackathon Winner',
         description:
-          'Drishtant Ghosh (known online as Drix10) is an AI Engineer, 1x acquired serial founder, and cybersecurity researcher. Founder of CosLynx, ReeF (acquired), and creator of the Drix10 autonomous technical curation pipeline.',
+          'Drishtant Ghosh (known online as Drix10) is a Co-Founder @ PartPilot, 1x Acquired Serial Founder (ReeF), and Cybersecurity Researcher at Dayananda Sagar University. Creator of CosLynx and author of 8,950+ technical breakdowns at Drix10 Blogs.',
         sameAs: [
           'https://github.com/Drix10',
           'https://www.linkedin.com/in/drix10',
@@ -128,6 +153,8 @@ export default function RootLayout({
           'Full Stack Web Development',
           'Next.js & React',
           'TypeScript & Python',
+          'Prisma & Turso DB',
+          'WebSockets',
         ],
         hasOccupation: {
           '@type': 'Occupation',
@@ -184,9 +211,9 @@ export default function RootLayout({
             {/* Desktop Navigation Links */}
             <nav className="hidden md:flex items-center gap-5 text-xs font-medium text-zinc-400">
               <a href="#about" className="hover:text-zinc-100 transition-colors">About</a>
-              <a href="#startups" className="hover:text-zinc-100 transition-colors">Startups</a>
-              <a href="#projects" className="hover:text-zinc-100 transition-colors">Projects</a>
               <a href="#experience" className="hover:text-zinc-100 transition-colors">Experience</a>
+              <a href="#projects" className="hover:text-zinc-100 transition-colors">Projects</a>
+              <a href="#education" className="hover:text-zinc-100 transition-colors">Education</a>
               <a href="#skills" className="hover:text-zinc-100 transition-colors">Skills</a>
               <a
                 href="https://blogs.drix10.com"
@@ -232,7 +259,7 @@ export default function RootLayout({
             <div className="flex flex-col sm:flex-row items-center gap-2">
               <span className="font-semibold text-zinc-300">Drishtant Ghosh (Drix10)</span>
               <span className="hidden sm:inline text-zinc-700">•</span>
-              <span>AI Engineer & Serial Founder</span>
+              <span>Co-Founder @ PartPilot | 1x Acq Founder | AI Systems Engineer</span>
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-4 text-zinc-400">

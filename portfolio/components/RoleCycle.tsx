@@ -3,10 +3,12 @@
 import React, { useEffect, useState } from 'react';
 
 const ROLES = [
-  'AI Systems & LLM Architect',
+  'Co-Founder @ PartPilot',
   '1x Acquired Serial Founder (ReeF)',
-  'Cybersecurity Researcher & AppSec',
-  'Autonomous Multi-Agent Engineer',
+  'AI Systems & LLM Architect',
+  'Canopy @ Founders, Inc.',
+  'Cybersecurity Researcher @ DSU',
+  '2x International Hackathon Winner 🏆',
   'Author of 8,950+ Technical Breakdowns',
 ];
 
@@ -16,7 +18,7 @@ export default function RoleCycle() {
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % ROLES.length);
-    }, 2800);
+    }, 2700);
     return () => clearInterval(timer);
   }, []);
 
