@@ -719,9 +719,11 @@ class LocalLLMService {
           model: config.llm.model,
           stream: false,
           think: false,
-          ...(format ? { format } : {}),
+          ...(format ? { format: typeof format === "object" ? "json" : format } : {}),
           options: { temperature: 0.1, num_predict: 2200, ...generationOptions },
-          prompt: `${SYSTEM_PROMPT}\n\n${prompt}`,
+          prompt: format
+            ? `${SYSTEM_PROMPT}\n\nCRITICAL MANDATORY DIRECTIVE: You are a structured JSON output engine. Return ONLY valid, parseable JSON without any commentary or markdown.\n\n${prompt}`
+            : `${SYSTEM_PROMPT}\n\n${prompt}`,
         }),
       });
 
@@ -770,13 +772,18 @@ class LocalLLMService {
         const payload = {
           model: config.llm.nvidia.model,
           messages: [
-            { role: "system", content: SYSTEM_PROMPT },
+            { 
+              role: "system", 
+              content: format === "json" || typeof format === "object"
+                ? `${SYSTEM_PROMPT}\n\nCRITICAL MANDATORY DIRECTIVE: You are a structured JSON output engine. You must output ONLY a valid, parseable JSON object or array. Do NOT output any markdown backticks, explanations, preamble, conversational text, or postscripts. Start directly with { or [ and end directly with } or ].`
+                : SYSTEM_PROMPT 
+            },
             { role: "user", content: prompt }
           ],
-          temperature: typeof temperature === "number" ? temperature : 0.2,
+          temperature: typeof temperature === "number" ? temperature : 0.1,
           max_tokens: typeof num_predict === "number" ? num_predict : 2500,
           stream: false,
-          ...(format === "json" ? { response_format: { type: "json_object" } } : {})
+          ...(format === "json" || typeof format === "object" ? { response_format: { type: "json_object" } } : {})
         };
 
         const response = await fetch(endpoint, {
@@ -858,41 +865,87 @@ class LocalLLMService {
   }
 
   async generateJson(prompt, schema = "json") {
-    // Ollama's native structured-output mode prevents Gemma from returning
-    // half a JSON object or unescaped newlines in LinkedIn post bodies.
     const rawText = await this.generateText(prompt, {
       format: schema,
       temperature: 0,
       num_predict: 4096,
     });
-    const text = rawText
-      .replace(/^```json\s*/i, "")
-      .replace(/\s*```$/i, "")
-      .trim();
 
-    if (!text) {
+    return this.parseJsonSafely(rawText);
+  }
+
+  parseJsonSafely(rawText) {
+    if (!rawText || !String(rawText).trim()) {
       throw new Error("LLM returned an empty response where JSON was expected.");
     }
 
+    const text = String(rawText).trim();
+
+    // 1. First attempt: Direct JSON.parse
     try {
       return JSON.parse(text);
-    } catch (error) {
-      // Gemma occasionally emits literal paragraph breaks inside a JSON string
-      // despite Ollama's JSON mode. Escape only control characters while inside
-      // quoted strings; do not attempt to invent missing fields or values.
-      const repairedText = this.escapeJsonControlCharacters(text);
-      if (repairedText !== text) {
+    } catch (_) {}
+
+    // 2. Strip markdown code fences anywhere in the string
+    const codeBlockMatch = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+    if (codeBlockMatch && codeBlockMatch[1]) {
+      const codeBlockContent = codeBlockMatch[1].trim();
+      try {
+        return JSON.parse(codeBlockContent);
+      } catch (_) {
         try {
-          return JSON.parse(repairedText);
-        } catch (repairError) {
-          // Keep the original parsing path below for objects wrapped in prose.
-        }
+          return JSON.parse(this.escapeJsonControlCharacters(codeBlockContent));
+        } catch (_) {}
       }
-      const start = text.indexOf("{");
-      const end = text.lastIndexOf("}");
-      if (start < 0 || end <= start) throw error;
-      const objectText = text.slice(start, end + 1);
-      return JSON.parse(this.escapeJsonControlCharacters(objectText));
+    }
+
+    // 3. Extract outermost JSON object { ... }
+    const firstBrace = text.indexOf("{");
+    const lastBrace = text.lastIndexOf("}");
+    if (firstBrace !== -1 && lastBrace > firstBrace) {
+      const candidateObj = text.slice(firstBrace, lastBrace + 1);
+      try {
+        return JSON.parse(candidateObj);
+      } catch (_) {
+        try {
+          return JSON.parse(this.escapeJsonControlCharacters(candidateObj));
+        } catch (_) {}
+      }
+    }
+
+    // 4. Extract outermost JSON array [ ... ]
+    const firstBracket = text.indexOf("[");
+    const lastBracket = text.lastIndexOf("]");
+    if (firstBracket !== -1 && lastBracket > firstBracket) {
+      const candidateArr = text.slice(firstBracket, lastBracket + 1);
+      try {
+        return JSON.parse(candidateArr);
+      } catch (_) {
+        try {
+          return JSON.parse(this.escapeJsonControlCharacters(candidateArr));
+        } catch (_) {}
+      }
+    }
+
+    // 5. Intelligent regex heuristic fallback for selectedIndices
+    const indicesMatch = text.match(/"selectedIndices"\s*:\s*\[([^\]]*)\]/i) ||
+                         text.match(/selectedIndices\s*[:=]\s*\[([^\]]*)\]/i) ||
+                         text.match(/"indices"\s*:\s*\[([^\]]*)\]/i);
+    if (indicesMatch && indicesMatch[1]) {
+      const indices = indicesMatch[1]
+        .split(",")
+        .map(s => parseInt(s.trim(), 10))
+        .filter(n => Number.isInteger(n));
+      if (indices.length > 0) {
+        return { selectedIndices: indices };
+      }
+    }
+
+    // 6. Escape control characters on original text as last resort
+    try {
+      return JSON.parse(this.escapeJsonControlCharacters(text));
+    } catch (finalError) {
+      throw new Error(`Failed to parse JSON from LLM output: ${text.slice(0, 150)}... (${finalError.message})`);
     }
   }
 
@@ -2237,11 +2290,12 @@ JSON schema:
     const list = articles.map((art, idx) => {
       const subArticles = (art.fullContent || "")
         .split(/\n---\n/)
-        .filter(s => s.trim().length > 50)
-        .map(s => s.trim().slice(0, 250))
+        .filter(s => s.trim().length > 30)
+        .slice(0, 3)
+        .map(s => s.trim().slice(0, 120))
         .join(" | ");
-      return `[Index ${idx}] Folder: "${art.title}"\nArticles inside: ${subArticles}`;
-    }).join("\n\n");
+      return `[Index ${idx}] "${art.title}" -> ${subArticles}`;
+    }).join("\n");
     const prompt = `
 You are a top-tier senior tech content strategist with deep expertise in LinkedIn growth for developer and AI audiences.
 
@@ -2253,7 +2307,7 @@ Your task: Analyze the list of curated tech articles below and select the single
 3. STORYTELLING & CURIOSITY GAP — Does this topic have a high storytelling potential? Is there a surprising benchmark, an elegant architecture design, or a contrarian take we can hook readers with?
 4. TRENDING COMMUNITY RELEVANCE — Is this topic highly relevant and trending in AI, LLM, devops, or software engineering circles?
 5. AVOID ADVERTISING & SPAM — Completely avoid selecting job postings, generic announcements, polls, or motivational/career fluff.
-6. REJECT THIN CONTENT — Never select articles that describe a single minor UI/UX update, a feature toggle, or a cosmetic change to an existing tool/CLI or library with no architectural, performance, or cost implications. If the entire substance can be summarized in one sentence, it's not post-worthy on its own. Completely reject changelog/feature-announcement content that has no developer workflow impact beyond "it's slightly more convenient now."
+6. REJECT THIN CONTENT — Never select articles that describe a single minor UI/UX update, a feature toggle, or a cosmetic change to an existing tool/CLI or library with no architectural, performance, or cost implications.
 
 ${recentTopicsText}
 Articles list:
@@ -2263,32 +2317,47 @@ Return ONLY a valid raw JSON object. No markdown, no commentary, no explanations
 
 JSON schema:
 {
-  "selectedIndices": array of selected article indices (integers, max 2)
+  "selectedIndices": [0]
 }
 `;
 
     return this.withJsonRetry(
       async () => {
         const data = await this.generateJson(prompt);
-        if (!data.selectedIndices || !Array.isArray(data.selectedIndices)) {
-          throw new Error("Invalid response format: missing selectedIndices array");
+        let rawIndices = [];
+        if (Array.isArray(data)) {
+          rawIndices = data;
+        } else if (data && data.selectedIndices && Array.isArray(data.selectedIndices)) {
+          rawIndices = data.selectedIndices;
+        } else if (data && data.indices && Array.isArray(data.indices)) {
+          rawIndices = data.indices;
+        } else if (data && typeof data.index === "number") {
+          rawIndices = [data.index];
+        } else if (data && typeof data.selectedIndex === "number") {
+          rawIndices = [data.selectedIndex];
+        } else if (data && typeof data === "object") {
+          const arrVal = Object.values(data).find(v => Array.isArray(v));
+          if (arrVal) {
+            rawIndices = arrVal;
+          } else {
+            throw new Error("Invalid response format: missing selectedIndices array");
+          }
+        } else {
+          throw new Error("Invalid response format: expected JSON object or array");
         }
 
-        const selectedIndices = data.selectedIndices
+        const selectedIndices = rawIndices
           .map((idx) => Number(idx))
           .filter((idx) => Number.isInteger(idx) && idx >= 0 && idx < articles.length);
 
-        if (selectedIndices.length !== data.selectedIndices.length) {
-          logger.warn("LocalLLMService: Some selectedIndices were invalid/out of bounds and were dropped:", {
-            original: data.selectedIndices,
-            sanitized: selectedIndices,
-          });
+        if (selectedIndices.length === 0 && articles.length > 0) {
+          logger.warn("LocalLLMService: No valid indices parsed, defaulting to index 0");
+          return [0];
         }
 
-        // A single source keeps the hook, body, validation, and comment aligned.
         return selectedIndices.slice(0, 1);
       },
-      { retries, delayMs: 30000, label: "selectBestArticlesForLinkedIn" }
+      { retries, delayMs: 15000, label: "selectBestArticlesForLinkedIn" }
     );
   }
 
