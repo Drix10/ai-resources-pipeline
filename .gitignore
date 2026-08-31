@@ -1,6 +1,7 @@
 # Dependencies
 /node_modules
 /blog/node_modules
+/portfolio/node_modules
 
 # Environment variables
 .env
@@ -11,6 +12,9 @@
 blog/.next/
 blog/out/
 blog/.turbo/
+portfolio/.next/
+portfolio/out/
+portfolio/.turbo/
 .next/
 
 # Logs
@@ -42,6 +46,7 @@ button-dump.txt
 !public/**/*.png
 !assets/**/*.png
 !blog/public/**/*.png
+!portfolio/public/**/*.png
 
 # LinkedIn & Twitter debug screenshots
 linkedin-post-failed.png

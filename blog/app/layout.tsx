@@ -191,16 +191,9 @@ export default function RootLayout({
               <span className="text-zinc-600 font-light select-none">/</span>
               <Link 
                 href="/" 
-                className="text-sm text-zinc-400 hover:text-zinc-200 transition-colors py-2 font-medium"
+                className="text-sm text-zinc-300 hover:text-white transition-colors py-2 font-medium"
               >
                 blog
-              </Link>
-              <span className="text-zinc-600 font-light select-none">/</span>
-              <Link 
-                href="/about" 
-                className="text-sm text-zinc-400 hover:text-zinc-200 transition-colors py-2 font-medium"
-              >
-                about
               </Link>
             </div>
             
@@ -209,7 +202,7 @@ export default function RootLayout({
               <a 
                 href="https://github.com/Drix10" 
                 target="_blank" 
-                rel="noreferrer"
+                rel="noreferrer" 
                 aria-label="GitHub Profile"
                 className="text-xs font-medium px-2.5 sm:px-3 py-2 rounded-md bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 hover:text-zinc-100 transition-colors min-h-[36px] flex items-center justify-center"
               >
@@ -218,7 +211,7 @@ export default function RootLayout({
               <a 
                 href="https://www.linkedin.com/in/drix10" 
                 target="_blank" 
-                rel="noreferrer"
+                rel="noreferrer" 
                 aria-label="Connect on LinkedIn"
                 className="text-xs font-medium px-2.5 sm:px-3 py-2 rounded-md bg-zinc-100 hover:bg-zinc-200 text-zinc-950 transition-colors min-h-[36px] flex items-center justify-center font-semibold"
               >
@@ -243,12 +236,8 @@ export default function RootLayout({
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-zinc-400">
-              <Link href="/about" className="hover:text-zinc-100 hover:underline min-h-[32px] flex items-center">
-                About Author
-              </Link>
-              <span className="text-zinc-700">•</span>
               <a href="https://drix10.com" target="_blank" rel="noreferrer" className="hover:text-zinc-100 hover:underline min-h-[32px] flex items-center">
-                drix10.com
+                Author Portfolio (drix10.com)
               </a>
               <span className="text-zinc-700">•</span>
               <a href="https://github.com/Drix10/ai-resources" target="_blank" rel="noreferrer" className="hover:text-zinc-100 hover:underline min-h-[32px] flex items-center">
