@@ -8,9 +8,11 @@ const path = require("path");
 const PROCESSED_IDS_PATH = path.join(process.cwd(), ".processed-tweet-ids.json");
 
 const NON_TECH_PATTERNS = [
-  /\b(nba|nfl|mlb|premier league|champions league|football|soccer|basketball|baseball|touchdown|pacers|lakers|warriors|celtics|quarterback|referee|halftime score|slam dunk|all-star voting)\b/i,
-  /\b(perfume|fragrance|cologne|lipstick|makeup|eyeliner|haute couture|ootd|fashion week|runway model|dress code|wardrobe)\b/i,
-  /\b(kardashian|grammys|oscars red carpet|box office weekend|celebrity dating|paparazzi|gossip)\b/i
+  /\b(nba|nfl|mlb|premier league|champions league|football|soccer|basketball|baseball|touchdown|pacers|lakers|warriors|celtics|quarterback|referee|halftime score|slam dunk|all-star voting|ipl|cricket|tennis|formula 1|f1)\b/i,
+  /\b(perfume|fragrance|cologne|lipstick|makeup|eyeliner|haute couture|ootd|fashion week|runway model|dress code|wardrobe|shoes|sneakers|footwear|arch support|skincare)\b/i,
+  /\b(kardashian|grammys|oscars red carpet|box office weekend|celebrity dating|paparazzi|gossip|horoscope|astrology|zodiac)\b/i,
+  /\b(comment ['"]?(yes|link|send|guide|prompt)['"]?|drop a like and i['’]?ll (dm|send)|retweet for a chance|giveaway|airdrop|whitelist|presale|free tokens)\b/i,
+  /\b(\d+\s+(?:morning\s+)?habits\b|morning routine\b|mindset shift\b|how to wake up at \d|financial freedom in \d|crypto signal group|passive income|billionaire(?:s)?\b|millionaire(?:s)?\b)\b/i,
 ];
 
 function isOfftopicTweet(text) {
@@ -21,7 +23,7 @@ function isOfftopicTweet(text) {
 class TwitterService {
   constructor() {
     this.driver = null;
-    this.RATE_LIMIT_DELAY = config.monitoring.rateLimitDelay;
+    this.RATE_LIMIT_DELAY = 1500;
     this.lastRequestTime = 0;
     this.isInitialized = false;
     this.MAX_PROCESSED_IDS = 10000; // Prevent memory leak
@@ -121,13 +123,58 @@ class TwitterService {
     }
   }
 
+  async ensureChromeRunning() {
+    try {
+      const res = await fetch("http://127.0.0.1:9222/json/version");
+      if (res.ok) return true;
+    } catch (e) {}
+
+    const { spawn } = require("child_process");
+    const userProfile = process.env.USERPROFILE || process.env.HOME || "";
+    const userDataDir = path.join(userProfile, "chrome-debug");
+    if (!fs.existsSync(userDataDir)) {
+      fs.mkdirSync(userDataDir, { recursive: true });
+    }
+
+    const chromeCandidates = [
+      "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
+      path.join(process.env.LOCALAPPDATA || "", "Google\\Chrome\\Application\\chrome.exe"),
+      "google-chrome",
+      "chrome"
+    ];
+
+    let chromeExe = chromeCandidates.find(p => fs.existsSync(p)) || "chrome";
+    try {
+      const proc = spawn(chromeExe, [
+        "--remote-debugging-port=9222",
+        `--user-data-dir=${userDataDir}`,
+        "--disable-background-timer-throttling",
+        "--disable-backgrounding-occluded-windows",
+        "--disable-renderer-backgrounding",
+        "https://x.com"
+      ], { detached: true, stdio: "ignore" });
+      proc.unref();
+
+      for (let i = 0; i < 15; i++) {
+        await sleep(1000);
+        try {
+          const res = await fetch("http://127.0.0.1:9222/json/version");
+          if (res.ok) return true;
+        } catch (err) {}
+      }
+    } catch (launchErr) {
+      logger.warn(`Could not auto-launch Chrome: ${launchErr.message}`);
+    }
+    return false;
+  }
+
   async init() {
     try {
       if (!this.driver || !this.isInitialized) {
-        let options = new chrome.Options();
+        await this.ensureChromeRunning();
 
-        // Connect to existing Chrome instance with remote debugging
-        // This allows controlling your normal browser
+        let options = new chrome.Options();
         options.options_["debuggerAddress"] = "127.0.0.1:9222";
 
         try {
@@ -159,168 +206,30 @@ class TwitterService {
   async findContent() {
     try {
       const THREADS_NEEDED = 10;
-      const MAX_SCROLL_ATTEMPTS = 100;
-      const SCROLL_PAUSE = 3000; // Increased for Twitter to load content
-      const MAX_NO_NEW_TWEETS = 5; // Exit faster if stuck
-      const INITIAL_LOAD_TIMEOUT = 30000;
+      const MAX_SCROLL_ATTEMPTS = 40;
+      const SCROLL_PAUSE = 700;
+      const INITIAL_LOAD_TIMEOUT = 15000;
       const MIN_TOTAL_WORDS = 30;
       const MIN_WORDS_WITH_EXTERNAL_LINK = 15;
 
-      const extractTweetData = async (tweetElement, retries = 2) => {
-        if (!tweetElement) return null;
-
-        try {
-          let quotedTweetText = "";
-          try {
-            const quoteTweet = await tweetElement.findElement(
-              By.xpath('.//*[contains(@href, "/status/")]/ancestor::div[4]')
-            );
-            quotedTweetText = await quoteTweet
-              .findElement(By.css('[data-testid="tweetText"]'))
-              .getText();
-          } catch (quoteError) {
-            // Quote extraction is optional
-          }
-
-          let tweetText = "";
-          try {
-            tweetText = await tweetElement
-              .findElement(By.css('[data-testid="tweetText"]'))
-              .getText();
-          } catch (textError) {
-            // Tweet text might be missing (e.g. only image)
-          }
-
-          // Validate tweet has actual content
-          if (!tweetText && !quotedTweetText) {
-            logger.debug("Skipping tweet: No text found");
-            return null;
-          }
-
-          if (quotedTweetText) {
-            tweetText = `${tweetText}\n\nQuoted Tweet:\n${quotedTweetText}`;
-          }
-
-          // Reject obvious promotion, recruitment, and engagement bait before a
-          // candidate can reach the publication set. The AI must not be asked to
-          // clean up a weak collection later in the pipeline.
-          const spamKeywords = [
-            "we are hiring", "hiring for", "dm me to", "join my team", "dm for",
-            "check out my course", "buy my book", "join the waitlist", "sign up now",
-            "use my code", "limited spots", "giveaway", "subscribe for", "link in bio"
-          ];
-          const isSpam = spamKeywords.some(keyword => tweetText.toLowerCase().includes(keyword));
-          if (isSpam) {
-            logger.debug("Skipping tweet: Detected spam/hiring keyword");
-            return null;
-          }
-
-          let links = [];
-          try {
-            const linkElements = await tweetElement.findElements(
-              By.tagName("a")
-            );
-            for (const linkElement of linkElements) {
-              const href = await linkElement.getAttribute("href");
-              if (href) {
-                const hrefLower = href.toLowerCase();
-                const isTwitterInternal = hrefLower.includes("twitter.com/") || hrefLower.includes("x.com/") || href.startsWith("/");
-                const isProfileOrHashtagOrStatus =
-                  hrefLower.includes("/status/") ||
-                  hrefLower.includes("/hashtag/") ||
-                  hrefLower.includes("/search") ||
-                  hrefLower.includes("/i/lists") ||
-                  hrefLower.includes("/home") ||
-                  hrefLower.includes("/explore") ||
-                  hrefLower.includes("/notifications") ||
-                  hrefLower.includes("/messages") ||
-                  hrefLower.includes("/settings") ||
-                  hrefLower.includes("/tos") ||
-                  hrefLower.includes("/privacy") ||
-                  hrefLower.includes("/rules");
-
-                if (hrefLower.includes("t.co") || !isTwitterInternal || (!isProfileOrHashtagOrStatus && !href.startsWith("/"))) {
-                  links.push(href);
-                }
-              }
-            }
-          } catch (e) { }
-
-          let images = [];
-          try {
-            const imageElements = await tweetElement.findElements(
-              By.css('[data-testid="tweetPhoto"] img')
-            );
-            for (const img of imageElements) {
-              images.push(await img.getAttribute("src"));
-            }
-          } catch (imageError) { }
-
-          let videos = [];
-          try {
-            const videoElements = await tweetElement.findElements(
-              By.css("video")
-            );
-            for (const video of videoElements) {
-              videos.push(await video.getAttribute("src"));
-            }
-          } catch (videoError) { }
-
-          let url = "";
-          try {
-            url = await tweetElement
-              .findElement(By.xpath('.//a[contains(@href, "/status/")]'))
-              .getAttribute("href");
-          } catch (urlError) { }
-
-          let timestamp = "";
-          try {
-            timestamp = await tweetElement
-              .findElement(By.tagName("time"))
-              .getAttribute("datetime");
-          } catch (timeError) { }
-
-          return { text: tweetText, links, images, videos, url, timestamp };
-        } catch (staleError) {
-          // Retry on stale element reference
-          if (staleError.name === "StaleElementReferenceError" && retries > 0) {
-            await sleep(500);
-            return extractTweetData(tweetElement, retries - 1);
-          }
-          return null;
-        }
-      };
+      const spamKeywords = [
+        "we are hiring", "hiring for", "dm me to", "join my team", "dm for",
+        "check out my course", "buy my book", "join the waitlist", "sign up now",
+        "use my code", "limited spots", "giveaway", "subscribe for", "link in bio"
+      ];
 
       let collectedContent = [];
       let scrollAttempts = 0;
-      let lastHeight = 0;
-      let noNewTweetsCount = 0;
       let validTweetsCount = 0;
-      let lastSeenTweetIds = new Set();
+      const seenTweetIds = new Set();
       const collectedTweetIds = new Set();
       let sameContentCount = 0;
-      const MAX_SEEN_TWEETS = 1000; // Prevent memory leak
 
-      // Clear old processed IDs to prevent memory leak
       this.clearProcessedIds();
-
-      // Bring window to front and keep it active
-      try {
-        await this.driver.executeScript(`
-          window.focus();
-          // Prevent tab from being throttled (bring to front if hidden)
-        `);
-      } catch (e) {
-        logger.warn("Could not focus window:", e);
-      }
 
       try {
         await this.driver.wait(
-          until.elementLocated(
-            By.css(
-              '[data-testid="cellInnerDiv"] > div > div > article[data-testid="tweet"]'
-            )
-          ),
+          until.elementLocated(By.css('article[data-testid="tweet"]')),
           INITIAL_LOAD_TIMEOUT
         );
       } catch (error) {
@@ -328,324 +237,125 @@ class TwitterService {
         throw error;
       }
 
-      while (
-        scrollAttempts < MAX_SCROLL_ATTEMPTS &&
-        validTweetsCount < THREADS_NEEDED
-      ) {
-        logger.info(
-          `Scroll attempt ${scrollAttempts + 1
-          }/${MAX_SCROLL_ATTEMPTS}, found ${validTweetsCount}/${THREADS_NEEDED} valid content pieces`
-        );
-
-        const previousValidCount = validTweetsCount;
-
+      while (scrollAttempts < MAX_SCROLL_ATTEMPTS && validTweetsCount < THREADS_NEEDED) {
+        let batch = [];
         try {
-          // Keep tab active to prevent Chrome throttling
-          await this.driver.executeScript(`
-            // Trigger a small interaction to keep tab "active"
-            document.body.click();
-          `);
+          batch = await this.driver.executeScript(() => {
+            const articles = Array.from(document.querySelectorAll('article[data-testid="tweet"]'));
+            const list = [];
+            for (const el of articles) {
+              try {
+                const statusA = el.querySelector('a[href*="/status/"]');
+                const url = statusA ? statusA.href : "";
+                const idMatch = url.match(/\/status\/(\d+)/);
+                const tweetId = idMatch ? idMatch[1] : "";
+                if (!tweetId) continue;
 
-          // Anti-throttling: Trick browser into thinking it's active
-          await this.driver.executeScript(`
-             Object.defineProperty(document, 'hidden', { get: () => false, configurable: true });
-             Object.defineProperty(document, 'visibilityState', { get: () => 'visible', configurable: true });
-          `);
+                const textEl = el.querySelector('[data-testid="tweetText"]');
+                let text = textEl ? (textEl.innerText || "").trim() : "";
 
-          // Node-driven scroll to avoid background tab throttling
-          // Chrome throttles JS in background tabs, but Node.js sleep is safe
-          try {
-            const viewportHeight = await this.driver.executeScript("return window.innerHeight;");
-            const scrollTarget = viewportHeight * 2.5;
-            const steps = 15;
-            const stepSize = scrollTarget / steps;
-
-            for (let i = 0; i < steps; i++) {
-              await this.driver.executeScript(`window.scrollBy(0, ${stepSize})`);
-              await sleep(50); // Safe timing
-            }
-            await this.driver.executeScript("window.scrollTo(0, document.body.scrollHeight)");
-          } catch (e) {
-            logger.warn("Scroll interaction failed:", e);
-          }
-
-          await sleep(3000);
-        } catch (scrollError) {
-          logger.warn("Scrolling failed:", scrollError);
-          break;
-        }
-
-        const currentHeight = await this.driver.executeScript(
-          "return document.body.scrollHeight;"
-        );
-
-        // Get FRESH tweet elements after scrolling
-        let tweetElements = [];
-        try {
-          // Wait for Twitter to render new content after scroll
-          await sleep(2000);
-
-          // Get FRESH tweet elements directly from the current DOM state
-          // Using a fresh query every time is crucial because scrolling changes the DOM
-          const allTweetElements = await this.driver.findElements(
-            By.css('article[data-testid="tweet"]')
-          );
-
-          // Filter to only visible/displayed elements within the viewport
-          for (const el of allTweetElements) {
-            try {
-              if (await el.isDisplayed()) {
-                // relaxed viewport check to ensure we capture elements that are at least partially visible
-                const isInViewport = await this.driver.executeScript(`
-                  const rect = arguments[0].getBoundingClientRect();
-                  return (
-                    rect.top < (window.innerHeight || document.documentElement.clientHeight) &&
-                    rect.bottom > 0 &&
-                    rect.left < (window.innerWidth || document.documentElement.clientWidth) &&
-                    rect.right > 0
-                  );
-                `, el);
-
-                if (isInViewport) {
-                  tweetElements.push(el);
+                const quoteTextEl = el.querySelector('[role="link"][href*="/status/"] [data-testid="tweetText"]');
+                if (quoteTextEl && quoteTextEl !== textEl) {
+                  text += "\n\nQuoted Tweet:\n" + (quoteTextEl.innerText || "").trim();
                 }
-              }
-            } catch (e) {
-              // Skip stale elements
-            }
-          }
 
-          logger.info(
-            `Found ${tweetElements.length} visible tweet elements (${allTweetElements.length} total on page)`
-          );
-        } catch (findError) {
-          logger.warn("Failed to find tweet elements:", findError);
-          scrollAttempts++;
-          continue;
+                const timeEl = el.querySelector("time");
+                const timestamp = timeEl ? timeEl.getAttribute("datetime") : "";
+
+                const links = [];
+                const anchors = Array.from(el.querySelectorAll("a[href]"));
+                for (const a of anchors) {
+                  const href = a.href;
+                  if (!href) continue;
+                  const hl = href.toLowerCase();
+                  const isInternal = hl.includes("twitter.com/") || hl.includes("x.com/") || href.startsWith("/");
+                  const isNav = hl.includes("/status/") || hl.includes("/hashtag/") || hl.includes("/search") || hl.includes("/i/lists") || hl.includes("/home");
+                  if (hl.includes("t.co") || !isInternal || (!isNav && !href.startsWith("/"))) {
+                    links.push(href);
+                  }
+                }
+
+                const images = [];
+                const imgEls = Array.from(el.querySelectorAll('[data-testid="tweetPhoto"] img'));
+                for (const img of imgEls) {
+                  if (img.src) images.push(img.src);
+                }
+
+                list.push({ tweetId, url, timestamp, text, links, images });
+              } catch (e) {}
+            }
+            return list;
+          });
+        } catch (scriptErr) {
+          logger.warn("Batch DOM extraction failed:", scriptErr.message);
         }
 
-        // Track which tweets we see in this scroll
-        const currentTweetIds = new Set();
-        let newTweetsFound = 0;
+        let newInScroll = 0;
 
-        for (const tweetElement of tweetElements) {
+        for (const item of batch || []) {
           if (validTweetsCount >= THREADS_NEEDED) break;
+          const { tweetId, url, timestamp, text, links, images } = item;
+          if (!tweetId || seenTweetIds.has(tweetId)) continue;
+          seenTweetIds.add(tweetId);
+          newInScroll++;
 
-          try {
-            // Check if element is still attached to DOM
-            let isDisplayed = false;
-            try {
-              isDisplayed = await tweetElement.isDisplayed();
-            } catch (staleError) {
-              // Element is stale, skip it
-              continue;
-            }
+          if (!text || text.length === 0) continue;
 
-            if (!isDisplayed) continue;
-
-            const initialTweetData = await extractTweetData(tweetElement);
-            if (!initialTweetData) continue;
-
-            // Validate tweet has URL before processing
-            if (!initialTweetData.url || initialTweetData.url.trim() === "") {
-              logger.warn("Tweet missing URL, skipping");
-              continue;
-            }
-
-            // Check if we've already processed this tweet
-            const tweetId = initialTweetData.url
-              .split("/status/")[1]
-              ?.split("?")[0];
-            if (!tweetId) {
-              logger.warn(
-                "Could not extract tweet ID from URL:",
-                initialTweetData.url
-              );
-              continue;
-            }
-
-            // Track this tweet ID
-            currentTweetIds.add(tweetId);
-
-            // Check if we've seen this tweet in a previous scroll
-            if (!lastSeenTweetIds.has(tweetId)) {
-              newTweetsFound++;
-            }
-
-            if (this.processedTweetIds.has(tweetId) || collectedTweetIds.has(tweetId)) {
-              continue;
-            }
-
-            const threadTweets = [initialTweetData];
-            let nextContainer = null;
-
-            try {
-              nextContainer = await tweetElement.findElement(
-                By.xpath("./following-sibling::div")
-              );
-            } catch (nextError) { }
-
-            while (nextContainer) {
-              let nextTweet = null;
-              try {
-                nextTweet = await nextContainer.findElement(
-                  By.css('article[data-testid="tweet"]')
-                );
-              } catch (findTweetError) {
-                break;
-              }
-
-              if (!nextTweet) break;
-
-              let originalAuthor = "";
-              let nextAuthor = "";
-
-              try {
-                const originalHref = await tweetElement
-                  .findElement(By.xpath('.//a[contains(@href, "/status/")]'))
-                  .getAttribute("href");
-
-                const nextHref = await nextTweet
-                  .findElement(By.xpath('.//a[contains(@href, "/status/")]'))
-                  .getAttribute("href");
-
-                if (!originalHref || !nextHref) {
-                  break;
-                }
-
-                const originalParts = originalHref.split("/");
-                const nextParts = nextHref.split("/");
-
-                if (originalParts.length < 4 || nextParts.length < 4) {
-                  break;
-                }
-
-                originalAuthor = originalParts[3];
-                nextAuthor = nextParts[3];
-              } catch (authorError) {
-                break;
-              }
-
-              if (
-                !originalAuthor ||
-                !nextAuthor ||
-                originalAuthor !== nextAuthor
-              )
-                break;
-
-              const nextTweetData = await extractTweetData(nextTweet);
-              if (!nextTweetData?.text) break;
-
-              threadTweets.push(nextTweetData);
-
-              try {
-                nextContainer = await nextContainer.findElement(
-                  By.xpath("./following-sibling::div")
-                );
-              } catch (nextNextError) {
-                nextContainer = null;
-              }
-            }
-
-            let combinedText = threadTweets.reduce(
-              (acc, curr) => acc + (curr.text || ""),
-              ""
-            );
-
-            // Validate combined text is not empty
-            if (!combinedText || combinedText.trim().length === 0) {
-              continue;
-            }
-
-            let wordCount = combinedText
-              .split(/\s+/)
-              .filter((word) => word.length > 0).length;
-
-            const hasExternalLink = threadTweets.some((t) =>
-              (t.links || []).some((link) => /^https?:\/\//i.test(link) && !/^(https?:\/\/)?(?:www\.)?(?:x|twitter)\.com\//i.test(link))
-            );
-            const hasEnoughSourceDetail =
-              wordCount >= MIN_TOTAL_WORDS ||
-              (hasExternalLink && wordCount >= MIN_WORDS_WITH_EXTERNAL_LINK);
-
-            // Filter out off-topic non-technical tweets (sports, perfume, fashion, pop gossip)
-            if (isOfftopicTweet(combinedText)) {
-              logger.debug(`Tweet ${tweetId} is non-technical / off-topic content, skipping`);
-              continue;
-            }
-
-            if (hasEnoughSourceDetail) {
-              // Keep it local until GitHub confirms publication. Marking it now
-              // loses the source forever when the local LLM or GitHub has a transient error.
-              collectedTweetIds.add(tweetId);
-
-              collectedContent.push({
-                tweets: threadTweets,
-                url: initialTweetData.url,
-                timestamp: initialTweetData.timestamp,
-              });
-              validTweetsCount++;
-            } else {
-              // Don't mark as processed if it doesn't meet word count
-              // It might be part of a longer thread we haven't seen yet
-              logger.debug(
-                `Tweet ${tweetId} lacks enough technical detail (${wordCount} words), skipping`
-              );
-            }
-          } catch (processingError) {
-            logger.error("Error processing tweet:", processingError);
+          const textLower = text.toLowerCase();
+          if (spamKeywords.some(kw => textLower.includes(kw))) {
+            logger.debug(`Skipping tweet ${tweetId}: Detected spam keyword`);
             continue;
           }
+
+          if (isOfftopicTweet(text)) {
+            logger.debug(`Tweet ${tweetId} is non-technical / off-topic content, skipping`);
+            continue;
+          }
+
+          const wordCount = text.split(/\s+/).filter(w => w.length > 0).length;
+          const hasExternalLink = (links || []).some(l => /^https?:\/\//i.test(l) && !/^(https?:\/\/)?(?:www\.)?(?:x|twitter)\.com\//i.test(l));
+          const hasEnoughDetail = wordCount >= MIN_TOTAL_WORDS || (hasExternalLink && wordCount >= MIN_WORDS_WITH_EXTERNAL_LINK);
+
+          if (!hasEnoughDetail) {
+            logger.debug(`Tweet ${tweetId} lacks enough technical detail (${wordCount} words), skipping`);
+            continue;
+          }
+
+          if (this.processedTweetIds.has(tweetId)) {
+            logger.debug(`Tweet ${tweetId} already published previously, skipping`);
+            continue;
+          }
+
+          collectedTweetIds.add(tweetId);
+          collectedContent.push({
+            tweets: [{ text, links, images, url, timestamp }],
+            url,
+            timestamp
+          });
+          validTweetsCount++;
         }
 
-        // Check if we found ANY new tweets (not just valid ones)
-        if (newTweetsFound > 0) {
-          logger.info(`Found ${newTweetsFound} NEW tweets in this scroll`);
-          sameContentCount = 0;
-
-          // Add new IDs but prevent unbounded growth
-          currentTweetIds.forEach((id) => lastSeenTweetIds.add(id));
-
-          // Clear old IDs if set gets too large
-          if (lastSeenTweetIds.size > MAX_SEEN_TWEETS) {
-            logger.warn(
-              `lastSeenTweetIds exceeded ${MAX_SEEN_TWEETS}, clearing old entries`
-            );
-            // Keep only the most recent IDs
-            const recentIds = Array.from(lastSeenTweetIds).slice(-500);
-            lastSeenTweetIds = new Set(recentIds);
-          }
-        } else {
+        if (newInScroll === 0) {
           sameContentCount++;
-          logger.warn(
-            `No new tweets found (${sameContentCount} times in a row)`
-          );
-          if (sameContentCount >= 10) {
-            logger.info(
-              "Page not loading new content after 10 scrolls, stopping..."
-            );
-            break;
-          }
-        }
-
-        // Check if we found new valid tweets in this scroll
-        if (validTweetsCount > previousValidCount) {
-          noNewTweetsCount = 0; // Reset counter when we find new valid content
-        } else if (currentHeight === lastHeight) {
-          noNewTweetsCount++;
-          if (noNewTweetsCount >= MAX_NO_NEW_TWEETS) {
-            logger.info(
-              "No new valid content found after multiple scrolls, stopping..."
-            );
+          if (sameContentCount >= 8) {
+            logger.info("No more new tweets loading after multiple fast scrolls, finishing list.");
             break;
           }
         } else {
-          lastHeight = currentHeight;
+          sameContentCount = 0;
         }
+
+        if (validTweetsCount >= THREADS_NEEDED) break;
+
+        try {
+          await this.driver.executeScript("window.scrollBy(0, window.innerHeight * 2);");
+        } catch (e) {}
+
+        await sleep(SCROLL_PAUSE);
         scrollAttempts++;
       }
 
-      logger.info(`Collected ${validTweetsCount} valid content pieces`);
+      logger.info(`Collected ${validTweetsCount} valid high-signal content pieces`);
       return collectedContent;
     } catch (error) {
       logger.error("Error in findContent:", error);
@@ -908,3 +618,5 @@ class TwitterService {
 }
 
 module.exports = TwitterService;
+module.exports.isOfftopicTweet = isOfftopicTweet;
+TwitterService.isOfftopicTweet = isOfftopicTweet;

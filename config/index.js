@@ -19,7 +19,6 @@ const config = {
     startupTimeoutMs: parsePositiveInteger(process.env.LOCAL_LLM_STARTUP_TIMEOUT_MS, 60000),
     autoStart: process.env.LOCAL_LLM_AUTO_START !== "false",
     command: process.env.LOCAL_LLM_COMMAND || "ollama",
-    maxFoldersPerRun: parsePositiveInteger(process.env.MAX_FOLDERS_PER_RUN, 12),
     nvidia: {
       apiKey: process.env.NVIDIA_API_KEY || "",
       baseUrl: (process.env.NVIDIA_BASE_URL || "https://integrate.api.nvidia.com/v1").replace(/\/$/, ""),

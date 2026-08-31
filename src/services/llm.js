@@ -129,6 +129,253 @@ const STRUCTURE_REGISTRY = [
   }
 ];
 
+
+const DOMAIN_PROMPTS = {
+  "Cybersecurity and Tech": {
+    archetype: "Senior Security Researcher & Vulnerability Analyst",
+    focus: "Attack vectors, CVE identifiers, zero-day analysis, exploit mechanisms, reverse engineering, defensive posture, network perimeter breaches, cryptography, and patch verification.",
+    primaryEmoji: "🔒",
+    secondaryEmoji: "🛡️"
+  },
+  "AI Developer Tools": {
+    archetype: "ML Infrastructure & Tooling Engineer",
+    focus: "Inference engines (vLLM, TensorRT, Triton, Ollama), KV-cache optimization, quantization (FP8, AWQ, GGUF), SDK APIs, CLI parameters, latency (TTFT), token throughput, and developer tooling ergonomics.",
+    primaryEmoji: "🚀",
+    secondaryEmoji: "⚡"
+  },
+  "Tech Infrastructure": {
+    archetype: "Principal Distributed Systems & SRE Architect",
+    focus: "Distributed consensus, database query planning, memory management, Linux kernel internals, networking protocols, concurrency models, state reconciliation, caching layers, and high-availability architecture.",
+    primaryEmoji: "⚡",
+    secondaryEmoji: "🛠️"
+  },
+  "CS Academics": {
+    archetype: "Computer Science Researcher & Systems Scientist",
+    focus: "Algorithmic complexity, formal verification, distributed systems theory, novel neural model architectures, peer-reviewed methodology, mathematical proofs, and empirical benchmark results.",
+    primaryEmoji: "🔬",
+    secondaryEmoji: "📐"
+  },
+  "Quantum Computing": {
+    archetype: "Quantum Systems & Algorithms Engineer",
+    focus: "Qubit topologies, quantum error correction (QEC), circuit depth, decoherence mitigation, gate fidelities, quantum algorithms (Shor, Grover, VQE), and physical hardware implementations.",
+    primaryEmoji: "⚛️",
+    secondaryEmoji: "🔬"
+  },
+  "Devs, Designers, DevRel": {
+    archetype: "Staff Full-Stack & Developer Experience (DX) Engineer",
+    focus: "Framework internals (Next.js, React, Node.js), JavaScript/TypeScript runtimes, compiler optimizations, CSS rendering layers, DOM performance (LCP, INP, CLS), component APIs, and DX workflows.",
+    primaryEmoji: "✨",
+    secondaryEmoji: "💻"
+  },
+  "Founders and Entrepreneurs": {
+    archetype: "Technical Founder & Startup Architect",
+    focus: "Technical moats, unit economics, infrastructure cost efficiency, API monetization, open-source commercialization, developer distribution strategies, and high-leverage architectural trade-offs.",
+    primaryEmoji: "💡",
+    secondaryEmoji: "📈"
+  },
+  "VC Firms": {
+    archetype: "Deep-Tech Venture Analyst & Engineering Partner",
+    focus: "Capital allocation in AI/infrastructure, compute economics, market inflection points, startup valuation benchmarks, defensible technology moats, and enterprise software adoption trends.",
+    primaryEmoji: "💡",
+    secondaryEmoji: "📊"
+  },
+  "Investors and Venture Capital": {
+    archetype: "Deep-Tech Venture Analyst & Engineering Partner",
+    focus: "Compute unit economics, startup valuation benchmarks, technical defensibility, enterprise deployment pipelines, and AI infrastructure market shifts.",
+    primaryEmoji: "💡",
+    secondaryEmoji: "📊"
+  },
+  "AI and Robotics Applications": {
+    archetype: "Robotics & Physical AI Systems Architect",
+    focus: "Vision-Language-Action (VLA) models, spatial kinematics, trajectory planning, simulation environments (Isaac Sim, MuJoCo), sensor fusion (LiDAR, RGB-D), real-time control loops, and actuator dynamics.",
+    primaryEmoji: "🤖",
+    secondaryEmoji: "🦾"
+  },
+  "AI Driven Vehicles and Transportation": {
+    archetype: "Autonomous Vehicle Systems & Perception Engineer",
+    focus: "Autonomous driving stacks, sensor calibration, end-to-end neural motion planning, occupancy grids, computer vision perception, edge inference hardware, and safety validation.",
+    primaryEmoji: "🤖",
+    secondaryEmoji: "🚗"
+  },
+  "Computer Vision and AI Applications": {
+    archetype: "Computer Vision & Multimodal AI Engineer",
+    focus: "Vision transformers (ViT), 3D Gaussian Splatting, NeRFs, object detection, segmentation models (SAM), diffusion models, multimodal embedding spaces, and real-time visual processing.",
+    primaryEmoji: "👁️",
+    secondaryEmoji: "🤖"
+  },
+  "Neuroscience and AI": {
+    archetype: "Computational Neuroscientist & Neuromorphic AI Researcher",
+    focus: "Spiking neural networks (SNN), neuromorphic computing, Brain-Computer Interfaces (BCI), neural signal processing, biologically plausible learning algorithms, and cognitive architectures.",
+    primaryEmoji: "🧠",
+    secondaryEmoji: "🔬"
+  },
+  "Crypto and Web3": {
+    archetype: "Decentralized Systems & Cryptography Engineer",
+    focus: "Zero-Knowledge proofs (ZK-SNARKs/STARKs), consensus algorithms, smart contract security, decentralized compute, rollup architectures, cross-chain messaging, and cryptographic primitives.",
+    primaryEmoji: "⛓️",
+    secondaryEmoji: "🔐"
+  },
+  "Decentralized AI": {
+    archetype: "Decentralized AI & DePIN Systems Engineer",
+    focus: "Decentralized model training, federated learning, peer-to-peer compute networks, decentralized inference verification, cryptographic attestations, and edge AI orchestration.",
+    primaryEmoji: "🤖",
+    secondaryEmoji: "⛓️"
+  },
+  "Spatial Computing": {
+    archetype: "Spatial Computing & XR Systems Engineer",
+    focus: "6DoF spatial tracking, spatial audio, passthrough rendering, hand tracking algorithms, stereoscopic rendering pipelines, WebXR, and spatial OS architectures.",
+    primaryEmoji: "🥽",
+    secondaryEmoji: "🌐"
+  },
+  "AR VR Companies and Development": {
+    archetype: "XR Engine & Graphics Architect",
+    focus: "Graphics rendering pipelines, OpenXR runtime specifications, spatial UI frameworks, real-time shader pipelines, immersive simulation, and XR device ecosystems.",
+    primaryEmoji: "🥽",
+    secondaryEmoji: "✨"
+  },
+  "AR VR Professionals and Community": {
+    archetype: "XR Interface & Immersive Computing Engineer",
+    focus: "Spatial UX design patterns, WebXR shader optimization, real-time hand-tracking latency, eye-tracking foveated rendering, and spatial developer workflows.",
+    primaryEmoji: "🥽",
+    secondaryEmoji: "✨"
+  },
+  "AI in Healthcare and Science": {
+    archetype: "Biomedical AI & Scientific Computing Researcher",
+    focus: "Protein folding models, medical imaging classification, clinical diagnostic models, genomic analysis, drug discovery pipelines, and scientific ML architectures.",
+    primaryEmoji: "🧬",
+    secondaryEmoji: "🔬"
+  },
+  "Climate and Weather Technology": {
+    archetype: "Climate Tech & Earth Systems Engineer",
+    focus: "Numerical weather prediction, climate modeling neural networks, renewable grid optimization, carbon tracking infrastructure, and satellite earth observation.",
+    primaryEmoji: "🌍",
+    secondaryEmoji: "🌱"
+  },
+  "AI Leaders and Thinkers": {
+    archetype: "AI Research Director & Systems Strategist",
+    focus: "Frontier model scaling laws, alignment breakthroughs, post-training RL, reasoning compute budgets, open-weight vs proprietary paradigms, and architectural roadmaps.",
+    primaryEmoji: "🤖",
+    secondaryEmoji: "💡"
+  },
+  "AI Companies and Ventures": {
+    archetype: "Enterprise AI Systems & Venture Strategist",
+    focus: "Commercial model deployments, enterprise agent architectures, GPU cluster economics, fine-tuning infrastructure, and enterprise AI production readiness.",
+    primaryEmoji: "🏢",
+    secondaryEmoji: "🚀"
+  },
+  "AI Organizations and Media": {
+    archetype: "AI Industry & Technical Intelligence Analyst",
+    focus: "Consortium standards, open-source model releases, benchmark evaluations, regulatory compliance, and community model adoption metrics.",
+    primaryEmoji: "📰",
+    secondaryEmoji: "🌐"
+  },
+  "AI Powered Film and Media": {
+    archetype: "Generative Media & Neural Rendering Technologist",
+    focus: "Diffusion transformer (DiT) pipelines, video generation architectures (Sora, Wan, CogVideo), temporal consistency, neural radiance fields, and creative AI workflows.",
+    primaryEmoji: "🎬",
+    secondaryEmoji: "✨"
+  },
+  "AI Holodeck and Virtual Worlds": {
+    archetype: "Generative World & Neural Physics Engineer",
+    focus: "World foundation models, procedural neural generation, physics simulations, 3D mesh synthesis, and interactive real-time simulation environments.",
+    primaryEmoji: "🌐",
+    secondaryEmoji: "🥽"
+  },
+  "AI Generated Music and Audio": {
+    archetype: "Audio AI & Neural DSP Engineer",
+    focus: "Audio diffusion models, neural audio codecs (DAC, EnCodec), text-to-music transformer architectures, vocoders, and real-time audio synthesis pipelines.",
+    primaryEmoji: "🎵",
+    secondaryEmoji: "🎧"
+  },
+  "AI Professionals and Community": {
+    archetype: "AI Community & Systems Practitioner",
+    focus: "Hands-on engineering workflows, local model quantization tutorials, fine-tuning recipes (LoRA, QLoRA), agentic tooling, and developer ecosystem benchmarks.",
+    primaryEmoji: "👥",
+    secondaryEmoji: "🚀"
+  },
+  "AI Policy and Ethical Considerations": {
+    archetype: "AI Governance & Safety Alignment Researcher",
+    focus: "Red-teaming evaluations, safety benchmark frameworks, copyright/IP legal precedents, compute governance, model weight security, and compliance frameworks.",
+    primaryEmoji: "⚖️",
+    secondaryEmoji: "🛡️"
+  },
+  "AI in Real Estate and Property Tech": {
+    archetype: "PropTech & Spatial Intelligence Engineer",
+    focus: "Automated valuation models (AVM), spatial 3D floor plan synthesis, building energy optimization, and real estate data pipeline architectures.",
+    primaryEmoji: "🏙️",
+    secondaryEmoji: "📐"
+  },
+  "AI for Content Creation and Marketing": {
+    archetype: "AI Growth & Programmatic Content Systems Architect",
+    focus: "Programmatic LLM pipelines, multimodal marketing agent workflows, SEO entity optimization, automated creative generation, and attribution metrics.",
+    primaryEmoji: "✍️",
+    secondaryEmoji: "📈"
+  },
+  "The Exponential Future": {
+    archetype: "Frontier Deep-Tech & Systems Forecaster",
+    focus: "Technological singularity milestones, synthetic biology compute, energy abundance infrastructure, fusion breakthroughs, and exponential scaling trajectories.",
+    primaryEmoji: "🔮",
+    secondaryEmoji: "⚡"
+  },
+  "Interesting Finds": {
+    archetype: "Staff Systems Technologist & Open-Source Curator",
+    focus: "Novel open-source developer tools, clever algorithms, unique system designs, hidden developer utilities, and high-utility GitHub repositories.",
+    primaryEmoji: "💡",
+    secondaryEmoji: "🛠️"
+  },
+  "PR and Communications": {
+    archetype: "Developer Relations & Tech Communications Strategist",
+    focus: "Developer product launches, API documentation strategy, technical narrative building, open-source community growth, and developer trust metrics.",
+    primaryEmoji: "📢",
+    secondaryEmoji: "✨"
+  },
+  "Tech Companies and News": {
+    archetype: "Senior Enterprise Tech Analyst & Systems Reporter",
+    focus: "Platform architecture shifts, cloud infrastructure pricing wars, datacenter buildouts, earnings tech breakdowns, and enterprise IT migrations.",
+    primaryEmoji: "📰",
+    secondaryEmoji: "🏢"
+  },
+  "Tech Journalists and VIPs": {
+    archetype: "Deep-Tech Journalist & Executive Analyst",
+    focus: "Executive leadership moves, investigative tech reporting, big-tech antitrust developments, and foundational technology roadmap analysis.",
+    primaryEmoji: "📝",
+    secondaryEmoji: "💡"
+  },
+  "World News and Updates": {
+    archetype: "Global Technology & Macro Industry Analyst",
+    focus: "Geopolitical semiconductor supply chains, global AI infrastructure regulations, international fiber/satellite networks, and sovereign compute initiatives.",
+    primaryEmoji: "🌐",
+    secondaryEmoji: "📡"
+  }
+};
+
+function getDomainConfig(folderName) {
+  if (!folderName || typeof folderName !== 'string') {
+    return {
+      archetype: "Senior Systems & AI Engineer",
+      focus: "Concrete system architectures, benchmarks, code mechanisms, and direct engineering findings.",
+      primaryEmoji: "🤖",
+      secondaryEmoji: "🚀"
+    };
+  }
+  const cleanName = folderName.trim();
+  if (DOMAIN_PROMPTS[cleanName]) {
+    return DOMAIN_PROMPTS[cleanName];
+  }
+  // Try case-insensitive or partial match
+  for (const [key, val] of Object.entries(DOMAIN_PROMPTS)) {
+    if (key.toLowerCase() === cleanName.toLowerCase() || cleanName.toLowerCase().includes(key.toLowerCase()) || key.toLowerCase().includes(cleanName.toLowerCase())) {
+      return val;
+    }
+  }
+  return {
+    archetype: "Senior Systems & AI Engineer",
+    focus: "Concrete system architectures, benchmarks, code mechanisms, and direct engineering findings.",
+    primaryEmoji: "🤖",
+    secondaryEmoji: "🚀"
+  };
+}
+
 const SYSTEM_PROMPT = `
 You are an expert technical writer and senior software engineer. Your writing style is direct, clear, highly analytical, and professional—completely free of generic AI-generated filler, marketing hype, and corporate fluff.
 
@@ -137,10 +384,16 @@ You curate raw tech/AI/developer content (Twitter threads, LinkedIn posts) and t
 === ANTI-AI & TECHNICAL TONE RULES (STRICT) ===
 1. BAN LIST — Absolutely NEVER use these robotic/AI buzzwords:
    ${BANNED_WORDS.map(w => `"${w}"`).join(", ")}
-2. NO MARKETING FLUFF — Avoid empty hype adjectives. Instead of "powerful query system" or "lightning-fast framework", write "query system" or "framework". Only include benchmark figures or technical details if specifically present in the source text.
-3. HUMAN SENIOR-ENGINEER TONE — Write as if you are sharing what actually works directly with another senior engineer. Be objective, precise, and practical.
-4. SENTENCE VARIANCE — Use a natural human rhythm. Mix short, punchy 4-to-6-word statements with slightly longer technical explanations. Avoid repetitive sentence structures.
-5. CLI / TOOL FOCUS — This codebase and output target CLI tools, scripts, and developer utilities. Never refer to CLI tools, utilities, or systems as "platform", "platforms", "dashboard", "dashboards", or "web app". Refer to them strictly as CLI tools, utilities, or scripts.
+2. ZERO 3RD-PERSON META INTRODUCTIONS — NEVER begin an article with phrases like:
+   - "This article discusses / describes / explains / outlines / explores / summarizes..."
+   - "This post / content / thread / paper / update presents / covers / details..."
+   - "In this article / In this post / In this thread..."
+   - "The author discusses / shares / explores..."
+   START IMMEDIATELY with the core technical subject, architecture, benchmark, or tool (e.g. "PostgreSQL 17 introduces native memory tuning for parallel index builds...").
+3. NO MARKETING FLUFF — Avoid empty hype adjectives. Instead of "powerful query system" or "lightning-fast framework", write "query system" or "framework". Only include benchmark figures or technical details if specifically present in the source text.
+4. HUMAN SENIOR-ENGINEER TONE — Write as if you are sharing what actually works directly with another senior engineer. Be objective, precise, and practical.
+5. SENTENCE VARIANCE — Use a natural human rhythm. Mix short, punchy 4-to-6-word statements with slightly longer technical explanations. Avoid repetitive sentence structures.
+6. CLI / TOOL FOCUS — This codebase and output target CLI tools, scripts, and developer utilities. Never refer to CLI tools, utilities, or systems as "platform", "platforms", "dashboard", "dashboards", or "web app". Refer to them strictly as CLI tools, utilities, or scripts.
 
 === CORE FORMATTING INSTRUCTIONS ===
 - Every article must start with a level-3 header: "### [emoji] Topic - Subtopic" (Use ONE appropriate emoji: 🤖 for technical, 🚀 for tools, 💡 for tips, ✨ for features).
@@ -181,7 +434,7 @@ class LocalLLMService {
   stripMetaIntroductions(text) {
     if (!text || typeof text !== 'string') return text;
     const lines = text.split(/\r?\n/);
-    const pattern = /^this (content|article|post|document|thread|video|tweet|text|resource|repo|repository|guide|profile|piece|entry|overview|paper|discussion|write-up|update) (explains|describes|discusses|details|provides|summarizes|highlights|explores|examines|focuses on|delves into|covers|presents|analyzes|shows|outlines|features|looks at|breaks down|demonstrates|shares|introduces|gives|contains|walks through) (how |what |the |a |an )?/i;
+    const pattern = /^(this|the|in this|within this)\s+(content|article|post|document|thread|video|tweet|text|resource|repo|repository|guide|profile|piece|entry|overview|paper|discussion|write-up|writeup|update|release|report|analysis|author|creator)?\s*(explains|describes|discusses|details|provides|summarizes|highlights|explores|examines|focuses on|delves into|covers|presents|analyzes|shows|outlines|features|looks at|breaks down|demonstrates|shares|introduces|gives|contains|walks through|relates to|addresses|evaluates|notes|touches upon|observes|is a summary of|is a collection of|is a breakdown of)\s*(how |what |the |a |an |that )?/i;
 
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i].trim();
@@ -1576,20 +1829,7 @@ JSON schema:
     generatedText = this.stripOffTopicSections(generatedText);
     generatedText = this.stripMetaIntroductions(generatedText);
 
-    const supportSection = `
----
-
-### ⭐️ Support
-
-If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.
-
----`;
-
-    const markdown = (
-      generatedText.replace(/\n---\n\s*$/g, "").trim() +
-      "\n\n" +
-      supportSection
-    );
+    const markdown = generatedText.replace(/\n---\n\s*$/g, "").trim();
 
     try {
       this.assertPublishableMarkdown(markdown, expectedArticleCount, { finalDocument });
@@ -1601,7 +1841,7 @@ If you liked reading this report, please star ⭐️ this repository and follow 
     return markdown;
   }
 
-  async generateMarkdown(threads, retries = 2, validationFeedback = []) {
+  async generateMarkdown(threads, retries = 2, validationFeedback = [], folderName = "") {
     try {
       if (!threads || threads.length === 0) {
         logger.warn("No threads provided to generateMarkdown.");
@@ -1729,7 +1969,7 @@ ${combinedPrompt}</source_material>
             `(${retries} attempt${retries === 1 ? "" : "s"} remaining).`,
           );
           await this.sleepWithJitter(2_000);
-          return this.generateMarkdown(threads, retries - 1, nextFeedback);
+          return this.generateMarkdown(threads, retries - 1, nextFeedback, folderName);
         }
         logger.error("Failed to generate content:", error);
         throw error;
@@ -1740,7 +1980,7 @@ ${combinedPrompt}</source_material>
     }
   }
 
-  async generateMarkdownFromCombined(threads, linkedinPosts, retries = 2, batching = false, validationFeedback = []) {
+  async generateMarkdownFromCombined(threads, linkedinPosts, retries = 2, batching = false, validationFeedback = [], folderName = "") {
     try {
       if ((!threads || threads.length === 0) && (!linkedinPosts || linkedinPosts.length === 0)) {
         logger.warn("No content provided to generateMarkdownFromCombined.");
@@ -1892,7 +2132,7 @@ ${combinedPrompt}</source_material>
             `(${retries} attempt${retries === 1 ? "" : "s"} remaining).`,
           );
           await this.sleepWithJitter(2_000);
-          return this.generateMarkdownFromCombined(threads, linkedinPosts, retries - 1, batching, nextFeedback);
+          return this.generateMarkdownFromCombined(threads, linkedinPosts, retries - 1, batching, nextFeedback, folderName);
         }
         logger.error("Failed to generate combined markdown content:", error);
         throw error;
@@ -2616,6 +2856,14 @@ Include 10-15 highly targeted, relevant hashtags on their own block at the very 
       const error = new Error(
         `Generated markdown failed publication quality gate (articles=${articleCount}/${requiredArticleCount}, bullets=${bulletCount}/1, characters=${contentWithoutFooter.length}/${minimumCharacters}).`
       );
+      error.code = "MARKDOWN_QUALITY_REJECTED";
+      throw error;
+    }
+
+    // Strict Anti-AI 3rd-Person Boilerplate Check
+    const THIRD_PERSON_FAIL_REGEX = /(?:^|\n)\s*(?:this|the|in this)\s+(?:content|article|post|document|thread|text|resource|guide|entry|paper|write-up|update)\s+(?:explains|describes|discusses|details|provides|summarizes|highlights|explores|examines|focuses|covers|presents|analyzes|shows|outlines|features|looks|breaks down|demonstrates|shares|introduces|gives|contains)/im;
+    if (THIRD_PERSON_FAIL_REGEX.test(contentWithoutFooter)) {
+      const error = new Error("Generated markdown failed quality gate: contains 3rd-person AI meta boilerplate language ('This article discusses/describes...').");
       error.code = "MARKDOWN_QUALITY_REJECTED";
       throw error;
     }

@@ -57,7 +57,7 @@ class GithubService {
         throw new Error("GitHub repository configuration is missing");
       }
 
-      const markdownContent = await llmService.generateMarkdown(threads);
+      const markdownContent = await llmService.generateMarkdown(threads, 2, [], folder?.name || queryName);
       llmService.assertPublishableMarkdown(
         markdownContent,
         llmService.normalizeCollectedThreads(threads).length,
@@ -100,7 +100,7 @@ class GithubService {
         throw new Error("GitHub repository configuration is missing");
       }
 
-      const markdownContent = await llmService.generateMarkdownFromCombined(safeThreads, safeLinkedinPosts);
+      const markdownContent = await llmService.generateMarkdownFromCombined(safeThreads, safeLinkedinPosts, 2, false, [], folder?.name || queryName);
       // This is a final defensive boundary: no model response can create a
       // repository file (or social announcement) unless it contains a real article.
       const expectedArticleCount = llmService.normalizeCollectedThreads(safeThreads).length + safeLinkedinPosts.filter(Boolean).length;

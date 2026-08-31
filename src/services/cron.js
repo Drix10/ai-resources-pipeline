@@ -129,28 +129,11 @@ const releasePipelineLock = () => {
 
 const getFoldersForRun = () => {
   const allFolders = config.folders;
-  const batchSize = Math.min(config.llm.maxFoldersPerRun, allFolders.length);
-  let nextFolderIndex = 0;
-
-  try {
-    if (fs.existsSync(PIPELINE_STATE_PATH)) {
-      const state = JSON.parse(fs.readFileSync(PIPELINE_STATE_PATH, "utf8"));
-      if (Number.isInteger(state.nextFolderIndex) && state.nextFolderIndex >= 0) {
-        nextFolderIndex = state.nextFolderIndex % allFolders.length;
-      }
-    }
-  } catch (error) {
-    logger.warn(`Could not read pipeline rotation state: ${error.message}`);
-  }
-
-  const folders = Array.from({ length: batchSize }, (_, offset) =>
-    allFolders[(nextFolderIndex + offset) % allFolders.length]
-  );
-  logger.info(`Processing ${folders.length}/${allFolders.length} folders this run, starting at rotation index ${nextFolderIndex}.`);
+  logger.info(`Processing all ${allFolders.length} folders this run.`);
   return {
-    folders,
-    nextFolderIndex,
-    batchSize,
+    folders: allFolders,
+    nextFolderIndex: 0,
+    batchSize: allFolders.length,
     totalFolders: allFolders.length,
   };
 };
