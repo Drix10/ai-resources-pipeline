@@ -15,12 +15,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const articles = getAllArticles();
   const categories = getAllCategories();
 
-  const articleRoutes: MetadataRoute.Sitemap = articles.map((article) => ({
-    url: article.canonicalUrl || `${baseUrl}/articles/${article.slug}`,
-    lastModified: parseSafeDate(article.date),
-    changeFrequency: 'weekly',
-    priority: (article as any).isPersonal ? 1.0 : 0.8,
-  }));
+  const articleRoutes: MetadataRoute.Sitemap = articles
+    .filter((article) => article.filename.toLowerCase() !== 'readme.md')
+    .map((article) => ({
+      url: article.canonicalUrl || `${baseUrl}/articles/${article.slug}`,
+      lastModified: parseSafeDate(article.date),
+      changeFrequency: 'weekly',
+      priority: (article as any).isPersonal ? 1.0 : 0.8,
+    }));
 
   const categoryRoutes: MetadataRoute.Sitemap = categories.map((cat) => ({
     url: `${baseUrl}/categories/${cat.slug}`,

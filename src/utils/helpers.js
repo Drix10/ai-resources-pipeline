@@ -132,7 +132,7 @@ const rebuildBlogIndex = () => {
       try {
         const files = fs.readdirSync(catDir);
         for (const file of files) {
-          if (!file.endsWith(".md")) continue;
+          if (!file.endsWith(".md") || file.toLowerCase() === "readme.md") continue;
           const filePath = path.join(catDir, file);
           const stats = fs.statSync(filePath);
           if (stats.size < 40) continue; // skip stubs
