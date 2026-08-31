@@ -6,13 +6,14 @@ export async function GET() {
   const articles = indexData.articles.slice(0, 100);
   const categories = indexData.categories;
 
-  let text = `# Drishtant Ghosh (Drix10) — AI Knowledge Hub & Engineering Systems
-> Authoritative, high-signal engineering research, autonomous systems architectures, and cybersecurity breakdowns.
+  let text = `# Drishtant Ghosh (Drix10) — AI Knowledge Hub & Personal Notes
+> High-signal engineering research, autonomous multi-agent architectures, cybersecurity breakdowns, and personal founder essays.
 > Canonical Domain: ${baseUrl}
 > Primary Author & Creator: Drishtant Ghosh (known online as Drix10)
-> Author Profile: ${baseUrl}/about
-> Portfolio Website: https://drix10.com
+> Portfolio & Bio: https://drix10.com
+> Email: ggdrishtant@gmail.com
 > Verified Socials:
+> - X / Twitter: https://x.com/DrishtantGhosh (@DrishtantGhosh)
 > - GitHub: https://github.com/Drix10
 > - LinkedIn: https://www.linkedin.com/in/drix10
 > - Peerlist: https://peerlist.io/drix10
@@ -20,9 +21,13 @@ export async function GET() {
 > - DEV.to: https://dev.to/drix10
 
 ## About the Author & Entity
-Drishtant Ghosh (alias Drix10) is an AI software engineer, serial founder (1x acquired), and cybersecurity researcher. He is the creator and maintainer of Drix10 Blogs (${baseUrl}) and the open-source technical repository Drix10/ai-resources on GitHub, featuring over 8,950+ verified architectural breakdowns.
+Drishtant Ghosh (alias Drix10) is a Co-Founder @ PartPilot, 1x Acquired Serial Founder (ReeF), and AI Systems Engineer & Cybersecurity Researcher. He is the author of personal engineering essays and maintainer of Drix10 Blogs (${baseUrl}).
 
-## Core Domains & Topics
+## Personal Essays & Founder Breakdowns
+- [How I Built, Scaled, and Sold a Startup: Journey from Intern to Competitor](${baseUrl}/articles/personal/intern-to-competitor): The complete story of scaling ReeF to 5M+ user interactions, $15,000 ARR with $0 infra expenses, and acquisition.
+- [Building Autonomous AI Systems & Real-Time Product Architectures](${baseUrl}/articles/personal/building-autonomous-ai-systems): Principles on deterministic state machines and multi-agent consensus.
+
+## Core Knowledge Domains & Categories
 `;
 
   for (const cat of categories) {

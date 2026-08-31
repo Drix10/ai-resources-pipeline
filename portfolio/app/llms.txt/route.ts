@@ -14,7 +14,7 @@ export async function GET() {
 - GitHub: https://github.com/Drix10
 - LinkedIn: https://www.linkedin.com/in/drix10
 - Peerlist: https://peerlist.io/drix10
-- X / Twitter: https://x.com/DrishtantGhosh
+- X / Twitter: https://x.com/DrishtantGhosh (@DrishtantGhosh)
 - Email: ggdrishtant@gmail.com
 - Location: Bengaluru, Karnataka, India
 
