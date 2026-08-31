@@ -6,10 +6,16 @@ export const revalidate = 86400;
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://blogs.drix10.com';
 
-  // 1. Core Homepage & Personal Pillar
+  // 1. Core Homepage & Directories
   const coreRoutes: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 1.0,
+    },
+    {
+      url: `${baseUrl}/categories`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 1.0,
