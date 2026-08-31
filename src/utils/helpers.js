@@ -110,6 +110,21 @@ const rebuildBlogIndex = () => {
     const contentDir = path.join(blogDir, "content");
     if (!fs.existsSync(contentDir)) return;
 
+    // Auto-sync root content/Personal to blog/content/Personal if present
+    const rootPersonal = path.join(rootDir, "content", "Personal");
+    const blogPersonal = path.join(contentDir, "Personal");
+    if (fs.existsSync(rootPersonal)) {
+      if (!fs.existsSync(blogPersonal)) fs.mkdirSync(blogPersonal, { recursive: true });
+      const rootFiles = fs.readdirSync(rootPersonal);
+      for (const rf of rootFiles) {
+        const srcPath = path.join(rootPersonal, rf);
+        const destPath = path.join(blogPersonal, rf);
+        if (!fs.existsSync(destPath) || fs.statSync(srcPath).mtimeMs > fs.statSync(destPath).mtimeMs) {
+          fs.copyFileSync(srcPath, destPath);
+        }
+      }
+    }
+
     const entries = fs.readdirSync(contentDir, { withFileTypes: true });
     for (const entry of entries) {
       if (!entry.isDirectory() || entry.name.startsWith(".") || ignored.has(entry.name)) continue;
