@@ -1,6 +1,9 @@
 import { getAllArticles, getAllCategories } from '@/lib/markdown';
 import { MetadataRoute } from 'next';
 
+export const dynamic = 'force-static';
+export const revalidate = 86400;
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.CANONICAL_BASE_URL || 'https://blogs.drix10.com';
   const articles = getAllArticles();
