@@ -15,21 +15,34 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const articles = getAllArticles();
   const categories = getAllCategories();
 
-  const articleRoutes: MetadataRoute.Sitemap = articles
-    .filter((article) => article.filename.toLowerCase() !== 'readme.md')
+  // 1. Personal posts (100% priority)
+  const personalArticles = articles
+    .filter((a: any) => a.isPersonal && a.filename?.toLowerCase() !== 'readme.md')
     .map((article) => ({
       url: article.canonicalUrl || `${baseUrl}/articles/${article.slug}`,
       lastModified: parseSafeDate(article.date),
-      changeFrequency: 'weekly',
-      priority: (article as any).isPersonal ? 1.0 : 0.8,
+      changeFrequency: 'weekly' as const,
+      priority: 1.0,
     }));
 
-  const categoryRoutes: MetadataRoute.Sitemap = categories.map((cat) => ({
+  // 2. High-value category hubs
+  const categoryRoutes: MetadataRoute.Sitemap = categories.slice(0, 15).map((cat) => ({
     url: `${baseUrl}/categories/${cat.slug}`,
     lastModified: new Date(),
-    changeFrequency: 'daily',
-    priority: 0.7,
+    changeFrequency: 'daily' as const,
+    priority: 0.8,
   }));
+
+  // 3. Top curated recent technical guides (Staged rollout for optimal indexing)
+  const recentCurated = articles
+    .filter((a: any) => !a.isPersonal && a.filename?.toLowerCase() !== 'readme.md')
+    .slice(0, 25)
+    .map((article) => ({
+      url: article.canonicalUrl || `${baseUrl}/articles/${article.slug}`,
+      lastModified: parseSafeDate(article.date),
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    }));
 
   return [
     {
@@ -38,7 +51,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 1.0,
     },
+    ...personalArticles,
     ...categoryRoutes,
-    ...articleRoutes,
+    ...recentCurated,
   ];
 }
