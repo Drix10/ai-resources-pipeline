@@ -4,16 +4,22 @@ import { MetadataRoute } from 'next';
 export const dynamic = 'force-static';
 export const revalidate = 86400;
 
+function parseSafeDate(dateStr?: string): Date {
+  if (!dateStr) return new Date();
+  const d = new Date(dateStr);
+  return isNaN(d.getTime()) ? new Date() : d;
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.CANONICAL_BASE_URL || 'https://blogs.drix10.com';
+  const baseUrl = (process.env.CANONICAL_BASE_URL || 'https://blogs.drix10.com').replace(/\/+$/, '');
   const articles = getAllArticles();
   const categories = getAllCategories();
 
   const articleRoutes: MetadataRoute.Sitemap = articles.map((article) => ({
-    url: article.canonicalUrl,
-    lastModified: new Date(article.date),
+    url: article.canonicalUrl || `${baseUrl}/articles/${article.slug}`,
+    lastModified: parseSafeDate(article.date),
     changeFrequency: 'weekly',
-    priority: 0.9,
+    priority: (article as any).isPersonal ? 1.0 : 0.8,
   }));
 
   const categoryRoutes: MetadataRoute.Sitemap = categories.map((cat) => ({
