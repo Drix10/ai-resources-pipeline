@@ -1,15 +1,48 @@
-export const dynamicParams = true;
-export const revalidate = 3600;
-
 import Link from 'next/link';
 import { getAllArticles, getAllCategories } from '@/lib/markdown';
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
+
+export const dynamicParams = true;
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   const categories = getAllCategories();
   return categories.map((c) => ({
     category: c.slug,
   }));
+}
+
+export async function generateMetadata({ params }: { params: { category: string } }): Promise<Metadata> {
+  const allArticles = getAllArticles();
+  const filtered = allArticles.filter(
+    (a) =>
+      a.categorySlug === params.category ||
+      a.category.toLowerCase() === decodeURIComponent(params.category).toLowerCase()
+  );
+
+  if (filtered.length === 0) {
+    return {
+      title: 'Category Not Found - Drix10 Blogs',
+    };
+  }
+
+  const categoryName = filtered[0].category;
+  const canonicalUrl = `https://blogs.drix10.com/categories/${params.category}`;
+
+  return {
+    title: `${categoryName} - Technical Research & Guides | Drix10 Blogs`,
+    description: `Curated technical research, system designs, and architecture breakdowns on ${categoryName} by Drishtant Ghosh (Drix10).`,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: `${categoryName} - Drix10 Blogs`,
+      description: `Curated technical research and architecture breakdowns on ${categoryName}.`,
+      url: canonicalUrl,
+      type: 'website',
+    },
+  };
 }
 
 export default function CategoryPage({ params }: { params: { category: string } }) {
