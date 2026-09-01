@@ -769,16 +769,17 @@ class LocalLLMService {
       const timeout = setTimeout(() => controller.abort(), config.llm.nvidia.requestTimeoutMs);
 
       try {
+        const systemContent = format === "json" || typeof format === "object"
+          ? `${SYSTEM_PROMPT || "You are an AI assistant."}\n\nCRITICAL MANDATORY DIRECTIVE: You are a structured JSON output engine. You must output ONLY a valid, parseable JSON object or array. Do NOT output any markdown backticks, explanations, preamble, conversational text, or postscripts. Start directly with { or [ and end directly with } or ].`
+          : (SYSTEM_PROMPT || "You are an AI assistant.");
+
+        const userContent = String(prompt || "").trim() || "No content provided.";
+
         const payload = {
           model: config.llm.nvidia.model,
           messages: [
-            { 
-              role: "system", 
-              content: format === "json" || typeof format === "object"
-                ? `${SYSTEM_PROMPT}\n\nCRITICAL MANDATORY DIRECTIVE: You are a structured JSON output engine. You must output ONLY a valid, parseable JSON object or array. Do NOT output any markdown backticks, explanations, preamble, conversational text, or postscripts. Start directly with { or [ and end directly with } or ].`
-                : SYSTEM_PROMPT 
-            },
-            { role: "user", content: prompt }
+            { role: "system", content: systemContent },
+            { role: "user", content: userContent }
           ],
           temperature: typeof temperature === "number" ? temperature : 0.1,
           max_tokens: typeof num_predict === "number" ? num_predict : 2500,

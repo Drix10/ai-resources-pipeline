@@ -238,9 +238,14 @@ function getTopicName(queryName) {
 const runEndofRunCuration = async (successfulArticles) => {
   if (successfulArticles.length > 0) {
     logger.info(`Starting LinkedIn Agentic Curation Flow for ${successfulArticles.length} raw files (flattening sub-articles)...`);
-    try {
       const flattenedArticles = llmService.splitArticlesIntoSubArticles(successfulArticles);
-      const selectedIndices = await llmService.selectBestArticlesForLinkedIn(flattenedArticles);
+      let selectedIndices = [0];
+      try {
+        selectedIndices = await llmService.selectBestArticlesForLinkedIn(flattenedArticles);
+      } catch (selectErr) {
+        logger.warn("LinkedIn Curation: LLM article selection failed, safely falling back to top article:", selectErr.message);
+        selectedIndices = [0];
+      }
       logger.info(`LinkedIn Curation: Selected article indices: ${JSON.stringify(selectedIndices)}`);
 
       const uniqueIndices = [...new Set(selectedIndices)];

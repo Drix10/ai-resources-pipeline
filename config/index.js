@@ -30,7 +30,6 @@ const config = {
     webhookUrl: process.env.DISCORD_WEBHOOK_URL,
   },
   social: {
-    // Publishing is opt-in so an unset or invalid value cannot post to LinkedIn.
     linkedinPost: process.env.LINKEDIN_POST === "true",
   },
   syndication: {
@@ -43,7 +42,7 @@ const config = {
       token: process.env.MEDIUM_TOKEN || "",
       enabled: process.env.MEDIUM_AUTO_PUBLISH === "true",
     },
-      },
+  },
   monitoring: {
     targetListId: process.env.MONITOR_LIST_ID,
     checkInterval: parsePositiveInteger(process.env.CHECK_INTERVAL, 300000),
@@ -103,8 +102,8 @@ const config = {
       lists: ["1705695075014180922"],
     },
     {
-      name: "AI Leaders and Thinkers",
-      lists: ["1744564719309279599", "1828820239175590166"],
+      name: "AI Artists and Creators",
+      lists: ["1697023939338519013"],
     },
     {
       name: "AI in Healthcare and Science",
@@ -115,8 +114,8 @@ const config = {
       lists: ["1705703289579602425"],
     },
     {
-      name: "AI Organizations and Media",
-      lists: ["1741902685669113995"],
+      name: "AI Consulting and Expertise",
+      lists: ["1741727636806881476"],
     },
     {
       name: "AI Professionals and Community",
@@ -177,12 +176,12 @@ const config = {
       lists: ["1579148080745791489"],
     },
     {
-      name: "Founders and Entrepreneurs",
-      lists: ["8020", "1049755751185403904", "1795545373173575917"],
+      name: "AI Education",
+      lists: ["1705702737835643273"],
     },
     {
-      name: "Tech Infrastructure",
-      lists: ["1049745135431376896"],
+      name: "AI in Enterprise Applications",
+      lists: ["1705692999974637973"],
     },
     {
       name: "Interesting Finds",
@@ -227,8 +226,6 @@ const config = {
   ],
 };
 
-// A duplicated category causes the same list to be scraped, uploaded, and
-// announced twice in one run. Keep the first declaration as the canonical one.
 const seenFolderNames = new Set();
 config.folders = config.folders.filter((folder) => {
   if (seenFolderNames.has(folder.name)) {
@@ -246,11 +243,7 @@ const requiredConfigs = {
   "Folder(s)": config.folders,
 };
 
-// Discord webhook is optional - only required for monitoring (list-tracker.js)
-// Validation for monitoring is done in list-tracker.js itself
-
 for (const [key, value] of Object.entries(requiredConfigs)) {
-  // Special validation for folders array - must have at least one entry
   if (key === "Folder(s)") {
     if (!value || !Array.isArray(value) || value.length === 0) {
       throw new Error(
