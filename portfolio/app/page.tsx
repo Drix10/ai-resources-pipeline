@@ -49,10 +49,7 @@ export default function HomePage() {
             </div>
 
             <p className="text-xs sm:text-sm text-zinc-300 max-w-2xl leading-relaxed">
-              I build AI systems and full-stack products that turn complex workflows into usable software. My work spans LLM orchestration, multi-agent swarms, real-time applications, developer tools, and high-concurrency cloud infrastructure. Author of technical guides & personal essays at{' '}
-              <a href="https://blogs.drix10.com" target="_blank" rel="noreferrer" className="text-emerald-400 hover:underline font-semibold">
-                Drix10 Blogs
-              </a>.
+              I build AI systems and full-stack products that turn complex workflows into usable software. My work spans multi-agent swarms, LLM orchestration, real-time distributed applications, developer tooling, and high-concurrency cloud infrastructure.
             </p>
           </div>
         </div>
@@ -60,13 +57,11 @@ export default function HomePage() {
         {/* Quick Action Buttons */}
         <div className="flex flex-wrap items-center gap-2.5 pt-2">
           <a
-            href="https://blogs.drix10.com"
-            target="_blank"
-            rel="noreferrer"
+            href="#projects"
             className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold text-xs font-mono transition-colors shadow-lg shadow-emerald-950/40 flex items-center gap-1.5"
           >
-            <span>⚡ Read Technical Blogs</span>
-            <span>↗</span>
+            <span>⚡ View Systems & Code</span>
+            <span>↓</span>
           </a>
           <a
             href="https://github.com/Drix10"
@@ -92,6 +87,15 @@ export default function HomePage() {
           >
             <span>X / Twitter</span>
           </a>
+          <a
+            href="https://blogs.drix10.com"
+            target="_blank"
+            rel="noreferrer"
+            className="px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-emerald-400 text-xs font-mono font-semibold transition-colors flex items-center gap-1.5"
+          >
+            <span>Technical Writing</span>
+            <span>↗</span>
+          </a>
         </div>
       </section>
 
@@ -106,8 +110,8 @@ export default function HomePage() {
           <div className="text-[11px] text-zinc-500 font-medium">CosLynx MVP Deployments</div>
         </div>
         <div className="p-4 rounded-2xl bg-zinc-900/40 border border-zinc-800/80 space-y-1 text-center sm:text-left">
-          <div className="text-2xl font-black font-mono text-zinc-100">500+</div>
-          <div className="text-[11px] text-zinc-500 font-medium">Curated Technical Guides</div>
+          <div className="text-2xl font-black font-mono text-zinc-100">5M+</div>
+          <div className="text-[11px] text-zinc-500 font-medium">Production User Actions</div>
         </div>
         <div className="p-4 rounded-2xl bg-zinc-900/40 border border-zinc-800/80 space-y-1 text-center sm:text-left">
           <div className="text-2xl font-black font-mono text-emerald-400">2x 🏆</div>
@@ -332,18 +336,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 7. Knowledge Hub Ribbon */}
+      {/* 7. Writing & Technical Research Section */}
       <section id="writing" className="p-6 sm:p-8 rounded-3xl bg-zinc-900/30 border border-zinc-800 space-y-4">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-mono text-zinc-400 font-semibold">05. Publications & Knowledge Hub</span>
-          <span className="text-xs font-mono text-emerald-400">Technical Deep Dives</span>
+          <span className="text-xs font-mono text-zinc-400 font-semibold">05. Research & Engineering Writing</span>
+          <span className="text-xs font-mono text-emerald-400">Knowledge Hub</span>
         </div>
         <div className="space-y-2">
           <h3 className="text-lg font-bold text-zinc-100">
-            Drix10 Blogs — Engineering Knowledge Hub & Personal Notes
+            Technical Research, Architecture Notes & Founder Essays
           </h3>
           <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed max-w-2xl">
-            A real-time engineering guide repository covering AI Developer Tools, Cybersecurity, Distributed Systems, Quantum Computing, and personal architectural postmortems.
+            Engineering deep dives, autonomous agent architectures, cybersecurity analyses, distributed systems postmortems, and startup lessons learned.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-3 pt-2 text-xs font-mono">
@@ -353,7 +357,7 @@ export default function HomePage() {
             rel="noreferrer"
             className="text-emerald-400 hover:text-emerald-300 underline font-semibold"
           >
-            Explore Knowledge Hub ↗
+            Read Articles on Drix10 Blogs ↗
           </a>
           <span className="text-zinc-700">•</span>
           <a

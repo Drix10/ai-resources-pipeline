@@ -87,10 +87,10 @@ export default function SearchableArticles({ initialArticles, initialTotalCount,
   const startIndex = (currentPage - 1) * pageSize;
 
   return (
-    <div className="space-y-5 sm:space-y-6">
-      {/* Mobile-Optimized Search Input Bar */}
+    <div className="space-y-6">
+      {/* Search Input Bar matching Portfolio Style */}
       <div className="relative">
-        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-zinc-500">
+        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-zinc-500">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
@@ -104,31 +104,31 @@ export default function SearchableArticles({ initialArticles, initialTotalCount,
           value={searchQuery}
           onChange={handleSearchChange}
           placeholder="Search architectures, code, tools, security..."
-          className="w-full pl-10 pr-20 py-3 rounded-xl bg-zinc-900/90 border border-zinc-800 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500 transition-all font-sans shadow-md"
+          className="w-full pl-11 pr-20 py-3.5 rounded-2xl bg-zinc-900/40 border border-zinc-800/80 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:border-zinc-600 focus:ring-1 focus:ring-zinc-600 transition-all font-sans shadow-sm"
         />
-        <div className="absolute inset-y-0 right-0 pr-2.5 flex items-center gap-1.5">
+        <div className="absolute inset-y-0 right-0 pr-3 flex items-center gap-1.5">
           {searchQuery && (
             <button
               onClick={() => { setSearchQuery(''); setCurrentPage(1); }}
-              className="text-xs text-zinc-400 hover:text-zinc-200 px-2 py-1 rounded-md bg-zinc-800 transition-colors min-h-[32px] flex items-center"
+              className="text-xs text-zinc-400 hover:text-zinc-200 px-2.5 py-1 rounded-lg bg-zinc-800 transition-colors min-h-[28px] flex items-center"
             >
               Clear
             </button>
           )}
-          <span className="hidden sm:inline-block text-[10px] font-mono text-zinc-500 bg-zinc-800/80 px-1.5 py-0.5 rounded border border-zinc-700/50">
+          <span className="hidden sm:inline-block text-[10px] font-mono text-zinc-400 bg-zinc-800/90 px-1.5 py-0.5 rounded border border-zinc-700/60">
             ⌘K
           </span>
         </div>
       </div>
 
       {/* Controls Bar: Sort, Page Size, Topic Filters */}
-      <div className="flex flex-col xs:flex-row items-stretch xs:items-center justify-between gap-3 p-3 rounded-xl bg-zinc-900/40 border border-zinc-800/80 text-xs">
+      <div className="flex flex-col xs:flex-row items-stretch xs:items-center justify-between gap-3 p-3 sm:p-4 rounded-2xl bg-zinc-900/40 border border-zinc-800/80 text-xs">
         <div className="flex items-center justify-between xs:justify-start gap-2 w-full xs:w-auto">
-          <span className="text-zinc-500 font-semibold uppercase tracking-wider text-[11px]">Sort:</span>
+          <span className="text-zinc-500 font-semibold uppercase tracking-wider text-[11px] font-mono">Sort:</span>
           <select
             value={sortBy}
             onChange={(e) => { setSortBy(e.target.value as SortOption); setCurrentPage(1); }}
-            className="bg-zinc-900 border border-zinc-800 text-zinc-200 rounded-md px-2.5 py-1.5 text-xs focus:outline-none focus:border-zinc-600 flex-1 xs:flex-initial min-h-[36px] font-medium"
+            className="bg-zinc-900 border border-zinc-800 text-zinc-200 rounded-lg px-2.5 py-1.5 text-xs focus:outline-none focus:border-zinc-600 flex-1 xs:flex-initial min-h-[36px] font-medium"
           >
             <option value="newest">🕒 Newest Releases (Default)</option>
             <option value="quick">⚡ Quick Reads (&lt; 2m)</option>
@@ -137,13 +137,13 @@ export default function SearchableArticles({ initialArticles, initialTotalCount,
         </div>
 
         <div className="flex items-center justify-between xs:justify-end gap-2 w-full xs:w-auto">
-          <span className="text-zinc-500 text-[11px]">Page Size:</span>
+          <span className="text-zinc-500 text-[11px] font-mono">Per Page:</span>
           <div className="flex items-center gap-1">
             {[25, 50, 100].map((size) => (
               <button
                 key={size}
                 onClick={() => { setPageSize(size); setCurrentPage(1); }}
-                className={'px-2.5 py-1 rounded text-xs font-mono transition-colors min-h-[32px] flex items-center justify-center ' + (pageSize === size ? 'bg-zinc-100 text-zinc-950 font-bold' : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 border border-zinc-800')}
+                className={'px-2.5 py-1 rounded-lg text-xs font-mono transition-colors min-h-[32px] flex items-center justify-center ' + (pageSize === size ? 'bg-zinc-100 text-zinc-950 font-bold shadow-sm' : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200 border border-zinc-800')}
               >
                 {size}
               </button>
@@ -152,16 +152,16 @@ export default function SearchableArticles({ initialArticles, initialTotalCount,
         </div>
       </div>
 
-      {/* Mobile Swipeable Topic Filters Carousel */}
+      {/* Topic Filters Carousel */}
       <div className="space-y-2">
-        <div className="flex items-center justify-between text-[11px] font-semibold uppercase tracking-wider text-zinc-500">
+        <div className="flex items-center justify-between text-[11px] font-semibold uppercase tracking-wider text-zinc-500 font-mono">
           <span>Topics ({categories.length})</span>
           {selectedCategory && (
             <button
               onClick={() => handleCategorySelect(null)}
-              className="text-zinc-400 hover:text-zinc-100 normal-case font-normal text-xs py-1 transition-colors min-h-[32px]"
+              className="text-emerald-400 hover:text-emerald-300 normal-case font-normal text-xs py-1 transition-colors min-h-[32px]"
             >
-              Reset Topic
+              Reset Topic Filter
             </button>
           )}
         </div>
@@ -169,7 +169,7 @@ export default function SearchableArticles({ initialArticles, initialTotalCount,
         <div className="flex gap-1.5 overflow-x-auto pb-2 pt-1 no-scrollbar touch-pan-x">
           <button
             onClick={() => handleCategorySelect(null)}
-            className={'flex-shrink-0 px-3 py-1.5 rounded-lg text-xs font-medium transition-all min-h-[36px] flex items-center ' + (selectedCategory === null ? 'bg-zinc-100 text-zinc-950 font-semibold shadow-sm' : 'bg-zinc-900 hover:bg-zinc-800/90 border border-zinc-800 text-zinc-400 hover:text-zinc-200')}
+            className={'flex-shrink-0 px-3.5 py-2 rounded-xl text-xs font-medium transition-all min-h-[36px] flex items-center ' + (selectedCategory === null ? 'bg-zinc-100 text-zinc-950 font-bold shadow-sm' : 'bg-zinc-900/60 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 hover:text-zinc-200')}
           >
             All ({initialTotalCount.toLocaleString()})
           </button>
@@ -178,10 +178,10 @@ export default function SearchableArticles({ initialArticles, initialTotalCount,
             <button
               key={cat.name}
               onClick={() => handleCategorySelect(selectedCategory === cat.slug ? null : cat.slug)}
-              className={'flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all min-h-[36px] ' + (selectedCategory === cat.slug ? 'bg-zinc-100 text-zinc-950 font-semibold shadow-sm' : 'bg-zinc-900 hover:bg-zinc-800/90 border border-zinc-800 text-zinc-400 hover:text-zinc-200')}
+              className={'flex-shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-medium transition-all min-h-[36px] ' + (selectedCategory === cat.slug ? 'bg-zinc-100 text-zinc-950 font-bold shadow-sm' : 'bg-zinc-900/60 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 hover:text-zinc-200')}
             >
               <span>{cat.name}</span>
-              <span className={'text-[11px] font-mono ' + (selectedCategory === cat.slug ? 'text-zinc-700' : 'text-zinc-500')}>
+              <span className={'text-[11px] font-mono ' + (selectedCategory === cat.slug ? 'text-zinc-700 font-bold' : 'text-zinc-500')}>
                 ({cat.count})
               </span>
             </button>
@@ -190,9 +190,9 @@ export default function SearchableArticles({ initialArticles, initialTotalCount,
       </div>
 
       {/* Articles Feed */}
-      <div className="space-y-3 pt-3 border-t border-zinc-800/60">
+      <div className="space-y-3 pt-3 border-t border-zinc-800/80">
         <div className="flex items-center justify-between text-xs text-zinc-500">
-          <span className="font-semibold uppercase tracking-wider text-[11px]">
+          <span className="font-semibold uppercase tracking-wider text-[11px] font-mono">
             {totalCount > 0 ? Math.min(totalCount, startIndex + 1) : 0}–{Math.min(startIndex + pageSize, totalCount)} of {totalCount.toLocaleString()} Guides
           </span>
           {isPending && <span className="text-zinc-400 text-xs animate-pulse">Searching...</span>}
@@ -200,46 +200,46 @@ export default function SearchableArticles({ initialArticles, initialTotalCount,
         </div>
 
         {articles.length === 0 ? (
-          <div className="text-center py-14 border border-dashed border-zinc-800 rounded-2xl space-y-3 bg-zinc-950/40 px-4">
+          <div className="text-center py-14 border border-dashed border-zinc-800 rounded-3xl space-y-3 bg-zinc-950/40 px-4">
             <div className="text-zinc-300 text-sm font-medium">No technical breakdowns found.</div>
             <p className="text-zinc-500 text-xs max-w-sm mx-auto">Try broader keywords or reset your topic filter.</p>
             <button
               onClick={() => { setSearchQuery(''); setSelectedCategory(null); setCurrentPage(1); }}
-              className="text-xs px-3.5 py-2 rounded-lg bg-zinc-800 text-zinc-200 hover:bg-zinc-700 transition-colors min-h-[40px]"
+              className="text-xs px-4 py-2 rounded-xl bg-zinc-800 text-zinc-200 hover:bg-zinc-700 transition-colors min-h-[40px] font-medium"
             >
               Reset Search & Filters
             </button>
           </div>
         ) : (
-          <div className="grid gap-2.5 sm:gap-3">
+          <div className="grid gap-3">
             {articles.map((article) => (
               <Link
                 key={article.slug}
                 href={'/articles/' + article.slug}
-                className="block p-3.5 sm:p-4 rounded-xl bg-zinc-900/30 hover:bg-zinc-900/80 border border-zinc-800/80 hover:border-zinc-700 transition-all duration-150 group active:scale-[0.99]"
+                className="block p-4 sm:p-5 rounded-2xl bg-zinc-900/40 hover:bg-zinc-900/80 border border-zinc-800/80 hover:border-zinc-700 transition-all duration-150 group active:scale-[0.99] shadow-sm"
               >
-                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1.5 text-xs text-zinc-500">
+                <div className="flex flex-wrap items-center gap-2 mb-2 text-xs text-zinc-500">
                   {article.category === 'Personal' || (article as any).isPersonal ? (
-                    <span className="px-2 py-0.5 rounded-md bg-amber-950/80 border border-amber-800/80 font-mono text-[11px] text-amber-300 font-semibold flex items-center gap-1">
+                    <span className="px-2.5 py-0.5 rounded-md bg-amber-950/80 border border-amber-800/80 font-mono text-[11px] text-amber-300 font-semibold flex items-center gap-1">
                       <span>✍️</span>
-                      <span>Author Note / Personal</span>
+                      <span>Founder Essay</span>
                     </span>
                   ) : (
-                    <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 font-mono text-[11px] text-zinc-400 truncate max-w-[180px]">
+                    <span className="px-2 py-0.5 rounded-md bg-zinc-800/70 border border-zinc-700/50 font-mono text-[11px] text-zinc-300 truncate max-w-[200px]">
                       {article.category}
                     </span>
                   )}
                   <span>•</span>
-                  <time dateTime={article.date}>{article.date}</time>
+                  <time dateTime={article.date} className="font-mono">{article.date}</time>
                   <span>•</span>
-                  <span>{article.readingTimeMinutes}m read</span>
+                  <span className="font-mono">{article.readingTimeMinutes}m read</span>
                 </div>
 
-                <h2 className="text-sm sm:text-base font-semibold text-zinc-100 group-hover:text-zinc-200 transition-colors leading-snug mb-1">
+                <h2 className="text-base sm:text-lg font-bold text-zinc-100 group-hover:text-emerald-400 transition-colors leading-snug mb-1.5">
                   {article.title}
                 </h2>
 
-                <p className="text-xs text-zinc-400 line-clamp-2 leading-relaxed">
+                <p className="text-xs sm:text-sm text-zinc-400 line-clamp-2 leading-relaxed">
                   {article.description}
                 </p>
               </Link>

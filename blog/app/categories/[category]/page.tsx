@@ -54,36 +54,46 @@ export default function CategoryPage({ params }: { params: { category: string } 
   const categoryName = filtered[0].category;
 
   return (
-    <div className="space-y-8">
-      <div className="border-b border-zinc-800 pb-4">
-        <Link href="/" className="text-xs text-zinc-500 hover:text-zinc-300 mb-2 inline-block">← Back to Overview</Link>
-        <h1 className="text-xl font-bold text-zinc-100">{categoryName}</h1>
-        <p className="text-zinc-400 text-xs mt-1">{filtered.length} curated breakdown(s)</p>
+    <div className="space-y-10 sm:space-y-12 max-w-5xl mx-auto">
+      {/* Header */}
+      <div className="space-y-3 pb-6 border-b border-zinc-800/80">
+        <div className="flex items-center justify-between">
+          <Link href="/categories" className="text-xs font-mono text-zinc-500 hover:text-zinc-300 inline-flex items-center gap-1.5 transition-colors">
+            <span>←</span> Back to Categories Directory
+          </Link>
+          <span className="px-2.5 py-0.5 rounded-md bg-zinc-900 border border-zinc-800 text-[11px] font-mono text-zinc-400 font-medium">
+            Topic Hub
+          </span>
+        </div>
+        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-100">
+          {categoryName}
+        </h1>
+        <p className="text-xs sm:text-sm text-zinc-300 max-w-2xl leading-relaxed">
+          {filtered.length} technical breakdown{filtered.length !== 1 ? 's' : ''} and architectural notes curated in this domain.
+        </p>
       </div>
 
-      <div className="divide-y divide-zinc-800/60">
+      <div className="grid gap-3.5">
         {filtered.map((article) => (
-          <article key={article.slug} className="py-4 group">
-            <div className="flex items-center gap-2 mb-1 text-xs text-zinc-500">
+          <Link
+            key={article.slug}
+            href={'/articles/' + article.slug}
+            className="block p-5 rounded-2xl bg-zinc-900/40 hover:bg-zinc-900/80 border border-zinc-800/80 hover:border-zinc-700 transition-all duration-150 group shadow-sm active:scale-[0.99]"
+          >
+            <div className="flex items-center gap-2 mb-2 text-xs text-zinc-500 font-mono">
               <time dateTime={article.date}>{article.date}</time>
               <span>•</span>
-              <span>{article.readingTimeMinutes} min read</span>
+              <span>{article.readingTimeMinutes}m read</span>
             </div>
 
-            <h2 className="text-base font-semibold text-zinc-100 group-hover:text-zinc-300 transition-colors leading-snug mb-1">
-              <Link href={'/articles/' + article.slug} className="hover:underline">
-                {article.title}
-              </Link>
+            <h2 className="text-base sm:text-lg font-bold text-zinc-100 group-hover:text-emerald-400 transition-colors leading-snug mb-1.5">
+              {article.title}
             </h2>
 
-            <p className="text-xs text-zinc-400 line-clamp-2 leading-relaxed mb-2">
+            <p className="text-xs sm:text-sm text-zinc-400 line-clamp-2 leading-relaxed">
               {article.description}
             </p>
-
-            <Link href={'/articles/' + article.slug} className="text-xs text-zinc-300 hover:text-zinc-100 font-medium inline-flex items-center gap-1">
-              Read article →
-            </Link>
-          </article>
+          </Link>
         ))}
       </div>
     </div>

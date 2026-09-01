@@ -117,7 +117,7 @@ export default function RootLayout({
         url: 'https://drix10.com',
         image: 'https://blogs.drix10.com/avatar.png',
         jobTitle: 'Founder & AI Engineer',
-        description: 'AI Engineer, serial founder, and cybersecurity researcher. Author and curator of 8,950+ technical engineering breakdowns at Drix10 Blogs.',
+        description: 'AI Engineer, serial founder, and cybersecurity student. Author and curator of 8,950+ technical engineering breakdowns at Drix10 Blogs.',
         sameAs: [
           'https://github.com/Drix10',
           'https://www.linkedin.com/in/drix10',
@@ -167,46 +167,56 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(rootKnowledgeGraphSchema) }}
         />
       </head>
-      <body className={`${inter.variable} font-sans min-h-screen flex flex-col bg-[#09090b] text-[#fafafa] antialiased selection:bg-zinc-800 selection:text-zinc-100 overflow-x-hidden`}>
-        {/* Mobile-First Sticky Header */}
+      <body className={`${inter.variable} font-sans min-h-screen flex flex-col bg-[#09090b] text-zinc-100 antialiased selection:bg-zinc-800 selection:text-zinc-100 overflow-x-hidden`}>
+        {/* Global Navigation Header (Matched with Portfolio Design System) */}
         <header className="border-b border-zinc-800/80 bg-[#09090b]/95 backdrop-blur-md sticky top-0 z-50">
-          <div className="max-w-5xl mx-auto px-3.5 sm:px-4 h-14 flex items-center justify-between gap-2">
-            <div className="flex items-center gap-2">
-              <a 
-                href="https://drix10.com" 
-                target="_blank" 
-                rel="noreferrer"
-                title="Drishtant Ghosh (Drix10) Portfolio"
-                className="flex items-center gap-2 group min-h-[44px]"
-              >
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <Link href="/" className="flex items-center gap-2.5 group">
                 <Image
                   src="/avatar.png"
                   alt="Drishtant Ghosh (Drix10)"
-                  width={28}
-                  height={28}
-                  className="w-7 h-7 rounded-full object-cover border border-zinc-700 shadow-sm group-hover:border-zinc-400 transition-colors"
+                  width={32}
+                  height={32}
+                  priority
+                  className="w-8 h-8 rounded-full object-cover border border-zinc-700 shadow-sm group-hover:border-zinc-400 transition-colors"
                 />
-                <span className="font-semibold text-sm tracking-tight text-zinc-100 group-hover:text-white transition-colors">
-                  drix10
-                </span>
-              </a>
-              <span className="text-zinc-600 font-light select-none">/</span>
-              <Link 
-                href="/" 
-                className="text-sm text-zinc-300 hover:text-white transition-colors py-2 font-medium"
-              >
-                blog
+                <div className="flex items-center gap-1.5 font-bold tracking-tight text-sm text-zinc-100 group-hover:text-white transition-colors">
+                  <span>drix10</span>
+                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-zinc-400 font-mono font-normal">
+                    blogs
+                  </span>
+                </div>
               </Link>
             </div>
+
+            {/* Desktop Navigation Links */}
+            <nav className="hidden md:flex items-center gap-5 text-xs font-medium text-zinc-400">
+              <a
+                href="https://drix10.com"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-zinc-100 transition-colors flex items-center gap-1 font-semibold text-zinc-300"
+              >
+                <span>Portfolio</span>
+                <span className="text-[10px] text-zinc-500">↗</span>
+              </a>
+              <Link href="/categories" className="hover:text-zinc-100 transition-colors">
+                Categories
+              </Link>
+              <Link href="/categories/personal" className="text-amber-400/90 hover:text-amber-300 font-mono transition-colors font-medium">
+                Founder Notes
+              </Link>
+            </nav>
             
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5">
               <HeaderLiveCounter />
               <a 
                 href="https://github.com/Drix10" 
                 target="_blank" 
                 rel="noreferrer" 
                 aria-label="GitHub Profile"
-                className="text-xs font-medium px-2.5 sm:px-3 py-2 rounded-md bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 hover:text-zinc-100 transition-colors min-h-[36px] flex items-center justify-center"
+                className="text-xs font-medium px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 hover:text-white transition-colors"
               >
                 GitHub
               </a>
@@ -215,56 +225,56 @@ export default function RootLayout({
                 target="_blank" 
                 rel="noreferrer" 
                 aria-label="Connect on LinkedIn"
-                className="text-xs font-medium px-2.5 sm:px-3 py-2 rounded-md bg-zinc-100 hover:bg-zinc-200 text-zinc-950 transition-colors min-h-[36px] flex items-center justify-center font-semibold"
+                className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-zinc-950 transition-colors"
               >
-                <span className="hidden xs:inline">Connect on </span>LinkedIn
+                LinkedIn
               </a>
             </div>
           </div>
         </header>
 
         {/* Main Content Area */}
-        <main className="flex-1 max-w-5xl w-full mx-auto px-3.5 sm:px-4 py-6 sm:py-8">
+        <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12">
           {children}
         </main>
 
-        {/* Mobile Responsive High-DR SEO Authority Footer */}
-        <footer className="border-t border-zinc-800/80 bg-[#09090b] py-8 sm:py-10 mt-12 sm:mt-16 text-xs text-zinc-500">
-          <div className="max-w-5xl mx-auto px-3.5 sm:px-4 flex flex-col gap-6">
+        {/* Global Footer (Matched with Portfolio Layout) */}
+        <footer className="border-t border-zinc-800/80 bg-[#09090b] py-10 mt-16 text-xs text-zinc-500">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col gap-6">
             
-            {/* SEO Directory Block (Visually subtle but crawlable) */}
-            <div className="pt-4 border-t border-zinc-800/40">
-              <h4 className="text-zinc-400 font-semibold mb-3">Explore Categories Directory</h4>
+            {/* Category Directory Block */}
+            <div className="pt-2">
+              <h4 className="text-xs font-mono uppercase tracking-wider text-zinc-400 font-semibold mb-3">Explore Categories Directory</h4>
               <nav aria-label="Footer Directory" className="flex flex-wrap gap-x-3 gap-y-2">
                 {categories.map(c => (
-                  <Link key={c.slug} href={`/categories/${c.slug}`} className="text-zinc-600 hover:text-zinc-400 transition-colors">
+                  <Link key={c.slug} href={`/categories/${c.slug}`} className="text-zinc-500 hover:text-zinc-300 transition-colors">
                     {c.name}
                   </Link>
                 ))}
               </nav>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left pt-6 border-t border-zinc-800/40">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left pt-6 border-t border-zinc-800/60">
               <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2">
                 <span className="font-semibold text-zinc-300">Drishtant Ghosh (Drix10)</span>
-                <span className="hidden sm:inline">—</span>
-                <span>Autonomous Tech Curation & Engineering Hub</span>
+                <span className="hidden sm:inline text-zinc-700">•</span>
+                <span>Engineering Knowledge Hub & Autonomous Systems</span>
               </div>
 
-              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-zinc-400">
-                <a href="https://drix10.com" target="_blank" rel="noreferrer" className="hover:text-zinc-100 hover:underline min-h-[32px] flex items-center">
-                  Author Portfolio (drix10.com)
+              <div className="flex flex-wrap items-center justify-center gap-4 text-zinc-400">
+                <a href="https://drix10.com" target="_blank" rel="noreferrer" className="hover:text-zinc-100 hover:underline">
+                  Author Portfolio
                 </a>
-                <span className="text-zinc-700">•</span>
-                <a href="https://github.com/Drix10/ai-resources" target="_blank" rel="noreferrer" className="hover:text-zinc-100 hover:underline min-h-[32px] flex items-center">
+                <a href="https://github.com/Drix10/ai-resources" target="_blank" rel="noreferrer" className="hover:text-zinc-100 hover:underline">
                   GitHub Repo
                 </a>
-                <span className="text-zinc-700">•</span>
-                <a href="https://www.linkedin.com/in/drix10" target="_blank" rel="noreferrer" className="hover:text-zinc-100 hover:underline min-h-[32px] flex items-center">
+                <a href="https://www.linkedin.com/in/drix10" target="_blank" rel="noreferrer" className="hover:text-zinc-100 hover:underline">
                   LinkedIn
                 </a>
-                <span className="text-zinc-700">•</span>
-                <Link href="/sitemap.xml" className="hover:text-zinc-100 hover:underline min-h-[32px] flex items-center">
+                <Link href="/categories" className="hover:text-zinc-100 hover:underline">
+                  Categories
+                </Link>
+                <Link href="/sitemap.xml" className="hover:text-zinc-100 hover:underline">
                   Sitemap
                 </Link>
               </div>

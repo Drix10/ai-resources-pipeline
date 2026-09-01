@@ -7,7 +7,7 @@ const ROLES = [
   '1x Acquired Serial Founder (ReeF)',
   'AI Systems & LLM Architect',
   'Canopy @ Founders, Inc.',
-  'Cybersecurity Researcher @ DSU',
+  'Cybersecurity Student @ DSU',
   '2x International Hackathon Winner 🏆',
   'Author @ Drix10 Blogs',
 ];

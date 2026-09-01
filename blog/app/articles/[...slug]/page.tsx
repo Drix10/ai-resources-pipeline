@@ -198,53 +198,54 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
         </div>
       </section>
 
-      {/* High-DR Backlinks & Mobile Author Card */}
-      <div className="mt-8 sm:mt-12 pt-6 border-t border-zinc-800 space-y-4 sm:space-y-6">
-        <div className="p-4 rounded-xl bg-zinc-900/60 border border-zinc-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      {/* Author Card & Cross-Domain Authority */}
+      <div className="mt-8 sm:mt-12 pt-6 border-t border-zinc-800/80 space-y-4 sm:space-y-6">
+        <div className="p-5 sm:p-6 rounded-2xl bg-zinc-900/40 border border-zinc-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 shadow-sm">
           <div className="flex items-center gap-3.5">
             <a href="https://drix10.com" target="_blank" rel="noreferrer" className="shrink-0" title="Drishtant Ghosh (Drix10)">
               <Image
                 src="/avatar.png"
                 alt="Drishtant Ghosh (Drix10)"
-                width={44}
-                height={44}
-                className="w-11 h-11 rounded-full object-cover border border-zinc-700 shadow-md hover:border-zinc-400 transition-colors"
+                width={48}
+                height={48}
+                className="w-12 h-12 rounded-full object-cover border border-zinc-700 shadow-md hover:border-zinc-400 transition-colors"
               />
             </a>
-            <div className="space-y-0.5">
-              <div className="text-xs font-semibold text-zinc-200 flex items-center gap-1.5">
-                <span>Written by <strong className="text-white">Drishtant Ghosh (Drix10)</strong></span>
-                <span>•</span>
-                <Link href="/about" className="text-zinc-400 hover:text-zinc-200 underline text-[11px]">About</Link>
+            <div className="space-y-1">
+              <div className="text-xs font-bold text-zinc-100 flex items-center gap-1.5">
+                <span>Drishtant Ghosh (Drix10)</span>
+                <span className="text-zinc-600 font-mono">•</span>
+                <span className="text-emerald-400 font-mono text-[11px] font-medium">Author & Engineer</span>
               </div>
-              <p className="text-xs text-zinc-400">
-                AI Engineer & Serial Founder | Canopy @ f.inc | 1x Acquired Founder | Researching autonomous agent pipelines, cybersecurity, and system architecture. Read more on <a href="https://drix10.com" target="_blank" rel="noreferrer" className="text-zinc-200 underline">drix10.com</a>.
+              <p className="text-xs text-zinc-400 leading-relaxed max-w-md">
+                Co-Founder @ PartPilot, 1x Acquired Serial Founder (ReeF), Canopy @ Founders, Inc., and Cybersecurity Researcher.
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 w-full sm:w-auto">
+          <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+            <a
+              href="https://drix10.com"
+              target="_blank"
+              rel="noreferrer"
+              className="flex-1 sm:flex-initial px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 hover:text-white text-xs font-semibold transition-colors text-center min-h-[36px] flex items-center justify-center gap-1"
+            >
+              <span>Portfolio</span>
+              <span className="text-[10px] text-zinc-500">↗</span>
+            </a>
             <a
               href="https://www.linkedin.com/in/drix10"
               target="_blank"
               rel="noreferrer"
-              className="flex-1 sm:flex-initial px-3 py-2 rounded-md bg-zinc-100 text-zinc-950 font-semibold text-xs hover:bg-zinc-200 transition-colors text-center min-h-[36px] flex items-center justify-center"
+              className="flex-1 sm:flex-initial px-3.5 py-2 rounded-xl bg-zinc-100 text-zinc-950 font-semibold text-xs hover:bg-zinc-200 transition-colors text-center min-h-[36px] flex items-center justify-center"
             >
               LinkedIn
-            </a>
-            <a
-              href="https://peerlist.io/drix10"
-              target="_blank"
-              rel="noreferrer"
-              className="flex-1 sm:flex-initial px-3 py-2 rounded-md bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 text-xs transition-colors text-center min-h-[36px] flex items-center justify-center"
-            >
-              Peerlist
             </a>
             <a
               href="https://github.com/Drix10/ai-resources"
               target="_blank"
               rel="noreferrer"
-              className="flex-1 sm:flex-initial px-3 py-2 rounded-md bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-zinc-200 text-xs transition-colors text-center min-h-[36px] flex items-center justify-center"
+              className="flex-1 sm:flex-initial px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 text-xs font-medium transition-colors text-center min-h-[36px] flex items-center justify-center"
             >
               GitHub ⭐
             </a>

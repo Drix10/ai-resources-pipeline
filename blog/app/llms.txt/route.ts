@@ -21,7 +21,7 @@ export async function GET() {
 > - DEV.to: https://dev.to/drix10
 
 ## About the Author & Entity
-Drishtant Ghosh (alias Drix10) is a Co-Founder @ PartPilot, 1x Acquired Serial Founder (ReeF), and AI Systems Engineer & Cybersecurity Researcher. He is the author of personal engineering essays and maintainer of Drix10 Blogs (${baseUrl}).
+Drishtant Ghosh (alias Drix10) is a Co-Founder @ PartPilot, 1x Acquired Serial Founder (ReeF), and AI Systems Engineer & Cybersecurity Student. He is the author of personal engineering essays and maintainer of Drix10 Blogs (${baseUrl}).
 
 ## Personal Essays & Founder Breakdowns
 - [How I Built, Scaled, and Sold a Startup: Journey from Intern to Competitor](${baseUrl}/articles/personal/intern-to-competitor): The complete story of scaling ReeF to 5M+ user interactions, $15,000 ARR with $0 infra expenses, and acquisition.
