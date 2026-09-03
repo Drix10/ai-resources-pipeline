@@ -32,42 +32,59 @@
 ```mermaid
 flowchart TD
     A["Autonomous Scrapers (Twitter/X & LinkedIn)"] --> B["Dual LLM Engine (Ollama / NVIDIA NIM)"]
-    B --> C["Deterministic Quality & Grounding Validator"]
+    B --> C["Hat Tip 12-Step Founder Engine (CPIO & Grounding)"]
     C --> D["Git Knowledge Repository (Drix10/ai-resources)"]
-    C --> E["LinkedIn Live Carousel & Insights Poster"]
-    C --> F["Next.js 14 Knowledge Hub (blog/content/)"]
-    F --> G["Automated Developer Syndication (DEV.to REST API)"]
-    F --> H["Real-Time Dual Human + AI View Counter"]
-    F --> I["High-DR SEO & GEO Protocols (/llms.txt, /robots.txt)"]
-    G --> J["Consolidated 1-Commit Automated Vercel Deploy"]
+    C --> E["Silicon Valley Visual Card Engine (1080x1350 CDP Render)"]
+    E --> F["LinkedIn Browser Automation (Selenium + CDP)"]
+    C --> G["Next.js 14 Knowledge Hub (blog/content/)"]
+    G --> H["Automated Developer Syndication (DEV.to REST API)"]
+    G --> I["Real-Time Dual Human + AI View Counter"]
+    G --> J["High-DR SEO & GEO Protocols (/llms.txt, /robots.txt)"]
+    H --> K["Consolidated 1-Commit Automated Vercel Deploy"]
 ```
 
 ---
 
 ## ✨ Key Features
 
-### ⚡ 1. High-Speed Next.js 14 Knowledge Hub (`blog/`)
+### 👔 1. Hat Tip 12-Step Founder LinkedIn Engine
+- **Strategic Buyer Question Extraction**: Mines technical breakthroughs to formulate exact questions, architectural tradeoffs, and failure modes facing engineering leaders.
+- **Monthly Funnel Mix Balancing (40/40/20)**: Automatically tracks history (`recent-funnel-buckets.json`) and balances the monthly calendar mix (40% TOF, 40% MOF, 20% BOF).
+- **CPIO Blueprint Formulation**: Explicitly maps **Convey**, **Package** (curiosity-gap hooks), **Information** (fact density), and **Order** (setup $\rightarrow$ development $\rightarrow$ principles) prior to drafting.
+- **Deterministic Fact Grounding & Editorial Filter**:
+  - Enforces $\ge$50% fact-grounding coverage from curated source points.
+  - Guarantees plain-text formatting (strictly 0 markdown bold asterisks `**`).
+  - Filters out reversal framing, rhetorical questions, weak survey CTAs, and banned buzzwords.
+  - Multi-attempt feedback retry loop that unmasks true computed quality scores.
+
+### 🎨 2. Silicon Valley Blueprint Slide Card Engine (`1080x1350`)
+- **Pixel-Perfect 4:5 Aspect Ratio**: Optimized for mobile LinkedIn feeds to maximize visual real estate without clipping.
+- **Chrome DevTools Protocol (CDP)**: Uses `Emulation.setDeviceMetricsOverride` and `Page.captureScreenshot` to render and capture at native resolution regardless of host monitor height.
+- **Grounded Metrics & Structure Badges**: Displays only verified quantifiable metrics (`%`, `Nx`, `ms` speedups) with zero fabricated marketing claims, accompanied by dynamic structure badges (`SYSTEMS_FRAMEWORK`, `FOUNDER_CASE_STUDY`, `PERFORMANCE_AUDIT`, `CONTRARIAN_ANALYSIS`).
+- **Fail-Safe Resource Management**: Unconditional temp image cleanup on exit, automatic stale file sweeping, and graceful text-only degradation if image upload encounters transient issues.
+
+### ⚡ 3. High-Speed Next.js 14 Knowledge Hub (`blog/`)
 - **8,941 Verified Technical Guides** across **42 Specialized Domains**.
 - **Sub-60ms In-Memory Search & Filtering** with tokenized search indexes (`blog/lib/articles-index.json`).
 - **Hybrid Incremental Static Regeneration (ISR)**: Builds in under 8 seconds with zero worker timeouts.
 - **Minimalist Mobile-First UI**: Dark zinc palette, swipeable topic carousel, touch-optimized pagination ($44px+$ targets), and clean avatar header.
 - **Live Deployment**: Hosted at [https://blogs.drix10.com](https://blogs.drix10.com).
 
-### 👁️ 2. Dual Human + AI Agent View Counter Engine
+### 👁️ 4. Dual Human + AI Agent View Counter Engine
 - **Real-Time Persistent Counter**: Tracks genuine visits on each reader page and across the global blog.
 - **Automatic AI Bot Detection**: Identifies AI crawlers (`GPTBot`, `ClaudeBot`, `PerplexityBot`, `Google-Extended`, `Bytespider`, etc.) via `User-Agent`.
 - **Sticky Header Live Badge**: Displays real-time total reads with a pulsing emerald activity indicator.
 
-### 🛡️ 3. Enterprise Security & Anti-DDoS Architecture
+### 🛡️ 5. Enterprise Security & Anti-DDoS Architecture
 - **Memory-Bounded Sliding Window Rate Limiting**: Max 60 POSTs/min on views and 180 queries/min on search.
 - **Anti-Tampering Slug Whitelist**: Only indexed articles can receive view increments, preventing storage corruption.
 - **Security Headers**: `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`.
 
-### 🚀 4. Automated DEV.to Developer Syndication
+### 🚀 6. Automated DEV.to Developer Syndication
 - **DEV.to API Integration**: Automatically cross-posts new articles with canonical backlinks pointing to [https://blogs.drix10.com](https://blogs.drix10.com).
 - **Single-Batch Deployments**: Rebuilds search indexes and triggers only 1 consolidated commit per cycle.
 
-### 🌐 5. Programmatic SEO (pSEO) & Generative Engine Optimization (GEO)
+### 🌐 7. Programmatic SEO (pSEO) & Generative Engine Optimization (GEO)
 - **`/llms.txt`**: Standardized Markdown context for LLM agents and answer engines (ChatGPT, Claude, Perplexity).
 - **Triple-Stacked JSON-LD**: `TechArticle`, `BreadcrumbList`, and `SearchAction` schemas linking author credentials ([drix10.com](https://drix10.com) / LinkedIn).
 - **Related Guides Graph**: Deep internal cross-linking to prevent orphan pages and optimize crawl depth.
