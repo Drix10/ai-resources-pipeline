@@ -334,43 +334,87 @@ class LinkedInService {
           await fileInput.sendKeys(path.resolve(localImagePath));
           logger.info("LinkedInService: Uploaded image file path to input element");
 
-          let imagePreviewReady = false;
-          for (let i = 0; i < 20; i++) {
-            imagePreviewReady = await this.driver.executeScript(`
-              const outlet = document.getElementById("interop-outlet");
-              const root = (outlet && outlet.shadowRoot) ? outlet.shadowRoot : document;
-              const nextBtn = root.querySelector("button[aria-label='Next'], button.share-box-footer__primary-btn, button[class*='primary-btn']");
-              return nextBtn && !nextBtn.disabled;
+          logger.info("LinkedInService: Waiting for Media Editor and confirming via 'Next' button...");
+          let nextConfirmed = false;
+          for (let i = 0; i < 25; i++) {
+            nextConfirmed = await this.driver.executeScript(`
+              const allRoots = [document];
+              const modalOutlet = document.getElementById("artdeco-modal-outlet");
+              if (modalOutlet) allRoots.push(modalOutlet);
+              const interopOutlet = document.getElementById("interop-outlet");
+              if (interopOutlet) {
+                allRoots.push(interopOutlet);
+                if (interopOutlet.shadowRoot) allRoots.push(interopOutlet.shadowRoot);
+              }
+              const dialogs = document.querySelectorAll("div[role='dialog'], .artdeco-modal, .share-creation-state, .media-editor");
+              dialogs.forEach(d => {
+                allRoots.push(d);
+                if (d.shadowRoot) allRoots.push(d.shadowRoot);
+              });
+
+              for (const r of allRoots) {
+                const btns = Array.from(r.querySelectorAll("button, div[role='button']"));
+                const nextBtn = btns.find(b => {
+                  const txt = (b.innerText || b.textContent || "").trim().toLowerCase();
+                  const aria = (b.getAttribute("aria-label") || "").trim().toLowerCase();
+                  const isNext = txt === "next" || aria === "next" || txt === "done" || aria === "done" ||
+                                 b.classList.contains("share-box-footer__primary-btn") ||
+                                 (b.classList.contains("artdeco-button--primary") && (txt.includes("next") || aria.includes("next")));
+                  return isNext && !b.disabled;
+                });
+                if (nextBtn) {
+                  nextBtn.scrollIntoView({ behavior: 'auto', block: 'center' });
+                  nextBtn.click();
+                  return true;
+                }
+              }
+              return false;
             `);
-            if (imagePreviewReady) break;
+            if (nextConfirmed) {
+              logger.info("LinkedInService: Successfully confirmed Media Editor via 'Next' button!");
+              await sleep(3500);
+              break;
+            }
             await sleep(1000);
           }
 
-          if (!imagePreviewReady) {
-            logger.warn("LinkedInService: Image preview did not become ready within timeout. Attempting to proceed anyway...");
-          }
-
-          logger.info("LinkedInService: Confirming image preview (Next button)...");
-          try {
-            const nextButton = await this._getShadowEl(
-              "button[aria-label='Next'], button.share-box-footer__primary-btn, button[class*='primary-btn']",
-              8000
-            );
-            await nextButton.click();
-            await sleep(4000);
-          } catch (e) {
-            logger.warn("LinkedInService: Next button click skipped or not required.");
+          if (!nextConfirmed) {
+            logger.warn("LinkedInService: Could not click Next in media editor within timeout. Dismissing media editor dialog to proceed with text-only post...");
+            await this.driver.executeScript(`
+              const dismiss = Array.from(document.querySelectorAll("button, div[role='button']")).find(b => {
+                const aria = (b.getAttribute("aria-label") || "").toLowerCase();
+                const txt = (b.innerText || "").toLowerCase();
+                return aria.includes("dismiss") || aria.includes("close") || txt === "close" || txt === "cancel";
+              });
+              if (dismiss) dismiss.click();
+            `);
+            await sleep(2000);
           }
         } catch (imageUploadErr) {
           logger.warn(`LinkedInService: Image upload failed (${imageUploadErr.message}). Gracefully degrading to text-only post...`);
         }
       }
 
-      logger.info("LinkedInService: Locating editor text area inside Shadow DOM...");
-      const editor = await this._getShadowEl(
-        "div.ql-editor, div[role='textbox'][contenteditable='true']",
-        20000
-      );
+      logger.info("LinkedInService: Locating editor text area...");
+      let editor = null;
+      try {
+        editor = await this._getShadowEl(
+          "div.ql-editor, div[role='textbox'][contenteditable='true']",
+          10000
+        );
+      } catch (editorErr) {
+        logger.warn("LinkedInService: Post editor not found immediately. Triggering 'Start a post' fallback...");
+        await this.driver.executeScript(`
+          const all = Array.from(document.querySelectorAll("p, span, button, div, a"));
+          const postTrigger = all.find(el => (el.textContent || "").trim().toLowerCase() === "start a post");
+          if (postTrigger) postTrigger.click();
+        `);
+        await sleep(3000);
+        editor = await this._getShadowEl(
+          "div.ql-editor, div[role='textbox'][contenteditable='true']",
+          15000
+        );
+      }
       await editor.click();
       await sleep(1000);
 
@@ -386,9 +430,12 @@ class LinkedInService {
         }
         if (editorEl) {
           editorEl.innerHTML = "";
-          const formattedText = arguments[0].split('\\n').map(p => {
-            const trimmed = p.trim();
-            return trimmed ? '<p>' + p + '</p>' : '<p><br></p>';
+          const formattedText = arguments[0].split('\n').map(p => {
+            let trimmed = p.trim();
+            if (trimmed.startsWith('#')) {
+              trimmed = '\u200B' + trimmed;
+            }
+            return trimmed ? '<p>' + trimmed + '</p>' : '<p><br></p>';
           }).join('');
           editorEl.innerHTML = formattedText;
           editorEl.dispatchEvent(new Event('input', { bubbles: true }));
@@ -396,35 +443,57 @@ class LinkedInService {
       `, cleanedText);
       await sleep(3000);
 
-      logger.info("LinkedInService: Locating post submission button inside Shadow DOM...");
-      const postButton = await this._getShadowEl(
-        "button.share-actions__primary-action, button[class*='primary-action']",
-        15000
-      );
+      logger.info("LinkedInService: Locating and confirming Post submission button...");
+      let postClicked = false;
+      for (let i = 0; i < 20; i++) {
+        postClicked = await this.driver.executeScript(`
+          const allRoots = [document];
+          const modalOutlet = document.getElementById("artdeco-modal-outlet");
+          if (modalOutlet) allRoots.push(modalOutlet);
+          const interopOutlet = document.getElementById("interop-outlet");
+          if (interopOutlet) {
+            allRoots.push(interopOutlet);
+            if (interopOutlet.shadowRoot) allRoots.push(interopOutlet.shadowRoot);
+          }
+          const dialogs = document.querySelectorAll("div[role='dialog'], .artdeco-modal, .share-creation-state");
+          dialogs.forEach(d => {
+            allRoots.push(d);
+            if (d.shadowRoot) allRoots.push(d.shadowRoot);
+          });
 
-      let isEnabled = false;
-      for (let i = 0; i < 30; i++) {
-        isEnabled = await this.driver.executeScript(`
-          let btn = null;
-          const outlet = document.getElementById("interop-outlet");
-          if (outlet && outlet.shadowRoot) {
-            btn = outlet.shadowRoot.querySelector("button.share-actions__primary-action, button[class*='primary-action']");
+          for (const r of allRoots) {
+            const btns = Array.from(r.querySelectorAll("button, div[role='button']"));
+            const postBtn = btns.find(b => {
+              const txt = (b.innerText || b.textContent || "").trim().toLowerCase();
+              const aria = (b.getAttribute("aria-label") || "").trim().toLowerCase();
+              const isPost = txt === "post" || aria === "post" ||
+                             b.classList.contains("share-actions__primary-action") ||
+                             b.classList.contains("share-box-footer__primary-btn");
+              return isPost && !b.disabled;
+            });
+            if (postBtn) {
+              postBtn.scrollIntoView({ behavior: 'auto', block: 'center' });
+              postBtn.click();
+              return true;
+            }
           }
-          if (!btn) {
-            btn = document.querySelector("button.share-actions__primary-action, button[class*='primary-action']");
-          }
-          return btn ? !btn.disabled : false;
+          return false;
         `);
-        if (isEnabled) break;
-        await sleep(500);
+        if (postClicked) {
+          logger.info("LinkedInService: Successfully clicked Post submission button!");
+          break;
+        }
+        await sleep(1000);
       }
 
-      if (!isEnabled) {
-        logger.warn("LinkedInService: Post button did not become enabled within timeout. Attempting click anyway...");
+      if (!postClicked) {
+        logger.warn("LinkedInService: Direct script click on Post button failed. Trying Actions / ShadowEl fallback...");
+        const postButton = await this._getShadowEl(
+          "button.share-actions__primary-action, button.artdeco-button--primary, button[class*='primary-action']",
+          8000
+        );
+        await postButton.click();
       }
-
-      logger.info("LinkedInService: Clicking Post submission...");
-      await postButton.click();
 
       let postConfirmAttempts = 0;
       const MAX_POST_CONFIRM = 15;
@@ -554,11 +623,20 @@ class LinkedInService {
 
           logger.info("LinkedInService: Clicking comment editor to focus...");
           await this.driver.executeScript(`
+            // Dismiss any modal dialog or toast overlay that might intercept clicks
+            document.querySelectorAll("dialog[open] button[aria-label*='Dismiss'], dialog[open] button[aria-label*='Close'], .artdeco-modal__dismiss, [data-test-modal-close-btn]").forEach(b => b.click());
             const ed = document.querySelector("[aria-label='Text editor for creating comment'], .tiptap, .ProseMirror");
             if (ed) { ed.focus(); ed.scrollIntoView({ behavior: 'auto', block: 'center' }); }
           `);
           await sleep(500);
-          await editorEl.click();
+          try {
+            await editorEl.click();
+          } catch (clickErr) {
+            await this.driver.executeScript(`
+              const ed = document.querySelector("[aria-label='Text editor for creating comment'], .tiptap, .ProseMirror");
+              if (ed) { ed.focus(); ed.click(); }
+            `);
+          }
           await sleep(800);
 
           logger.info("LinkedInService: Typing comment text via sendKeys...");
@@ -829,7 +907,10 @@ class LinkedInService {
     };
     const structureKey = (options && options.structureName) ? options.structureName : "";
     const statusBadgeText = badgeMap[structureKey] || "ARCH_TEARDOWN // v2.6";
-    const eyebrowText = "// " + statusBadgeText.replace(/\s*\/\/.*$/, "").replace(/_/g, " ");
+    const categoryName = (options && options.category) ? String(options.category).toUpperCase() : "";
+    const eyebrowText = categoryName
+      ? `// ${categoryName} · ${statusBadgeText.replace(/\s*\/\/.*$/, "").replace(/_/g, " ")}`
+      : `// ${statusBadgeText.replace(/\s*\/\/.*$/, "").replace(/_/g, " ")}`;
 
     // Extract dynamic metrics for ribbon pills strictly from source text (NO fabricated claims)
     const rawMetrics = [];
@@ -850,21 +931,26 @@ class LinkedInService {
       : null;
 
     const accents = [
-      { border: "rgba(16, 185, 129, 0.7)", numBg: "linear-gradient(135deg, #059669 0%, #064e3b 100%)", glow: "rgba(16, 185, 129, 0.25)", textColor: "#d1fae5", badge: "#10b981" },
-      { border: "rgba(245, 158, 11, 0.7)", numBg: "linear-gradient(135deg, #d97706 0%, #78350f 100%)", glow: "rgba(245, 158, 11, 0.25)", textColor: "#fef3c7", badge: "#f59e0b" },
-      { border: "rgba(59, 130, 246, 0.7)", numBg: "linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%)", glow: "rgba(59, 130, 246, 0.25)", textColor: "#dbeafe", badge: "#3b82f6" }
+      { border: "rgba(16, 185, 129, 0.75)", numBg: "linear-gradient(135deg, #059669 0%, #064e3b 100%)", glow: "rgba(16, 185, 129, 0.25)", textColor: "#d1fae5", badge: "#10b981", stageName: "CORE ARCHITECTURE HEURISTIC" },
+      { border: "rgba(245, 158, 11, 0.75)", numBg: "linear-gradient(135deg, #d97706 0%, #78350f 100%)", glow: "rgba(245, 158, 11, 0.25)", textColor: "#fef3c7", badge: "#f59e0b", stageName: "SYSTEM IMPLEMENTATION & BENCHMARK" },
+      { border: "rgba(59, 130, 246, 0.75)", numBg: "linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%)", glow: "rgba(59, 130, 246, 0.25)", textColor: "#dbeafe", badge: "#3b82f6", stageName: "PRODUCTION VERIFICATION & SCALE" }
     ];
 
     const pointsHtml = safePoints.map((pt, i) => {
       const acc = accents[i] || accents[0];
       const cleanPt = esc(pt).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
       return `
-        <div class="point-item" style="border-left: 4px solid ${acc.border}; box-shadow: 0 16px 36px rgba(0,0,0,0.5), inset 0 0 20px ${acc.glow};">
+        <div class="point-item" style="border-left: 5px solid ${acc.border}; box-shadow: 0 16px 36px rgba(0,0,0,0.45), inset 0 0 20px ${acc.glow};">
           <div class="point-num" style="background: ${acc.numBg}; border: 1px solid ${acc.border}; box-shadow: 0 0 16px ${acc.glow}; color: ${acc.textColor};">0${i + 1}</div>
-          <div class="point-text">${cleanPt}</div>
+          <div class="point-content">
+            <div class="point-stage" style="color: ${acc.badge};">// STAGE 0${i + 1} · ${acc.stageName}</div>
+            <div class="point-text">${cleanPt}</div>
+          </div>
         </div>
       `;
     }).join("");
+
+    const coreInsight = (options && options.coreInsight) ? String(options.coreInsight).trim() : "";
 
     const htmlContent = `<!DOCTYPE html>
 <html>
@@ -896,13 +982,13 @@ class LinkedInService {
       display: flex;
       flex-direction: column;
       height: 100%;
-      padding: 64px 76px 56px;
+      padding: 60px 72px 52px;
     }
     .header-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 38px;
+      margin-bottom: 32px;
     }
     .founder-card {
       display: flex;
@@ -979,9 +1065,9 @@ class LinkedInService {
       box-shadow: 0 0 10px #10b981;
     }
     .hero-box {
-      margin-bottom: 28px;
+      margin-bottom: 22px;
       border-left: 4px solid #10b981;
-      padding-left: 28px;
+      padding-left: 24px;
     }
     .eyebrow {
       font-family: 'JetBrains Mono', monospace;
@@ -990,24 +1076,56 @@ class LinkedInService {
       letter-spacing: 0.16em;
       text-transform: uppercase;
       color: #10b981;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
       gap: 8px;
     }
     .title {
-      font-size: 46px;
+      font-size: 44px;
       font-weight: 800;
-      line-height: 1.18;
+      line-height: 1.2;
       background: linear-gradient(135deg, #ffffff 40%, #f4f4f5 75%, #a1a1aa 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      letter-spacing: -0.035em;
+      letter-spacing: -0.03em;
+    }
+    .insight-banner {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(24, 24, 27, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 12px;
+      padding: 14px 20px;
+      margin-bottom: 22px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), inset 0 0 16px rgba(16, 185, 129, 0.08);
+    }
+    .insight-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(16, 185, 129, 0.15);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      padding: 6px 12px;
+      border-radius: 6px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .insight-text {
+      font-size: 16px;
+      color: #e4e4e7;
+      font-weight: 500;
+      line-height: 1.45;
     }
     .metrics-ribbon {
       display: flex;
       gap: 12px;
-      margin-bottom: 26px;
+      margin-bottom: 22px;
       flex-wrap: wrap;
     }
     .metric-pill {
@@ -1033,7 +1151,7 @@ class LinkedInService {
       border: 1px solid rgba(255, 255, 255, 0.07);
       border-radius: 12px;
       padding: 14px 22px;
-      margin-bottom: 28px;
+      margin-bottom: 22px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 12px;
       font-weight: 600;
@@ -1053,27 +1171,29 @@ class LinkedInService {
       font-weight: 900;
     }
     .points-section {
-      flex-grow: 1;
+      flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 26px;
-      margin-top: 10px;
+      justify-content: space-evenly;
+      gap: 20px;
+      margin: 10px 0 20px;
     }
     .point-item {
       display: flex;
       align-items: flex-start;
-      gap: 26px;
-      padding: 28px 34px;
-      background: rgba(18, 18, 23, 0.65);
+      gap: 24px;
+      padding: 26px 32px;
+      background: rgba(18, 18, 23, 0.75);
       backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      min-height: 135px;
       transition: all 0.2s ease;
     }
     .point-num {
       flex-shrink: 0;
-      width: 48px;
-      height: 48px;
+      width: 50px;
+      height: 50px;
       border-radius: 12px;
       display: flex;
       align-items: center;
@@ -1083,11 +1203,24 @@ class LinkedInService {
       font-weight: 800;
       letter-spacing: -0.02em;
     }
+    .point-content {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+    .point-stage {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
     .point-text {
-      font-size: 22px;
+      font-size: 21px;
       font-weight: 500;
-      color: #e4e4e7;
-      line-height: 1.48;
+      color: #f4f4f5;
+      line-height: 1.5;
       letter-spacing: -0.01em;
     }
     .point-text strong {
@@ -1095,8 +1228,8 @@ class LinkedInService {
       font-weight: 700;
     }
     .footer {
-      margin-top: 32px;
-      padding-top: 22px;
+      margin-top: 24px;
+      padding-top: 20px;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       align-items: center;
@@ -1141,7 +1274,7 @@ class LinkedInService {
         <div class="avatar">DG</div>
         <div class="founder-info">
           <div class="founder-name">Drishtant Ghosh (Drix10) <span class="verified-icon">✓</span></div>
-          <div class="founder-role">Co-Founder @ PartPilot · AI Systems Architect</div>
+          <div class="founder-role">AI Systems &amp; LLM Architect · Co-Founder @ PartPilot</div>
         </div>
       </div>
       <div class="status-badge">
@@ -1154,6 +1287,13 @@ class LinkedInService {
       <div class="eyebrow">${esc(eyebrowText)}</div>
       <div class="title">${esc(title)}</div>
     </div>
+
+    ${coreInsight ? `
+    <div class="insight-banner">
+      <div class="insight-pill">CORE INSIGHT</div>
+      <div class="insight-text">${esc(coreInsight)}</div>
+    </div>
+    ` : ''}
 
     ${metricsToDisplay.length > 0 ? `
     <div class="metrics-ribbon">

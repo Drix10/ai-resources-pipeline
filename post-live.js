@@ -243,7 +243,13 @@ async function runLivePostCuration() {
       postData.title,
       postData.slidePoints,
       postData.slideTagline,
-      `github.com/${config.github.owner || "Drix10"}/${config.github.repo || "ai-resources"}`
+      `github.com/${config.github.owner || "Drix10"}/${config.github.repo || "ai-resources"}`,
+      {
+        structureName: postData.chosenStructure,
+        diagramSteps: postData.diagramSteps,
+        coreInsight: postData.coreInsight,
+        category: postData.category
+      }
     );
 
     if (!slideImagePath) {

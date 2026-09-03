@@ -325,7 +325,9 @@ const runEndofRunCuration = async (successfulArticles) => {
               "github.com/Drix10/ai-resources",
               {
                 structureName: megaPostData.chosenStructure,
-                diagramSteps: megaPostData.diagramSteps
+                diagramSteps: megaPostData.diagramSteps,
+                coreInsight: megaPostData.coreInsight,
+                category: megaPostData.category
               }
             );
           } catch (imageErr) {

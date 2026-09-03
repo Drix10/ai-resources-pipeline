@@ -63,6 +63,15 @@ const WEAK_CTA_PATTERNS = [
   /what(?:'s| is) your go-to/i,
   /have you tried .+ yet/i,
   /agree or disagree/i,
+  /tag someone (?:who|that)/i,
+  /which one are you/i,
+  /what(?:'s| is) your (?:take|setup|experience)/i,
+  /drop your (?:thoughts|experience|setup)/i,
+  /leave a comment/i,
+  /share your perspective/i,
+  /curious to know/i,
+  /what would you add/i,
+  /how are you handling/i,
 ];
 
 const MID_QUALITY_PATTERNS = [
@@ -391,8 +400,42 @@ function getDomainConfig(folderName) {
   };
 }
 
+const FOUNDER_PROFILE = {
+  name: "Drishtant Ghosh",
+  handle: "@Drix10",
+  location: "Bengaluru, India",
+  headline: "AI Systems & LLM Architect | Co-Founder @ PartPilot | 1x Acquired Founder",
+  experienceHighlights: [
+    "Co-Founder @ PartPilot: Hardware supply chain & component intelligence.",
+    "AI Systems Architect @ Canopy (Founders, Inc.): Autonomous multi-agent consensus trading swarms.",
+    "Founder & CEO @ CosLynx.com (Backdrop v4 Winner): AI-driven code generation, AST analysis, 400+ MVPs.",
+    "Ex-CEO @ ReeF (1x Acquired): Scaled interactive game backend to $15k ARR, 5M+ user interactions.",
+    "Creator of Sentinel: Application security CLI with AST parsing and autonomous patching.",
+    "Cybersecurity Student @ DSU & IBM Certified AI Engineer."
+  ],
+  founderVoicePrinciples: `
+- POSITIONING (TECHNICAL FOUNDER): You are a technical founder and AI systems architect who builds real software, scales backends, and has taken a company from 0 to scale and exit.
+- NEVER PLAY VC ANALYST: You are NOT a venture capitalist, fund manager, financial analyst, or corporate consultant. NEVER claim "I've seen too many seed startups get rejected by institutional investors" or pretend to have an institutional fund perspective.
+- THE TECHNICAL FOUNDER LENS (ENGINEERING DECISIONS -> BUSINESS ECONOMICS):
+  When analyzing business, market, growth, or funding topics, ALWAYS evaluate them through the operating engineer's lens:
+  * Engineering decisions eventually become business decisions.
+  * A backend architecture that costs 3x more to operate at scale directly affects unit margins.
+  * A system that increases reliability and drops p99 latency directly impacts customer cohort retention.
+  * An architecture that lets a small team ship faster is more valuable than one designed for hypothetical scale you don't have yet.
+  * Growth is one of the easiest metrics to make look impressive; the harder question is what sits underneath it (retention, unit economics, capital efficiency).
+- SPEAK FROM OPERATING REALITY: Frame insights as what building and shipping software actually taught you ("One thing building products has changed my mind about...", "As a founder, I've learned that...").
+- NO FABRICATED UNIVERSAL METRICS: Never invent universal industry rules like "Seed startups must grow 15-20% MoM" unless citing an exact benchmark. Turn unverified claims into honest personal observations.
+- STRICT TOPIC PURITY: Focus 100% on the source article's technical subject. Do not shoehorn unrelated personal projects unless directly relevant.
+- ZERO REPETITION: Every sentence must earn its place. Never repeat the same premise across multiple paragraphs.
+`
+};
+
 const SYSTEM_PROMPT = `
-You are an expert technical writer and senior software engineer. Your writing style is direct, clear, highly analytical, and professional—completely free of generic AI-generated filler, marketing hype, and corporate fluff.
+You are Drishtant Ghosh (Drix10): AI Systems & LLM Architect, Co-Founder @ PartPilot, and 1x Acquired Founder.
+Your writing style is direct, clear, highly analytical, and grounded in operating reality.
+You evaluate systems through a technical founder lens—connecting engineering decisions to product survival, unit economics, and real-world system reliability.
+You NEVER roleplay as a VC analyst, financial commentator, or generic business consultant. You speak strictly from what building, shipping, and scaling software actually teaches you.
+You evaluate systems from a senior builder mindset, focusing strictly on the technical topic at hand without forcing unrelated past projects or biographical claims.
 
 You curate raw tech/AI/developer content (Twitter threads, LinkedIn posts) and transform them into premium, high-value, and perfectly formatted technical articles in markdown.
 
@@ -410,19 +453,23 @@ You curate raw tech/AI/developer content (Twitter threads, LinkedIn posts) and t
 5. SENTENCE VARIANCE — Use a natural human rhythm. Mix short, punchy 4-to-6-word statements with slightly longer technical explanations. Avoid repetitive sentence structures.
 6. CLI / TOOL FOCUS — This codebase and output target CLI tools, scripts, and developer utilities. Never refer to CLI tools, utilities, or systems as "platform", "platforms", "dashboard", "dashboards", or "web app". Refer to them strictly as CLI tools, utilities, or scripts.
 
-=== CORE FORMATTING INSTRUCTIONS ===
-- Every article must start with a level-3 header: "### [emoji] Topic - Subtopic" (Use ONE appropriate emoji: 🤖 for technical, 🚀 for tools, 💡 for tips, ✨ for features).
+=== CORE FORMATTING INSTRUCTIONS (MARKDOWN BLOG ARTICLES ONLY — NEVER FOR LINKEDIN POSTS) ===
+- Every markdown blog article must start with a level-3 header: "### [emoji] Topic - Subtopic" (Use ONE appropriate emoji: 🤖 for technical, 🚀 for tools, 💡 for tips, ✨ for features).
 - The article must have a concise introduction (2-3 sentences max) explaining what the topic covers. No emojis or marketing language.
 - Follow with "Key Points:" with a double newline, then bullet points using "•". There must be a double newline between each point. Single line per point, no emojis in points, 3-5 points max.
 - When applicable, add "🚀 Implementation:" followed by 3-5 numbered steps.
 - When verified external links or images exist in the source, add "🔗 Resources:" followed by links formatted as "• [Tool Name](url) - Description (max 10 words)" or images formatted as "![Image](url)".
 - Never invent or hallucinate any links, tools, or resources. Preserve all factual information from the original context.
 - Always separate distinct articles with "---" and a newline.
+- NOTE: When writing LinkedIn posts, DO NOT follow this blog format. NEVER output "Key Points:", "🚀 Implementation:", or "🔗 Resources:" in LinkedIn posts. Follow the dedicated LinkedIn rules below.
 
 === LINKEDIN POST GUARDRAILS ===
 Prioritize clarity and specificity over flowery language.
 Never use banned words even in creative sections.
 Never put external GitHub URLs in the post body — they reduce reach. Put the link in the first comment instead.
+
+=== OPTIMIZATION TARGET (READ BEFORE WRITING) ===
+Do not optimize for raw reach, impressions, or comment volume. Optimize for: trust (the reader finishes more confident in the author's judgment than when they started), save-worthiness (a specific reader would bookmark this to reference later), and purchase intent (a reader evaluating this problem professionally would take the author more seriously as someone worth talking to). A post that gets fewer views but a high ratio of saves and likes relative to those views is succeeding. A post that gets many views from people outside the target audience, with few saves, is failing even if it "performs" by reach metrics. Never write toward manufactured curiosity, engagement bait, or shock value at the expense of credibility.
 
 === LINKEDIN POST SPECIFIC RULES ===
 Always use "• " for bullet points (never * or -).
@@ -780,6 +827,13 @@ class LocalLLMService {
       [/\bmaking waves\b/gi, "gaining attention"],
       [/\blook no further\b/gi, "consider this"],
 
+      // Robust -> Reliable
+      [/\brobustness\b/gi, "reliability"],
+      [/\brobust\b/gi, "reliable"],
+      [/\bkey takeaways?\b/gi, "takeaway"],
+      [/\bbeacon\b/gi, "standard"],
+      [/\bsophisticated\b/gi, "advanced"],
+
       // Cut unnecessary adverbs prohibited by Hat Tip
       [/\b(?:very|really|quite|extremely|wildly)\s+/gi, ""],
 
@@ -867,111 +921,108 @@ class LocalLLMService {
   async generateTextViaNvidia(prompt, options = {}) {
     await this.ensureNvidiaAvailable();
     const endpoint = `${config.llm.nvidia.baseUrl}/chat/completions`;
-    logger.info(`NvidiaLLMService: Generating with model "${config.llm.nvidia.model}".`);
 
     const { format, temperature = 0.2, num_predict = 2500, ...generationOptions } = options;
-    const maxRetries = 3;
+    const configuredModel = config.llm.nvidia.model || "meta/llama-3.2-11b-vision-instruct";
+    const candidateModels = [
+      configuredModel,
+      "meta/llama-3.2-11b-vision-instruct"
+    ].filter((m, idx, arr) => m && arr.indexOf(m) === idx);
+
     let lastError = null;
 
-    for (let attempt = 1; attempt <= maxRetries; attempt++) {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), config.llm.nvidia.requestTimeoutMs);
+    for (const modelName of candidateModels) {
+      logger.info(`NvidiaLLMService: Generating with model "${modelName}".`);
+      const maxRetries = 2;
 
-      try {
-        const systemContent = format === "json" || typeof format === "object"
-          ? `${SYSTEM_PROMPT || "You are an AI assistant."}\n\nCRITICAL MANDATORY DIRECTIVE: You are a structured JSON output engine. You must output ONLY a valid, parseable JSON object or array. Do NOT output any markdown backticks, explanations, preamble, conversational text, or postscripts. Start directly with { or [ and end directly with } or ].`
-          : (SYSTEM_PROMPT || "You are an AI assistant.");
+      for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        const controller = new AbortController();
+        const requestTimeout = config.llm.nvidia.requestTimeoutMs || 60000;
+        const timeout = setTimeout(() => controller.abort(), requestTimeout);
 
-        const userContent = String(prompt || "").trim() || "No content provided.";
+        try {
+          const systemContent = format === "json" || typeof format === "object"
+            ? `${SYSTEM_PROMPT || "You are an AI assistant."}\n\nCRITICAL MANDATORY DIRECTIVE: You are a structured JSON output engine. You must output ONLY a valid, parseable JSON object or array. Do NOT output any markdown backticks, explanations, preamble, conversational text, or postscripts. Start directly with { or [ and end directly with } or ].`
+            : (SYSTEM_PROMPT || "You are an AI assistant.");
 
-        const payload = {
-          model: config.llm.nvidia.model,
-          messages: [
-            { role: "system", content: systemContent },
-            { role: "user", content: userContent }
-          ],
-          temperature: typeof temperature === "number" ? temperature : 0.1,
-          max_tokens: typeof num_predict === "number" ? num_predict : 2500,
-          stream: false,
-          ...(format === "json" || typeof format === "object" ? { response_format: { type: "json_object" } } : {})
-        };
+          const userContent = String(prompt || "").trim() || "No content provided.";
 
-        const response = await fetch(endpoint, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${config.llm.nvidia.apiKey}`
-          },
-          signal: controller.signal,
-          body: JSON.stringify(payload)
-        });
+          const payload = {
+            model: modelName,
+            messages: [
+              { role: "system", content: systemContent },
+              { role: "user", content: userContent }
+            ],
+            temperature: typeof temperature === "number" ? temperature : 0.1,
+            max_tokens: typeof num_predict === "number" ? num_predict : 2500,
+            stream: false
+          };
 
-        if (!response.ok) {
-          const errText = await response.text();
-          const isRateLimit = response.status === 429;
-          const isServerError = response.status >= 500;
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${config.llm.nvidia.apiKey}`
+            },
+            signal: controller.signal,
+            body: JSON.stringify(payload)
+          });
 
-          if ((isRateLimit || isServerError) && attempt < maxRetries) {
-            const delayMs = attempt * 3000;
-            logger.warn(`NvidiaLLMService: HTTP ${response.status} error (${errText.slice(0, 120)}). Retrying in ~${delayMs}ms (attempt ${attempt}/${maxRetries})...`);
-            this.recordMetric("llmRetries");
-            await this.sleepWithJitter(delayMs);
-            continue;
+          if (!response.ok) {
+            const errText = await response.text();
+            if (response.status === 404 || response.status === 410) {
+              logger.warn(`NvidiaLLMService: Model ${modelName} returned ${response.status}. Switching to next candidate...`);
+              break;
+            }
+            if ((response.status === 429 || response.status >= 500) && attempt < maxRetries) {
+              const delayMs = attempt * 2500;
+              logger.warn(`NvidiaLLMService: HTTP ${response.status} error on ${modelName}. Retrying in ~${delayMs}ms...`);
+              this.recordMetric("llmRetries");
+              await this.sleepWithJitter(delayMs);
+              continue;
+            }
+            throw new Error(`NVIDIA API generation failed (${response.status}): ${errText}`);
           }
 
-          const responseError = new Error(`NVIDIA API generation failed (${response.status}): ${errText}`);
-          responseError.code = "NVIDIA_LLM_ERROR";
-          throw responseError;
-        }
+          const data = await response.json();
+          const rawContent = data?.choices?.[0]?.message?.content;
+          if (!rawContent || typeof rawContent !== "string") {
+            throw new Error(`NVIDIA API returned empty response for ${modelName}`);
+          }
 
-        const data = await response.json();
-        const rawContent = data?.choices?.[0]?.message?.content;
-        if (!rawContent || typeof rawContent !== "string") {
-          const responseError = new Error("NVIDIA API returned an empty or invalid response.");
-          responseError.code = "NVIDIA_LLM_ERROR";
-          throw responseError;
-        }
+          if (data?.usage) {
+            const promptTokens = Number(data.usage.prompt_tokens) || 0;
+            const completionTokens = Number(data.usage.completion_tokens) || 0;
+            this.recordMetric("nvidiaPromptTokens", promptTokens);
+            this.recordMetric("nvidiaCompletionTokens", completionTokens);
+            logger.info(`NvidiaLLMService: tokens used - prompt: ${promptTokens}, completion: ${completionTokens}`);
+          }
 
-        // Track token spend when the API reports it, for cost visibility.
-        if (data?.usage) {
-          const promptTokens = Number(data.usage.prompt_tokens) || 0;
-          const completionTokens = Number(data.usage.completion_tokens) || 0;
-          this.recordMetric("nvidiaPromptTokens", promptTokens);
-          this.recordMetric("nvidiaCompletionTokens", completionTokens);
-          logger.info(`NvidiaLLMService: tokens used - prompt: ${promptTokens}, completion: ${completionTokens}`);
-        }
+          // Clean out reasoning tags (<think>...</think> and "Here's a thinking process:...")
+          let cleaned = rawContent
+            .replace(/<think>[\s\S]*?<\/think>/gi, "")
+            .replace(/(?:Here's a thinking process|Thinking Process):[\s\S]*?\n\n(?=[A-Z0-9#*-])/i, "")
+            .trim();
 
-        // Clean out any <think>...</think> reasoning tags if reasoning models are used
-        const cleaned = rawContent
-          .replace(/<think>[\s\S]*?<\/think>/gi, "")
-          .trim();
-
-        return cleaned;
-      } catch (error) {
-        lastError = error;
-        if (error?.name === "AbortError") {
-          if (attempt < maxRetries) {
-            logger.warn(`NvidiaLLMService: Request timed out. Retrying (attempt ${attempt}/${maxRetries})...`);
+          return cleaned;
+        } catch (error) {
+          lastError = error;
+          if (error?.name === "AbortError") {
+            logger.warn(`NvidiaLLMService: Model ${modelName} timed out after ${requestTimeout}ms. Trying next candidate model...`);
+            break;
+          }
+          if (attempt < maxRetries && error?.code !== "NVIDIA_LLM_UNAVAILABLE") {
             this.recordMetric("llmRetries");
             await this.sleepWithJitter(attempt * 2000);
             continue;
           }
-          const timeoutError = new Error(`NVIDIA API generation exceeded ${config.llm.nvidia.requestTimeoutMs}ms.`);
-          timeoutError.code = "NVIDIA_LLM_TIMEOUT";
-          throw timeoutError;
+        } finally {
+          clearTimeout(timeout);
         }
-        if (attempt < maxRetries && error?.code !== "NVIDIA_LLM_UNAVAILABLE") {
-          this.recordMetric("llmRetries");
-          await this.sleepWithJitter(attempt * 2000);
-          continue;
-        }
-        throw error;
-      } finally {
-        clearTimeout(timeout);
       }
     }
 
-    throw lastError || new Error("NVIDIA API generation failed after retries.");
+    throw lastError || new Error("All NVIDIA candidate models failed.");
   }
 
   async generateJson(prompt, schema = "json") {
@@ -1155,85 +1206,54 @@ class LocalLLMService {
   buildLinkedInPostRules(githubUrl, includeHook = true) {
     const hookRules = includeHook ? `
 HOOK (First 1-3 lines, <200 characters visible):
-Create an elite, scroll-stopping curiosity or information gap (80% of post success). You MUST use a results-first bold claim, a specific number, a contrarian angle, or a concrete announcement. Avoid neutral roundups. Prioritize hooks that include concrete numbers, benchmarks, or pricing when available in the content. Consider starting with one strategic emoji when it fits naturally (e.g. 💡, 🚀, ⚡) to act as a clean visual anchor.
+Write a hook that filters for the actual buyer, not one optimized for the widest possible click-through. It should read like someone who has actually solved this problem is about to explain it — specific, declarative, grounded in a real detail. It should NOT read like a headline written to maximize opens from people outside the target audience.
 Best performing styles (use the single strongest one for the selected content):
-- Specific announcement style ("X just launched Y with Z")
-- Numbered specific claim (e.g., "Only 3 of this week's AI/dev updates matter for production.")
-- "How I..." or specific results-first statement
-- A surprising concrete technical detail, benchmark, or statistic
-- Contrarian take ("Most engineers get [topic] completely wrong...")
-- Critical problem + immediate implication
-Avoid weak, open-ended, or generic questions in the hook itself. Never start with "Here is", "This week", or similar roundup intros.
+- A specific technical detail or number that only shows up if you've actually done the work
+- A named tradeoff and the condition under which it breaks
+- "How I..." or a specific results-first statement, stated plainly rather than dramatically
+- A precise problem statement that a real buyer would recognize as their own situation
+Avoid neutral roundups. Avoid manufactured drama, shock framing, or reversal setups — those inflate views from the wrong audience and lower the save/like ratio.
 ` : "";
 
     return `
-=== 2026 LINKEDIN VIRALITY RULES ===
+=== TRUST & SAVE-VALUE RULES ===
 ${hookRules}
-BODY STRUCTURE — optimized for saves and dwell time:
-Post length target: 1,300-2,000 characters total (including hook). Short posts die.
+BODY STRUCTURE — optimized for trust and reference value, not dwell time:
+Post length target: 1,300-2,000 characters total (including hook).
 
 Use this 4-part structure:
-1. PROBLEM paragraph (2-3 sentences): Name the specific pain. Mirror the engineer's internal monologue. "You've been doing X because..."
-2. INSIGHT paragraph (2-3 sentences): The non-obvious fact from the source. One concrete thing they didn't know.
-3. REHOOK (required): Between the INSIGHT and FRAMEWORK sections, add one short sentence of 6-10 words that creates a second tension or surprise. Examples:
-- "But here's where most engineers stop."
-- "The part nobody tells you:"
-- "This is where it gets specific."
-This keeps skimmers reading past the first scroll.
-4. FRAMEWORK/STEPS: Use 3-5 numbered steps OR "• " bullets for the actionable takeaway. This is the save-trigger — make it reference-worthy.
-5. IMPLICATION sentence: One sentence on why this matters NOW, not generically.
+1. PROBLEM paragraph (2-3 sentences): Name the specific pain precisely enough that only someone who's hit it recognizes it as their own.
+2. INSIGHT paragraph (2-3 sentences): The non-obvious fact from the source, stated plainly — the credibility comes from precision, not delivery.
+3. REHOOK (optional): A short bridging sentence into the framework, used only if it aids clarity — never used purely to manufacture tension.
+4. FRAMEWORK/STEPS: 3-5 numbered steps or bullets. This is the save-trigger — each point must be independently useful, specific enough to reference again without the rest of the post.
+5. CLOSING: A complete, confident statement of what this means, OR a soft, non-salesy signal of availability. No forced implication sentence designed to create urgency.
 
-FRAMEWORK DEPTH RULE: Each bullet in the framework section must be 1.5–2 lines of text (not a single short sentence). Expand each point to include the "why it matters" in the same bullet. Example:
+FRAMEWORK DEPTH RULE: Each bullet must be 1.5-2 lines, including the "why it matters," so it's genuinely useful in isolation.
+Example:
 BAD: "• Visualize individual user actions from log data."
-GOOD: "• Visualize individual user actions from log data — not aggregates. This lets you trace exactly what one user did without filtering out concurrent noise."
-This increases dwell time and makes the section worth saving.
+GOOD: "• Visualize individual user actions from log data, not aggregates. This lets you trace exactly what one user did without filtering out concurrent noise."
 
-SAVE-TRIGGER RULE: At least one section must be structured as a numbered list or bullet sequence that a reader would bookmark. Avoid pure prose paragraphs — nobody saves prose.
+SAVE-TRIGGER RULE: At least one section must be a numbered list or bullet sequence a reader would genuinely bookmark for later use. This is the primary goal of the body, not a secondary nicety.
 
-GITHUB LINK RULE (CRITICAL for reach):
-Do NOT include the GitHub URL in the post body. External links in post bodies reduce reach by ~60%.
+GITHUB LINK RULE (unchanged):
+Do not include the GitHub URL in the post body. External links in post bodies reduce reach by ~60%.
 Instead, end your post body with this exact line:
 "🔗 Full breakdown + resources in the comments."
 
-CTA — engineered for comment threads:
-End with a question that FORCES a specific answer revealing the reader's situation. 
-The best questions make the reader think "my answer to this is different from most people's."
-FORMATS THAT WORK:
-- "What's your current setup for X — [Option A] or something else entirely?"
-- "How long did it take your team to realize [thing from article]?"  
-- "Anyone else been burned by [specific pain from article] before switching?"
-- Gold standard format: "How long were you [doing X the hard way] before someone showed you [Y]?"
-FORMATS THAT DON'T (CRITICAL):
-- "What's your primary bottleneck in X?" (This is a multiple-choice survey, not a provocation. It won't generate 15-word+ personal replies.)
-- "What do you think?" (too vague)
-- "Is X still viable in 2026?" (readiness survey)
-- "Are you using X or Y?" (binary poll)
-- NEVER ask "Is your X ready for Y?" — this is a readiness survey, not a provocation.
-The question must be answerable in 2-3 sentences and make people want to share their specific experience. That's what generates 15-word+ comments the algorithm rewards.
-
-=== ANTI-MID EXAMPLES (Study these — do NOT write like the BAD column) ===
-BAD hook: "Here is a roundup of this week's best AI developer tools."
-GOOD hook: "You've been wiring RAG evaluators by hand. Three frameworks now ship the scoring pipeline out of the box."
-
-BAD body opener: "In this post, we'll explore why observability matters for LLM apps."
-GOOD body opener: "Most teams still treat RAG failures like a prompt problem. The logs usually tell a different story."
-
-BAD bullet: "• Use a vector database for retrieval."
-GOOD bullet: "• Store embeddings in a dedicated vector DB — not your app Postgres. Query latency drops and you stop mixing OLTP traffic with similarity search."
-
-BAD CTA: "What do you think about RAG evaluation?"
-GOOD CTA: "How long did it take your team to catch a faithfulness regression before you had automated evals in CI?"
+CLOSING — trust over comment-bait:
+Do not end with a question engineered to force a reply from anyone reading. Choose one of:
+- A confident closing statement with no question.
+- A soft, specific signal of availability that only a genuinely relevant reader would act on (e.g. "If your team is mid-way through this same tradeoff, happy to compare notes").
+NEVER use survey-style questions ("what's your setup," "what do you think," "is X still viable," "are you using X or Y") — these generate reply volume from an unqualified audience, which is exactly what depresses the save/like ratio relative to views.
 
 HASHTAGS:
-Exactly 5-8 relevant technical hashtags on their own line at the very end. Mix broad and niche technical topics. Do not use generic filler tags.
+Exactly 5-8 relevant technical and company hashtags on their own line at the very end (e.g. #SystemsEngineering #OpenAI #NVIDIA). Mix broad and niche technical topics. Do not use generic filler tags.
 
 === BODY RULES (Strict) ===
-- Sound like a senior engineer sharing a practical win.
-- Remove any hype, flowery, or overly polished corporate language.
-- Explicitly explain why the update matters for developers (performance, cost, workflow impact, etc.).
-- Prefer concrete numbers and real usage claims over general statements.
-- EMOJIS: Use 0–3 emojis maximum per post as visual anchors (e.g., at the start of the hook or as bullet replacements). Never use them as decoration or spam.
-- @TAGGING: Tag 0–2 relevant people only (e.g., original content creators like @turtlesoupy or @Presidentlin). Never tag excessively or randomly.
+- Sound like a senior engineer explaining something they actually did, to another engineer whose trust they want to earn.
+- Prefer concrete numbers and real tradeoffs over general statements — precision is the trust mechanism.
+- EMOJIS: 0-3 maximum, as visual anchors only.
+- @TAGGING: 0-2 relevant people/orgs, only where it adds real credibility (e.g. crediting the original source), never for reach.
 
 === ANTI-HYPE & VOICE RULES (STRICT) ===
 You MUST strictly follow the anti-hype rules and avoid all banned words defined in the system prompt.
@@ -1246,53 +1266,31 @@ You MUST strictly follow the anti-hype rules and avoid all banned words defined 
    */
   buildFlexibleLinkedInPostRules(githubUrl, minLength = MIN_POST_LENGTH, maxLength = MAX_POST_LENGTH) {
     return `
-=== 2026 LINKEDIN VIRALITY RULES (FLEXIBLE STRUCTURE) ===
-BODY STRUCTURE — AI chooses the best fit:
-- You are the copywriter. Pick ONE structure from the "Available Structures" list that best fits the hook, the manual points, and the topic.
-- Vary the writing style: mix short punchy sentences (4-6 words) with longer technical explanations; avoid repeating the same sentence rhythm across paragraphs.
+=== TRUST & SAVE-VALUE RULES (FLEXIBLE STRUCTURE) ===
+BODY STRUCTURE — optimized for trust and reference value:
+- Pick ONE structure from the "Available Structures" list that best fits the problem and technical facts.
 - Keep the post specific and save-worthy. Every paragraph should teach something or advance the reader's understanding.
-- At least one section must be a numbered list or bullet framework that readers would bookmark. Pure prose dies.
+- At least one section must be a numbered list or bullet framework that readers would bookmark.
 
 MANUAL POINTS RULE (MOST IMPORTANT):
 - The MANUAL POINTS listed below are the curated technical facts. They MUST be preserved in substance and accuracy.
 - You may lightly reword for flow, but do NOT omit, soften, invent, or replace them with generic summaries.
-- Do NOT add industry talking points, "data sovereignty", "cost-effectiveness", or other filler not present in the manual points.
 
-GITHUB LINK RULE (CRITICAL for reach):
-Do NOT include the GitHub URL in the post body. External links in post bodies reduce reach by ~60%.
-Instead, end your post body with this exact line:
+GITHUB LINK RULE:
+Do NOT include the GitHub URL in the post body. End with:
 "🔗 Full breakdown + resources in the comments."
 
-CTA — engineered for comment threads:
-End with a question that FORCES a specific answer revealing the reader's situation.
-The best questions make the reader think "my answer to this is different from most people's."
-FORMATS THAT WORK:
-- "What's your current setup for X — [Option A] or something else entirely?"
-- "How long did it take your team to realize [thing from article]?"
-- "Anyone else been burned by [specific pain from article] before switching?"
-- "How long were you [doing X the hard way] before someone showed you [Y]?"
-FORMATS THAT DON'T:
-- "What's your primary bottleneck in X?" (survey)
-- "What do you think?" (too vague)
-- "Is X still viable in 2026?" (readiness survey)
-- "Are you using X or Y?" (binary poll)
-- NEVER ask "Is your X ready for Y?" — readiness survey, not provocation.
+CLOSING — trust over comment-bait:
+Do not end with a question engineered to force a reply. Choose a confident close or soft signal of availability.
 
 HASHTAGS:
-Exactly 5-8 relevant technical hashtags on their own line at the very end. Mix broad and niche technical topics.
+Exactly 5-8 relevant technical and company hashtags on their own line at the very end.
 
 === BODY RULES ===
-- Sound like a senior engineer casually sharing something useful.
-- Avoid hype, flowery, or overly polished corporate language.
-- Explicitly explain why the update matters for developers (performance, cost, workflow, correctness).
-- Prefer concrete numbers, benchmarks, speedups, and real usage claims over general statements.
-- EMOJIS: Use 0–3 emojis maximum per post as visual anchors. Never decorate or spam.
-- @TAGGING & MENTIONS: Identify original content creators, tool authors, framework maintainers, or companies mentioned in the content (e.g. @OpenAI, @cursor_ai, @AnthropicAI, creator handles). Include 1-2 relevant @mentions naturally in the post body or first comment to trigger notification visibility and multiply reach.
-
-=== ANTI-HYPE & VOICE RULES (STRICT) ===
-You MUST strictly follow the anti-hype rules and avoid all banned words defined in the system prompt.
-
-Post length target: ${minLength}-${maxLength} characters total (including hook).
+- Sound like a senior engineer explaining something they actually did.
+- Prefer concrete numbers, benchmarks, and real tradeoffs over general statements.
+- EMOJIS: 0-3 maximum as visual anchors.
+- Post length target: ${minLength}-${maxLength} characters total (including hook).
 `;
   }
 
@@ -1826,12 +1824,7 @@ JSON schema:
     }
 
     // @Mentions check (at least 1-2 @mentions expected)
-    const mentionMatches = postText.match(/@[a-zA-Z0-9_]+/g) || [];
-    if (mentionMatches.length >= 1) {
-      bonusPoints += 10;
-    } else {
-      issues.push("Post is missing @mentions (expected at least 1-2 '@Company' or '@Org' tags)");
-    }
+
 
     // Hashtag check (rich cloud: 5-20 hashtags expected)
     const hashtagMatches = postText.match(/#[a-zA-Z0-9_]+/g) || [];
@@ -2092,13 +2085,15 @@ JSON schema:
         }
       }
 
-      if (hookLower.includes("you've been") || hookLower.includes("you have been")) score += 18;
-      if (hookLower.includes("instead of")) score += 15;
-      if (hookLower.includes("why ") || hookLower.includes("how ")) score += 12;
-      if (hookLower.includes("stop ") || hookLower.includes("never ")) score += 15;
-      if (hookLower.includes("unnecessary") || hookLower.includes("wrong")) score += 15;
-      if (hookLower.includes("?") || hookLower.includes("...")) score += 10;
-      if (/\d/.test(hookText)) score += 12;
+      // Trust and qualification indicators
+      if (/\d/.test(hookText)) score += 15; // Specific numbers or metrics
+      if (/(?:tradeoff|failure mode|latency|under load|bottleneck|concurrency|benchmark|migration)/i.test(hookText)) score += 20; // Specific engineering reality
+      if (hookLower.includes("instead of") || hookLower.includes("rather than")) score += 10;
+      
+      // Penalize clickbait and virality tricks
+      if (hookLower.includes("?")) score -= 30; // Rhetorical questions strictly forbidden
+      if (hookLower.includes("...") || hookLower.includes("shocking") || hookLower.includes("secret") || hookLower.includes("nobody tells you")) score -= 35;
+      if (hookLower.includes("stop ") || hookLower.includes("never ") || hookLower.includes("wrong")) score -= 15; // Reversal drama penalty
 
       if (hookText.length > 200) {
         score -= 50;
@@ -2567,17 +2562,18 @@ JSON schema:
       return `[Index ${idx}] "${art.title}" -> ${subArticles}`;
     }).join("\n");
     const prompt = `
-You are a top-tier senior tech content strategist with deep expertise in LinkedIn growth for developer and AI audiences.
+You are a senior technical advisor and content strategist helping Drishtant Ghosh (Drix10), AI Systems & LLM Architect and Co-Founder @ PartPilot.
 
-Your task: Analyze the list of curated tech articles below and select the single BEST article (or at most two if they are highly complementary) to write a high-engagement, scroll-stopping LinkedIn post.
+Your task: Analyze the list of curated tech articles below and select the single BEST article that demonstrates deep technical judgment, architectural competence, and durable save-value.
 
-=== 2026 ENGAGEMENT & SELECTION CRITERIA ===
-1. HIGH-SIGNAL CONTENT (VERY HIGH WEIGHT) — Prioritize articles with concrete numbers, benchmarks, pricing, speed claims, real usage data, or direct comparisons. Avoid generic "updates" or broad roundups unless they contain strong quantifiable claims.
-2. ACTIONABILITY & UTILITY (HIGH WEIGHT) — Can a developer or engineer immediately use, bookmark, or apply this? Curations, tools, frameworks, and practical guidebooks perform best.
-3. STORYTELLING & CURIOSITY GAP — Does this topic have a high storytelling potential? Is there a surprising benchmark, an elegant architecture design, or a contrarian take we can hook readers with?
-4. TRENDING COMMUNITY RELEVANCE — Is this topic highly relevant and trending in AI, LLM, devops, or software engineering circles?
-5. AVOID ADVERTISING & SPAM — Completely avoid selecting job postings, generic announcements, polls, or motivational/career fluff.
-6. REJECT THIN CONTENT — Never select articles that describe a single minor UI/UX update, a feature toggle, or a cosmetic change to an existing tool/CLI or library with no architectural, performance, or cost implications.
+=== SELECTION CRITERIA: TRUST AND SAVE-VALUE OVER REACH ===
+1. DEMONSTRATED EXPERTISE (HIGHEST WEIGHT) — Prioritize articles where explaining them well requires real engineering judgment: architecture tradeoffs, benchmarks with visible methodology, failure postmortems, concrete numbers tied to a decision. A reader should finish trusting the explainer's competence, not just finding the topic interesting.
+2. SAVE-WORTHINESS — Would a reader actually keep this? Favor material that reduces cleanly into a reusable framework, checklist, or decision rule someone would screenshot. Deprioritize material that's only interesting once (breaking news, hot takes, novelty facts with no lasting reference value).
+3. BUYER RELEVANCE — Does this sit inside a problem our actual audience (engineering leads, CTOs, technical founders evaluating architecture decisions) is paid to solve? Prefer topics adjacent to real decisions they make over topics that are merely trending among individual contributors.
+4. ARCHITECTURAL DEPTH — Prefer source material with enough internal structure (steps, before/after states, explicit tradeoffs) to produce a well-organized post. Reject material that is a single loose fact stretched to fill a post.
+5. AVOID ADVERTISING & SPAM — Completely avoid job postings, generic announcements, polls, or motivational/career fluff.
+6. REJECT THIN CONTENT AND REJECT ENGAGEMENT-BAIT CONTENT — Reject minor UI/UX updates, feature toggles, or cosmetic changes with no architectural implication. Also reject material whose only appeal is that it would generate high raw engagement (controversy, shock value, meme-ability) without teaching anything durable. We are not selecting for what would go viral; we are selecting for what a skeptical senior engineer would trust and save.
+7. TECHNICAL SYSTEMS & AI/DEV FOCUS (TOP PRIORITY) — Drishtant Ghosh is an AI Systems & LLM Architect. Heavily prioritize technical systems articles: AI developer tools, LLMs, systems architecture, infrastructure, distributed backends, developer utilities, and compiler/AST tools. Deprioritize generic VC, macro finance, or pure business roundups unless they contain direct architectural and engineering implications.
 
 ${recentTopicsText}
 Articles list:
@@ -2673,24 +2669,22 @@ JSON schema:
       ? `\nMonthly Calendar Mix Status (Target: 40% TOF, 40% MOF, 20% BOF): Recent posts breakdown = ${counts.TOF} TOF, ${counts.MOF} MOF, ${counts.BOF} BOF. Current recommended bucket to balance our 40/40/20 calendar is "${recommendedBucket}".\n`
       : `\nTarget Funnel Mix: Maintain a monthly calendar mix of 40% TOF (broad lessons), 40% MOF (technical trust), 20% BOF (proof/benchmarks).\n`;
 
-    const prompt = `You are an elite B2B and technical founder content strategist working for Drishtant Ghosh (Drix10):
-- Co-Founder @ PartPilot (AI operational automation)
-- 1x Acquired Serial Founder (ReeF: $15k ARR, 5M+ requests, acquired)
-- Creator of CosLynx (400+ MVP deployments)
-- Canopy @ Founders, Inc. Fellow
-- Cybersecurity & Distributed Systems Researcher
-
-Given this technical article, execute Steps 1 to 4 of the Hat Tip Founder LinkedIn System:
-1. BUYER QUESTION: What is the exact recurring question, technical dilemma, or architectural decision a target buyer, CTO, or engineering founder wants answered from this material? (e.g. "How do we reduce inference latency without quantization artifacts?", "Why do distributed agent loops fail at scale?")
-2. EXACT BUYER LANGUAGE: State their exact pain points, risks, objections, or failed solutions using realistic engineering words.
-3. FUNNEL BUCKET: Classify into "TOF" (Top of Funnel: visibility, broad engineering lessons, founder decisions), "MOF" (Middle of Funnel: build trust, technical frameworks, architectures, tradeoffs), or "BOF" (Bottom of Funnel: convert trust, concrete case studies, benchmarks, proof).${funnelGuidance}
-4. LITERAL PURPOSE: State the literal, measurable outcome this post must achieve in ONE sentence. NO vague goals like "thought leadership".
-5. CORE INSIGHT: One sentence summary of the non-obvious technical insight from the source.
+    const prompt = `You are an elite B2B technical content strategist working for Drishtant Ghosh (Drix10), AI Systems & LLM Architect and Co-Founder @ PartPilot.
 
 Source Article:
 Topic: ${title}
 Content:
 ${content}
+
+CRITICAL DIRECTIVE: Focus 100% on the source article topic above. Do NOT force unrelated personal projects (do NOT mention crypto, ReeF, AST parsing, or hardware unless the article is specifically about that).
+
+Execute Steps 1 to 4 of the Hat Tip Founder LinkedIn System for THIS specific topic:
+1. BUYER QUESTION: What is the recurring dilemma, architectural decision, or pain point an engineering lead, CTO, or founder wants answered from THIS specific material?
+2. EXACT BUYER LANGUAGE: State their exact pain points or risks using realistic, domain-accurate words.
+3. FUNNEL BUCKET: Classify into "TOF" (Top of Funnel: industry shifts, broad engineering lessons), "MOF" (Middle of Funnel: technical frameworks, systems blueprints), or "BOF" (Bottom of Funnel: benchmarks, case studies, concrete numbers).${funnelGuidance}
+4. LITERAL PURPOSE: State the literal outcome this post must achieve in ONE sentence, phrased as a trust or purchase-intent outcome — e.g. "engineering leads evaluating this tradeoff should trust our judgment enough to consider talking to us" or "senior engineers should save this as their reference the next time they hit this decision." Do NOT phrase this as an engagement outcome like "get people talking," "go viral," or "maximize comments."
+5. TRUST SIGNAL: Name the single most specific piece of evidence, admitted tradeoff, or hard-won detail in this source material that would make a skeptical buyer trust the author's judgment more. If nothing specific enough exists, say so explicitly rather than inventing one — a generic trust signal is worse than none.
+6. CORE INSIGHT: One sentence summary of the non-obvious insight from THIS source material.
 
 Return ONLY a valid raw JSON object. No markdown, no commentary.
 JSON Schema:
@@ -2699,6 +2693,7 @@ JSON Schema:
   "exactBuyerLanguage": "string",
   "funnelBucket": "TOF" | "MOF" | "BOF",
   "literalPurpose": "string",
+  "trustSignal": "string",
   "coreInsight": "string"
 }`;
 
@@ -2716,6 +2711,7 @@ JSON Schema:
           exactBuyerLanguage: this.sanitizeBannedWords(data.exactBuyerLanguage || ""),
           funnelBucket: ["TOF", "MOF", "BOF"].includes(data.funnelBucket) ? data.funnelBucket : "MOF",
           literalPurpose: this.sanitizeBannedWords(data.literalPurpose),
+          trustSignal: this.sanitizeBannedWords(data.trustSignal || ""),
           coreInsight: this.sanitizeBannedWords(data.coreInsight || title)
         };
       }
@@ -2732,6 +2728,7 @@ JSON Schema:
       exactBuyerLanguage: `What are the architecture trade-offs, real failure modes, and performance impacts of ${cleanTitle}?`,
       funnelBucket: fallbackBucket,
       literalPurpose: `Break down the core architecture trade-offs and implementation steps of ${cleanTitle} for engineering leads.`,
+      trustSignal: `Concrete benchmark figures and observable architecture limits under real load.`,
       coreInsight: `Modern systems scaling ${cleanTitle} require modular separation of state and execution.`
     };
   }
@@ -2747,35 +2744,39 @@ JSON Schema:
     const pointsText = this.formatManualPoints(rawManualPoints.slice(0, 4));
     const structure = this.pickStructure(recentStructures);
 
-    const prompt = `You are an elite LinkedIn copywriter executing the Hat Tip CPIO Framework (Convey, Package, Information, Order) for Drishtant Ghosh (Drix10), an AI Systems Engineer and 1x Acquired Founder.
+    const prompt = `You are an elite LinkedIn copywriter executing the Hat Tip CPIO Framework (Convey, Package, Information, Order) for Drishtant Ghosh (Drix10), AI Systems & LLM Architect and Co-Founder @ PartPilot.
 
+Source Topic: ${title}
 Strategy Input:
 - Buyer Question: ${strategy.buyerQuestion}
 - Funnel Bucket: ${strategy.funnelBucket}
 - Literal Purpose: ${strategy.literalPurpose}
+- Trust Signal: ${strategy.trustSignal || "Concrete benchmark metrics and architecture boundaries."}
 - Core Technical Facts:
 ${pointsText || content.slice(0, 800)}
 
+CRITICAL DIRECTIVE: The post must be 100% focused on the Source Topic above. Do NOT force unrelated personal projects (no crypto, no ReeF, no AST parsing unless the topic is specifically about that).
+
 Execute CPIO:
-C (CONVEY): Write ONE exact sentence stating the single lesson/result the reader must understand. Every sentence in the post must serve this point.
+C (CONVEY): Write ONE exact sentence stating the single lesson/result the reader must understand from THIS material.
 P (PACKAGE & HOOK):
   - Format: "${structure.label}" (${structure.description})
-  - Angle: Authentic technical founder perspective (analyzing system blueprints, architecture postmortems, or production bottlenecks).
-  - Hook: 1-2 sentence opening that creates an honest CURIOSITY GAP (gives enough context to understand why it matters, but leaves the valuable resolution for the body).
+  - Angle: Technical founder/architect evaluating THIS specific subject with practical rigor.
+  - Hook: 1-2 sentence opening that creates an honest CURIOSITY GAP directly about THIS topic.
   - STRICT HOOK RULES:
-    * Must be a DECLARATIVE observation, benchmark realization, or engineering shift (e.g. "While deconstructing X, one non-obvious architecture decision shifted how our team approaches Y.").
-    * FORBIDDEN: NO RHETORICAL QUESTIONS (NEVER start with "Have you ever wondered", "What if I told you", or end with "?").
-    * FORBIDDEN: NO REVERSAL FRAMING ("Most people think X, but actually Y").
-    * STRICT: NO EM DASHES ("—" or "--"). Under 200 characters.
+    * The hook must filter, not maximize clicks. Write it so a reader who has NOT personally hit this exact problem would scroll past, and a reader who HAS would immediately recognize their own situation. Do not write a hook designed to appeal to everyone.
+    * Must be a DECLARATIVE observation grounded in the trust signal above — something only someone who actually did the work would know to say (e.g. "The failure mode in X only shows up under Y load, which is why most benchmarks miss it.").
+    * FORBIDDEN: NO RHETORICAL QUESTIONS. FORBIDDEN: NO REVERSAL FRAMING. FORBIDDEN: language that promises drama or a twist ("what nobody tells you," "the shocking truth") — that's a curiosity trick, not a credibility signal.
+    * STRICT: NO EM DASHES. Under 200 characters.
 I (INFORMATION):
-  - 3 concrete technical mechanisms or takeaways to include.
-  - 1-2 details to EXCLUDE to preserve high information density.
+  - 3 concrete technical mechanisms or takeaways, each written so it could stand alone as a saved note — specific enough that a reader could reference it months later without needing the rest of the post for context.
+  - 1-2 details to EXCLUDE to preserve density. Excluding generic filler is itself a trust signal: it shows judgment about what actually matters.
 O (ORDER):
   - Hook: The curiosity gap opening.
   - Setup: Context for a cold audience (why this matters right now).
   - Development: The core technical mechanism or decision.
   - Support: 2-3 specific, actionable points.
-  - Ending: Natural, forward-looking takeaway (NO repetitive summary, NO forced "agree?" CTA).
+  - Ending: The ending must leave the reader more confident in the author's judgment than they were at the start of the post. It should feel complete, not manufacture curiosity for a future post and not bait a reply. No forced CTA, no "agree?", no artificial cliffhanger.
 
 Return ONLY a valid raw JSON object. No markdown, no commentary.
 JSON Schema:
@@ -2813,6 +2814,12 @@ JSON Schema:
           .replace(/[—–\u2014\u2013\u2015]/g, ": ")
           .replace(/--/g, "-")
           .replace(/^(?:have you ever wondered|what if I told you|did you know)\s*/gi, "")
+          // Replace "I've seen many/too many X struggle with Y, only to realize Z" → declarative observation
+          .replace(/^I've seen (?:many|too many) ([a-z][a-z\s]*?) (?:struggle with|burn through) ([^,\n]+),? only to realize/im,
+            (_, who, what) => `Most ${who.trim()} don't realize ${what.trim().replace(/\?$/, '')} until it hits production.`)
+          // Replace "I've seen too many X get caught off guard by Y" → declarative observation
+          .replace(/^I've seen too many ([^,\n]+) get caught off guard by ([^.\n]+)\./im,
+            (_, who, what) => `Many ${who.trim()} underestimate ${what.trim()} until it directly affects their system.`)
           .replace(/\?\s*$/, ".")
           .trim();
 
@@ -2878,56 +2885,105 @@ JSON Schema:
       ? cpio.order.support
       : cpio.information?.requiredPoints || [];
 
-    const cleanTitle = String(article?.title || "AI Systems Architecture").replace(/^#+\s*/, "").replace(/[|–—:].*$/, "").trim();
+    const cleanTitle = String(article?.title || "AI Systems Architecture").replace(/^#+\s*/, "").replace(/^[^\w]+/, "").trim();
     const defaultPrinciples = [
       `Decouple state and execution boundaries to eliminate concurrency bottlenecks in ${cleanTitle}.`,
       `Establish rigorous profiling benchmarks to measure throughput gains and memory footprint.`
     ];
     const supportPoints = (rawSupport.length >= 2) ? rawSupport : defaultPrinciples;
+    const cleanPoint1 = (supportPoints[0] || `Audit system bottlenecks under load in ${cleanTitle}.`).replace(/\*\*/g, "").replace(/__/g, "");
+    const cleanPoint2 = (supportPoints[1] || `Implement deterministic separation of state and execution.`).replace(/\*\*/g, "").replace(/__/g, "");
+    const cleanPoint3 = (supportPoints[2] || `Establish automated regression benchmarks before production deployment.`).replace(/\*\*/g, "").replace(/__/g, "");
 
     const feedbackSection = feedback.length > 0
       ? `\n=== CRITICAL VALIDATION FEEDBACK FROM PREVIOUS DRAFT (FIX THESE) ===\n${feedback.map(f => `- ${f}`).join("\n")}\n`
       : "";
 
-    const prompt = `You are Drishtant Ghosh (Drix10): Co-Founder @ PartPilot, 1x Acquired Serial Founder (ReeF), and AI Systems Engineer.
-Write an authentic, highly valuable LinkedIn post sharing an engineering architecture teardown.
+    const prompt = `You are Drishtant Ghosh (Drix10): AI Systems & LLM Architect and Co-Founder @ PartPilot.
+Write an authentic, highly valuable LinkedIn founder post sharing this technical teardown.
 
-=== HAT TIP WRITING PRINCIPLES ===
-1. WRITE FOR A COLD AUDIENCE: Explain enough context so any engineer or founder immediately understands why this matters.
-2. WRITE HOW YOU SPEAK: Use short, conversational words. Say "use" instead of "utilize". Use active voice ("we built this" not "this was built by us").
-3. CLARITY BEATS CLEVERNESS: 8th-grade readability for complex systems. Smooth logical connections between every sentence.
-4. MOBILE FORMATTING: Short paragraphs (1-3 sentences, maximum 4 lines on mobile screen). Clean whitespace between sections. NO unicode bolding/italics.
-5. NO FLUFF: Every sentence fights for its life and delivers on the hook's promise.
-6. MANDATORY @MENTIONS: Include 2 to 4 prominent @mentions of real entities/frameworks/teams with '@' (e.g. @Anthropic, @Meta, @OpenAI, @Google, or the open source maintainers).
-7. HASHTAGS: Exactly 5-8 relevant technical hashtags at the very bottom.
-8. CRITICAL: Start IMMEDIATELY on line 1 with the opening hook. DO NOT output any title, headline, markdown header (# or ###), or introductory greeting before the hook.
+=== ABSOLUTE TOPIC PURITY & TECHNICAL FOUNDER POSITIONING (CRITICAL) ===
+- The post MUST be 100% about the topic: "${cleanTitle}".
+- SPEAK AS A TECHNICAL BUILDER: You are an engineer-founder who builds real systems and products. Speak from operating reality, not financial speculation.
+- NEVER ROLEPLAY AS A VC ANALYST:
+  * NEVER claim "I've seen too many seed startups get caught off guard by institutional investors" or pretend to be an institutional fund manager.
+  * If the source topic touches venture capital, funding, or market growth, ALWAYS bridge it through the OPERATING ENGINEER'S LENS:
+    "Growth is one of the easiest metrics to make look impressive. As a founder, the harder question is what sits underneath it."
+    "Engineering decisions eventually become business decisions."
+    "A backend architecture that costs 3x more to operate at scale eats into gross margins."
+    "System reliability, latency, and technical debt directly determine customer cohort retention."
+- NO REPETITION: Every sentence must earn its place. NEVER repeat the same premise across paragraphs (e.g. saying "institutional firms demand X" three times in a row). State the reality once with precision and move forward.
+- NO FABRICATED UNIVERSAL METRICS OR PSEUDO-DATA: NEVER write "Our benchmarks show...", "Our portfolio shows...", or invent quantitative metrics (e.g. "a 10% reduction leads to 20% increase in runway"). Do NOT invent mathematical claims. Only cite numbers if they appear in the source text.
+- Speak with the voice of an experienced systems architect evaluating THIS subject with engineering rigor, practical skepticism, and clarity.
 
-=== EXECUTE THIS BLUEPRINT ===
-- CONVEY GOAL: ${cpio.convey}
-- OPENING HOOK (Start directly with this exact hook):
+=== 90-DAY HAT TIP FOUNDER WRITING SYSTEM ===
+1. WRITE HOW YOU SPEAK: Use short, conversational words you would say out loud to an engineering peer. Say "use" instead of "utilize". Write in active voice throughout ("we found", "I learned", "I observed", not passive voice). NEVER claim "our benchmarks show" or "our portfolio shows" unless quoting verified source data.
+2. CLARITY BEATS CLEVERNESS: 8th-grade readability for complex systems. Every thought connects smoothly to the next.
+3. HIGH INFORMATION DENSITY: Every sentence fights for its life and delivers on the hook's promise. Cut all filler words ("very", "really", "quite").
+4. 1-BY-1 LINE BREAK PACING (STRICTEST RULE):
+Write each sentence or short thought on its OWN line, separated by a clean double line break (\n\n).
+NEVER clump 3 or 4 sentences into a block of text.
+Study this exact rhythm:
+"I found an engineering bottleneck while profiling our agents.
+
+The result surprised our team.
+
+Probabilistic LLM judges were burning 40% of our test tokens.
+
+More critically, they introduced non-deterministic variance into our staging builds.
+
+That made us rethink our entire evaluation architecture."
+Notice how every single thought gets its own space to breathe.
+5. STRICTLY NO DUPLICATION: Do NOT repeat the same sentence or concept in the narrative and then again in the numbered takeaways. Every paragraph and point must provide distinct, non-overlapping information.
+6. NO PLACEHOLDER HEADERS: NEVER write placeholder labels like "Principle Name:", "Core Mechanism:", or generic summaries.
+7. NUMBERED TAKEAWAYS: Present exactly 3 concrete, actionable technical takeaways numbered 1., 2., 3. Format each with a sharp named concept or heuristic on the first line, followed by a specific operational explanation or question.
+Example:
+1. Capital efficiency
+How much meaningful progress are we creating for every unit of capital and engineering time we spend?
+
+2. Unit economics
+What does it actually cost to acquire, serve, and retain another customer?
+
+3. Retention
+Is growth compounding because customers stay, or are we constantly replacing the ones we're losing?
+8. NO RAW @MENTIONS — USE COMPANY HASHTAGS: Do NOT include raw @company or @person tags (e.g. @Anthropic, @Meta). They do not link properly on LinkedIn and look like spam. For companies, frameworks, or tools mentioned, include them as hashtags at the end (e.g. #Anthropic #OpenAI #NVIDIA).
+9. HASHTAGS: Exactly 5-8 relevant technical and company hashtags at the very bottom (e.g. #SystemsArchitecture #SoftwareEngineering #Cloud #OpenAI).
+10. START DIRECTLY ON LINE 1: Start immediately with the opening hook. DO NOT output any title, greeting, or markdown headers.
+11. CLOSE WITH TRUST, NOT BAIT: End the post one of two ways — (a) a confident, complete closing statement with no question at all, or (b) a soft, non-salesy signal of availability that a genuinely qualified reader would recognize as relevant to them (e.g. "If you're mid-way through the same migration, happy to compare notes"). Never end with a question designed to farm replies from people who don't actually have the problem. The goal is that the small number of readers who reply are the ones actually worth talking to, not the largest number of readers who reply at all.
+12. EVERY TAKEAWAY MUST SURVIVE A SCREENSHOT: Before finalizing, check each of the 3 numbered takeaways in isolation — if it only makes sense with the surrounding paragraph, rewrite it so it's specific and complete on its own.
+13. SEARCHABLE LONG-TAIL ASSET (SEO TECHNIQUE): Treat this post as a durable, indexed search asset that will rank on Google for long-tail technical queries (e.g. specific tool migrations, architecture bottlenecks, benchmarking tradeoffs). Use the exact technical phrases an engineering lead or CTO would search when debugging this dilemma. One useful, search-indexed post travels further and lasts longer than an entire week of feed updates.
+
+Write this so a specific engineering lead reads it once and trusts the author enough to take a call — not so the widest possible audience clicks through.
+
+=== BLUEPRINT TO EXECUTE ===
+- PURPOSE: ${cpio.convey}
+- OPENING HOOK (Start directly on line 1 with this curiosity gap):
 ${cpio.package.hook}
 
-- CONTEXT & SETUP:
+- SYSTEM CONTEXT & SETUP (2-3 short sentences bridging from the hook into the core engineering dilemma):
 ${cpio.order.setup}
 
-- CORE ARCHITECTURE MECHANISM:
+- TECHNICAL MECHANISM (2-3 short sentences explaining the operational insight):
 ${cpio.order.development}
 
-- CORE ARCHITECTURAL PRINCIPLES (Double-spaced, numbered, clean plain text with NO asterisks or markdown formatting, e.g. "1. Principle Name: [Explanation]"):
-${supportPoints.map((pt, i) => `${i + 1}. ${pt.replace(/\*\*/g, "").replace(/__/g, "")}`).join("\n\n")}
+- 3 ACTIONABLE TECHNICAL TAKEAWAYS (CRITICAL: You MUST include literal "1. ", "2. ", "3. " numbers. Do NOT write prose paragraphs instead of numbers):
+1. ${cleanPoint1}
+2. ${cleanPoint2}
+3. ${cleanPoint3}
 
-- FORWARD-LOOKING FOUNDER RESOLUTION:
+- FOUNDER RESOLUTION (Natural ending paying off the hook without forced CTAs or summaries):
 ${cpio.order.ending}
 ${feedbackSection}
 === STRICT PROHIBITIONS (HAT TIP RULESET) ===
-- NO EM DASHES ("—" or "--"). Use colons, commas, or periods instead.
-- NO MARKDOWN BOLDING OR ASTERISKS ("**" or "__"). LinkedIn does NOT render markdown bold and displays literal asterisks. Write clean plain text.
+- STRICTLY ZERO MARKDOWN BOLDING OR ASTERISKS ("**" or "__"). LinkedIn does NOT render markdown bold and displays literal asterisks. Write clean plain text.
+- STRICTLY ZERO EM DASHES ("—" or "--"). Use colons, commas, or periods instead.
 - NO reversal framing ("Most people think X, but actually Y").
 - NO rhetorical questions ("Have you ever wondered...?").
 - NO repeated sentence openings (e.g., three sentences in a row starting with "We").
 - NO generic AI buzzwords: ${BANNED_WORDS.slice(0, 15).join(", ")}.
-- NO forced engagement bait ("Agree?", "Thoughts?", "Drop a comment").
-- Keep length punchy and high-signal (1,100 to 1,900 characters).
+- NO forced engagement bait ("Agree?", "Thoughts?", "Drop a comment below").
+- STRICTLY FORBIDDEN: DO NOT output "Key Points:", "🚀 Implementation:", or "🔗 Resources:". Do NOT output empty markdown links like "[Tool]()". Output only the conversational founder breakdown, the 3 numbered takeaways, the closing takeaway, and the hashtags.
+- Target character length: 1,200 to 1,900 characters.
 
 Return ONLY the complete raw text ready to post on LinkedIn.`;
 
@@ -2994,6 +3050,11 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     // 6. Strip broad generalizations beginning with "Most people" / "Everyone knows"
     body = body.replace(/(?:^|\.\s+)(?:Most people|Everyone knows|As we all know)\b[^.]*\./gi, ".");
 
+    // 6b. Strip pseudo-data claims like "Our benchmarks show..." unless verified in source
+    if (!article?.fullContent?.includes("benchmarks show") && !article?.fullContent?.includes("our data")) {
+      body = body.replace(/(?:our benchmarks show|our tests show|our portfolio shows|according to our data)[^.\n]*[.]?\s*/gi, "");
+    }
+
     // 7. Fix stacked sentence fragments (e.g. "Fast. Scalable. Resilient.")
     body = body.replace(/\b([A-Z][a-z]+)\.\s+([A-Z][a-z]+)\.\s+([A-Z][a-z]+)\./g, "$1, $2, and $3.");
 
@@ -3018,6 +3079,42 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
       }
     }
 
+    // 10b. Strip spammy or isolated @mentions lists (e.g. "@Anthropic, @Meta, @OpenAI, @NVIDIA, @Prisma")
+    body = body.replace(/^(?:@[a-zA-Z0-9_]+[,;\s]*)+$/gm, "").trim();
+    body = body.replace(/(?:@[a-zA-Z0-9_]+[,;\s]*){2,}/g, "").trim();
+
+    // 10c. Strip raw GitHub URLs from the body to protect reach
+    body = body.replace(/https?:\/\/(?:www\.)?github\.com\/[^\s\)]+/gi, "").trim();
+
+    // 10d. Strip any stray blog markdown headers or empty links (e.g. "Key Points:", "🚀 Implementation:", "• [Tool]()")
+    body = body.replace(/^(?:Key Points:|🚀 Implementation:|🔗 Resources:)\s*$/gim, "");
+    body = body.replace(/^•\s*\[[^\]]*\]\(\s*\)\s*-?\s*.*$/gm, "");
+    body = body.replace(/•\s*\[[^\]]*\]\(\s*\)/g, "");
+
+    // 10e. Ensure true 1-by-1 line break pacing for narrative text (outside of numbered lists)
+    const rawBlocks = body.split(/\n{2,}/);
+    const formattedBlocks = [];
+    for (const block of rawBlocks) {
+      const trimmed = block.trim();
+      if (!trimmed) continue;
+      // Preserve numbered lists, hashtags, links, and bullets verbatim
+      if (/^[0-9]+\.\s/m.test(trimmed) || trimmed.startsWith("#") || trimmed.startsWith("🔗") || trimmed.startsWith("•")) {
+        formattedBlocks.push(trimmed);
+        continue;
+      }
+      // Split narrative paragraphs into individual punchy sentences (Hank Wu 1-by-1 line cadence)
+      const sentences = trimmed.match(/[^.!?]+[.!?]+(?:\s|$)/g);
+      if (sentences && sentences.length > 1) {
+        for (const s of sentences) {
+          const cleanS = s.trim();
+          if (cleanS) formattedBlocks.push(cleanS);
+        }
+      } else {
+        formattedBlocks.push(trimmed);
+      }
+    }
+    body = formattedBlocks.join("\n\n").trim();
+
     // 11. Normalize malformed hashtags (remove spaces after # and remove hyphens inside hashtags)
     body = body.replace(/#\s+([a-zA-Z0-9_]+)/g, "#$1");
     body = body.replace(/(#[a-zA-Z0-9_]+)-([a-zA-Z0-9_]+)/g, "$1$2");
@@ -3039,35 +3136,94 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
       body = hashtags ? `${trimmed}\n\n${hashtags}`.trim() : trimmed;
     }
 
-    // 14. Auto-tag well-known tech entities with '@'
-    const knownEntities = [
-      ["Meta AI", "@Meta"],
-      ["Meta", "@Meta"],
-      ["OpenAI", "@OpenAI"],
-      ["Anthropic", "@Anthropic"],
-      ["Google AI", "@Google"],
-      ["Google", "@Google"],
-      ["Microsoft", "@Microsoft"],
-      ["CynuxEra", "@CynuxEra"],
-      ["CompTIA", "@CompTIA"],
-      ["ISC2", "@ISC2"],
-      ["EC-Council", "@EC-Council"],
-      ["Claude Opus", "@Anthropic's Claude Opus"],
-      ["GPT-5", "@OpenAI's GPT-5"]
-    ];
-
-    for (const [entity, replacement] of knownEntities) {
-      const regex = new RegExp(`(?<![@#])\\b${entity}\\b`, 'g');
-      body = body.replace(regex, replacement);
+    // 14. Auto-add relevant company hashtags if companies are mentioned in the text
+    const knownCompanies = ["OpenAI", "Anthropic", "NVIDIA", "Meta", "Google", "Microsoft", "AWS", "Apple", "Mistral", "Cohere", "Groq"];
+    const foundCompanyTags = [];
+    for (const company of knownCompanies) {
+      if (new RegExp(`\\b${company}\\b`, 'i').test(body) && !body.includes(`#${company}`)) {
+        foundCompanyTags.push(`#${company}`);
+      }
     }
-    body = body.replace(/#@/g, "#");
+    if (foundCompanyTags.length > 0) {
+      body = body.trim() + " " + foundCompanyTags.slice(0, 3).join(" ");
+    }
 
-    // 15. Ensure 5-8 hashtags
-    const hashtagsFound = body.match(/#[a-zA-Z0-9_]+/g) || [];
+    // 14b. Ensure transition lines before numbered lists have double line breaks
+    body = body.replace(/([^\n])\n(?=[0-9]+\.\s)/g, "$1\n\n");
+
+    // 14c. Handle the first comment resource link: only include if substantive resources exist
+    const hasSubstantiveResource = Boolean(article?.githubUrl || (article?.resources && article.resources.length > 0));
+    if (!hasSubstantiveResource) {
+      body = body.replace(/🔗[^\n]*\n*/gi, "").trim();
+    } else if (!body.includes("🔗")) {
+      const hashtagsMatch = body.match(/(?:#[a-zA-Z0-9_]+\s*)+$/);
+      const hashtags = hashtagsMatch ? hashtagsMatch[0].trim() : "";
+      const textWithoutTags = hashtags ? body.slice(0, -hashtags.length).trim() : body;
+      body = `${textWithoutTags}\n\n🔗 Full breakdown + architecture resources in the comments.\n\n${hashtags}`.trim();
+    }
+
+    // 14d. Ensure at least 2 structured standout takeaways exist
+    const bulletsFound = this.extractFrameworkBullets(body);
+    if (bulletsFound.length < 2 && Array.isArray(cpio?.information?.requiredPoints) && cpio.information.requiredPoints.length >= 2) {
+      const formattedPoints = cpio.information.requiredPoints.slice(0, 3).map((pt, i) => `${i + 1}. ${pt.replace(/\*\*/g, "").replace(/__/g, "")}`).join("\n\n");
+      if (body.includes("🔗")) {
+        body = body.replace("🔗", `${formattedPoints}\n\n🔗`);
+      } else {
+        const hashtagsMatch = body.match(/(?:#[a-zA-Z0-9_]+\s*)+$/);
+        if (hashtagsMatch) {
+          body = body.replace(hashtagsMatch[0], `${formattedPoints}\n\n${hashtagsMatch[0]}`);
+        } else {
+          body = `${body}\n\n${formattedPoints}`;
+        }
+      }
+    }
+
+    // 14e. Strip "1) ... 2) ... 3) ..." step-lists from inside numbered takeaways
+    // Handles both multi-line ("1.\n1) sub\n2) sub") and inline ("1. lead: 1) sub, 2) sub, 3) sub")
+    body = body.replace(/([0-9]+\.\s[^\n]+)\n(?:[0-9]+\)\s[^\n]+\n?)+/g, (match) => {
+      return match.split('\n')[0].trim();
+    });
+    // Inline variant: "1. something: 1) foo, 2) bar, 3) baz" → "1. something"
+    body = body.replace(/((?:^|\n)[0-9]+\.\s[^:\n]+):[^.\n]*(?:[0-9]+\)[^,\n]+[,\n]?){2,}/g, (match) => {
+      return match.replace(/:[^.\n]*(?:[0-9]+\)[^,\n]+[,\n]?){2,}/, '.').trim();
+    });
+
+    // 14f. Replace overused generic hook openers with declarative observations
+    // "I've seen many X struggle with Y, only to realize Z" → "Most X don't realize Y until it's too late."
+    body = body.replace(/^I've seen (?:many|too many) ([a-z][a-z\s]*?) (?:struggle with|burn through) ([^,\n]+),? only to realize/im,
+      (_, who, what) => `Most ${who.trim()} don't realize ${what.trim().replace(/\?$/, '')} until it's in production.`);
+    // "I've seen too many X get caught off guard by Y" → "Many X underestimate Y until it directly affects their system."
+    body = body.replace(/^I've seen too many ([^,\n]+) get caught off guard by ([^.\n]+)\./im,
+      (_, who, what) => `Many ${who.trim()} underestimate ${what.trim()} until it directly affects their system.`);
+
+    // 15. Enforce 5-8 hashtags strictly (add if too few, trim if too many)
+    let hashtagsFound = body.match(/#[a-zA-Z0-9_]+/g) || [];
     if (hashtagsFound.length < 5) {
       const cleanTitle = String(article?.title || "AI").replace(/[^a-zA-Z0-9]/g, "");
       const fallbackHashtags = `\n\n#AI #${cleanTitle} #SoftwareEngineering #TechInnovation #MachineLearning #SystemDesign #DeveloperTools`;
       body = body + fallbackHashtags;
+      hashtagsFound = body.match(/#[a-zA-Z0-9_]+/g) || [];
+    }
+    if (hashtagsFound.length > 8) {
+      // Collect only unique hashtags in order of first appearance, cap at 8
+      const seen = new Set();
+      const kept = [];
+      for (const tag of hashtagsFound) {
+        const lower = tag.toLowerCase();
+        if (!seen.has(lower) && kept.length < 8) {
+          seen.add(lower);
+          kept.push(tag);
+        }
+      }
+      // Find the trailing hashtag block at the end of body and replace it
+      const trailingTagsMatch = body.match(/\n\n(?:#[a-zA-Z0-9_]+\s*)+$/);
+      if (trailingTagsMatch) {
+        body = body.slice(0, body.length - trailingTagsMatch[0].length).trim() + "\n\n" + kept.join(" ");
+      } else {
+        // Hashtags are scattered — rebuild clean trailing block
+        const bodyWithoutTags = body.replace(/#[a-zA-Z0-9_]+/g, "").replace(/\s{2,}/g, " ").trim();
+        body = bodyWithoutTags + "\n\n" + kept.join(" ");
+      }
     }
 
     return body;
@@ -3100,19 +3256,64 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
    */
   generateSlideAndMeta(article, draftText, cpio) {
     const rawTitle = article?.title || "AI Systems Architecture";
-    const cleanTitle = String(rawTitle)
-      .replace(/^#+\s*/, "")
-      .replace(/[|–—:].*$/, "")
+
+    // Extract specific technical topic (avoid discarding the real subject after colon/hyphen)
+    let primaryTitle = String(rawTitle).replace(/^#+\s*/, "").trim();
+    let derivedCategory = article?.category || "";
+
+    if (primaryTitle.includes(":") && primaryTitle.split(":")[1].trim().length > 3) {
+      const parts = primaryTitle.split(":");
+      if (!derivedCategory) derivedCategory = parts[0].replace(/^[\p{Extended_Pictographic}\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\s-]+/u, "").trim();
+      primaryTitle = parts.slice(1).join(":").replace(/^[\p{Extended_Pictographic}\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\s-]+/u, "").trim();
+    } else if (primaryTitle.includes(" - ") && primaryTitle.split(" - ")[1].trim().length > 3) {
+      const parts = primaryTitle.split(" - ");
+      if (!derivedCategory) derivedCategory = parts[0].replace(/^[\p{Extended_Pictographic}\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\s-]+/u, "").trim();
+      primaryTitle = parts.slice(1).join(" - ").replace(/^[\p{Extended_Pictographic}\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\s-]+/u, "").trim();
+    }
+
+    const cleanTitle = primaryTitle
+      .replace(/^[\p{Extended_Pictographic}\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\s-]+/u, "")
+      .replace(/\|.*$/, "")
       .trim()
-      .slice(0, 50) || "AI Systems Architecture";
+      .slice(0, 65) || "AI Systems Architecture";
 
     const pointsPool = (cpio?.order?.support && cpio.order.support.length >= 2)
       ? cpio.order.support
       : (cpio?.information?.requiredPoints || []);
 
+    // Full complete points WITHOUT word truncation
     const slidePoints = pointsPool
       .slice(0, 3)
-      .map(pt => String(pt).replace(/[—–\u2012\u2013\u2014\u2015]/g, ": ").replace(/--/g, "-").replace(/^\d+\.\s*/, "").replace(/\*\*/g, "").slice(0, 65).trim())
+      .map(pt => {
+        let text = String(pt)
+          .replace(/[—–\u2012\u2013\u2014\u2015]/g, ": ")
+          .replace(/--/g, "-")
+          .replace(/^\d+\.\s*/, "")
+          .replace(/\*\*/g, "")
+          .replace(/__/g, "")
+          .replace(/^[\p{Extended_Pictographic}\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\s-]+/u, "")
+          .trim();
+        // Strip embedded inline numbered step-lists like "1) do X, 2) do Y, 3) do Z"
+        text = text.replace(/\s*[0-9]+\)\s[^,.\n]+(?:[,;][^.\n]+)*/g, "").trim();
+        // Strip "To implement this approach, follow these steps:" prefix
+        text = text.replace(/^(?:To implement this[^,]+,\s*follow these steps:|Steps?:|How to:)\s*/i, "").trim();
+        // Guard: if strip emptied the text, fall back to the original point
+        if (!text) text = String(pt).replace(/^\d+\.\s*/, "").trim().slice(0, 90);
+        // Trim to complete sentence or concept (no mid-word cuts)
+        if (text.length > 100) {
+          // Prefer a complete sentence ending within 130 chars
+          const sentenceEnd = text.search(/[.!?](?:\s|$)/);
+          if (sentenceEnd > 20 && sentenceEnd < 130) {
+            text = text.slice(0, sentenceEnd + 1).trim();
+          } else {
+            const cut = text.lastIndexOf(" ", 95);
+            text = (cut > 20 ? text.slice(0, cut) : text.slice(0, 95)) + "...";
+          }
+        }
+        // Final safety: if still empty, use a descriptive fallback
+        if (!text) text = "Architectural evaluation criteria";
+        return text;
+      })
       .filter(Boolean);
 
     const fallbackSlidePoints = [
@@ -3122,7 +3323,7 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     ];
     let fallbackIdx = 0;
     while (slidePoints.length < 3) {
-      slidePoints.push(fallbackSlidePoints[fallbackIdx++] || cleanTitle.slice(0, 65));
+      slidePoints.push(fallbackSlidePoints[fallbackIdx++] || cleanTitle);
     }
 
     const githubUrl = article?.githubUrl || "https://github.com/Drix10/ai-resources";
@@ -3137,17 +3338,21 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
       "contrarian-proof-action": "Contrarian Systems Analysis · Drix10",
       "breakdown-teardown": "Architecture Deep Dive · Drix10"
     };
-    const categoryTag = article?.category || "";
+    const categoryTag = derivedCategory || article?.category || "";
     const slideTagline = categoryTag
       ? `${categoryTag} Breakdown · Drix10`
       : (structureTaglines[cpio?.chosenStructure] || "Systems Architecture Teardown · Drix10");
+
+    const coreInsight = cpio?.convey || (article?.fullContent ? this.extractCoreInsight(article.fullContent) : "");
 
     return {
       title: cleanTitle,
       slidePoints,
       slideTagline,
       commentText,
-      diagramSteps
+      diagramSteps,
+      category: categoryTag,
+      coreInsight: coreInsight.slice(0, 140)
     };
   }
 
@@ -3228,6 +3433,8 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
         slidePoints: meta.slidePoints,
         slideTagline: meta.slideTagline,
         diagramSteps: meta.diagramSteps,
+        category: meta.category,
+        coreInsight: meta.coreInsight,
         chosenStructure: cpioBlueprint.chosenStructure
       };
 
