@@ -237,7 +237,8 @@ function getTopicName(queryName) {
 
 const runEndofRunCuration = async (successfulArticles) => {
   if (successfulArticles.length > 0) {
-    logger.info(`Starting LinkedIn Agentic Curation Flow for ${successfulArticles.length} raw files (flattening sub-articles)...`);
+    try {
+      logger.info(`Starting LinkedIn Agentic Curation Flow for ${successfulArticles.length} raw files (flattening sub-articles)...`);
       const flattenedArticles = llmService.splitArticlesIntoSubArticles(successfulArticles);
       let selectedIndices = [0];
       try {
@@ -317,8 +318,16 @@ const runEndofRunCuration = async (successfulArticles) => {
           }
 
           try {
-            logger.info(`LinkedIn Curation: Generating custom HTML slide image...`);
-            slideImagePath = await LinkedInService.generateSlideImage(megaPostData.title, megaPostData.slidePoints, megaPostData.slideTagline);
+            slideImagePath = await LinkedInService.generateSlideImage(
+              megaPostData.title,
+              megaPostData.slidePoints,
+              megaPostData.slideTagline,
+              "github.com/Drix10/ai-resources",
+              {
+                structureName: megaPostData.chosenStructure,
+                diagramSteps: megaPostData.diagramSteps
+              }
+            );
           } catch (imageErr) {
             logger.error("LinkedIn Curation: Failed to generate slide image, continuing without image:", imageErr);
             slideImagePath = null;

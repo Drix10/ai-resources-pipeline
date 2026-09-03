@@ -35,7 +35,22 @@ const BANNED_WORDS = [
   "significantly", "significant shifts", "making waves", "next-gen", "wild",
   "sophisticated", "most powerful", "signaling", "broader reach",
   "push boundaries", "pushing boundaries", "extensibility", "masterclass",
-  "paving the way", "incredible ways", "blurring lines", "deep dive"
+  "paving the way", "incredible ways", "blurring lines", "deep dive",
+  "supercharge", "supercharged", "supercharging", "paradigm shift",
+  "synergy", "plethora", "myriad", "harness", "harnessing", "unleash", "unleashing"
+];
+
+const HAT_TIP_PROHIBITED_PATTERNS = [
+  // Reversal framing: a common belief followed by dramatic correction
+  /(?:most people|everyone) (?:thinks?|believes?|assumes?)[^.\n]*\.\s*(?:but|however|in reality|actually)/i,
+  // Rhetorical questions
+  /(?:have you ever wondered|what if I told you|why does this matter\?)/i,
+  // Broad generalizations
+  /^(?:most people|everyone knows|in today's (?:fast-paced|world)|as we all know)/im,
+  // Forced summaries
+  /(?:in conclusion|to wrap up|all in all|in summary|to summarize)[,:]?/i,
+  // Engagement bait CTAs
+  /(?:agree\??|thoughts\??|drop a comment below|let me know in the comments|share your thoughts)/i
 ];
 
 const WEAK_CTA_PATTERNS = [
@@ -647,39 +662,133 @@ class LocalLLMService {
   sanitizeBannedWords(text) {
     if (!text || typeof text !== "string") return text;
     let result = text;
-    const replacements = [
-      [/\bleverag(?:e|es|ed|ing)\b/gi, "use"],
-      [/\bdeep dive\b/gi, "breakdown"],
-      [/\bdive into\b/gi, "look into"],
-      [/\bdiv(?:e|es|ed|ing)\b/gi, "explore"],
-      [/\bdelv(?:e|es|ed|ing)(?:\s+into)?\b/gi, "explore"],
+
+    // Grammatically inflected replacements
+    const inflectedReplacements = [
+      // Utilize -> Use
+      [/\bUtilizing\b/g, "Using"],
+      [/\butilizing\b/g, "using"],
+      [/\bUtilized\b/g, "Used"],
+      [/\butilized\b/g, "used"],
+      [/\bUtilizes\b/g, "Uses"],
+      [/\butilizes\b/g, "uses"],
+      [/\bUtilize\b/g, "Use"],
+      [/\butilize\b/g, "use"],
+      [/\bUtilization\b/g, "Use"],
+      [/\butilization\b/g, "use"],
+
+      // Leverage -> Use
+      [/\bLeveraging\b/g, "Using"],
+      [/\bleveraging\b/g, "using"],
+      [/\bLeveraged\b/g, "Used"],
+      [/\bleveraged\b/g, "used"],
+      [/\bLeverages\b/g, "Uses"],
+      [/\bleverages\b/g, "uses"],
+      [/\bLeverage\b/g, "Use"],
+      [/\bleverage\b/g, "use"],
+
+      // Supercharge -> Accelerate
+      [/\bSupercharging\b/g, "Accelerating"],
+      [/\bsupercharging\b/g, "accelerating"],
+      [/\bSupercharged\b/g, "Accelerated"],
+      [/\bsupercharged\b/g, "accelerated"],
+      [/\bSupercharges\b/g, "Accelerates"],
+      [/\bsupercharges\b/g, "accelerates"],
+      [/\bSupercharge\b/g, "Accelerate"],
+      [/\bsupercharge\b/g, "accelerate"],
+
+      // Harness -> Use
+      [/\bHarnessing\b/g, "Using"],
+      [/\bharnessing\b/g, "using"],
+      [/\bHarnessed\b/g, "Used"],
+      [/\bharnessed\b/g, "used"],
+      [/\bHarnesses\b/g, "Uses"],
+      [/\bharnesses\b/g, "uses"],
+      [/\bHarness\b/g, "Use"],
+      [/\bharness\b/g, "use"],
+
+      // Unleash -> Release
+      [/\bUnleashing\b/g, "Releasing"],
+      [/\bunleashing\b/g, "releasing"],
+      [/\bUnleashed\b/g, "Released"],
+      [/\bunleashed\b/g, "released"],
+      [/\bUnleashes\b/g, "Releases"],
+      [/\bunleashes\b/g, "releases"],
+      [/\bUnleash\b/g, "Release"],
+      [/\bunleash\b/g, "release"],
+
+      // Delve / Dive into -> Explore
+      [/\bDelving(?:\s+into)?\b/gi, "exploring"],
+      [/\bDelved(?:\s+into)?\b/gi, "explored"],
+      [/\bDelves(?:\s+into)?\b/gi, "explores"],
+      [/\bDelve(?:\s+into)?\b/gi, "explore"],
+      [/\bDiving(?:\s+into)?\b/gi, "exploring"],
+      [/\bDives(?:\s+into)?\b/gi, "explores"],
+      [/\bDive(?:\s+into)?\b/gi, "explore"],
+      [/\bDeep dive\b/gi, "breakdown"],
+
+      // Unlock -> Enable
+      [/\bUnlocking\b/g, "Enabling"],
+      [/\bunlocking\b/g, "enabling"],
+      [/\bUnlocked\b/g, "Enabled"],
+      [/\bunlocked\b/g, "enabled"],
+      [/\bUnlocks\b/g, "Enables"],
+      [/\bunlocks\b/g, "enables"],
+      [/\bUnlock\b/g, "Enable"],
+      [/\bunlock\b/g, "enable"],
+
+      // Elevate -> Improve
+      [/\bElevating\b/g, "Improving"],
+      [/\belevating\b/g, "improving"],
+      [/\bElevated\b/g, "Improved"],
+      [/\belevated\b/g, "improved"],
+      [/\bElevates\b/g, "Improves"],
+      [/\belevates\b/g, "improves"],
+      [/\bElevate\b/g, "Improve"],
+      [/\belevate\b/g, "improve"],
+
+      // Push boundaries -> Advance
+      [/\bpushing boundaries\b/gi, "advancing"],
+      [/\bpush boundaries\b/gi, "advance"],
+      [/\bpaving the way\b/gi, "leading"],
+
+      // Corporate buzzwords & filler phrases
+      [/\btestament to\b/gi, "proof of"],
       [/\btestament\b/gi, "proof"],
+      [/\btapestry of\b/gi, "blend of"],
       [/\btapestry\b/gi, "mix"],
-      [/\bunlock(?:s|ed|ing)?\b/gi, "enable"],
-      [/\belevat(?:e|es|ed|ing)\b/gi, "improve"],
       [/\bgame-changer\b/gi, "major shift"],
-      [/\bseamless(?:ly)?\b/gi, "smooth"],
+      [/\bseamlessly\b/gi, "smoothly"],
+      [/\bseamless\b/gi, "smooth"],
       [/\bcutting-edge\b/gi, "modern"],
       [/\bnext-gen\b/gi, "new"],
       [/\brevolutionary\b/gi, "innovative"],
       [/\bgroundbreaking\b/gi, "innovative"],
       [/\bsignificant(?:ly)?\b/gi, "notable"],
-      [/\bimpressive\b/gi, "strong"],
-      [/\bwild\b/gi, "notable"],
+      [/\bparadigm shift\b/gi, "shift"],
+      [/\bplethora of\b/gi, "many"],
+      [/\bplethora\b/gi, "wide range"],
+      [/\bmyriad of\b/gi, "many"],
+      [/\bmyriad\b/gi, "many"],
+      [/\bsynerg(?:y|ies)\b/gi, "alignment"],
       [/\bmoreover\b/gi, "also"],
       [/\bfurthermore\b/gi, "also"],
       [/\bin conclusion\b/gi, "finally"],
-      [/\bcritical step\b/gi, "key step"],
       [/\bmasterclass\b/gi, "practical guide"],
-      [/\bpaving the way\b/gi, "leading the way"],
-      [/\bpush(?:ing)? boundaries\b/gi, "advancing"],
       [/\bshines a light\b/gi, "highlights"],
       [/\btreasure trove\b/gi, "collection"],
       [/\bmaking waves\b/gi, "gaining attention"],
-      [/\blook no further\b/gi, "consider this"]
+      [/\blook no further\b/gi, "consider this"],
+
+      // Cut unnecessary adverbs prohibited by Hat Tip
+      [/\b(?:very|really|quite|extremely|wildly)\s+/gi, ""],
+
+      // Dashes (replace all unicode em/en dashes and double hyphens with colon or comma)
+      [/[—–\u2014\u2013\u2015]/g, ": "],
+      [/--/g, "- "]
     ];
 
-    for (const [pattern, replacement] of replacements) {
+    for (const [pattern, replacement] of inflectedReplacements) {
       result = result.replace(pattern, replacement);
     }
     return result;
@@ -928,6 +1037,56 @@ class LocalLLMService {
       }
     }
 
+    // 4b. Remove trailing commas before } or ]
+    const cleanedTrailingCommas = text.replace(/,\s*([\}\]])/g, "$1");
+    try {
+      return JSON.parse(cleanedTrailingCommas);
+    } catch (_) {}
+
+    // 4c. Resilient regex fallback for Buyer Question Strategy JSON
+    if (text.includes("buyerQuestion") && (text.includes("literalPurpose") || text.includes("funnelBucket"))) {
+      const getVal = (key) => {
+        const m = text.match(new RegExp(`"${key}"\\s*:\\s*"([^"\\n]*(?:\\\\.[^"\\n]*)*)"`, 'i')) ||
+                  text.match(new RegExp(`"${key}"\\s*:\\s*"([^\\n]*)"`, 'i'));
+        return m ? m[1].replace(/\\"/g, '"').trim() : "";
+      };
+      const bq = getVal("buyerQuestion");
+      const lp = getVal("literalPurpose");
+      if (bq || lp) {
+        return {
+          buyerQuestion: bq || "How to optimize system architecture?",
+          exactBuyerLanguage: getVal("exactBuyerLanguage"),
+          funnelBucket: getVal("funnelBucket") || "MOF",
+          literalPurpose: lp || "Break down the system architecture trade-offs.",
+          coreInsight: getVal("coreInsight")
+        };
+      }
+    }
+
+    // 4d. Resilient regex fallback for CPIO Blueprint JSON
+    if (text.includes("convey") && text.includes("hook")) {
+      const getVal = (key) => {
+        const m = text.match(new RegExp(`"${key}"\\s*:\\s*"([^"\\n]*(?:\\\\.[^"\\n]*)*)"`, 'i')) ||
+                  text.match(new RegExp(`"${key}"\\s*:\\s*"([^\\n]*)"`, 'i'));
+        return m ? m[1].replace(/\\"/g, '"').trim() : "";
+      };
+      const convey = getVal("convey");
+      const hook = getVal("hook");
+      if (convey || hook) {
+        return {
+          convey: convey || "Understanding modular systems architecture.",
+          package: {
+            format: getVal("format") || "Technical Architecture Breakdown",
+            angle: getVal("angle") || "Technical Founder breakdown",
+            hook: hook || "Analyzing this architecture shifted how we approach systems.",
+            hookPromise: getVal("hookPromise")
+          },
+          information: { requiredPoints: [], excludePoints: [] },
+          order: { hook: hook, setup: "", development: "", support: [], ending: "" }
+        };
+      }
+    }
+
     // 5. Intelligent regex heuristic fallback for selectedIndices
     const indicesMatch = text.match(/"selectedIndices"\s*:\s*\[([^\]]*)\]/i) ||
                          text.match(/selectedIndices\s*[:=]\s*\[([^\]]*)\]/i) ||
@@ -1066,7 +1225,7 @@ BAD CTA: "What do you think about RAG evaluation?"
 GOOD CTA: "How long did it take your team to catch a faithfulness regression before you had automated evals in CI?"
 
 HASHTAGS:
-Exactly 3-4 highly targeted hashtags on their own line at the very end. Mix exactly 1 broad + 2-3 niche. Do not overuse or add generic ones (e.g. use exactly 4 tags to prevent reach dilution).
+Exactly 5-8 relevant technical hashtags on their own line at the very end. Mix broad and niche technical topics. Do not use generic filler tags.
 
 === BODY RULES (Strict) ===
 - Sound like a senior engineer sharing a practical win.
@@ -1081,6 +1240,10 @@ You MUST strictly follow the anti-hype rules and avoid all banned words defined 
 `;
   }
 
+  /**
+   * @deprecated Legacy prototype flexible rules builder. Superseded by the CPIO Hat Tip pipeline
+   * (generateCPIOBlueprint and draftFounderPost). Retained for backwards compatibility.
+   */
   buildFlexibleLinkedInPostRules(githubUrl, minLength = MIN_POST_LENGTH, maxLength = MAX_POST_LENGTH) {
     return `
 === 2026 LINKEDIN VIRALITY RULES (FLEXIBLE STRUCTURE) ===
@@ -1116,7 +1279,7 @@ FORMATS THAT DON'T:
 - NEVER ask "Is your X ready for Y?" — readiness survey, not provocation.
 
 HASHTAGS:
-Exactly 3-4 highly targeted hashtags on their own line at the very end. Mix exactly 1 broad + 2-3 niche.
+Exactly 5-8 relevant technical hashtags on their own line at the very end. Mix broad and niche technical topics.
 
 === BODY RULES ===
 - Sound like a senior engineer casually sharing something useful.
@@ -1248,6 +1411,41 @@ JSON schema:
       }
     } catch (err) {
       logger.warn("Could not load recent structures:", err.message);
+    }
+    return [];
+  }
+
+  saveRecentFunnelBucket(bucket) {
+    try {
+      if (!bucket || typeof bucket !== "string") return;
+      const validBuckets = new Set(["TOF", "MOF", "BOF"]);
+      const cleanBucket = bucket.toUpperCase().trim();
+      if (!validBuckets.has(cleanBucket)) return;
+
+      const filePath = path.join(process.cwd(), "recent-funnel-buckets.json");
+      let recent = [];
+      if (fs.existsSync(filePath)) {
+        recent = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+      }
+      if (!Array.isArray(recent)) recent = [];
+      recent.unshift(cleanBucket);
+      recent = recent.slice(0, 10);
+      fs.writeFileSync(filePath, JSON.stringify(recent, null, 2), "utf-8");
+      logger.info(`Saved "${cleanBucket}" to recent funnel bucket history.`);
+    } catch (err) {
+      logger.warn("Could not save recent funnel bucket:", err.message);
+    }
+  }
+
+  loadRecentFunnelBuckets() {
+    try {
+      const filePath = path.join(process.cwd(), "recent-funnel-buckets.json");
+      if (fs.existsSync(filePath)) {
+        const parsed = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (err) {
+      logger.warn("Could not load recent funnel buckets:", err.message);
     }
     return [];
   }
@@ -1657,7 +1855,9 @@ JSON schema:
     }
 
     // Structured takeaways check (at least 2 numbered points or takeaways)
-    const frameworkBullets = this.extractFrameworkBullets(bodyWithoutHook);
+    const postLines = postText.split("\n").map(l => l.trim()).filter(Boolean);
+    const nonHookText = postLines.slice(1).join("\n");
+    const frameworkBullets = this.extractFrameworkBullets(nonHookText);
     if (frameworkBullets.length < 2) {
       penaltyPoints += 25;
       issues.push(`Standout takeaways section too thin (${frameworkBullets.length} points, need at least 2)`);
@@ -1669,6 +1869,43 @@ JSON schema:
     if (this.hasDuplicateSentences(postText)) {
       penaltyPoints += 15;
       issues.push("Post repeats a sentence near-verbatim; tighten the draft.");
+    }
+
+    // Rehook check: award bonus if narrative includes a curiosity-preserving rehook
+    if (this.hasRehook(postText)) {
+      bonusPoints += 10;
+    }
+
+    // Manual points grounding coverage check
+    if (Array.isArray(manualPoints) && manualPoints.length > 0) {
+      const coverageResult = this.measureManualPointCoverage(postText, manualPoints);
+      if (coverageResult.coverage >= 0.5) {
+        bonusPoints += 15;
+      } else if (coverageResult.coverage < 0.25) {
+        penaltyPoints += 20;
+        issues.push(`Low coverage of source manual points: only ${Math.round(coverageResult.coverage * 100)}% preserved`);
+      }
+    }
+
+    // Weak CTA penalty
+    const ctaQuestion = this.getCtaQuestion(postText);
+    if (ctaQuestion) {
+      for (const weakCta of WEAK_CTA_PATTERNS) {
+        if (weakCta.test(ctaQuestion)) {
+          penaltyPoints += 20;
+          issues.push(`Post ends with weak engagement survey CTA: "${ctaQuestion.trim()}"`);
+          break;
+        }
+      }
+    }
+
+    // Prohibited patterns penalty
+    for (const pattern of HAT_TIP_PROHIBITED_PATTERNS) {
+      if (pattern.test(postText)) {
+        penaltyPoints += 25;
+        issues.push(`Violates prohibited writing pattern: ${pattern.toString()}`);
+        break;
+      }
     }
 
     const total = Math.max(0, Math.min(120, score + bonusPoints - penaltyPoints));
@@ -1726,6 +1963,37 @@ JSON schema:
       errors.push("Post contains em dashes (— or --); use colons, commas, or periods instead.");
     }
 
+    if (postText.includes("**") || postText.includes("__")) {
+      errors.push("Post contains markdown bold/italic delimiters (** or __); LinkedIn does not render markdown bold.");
+    }
+
+    // Hat Tip prohibited patterns check
+    for (const pattern of HAT_TIP_PROHIBITED_PATTERNS) {
+      if (pattern.test(postText)) {
+        errors.push(`Post contains prohibited writing pattern: ${pattern.toString()}`);
+        break;
+      }
+    }
+
+    // Weak CTA check
+    const cta = this.getCtaQuestion(postText);
+    if (cta) {
+      for (const weakPattern of WEAK_CTA_PATTERNS) {
+        if (weakPattern.test(cta)) {
+          errors.push(`Post ends with weak survey CTA question: "${cta.trim()}"`);
+          break;
+        }
+      }
+    }
+
+    // Grounding check against manual points
+    if (Array.isArray(manualPoints) && manualPoints.length >= 2) {
+      const coverageResult = this.measureManualPointCoverage(postText, manualPoints);
+      if (coverageResult.coverage === 0) {
+        errors.push("Post failed source grounding check: 0% of source manual points were preserved in the draft.");
+      }
+    }
+
     const hashtagMatches = postText.match(/#[a-zA-Z0-9_]+/g) || [];
     const hashtagCount = hashtagMatches.length;
     if (hashtagCount < 5) {
@@ -1739,8 +2007,9 @@ JSON schema:
       errors.push(`Post too long: ${postText.length} characters (maximum 2500)`);
     }
 
-    const bodyWithoutHook = postText.slice((postText.split("\n\n")[0] || "").length).trim();
-    const frameworkBullets = this.extractFrameworkBullets(bodyWithoutHook);
+    const postLines = postText.split("\n").map(l => l.trim()).filter(Boolean);
+    const nonHookText = postLines.slice(1).join("\n");
+    const frameworkBullets = this.extractFrameworkBullets(nonHookText);
     if (frameworkBullets.length < 2) {
       errors.push(`Post must have at least 2 structured standout takeaways (found ${frameworkBullets.length})`);
     }
@@ -2362,383 +2631,653 @@ JSON schema:
     );
   }
 
-  async generateHook(selectedArticles, retries = 3) {
-    if (!Array.isArray(selectedArticles) || selectedArticles.length === 0) {
-      throw new Error("generateHook requires at least one selected article.");
+  // ============================================================================
+  // HAT TIP 12-STEP FOUNDER LINKEDIN ENGINE
+  // ============================================================================
+
+  /**
+   * STEP 1-4: Strategic Persona & Buyer Question Extraction
+   * Extracts buyer pain points, risks, objections, funnel bucket (TOF/MOF/BOF),
+   * and literal post purpose.
+   */
+  async extractBuyerQuestionsAndFunnel(article, retries = 2) {
+    const title = article?.title || "Technical System Architecture";
+    const content = (article?.fullContent || "").slice(0, 3000);
+
+    const recentBuckets = this.loadRecentFunnelBuckets();
+    // Compute current funnel distribution across recent history (Target: 40% TOF, 40% MOF, 20% BOF)
+    const counts = { TOF: 0, MOF: 0, BOF: 0 };
+    for (const b of recentBuckets) {
+      if (counts[b] !== undefined) counts[b]++;
+    }
+    const totalRecent = recentBuckets.length;
+    const tofRatio = totalRecent > 0 ? counts.TOF / totalRecent : 0;
+    const mofRatio = totalRecent > 0 ? counts.MOF / totalRecent : 0;
+    const bofRatio = totalRecent > 0 ? counts.BOF / totalRecent : 0;
+
+    // Determine target deficit relative to 40% TOF / 40% MOF / 20% BOF (2:2:1 target ratio)
+    let recommendedBucket = "MOF";
+    if (totalRecent >= 3 && counts.BOF === 0) {
+      recommendedBucket = "BOF";
+    } else if (bofRatio < 0.20 && (counts.TOF + counts.MOF) >= 4) {
+      recommendedBucket = "BOF";
+    } else if (tofRatio < 0.40 && counts.MOF >= counts.TOF) {
+      recommendedBucket = "TOF";
+    } else if (mofRatio < 0.40) {
+      recommendedBucket = "MOF";
+    } else {
+      recommendedBucket = recentBuckets[0] === "MOF" ? "TOF" : "MOF";
     }
 
-    let context = "";
-    selectedArticles.forEach((art, i) => {
-      context += `=== ARTICLE #${i + 1} ===\n`;
-      context += `Topic: ${art.title}\n`;
-      context += `Content:\n${art.fullContent}\n\n`;
-    });
+    const funnelGuidance = totalRecent > 0
+      ? `\nMonthly Calendar Mix Status (Target: 40% TOF, 40% MOF, 20% BOF): Recent posts breakdown = ${counts.TOF} TOF, ${counts.MOF} MOF, ${counts.BOF} BOF. Current recommended bucket to balance our 40/40/20 calendar is "${recommendedBucket}".\n`
+      : `\nTarget Funnel Mix: Maintain a monthly calendar mix of 40% TOF (broad lessons), 40% MOF (technical trust), 20% BOF (proof/benchmarks).\n`;
 
-    const prompt = `
-You are an authentic, inspiring LinkedIn copywriter writing for a passionate cybersecurity student, developer, and tech practitioner.
+    const prompt = `You are an elite B2B and technical founder content strategist working for Drishtant Ghosh (Drix10):
+- Co-Founder @ PartPilot (AI operational automation)
+- 1x Acquired Serial Founder (ReeF: $15k ARR, 5M+ requests, acquired)
+- Creator of CosLynx (400+ MVP deployments)
+- Canopy @ Founders, Inc. Fellow
+- Cybersecurity & Distributed Systems Researcher
 
-Given the source content, generate exactly 5 candidate personal hooks with their corresponding "promises".
+Given this technical article, execute Steps 1 to 4 of the Hat Tip Founder LinkedIn System:
+1. BUYER QUESTION: What is the exact recurring question, technical dilemma, or architectural decision a target buyer, CTO, or engineering founder wants answered from this material? (e.g. "How do we reduce inference latency without quantization artifacts?", "Why do distributed agent loops fail at scale?")
+2. EXACT BUYER LANGUAGE: State their exact pain points, risks, objections, or failed solutions using realistic engineering words.
+3. FUNNEL BUCKET: Classify into "TOF" (Top of Funnel: visibility, broad engineering lessons, founder decisions), "MOF" (Middle of Funnel: build trust, technical frameworks, architectures, tradeoffs), or "BOF" (Bottom of Funnel: convert trust, concrete case studies, benchmarks, proof).${funnelGuidance}
+4. LITERAL PURPOSE: State the literal, measurable outcome this post must achieve in ONE sentence. NO vague goals like "thought leadership".
+5. CORE INSIGHT: One sentence summary of the non-obvious technical insight from the source.
 
-=== HOOK FORMULAS (AUTHENTIC, HONEST & VARIED LEARNING CONTEXTS) ===
-Write hooks in first-person ("I", "my") reflecting realistic ways a student or developer learns (reading a technical deep dive, analyzing an engineering blog, reviewing open-source repos, watching a technical presentation/video, or learning from a course/seminar breakdown):
-- Formula 1 (Deep Dive / Blog): "While reading an engineering breakdown on [Topic], one architecture decision completely shifted how I think about [field/problem]."
-- Formula 2 (Challenge / Realization): "From Concept to Execution: What digging into [System / Prototype / Architecture] taught me about rapid iteration."
-- Formula 3 (Perspective Shift): "Analyzing how [Company/Org/Team] approached [Problem] gave me a completely different perspective on modern [security/software] engineering."
-- Formula 4 (Curiosity / Realization): "Stepping into [domain/topic] research gave me a fresh perspective on what it takes to build resilient systems for the future."
-- Formula 5 (Hands-on Growth): "Exploring the prototype architecture of [System] in [short timeframe] isn't just an engineering feat: it is a lesson in modular design."
+Source Article:
+Topic: ${title}
+Content:
+${content}
 
-STRICT RULES:
-- First-person perspective ("I", "my journey").
-- DO NOT fake or claim to have attended an in-person session if the content is an article/blog. Frame it genuinely as reading a breakdown, studying research, analyzing a case study, watching a talk, or exploring an open-source tool.
-- NO EM DASHES ("—" or "--"). Use colons, commas, or periods.
-- 1-3 lines max, under 200 characters.
-- Avoid robotic headlines ("X just launched Y").
-- Avoid banned buzzwords: ${BANNED_WORDS.join(", ")}.
-
-PROMISE:
-- A brief explanation of what value/delivery the body must provide to satisfy this hook.
-
-Context:
-${context}
-
-Return ONLY a valid raw JSON object. No markdown, no commentary, no explanations.
-
-JSON schema:
+Return ONLY a valid raw JSON object. No markdown, no commentary.
+JSON Schema:
 {
-  "candidates": [
-    {
-      "hook": string,
-      "promise": string,
-      "sourceIndex": integer
-    },
-    ... (exactly 5 items)
-  ]
-}
-`;
+  "buyerQuestion": "string",
+  "exactBuyerLanguage": "string",
+  "funnelBucket": "TOF" | "MOF" | "BOF",
+  "literalPurpose": "string",
+  "coreInsight": "string"
+}`;
 
-    return this.withJsonRetry(
-      async () => {
-        const data = await this.generateJson(prompt);
-        if (!data.candidates || !Array.isArray(data.candidates) || data.candidates.length === 0) {
-          throw new Error("Invalid response format: missing candidates array");
-        }
-        return (data.candidates || []).map(c => ({
-          ...c,
-          hook: this.sanitizeBannedWords(c.hook),
-          promise: this.sanitizeBannedWords(c.promise)
-        }));
-      },
-      { retries, delayMs: 15000, label: "generateHook" }
-    );
+    try {
+      const data = await this.withJsonRetry(
+        async () => {
+          return await this.generateJson(prompt);
+        },
+        { retries, delayMs: 4000, label: "extractBuyerQuestionsAndFunnel" }
+      );
+
+      if (data && data.buyerQuestion && data.literalPurpose) {
+        return {
+          buyerQuestion: this.sanitizeBannedWords(data.buyerQuestion),
+          exactBuyerLanguage: this.sanitizeBannedWords(data.exactBuyerLanguage || ""),
+          funnelBucket: ["TOF", "MOF", "BOF"].includes(data.funnelBucket) ? data.funnelBucket : "MOF",
+          literalPurpose: this.sanitizeBannedWords(data.literalPurpose),
+          coreInsight: this.sanitizeBannedWords(data.coreInsight || title)
+        };
+      }
+    } catch (err) {
+      logger.warn(`LocalLLMService: extractBuyerQuestionsAndFunnel fallback triggered: ${err.message}`);
+    }
+
+    // Deterministic High-Signal Fallback rotating across the 40/40/20 sequence (TOF -> MOF -> TOF -> MOF -> BOF)
+    const cleanTitle = String(title).replace(/^#+\s*/, "").replace(/[|–—:].*$/, "").trim();
+    const fallbackCycle = ["TOF", "MOF", "TOF", "MOF", "BOF"];
+    const fallbackBucket = recommendedBucket || fallbackCycle[recentBuckets.length % fallbackCycle.length];
+    return {
+      buyerQuestion: `How do engineering teams implement and scale ${cleanTitle} without operational bottlenecks?`,
+      exactBuyerLanguage: `What are the architecture trade-offs, real failure modes, and performance impacts of ${cleanTitle}?`,
+      funnelBucket: fallbackBucket,
+      literalPurpose: `Break down the core architecture trade-offs and implementation steps of ${cleanTitle} for engineering leads.`,
+      coreInsight: `Modern systems scaling ${cleanTitle} require modular separation of state and execution.`
+    };
   }
 
-  async generateBody(selectedArticles, chosenHook, retries = 3, validationFeedback = [], recentStructures = [], previousDraft = null) {
-    const primaryArticle = selectedArticles && selectedArticles.length > 0 ? selectedArticles[0] : null;
-    const rawManualPoints = primaryArticle ? this.extractManualPoints(primaryArticle.fullContent) : [];
-    const hookAndPromise = `${chosenHook?.hook || ""} ${chosenHook?.promise || ""}`;
-    const manualPointsForThisHook = this.filterManualPointsByHook(rawManualPoints, hookAndPromise);
-    const points = (manualPointsForThisHook.length >= 2 ? manualPointsForThisHook : rawManualPoints).slice(0, 4);
-    const pointText = this.formatManualPoints(points);
-
-    // Pick a structural approach that hasn't been used in the last few posts,
-    // so consecutive LinkedIn posts don't all read identically. Previously
-    // this rotation machinery (STRUCTURE_REGISTRY / recentStructures) was
-    // built but never actually consulted here, so every post silently used
-    // the same fixed shape.
+  /**
+   * STEP 5-8: CPIO Blueprint Formulation
+   * C (Convey), P (Package & Curiosity Gap Hook), I (Information Density), O (Order).
+   */
+  async generateCPIOBlueprint(article, strategy, recentStructures = [], retries = 2) {
+    const title = article?.title || "Technical System Architecture";
+    const content = (article?.fullContent || "").slice(0, 3000);
+    const rawManualPoints = this.extractManualPoints(article?.fullContent || "");
+    const pointsText = this.formatManualPoints(rawManualPoints.slice(0, 4));
     const structure = this.pickStructure(recentStructures);
 
-    const prompt = `You are an authentic, ambitious cybersecurity student, developer, and tech practitioner writing an inspiring, personal, and high-performing LinkedIn post.
+    const prompt = `You are an elite LinkedIn copywriter executing the Hat Tip CPIO Framework (Convey, Package, Information, Order) for Drishtant Ghosh (Drix10), an AI Systems Engineer and 1x Acquired Founder.
 
-Write the COMPLETE LinkedIn post in first-person ("I", "my journey") following this exact structure:
+Strategy Input:
+- Buyer Question: ${strategy.buyerQuestion}
+- Funnel Bucket: ${strategy.funnelBucket}
+- Literal Purpose: ${strategy.literalPurpose}
+- Core Technical Facts:
+${pointsText || content.slice(0, 800)}
 
-=== EXACT STRUCTURE TO FOLLOW ===
+Execute CPIO:
+C (CONVEY): Write ONE exact sentence stating the single lesson/result the reader must understand. Every sentence in the post must serve this point.
+P (PACKAGE & HOOK):
+  - Format: "${structure.label}" (${structure.description})
+  - Angle: Authentic technical founder perspective (analyzing system blueprints, architecture postmortems, or production bottlenecks).
+  - Hook: 1-2 sentence opening that creates an honest CURIOSITY GAP (gives enough context to understand why it matters, but leaves the valuable resolution for the body).
+  - STRICT HOOK RULES:
+    * Must be a DECLARATIVE observation, benchmark realization, or engineering shift (e.g. "While deconstructing X, one non-obvious architecture decision shifted how our team approaches Y.").
+    * FORBIDDEN: NO RHETORICAL QUESTIONS (NEVER start with "Have you ever wondered", "What if I told you", or end with "?").
+    * FORBIDDEN: NO REVERSAL FRAMING ("Most people think X, but actually Y").
+    * STRICT: NO EM DASHES ("—" or "--"). Under 200 characters.
+I (INFORMATION):
+  - 3 concrete technical mechanisms or takeaways to include.
+  - 1-2 details to EXCLUDE to preserve high information density.
+O (ORDER):
+  - Hook: The curiosity gap opening.
+  - Setup: Context for a cold audience (why this matters right now).
+  - Development: The core technical mechanism or decision.
+  - Support: 2-3 specific, actionable points.
+  - Ending: Natural, forward-looking takeaway (NO repetitive summary, NO forced "agree?" CTA).
 
-1. OPENING HOOK (Start directly with this hook):
-${chosenHook.hook}
+Return ONLY a valid raw JSON object. No markdown, no commentary.
+JSON Schema:
+{
+  "convey": "string",
+  "package": {
+    "format": "string",
+    "angle": "string",
+    "hook": "string",
+    "hookPromise": "string"
+  },
+  "information": {
+    "requiredPoints": ["string", "string", "string"],
+    "excludePoints": ["string"]
+  },
+  "order": {
+    "hook": "string",
+    "setup": "string",
+    "development": "string",
+    "support": ["string", "string"],
+    "ending": "string"
+  }
+}`;
 
-2. CONTEXT & REALISTIC LEARNING DISCOVERY (1-2 paragraphs):
-Describe how you encountered and studied this material. DO NOT fake being in an in-person room if this is technical material. Use realistic, creative learning context:
-- "While reading through a recent technical breakdown / engineering case study on..."
-- "I recently came across an insightful deep dive from [Company/Org] about..."
-- "While exploring modern architecture patterns in..."
-- "Analyzing the open-source documentation and engineering research behind..."
-Ground your context in these technical facts:
-${pointText}
+    try {
+      const data = await this.withJsonRetry(
+        async () => {
+          return await this.generateJson(prompt);
+        },
+        { retries, delayMs: 4000, label: "generateCPIOBlueprint" }
+      );
 
-Structural approach for this post (vary the narrative rhythm to match this, without breaking the mandatory sections below): ${structure.label} — ${structure.description}
+      if (data && data.convey && data.package && data.package.hook) {
+        let cleanHook = this.sanitizeBannedWords(data.package.hook)
+          .replace(/[—–\u2014\u2013\u2015]/g, ": ")
+          .replace(/--/g, "-")
+          .replace(/^(?:have you ever wondered|what if I told you|did you know)\s*/gi, "")
+          .replace(/\?\s*$/, ".")
+          .trim();
 
-3. MANDATORY @MENTIONS:
-You MUST actively include at least 2 to 4 prominent @mentions using the '@' prefix for the relevant companies, organizations, frameworks, or leaders (e.g. @Meta, @OpenAI, @Anthropic, @Google, @CompTIA, @ISC2, @EC-Council, @CynuxEra, or the specific engineering team behind the technology).
-IMPORTANT GUIDELINES:
-- Every mention MUST begin with the '@' symbol (e.g. "@Meta", "@OpenAI", "@Anthropic", "@Google", "@CynuxEra").
-- NEVER output placeholder brackets like "[Company Name]". Use the real name with '@'.
+        return {
+          convey: this.sanitizeBannedWords(data.convey),
+          package: {
+            format: data.package.format || structure.label,
+            angle: data.package.angle || "Technical Founder breakdown",
+            hook: cleanHook,
+            hookPromise: this.sanitizeBannedWords(data.package.hookPromise || "")
+          },
+          information: {
+            requiredPoints: Array.isArray(data.information?.requiredPoints) ? data.information.requiredPoints : rawManualPoints.slice(0, 3),
+            excludePoints: Array.isArray(data.information?.excludePoints) ? data.information.excludePoints : []
+          },
+          order: data.order || {
+            hook: cleanHook,
+            setup: "Context for cold reader",
+            development: "Core mechanism",
+            support: rawManualPoints.slice(0, 2),
+            ending: "Forward-looking takeaway"
+          },
+          chosenStructure: structure.name
+        };
+      }
+    } catch (err) {
+      logger.warn(`LocalLLMService: generateCPIOBlueprint fallback triggered: ${err.message}`);
+    }
 
-4. STRUCTURED STANDOUT TAKEAWAYS:
-Transition with:
-"There are two things that particularly stood out to me:"
+    // Deterministic High-Signal Fallback
+    const cleanTitle = String(title).replace(/^#+\s*/, "").replace(/[|–—:].*$/, "").trim();
+    const fallbackHook = `While deconstructing the architecture of ${cleanTitle}, one non-obvious engineering choice shifted how our team approaches production scalability.`;
+    return {
+      convey: `Engineering teams can eliminate bottlenecks in ${cleanTitle} by adopting modular architecture and rigorous benchmarking.`,
+      package: {
+        format: structure.label,
+        angle: "Technical founder teardown",
+        hook: fallbackHook,
+        hookPromise: "Break down the core mechanism and operational trade-offs."
+      },
+      information: {
+        requiredPoints: rawManualPoints.slice(0, 3),
+        excludePoints: ["Generic industry platitudes"]
+      },
+      order: {
+        hook: fallbackHook,
+        setup: `Understanding the architectural trade-offs behind ${cleanTitle} is critical for resilient systems.`,
+        development: "The core engineering mechanism separating high-throughput systems from fragile prototypes.",
+        support: rawManualPoints.slice(0, 2),
+        ending: "Building resilient systems comes down to clear modular boundaries and continuous measurement."
+      },
+      chosenStructure: structure.name
+    };
+  }
 
-Then provide 2 numbered points formatted as follows (with bold titles and clean double spacing):
-1. **[Inspiring Lead-in Title]:**
-[Personal reflection on technical architecture, speed, security, or implementation]
+  /**
+   * STEP 9: Conversational Founder First Draft Generation
+   * Drafts in Drishtant Ghosh's authentic founder voice: simple language, active voice,
+   * 8th-grade clarity, mobile-optimized paragraphs.
+   */
+  async draftFounderPost(article, strategy, cpio, retries = 2, feedback = []) {
+    const rawSupport = (cpio.order?.support && Array.isArray(cpio.order.support) && cpio.order.support.length >= 2)
+      ? cpio.order.support
+      : cpio.information?.requiredPoints || [];
 
-2. **[Inspiring Lead-in Title]:**
-[Industry exposure, skills, certifications, or career growth opportunities]
+    const cleanTitle = String(article?.title || "AI Systems Architecture").replace(/^#+\s*/, "").replace(/[|–—:].*$/, "").trim();
+    const defaultPrinciples = [
+      `Decouple state and execution boundaries to eliminate concurrency bottlenecks in ${cleanTitle}.`,
+      `Establish rigorous profiling benchmarks to measure throughput gains and memory footprint.`
+    ];
+    const supportPoints = (rawSupport.length >= 2) ? rawSupport : defaultPrinciples;
 
-5. GRATITUDE & FORWARD-LOOKING CLOSING:
-Express gratitude or shoutouts to the engineering teams, mentors, or researchers behind the work. Conclude with an inspiring reflection:
-"Exploring this breakdown was a great reminder that the right guidance, experiences, and open technical resources can shape my journey ahead."
+    const feedbackSection = feedback.length > 0
+      ? `\n=== CRITICAL VALIDATION FEEDBACK FROM PREVIOUS DRAFT (FIX THESE) ===\n${feedback.map(f => `- ${f}`).join("\n")}\n`
+      : "";
 
-6. HASHTAGS:
-Include 10-15 highly targeted, relevant hashtags on their own block at the very bottom (combining domain, specific technologies, companies/orgs, student identity, and tech community).
+    const prompt = `You are Drishtant Ghosh (Drix10): Co-Founder @ PartPilot, 1x Acquired Serial Founder (ReeF), and AI Systems Engineer.
+Write an authentic, highly valuable LinkedIn post sharing an engineering architecture teardown.
 
-=== STRICT WRITING RULES ===
-- NEVER USE EM DASHES ("—" or "--"). Use colons, commas, periods, or hyphens instead.
-- Use clean double-spaced paragraphs for high readability.
-- Write genuinely in first-person ("I", "my").
-- Keep total post length concise and punchy (around 1,100 to 1,800 characters).
-- NO generic AI buzzwords: ${BANNED_WORDS.join(", ")}.
-- Do NOT add random survey questions or marketing CTAs.
-- Return ONLY the full, ready-to-post text.
-`;
+=== HAT TIP WRITING PRINCIPLES ===
+1. WRITE FOR A COLD AUDIENCE: Explain enough context so any engineer or founder immediately understands why this matters.
+2. WRITE HOW YOU SPEAK: Use short, conversational words. Say "use" instead of "utilize". Use active voice ("we built this" not "this was built by us").
+3. CLARITY BEATS CLEVERNESS: 8th-grade readability for complex systems. Smooth logical connections between every sentence.
+4. MOBILE FORMATTING: Short paragraphs (1-3 sentences, maximum 4 lines on mobile screen). Clean whitespace between sections. NO unicode bolding/italics.
+5. NO FLUFF: Every sentence fights for its life and delivers on the hook's promise.
+6. MANDATORY @MENTIONS: Include 2 to 4 prominent @mentions of real entities/frameworks/teams with '@' (e.g. @Anthropic, @Meta, @OpenAI, @Google, or the open source maintainers).
+7. HASHTAGS: Exactly 5-8 relevant technical hashtags at the very bottom.
+8. CRITICAL: Start IMMEDIATELY on line 1 with the opening hook. DO NOT output any title, headline, markdown header (# or ###), or introductory greeting before the hook.
+
+=== EXECUTE THIS BLUEPRINT ===
+- CONVEY GOAL: ${cpio.convey}
+- OPENING HOOK (Start directly with this exact hook):
+${cpio.package.hook}
+
+- CONTEXT & SETUP:
+${cpio.order.setup}
+
+- CORE ARCHITECTURE MECHANISM:
+${cpio.order.development}
+
+- CORE ARCHITECTURAL PRINCIPLES (Double-spaced, numbered, clean plain text with NO asterisks or markdown formatting, e.g. "1. Principle Name: [Explanation]"):
+${supportPoints.map((pt, i) => `${i + 1}. ${pt.replace(/\*\*/g, "").replace(/__/g, "")}`).join("\n\n")}
+
+- FORWARD-LOOKING FOUNDER RESOLUTION:
+${cpio.order.ending}
+${feedbackSection}
+=== STRICT PROHIBITIONS (HAT TIP RULESET) ===
+- NO EM DASHES ("—" or "--"). Use colons, commas, or periods instead.
+- NO MARKDOWN BOLDING OR ASTERISKS ("**" or "__"). LinkedIn does NOT render markdown bold and displays literal asterisks. Write clean plain text.
+- NO reversal framing ("Most people think X, but actually Y").
+- NO rhetorical questions ("Have you ever wondered...?").
+- NO repeated sentence openings (e.g., three sentences in a row starting with "We").
+- NO generic AI buzzwords: ${BANNED_WORDS.slice(0, 15).join(", ")}.
+- NO forced engagement bait ("Agree?", "Thoughts?", "Drop a comment").
+- Keep length punchy and high-signal (1,100 to 1,900 characters).
+
+Return ONLY the complete raw text ready to post on LinkedIn.`;
 
     try {
       let body = await this.generateText(prompt, {
         temperature: 0.25,
-        num_predict: 600,
+        num_predict: 750
       });
 
-      body = String(body || "")
-        .replace(/```[\s\S]*?```/g, "")
-        .replace(/—/g, ": ")
-        .replace(/--/g, "-")
-        .replace(/\[Company Name\]/gi, "the engineering team")
-        .replace(/\[Insert.*?\]/gi, "")
-        .trim();
-
-      body = this.sanitizeBannedWords(body);
-
-      // Guard against model verbosity exceeding LinkedIn's character bounds
-      if (body.length > 2400) {
-        const hashtagsMatch = body.match(/(?:#[a-zA-Z0-9_]+\s*)+$/);
-        const hashtags = hashtagsMatch ? hashtagsMatch[0].trim() : "";
-        const mainText = hashtags ? body.slice(0, -hashtags.length).trim() : body;
-        const trimmed = mainText.slice(0, 2100);
-        const lastPunctuation = Math.max(trimmed.lastIndexOf("\n\n"), trimmed.lastIndexOf(". "));
-        const cleanMain = lastPunctuation > 600 ? trimmed.slice(0, lastPunctuation + 1) : trimmed;
-        body = `${cleanMain}\n\n${hashtags}`.trim();
-      }
-
-      // Auto-tag well-known tech entities with '@' if the model omitted the '@'
-      const knownEntities = [
-        ["Meta AI", "@Meta"],
-        ["Meta", "@Meta"],
-        ["OpenAI", "@OpenAI"],
-        ["Anthropic", "@Anthropic"],
-        ["Google AI", "@Google"],
-        ["Google", "@Google"],
-        ["Microsoft", "@Microsoft"],
-        ["CynuxEra", "@CynuxEra"],
-        ["CompTIA", "@CompTIA"],
-        ["ISC2", "@ISC2"],
-        ["EC-Council", "@EC-Council"],
-        ["Claude Opus", "@Anthropic's Claude Opus"],
-        ["GPT-5", "@OpenAI's GPT-5"]
-      ];
-
-      for (const [entity, replacement] of knownEntities) {
-        // Only replace if not already preceded by '@'
-        const regex = new RegExp(`(?<!@)\\b${entity}\\b`, 'g');
-        body = body.replace(regex, replacement);
-      }
-
-      // Ensure post has at least 5 hashtags
-      const hashtagsFound = body.match(/#[a-zA-Z0-9_]+/g) || [];
-      if (hashtagsFound.length < 5) {
-        const topicSlug = String(cleanTitle || "AI").replace(/[^a-zA-Z0-9]/g, "");
-        const fallbackHashtags = `\n\n#AI #${topicSlug} #SoftwareEngineering #TechInnovation #MachineLearning #DeveloperCommunity #TechResources`;
-        body = body + fallbackHashtags;
-      }
-
-      if (!body) throw new Error("Local model returned an empty LinkedIn post body");
-
-      const cleanTitle = String(primaryArticle?.title || "Cybersecurity Learning Journey")
-        .replace(/^#+\s*/, "")
-        .replace(/[|–—:].*$/, "")
-        .trim()
-        .slice(0, 50) || "Cybersecurity Learning Journey";
-
-      const slidePoints = points.slice(0, 3).map(point => point.replace(/—/g, ": ").slice(0, 65));
-      while (slidePoints.length < 3) slidePoints.push(cleanTitle.slice(0, 65));
-
-      return {
-        postText: body,
-        commentText: `Full breakdown & resources → ${primaryArticle?.githubUrl || ""}`,
-        title: cleanTitle,
-        slidePoints,
-        slideTagline: "Notes from my learning journey",
-        chosenStructure: structure.name
-      };
-    } catch (error) {
-      logger.error("LocalLLMService: Error in generateBody:", error);
+      return String(body || "").trim();
+    } catch (err) {
+      logger.error("LocalLLMService: draftFounderPost error:", err);
       if (retries > 0) {
-        logger.warn(`Error in generateBody, retrying in 15 seconds... (${retries} retries remaining)`);
-        await this.sleepWithJitter(15000);
-        return this.generateBody(selectedArticles, chosenHook, retries - 1, validationFeedback, recentStructures, previousDraft);
+        await this.sleepWithJitter(5000);
+        return this.draftFounderPost(article, strategy, cpio, retries - 1, feedback);
       }
-      throw error;
+      throw err;
     }
   }
 
+  /**
+   * STEP 10-11: Hat Tip Editorial Filter & Prohibited Patterns Stripper
+   * Strips reversals, rhetorical questions, em dashes, corporate fluff, and normalizes tags.
+   */
+  applyHatTipEditorialFilter(draftText, article, cpio) {
+    if (!draftText || typeof draftText !== "string") return draftText;
+
+    let body = draftText
+      .replace(/```[\s\S]*?```/g, "")
+      .replace(/[—–\u2012\u2013\u2014\u2015]/g, ": ")
+      .replace(/--/g, "- ")
+      .replace(/\[Company Name\]/gi, "the engineering team")
+      .replace(/\[Insert.*?\]/gi, "")
+      .trim();
+
+    // 1. Strip any markdown headers (# or ###) or emoji title lines preceding the hook
+    body = body.replace(/^(?:#+\s*[^\n]*\n+)+/g, "").trim();
+    body = body.replace(/^(?:[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}][^\n]*\n+)+/u, "").trim();
+
+    // 2. Sanitize banned words and grammatical inflections
+    body = this.sanitizeBannedWords(body);
+
+    // 3. Strip markdown bold/italic asterisks and underscores (LinkedIn does not support markdown bold)
+    body = body.replace(/\*\*/g, "").replace(/__/g, "");
+
+    // 4. Strip reversal framing: "Most people think X. But in reality Y."
+    body = body.replace(/(?:most people|everyone|many engineers|many founders) (?:thinks?|believes?|assumes?|argue|claim)[^.\n]*\.\s*(?:but|however|in reality|actually)[,\s]*/gi, "");
+    body = body.replace(/^[,;:\s\-–—]+/gm, "").trim();
+    body = body.replace(/(?:^|\.\s+)([a-z])/g, (m, c) => m.slice(0, -1) + c.toUpperCase());
+
+    // 5. Strip rhetorical questions and fix trailing question marks on declarative statements
+    body = body.replace(/^(?:have you ever wondered|what if I told you|did you know|why does this matter\?)\s*/gim, "");
+    body = body.replace(/(?:have you ever wondered|what if I told you|why does this matter\?)\s*/gi, "");
+    body = body.replace(/(there's a way[^?\n]+)\?/gi, "$1.");
+    body = body.replace(/^(I've seen[^?\n]+)\?/gm, "$1.");
+
+    // Ensure the very first paragraph / hook does not end with a question mark
+    const firstParagraphMatch = body.match(/^([^\n]+)/);
+    if (firstParagraphMatch && firstParagraphMatch[1].endsWith("?")) {
+      const fixedFirst = firstParagraphMatch[1].replace(/\?\s*$/, ".");
+      body = fixedFirst + body.slice(firstParagraphMatch[1].length);
+    }
+
+    // 6. Strip broad generalizations beginning with "Most people" / "Everyone knows"
+    body = body.replace(/(?:^|\.\s+)(?:Most people|Everyone knows|As we all know)\b[^.]*\./gi, ".");
+
+    // 7. Fix stacked sentence fragments (e.g. "Fast. Scalable. Resilient.")
+    body = body.replace(/\b([A-Z][a-z]+)\.\s+([A-Z][a-z]+)\.\s+([A-Z][a-z]+)\./g, "$1, $2, and $3.");
+
+    // 8. Fix repeated sentence openings in paragraphs (e.g. "We ... We ... We ...")
+    body = body.replace(/(\b(We|The|Our|This|I)\b[^.!?]+[.!?]\s+)\b\2\b([^.!?]+[.!?]\s+)\b\2\b/gi, (match, p1, word, p3) => {
+      return `${p1}Additionally, ${p3}`;
+    });
+
+    // 9. Strip forced conclusion headers and takeaway labels
+    body = body.replace(/(?:in conclusion|to wrap up|all in all|in summary)[,:]?\s*/gi, "");
+    body = body.replace(/\b(?:key takeaways?|core takeaways?)\b:?\s*/gi, "");
+
+    // 10. Strip engagement bait CTAs and weak survey questions
+    body = body.replace(/(?:I'd love to hear about your experiences|drop a comment below|share your thoughts|let me know in the comments|agree\??|thoughts\??)[^.\n]*[.!]?\s*/gim, "");
+    const ctaFound = this.getCtaQuestion(body);
+    if (ctaFound) {
+      for (const weakPattern of WEAK_CTA_PATTERNS) {
+        if (weakPattern.test(ctaFound)) {
+          body = body.replace(ctaFound, "").trim();
+          break;
+        }
+      }
+    }
+
+    // 11. Normalize malformed hashtags (remove spaces after # and remove hyphens inside hashtags)
+    body = body.replace(/#\s+([a-zA-Z0-9_]+)/g, "#$1");
+    body = body.replace(/(#[a-zA-Z0-9_]+)-([a-zA-Z0-9_]+)/g, "$1$2");
+
+    // 12. Clean whitespace (ensure clean paragraph breaks and no triple newlines)
+    body = body.replace(/([.!?])\n(?=[0-9A-Za-z•\-])/g, "$1\n\n");
+    body = body.replace(/\n{3,}/g, "\n\n").trim();
+
+    // 13. Guard against character limits (strictly keep under 2200 chars)
+    if (body.length > 2200) {
+      const hashtagsMatch = body.match(/(?:#[a-zA-Z0-9_]+\s*)+$/);
+      const hashtags = hashtagsMatch ? hashtagsMatch[0].trim() : "";
+      const textWithoutTags = hashtags ? body.slice(0, -hashtags.length).trim() : body;
+      const targetCut = Math.min(1850, textWithoutTags.length);
+      const lastDoubleNewline = textWithoutTags.lastIndexOf("\n\n", targetCut);
+      const lastPeriod = textWithoutTags.lastIndexOf(". ", targetCut);
+      const cutPoint = lastDoubleNewline > 800 ? lastDoubleNewline : (lastPeriod > 800 ? lastPeriod + 1 : targetCut);
+      const trimmed = textWithoutTags.slice(0, cutPoint).trim();
+      body = hashtags ? `${trimmed}\n\n${hashtags}`.trim() : trimmed;
+    }
+
+    // 14. Auto-tag well-known tech entities with '@'
+    const knownEntities = [
+      ["Meta AI", "@Meta"],
+      ["Meta", "@Meta"],
+      ["OpenAI", "@OpenAI"],
+      ["Anthropic", "@Anthropic"],
+      ["Google AI", "@Google"],
+      ["Google", "@Google"],
+      ["Microsoft", "@Microsoft"],
+      ["CynuxEra", "@CynuxEra"],
+      ["CompTIA", "@CompTIA"],
+      ["ISC2", "@ISC2"],
+      ["EC-Council", "@EC-Council"],
+      ["Claude Opus", "@Anthropic's Claude Opus"],
+      ["GPT-5", "@OpenAI's GPT-5"]
+    ];
+
+    for (const [entity, replacement] of knownEntities) {
+      const regex = new RegExp(`(?<![@#])\\b${entity}\\b`, 'g');
+      body = body.replace(regex, replacement);
+    }
+    body = body.replace(/#@/g, "#");
+
+    // 15. Ensure 5-8 hashtags
+    const hashtagsFound = body.match(/#[a-zA-Z0-9_]+/g) || [];
+    if (hashtagsFound.length < 5) {
+      const cleanTitle = String(article?.title || "AI").replace(/[^a-zA-Z0-9]/g, "");
+      const fallbackHashtags = `\n\n#AI #${cleanTitle} #SoftwareEngineering #TechInnovation #MachineLearning #SystemDesign #DeveloperTools`;
+      body = body + fallbackHashtags;
+    }
+
+    return body;
+  }
+
+  /**
+   * Returns a 4-step structural workflow stage template corresponding to the chosen post structure.
+   * Note: These are canonical structural milestones (e.g. Problem -> Insight -> Framework -> Payoff),
+   * not content-extracted facts.
+   */
+  getStructureDiagramSteps(structureName) {
+    switch (structureName) {
+      case "problem-insight-framework":
+        return ["CORE PROBLEM", "TECHNICAL INSIGHT", "SYSTEM FRAMEWORK", "VERIFIED PAYOFF"];
+      case "before-after":
+        return ["LEGACY STATE", "BOTTLENECK AUDIT", "SYSTEM OVERHAUL", "MEASURED GAIN"];
+      case "story-arc":
+        return ["INCIDENT CONTEXT", "SYSTEM FAILURE", "ARCHITECTURE FIX", "STABLE RECOVERY"];
+      case "contrarian-proof-action":
+        return ["CONVENTIONAL TAKE", "PRODUCTION EVIDENCE", "TRUE MECHANISM", "ENGINEERING ACTION"];
+      case "breakdown-teardown":
+      default:
+        return ["INCOMING WORKLOAD", "SYSTEM PIPELINE", "STATE ISOLATION", "PRODUCTION SLA"];
+    }
+  }
+
+  /**
+   * STEP 12: Visual Slide Card & Metadata Generation
+   * Generates title (≤50 chars), 3 key points (≤65 chars), dynamic authoritative tagline, and first comment link.
+   */
+  generateSlideAndMeta(article, draftText, cpio) {
+    const rawTitle = article?.title || "AI Systems Architecture";
+    const cleanTitle = String(rawTitle)
+      .replace(/^#+\s*/, "")
+      .replace(/[|–—:].*$/, "")
+      .trim()
+      .slice(0, 50) || "AI Systems Architecture";
+
+    const pointsPool = (cpio?.order?.support && cpio.order.support.length >= 2)
+      ? cpio.order.support
+      : (cpio?.information?.requiredPoints || []);
+
+    const slidePoints = pointsPool
+      .slice(0, 3)
+      .map(pt => String(pt).replace(/[—–\u2012\u2013\u2014\u2015]/g, ": ").replace(/--/g, "-").replace(/^\d+\.\s*/, "").replace(/\*\*/g, "").slice(0, 65).trim())
+      .filter(Boolean);
+
+    const fallbackSlidePoints = [
+      `Modular state architecture for high reliability`,
+      `Continuous benchmarking and latency optimization`,
+      `Resilient distributed scaling principles`
+    ];
+    let fallbackIdx = 0;
+    while (slidePoints.length < 3) {
+      slidePoints.push(fallbackSlidePoints[fallbackIdx++] || cleanTitle.slice(0, 65));
+    }
+
+    const githubUrl = article?.githubUrl || "https://github.com/Drix10/ai-resources";
+    const commentText = `Full breakdown & architectural resources → ${githubUrl}\nCurated at Drix10 Blogs: https://blogs.drix10.com`;
+    const diagramSteps = this.getStructureDiagramSteps(cpio?.chosenStructure);
+
+    // Dynamically derive tagline from structure and article category/topic
+    const structureTaglines = {
+      "problem-insight-framework": "Systems Architecture Teardown · Drix10",
+      "before-after": "Performance Benchmark Audit · Drix10",
+      "story-arc": "Engineering Case Study · Drix10",
+      "contrarian-proof-action": "Contrarian Systems Analysis · Drix10",
+      "breakdown-teardown": "Architecture Deep Dive · Drix10"
+    };
+    const categoryTag = article?.category || "";
+    const slideTagline = categoryTag
+      ? `${categoryTag} Breakdown · Drix10`
+      : (structureTaglines[cpio?.chosenStructure] || "Systems Architecture Teardown · Drix10");
+
+    return {
+      title: cleanTitle,
+      slidePoints,
+      slideTagline,
+      commentText,
+      diagramSteps
+    };
+  }
+
+  // Compatibility wrappers for existing code paths
+  async generateHook(selectedArticles, retries = 3) {
+    const primary = selectedArticles[0];
+    const strategy = await this.extractBuyerQuestionsAndFunnel(primary, retries);
+    const cpio = await this.generateCPIOBlueprint(primary, strategy, [], retries);
+    return [{
+      hook: cpio.package.hook,
+      promise: cpio.package.hookPromise,
+      sourceIndex: 0
+    }];
+  }
+
+  async generateBody(selectedArticles, chosenHook, retries = 3, validationFeedback = [], recentStructures = [], previousDraft = null) {
+    const primary = selectedArticles[0];
+    const strategy = await this.extractBuyerQuestionsAndFunnel(primary, retries);
+    const cpio = await this.generateCPIOBlueprint(primary, strategy, recentStructures, retries);
+    if (chosenHook?.hook) cpio.package.hook = chosenHook.hook;
+    let draft = await this.draftFounderPost(primary, strategy, cpio, retries, validationFeedback);
+    draft = this.applyHatTipEditorialFilter(draft, primary, cpio);
+    const meta = this.generateSlideAndMeta(primary, draft, cpio);
+
+    return {
+      postText: draft,
+      commentText: meta.commentText,
+      title: meta.title,
+      slidePoints: meta.slidePoints,
+      slideTagline: meta.slideTagline,
+      chosenStructure: cpio.chosenStructure
+    };
+  }
+
+  /**
+   * Main LinkedIn Orchestrator executing the complete Hat Tip 12-Step Founder Pipeline
+   */
   async generateLinkedInMasterPost(selectedArticles, retries = 3, validationFeedback = []) {
     try {
       if (!selectedArticles || selectedArticles.length === 0) {
         throw new Error("No selected articles provided for generateLinkedInMasterPost");
       }
 
-      // Do not combine unrelated source articles into one local-model post.
       selectedArticles = selectedArticles.slice(0, 1);
-
       const primaryArticle = selectedArticles[0];
+      const recentStructures = this.loadRecentStructures();
+
+      logger.info("=============================================================");
+      logger.info("🚀 STARTING HAT TIP 12-STEP FOUNDER LINKEDIN ENGINE");
+      logger.info("=============================================================");
+
+      logger.info("LocalLLMService: [Steps 1-4] Analyzing strategy, buyer questions & funnel bucket...");
+      const strategy = await this.extractBuyerQuestionsAndFunnel(primaryArticle);
+      logger.info(`LocalLLMService: Strategy mapped: Funnel=${strategy.funnelBucket}, BuyerQ="${strategy.buyerQuestion.slice(0, 70)}..."`);
+      logger.info(`LocalLLMService: Literal Purpose="${strategy.literalPurpose}"`);
+
+      logger.info("LocalLLMService: [Steps 5-8] Formulating CPIO Blueprint (Convey, Package, Info, Order)...");
+      const cpioBlueprint = await this.generateCPIOBlueprint(primaryArticle, strategy, recentStructures);
+      logger.info(`LocalLLMService: CPIO Convey="${cpioBlueprint.convey.slice(0, 70)}..."`);
+      logger.info(`LocalLLMService: CPIO Curiosity-Gap Hook="${cpioBlueprint.package.hook}"`);
+
+      logger.info("LocalLLMService: [Step 9] Drafting founder post in conversational active voice...");
+      let draft = await this.draftFounderPost(primaryArticle, strategy, cpioBlueprint, 2, validationFeedback);
+
+      logger.info("LocalLLMService: [Steps 10-11] Applying Hat Tip editorial review & prohibited patterns check...");
+      draft = this.applyHatTipEditorialFilter(draft, primaryArticle, cpioBlueprint);
+
+      logger.info("LocalLLMService: [Step 12] Preparing visual slide card metadata and first comment...");
+      const meta = this.generateSlideAndMeta(primaryArticle, draft, cpioBlueprint);
+
       const githubUrl = primaryArticle.githubUrl || "";
       const sourceBulletCount = this.countSourceBullets(primaryArticle.fullContent);
       const manualPoints = this.extractManualPoints(primaryArticle.fullContent);
-      const recentStructures = this.loadRecentStructures();
-
-      logger.info("LocalLLMService: Step 2a: Generating hook candidates...");
-      const hookCandidates = await this.generateHook(selectedArticles);
-      const scoredHooks = this.scoreHooks(hookCandidates);
-
-      logger.info("=============================================================");
-      logger.info("📝 SCORING HOOK CANDIDATES:");
-      scoredHooks.forEach((sh, index) => {
-        logger.info(`   [Rank ${index + 1}] Score: ${sh.score} -> "${sh.hook}"`);
-        logger.info(`          Promise: "${sh.promise}"`);
-      });
-      logger.info("=============================================================");
-
-      // Keep local generation bounded: one scored hook and at most one revision.
-      const topHooks = scoredHooks.slice(0, 1);
-      if (validationFeedback.length > 0) {
-        logger.warn("LocalLLMService: Retrying generateLinkedInMasterPost with previous validation feedback:");
-        validationFeedback.forEach(err => logger.warn(`  - ${err}`));
-      }
-      let bestPost = null;
-      let bestValidation = null;
-      let chosenHook = null;
-
-      const isBetterCandidate = (candidateValidation, candidateScore, candidateHook, currentValidation, currentHook) => {
-        const candidateIsValid = candidateValidation.isValid;
-        const currentIsValid = currentValidation?.isValid ?? false;
-
-        if (candidateIsValid && !currentIsValid) return true;
-        if (candidateIsValid === currentIsValid) {
-          if (candidateScore > (currentValidation?.qualityScore ?? -1)) return true;
-          if (candidateScore === (currentValidation?.qualityScore ?? -1) && candidateHook.score > (currentHook?.score ?? -1)) return true;
-        }
-        return false;
+      const postData = {
+        postText: draft,
+        commentText: meta.commentText,
+        title: meta.title,
+        slidePoints: meta.slidePoints,
+        slideTagline: meta.slideTagline,
+        diagramSteps: meta.diagramSteps,
+        chosenStructure: cpioBlueprint.chosenStructure
       };
 
-      for (const hookCandidate of topHooks) {
-        hookCandidate.hook = hookCandidate.hook
-          .replace(/\.([a-zA-Z])/g, ". $1")
-          .replace(/\?([a-zA-Z])/g, "? $1");
+      const hookManualPoints = this.filterManualPointsByHook(manualPoints, `${cpioBlueprint.package.hook} ${cpioBlueprint.package.hookPromise}`);
+      let validation = this.validatePostText(postData, githubUrl, sourceBulletCount, hookManualPoints);
+      let qualityScore = validation.qualityScore ?? this.scorePostQuality(postData, sourceBulletCount, hookManualPoints).score;
 
-        logger.info(`LocalLLMService: Step 2b: Generating body for hook [Score ${hookCandidate.score}]: "${hookCandidate.hook.substring(0, 60)}..."`);
+      logger.info(`LocalLLMService: Quality validation score: ${qualityScore} (valid: ${validation.isValid})`);
+      if (!validation.isValid && validation.errors && validation.errors.length > 0) {
+        logger.warn(`LocalLLMService: Validation errors: ${validation.errors.join("; ")}`);
+      }
 
-        const postData = await this.generateBody(selectedArticles, hookCandidate, 0, validationFeedback, recentStructures, null);
-        const hookManualPoints = this.filterManualPointsByHook(manualPoints, `${hookCandidate.hook} ${hookCandidate.promise}`);
-        const validation = this.validatePostText(postData, githubUrl, sourceBulletCount, hookManualPoints);
-        const qualityScore = validation.qualityScore ?? this.scorePostQuality(postData, sourceBulletCount, hookManualPoints).score;
-
-        logger.info(`LocalLLMService: Candidate quality score: ${qualityScore} (valid: ${validation.isValid})`);
-
-        if (!bestPost || isBetterCandidate(validation, qualityScore, hookCandidate, bestValidation, chosenHook)) {
-          bestPost = postData;
-          bestValidation = validation;
-          chosenHook = hookCandidate;
+      // Feedback retry loop if initial draft has validation issues
+      let attemptsRemaining = retries;
+      while (!validation.isValid && attemptsRemaining > 0) {
+        attemptsRemaining--;
+        logger.warn(`LocalLLMService: Post failed quality gate. Retrying with specific feedback (${attemptsRemaining} retries left)...`);
+        const feedback = validation.errors;
+        let retryDraft = await this.draftFounderPost(primaryArticle, strategy, cpioBlueprint, 1, feedback);
+        retryDraft = this.applyHatTipEditorialFilter(retryDraft, primaryArticle, cpioBlueprint);
+        postData.postText = retryDraft;
+        validation = this.validatePostText(postData, githubUrl, sourceBulletCount, hookManualPoints);
+        qualityScore = validation.qualityScore ?? this.scorePostQuality(postData, sourceBulletCount, hookManualPoints).score;
+        logger.info(`LocalLLMService: Retry draft quality score: ${qualityScore} (valid: ${validation.isValid})`);
+        if (!validation.isValid && validation.errors && validation.errors.length > 0) {
+          logger.warn(`LocalLLMService: Retry validation errors: ${validation.errors.join("; ")}`);
         }
       }
 
-      let remainingRetries = Math.min(retries, 1);
-      let previousQualityScore = -1;
-      let previousDraft = bestPost ? bestPost.postText : null;
-      while (!bestValidation.isValid && remainingRetries > 0) {
-        remainingRetries--;
-        const currentScore = bestValidation.qualityScore ?? 0;
-
-        if (previousQualityScore >= 0 && currentScore <= previousQualityScore) {
-          logger.warn(`LocalLLMService: Quality score not improving (${previousQualityScore} -> ${currentScore}). Stopping retry loop.`);
-          break;
-        }
-        previousQualityScore = currentScore;
-
-        const combinedFeedback = [
-          ...bestValidation.errors,
-          ...(bestValidation.qualityIssues || []).filter(issue => !bestValidation.errors.includes(issue))
-        ];
-
-        logger.warn(`LocalLLMService: Post failed quality gate (score ${currentScore}). Retrying body with feedback... (${remainingRetries} retries remaining)`);
-        logger.warn(`LocalLLMService: Validation issues:\n- ${combinedFeedback.join("\n- ")}`);
-
-        let improvedPost = bestPost;
-        let improvedValidation = bestValidation;
-        let improvedHook = chosenHook;
-
-        for (const retryHook of topHooks) {
-          const retryPost = await this.generateBody(
-            selectedArticles,
-            retryHook,
-            0,
-            combinedFeedback,
-            recentStructures,
-            previousDraft
-          );
-          const retryHookManualPoints = this.filterManualPointsByHook(manualPoints, `${retryHook.hook} ${retryHook.promise}`);
-          const retryValidation = this.validatePostText(retryPost, githubUrl, sourceBulletCount, retryHookManualPoints);
-          const retryScore = retryValidation.qualityScore ?? this.scorePostQuality(retryPost, sourceBulletCount, retryHookManualPoints).score;
-
-          if (!improvedPost || isBetterCandidate(retryValidation, retryScore, retryHook, improvedValidation, improvedHook)) {
-            improvedPost = retryPost;
-            improvedValidation = retryValidation;
-            improvedHook = retryHook;
-          }
-        }
-
-        bestPost = improvedPost;
-        bestValidation = improvedValidation;
-        chosenHook = improvedHook;
-        previousDraft = bestPost ? bestPost.postText : null;
-
-        logger.info(`LocalLLMService: Retry quality score: ${bestValidation.qualityScore} (valid: ${bestValidation.isValid})`);
+      if (postData.chosenStructure) {
+        this.saveRecentStructure(postData.chosenStructure);
       }
 
-      const winningSourceIndex = Number.isInteger(chosenHook?.sourceIndex)
-        ? chosenHook.sourceIndex
-        : 0;
-      const winningSourceTitle = selectedArticles[winningSourceIndex]?.title || selectedArticles[0]?.title || "";
-
-      const structureLabel = STRUCTURE_REGISTRY.find(s => s.name === bestPost.chosenStructure)?.label || bestPost.chosenStructure;
-      logger.info(`LocalLLMService: Final post quality score: ${bestValidation.qualityScore}. Title: "${bestPost.title}", slideTagline: "${bestPost.slideTagline}", sourceTitle: "${winningSourceTitle}", structure: "${structureLabel}"`);
-      if (!bestValidation.isValid) {
-        const qualityError = new Error(
-          `Local LLM LinkedIn draft failed quality validation: ${bestValidation.errors.join("; ")}`
-        );
-        qualityError.code = "LOCAL_LLM_QUALITY_REJECTED";
-        throw qualityError;
+      if (strategy?.funnelBucket) {
+        this.saveRecentFunnelBucket(strategy.funnelBucket);
       }
 
-      if (bestPost.chosenStructure) {
-        this.saveRecentStructure(bestPost.chosenStructure);
-      }
+      const winningSourceTitle = primaryArticle.title || "";
+      logger.info(`LocalLLMService: Post generation complete. Title: "${postData.title}", Structure: "${postData.chosenStructure}", Tagline: "${postData.slideTagline}", Funnel: "${strategy.funnelBucket}"`);
 
       return {
-        ...bestPost,
-        isValid: bestValidation.isValid,
-        validationErrors: bestValidation.errors || [],
-        qualityScore: bestValidation.qualityScore,
-        qualityIssues: bestValidation.qualityIssues || [],
-        sourceIndex: winningSourceIndex,
-        sourceTitle: winningSourceTitle
+        ...postData,
+        isValid: validation.isValid,
+        validationErrors: validation.errors || [],
+        qualityScore: qualityScore,
+        qualityIssues: validation.qualityIssues || [],
+        sourceIndex: 0,
+        sourceTitle: winningSourceTitle,
+        strategy,
+        cpio: cpioBlueprint
       };
     } catch (error) {
       logger.error("Error in generateLinkedInMasterPost:", error);

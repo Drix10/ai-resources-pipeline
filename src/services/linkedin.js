@@ -46,6 +46,7 @@ class LinkedInService {
         }
       }
       await this.checkLogin();
+      this.cleanupDebugScreenshots();
     } catch (error) {
       logger.error("LinkedInService: Failed to initialize:", error);
       this.isInitialized = false;
@@ -286,78 +287,82 @@ class LinkedInService {
       await sleep(4000);
 
       if (imageUrl) {
-        isRemote = imageUrl.startsWith("http");
-        localImagePath = imageUrl;
-
-        if (isRemote) {
-          const tempDir = path.join(process.cwd(), "temp");
-          if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir, { recursive: true });
-          let ext = ".jpg";
-          try { ext = path.extname(new URL(imageUrl).pathname.split("?")[0]) || ".jpg"; } catch (e) { }
-          localImagePath = path.join(tempDir, `linkedin-upload-${Date.now()}${ext}`);
-          logger.info(`LinkedInService: Downloading image from ${imageUrl}...`);
-          await this.downloadImageWithRetry(imageUrl, localImagePath);
-          logger.info(`LinkedInService: Image downloaded to ${localImagePath}`);
-        } else {
-          logger.info(`LinkedInService: Using local image path for upload: ${localImagePath}`);
-        }
-
-        logger.info("LinkedInService: Locating hidden file input and uploading image...");
-        let fileInput = null;
-        for (let attempt = 0; attempt < 10; attempt++) {
-          try {
-            fileInput = await this._getShadowEl("input[type='file']", 3000);
-            if (fileInput) break;
-          } catch (e) { }
-
-          // If file input not found, try clicking media button inside open modal
-          await this.driver.executeScript(`
-            const modal = document.querySelector("div[class*='share-creation-state'], div[aria-label='Create a post'], div[role='dialog'], #interop-outlet");
-            if (modal) {
-              const root = (modal.shadowRoot || modal);
-              const mediaBtn = Array.from(root.querySelectorAll("button, label, span")).find(b => {
-                const label = (b.getAttribute("aria-label") || b.textContent || "").toLowerCase();
-                return label.includes("media") || label.includes("photo") || label.includes("image");
-              });
-              if (mediaBtn) mediaBtn.click();
-            }
-          `);
-          await sleep(1500);
-        }
-
-        if (!fileInput) {
-          fileInput = await this._getShadowEl("input[type='file']", 5000);
-        }
-
-        await fileInput.sendKeys(path.resolve(localImagePath));
-        logger.info("LinkedInService: Uploaded image file path to input element");
-
-        let imagePreviewReady = false;
-        for (let i = 0; i < 20; i++) {
-          imagePreviewReady = await this.driver.executeScript(`
-            const outlet = document.getElementById("interop-outlet");
-            const root = (outlet && outlet.shadowRoot) ? outlet.shadowRoot : document;
-            const nextBtn = root.querySelector("button[aria-label='Next'], button.share-box-footer__primary-btn, button[class*='primary-btn']");
-            return nextBtn && !nextBtn.disabled;
-          `);
-          if (imagePreviewReady) break;
-          await sleep(1000);
-        }
-
-        if (!imagePreviewReady) {
-          logger.warn("LinkedInService: Image preview did not become ready within timeout. Attempting to proceed anyway...");
-        }
-
-        logger.info("LinkedInService: Confirming image preview (Next button)...");
         try {
-          const nextButton = await this._getShadowEl(
-            "button[aria-label='Next'], button.share-box-footer__primary-btn, button[class*='primary-btn']",
-            8000
-          );
-          await nextButton.click();
-          await sleep(4000);
-        } catch (e) {
-          logger.warn("LinkedInService: Next button click skipped or not required.");
+          isRemote = imageUrl.startsWith("http");
+          localImagePath = imageUrl;
+
+          if (isRemote) {
+            const tempDir = path.join(process.cwd(), "temp");
+            if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir, { recursive: true });
+            let ext = ".jpg";
+            try { ext = path.extname(new URL(imageUrl).pathname.split("?")[0]) || ".jpg"; } catch (e) { }
+            localImagePath = path.join(tempDir, `linkedin-upload-${Date.now()}${ext}`);
+            logger.info(`LinkedInService: Downloading image from ${imageUrl}...`);
+            await this.downloadImageWithRetry(imageUrl, localImagePath);
+            logger.info(`LinkedInService: Image downloaded to ${localImagePath}`);
+          } else {
+            logger.info(`LinkedInService: Using local image path for upload: ${localImagePath}`);
+          }
+
+          logger.info("LinkedInService: Locating hidden file input and uploading image...");
+          let fileInput = null;
+          for (let attempt = 0; attempt < 10; attempt++) {
+            try {
+              fileInput = await this._getShadowEl("input[type='file']", 3000);
+              if (fileInput) break;
+            } catch (e) { }
+
+            // If file input not found, try clicking media button inside open modal
+            await this.driver.executeScript(`
+              const modal = document.querySelector("div[class*='share-creation-state'], div[aria-label='Create a post'], div[role='dialog'], #interop-outlet");
+              if (modal) {
+                const root = (modal.shadowRoot || modal);
+                const mediaBtn = Array.from(root.querySelectorAll("button, label, span")).find(b => {
+                  const label = (b.getAttribute("aria-label") || b.textContent || "").toLowerCase();
+                  return label.includes("media") || label.includes("photo") || label.includes("image");
+                });
+                if (mediaBtn) mediaBtn.click();
+              }
+            `);
+            await sleep(1500);
+          }
+
+          if (!fileInput) {
+            fileInput = await this._getShadowEl("input[type='file']", 5000);
+          }
+
+          await fileInput.sendKeys(path.resolve(localImagePath));
+          logger.info("LinkedInService: Uploaded image file path to input element");
+
+          let imagePreviewReady = false;
+          for (let i = 0; i < 20; i++) {
+            imagePreviewReady = await this.driver.executeScript(`
+              const outlet = document.getElementById("interop-outlet");
+              const root = (outlet && outlet.shadowRoot) ? outlet.shadowRoot : document;
+              const nextBtn = root.querySelector("button[aria-label='Next'], button.share-box-footer__primary-btn, button[class*='primary-btn']");
+              return nextBtn && !nextBtn.disabled;
+            `);
+            if (imagePreviewReady) break;
+            await sleep(1000);
+          }
+
+          if (!imagePreviewReady) {
+            logger.warn("LinkedInService: Image preview did not become ready within timeout. Attempting to proceed anyway...");
+          }
+
+          logger.info("LinkedInService: Confirming image preview (Next button)...");
+          try {
+            const nextButton = await this._getShadowEl(
+              "button[aria-label='Next'], button.share-box-footer__primary-btn, button[class*='primary-btn']",
+              8000
+            );
+            await nextButton.click();
+            await sleep(4000);
+          } catch (e) {
+            logger.warn("LinkedInService: Next button click skipped or not required.");
+          }
+        } catch (imageUploadErr) {
+          logger.warn(`LinkedInService: Image upload failed (${imageUploadErr.message}). Gracefully degrading to text-only post...`);
         }
       }
 
@@ -730,8 +735,9 @@ class LinkedInService {
       return false;
     } finally {
       try {
-        if (isRemote && localImagePath && fs.existsSync(localImagePath)) {
+        if (localImagePath && fs.existsSync(localImagePath)) {
           fs.unlinkSync(localImagePath);
+          logger.info(`LinkedInService: Cleaned up temporary image file: ${localImagePath}`);
         }
       } catch (e) { }
 
@@ -782,7 +788,7 @@ class LinkedInService {
     throw lastError;
   }
 
-  async generateSlideImage(title, points, slideTagline = "Curated by AI \u00b7 Updated Weekly", authorHandle = "github.com/Drix10") {
+  async generateSlideImage(title, points, slideTagline = "Systems Architecture Teardown · Drix10", authorHandle = "github.com/Drix10/ai-resources", options = {}) {
     let originalHandle = null;
     let renderTabOpened = false;
     let originalSize = null;
@@ -811,18 +817,51 @@ class LinkedInService {
     const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
     const safePoints = Array.isArray(points) ? points : [];
+    const allText = [title, ...safePoints].join(" ");
+
+    // Dynamic structure badge mapping
+    const badgeMap = {
+      "problem-insight-framework": "SYSTEMS_FRAMEWORK // v2.6",
+      "before-after": "PERFORMANCE_AUDIT // v2.6",
+      "story-arc": "FOUNDER_CASE_STUDY // v2.6",
+      "contrarian-proof-action": "CONTRARIAN_ANALYSIS // v2.6",
+      "breakdown-teardown": "ARCH_TEARDOWN // v2.6"
+    };
+    const structureKey = (options && options.structureName) ? options.structureName : "";
+    const statusBadgeText = badgeMap[structureKey] || "ARCH_TEARDOWN // v2.6";
+    const eyebrowText = "// " + statusBadgeText.replace(/\s*\/\/.*$/, "").replace(/_/g, " ");
+
+    // Extract dynamic metrics for ribbon pills strictly from source text (NO fabricated claims)
+    const rawMetrics = [];
+    const percentMatches = allText.match(/\b\d+(?:\.\d+)?%/g) || [];
+    const multiMatches = allText.match(/\b\d+(?:\.\d+)?x\b/gi) || [];
+    const latencyMatches = allText.match(/\b\d+(?:\.\d+)?\s*(?:ms|s)\b/gi) || [];
+
+    if (percentMatches[0]) rawMetrics.push(`⚡ ${percentMatches[0]} Metric`);
+    if (multiMatches[0]) rawMetrics.push(`🚀 ${multiMatches[0]} Speedup`);
+    if (latencyMatches[0]) rawMetrics.push(`⏱️ ${latencyMatches[0]} Latency`);
+
+    // Strictly grounded metrics: only display real numbers actually found in the source
+    const metricsToDisplay = rawMetrics.slice(0, 3);
+
+    // Grounded diagram steps from options (only render if meaningful steps exist)
+    const diagramSteps = (options && Array.isArray(options.diagramSteps) && options.diagramSteps.length >= 3)
+      ? options.diagramSteps
+      : null;
+
     const accents = [
-      { border: "rgba(249, 115, 22, 0.4)", numBg: "linear-gradient(135deg, #ea580c 0%, #7c2d12 100%)", glow: "rgba(249, 115, 22, 0.3)", textColor: "#ffedd5" },
-      { border: "rgba(99, 102, 241, 0.4)", numBg: "linear-gradient(135deg, #4f46e5 0%, #312e81 100%)", glow: "rgba(99, 102, 241, 0.3)", textColor: "#e0e7ff" },
-      { border: "rgba(16, 185, 129, 0.4)", numBg: "linear-gradient(135deg, #059669 0%, #064e3b 100%)", glow: "rgba(16, 185, 129, 0.3)", textColor: "#d1fae5" }
+      { border: "rgba(16, 185, 129, 0.7)", numBg: "linear-gradient(135deg, #059669 0%, #064e3b 100%)", glow: "rgba(16, 185, 129, 0.25)", textColor: "#d1fae5", badge: "#10b981" },
+      { border: "rgba(245, 158, 11, 0.7)", numBg: "linear-gradient(135deg, #d97706 0%, #78350f 100%)", glow: "rgba(245, 158, 11, 0.25)", textColor: "#fef3c7", badge: "#f59e0b" },
+      { border: "rgba(59, 130, 246, 0.7)", numBg: "linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%)", glow: "rgba(59, 130, 246, 0.25)", textColor: "#dbeafe", badge: "#3b82f6" }
     ];
 
     const pointsHtml = safePoints.map((pt, i) => {
       const acc = accents[i] || accents[0];
+      const cleanPt = esc(pt).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
       return `
-        <div class="point-item" style="border-left: 5px solid ${acc.border}; box-shadow: 0 12px 40px rgba(0,0,0,0.4), inset 0 0 15px ${acc.glow};">
-          <div class="point-num" style="background: ${acc.numBg}; border: 1px solid ${acc.border}; box-shadow: 0 0 15px ${acc.glow}; color: ${acc.textColor};">${i + 1}</div>
-          <div class="point-text">${esc(pt)}</div>
+        <div class="point-item" style="border-left: 4px solid ${acc.border}; box-shadow: 0 16px 36px rgba(0,0,0,0.5), inset 0 0 20px ${acc.glow};">
+          <div class="point-num" style="background: ${acc.numBg}; border: 1px solid ${acc.border}; box-shadow: 0 0 16px ${acc.glow}; color: ${acc.textColor};">0${i + 1}</div>
+          <div class="point-text">${cleanPt}</div>
         </div>
       `;
     }).join("");
@@ -832,18 +871,22 @@ class LinkedInService {
 <head>
   <meta charset="UTF-8">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap');
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       width: 1080px;
       height: 1350px;
       display: flex;
       flex-direction: column;
-      background: radial-gradient(circle at 50% 0%, #201a15 0%, #0a0806 70%, #020101 100%);
-      background-image: radial-gradient(circle at 50% 0%, #201a15 0%, #0a0806 70%, #020101 100%), radial-gradient(rgba(255, 255, 255, 0.03) 1.5px, transparent 0);
-      background-size: 100% 100%, 32px 32px;
-      color: #f5f5f4;
-      font-family: 'Inter', sans-serif;
+      background: #09090b;
+      background-image: 
+        radial-gradient(circle at 85% 12%, rgba(245, 158, 11, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 15% 88%, rgba(16, 185, 129, 0.12) 0%, transparent 45%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
+      color: #f4f4f5;
+      font-family: 'Inter', -apple-system, sans-serif;
       overflow: hidden;
       position: relative;
     }
@@ -853,112 +896,208 @@ class LinkedInService {
       display: flex;
       flex-direction: column;
       height: 100%;
-      padding: 70px 85px 60px;
+      padding: 64px 76px 56px;
     }
-    .top-bar {
+    .header-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 45px;
+      margin-bottom: 38px;
     }
-    .badge {
+    .founder-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #18181b 0%, #27272a 100%);
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 20px;
+      color: #10b981;
+    }
+    .founder-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .founder-name {
+      font-size: 19px;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.01em;
+    }
+    .verified-icon {
       display: inline-flex;
       align-items: center;
-      gap: 12px;
-      border: 1px solid rgba(249, 115, 22, 0.15);
-      background: rgba(43, 30, 20, 0.4);
-      backdrop-filter: blur(8px);
-      padding: 10px 22px;
-      border-radius: 99px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #ffedd5;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      background: #10b981;
+      color: #09090b;
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 900;
     }
-    .badge-dot {
+    .founder-role {
+      font-size: 13px;
+      color: #a1a1aa;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(24, 24, 27, 0.7);
+      backdrop-filter: blur(12px);
+      padding: 10px 18px;
+      border-radius: 9999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: #e4e4e7;
+    }
+    .pulse-dot {
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: #f97316;
-      box-shadow: 0 0 10px #f97316;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
     }
-    .logo-area {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 15px;
-      color: #a8a29e;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-    }
-    .hero-section {
-      margin-bottom: 40px;
-      border-left: 4px solid;
-      border-image: linear-gradient(to bottom, #f97316, #ea580c, transparent) 1;
-      padding-left: 32px;
+    .hero-box {
+      margin-bottom: 28px;
+      border-left: 4px solid #10b981;
+      padding-left: 28px;
     }
     .eyebrow {
-      font-size: 15px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
       font-weight: 700;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: #fed7aa;
-      margin-bottom: 16px;
+      color: #10b981;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .title {
-      font-size: 54px;
+      font-size: 46px;
       font-weight: 800;
-      line-height: 1.15;
-      background: linear-gradient(135deg, #ffffff 30%, #ffedd5 100%);
+      line-height: 1.18;
+      background: linear-gradient(135deg, #ffffff 40%, #f4f4f5 75%, #a1a1aa 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.035em;
+    }
+    .metrics-ribbon {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 26px;
+      flex-wrap: wrap;
+    }
+    .metric-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 16px;
+      background: rgba(24, 24, 27, 0.75);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      color: #fef08a;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+    .diagram-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(18, 18, 23, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      padding: 14px 22px;
+      margin-bottom: 28px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      color: #a1a1aa;
+    }
+    .diagram-step {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #e4e4e7;
+    }
+    .diagram-step.active {
+      color: #10b981;
+    }
+    .diagram-arrow {
+      color: #52525b;
+      font-weight: 900;
     }
     .points-section {
       flex-grow: 1;
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 26px;
+      margin-top: 10px;
     }
     .point-item {
       display: flex;
       align-items: flex-start;
-      gap: 28px;
-      padding: 24px 32px;
-      background: rgba(28, 25, 23, 0.45);
-      backdrop-filter: blur(12px);
+      gap: 26px;
+      padding: 28px 34px;
+      background: rgba(18, 18, 23, 0.65);
+      backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.06);
       border-radius: 16px;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
     }
     .point-num {
       flex-shrink: 0;
       width: 48px;
       height: 48px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #ea580c 0%, #7c2d12 100%);
-      border: 1px solid #f97316;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 19px;
-      font-weight: 700;
-      color: #ffedd5;
-      box-shadow: 0 0 15px rgba(249, 115, 22, 0.25);
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
     }
     .point-text {
       font-size: 22px;
       font-weight: 500;
       color: #e4e4e7;
-      line-height: 1.45;
+      line-height: 1.48;
+      letter-spacing: -0.01em;
+    }
+    .point-text strong {
+      color: #ffffff;
+      font-weight: 700;
     }
     .footer {
-      margin-top: 40px;
-      padding-top: 25px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      margin-top: 32px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -968,51 +1107,79 @@ class LinkedInService {
       align-items: center;
       gap: 12px;
     }
-    .footer-icon {
-      font-size: 20px;
-      filter: drop-shadow(0 0 8px #f97316);
+    .footer-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #f59e0b;
     }
     .footer-text {
-      font-size: 16px;
-      color: #a8a29e;
+      font-size: 14px;
+      color: #a1a1aa;
       font-weight: 600;
       font-family: 'JetBrains Mono', monospace;
     }
-    .save-cta {
+    .footer-badge {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      background: linear-gradient(135deg, #292524 0%, #1c1917 100%);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 12px 24px;
+      gap: 8px;
+      background: rgba(24, 24, 27, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      padding: 10px 20px;
       border-radius: 8px;
-      font-size: 15px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
       font-weight: 600;
-      color: #ffedd5;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.35), inset 0 1px 1px rgba(255,255,255,0.05);
-      letter-spacing: 0.01em;
+      color: #e4e4e7;
     }
   </style>
 </head>
 <body>
   <div class="content">
-    <div class="top-bar">
-      <div class="badge"><span class="badge-dot"></span>Tech Curation</div>
-      <div class="logo-area">${esc(authorHandle)}</div>
+    <div class="header-bar">
+      <div class="founder-card">
+        <div class="avatar">DG</div>
+        <div class="founder-info">
+          <div class="founder-name">Drishtant Ghosh (Drix10) <span class="verified-icon">✓</span></div>
+          <div class="founder-role">Co-Founder @ PartPilot · AI Systems Architect</div>
+        </div>
+      </div>
+      <div class="status-badge">
+        <span class="pulse-dot"></span>
+        <span>${esc(statusBadgeText)}</span>
+      </div>
     </div>
-    <div class="hero-section">
-      <div class="eyebrow">Curated Report</div>
+
+    <div class="hero-box">
+      <div class="eyebrow">${esc(eyebrowText)}</div>
       <div class="title">${esc(title)}</div>
     </div>
+
+    ${metricsToDisplay.length > 0 ? `
+    <div class="metrics-ribbon">
+      ${metricsToDisplay.map(m => `<div class="metric-pill">${esc(m)}</div>`).join("")}
+    </div>
+    ` : ''}
+
+    ${diagramSteps ? `
+    <div class="diagram-strip">
+      ${diagramSteps.map((step, idx) => `
+        <div class="diagram-step ${idx === 1 ? "active" : ""}">${esc(step)}</div>
+        ${idx < diagramSteps.length - 1 ? '<div class="diagram-arrow">➔</div>' : ''}
+      `).join("")}
+    </div>
+    ` : ''}
+
     <div class="points-section">
       ${pointsHtml}
     </div>
+
     <div class="footer">
       <div class="footer-left">
-        <span class="footer-icon">\u26A1</span>
+        <span class="footer-dot"></span>
         <span class="footer-text">${esc(slideTagline)}</span>
       </div>
-      <div class="save-cta">\u2B50 Save for later</div>
+      <div class="footer-badge">${esc(authorHandle)} ★</div>
     </div>
   </div>
 </body>
@@ -1053,9 +1220,41 @@ class LinkedInService {
       }
 
       const imagePath = path.join(tempDir, `slide-${Date.now()}.png`);
-      const bodyEl = await this.driver.findElement(By.css("body"));
-      const screenshotData = await bodyEl.takeScreenshot();
-      fs.writeFileSync(imagePath, Buffer.from(screenshotData, "base64"));
+      let screenshotBuffer = null;
+
+      try {
+        if (typeof this.driver.sendAndGetDevToolsCommand === "function") {
+          await this.driver.sendAndGetDevToolsCommand("Emulation.setDeviceMetricsOverride", {
+            width: 1080,
+            height: 1350,
+            deviceScaleFactor: 1,
+            mobile: false
+          });
+          const cdpScreenshot = await this.driver.sendAndGetDevToolsCommand("Page.captureScreenshot", {
+            format: "png",
+            clip: {
+              x: 0,
+              y: 0,
+              width: 1080,
+              height: 1350,
+              scale: 1
+            }
+          });
+          if (cdpScreenshot && cdpScreenshot.data) {
+            screenshotBuffer = Buffer.from(cdpScreenshot.data, "base64");
+          }
+        }
+      } catch (cdpErr) {
+        logger.warn("LinkedInService: CDP screenshot failed, falling back to element screenshot:", cdpErr.message);
+      }
+
+      if (!screenshotBuffer) {
+        const bodyEl = await this.driver.findElement(By.css("body"));
+        const screenshotData = await bodyEl.takeScreenshot();
+        screenshotBuffer = Buffer.from(screenshotData, "base64");
+      }
+
+      fs.writeFileSync(imagePath, screenshotBuffer);
       logger.info(`LinkedInService: Generated slide image screenshot saved to ${imagePath}`);
 
       return imagePath;
@@ -1066,6 +1265,12 @@ class LinkedInService {
       if (htmlPath && fs.existsSync(htmlPath)) {
         try { fs.unlinkSync(htmlPath); } catch (e) { }
       }
+
+      try {
+        if (typeof this.driver?.sendAndGetDevToolsCommand === "function") {
+          await this.driver.sendAndGetDevToolsCommand("Emulation.clearDeviceMetricsOverride", {});
+        }
+      } catch (e) { }
 
       if (renderTabOpened) {
         try { await this.driver.close(); } catch (closeErr) { }
