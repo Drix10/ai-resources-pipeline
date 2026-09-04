@@ -105,7 +105,7 @@ const PROMPT_LEAK_PATTERNS = [
 
 const MIN_POST_LENGTH = 900;
 const MAX_POST_LENGTH = 2200;
-const MIN_QUALITY_SCORE = 50;
+const MIN_QUALITY_SCORE = 70; // Passing quality gate threshold (out of 100)
 const MAX_RECENT_STRUCTURES = 8;
 
 // LinkedIn post structures the AI can choose from to keep posts varied.
@@ -1802,7 +1802,7 @@ JSON schema:
     const postText = postData.postText || "";
     const hook = postText.split("\n\n")[0] || "";
     const bodyWithoutHook = postText.slice(hook.length).trim();
-    let score = 100;
+    let score = 80; // Baseline passing score for a clean, unpenalized post (scale: 0-100)
     const issues = [];
     let bonusPoints = 0;
     let penaltyPoints = 0;
@@ -1823,28 +1823,25 @@ JSON schema:
       issues.push("Post contains em dashes (— or --); use colons, commas, or periods instead.");
     }
 
-    // @Mentions check (at least 1-2 @mentions expected)
-
-
-    // Hashtag check (rich cloud: 5-20 hashtags expected)
+    // Hashtag check (5-8 hashtags expected)
     const hashtagMatches = postText.match(/#[a-zA-Z0-9_]+/g) || [];
     const hashtagCount = hashtagMatches.length;
     if (hashtagCount < 5) {
       penaltyPoints += 15;
-      issues.push(`Not enough hashtags: found ${hashtagCount} (expected 5-20)`);
-    } else {
-      bonusPoints += 10;
+      issues.push(`Not enough hashtags: found ${hashtagCount} (expected 5-8)`);
+    } else if (hashtagCount <= 8) {
+      bonusPoints += 5;
     }
 
     // Length check
     if (postText.length < 600) {
       penaltyPoints += 30;
-      issues.push(`Post too short (${postText.length} chars, target 600-2500)`);
+      issues.push(`Post too short (${postText.length} chars, target 800-2200)`);
     } else if (postText.length > 2500) {
       penaltyPoints += 20;
       issues.push(`Post too long (${postText.length} chars)`);
     } else if (postText.length >= 800 && postText.length <= 1800) {
-      bonusPoints += 10;
+      bonusPoints += 5;
     }
 
     // Structured takeaways check (at least 2 numbered points or takeaways)
@@ -1855,7 +1852,7 @@ JSON schema:
       penaltyPoints += 25;
       issues.push(`Standout takeaways section too thin (${frameworkBullets.length} points, need at least 2)`);
     } else {
-      bonusPoints += 10;
+      bonusPoints += 5;
     }
 
     // Duplicate-sentence check (local models sometimes restate a claim twice)
@@ -1866,14 +1863,14 @@ JSON schema:
 
     // Rehook check: award bonus if narrative includes a curiosity-preserving rehook
     if (this.hasRehook(postText)) {
-      bonusPoints += 10;
+      bonusPoints += 5;
     }
 
     // Manual points grounding coverage check
     if (Array.isArray(manualPoints) && manualPoints.length > 0) {
       const coverageResult = this.measureManualPointCoverage(postText, manualPoints);
       if (coverageResult.coverage >= 0.5) {
-        bonusPoints += 15;
+        bonusPoints += 5;
       } else if (coverageResult.coverage < 0.25) {
         penaltyPoints += 20;
         issues.push(`Low coverage of source manual points: only ${Math.round(coverageResult.coverage * 100)}% preserved`);
@@ -1901,7 +1898,7 @@ JSON schema:
       }
     }
 
-    const total = Math.max(0, Math.min(120, score + bonusPoints - penaltyPoints));
+    const total = Math.max(0, Math.min(100, score + bonusPoints - penaltyPoints));
 
     return {
       score: total,
@@ -2009,7 +2006,7 @@ JSON schema:
 
     const quality = this.scorePostQuality(postData, sourceBulletCount, manualPoints);
     if (quality.score < MIN_QUALITY_SCORE) {
-      errors.push(`Quality score too low: ${quality.score}/${MIN_QUALITY_SCORE} (penalties: -${quality.penaltyPoints}, bonuses: +${quality.bonusPoints})`);
+      errors.push(`Quality score too low: ${quality.score}/100 (minimum required: ${MIN_QUALITY_SCORE}/100, penalties: -${quality.penaltyPoints}, bonuses: +${quality.bonusPoints})`);
     }
 
     return {
@@ -3510,7 +3507,7 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
       let validation = this.validatePostText(postData, githubUrl, sourceBulletCount, hookManualPoints);
       let qualityScore = validation.qualityScore ?? this.scorePostQuality(postData, sourceBulletCount, hookManualPoints).score;
 
-      logger.info(`LocalLLMService: Quality validation score: ${qualityScore} (valid: ${validation.isValid})`);
+      logger.info(`LocalLLMService: Quality validation score: ${qualityScore}/100 (valid: ${validation.isValid})`);
       if (!validation.isValid && validation.errors && validation.errors.length > 0) {
         logger.warn(`LocalLLMService: Validation errors: ${validation.errors.join("; ")}`);
       }
@@ -3526,7 +3523,7 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
         postData.postText = retryDraft;
         validation = this.validatePostText(postData, githubUrl, sourceBulletCount, hookManualPoints);
         qualityScore = validation.qualityScore ?? this.scorePostQuality(postData, sourceBulletCount, hookManualPoints).score;
-        logger.info(`LocalLLMService: Retry draft quality score: ${qualityScore} (valid: ${validation.isValid})`);
+        logger.info(`LocalLLMService: Retry draft quality score: ${qualityScore}/100 (valid: ${validation.isValid})`);
         if (!validation.isValid && validation.errors && validation.errors.length > 0) {
           logger.warn(`LocalLLMService: Retry validation errors: ${validation.errors.join("; ")}`);
         }

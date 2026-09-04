@@ -301,11 +301,11 @@ const runEndofRunCuration = async (successfulArticles) => {
               : llmService.validatePostText(megaPostData, githubUrl, sourceBulletCount);
 
             if (validation.isValid) {
-              logger.info(`LinkedIn Curation: Mega post passed quality validation (score: ${validation.qualityScore})`);
+              logger.info(`LinkedIn Curation: Mega post passed quality validation (score: ${validation.qualityScore}/100)`);
               break;
             }
 
-            logger.warn(`LinkedIn Curation: Mega post failed quality validation (score: ${validation.qualityScore}):`);
+            logger.warn(`LinkedIn Curation: Mega post failed quality validation (score: ${validation.qualityScore}/100):`);
             validation.errors.forEach(err => logger.warn(`  - ${err}`));
 
             if (attempt === maxGenerationAttempts) {
