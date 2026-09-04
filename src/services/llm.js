@@ -48,6 +48,11 @@ const HAT_TIP_PROHIBITED_PATTERNS = [
   // Broad generalizations & relatability clichés
   /^(?:most people|everyone knows|in today's (?:fast-paced|world)|as we all know)/im,
   /we(?:'ve| have) all (?:been there|been caught|seen this|experienced)/i,
+  // Fabricated personal war stories & fake company anecdotes
+  /\blast (?:week|month|year),? we (?:deployed|broke|crashed|hit|were building)\b/i,
+  /\bwhen we deployed this at (?:PartPilot|our startup)\b/i,
+  /\bour (?:cluster|server|database) (?:crashed|went down|melted)\b/i,
+  /\bwe burned \$\d+[\d,]*\b/i,
   // Cheap copywriting clichés
   /trust me, your wallet will thank you/i,
   /game-?changer/i,
@@ -2970,6 +2975,14 @@ JSON Schema:
       : cpio.information?.requiredPoints || [];
 
     const cleanTitle = String(article?.title || "AI Systems Architecture").replace(/^#+\s*/, "").replace(/^[^\w]+/, "").trim();
+    const rawContent = article?.fullContent || "";
+    const cleanSourceContent = rawContent
+      .replace(/^#+\s*[^\n]+/gm, "")
+      .replace(/https?:\/\/[^\s\)]+/g, "")
+      .replace(/\n{2,}/g, "\n")
+      .trim()
+      .slice(0, 1800);
+
     const defaultPrinciples = [
       `Decouple state and execution boundaries to eliminate concurrency bottlenecks in ${cleanTitle}.`,
       `Establish rigorous profiling benchmarks to measure throughput gains and memory footprint.`
@@ -3005,16 +3018,17 @@ JSON Schema:
   4. STANDALONE SAVE-TRIGGER SECTION: 2-3 concrete architectural heuristics / boundary conditions (numbered 1., 2., 3.) that an engineer could bookmark.
   5. The real trade-off nobody admits.`;
     } else if (chosenArchetype === "post-mortem" || chosenArchetype === "story-arc") {
-      archetypeDirective = `=== ARCHETYPE DIRECTIVE: THE ARCHITECTURAL POST-MORTEM / WAR STORY ("WE BROKE IT") ===
-- Goal: Share an authentic technical battle scar that proves you build and debug systems under real load.
-- Tone: Candid, humble, developer war-story. Grounded in operating reality.
+      archetypeDirective = `=== ARCHETYPE DIRECTIVE: THE SYSTEMS POST-MORTEM & FAILURE MODE TEARDOWN ===
+- Goal: Dissect a real-world systems failure mode and provide the concrete architectural fix, grounded in operating reality.
+- Tone: Rigorous, objective systems analysis. Focus on real architecture mechanisms, not made-up personal drama.
 - Structure:
-  1. The Setup: What we were building and the initial false lead (e.g. "we thought X, increased concurrent workers, made it worse").
-  2. The Wall: What broke under load (latency spike, memory fragmentation, non-deterministic variance).
-  3. The Discovery: What the profiler or logs actually revealed.
-  4. The Architecture Shift: The technical fix.
+  1. The common implementation pattern that appears fine in development but silently fails under scale or concurrency.
+  2. The Wall: What actually breaks under load (latency spikes, memory fragmentation, lock contention, non-deterministic variance).
+  3. The Root Cause: The exact technical mechanism causing the breakdown (grounded in the source facts).
+  4. The Architecture Fix: The deterministic fix or defensive design pattern.
   5. STANDALONE SAVE-TRIGGER SECTION: 2-3 concrete engineering rules of thumb / implementation safeguards (numbered 1., 2., 3.).
-  6. Final engineering conclusion or soft peer availability.`;
+  6. Final engineering conclusion or trade-off.
+- ZERO FICTION: Do NOT invent a fake company incident ("we crashed PartPilot's servers last Tuesday"). Dissect the system failure mode with technical precision.`;
     } else if (chosenArchetype === "founder-micro-take") {
       archetypeDirective = `=== ARCHETYPE DIRECTIVE: THE SHORT UNFILTERED FOUNDER OBSERVATION (MICRO-TAKE) ===
 - Goal: A punchy, casual observation written like an engineer texting a peer or writing in a dev journal.
@@ -3077,9 +3091,15 @@ Write an authentic, highly valuable LinkedIn founder post sharing this technical
 
 ${archetypeDirective}
 
+=== VERIFIED SOURCE TECHNICAL FACTS (STRICT GROUNDING REQUIREMENT) ===
+Topic: ${cleanTitle}
+Verified Source Content:
+${cleanSourceContent}
+
 === ABSOLUTE TOPIC PURITY & TECHNICAL FOUNDER POSITIONING (CRITICAL) ===
 - The post MUST be 100% about the topic: "${cleanTitle}".
-- SPEAK AS A TECHNICAL BUILDER: You are an engineer-founder who builds real systems and products. Speak from operating reality, not financial speculation.
+- ZERO MADE-UP STORIES: NEVER fabricate personal anecdotes, fake company crises, or imaginary battle scars ("Last month our servers crashed", "We broke it under 10k RPS", "We hit a bottleneck", "We burned $20k on API calls").
+- SPEAK AS A TECHNICAL BUILDER: You are an engineer-founder who builds real systems and products. Speak from operating reality, not financial speculation or manufactured fiction.
 - NEVER ROLEPLAY AS A VC ANALYST:
   * NEVER claim "I've seen too many seed startups get caught off guard by institutional investors" or pretend to be an institutional fund manager.
   * If the source topic touches venture capital, funding, or market growth, ALWAYS bridge it through the OPERATING ENGINEER'S LENS.
@@ -3087,11 +3107,12 @@ ${archetypeDirective}
 - NO FABRICATED UNIVERSAL METRICS OR PSEUDO-DATA: NEVER write "Our benchmarks show...", "Our portfolio shows...", or invent quantitative metrics. Only cite numbers if they appear in the source text.
 - Speak with the voice of an experienced systems architect evaluating THIS subject with engineering rigor, practical skepticism, and clarity.
 
-=== CRITICAL TECHNICAL FACTUAL ACCURACY (NO HALLUCINATIONS) ===
-- Be 100% technically accurate.
-- An LLM does NOT have an AST. Code generated by an LLM has an AST.
-- Neural networks have weights, layers, KV caches, and context windows; compilers and parsers have ASTs.
-- Never write nonsense like "AST of the model".
+=== CRITICAL TECHNICAL FACTUAL ACCURACY & REAL FEASIBILITY ===
+- Be 100% technically accurate. Every claim must reflect how the technology actually works.
+- ALL SUGGESTIONS MUST BE ACTUALLY CORRECT AND TECHNICALLY FEASIBLE:
+  * When recommending steps (1., 2., 3.), specify REAL, concrete engineering mechanisms (e.g. parser rules, AST node visitors, memory allocation pools, Redis caching layers, token-bucket rate limiters) that an engineer can actually implement in code.
+  * NEVER invent vague pseudo-technical nonsense like "analyze AST complexity of LLM models" (LLMs don't have an AST; generated code has an AST).
+  * Neural networks have weights, layers, KV caches, and context windows; compilers and parsers have ASTs.
 - NO CHEAP COPYWRITING CLICHÉS:
   * NEVER write "Trust me, your wallet will thank you" (cheap copywriting cliché).
   * NEVER write "We've all been there" (broad relatability cliché).
@@ -3116,8 +3137,10 @@ ${archetypeDirective}
    - Do not force 3 adjectives or 3 nouns into every sentence.
 6. UNEVEN HUMAN RHYTHM:
    - Mix short 3-word sentences with longer explanatory sentences. Break the robotic monotony of uniform sentence lengths.
-7. WRITE WITH PERSONAL CONVICTION:
-   - Use first-person singular and plural naturally: "I think", "In my experience", "We hit a bottleneck", "We stopped using X".
+7. WRITE WITH REAL TECHNICAL INTEGRITY (NO MADE-UP STORIES):
+   - Focus 100% on the ACTUAL technical facts and architecture truth from the source material.
+   - NEVER fabricate fictional stories, fake startup disasters, or imaginary anecdotes ("Last week our cluster crashed", "We hit a bottleneck", "We burned $20k").
+   - Frame lessons objectively as systems engineering realities: "In production, systems hit a bottleneck when...", "Engineering teams deploying X discover that...", "The actual failure mode under concurrency is...".
 
 === 90-DAY HAT TIP FOUNDER WRITING SYSTEM ===
 1. WRITE HOW YOU SPEAK: Use short, conversational words you would say out loud to an engineering peer. Say "use" instead of "utilize". Write in active voice throughout ("we found", "I learned", "I observed", not passive voice).
@@ -3249,6 +3272,14 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     body = body.replace(/\bwe(?:'ve| have) all been\b/gi, "engineering teams are often");
     body = body.replace(/\bAST of the model\b/gi, "AST of the generated code");
     body = body.replace(/\bAST for the model\b/gi, "AST for the generated code");
+
+    // Strip made-up personal war stories and reframe to objective systems voice
+    body = body.replace(/\blast (?:week|month|year),? we (?:deployed|broke|crashed|hit|were building)\b/gi, "When deploying");
+    body = body.replace(/\bwe hit a bottleneck when trying to scale\b/gi, "Systems hit a bottleneck when scaling");
+    body = body.replace(/\bwe hit a bottleneck\b/gi, "Production systems hit a bottleneck");
+    body = body.replace(/\bwe broke it under\b/gi, "Systems fail under");
+    body = body.replace(/\bwe burned \$\d+[\d,]*\b/gi, "Teams burn significant API quota");
+    body = body.replace(/\bwhen we deployed this at (?:PartPilot|our startup)\b/gi, "When deploying this in production");
 
     // Ensure the very first paragraph / hook does not end with a question mark
     const firstParagraphMatch = body.match(/^([^\n]+)/);
@@ -3402,6 +3433,13 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
       // If numbered list items exist, eliminate redundant bullet lines to prevent double takeaway blocks
       if (/^[0-9]+\.\s/m.test(body) && /^[•\-\*]\s/m.test(body)) {
         body = body.replace(/^[•\-\*]\s+[^\n]+(?:\n|$)/gm, "").trim();
+      } else if (/^[•\-\*]\s/m.test(body)) {
+        // Normalize standalone bullets (•, -, *) to clean numbered takeaways
+        let bIdx = 0;
+        body = body.replace(/^[•\-\*]\s+/gm, () => {
+          bIdx++;
+          return `${bIdx}. `;
+        });
       }
 
       // Automatically strip any narrative paragraphs that duplicate the takeaways!
@@ -3516,8 +3554,9 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
       return match.replace(/:[^.\n]*(?:[0-9]+\)[^,\n]+[,\n]?){2,}/, '.').trim();
     });
 
-    // 14e.2 Strip standalone preamble-only numbered bullets, then renumber the list
+    // 14e.2 Strip standalone preamble-only numbered bullets, renumber, and cap at max 3 takeaways
     // e.g. "1. To implement this approach, follow these steps:\n\n1. Use static..." → "1. Use static..."
+    // Also ensures no runaway 5-6 item list: LinkedIn founder posts require exactly 2-3 focused takeaways.
     {
       const PREAMBLE_BULLET_RE = /^(?:to implement this[^:]*|here'?s how[^:]*|follow these steps[^:]*|the steps are[^:]*|steps?|how to[^:]*|implementation[^:]*):\s*$/i;
       const bodyLines = body.split('\n');
@@ -3526,13 +3565,51 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
         return !PREAMBLE_BULLET_RE.test(stripped);
       });
       let numberedIdx = 0;
-      body = filteredLines.map(line => {
-        if (/^\d+\.\s/.test(line)) {
-          numberedIdx++;
-          return line.replace(/^\d+\./, `${numberedIdx}.`);
+      let droppingBullet = false;
+      let sawBlankLineAfterDrop = false;
+      const finalLines = [];
+
+      for (let i = 0; i < filteredLines.length; i++) {
+        const line = filteredLines[i];
+        const trimmed = line.trim();
+
+        if (/^\d+\.\s/.test(trimmed)) {
+          if (numberedIdx < 3) {
+            numberedIdx++;
+            droppingBullet = false;
+            sawBlankLineAfterDrop = false;
+            finalLines.push(line.replace(/^\d+\./, `${numberedIdx}.`));
+          } else {
+            // Cap at 3: drop any 4th, 5th, 6th... bullet
+            droppingBullet = true;
+            sawBlankLineAfterDrop = false;
+          }
+          continue;
         }
-        return line;
-      }).join('\n');
+
+        if (droppingBullet) {
+          if (!trimmed) {
+            sawBlankLineAfterDrop = true;
+            continue;
+          }
+          const isNarrativeStart = sawBlankLineAfterDrop ||
+            trimmed.startsWith("🔗") ||
+            trimmed.startsWith("#") ||
+            /^(?:The |This |In |When |By |Our |Read |Here |Bottom line|Key takeaway|If |Why |Note|However|On the other hand|Ultimately)/i.test(trimmed);
+
+          if (isNarrativeStart) {
+            droppingBullet = false;
+            sawBlankLineAfterDrop = false;
+            finalLines.push("");
+            finalLines.push(line);
+          }
+          continue;
+        }
+
+        finalLines.push(line);
+      }
+
+      body = finalLines.join('\n').replace(/\n{3,}/g, '\n\n').trim();
     }
 
     // 14f. Replace overused generic hook openers with varied declarative observations
@@ -3687,9 +3764,22 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
 
     const TRANSITION_PREAMBLE_RE = /^(?:to implement this[^:]*:|here'?s? how[^:]*:|follow these steps[^:]*:|the steps are[^:]*:|steps?:|how to[^:]*:|implementation[^:]*:)\s*$/i;
 
-    const rawPool = (cpio?.order?.support && cpio.order.support.length >= 2)
-      ? cpio.order.support
-      : (cpio?.information?.requiredPoints || []);
+    // Prefer using the actual finalized takeaways already drafted and filtered in draftText!
+    let rawPool = [];
+    if (draftText) {
+      const extractedBullets = this.extractFrameworkBullets(draftText)
+        .map(b => b.replace(/^\d+\.\s*/, "").replace(/^[•\-\*]\s*/, "").trim())
+        .filter(b => b.length > 20 && !TRANSITION_PREAMBLE_RE.test(b));
+      if (extractedBullets.length >= 2) {
+        rawPool = extractedBullets;
+      }
+    }
+
+    if (rawPool.length < 2) {
+      rawPool = (cpio?.order?.support && cpio.order.support.length >= 2)
+        ? cpio.order.support
+        : (cpio?.information?.requiredPoints || []);
+    }
 
     // Pre-filter: remove pure transition/preamble items that contain no substantive content
     const pointsPool = rawPool.filter(pt => {
@@ -3715,15 +3805,24 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
         text = text.replace(/^(?:To implement this[^,]+,\s*follow these steps:|Steps?:|How to:)\s*/i, "").trim();
         // Guard: if strip emptied the text, fall back to the original point
         if (!text) text = String(pt).replace(/^\d+\.\s*/, "").trim().slice(0, 90);
-        // Trim to complete sentence or concept (no mid-word cuts)
-        if (text.length > 100) {
-          // Prefer a complete sentence ending within 130 chars
+        // Trim to complete sentence or concept (no mid-word cuts, complete grammatical endings)
+        if (text.length > 210) {
+          // 1. Prefer a complete sentence ending within 230 chars
           const sentenceEnd = text.search(/[.!?](?:\s|$)/);
-          if (sentenceEnd > 20 && sentenceEnd < 130) {
+          if (sentenceEnd > 25 && sentenceEnd <= 230) {
             text = text.slice(0, sentenceEnd + 1).trim();
           } else {
-            const cut = text.lastIndexOf(" ", 95);
-            text = (cut > 20 ? text.slice(0, cut) : text.slice(0, 95)) + "...";
+            // 2. Look for natural clause boundary (semicolon, colon, comma) between 80 and 190 chars
+            const breakMatch = text.slice(0, 200).match(/^(.{80,190})[;,:]\s/);
+            if (breakMatch) {
+              text = breakMatch[1].trim() + ".";
+            } else {
+              // 3. Word boundary up to 195 chars, ending cleanly with a period, avoiding dangling prepositions
+              const cut = text.lastIndexOf(" ", 195);
+              let trimmedPart = (cut > 25 ? text.slice(0, cut) : text.slice(0, 195)).trim();
+              trimmedPart = trimmedPart.replace(/\s+(?:to|and|the|with|for|in|of|by|that|or|as|at|from|an|a|is|are|be)$/i, "");
+              text = trimmedPart.replace(/[,:;]$/, "") + ".";
+            }
           }
         }
         // Final safety: if still empty, use a descriptive fallback
@@ -3765,7 +3864,19 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
       ? `${categoryTag} Breakdown · Drix10`
       : (structureTaglines[cpio?.chosenStructure] || "Systems Architecture Teardown · Drix10");
 
-    const coreInsight = cpio?.convey || (article?.fullContent ? this.extractCoreInsight(article.fullContent) : "");
+    const rawCoreInsight = cpio?.convey || (article?.fullContent ? this.extractCoreInsight(article.fullContent) : "");
+    let cleanCoreInsight = String(rawCoreInsight || "").replace(/[\r\n]+/g, " ").trim();
+    if (cleanCoreInsight.length > 210) {
+      const sEnd = cleanCoreInsight.search(/[.!?](?:\s|$)/);
+      if (sEnd > 60 && sEnd <= 230) {
+        cleanCoreInsight = cleanCoreInsight.slice(0, sEnd + 1).trim();
+      } else {
+        const cut = cleanCoreInsight.lastIndexOf(" ", 200);
+        let trimmedPart = (cut > 60 ? cleanCoreInsight.slice(0, cut) : cleanCoreInsight.slice(0, 200)).trim();
+        trimmedPart = trimmedPart.replace(/\s+(?:to|and|the|with|for|in|of|by|that|or|as|at|from|an|a|is|are|be|static)$/i, "");
+        cleanCoreInsight = trimmedPart.replace(/[,:;]$/, "") + ".";
+      }
+    }
 
     return {
       title: cleanTitle,
@@ -3774,7 +3885,7 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
       commentText,
       diagramSteps,
       category: categoryTag,
-      coreInsight: coreInsight.slice(0, 140)
+      coreInsight: cleanCoreInsight
     };
   }
 
