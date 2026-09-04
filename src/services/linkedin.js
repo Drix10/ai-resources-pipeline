@@ -419,9 +419,9 @@ class LinkedInService {
       await sleep(1000);
 
       logger.info("LinkedInService: Formatting and injecting post text into editor...");
-      await this.driver.executeScript(`
-        let editorEl = null;
-        const outlet = document.getElementById("interop-outlet");
+      await this.driver.executeScript(function(postText) {
+        var editorEl = null;
+        var outlet = document.getElementById("interop-outlet");
         if (outlet && outlet.shadowRoot) {
           editorEl = outlet.shadowRoot.querySelector("div.ql-editor, div[role='textbox'][contenteditable='true']");
         }
@@ -430,17 +430,24 @@ class LinkedInService {
         }
         if (editorEl) {
           editorEl.innerHTML = "";
-          const formattedText = arguments[0].split('\n').map(p => {
-            let trimmed = p.trim();
-            if (trimmed.startsWith('#')) {
-              trimmed = '\u200B' + trimmed;
+          var ZWS = String.fromCharCode(0x200B);
+          var lines = postText.split("\n");
+          var fragment = document.createDocumentFragment();
+          for (var i = 0; i < lines.length; i++) {
+            var p = document.createElement("p");
+            var trimmed = lines[i].trim();
+            if (!trimmed) {
+              p.appendChild(document.createElement("br"));
+            } else {
+              if (trimmed.charAt(0) === "#") trimmed = ZWS + trimmed;
+              p.textContent = trimmed;
             }
-            return trimmed ? '<p>' + trimmed + '</p>' : '<p><br></p>';
-          }).join('');
-          editorEl.innerHTML = formattedText;
-          editorEl.dispatchEvent(new Event('input', { bubbles: true }));
+            fragment.appendChild(p);
+          }
+          editorEl.appendChild(fragment);
+          editorEl.dispatchEvent(new Event("input", { bubbles: true }));
         }
-      `, cleanedText);
+      }, cleanedText);
       await sleep(3000);
 
       logger.info("LinkedInService: Locating and confirming Post submission button...");

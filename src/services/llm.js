@@ -2814,10 +2814,21 @@ JSON Schema:
           .replace(/[—–\u2014\u2013\u2015]/g, ": ")
           .replace(/--/g, "-")
           .replace(/^(?:have you ever wondered|what if I told you|did you know)\s*/gi, "")
-          // Replace "I've seen many/too many X struggle with Y, only to realize Z" → declarative observation
-          .replace(/^I've seen (?:many|too many) ([a-z][a-z\s]*?) (?:struggle with|burn through) ([^,\n]+),? only to realize/im,
-            (_, who, what) => `Most ${who.trim()} don't realize ${what.trim().replace(/\?$/, '')} until it hits production.`)
-          // Replace "I've seen too many X get caught off guard by Y" → declarative observation
+          // Replace "I've seen many/too many X [burn through|struggle with] Y, only to realize [Z]."
+          // Also consumes the dangling "only to realize [clause]." tail
+          .replace(/^I've seen (?:many|too many) ([a-z][a-z\s]*?) (burn(?:ing)? through|struggle (?:with|against)) ([^,\n]+),? only to realize[^.]*\./im,
+            (_, who, verb, what) => {
+              const w = who.trim();
+              const v = verb.toLowerCase();
+              const t = what.trim().replace(/\?$/, '');
+              if (v.startsWith('burn')) {
+                return `Most ${w} underestimate how fast they burn through ${t} until it hits production.`;
+              }
+              return `Most ${w} don't realize that ${t} is a problem until it hits production.`;
+            })
+          // Fallback: catch "only to realize" tails that still remain (no full-sentence match)
+          .replace(/,?\s*only to realize[^.]*\./i, '.')
+          // Replace "I've seen too many X get caught off guard by Y." → declarative observation
           .replace(/^I've seen too many ([^,\n]+) get caught off guard by ([^.\n]+)\./im,
             (_, who, what) => `Many ${who.trim()} underestimate ${what.trim()} until it directly affects their system.`)
           .replace(/\?\s*$/, ".")
@@ -3032,13 +3043,32 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     // 4. Strip reversal framing: "Most people think X. But in reality Y."
     body = body.replace(/(?:most people|everyone|many engineers|many founders) (?:thinks?|believes?|assumes?|argue|claim)[^.\n]*\.\s*(?:but|however|in reality|actually)[,\s]*/gi, "");
     body = body.replace(/^[,;:\s\-–—]+/gm, "").trim();
-    body = body.replace(/(?:^|\.\s+)([a-z])/g, (m, c) => m.slice(0, -1) + c.toUpperCase());
+
+    // 4b. Fix broken hook grammar produced by hook-rewrite replacements
+    // "don't realize [gerund phrase]" → "don't realize that [gerund phrase]"
+    // (?!that ) negative lookahead prevents double-inserting "that" when already present
+    body = body.replace(/\bdon't realize (?!that )([a-z][a-z\s]+ing\b)/g, "don't realize that $1");
+    // "underestimate [gerund]" → "underestimate the impact of [gerund]" for fluency
+    body = body.replace(/\bunderestimate (evaluating|handling|managing|scaling|deploying|building)\b/g, "underestimate the cost of $1");
+    // Fix lowercase sentence start after injected period: ". their" → ". Their"
+    body = body.replace(/\.\s+([a-z])/g, (m, c) => ". " + c.toUpperCase());
 
     // 5. Strip rhetorical questions and fix trailing question marks on declarative statements
     body = body.replace(/^(?:have you ever wondered|what if I told you|did you know|why does this matter\?)\s*/gim, "");
     body = body.replace(/(?:have you ever wondered|what if I told you|why does this matter\?)\s*/gi, "");
     body = body.replace(/(there's a way[^?\n]+)\?/gi, "$1.");
     body = body.replace(/^(I've seen[^?\n]+)\?/gm, "$1.");
+
+    // 5b. Strip "In today's AI/fast-paced/modern landscape" filler sentence openers
+    body = body.replace(/(?:^|\n\n)In today's (?:AI|fast-paced|modern|rapidly evolving|ever-changing)[^,\n]*,\s*/gim, (m) => {
+      // If it's at the very start, remove it entirely; otherwise keep the paragraph break
+      return m.trimStart().startsWith("In today") ? "\n\n" : m.replace(/In today's[^,\n]*,\s*/i, "");
+    });
+    body = body.replace(/^In today's [^\n]+\n\n/gim, "");
+    body = body.trim();
+
+    // 5c. Fix sentence capitalization after filler strips
+    body = body.replace(/(?:^|[.!?]\s+)([a-z])/g, (m, c) => m.slice(0, -1) + c.toUpperCase());
 
     // Ensure the very first paragraph / hook does not end with a question mark
     const firstParagraphMatch = body.match(/^([^\n]+)/);
@@ -3188,11 +3218,41 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
       return match.replace(/:[^.\n]*(?:[0-9]+\)[^,\n]+[,\n]?){2,}/, '.').trim();
     });
 
+    // 14e.2 Strip standalone preamble-only numbered bullets, then renumber the list
+    // e.g. "1. To implement this approach, follow these steps:\n\n1. Use static..." → "1. Use static..."
+    {
+      const PREAMBLE_BULLET_RE = /^(?:to implement this[^:]*|here'?s how[^:]*|follow these steps[^:]*|the steps are[^:]*|steps?|how to[^:]*|implementation[^:]*):\s*$/i;
+      const bodyLines = body.split('\n');
+      const filteredLines = bodyLines.filter(line => {
+        const stripped = line.replace(/^\d+\.\s*/, '').trim();
+        return !PREAMBLE_BULLET_RE.test(stripped);
+      });
+      let numberedIdx = 0;
+      body = filteredLines.map(line => {
+        if (/^\d+\.\s/.test(line)) {
+          numberedIdx++;
+          return line.replace(/^\d+\./, `${numberedIdx}.`);
+        }
+        return line;
+      }).join('\n');
+    }
+
     // 14f. Replace overused generic hook openers with declarative observations
-    // "I've seen many X struggle with Y, only to realize Z" → "Most X don't realize Y until it's too late."
-    body = body.replace(/^I've seen (?:many|too many) ([a-z][a-z\s]*?) (?:struggle with|burn through) ([^,\n]+),? only to realize/im,
-      (_, who, what) => `Most ${who.trim()} don't realize ${what.trim().replace(/\?$/, '')} until it's in production.`);
-    // "I've seen too many X get caught off guard by Y" → "Many X underestimate Y until it directly affects their system."
+    // Handles both "burn through [noun]" and "struggle with [gerund/noun]" patterns
+    // Also consumes the dangling "only to realize [clause]." tail that follows the replaced portion
+    body = body.replace(/^I've seen (?:many|too many) ([a-z][a-z\s]*?) (burn(?:ing)? through|struggle (?:with|against)) ([^,\n]+),? only to realize[^.]*\./im,
+      (_, who, verb, what) => {
+        const w = who.trim();
+        const v = verb.toLowerCase();
+        const t = what.trim().replace(/\?$/, '');
+        if (v.startsWith('burn')) {
+          return `Most ${w} underestimate how fast they burn through ${t} until it hits production.`;
+        }
+        return `Most ${w} don't realize that ${t} is a problem until it hits production.`;
+      });
+    // Fallback: catch any remaining "only to realize [clause]." tail not consumed above
+    body = body.replace(/,?\s*only to realize[^.]*\./i, '.');
+    // "I've seen too many X get caught off guard by Y." → declarative observation
     body = body.replace(/^I've seen too many ([^,\n]+) get caught off guard by ([^.\n]+)\./im,
       (_, who, what) => `Many ${who.trim()} underestimate ${what.trim()} until it directly affects their system.`);
 
@@ -3277,9 +3337,17 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
       .trim()
       .slice(0, 65) || "AI Systems Architecture";
 
-    const pointsPool = (cpio?.order?.support && cpio.order.support.length >= 2)
+    const TRANSITION_PREAMBLE_RE = /^(?:to implement this[^:]*:|here'?s? how[^:]*:|follow these steps[^:]*:|the steps are[^:]*:|steps?:|how to[^:]*:|implementation[^:]*:)\s*$/i;
+
+    const rawPool = (cpio?.order?.support && cpio.order.support.length >= 2)
       ? cpio.order.support
       : (cpio?.information?.requiredPoints || []);
+
+    // Pre-filter: remove pure transition/preamble items that contain no substantive content
+    const pointsPool = rawPool.filter(pt => {
+      const cleaned = String(pt).replace(/^\d+\.\s*/, "").trim();
+      return !TRANSITION_PREAMBLE_RE.test(cleaned);
+    });
 
     // Full complete points WITHOUT word truncation
     const slidePoints = pointsPool
