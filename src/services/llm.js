@@ -45,8 +45,16 @@ const HAT_TIP_PROHIBITED_PATTERNS = [
   /(?:most people|everyone) (?:thinks?|believes?|assumes?)[^.\n]*\.\s*(?:but|however|in reality|actually)/i,
   // Rhetorical questions
   /(?:have you ever wondered|what if I told you|why does this matter\?)/i,
-  // Broad generalizations
+  // Broad generalizations & relatability clichés
   /^(?:most people|everyone knows|in today's (?:fast-paced|world)|as we all know)/im,
+  /we(?:'ve| have) all (?:been there|been caught|seen this|experienced)/i,
+  // Cheap copywriting clichés
+  /trust me, your wallet will thank you/i,
+  /game-?changer/i,
+  /look no further/i,
+  /take (?:your|it) to the next level/i,
+  // Factual errors / nonsense claims
+  /\bAST of the model\b/i,
   // Forced summaries
   /(?:in conclusion|to wrap up|all in all|in summary|to summarize)[,:]?/i,
   // Engagement bait CTAs
@@ -968,6 +976,8 @@ class LocalLLMService {
 
           const userContent = String(prompt || "").trim() || "No content provided.";
 
+          const maxTokens = typeof num_predict === "number" ? num_predict : 2500;
+
           const payload = {
             model: modelName,
             messages: [
@@ -975,7 +985,7 @@ class LocalLLMService {
               { role: "user", content: userContent }
             ],
             temperature: typeof temperature === "number" ? temperature : 0.1,
-            max_tokens: typeof num_predict === "number" ? num_predict : 2500,
+            max_tokens: maxTokens,
             stream: false
           };
 
@@ -1006,9 +1016,12 @@ class LocalLLMService {
           }
 
           const data = await response.json();
-          const rawContent = data?.choices?.[0]?.message?.content;
+          let rawContent = data?.choices?.[0]?.message?.content;
+          if ((!rawContent || typeof rawContent !== "string") && data?.choices?.[0]?.message?.reasoning_content && data?.choices?.[0]?.finish_reason === "stop") {
+            rawContent = data.choices[0].message.reasoning_content;
+          }
           if (!rawContent || typeof rawContent !== "string") {
-            throw new Error(`NVIDIA API returned empty response for ${modelName}`);
+            throw new Error(`NVIDIA API returned empty response for ${modelName} (finish_reason: ${data?.choices?.[0]?.finish_reason})`);
           }
 
           if (data?.usage) {
@@ -1728,7 +1741,10 @@ JSON schema:
 
   extractFrameworkBullets(postText) {
     if (!postText) return [];
-    return postText.split("\n").filter(line => {
+    const normalized = postText
+      .replace(/([.!?])\s+([0-9]+\.\s)/g, "$1\n\n$2")
+      .replace(/([.!?])\s+([•\-\*]\s*)/g, "$1\n\n$2");
+    return normalized.split("\n").filter(line => {
       const trimmed = line.trim();
       return trimmed.startsWith("•") ||
         trimmed.startsWith("-") ||
@@ -1855,13 +1871,6 @@ JSON schema:
     }
 
     const chosenArchetype = postData.chosenStructure || "";
-    const isProseArchetype = [
-      "contrarian-hot-take",
-      "post-mortem",
-      "founder-micro-take",
-      "contrarian-proof-action",
-      "story-arc"
-    ].includes(chosenArchetype);
     const isMicroTake = chosenArchetype === "founder-micro-take";
 
     // Length check
@@ -1880,21 +1889,21 @@ JSON schema:
       bonusPoints += 5;
     }
 
-    // Structured takeaways check vs narrative flow check
+    // Structured takeaways check: all archetypes except micro-takes must have standalone save triggers
     const postLines = postText.split("\n").map(l => l.trim()).filter(Boolean);
     const nonHookText = postLines.slice(1).join("\n");
     const frameworkBullets = this.extractFrameworkBullets(nonHookText);
 
-    if (!isProseArchetype) {
+    if (!isMicroTake) {
       if (frameworkBullets.length < 2) {
         penaltyPoints += 25;
-        issues.push(`Standout takeaways section too thin (${frameworkBullets.length} points, need at least 2)`);
+        issues.push(`Standout takeaways section too thin (${frameworkBullets.length} points, need at least 2 for save-worthiness)`);
       } else {
         bonusPoints += 5;
       }
     } else {
-      // For prose archetypes, reward clear, un-clumped paragraph pacing
-      if (postLines.length >= (isMicroTake ? 3 : 4)) {
+      // For micro-takes, reward punchy, concise pacing
+      if (postLines.length >= 3) {
         bonusPoints += 5;
       }
     }
@@ -2035,13 +2044,6 @@ JSON schema:
     }
 
     const chosenArchetype = postData.chosenStructure || "";
-    const isProseArchetype = [
-      "contrarian-hot-take",
-      "post-mortem",
-      "founder-micro-take",
-      "contrarian-proof-action",
-      "story-arc"
-    ].includes(chosenArchetype);
     const isMicroTake = chosenArchetype === "founder-micro-take";
 
     const minLen = isMicroTake ? 450 : 600;
@@ -2057,8 +2059,26 @@ JSON schema:
     const postLines = postText.split("\n").map(l => l.trim()).filter(Boolean);
     const nonHookText = postLines.slice(1).join("\n");
     const frameworkBullets = this.extractFrameworkBullets(nonHookText);
-    if (!isProseArchetype && frameworkBullets.length < 2) {
-      errors.push(`Post must have at least 2 structured standout takeaways (found ${frameworkBullets.length})`);
+    if (!isMicroTake && frameworkBullets.length < 2) {
+      errors.push(`Post must have at least 2 structured standout takeaways for save-worthiness (found ${frameworkBullets.length})`);
+    }
+
+    // Anti-duplication check: ensure takeaways do not repeat narrative prose
+    if (frameworkBullets.length >= 2) {
+      const narrativeLines = postLines.filter(l => !/^[0-9]+[.)]\s/.test(l) && !l.startsWith("•") && !l.startsWith("#") && !l.startsWith("🔗"));
+      for (const bullet of frameworkBullets) {
+        const bulletWords = new Set(bullet.toLowerCase().replace(/[^a-z0-9\s]/g, "").split(/\s+/).filter(w => w.length > 3));
+        for (const nLine of narrativeLines) {
+          const nWords = nLine.toLowerCase().replace(/[^a-z0-9\s]/g, "").split(/\s+/).filter(w => w.length > 3);
+          if (nWords.length >= 5 && bulletWords.size >= 5) {
+            const overlap = nWords.filter(w => bulletWords.has(w)).length;
+            if (overlap / bulletWords.size > 0.70) {
+              errors.push(`Takeaway duplicates narrative prose: "${bullet.slice(0, 45)}..."`);
+              break;
+            }
+          }
+        }
+      }
     }
 
     const quality = this.scorePostQuality(postData, sourceBulletCount, manualPoints);
@@ -2823,13 +2843,13 @@ P (PACKAGE & HOOK):
     * FORBIDDEN: NO RHETORICAL QUESTIONS. FORBIDDEN: NO REVERSAL FRAMING. FORBIDDEN: language that promises drama or a twist ("what nobody tells you," "the shocking truth") — that's a curiosity trick, not a credibility signal.
     * STRICT: NO EM DASHES. Under 200 characters.
 I (INFORMATION):
-  - 3 concrete technical mechanisms or takeaways, each written so it could stand alone as a saved note — specific enough that a reader could reference it months later without needing the rest of the post for context.
+  - 3 concrete technical mechanisms or takeaways. CRITICAL SAVE-TRIGGER RULE: NEVER write generic filler like "This approach can help identify issues" or "It can enforce criteria." Write concrete, standalone engineering heuristics with specific technical mechanisms, profiler metrics, thresholds, or boundary conditions (e.g. "Run AST complexity checks in local CI pre-commit to block branching depth > 6 before calling external models").
   - 1-2 details to EXCLUDE to preserve density. Excluding generic filler is itself a trust signal: it shows judgment about what actually matters.
 O (ORDER):
   - Hook: The curiosity gap opening.
   - Setup: Context for a cold audience (why this matters right now).
   - Development: The core technical mechanism or decision.
-  - Support: 2-3 specific, actionable points.
+  - Support: 2-3 specific, actionable points matching the concrete technical heuristics above.
   - Ending: The ending must leave the reader more confident in the author's judgment than they were at the start of the post. It should feel complete, not manufacture curiosity for a future post and not bait a reply. No forced CTA, no "agree?", no artificial cliffhanger.
 
 Return ONLY a valid raw JSON object. No markdown, no commentary.
@@ -2868,23 +2888,22 @@ JSON Schema:
           .replace(/[—–\u2014\u2013\u2015]/g, ": ")
           .replace(/--/g, "-")
           .replace(/^(?:have you ever wondered|what if I told you|did you know)\s*/gi, "")
-          // Replace "I've seen many/too many X [burn through|struggle with] Y, only to realize [Z]."
-          // Also consumes the dangling "only to realize [clause]." tail
-          .replace(/^I've seen (?:many|too many) ([a-z][a-z\s]*?) (burn(?:ing)? through|struggle (?:with|against)) ([^,\n]+),? only to realize[^.]*\./im,
+          // Transform overused "I've seen many/too many X" into varied declarative observations
+          .replace(/^I've seen (?:many|too many) ([a-z][a-z\s]*?) (burn(?:ing)? through|struggle (?:with|against)|get caught off guard by) ([^,\n]+),? (?:only to realize[^.]*)?\./im,
             (_, who, verb, what) => {
               const w = who.trim();
-              const v = verb.toLowerCase();
               const t = what.trim().replace(/\?$/, '');
-              if (v.startsWith('burn')) {
-                return `Most ${w} underestimate how fast they burn through ${t} until it hits production.`;
-              }
-              return `Most ${w} don't realize that ${t} is a problem until it hits production.`;
+              const variants = [
+                `Under real load, ${t} exposes architectural bottlenecks that most ${w} miss in staging.`,
+                `The silent failure mode in ${t} rarely shows up until systems scale past initial concurrency limits.`,
+                `Most production incidents involving ${t} trace back to a single unverified assumption.`,
+                `Engineering teams deploying ${t} often discover that baseline benchmarks hide the true operational tax.`
+              ];
+              const idx = Math.abs(t.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0)) % variants.length;
+              return variants[idx];
             })
           // Fallback: catch "only to realize" tails that still remain (no full-sentence match)
           .replace(/,?\s*only to realize[^.]*\./i, '.')
-          // Replace "I've seen too many X get caught off guard by Y." → declarative observation
-          .replace(/^I've seen too many ([^,\n]+) get caught off guard by ([^.\n]+)\./im,
-            (_, who, what) => `Many ${who.trim()} underestimate ${what.trim()} until it directly affects their system.`)
           .replace(/\?\s*$/, ".")
           .trim();
 
@@ -2981,23 +3000,21 @@ JSON Schema:
 - Tone: Practitioner-first, opinionated, skeptical. Say "Stop doing X", "X is a trap when Y", or "Most teams are cargo-culting Z".
 - Structure:
   1. Spicy thesis directly on line 1 calling out a popular tool, pattern, or bad assumption.
-  2. The hidden failure mode or operational tax of the default approach.
+  2. The hidden failure mode or operational tax under load.
   3. The counter-intuitive engineering alternative.
-  4. The real trade-off nobody admits.
-- CRITICAL FORMATTING: Write in clean, punchy NARRATIVE PROSE paragraphs (separated by \\n\\n).
-  STRICTLY FORBIDDEN: DO NOT USE NUMBERED 1. 2. 3. LISTICLES OR BULLETS! A hot take is a strong editorial, not a school lecture.`;
+  4. STANDALONE SAVE-TRIGGER SECTION: 2-3 concrete architectural heuristics / boundary conditions (numbered 1., 2., 3.) that an engineer could bookmark.
+  5. The real trade-off nobody admits.`;
     } else if (chosenArchetype === "post-mortem" || chosenArchetype === "story-arc") {
       archetypeDirective = `=== ARCHETYPE DIRECTIVE: THE ARCHITECTURAL POST-MORTEM / WAR STORY ("WE BROKE IT") ===
 - Goal: Share an authentic technical battle scar that proves you build and debug systems under real load.
 - Tone: Candid, humble, developer war-story. Grounded in operating reality.
 - Structure:
-  1. The Setup: What we were building and the initial assumption.
-  2. The Wall: What broke under load (latency spike, OOM kill, concurrency bottleneck, non-deterministic variance).
-  3. The Discovery: What the profiler or logs actually showed.
-  4. The Architecture Shift: The technical fix (config, decoupling state, caching, AST parsing).
-  5. The Rule of Thumb: 1-sentence engineering heuristic.
-- CRITICAL FORMATTING: Write as a chronological narrative story (separated by \\n\\n).
-  STRICTLY FORBIDDEN: DO NOT USE NUMBERED 1. 2. 3. BULLETS!`;
+  1. The Setup: What we were building and the initial false lead (e.g. "we thought X, increased concurrent workers, made it worse").
+  2. The Wall: What broke under load (latency spike, memory fragmentation, non-deterministic variance).
+  3. The Discovery: What the profiler or logs actually revealed.
+  4. The Architecture Shift: The technical fix.
+  5. STANDALONE SAVE-TRIGGER SECTION: 2-3 concrete engineering rules of thumb / implementation safeguards (numbered 1., 2., 3.).
+  6. Final engineering conclusion or soft peer availability.`;
     } else if (chosenArchetype === "founder-micro-take") {
       archetypeDirective = `=== ARCHETYPE DIRECTIVE: THE SHORT UNFILTERED FOUNDER OBSERVATION (MICRO-TAKE) ===
 - Goal: A punchy, casual observation written like an engineer texting a peer or writing in a dev journal.
@@ -3017,7 +3034,7 @@ JSON Schema:
   1. The false debate (Pattern A vs Pattern B).
   2. When Pattern A wins (and where it silently fails).
   3. When Pattern B wins (and the hidden operational tax).
-  4. The founder's decision framework: If constraint X -> A; if Y -> B.`;
+  4. STANDALONE SAVE-TRIGGER SECTION: 2-3 decisive boundary conditions (numbered 1., 2., 3.) for when to switch.`;
     } else {
       archetypeDirective = `=== ARCHETYPE DIRECTIVE: THE DEEP-DIVE MECHANISM TEARDOWN ("UNDER THE HOOD") ===
 - Goal: Dissect a software abstraction down to the metal, code, AST, or memory layout.
@@ -3025,33 +3042,34 @@ JSON Schema:
 - Structure:
   1. The black-box abstraction everyone takes for granted.
   2. What actually happens underneath (AST nodes, memory layout, network packets).
-  3. 2-3 specific implementation details that dictate performance (numbered 1., 2., 3. or labeled).
+  3. STANDALONE SAVE-TRIGGER SECTION: 2-3 specific implementation details that dictate performance (numbered 1., 2., 3.).
   4. Why this changes how you architect your system.`;
     }
 
     const targetLength = isMicroTake ? "500 to 800 characters (STRICTLY CONCISE)" : "900 to 1,800 characters";
 
-    const blueprintExecution = isProseArchetype
+    const blueprintExecution = isMicroTake
       ? `- CONTEXT & SETUP:
 ${cpio.order.setup}
 
-- TECHNICAL MECHANISM / THE WALL:
+- TECHNICAL OBSERVATION & EXAMPLE:
 ${cpio.order.development}
 
-- RESOLUTION & HEURISTIC:
+- CONCRETE TAKEAWAY:
 ${cpio.order.ending}`
-      : `- SYSTEM CONTEXT & SETUP (2-3 short sentences bridging from the hook into the core engineering dilemma):
+      : `- SYSTEM CONTEXT & NARRATIVE (2-3 short sentences bridging from the hook into the core engineering dilemma):
 ${cpio.order.setup}
 
-- TECHNICAL MECHANISM (2-3 short sentences explaining the operational insight):
+- TECHNICAL MECHANISM / THE WALL (2-3 short sentences explaining the failure mode or operational discovery):
 ${cpio.order.development}
 
-- 2-3 ACTIONABLE TECHNICAL TAKEAWAYS:
+- 2-3 STANDALONE ACTIONABLE TECHNICAL TAKEAWAYS (SAVE-TRIGGER SECTION):
+CRITICAL ANTI-DUPLICATION RULE: Each numbered takeaway below MUST introduce a NEW operational detail (profiler metric, threshold limit, boundary schema, parser detail) that was NOT already mentioned in the narrative paragraphs above!
 1. ${cleanPoint1}
 2. ${cleanPoint2}
 ${cleanPoint3 ? `3. ${cleanPoint3}` : ""}
 
-- FOUNDER RESOLUTION:
+- RESOLUTION & TRADE-OFF:
 ${cpio.order.ending}`;
 
     const prompt = `You are Drishtant Ghosh (Drix10): AI Systems & LLM Architect and Co-Founder @ PartPilot.
@@ -3064,14 +3082,23 @@ ${archetypeDirective}
 - SPEAK AS A TECHNICAL BUILDER: You are an engineer-founder who builds real systems and products. Speak from operating reality, not financial speculation.
 - NEVER ROLEPLAY AS A VC ANALYST:
   * NEVER claim "I've seen too many seed startups get caught off guard by institutional investors" or pretend to be an institutional fund manager.
-  * If the source topic touches venture capital, funding, or market growth, ALWAYS bridge it through the OPERATING ENGINEER'S LENS:
-    "Growth is one of the easiest metrics to make look impressive. As a founder, the harder question is what sits underneath it."
-    "Engineering decisions eventually become business decisions."
-    "A backend architecture that costs 3x more to operate at scale eats into gross margins."
-    "System reliability, latency, and technical debt directly determine customer cohort retention."
+  * If the source topic touches venture capital, funding, or market growth, ALWAYS bridge it through the OPERATING ENGINEER'S LENS.
 - NO REPETITION: Every sentence must earn its place. NEVER repeat the same premise across paragraphs. State the reality once with precision and move forward.
 - NO FABRICATED UNIVERSAL METRICS OR PSEUDO-DATA: NEVER write "Our benchmarks show...", "Our portfolio shows...", or invent quantitative metrics. Only cite numbers if they appear in the source text.
 - Speak with the voice of an experienced systems architect evaluating THIS subject with engineering rigor, practical skepticism, and clarity.
+
+=== CRITICAL TECHNICAL FACTUAL ACCURACY (NO HALLUCINATIONS) ===
+- Be 100% technically accurate.
+- An LLM does NOT have an AST. Code generated by an LLM has an AST.
+- Neural networks have weights, layers, KV caches, and context windows; compilers and parsers have ASTs.
+- Never write nonsense like "AST of the model".
+- NO CHEAP COPYWRITING CLICHÉS:
+  * NEVER write "Trust me, your wallet will thank you" (cheap copywriting cliché).
+  * NEVER write "We've all been there" (broad relatability cliché).
+  * NEVER write "game-changer", "look no further", or "take your X to the next level".
+- STRICT ANTI-DUPLICATION:
+  * Do NOT repeat the same solution in prose and then again in the numbered takeaways.
+  * The narrative provides the backstory/friction. The numbered takeaways provide NEW, actionable specifications.
 
 === HUMANIZER WRITING RULES (WIKIPEDIA AI CLEANUP & BLADER/HUMANIZER) ===
 1. ZERO TEXTBOOK / ESSAY INTROS:
@@ -3101,7 +3128,7 @@ ${archetypeDirective}
 6. NO RAW @MENTIONS — USE COMPANY HASHTAGS: Do NOT include raw @company or @person tags. Include them as hashtags at the end (e.g. #Anthropic #OpenAI #NVIDIA).
 7. HASHTAGS: Exactly 5-8 relevant technical and company hashtags at the very bottom.
 8. START DIRECTLY ON LINE 1: Start immediately with the opening hook. DO NOT output any title, greeting, or markdown headers.
-9. CLOSE WITH TRUST, NOT BAIT: End the post with a confident, complete closing statement or a soft signal of availability (e.g. "If you're mid-way through the same migration, happy to compare notes"). Never end with an engagement-farming survey question ("Agree?", "Thoughts?").
+9. CLOSE WITH TRUST, NOT BAIT: End the post with a confident, complete closing statement or a soft signal of availability. Never end with an engagement-farming survey question ("Agree?", "Thoughts?").
 10. SEARCHABLE LONG-TAIL ASSET (SEO TECHNIQUE): Use the exact technical phrases an engineering lead or CTO would search when debugging this dilemma.
 
 === BLUEPRINT TO EXECUTE ===
@@ -3127,7 +3154,7 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     try {
       let body = await this.generateText(prompt, {
         temperature: 0.25,
-        num_predict: isMicroTake ? 400 : 750
+        num_predict: isMicroTake ? 1500 : 3500
       });
 
       return String(body || "").trim();
@@ -3149,6 +3176,9 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     if (!draftText || typeof draftText !== "string") return draftText;
 
     let body = draftText
+      .replace(/\r\n/g, "\n")
+      .replace(/[‘’]/g, "'")
+      .replace(/[“”]/g, '"')
       .replace(/```[\s\S]*?```/g, "")
       .replace(/[—–\u2012\u2013\u2014\u2015]/g, ": ")
       .replace(/--/g, "- ")
@@ -3186,20 +3216,18 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     body = body.replace(/^(I've seen[^?\n]+)\?/gm, "$1.");
 
     // 5b. Strip "In today's AI/fast-paced/modern landscape" filler sentence openers
-    body = body.replace(/(?:^|\n\n)In today's (?:AI|fast-paced|modern|rapidly evolving|ever-changing)[^,\n]*,\s*/gim, (m) => {
-      // If it's at the very start, remove it entirely; otherwise keep the paragraph break
-      return m.trimStart().startsWith("In today") ? "\n\n" : m.replace(/In today's[^,\n]*,\s*/i, "");
-    });
-    body = body.replace(/^In today's [^\n]+\n\n/gim, "");
+    body = body.replace(/(?:^|\n+)In today's [^.\n]+\.\s*/gim, "\n\n");
+    body = body.replace(/^In today's [^\n]+\n+/gim, "");
     body = body.trim();
 
     // 5c. Fix sentence capitalization after filler strips
     body = body.replace(/(?:^|[.!?]\s+)([a-z])/g, (m, c) => m.slice(0, -1) + c.toUpperCase());
 
     // 5d. Humanizer Rule 1 (Wikipedia AI Cleanup): Strip textbook/essay opener intros
-    body = body.replace(/(?:^|\n\n)As (?:AI models|AI systems|software systems|models|applications|architectures) (?:become|becomes|evolve|evolves|grow|grows)[^,\n]*,\s*/gim, "\n\n");
-    body = body.replace(/(?:^|\n\n)When building and scaling (?:AI|software|modern|distributed) systems[^,\n]*,\s*/gim, "\n\n");
-    body = body.replace(/(?:^|\n\n)Evaluating (?:production readiness|systems|performance) is crucial for[^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)As (?:AI models|AI systems|software systems|models|applications|architectures) (?:become|becomes|evolve|evolves|grow|grows)[^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)When building and scaling (?:AI|software|modern|distributed) systems[^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)Evaluating [^.\n]+ is crucial for[^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)It'?s becoming clear that traditional methods[^.\n]*\.\s*/gim, "\n\n");
 
     // 5e. Humanizer Rule 3 (Wikipedia AI Cleanup): Strip shallow trailing -ing phrases
     // e.g. ", reducing the risk of deployment failures and improving overall system reliability."
@@ -3213,6 +3241,14 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     body = body.replace(/\bserves as a (?:testament|reminder|pivotal|key|crucial)\b/gi, "is");
     body = body.replace(/\bstands as a (?:testament|reminder|pivotal|key|crucial)\b/gi, "is");
     body = body.replace(/\bplays a (?:pivotal|crucial|vital|key) role in\b/gi, "directly impacts");
+
+    // 5h. Clean up copywriting clichés and factual errors
+    body = body.replace(/trust me, your wallet will thank you\.?/gi, "The cost and latency differences are night and day.");
+    body = body.replace(/\bwe(?:'ve| have) all (?:been there|seen this|experienced this|run into this)[,:.]?\s*/gi, "");
+    body = body.replace(/\bwe(?:'ve| have) all been caught off guard by\b/gi, "Engineering teams often get caught off guard by");
+    body = body.replace(/\bwe(?:'ve| have) all been\b/gi, "engineering teams are often");
+    body = body.replace(/\bAST of the model\b/gi, "AST of the generated code");
+    body = body.replace(/\bAST for the model\b/gi, "AST for the generated code");
 
     // Ensure the very first paragraph / hook does not end with a question mark
     const firstParagraphMatch = body.match(/^([^\n]+)/);
@@ -3232,8 +3268,8 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     // 7. Fix stacked sentence fragments (e.g. "Fast. Scalable. Resilient.")
     body = body.replace(/\b([A-Z][a-z]+)\.\s+([A-Z][a-z]+)\.\s+([A-Z][a-z]+)\./g, "$1, $2, and $3.");
 
-    // 8. Clean up double spaces or accidental comma-period artifacts
-    body = body.replace(/,\s*\./g, ".").replace(/\s{2,}/g, " ");
+    // 8. Clean up double spaces (horizontal whitespace only; preserve newlines!) or accidental comma-period artifacts
+    body = body.replace(/,\s*\./g, ".").replace(/[ \t]{2,}/g, " ");
 
     // 9. Strip forced conclusion headers and takeaway labels
     body = body.replace(/(?:in conclusion|to wrap up|all in all|in summary)[,:]?\s*/gi, "");
@@ -3258,13 +3294,19 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     // 10c. Strip raw GitHub URLs from the body to protect reach
     body = body.replace(/https?:\/\/(?:www\.)?github\.com\/[^\s\)]+/gi, "").trim();
 
-    // 10d. Strip any stray blog markdown headers or empty links (e.g. "Key Points:", "🚀 Implementation:", "• [Tool]()")
-    body = body.replace(/^(?:Key Points:|🚀 Implementation:|🔗 Resources:)\s*$/gim, "");
+    // 10d. Strip any stray blog markdown headers or empty links (e.g. "Key Points:", "🚀 Implementation:", "Resources:")
+    body = body.replace(/^(?:Key Points:|🚀 Implementation:|🔗 Resources:|Resources:|Key Takeaways:)\s*$/gim, "");
     body = body.replace(/^•\s*\[[^\]]*\]\(\s*\)\s*-?\s*.*$/gm, "");
     body = body.replace(/•\s*\[[^\]]*\]\(\s*\)/g, "");
 
     // 10d-2. Fix sentence capitalization across the entire text after all strip rules
     body = body.replace(/(?:^|[.!?]\s+|\n+)([a-z])/g, (m, c) => m.slice(0, -1) + c.toUpperCase());
+
+    // 10d-3. Ensure numbered list items and bullets always have clean preceding double newlines
+    body = body.replace(/([.!?])\s+([0-9]+\.\s)/g, "$1\n\n$2");
+    body = body.replace(/([.!?])\s+([•\-\*]\s*)/g, "$1\n\n$2");
+    body = body.replace(/([^\n])\n(?=[0-9]+\.\s|[•\-\*]\s*)/g, "$1\n\n");
+    body = body.replace(/([0-9]+\.[^\n]+)\n(?=[0-9]+\.\s)/g, "$1\n\n");
 
     // 10e. Ensure true 1-by-1 line break pacing for narrative text (outside of numbered lists)
     const rawBlocks = body.split(/\n{2,}/);
@@ -3323,8 +3365,9 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
       body = body.trim() + " " + foundCompanyTags.slice(0, 3).join(" ");
     }
 
-    // 14b. Ensure transition lines before numbered lists have double line breaks
+    // 14b. Ensure transition lines before numbered lists and comment links have double line breaks
     body = body.replace(/([^\n])\n(?=[0-9]+\.\s)/g, "$1\n\n");
+    body = body.replace(/([^\n])\n*(?=🔗)/g, "$1\n\n");
 
     // 14c. Handle the first comment resource link: only include if substantive resources exist
     const hasSubstantiveResource = Boolean(article?.githubUrl || (article?.resources && article.resources.length > 0));
@@ -3337,17 +3380,11 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
       body = `${textWithoutTags}\n\n🔗 Full breakdown + architecture resources in the comments.\n\n${hashtags}`.trim();
     }
 
-    // 14d. Ensure at least 2 structured standout takeaways exist for technical breakdown archetypes
-    const isProseArchetype = [
-      "contrarian-hot-take",
-      "post-mortem",
-      "founder-micro-take",
-      "contrarian-proof-action",
-      "story-arc"
-    ].includes(cpio?.chosenStructure || "");
+    // 14d. Ensure at least 2 structured standout takeaways exist for all archetypes except micro-takes
+    const isMicroTake = (cpio?.chosenStructure || "") === "founder-micro-take";
 
-    if (!isProseArchetype) {
-      const bulletsFound = this.extractFrameworkBullets(body);
+    if (!isMicroTake) {
+      let bulletsFound = this.extractFrameworkBullets(body);
       if (bulletsFound.length < 2 && Array.isArray(cpio?.information?.requiredPoints) && cpio.information.requiredPoints.length >= 2) {
         const formattedPoints = cpio.information.requiredPoints.slice(0, 3).map((pt, i) => `${i + 1}. ${pt.replace(/\*\*/g, "").replace(/__/g, "")}`).join("\n\n");
         if (body.includes("🔗")) {
@@ -3361,6 +3398,112 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
           }
         }
       }
+
+      // If numbered list items exist, eliminate redundant bullet lines to prevent double takeaway blocks
+      if (/^[0-9]+\.\s/m.test(body) && /^[•\-\*]\s/m.test(body)) {
+        body = body.replace(/^[•\-\*]\s+[^\n]+(?:\n|$)/gm, "").trim();
+      }
+
+      // Automatically strip any narrative paragraphs that duplicate the takeaways!
+      bulletsFound = this.extractFrameworkBullets(body);
+      if (bulletsFound.length >= 2) {
+        const blocks = body.split("\n\n");
+        const cleanBlocks = [];
+        for (const block of blocks) {
+          const trimmed = block.trim();
+          if (/^[0-9]+\.\s/.test(trimmed) || trimmed.startsWith("•") || trimmed.startsWith("#") || trimmed.startsWith("🔗")) {
+            cleanBlocks.push(trimmed);
+            continue;
+          }
+          const isDupe = bulletsFound.some(b => {
+            const bWords = new Set(b.toLowerCase().replace(/[^a-z0-9\s]/g, "").split(/\s+/).filter(w => w.length > 3));
+            const nWords = trimmed.toLowerCase().replace(/[^a-z0-9\s]/g, "").split(/\s+/).filter(w => w.length > 3);
+            if (nWords.length >= 5 && bWords.size >= 5) {
+              const overlap = nWords.filter(w => bWords.has(w)).length;
+              return (overlap / bWords.size) > 0.50;
+            }
+            return false;
+          });
+          if (!isDupe) {
+            cleanBlocks.push(trimmed);
+          }
+        }
+        body = cleanBlocks.join("\n\n");
+      }
+    }
+
+    // Cross-paragraph deduplication and echo-stripper:
+    // Strips repeated 6-gram clauses, short echo sentences, and high semantic overlap across paragraphs
+    {
+      const rawBlocksDedup = body.split("\n\n");
+      const uniqueBlocks = [];
+      const seenNgrams = new Set();
+      const seenWordSets = [];
+
+      const getWords = (text) => {
+        return new Set(
+          text
+            .toLowerCase()
+            .replace(/[^a-z0-9\s]/g, "")
+            .split(/\s+/)
+            .filter(w => w.length > 3 && !["that", "this", "with", "from", "they", "them", "have", "been", "were", "when"].includes(w))
+        );
+      };
+
+      const extract6Grams = (text) => {
+        const words = text.toLowerCase().replace(/[^a-z0-9\s]/g, "").split(/\s+/).filter(Boolean);
+        const ngrams = [];
+        for (let j = 0; j <= words.length - 6; j++) {
+          ngrams.push(words.slice(j, j + 6).join(" "));
+        }
+        return ngrams;
+      };
+
+      for (let i = 0; i < rawBlocksDedup.length; i++) {
+        const block = rawBlocksDedup[i].trim();
+        if (!block) continue;
+
+        // Numbered lists, links, and hashtags are kept
+        if (/^[0-9]+\.\s/m.test(block) || block.startsWith("🔗") || block.startsWith("#")) {
+          uniqueBlocks.push(block);
+          continue;
+        }
+
+        const blockWords = getWords(block);
+
+        // 1. Short echo check: under 12 words and > 50% words already seen in previous text
+        const wordCount = block.split(/\s+/).length;
+        if (wordCount <= 12) {
+          const isShortEcho = seenWordSets.some(prevWords => {
+            const overlap = [...blockWords].filter(w => prevWords.has(w)).length;
+            return blockWords.size > 0 && (overlap / blockWords.size) >= 0.50;
+          });
+          if (isShortEcho) continue;
+        }
+
+        // 2. Exact 6-gram repeated phrase check (prevents repeating verbatim clauses across paragraphs)
+        const ngrams = extract6Grams(block);
+        const hasRepeatedNgram = ngrams.some(ng => seenNgrams.has(ng));
+        if (hasRepeatedNgram && i > 1) continue;
+
+        // 3. High overall word overlap with an earlier paragraph (>= 75%)
+        let isHeavyOverlap = false;
+        for (const prevWords of seenWordSets) {
+          if (blockWords.size >= 5 && prevWords.size >= 5) {
+            const overlap = [...blockWords].filter(w => prevWords.has(w)).length;
+            if ((overlap / Math.min(blockWords.size, prevWords.size)) >= 0.75) {
+              isHeavyOverlap = true;
+              break;
+            }
+          }
+        }
+        if (isHeavyOverlap) continue;
+
+        for (const ng of ngrams) seenNgrams.add(ng);
+        seenWordSets.push(blockWords);
+        uniqueBlocks.push(block);
+      }
+      body = uniqueBlocks.join("\n\n");
     }
 
     // 14e. Strip "1) ... 2) ... 3) ..." step-lists from inside numbered takeaways
@@ -3392,32 +3535,31 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
       }).join('\n');
     }
 
-    // 14f. Replace overused generic hook openers with declarative observations
-    // Handles both "burn through [noun]" and "struggle with [gerund/noun]" patterns
-    // Also consumes the dangling "only to realize [clause]." tail that follows the replaced portion
-    body = body.replace(/^I've seen (?:many|too many) ([a-z][a-z\s]*?) (burn(?:ing)? through|struggle (?:with|against)) ([^,\n]+),? only to realize[^.]*\./im,
+    // 14f. Replace overused generic hook openers with varied declarative observations
+    body = body.replace(/^I've seen (?:many|too many) ([a-z][a-z\s]*?) (?:get )?(burn(?:ed|ing)? (?:through|by)|struggle (?:with|against)|get caught off guard by|fail (?:under|in|during|at|due to)|crash|break) ([^,\n:.]+)[^.\n]*[.?!:]?/im,
       (_, who, verb, what) => {
         const w = who.trim();
-        const v = verb.toLowerCase();
         const t = what.trim().replace(/\?$/, '');
-        if (v.startsWith('burn')) {
-          return `Most ${w} underestimate how fast they burn through ${t} until it hits production.`;
-        }
-        return `Most ${w} don't realize that ${t} is a problem until it hits production.`;
+        const variants = [
+          `Under real load, ${t} exposes architectural bottlenecks that most ${w} miss in staging.`,
+          `The silent failure mode in ${t} rarely shows up until systems scale past initial concurrency limits.`,
+          `Most production incidents involving ${t} trace back to a single unverified assumption.`,
+          `Engineering teams deploying ${t} often discover that baseline benchmarks hide the true operational tax.`
+        ];
+        const idx = Math.abs(t.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0)) % variants.length;
+        return variants[idx];
       });
-    // Fallback: catch any remaining "only to realize [clause]." tail not consumed above
     body = body.replace(/,?\s*only to realize[^.]*\./i, '.');
-    // "I've seen too many X get caught off guard by Y." → declarative observation
-    body = body.replace(/^I've seen too many ([^,\n]+) get caught off guard by ([^.\n]+)\./im,
-      (_, who, what) => `Many ${who.trim()} underestimate ${what.trim()} until it directly affects their system.`);
 
-    // 15. Enforce 5-8 hashtags strictly (add if too few, trim if too many)
+    // 15. Enforce 5-8 domain-specific hashtags strictly (add if too few, trim if too many)
     let hashtagsFound = body.match(/#[a-zA-Z0-9_]+/g) || [];
     if (hashtagsFound.length < 5) {
-      const cleanTitle = String(article?.title || "AI").replace(/[^a-zA-Z0-9]/g, "");
-      const fallbackHashtags = `\n\n#AI #${cleanTitle} #SoftwareEngineering #TechInnovation #MachineLearning #SystemDesign #DeveloperTools`;
-      body = body + fallbackHashtags;
-      hashtagsFound = body.match(/#[a-zA-Z0-9_]+/g) || [];
+      const dynamicTags = this.generateSpecificHashtags(article, body);
+      for (const dt of dynamicTags) {
+        if (!hashtagsFound.some(h => h.toLowerCase() === dt.toLowerCase()) && hashtagsFound.length < 8) {
+          hashtagsFound.push(dt);
+        }
+      }
     }
     if (hashtagsFound.length > 8) {
       // Collect only unique hashtags in order of first appearance, cap at 8
@@ -3430,18 +3572,62 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
           kept.push(tag);
         }
       }
-      // Find the trailing hashtag block at the end of body and replace it
-      const trailingTagsMatch = body.match(/\n\n(?:#[a-zA-Z0-9_]+\s*)+$/);
-      if (trailingTagsMatch) {
-        body = body.slice(0, body.length - trailingTagsMatch[0].length).trim() + "\n\n" + kept.join(" ");
-      } else {
-        // Hashtags are scattered — rebuild clean trailing block
-        const bodyWithoutTags = body.replace(/#[a-zA-Z0-9_]+/g, "").replace(/\s{2,}/g, " ").trim();
-        body = bodyWithoutTags + "\n\n" + kept.join(" ");
+      hashtagsFound = kept;
+    }
+
+    // Strip any trailing hashtag block at the end of body and format cleanly with double newlines
+    body = body.replace(/(?:\r?\n|\s)*(?:#[a-zA-Z0-9_]+\s*)+$/g, "").trim();
+    body = body.replace(/\n{3,}/g, "\n\n").trim();
+    body = body + "\n\n" + hashtagsFound.join(" ");
+
+    return body;
+  }
+
+  /**
+   * Generates highly specific, technical hashtags tailored to the article's topic and entities.
+   * Avoids the generic 6-tag boilerplate fallback.
+   */
+  generateSpecificHashtags(article, body = "") {
+    const tags = new Set();
+    const clean = (str) => str.replace(/[^a-zA-Z0-9]/g, "");
+
+    // 1. Extract specific tech keywords from title
+    const titleWords = String(article?.title || "")
+      .replace(/[#@()[\]{}:,."'-]/g, " ")
+      .split(/\s+/)
+      .filter(w => w.length > 2 && !/^(the|and|for|with|from|this|that|into|how|why|what|when|are|can|using|article|guide|tools?)$/i.test(w));
+    for (const w of titleWords) {
+      if (tags.size < 4) tags.add(`#${clean(w)}`);
+    }
+
+    // 2. Extract Category
+    if (article?.category) {
+      tags.add(`#${clean(article.category)}`);
+    }
+
+    // 3. Known technical entities in text or title
+    const techEntities = [
+      "vLLM", "PagedAttention", "KVCache", "ASTAnalysis", "ASTParsing",
+      "InferenceEngine", "Triton", "PyTorch", "CUDA", "TensorRT",
+      "LLMOps", "DistributedSystems", "SystemDesign", "SoftwareEngineering",
+      "LatencyOptimization", "MemoryPooling", "Concurrency", "ModelEvaluation",
+      "Anthropic", "OpenAI", "NVIDIA", "Meta", "Google", "Mistral"
+    ];
+    const combinedText = `${article?.title || ""} ${body}`;
+    for (const entity of techEntities) {
+      if (new RegExp(`\\b${entity}\\b`, 'i').test(combinedText)) {
+        tags.add(`#${clean(entity)}`);
+        if (tags.size >= 7) break;
       }
     }
 
-    return body;
+    if (tags.size < 5) {
+      tags.add("#SystemArchitecture");
+      tags.add("#ProductionEngineering");
+      tags.add("#AIInfrastructure");
+    }
+
+    return Array.from(tags).slice(0, 7);
   }
 
   /**
