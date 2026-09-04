@@ -39,13 +39,29 @@ class LinkedInService {
             .build();
 
           logger.info("LinkedInService: Connected to existing Chrome browser");
+          this._driverOwned = false;
           this.isInitialized = true;
         } catch (connectionError) {
-          logger.error("LinkedInService: Failed to connect to Chrome. Make sure Chrome is running with: chrome --remote-debugging-port=9222");
-          throw new Error("Chrome not running with remote debugging. Run: chrome --remote-debugging-port=9222");
+          logger.warn("LinkedInService: Remote debugging Chrome not detected on 127.0.0.1:9222. Spawning headless fallback for slide rendering...");
+          try {
+            let headlessOptions = new chrome.Options();
+            headlessOptions.addArguments("--headless=new", "--no-sandbox", "--disable-dev-shm-usage", "--disable-gpu");
+            this.driver = await new Builder()
+              .forBrowser("chrome")
+              .setChromeOptions(headlessOptions)
+              .build();
+            this._driverOwned = true;
+            this.isInitialized = true;
+            logger.info("LinkedInService: Headless Chrome driver initialized as fallback.");
+          } catch (fallbackErr) {
+            logger.error("LinkedInService: Failed to connect to Chrome or spawn headless fallback:", fallbackErr);
+            throw new Error("Chrome not running with remote debugging. Run: chrome --remote-debugging-port=9222");
+          }
         }
       }
-      await this.checkLogin();
+      if (!this._driverOwned) {
+        await this.checkLogin();
+      }
       this.cleanupDebugScreenshots();
     } catch (error) {
       logger.error("LinkedInService: Failed to initialize:", error);
@@ -1458,13 +1474,18 @@ class LinkedInService {
   async cleanup() {
     try {
       if (this.driver) {
-        logger.info("LinkedInService: Releasing WebDriver control of debugging browser session");
-        this.driver = null;
+        if (this._driverOwned) {
+          logger.info("LinkedInService: Quitting headless Chrome fallback session");
+          await this.driver.quit();
+        } else {
+          logger.info("LinkedInService: Releasing WebDriver control of debugging browser session");
+        }
       }
     } catch (error) {
       logger.error("LinkedInService: Failed to clean up driver:", error);
     } finally {
       this.driver = null;
+      this._driverOwned = false;
       this.isInitialized = false;
     }
   }

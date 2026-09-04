@@ -1,12 +1,12 @@
 [
-  "BOF",
   "MOF",
   "TOF",
   "MOF",
   "BOF",
-  "TOF",
   "MOF",
   "TOF",
   "MOF",
-  "TOF"
+  "BOF",
+  "TOF",
+  "MOF"
 ]

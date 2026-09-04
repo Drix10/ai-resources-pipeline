@@ -108,48 +108,69 @@ const MAX_POST_LENGTH = 2200;
 const MIN_QUALITY_SCORE = 70; // Passing quality gate threshold (out of 100)
 const MAX_RECENT_STRUCTURES = 8;
 
-// LinkedIn post structures the AI can choose from to keep posts varied.
-// The AI selects the one that best fits the hook, topic, and manual points.
+// 5 Distinct Opinion-Driven LinkedIn Post Archetypes.
+// The AI rotates across these 5 archetypes so the feed never repeats the same shape.
 const STRUCTURE_REGISTRY = [
+  {
+    name: "contrarian-hot-take",
+    label: "The Contrarian Technical Hot Take (Spicy Opinion / Anti-Dogma)",
+    description: "Challenge a widespread industry dogma or bad habit with high conviction. Open with a spicy thesis, explain the hidden failure mode of the default approach, present the counter-intuitive alternative, and state the real operational trade-off. Pure narrative prose—DO NOT use a numbered listicle.",
+    formatType: "narrative-prose"
+  },
+  {
+    name: "post-mortem",
+    label: "The Architectural Post-Mortem / War Story ('We Broke It')",
+    description: "Share a candid technical battle scar. Describe what was built, what broke under production load (latency spike, OOM kill, concurrency bottleneck), what the logs/profiler revealed, the architectural shift that fixed it, and a 1-sentence rule of thumb. High-credibility engineering story. Pure narrative prose—DO NOT use a numbered listicle.",
+    formatType: "narrative-prose"
+  },
+  {
+    name: "deep-dive-teardown",
+    label: "The Deep-Dive Mechanism Teardown ('Under the Hood')",
+    description: "Dissect an abstraction down to the metal, code, AST, or memory layout. Strip away the marketing buzz, explain what actually happens underneath, and outline 2-3 specific implementation mechanics that dictate real-world performance.",
+    formatType: "technical-teardown"
+  },
+  {
+    name: "tradeoff-matrix",
+    label: "The Honest Trade-Off Matrix ('Pick Your Poison / A vs B')",
+    description: "Pragmatic, hype-free comparison of two competing architectural patterns. Contrast Pattern A vs Pattern B, detailing exactly when Pattern A wins, where it silently fails, when Pattern B wins, and the hidden operational tax. End with a decisive founder heuristic.",
+    formatType: "comparison"
+  },
+  {
+    name: "founder-micro-take",
+    label: "The Short Unfiltered Founder Observation (Micro-Take)",
+    description: "A punchy, casual observation (500-800 characters) written like an engineer texting a peer. Single counter-intuitive insight, a concrete 2-sentence real-world example, and a 1-sentence takeaway. Zero filler, NO numbered bullets, NO summary paragraph.",
+    formatType: "micro-take"
+  },
+  // Legacy aliases for backward compatibility with existing rotation state files:
   {
     name: "problem-insight-framework",
     label: "Problem → Insight → Rehook → Framework",
-    description: "Name the pain, reveal the non-obvious fact, add a short rehook, then deliver a save-worthy framework of 3-5 numbered steps or bullets."
+    description: "Legacy alias for deep-dive-teardown",
+    formatType: "technical-teardown"
   },
   {
     name: "contrarian-proof-action",
     label: "Contrarian Take → Proof → Application",
-    description: "Challenge a common assumption, prove it with a concrete detail from the source, then show how to act on it with 3-5 practical numbered steps."
+    description: "Legacy alias for contrarian-hot-take",
+    formatType: "narrative-prose"
   },
   {
     name: "story-arc",
     label: "Story / Narrative Arc",
-    description: "Tell a short scene (something that happened, a team's mistake, an observed pattern), then extract 3-5 practical numbered takeaways."
+    description: "Legacy alias for post-mortem",
+    formatType: "narrative-prose"
   },
   {
     name: "before-after",
     label: "Before / After Comparison",
-    description: "Contrast how most engineers approach the topic today vs. the better way implied by the source, then list 3-5 numbered steps to bridge the gap."
+    description: "Legacy alias for tradeoff-matrix",
+    formatType: "comparison"
   },
   {
-    name: "numbered-listicle",
-    label: "Numbered Listicle with Commentary",
-    description: "Frame the post as 3-5 discrete observations or rules as numbered steps/bullets, with a sentence or two of connective analysis between them."
-  },
-  {
-    name: "how-i-think-about",
-    label: "How I Think About X",
-    description: "Write as a senior engineer explaining the mental model they use for this topic; keep it analytical and distill it into 3-5 numbered operating principles."
-  },
-  {
-    name: "direct-technical-breakdown",
-    label: "Direct Technical Breakdown",
-    description: "Skip the story and walk through the mechanism: what changed, why it matters, and what to do with it in 3-5 numbered technical actions."
-  },
-  {
-    name: "mistake-correction-execution",
-    label: "Common Mistake → Correction → Execution",
-    description: "Spot a recurring anti-pattern, correct it with the source fact, then give 3-5 numbered concrete execution steps."
+    name: "breakdown-teardown",
+    label: "Architecture Deep Dive",
+    description: "Legacy alias for deep-dive-teardown",
+    formatType: "technical-teardown"
   }
 ];
 
@@ -1833,26 +1854,49 @@ JSON schema:
       bonusPoints += 5;
     }
 
+    const chosenArchetype = postData.chosenStructure || "";
+    const isProseArchetype = [
+      "contrarian-hot-take",
+      "post-mortem",
+      "founder-micro-take",
+      "contrarian-proof-action",
+      "story-arc"
+    ].includes(chosenArchetype);
+    const isMicroTake = chosenArchetype === "founder-micro-take";
+
     // Length check
-    if (postText.length < 600) {
+    const minTarget = isMicroTake ? 450 : 600;
+    const maxTarget = isMicroTake ? 1000 : 2500;
+    const sweetSpotMin = isMicroTake ? 500 : 800;
+    const sweetSpotMax = isMicroTake ? 850 : 1800;
+
+    if (postText.length < minTarget) {
       penaltyPoints += 30;
-      issues.push(`Post too short (${postText.length} chars, target 800-2200)`);
-    } else if (postText.length > 2500) {
+      issues.push(`Post too short (${postText.length} chars, target ${minTarget}-${maxTarget})`);
+    } else if (postText.length > maxTarget) {
       penaltyPoints += 20;
       issues.push(`Post too long (${postText.length} chars)`);
-    } else if (postText.length >= 800 && postText.length <= 1800) {
+    } else if (postText.length >= sweetSpotMin && postText.length <= sweetSpotMax) {
       bonusPoints += 5;
     }
 
-    // Structured takeaways check (at least 2 numbered points or takeaways)
+    // Structured takeaways check vs narrative flow check
     const postLines = postText.split("\n").map(l => l.trim()).filter(Boolean);
     const nonHookText = postLines.slice(1).join("\n");
     const frameworkBullets = this.extractFrameworkBullets(nonHookText);
-    if (frameworkBullets.length < 2) {
-      penaltyPoints += 25;
-      issues.push(`Standout takeaways section too thin (${frameworkBullets.length} points, need at least 2)`);
+
+    if (!isProseArchetype) {
+      if (frameworkBullets.length < 2) {
+        penaltyPoints += 25;
+        issues.push(`Standout takeaways section too thin (${frameworkBullets.length} points, need at least 2)`);
+      } else {
+        bonusPoints += 5;
+      }
     } else {
-      bonusPoints += 5;
+      // For prose archetypes, reward clear, un-clumped paragraph pacing
+      if (postLines.length >= (isMicroTake ? 3 : 4)) {
+        bonusPoints += 5;
+      }
     }
 
     // Duplicate-sentence check (local models sometimes restate a claim twice)
@@ -1990,17 +2034,30 @@ JSON schema:
       errors.push(`Not enough hashtags: found ${hashtagCount} (expected at least 5-20 hashtags)`);
     }
 
-    if (postText.length < 600) {
-      errors.push(`Post too short: ${postText.length} characters (minimum 600)`);
+    const chosenArchetype = postData.chosenStructure || "";
+    const isProseArchetype = [
+      "contrarian-hot-take",
+      "post-mortem",
+      "founder-micro-take",
+      "contrarian-proof-action",
+      "story-arc"
+    ].includes(chosenArchetype);
+    const isMicroTake = chosenArchetype === "founder-micro-take";
+
+    const minLen = isMicroTake ? 450 : 600;
+    const maxLen = isMicroTake ? 1000 : 2500;
+
+    if (postText.length < minLen) {
+      errors.push(`Post too short: ${postText.length} characters (minimum ${minLen})`);
     }
-    if (postText.length > 2500) {
-      errors.push(`Post too long: ${postText.length} characters (maximum 2500)`);
+    if (postText.length > maxLen) {
+      errors.push(`Post too long: ${postText.length} characters (maximum ${maxLen})`);
     }
 
     const postLines = postText.split("\n").map(l => l.trim()).filter(Boolean);
     const nonHookText = postLines.slice(1).join("\n");
     const frameworkBullets = this.extractFrameworkBullets(nonHookText);
-    if (frameworkBullets.length < 2) {
+    if (!isProseArchetype && frameworkBullets.length < 2) {
       errors.push(`Post must have at least 2 structured standout takeaways (found ${frameworkBullets.length})`);
     }
 
@@ -2903,12 +2960,104 @@ JSON Schema:
     const cleanPoint2 = (supportPoints[1] || `Implement deterministic separation of state and execution.`).replace(/\*\*/g, "").replace(/__/g, "");
     const cleanPoint3 = (supportPoints[2] || `Establish automated regression benchmarks before production deployment.`).replace(/\*\*/g, "").replace(/__/g, "");
 
-    const feedbackSection = feedback.length > 0
+    const chosenArchetype = cpio.chosenStructure || "contrarian-hot-take";
+    const isProseArchetype = [
+      "contrarian-hot-take",
+      "post-mortem",
+      "founder-micro-take",
+      "contrarian-proof-action",
+      "story-arc"
+    ].includes(chosenArchetype);
+    const isMicroTake = chosenArchetype === "founder-micro-take";
+
+    const feedbackSection = feedback && feedback.length > 0
       ? `\n=== CRITICAL VALIDATION FEEDBACK FROM PREVIOUS DRAFT (FIX THESE) ===\n${feedback.map(f => `- ${f}`).join("\n")}\n`
       : "";
 
+    let archetypeDirective = "";
+    if (chosenArchetype === "contrarian-hot-take" || chosenArchetype === "contrarian-proof-action") {
+      archetypeDirective = `=== ARCHETYPE DIRECTIVE: THE CONTRARIAN TECHNICAL HOT TAKE (SPICY OPINION / ANTI-DOGMA) ===
+- Goal: Challenge an industry dogma, cargo-cult tool choice, or flawed developer habit with direct, spicy conviction.
+- Tone: Practitioner-first, opinionated, skeptical. Say "Stop doing X", "X is a trap when Y", or "Most teams are cargo-culting Z".
+- Structure:
+  1. Spicy thesis directly on line 1 calling out a popular tool, pattern, or bad assumption.
+  2. The hidden failure mode or operational tax of the default approach.
+  3. The counter-intuitive engineering alternative.
+  4. The real trade-off nobody admits.
+- CRITICAL FORMATTING: Write in clean, punchy NARRATIVE PROSE paragraphs (separated by \\n\\n).
+  STRICTLY FORBIDDEN: DO NOT USE NUMBERED 1. 2. 3. LISTICLES OR BULLETS! A hot take is a strong editorial, not a school lecture.`;
+    } else if (chosenArchetype === "post-mortem" || chosenArchetype === "story-arc") {
+      archetypeDirective = `=== ARCHETYPE DIRECTIVE: THE ARCHITECTURAL POST-MORTEM / WAR STORY ("WE BROKE IT") ===
+- Goal: Share an authentic technical battle scar that proves you build and debug systems under real load.
+- Tone: Candid, humble, developer war-story. Grounded in operating reality.
+- Structure:
+  1. The Setup: What we were building and the initial assumption.
+  2. The Wall: What broke under load (latency spike, OOM kill, concurrency bottleneck, non-deterministic variance).
+  3. The Discovery: What the profiler or logs actually showed.
+  4. The Architecture Shift: The technical fix (config, decoupling state, caching, AST parsing).
+  5. The Rule of Thumb: 1-sentence engineering heuristic.
+- CRITICAL FORMATTING: Write as a chronological narrative story (separated by \\n\\n).
+  STRICTLY FORBIDDEN: DO NOT USE NUMBERED 1. 2. 3. BULLETS!`;
+    } else if (chosenArchetype === "founder-micro-take") {
+      archetypeDirective = `=== ARCHETYPE DIRECTIVE: THE SHORT UNFILTERED FOUNDER OBSERVATION (MICRO-TAKE) ===
+- Goal: A punchy, casual observation written like an engineer texting a peer or writing in a dev journal.
+- Tone: High signal-to-noise, conversational, zero corporate fluff.
+- Target Length: Strictly 500 to 800 characters total. Keep it brief, tight, and punchy!
+- Structure:
+  1. Single counter-intuitive observation (1-2 sentences).
+  2. Concrete real-world example (2 sentences).
+  3. The takeaway in 1 sentence.
+- CRITICAL FORMATTING:
+  STRICTLY NO NUMBERED BULLETS! NO SUMMARY PARAGRAPH! NO CORPORATE INTRO!`;
+    } else if (chosenArchetype === "tradeoff-matrix" || chosenArchetype === "before-after") {
+      archetypeDirective = `=== ARCHETYPE DIRECTIVE: THE HONEST TRADE-OFF MATRIX ("PICK YOUR POISON / A vs B") ===
+- Goal: Pragmatic, hype-free comparison of two competing architectural patterns.
+- Tone: Senior architect debunking silver bullets and false dichotomies.
+- Structure:
+  1. The false debate (Pattern A vs Pattern B).
+  2. When Pattern A wins (and where it silently fails).
+  3. When Pattern B wins (and the hidden operational tax).
+  4. The founder's decision framework: If constraint X -> A; if Y -> B.`;
+    } else {
+      archetypeDirective = `=== ARCHETYPE DIRECTIVE: THE DEEP-DIVE MECHANISM TEARDOWN ("UNDER THE HOOD") ===
+- Goal: Dissect a software abstraction down to the metal, code, AST, or memory layout.
+- Tone: Pure engineering mechanism, zero marketing fluff.
+- Structure:
+  1. The black-box abstraction everyone takes for granted.
+  2. What actually happens underneath (AST nodes, memory layout, network packets).
+  3. 2-3 specific implementation details that dictate performance (numbered 1., 2., 3. or labeled).
+  4. Why this changes how you architect your system.`;
+    }
+
+    const targetLength = isMicroTake ? "500 to 800 characters (STRICTLY CONCISE)" : "900 to 1,800 characters";
+
+    const blueprintExecution = isProseArchetype
+      ? `- CONTEXT & SETUP:
+${cpio.order.setup}
+
+- TECHNICAL MECHANISM / THE WALL:
+${cpio.order.development}
+
+- RESOLUTION & HEURISTIC:
+${cpio.order.ending}`
+      : `- SYSTEM CONTEXT & SETUP (2-3 short sentences bridging from the hook into the core engineering dilemma):
+${cpio.order.setup}
+
+- TECHNICAL MECHANISM (2-3 short sentences explaining the operational insight):
+${cpio.order.development}
+
+- 2-3 ACTIONABLE TECHNICAL TAKEAWAYS:
+1. ${cleanPoint1}
+2. ${cleanPoint2}
+${cleanPoint3 ? `3. ${cleanPoint3}` : ""}
+
+- FOUNDER RESOLUTION:
+${cpio.order.ending}`;
+
     const prompt = `You are Drishtant Ghosh (Drix10): AI Systems & LLM Architect and Co-Founder @ PartPilot.
-Write an authentic, highly valuable LinkedIn founder post sharing this technical teardown.
+Write an authentic, highly valuable LinkedIn founder post sharing this technical breakdown.
+
+${archetypeDirective}
 
 === ABSOLUTE TOPIC PURITY & TECHNICAL FOUNDER POSITIONING (CRITICAL) ===
 - The post MUST be 100% about the topic: "${cleanTitle}".
@@ -2920,85 +3069,65 @@ Write an authentic, highly valuable LinkedIn founder post sharing this technical
     "Engineering decisions eventually become business decisions."
     "A backend architecture that costs 3x more to operate at scale eats into gross margins."
     "System reliability, latency, and technical debt directly determine customer cohort retention."
-- NO REPETITION: Every sentence must earn its place. NEVER repeat the same premise across paragraphs (e.g. saying "institutional firms demand X" three times in a row). State the reality once with precision and move forward.
-- NO FABRICATED UNIVERSAL METRICS OR PSEUDO-DATA: NEVER write "Our benchmarks show...", "Our portfolio shows...", or invent quantitative metrics (e.g. "a 10% reduction leads to 20% increase in runway"). Do NOT invent mathematical claims. Only cite numbers if they appear in the source text.
+- NO REPETITION: Every sentence must earn its place. NEVER repeat the same premise across paragraphs. State the reality once with precision and move forward.
+- NO FABRICATED UNIVERSAL METRICS OR PSEUDO-DATA: NEVER write "Our benchmarks show...", "Our portfolio shows...", or invent quantitative metrics. Only cite numbers if they appear in the source text.
 - Speak with the voice of an experienced systems architect evaluating THIS subject with engineering rigor, practical skepticism, and clarity.
 
+=== HUMANIZER WRITING RULES (WIKIPEDIA AI CLEANUP & BLADER/HUMANIZER) ===
+1. ZERO TEXTBOOK / ESSAY INTROS:
+   - NEVER begin with: "As AI models become increasingly complex...", "In today's fast-paced AI landscape...", "When building and scaling AI systems...", "Evaluating X is crucial for ensuring...".
+   - Start IMMEDIATELY with the real friction, the bug, or the controversial stance.
+2. ZERO TRAILING -ING FLUFF:
+   - NEVER end sentences with: ", ensuring high availability, reducing latency, and improving reliability."
+   - State the action directly as independent clauses.
+3. ZERO SYLLOGISTIC CONCLUSIONS:
+   - NEVER write: "By adopting this approach, engineering teams can ensure..." or "In conclusion...".
+   - End with a sharp, decisive thought or an engineering trade-off statement.
+4. ZERO AVOIDING "IS" AND "ARE":
+   - Do NOT replace simple verbs with "serves as a testament", "stands as a reminder", "boasts", "features". Say "is", "has", "breaks", "costs".
+5. ZERO FORCED GROUPS OF THREE:
+   - Do not force 3 adjectives or 3 nouns into every sentence.
+6. UNEVEN HUMAN RHYTHM:
+   - Mix short 3-word sentences with longer explanatory sentences. Break the robotic monotony of uniform sentence lengths.
+7. WRITE WITH PERSONAL CONVICTION:
+   - Use first-person singular and plural naturally: "I think", "In my experience", "We hit a bottleneck", "We stopped using X".
+
 === 90-DAY HAT TIP FOUNDER WRITING SYSTEM ===
-1. WRITE HOW YOU SPEAK: Use short, conversational words you would say out loud to an engineering peer. Say "use" instead of "utilize". Write in active voice throughout ("we found", "I learned", "I observed", not passive voice). NEVER claim "our benchmarks show" or "our portfolio shows" unless quoting verified source data.
+1. WRITE HOW YOU SPEAK: Use short, conversational words you would say out loud to an engineering peer. Say "use" instead of "utilize". Write in active voice throughout ("we found", "I learned", "I observed", not passive voice).
 2. CLARITY BEATS CLEVERNESS: 8th-grade readability for complex systems. Every thought connects smoothly to the next.
 3. HIGH INFORMATION DENSITY: Every sentence fights for its life and delivers on the hook's promise. Cut all filler words ("very", "really", "quite").
-4. 1-BY-1 LINE BREAK PACING (STRICTEST RULE):
-Write each sentence or short thought on its OWN line, separated by a clean double line break (\n\n).
-NEVER clump 3 or 4 sentences into a block of text.
-Study this exact rhythm:
-"I found an engineering bottleneck while profiling our agents.
-
-The result surprised our team.
-
-Probabilistic LLM judges were burning 40% of our test tokens.
-
-More critically, they introduced non-deterministic variance into our staging builds.
-
-That made us rethink our entire evaluation architecture."
-Notice how every single thought gets its own space to breathe.
-5. STRICTLY NO DUPLICATION: Do NOT repeat the same sentence or concept in the narrative and then again in the numbered takeaways. Every paragraph and point must provide distinct, non-overlapping information.
-6. NO PLACEHOLDER HEADERS: NEVER write placeholder labels like "Principle Name:", "Core Mechanism:", or generic summaries.
-7. NUMBERED TAKEAWAYS: Present exactly 3 concrete, actionable technical takeaways numbered 1., 2., 3. Format each with a sharp named concept or heuristic on the first line, followed by a specific operational explanation or question.
-Example:
-1. Capital efficiency
-How much meaningful progress are we creating for every unit of capital and engineering time we spend?
-
-2. Unit economics
-What does it actually cost to acquire, serve, and retain another customer?
-
-3. Retention
-Is growth compounding because customers stay, or are we constantly replacing the ones we're losing?
-8. NO RAW @MENTIONS — USE COMPANY HASHTAGS: Do NOT include raw @company or @person tags (e.g. @Anthropic, @Meta). They do not link properly on LinkedIn and look like spam. For companies, frameworks, or tools mentioned, include them as hashtags at the end (e.g. #Anthropic #OpenAI #NVIDIA).
-9. HASHTAGS: Exactly 5-8 relevant technical and company hashtags at the very bottom (e.g. #SystemsArchitecture #SoftwareEngineering #Cloud #OpenAI).
-10. START DIRECTLY ON LINE 1: Start immediately with the opening hook. DO NOT output any title, greeting, or markdown headers.
-11. CLOSE WITH TRUST, NOT BAIT: End the post one of two ways — (a) a confident, complete closing statement with no question at all, or (b) a soft, non-salesy signal of availability that a genuinely qualified reader would recognize as relevant to them (e.g. "If you're mid-way through the same migration, happy to compare notes"). Never end with a question designed to farm replies from people who don't actually have the problem. The goal is that the small number of readers who reply are the ones actually worth talking to, not the largest number of readers who reply at all.
-12. EVERY TAKEAWAY MUST SURVIVE A SCREENSHOT: Before finalizing, check each of the 3 numbered takeaways in isolation — if it only makes sense with the surrounding paragraph, rewrite it so it's specific and complete on its own.
-13. SEARCHABLE LONG-TAIL ASSET (SEO TECHNIQUE): Treat this post as a durable, indexed search asset that will rank on Google for long-tail technical queries (e.g. specific tool migrations, architecture bottlenecks, benchmarking tradeoffs). Use the exact technical phrases an engineering lead or CTO would search when debugging this dilemma. One useful, search-indexed post travels further and lasts longer than an entire week of feed updates.
-
-Write this so a specific engineering lead reads it once and trusts the author enough to take a call — not so the widest possible audience clicks through.
+4. 1-BY-1 LINE BREAK PACING: Write each sentence or short thought on its OWN line, separated by a clean double line break (\\n\\n). NEVER clump 3 or 4 sentences into a block of text.
+5. NO PLACEHOLDER HEADERS: NEVER write placeholder labels like "Principle Name:", "Core Mechanism:", or generic summaries.
+6. NO RAW @MENTIONS — USE COMPANY HASHTAGS: Do NOT include raw @company or @person tags. Include them as hashtags at the end (e.g. #Anthropic #OpenAI #NVIDIA).
+7. HASHTAGS: Exactly 5-8 relevant technical and company hashtags at the very bottom.
+8. START DIRECTLY ON LINE 1: Start immediately with the opening hook. DO NOT output any title, greeting, or markdown headers.
+9. CLOSE WITH TRUST, NOT BAIT: End the post with a confident, complete closing statement or a soft signal of availability (e.g. "If you're mid-way through the same migration, happy to compare notes"). Never end with an engagement-farming survey question ("Agree?", "Thoughts?").
+10. SEARCHABLE LONG-TAIL ASSET (SEO TECHNIQUE): Use the exact technical phrases an engineering lead or CTO would search when debugging this dilemma.
 
 === BLUEPRINT TO EXECUTE ===
 - PURPOSE: ${cpio.convey}
 - OPENING HOOK (Start directly on line 1 with this curiosity gap):
 ${cpio.package.hook}
 
-- SYSTEM CONTEXT & SETUP (2-3 short sentences bridging from the hook into the core engineering dilemma):
-${cpio.order.setup}
-
-- TECHNICAL MECHANISM (2-3 short sentences explaining the operational insight):
-${cpio.order.development}
-
-- 3 ACTIONABLE TECHNICAL TAKEAWAYS (CRITICAL: You MUST include literal "1. ", "2. ", "3. " numbers. Do NOT write prose paragraphs instead of numbers):
-1. ${cleanPoint1}
-2. ${cleanPoint2}
-3. ${cleanPoint3}
-
-- FOUNDER RESOLUTION (Natural ending paying off the hook without forced CTAs or summaries):
-${cpio.order.ending}
+${blueprintExecution}
 ${feedbackSection}
-=== STRICT PROHIBITIONS (HAT TIP RULESET) ===
-- STRICTLY ZERO MARKDOWN BOLDING OR ASTERISKS ("**" or "__"). LinkedIn does NOT render markdown bold and displays literal asterisks. Write clean plain text.
+=== STRICT PROHIBITIONS ===
+- STRICTLY ZERO MARKDOWN BOLDING OR ASTERISKS ("**" or "__"). Write clean plain text.
 - STRICTLY ZERO EM DASHES ("—" or "--"). Use colons, commas, or periods instead.
 - NO reversal framing ("Most people think X, but actually Y").
 - NO rhetorical questions ("Have you ever wondered...?").
-- NO repeated sentence openings (e.g., three sentences in a row starting with "We").
+- NO repeated sentence openings.
 - NO generic AI buzzwords: ${BANNED_WORDS.slice(0, 15).join(", ")}.
 - NO forced engagement bait ("Agree?", "Thoughts?", "Drop a comment below").
-- STRICTLY FORBIDDEN: DO NOT output "Key Points:", "🚀 Implementation:", or "🔗 Resources:". Do NOT output empty markdown links like "[Tool]()". Output only the conversational founder breakdown, the 3 numbered takeaways, the closing takeaway, and the hashtags.
-- Target character length: 1,200 to 1,900 characters.
+- STRICTLY FORBIDDEN: DO NOT output "Key Points:", "🚀 Implementation:", or "🔗 Resources:".
+- ${targetLength}.
 
 Return ONLY the complete raw text ready to post on LinkedIn.`;
 
     try {
       let body = await this.generateText(prompt, {
         temperature: 0.25,
-        num_predict: 750
+        num_predict: isMicroTake ? 400 : 750
       });
 
       return String(body || "").trim();
@@ -3067,6 +3196,24 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     // 5c. Fix sentence capitalization after filler strips
     body = body.replace(/(?:^|[.!?]\s+)([a-z])/g, (m, c) => m.slice(0, -1) + c.toUpperCase());
 
+    // 5d. Humanizer Rule 1 (Wikipedia AI Cleanup): Strip textbook/essay opener intros
+    body = body.replace(/(?:^|\n\n)As (?:AI models|AI systems|software systems|models|applications|architectures) (?:become|becomes|evolve|evolves|grow|grows)[^,\n]*,\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n\n)When building and scaling (?:AI|software|modern|distributed) systems[^,\n]*,\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n\n)Evaluating (?:production readiness|systems|performance) is crucial for[^.\n]*\.\s*/gim, "\n\n");
+
+    // 5e. Humanizer Rule 3 (Wikipedia AI Cleanup): Strip shallow trailing -ing phrases
+    // e.g. ", reducing the risk of deployment failures and improving overall system reliability."
+    body = body.replace(/,\s*(?:ensuring|reducing|improving|providing|enabling|facilitating|optimizing|fostering|cultivating|showcasing|highlighting)\s+[^.\n]+\./gi, ".");
+
+    // 5f. Humanizer Rule 6 (Wikipedia AI Cleanup): Strip formulaic outlook & syllogism conclusions
+    // e.g. "By adopting this approach, engineering teams can ensure..."
+    body = body.replace(/(?:^|\n\n)By adopting (?:this|the|a) [^,\n]*, (?:engineering teams|developers|companies|engineers|teams|founders) can[^.\n]*\.\s*/gim, "");
+
+    // 5g. Humanizer Rule 8: Replace inflated avoidance of is/are
+    body = body.replace(/\bserves as a (?:testament|reminder|pivotal|key|crucial)\b/gi, "is");
+    body = body.replace(/\bstands as a (?:testament|reminder|pivotal|key|crucial)\b/gi, "is");
+    body = body.replace(/\bplays a (?:pivotal|crucial|vital|key) role in\b/gi, "directly impacts");
+
     // Ensure the very first paragraph / hook does not end with a question mark
     const firstParagraphMatch = body.match(/^([^\n]+)/);
     if (firstParagraphMatch && firstParagraphMatch[1].endsWith("?")) {
@@ -3085,10 +3232,8 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     // 7. Fix stacked sentence fragments (e.g. "Fast. Scalable. Resilient.")
     body = body.replace(/\b([A-Z][a-z]+)\.\s+([A-Z][a-z]+)\.\s+([A-Z][a-z]+)\./g, "$1, $2, and $3.");
 
-    // 8. Fix repeated sentence openings in paragraphs (e.g. "We ... We ... We ...")
-    body = body.replace(/(\b(We|The|Our|This|I)\b[^.!?]+[.!?]\s+)\b\2\b([^.!?]+[.!?]\s+)\b\2\b/gi, (match, p1, word, p3) => {
-      return `${p1}Additionally, ${p3}`;
-    });
+    // 8. Clean up double spaces or accidental comma-period artifacts
+    body = body.replace(/,\s*\./g, ".").replace(/\s{2,}/g, " ");
 
     // 9. Strip forced conclusion headers and takeaway labels
     body = body.replace(/(?:in conclusion|to wrap up|all in all|in summary)[,:]?\s*/gi, "");
@@ -3117,6 +3262,9 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     body = body.replace(/^(?:Key Points:|🚀 Implementation:|🔗 Resources:)\s*$/gim, "");
     body = body.replace(/^•\s*\[[^\]]*\]\(\s*\)\s*-?\s*.*$/gm, "");
     body = body.replace(/•\s*\[[^\]]*\]\(\s*\)/g, "");
+
+    // 10d-2. Fix sentence capitalization across the entire text after all strip rules
+    body = body.replace(/(?:^|[.!?]\s+|\n+)([a-z])/g, (m, c) => m.slice(0, -1) + c.toUpperCase());
 
     // 10e. Ensure true 1-by-1 line break pacing for narrative text (outside of numbered lists)
     const rawBlocks = body.split(/\n{2,}/);
@@ -3189,18 +3337,28 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
       body = `${textWithoutTags}\n\n🔗 Full breakdown + architecture resources in the comments.\n\n${hashtags}`.trim();
     }
 
-    // 14d. Ensure at least 2 structured standout takeaways exist
-    const bulletsFound = this.extractFrameworkBullets(body);
-    if (bulletsFound.length < 2 && Array.isArray(cpio?.information?.requiredPoints) && cpio.information.requiredPoints.length >= 2) {
-      const formattedPoints = cpio.information.requiredPoints.slice(0, 3).map((pt, i) => `${i + 1}. ${pt.replace(/\*\*/g, "").replace(/__/g, "")}`).join("\n\n");
-      if (body.includes("🔗")) {
-        body = body.replace("🔗", `${formattedPoints}\n\n🔗`);
-      } else {
-        const hashtagsMatch = body.match(/(?:#[a-zA-Z0-9_]+\s*)+$/);
-        if (hashtagsMatch) {
-          body = body.replace(hashtagsMatch[0], `${formattedPoints}\n\n${hashtagsMatch[0]}`);
+    // 14d. Ensure at least 2 structured standout takeaways exist for technical breakdown archetypes
+    const isProseArchetype = [
+      "contrarian-hot-take",
+      "post-mortem",
+      "founder-micro-take",
+      "contrarian-proof-action",
+      "story-arc"
+    ].includes(cpio?.chosenStructure || "");
+
+    if (!isProseArchetype) {
+      const bulletsFound = this.extractFrameworkBullets(body);
+      if (bulletsFound.length < 2 && Array.isArray(cpio?.information?.requiredPoints) && cpio.information.requiredPoints.length >= 2) {
+        const formattedPoints = cpio.information.requiredPoints.slice(0, 3).map((pt, i) => `${i + 1}. ${pt.replace(/\*\*/g, "").replace(/__/g, "")}`).join("\n\n");
+        if (body.includes("🔗")) {
+          body = body.replace("🔗", `${formattedPoints}\n\n🔗`);
         } else {
-          body = `${body}\n\n${formattedPoints}`;
+          const hashtagsMatch = body.match(/(?:#[a-zA-Z0-9_]+\s*)+$/);
+          if (hashtagsMatch) {
+            body = body.replace(hashtagsMatch[0], `${formattedPoints}\n\n${hashtagsMatch[0]}`);
+          } else {
+            body = `${body}\n\n${formattedPoints}`;
+          }
         }
       }
     }
@@ -3293,15 +3451,22 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
    */
   getStructureDiagramSteps(structureName) {
     switch (structureName) {
-      case "problem-insight-framework":
-        return ["CORE PROBLEM", "TECHNICAL INSIGHT", "SYSTEM FRAMEWORK", "VERIFIED PAYOFF"];
-      case "before-after":
-        return ["LEGACY STATE", "BOTTLENECK AUDIT", "SYSTEM OVERHAUL", "MEASURED GAIN"];
-      case "story-arc":
-        return ["INCIDENT CONTEXT", "SYSTEM FAILURE", "ARCHITECTURE FIX", "STABLE RECOVERY"];
+      case "contrarian-hot-take":
       case "contrarian-proof-action":
-        return ["CONVENTIONAL TAKE", "PRODUCTION EVIDENCE", "TRUE MECHANISM", "ENGINEERING ACTION"];
+        return ["INDUSTRY DOGMA", "FAILURE MODE", "COUNTER ALTERNATIVE", "REAL TRADEOFF"];
+      case "post-mortem":
+      case "story-arc":
+        return ["SETUP CONTEXT", "SYSTEM FAILURE", "ROOT CAUSE", "ARCHITECTURAL FIX"];
+      case "deep-dive-teardown":
+      case "direct-technical-breakdown":
+      case "problem-insight-framework":
       case "breakdown-teardown":
+        return ["ABSTRACTION", "INTERNALS / AST", "CORE MECHANISM", "SYSTEM IMPACT"];
+      case "tradeoff-matrix":
+      case "before-after":
+        return ["PATTERN A", "WHERE A FAILS", "PATTERN B", "DECISION HEURISTIC"];
+      case "founder-micro-take":
+        return ["OBSERVATION", "CONCRETE REALITY", "OPERATING HEURISTIC", "TAKEAWAY"];
       default:
         return ["INCOMING WORKLOAD", "SYSTEM PIPELINE", "STATE ISOLATION", "PRODUCTION SLA"];
     }
@@ -3397,6 +3562,12 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
 
     // Dynamically derive tagline from structure and article category/topic
     const structureTaglines = {
+      "contrarian-hot-take": "Contrarian Systems Analysis · Drix10",
+      "post-mortem": "Production Incident Post-Mortem · Drix10",
+      "deep-dive-teardown": "Architecture Deep Dive · Drix10",
+      "tradeoff-matrix": "Engineering Trade-Off Audit · Drix10",
+      "founder-micro-take": "Founder Systems Note · Drix10",
+      // Legacy mappings
       "problem-insight-framework": "Systems Architecture Teardown · Drix10",
       "before-after": "Performance Benchmark Audit · Drix10",
       "story-arc": "Engineering Case Study · Drix10",
