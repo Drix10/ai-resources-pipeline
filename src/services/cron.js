@@ -251,13 +251,6 @@ const runEndofRunCuration = async (successfulArticles) => {
 
       if (selectedArticles.length > 0) {
         let slideImagePath = null;
-        try {
-          logger.info("LinkedIn Curation: Initializing LinkedIn service...");
-          await LinkedInService.init();
-        } catch (initErr) {
-          logger.error("LinkedIn Curation: Failed to initialize LinkedIn service:", initErr);
-          return;
-        }
 
         try {
           const maxGenerationAttempts = 2;
@@ -326,18 +319,89 @@ const runEndofRunCuration = async (successfulArticles) => {
           }
 
           if (megaPostData.postText) {
-            logger.info("LinkedIn Curation: Posting curated update to LinkedIn...");
-            const postSuccess = await LinkedInService.postToLinkedIn(megaPostData.postText, slideImagePath, megaPostData.commentText).catch(err => {
-              logger.error("Failed to post mega post to LinkedIn:", err);
-              return false;
-            });
+            // 1. ALWAYS save the insight post as an article in Knowledge Hub "LinkedIn Insights"
+            const timestamp = Date.now();
+            const seoSlug = String(megaPostData.title || selectedArticles[0]?.title || "technical-insight")
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, "-")
+              .replace(/^-|-$/g, "")
+              .slice(0, 50);
+            const blogFileName = `${seoSlug}-${timestamp}.md`;
+            const slideFileName = `${seoSlug}-${timestamp}.png`;
+            let slideEmbed = "";
 
-            if (postSuccess) {
-              logger.info("LinkedIn Curation: Post submitted successfully.");
+            if (slideImagePath && fs.existsSync(slideImagePath)) {
+              try {
+                const blogSlidesDir = path.join(process.cwd(), "blog", "public", "slides");
+                if (!fs.existsSync(blogSlidesDir)) fs.mkdirSync(blogSlidesDir, { recursive: true });
+                fs.copyFileSync(slideImagePath, path.join(blogSlidesDir, slideFileName));
+                slideEmbed = `\n\n![${megaPostData.title || "Systems Architecture Breakdown"}](/slides/${slideFileName})\n`;
+              } catch (copyErr) {
+                logger.warn(`LinkedIn Curation: Failed to copy slide to blog public slides: ${copyErr.message}`);
+              }
+            }
+
+            const blogMarkdownContent = `# ${megaPostData.title || "LinkedIn Technical Insight"}
+${slideEmbed}
+${megaPostData.postText}
+
+---
+### 🔗 Reference & Source Breakdown
+- **Source Material**: [${selectedArticles[0]?.title || "Reference Breakdown"}](${selectedArticles[0]?.githubUrl || "#"})
+- **Companion Tagline**: ${megaPostData.slideTagline || "Notes from my learning journey"}
+- **Syndicated Channel**: LinkedIn & Personal Blog Hub
+`;
+
+            try {
+              const blogInsightsDir = path.join(process.cwd(), "blog", "content", "LinkedIn Insights");
+              const rootInsightsDir = path.join(process.cwd(), "LinkedIn Insights");
+              if (!fs.existsSync(blogInsightsDir)) fs.mkdirSync(blogInsightsDir, { recursive: true });
+              if (!fs.existsSync(rootInsightsDir)) fs.mkdirSync(rootInsightsDir, { recursive: true });
+
+              fs.writeFileSync(path.join(blogInsightsDir, blogFileName), blogMarkdownContent, "utf8");
+              fs.writeFileSync(path.join(rootInsightsDir, blogFileName), blogMarkdownContent, "utf8");
+              logger.info(`LinkedIn Curation: Saved insight article to blog Knowledge Hub: blog/content/LinkedIn Insights/${blogFileName}`);
+
               const recentTopic = megaPostData.sourceTitle || selectedArticles[0].title;
               llmService.saveRecentTopic(recentTopic);
+            } catch (saveErr) {
+              logger.warn(`LinkedIn Curation: Failed to save insight article to blog: ${saveErr.message}`);
+            }
+
+            // 2. Syndicate insight article to DEV.to if enabled
+            try {
+              const syndicationService = require("./syndication");
+              syndicationService.syndicateMarkdownArticle({
+                title: megaPostData.title || "LinkedIn Technical Insight",
+                markdown: blogMarkdownContent,
+                tags: ["linkedin", "ai", "architecture", "coding"],
+                category: "LinkedIn Insights",
+                relativePath: `LinkedIn Insights/${blogFileName}`,
+              }).catch(err => logger.warn(`Syndication error for LinkedIn Insight (non-fatal): ${err.message}`));
+            } catch (synErr) {
+              logger.warn(`Syndication invocation skipped: ${synErr.message}`);
+            }
+
+            // 3. Post to live LinkedIn network ONLY if LINKEDIN_POST is true
+            if (config.social.linkedinPost) {
+              try {
+                logger.info("LinkedIn Curation: LINKEDIN_POST is enabled. Initializing LinkedIn service and posting live...");
+                await LinkedInService.init();
+                const postSuccess = await LinkedInService.postToLinkedIn(megaPostData.postText, slideImagePath, megaPostData.commentText).catch(err => {
+                  logger.error("Failed to post mega post to LinkedIn:", err);
+                  return false;
+                });
+
+                if (postSuccess) {
+                  logger.info("LinkedIn Curation: Post submitted successfully to LinkedIn.");
+                } else {
+                  logger.warn("LinkedIn Curation: Post submission returned failure status.");
+                }
+              } catch (liveErr) {
+                logger.error("LinkedIn Curation: Failed to publish live post to LinkedIn:", liveErr);
+              }
             } else {
-              logger.warn("LinkedIn Curation: Post submission returned failure status.");
+              logger.info("LinkedIn Curation: Live LinkedIn posting is disabled (LINKEDIN_POST=false). Post was successfully created and published to Knowledge Hub 'LinkedIn Insights'.");
             }
           }
         } catch (postErr) {
@@ -403,13 +467,17 @@ const processAllFolders = async () => {
           TwitterService.markContentAsPublished(item.tweets);
 
           // Post to Twitter/X
-          const tweetText = `New ${getTopicName(
-            item.queryName
-          )} resource added!\n\nMade by @Drix10 via @CosLynxAI\n\nCheck out the latest resource here:\n${item.url}`;
-          await TwitterService.postTweet(tweetText).catch(err => {
-            logger.error(`Failed to post tweet for ${item.queryName}:`, err);
-          });
-          await sleep(2000);
+          if (config.social.twitterPost) {
+            const tweetText = `New ${getTopicName(
+              item.queryName
+            )} resource added!\n\nMade by @Drix10 via @CosLynxAI\n\nCheck out the latest resource here:\n${item.url}`;
+            await TwitterService.postTweet(tweetText).catch(err => {
+              logger.error(`Failed to post tweet for ${item.queryName}:`, err);
+            });
+            await sleep(2000);
+          } else {
+            logger.info(`Twitter posting disabled (TWITTER_POST=false). Skipping tweet for ${item.queryName}.`);
+          }
 
           logger.info(`Pipeline succeeded for folder type ${item.queryName}: ${item.url}`);
           successfulArticles.push({
@@ -471,10 +539,10 @@ const processAllFolders = async () => {
       config.github.repo
     );
 
-    if (!localLlmUnavailable && config.social.linkedinPost) {
+    if (!localLlmUnavailable) {
       await runEndofRunCuration(successfulArticles);
-    } else if (!config.social.linkedinPost) {
-      logger.info("LinkedIn posting is disabled (set LINKEDIN_POST=true to enable it). Skipping curation.");
+    } else {
+      logger.warn("Cycle End: LLM service was unavailable, skipping LinkedIn curation flow.");
     }
 
     if (successfulArticles.length > 0) {
@@ -494,7 +562,7 @@ const processAllFolders = async () => {
       if (successfulArticles.length > 0) {
         try {
           const { execSync } = require("child_process");
-          execSync('git add blog/content blog/lib/articles-index.json && git commit -m "feat(blog): sync new curated AI resource guides" && git push origin main', {
+          execSync('git add blog/content blog/lib/articles-index.json blog/public/slides "LinkedIn Insights" && git commit -m "feat(blog): sync new curated AI resource guides & LinkedIn insights" && git push origin main', {
             stdio: "ignore",
             timeout: 30000
           });

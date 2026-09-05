@@ -32,6 +32,7 @@ const config = {
   },
   social: {
     linkedinPost: process.env.LINKEDIN_POST === "true",
+    twitterPost: process.env.TWITTER_POST !== "false",
   },
   syndication: {
     canonicalBaseUrl: (process.env.CANONICAL_BASE_URL || "https://blogs.drix10.com").replace(/\/$/, ""),

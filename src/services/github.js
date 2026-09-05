@@ -179,7 +179,37 @@ class GithubService {
       const fileName = `resources-${String(nextNumber).padStart(3, "0")}.md`;
       const filePath = `${decodedFolder}/${fileName}`;
       const fileUrl = `https://github.com/${owner}/${repo}/blob/${branch}/${urlSafeFolder}/${fileName}`;
-      const content = item.fileBuffer ? item.fileBuffer.toString("utf8") : String(item.markdownContent || "");
+      let content = item.fileBuffer ? item.fileBuffer.toString("utf8") : String(item.markdownContent || "");
+
+      // Attach promotional section and exact SEO backlink (skip for personal & linkedin insights)
+      const isSpecialFolder = decodedFolder.toLowerCase() === "personal" || decodedFolder.toLowerCase() === "linkedin insights";
+      if (!isSpecialFolder) {
+        const categorySlug = decodedFolder.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80);
+        const fileBase = fileName.replace(".md", "");
+        const articleSlug = fileBase.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80);
+        const blogArticleUrl = `https://blogs.drix10.com/articles/${categorySlug}/${articleSlug}`;
+
+        if (!content.includes("Read on the AI Knowledge Hub")) {
+          const promoSection = `
+
+---
+
+### 🌐 Read on the AI Knowledge Hub & Connect
+> **Interactive Article & Live Reader View**: [Read "${decodedFolder} #${nextNumber}" on blogs.drix10.com](${blogArticleUrl})
+
+Curated and maintained by **[Drishtant Ghosh (Drix10)](https://drix10.com)** — Co-Founder @ PartPilot, 1x Acquired Serial Founder (ReeF), Canopy @ Founders, Inc., & Cybersecurity Researcher.
+
+- **Interactive Article Breakdown**: [blogs.drix10.com/articles/${categorySlug}/${articleSlug}](${blogArticleUrl})
+- **GitHub Source File**: [${decodedFolder}/${fileName}](${fileUrl})
+- **Explore Full Knowledge Base**: [blogs.drix10.com](https://blogs.drix10.com)
+- **Personal Portfolio & Projects**: [drix10.com](https://drix10.com)
+- **Connect on LinkedIn**: [linkedin.com/in/drix10](https://www.linkedin.com/in/drix10)
+- **Follow on X / Twitter**: [@Drix_10](https://x.com/Drix_10)
+- **GitHub Repository**: [Drix10/ai-resources](https://github.com/Drix10/ai-resources)
+`;
+          content = content.trimEnd() + promoSection;
+        }
+      }
 
       preparedItems.push({
         ...item,

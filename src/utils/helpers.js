@@ -125,6 +125,22 @@ const rebuildBlogIndex = () => {
       }
     }
 
+    // Auto-sync root "LinkedIn Insights" to blog/content/LinkedIn Insights if present
+    const rootLinkedIn = path.join(rootDir, "LinkedIn Insights");
+    const blogLinkedIn = path.join(contentDir, "LinkedIn Insights");
+    if (fs.existsSync(rootLinkedIn)) {
+      if (!fs.existsSync(blogLinkedIn)) fs.mkdirSync(blogLinkedIn, { recursive: true });
+      const rootFiles = fs.readdirSync(rootLinkedIn);
+      for (const rf of rootFiles) {
+        if (!rf.endsWith(".md") || rf.toLowerCase() === "readme.md") continue;
+        const srcPath = path.join(rootLinkedIn, rf);
+        const destPath = path.join(blogLinkedIn, rf);
+        if (!fs.existsSync(destPath) || fs.statSync(srcPath).mtimeMs > fs.statSync(destPath).mtimeMs) {
+          fs.copyFileSync(srcPath, destPath);
+        }
+      }
+    }
+
     const entries = fs.readdirSync(contentDir, { withFileTypes: true });
     for (const entry of entries) {
       if (!entry.isDirectory() || entry.name.startsWith(".") || ignored.has(entry.name)) continue;

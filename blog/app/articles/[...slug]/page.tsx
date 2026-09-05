@@ -48,6 +48,14 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
   const article = getArticleBySlug(params.slug);
   if (!article) notFound();
 
+  const isFolderResource =
+    article.category.toLowerCase() !== 'personal' &&
+    article.category.toLowerCase() !== 'linkedin insights';
+
+  const githubFileUrl = isFolderResource
+    ? `https://github.com/Drix10/ai-resources/blob/main/${encodeURIComponent(article.category)}/${encodeURIComponent(article.filename)}`
+    : 'https://github.com/Drix10/ai-resources';
+
   const techArticleSchema = {
     '@context': 'https://schema.org',
     '@type': 'TechArticle',
@@ -57,6 +65,11 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
     datePublished: article.date,
     dateModified: article.date,
     wordCount: article.wordCount,
+    about: {
+      '@type': 'Thing',
+      name: article.category,
+    },
+    ...(isFolderResource ? { isBasedOn: githubFileUrl } : {}),
     author: {
       '@type': 'Person',
       '@id': 'https://drix10.com/#person',
@@ -165,11 +178,45 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
         })()}
       </header>
 
+      {/* Answer-First Executive Summary for AI Overviews & Fan-Out Crawlers (Screenshot 6: Lead with the answer) */}
+      {article.description && (
+        <section className="p-4 sm:p-5 rounded-2xl bg-zinc-900/50 border border-zinc-800/80 text-xs sm:text-sm text-zinc-300 leading-relaxed font-sans shadow-sm">
+          <div className="flex items-center gap-2 mb-2 text-emerald-400 font-mono text-[11px] font-semibold uppercase tracking-wider">
+            <span>⚡</span>
+            <span>Direct Technical Summary</span>
+          </div>
+          <p className="text-zinc-300 leading-relaxed">
+            {article.description}
+          </p>
+        </section>
+      )}
+
       {/* Article Prose with Mobile Overflow Protection */}
       <article 
         className="prose prose-invert prose-zinc max-w-none text-sm sm:text-[15px] leading-relaxed sm:leading-loose prose-headings:font-semibold prose-headings:text-zinc-100 prose-h1:text-lg sm:prose-h1:text-xl prose-h2:text-base sm:prose-h2:text-lg prose-h3:text-sm sm:prose-h3:text-base prose-p:text-zinc-300 prose-strong:text-zinc-100 prose-pre:bg-zinc-900 prose-pre:border prose-pre:border-zinc-800 prose-a:text-zinc-200 prose-a:underline hover:prose-a:text-white overflow-x-auto"
         dangerouslySetInnerHTML={{ __html: article.htmlContent }}
       />
+
+      {/* Reciprocal GitHub Repository Source Link for SEO */}
+      {isFolderResource && (
+        <section className="mt-8 p-4 rounded-xl bg-zinc-900/40 border border-zinc-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs font-mono">
+          <div className="flex items-center gap-2.5 text-zinc-400">
+            <span className="text-base">📂</span>
+            <span>Canonical GitHub Source:</span>
+            <span className="text-zinc-200 font-semibold">{article.category} / {article.filename}</span>
+          </div>
+          <a
+            href={githubFileUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white transition-colors text-[11px] font-medium shrink-0"
+            title={`View raw ${article.category}/${article.filename} on GitHub`}
+          >
+            <span>View Raw Markdown on GitHub</span>
+            <span className="text-[10px] text-zinc-400">↗</span>
+          </a>
+        </section>
+      )}
 
       {/* Internal Linking: Related Guides in same category for SEO/GEO crawl graph */}
       <section className="mt-8 pt-6 border-t border-zinc-800/80">
@@ -202,7 +249,7 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
       <div className="mt-8 sm:mt-12 pt-6 border-t border-zinc-800/80 space-y-4 sm:space-y-6">
         <div className="p-5 sm:p-6 rounded-2xl bg-zinc-900/40 border border-zinc-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 shadow-sm">
           <div className="flex items-center gap-3.5">
-            <a href="https://drix10.com" target="_blank" rel="noreferrer" className="shrink-0" title="Drishtant Ghosh (Drix10)">
+            <a href="https://drix10.com" target="_blank" rel="noopener noreferrer" className="shrink-0" title="Drishtant Ghosh (Drix10)">
               <Image
                 src="/avatar.png"
                 alt="Drishtant Ghosh (Drix10)"
@@ -227,7 +274,7 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
             <a
               href="https://drix10.com"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="flex-1 sm:flex-initial px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 hover:text-white text-xs font-semibold transition-colors text-center min-h-[36px] flex items-center justify-center gap-1"
             >
               <span>Portfolio</span>
@@ -236,29 +283,47 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
             <a
               href="https://www.linkedin.com/in/drix10"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="flex-1 sm:flex-initial px-3.5 py-2 rounded-xl bg-zinc-100 text-zinc-950 font-semibold text-xs hover:bg-zinc-200 transition-colors text-center min-h-[36px] flex items-center justify-center"
             >
               LinkedIn
             </a>
             <a
-              href="https://github.com/Drix10/ai-resources"
+              href={githubFileUrl}
               target="_blank"
-              rel="noreferrer"
-              className="flex-1 sm:flex-initial px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 text-xs font-medium transition-colors text-center min-h-[36px] flex items-center justify-center"
+              rel="noopener noreferrer"
+              className="flex-1 sm:flex-initial px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 text-xs font-medium transition-colors text-center min-h-[36px] flex items-center justify-center gap-1"
+              title={isFolderResource ? `View source ${article.category}/${article.filename} on GitHub` : "View repository on GitHub"}
             >
-              GitHub ⭐
+              <span>{isFolderResource ? "GitHub Source" : "GitHub"}</span>
+              <span className="text-amber-400 text-xs">⭐</span>
             </a>
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-zinc-500 text-center sm:text-left">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-500 text-center sm:text-left">
           <Link href="/" className="hover:text-zinc-300 transition-colors py-1">
             ← Back to all breakdowns
           </Link>
-          <a href={article.canonicalUrl} className="hover:text-zinc-300 font-mono truncate max-w-[280px]">
-            {article.canonicalUrl}
-          </a>
+          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2 font-mono text-[11px]">
+            {isFolderResource && (
+              <>
+                <a
+                  href={githubFileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-zinc-300 underline decoration-zinc-800 hover:decoration-zinc-500 transition-colors"
+                  title={`View source ${article.category}/${article.filename} on GitHub`}
+                >
+                  GitHub: {article.category}/{article.filename} ↗
+                </a>
+                <span className="text-zinc-700 hidden sm:inline">•</span>
+              </>
+            )}
+            <a href={article.canonicalUrl} className="hover:text-zinc-300 truncate max-w-[280px]">
+              {article.canonicalUrl}
+            </a>
+          </div>
         </div>
       </div>
     </div>

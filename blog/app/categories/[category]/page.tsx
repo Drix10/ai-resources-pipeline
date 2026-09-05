@@ -52,9 +52,64 @@ export default function CategoryPage({ params }: { params: { category: string } 
   if (filtered.length === 0) notFound();
 
   const categoryName = filtered[0].category;
+  const githubCategoryUrl = `https://github.com/Drix10/ai-resources/tree/main/${encodeURIComponent(categoryName)}`;
+  const canonicalUrl = `https://blogs.drix10.com/categories/${params.category}`;
+
+  const hubSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: `${categoryName} Technical Research & Guides`,
+    description: `Curated technical research, system designs, and architecture breakdowns on ${categoryName} by Drishtant Ghosh (Drix10).`,
+    url: canonicalUrl,
+    publisher: {
+      '@type': 'Organization',
+      name: 'Drix10 Blogs',
+      url: 'https://blogs.drix10.com',
+    },
+    hasPart: filtered.slice(0, 30).map((a) => ({
+      '@type': 'TechArticle',
+      headline: a.title,
+      url: a.canonicalUrl,
+      datePublished: a.date,
+    })),
+  };
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://blogs.drix10.com',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Categories',
+        item: 'https://blogs.drix10.com/categories',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: categoryName,
+        item: canonicalUrl,
+      },
+    ],
+  };
 
   return (
     <div className="space-y-10 sm:space-y-12 max-w-5xl mx-auto">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(hubSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       {/* Header */}
       <div className="space-y-3 pb-6 border-b border-zinc-800/80">
         <div className="flex items-center justify-between">
@@ -65,12 +120,28 @@ export default function CategoryPage({ params }: { params: { category: string } 
             Topic Hub
           </span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-100">
-          {categoryName}
-        </h1>
-        <p className="text-xs sm:text-sm text-zinc-300 max-w-2xl leading-relaxed">
-          {filtered.length} technical breakdown{filtered.length !== 1 ? 's' : ''} and architectural notes curated in this domain.
-        </p>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-100">
+              {categoryName}
+            </h1>
+            <p className="text-xs sm:text-sm text-zinc-300 max-w-2xl leading-relaxed mt-2">
+              {filtered.length} technical breakdown{filtered.length !== 1 ? 's' : ''} and architectural notes curated in this domain.
+            </p>
+          </div>
+          {categoryName.toLowerCase() !== 'personal' && categoryName.toLowerCase() !== 'linkedin insights' && (
+            <a
+              href={githubCategoryUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 hover:text-white text-xs font-mono transition-colors shrink-0 self-start sm:self-auto"
+              title={`View ${categoryName} repository folder on GitHub`}
+            >
+              <span>📂 GitHub Folder</span>
+              <span className="text-[10px] text-zinc-500">↗</span>
+            </a>
+          )}
+        </div>
       </div>
 
       <div className="grid gap-3.5">
