@@ -18,6 +18,7 @@ export interface ArticleSummary {
   readingTimeMinutes: number;
   wordCount: number;
   canonicalUrl: string;
+  isPersonal?: boolean;
 }
 
 export interface Article extends ArticleSummary {
@@ -97,9 +98,13 @@ export function getArticleBySlug(slugPath: string[]): Article | null {
     }
   }
 
+  // For web blog rendering, strip the static GitHub promo section since the web
+  // article page already renders the interactive React Author Card and GitHub source card.
+  const cleanContentForWeb = content.replace(/(?:\r?\n)+\s*---\s*###\s*(?:🌐\s*)?Read on the AI Knowledge Hub[\s\S]*$/i, '').trim();
+
   return {
     ...summary,
     content,
-    htmlContent: marked.parse(content) as string,
+    htmlContent: marked.parse(cleanContentForWeb) as string,
   };
 }

@@ -9,11 +9,12 @@ class LinkedInService {
   constructor() {
     this.driver = null;
     this.isInitialized = false;
+    this._isLoggedIn = false;
   }
 
-  async ensureDriverConnected() {
+  async ensureDriverConnected(requireLogin = false) {
     if (!this.driver || !this.isInitialized) {
-      await this.init();
+      await this.init(requireLogin);
       return;
     }
     try {
@@ -21,12 +22,19 @@ class LinkedInService {
     } catch (err) {
       logger.warn(`LinkedInService: WebDriver session was lost or invalid (${err.message}). Reinitializing...`);
       this.isInitialized = false;
+      this._isLoggedIn = false;
       await this.cleanup();
-      await this.init();
+      await this.init(requireLogin);
+      return;
+    }
+
+    if (requireLogin && !this._driverOwned && !this._isLoggedIn) {
+      await this.checkLogin();
+      this._isLoggedIn = true;
     }
   }
 
-  async init() {
+  async init(requireLogin = true) {
     try {
       if (!this.driver || !this.isInitialized) {
         let options = new chrome.Options();
@@ -59,13 +67,15 @@ class LinkedInService {
           }
         }
       }
-      if (!this._driverOwned) {
+      if (requireLogin && !this._driverOwned && !this._isLoggedIn) {
         await this.checkLogin();
+        this._isLoggedIn = true;
       }
       this.cleanupDebugScreenshots();
     } catch (error) {
       logger.error("LinkedInService: Failed to initialize:", error);
       this.isInitialized = false;
+      this._isLoggedIn = false;
       await this.cleanup();
       throw error;
     }
@@ -896,7 +906,7 @@ class LinkedInService {
     let htmlPath = null;
 
     try {
-      await this.ensureDriverConnected();
+      await this.ensureDriverConnected(false);
     } catch (err) {
       logger.error("LinkedInService: Failed to ensure driver connected for slide image:", err);
       return null;
@@ -1439,7 +1449,16 @@ class LinkedInService {
         try { await this.driver.close(); } catch (closeErr) { }
       }
       if (originalHandle) {
-        try { await this.driver.switchTo().window(originalHandle); } catch (switchErr) { }
+        try {
+          await this.driver.switchTo().window(originalHandle);
+        } catch (switchErr) {
+          try {
+            const handles = await this.driver.getAllWindowHandles();
+            if (handles && handles.length > 0) {
+              await this.driver.switchTo().window(handles[0]);
+            }
+          } catch (e) { }
+        }
       }
       if (originalSize) {
         try { await this.driver.manage().window().setSize({ width: originalSize.width, height: originalSize.height }); } catch (resizeErr) { }
@@ -1487,6 +1506,7 @@ class LinkedInService {
       this.driver = null;
       this._driverOwned = false;
       this.isInitialized = false;
+      this._isLoggedIn = false;
     }
   }
 }

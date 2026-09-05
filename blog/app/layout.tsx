@@ -214,7 +214,7 @@ export default function RootLayout({
               <a 
                 href="https://github.com/Drix10" 
                 target="_blank" 
-                rel="noreferrer" 
+                rel="noopener noreferrer" 
                 aria-label="GitHub Profile"
                 className="text-xs font-medium px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 hover:text-white transition-colors"
               >
@@ -223,7 +223,7 @@ export default function RootLayout({
               <a 
                 href="https://www.linkedin.com/in/drix10" 
                 target="_blank" 
-                rel="noreferrer" 
+                rel="noopener noreferrer" 
                 aria-label="Connect on LinkedIn"
                 className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-zinc-950 transition-colors"
               >
@@ -262,15 +262,21 @@ export default function RootLayout({
               </div>
 
               <div className="flex flex-wrap items-center justify-center gap-4 text-zinc-400">
-                <a href="https://drix10.com" target="_blank" rel="noreferrer" className="hover:text-zinc-100 hover:underline">
+                <a href="https://drix10.com" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-100 hover:underline">
                   Author Portfolio
                 </a>
-                <a href="https://github.com/Drix10/ai-resources" target="_blank" rel="noreferrer" className="hover:text-zinc-100 hover:underline">
+                <a href="https://github.com/Drix10/ai-resources" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-100 hover:underline">
                   GitHub Repo
                 </a>
-                <a href="https://www.linkedin.com/in/drix10" target="_blank" rel="noreferrer" className="hover:text-zinc-100 hover:underline">
+                <a href="https://www.linkedin.com/in/drix10" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-100 hover:underline">
                   LinkedIn
                 </a>
+                <a href="mailto:ggdrishtant@gmail.com" className="hover:text-zinc-100 hover:underline">
+                  Contact
+                </a>
+                <Link href="/llms.txt" className="hover:text-zinc-100 hover:underline font-mono text-[11px] text-emerald-400/90">
+                  llms.txt
+                </Link>
                 <Link href="/categories" className="hover:text-zinc-100 hover:underline">
                   Categories
                 </Link>

@@ -37,7 +37,8 @@ const BANNED_WORDS = [
   "push boundaries", "pushing boundaries", "extensibility", "masterclass",
   "paving the way", "incredible ways", "blurring lines", "deep dive",
   "supercharge", "supercharged", "supercharging", "paradigm shift",
-  "synergy", "plethora", "myriad", "harness", "harnessing", "unleash", "unleashing"
+  "synergy", "plethora", "myriad", "harness", "harnessing", "unleash", "unleashing",
+  "reconceptualize", "demassification", "attitudinally", "judgmentally", "utilize", "utilizing"
 ];
 
 const HAT_TIP_PROHIBITED_PATTERNS = [
@@ -473,6 +474,16 @@ You evaluate systems from a senior builder mindset, focusing strictly on the tec
 
 You curate raw tech/AI/developer content (Twitter threads, LinkedIn posts) and transform them into premium, high-value, and perfectly formatted technical articles in markdown.
 
+=== DAVID OGILVY'S 10 TIMELESS WRITING RULES (THE AGENCY MEMO STANDARD) ===
+All writing—whether engineering guides, architecture teardowns, or founder posts—must adhere to David Ogilvy's standard for clear, persuasive communication:
+1. WRITE THE WAY YOU TALK. NATURALLY. Write everyday, conversational, down-to-earth prose. Speak like a senior builder talking to another engineer across a table. Never sound academic, bureaucratic, or robotic.
+2. USE SHORT WORDS, SHORT SENTENCES, AND SHORT PARAGRAPHS. Good writing spits it out. Reading demands mental energy—never burden the reader with long-winded fluff. If a sentence or clause can be cut without losing technical truth, cut it immediately.
+3. NEVER USE PRETENTIOUS JARGON. Never use hollow words like "reconceptualize", "demassification", "attitudinally", "utilize", "leverage", "synergize", or "transformative". Say "use", "make", "build", "run", "cut", "ship". Plain words deliver maximum punch.
+4. NEVER WRITE MORE THAN NECESSARY. Brevity is confidence. A tight 300-word breakdown that delivers pure signal beats 1,500 words of consensus and filler.
+5. CHECK YOUR QUOTATIONS AND FACTS. Good writing is scrupulously honest. Double-check all numbers, claims, code snippets, and commands. Never invent metrics or extrapolate claims not found in the source material. Readers rely on your credibility.
+6. SELF-EDIT RUTHLESSLY. Read every draft with fresh eyes. Strip weak adverbs ("very", "really", "quite", "extremely"), remove robotic transitional phrases, and tighten rhythm.
+7. CRYSTAL-CLEAR PURPOSE. Before publishing, make sure it is 100% clear what the builder should understand or do. Never leave the reader thinking, "Now what?".
+
 === ANTI-AI & TECHNICAL TONE RULES (STRICT) ===
 1. BAN LIST — Absolutely NEVER use these robotic/AI buzzwords:
    ${BANNED_WORDS.map(w => `"${w}"`).join(", ")}
@@ -867,6 +878,14 @@ class LocalLLMService {
       [/\bkey takeaways?\b/gi, "takeaway"],
       [/\bbeacon\b/gi, "standard"],
       [/\bsophisticated\b/gi, "advanced"],
+
+      // Ogilvy banned jargon
+      [/\breconceptualiz(?:e|es)\b/gi, "rethink"],
+      [/\breconceptualizing\b/gi, "rethinking"],
+      [/\breconceptualized\b/gi, "rethought"],
+      [/\bdemassification\b/gi, "fragmentation"],
+      [/\battitudinally\b/gi, "in attitude"],
+      [/\bjudgmentally\b/gi, "critically"],
 
       // Cut unnecessary adverbs prohibited by Hat Tip
       [/\b(?:very|really|quite|extremely|wildly)\s+/gi, ""],
@@ -2300,7 +2319,7 @@ Transform every provided Twitter thread/conversation into a high-quality, profes
 
 Note: Some items are single tweets (Type: tweet) and others are multi-tweet threads (Type: thread). Single tweets should be summarized concisely as single-concept updates, whereas multi-tweet threads can be expanded into more detailed structured articles if they contain enough depth.
 
-Follow ALL rules from the SYSTEM_PROMPT (banned words, senior-engineer tone, sentence variance, no hype).
+Follow ALL rules from the SYSTEM_PROMPT (David Ogilvy's rules for clarity and natural voice, banned words, senior-engineer tone, sentence variance, no hype).
 
 Use this exact structure for every article:
 
@@ -2324,6 +2343,7 @@ Key Points:
 ![Image](url)
 
 Strict rules:
+- OGILVY CLARITY & BREVITY: Write the way you talk—naturally and casually to another engineer. Use short words, short sentences, and short paragraphs. Strip all long-winded fluff. Make every point deliver clear technical purpose.
 - Exact spacing with double newlines between Key Points (bullet points starting with "•").
 - Maximum 3-5 Key Points and 3-5 Implementation steps.
 - Every article MUST include its exact "Original post URL" as the first Resources link. Never change, shorten, or invent it.
@@ -2456,7 +2476,7 @@ Transform every provided Twitter thread and LinkedIn post into high-quality, pro
 
 Note: Some Twitter threads are single tweets (Type: tweet) and others are multi-tweet threads (Type: thread). Single tweets should be summarized concisely as single-concept updates, whereas multi-tweet threads can be expanded into more detailed structured articles if they contain enough depth.
 
-Follow ALL rules from the SYSTEM_PROMPT (banned words, senior-engineer tone, sentence variance, no hype).
+Follow ALL rules from the SYSTEM_PROMPT (David Ogilvy's rules for clarity and natural voice, banned words, senior-engineer tone, sentence variance, no hype).
 
 Use this exact structure for every article:
 
@@ -2478,6 +2498,7 @@ Key Points:
 ![Image](url)
 
 Strict rules:
+- OGILVY CLARITY & BREVITY: Write the way you talk—naturally and casually to another engineer. Use short words, short sentences, and short paragraphs. Strip all long-winded fluff. Make every point deliver clear technical purpose.
 - Exact spacing with double newlines between Key Points (bullet points starting with "•").
 - 3-5 clear, substantive Key Points per article.
 - Focus purely on high-signal Key Points and Resources. Never write placeholder sections or invent "No implementation steps provided".
