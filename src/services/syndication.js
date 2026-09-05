@@ -57,24 +57,42 @@ class SyndicationService {
       },
     });
 
-    const sendRequest = async (payload) => {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), this.DEFAULT_TIMEOUT_MS);
-      try {
-        const response = await fetch("https://dev.to/api/articles", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "api-key": apiKey,
-            "User-Agent": "ai-resources-pipeline/1.0 (https://blogs.drix10.com)",
-          },
-          signal: controller.signal,
-          body: JSON.stringify(payload),
-        });
-        const data = await response.json();
-        return { ok: response.ok, status: response.status, data };
-      } finally {
-        clearTimeout(timeout);
+    const sendRequest = async (payload, maxRetries = 2) => {
+      for (let attempt = 0; attempt <= maxRetries; attempt++) {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), this.DEFAULT_TIMEOUT_MS);
+        try {
+          const response = await fetch("https://dev.to/api/articles", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "api-key": apiKey,
+              "User-Agent": "ai-resources-pipeline/1.0 (https://blogs.drix10.com)",
+            },
+            signal: controller.signal,
+            body: JSON.stringify(payload),
+          });
+
+          const rawText = await response.text();
+          let data;
+          try {
+            data = JSON.parse(rawText);
+          } catch {
+            data = { error: rawText.trim() };
+          }
+
+          const isRateLimited = response.status === 429 || (typeof data?.error === "string" && data.error.toLowerCase().includes("retry later"));
+          if (isRateLimited && attempt < maxRetries) {
+            const waitSeconds = 5 + attempt * 2;
+            logger.warn(`SyndicationService: DEV.to rate limit hit (${rawText.trim() || 429}). Backing off for ${waitSeconds}s before retry (attempt ${attempt + 1}/${maxRetries})...`);
+            await new Promise((res) => setTimeout(res, waitSeconds * 1000));
+            continue;
+          }
+
+          return { ok: response.ok, status: response.status, data };
+        } finally {
+          clearTimeout(timeout);
+        }
       }
     };
 

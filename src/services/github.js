@@ -274,19 +274,28 @@ class GithubService {
       } catch (localErr) {
         logger.warn(`Local blog save warning (non-fatal): ${localErr.message}`);
       }
-
-      syndicationService
-        .syndicateMarkdownArticle({
-          title: `${item.decodedFolder} #${item.nextNumber}`,
-          markdown: item.content,
-          tags: [item.decodedFolder.toLowerCase().replace(/[^a-z0-9]/g, "")],
-          category: item.decodedFolder,
-          relativePath: item.filePath,
-        })
-        .catch(err => {
-          logger.warn(`Syndication error (non-fatal): ${err.message}`);
-        });
     }
+
+    // Syndicate sequentially in background so DEV.to rate limits (1 req/sec) are not exceeded
+    (async () => {
+      for (const item of preparedItems) {
+        try {
+          await syndicationService.syndicateMarkdownArticle({
+            title: `${item.decodedFolder} #${item.nextNumber}`,
+            markdown: item.content,
+            tags: [item.decodedFolder.toLowerCase().replace(/[^a-z0-9]/g, "")],
+            category: item.decodedFolder,
+            relativePath: item.filePath,
+          });
+          // Wait 2.5s between syndications to respect DEV.to burst & 30 req/30s rate limits
+          await new Promise((res) => setTimeout(res, 2500));
+        } catch (err) {
+          logger.warn(`Syndication error (non-fatal): ${err.message}`);
+        }
+      }
+    })().catch((err) => {
+      logger.warn(`Syndication batch runner error (non-fatal): ${err.message}`);
+    });
 
     return preparedItems.map(it => ({
       success: true,
