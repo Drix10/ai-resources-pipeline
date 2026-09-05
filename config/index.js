@@ -10,7 +10,7 @@ const config = {
     personalAccessToken: process.env.GITHUB_PAT,
     owner: process.env.GITHUB_USERNAME,
     repo: process.env.GITHUB_REPONAME,
-    batchCommitSize: parsePositiveInteger(process.env.GITHUB_COMMIT_BATCH_SIZE, 5),
+    batchCommitSize: parsePositiveInteger(process.env.GITHUB_COMMIT_BATCH_SIZE, 8),
   },
   llm: {
     useLocal: process.env.LOCAL_LLM !== undefined ? process.env.LOCAL_LLM === "true" : (process.env.USE_LOCAL_LLM !== undefined ? process.env.USE_LOCAL_LLM === "true" : true),
