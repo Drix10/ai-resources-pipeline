@@ -178,34 +178,24 @@ const runDataPipeline = async (folder) => {
         return null;
       }
 
-      const githubResult = await GithubService.createMarkdownFileFromCombined(
+      const markdownContent = await llmService.generateMarkdownFromCombined(
         tweets,
         linkedinPosts,
-        folder.name,
-        folder
+        2,
+        false,
+        [],
+        folder?.name
       );
-
-      if (!githubResult?.success) {
-        throw new Error("Failed to create and upload combined markdown file");
-      }
-
-      // Only a confirmed GitHub upload consumes the source IDs. This preserves
-      // candidates across retries when curation or upload fails temporarily.
-      TwitterService.markContentAsPublished(tweets);
-
-      // Post to Twitter/X
-      const tweetText = `New ${getTopicName(
-        folder.name
-      )} resource added!\n\nMade by @Drix10 via @CosLynxAI\n\nCheck out the latest resource here:\n${githubResult.url
-        }`;
-      await TwitterService.postTweet(tweetText).catch(err => {
-        logger.error("Failed to post tweet:", err);
-      });
+      const expectedArticleCount = llmService.normalizeCollectedThreads(tweets).length + linkedinPosts.filter(Boolean).length;
+      llmService.assertPublishableMarkdown(markdownContent, expectedArticleCount);
 
       return {
+        folder,
         queryName: folder.name,
-        githubUrl: githubResult.url,
-        markdownContent: githubResult.content
+        tweets,
+        linkedinPosts,
+        markdownContent,
+        fileBuffer: Buffer.from(markdownContent)
       };
     } catch (error) {
       logger.error(`Pipeline error for folder ${folder.name} (attempt ${retryCount + 1}/${MAX_RETRIES}):`, error);
@@ -390,20 +380,62 @@ const processAllFolders = async () => {
     const successfulArticles = [];
     let localLlmUnavailable = false;
     const rotation = getFoldersForRun();
+    const COMMIT_BATCH_SIZE = config.github.batchCommitSize || 5;
+    let pendingBatch = [];
+
+    const flushBatch = async () => {
+      if (pendingBatch.length === 0) return;
+      const batchToCommit = [...pendingBatch];
+      pendingBatch = [];
+
+      logger.info(
+        `Flushing batch of ${batchToCommit.length} folder article(s) to GitHub in 1 consolidated commit (batch size: ${COMMIT_BATCH_SIZE})...`
+      );
+
+      try {
+        const results = await GithubService.uploadMarkdownBatch(
+          batchToCommit,
+          `${config.github.owner}/${config.github.repo}`
+        );
+
+        for (const item of results) {
+          // Only a confirmed GitHub upload consumes the source IDs.
+          TwitterService.markContentAsPublished(item.tweets);
+
+          // Post to Twitter/X
+          const tweetText = `New ${getTopicName(
+            item.queryName
+          )} resource added!\n\nMade by @Drix10 via @CosLynxAI\n\nCheck out the latest resource here:\n${item.url}`;
+          await TwitterService.postTweet(tweetText).catch(err => {
+            logger.error(`Failed to post tweet for ${item.queryName}:`, err);
+          });
+          await sleep(2000);
+
+          logger.info(`Pipeline succeeded for folder type ${item.queryName}: ${item.url}`);
+          successfulArticles.push({
+            title: item.queryName,
+            githubUrl: item.url,
+            fullContent: item.content
+          });
+        }
+      } catch (batchErr) {
+        logger.error(`Batch GitHub commit failed for ${batchToCommit.length} folders:`, batchErr);
+      }
+    };
+
     for (let folderOffset = 0; folderOffset < rotation.folders.length; folderOffset++) {
       const folder = rotation.folders[folderOffset];
       let advanceRotation = true;
       try {
-        const result = await runDataPipeline(folder);
-        if (result) {
+        const prepared = await runDataPipeline(folder);
+        if (prepared) {
           logger.info(
-            `Pipeline succeeded for folder type ${result.queryName}: ${result.githubUrl}`
+            `Prepared article for ${prepared.queryName}. Queued in commit batch (${pendingBatch.length + 1}/${COMMIT_BATCH_SIZE}).`
           );
-          successfulArticles.push({
-            title: result.queryName,
-            githubUrl: result.githubUrl,
-            fullContent: result.markdownContent
-          });
+          pendingBatch.push(prepared);
+          if (pendingBatch.length >= COMMIT_BATCH_SIZE) {
+            await flushBatch();
+          }
         } else {
           logger.info(
             `Pipeline completed for folder, but no new threads/posts were found.`
@@ -426,6 +458,12 @@ const processAllFolders = async () => {
           rotation.totalFolders,
         );
       }
+    }
+
+    // Flush any remaining prepared articles in final batch
+    if (pendingBatch.length > 0) {
+      logger.info(`Flushing final remaining batch of ${pendingBatch.length} folder article(s)...`);
+      await flushBatch();
     }
 
     await GithubService.updateReadmeWithNewFile(

@@ -131,93 +131,183 @@ class GithubService {
     }
   }
 
-  async uploadMarkdownFile(fileBuffer, repoName, folder) {
-    if (!Buffer.isBuffer(fileBuffer)) {
-      throw new Error("Markdown content must be provided as a Buffer");
+  /**
+   * Batches multiple folder markdown files into ONE consolidated GitHub commit using the Git Data API.
+   * Eliminates commit flooding (e.g. groups 5-10 folders into 1 commit instead of 1 by 1).
+   *
+   * @param {Array<Object>} items - Array of { folder, fileBuffer, markdownContent, tweets, linkedinPosts, queryName }
+   * @param {string} repoName - e.g. "Drix10/ai-resources"
+   * @returns {Promise<Array<Object>>} - Array of { success, url, content, folder, number, sha, tweets, queryName }
+   */
+  async uploadMarkdownBatch(items, repoName = `${config.github.owner}/${config.github.repo}`, branch = "main") {
+    if (!Array.isArray(items) || items.length === 0) {
+      return [];
     }
-    if (
-      !folder ||
-      typeof folder.name !== "string" ||
-      !folder.name.trim() ||
-      folder.name.includes("..") ||
-      /[\\/]/.test(folder.name)
-    ) {
-      throw new Error("A valid destination folder is required");
-    }
+
     if (typeof repoName !== "string" || !repoName.includes("/")) {
       throw new Error("Repository must use the owner/repository format");
     }
     const [owner, repo] = repoName.split("/");
 
-    const decodedFolder = folder.name.replace(/ /g, " ");
-    const urlSafeFolder = encodeURIComponent(decodedFolder);
+    const rateLimit = await this.checkRateLimit();
+    if (rateLimit.isLimited) {
+      throw new Error(`Rate limit exceeded. Resets at ${rateLimit.resetTime}`);
+    }
 
-    try {
-      await this.ensureFolderExists(owner, repo, decodedFolder);
+    await this.checkRepoAccess(owner, repo);
 
-      const nextNumber = await this.getNextFileNumber(
-        owner,
-        repo,
-        decodedFolder
-      );
+    // 1. Prepare file numbers, paths, and content strings for every item in the batch
+    const folderNumberMap = new Map();
+    const preparedItems = [];
+
+    for (const item of items) {
+      const folderObj = item.folder || { name: item.queryName };
+      if (!folderObj || typeof folderObj.name !== "string" || !folderObj.name.trim()) {
+        throw new Error("A valid destination folder is required for each batch item");
+      }
+      const decodedFolder = folderObj.name.replace(/ /g, " ");
+      const urlSafeFolder = encodeURIComponent(decodedFolder);
+
+      let nextNumber;
+      if (folderNumberMap.has(decodedFolder)) {
+        nextNumber = folderNumberMap.get(decodedFolder) + 1;
+      } else {
+        nextNumber = await this.getNextFileNumber(owner, repo, decodedFolder);
+      }
+      folderNumberMap.set(decodedFolder, nextNumber);
 
       const fileName = `resources-${String(nextNumber).padStart(3, "0")}.md`;
       const filePath = `${decodedFolder}/${fileName}`;
-      const base64FileContent = fileBuffer.toString("base64");
+      const fileUrl = `https://github.com/${owner}/${repo}/blob/${branch}/${urlSafeFolder}/${fileName}`;
+      const content = item.fileBuffer ? item.fileBuffer.toString("utf8") : String(item.markdownContent || "");
 
-      const rateLimit = await this.checkRateLimit();
-      if (rateLimit.isLimited) {
-        throw new Error(
-          `Rate limit exceeded. Resets at ${rateLimit.resetTime}`
-        );
-      }
-
-      await this.checkRepoAccess(owner, repo);
-
-      const response = await this.createOrUpdateFile(
-        owner,
-        repo,
+      preparedItems.push({
+        ...item,
+        folder: folderObj,
+        queryName: folderObj.name,
+        decodedFolder,
+        urlSafeFolder,
+        nextNumber,
+        fileName,
         filePath,
-        base64FileContent,
-        `📝 Add resource collection #${nextNumber}`
-      );
+        fileUrl,
+        content
+      });
+    }
 
-      const fileUrl = `https://github.com/${owner}/${repo}/blob/main/${urlSafeFolder}/${fileName}`;
+    // 2. Commit all files in ONE single commit via GitHub Git Data API
+    let newCommitSha = null;
+    let commitError = null;
 
-      // Save locally to blog/content as well so local Knowledge Hub is instantly in sync
+    for (let attempt = 1; attempt <= this.MAX_RETRIES; attempt++) {
       try {
-        const localBlogContentDir = path.join(process.cwd(), 'blog', 'content', decodedFolder);
+        const branchRef = await this.octokit.git.getRef({ owner, repo, ref: `heads/${branch}` });
+        const latestCommitSha = branchRef.data.object.sha;
+        const commitData = await this.octokit.git.getCommit({ owner, repo, commit_sha: latestCommitSha });
+        const baseTreeSha = commitData.data.tree.sha;
+
+        const treeEntries = preparedItems.map(it => ({
+          path: it.filePath,
+          mode: "100644",
+          type: "blob",
+          content: it.content
+        }));
+
+        const newTree = await this.octokit.git.createTree({
+          owner,
+          repo,
+          base_tree: baseTreeSha,
+          tree: treeEntries
+        });
+
+        const commitMessage = preparedItems.length === 1
+          ? `📝 Add resource collection: ${preparedItems[0].decodedFolder} #${preparedItems[0].nextNumber}`
+          : `📝 Batch sync: ${preparedItems.length} resource collections\n\n` +
+            preparedItems.map(it => `- ${it.decodedFolder} (#${it.nextNumber})`).join("\n");
+
+        const authorInfo = {
+          name: "Drix10",
+          email: "ggdrishtant@gmail.com"
+        };
+
+        const newCommit = await this.octokit.git.createCommit({
+          owner,
+          repo,
+          message: commitMessage,
+          tree: newTree.data.sha,
+          parents: [latestCommitSha],
+          author: authorInfo,
+          committer: authorInfo
+        });
+
+        await this.octokit.git.updateRef({
+          owner,
+          repo,
+          ref: `heads/${branch}`,
+          sha: newCommit.data.sha
+        });
+
+        newCommitSha = newCommit.data.sha;
+        logger.info(`Successfully pushed batched commit (${preparedItems.length} files) to ${owner}/${repo}: ${newCommitSha}`);
+        break;
+      } catch (err) {
+        commitError = err;
+        logger.warn(`Batch commit attempt ${attempt}/${this.MAX_RETRIES} failed: ${err.message}`);
+        if (attempt < this.MAX_RETRIES) {
+          await new Promise(res => setTimeout(res, 2000 * attempt));
+        }
+      }
+    }
+
+    if (!newCommitSha) {
+      throw new Error(`Failed to commit batch to GitHub after ${this.MAX_RETRIES} attempts: ${commitError?.message}`);
+    }
+
+    // 3. Post-commit operations for each file (local blog copy & syndication)
+    for (const item of preparedItems) {
+      try {
+        const localBlogContentDir = path.join(process.cwd(), "blog", "content", item.decodedFolder);
         if (!fs.existsSync(localBlogContentDir)) {
           fs.mkdirSync(localBlogContentDir, { recursive: true });
         }
-        fs.writeFileSync(path.join(localBlogContentDir, fileName), fileBuffer, 'utf8');
+        fs.writeFileSync(path.join(localBlogContentDir, item.fileName), item.content, "utf8");
       } catch (localErr) {
         logger.warn(`Local blog save warning (non-fatal): ${localErr.message}`);
       }
 
-      // Asynchronously syndicate to enabled developer platforms (DEV.to) with canonical URL protection
       syndicationService
         .syndicateMarkdownArticle({
-          title: `${decodedFolder} #${nextNumber}`,
-          markdown: fileBuffer.toString("utf8"),
-          tags: [decodedFolder.toLowerCase().replace(/[^a-z0-9]/g, "")],
-          category: decodedFolder,
-          relativePath: filePath,
+          title: `${item.decodedFolder} #${item.nextNumber}`,
+          markdown: item.content,
+          tags: [item.decodedFolder.toLowerCase().replace(/[^a-z0-9]/g, "")],
+          category: item.decodedFolder,
+          relativePath: item.filePath,
         })
-        .catch((err) => {
+        .catch(err => {
           logger.warn(`Syndication error (non-fatal): ${err.message}`);
         });
-
-      return {
-        success: true,
-        message: "File uploaded successfully",
-        url: fileUrl,
-        sha: response.data.content.sha,
-        number: nextNumber,
-      };
-    } catch (error) {
-      return this.handleGitHubError(error);
     }
+
+    return preparedItems.map(it => ({
+      success: true,
+      message: "File uploaded successfully as part of batch commit",
+      url: it.fileUrl,
+      sha: newCommitSha,
+      number: it.nextNumber,
+      content: it.content,
+      queryName: it.queryName,
+      folder: it.folder,
+      tweets: it.tweets || [],
+      linkedinPosts: it.linkedinPosts || []
+    }));
+  }
+
+  async uploadMarkdownFile(fileBuffer, repoName, folder) {
+    const results = await this.uploadMarkdownBatch([{ fileBuffer, folder }], repoName);
+    if (!results || results.length === 0) {
+      throw new Error("Failed to upload markdown file");
+    }
+    return results[0];
   }
 
   async getNextFileNumber(owner, repo, folder) {
