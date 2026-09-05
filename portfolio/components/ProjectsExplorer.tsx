@@ -54,15 +54,15 @@ const PROJECTS: Project[] = [
     highlight: '1x Acquired ($15k ARR)',
   },
   {
-    title: 'AI Resources Knowledge Hub',
+    title: 'AI Resources Knowledge Hub & RAIDS Engine',
     category: 'AI & LLMs',
     period: 'Dec 2024 — Present',
     description:
-      'Autonomous system curating senior-level AI engineering updates, synthesizing structured breakdowns via local & NVIDIA LLMs, and static-generating curated engineering breakdowns on blogs.drix10.com.',
-    tags: ['Next.js 14', 'Selenium', 'NVIDIA NIM', 'TypeScript', 'Ollama', 'SEO Pipeline'],
+      'Autonomous multi-platform distribution engine (RAIDS Protocol) implementing 8 core SEO & information gain blueprints. Synthesizes high-density engineering breakdowns via local & NVIDIA LLMs, generating reciprocal backlinks, Answer-First query fan-out summaries, and 0-orphan architectures across blogs.drix10.com, GitHub, and DEV.to.',
+    tags: ['RAIDS Protocol', '8 SEO Blueprints', 'Next.js 14', 'NVIDIA NIM', 'TypeScript', 'Ollama', 'Multi-Platform'],
     github: 'https://github.com/Drix10/ai-resources',
     live: 'https://blogs.drix10.com',
-    highlight: 'Autonomous Hub • 100+ Stars',
+    highlight: 'RAIDS Engine • 8 Blueprints • 100+ Stars',
   },
   {
     title: 'Intent Canvas',

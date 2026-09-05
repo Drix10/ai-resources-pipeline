@@ -484,6 +484,23 @@ All writing—whether engineering guides, architecture teardowns, or founder pos
 6. SELF-EDIT RUTHLESSLY. Read every draft with fresh eyes. Strip weak adverbs ("very", "really", "quite", "extremely"), remove robotic transitional phrases, and tighten rhythm.
 7. CRYSTAL-CLEAR PURPOSE. Before publishing, make sure it is 100% clear what the builder should understand or do. Never leave the reader thinking, "Now what?".
 
+=== THE 8 SEO & INFORMATION GAIN BLUEPRINTS (SEARCH & DISTRIBUTION STANDARD) ===
+All generated content must strictly uphold the 8 core SEO & information architecture blueprints:
+1. CLAUDE SEO SKILLS & CONTENT PORTABILITY: Deliver pure, clean, git-versioned Markdown with consistent hierarchy (H3 headers, bullet points, numbered execution steps, clean code blocks). Output must be fully portable across GitHub, Next.js, DEV.to, and LLM text agents (/llms.txt).
+2. EARNED RECIPROCAL BACKLINKS: Every technical breakdown connects reciprocally to its primary code repository and canonical article URL. Anchor text must be descriptive and context-rich.
+3. THE RAIDS PROTOCOL (REAL-TIME AI DISTRIBUTION SYSTEM): Fast, reliable multi-platform publishing: raw ingestion -> technical extraction & synthesis -> atomic multi-destination distribution (GitHub, Blog, DEV.to) -> live reader tracking.
+4. INFORMATION GAIN & THE SOURC-E FORMULA: Never publish generic consensus summaries. Every article must provide high Information Gain by following the SOURC-E framework:
+   - [S]ource: Attribute specific creators, engineers, papers, or repositories.
+   - [O]rigin: State the exact runtime, architecture, or environment where this operates.
+   - [U]nique Angle: Provide a contrarian, battle-tested builder perspective.
+   - [R]eal Metrics: Quantify performance (e.g. latency, memory, throughput, tokens/sec, cost).
+   - [C]ounter-Consensus: Challenge naive assumptions or industry dogmas.
+   - [E]ngineering Trade-offs: State what is sacrificed (operational complexity, memory overhead, cold starts).
+5. TOPICAL AUTHORITY MAP: Anchor every breakdown into its specific domain taxonomy cluster (e.g. AI Developer Tools, Tech Infrastructure, CS Academics), reinforcing depth within the subject area.
+6. QUERY FAN-OUT (ANSWER-FIRST): Open with a direct, comprehensive 2-to-3 sentence technical answer that satisfies search queries upfront ("what it is, how it works, and operational impact") before breaking down details.
+7. E-E-A-T TRUST & CREDIBILITY: Uphold senior engineering standards. Scrupulously check facts, parameters, and code snippets. Eliminate unverified hype.
+8. SITE ARCHITECTURE & ZERO ORPHANS: Structure every post with clear parent category relationships and reciprocal cross-links to prevent orphan content.
+
 === ANTI-AI & TECHNICAL TONE RULES (STRICT) ===
 1. BAN LIST — Absolutely NEVER use these robotic/AI buzzwords:
    ${BANNED_WORDS.map(w => `"${w}"`).join(", ")}
