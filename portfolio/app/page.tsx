@@ -340,14 +340,14 @@ export default function HomePage() {
       <section id="writing" className="p-6 sm:p-8 rounded-3xl bg-zinc-900/30 border border-zinc-800 space-y-4">
         <div className="flex items-center justify-between">
           <span className="text-xs font-mono text-zinc-400 font-semibold">05. Research & Engineering Writing</span>
-          <span className="text-xs font-mono text-emerald-400">Knowledge Hub</span>
+          <span className="text-xs font-mono text-emerald-400">740+ Deep Dives</span>
         </div>
         <div className="space-y-2">
           <h3 className="text-lg font-bold text-zinc-100">
-            Technical Research, Architecture Notes & Founder Essays
+            Autonomous Technical Research & System Architecture Notes
           </h3>
           <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed max-w-2xl">
-            Engineering deep dives, autonomous agent architectures, cybersecurity analyses, distributed systems postmortems, and startup lessons learned.
+            Operating the RAIDS Protocol across 740+ curated AI breakdowns, implementing the 8 Core SEO & Information Gain Blueprints: Answer-First query fan-out summaries, 0-orphan sitemaps, E-E-A-T entity graphs, and reciprocal backlink networks linking blogs.drix10.com, GitHub, and DEV.to.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-3 pt-2 text-xs font-mono">
@@ -357,7 +357,25 @@ export default function HomePage() {
             rel="noreferrer"
             className="text-emerald-400 hover:text-emerald-300 underline font-semibold"
           >
-            Read Articles on Drix10 Blogs ↗
+            Explore AI Knowledge Hub (blogs.drix10.com) ↗
+          </a>
+          <span className="text-zinc-700">•</span>
+          <a
+            href="https://github.com/Drix10/ai-resources"
+            target="_blank"
+            rel="noreferrer"
+            className="text-zinc-300 hover:text-white underline font-semibold"
+          >
+            GitHub Repository (Drix10/ai-resources) ↗
+          </a>
+          <span className="text-zinc-700">•</span>
+          <a
+            href="https://dev.to/drix10"
+            target="_blank"
+            rel="noreferrer"
+            className="text-zinc-400 hover:text-zinc-200 underline"
+          >
+            DEV.to Articles ↗
           </a>
           <span className="text-zinc-700">•</span>
           <a
@@ -366,7 +384,7 @@ export default function HomePage() {
             rel="noreferrer"
             className="text-zinc-400 hover:text-zinc-200 underline"
           >
-            Featured in Smashing Magazine ↗
+            Smashing Magazine ↗
           </a>
         </div>
       </section>
