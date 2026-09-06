@@ -558,17 +558,24 @@ const processAllFolders = async () => {
         logger.info("Cycle End: Rebuilt local Knowledge Hub search index.");
       }
 
-      // Automatically git commit & push newly synced articles so Vercel deploys the updated Knowledge Hub
+      // Automatically git commit & push newly synced articles ONLY if automated build verification passes
       if (successfulArticles.length > 0) {
         try {
           const { execSync } = require("child_process");
+          logger.info("Cycle End: Running automated build verification before git push...");
+          execSync("npm --prefix blog run build", {
+            stdio: "pipe",
+            timeout: 180000
+          });
+          logger.info("Cycle End: Automated build verification passed (100% clean). Proceeding to push...");
+
           execSync('git add blog/content blog/lib/articles-index.json blog/public/slides "LinkedIn Insights" && git commit -m "feat(blog): sync new curated AI resource guides & LinkedIn insights" && git push origin main', {
             stdio: "ignore",
             timeout: 30000
           });
           logger.info("Cycle End: Pushed updated Knowledge Hub articles to origin main (Triggered automated Vercel deploy).");
         } catch (gitErr) {
-          logger.warn(`Cycle End: Automated git push skipped: ${gitErr.message}`);
+          logger.error(`Cycle End: Automated build verification failed or git push blocked: ${gitErr.message}`);
         }
       }
     } catch (indexErr) {

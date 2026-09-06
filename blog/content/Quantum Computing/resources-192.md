@@ -154,26 +154,17 @@ Key Points:
 🔗 Resources:
 • [Ctech](https://ift.tt/wM1FdYp) - Article on remote heartbeat detection research
 
-
 ---
 
-### ⭐️ Support
+### Read More & Connect
 
-If you liked reading this report, please star ⭐️ this repository and follow me on [Github](https://github.com/Drix10), [𝕏 (previously known as Twitter)](https://x.com/DRIX_10_) to help others discover these resources and regular updates.
+**Interactive version:** [blogs.drix10.com](https://blogs.drix10.com/articles/quantum-computing/quantum-communications-wits-breakthrough-192)
 
----
+Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical founder and engineer working across AI systems, developer infrastructure, and cybersecurity.
 
----
-
-### 🌐 Read on the AI Knowledge Hub & Connect
-> **Interactive Article & Live Reader View**: [Read "Quantum Computing #192" on blogs.drix10.com](https://blogs.drix10.com/articles/quantum-computing/quantum-communications-wits-breakthrough-192)
-
-Curated and maintained by **[Drishtant Ghosh (Drix10)](https://drix10.com)** — Co-Founder @ PartPilot, 1x Acquired Serial Founder (ReeF), Canopy @ Founders, Inc., & Cybersecurity Researcher.
-
-- **Interactive Article Breakdown**: [blogs.drix10.com/articles/quantum-computing/quantum-communications-wits-breakthrough-192](https://blogs.drix10.com/articles/quantum-computing/quantum-communications-wits-breakthrough-192)
-- **GitHub Source File**: [Quantum Computing/resources-192.md](https://github.com/Drix10/ai-resources/blob/main/Quantum%20Computing/resources-192.md)
-- **Explore Full Knowledge Base**: [blogs.drix10.com](https://blogs.drix10.com)
-- **Personal Portfolio & Projects**: [drix10.com](https://drix10.com)
-- **Connect on LinkedIn**: [linkedin.com/in/drix10](https://www.linkedin.com/in/drix10)
-- **Follow on X / Twitter**: [@Drix_10](https://x.com/Drix_10)
-- **GitHub Repository**: [Drix10/ai-resources](https://github.com/Drix10/ai-resources)
+- **Blog:** [blogs.drix10.com](https://blogs.drix10.com)
+- **Portfolio:** [drix10.com](https://drix10.com)
+- **GitHub:** [github.com/Drix10](https://github.com/Drix10)
+- **LinkedIn:** [linkedin.com/in/drix10](https://www.linkedin.com/in/drix10)
+- **X:** [@DrishtantGhosh](https://x.com/DrishtantGhosh)
+- **Email:** [ggdrishtant@gmail.com](mailto:ggdrishtant@gmail.com)

@@ -611,6 +611,66 @@ class LocalLLMService {
     // Convert bullet markers (like Unicode •) at the beginning of lines to standard markdown "- "
     res = res.replace(/^[ \t]*•[ \t]+/gm, '- ');
 
+    // Convert inline image bullets "- ![Image](url) - desc" to standalone image blocks
+    res = res.replace(/^[ \t]*[-•*][ \t]+(!\[[^\]]*\]\([^)]+\))[ \t]*(?:-[ \t]*([^\n]*))?$/gm, (m, img, desc) => {
+      return desc && desc.trim() ? `\n\n${img}\n*${desc.trim()}*\n` : `\n\n${img}\n`;
+    });
+
+    // Ensure bold concept prefixes on Key Points bullets: - **Concept**: Explanation
+    const lines = res.split(/\r?\n/);
+    let inKeyPoints = false;
+    let inResources = false;
+    const formattedLines = [];
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      const trimmed = line.trim();
+
+      if (/^\*{0,2}Key Points:?\*{0,2}/i.test(trimmed)) {
+        inKeyPoints = true;
+        inResources = false;
+        formattedLines.push('Key Points:\n');
+        continue;
+      }
+      if (/^\*{0,2}(?:🔗\s*)?Resources:?\*{0,2}/i.test(trimmed)) {
+        inKeyPoints = false;
+        inResources = true;
+        formattedLines.push('\n🔗 Resources:\n');
+        continue;
+      }
+      if (/^###\s+/.test(trimmed) || /^---\s*$/.test(trimmed)) {
+        inKeyPoints = false;
+        inResources = false;
+      }
+
+      if (inKeyPoints && /^[ \t]*[-*][ \t]+/.test(line)) {
+        let content = trimmed.replace(/^[ \t]*[-*][ \t]+/, '').trim();
+        if (!content.startsWith('[') && !content.startsWith('![') && !content.startsWith('**')) {
+          const m = content.match(/^([A-Za-z0-9\s\-]{3,35}?)(?:\s+(?:is|are|provides|revealed|features|decompose|anchors|minimizes|delivers|explores|allows|helps|focuses|has|have|can|will|should|demonstrated)\b|[:,—])/i);
+          if (m && m[1].trim().split(/\s+/).length <= 4) {
+            const topic = m[1].trim();
+            const rest = content.slice(m[0].length).trim();
+            const connector = m[0].slice(m[1].length).trim();
+            content = `**${topic}**: ${connector ? connector + ' ' : ''}${rest}`;
+          } else {
+            const words = content.split(' ');
+            const topic = words.slice(0, 3).join(' ');
+            const rest = words.slice(3).join(' ');
+            content = `**${topic}**: ${rest}`;
+          }
+        }
+        formattedLines.push(`- ${content}\n`);
+        continue;
+      }
+
+      formattedLines.push(line);
+    }
+
+    res = formattedLines.join('\n');
+
+    // Collapse multiple horizontal rules into single
+    res = res.replace(/(?:\r?\n\s*---\s*){2,}/g, '\n\n---\n\n');
+
     // Ensure blank lines before list items after headers (Key Points:, 🔗 Resources:, Implementation:)
     res = res.replace(/((?:Key Points|🔗 Resources|Implementation)[^:\n]*:)[ \t]*\n(?!\n)/gi, '$1\n\n');
 
@@ -1039,6 +1099,9 @@ class LocalLLMService {
     const configuredModel = config.llm.nvidia.model || "meta/llama-3.2-11b-vision-instruct";
     const candidateModels = [
       configuredModel,
+      "mistralai/mistral-large",
+      "mistralai/mistral-7b-instruct-v0.3",
+      "meta/llama-3.2-90b-vision-instruct",
       "meta/llama-3.2-11b-vision-instruct"
     ].filter((m, idx, arr) => m && arr.indexOf(m) === idx);
 
@@ -1050,7 +1113,10 @@ class LocalLLMService {
 
       for (let attempt = 1; attempt <= maxRetries; attempt++) {
         const controller = new AbortController();
-        const requestTimeout = config.llm.nvidia.requestTimeoutMs || 60000;
+        const requestTimeout = Math.max(
+          config.llm.nvidia.requestTimeoutMs || 180000,
+          typeof options.timeoutMs === "number" ? options.timeoutMs : 180000
+        );
         const timeout = setTimeout(() => controller.abort(), requestTimeout);
 
         try {
@@ -2433,6 +2499,7 @@ ${combinedPrompt}</source_material>
       try {
         const generatedText = await this.generateText(prompt, {
           num_predict: Math.min(2600, Math.max(1400, groupedThreads.length * 900)),
+          timeoutMs: Math.max(180000, groupedThreads.length * 25000),
         });
         logger.info("LocalLLMService: Markdown generated successfully.");
 
@@ -2590,6 +2657,7 @@ ${combinedPrompt}</source_material>
       try {
         const generatedText = await this.generateText(prompt, {
           num_predict: Math.min(2600, Math.max(1400, sourceCount * 900)),
+          timeoutMs: Math.max(180000, sourceCount * 25000),
         });
 
         return this.finalizeGeneratedMarkdown(
@@ -4236,15 +4304,86 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
   stripOffTopicSections(markdown) {
     const offtopicPatterns = [
       /🏀|⚽|🏈|⚾|🎾|💄|👗|👠/,
-      /\b(nba|nfl|mlb|pacers|lakers|warriors|celtics|touchdown|slam dunk|jersey|uniforms?|fragrance|perfume|cologne|lipstick|haute couture|ootd)\b/i
+      /\b(nba|nfl|mlb|pacers|lakers|warriors|celtics|touchdown|slam dunk|jersey|uniforms?|fragrance|perfume|cologne|lipstick|haute couture|ootd)\b/i,
+      /\b(film review|movie review|telluride|sundance|cannes film|venice film|box office|movie premiere|film festival|rotten tomatoes|comedy-drama film|theatrical release|julianne moore|jesse eisenberg)\b/i,
+      /\b(muslim brotherhood|woke mainstream|extremism of the muslim brotherhood|national socialism)\b/i,
+      /\b(the power of pressure|pressure is not force|example of a paper cup)\b/i,
+      /\b(adéla's debut album|nicole kidman music video)\b/i,
     ];
+
+    const seenTitles = new Set();
+    const seenBodies = new Set();
+
     return String(markdown || "")
       .split(/(?=^###\s+)/gm)
+      .map(chunk => {
+        if (!/^###\s+/.test(chunk) || /^### ⭐️ Support/m.test(chunk)) return chunk;
+        const lines = chunk.trim().split(/\r?\n/);
+        let titleLine = lines[0].replace(/^###\s+/, '').trim();
+        let bodyLines = lines.slice(1);
+
+        // Strip generic prompt-echo prefixes from title
+        titleLine = titleLine.replace(/^🤖\s*AI Systems & LLM Architect(?:ures)?\s*[-–—:]\s*/i, '🤖 ');
+        titleLine = titleLine.replace(/^🚀\s*Technology\s*[-–—:]\s*/i, '🚀 ');
+
+        // Check if first non-empty line is a bold subtitle
+        const firstNonEmptyIdx = bodyLines.findIndex(l => l.trim().length > 0);
+        if (firstNonEmptyIdx !== -1) {
+          const firstLine = bodyLines[firstNonEmptyIdx].trim();
+          const boldMatch = firstLine.match(/^\*\*([^\*]+)\*\*$/);
+          if (boldMatch) {
+            const candidate = boldMatch[1].trim();
+            if (!/^key points/i.test(candidate) && !/^resources/i.test(candidate) && candidate.length >= 3 && candidate.length <= 80) {
+              const emoji = titleLine.match(/^([\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]\s*)/u)?.[1] || '🚀 ';
+              titleLine = `${emoji}${candidate}`;
+              bodyLines.splice(firstNonEmptyIdx, 1);
+            }
+          }
+        }
+
+        return `### ${titleLine}\n\n${bodyLines.join('\n').trim()}\n\n`;
+      })
       .filter(chunk => {
         if (!/^###\s+/.test(chunk) || /^### ⭐️ Support/m.test(chunk)) return true;
         const titleMatch = chunk.match(/^###\s+(.+)$/m);
-        const title = titleMatch ? titleMatch[1] : "";
-        return !offtopicPatterns.some(p => p.test(title));
+        const rawTitle = titleMatch ? titleMatch[1].trim() : "";
+        const titleClean = rawTitle.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+
+        // Drop prompt echo titles
+        if (/ai systems & llm architect/i.test(rawTitle) || /technical markdown articles/i.test(rawTitle) || /twitter\/?x threads/i.test(rawTitle)) {
+          return false;
+        }
+
+        // Drop meta prompt echo body text
+        if (/in this article, we will explore 10 twitter/i.test(chunk)) {
+          return false;
+        }
+
+        // Drop empty sections
+        const bodyText = chunk.replace(/^###\s+[^\n]+\n*/, "").replace(/---\s*$/, "").trim();
+        if (bodyText.length < 30) {
+          return false;
+        }
+
+        // Drop off-topic non-tech content
+        if (offtopicPatterns.some(p => p.test(rawTitle) || p.test(bodyText))) {
+          return false;
+        }
+
+        // Deduplicate duplicate sections with identical titles
+        if (seenTitles.has(titleClean)) {
+          return false;
+        }
+        seenTitles.add(titleClean);
+
+        // Deduplicate by body fingerprint
+        const bodyFingerprint = bodyText.toLowerCase().replace(/[^a-z0-9]+/g, " ").slice(0, 100);
+        if (seenBodies.has(bodyFingerprint)) {
+          return false;
+        }
+        seenBodies.add(bodyFingerprint);
+
+        return true;
       })
       .join("");
   }

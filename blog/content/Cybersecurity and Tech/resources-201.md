@@ -160,15 +160,15 @@ Key Points:
 
 ---
 
-### 🌐 Read on the AI Knowledge Hub & Connect
-> **Interactive Article & Live Reader View**: [Read "Cybersecurity and Tech #201" on blogs.drix10.com](https://blogs.drix10.com/articles/cybersecurity-and-tech/security-typosquatting-packages-on-pypi-201)
+### Read More & Connect
 
-Curated and maintained by **[Drishtant Ghosh (Drix10)](https://drix10.com)** — Co-Founder @ PartPilot, 1x Acquired Serial Founder (ReeF), Canopy @ Founders, Inc., & Cybersecurity Researcher.
+**Interactive version:** [blogs.drix10.com](https://blogs.drix10.com/articles/cybersecurity-and-tech/security-typosquatting-packages-on-pypi-201)
 
-- **Interactive Article Breakdown**: [blogs.drix10.com/articles/cybersecurity-and-tech/security-typosquatting-packages-on-pypi-201](https://blogs.drix10.com/articles/cybersecurity-and-tech/security-typosquatting-packages-on-pypi-201)
-- **GitHub Source File**: [Cybersecurity and Tech/resources-201.md](https://github.com/Drix10/ai-resources/blob/main/Cybersecurity%20and%20Tech/resources-201.md)
-- **Explore Full Knowledge Base**: [blogs.drix10.com](https://blogs.drix10.com)
-- **Personal Portfolio & Projects**: [drix10.com](https://drix10.com)
-- **Connect on LinkedIn**: [linkedin.com/in/drix10](https://www.linkedin.com/in/drix10)
-- **Follow on X / Twitter**: [@Drix_10](https://x.com/Drix_10)
-- **GitHub Repository**: [Drix10/ai-resources](https://github.com/Drix10/ai-resources)
+Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical founder and engineer working across AI systems, developer infrastructure, and cybersecurity.
+
+- **Blog:** [blogs.drix10.com](https://blogs.drix10.com)
+- **Portfolio:** [drix10.com](https://drix10.com)
+- **GitHub:** [github.com/Drix10](https://github.com/Drix10)
+- **LinkedIn:** [linkedin.com/in/drix10](https://www.linkedin.com/in/drix10)
+- **X:** [@DrishtantGhosh](https://x.com/DrishtantGhosh)
+- **Email:** [ggdrishtant@gmail.com](mailto:ggdrishtant@gmail.com)
