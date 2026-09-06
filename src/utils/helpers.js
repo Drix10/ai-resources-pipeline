@@ -178,6 +178,14 @@ const rebuildBlogIndex = () => {
     const contentDir = path.join(blogDir, "content");
     if (!fs.existsSync(contentDir)) return;
 
+    let datesMap = null;
+    try {
+      const datesMapPath = path.join(blogDir, "lib", "commit-dates-map.json");
+      if (fs.existsSync(datesMapPath)) {
+        datesMap = JSON.parse(fs.readFileSync(datesMapPath, "utf8"));
+      }
+    } catch (e) {}
+
     // Auto-sync root content/Personal to blog/content/Personal if present
     const rootPersonal = path.join(rootDir, "content", "Personal");
     const blogPersonal = path.join(contentDir, "Personal");
@@ -244,9 +252,8 @@ const rebuildBlogIndex = () => {
             try {
               const num = parseInt(numMatch[1], 10);
               // Only consult historical commit dates for old archival collections
-              if (num < 200) {
-                const datesMap = require(path.join(blogDir, "lib/commit-dates-map.json"));
-                if (datesMap[num]) date = datesMap[num];
+              if (num < 200 && datesMap && datesMap[num]) {
+                date = datesMap[num];
               }
             } catch (e) {}
           }

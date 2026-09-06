@@ -5,31 +5,60 @@ import fs from 'fs';
 import path from 'path';
 import indexData from '@/lib/articles-index.json';
 
-let cachedSlugs = new Set<string>();
+let cachedSlugMap = new Map<string, string>();
 let lastCacheRefresh = 0;
 
-function getValidSlugs(forceRefresh = false): Set<string> {
+function getSlugMapping(forceRefresh = false): Map<string, string> {
   const now = Date.now();
-  if (cachedSlugs.size > 0 && !forceRefresh) return cachedSlugs;
-  if (forceRefresh && now - lastCacheRefresh < 30000) return cachedSlugs;
+  if (cachedSlugMap.size > 0 && !forceRefresh) return cachedSlugMap;
+  if (forceRefresh && now - lastCacheRefresh < 30000) return cachedSlugMap;
 
   lastCacheRefresh = now;
+  const map = new Map<string, string>();
+
+  const populate = (articles: any[]) => {
+    for (const a of articles) {
+      if (!a.slug) continue;
+      const canonical = String(a.slug).toLowerCase();
+      map.set(canonical, canonical);
+
+      const parts = canonical.split('/');
+      if (parts.length > 1) {
+        map.set(parts[parts.length - 1], canonical);
+      }
+
+      if (a.legacySlug) {
+        map.set(String(a.legacySlug).toLowerCase(), canonical);
+      }
+
+      if (a.filename) {
+        const fb = a.filename.replace(/\.md$/i, '').toLowerCase();
+        map.set(fb, canonical);
+        if (a.categorySlug) {
+          map.set(`${a.categorySlug.toLowerCase()}/${fb}`, canonical);
+        }
+      }
+    }
+  };
+
   try {
     const indexPath = path.join(process.cwd(), 'lib', 'articles-index.json');
     if (fs.existsSync(indexPath)) {
       const raw = fs.readFileSync(indexPath, 'utf8');
       const parsed = JSON.parse(raw);
       if (Array.isArray(parsed?.articles)) {
-        cachedSlugs = new Set(parsed.articles.map((a: any) => String(a.slug).toLowerCase()));
-        return cachedSlugs;
+        populate(parsed.articles);
+        cachedSlugMap = map;
+        return cachedSlugMap;
       }
     }
   } catch (e) {}
 
   if (Array.isArray(indexData?.articles)) {
-    cachedSlugs = new Set(indexData.articles.map((a: any) => String(a.slug).toLowerCase()));
+    populate(indexData.articles);
   }
-  return cachedSlugs;
+  cachedSlugMap = map;
+  return cachedSlugMap;
 }
 
 export async function GET(request: NextRequest) {
@@ -43,9 +72,16 @@ export async function GET(request: NextRequest) {
   const slug = searchParams.get('slug');
 
   if (slug) {
-    const cleanSlug = String(slug).toLowerCase().trim().slice(0, 180);
-    const stats = getArticleViews(cleanSlug);
-    return NextResponse.json({ slug: cleanSlug, ...stats });
+    let cleanSlug = String(slug).toLowerCase().trim().slice(0, 180);
+    try {
+      cleanSlug = decodeURIComponent(cleanSlug).toLowerCase().trim();
+    } catch (e) {}
+    cleanSlug = cleanSlug.replace(/^\/+|\/+$/g, '');
+
+    const mapping = getSlugMapping();
+    const canonical = mapping.get(cleanSlug) || cleanSlug;
+    const stats = getArticleViews(canonical);
+    return NextResponse.json({ slug: canonical, ...stats });
   }
 
   const globalStats = getGlobalViewsStats();
@@ -76,19 +112,22 @@ export async function POST(request: NextRequest) {
     try {
       cleanSlug = decodeURIComponent(cleanSlug).toLowerCase().trim();
     } catch (e) {}
+    cleanSlug = cleanSlug.replace(/^\/+|\/+$/g, '');
 
-    const validSlugs = getValidSlugs();
+    const mapping = getSlugMapping();
+    let canonical = mapping.get(cleanSlug);
     // Security Gate: Reject unindexed / arbitrary slugs to prevent storage corruption
-    if (!validSlugs.has(cleanSlug)) {
+    if (!canonical) {
       // Re-read with throttle guard in case the file was just added
-      const freshSlugs = getValidSlugs(true);
-      if (!freshSlugs.has(cleanSlug)) {
+      const freshMapping = getSlugMapping(true);
+      canonical = freshMapping.get(cleanSlug);
+      if (!canonical) {
         return NextResponse.json({ error: 'Invalid article slug' }, { status: 404 });
       }
     }
 
     const userAgent = request.headers.get('user-agent') || '';
-    const result = recordView(cleanSlug, userAgent);
+    const result = recordView(canonical, userAgent);
 
     return NextResponse.json(result);
   } catch (err: any) {
