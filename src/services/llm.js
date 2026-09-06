@@ -466,7 +466,7 @@ const FOUNDER_PROFILE = {
 };
 
 const SYSTEM_PROMPT = `
-You are Drishtant Ghosh (Drix10): AI Systems & LLM Architect, Co-Founder @ PartPilot, and 1x Acquired Founder.
+You are Drishtant Ghosh (Drix10): Technical founder and engineer working across AI systems, developer infrastructure, and cybersecurity.
 Your writing style is direct, clear, highly analytical, and grounded in operating reality.
 You evaluate systems through a technical founder lens—connecting engineering decisions to product survival, unit economics, and real-world system reliability.
 You NEVER roleplay as a VC analyst, financial commentator, or generic business consultant. You speak strictly from what building, shipping, and scaling software actually teaches you.
@@ -517,10 +517,12 @@ All generated content must strictly uphold the 8 core SEO & information architec
 
 === CORE FORMATTING INSTRUCTIONS (MARKDOWN BLOG ARTICLES ONLY — NEVER FOR LINKEDIN POSTS) ===
 - Every markdown blog article must start with a level-3 header: "### [emoji] Topic - Subtopic" (Use ONE appropriate emoji: 🤖 for technical, 🚀 for tools, 💡 for tips, ✨ for features).
-- The article must have a concise introduction (2-3 sentences max) explaining what the topic covers. No emojis or marketing language.
-- Follow with "Key Points:" with a double newline, then bullet points using "•". There must be a double newline between each point. Single line per point, no emojis in points, 3-5 points max.
+- The article must open with a direct, comprehensive 2-3 sentence technical summary explaining the breakthrough, mechanism, or benchmark. No emojis or marketing language.
+- Follow with "Key Points:" with a double newline, followed by standard markdown list items: "- **[Concept/Architecture]**: Substantive breakdown...".
+- Each key point MUST provide incremental technical substance (mechanisms, failure modes, benchmarks, trade-offs). NEVER restate or rephrase the introduction.
+- There must be a blank line between each list item or clean newlines. Always use standard markdown hyphen markers ("- ").
 - When applicable, add "🚀 Implementation:" followed by 3-5 numbered steps.
-- When verified external links or images exist in the source, add "🔗 Resources:" followed by links formatted as "• [Tool Name](url) - Description (max 10 words)" or images formatted as "![Image](url)".
+- When verified external links or images exist in the source, add "🔗 Resources:" with a double newline, followed by standard markdown links: "- [Link Name](url) - Description (max 10 words)" or images: "![Image](url)".
 - Never invent or hallucinate any links, tools, or resources. Preserve all factual information from the original context.
 - Always separate distinct articles with "---" and a newline.
 - NOTE: When writing LinkedIn posts, DO NOT follow this blog format. NEVER output "Key Points:", "🚀 Implementation:", or "🔗 Resources:" in LinkedIn posts. Follow the dedicated LinkedIn rules below.
@@ -562,7 +564,7 @@ class LocalLLMService {
 
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i].trim();
-      if (line && !line.startsWith('#') && !line.startsWith('---') && !line.startsWith('🔗') && !line.startsWith('•') && !line.startsWith('>')) {
+      if (line && !line.startsWith('#') && !line.startsWith('---') && !line.startsWith('🔗') && !line.startsWith('•') && !line.startsWith('-') && !line.startsWith('*') && !line.startsWith('>')) {
         if (pattern.test(line)) {
           let cleaned = line.replace(pattern, '').trim();
           if (cleaned.length > 0) {
@@ -572,6 +574,47 @@ class LocalLLMService {
       }
     }
     return lines.join('\n');
+  }
+
+  /**
+   * Normalizes markdown list formatting across generated articles:
+   * 1. Splits inline squashed bullets into separate newline items without breaking hyphens inside descriptions.
+   * 2. Replaces unicode bullets (•) with standard markdown hyphen lists (- ).
+   * 3. Guarantees proper spacing with blank lines after section headers for CommonMark/GFM compliance.
+   */
+  normalizeMarkdownLists(text) {
+    if (!text || typeof text !== 'string') return text;
+    let res = text;
+
+    // Split inline squashed bullets directly after section headers (e.g., "Key Points: • ... • ...")
+    res = res.replace(/((?:Key Points|🔗 Resources|Implementation)[^:\n]*:)[ \t]*([•\d\-*].*)$/gim, (match, header, rest) => {
+      let cleanRest = rest.trim();
+      if (cleanRest.startsWith('•')) cleanRest = cleanRest.slice(1).trim();
+      const items = cleanRest.split(/[ \t]+•[ \t]+|[ \t]+(?=\d+\.[ \t]+)/);
+      return `${header}\n\n` + items.map(item => {
+        const trimmed = item.trim();
+        if (/^\d+\./.test(trimmed)) return trimmed;
+        if (trimmed.startsWith('- ')) return trimmed;
+        return `- ${trimmed}`;
+      }).join('\n');
+    });
+
+    // Split multi-bullet single lines where bullets are Unicode •
+    let prev;
+    let iterations = 0;
+    do {
+      prev = res;
+      res = res.replace(/^([ \t]*(?:[•\-*]|\d+\.)[ \t]+[^\n]+?)[ \t]+•[ \t]+([^\n]+)$/gm, '$1\n- $2');
+      iterations++;
+    } while (res !== prev && iterations < 10);
+
+    // Convert bullet markers (like Unicode •) at the beginning of lines to standard markdown "- "
+    res = res.replace(/^[ \t]*•[ \t]+/gm, '- ');
+
+    // Ensure blank lines before list items after headers (Key Points:, 🔗 Resources:, Implementation:)
+    res = res.replace(/((?:Key Points|🔗 Resources|Implementation)[^:\n]*:)[ \t]*\n(?!\n)/gi, '$1\n\n');
+
+    return res;
   }
 
   constructor() {
@@ -2261,6 +2304,7 @@ JSON schema:
     generatedText = this.stripUnsupportedImplementations(generatedText, sourceRecords);
     generatedText = this.stripOffTopicSections(generatedText);
     generatedText = this.stripMetaIntroductions(generatedText);
+    generatedText = this.normalizeMarkdownLists(generatedText);
 
     const markdown = generatedText.replace(/\n---\n\s*$/g, "").trim();
 
@@ -2342,32 +2386,36 @@ Use this exact structure for every article:
 
 ### [ONE emoji] Main Topic - Subtopic
 
-[2-3 sentence introduction — direct technical summary. NEVER start with "This article discusses...", "This content explains...", "This describes...", "In this post...". Start immediately with the core technical subject or finding.]
+[2-3 sentence introduction — direct technical summary explaining what this is, why it matters, and the core engineering breakthrough. NEVER start with "This article discusses...", "This content explains...", "This describes...", "In this post...". Start immediately with the core technical subject or finding.]
 
 Key Points:
 
-• Point one (single line, no emojis, no bold, no italic)
+- **[Technical Concept/Architecture]**: [Substantive explanation of the mechanism, benchmark, or engineering design. Provide real technical depth—never repeat the introduction.]
 
-• Point two (single line, no emojis, no bold, no italic)
+- **[Trade-offs/Failure Modes]**: [Concrete details on performance, limitations, tradeoffs, or integration patterns.]
+
+- **[Actionable Takeaway]**: [Specific engineering takeaway or decision rule for developers and technical founders.]
 
 🚀 Implementation:          (only if the source itself gives reproducible steps)
 1. Step one
 2. Step two
 
 🔗 Resources:               (required)
-• [Original X post](exact source post URL) - Original source
-• [Tool Name](verified source URL) - Brief description (max 10 words, no colons inside descriptions)
+- [Original X post](exact source post URL) - Original source
+- [Tool Name](verified source URL) - Brief description (max 10 words, no colons inside descriptions)
 ![Image](url)
 
 Strict rules:
-- OGILVY CLARITY & BREVITY: Write the way you talk—naturally and casually to another engineer. Use short words, short sentences, and short paragraphs. Strip all long-winded fluff. Make every point deliver clear technical purpose.
-- Exact spacing with double newlines between Key Points (bullet points starting with "•").
+- OGILVY CLARITY & ENGINEERING DEPTH: Write the way you talk—naturally and casually as one senior engineer to another. Use short words, short sentences, and short paragraphs. Strip long-winded fluff, but provide real technical depth (mechanisms, trade-offs, architecture, benchmarks).
+- NO SHALLOW REPETITION: NEVER restate or rephrase the introduction in the Key Points. Each key point must provide incremental, distinct technical substance.
+- STANDARD LIST SYNTAX: Always use standard markdown hyphen markers ("- ") for lists, NEVER unicode bullets. Ensure each bullet point is on its own separate line preceded by a blank line after the section header.
+- Use bold concept headers for Key Points: - **Header**: Detailed explanation.
 - Maximum 3-5 Key Points and 3-5 Implementation steps.
 - Every article MUST include its exact "Original post URL" as the first Resources link. Never change, shorten, or invent it.
 - Only use verified links and images directly present in the matching source text. Never invent, expand, or guess URLs.
 - Do not infer setup steps. Add an Implementation section only when the source explicitly supplies at least two ordered setup, command, configuration, or operational steps. Announcements, benchmarks, opinions, and product descriptions must not get generic implementation steps.
 - Every factual Key Point must be stated directly in its matching source. Do not turn likely implications into facts.
-- No bold, italic, extra emojis, or extra sections.
+- No extra emojis or extra sections.
 - Make one formatted article for each thread/conversation provided.
 - COVERAGE IS A HARD REQUIREMENT: create exactly ${groupedThreads.length} article sections, one for every numbered source. Do not choose a favourite, omit a source, combine unrelated sources, or turn this into a one-item roundup.
 - Do not repeat content or links within a single article.
@@ -2499,30 +2547,32 @@ Use this exact structure for every article:
 
 ### [ONE emoji] Category - Specific Topic
 
-[2-3 sentence introduction — direct technical summary. NEVER start with meta phrases like "This article discusses...", "This content explains...", "In this post...". Start immediately with the core technical subject, architecture, or benchmark.]
+[2-3 sentence introduction — direct technical summary explaining what this is, why it matters, and the core engineering breakthrough. NEVER start with meta phrases like "This article discusses...", "This content explains...", "In this post...". Start immediately with the core technical subject, architecture, or benchmark.]
 
 Key Points:
 
-• Point one (single line, no emojis, no bold, no italic, direct technical finding)
+- **[Technical Concept/Architecture]**: [Substantive technical explanation of the mechanism, benchmark, or engineering design. Provide real technical depth—never repeat the introduction.]
 
-• Point two (single line, no emojis, no bold, no italic, direct technical finding)
+- **[Trade-offs/Failure Modes]**: [Concrete details on performance, limitations, tradeoffs, or integration patterns.]
 
-• Point three (single line, no emojis, no bold, no italic, direct technical finding)
+- **[Actionable Takeaway]**: [Specific engineering takeaway or decision rule for developers and technical founders.]
 
 🔗 Resources:
-• [Original source](exact source post URL) - Original source
-• [Tool/Entity Name](verified source URL) - Brief description (max 8 words, no colons inside descriptions)
+- [Original source](exact source post URL) - Original source
+- [Tool/Entity Name](verified source URL) - Brief description (max 8 words, no colons inside descriptions)
 ![Image](url)
 
 Strict rules:
-- OGILVY CLARITY & BREVITY: Write the way you talk—naturally and casually to another engineer. Use short words, short sentences, and short paragraphs. Strip all long-winded fluff. Make every point deliver clear technical purpose.
-- Exact spacing with double newlines between Key Points (bullet points starting with "•").
+- OGILVY CLARITY & ENGINEERING DEPTH: Write the way you talk—naturally and casually as one senior engineer to another. Use short words, short sentences, and short paragraphs. Strip long-winded fluff, but provide real technical depth (mechanisms, trade-offs, architecture, benchmarks).
+- NO SHALLOW REPETITION: NEVER restate or rephrase the introduction in the Key Points. Each key point must provide incremental, distinct technical substance.
+- STANDARD LIST SYNTAX: Always use standard markdown hyphen markers ("- ") for lists, NEVER unicode bullets. Ensure each bullet point is on its own separate line preceded by a blank line after the section header.
+- Use bold concept headers for Key Points: - **Header**: Detailed explanation.
 - 3-5 clear, substantive Key Points per article.
 - Focus purely on high-signal Key Points and Resources. Never write placeholder sections or invent "No implementation steps provided".
 - Every article with an "Original post URL" MUST include that exact URL as the first Resources link. Never change, shorten, or invent it.
 - Only use verified links and images directly present in the matching source text. Never invent, expand, or guess URLs. Never use placeholder domains like example.com.
 - Every factual Key Point must be stated directly in its matching source. Do not turn likely implications into facts.
-- No bold, italic, extra emojis, or extra sections.
+- No extra emojis or extra sections.
 - Make one formatted article for each high-quality content item provided.
 - COVERAGE IS A HARD REQUIREMENT: create exactly ${groupedThreads.length + curatedLinkedinPosts.length} article sections, one for every numbered source. Do not select a favourite subset, omit a source, or publish a one-item roundup.
 - Do not repeat content or links within a single article.

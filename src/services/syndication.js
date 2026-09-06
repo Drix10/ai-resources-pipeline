@@ -200,25 +200,19 @@ class SyndicationService {
 
       // Guarantee DEV.to articles contain reciprocal backlinks to both the blog and GitHub file
       const isSpecial = categorySlug === "personal" || categorySlug === "linkedin-insights";
-      if (!isSpecial && !enrichedMarkdown.includes("Read on the AI Knowledge Hub")) {
-        const githubUrl = `https://github.com/Drix10/ai-resources/blob/main/${encodeURIComponent(folderName)}/${encodeURIComponent(fileName)}`;
-
+      if (!isSpecial && !enrichedMarkdown.includes("Read More & Connect") && !enrichedMarkdown.includes("Read on the AI Knowledge Hub")) {
         const promoSection = `
 
 ---
 
-### 🌐 Read on the AI Knowledge Hub & Connect
-> **Interactive Article & Live Reader View**: [Read on blogs.drix10.com](${canonicalUrl})
+### Read More & Connect
 
-Curated and maintained by **[Drishtant Ghosh (Drix10)](https://drix10.com)** — Co-Founder @ PartPilot, 1x Acquired Serial Founder (ReeF), Canopy @ Founders, Inc., & Cybersecurity Researcher.
+**Canonical / interactive version:** [blogs.drix10.com](${canonicalUrl})
 
-- **Interactive Article Breakdown**: [blogs.drix10.com/articles/${cleanPath}](${canonicalUrl})
-- **GitHub Source File**: [${folderName}/${fileName}](${githubUrl})
-- **Explore Full Knowledge Base**: [blogs.drix10.com](https://blogs.drix10.com)
-- **Personal Portfolio & Projects**: [drix10.com](https://drix10.com)
-- **Connect on LinkedIn**: [linkedin.com/in/drix10](https://www.linkedin.com/in/drix10)
-- **Follow on X / Twitter**: [@Drix_10](https://x.com/Drix_10)
-- **GitHub Repository**: [Drix10/ai-resources](https://github.com/Drix10/ai-resources)
+Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical founder and engineer working across AI systems, developer infrastructure, and cybersecurity.
+
+- [Blog](https://blogs.drix10.com) · [Portfolio](https://drix10.com) · [GitHub](https://github.com/Drix10)
+- [LinkedIn](https://www.linkedin.com/in/drix10) · [X](https://x.com/DrishtantGhosh) · [Email](mailto:ggdrishtant@gmail.com)
 `;
         enrichedMarkdown = enrichedMarkdown.trimEnd() + promoSection;
       }
