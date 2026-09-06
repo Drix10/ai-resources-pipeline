@@ -105,7 +105,14 @@ export function getArticleBySlug(slugPath: string[]): Article | null {
     const numMatch = lastPart.match(/(?:resources-)?(\d+)$/);
     if (numMatch) {
       const paddedNum = numMatch[1].padStart(3, '0');
-      summary = slugMap.get(`resources-${paddedNum}`) || slugMap.get(`resources-${parseInt(numMatch[1], 10)}`);
+      const numInt = parseInt(numMatch[1], 10);
+      if (slugPath.length > 1) {
+        const cat = slugPath[0].toLowerCase();
+        summary = slugMap.get(`${cat}/resources-${paddedNum}`) || slugMap.get(`${cat}/resources-${numInt}`);
+      }
+      if (!summary) {
+        summary = slugMap.get(`resources-${paddedNum}`) || slugMap.get(`resources-${numInt}`);
+      }
     }
   }
   if (!summary) return null;

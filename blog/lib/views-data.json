@@ -1,8 +1,8 @@
 {
-  "totalViews": 519,
+  "totalViews": 8960,
   "totalAiViews": 4,
-  "totalHumanViews": 515,
-  "lastUpdated": "2026-08-31T10:05:46.734Z",
+  "totalHumanViews": 8956,
+  "lastUpdated": "2026-09-06T06:33:46.383Z",
   "articles": {
     "linkedin-insights/ai-developer-tools-1788031114374": {
       "views": 7,
@@ -44678,6 +44678,2511 @@
       "views": 4,
       "humanViews": 2,
       "aiViews": 2
+    },
+    "cs-academics/foldable-device-specifications-265": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "cs-academics/gemini-robotics-2-adaptable-robot-control-259": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "cs-academics/ai-image-generation-google-earth-integration-256": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "cs-academics/gemini-spark-google-ai-pro-rollout-254": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "devs-designers-devrel/aether-code-contribution-254": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "cs-academics/starlink-v3-satellite-communication-and-telemetry-253": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "devs-designers-devrel/ux-design-contextual-action-surfaces-253": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "devs-designers-devrel/content-creation-consistency-workflow-252": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-developer-tools/ai-model-release-3d-scene-generation-249": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "cs-academics/text-image-to-video-generation-249": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-developer-tools/task-analysis-vaccine-booking-logic-248": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-vips/grok-imagine-image-generation-248": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-developer-tools/observability-high-uptime-infrastructure-246": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "vc-firms/fintech-infrastructure-festive-season-scalability-246": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-developer-tools/machine-learning-vad-stress-testing-245": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "vc-firms/qm-public-release-and-stability-245": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-companies-and-ventures/ai-infrastructure-private-model-access-244": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "cs-academics/github-release-pages-ui-enhancements-243": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-companies-and-ventures/database-service-update-sunset-notice-242": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-companies-and-ventures/video-generation-seedance-2-5-release-241": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-organizations-and-media/devops-setup-local-homelab-construction-241": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-leaders-and-thinkers/ai-reasoning-benchmark-performance-240": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "vc-firms/career-development-screenskills-bursaries-240": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-leaders-and-thinkers/open-source-ai-development-rapid-model-customization-239": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "devs-designers-devrel/design-process-font-selection-239": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-companies-and-ventures/corporate-social-responsibility-plastic-free-july-initiative-236": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-vips/tesla-service-model-ev-maintenance-advantages-236": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-companies-and-ventures/llm-training-5d-parallelism-235": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-holodeck-and-virtual-worlds/animation-workflow-csv-import-automation-234": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-healthcare-and-science/synbio-partnership-update-milestone-achievement-234": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-developer-tools/replit-design-integrated-design-systems-233": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-generated-music-and-audio/video-creation-ai-dance-challenge-233": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-powered-film-and-media/ai-video-production-complexity-and-labor-constraints-233": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-holodeck-and-virtual-worlds/video-generation-audio-to-video-workflow-232": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "devs-designers-devrel/interaction-design-smooth-user-experience-232": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "vc-firms/historical-document-analysis-232": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-holodeck-and-virtual-worlds/ai-filmmaking-competition-genjam-directors-cup-semi-finals-230": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-healthcare-and-science/openmed-ai-platform-update-230": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-policy-and-ethical-considerations/biology-self-replication-limits-230": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-education/foundation-models-reasoning-vs-retrieval-229": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-healthcare-and-science/medical-ai-clinical-judgment-benchmarking-229": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-organizations-and-media/mcp-authorization-hardened-authorization-flow-229": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-professionals-and-community/drone-operations-disaster-relief-application-229": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-companies-and-ventures/ai-views-direct-manipulation-prototype-228": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-education/6-dof-pose-tracking-proxypose-method-228": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "devs-designers-devrel/item-listing-automation-228": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-and-robotics-applications/blue-economy-autonomous-vessel-deployment-227": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-developer-tools/stripe-projects-kernel-templates-227": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-generated-music-and-audio/fable-ai-powered-video-generation-227": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-leaders-and-thinkers/polygon-ithaca-upgrade-227": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-companies-and-ventures/kiro-ambassadors-community-engagement-226": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-developer-tools/ai-code-generation-verification-challenges-226": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-infrastructure/ai-decision-making-oracle-manager-edge-226": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "vc-firms/ollama-open-ai-future-with-local-and-cloud-models-226": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-and-robotics-applications/3d-generation-hunyuan3d-buffalo-1-0-225": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-driven-vehicles-and-transportation/personal-transportation-utility-vs-recreation-225": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-education/3d-reconstruction-monocular-video-to-gaussian-splats-225": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-enterprise-applications/ai-writing-tools-focus-on-purpose-225": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-healthcare-and-science/drug-evaluation-accelerating-systematic-literature-reviews-225": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-real-estate-and-property-tech/built-linux-desktop-starling-225": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-organizations-and-media/localfirstconf-event-acknowledgment-225": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-education/ai-system-governance-financial-market-agents-224": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-generated-music-and-audio/gradium-ai-streaming-speech-models-on-baseten-224": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-holodeck-and-virtual-worlds/minimax-h3-motion-generation-in-getimg-224": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-professionals-and-community/event-update-dh2026-conclusion-224": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-and-robotics-applications/robotics-google-gemini-robotics-2-223": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-driven-vehicles-and-transportation/hebbia-product-relaunch-223": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-leaders-and-thinkers/ai-prompting-document-summarization-223": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-powered-film-and-media/leadership-adapting-to-the-ai-era-223": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "founders-and-entrepreneurs/openai-academic-program-frontier-model-access-223": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-enterprise-applications/vellum-ai-assistant-advisor-system-222": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-companies-and-development/product-testing-nintendo-switch-2-case-evaluation-222": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-generated-music-and-audio/gulab-music-ai-music-video-generation-221": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-real-estate-and-property-tech/telo-mini-pickup-production-strategy-221": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-companies-and-development/funding-browser-game-startup-investment-221": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-companies-and-ventures/hebbia-snowflake-integration-220": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-consulting-and-expertise/predictive-medicine-timing-and-precision-220": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-developer-tools/ai-systems-fraud-prevention-with-scam-agent-220": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-real-estate-and-property-tech/ai-payments-stripes-openrouter-talks-220": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-professionals-and-community/linkedin-ai-content-reporting-220": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-and-robotics-applications/humanoid-mechatronics-joint-design-analysis-219": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "founders-and-entrepreneurs/company-presence-sterling-road-219": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-enterprise-applications/ai-startups-sf-demo-day-218": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-real-estate-and-property-tech/runtimewire-live-dashboard-for-readership-218": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "climate-and-weather-technology/weather-tornado-potential-forecast-218": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-driven-vehicles-and-transportation/autonomous-vehicles-zoox-robotaxi-approval-217": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-holodeck-and-virtual-worlds/fuser-app-digital-fit-checks-217": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-healthcare-and-science/nejm-catalyst-august-issue-highlights-217": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-organizations-and-media/robotic-manipulation-agentic-reinforcement-learning-for-robu-217": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-policy-and-ethical-considerations/ai-policy-legislative-framework-proposal-217": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "founders-and-entrepreneurs/logistics-spare-parts-sourcing-from-south-africa-217": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "vc-firms/business-operations-venture-capital-office-217": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-holodeck-and-virtual-worlds/ai-video-generation-vidu-s1-capabilities-216": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-real-estate-and-property-tech/firefox-native-account-containers-216": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-leaders-and-thinkers/ai-tool-filmarena-ai-for-content-creation-216": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-policy-and-ethical-considerations/ai-regulation-independent-oversight-model-216": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "climate-and-weather-technology/golf-update-minnesota-tournament-progress-216": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "founders-and-entrepreneurs/ai-security-unauthorized-access-incidents-216": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "interesting-finds/diplomacy-membership-expansion-216": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-and-robotics-applications/robotics-single-policy-locomotion-215": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-consulting-and-expertise/automotive-engineering-e20-ethanol-damage-215": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "decentralized-ai/gpu-programming-cudas-diminishing-moat-215": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "the-exponential-future/geopolitics-maritime-security-cooperation-215": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-healthcare-and-science/oncology-bladder-cancer-treatment-approval-214": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-real-estate-and-property-tech/philips-hue-bridge-pro-firmware-update-214": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-powered-film-and-media/maestro-local-ai-music-video-generator-214": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-professionals-and-community/native-assets-customization-methods-214": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "investors-and-venture-capital/consulting-value-pricing-strategy-214": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-and-robotics-applications/bionic-hand-myoelectric-control-213": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-driven-vehicles-and-transportation/kimi-k3-large-scale-open-weight-model-213": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-education/elicit-ai-powered-literature-reviews-213": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-generated-music-and-audio/ai-music-community-and-creative-exploration-213": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-holodeck-and-virtual-worlds/reve-2-1-editable-text-to-image-layers-213": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-real-estate-and-property-tech/xreal-ar-glasses-a01-retail-launch-213": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-organizations-and-media/software-verification-aito-dahl-nygaard-senior-prize-213": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-professionals-and-community/webgpu-glass-material-for-three-js-and-react-three-fiber-213": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "computer-vision-and-ai-applications/btc-redemption-security-audit-completion-213": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-infrastructure/conservation-technology-tools-and-accessibility-213": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-vips/historic-event-tesla-model-s-signature-delivery-213": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-generated-music-and-audio/audio-separation-extracting-sounds-from-audio-212": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-holodeck-and-virtual-worlds/ai-video-creation-seedance-2-0-212": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-real-estate-and-property-tech/ai-model-costs-perplexity-ceo-prediction-212": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-organizations-and-media/master-s-in-mathematical-sciences-program-212": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-professionals-and-community/simulation-reality-approximation-212": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "computer-vision-and-ai-applications/coldcard-wallet-38m-bitcoin-theft-212": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "decentralized-ai/flare-networks-wallet-how-to-request-212": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-infrastructure/renewable-energy-ntt-and-engie-partnership-212": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "the-exponential-future/business-update-mgpi-sales-growth-212": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-real-estate-and-property-tech/battlefield-evacuation-digital-patient-records-211": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-companies-and-development/anthropic-claude-code-2025-211": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "interesting-finds/equinix-ai-infrastructure-investment-211": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-for-content-creation-and-marketing/product-revamp-landing-page-redesign-210": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-real-estate-and-property-tech/openai-chatgpt-voice-update-210": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-professionals-and-community/nativ-v0-1-0-release-ai-development-environment-updates-210": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-infrastructure/cloud-regulation-uk-hyperscaler-oversight-210": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-education/vocabulary-word-of-the-day-meticulous-209": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-real-estate-and-property-tech/robotics-hackathon-mission-robotics-embodied-metal-209": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-infrastructure/ai-models-trust-governance-cost-209": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-vips/leadership-understanding-founder-mode-209": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-consulting-and-expertise/data-science-mastering-tools-and-techniques-208": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-real-estate-and-property-tech/ai-models-tencent-hy3-agent-208": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-driven-vehicles-and-transportation/ai-agents-grok-4-5-in-manufacturing-engineering-207": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-real-estate-and-property-tech/ai-industry-update-mechanical-turk-changes-206": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "crypto-and-web3/ronin-network-july-activity-checklist-206": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "founders-and-entrepreneurs/chatgpt-partner-integrations-beta-206": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "the-exponential-future/us-drone-incident-allied-communication-gaps-206": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-for-content-creation-and-marketing/okara-ai-writing-assistant-205": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-real-estate-and-property-tech/cloudflare-ai-crawler-business-insights-205": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-professionals-and-community/music-release-displace-205": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "crypto-and-web3/x-platform-direct-message-usability-205": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "decentralized-ai/ai-access-decentralized-compute-205": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-for-content-creation-and-marketing/framer-new-ai-models-sol-terra-luna-204": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-enterprise-applications/ai-in-mathematics-verified-code-generation-204": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-companies-and-development/physical-ai-board-considerations-204": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-driven-vehicles-and-transportation/national-celebrations-independence-day-observance-203": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-companies-and-development/robotics-training-and-applications-203": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-professionals-and-community/reflect-open-local-first-note-taking-203": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "computer-vision-and-ai-applications/antitrust-complaint-sony-playstation-physical-games-203": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "investors-and-venture-capital/black-forest-labs-flux-3-multimodal-model-203": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "climate-and-weather-technology/space-phenomenon-starlink-space-jellyfish-202": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "the-exponential-future/ai-regulation-companion-bot-controls-202": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-driven-vehicles-and-transportation/container-technology-ai-hardware-integration-201": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-driven-vehicles-and-transportation/ai-hardware-japapeno-architecture-speculation-200": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-education/language-learning-understanding-under-arrest-200": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-for-content-creation-and-marketing/no-code-development-bubble-plugin-creation-200": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "neuroscience-and-ai/conference-announcement-app-conference-details-200": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-companies-and-development/vr-training-sound-localization-system-078": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-driven-vehicles-and-transportation/autonomous-vehicles-cross-country-demo-076": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "founders-and-entrepreneurs/recovery-overcoming-severe-disc-herniation-076": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "interesting-finds/automotive-industry-tesla-vs-waymo-076": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "pr-and-communications/personal-anecdote-unexpected-attraction-076": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-developer-tools/ai-product-ideas-identifying-promising-niches-075": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "investors-and-venture-capital/current-state-of-tech-industry-malaise-075": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "founders-and-entrepreneurs/regulation-use-based-vs-system-based-074": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-developer-tools/ai-agents-definition-and-capabilities-072": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-professionals-and-community/youtube-100-000-subscribers-milestone-072": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "devs-designers-devrel/research-methodology-problem-driven-vs-method-driven-072": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-healthcare-and-science/fathers-day-appreciation-071": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "founders-and-entrepreneurs/augment-code-vs-cursor-context-engine-071": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-and-robotics-applications/acknowledgements-collaborative-project-070": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-education/english-vocabulary-understanding-wonder-070": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-leaders-and-thinkers/nansen-ai-agent-early-stages-showcase-070": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-artists-and-creators/marilyn-monroe-99th-birthday-tribute-068": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-and-robotics-applications/robotics-robot-pet-neck-assembly-067": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-companies-and-development/art-challenge-potboy-from-moonhood-studios-066": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "spatial-computing/remembering-bill-atkinson-apple-pioneer-066": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "devs-designers-devrel/video-generation-veo-3-capabilities-065": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-healthcare-and-science/stroke-month-recognition-team-appreciation-064": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-professionals-and-community/finance-crypto-tax-nightmare-064": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "climate-and-weather-technology/climate-change-reliable-information-sources-064": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-education/language-understanding-soon-062": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-for-content-creation-and-marketing/understanding-win-synonyms-and-usage-061": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "cybersecurity-and-tech/espionage-careto-hacking-group-060": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "spatial-computing/apple-software-year-based-versioning-060": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "vc-firms/startup-ideas-rethinking-the-fail-fast-approach-059": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-artists-and-creators/ai-art-elsa-carvalhos-generative-art-058": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-generated-music-and-audio/music-catalog-incantio-058": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-for-content-creation-and-marketing/legal-tech-deepl-api-integration-054": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-professionals-and-community/ai-voiceovers-james-earl-jones-and-darth-vader-054": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-infrastructure/domain-name-acquisition-a-humorous-anecdote-054": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-artists-and-creators/image-processing-hidream-e1-limitations-053": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "computer-vision-and-ai-applications/military-technology-uas-deployment-in-germany-052": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-healthcare-and-science/healthcare-asco25-conference-051": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-consulting-and-expertise/ai-capabilities-groks-performance-050": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-education/idioms-at-the-back-of-beyond-048": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "computer-vision-and-ai-applications/san-diego-tech-scene-hidden-gems-048": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "crypto-and-web3/kaspa-block-production-clarification-048": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "pr-and-communications/ai-and-job-displacement-the-steam-shovel-analogy-048": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "decentralized-ai/cryptocurrency-warning-mogcoin-scam-046": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-vips/large-language-models-deep-research-with-2-5-pro-045": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "computer-vision-and-ai-applications/leadership-amds-turnaround-042": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "interesting-finds/business-strategy-customer-research-042": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-leaders-and-thinkers/history-robin-hoods-actions-041": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-policy-and-ethical-considerations/research-critique-flawed-reasoning-041": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "climate-and-weather-technology/severe-weather-tornado-in-hughes-springs-texas-040": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-and-robotics-applications/international-trip-smart-glasses-development-039": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "pr-and-communications/us-senate-senator-bookers-spelling-bee-039": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "vc-firms/entrepreneurship-the-importance-of-execution-039": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "cs-academics/autonomous-driving-teslas-long-drive-capabilities-038": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "computer-vision-and-ai-applications/women-in-ai-celebrating-contributions-037": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-infrastructure/machine-learning-ai-learning-mechanisms-036": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-consulting-and-expertise/ai-concepts-automation-vs-agents-034": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-policy-and-ethical-considerations/freedom-of-speech-vs-crime-protesting-and-vandalism-034": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-powered-film-and-media/sora-image-to-video-capabilities-034": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "climate-and-weather-technology/political-commentary-contrasting-events-034": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "founders-and-entrepreneurs/social-security-historical-context-and-importance-034": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-infrastructure/history-irish-monasteries-in-europe-034": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-policy-and-ethical-considerations/south-asian-businesses-a-glimpse-into-diversity-033": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "crypto-and-web3/cairo-programming-language-zk-starks-033": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "cybersecurity-and-tech/game-currency-helix-mon-and-keys-033": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "devs-designers-devrel/tesla-in-montreal-a-social-experiment-033": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "neuroscience-and-ai/academia-pi-clarification-033": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "interesting-finds/books-multi-thinker-annotated-editions-032": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-driven-vehicles-and-transportation/social-unrest-and-property-damage-serbia-031": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "the-exponential-future/chinas-economic-transformation-from-maoism-to-capitalism-030": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-consulting-and-expertise/model-normalization-latent-space-visualization-029": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-vips/wildlife-sighting-american-woodcock-in-bryant-park-029": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-leaders-and-thinkers/ai-interaction-claude-ai-and-database-management-028": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-powered-film-and-media/twitter-shoutout-appreciation-and-mentions-028": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "crypto-and-web3/bitcoin-misconception-as-a-technology-stack-027": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "cs-academics/apis-vs-model-context-protocol-mcp-027": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "cybersecurity-and-tech/apple-bug-bounties-impact-assessment-026": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "crypto-and-web3/xrpl-learning-journey-022": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "founders-and-entrepreneurs/nft-art-sale-successful-transaction-022": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-professionals-and-community/life-experiences-unexpected-housing-situation-021": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "crypto-and-web3/international-womens-day-web3-leadership-gap-021": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "world-news-and-updates/writing-polemic-vs-novel-writing-021": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-education/elicit-new-features-for-literature-reviews-020": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-companies-and-development/spectacles-availability-and-pricing-020": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-powered-film-and-media/ai-art-journey-2-year-anniversary-019": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-companies-and-development/ai-developer-profile-rosss-achievements-017": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "spatial-computing/acknowledgements-project-collaboration-016": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-companies-and-development/new-month-new-goals-setting-intentions-for-march-015": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "founders-and-entrepreneurs/geopolitics-ukrainian-airspace-defense-014": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-professionals-and-community/large-language-models-diffusion-based-llms-012": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-companies-and-development/vr-gaming-squingle-011": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "decentralized-ai/blockchain-useful-proof-of-work-upow-011": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-professionals-and-community/side-project-a-new-direction-010": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "investors-and-venture-capital/urban-planning-slum-landlord-practices-in-nyc-010": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "pr-and-communications/music-george-harrison-tribute-010": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "the-exponential-future/ai-and-chess-hans-berliners-career-010": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-education/image-to-video-animation-google-veo-2-009": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "cs-academics/startup-culture-high-growth-environment-009": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-infrastructure/large-language-models-essential-projects-009": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-driven-vehicles-and-transportation/sports-the-jannik-sinner-doping-case-008": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "interesting-finds/crypto-art-aesthetic-appeal-008": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "vc-firms/world-war-ii-the-role-of-capitalism-and-the-manhattan-projec-008": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-professionals-and-community/animal-welfare-egg-industry-practices-007": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-journalists-and-vips/music-a-tribute-to-an-incredible-voice-007": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-for-content-creation-and-marketing/vocabulary-word-of-the-day-redolent-006": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "interesting-finds/autonomous-vehicles-waymos-expansion-into-amsterdam-006": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-artists-and-creators/model-making-shelf-system-design-005": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "interesting-finds/social-issues-bangladesh-005": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-infrastructure/ai-companies-groq-vs-grok-005": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-consulting-and-expertise/history-japanese-american-internment-004": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-real-estate-and-property-tech/real-estate-crexi-at-national-land-summit-004": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "cybersecurity-and-tech/cybersecurity-defense-in-depth-against-ransomware-004": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "neuroscience-and-ai/us-politics-clinton-administrations-bipartisan-legislation-004": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "vc-firms/ai-in-startups-future-proofing-your-business-002": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-education/vocabulary-word-of-the-day-ebullience-001": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-professionals-and-community/information-theory-the-discovery-behind-5g-001": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-professionals-and-community/political-commentary-election-implications-001": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "pr-and-communications/job-loss-maternal-health-researcher-001": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "vc-firms/finance-shareholder-vs-street-friendliness-001": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-organizations-and-media/creator-economy-198": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-policy-and-ethical-considerations/educational-milestones-graduation-ceremony-198": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-companies-and-development/event-recap-iste-live-26-198": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "crypto-and-web3/blockchain-security-post-quantum-cryptography-198": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "founders-and-entrepreneurs/starlink-high-speed-satellite-internet-198": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "pr-and-communications/energy-policy-data-center-requirements-198": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "quantum-computing/labor-economics-wage-disparity-observation-198": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "the-exponential-future/glass-for-patients-personal-ai-health-agent-198": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-real-estate-and-property-tech/decentralized-networks-financial-processing-comparison-197": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "devs-designers-devrel/news-alert-public-figure-health-status-197": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "spatial-computing/creativity-process-over-identity-197": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-companies-and-news/unreal-engine-procedural-world-building-update-197": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-infrastructure/web-accessibility-automated-alt-text-197": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-journalists-and-vips/compute-infrastructure-standalone-compute-buildout-197": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "the-exponential-future/promptql-ai-powered-data-and-operations-tool-197": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "world-news-and-updates/weather-update-tropical-storm-formation-197": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-education/job-market-impact-199": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "climate-and-weather-technology/support-199": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "computer-vision-and-ai-applications/robotics-navigation-model-199": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "decentralized-ai/near-protocol-ai-sovereignty-stack-199": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "quantum-computing/data-collection-snapshot-analysis-199": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-infrastructure/openstack-ai-ml-infrastructure-initiatives-199": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-vips/community-engagement-brief-update-199": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-developer-tools/ai-models-nousresearch-achievements-196": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "climate-and-weather-technology/support-196": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "crypto-and-web3/creative-assets-onchain-infrastructure-196": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "interesting-finds/apple-vision-pro-lamborghini-app-196": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "investors-and-venture-capital/ai-data-customer-reviews-as-training-material-196": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "pr-and-communications/legal-update-reddits-copyright-lawsuit-against-perplexity-196": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "spatial-computing/gaussian-splatting-sports-analysis-application-196": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-companies-and-news/technical-insight-video-content-analysis-196": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-infrastructure/cyber-resilience-msps-and-ransomware-preparedness-196": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "vc-firms/ai-agents-secure-application-access-195": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-professionals-and-community/manufacturing-transformation-micro-lens-production-194": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "decentralized-ai/general-technical-discussion-brief-inquiries-194": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "quantum-computing/disaster-relief-volunteer-activities-guidance-194": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-journalists-and-vips/dili-ai-series-a-funding-for-capital-projects-194": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "cybersecurity-and-tech/ai-agents-enterprise-identity-security-193": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "pr-and-communications/unbound-leadership-appointments-193": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-companies-and-news/ai-ecosystem-trends-fde-role-193": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-leaders-and-thinkers/xcode-mcp-vs-xcodebuildmcp-192": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-professionals-and-community/digital-landscape-monitoring-anomalies-192": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "founders-and-entrepreneurs/societal-trends-abundance-and-future-prospects-192": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "quantum-computing/quantum-communications-wits-breakthrough-192": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-infrastructure/life-community-remembrance-192": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "world-news-and-updates/ai-music-german-court-copyright-ruling-192": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "decentralized-ai/ai-governance-autonomy-and-control-191": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-and-robotics-applications/enabled-defence-themis-system-showcase-190": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-education/vocabulary-understanding-justice-190": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "neuroscience-and-ai/virtual-reality-system-vestibular-rehabilitation-190": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-professionals-and-community/ai-agent-performance-hermes-agent-ranking-189": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "spatial-computing/3d-graphics-realitykit-glass-refraction-189": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "computer-vision-and-ai-applications/well-being-coping-mechanisms-188": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "cs-academics/storytelling-disturbing-narratives-188": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-vips/ai-deployment-clinical-trust-188": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "world-news-and-updates/medical-malpractice-faulty-product-conviction-188": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-professionals-and-community/artificial-general-intelligence-risk-discussion-187": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "climate-and-weather-technology/weather-observation-plowable-hail-event-187": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "investors-and-venture-capital/financial-strategies-taxation-insights-187": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-journalists-and-vips/y-combinator-fall-2026-batch-application-187": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-powered-film-and-media/visual-storytelling-cinematic-moments-186": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-companies-and-news/seo-publishing-milestone-186": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-vips/system-health-proactive-anomaly-detection-186": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "world-news-and-updates/golf-british-open-record-round-186": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-policy-and-ethical-considerations/legal-case-study-charity-conversion-vs-founder-equity-185": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-professionals-and-community/ai-milestones-follower-celebration-185": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "interesting-finds/storytelling-fantasy-narrative-elements-185": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-healthcare-and-science/oncology-esr1-mutated-advanced-breast-cancer-treatment-184": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "investors-and-venture-capital/technical-concepts-blockchain-ai-zcash-quantum-learning-184": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "pr-and-communications/business-strategy-reducing-big-tech-reliance-184": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "spatial-computing/stream-frame-verification-clarifying-game-compatibility-labe-184": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-holodeck-and-virtual-worlds/product-innovation-ai-solutions-183": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "neuroscience-and-ai/neurolog-a-glutamato-y-cefalea-por-hemodi-lisis-183": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-consulting-and-expertise/local-ai-getting-started-182": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-education/english-vocabulary-understanding-selfish-182": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-holodeck-and-virtual-worlds/world-models-engagement-and-community-182": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-journalists-and-vips/ai-model-evaluation-gpt-5-6-performance-182": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-leaders-and-thinkers/content-strategy-audience-connection-181": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-journalists-and-vips/chatgpt-gpt-live-voice-feature-181": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "cybersecurity-and-tech/swapper-burp-extension-180": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "founders-and-entrepreneurs/social-media-content-observational-commentary-180": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-powered-film-and-media/deepseek-models-deprecation-and-v4-flash-transition-179": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-professionals-and-community/productive-workspaces-daily-setup-179": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "climate-and-weather-technology/favorite-pizza-establishments-top-picks-179": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "crypto-and-web3/market-dynamics-understanding-reward-mechanisms-179": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-powered-film-and-media/pahalgam-attack-operation-sindoor-commemoration-178": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "world-news-and-updates/support-178": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "cs-academics/celebrity-stories-billy-porters-chilling-account-175": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "neuroscience-and-ai/antiseizure-medication-pregnancy-risks-174": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-leaders-and-thinkers/cultural-event-coachella-performance-highlight-173": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "founders-and-entrepreneurs/basepaint-1000-day-milestone-173": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "cs-academics/entertainment-yo-yos-role-in-martin-172": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "founders-and-entrepreneurs/historical-events-chinas-lunar-exploration-172": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-powered-film-and-media/pycon-us-conference-t-shirt-order-deadline-171": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "computer-vision-and-ai-applications/nvidia-llms-nemotron-3-nano-omni-171": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "devs-designers-devrel/cultural-commentary-bengaluru-humour-170": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-vips/defi-leadership-robert-leshner-169": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-leaders-and-thinkers/automotive-technology-fsd-user-education-168": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "cs-academics/home-decor-affordable-enhancements-166": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "the-exponential-future/public-infrastructure-funding-and-impact-166": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-education/ai-technology-availability-and-adoption-165": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "computer-vision-and-ai-applications/thesis-defense-academic-achievement-165": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "vc-firms/entrepreneurship-women-founders-in-india-164": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "crypto-and-web3/market-strategy-buying-the-dip-163": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-enterprise-applications/community-engagement-ama-session-161": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-companies-and-development/community-milestone-project-recognition-161": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-infrastructure/digital-narratives-a-compelling-story-161": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-developer-tools/ai-insights-knowledge-sharing-160": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "cybersecurity-and-tech/technical-journalism-recognition-158": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "devs-designers-devrel/alan-wake-game-reference-158": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-vips/event-anticipation-garyvee-158": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "vc-firms/community-engagement-tiktok-launch-and-future-predictions-158": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "the-exponential-future/general-information-bank-holiday-reminder-157": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "founders-and-entrepreneurs/social-events-birthday-wishes-156": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "spatial-computing/observational-insight-unexpected-discoveries-156": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-education/vocabulary-understanding-issue-155": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-powered-film-and-media/web3-community-supporting-women-artists-155": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "decentralized-ai/system-status-user-assurance-155": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-holodeck-and-virtual-worlds/ai-perception-user-experience-154": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-vips/lifestyle-silicon-valley-culture-154": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "decentralized-ai/personal-growth-career-transition-153": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "quantum-computing/water-purification-microplastic-reduction-152": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-leaders-and-thinkers/autonomous-vehicles-user-experience-151": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-driven-vehicles-and-transportation/education-mastering-multiplication-tables-150": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "the-exponential-future/ai-community-engagement-and-exploration-149": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-education/language-learning-vocabulary-definition-young-148": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-for-content-creation-and-marketing/english-language-understanding-put-on-a-pedestal-148": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-education/english-vocabulary-understanding-performance-146": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-holodeck-and-virtual-worlds/ai-community-support-and-engagement-145": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-leaders-and-thinkers/networking-in-sf-decoding-coffee-invites-145": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "investors-and-venture-capital/prompt-engineering-interacting-with-claude-ai-145": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-artists-and-creators/social-interaction-weekend-greetings-144": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-education/english-vocabulary-understanding-analyze-144": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "the-exponential-future/public-policy-analysis-understanding-tax-initiatives-144": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-education/english-language-motivation-definition-143": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "pr-and-communications/entertainment-interactive-media-experience-143": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-journalists-and-vips/business-finance-employee-compensation-impact-143": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-vips/ai-developer-tools-student-credits-143": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "crypto-and-web3/digital-well-being-embracing-offline-activities-142": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "interesting-finds/social-impact-future-generations-142": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-companies-and-news/asus-zenbook-a16-laptop-preview-142": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-and-robotics-applications/smart-home-technology-defining-true-intelligence-141": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-consulting-and-expertise/data-privacy-valuing-personal-information-in-ai-services-141": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "quantum-computing/health-information-evidence-based-knowledge-dissemination-141": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "spatial-computing/ios-development-wwdc-swag-recognition-141": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-and-robotics-applications/product-development-reflecting-on-creation-139": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "climate-and-weather-technology/weather-update-florida-storms-139": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "founders-and-entrepreneurs/business-strategy-understanding-the-pivot-139": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-professionals-and-community/game-development-mega-man-fan-game-project-137": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "crypto-and-web3/general-observation-key-moment-highlight-135": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "founders-and-entrepreneurs/innovation-community-reactions-135": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "interesting-finds/history-endurance-challenges-135": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "spatial-computing/cultural-impact-artist-career-milestones-135": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-professionals-and-community/fitness-active-lifestyle-motivation-134": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "cybersecurity-and-tech/wildlife-observation-cardinal-sighting-134": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-driven-vehicles-and-transportation/autonomous-driving-l3-road-test-license-133": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-organizations-and-media/machine-learning-research-neurips-2025-highlights-133": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-developer-tools/obj-viewer-3d-model-inspection-tool-132": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-for-content-creation-and-marketing/content-creation-importance-of-quality-132": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "climate-and-weather-technology/weather-forecasting-upcoming-event-tracking-132": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-policy-and-ethical-considerations/cybersecurity-future-threat-scenarios-131": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "investors-and-venture-capital/startup-funding-securing-early-angel-investment-131": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-holodeck-and-virtual-worlds/general-announcement-new-year-greeting-130": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-organizations-and-media/femgen-exhibition-identity-and-art-130": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "climate-and-weather-technology/sports-highlights-remarkable-game-comebacks-130": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-enterprise-applications/cost-management-eliminating-small-expenses-129": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-organizations-and-media/new-year-community-greetings-129": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-companies-and-ventures/edgen-homepage-rebuild-for-market-intelligence-128": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "spatial-computing/widar-service-termination-information-126": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-powered-film-and-media/ai-tool-kling-ai-acknowledgment-123": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "computer-vision-and-ai-applications/video-generation-world-model-roadmap-121": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-driven-vehicles-and-transportation/perception-range-vs-acuity-120": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-leaders-and-thinkers/retro-computing-bulletin-board-system-setup-119": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-powered-film-and-media/ai-community-collaborative-innovation-119": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-professionals-and-community/well-being-maintaining-healthy-sleep-habits-119": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "cybersecurity-and-tech/ai-security-dynamic-saas-protection-119": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "neuroscience-and-ai/social-media-engagement-insights-119": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "devs-designers-devrel/fine-tuning-gpt-oss-20b-for-pediatric-nursing-118": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "quantum-computing/project-overview-3i-atlas-initiative-118": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "investors-and-venture-capital/rob-reiners-legacy-a-few-good-men-116": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "neuroscience-and-ai/neuroscience-microglia-and-neuronal-activity-115": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "decentralized-ai/crypto-scams-bluai-token-114": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-real-estate-and-property-tech/real-estate-tech-time-saving-solutions-113": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "pr-and-communications/human-tragedy-twins-surviving-hamas-attack-113": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-companies-and-news/suiteworld-platinum-sponsors-112": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "neuroscience-and-ai/digital-wellbeing-reducing-phone-usage-111": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-powered-film-and-media/merchandise-unboxing-mean-orange-cat-figures-109": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "climate-and-weather-technology/new-york-city-9-11-remembrance-108": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "quantum-computing/geopolitical-events-and-quantum-zeno-effect-108": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "climate-and-weather-technology/music-career-20th-anniversary-106": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "tech-infrastructure/mindfulness-box-breathing-at-defcon-104": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "interesting-finds/home-improvement-walk-up-attic-renovation-cost-103": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-education/gratitude-appreciation-for-support-102": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "computer-vision-and-ai-applications/japan-travel-shimanami-kaido-cycling-route-102": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "devs-designers-devrel/atrocity-silence-of-womens-organizations-102": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-education/computer-vision-image-classification-101": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "climate-and-weather-technology/hurricane-tracking-hurricane-erins-journey-101": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-driven-vehicles-and-transportation/hardware-hobbyist-reflections-soldering-scars-and-passion-100": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-and-robotics-applications/distributed-asynchronous-rl-weight-updates-099": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-professionals-and-community/higher-education-navigating-tier-3-universities-098": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "decentralized-ai/bittensor-security-warning-developer-tooling-095": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "founders-and-entrepreneurs/personal-anecdote-gaslighting-and-the-covid-19-pandemic-093": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "cs-academics/free-speech-uk-vs-us-092": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "interesting-finds/india-immersion-trip-hacker-house-residency-092": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ar-vr-companies-and-development/vr-games-showcase-upcoming-announcements-091": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "founders-and-entrepreneurs/career-advice-compensation-for-skills-091": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "devs-designers-devrel/focused-browsers-design-session-discussion-089": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "devs-designers-devrel/personal-update-chemo-treatment-087": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "vc-firms/flood-relief-efforts-round-mountain-baptist-church-087": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "crypto-and-web3/sales-high-growth-niches-085": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-and-robotics-applications/robotics-dexterous-robotic-hand-083": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "computer-vision-and-ai-applications/agent-memory-memorizz-development-082": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "crypto-and-web3/paris-trip-and-twitter-catch-up-082": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "neuroscience-and-ai/neuroscience-dopamines-complex-role-082": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "world-news-and-updates/politics-uk-france-summit-082": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "ai-in-enterprise-applications/excel-700-000-subscribers-milestone-080": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
+    },
+    "cybersecurity-and-tech/appreciation-recognizing-amazing-individuals-080": {
+      "views": 1,
+      "humanViews": 1,
+      "aiViews": 0
     }
   }
 }

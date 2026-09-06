@@ -13,6 +13,11 @@ export default function ArticleViewTracker({ slug, initialViews, initialAiViews 
   const [aiViews, setAiViews] = useState(initialAiViews);
 
   useEffect(() => {
+    setViews(initialViews);
+    setAiViews(initialAiViews);
+  }, [slug, initialViews, initialAiViews]);
+
+  useEffect(() => {
     let isMounted = true;
     const sessionKey = `viewed:${slug}`;
 

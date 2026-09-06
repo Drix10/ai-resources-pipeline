@@ -3,9 +3,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import initialViewsData from '@/lib/views-data.json';
 
-const SEED_TOTAL_VIEWS = typeof (initialViewsData as any)?.totalViews === 'number' 
-  ? (initialViewsData as any).totalViews 
-  : 8950;
+const SEED_TOTAL_VIEWS = Math.max(
+  8960,
+  typeof (initialViewsData as any)?.totalViews === 'number' 
+    ? (initialViewsData as any).totalViews 
+    : 8960
+);
 
 export default function HeaderLiveCounter() {
   const [totalViews, setTotalViews] = useState<number>(SEED_TOTAL_VIEWS);
