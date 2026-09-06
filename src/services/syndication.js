@@ -1,5 +1,5 @@
 const config = require("../../config");
-const { logger } = require("../utils/helpers");
+const { logger, generateSeoSlug } = require("../utils/helpers");
 
 class SyndicationService {
   constructor() {
@@ -176,9 +176,9 @@ class SyndicationService {
   }
 
   /**
-   * Syndicate markdown article file from GitHub service hook with unique article slug
+   * Syndicate markdown article file from GitHub service hook with unique content-based SEO slug
    */
-  async syndicateMarkdownArticle({ title, markdown, tags = [], category, relativePath, coverImage, published = true }) {
+  async syndicateMarkdownArticle({ title, markdown, tags = [], category, relativePath, coverImage, published = true, seoSlug }) {
     let canonicalUrl;
     let enrichedMarkdown = String(markdown || "");
 
@@ -189,14 +189,18 @@ class SyndicationService {
       const folderName = parts.length > 1 ? parts[0] : (category || "AI");
       const fileBase = parts[parts.length - 1];
       const categorySlug = folderName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80);
-      const articleSlug = fileBase.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80);
-      const cleanPath = `${categorySlug}/${articleSlug}`;
+
+      const fileName = `${fileBase}.md`;
+      const titleMatch = enrichedMarkdown.match(/^#\s+(.+)$/m) || enrichedMarkdown.match(/^###\s+(.+)$/m);
+      const rawTitle = titleMatch ? titleMatch[1] : (title || `${folderName} #${fileBase}`);
+      const computedSlug = seoSlug || generateSeoSlug(rawTitle, enrichedMarkdown, fileName, folderName);
+
+      const cleanPath = `${categorySlug}/${computedSlug}`;
       canonicalUrl = `https://blogs.drix10.com/articles/${cleanPath}`;
 
       // Guarantee DEV.to articles contain reciprocal backlinks to both the blog and GitHub file
       const isSpecial = categorySlug === "personal" || categorySlug === "linkedin-insights";
       if (!isSpecial && !enrichedMarkdown.includes("Read on the AI Knowledge Hub")) {
-        const fileName = `${fileBase}.md`;
         const githubUrl = `https://github.com/Drix10/ai-resources/blob/main/${encodeURIComponent(folderName)}/${encodeURIComponent(fileName)}`;
 
         const promoSection = `

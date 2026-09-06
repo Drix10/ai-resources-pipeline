@@ -95,6 +95,74 @@ const createErrorResponse = (message, statusCode = 500, details = {}) => {
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
+ * Generates a clean, unique, keyword-rich SEO slug based on article title, content, and resource number.
+ * E.g. "🤖 AI Systems - Cloud Storage Risks" in "resources-257.md" -> "ai-systems-cloud-storage-risks-257"
+ * E.g. "Personal" article "intern-to-competitor.md" -> "intern-to-competitor"
+ *
+ * @param {string} rawTitle - Raw title of the article
+ * @param {string} content - Markdown content for fallback keyword extraction
+ * @param {string} filename - Filename (e.g. "resources-257.md")
+ * @param {string} categoryName - Category name (e.g. "AI Developer Tools")
+ * @returns {string} - Clean semantic SEO slug
+ */
+const generateSeoSlug = (rawTitle, content = "", filename = "", categoryName = "") => {
+  const isPersonal = String(categoryName || "").toLowerCase() === "personal";
+  const fileBase = String(filename || "").replace(/\.md$/i, "");
+
+  // Personal articles keep their established filenames as slugs (e.g. "intern-to-competitor")
+  if (isPersonal && fileBase && !fileBase.startsWith("resources-")) {
+    return fileBase.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  }
+
+  // 1. Strip emojis and common boilerplate prefixes from rawTitle
+  let cleanTitle = String(rawTitle || "")
+    .replace(/^#+\s*/, "")
+    // Strip leading unicode emojis
+    .replace(/^[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F100}-\u{1F1FF}\u{1F600}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{1FA00}-\u{1FAFF}\s]+/u, "")
+    // Strip common generic category/type prefixes like "Tech - ", "Tools - ", "AI Model - ", "Category - Specific Topic", "Technical - "
+    .replace(/^(?:Tech(?:nical)?|Tools?|AI(?:\/ML)?(?: Model)?|Hardware Engineering|Award|Category|Specific Topic|Update|News)\s*[-:—–]\s*/i, "")
+    .trim();
+
+  // If title was "Specific Topic" or became empty, look at first paragraph for keywords
+  const isGeneric = !cleanTitle || /^(?:specific topic|ai & tech|ai tools|tech updates|twitter\/?x threads)$/i.test(cleanTitle);
+  if (isGeneric && content) {
+    const firstLine = content
+      .replace(/^#+.*$/gm, "")
+      .replace(/\*\*|__|\*|_/g, "")
+      .replace(/```[\s\S]*?```/g, "")
+      .replace(/🔗.*$/gm, "")
+      .trim()
+      .split(/\r?\n/)[0] || "";
+    const words = firstLine.replace(/[^a-zA-Z0-9\s]/g, " ").split(/\s+/).filter(w => w.length >= 3 && !/^(the|this|and|for|with|that|from|into|about)$/i.test(w)).slice(0, 6);
+    if (words.length >= 2) {
+      cleanTitle = words.join(" ");
+    }
+  }
+
+  // Fallback to title or category if still empty
+  if (!cleanTitle) {
+    cleanTitle = rawTitle || categoryName || "breakdown";
+  }
+
+  // Convert to clean kebab-case
+  let slug = cleanTitle
+    .toLowerCase()
+    .replace(/['"]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 60)
+    .replace(/-+$/, "");
+
+  // Extract resource number if available to guarantee 100% uniqueness
+  const numMatch = fileBase.match(/(?:resources-)?(\d+)/i);
+  if (numMatch && !slug.endsWith(numMatch[1])) {
+    slug = `${slug}-${numMatch[1]}`;
+  }
+
+  return slug || fileBase || "article";
+};
+
+/**
  * Automatically scans all workspace markdown folders and rebuilds blog/lib/articles-index.json
  */
 const rebuildBlogIndex = () => {
@@ -185,13 +253,15 @@ const rebuildBlogIndex = () => {
 
           const categorySlug = entry.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80);
           const fileBase = file.replace(".md", "");
-          const articleSlug = fileBase.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80);
-          const slug = categorySlug + "/" + (articleSlug || fileBase);
+          const legacySlug = categorySlug + "/" + fileBase;
+          const articleSeoSlug = generateSeoSlug(title, content, file, entry.name);
+          const slug = categorySlug + "/" + articleSeoSlug;
 
           const searchKeywords = (title + " " + description + " " + entry.name + " " + content.slice(0, 600)).toLowerCase().replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ");
 
           articles.push({
             slug,
+            legacySlug,
             category: entry.name,
             categorySlug,
             filename: file,
@@ -252,5 +322,6 @@ module.exports = Object.freeze({
   createErrorResponse,
   logger,
   sleep,
+  generateSeoSlug,
   rebuildBlogIndex,
 });

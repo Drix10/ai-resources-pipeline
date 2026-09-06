@@ -5,6 +5,7 @@ import indexData from './articles-index.json';
 
 export interface ArticleSummary {
   slug: string;
+  legacySlug?: string;
   category: string;
   categorySlug: string;
   filename: string;
@@ -46,7 +47,21 @@ const categoriesList = indexData.categories as { name: string; slug: string; cou
 const slugMap = new Map<string, ArticleSummary>();
 
 for (const a of articlesList) {
+  // Primary SEO slug: e.g. "cs-academics/github-rest-api-updates-272"
   slugMap.set(a.slug.toLowerCase(), a);
+
+  // Bare SEO slug without category: e.g. "github-rest-api-updates-272"
+  const slugParts = a.slug.split('/');
+  if (slugParts.length > 1) {
+    slugMap.set(slugParts[slugParts.length - 1].toLowerCase(), a);
+  }
+
+  // Legacy counter slug: e.g. "cs-academics/resources-272"
+  if (a.legacySlug) {
+    slugMap.set(a.legacySlug.toLowerCase(), a);
+  }
+
+  // Legacy fileBase: e.g. "resources-272"
   const fileBase = a.filename.replace('.md', '').toLowerCase();
   slugMap.set(fileBase, a);
   slugMap.set(a.categorySlug + '/' + fileBase, a);
@@ -82,6 +97,16 @@ export function getArticleBySlug(slugPath: string[]): Article | null {
   if (!summary) {
     const lastPart = slugPath[slugPath.length - 1].toLowerCase();
     summary = slugMap.get(lastPart);
+  }
+
+  // Fallback: If slug ends with a number e.g. "-272", search by resource number
+  if (!summary) {
+    const lastPart = slugPath[slugPath.length - 1].toLowerCase();
+    const numMatch = lastPart.match(/(?:resources-)?(\d+)$/);
+    if (numMatch) {
+      const paddedNum = numMatch[1].padStart(3, '0');
+      summary = slugMap.get(`resources-${paddedNum}`) || slugMap.get(`resources-${parseInt(numMatch[1], 10)}`);
+    }
   }
   if (!summary) return null;
 

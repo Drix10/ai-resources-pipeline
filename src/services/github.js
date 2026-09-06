@@ -2,7 +2,7 @@ const { Octokit } = require("@octokit/rest");
 const fs = require("fs");
 const path = require("path");
 const config = require("../../config");
-const { logger, handleError } = require("../utils/helpers");
+const { logger, handleError, generateSeoSlug, rebuildBlogIndex } = require("../utils/helpers");
 const llmService = require("./llm");
 const syndicationService = require("./syndication");
 
@@ -183,11 +183,14 @@ class GithubService {
 
       // Attach promotional section and exact SEO backlink (skip for personal & linkedin insights)
       const isSpecialFolder = decodedFolder.toLowerCase() === "personal" || decodedFolder.toLowerCase() === "linkedin insights";
+      let seoSlug = null;
       if (!isSpecialFolder) {
         const categorySlug = decodedFolder.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80);
         const fileBase = fileName.replace(".md", "");
-        const articleSlug = fileBase.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80);
-        const blogArticleUrl = `https://blogs.drix10.com/articles/${categorySlug}/${articleSlug}`;
+        const titleMatch = content.match(/^#\s+(.+)$/m) || content.match(/^###\s+(.+)$/m);
+        const rawTitle = titleMatch ? titleMatch[1] : (`${decodedFolder} #${nextNumber}`);
+        seoSlug = generateSeoSlug(rawTitle, content, fileName, decodedFolder);
+        const blogArticleUrl = `https://blogs.drix10.com/articles/${categorySlug}/${seoSlug}`;
 
         if (!content.includes("Read on the AI Knowledge Hub")) {
           const promoSection = `
@@ -199,7 +202,7 @@ class GithubService {
 
 Curated and maintained by **[Drishtant Ghosh (Drix10)](https://drix10.com)** — Co-Founder @ PartPilot, 1x Acquired Serial Founder (ReeF), Canopy @ Founders, Inc., & Cybersecurity Researcher.
 
-- **Interactive Article Breakdown**: [blogs.drix10.com/articles/${categorySlug}/${articleSlug}](${blogArticleUrl})
+- **Interactive Article Breakdown**: [blogs.drix10.com/articles/${categorySlug}/${seoSlug}](${blogArticleUrl})
 - **GitHub Source File**: [${decodedFolder}/${fileName}](${fileUrl})
 - **Explore Full Knowledge Base**: [blogs.drix10.com](https://blogs.drix10.com)
 - **Personal Portfolio & Projects**: [drix10.com](https://drix10.com)
@@ -221,7 +224,8 @@ Curated and maintained by **[Drishtant Ghosh (Drix10)](https://drix10.com)** —
         fileName,
         filePath,
         fileUrl,
-        content
+        content,
+        seoSlug
       });
     }
 
@@ -306,6 +310,12 @@ Curated and maintained by **[Drishtant Ghosh (Drix10)](https://drix10.com)** —
       }
     }
 
+    try {
+      rebuildBlogIndex();
+    } catch (idxErr) {
+      logger.warn(`Blog index rebuild warning (non-fatal): ${idxErr.message}`);
+    }
+
     // Syndicate sequentially in background so DEV.to rate limits (1 req/sec) are not exceeded
     (async () => {
       for (const item of preparedItems) {
@@ -316,6 +326,7 @@ Curated and maintained by **[Drishtant Ghosh (Drix10)](https://drix10.com)** —
             tags: [item.decodedFolder.toLowerCase().replace(/[^a-z0-9]/g, "")],
             category: item.decodedFolder,
             relativePath: item.filePath,
+            seoSlug: item.seoSlug,
           });
           // Wait 2.5s between syndications to respect DEV.to burst & 30 req/30s rate limits
           await new Promise((res) => setTimeout(res, 2500));
