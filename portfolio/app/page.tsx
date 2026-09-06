@@ -140,7 +140,7 @@ export default function HomePage() {
                 <span className="text-xs text-zinc-400 font-medium">Remote • Self-Employed</span>
               </div>
               <span className="text-xs font-mono px-2 py-0.5 rounded bg-zinc-800 text-zinc-300">
-                Apr 2026 — Present
+                Jul 2026 — Present
               </span>
             </div>
             <p className="text-xs text-zinc-300 leading-relaxed">
@@ -340,14 +340,14 @@ export default function HomePage() {
       <section id="writing" className="p-6 sm:p-8 rounded-3xl bg-zinc-900/30 border border-zinc-800 space-y-4">
         <div className="flex items-center justify-between">
           <span className="text-xs font-mono text-zinc-400 font-semibold">05. Research & Engineering Writing</span>
-          <span className="text-xs font-mono text-emerald-400">740+ Deep Dives</span>
+          <span className="text-xs font-mono text-emerald-400">780+ Deep Dives</span>
         </div>
         <div className="space-y-2">
           <h3 className="text-lg font-bold text-zinc-100">
             Autonomous Technical Research & System Architecture Notes
           </h3>
           <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed max-w-2xl">
-            Operating the RAIDS Protocol across 740+ curated AI breakdowns, implementing the 8 Core SEO & Information Gain Blueprints: Answer-First query fan-out summaries, 0-orphan sitemaps, E-E-A-T entity graphs, and reciprocal backlink networks linking blogs.drix10.com, GitHub, and DEV.to.
+            Autonomous technical research and deep engineering breakdowns across AI systems, distributed architectures, and cybersecurity. Cross-syndicated across blogs.drix10.com, GitHub, and DEV.to.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-3 pt-2 text-xs font-mono">
