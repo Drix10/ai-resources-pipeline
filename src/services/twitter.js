@@ -11,6 +11,7 @@ const NON_TECH_PATTERNS = [
   /\b(nba|nfl|mlb|premier league|champions league|football|soccer|basketball|baseball|touchdown|pacers|lakers|warriors|celtics|quarterback|referee|halftime score|slam dunk|all-star voting|ipl|cricket|tennis|formula 1|f1)\b/i,
   /\b(perfume|fragrance|cologne|lipstick|makeup|eyeliner|haute couture|ootd|fashion week|runway model|dress code|wardrobe|shoes|sneakers|footwear|arch support|skincare)\b/i,
   /\b(kardashian|grammys|oscars red carpet|box office weekend|celebrity dating|paparazzi|gossip|horoscope|astrology|zodiac)\b/i,
+  /\b(film review|movie review|telluride|sundance|cannes film|venice film|box office|movie premiere|film festival|rotten tomatoes|directed by [a-z]+ [a-z]+|standout performance in the film|comedy-drama film|theatrical release)\b/i,
   /\b(comment ['"]?(yes|link|send|guide|prompt)['"]?|drop a like and i['’]?ll (dm|send)|retweet for a chance|giveaway|airdrop|whitelist|presale|free tokens)\b/i,
   /\b(\d+\s+(?:morning\s+)?habits\b|morning routine\b|mindset shift\b|how to wake up at \d|financial freedom in \d|crypto signal group|passive income|billionaire(?:s)?\b|millionaire(?:s)?\b)\b/i,
 ];
