@@ -17,11 +17,11 @@ const PROJECTS: Project[] = [
   {
     title: 'PartPilot',
     category: 'Startups & Systems',
-    period: 'Apr 2026 — Present',
+    period: 'Jul 2026 — Present • Remote',
     description:
       'Platform engineered to identify hardware supply chain risks before they impact production. Comprehensive component intelligence tool for engineering, sourcing, and compliance teams.',
     tags: ['Next.js 14', 'TypeScript', 'Prisma', 'PostgreSQL', 'Supply Chain AI', 'Cloud Infra'],
-    highlight: 'Co-Founded Startup',
+    highlight: 'Co-Founded Startup • Remote',
   },
   {
     title: 'Canopy @ Founders, Inc.',
@@ -54,15 +54,15 @@ const PROJECTS: Project[] = [
     highlight: '1x Acquired ($15k ARR)',
   },
   {
-    title: 'AI Resources Knowledge Hub & RAIDS Engine',
+    title: 'AI Resources Knowledge Hub',
     category: 'AI & LLMs',
     period: 'Dec 2024 — Present',
     description:
-      'Autonomous multi-platform distribution engine (RAIDS Protocol) implementing 8 core SEO & information gain blueprints. Synthesizes high-density engineering breakdowns via local & NVIDIA LLMs, generating reciprocal backlinks, Answer-First query fan-out summaries, and 0-orphan architectures across blogs.drix10.com, GitHub, and DEV.to.',
-    tags: ['RAIDS Protocol', '8 SEO Blueprints', 'Next.js 14', 'NVIDIA NIM', 'TypeScript', 'Ollama', 'Multi-Platform'],
+      'Autonomous multi-platform knowledge engine synthesizing high-density engineering breakdowns via local & NVIDIA LLMs. Distributes synced technical articles across blogs.drix10.com, GitHub, and DEV.to.',
+    tags: ['Next.js 14', 'NVIDIA NIM', 'TypeScript', 'Ollama', 'Multi-Platform', 'Open Source'],
     github: 'https://github.com/Drix10/ai-resources',
     live: 'https://blogs.drix10.com',
-    highlight: 'RAIDS Engine • 8 Blueprints • 100+ Stars',
+    highlight: 'Knowledge Engine • 100+ Stars',
   },
   {
     title: 'Intent Canvas',
