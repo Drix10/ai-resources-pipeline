@@ -6,16 +6,27 @@ export async function GET() {
   const siteUrl = process.env.CANONICAL_BASE_URL || 'https://blogs.drix10.com';
 
   const rssItems = recentArticles
-    .map((article) => `
+    .map((article) => {
+      let pubDateStr = new Date().toUTCString();
+      try {
+        if (article.date) {
+          const d = new Date(article.date);
+          if (!isNaN(d.getTime())) pubDateStr = d.toUTCString();
+        }
+      } catch (e) {}
+
+      const linkUrl = article.canonicalUrl || `${siteUrl}/articles/${article.slug}`;
+      return `
     <item>
       <title><![CDATA[${article.title}]]></title>
-      <link>${article.canonicalUrl}</link>
-      <guid>${article.canonicalUrl}</guid>
-      <pubDate>${new Date(article.date).toUTCString()}</pubDate>
+      <link>${linkUrl}</link>
+      <guid>${linkUrl}</guid>
+      <pubDate>${pubDateStr}</pubDate>
       <description><![CDATA[${article.description}]]></description>
       <category>${article.category}</category>
       <author>drishtant@drix10.com (Drishtant Ghosh (Drix10))</author>
-    </item>`)
+    </item>`;
+    })
     .join('');
 
   const rss = `<?xml version="1.0" encoding="UTF-8"?>

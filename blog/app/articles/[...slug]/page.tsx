@@ -170,6 +170,7 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
           const viewStats = getArticleViews(article.slug);
           return (
             <ArticleViewTracker
+              key={article.slug}
               slug={article.slug}
               initialViews={viewStats.views}
               initialAiViews={viewStats.aiViews}

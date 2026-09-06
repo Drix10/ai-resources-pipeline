@@ -18,8 +18,11 @@ export interface ViewsStore {
 }
 
 // Dynamically seed from the committed views-data.json
-const BASE_TOTAL_VIEWS = typeof (seedData as any)?.totalViews === 'number' ? (seedData as any).totalViews : 8950;
-const BASE_AI_VIEWS = typeof (seedData as any)?.totalAiViews === 'number' ? (seedData as any).totalAiViews : 1;
+const BASE_TOTAL_VIEWS = Math.max(
+  8960,
+  typeof (seedData as any)?.totalViews === 'number' ? (seedData as any).totalViews : 8960
+);
+const BASE_AI_VIEWS = typeof (seedData as any)?.totalAiViews === 'number' ? (seedData as any).totalAiViews : 4;
 const BASE_HUMAN_VIEWS = typeof (seedData as any)?.totalHumanViews === 'number' ? (seedData as any).totalHumanViews : BASE_TOTAL_VIEWS - BASE_AI_VIEWS;
 
 // In-memory store — survives within a single serverless lambda lifecycle.
@@ -114,6 +117,25 @@ function normalizeSlug(slug: string): string {
   return clean.slice(0, 180);
 }
 
+function findArticleStats(slug: string): ArticleViews | null {
+  const cleanSlug = normalizeSlug(slug);
+  if (store.articles[cleanSlug]) return store.articles[cleanSlug];
+  if (store.articles[slug]) return store.articles[slug];
+
+  // Fallback: match resource number e.g. -272 or resources-272
+  const numMatch = cleanSlug.match(/(?:-|^)(\d+)$/);
+  if (numMatch) {
+    const num = numMatch[1];
+    const categoryPart = cleanSlug.split('/')[0];
+    for (const k in store.articles) {
+      if (k.startsWith(categoryPart + '/') && (k.endsWith('-' + num) || k.endsWith('resources-' + num))) {
+        return store.articles[k];
+      }
+    }
+  }
+  return null;
+}
+
 export function recordView(slug: string, userAgent: string): {
   slug: string;
   stats: ArticleViews;
@@ -128,10 +150,11 @@ export function recordView(slug: string, userAgent: string): {
   const isAi = isAiCrawler(userAgent);
 
   if (!store.articles[cleanSlug]) {
+    const legacy = findArticleStats(slug);
     store.articles[cleanSlug] = {
-      views: 1,
-      humanViews: isAi ? 0 : 1,
-      aiViews: isAi ? 1 : 0,
+      views: (legacy?.views || 0) + 1,
+      humanViews: (legacy?.humanViews || 0) + (isAi ? 0 : 1),
+      aiViews: (legacy?.aiViews || 0) + (isAi ? 1 : 0),
     };
   } else {
     store.articles[cleanSlug].views = (store.articles[cleanSlug].views || 0) + 1;
@@ -166,8 +189,7 @@ export function recordView(slug: string, userAgent: string): {
 export function getArticleViews(slug: string): ArticleViews {
   initStoreOnce();
 
-  const cleanSlug = normalizeSlug(slug);
-  const found = store.articles[cleanSlug] || store.articles[slug];
+  const found = findArticleStats(slug);
   if (found) {
     return { ...found };
   }
