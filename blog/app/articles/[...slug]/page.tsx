@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: { params: { slug: string[] } 
       card: 'summary_large_image',
       title: article.title,
       description: article.description,
-      creator: '@drix10',
+      creator: '@DrishtantGhosh',
     },
   };
 }
@@ -77,13 +77,14 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
       alternateName: ['Drix10', 'drix10'],
       url: 'https://drix10.com',
       image: 'https://blogs.drix10.com/avatar.png',
+      description: 'Technical founder and engineer working across AI systems, developer infrastructure, and cybersecurity.',
       sameAs: [
         'https://github.com/Drix10',
         'https://www.linkedin.com/in/drix10',
         'https://peerlist.io/drix10',
         'https://medium.com/@drix10',
         'https://dev.to/drix10',
-        'https://x.com/Drix_10',
+        'https://x.com/DrishtantGhosh',
       ],
     },
     publisher: {
@@ -198,12 +199,12 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
         dangerouslySetInnerHTML={{ __html: article.htmlContent }}
       />
 
-      {/* Reciprocal GitHub Repository Source Link for SEO */}
+      {/* Article-Specific Source / Implementation Link */}
       {isFolderResource && (
         <section className="mt-8 p-4 rounded-xl bg-zinc-900/40 border border-zinc-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs font-mono">
           <div className="flex items-center gap-2.5 text-zinc-400">
             <span className="text-base">📂</span>
-            <span>Canonical GitHub Source:</span>
+            <span>Source / Implementation:</span>
             <span className="text-zinc-200 font-semibold">{article.category} / {article.filename}</span>
           </div>
           <a
@@ -213,7 +214,7 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white transition-colors text-[11px] font-medium shrink-0"
             title={`View raw ${article.category}/${article.filename} on GitHub`}
           >
-            <span>View Raw Markdown on GitHub</span>
+            <span>GitHub Repository</span>
             <span className="text-[10px] text-zinc-400">↗</span>
           </a>
         </section>
@@ -246,8 +247,8 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
         </div>
       </section>
 
-      {/* Author Card & Cross-Domain Authority */}
-      <div className="mt-8 sm:mt-12 pt-6 border-t border-zinc-800/80 space-y-4 sm:space-y-6">
+      {/* Author Metadata */}
+      <div className="mt-8 sm:mt-12 pt-6 border-t border-zinc-800/80 space-y-4">
         <div className="p-5 sm:p-6 rounded-2xl bg-zinc-900/40 border border-zinc-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 shadow-sm">
           <div className="flex items-center gap-3.5">
             <a href="https://drix10.com" target="_blank" rel="noopener noreferrer" className="shrink-0" title="Drishtant Ghosh (Drix10)">
@@ -266,38 +267,30 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
                 <span className="text-emerald-400 font-mono text-[11px] font-medium">Author & Engineer</span>
               </div>
               <p className="text-xs text-zinc-400 leading-relaxed max-w-md">
-                Co-Founder @ PartPilot, 1x Acquired Serial Founder (ReeF), Canopy @ Founders, Inc., and Cybersecurity Researcher.
+                Technical founder and engineer working across AI systems, developer infrastructure, and cybersecurity.
               </p>
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
-            <a
-              href="https://drix10.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 sm:flex-initial px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 hover:text-white text-xs font-semibold transition-colors text-center min-h-[36px] flex items-center justify-center gap-1"
-            >
-              <span>Portfolio</span>
-              <span className="text-[10px] text-zinc-500">↗</span>
+          <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-400 font-mono">
+            <a href="https://drix10.com" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-100 hover:underline">
+              Portfolio
             </a>
-            <a
-              href="https://www.linkedin.com/in/drix10"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 sm:flex-initial px-3.5 py-2 rounded-xl bg-zinc-100 text-zinc-950 font-semibold text-xs hover:bg-zinc-200 transition-colors text-center min-h-[36px] flex items-center justify-center"
-            >
+            <span>·</span>
+            <a href="https://github.com/Drix10" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-100 hover:underline">
+              GitHub
+            </a>
+            <span>·</span>
+            <a href="https://www.linkedin.com/in/drix10" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-100 hover:underline">
               LinkedIn
             </a>
-            <a
-              href={githubFileUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 sm:flex-initial px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 text-xs font-medium transition-colors text-center min-h-[36px] flex items-center justify-center gap-1"
-              title={isFolderResource ? `View source ${article.category}/${article.filename} on GitHub` : "View repository on GitHub"}
-            >
-              <span>{isFolderResource ? "GitHub Source" : "GitHub"}</span>
-              <span className="text-amber-400 text-xs">⭐</span>
+            <span>·</span>
+            <a href="https://x.com/DrishtantGhosh" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-100 hover:underline">
+              X
+            </a>
+            <span>·</span>
+            <a href="mailto:ggdrishtant@gmail.com" className="hover:text-zinc-100 hover:underline">
+              Email
             </a>
           </div>
         </div>

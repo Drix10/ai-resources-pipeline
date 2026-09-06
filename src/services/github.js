@@ -192,23 +192,23 @@ class GithubService {
         seoSlug = generateSeoSlug(rawTitle, content, fileName, decodedFolder);
         const blogArticleUrl = `https://blogs.drix10.com/articles/${categorySlug}/${seoSlug}`;
 
-        if (!content.includes("Read on the AI Knowledge Hub")) {
+        if (!content.includes("Read More & Connect") && !content.includes("Read on the AI Knowledge Hub")) {
           const promoSection = `
 
 ---
 
-### 🌐 Read on the AI Knowledge Hub & Connect
-> **Interactive Article & Live Reader View**: [Read "${decodedFolder} #${nextNumber}" on blogs.drix10.com](${blogArticleUrl})
+### Read More & Connect
 
-Curated and maintained by **[Drishtant Ghosh (Drix10)](https://drix10.com)** — Co-Founder @ PartPilot, 1x Acquired Serial Founder (ReeF), Canopy @ Founders, Inc., & Cybersecurity Researcher.
+**Interactive version:** [blogs.drix10.com](${blogArticleUrl})
 
-- **Interactive Article Breakdown**: [blogs.drix10.com/articles/${categorySlug}/${seoSlug}](${blogArticleUrl})
-- **GitHub Source File**: [${decodedFolder}/${fileName}](${fileUrl})
-- **Explore Full Knowledge Base**: [blogs.drix10.com](https://blogs.drix10.com)
-- **Personal Portfolio & Projects**: [drix10.com](https://drix10.com)
-- **Connect on LinkedIn**: [linkedin.com/in/drix10](https://www.linkedin.com/in/drix10)
-- **Follow on X / Twitter**: [@Drix_10](https://x.com/Drix_10)
-- **GitHub Repository**: [Drix10/ai-resources](https://github.com/Drix10/ai-resources)
+Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical founder and engineer working across AI systems, developer infrastructure, and cybersecurity.
+
+- **Blog:** [blogs.drix10.com](https://blogs.drix10.com)
+- **Portfolio:** [drix10.com](https://drix10.com)
+- **GitHub:** [github.com/Drix10](https://github.com/Drix10)
+- **LinkedIn:** [linkedin.com/in/drix10](https://www.linkedin.com/in/drix10)
+- **X:** [@DrishtantGhosh](https://x.com/DrishtantGhosh)
+- **Email:** [ggdrishtant@gmail.com](mailto:ggdrishtant@gmail.com)
 `;
           content = content.trimEnd() + promoSection;
         }
@@ -426,7 +426,7 @@ Curated and maintained by **[Drishtant Ghosh (Drix10)](https://drix10.com)** —
 
       const headerContent = `
 <div align="center">
-  <h1><a href="https://x.com/DRIX_10_" target="_blank">🚀 AI Resources by DRIX10</a></h1>
+  <h1><a href="https://x.com/DrishtantGhosh" target="_blank">🚀 AI Resources by Drix10</a></h1>
   <p><strong>Explore a comprehensive collection of top AI resources curated by experts on 𝕏</strong></p>
   <p>🌟 Daily updates • 💡 Expert insights • 🔥 Trending Topics</p>
 
@@ -438,7 +438,7 @@ Curated and maintained by **[Drishtant Ghosh (Drix10)](https://drix10.com)** —
   <br>
 
   <h3>🌟 Quick Links</h3>
-    <a href="https://x.com/DRIX_10_">
+    <a href="https://x.com/DrishtantGhosh">
       <img src="https://img.shields.io/badge/Follow_on_𝕏-black?style=for-the-badge&logo=x&logoColor=white" alt="Follow on X" />
     </a>
     <a href="https://github.com/Drix10">

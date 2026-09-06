@@ -84,7 +84,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Drishtant Ghosh (Drix10) — Technical Research & Engineering Hub',
     description: 'Curated technical research, system architectures, and AI engineering notes by Drishtant Ghosh (Drix10).',
-    creator: '@drix10',
+    creator: '@DrishtantGhosh',
     images: ['/avatar.png'],
   },
   alternates: {
@@ -116,15 +116,15 @@ export default function RootLayout({
         alternateName: ['Drix10', 'drix10', 'Drix'],
         url: 'https://drix10.com',
         image: 'https://blogs.drix10.com/avatar.png',
-        jobTitle: 'Founder & AI Engineer',
-        description: 'AI Engineer, serial founder, and cybersecurity student. Author and curator of 8,950+ technical engineering breakdowns at Drix10 Blogs.',
+        jobTitle: 'Technical Founder & Engineer',
+        description: 'Technical founder and engineer working across AI systems, developer infrastructure, and cybersecurity. Author and curator at Drix10 Blogs.',
         sameAs: [
           'https://github.com/Drix10',
           'https://www.linkedin.com/in/drix10',
           'https://peerlist.io/drix10',
           'https://medium.com/@drix10',
           'https://dev.to/drix10',
-          'https://x.com/Drix_10',
+          'https://x.com/DrishtantGhosh',
         ],
         knowsAbout: [
           'Artificial Intelligence',
@@ -255,30 +255,40 @@ export default function RootLayout({
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left pt-6 border-t border-zinc-800/60">
-              <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2">
+              <div className="flex flex-col gap-1">
                 <span className="font-semibold text-zinc-300">Drishtant Ghosh (Drix10)</span>
-                <span className="hidden sm:inline text-zinc-700">•</span>
-                <span>Engineering Knowledge Hub & Autonomous Systems</span>
+                <span className="text-zinc-500 max-w-md text-xs leading-relaxed">
+                  Technical founder and engineer working across AI systems, developer infrastructure, and cybersecurity.
+                </span>
               </div>
 
-              <div className="flex flex-wrap items-center justify-center gap-4 text-zinc-400">
+              <div className="flex flex-wrap items-center justify-center gap-3 text-zinc-400">
+                <Link href="/" className="hover:text-zinc-100 hover:underline">
+                  Blog
+                </Link>
+                <span>·</span>
                 <a href="https://drix10.com" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-100 hover:underline">
-                  Author Portfolio
+                  Portfolio
                 </a>
-                <a href="https://github.com/Drix10/ai-resources" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-100 hover:underline">
-                  GitHub Repo
+                <span>·</span>
+                <a href="https://github.com/Drix10" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-100 hover:underline">
+                  GitHub
                 </a>
+                <span>·</span>
                 <a href="https://www.linkedin.com/in/drix10" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-100 hover:underline">
                   LinkedIn
                 </a>
-                <a href="mailto:ggdrishtant@gmail.com" className="hover:text-zinc-100 hover:underline">
-                  Contact
+                <span>·</span>
+                <a href="https://x.com/DrishtantGhosh" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-100 hover:underline">
+                  X
                 </a>
+                <span>·</span>
+                <a href="mailto:ggdrishtant@gmail.com" className="hover:text-zinc-100 hover:underline">
+                  Email
+                </a>
+                <span className="text-zinc-700">|</span>
                 <Link href="/llms.txt" className="hover:text-zinc-100 hover:underline font-mono text-[11px] text-emerald-400/90">
                   llms.txt
-                </Link>
-                <Link href="/categories" className="hover:text-zinc-100 hover:underline">
-                  Categories
                 </Link>
                 <Link href="/sitemap.xml" className="hover:text-zinc-100 hover:underline">
                   Sitemap

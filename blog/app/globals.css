@@ -87,3 +87,38 @@
   padding: 0.5rem !important;
   color: #d4d4d8 !important;
 }
+
+.prose ul {
+  list-style-type: disc !important;
+  padding-left: 1.5rem !important;
+  margin-top: 0.75rem !important;
+  margin-bottom: 1.25rem !important;
+}
+
+.prose ol {
+  list-style-type: decimal !important;
+  padding-left: 1.5rem !important;
+  margin-top: 0.75rem !important;
+  margin-bottom: 1.25rem !important;
+}
+
+.prose li {
+  margin-top: 0.4rem !important;
+  margin-bottom: 0.4rem !important;
+  line-height: 1.7 !important;
+  color: #d4d4d8 !important;
+}
+
+.prose li strong {
+  color: #f4f4f5 !important;
+  font-weight: 600 !important;
+}
+
+.prose h3 {
+  margin-top: 2rem !important;
+  margin-bottom: 0.75rem !important;
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+  color: #f4f4f5 !important;
+  letter-spacing: -0.01em !important;
+}
