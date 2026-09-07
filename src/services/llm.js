@@ -63,6 +63,11 @@ const HAT_TIP_PROHIBITED_PATTERNS = [
   /\bAST of the model\b/i,
   // Forced summaries
   /(?:in conclusion|to wrap up|all in all|in summary|to summarize)[,:]?/i,
+  // Textbook definitions & lecture filler (Hank Wu Anti-Slop / Anti-Empty standard)
+  /\b[A-Za-z0-9_\s-]+(?:occurs when|is defined as|refers to the process of)\b/i,
+  /\bBy following (?:these|such) best practices\b/i,
+  /\bIt(?:'s| is) easy to overlook the importance\b/i,
+  /\bA deep breakdown of [^.\n]+ is crucial\b/i,
   // Engagement bait CTAs
   /(?:agree\??|thoughts\??|drop a comment below|let me know in the comments|share your thoughts)/i
 ];
@@ -3349,6 +3354,68 @@ Write an authentic, highly valuable LinkedIn founder post sharing this technical
 
 ${archetypeDirective}
 
+=== THE GOLDEN BENCHMARK (HANK WU / ANTI-SLOP / ANTI-EMPTY STANDARD) ===
+Study this post carefully. THIS is the benchmark for tone, specificity, cadence, and founder conviction:
+
+"I run an AI content company.
+And I am very happy LinkedIn is fighting AI slop.
+
+Hari Srinivasan recently shared that LinkedIn is actively trying to reduce AI slop and promote authentic human connection.
+
+That might sound bad for my business.
+It is not.
+
+AI slop happens when someone asks:
+'Write me a thought-leadership post about entrepreneurship.'
+
+The model has no real context.
+No customer conversation. No difficult decision. No lived experience.
+So AI fills the gap with something polished that says almost nothing.
+
+After generating 600k+ impressions on my LinkedIn, one thing became obvious:
+Polished writing does not make people care.
+Specificity does.
+
+That is why we built Posting Machine around real founder context: customer calls, Slack conversations, mistakes, decisions, and changing beliefs.
+
+AI should help communicate what you genuinely think.
+It should not invent a personality for you.
+
+LinkedIn is not becoming anti-AI.
+It is becoming anti-empty.
+
+And that is good for everyone using AI properly.
+
+Best,
+Hank
+-
+➡️ created by Posting Machine ♻️ follow Hank Wu for more"
+
+=== 5 CORE COPYWRITING RULES FROM THIS BENCHMARK ===
+1. ZERO TEXTBOOK DEFINITIONS:
+   - Senior engineers and technical founders read this. NEVER explain or define basic concepts.
+   - STRICTLY FORBIDDEN: "Overfitting occurs when...", "A database is...", "Latency refers to...", "Pipelines are...".
+   - Replace definitions with REAL FRICTION: what actually broke in production, what assumption collapsed under load, what edge case made you rethink the setup.
+2. SHORT, STACCATO CONTRAST PAIRS:
+   - Use high-contrast 1-sentence pivot lines:
+     * "That might sound bad for X. It is not."
+     * "Polished writing does not make people care. Specificity does."
+     * "AI should help communicate what you genuinely think. It should not invent a personality for you."
+     * "LinkedIn is not becoming anti-AI. It is becoming anti-empty."
+3. CONCRETE OPERATING CONTEXT:
+   - Root-cause anatomy: Show why naive implementations fail ("The model has no real context. No production trace. No difficult trade-off...").
+   - Tie the lesson to an actual operating philosophy or architectural conviction.
+4. CADENCE & LINE BREAKS:
+   - 1-2 sentence paragraphs max.
+   - Clean double line breaks between every thought.
+   - Zero markdown bolding (**), zero em dashes (—).
+5. SIGN-OFF BLOCK:
+   - End the post with this exact signature block:
+Best,
+Drishtant
+-
+➡️ curated at Drix10 Blogs ♻️ follow Drishtant Ghosh for more
+
 === VERIFIED SOURCE TECHNICAL FACTS (STRICT GROUNDING REQUIREMENT) ===
 Topic: ${cleanTitle}
 Verified Source Content:
@@ -3422,6 +3489,8 @@ ${feedbackSection}
 === STRICT PROHIBITIONS ===
 - STRICTLY ZERO MARKDOWN BOLDING OR ASTERISKS ("**" or "__"). Write clean plain text.
 - STRICTLY ZERO EM DASHES ("—" or "--"). Use colons, commas, or periods instead.
+- ZERO TEXTBOOK DEFINITIONS: NEVER define basic technical terms ("X occurs when...", "X is a technique...").
+- NO lecturer/teacher phrases: "As X becomes increasingly complex...", "It is easy to overlook...", "A deep breakdown is crucial...", "By following these best practices...".
 - NO reversal framing ("Most people think X, but actually Y").
 - NO rhetorical questions ("Have you ever wondered...?").
 - NO repeated sentence openings.
@@ -3530,6 +3599,18 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     body = body.replace(/\bwe(?:'ve| have) all been\b/gi, "engineering teams are often");
     body = body.replace(/\bAST of the model\b/gi, "AST of the generated code");
     body = body.replace(/\bAST for the model\b/gi, "AST for the generated code");
+
+    // 5i. Anti-Slop / Anti-Empty Rule (Hank Wu Standard): Strip textbook explanations and teacher lecturing
+    // e.g. "Overfitting occurs when...", "Latency is defined as...", "A deep breakdown of X is crucial..."
+    body = body.replace(/(?:^|\n+)[A-Z][A-Za-z0-9_\s-]+(?:occurs when|is defined as|refers to the process of|is a common technique for)[^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)As [^.\n]+(?:becomes?|grow(?:s)?|evolve(?:s)?|scales?|advances?)[^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)(?:A deep breakdown|An in-depth analysis|A thorough review) of [^.\n]+ is crucial[^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)To avoid these pitfalls[^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)By following (?:these|such) best practices[^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)It(?:'s| is) (?:easy|crucial|essential) to overlook[^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)I recommend using\b/gi, "\n\nWhat actually works in production is");
+    body = body.replace(/\bFinally, I recommend using\b/gi, "On top of that, use");
+    body = body.replace(/\bI recommend\b/gi, "What works is");
 
     // Ensure the very first paragraph / hook does not end with an awkward dangling question mark
     const firstParagraphMatch = body.match(/^([^\n]+)/);
@@ -3647,16 +3728,8 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     body = body.replace(/([^\n])\n(?=[0-9]+\.\s)/g, "$1\n\n");
     body = body.replace(/([^\n])\n*(?=🔗)/g, "$1\n\n");
 
-    // 14c. Handle the first comment resource link: only include if substantive resources exist
-    const hasSubstantiveResource = Boolean(article?.githubUrl || (article?.resources && article.resources.length > 0));
-    if (!hasSubstantiveResource) {
-      body = body.replace(/🔗[^\n]*\n*/gi, "").trim();
-    } else if (!body.includes("🔗")) {
-      const hashtagsMatch = body.match(/(?:#[a-zA-Z0-9_]+\s*)+$/);
-      const hashtags = hashtagsMatch ? hashtagsMatch[0].trim() : "";
-      const textWithoutTags = hashtags ? body.slice(0, -hashtags.length).trim() : body;
-      body = `${textWithoutTags}\n\n🔗 Full breakdown + architecture resources in the comments.\n\n${hashtags}`.trim();
-    }
+    // 14c. Strip premature comment links; canonical placement is handled in section 16
+    body = body.replace(/🔗[^\n]*\n*/gi, "").trim();
 
     // 14d. Only ensure structured takeaways for playbooks and teardowns. NEVER inject forced bullets into narrative prose or confessions!
     const isProseArchetype = [
@@ -3895,11 +3968,25 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
       hashtagsFound = kept;
     }
 
-    // Strip any trailing hashtag block at the end of body and format cleanly with double newlines
-    body = body.replace(/(?:\r?\n|\s)*(?:#[a-zA-Z0-9_]+\s*)+$/g, "").trim();
-    body = body.replace(/\n{3,}/g, "\n\n").trim();
-    body = body + "\n\n" + hashtagsFound.join(" ");
+    // 16. Normalize & enforce founder signature block (Hank Wu Anti-Slop standard)
+    const hasSubstantiveResource = Boolean(article?.githubUrl || (article?.resources && article.resources.length > 0));
+    const founderSignoff = "Best,\nDrishtant\n-\n➡️ curated at Drix10 Blogs ♻️ follow Drishtant Ghosh for more";
+    const commentLink = hasSubstantiveResource ? "🔗 Full breakdown + architecture resources in the comments." : "";
 
+    // Strip any trailing hashtag block
+    body = body.replace(/(?:\r?\n|\s)*(?:#[a-zA-Z0-9_]+\s*)+$/g, "").trim();
+
+    // Strip any existing comment link or signoff to prevent duplicates
+    body = body.replace(/🔗[^\n]*\n*/gi, "").trim();
+    body = body.replace(/Best,?\s*(?:Hank|Founder|Drishtant|Drix10)?(?:\r?\n)+\s*-\s*(?:\r?\n)+➡️[^\n]*/gi, "").trim();
+    body = body.replace(/\bBest,\s*Drishtant\b/gi, "").trim();
+
+    // Rebuild the final clean post: Body -> Signoff -> Comment Link -> Hashtags
+    const finalBlocks = [body, founderSignoff];
+    if (commentLink) finalBlocks.push(commentLink);
+    if (hashtagsFound.length > 0) finalBlocks.push(hashtagsFound.join(" "));
+
+    body = finalBlocks.join("\n\n").replace(/\n{3,}/g, "\n\n").trim();
     return body;
   }
 
