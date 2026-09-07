@@ -231,64 +231,60 @@ async function runLivePostCuration() {
         return;
       }
 
+      if (validation.isValid) {
+        logger.info(`Post passed quality validation (score: ${validation.qualityScore})`);
+        break;
+      }
+
+      logger.warn(`Post failed quality validation (score: ${validation.qualityScore}):`);
+      validation.errors.forEach(err => logger.warn(`  - ${err}`));
+
+      if (attempt === maxGenerationAttempts) {
+        logger.warn("Aborting live publish due to repeated quality validation failures.");
+        return;
+      }
+
       validationFeedback = validation.errors;
       logger.info("Retrying LinkedIn post generation with validation feedback...");
     }
 
-    logger.info("Initializing LinkedIn service...");
-    await LinkedInService.init();
+    logger.info("Step 3: Saving post to Blog & Knowledge Hub 'LinkedIn Insights'...");
+    const insightsDir = path.join(process.cwd(), "LinkedIn Insights");
+    const blogInsightsDir = path.join(process.cwd(), "blog", "content", "LinkedIn Insights");
+    if (!fs.existsSync(insightsDir)) fs.mkdirSync(insightsDir, { recursive: true });
+    if (!fs.existsSync(blogInsightsDir)) fs.mkdirSync(blogInsightsDir, { recursive: true });
 
-    logger.info("Step 3: Rendering custom HTML slide image...");
-    const slideImagePath = await LinkedInService.generateSlideImage(
-      postData.title,
-      postData.slidePoints,
-      postData.slideTagline,
-      `github.com/${config.github.owner || "Drix10"}/${config.github.repo || "ai-resources"}`,
-      {
-        structureName: postData.chosenStructure,
-        diagramSteps: postData.diagramSteps,
-        coreInsight: postData.coreInsight,
-        category: postData.category
-      }
-    );
+    const timestamp = Date.now();
+    const seoSlug = String(postData.title || "technical-insight")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "")
+      .slice(0, 50);
+    const blogFileName = `${seoSlug}-${timestamp}.md`;
 
-    if (!slideImagePath) {
-      throw new Error("Failed to render custom HTML slide image.");
-    }
-    logger.info(`Custom HTML slide rendered successfully: ${slideImagePath}`);
+    const blogMarkdownContent = `# ${postData.title || "LinkedIn Technical Insight"}
 
-    logger.info("\nStep 4: Publishing post and comment live to LinkedIn...");
-    const postSuccess = await LinkedInService.postToLinkedIn(
-      postData.postText,
-      slideImagePath,
-      postData.commentText
-    );
+${postData.postText}
 
-    if (postSuccess) {
-      logger.info("\n=============================================================");
-      logger.info("SUCCESS: Curated LinkedIn update and first comment published!");
-      logger.info("=============================================================");
-      llmService.saveRecentTopic(selectedArticles[0].title);
-    } else {
-      logger.warn("\nFAILED: LinkedIn poster returned false status.");
-    }
+---
+### 🔗 Reference & Source Breakdown
+- **Source Material**: [${selectedArticles[0]?.title || "Reference Breakdown"}](${selectedArticles[0]?.githubUrl || "#"})
+- **Recommended Visual Asset**: ${postData.recommendedVisual || postData.slideTagline || "Screenshot of terminal or code"}
+- **First Comment**: ${postData.commentText || "Full breakdown in comments"}
+- **Syndicated Channel**: LinkedIn & Personal Blog Hub
+`;
 
-    await sleep(5000);
+    fs.writeFileSync(path.join(insightsDir, blogFileName), blogMarkdownContent, "utf8");
+    fs.writeFileSync(path.join(blogInsightsDir, blogFileName), blogMarkdownContent, "utf8");
 
-    if (slideImagePath && fs.existsSync(slideImagePath)) {
-      try {
-        fs.unlinkSync(slideImagePath);
-        logger.info("Cleaned up temporary slide PNG file.");
-      } catch (e) { }
-    }
-
-    LinkedInService.cleanupDebugScreenshots();
+    logger.info("\n=============================================================");
+    logger.info(`SUCCESS: Draft saved to LinkedIn Insights: ${blogFileName}`);
+    logger.info("Auto live posting is disabled. You can copy the post and image for manual publishing.");
+    logger.info("=============================================================");
+    llmService.saveRecentTopic(selectedArticles[0].title);
 
   } catch (error) {
     logger.error("Curation runner failed with error:", error);
-  } finally {
-    logger.info("Releasing LinkedIn WebDriver context...");
-    await LinkedInService.cleanup();
   }
 }
 

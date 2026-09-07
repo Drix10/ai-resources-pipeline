@@ -348,7 +348,8 @@ ${megaPostData.postText}
 ---
 ### 🔗 Reference & Source Breakdown
 - **Source Material**: [${selectedArticles[0]?.title || "Reference Breakdown"}](${selectedArticles[0]?.githubUrl || "#"})
-- **Companion Tagline**: ${megaPostData.slideTagline || "Notes from my learning journey"}
+- **Recommended Visual Asset**: ${megaPostData.recommendedVisual || megaPostData.slideTagline || "Screenshot of terminal or code"}
+- **First Comment**: ${megaPostData.commentText || "Full breakdown in comments"}
 - **Syndicated Channel**: LinkedIn & Personal Blog Hub
 `;
 
@@ -382,27 +383,8 @@ ${megaPostData.postText}
               logger.warn(`Syndication invocation skipped: ${synErr.message}`);
             }
 
-            // 3. Post to live LinkedIn network ONLY if LINKEDIN_POST is true
-            if (config.social.linkedinPost) {
-              try {
-                logger.info("LinkedIn Curation: LINKEDIN_POST is enabled. Initializing LinkedIn service and posting live...");
-                await LinkedInService.init();
-                const postSuccess = await LinkedInService.postToLinkedIn(megaPostData.postText, slideImagePath, megaPostData.commentText).catch(err => {
-                  logger.error("Failed to post mega post to LinkedIn:", err);
-                  return false;
-                });
-
-                if (postSuccess) {
-                  logger.info("LinkedIn Curation: Post submitted successfully to LinkedIn.");
-                } else {
-                  logger.warn("LinkedIn Curation: Post submission returned failure status.");
-                }
-              } catch (liveErr) {
-                logger.error("LinkedIn Curation: Failed to publish live post to LinkedIn:", liveErr);
-              }
-            } else {
-              logger.info("LinkedIn Curation: Live LinkedIn posting is disabled (LINKEDIN_POST=false). Post was successfully created and published to Knowledge Hub 'LinkedIn Insights'.");
-            }
+            // 3. Auto-posting to live LinkedIn is disabled (human-in-the-loop manual review)
+            logger.info("LinkedIn Curation: Live LinkedIn automated posting is disabled. Post draft and visual concept saved to blog/content/LinkedIn Insights/ for manual review and publishing.");
           }
         } catch (postErr) {
           logger.error("LinkedIn Curation: Post generation or submission failed:", postErr);

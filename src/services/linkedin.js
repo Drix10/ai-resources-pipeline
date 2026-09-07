@@ -932,6 +932,15 @@ class LinkedInService {
 
     // Dynamic structure badge mapping
     const badgeMap = {
+      "founder-confession": "FOUNDER_CONFESSION // v2.6",
+      "contrarian-hot-take": "CONTRARIAN_TAKE // v2.6",
+      "tactical-playbook": "FOUNDER_PLAYBOOK // v2.6",
+      "search-discovery-secret": "DISCOVERY_SECRET // v2.6",
+      "post-mortem": "SYSTEMS_POSTMORTEM // v2.6",
+      "tradeoff-matrix": "TRADEOFF_AUDIT // v2.6",
+      "founder-micro-take": "FOUNDER_NOTE // v2.6",
+      "deep-dive-teardown": "ARCH_TEARDOWN // v2.6",
+      // Legacy aliases
       "problem-insight-framework": "SYSTEMS_FRAMEWORK // v2.6",
       "before-after": "PERFORMANCE_AUDIT // v2.6",
       "story-arc": "FOUNDER_CASE_STUDY // v2.6",

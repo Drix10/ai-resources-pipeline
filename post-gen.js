@@ -242,11 +242,11 @@ async function generateLinkedInPreviews() {
     console.log(`   Structure: "${postData.chosenStructure || "unspecified"}"`);
     console.log("-------------------------------------------------------------\n");
 
-    // 4. Save LinkedIn post as a Personal Blog article in "LinkedIn Insights"
+    // 4. Save LinkedIn post as an article in "LinkedIn Insights" and "blog/content/LinkedIn Insights"
     const insightsDir = path.join(process.cwd(), "LinkedIn Insights");
-    if (!fs.existsSync(insightsDir)) {
-      fs.mkdirSync(insightsDir, { recursive: true });
-    }
+    const blogInsightsDir = path.join(process.cwd(), "blog", "content", "LinkedIn Insights");
+    if (!fs.existsSync(insightsDir)) fs.mkdirSync(insightsDir, { recursive: true });
+    if (!fs.existsSync(blogInsightsDir)) fs.mkdirSync(blogInsightsDir, { recursive: true });
 
     const timestamp = Date.now();
     const seoSlug = String(postData.title || "technical-insight")
@@ -256,6 +256,7 @@ async function generateLinkedInPreviews() {
       .slice(0, 50);
     const blogFileName = `${seoSlug}-${timestamp}.md`;
     const blogFilePath = path.join(insightsDir, blogFileName);
+    const blogContentPath = path.join(blogInsightsDir, blogFileName);
 
     const blogMarkdownContent = `# ${postData.title || "LinkedIn Technical Insight"}
 
@@ -264,12 +265,17 @@ ${postData.postText}
 ---
 ### 🔗 Reference & Source Breakdown
 - **Source Material**: [${selectedArticles[0]?.title || "Reference Breakdown"}](${selectedArticles[0]?.githubUrl || "#"})
-- **Companion Tagline**: ${postData.slideTagline || "Notes from my learning journey"}
+- **Recommended Visual Asset**: ${postData.recommendedVisual || postData.slideTagline || "Terminal screenshot or real photo of code running"}
 - **Syndicated Channel**: LinkedIn & Personal Blog Hub
 `;
 
     fs.writeFileSync(blogFilePath, blogMarkdownContent, "utf8");
-    console.log(`📝 LinkedIn post saved as Personal Blog article: ./${path.relative(process.cwd(), blogFilePath)}`);
+    fs.writeFileSync(blogContentPath, blogMarkdownContent, "utf8");
+    console.log(`📝 LinkedIn post saved to LinkedIn Insights: ./${path.relative(process.cwd(), blogFilePath)}`);
+    console.log(`📝 Also synced to blog: ./${path.relative(process.cwd(), blogContentPath)}`);
+    if (postData.recommendedVisual) {
+      console.log(`📸 Recommended Visual: ${postData.recommendedVisual}`);
+    }
 
     // 5. Save results locally in a previews directory
     const outputDir = path.join(process.cwd(), "linkedin-previews");
