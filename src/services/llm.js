@@ -68,6 +68,23 @@ const HAT_TIP_PROHIBITED_PATTERNS = [
   /\bBy following (?:these|such) best practices\b/i,
   /\bIt(?:'s| is) easy to overlook the importance\b/i,
   /\bA deep breakdown of [^.\n]+ is crucial\b/i,
+  // LARPing & Fake Guru posturing (Strict Anti-LARP)
+  /\bAs a (?:technical |software )?founder\b/i,
+  /\bAs an (?:experienced |enterprise |AI )?advisor\b/i,
+  /\bI (?:often )?advise (?:companies|teams|founders|startups)\b/i,
+  /\bIn my experience as a\b/i,
+  /\bThroughout my (?:career|journey)\b/i,
+  /\bI've seen (?:countless|numerous|dozens of)\b/i,
+  /\bI've worked with (?:numerous|countless|dozens of)\b/i,
+  /\bthe key to success lies in\b/i,
+  /\bthe secret to\b/i,
+  // Formulaic essay transitions & slop clichés
+  /\bin today's (?:[a-z0-9_\s-]+(?:ecosystem|landscape|world|market|environment|era))\b/i,
+  /\bthe key to [^.\n]+ is (?:to|in)\b/i,
+  /\bthis can be (?:achieved|done|accomplished) through\b/i,
+  /\bby [a-z]+ing [^,\n]+, (?:you|teams|startups|developers|engineers) can\b/i,
+  /\bincrease (?:your|their) chances of success\b/i,
+  /\bwithout compromising (?:core )?[^.\n]+\b/i,
   // Engagement bait CTAs
   /(?:agree\??|thoughts\??|drop a comment below|let me know in the comments|share your thoughts)/i
 ];
@@ -462,38 +479,30 @@ const FOUNDER_PROFILE = {
   name: "Drishtant Ghosh",
   handle: "@Drix10",
   location: "Bengaluru, India",
-  headline: "AI Systems & LLM Architect | Co-Founder @ PartPilot | 1x Acquired Founder",
+  headline: "Software Engineer & Systems Builder | Maintainer of Drix10/ai-resources",
   experienceHighlights: [
-    "Co-Founder @ PartPilot: Hardware supply chain & component intelligence.",
-    "AI Systems Architect @ Canopy (Founders, Inc.): Autonomous multi-agent consensus trading swarms.",
-    "Founder & CEO @ CosLynx.com (Backdrop v4 Winner): AI-driven code generation, AST analysis, 400+ MVPs.",
-    "Ex-CEO @ ReeF (1x Acquired): Scaled interactive game backend to $15k ARR, 5M+ user interactions.",
-    "Creator of Sentinel: Application security CLI with AST parsing and autonomous patching.",
-    "Cybersecurity Student @ DSU & IBM Certified AI Engineer."
+    "Maintainer @ Drix10/ai-resources: Open-source curated engineering research & system architecture breakdowns (blogs.drix10.com).",
+    "Builder @ Drix10/Grind: Core systems programming, algorithms, and active-cognition engineering without AI crutches.",
+    "Creator of Sentinel: Application security CLI with AST parsing and autonomous vulnerability patching.",
+    "Systems & backend engineering with focus on LLM architectures, distributed pipelines, and developer tooling."
   ],
   founderVoicePrinciples: `
-- POSITIONING (TECHNICAL FOUNDER): You are a technical founder and AI systems architect who builds real software, scales backends, and has taken a company from 0 to scale and exit.
-- NEVER PLAY VC ANALYST: You are NOT a venture capitalist, fund manager, financial analyst, or corporate consultant. NEVER claim "I've seen too many seed startups get rejected by institutional investors" or pretend to have an institutional fund perspective.
-- THE TECHNICAL FOUNDER LENS (ENGINEERING DECISIONS -> BUSINESS ECONOMICS):
-  When analyzing business, market, growth, or funding topics, ALWAYS evaluate them through the operating engineer's lens:
-  * Engineering decisions eventually become business decisions.
-  * A backend architecture that costs 3x more to operate at scale directly affects unit margins.
-  * A system that increases reliability and drops p99 latency directly impacts customer cohort retention.
-  * An architecture that lets a small team ship faster is more valuable than one designed for hypothetical scale you don't have yet.
-  * Growth is one of the easiest metrics to make look impressive; the harder question is what sits underneath it (retention, unit economics, capital efficiency).
-- SPEAK FROM OPERATING REALITY: Frame insights as what building and shipping software actually taught you ("One thing building products has changed my mind about...", "As a founder, I've learned that...").
-- NO FABRICATED UNIVERSAL METRICS: Never invent universal industry rules like "Seed startups must grow 15-20% MoM" unless citing an exact benchmark. Turn unverified claims into honest personal observations.
-- STRICT TOPIC PURITY: Focus 100% on the source article's technical subject. Do not shoehorn unrelated personal projects unless directly relevant.
+- POSITIONING (REAL SOFTWARE BUILDER): You are a pragmatic software engineer and systems builder who reads source code, profiles performance, and ships real software.
+- ZERO LARPING / ZERO POSTURING: NEVER claim "As a founder...", "In my experience as a founder...", "I've seen countless startups fail...", or pretend to be an enterprise advisor.
+- OUTSIDE TECHNICAL ANALYST FOR CURATED ARTICLES: When analyzing external research, tools, or papers from Drix10/ai-resources, frame your breakdown as an outside engineer evaluating the mechanics, benchmarks, and architectural tradeoffs. Do NOT pretend you built external tools or claim fake operational war stories about them.
+- FIRST-PERSON RAW BUILDER FOR PERSONAL PROJECTS: When writing about your own tools/projects (like Drix10/Grind or Sentinel), write with raw developer honesty about why active cognition, debugging, and systems thinking matter.
+- SPEAK FROM TECHNICAL MECHANISMS: Focus on code execution, memory footprints, AST parsing, network boundaries, and concrete failure modes.
+- STRICT TOPIC PURITY: Focus 100% on the source article's technical subject. Do not shoehorn unrelated claims or fake case studies.
 - ZERO REPETITION: Every sentence must earn its place. Never repeat the same premise across multiple paragraphs.
 `
 };
 
 const SYSTEM_PROMPT = `
-You are Drishtant Ghosh (Drix10): Technical founder and engineer working across AI systems, developer infrastructure, and cybersecurity.
-Your writing style is direct, clear, highly analytical, and grounded in operating reality.
-You evaluate systems through a technical founder lens—connecting engineering decisions to product survival, unit economics, and real-world system reliability.
-You NEVER roleplay as a VC analyst, financial commentator, or generic business consultant. You speak strictly from what building, shipping, and scaling software actually teaches you.
-You evaluate systems from a senior builder mindset, focusing strictly on the technical topic at hand without forcing unrelated past projects or biographical claims.
+You are Drishtant Ghosh (Drix10): Software engineer, systems builder, and open-source maintainer (blogs.drix10.com / Drix10/ai-resources).
+Your writing style is direct, clear, highly analytical, and grounded in engineering reality.
+You evaluate systems through a builder lens—connecting architecture, code quality, profiling metrics, and real-world system reliability.
+You NEVER roleplay as an enterprise guru, VC analyst, financial commentator, or generic business consultant. You speak strictly as an engineer who inspects code, profiles benchmarks, and tests system limits.
+You focus strictly on the technical topic at hand without forcing unrelated claims or biographical posturing.
 
 You curate raw tech/AI/developer content (Twitter threads, LinkedIn posts) and transform them into premium, high-value, and perfectly formatted technical articles in markdown.
 
@@ -1418,12 +1427,12 @@ class LocalLLMService {
   buildLinkedInPostRules(githubUrl, includeHook = true) {
     const hookRules = includeHook ? `
 HOOK (First 1-3 lines, <200 characters visible):
-Write a hook that filters for the actual buyer, not one optimized for the widest possible click-through. It should read like someone who has actually solved this problem is about to explain it — specific, declarative, grounded in a real detail. It should NOT read like a headline written to maximize opens from people outside the target audience.
+Write a hook that filters for the actual practicing engineer or technical builder, not one optimized for the widest possible click-through. It should read like someone who has actually worked with this system is about to explain it — specific, declarative, grounded in a real detail. It should NOT read like a headline written to maximize opens from people outside the target audience.
 Best performing styles (use the single strongest one for the selected content):
-- A specific technical detail or number that only shows up if you've actually done the work
+- A specific technical detail or number that only shows up if you've actually worked on the system
 - A named tradeoff and the condition under which it breaks
-- "How I..." or a specific results-first statement, stated plainly rather than dramatically
-- A precise problem statement that a real buyer would recognize as their own situation
+- A specific results-first observation, stated plainly rather than dramatically
+- A precise engineering problem statement that a fellow builder would recognize as their own situation
 Avoid neutral roundups. Avoid manufactured drama, shock framing, or reversal setups — those inflate views from the wrong audience and lower the save/like ratio.
 ` : "";
 
@@ -1835,23 +1844,76 @@ JSON schema:
         flattened.push(art);
         continue;
       }
-      const chunks = art.fullContent
-        .split(/\n---\n/)
+      const initialChunks = art.fullContent
+        .split(/\r?\n---\r?\n/)
         .map(s => s.trim())
-        .filter(s => s.length > 50);
-      if (chunks.length <= 1) {
+        .filter(s => s.length > 30);
+
+      const rawChunks = [];
+      for (const chunk of initialChunks) {
+        // If chunk contains multiple independent section headers (excluding Resources/Key Points/Implementation),
+        // split it further so each section is evaluated as its own focused sub-article
+        const subParts = chunk
+          .split(/\r?\n(?=###\s+(?!🔗|Key Points|Implementation|Resources))/i)
+          .map(s => s.trim())
+          .filter(s => s.length > 30);
+        rawChunks.push(...subParts);
+      }
+
+      if (rawChunks.length <= 1) {
         flattened.push(art);
         continue;
       }
-      for (let i = 0; i < chunks.length; i++) {
-        const headerMatch = chunks[i].match(/^###\s+(.+)$/m);
+
+      // Group consecutive thread chunks (marked with 🧵) together into cohesive threads
+      const mergedChunks = [];
+      let currentThread = null;
+
+      for (let i = 0; i < rawChunks.length; i++) {
+        const chunk = rawChunks[i];
+        const isThreadTweet = chunk.includes("🧵") || /^###\s*🧵/m.test(chunk);
+        const headerMatch = chunk.match(/^###\s+(.+)$/m);
         const header = headerMatch ? headerMatch[1].trim() : `Section ${i + 1}`;
-        flattened.push({
-          ...art,
-          title: `${art.title}: ${header}`,
-          fullContent: chunks[i]
-        });
+
+        // Skip boilerplate connect stubs or non-technical personal updates
+        const lowerHeader = header.toLowerCase();
+        const lowerChunk = chunk.toLowerCase();
+        if (
+          lowerHeader.includes("read more & connect") ||
+          lowerHeader.includes("connect with") ||
+          lowerHeader.includes("sick and bruised") ||
+          lowerChunk.includes("no technical content")
+        ) {
+          continue;
+        }
+
+        if (isThreadTweet) {
+          if (currentThread) {
+            currentThread.fullContent += "\n\n" + chunk;
+          } else {
+            currentThread = {
+              ...art,
+              title: `${art.title}: ${header}`,
+              fullContent: chunk
+            };
+          }
+        } else {
+          if (currentThread) {
+            mergedChunks.push(currentThread);
+            currentThread = null;
+          }
+          mergedChunks.push({
+            ...art,
+            title: `${art.title}: ${header}`,
+            fullContent: chunk
+          });
+        }
       }
+      if (currentThread) {
+        mergedChunks.push(currentThread);
+      }
+
+      flattened.push(...mergedChunks);
     }
     return flattened;
   }
@@ -1941,13 +2003,15 @@ JSON schema:
       .replace(/([.!?])\s+([•\-\*]\s*)/g, "$1\n\n$2");
     return normalized.split("\n").filter(line => {
       const trimmed = line.trim();
+      if (!trimmed || trimmed === "-" || trimmed === "--" || trimmed.includes("curated at Drix10") || trimmed.startsWith("Best,") || trimmed.startsWith("🔗") || trimmed.startsWith("#")) {
+        return false;
+      }
       return trimmed.startsWith("•") ||
-        trimmed.startsWith("-") ||
-        trimmed.startsWith("*") ||
-        trimmed.startsWith(">") ||
-        /^\d+[\.\)]/.test(trimmed) ||
-        /^\(\d+\)[\.\)]?/.test(trimmed) ||
-        /^[a-zA-Z][\.\)]/.test(trimmed);
+        (trimmed.startsWith("- ") && !trimmed.includes("curated at")) ||
+        trimmed.startsWith("* ") ||
+        trimmed.startsWith("> ") ||
+        /^\d+[\.\)]\s/.test(trimmed) ||
+        /^\(\d+\)[\.\)]?\s/.test(trimmed);
     });
   }
 
@@ -1964,7 +2028,7 @@ JSON schema:
       /^that'?s not the real/i,
     ];
 
-    const paragraphs = postText.split("\n\n").map(p => p.trim()).filter(p => p.length > 0);
+    const paragraphs = postText.split(/\r?\n\s*\r?\n/).map(p => p.trim()).filter(p => p.length > 0);
     for (let i = 1; i < paragraphs.length - 1; i++) {
       const paragraph = paragraphs[i];
       const wordCount = paragraph.split(/\s+/).length;
@@ -1990,7 +2054,7 @@ JSON schema:
   }
 
   getCtaQuestion(postText) {
-    const paragraphs = postText.split("\n\n").map(p => p.trim()).filter(p => p.length > 0);
+    const paragraphs = postText.split(/\r?\n\s*\r?\n/).map(p => p.trim()).filter(p => p.length > 0);
     for (let i = paragraphs.length - 1; i > 0; i--) {
       const paragraph = paragraphs[i];
       if (paragraph.startsWith("#")) continue;
@@ -1999,9 +2063,8 @@ JSON schema:
     }
 
     // Fallback: search within the body only (skip the hook, which is separated by a blank line).
-    const firstBlank = postText.indexOf("\n\n");
-    const bodyText = firstBlank >= 0 ? postText.slice(firstBlank + 2) : postText;
-    const lines = bodyText.split("\n").map(l => l.trim()).filter(l => l.length > 0);
+    const nonHook = postText.replace(/^.+?(?:\r?\n\s*\r?\n)/s, "");
+    const lines = nonHook.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
     for (let i = lines.length - 1; i >= 0; i--) {
       const line = lines[i];
       if (line.startsWith("#")) continue;
@@ -2032,7 +2095,7 @@ JSON schema:
 
   scorePostQuality(postData, sourceBulletCount = 0, manualPoints = []) {
     const postText = postData.postText || "";
-    const hook = postText.split("\n\n")[0] || "";
+    const hook = postText.split(/\r?\n\s*\r?\n/)[0] || "";
     const bodyWithoutHook = postText.slice(hook.length).trim();
     let score = 80; // Baseline passing score for a clean, unpenalized post (scale: 0-100)
     const issues = [];
@@ -2084,17 +2147,8 @@ JSON schema:
       bonusPoints += 5;
     }
 
-    // Takeaways check: only enforced for structured playbooks and teardowns
-    // Narrative prose, confessions, and hot takes are evaluated on flow, brevity, and authenticity
-    const isProseArchetype = [
-      "founder-confession",
-      "contrarian-hot-take",
-      "search-discovery-secret",
-      "post-mortem",
-      "founder-micro-take",
-      "contrarian-proof-action",
-      "story-arc"
-    ].includes(chosenArchetype);
+    // Takeaways check: all modern archetypes are evaluated on flow, brevity, and authentic narrative prose
+    const isProseArchetype = true;
 
     const postLines = postText.split("\n").map(l => l.trim()).filter(Boolean);
     const nonHookText = postLines.slice(1).join("\n");
@@ -2216,10 +2270,14 @@ JSON schema:
       errors.push("Post contains markdown bold/italic delimiters (** or __); LinkedIn does not render markdown bold.");
     }
 
+    if (/(?:^|\n)#{1,6}\s+/m.test(postText)) {
+      errors.push("Post contains markdown headers (# or ###); LinkedIn does not support markdown headers.");
+    }
+
     // Hat Tip prohibited patterns check
     for (const pattern of HAT_TIP_PROHIBITED_PATTERNS) {
       if (pattern.test(postText)) {
-        errors.push(`Post contains prohibited writing pattern: ${pattern.toString()}`);
+        errors.push("Post contains prohibited generic filler, guru posturing, or essay transitions. Write in direct, unpretentious developer prose focusing solely on the technical mechanism.");
         break;
       }
     }
@@ -2262,15 +2320,7 @@ JSON schema:
       errors.push(`Post too long: ${postText.length} characters (maximum ${maxLen})`);
     }
 
-    const isProseArchetype = [
-      "founder-confession",
-      "contrarian-hot-take",
-      "search-discovery-secret",
-      "post-mortem",
-      "founder-micro-take",
-      "contrarian-proof-action",
-      "story-arc"
-    ].includes(chosenArchetype);
+    const isProseArchetype = true; // All modern builder archetypes use authentic narrative prose without forced listicle bullets
 
     const postLines = postText.split("\n").map(l => l.trim()).filter(Boolean);
     const nonHookText = postLines.slice(1).join("\n");
@@ -2281,7 +2331,16 @@ JSON schema:
 
     // Anti-duplication check: ensure takeaways do not repeat narrative prose
     if (frameworkBullets.length >= 2) {
-      const narrativeLines = postLines.filter(l => !/^[0-9]+[.)]\s/.test(l) && !l.startsWith("•") && !l.startsWith("#") && !l.startsWith("🔗"));
+      const narrativeLines = postLines.filter(l => 
+        !/^[0-9]+[.)]\s/.test(l) && 
+        !l.startsWith("•") && 
+        !l.startsWith("#") && 
+        !l.startsWith("🔗") &&
+        !l.startsWith("Best,") &&
+        !l.startsWith("Drishtant") &&
+        !l.startsWith("-") &&
+        !l.includes("curated at Drix10")
+      );
       for (const bullet of frameworkBullets) {
         const bulletWords = new Set(bullet.toLowerCase().replace(/[^a-z0-9\s]/g, "").split(/\s+/).filter(w => w.length > 3));
         for (const nLine of narrativeLines) {
@@ -2853,28 +2912,73 @@ JSON schema:
         `\n(CRITICAL: Actively AVOID selecting articles that cover similar topics to those recently posted to maintain high diversity in content categories.)\n`;
     }
 
-    const list = articles.map((art, idx) => {
-      const subArticles = (art.fullContent || "")
+    // Filter out non-technical articles, generic business/VC roundups, and community updates
+    const EXCLUDED_CATEGORIES = /^(?:VC Firms|AI Powered Film and Media|AI Organizations and Media)/i;
+    const EXCLUDED_TOPIC_WORDS = /(?:Startup Updates|Funding Round|Community Round|Weekly Round|Newsletter|Read More & Connect|Job Board)/i;
+
+    const TECH_SIGNALS = [
+      /\b(?:architecture|infrastructure|system design|distributed|latency|throughput|concurrency|benchmark|profiling)\b/i,
+      /\b(?:database|postgres|redis|sqlite|vector|embedding|retrieval|rag|chunking)\b/i,
+      /\b(?:llm|transformer|attention|kv cache|token|inference|vllm|triton|quantization|weights|fine-tuning)\b/i,
+      /\b(?:compiler|ast|parser|memory|allocation|thread|multiprocessing|async|event loop)\b/i,
+      /\b(?:docker|kubernetes|linux|kernel|posix|syscall|api|endpoint|websocket|grpc)\b/i,
+      /\b(?:python|rust|c\+\+|golang|typescript|javascript|next\.js|node\.js)\b/i
+    ];
+
+    const scoredArticles = articles.map((art, originalIndex) => {
+      const title = art.title || "";
+      const content = art.fullContent || "";
+
+      if (EXCLUDED_CATEGORIES.test(title) || EXCLUDED_TOPIC_WORDS.test(title)) {
+        return { art, originalIndex, score: -100 };
+      }
+
+      let score = 0;
+      const combined = `${title}\n${content.slice(0, 1500)}`;
+      for (const pattern of TECH_SIGNALS) {
+        if (pattern.test(combined)) score += 5;
+      }
+
+      if (/^(?:AI Developer Tools|Tech Infrastructure|CS Academics|Devs, Designers, DevRel)/i.test(title)) {
+        score += 15;
+      }
+
+      if (content.length > 500) score += 5;
+
+      return { art, originalIndex, score };
+    });
+
+    let candidates = scoredArticles
+      .filter(item => item.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 12);
+
+    if (candidates.length === 0) {
+      candidates = scoredArticles.slice(0, 10);
+    }
+
+    const list = candidates.map((cand, localIdx) => {
+      const subArticles = (cand.art.fullContent || "")
         .split(/\n---\n/)
         .filter(s => s.trim().length > 30)
         .slice(0, 3)
         .map(s => s.trim().slice(0, 120))
         .join(" | ");
-      return `[Index ${idx}] "${art.title}" -> ${subArticles}`;
+      return `[Index ${localIdx}] "${cand.art.title}" -> ${subArticles}`;
     }).join("\n");
     const prompt = `
-You are a senior technical advisor and content strategist helping Drishtant Ghosh (Drix10), AI Systems & LLM Architect and Co-Founder @ PartPilot.
+You are a technical curator helping Drishtant Ghosh (Drix10), software engineer and maintainer of the open-source engineering research hub Drix10/ai-resources (blogs.drix10.com).
 
 Your task: Analyze the list of curated tech articles below and select the single BEST article that demonstrates deep technical judgment, architectural competence, and durable save-value.
 
 === SELECTION CRITERIA: TRUST AND SAVE-VALUE OVER REACH ===
 1. DEMONSTRATED EXPERTISE (HIGHEST WEIGHT) — Prioritize articles where explaining them well requires real engineering judgment: architecture tradeoffs, benchmarks with visible methodology, failure postmortems, concrete numbers tied to a decision. A reader should finish trusting the explainer's competence, not just finding the topic interesting.
 2. SAVE-WORTHINESS — Would a reader actually keep this? Favor material that reduces cleanly into a reusable framework, checklist, or decision rule someone would screenshot. Deprioritize material that's only interesting once (breaking news, hot takes, novelty facts with no lasting reference value).
-3. BUYER RELEVANCE — Does this sit inside a problem our actual audience (engineering leads, CTOs, technical founders evaluating architecture decisions) is paid to solve? Prefer topics adjacent to real decisions they make over topics that are merely trending among individual contributors.
+3. ENGINEERING RELEVANCE — Does this sit inside a problem software engineers, systems architects, and technical builders actually face? Prefer topics with concrete architectural decisions over superficial news or generic business hype.
 4. ARCHITECTURAL DEPTH — Prefer source material with enough internal structure (steps, before/after states, explicit tradeoffs) to produce a well-organized post. Reject material that is a single loose fact stretched to fill a post.
 5. AVOID ADVERTISING & SPAM — Completely avoid job postings, generic announcements, polls, or motivational/career fluff.
 6. REJECT THIN CONTENT AND REJECT ENGAGEMENT-BAIT CONTENT — Reject minor UI/UX updates, feature toggles, or cosmetic changes with no architectural implication. Also reject material whose only appeal is that it would generate high raw engagement (controversy, shock value, meme-ability) without teaching anything durable. We are not selecting for what would go viral; we are selecting for what a skeptical senior engineer would trust and save.
-7. TECHNICAL SYSTEMS & AI/DEV FOCUS (TOP PRIORITY) — Drishtant Ghosh is an AI Systems & LLM Architect. Heavily prioritize technical systems articles: AI developer tools, LLMs, systems architecture, infrastructure, distributed backends, developer utilities, and compiler/AST tools. Deprioritize generic VC, macro finance, or pure business roundups unless they contain direct architectural and engineering implications.
+7. TECHNICAL SYSTEMS & AI/DEV FOCUS (TOP PRIORITY) — Heavily prioritize technical systems articles: AI developer tools, LLMs, systems architecture, infrastructure, distributed backends, developer utilities, and compiler/AST tools. Deprioritize generic VC, startup community roundups, macro finance, or pure business roundups unless they contain direct architectural and engineering implications.
 
 ${recentTopicsText}
 Articles list:
@@ -2915,11 +3019,12 @@ JSON schema:
 
         const selectedIndices = rawIndices
           .map((idx) => Number(idx))
-          .filter((idx) => Number.isInteger(idx) && idx >= 0 && idx < articles.length);
+          .filter((idx) => Number.isInteger(idx) && idx >= 0 && idx < candidates.length)
+          .map((localIdx) => candidates[localIdx].originalIndex);
 
-        if (selectedIndices.length === 0 && articles.length > 0) {
-          logger.warn("LocalLLMService: No valid indices parsed, defaulting to index 0");
-          return [0];
+        if (selectedIndices.length === 0 && candidates.length > 0) {
+          logger.warn("LocalLLMService: No valid indices parsed, defaulting to top candidate");
+          return [candidates[0].originalIndex];
         }
 
         return selectedIndices.slice(0, 1);
@@ -2970,22 +3075,22 @@ JSON schema:
       ? `\nMonthly Calendar Mix Status (Target: 40% TOF, 40% MOF, 20% BOF): Recent posts breakdown = ${counts.TOF} TOF, ${counts.MOF} MOF, ${counts.BOF} BOF. Current recommended bucket to balance our 40/40/20 calendar is "${recommendedBucket}".\n`
       : `\nTarget Funnel Mix: Maintain a monthly calendar mix of 40% TOF (broad lessons), 40% MOF (technical trust), 20% BOF (proof/benchmarks).\n`;
 
-    const prompt = `You are an elite B2B technical content strategist working for Drishtant Ghosh (Drix10), AI Systems & LLM Architect and Co-Founder @ PartPilot.
+    const prompt = `You are a technical editor analyzing content for Drishtant Ghosh (Drix10), a software engineer and builder who curates the open-source engineering research hub Drix10/ai-resources (blogs.drix10.com).
 
 Source Article:
 Topic: ${title}
 Content:
 ${content}
 
-CRITICAL DIRECTIVE: Focus 100% on the source article topic above. Do NOT force unrelated personal projects (do NOT mention crypto, ReeF, AST parsing, or hardware unless the article is specifically about that).
+CRITICAL DIRECTIVE: Focus 100% on the source article topic above. Do NOT force unrelated personal projects. ZERO LARPING: Do NOT pretend to sell enterprise consulting or tools.
 
-Execute Steps 1 to 4 of the Hat Tip Founder LinkedIn System for THIS specific topic:
-1. BUYER QUESTION: What is the recurring dilemma, architectural decision, or pain point an engineering lead, CTO, or founder wants answered from THIS specific material?
-2. EXACT BUYER LANGUAGE: State their exact pain points or risks using realistic, domain-accurate words.
-3. FUNNEL BUCKET: Classify into "TOF" (Top of Funnel: industry shifts, broad engineering lessons), "MOF" (Middle of Funnel: technical frameworks, systems blueprints), or "BOF" (Bottom of Funnel: benchmarks, case studies, concrete numbers).${funnelGuidance}
-4. LITERAL PURPOSE: State the literal outcome this post must achieve in ONE sentence, phrased as a trust or purchase-intent outcome — e.g. "engineering leads evaluating this tradeoff should trust our judgment enough to consider talking to us" or "senior engineers should save this as their reference the next time they hit this decision." Do NOT phrase this as an engagement outcome like "get people talking," "go viral," or "maximize comments."
-5. TRUST SIGNAL: Name the single most specific piece of evidence, admitted tradeoff, or hard-won detail in this source material that would make a skeptical buyer trust the author's judgment more. If nothing specific enough exists, say so explicitly rather than inventing one — a generic trust signal is worse than none.
-6. CORE INSIGHT: One sentence summary of the non-obvious insight from THIS source material.
+Analyze this technical material for peer software engineers and developers:
+1. BUYER QUESTION: What is the recurring technical dilemma, architectural decision, or friction point an engineer or developer faces with THIS specific topic?
+2. EXACT BUYER LANGUAGE: State their exact technical dilemma using realistic, domain-accurate terminology (no sales fluff).
+3. FUNNEL BUCKET: Classify into "TOF" (broad engineering shifts/observations), "MOF" (architecture blueprints/mechanisms), or "BOF" (benchmarks/postmortems).${funnelGuidance}
+4. LITERAL PURPOSE: State what the reader should understand in ONE clear, honest sentence (e.g. "Understand why optimizer choice and gradient variance matter more than brute-force parameters under real load"). Do NOT pitch services, do NOT pitch tools, do NOT pretend to sell anything.
+5. TRUST SIGNAL: The single most specific, concrete technical reality, metric, or trade-off from the source that proves the author actually understands the mechanics.
+6. CORE INSIGHT: One sentence stating the non-obvious engineering takeaway.
 
 Return ONLY a valid raw JSON object. No markdown, no commentary.
 JSON Schema:
@@ -3045,39 +3150,40 @@ JSON Schema:
     const pointsText = this.formatManualPoints(rawManualPoints.slice(0, 4));
     const structure = this.pickStructure(recentStructures, title);
 
-    const prompt = `You are an elite LinkedIn copywriter executing the Hat Tip CPIO Framework (Convey, Package, Information, Order) for Drishtant Ghosh (Drix10), AI Systems & LLM Architect and Co-Founder @ PartPilot.
+    const prompt = `You are a technical editor executing the CPIO Framework (Convey, Package, Information, Order) for Drishtant Ghosh (Drix10), a software engineer and builder who curates the open-source engineering research hub Drix10/ai-resources (blogs.drix10.com).
 
 Source Topic: ${title}
-Strategy Input:
-- Buyer Question: ${strategy.buyerQuestion}
-- Funnel Bucket: ${strategy.funnelBucket}
-- Literal Purpose: ${strategy.literalPurpose}
-- Trust Signal: ${strategy.trustSignal || "Concrete benchmark metrics and architecture boundaries."}
+Technical Context:
+- Core Problem: ${strategy.buyerQuestion}
+- Topic Category: ${strategy.funnelBucket}
+- Intent: ${strategy.literalPurpose}
+- Concrete Mechanism: ${strategy.trustSignal || "Observable architectural boundaries and profiling limits."}
 - Core Technical Facts:
 ${pointsText || content.slice(0, 800)}
 
-CRITICAL DIRECTIVE: The post must be 100% focused on the Source Topic above. Do NOT force unrelated personal projects (no crypto, no ReeF, no AST parsing unless the topic is specifically about that).
+CRITICAL DIRECTIVE: The post must be 100% focused on the Source Topic above.
+ZERO LARPING: Do NOT pretend to be an enterprise guru, do NOT invent fake battle scars ("I've seen countless models fail"), do NOT write "As a technical founder...".
 
 Execute CPIO:
-C (CONVEY): Write ONE exact sentence stating the single lesson/result the reader must understand from THIS material.
+C (CONVEY): Write ONE exact sentence stating the single technical lesson or architectural trade-off.
 P (PACKAGE & HOOK):
   - Format: "${structure.label}" (${structure.description})
-  - Angle: Technical founder/architect evaluating THIS specific subject with practical rigor.
-  - Hook: 1-2 sentence opening that creates an honest CURIOSITY GAP directly about THIS topic.
+  - Angle: Pragmatic developer observation.
+  - Hook: 1-2 sentence opening that states an objective technical tension, paradox, or counter-intuitive reality directly about THIS topic.
   - STRICT HOOK RULES:
-    * The hook must filter, not maximize clicks. Write it so a reader who has NOT personally hit this exact problem would scroll past, and a reader who HAS would immediately recognize their own situation. Do not write a hook designed to appeal to everyone.
-    * Must be a DECLARATIVE observation grounded in the trust signal above — something only someone who actually did the work would know to say (e.g. "The failure mode in X only shows up under Y load, which is why most benchmarks miss it.").
-    * FORBIDDEN: NO RHETORICAL QUESTIONS. FORBIDDEN: NO REVERSAL FRAMING. FORBIDDEN: language that promises drama or a twist ("what nobody tells you," "the shocking truth") — that's a curiosity trick, not a credibility signal.
+    * Must be a concise DECLARATIVE technical observation stating an objective technical tension or failure mode directly from the Source Topic above. Do NOT use generic benchmark or parameter comparisons unless the source topic is about benchmarks.
+    * FORBIDDEN: NEVER OPEN WITH "I've seen countless...", "I've worked with numerous...", or "As a founder...".
+    * FORBIDDEN: NO RHETORICAL QUESTIONS. FORBIDDEN: NO REVERSAL FRAMING.
     * STRICT: NO EM DASHES. Under 200 characters.
 I (INFORMATION):
-  - 3 concrete technical mechanisms or takeaways. CRITICAL SAVE-TRIGGER RULE: NEVER write generic filler like "This approach can help identify issues" or "It can enforce criteria." Write concrete, standalone engineering heuristics with specific technical mechanisms, profiler metrics, thresholds, or boundary conditions (e.g. "Run AST complexity checks in local CI pre-commit to block branching depth > 6 before calling external models").
+  - 3 concrete technical mechanisms or takeaways. CRITICAL SAVE-TRIGGER RULE: NEVER write generic filler like "This approach can help identify issues" or "It can enforce criteria." Write concrete, standalone engineering heuristics with specific technical mechanisms, profiler metrics, thresholds, or boundary conditions derived strictly from the source topic above.
   - 1-2 details to EXCLUDE to preserve density. Excluding generic filler is itself a trust signal: it shows judgment about what actually matters.
 O (ORDER):
-  - Hook: The curiosity gap opening.
-  - Setup: Context for a cold audience (why this matters right now).
-  - Development: The core technical mechanism or decision.
-  - Support: 2-3 specific, actionable points matching the concrete technical heuristics above.
-  - Ending: The ending must leave the reader more confident in the author's judgment than they were at the start of the post. It should feel complete, not manufacture curiosity for a future post and not bait a reply. No forced CTA, no "agree?", no artificial cliffhanger.
+  - Hook: The curiosity gap opening (must be identical to the Hook in Package above).
+  - Setup: The immediate operational context or friction. ZERO scene-setting ("In today's world..."). Jump straight into the concrete reality.
+  - Development: The root-cause mechanism or trade-off. ZERO textbook definitions ("X occurs when...", "X is a technique for...").
+  - Support: 2-3 distinct, non-repetitive practical points. NEVER repeat the same advice across points.
+  - Ending: The decisive engineering takeaway or trade-off rule. Leave the reader confident in your technical judgment. No forced CTA, no "agree?", no artificial cliffhanger.
 
 Return ONLY a valid raw JSON object. No markdown, no commentary.
 JSON Schema:
@@ -3215,15 +3321,7 @@ JSON Schema:
     const cleanPoint3 = (supportPoints[2] || `Establish automated regression benchmarks before production deployment.`).replace(/\*\*/g, "").replace(/__/g, "");
 
     const chosenArchetype = cpio.chosenStructure || "founder-confession";
-    const isProseArchetype = [
-      "founder-confession",
-      "contrarian-hot-take",
-      "search-discovery-secret",
-      "post-mortem",
-      "founder-micro-take",
-      "contrarian-proof-action",
-      "story-arc"
-    ].includes(chosenArchetype);
+    const isProseArchetype = true; // All modern builder archetypes use authentic narrative prose without forced listicle bullets
     const isMicroTake = chosenArchetype === "founder-micro-take";
 
     const feedbackSection = feedback && feedback.length > 0
@@ -3349,10 +3447,17 @@ ${cleanPoint3 ? `3. ${cleanPoint3}` : ""}
 - RESOLUTION & TRADE-OFF:
 ${cpio.order.ending}`;
 
-    const prompt = `You are Drishtant Ghosh (Drix10): AI Systems & LLM Architect and Co-Founder @ PartPilot.
-Write an authentic, highly valuable LinkedIn founder post sharing this technical breakdown.
+    const prompt = `You are Drishtant Ghosh (Drix10), a software engineer and systems builder who maintains the open-source engineering research hub Drix10/ai-resources (blogs.drix10.com).
+Write an authentic, unpretentious developer observation sharing this technical breakdown with fellow software engineers.
 
 ${archetypeDirective}
+
+=== ZERO LARPING & ZERO GURU POSTURING (CRITICAL REQUIREMENT) ===
+- STRICTLY FORBIDDEN: NEVER write "As a technical founder...", "As a founder...", or "In my experience as a founder...".
+- STRICTLY FORBIDDEN: NEVER write "I've seen countless...", "I've worked with numerous...", "I've learned that the key to success lies in...", or "The secret to...".
+- ZERO PREACHING: Do not talk down to the audience or dispense generic beginner advice ("I recommend using Adam and dropout").
+- ZERO NUMBERED LISTICLES: Do NOT format your post as a 1., 2., 3. list of tips. Tell the truth in narrative paragraphs with clean 1-by-1 double line breaks.
+- Speak directly, plainly, and technically as an engineer who actually writes code, runs profiling, and debugs real failure modes.
 
 === THE GOLDEN BENCHMARK (HANK WU / ANTI-SLOP / ANTI-EMPTY STANDARD) ===
 Study this post carefully. THIS is the benchmark for tone, specificity, cadence, and founder conviction:
@@ -3409,12 +3514,10 @@ Hank
    - 1-2 sentence paragraphs max.
    - Clean double line breaks between every thought.
    - Zero markdown bolding (**), zero em dashes (—).
-5. SIGN-OFF BLOCK:
-   - End the post with this exact signature block:
-Best,
-Drishtant
--
-➡️ curated at Drix10 Blogs ♻️ follow Drishtant Ghosh for more
+5. STOP AFTER YOUR FINAL TAKEAWAY:
+   - Do NOT output any author signature ("Best, Drishtant"), links, or hashtags.
+   - The publishing engine automatically appends the verified signoff and hashtags.
+   - End cleanly on your decisive concluding takeaway sentence.
 
 === VERIFIED SOURCE TECHNICAL FACTS (STRICT GROUNDING REQUIREMENT) ===
 Topic: ${cleanTitle}
@@ -3424,7 +3527,7 @@ ${cleanSourceContent}
 === ABSOLUTE TOPIC PURITY & TECHNICAL FOUNDER POSITIONING (CRITICAL) ===
 - The post MUST be 100% about the topic: "${cleanTitle}".
 - ZERO MADE-UP STORIES: NEVER fabricate personal anecdotes, fake company crises, or imaginary battle scars ("Last month our servers crashed", "We broke it under 10k RPS", "We hit a bottleneck", "We burned $20k on API calls").
-- SPEAK AS A TECHNICAL BUILDER: You are an engineer-founder who builds real systems and products. Speak from operating reality, not financial speculation or manufactured fiction.
+- SPEAK AS A PRAGMATIC SOFTWARE ENGINEER: You are a systems builder who analyzes real code and architecture. Speak from operating reality, not financial speculation, fake founder claims, or manufactured fiction.
 - NEVER ROLEPLAY AS A VC ANALYST:
   * NEVER claim "I've seen too many seed startups get caught off guard by institutional investors" or pretend to be an institutional fund manager.
   * If the source topic touches venture capital, funding, or market growth, ALWAYS bridge it through the OPERATING ENGINEER'S LENS.
@@ -3435,21 +3538,21 @@ ${cleanSourceContent}
 === CRITICAL TECHNICAL FACTUAL ACCURACY & REAL FEASIBILITY ===
 - Be 100% technically accurate. Every claim must reflect how the technology actually works.
 - ALL SUGGESTIONS MUST BE ACTUALLY CORRECT AND TECHNICALLY FEASIBLE:
-  * When recommending steps (1., 2., 3.), specify REAL, concrete engineering mechanisms (e.g. parser rules, AST node visitors, memory allocation pools, Redis caching layers, token-bucket rate limiters) that an engineer can actually implement in code.
+  * When explaining technical mechanisms, specify REAL details (e.g. parser rules, AST node visitors, memory allocation pools, Redis caching layers, token-bucket rate limiters) that an engineer can actually implement in code.
   * NEVER invent vague pseudo-technical nonsense like "analyze AST complexity of LLM models" (LLMs don't have an AST; generated code has an AST).
   * Neural networks have weights, layers, KV caches, and context windows; compilers and parsers have ASTs.
 - NO CHEAP COPYWRITING CLICHÉS:
   * NEVER write "Trust me, your wallet will thank you" (cheap copywriting cliché).
   * NEVER write "We've all been there" (broad relatability cliché).
   * NEVER write "game-changer", "look no further", or "take your X to the next level".
-- STRICT ANTI-DUPLICATION:
-  * Do NOT repeat the same solution in prose and then again in the numbered takeaways.
-  * The narrative provides the backstory/friction. The numbered takeaways provide NEW, actionable specifications.
+- NO FORCED NUMBERED LISTICLES:
+  * Do NOT format your post as an artificial "1. 2. 3." list of tips.
+  * Write in authentic, natural prose paragraphs separated by clean double line breaks. Every paragraph must flow into the next with high-signal substance.
 
 === HUMANIZER WRITING RULES (WIKIPEDIA AI CLEANUP & BLADER/HUMANIZER) ===
 1. ZERO TEXTBOOK / ESSAY INTROS:
-   - NEVER begin with: "As AI models become increasingly complex...", "In today's fast-paced AI landscape...", "When building and scaling AI systems...", "Evaluating X is crucial for ensuring...".
-   - Start IMMEDIATELY with the real friction, the bug, or the controversial stance.
+   - NEVER begin with generic landscape or industry scene-setting sentences.
+   - Start IMMEDIATELY with the concrete failure mode, unexpected bug, or specific architecture tradeoff.
 2. ZERO TRAILING -ING FLUFF:
    - NEVER end sentences with: ", ensuring high availability, reducing latency, and improving reliability."
    - State the action directly as independent clauses.
@@ -3473,8 +3576,8 @@ ${cleanSourceContent}
 3. HIGH INFORMATION DENSITY: Every sentence fights for its life and delivers on the hook's promise. Cut all filler words ("very", "really", "quite").
 4. 1-BY-1 LINE BREAK PACING: Write each sentence or short thought on its OWN line, separated by a clean double line break (\\n\\n). NEVER clump 3 or 4 sentences into a block of text.
 5. NO PLACEHOLDER HEADERS: NEVER write placeholder labels like "Principle Name:", "Core Mechanism:", or generic summaries.
-6. NO RAW @MENTIONS — USE COMPANY HASHTAGS: Do NOT include raw @company or @person tags. Include them as hashtags at the end (e.g. #Anthropic #OpenAI #NVIDIA).
-7. HASHTAGS: Exactly 5-8 relevant technical and company hashtags at the very bottom.
+6. NO RAW @MENTIONS: Do NOT include raw @company or @person tags.
+7. NO SIGNOFF OR HASHTAGS: Do NOT output any signoff, signature, or hashtags. The system attaches them.
 8. START DIRECTLY ON LINE 1: Start immediately with the opening hook. DO NOT output any title, greeting, or markdown headers.
 9. CLOSE WITH TRUST, NOT BAIT: End the post with a confident, complete closing statement or a soft signal of availability. Never end with an engagement-farming survey question ("Agree?", "Thoughts?").
 10. SEARCHABLE LONG-TAIL ASSET (SEO TECHNIQUE): Use the exact technical phrases an engineering lead or CTO would search when debugging this dilemma.
@@ -3489,6 +3592,8 @@ ${feedbackSection}
 === STRICT PROHIBITIONS ===
 - STRICTLY ZERO MARKDOWN BOLDING OR ASTERISKS ("**" or "__"). Write clean plain text.
 - STRICTLY ZERO EM DASHES ("—" or "--"). Use colons, commas, or periods instead.
+- STRICTLY ZERO HEADERS OR SECTION TITLES: NEVER write markdown headers ("###", "##", "#") anywhere in the post. NEVER output labels like "Focus on a Niche:", "Concrete Operating Context:", "Takeaway:", or "Key Points:".
+- STRICTLY ZERO AUTHOR SIGNOFF OR HASHTAGS: NEVER write "Best, Drishtant", "➡️ curated at Drix10 Blogs", or "#hashtags". Stop immediately after the final sentence.
 - ZERO TEXTBOOK DEFINITIONS: NEVER define basic technical terms ("X occurs when...", "X is a technique...").
 - NO lecturer/teacher phrases: "As X becomes increasingly complex...", "It is easy to overlook...", "A deep breakdown is crucial...", "By following these best practices...".
 - NO reversal framing ("Most people think X, but actually Y").
@@ -3536,9 +3641,29 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
       .replace(/\[Insert.*?\]/gi, "")
       .trim();
 
+    // Strip leaked prompt headers or source content echos
+    body = body.replace(/###\s*Verified Source Content:[\s\S]*$/i, "").trim();
+    body = body.replace(/===[\s\S]*?===/g, "").trim();
+    body = body.replace(/Topic:\s*[^\n]+\n+Verified Source Content:[\s\S]*$/i, "").trim();
+
+    // Strip pre-existing signature block duplicates so we can cleanly re-attach once at the end
+    const sigIndex = body.search(/(?:^|\n+)Best,\s*\n+Drishtant/i);
+    if (sigIndex > 0) {
+      body = body.slice(0, sigIndex).trim();
+    }
+    const blogIndex = body.search(/(?:^|\n+)[-–—\s]*➡️ curated at Drix10 Blogs/i);
+    if (blogIndex > 0) {
+      body = body.slice(0, blogIndex).trim();
+    }
+
     // 1. Strip any markdown headers (# or ###) or emoji title lines preceding the hook
     body = body.replace(/^(?:#+\s*[^\n]*\n+)+/g, "").trim();
     body = body.replace(/^(?:[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}][^\n]*\n+)+/u, "").trim();
+
+    // 1b. Strip all markdown headers (#, ##, ###) and prompt labels throughout the entire body
+    body = body.replace(/^[ \t]*#{1,6}\s*.*$/gm, "").trim();
+    body = body.replace(/^[ \t]*###[A-Za-z0-9_\s-]+.*$/gm, "").trim();
+    body = body.replace(/^[ \t]*(?:Focus on a Niche|Concrete Operating Context|Operating Context|Archetype Directive|Core Friction|Takeaway|Resolution):?\s*$/gim, "").trim();
 
     // 2. Sanitize banned words and grammatical inflections
     body = this.sanitizeBannedWords(body);
@@ -3548,7 +3673,7 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
 
     // 4. Strip reversal framing: "Most people think X. But in reality Y."
     body = body.replace(/(?:most people|everyone|many engineers|many founders) (?:thinks?|believes?|assumes?|argue|claim)[^.\n]*\.\s*(?:but|however|in reality|actually)[,\s]*/gi, "");
-    body = body.replace(/^[,;:\s\-–—]+/gm, "").trim();
+    body = body.replace(/^[,;: \t\-–—]+/gm, "").trim();
 
     // 4b. Fix broken hook grammar produced by hook-rewrite replacements
     // "don't realize [gerund phrase]" → "don't realize that [gerund phrase]"
@@ -3557,7 +3682,7 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     // "underestimate [gerund]" → "underestimate the impact of [gerund]" for fluency
     body = body.replace(/\bunderestimate (evaluating|handling|managing|scaling|deploying|building)\b/g, "underestimate the cost of $1");
     // Fix lowercase sentence start after injected period: ". their" → ". Their"
-    body = body.replace(/\.\s+([a-z])/g, (m, c) => ". " + c.toUpperCase());
+    body = body.replace(/\.[ \t]+([a-z])/g, (m, c) => ". " + c.toUpperCase());
 
     // 5. Strip rhetorical questions and fix trailing question marks on declarative statements
     body = body.replace(/^(?:have you ever wondered|what if I told you|did you know|why does this matter\?)\s*/gim, "");
@@ -3565,10 +3690,12 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     body = body.replace(/(there's a way[^?\n]+)\?/gi, "$1.");
     body = body.replace(/^(I've seen[^?\n]+)\?/gm, "$1.");
 
-    // 5b. Strip "In today's AI/fast-paced/modern landscape" filler sentence openers
-    body = body.replace(/(?:^|\n+)In today's [^.\n]+\.\s*/gim, "\n\n");
-    body = body.replace(/^In today's [^\n]+\n+/gim, "");
-    body = body.trim();
+    // 5b. Strip "In today's" or generic zeitgeist scene-setting paragraphs
+    body = body
+      .split(/\r?\n\s*\r?\n/)
+      .filter(p => !/\bin today's\b/i.test(p) && !/^(?:as [a-z0-9_\s-]+ becomes?|in the fast-paced|evaluating [^.\n]+ is crucial)/i.test(p.trim()))
+      .join("\n\n")
+      .trim();
 
     // 5c. Fix sentence capitalization after filler strips
     body = body.replace(/(?:^|[.!?]\s+)([a-z])/g, (m, c) => m.slice(0, -1) + c.toUpperCase());
@@ -3611,6 +3738,28 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     body = body.replace(/(?:^|\n+)I recommend using\b/gi, "\n\nWhat actually works in production is");
     body = body.replace(/\bFinally, I recommend using\b/gi, "On top of that, use");
     body = body.replace(/\bI recommend\b/gi, "What works is");
+
+    // 5j. Anti-LARP Rule: Strip fake guru posturing and imaginary experience claims
+    body = body.replace(/(?:^|\n+)As a (?:technical |software )?founder[^,\n]*,?\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)I've seen (?:countless|numerous|many|too many|dozens of) [^.\n]+(?:fail|struggle|break)[^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)I've worked with (?:numerous|countless|many|dozens of) [^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)The key to success lies in[^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)Throughout my (?:journey|career|experience)[^,\n]*,?\s*/gim, "\n\n");
+    body = body.replace(/\bAs a (?:technical |software )?founder,?\s*/gi, "");
+    body = body.replace(/\bAs a founder,?\s*/gi, "");
+    body = body.replace(/\bI've seen (?:countless|numerous|dozens of)\b/gi, "A common failure mode in");
+    body = body.replace(/\bI've worked with (?:numerous|countless|dozens of)\b/gi, "When testing");
+    body = body.replace(/\bthe key to success lies in\b/gi, "what actually matters is");
+    body = body.replace(/(?:^|\n+)In today's [^,\n]+,\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)(?:The|A) key to [^.\n]+ is (?:to|in)[^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)This can be (?:achieved|done|accomplished) through[^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)By [a-z]+ing [^,\n]+, (?:you|teams|startups|developers|engineers|companies) can[^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)[^.\n]*increase (?:your|their|the) chances of success[^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)However, many (?:startups|companies|teams|developers|engineers) struggle to [^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)[A-Z][A-Za-z0-9_\s-]+ is (?:the process of|defined as|a technique that|used to)[^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)By following (?:these|such) (?:guidelines|principles|best practices|steps|rules)[^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)I recently dug into (?:the math behind|the details of)[^.\n]*what I found surprised me[^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)A well-designed [^.\n]+ can help achieve this balance[^.\n]*\.\s*/gim, "\n\n");
 
     // Ensure the very first paragraph / hook does not end with an awkward dangling question mark
     const firstParagraphMatch = body.match(/^([^\n]+)/);
@@ -3679,14 +3828,16 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
         continue;
       }
       // Split narrative paragraphs into individual punchy sentences (Hank Wu 1-by-1 line cadence)
-      const sentences = trimmed.match(/[^.!?]+[.!?]+(?:\s|$)/g);
+      // Protect common abbreviations (e.g. Sept. 3, vs., i.e.) from being falsely split into new lines
+      const protectedText = trimmed.replace(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sept|Sep|Oct|Nov|Dec|vs|e\.g|i\.e|etc|al|Dr|Mr|Mrs|Ms)\.\s+/gi, "$1@@DOT@@ ");
+      const sentences = protectedText.match(/[^.!?]+[.!?]+(?:\s|$)/g);
       if (sentences && sentences.length > 1) {
         for (const s of sentences) {
-          const cleanS = s.trim();
+          const cleanS = s.replace(/@@DOT@@/g, ".").trim();
           if (cleanS) formattedBlocks.push(cleanS);
         }
       } else {
-        formattedBlocks.push(trimmed);
+        formattedBlocks.push(trimmed.replace(/@@DOT@@/g, "."));
       }
     }
     body = formattedBlocks.join("\n\n").trim();
@@ -3731,65 +3882,38 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     // 14c. Strip premature comment links; canonical placement is handled in section 16
     body = body.replace(/🔗[^\n]*\n*/gi, "").trim();
 
-    // 14d. Only ensure structured takeaways for playbooks and teardowns. NEVER inject forced bullets into narrative prose or confessions!
-    const isProseArchetype = [
-      "founder-confession",
-      "contrarian-hot-take",
-      "search-discovery-secret",
-      "post-mortem",
-      "founder-micro-take",
-      "contrarian-proof-action",
-      "story-arc"
-    ].includes(cpio?.chosenStructure || "");
-
-    if (!isProseArchetype) {
-      let bulletsFound = this.extractFrameworkBullets(body);
-      if (bulletsFound.length < 2 && Array.isArray(cpio?.information?.requiredPoints) && cpio.information.requiredPoints.length >= 2) {
-        const formattedPoints = cpio.information.requiredPoints.slice(0, 3).map((pt, i) => `${i + 1}. ${pt.replace(/\*\*/g, "").replace(/__/g, "")}`).join("\n\n");
-        if (body.includes("🔗")) {
-          body = body.replace("🔗", `${formattedPoints}\n\n🔗`);
-        } else {
-          const hashtagsMatch = body.match(/(?:#[a-zA-Z0-9_]+\s*)+$/);
-          if (hashtagsMatch) {
-            body = body.replace(hashtagsMatch[0], `${formattedPoints}\n\n${hashtagsMatch[0]}`);
-          } else {
-            body = `${body}\n\n${formattedPoints}`;
+    // 14d. Authentic builder writing: Never inject artificial 1. 2. 3. bullets into any post.
+    // If a post is written in clean narrative paragraphs, let it remain pure conversational prose.
+    const bulletsFound = this.extractFrameworkBullets(body);
+    if (bulletsFound.length >= 2) {
+      const blocks = body.split(/\r?\n\s*\r?\n/);
+      const cleanBlocks = [];
+      for (const block of blocks) {
+        const trimmed = block.trim();
+        if (/^[0-9]+\.\s/.test(trimmed) || trimmed.startsWith("•") || trimmed.startsWith("#") || trimmed.startsWith("🔗")) {
+          cleanBlocks.push(trimmed);
+          continue;
+        }
+        const isDupe = bulletsFound.some(b => {
+          const bWords = new Set(b.toLowerCase().replace(/[^a-z0-9\s]/g, "").split(/\s+/).filter(w => w.length > 3));
+          const nWords = trimmed.toLowerCase().replace(/[^a-z0-9\s]/g, "").split(/\s+/).filter(w => w.length > 3);
+          if (nWords.length >= 5 && bWords.size >= 5) {
+            const overlap = nWords.filter(w => bWords.has(w)).length;
+            return (overlap / bWords.size) > 0.50;
           }
+          return false;
+        });
+        if (!isDupe) {
+          cleanBlocks.push(trimmed);
         }
       }
-
-      // Automatically strip any narrative paragraphs that duplicate the takeaways!
-      bulletsFound = this.extractFrameworkBullets(body);
-      if (bulletsFound.length >= 2) {
-        const blocks = body.split("\n\n");
-        const cleanBlocks = [];
-        for (const block of blocks) {
-          const trimmed = block.trim();
-          if (/^[0-9]+\.\s/.test(trimmed) || trimmed.startsWith("•") || trimmed.startsWith("#") || trimmed.startsWith("🔗")) {
-            cleanBlocks.push(trimmed);
-            continue;
-          }
-          const isDupe = bulletsFound.some(b => {
-            const bWords = new Set(b.toLowerCase().replace(/[^a-z0-9\s]/g, "").split(/\s+/).filter(w => w.length > 3));
-            const nWords = trimmed.toLowerCase().replace(/[^a-z0-9\s]/g, "").split(/\s+/).filter(w => w.length > 3);
-            if (nWords.length >= 5 && bWords.size >= 5) {
-              const overlap = nWords.filter(w => bWords.has(w)).length;
-              return (overlap / bWords.size) > 0.50;
-            }
-            return false;
-          });
-          if (!isDupe) {
-            cleanBlocks.push(trimmed);
-          }
-        }
-        body = cleanBlocks.join("\n\n");
-      }
+      body = cleanBlocks.join("\n\n");
     }
 
     // Cross-paragraph deduplication and echo-stripper:
     // Strips repeated 6-gram clauses, short echo sentences, and high semantic overlap across paragraphs
     {
-      const rawBlocksDedup = body.split("\n\n");
+      const rawBlocksDedup = body.split(/\r?\n\s*\r?\n/);
       const uniqueBlocks = [];
       const seenNgrams = new Set();
       const seenWordSets = [];
@@ -3840,12 +3964,12 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
         const hasRepeatedNgram = ngrams.some(ng => seenNgrams.has(ng));
         if (hasRepeatedNgram && i > 1) continue;
 
-        // 3. High overall word overlap with an earlier paragraph (>= 75%)
+        // 3. High overall word overlap with an earlier paragraph (>= 60%)
         let isHeavyOverlap = false;
         for (const prevWords of seenWordSets) {
           if (blockWords.size >= 5 && prevWords.size >= 5) {
             const overlap = [...blockWords].filter(w => prevWords.has(w)).length;
-            if ((overlap / Math.min(blockWords.size, prevWords.size)) >= 0.75) {
+            if ((overlap / Math.min(blockWords.size, prevWords.size)) >= 0.60) {
               isHeavyOverlap = true;
               break;
             }
@@ -3858,6 +3982,12 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
         uniqueBlocks.push(block);
       }
       body = uniqueBlocks.join("\n\n");
+    }
+
+    // Ensure the opening hook is always line 1 if the LLM omitted or stripped it
+    const hook = String(cpio?.package?.hook || "").trim();
+    if (hook && !body.toLowerCase().includes(hook.slice(0, 30).toLowerCase())) {
+      body = `${hook}\n\n${body}`;
     }
 
     // 14e. Strip "1) ... 2) ... 3) ..." step-lists from inside numbered takeaways
@@ -3945,7 +4075,21 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     body = body.replace(/,?\s*only to realize[^.]*\./i, '.');
 
     // 15. Enforce 5-8 domain-specific hashtags strictly (add if too few, trim if too many)
-    let hashtagsFound = body.match(/#[a-zA-Z0-9_]+/g) || [];
+    const trailingHashtagsMatch = body.match(/(?:(?:\r?\n|\s)+#[a-zA-Z0-9_]+)+\s*$/);
+    let hashtagsFound = [];
+    if (trailingHashtagsMatch) {
+      hashtagsFound = trailingHashtagsMatch[0].match(/#[a-zA-Z0-9_]+/g) || [];
+      body = body.slice(0, trailingHashtagsMatch.index).trim();
+    }
+
+    // Strip any internal markdown headers or stray hashtags inside body text
+    body = body.replace(/^[ \t]*#{1,6}\s*.*$/gm, "").trim();
+    body = body.replace(/(?:\r?\n|\s)*(?:#[a-zA-Z0-9_]+\s*)+$/g, "").trim();
+
+    // Filter out leaked prompt or generic tags (e.g. #Focus, #Concrete, #Operating, #Context)
+    const BANNED_HASHTAGS = new Set(["#focus", "#concrete", "#niche", "#operating", "#context", "#takeaway", "#heuristics", "#heuristic"]);
+    hashtagsFound = hashtagsFound.filter(tag => !BANNED_HASHTAGS.has(tag.toLowerCase()));
+
     if (hashtagsFound.length < 5) {
       const dynamicTags = this.generateSpecificHashtags(article, body);
       for (const dt of dynamicTags) {
@@ -3973,19 +4117,18 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     const founderSignoff = "Best,\nDrishtant\n-\n➡️ curated at Drix10 Blogs ♻️ follow Drishtant Ghosh for more";
     const commentLink = hasSubstantiveResource ? "🔗 Full breakdown + architecture resources in the comments." : "";
 
-    // Strip any trailing hashtag block
-    body = body.replace(/(?:\r?\n|\s)*(?:#[a-zA-Z0-9_]+\s*)+$/g, "").trim();
-
-    // Strip any existing comment link or signoff to prevent duplicates
+    // Strip any existing comment link or duplicate signoff fragments
     body = body.replace(/🔗[^\n]*\n*/gi, "").trim();
+    body = body.replace(/(?:^|\n+)[^\n]*curated at Drix10 Blogs[^\n]*/gi, "").trim();
+    body = body.replace(/(?:^|\n+)[^\n]*follow Drishtant[^\n]*/gi, "").trim();
     body = body.replace(/Best,?\s*(?:Hank|Founder|Drishtant|Drix10)?(?:\r?\n)+\s*-\s*(?:\r?\n)+➡️[^\n]*/gi, "").trim();
-    body = body.replace(/\bBest,\s*Drishtant\b/gi, "").trim();
+    body = body.replace(/(?:^|\n+)[ \t]*Best,\s*Drishtant[^\n]*/gi, "").trim();
+    body = body.replace(/(?:^|\n+)[ \t]*[-–—][ \t]*$/gm, "").trim();
 
     // Rebuild the final clean post: Body -> Signoff -> Comment Link -> Hashtags
     const finalBlocks = [body, founderSignoff];
     if (commentLink) finalBlocks.push(commentLink);
     if (hashtagsFound.length > 0) finalBlocks.push(hashtagsFound.join(" "));
-
     body = finalBlocks.join("\n\n").replace(/\n{3,}/g, "\n\n").trim();
     return body;
   }
@@ -3998,13 +4141,21 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     const tags = new Set();
     const clean = (str) => str.replace(/[^a-zA-Z0-9]/g, "");
 
-    // 1. Extract specific tech keywords from title
+    // 1. Extract specific tech keywords from title (excluding generic buzzwords and meta labels)
+    const NON_TECH_WORDS = new Set([
+      "the", "and", "for", "with", "from", "this", "that", "into", "how", "why", "what", "when",
+      "are", "can", "using", "article", "guide", "tools", "news", "firms", "firm", "startup", "startups",
+      "updates", "update", "weekly", "daily", "monthly", "roundup", "edition", "section", "part",
+      "breakdown", "overview", "deep", "take", "takes", "post", "posts", "read", "connect", "tech",
+      "focus", "niche", "concrete", "operating", "context", "heuristic", "heuristics", "lesson", "lessons",
+      "directive", "prompt", "rule", "rules", "roadmap", "principle", "principles"
+    ]);
     const titleWords = String(article?.title || "")
       .replace(/[#@()[\]{}:,."'-]/g, " ")
       .split(/\s+/)
-      .filter(w => w.length > 2 && !/^(the|and|for|with|from|this|that|into|how|why|what|when|are|can|using|article|guide|tools?)$/i.test(w));
+      .filter(w => w.length > 3 && !NON_TECH_WORDS.has(w.toLowerCase()));
     for (const w of titleWords) {
-      if (tags.size < 4) tags.add(`#${clean(w)}`);
+      if (tags.size < 3) tags.add(`#${clean(w)}`);
     }
 
     // 2. Extract Category
