@@ -165,22 +165,29 @@ Code Mechanics & Explanation: ${ideation.frameworkOpinion || ideation.coreTensio
 Key Specifics: ${(ideation.keyTakeaways || []).join(" | ")}
 Closing Punchline: ${ideation.closingPunchline}
 ${feedbackBlock}
-=== ABSOLUTE EDITORIAL CONSTRAINTS (ZERO FAKE SENIORITY, ZERO PREACHING) ===
-1. NEVER CLAIM TO BE A "SENIOR ENGINEER":
-   - You are NOT a 40-year-old corporate "senior AI engineer".
-   - You are Drishtant Ghosh: a 20-year-old Full-Stack AI Engineer, founder, and student who actually builds, breaks, and tests systems.
+=== CORE CREATOR PLAYBOOK RULES (WHAT TO DO & WHAT TO AVOID) ===
+1. TALK ABOUT WORK YOU ARE ALREADY DOING (ONE IDEA PER POST):
+   - Anchor strictly in the 2-3 systems you actually build: low-level C memory (Grind), agent graphs & webhook security (intent-canvas / sentinal), and autonomous trading systems (Canopy / hypothesis-arena).
+   - ONE IDEA PER POST: Do not try to explain everything. Focus on one single failure, one bug, or one architectural trade-off.
+   - SAY WHAT YOU MEAN: Don't use 14 words when 7 will do. Cut corporate filler, cut verbose intros, cut fluff.
+
+2. POST WHAT YOU'RE LEARNING / POSTMORTEM FORMAT:
+   - A mistake made in code or architecture.
+   - What broke vs what actually fixed it.
+   - A concrete lesson learned the hard way.
    - Speak as an active hands-on builder: "When I built...", "In my codebase...", "I ran into a weird bug where...".
 
-2. STRICTLY FORBIDDEN "WE / WE AS ENGINEERS":
-   - NEVER use the collective "we" to preach to the industry:
-     * FORBIDDEN: "We care about...", "We want to see...", "We must reject...", "It's time we call out...", "Let's reject the fluff".
-     * That sounds like an insecure fake guru pontificating on a soapbox.
-   - Use FIRST-PERSON SINGULAR ONLY: "I built", "I tested", "What actually broke was", "My fix was".
+3. ZERO FAKE SENIORITY, ZERO PREACHING:
+   - You are Drishtant Ghosh: a 20-year-old Full-Stack AI Engineer, founder, and student at DSU Bengaluru.
+   - Certifications: IBM AI Engineering Professional Certificate ONLY.
+   - NEVER claim to be a "senior engineer", "senior AI engineer", "lead", or corporate veteran.
+   - NEVER claim CompTIA Security+, AWS/GCP certifications, or decades of enterprise experience.
+   - NO collective preaching or royal we: STRICTLY BANNED: "We care about...", "We want to see...", "We must reject...", "It's time we call out...", "Let's reject the fluff", "We as engineers".
+   - Use first-person singular ("I", "my") or direct technical descriptions.
 
-3. ZERO VAGUE META-TALK — MUST NAME THE CONCRETE MECHANISM:
-   - NEVER write vague meta-filler like:
-     * "Senior engineers want exact latency numbers, memory bounds, and failure modes" (WITHOUT giving any number or mechanism!).
-     * "90% of PRs are fluff, let's reject fluff" (That is empty preaching!).
+4. CONCRETE MECHANISM OVER META-FLUFF:
+   - DO NOT write vague meta-statements like "Senior engineers want exact latency numbers and failure modes" without giving the exact number or mechanism!
+   - DO NOT write empty rants like "90% of PRs are fluff, let's reject fluff".
    - You MUST explain the ACTUAL CODE MECHANISM:
      * If discussing webhooks (intent-canvas): Explain why standard express.json() parses and alters raw bytes, breaking HMAC SHA256 signature verification. Explain the exact fix: capturing the raw Buffer using express.json({ verify: (req, res, buf) => req.rawBody = buf }), verifying HMAC with crypto.timingSafeEqual, and only THEN validating the parsed JSON payload with Zod.
      * If discussing multi-agent systems (Canopy / hypothesis-arena): Explain how streaming 4 WebSocket orderbook feeds into Turso/LibSQL causes lock contention if writes aren't pipelined.
@@ -190,9 +197,11 @@ ${feedbackBlock}
      * If discussing LLM orchestration (CosLynx): Explain how multi-turn LLM code generation hallucinates npm packages unless you constrain imports against package.json.
    - Name the exact libraries and tools: Zod, Prisma, LibSQL, Turso, WebSockets, Express, AST, malloc, 64-byte L1 cache lines.
 
-4. CADENCE & FORMATTING:
-   - 1-2 sentence paragraphs max.
-   - Clean double line breaks between thoughts.
+5. CADENCE, COMPLETE SENTENCES & FORMATTING (NO FRAGMENTS, NO CUT WORDS):
+   - 1-2 sentence paragraphs maximum. Clean double line breaks between thoughts.
+   - NEVER output sentence fragments, truncated words, or partial code blocks.
+   - Write complete, whole sentences. If writing code expressions, keep them intact inside a sentence (e.g. \`express.json({ verify: ... })\`).
+   - NO motivational platitudes: DO NOT use "Start with the basics", "Build from the ground up", "Trust the process", "harsh reality", "let that sink in", "frustrating and liberating".
    - ZERO markdown bolding (**), ZERO em dashes (—). Use colons, hyphens, or periods.
    - NO markdown links [like this](url).
    - NO signatures or hashtags in the body. End cleanly on the final punchline sentence.
@@ -265,8 +274,8 @@ Write ONLY the post text. Start directly on line 1 with the opening hook.`;
       issues.errors.push("Motivational cliché / cringe phrasing detected. Strip platitudes.");
     }
 
-    // 5. Sentence Fragments & Corrupted Identifiers
-    if (/(?:^|\s|[.,;:!?])(?:hing\.|hat express\.json|rawBody = buf|timingSafeEqual\.|body into Zod|e immutable binary Buffer|ing Zod)/i.test(text)) {
+    // 5. Sentence Fragments & Corrupted Identifiers (isolated orphan lines from bad splitting)
+    if (/(?:^|\n)\s*(?:hing\.|hat express\.json|rawBody\s*=\s*buf\s*\}\)\.|timingSafeEqual\.|body into Zod|e immutable binary Buffer|ing Zod)/i.test(text)) {
       issues.hasFragments = true;
       issues.errors.push("Corrupted sentence fragments or broken method calls detected.");
     }
@@ -505,39 +514,11 @@ Return ONLY a raw JSON object:
       .replace(/```[\s\S]*?```/g, "")
       .replace(/[—–\u2012\u2013\u2014\u2015]/g, ": ")
       .replace(/--/g, "- ")
+      .replace(/\*\*/g, "") // strip markdown bolding
+      .replace(/^[ \t]*#{1,6}\s*.*$/gm, "") // strip markdown headers
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1") // keep label, strip url
+      .replace(/^https?:\/\/[^\s]+$/gm, "") // strip standalone URL lines
       .trim();
-
-    // Strip any markdown link definitions or trailing link lines like [Original post](...)
-    body = body.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1"); // keep label, strip url
-    body = body.replace(/^https?:\/\/[^\s]+$/gm, ""); // strip standalone URL lines
-    body = body.replace(/^[ \t]*#{1,6}\s*.*$/gm, ""); // strip markdown headers
-    body = body.replace(/\*\*/g, "").replace(/__/g, ""); // strip bold asterisks
-
-    // Strip preachy / consultant phrases that slipped through
-    body = body.replace(/(?:^|\n+)To mitigate this (?:risk|issue|problem)[^,\n]*,?\s*/gim, "\n\n");
-    body = body.replace(/\b(?:developers|engineers|teams) should (?:consider|implement|ensure|monitor|adopt)\b/gi, "what works in practice is to");
-    body = body.replace(/\bIn the pursuit of efficiency,?\s*/gi, "");
-    body = body.replace(/\bThe root cause of this issue lies in\b/gi, "What actually breaks is");
-    body = body.replace(/\bAs a (?:technical |software )?founder,?\s*/gi, "");
-    body = body.replace(/\bAs a (?:senior |lead )?(?:AI |software |systems )?engineer,?\s*/gi, "");
-    body = body.replace(/\b(?:Senior|Lead) engineers? (?:don't|do not|care|want)\b/gi, "Practitioners care");
-    body = body.replace(/\bWe as engineers\b/gi, "Engineers");
-    body = body.replace(/\bWe care about\b/gi, "What actually matters is");
-    body = body.replace(/\bWe want to (?:know|see)\b/gi, "What matters is");
-    body = body.replace(/\bIt's time we call out\b/gi, "The reality is");
-    body = body.replace(/\bLet's reject the fluff[^\n.]*[.\n]?/gi, "");
-    body = body.replace(/\bThe future of AI engineering depends on[^\n.]*[.\n]?/gi, "");
-    body = body.replace(/(?:^|\n+)I run an AI content company[^.\n]*,?\s*(?:and|but)?\s*/gim, "\n\n");
-    body = body.replace(/\bPosting Machine\b/gi, "our system");
-
-    // Anti-Cringe & Anti-Motivational Phrase Stripper:
-    body = body.replace(/\b(?:Start with the basics|Build from the ground up|Trust the process|Keep grinding,? builders?|frustrating and liberating|let that sink in|In today's fast-paced world|Here is the harsh reality|I remember sitting in my room|As a founder, I've learned)\b/gi, "");
-
-    // Clean up residual double punctuation or spacing caused by regex replacements
-    body = body
-      .replace(/[ \t]+/g, " ")
-      .replace(/\s+([.,;:!?])/g, "$1")
-      .replace(/([.,;:!?])\1+/g, "$1");
 
     // Security & Legal Privacy Redaction:
     // Strip API keys, tokens, webhooks, private keys, passwords, IP addresses
@@ -556,72 +537,22 @@ Return ONLY a raw JSON object:
       })
       .replace(/\b(?:192\.168\.\d+\.\d+|10\.\d+\.\d+\.\d+|172\.(?:1[6-9]|2\d|3[01])\.\d+\.\d+)\b/g, "[REDACTED_IP]");
 
-    // Sanitize banned AI slop buzzwords
-    if (this.llm && typeof this.llm.sanitizeBannedWords === "function") {
-      body = this.llm.sanitizeBannedWords(body);
-    }
-
-    // Strip existing signatures
+    // Strip existing signatures if generated
     body = body.replace(/(?:^|\n+)Best,\s*\n+Drishtant[\s\S]*$/i, "").trim();
     body = body.replace(/(?:^|\n+)Drishtant Ghosh[\s\S]*$/i, "").trim();
 
-    // Clean multiple line breaks and normalize 1-by-1 cadence
+    // Clean multiple line breaks and normalize paragraphs as complete units
     const rawBlocks = body.split(/\n{2,}/);
     const formattedBlocks = [];
     for (const block of rawBlocks) {
-      let trimmed = block.trim().replace(/[ \t]{2,}/g, " ");
+      const trimmed = block.trim().replace(/[ \t]+/g, " ");
       if (!trimmed || /^[.,:;\s\-_]+$/.test(trimmed)) continue;
-      if (/^[0-9]+\.\s/m.test(trimmed) || trimmed.startsWith("•") || trimmed.startsWith("→") || trimmed.startsWith("-")) {
-        formattedBlocks.push(trimmed);
-        continue;
-      }
-      // Sentence-level pacing: protect quotes and abbreviations from being split
-      let textToSplit = trimmed;
-      if (!/[.!?]["']?\s*$/.test(textToSplit)) {
-        textToSplit += ".";
-      }
-      const protectedText = textToSplit
-        .replace(/"([^"]*)"/g, (m, inner) => `@@Q@@${inner.replace(/[.!?]/g, "@@P@@")}@@Q@@`)
-        .replace(/`([^`]*)`/g, (m, inner) => `@@CODE@@${inner.replace(/[.!?]/g, "@@P@@")}@@CODE@@`)
-        .replace(/([a-zA-Z0-9_])\.([a-zA-Z0-9_])/g, "$1@@DOT@@$2")
-        .replace(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sept|Sep|Oct|Nov|Dec|vs|e\.g|i\.e|etc|al|Dr|Mr|Mrs|Ms)\.\s+/gi, "$1@@DOT@@ ");
-      const sentences = protectedText.match(/[^.!?]+[.!?]+(?:\s+|$)/g);
-      if (sentences && sentences.length > 0) {
-        let consumedLength = 0;
-        for (const s of sentences) {
-          consumedLength += s.length;
-          const cleanS = s
-            .replace(/@@CODE@@/g, '`')
-            .replace(/@@Q@@/g, '"')
-            .replace(/@@P@@/g, '.')
-            .replace(/@@DOT@@/g, '.')
-            .replace(/^[.,:;\s\-_]+/, "")
-            .trim();
-          if (cleanS && cleanS.length > 2 && !/^[.,:;\s\-_]+$/.test(cleanS)) {
-            formattedBlocks.push(cleanS);
-          }
-        }
-        if (consumedLength < protectedText.length) {
-          const remainder = protectedText.slice(consumedLength)
-            .replace(/@@CODE@@/g, '`')
-            .replace(/@@Q@@/g, '"')
-            .replace(/@@P@@/g, '.')
-            .replace(/@@DOT@@/g, '.')
-            .replace(/^[.,:;\s\-_]+/, "")
-            .trim();
-          if (remainder && remainder.length > 2 && !/^[.,:;\s\-_]+$/.test(remainder)) {
-            formattedBlocks.push(remainder);
-          }
-        }
-      } else if (trimmed.length > 2 && !/^[.,:;\s\-_]+$/.test(trimmed)) {
-        formattedBlocks.push(trimmed);
-      }
+      formattedBlocks.push(trimmed);
     }
     body = formattedBlocks.join("\n\n").trim();
 
-    // Minimal 2-line bottom signature (clean, subtle, no hashtag stuffing)
+    // Standardized 2-line founder footer
     const signature = `Drishtant Ghosh\nFollow for daily systems engineering & code teardowns.`;
-
     const finalText = `${body}\n\n${signature}`;
 
     // First comment text customized to the repo or topic

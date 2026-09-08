@@ -3870,29 +3870,13 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     body = body.replace(/([^\n])\n(?=[0-9]+\.\s|[•\-\*]\s*)/g, "$1\n\n");
     body = body.replace(/([0-9]+\.[^\n]+)\n(?=[0-9]+\.\s)/g, "$1\n\n");
 
-    // 10e. Ensure true 1-by-1 line break pacing for narrative text (outside of numbered lists)
+    // 10e. Clean multiple line breaks and normalize paragraphs as complete units
     const rawBlocks = body.split(/\n{2,}/);
     const formattedBlocks = [];
     for (const block of rawBlocks) {
       const trimmed = block.trim();
       if (!trimmed) continue;
-      // Preserve numbered lists, hashtags, links, and bullets verbatim
-      if (/^[0-9]+\.\s/m.test(trimmed) || trimmed.startsWith("#") || trimmed.startsWith("🔗") || trimmed.startsWith("•")) {
-        formattedBlocks.push(trimmed);
-        continue;
-      }
-      // Split narrative paragraphs into individual punchy sentences (Hank Wu 1-by-1 line cadence)
-      // Protect common abbreviations (e.g. Sept. 3, vs., i.e.) from being falsely split into new lines
-      const protectedText = trimmed.replace(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sept|Sep|Oct|Nov|Dec|vs|e\.g|i\.e|etc|al|Dr|Mr|Mrs|Ms)\.\s+/gi, "$1@@DOT@@ ");
-      const sentences = protectedText.match(/[^.!?]+[.!?]+(?:\s|$)/g);
-      if (sentences && sentences.length > 1) {
-        for (const s of sentences) {
-          const cleanS = s.replace(/@@DOT@@/g, ".").trim();
-          if (cleanS) formattedBlocks.push(cleanS);
-        }
-      } else {
-        formattedBlocks.push(trimmed.replace(/@@DOT@@/g, "."));
-      }
+      formattedBlocks.push(trimmed);
     }
     body = formattedBlocks.join("\n\n").trim();
 
