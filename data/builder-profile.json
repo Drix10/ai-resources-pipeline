@@ -1,0 +1,205 @@
+{
+  "builder": {
+    "name": "Drishtant Ghosh",
+    "handle": "Drix10",
+    "title": "Full-Stack AI Engineer",
+    "location": "Bengaluru, Karnataka, India",
+    "email": "ggdrishtant@gmail.com",
+    "blogUrl": "https://blogs.drix10.com",
+    "githubUrl": "https://github.com/Drix10",
+    "linkedinUrl": "https://www.linkedin.com/in/drix10/",
+    "portfolioUrl": "https://drix10.com"
+  },
+  "education": [
+    {
+      "institution": "Dayananda Sagar University (DSU), Bengaluru",
+      "degree": "B.Sc. Cybersecurity",
+      "period": "2026 - 2029"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "AI Engineering Professional Certificate",
+      "issuer": "IBM",
+      "date": "Jan 2026",
+      "credentialId": "7P0EYJX1P5NN"
+    }
+  ],
+  "technicalSkills": {
+    "languages": [
+      "TypeScript",
+      "JavaScript",
+      "Python",
+      "SQL",
+      "Java",
+      "C",
+      "C++"
+    ],
+    "frameworks": [
+      "React.js",
+      "Node.js",
+      "Express.js",
+      "React Native",
+      "Expo",
+      "Next.js",
+      "Tailwind CSS",
+      "Vite",
+      "Prisma",
+      "Zod"
+    ],
+    "developerTools": [
+      "Docker",
+      "GCP",
+      "AWS",
+      "Redis",
+      "MongoDB",
+      "LibSQL",
+      "Git",
+      "GitHub Actions",
+      "PostgreSQL",
+      "Turso DB"
+    ]
+  },
+  "experience": [
+    {
+      "company": "Founders, Inc. (Canopy)",
+      "role": "AI Systems Engineer",
+      "period": "Apr 2026 - May 2026",
+      "achievements": [
+        "Architected autonomous AI trading platform integrating 4 LLM agents for real-time WEEX crypto futures trading.",
+        "Implemented WebSocket streams and optimized trade execution performance using Prisma ORM and Turso DB."
+      ]
+    },
+    {
+      "company": "CosLynx.com",
+      "role": "Founder and CEO",
+      "period": "May 2024 - May 2025",
+      "achievements": [
+        "Founded and scaled an AI-driven code generation platform with LLMs, enabling users to successfully deploy 400+ MVPs.",
+        "Engineered the core LLM orchestration engine using TypeScript and Node.js to fully automate modern full-stack generation."
+      ]
+    },
+    {
+      "company": "ReeF ~ Anime Game",
+      "role": "Ex Chief Executive Officer",
+      "period": "Apr 2022 - Aug 2024",
+      "achievements": [
+        "Spearheaded an interactive anime collection game, scaling it to $15,000 ARR while managing 5M+ active user interactions.",
+        "Orchestrated and successfully completed the strategic acquisition of the gaming platform in August 2024 at age 18."
+      ]
+    }
+  ],
+  "verifiedProjects": [
+    {
+      "name": "Intent Canvas",
+      "repo": "Drix10/intent-canvas",
+      "stack": [
+        "TypeScript",
+        "React.js",
+        "Express.js",
+        "Zod",
+        "Vite",
+        "Tailwind CSS"
+      ],
+      "description": "Revenue operations workspace processing Dodo Payments webhooks to dynamically generate SaaS recovery strategies.",
+      "realMechanics": "Raw request body preservation for HMAC signature validation, Zod validation pipelines, payment webhook reconciliation without dropping events during network spikes."
+    },
+    {
+      "name": "Hypothesis Arena",
+      "repo": "Drix10/hypothesis-arena",
+      "stack": [
+        "TypeScript",
+        "Node.js",
+        "Express.js",
+        "Google Gemini AI",
+        "Prisma",
+        "LibSQL"
+      ],
+      "description": "Multi-agent system where 4 distinct AI analysts debate and execute collaborative trading decisions on WEEX.",
+      "realMechanics": "Multi-agent consensus arbitration, streaming WebSocket orderbook feeds, distributed LibSQL/Turso embedded database storage."
+    },
+    {
+      "name": "Sentinal",
+      "repo": "Drix10/sentinal",
+      "stack": [
+        "TypeScript",
+        "Node.js",
+        "Google Gemini AI - Commander CLI"
+      ],
+      "description": "CLI tool combining AST parsing and Gemini AI to scan, analyze, and patch software vulnerabilities.",
+      "realMechanics": "AST node traversal to verify vulnerability taint flow vs dumb regex false positives, automated patch generation."
+    },
+    {
+      "name": "Idolchat",
+      "repo": "Drix10/idolchat",
+      "stack": [
+        "TypeScript",
+        "React Native",
+        "Expo",
+        "Node.js",
+        "Prisma",
+        "Redis"
+      ],
+      "description": "Cross-platform mobile and web application for custom AI character interactions, integrating WebSockets.",
+      "realMechanics": "Real-time WebSocket heartbeat management, Redis pub/sub message queuing, Prisma ORM schema indexing."
+    },
+    {
+      "name": "Grind",
+      "repo": "Drix10/Grind",
+      "stack": [
+        "C"
+      ],
+      "description": "100 foundational C programs completed strictly in order without external dependencies.",
+      "realMechanics": "Struct memory alignment, 64-byte L1 cache line padding, pointer arithmetic, manual heap management with malloc and free."
+    },
+    {
+      "name": "Ai Resources",
+      "repo": "Drix10/ai-resources",
+      "stack": [
+        "Web Scraping",
+        "AI",
+        "Markdown"
+      ],
+      "description": "Curated daily updated repository of artificial intelligence resources across multiple domains, gaining 110+ stars.",
+      "realMechanics": "Automated scraping, markdown normalization, indexing 260+ technical guides."
+    },
+    {
+      "name": "Twitter-Gemini-GitHub-MVP",
+      "repo": "Drix10/Twitter-Gemini-GitHub-MVP",
+      "stack": [
+        "JavaScript",
+        "Node.js",
+        "NVIDIA NIM",
+        "Selenium WebDriver"
+      ],
+      "description": "Autonomous content generation and syndication pipeline with local LLM integration and companion slide generation.",
+      "realMechanics": "Multi-repo commit ingestion, automated headless Chrome rendering of dark-mode slides, regex privacy redactors."
+    }
+  ],
+  "strictToneRules": {
+    "forbiddenIdentities": [
+      "senior engineer",
+      "senior AI engineer",
+      "veteran developer",
+      "industry veteran",
+      "thought leader",
+      "guru"
+    ],
+    "forbiddenPronounsAndGeneralizations": [
+      "we as engineers",
+      "we care about",
+      "we want to see",
+      "we must call out",
+      "let us reject",
+      "our community"
+    ],
+    "forbiddenMetaTalk": [
+      "90% of PRs are fluff",
+      "bookmark lists and vendor hype",
+      "it's time we call out",
+      "let's reject the fluff",
+      "focus on what matters"
+    ],
+    "requiredStyle": "First-person singular only ('I built', 'In my testing', 'I ran into a bug where', 'Here is the exact code failure'). Always name the concrete technical tool (Zod, Prisma, WebSockets, LibSQL, Turso, HMAC, AST, malloc). Give exact numbers or exact failure mechanisms instead of vague opinions."
+  }
+}

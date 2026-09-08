@@ -1,92 +1,43 @@
 #!/usr/bin/env node
 
-const llmService = require("./src/services/llm");
-const linkedinService = require("./src/services/linkedin");
-const LinkedInService = new linkedinService();
-const githubService = require("./src/services/github");
-const { logger, sleep } = require("./src/utils/helpers");
-const config = require("./config");
+/**
+ * post-live.js
+ *
+ * Production Live LinkedIn Publishing Engine.
+ * Executes the autonomous AgentEngine across Drishtant's verified GitHub pulse,
+ * drafts with audience-targeted engineering frameworks, runs the anti-cringe reflection loop,
+ * renders the dark-mode companion slide, and publishes live to LinkedIn with an automated
+ * contextual first comment and Knowledge Hub sync.
+ */
+
 const fs = require("fs");
 const path = require("path");
+const config = require("./config");
+const llmService = require("./src/services/llm");
+const githubService = require("./src/services/github");
+const linkedinService = require("./src/services/linkedin");
+const LinkedInService = new linkedinService();
+const AgentEngine = require("./src/services/agentEngine");
+const agentEngine = new AgentEngine(llmService);
+const { logger } = require("./src/utils/helpers");
 
+// Fallback high-quality technical reference articles
 const MOCK_ARTICLES = [
   {
-    title: "Devs, Designers, DevRel",
-    githubUrl: "https://github.com/Drix10/ai-resources/blob/main/Devs%2C%20Designers%2C%20DevRel%2Fresources-230.md",
-    fullContent: `### 🤖 Observability, Evaluation, and RAG Implementation
-
-This article outlines the differences between analytics and observability, explains the components needed for a Retrieval Augmented Generation (RAG) system, and provides implementation guidance.
-
+    title: "AI Developer Tools",
+    githubUrl: "https://github.com/Drix10/ai-resources/blob/main/AI%20Developer%20Tools/resources-042.md",
+    fullContent: `### 🚀 Cursor AI vs VS Code: Advanced Workflows
+This article compares the advanced AI integration workflows in Cursor and standard VS Code, examining key-bindings, codebase indexing, and multi-file inline generation mechanisms.
 Key Points:
-• Analytics provides high-level metrics like user counts and page views.
-
-• Observability offers deeper insights into individual user requests and responses.
-
-• A basic RAG system requires an inference provider and a vector database.
-
-
-🚀 Implementation:
-1. Choose an Inference Provider: Select a service that provides the necessary AI model.
-2. Select a Vector Database: Choose a database suitable for storing embeddings.
-3. Develop Retrieval Logic: Implement logic to retrieve relevant information.
-
-🔗 Resources:
-• [Tool Name](https://example.com) - Brief description of the tool
-`
+• Cursor utilizes a background rust-based tokenizer to index codebases, enabling sub-second multi-file semantic searches.
+• Standard VS Code Copilot relies on active tab context, which frequently leads to missing dependencies in multi-file edits.
+• Local embeddings are stored in a SQLite database at the user profile level, minimizing network overhead during retrieval.`
   },
   {
     title: "CS Academics",
-    githubUrl: "https://github.com/Drix10/ai-resources/blob/main/CS%20Academics%2Fresources-243.md",
-    fullContent: `### 🚀 GitHub Direct Download Metrics in Release Sidebar
-
-GitHub has quietly updated the release interface, allowing users to see direct download counts for release assets right in the UI sidebar.
-
-Key Points:
-• Asset download metrics are now visible directly in the repository release sidebar.
-
-• This provides instant connectivity into release performance without needing external API lookups.
-
-• Useful for developers tracking open-source package distribution metrics.
-`
-  },
-  {
-    title: "VC Firms",
-    githubUrl: "https://github.com/Drix10/ai-resources/blob/main/VC%20Firms%2Fresources-226.md",
-    fullContent: `### 🤖 Future AI Deployment: Multi-Model & Hybrid Inference
-
-This update explores the emerging architectural patterns for multi-model, hybrid local/cloud AI deployments using Ollama and scalable inference providers.
-
-Key Points:
-• AI deployments are moving beyond single-model applications to multi-model hybrid setups.
-
-• The hybrid model mixes local infrastructure for security/latency with cloud scalers for bursts.
-
-• Open AI infrastructure is critical for building collaborative, interoperable systems.
-
----
-### 🤖 Google Photos Log Dot-Plots Visualization
-
-Google Photos uses a single, overlooked log visualization technique to map individual user activity.
-
-Key Points:
-• Developed at Bump and later adopted by Google Photos to trace individual user actions in logs.
-
-• The "dot plot" displays many users simultaneously, showing distinct behavioral timelines.
-
-• Useful for debugging complex user behavioral flows without aggregate data-loss.
-
----
-### 🤖 Ineffective Post-Training RL Data
-
-Post-training data for Reinforcement Learning (RL) is often ineffective and creates reward-hacking risks.
-
-Key Points:
-• Most post-training data is not effective for aligning RL models with correct behaviors.
-
-• Ineffective data leads to reward hacking, where models find loopholes rather than solve the task.
-
-• Ensuring a robust and clean data supply chain is essential for RL performance.
-`
+    githubUrl: "https://github.com/Drix10/ai-resources/blob/main/CS%20Academics/resources-015.md",
+    fullContent: `### 🤖 RAG Evaluation: Ragas vs TruLens Frameworks
+Evaluating Retrieval-Augmented Generation (RAG) applications requires quantifying retrieval precision, context recall, and faithfulness. This comparative analysis outlines how Ragas and TruLens solve evaluation without manual labeling.`
   }
 ];
 
@@ -96,18 +47,17 @@ async function fetchArticlesFromGithub() {
   const pat = config.github.personalAccessToken;
 
   if (!owner || !repo || !pat) {
-    logger.warn("GitHub configuration missing or incomplete in .env. Falling back to high-quality local mock data.");
+    logger.warn("GitHub configuration missing or incomplete in .env. Falling back to local reference data.");
     return MOCK_ARTICLES;
   }
 
   logger.info(`Fetching markdown files from GitHub repository: ${owner}/${repo}...`);
   const octokit = githubService.octokit;
   const collectedArticles = [];
-  const sampleFolders = (config.folders || []).slice(0, 8);
+  const sampleFolders = (config.folders || []).slice(0, 6);
 
   for (const folder of sampleFolders) {
     try {
-      logger.info(`Scanning folder: "${folder.name}" on GitHub...`);
       const { data: contents } = await octokit.repos.getContent({
         owner,
         repo,
@@ -123,8 +73,6 @@ async function fetchArticlesFromGithub() {
       if (mdFiles.length === 0) continue;
 
       const targetFile = mdFiles[0];
-      logger.info(`Downloading newest file: ${targetFile.path}...`);
-
       const { data: fileData } = await octokit.repos.getContent({
         owner,
         repo,
@@ -132,8 +80,8 @@ async function fetchArticlesFromGithub() {
       });
 
       if (fileData && !Array.isArray(fileData) && fileData.content) {
-        const fileContent = Buffer.from(fileData.content, "base64").toString("utf-8");
-        const fileUrl = `https://github.com/${owner}/${repo}/blob/main/${encodeURIComponent(targetFile.path)}`;
+        const encodedPath = targetFile.path.split("/").map(encodeURIComponent).join("/");
+        const fileUrl = `https://github.com/${owner}/${repo}/blob/main/${encodedPath}`;
 
         collectedArticles.push({
           title: folder.name,
@@ -147,108 +95,67 @@ async function fetchArticlesFromGithub() {
   }
 
   if (collectedArticles.length === 0) {
-    logger.warn("No articles could be fetched from GitHub. Falling back to local mock data.");
+    logger.warn("No articles could be fetched from GitHub. Falling back to local reference data.");
     return MOCK_ARTICLES;
   }
 
   return collectedArticles;
 }
 
-async function runLivePostCuration() {
-  logger.info("============================================================");
-  logger.info("STARTING LIVE CURATED LINKEDIN POST & COMMENT RUN");
-  logger.info("============================================================");
+async function runLivePost() {
+  console.log("=============================================================");
+  console.log("🚀 STARTING PRODUCTION LIVE LINKEDIN POST & PUBLISH PIPELINE");
+  console.log("=============================================================\n");
 
   try {
+    // 1. Gather reference context from GitHub
     const articles = await fetchArticlesFromGithub();
 
-    // If a single markdown file contains multiple sub-articles, flatten them so
-    // the topic selector can return a valid, focused index.
-    const flattenedArticles = llmService.splitArticlesIntoSubArticles(articles);
+    // 2. Run the Autonomous Multi-Repo Agent Engine
+    const postData = await agentEngine.runAutonomousPipeline({
+      curatedArticles: articles,
+      maxRefineAttempts: 2
+    });
 
-    logger.info("\nStep 1: Querying local LLM to select the single best topic for LinkedIn...");
-    const selectedIndices = await llmService.selectBestArticlesForLinkedIn(flattenedArticles);
-    logger.info(`Selected indices from local LLM: ${JSON.stringify(selectedIndices)}`);
-
-    const uniqueIndices = [...new Set(selectedIndices.map((idx) => Number(idx)))];
-    const selectedArticles = uniqueIndices
-      .filter((idx) => Number.isInteger(idx) && idx >= 0 && idx < flattenedArticles.length)
-      .map((idx) => flattenedArticles[idx]);
-
-    if (uniqueIndices.length > 0 && selectedArticles.length !== uniqueIndices.length) {
-      logger.warn(`Some selected indices were out of range and ignored: ${JSON.stringify(uniqueIndices)}`);
+    if (!postData || !postData.postText) {
+      throw new Error("Autonomous pipeline returned an empty post.");
     }
 
-    if (selectedArticles.length === 0) {
-      logger.warn("No articles were selected by the local LLM. Defaulting to the first available article.");
-      selectedArticles.push(flattenedArticles[0]);
-    }
+    console.log("\n=============================================================");
+    console.log("🔥 GENERATED LINKEDIN POST 🔥");
+    console.log("=============================================================");
+    console.log(postData.postText);
+    console.log("=============================================================\n");
 
-    logger.info(`\nSelected Article: "${selectedArticles[0].title}"`);
-    logger.info(`GitHub URL: ${selectedArticles[0].githubUrl}`);
+    console.log("💬 AUTOMATED FIRST COMMENT:");
+    console.log("-------------------------------------------------------------");
+    console.log(postData.commentText);
+    console.log("-------------------------------------------------------------\n");
 
-    const maxGenerationAttempts = 2;
-    let postData = null;
-    let validation = null;
-    let validationFeedback = [];
-
-    for (let attempt = 1; attempt <= maxGenerationAttempts; attempt++) {
-      logger.info(`\nStep 2: Running optimized 2026 virality formulas to generate LinkedIn post (attempt ${attempt}/${maxGenerationAttempts})...`);
-      try {
-        postData = await llmService.generateLinkedInMasterPost(selectedArticles, 3, validationFeedback);
-      } catch (generationError) {
-        if (generationError.code !== "LOCAL_LLM_QUALITY_REJECTED" || attempt === maxGenerationAttempts) {
-          throw generationError;
+    // 3. Render companion dark-mode slide image
+    let slideImagePath = null;
+    try {
+      console.log("🎨 Rendering custom companion slide image...");
+      slideImagePath = await LinkedInService.generateSlideImage(
+        postData.title,
+        postData.slidePoints,
+        postData.slideTagline || postData.coreInsight || "Systems Architecture Teardown · Drix10",
+        `github.com/Drix10/${postData.primaryRepo || "ai-resources"}`,
+        {
+          structureName: postData.chosenStructure || postData.originType,
+          diagramSteps: postData.diagramSteps,
+          coreInsight: postData.coreInsight,
+          category: postData.category || postData.primaryRepo || "Systems"
         }
-        validationFeedback = [generationError.message];
-        logger.warn(`Draft rejected; retrying with feedback: ${generationError.message}`);
-        continue;
+      );
+      if (slideImagePath) {
+        console.log(`🖼️ Custom slide image rendered: ${slideImagePath}`);
       }
-
-      const githubUrl = selectedArticles[0].githubUrl || "";
-      const sourceBulletCount = llmService.countSourceBullets(selectedArticles[0].fullContent || "");
-
-      // Prefer the validation that ran inside generateLinkedInMasterPost (with hook-filtered manual points).
-      const internalValidation = postData && postData.isValid !== undefined;
-      validation = internalValidation
-        ? {
-            isValid: postData.isValid,
-            qualityScore: postData.qualityScore,
-            errors: postData.validationErrors || []
-          }
-        : llmService.validatePostText(postData, githubUrl, sourceBulletCount);
-
-      if (validation.isValid) {
-        logger.info(`Post passed quality validation (score: ${validation.qualityScore})`);
-        break;
-      }
-
-      logger.warn(`Post failed quality validation (score: ${validation.qualityScore}):`);
-      validation.errors.forEach(err => logger.warn(`  - ${err}`));
-
-      if (attempt === maxGenerationAttempts) {
-        logger.warn("Aborting live publish due to repeated quality validation failures.");
-        return;
-      }
-
-      if (validation.isValid) {
-        logger.info(`Post passed quality validation (score: ${validation.qualityScore})`);
-        break;
-      }
-
-      logger.warn(`Post failed quality validation (score: ${validation.qualityScore}):`);
-      validation.errors.forEach(err => logger.warn(`  - ${err}`));
-
-      if (attempt === maxGenerationAttempts) {
-        logger.warn("Aborting live publish due to repeated quality validation failures.");
-        return;
-      }
-
-      validationFeedback = validation.errors;
-      logger.info("Retrying LinkedIn post generation with validation feedback...");
+    } catch (imgErr) {
+      console.warn(`⚠️ Could not generate slide image: ${imgErr.message}`);
     }
 
-    logger.info("Step 3: Saving post to Blog & Knowledge Hub 'LinkedIn Insights'...");
+    // 4. Save post to Knowledge Hub and LinkedIn Insights
     const insightsDir = path.join(process.cwd(), "LinkedIn Insights");
     const blogInsightsDir = path.join(process.cwd(), "blog", "content", "LinkedIn Insights");
     if (!fs.existsSync(insightsDir)) fs.mkdirSync(insightsDir, { recursive: true });
@@ -261,31 +168,88 @@ async function runLivePostCuration() {
       .replace(/^-|-$/g, "")
       .slice(0, 50);
     const blogFileName = `${seoSlug}-${timestamp}.md`;
+    const blogFilePath = path.join(insightsDir, blogFileName);
+    const blogContentPath = path.join(blogInsightsDir, blogFileName);
+
+    let slideEmbed = "";
+    if (slideImagePath && fs.existsSync(slideImagePath)) {
+      try {
+        const blogSlidesDir = path.join(process.cwd(), "blog", "public", "slides");
+        if (!fs.existsSync(blogSlidesDir)) fs.mkdirSync(blogSlidesDir, { recursive: true });
+        const slideFileName = `${seoSlug}-${timestamp}.png`;
+        fs.copyFileSync(slideImagePath, path.join(blogSlidesDir, slideFileName));
+        slideEmbed = `\n\n![${postData.title || "Systems Architecture Breakdown"}](/slides/${slideFileName})\n`;
+      } catch (copyErr) {
+        console.warn(`⚠️ Failed to copy slide to blog public slides: ${copyErr.message}`);
+      }
+    }
+
+    const repoTitles = {
+      "Grind": "Drix10/Grind: 100 Foundational C Programs & Low-Level Memory Fundamentals",
+      "intent-canvas": "Drix10/intent-canvas: Visual Workspace Mapping Natural Language to Agent Graphs",
+      "sentinal": "Drix10/sentinal: CLI Security Scanner with AST Taint Analysis",
+      "hypothesis-arena": "Drix10/hypothesis-arena: Multi-Agent Crypto Futures Arena",
+      "idolchat": "Drix10/idolchat: Real-Time AI Character Chat with WebSockets & Redis",
+      "CosLynx": "CosLynx.com: Autonomous Full-Stack AI MVP Orchestration Platform",
+      "ai-resources": "Drix10/ai-resources: Curated AI Systems, Infrastructure & Architecture Hub"
+    };
+
+    const sourceLabel = postData.primaryRepo
+      ? (repoTitles[postData.primaryRepo] || `Drix10/${postData.primaryRepo}`)
+      : "Drix10 Codebase";
+    const sourceLink = postData.primaryRepo
+      ? `https://github.com/Drix10/${postData.primaryRepo}`
+      : "https://github.com/Drix10/ai-resources";
 
     const blogMarkdownContent = `# ${postData.title || "LinkedIn Technical Insight"}
-
+${slideEmbed}
 ${postData.postText}
 
 ---
 ### 🔗 Reference & Source Breakdown
-- **Source Material**: [${selectedArticles[0]?.title || "Reference Breakdown"}](${selectedArticles[0]?.githubUrl || "#"})
-- **Recommended Visual Asset**: ${postData.recommendedVisual || postData.slideTagline || "Screenshot of terminal or code"}
-- **First Comment**: ${postData.commentText || "Full breakdown in comments"}
+- **Source Material**: [${sourceLabel}](${sourceLink})
+- **Recommended Visual Asset**: ${postData.recommendedVisual || postData.slideTagline || "Terminal screenshot or code architecture"}
 - **Syndicated Channel**: LinkedIn & Personal Blog Hub
 `;
 
-    fs.writeFileSync(path.join(insightsDir, blogFileName), blogMarkdownContent, "utf8");
-    fs.writeFileSync(path.join(blogInsightsDir, blogFileName), blogMarkdownContent, "utf8");
+    fs.writeFileSync(blogFilePath, blogMarkdownContent, "utf8");
+    fs.writeFileSync(blogContentPath, blogMarkdownContent, "utf8");
+    console.log(`📝 LinkedIn post saved to: ./${path.relative(process.cwd(), blogFilePath)}`);
+    console.log(`📝 Synced to blog hub: ./${path.relative(process.cwd(), blogContentPath)}`);
 
-    logger.info("\n=============================================================");
-    logger.info(`SUCCESS: Draft saved to LinkedIn Insights: ${blogFileName}`);
-    logger.info("Auto live posting is disabled. You can copy the post and image for manual publishing.");
-    logger.info("=============================================================");
-    llmService.saveRecentTopic(selectedArticles[0].title);
+    // 5. Publish live to LinkedIn
+    console.log("\n=============================================================");
+    console.log("🚀 PUBLISHING LIVE TO LINKEDIN (Post + Slide + First Comment)");
+    console.log("=============================================================");
+
+
+
+    try {
+      const postSuccess = await LinkedInService.postToLinkedIn(
+        postData.postText,
+        slideImagePath,
+        postData.commentText
+      );
+
+      if (postSuccess) {
+        console.log("\n=============================================================");
+        console.log("🎉 SUCCESS: Published live to LinkedIn with slide and comment!");
+        console.log("=============================================================\n");
+      } else {
+        console.warn("\n⚠️ LinkedIn poster returned false or browser session was not ready.\n");
+      }
+    } catch (publishErr) {
+      console.error("❌ Live publish error:", publishErr.message);
+    }
 
   } catch (error) {
-    logger.error("Curation runner failed with error:", error);
+    logger.error("Live post pipeline error:", error);
+    process.exit(1);
+  } finally {
+    try {
+      await LinkedInService.cleanup();
+    } catch (e) {}
   }
 }
 
-runLivePostCuration();
+runLivePost();

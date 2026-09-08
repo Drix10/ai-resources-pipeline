@@ -1,0 +1,62 @@
+[
+  {
+    "postType": "fintech-webhook-signatures",
+    "topicTitle": "Why Payment Webhooks Fail HMAC Signature Verification",
+    "repo": "intent-canvas",
+    "timestamp": "2026-09-08T13:51:10.583Z"
+  },
+  {
+    "postType": "appsec-ast-parsing",
+    "topicTitle": "AST Node Traversal vs Dumb Regex: Why Regex-Based Code Scanners Spam False Positives",
+    "repo": "sentinal",
+    "timestamp": "2026-09-08T13:40:31.020Z"
+  },
+  {
+    "postType": "c-memory-alignment",
+    "topicTitle": "The Hidden Dangers of Struct Padding in C",
+    "repo": "Grind",
+    "timestamp": "2026-09-08T13:29:14.940Z"
+  },
+  {
+    "postType": "high-signal-curation-anti-slop",
+    "topicTitle": "The Signal-to-Noise Ratio in AI Resources: Why 90% of PRs are Fluff",
+    "repo": "ai-resources",
+    "timestamp": "2026-09-08T13:01:38.785Z"
+  },
+  {
+    "postType": "c-fundamentals-grind",
+    "topicTitle": "Memory Layouts in C",
+    "repo": "Grind",
+    "timestamp": "2026-09-08T12:51:34.332Z"
+  },
+  {
+    "postType": "c-systems-memory-model",
+    "topicTitle": "The Memory-First Mental Model: Why Beginners Rush to LeetCode Tree Problems",
+    "repo": "Grind",
+    "timestamp": "2026-09-08T12:46:31.601Z"
+  },
+  {
+    "postType": "c-fundamentals-grind",
+    "topicTitle": "The Hidden Dangers of Premature LeetCode",
+    "repo": "Grind",
+    "timestamp": "2026-09-08T12:22:13.601Z"
+  },
+  {
+    "postType": "deep-systems-teardown",
+    "topicTitle": "The Hidden Knobs of Vector Search Tuning",
+    "repo": "ai-resources",
+    "timestamp": "2026-09-08T12:08:40.023Z"
+  },
+  {
+    "postType": "c-fundamentals-grind",
+    "topicTitle": "The Hidden Dangers of Premature DSA",
+    "repo": "Grind",
+    "timestamp": "2026-09-08T11:55:39.681Z"
+  },
+  {
+    "postType": "c-fundamentals-grind",
+    "topicTitle": "Why Modern Engineering Culture Fosters AI Slop",
+    "repo": "Grind",
+    "timestamp": "2026-09-08T11:06:28.479Z"
+  }
+]

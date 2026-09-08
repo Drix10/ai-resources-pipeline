@@ -1,0 +1,524 @@
+{
+  "timestamp": 1788873476706,
+  "user": "Drix10",
+  "repos": [
+    {
+      "name": "Grind",
+      "fullName": "Drix10/Grind",
+      "description": "Before you touch LeetCode or DSA, finish these 100. Start from Program 1 and go in order. Basics first, then moderate, then challenge. Wherever you see n, it is taken as user input.",
+      "language": "C",
+      "stars": 1,
+      "updatedAt": "2026-09-07T13:27:40Z",
+      "recentCommits": [
+        {
+          "sha": "6069702",
+          "message": "If Else - Smallest among 3",
+          "date": "2026-09-07T13:26:51Z"
+        },
+        {
+          "sha": "39e9c6f",
+          "message": "Foarmetting & Level 2, 13 -> Greatest among 3 numbers",
+          "date": "2026-09-07T13:25:06Z"
+        },
+        {
+          "sha": "3fe4c94",
+          "message": "If Else - +ve/-ve/0",
+          "date": "2026-09-07T12:45:45Z"
+        },
+        {
+          "sha": "8aa4869",
+          "message": "If Else - Even Odd check",
+          "date": "2026-09-07T12:34:57Z"
+        }
+      ],
+      "historicalHighlights": [],
+      "hasFreshCommits": true
+    },
+    {
+      "name": "payscope",
+      "fullName": "Drix10/payscope",
+      "description": "An autonomous payment-operations agent for Razorpay merchants.",
+      "language": "TypeScript",
+      "stars": 1,
+      "updatedAt": "2026-08-28T08:40:04Z",
+      "recentCommits": [
+        {
+          "sha": "0704913",
+          "message": "fix: handle transient network fetch timeouts and gateway timeouts gracefully in background workers",
+          "date": "2026-08-28T08:36:23Z"
+        },
+        {
+          "sha": "95acbfc",
+          "message": "docs: update README and system architecture documentation for AI Self-Learning Engine and real-time SSE push stream",
+          "date": "2026-08-27T18:03:15Z"
+        },
+        {
+          "sha": "f579ef1",
+          "message": "fix: comprehensive code audit, event listener memory leak prevention, and full action capability expansion",
+          "date": "2026-08-27T18:00:56Z"
+        },
+        {
+          "sha": "72c82db",
+          "message": "feat: implement AI Self-Learning Merchant Decision Engine, granular SSE step telemetry, and bottom-right Toast UX bounds",
+          "date": "2026-08-27T17:52:57Z"
+        },
+        {
+          "sha": "8a12600",
+          "message": "feat: add target environment toggle buttons ([ LOCAL ] / [ PROD ]) to demo kit operator terminal UI",
+          "date": "2026-08-27T17:45:54Z"
+        }
+      ],
+      "historicalHighlights": [
+        {
+          "sha": "0704913",
+          "message": "fix: handle transient network fetch timeouts and gateway timeouts gracefully in background workers",
+          "date": "2026-08-28T08:36:23Z"
+        },
+        {
+          "sha": "95acbfc",
+          "message": "docs: update README and system architecture documentation for AI Self-Learning Engine and real-time SSE push stream",
+          "date": "2026-08-27T18:03:15Z"
+        },
+        {
+          "sha": "f579ef1",
+          "message": "fix: comprehensive code audit, event listener memory leak prevention, and full action capability expansion",
+          "date": "2026-08-27T18:00:56Z"
+        },
+        {
+          "sha": "1f11ac1",
+          "message": "fix: resolve frontend type guard property mismatch and move ToastContainer to bottom-right",
+          "date": "2026-08-27T17:32:59Z"
+        },
+        {
+          "sha": "5f418f0",
+          "message": "fix: allow query parameter authentication for EventSource SSE stream to fix production reconnecting status",
+          "date": "2026-08-27T16:58:10Z"
+        }
+      ],
+      "hasFreshCommits": false
+    },
+    {
+      "name": "sentinal",
+      "fullName": "Drix10/sentinal",
+      "description": "CLI tool for scanning repositories and reporting vulnerabilities",
+      "language": "TypeScript",
+      "stars": 1,
+      "updatedAt": "2026-08-30T08:20:13Z",
+      "recentCommits": [
+        {
+          "sha": "11ee016",
+          "message": "feat: implement core Sentinel AI security analysis CLI with SARIF reporting and attack orchestration",
+          "date": "2026-08-02T20:49:52Z"
+        },
+        {
+          "sha": "ee4d2d3",
+          "message": "feat: implement CLI entry point, SARIF reporting, update notifier, and command orchestration structure.",
+          "date": "2026-07-28T05:46:47Z"
+        },
+        {
+          "sha": "653cce1",
+          "message": "feat: implement core security analysis engine, AI-driven remediation pipeline, and CLI command structure",
+          "date": "2026-07-28T05:12:30Z"
+        },
+        {
+          "sha": "5c5cae7",
+          "message": "Update README.md",
+          "date": "2026-07-27T11:41:36Z"
+        },
+        {
+          "sha": "9244924",
+          "message": "feat: implement attack orchestration engine and add post-install setup script",
+          "date": "2026-07-27T11:21:21Z"
+        }
+      ],
+      "historicalHighlights": [
+        {
+          "sha": "11ee016",
+          "message": "feat: implement core Sentinel AI security analysis CLI with SARIF reporting and attack orchestration",
+          "date": "2026-08-02T20:49:52Z"
+        },
+        {
+          "sha": "ee4d2d3",
+          "message": "feat: implement CLI entry point, SARIF reporting, update notifier, and command orchestration structure.",
+          "date": "2026-07-28T05:46:47Z"
+        },
+        {
+          "sha": "676260e",
+          "message": "Fix spelling Sentinal ->  Sentinel",
+          "date": "2026-07-20T12:41:01Z"
+        }
+      ],
+      "hasFreshCommits": false
+    },
+    {
+      "name": "hypothesis-arena",
+      "fullName": "Drix10/hypothesis-arena",
+      "description": "4 AI analysts engage in debates to make collaborative trading decisions on WEEX Crypto Futures. ",
+      "language": "TypeScript",
+      "stars": 9,
+      "updatedAt": "2026-08-02T23:27:18Z",
+      "recentCommits": [
+        {
+          "sha": "eef9856",
+          "message": "Revise README with project overview and features",
+          "date": "2026-04-26T16:18:21Z"
+        },
+        {
+          "sha": "ce2020b",
+          "message": "Clean up README and remove outdated information",
+          "date": "2026-04-18T21:34:17Z"
+        },
+        {
+          "sha": "a796a59",
+          "message": "Update README.md with new features and structure",
+          "date": "2026-02-09T15:09:21Z"
+        },
+        {
+          "sha": "9ccabce",
+          "message": "plan",
+          "date": "2026-02-06T20:49:12Z"
+        },
+        {
+          "sha": "65ff794",
+          "message": "prompt fixes",
+          "date": "2026-01-30T13:43:04Z"
+        }
+      ],
+      "historicalHighlights": [
+        {
+          "sha": "9c9460b",
+          "message": "refactor(trading): update judge prompt to BTC-only scalping strategy",
+          "date": "2026-01-20T16:48:46Z"
+        },
+        {
+          "sha": "0f2b2b0",
+          "message": "feat(position): add TP/SL sync and trade hydration",
+          "date": "2026-01-20T11:25:13Z"
+        },
+        {
+          "sha": "575c4c4",
+          "message": "feat(ai): optimize analyst calls with combined execution and caching",
+          "date": "2026-01-19T13:55:44Z"
+        }
+      ],
+      "hasFreshCommits": false
+    },
+    {
+      "name": "intent-canvas",
+      "fullName": "Drix10/intent-canvas",
+      "description": "Intent Canvas is a browser-first spatial workspace for expressing business outcomes through context nodes, relationships, and natural-language intent.",
+      "language": "TypeScript",
+      "stars": 1,
+      "updatedAt": "2026-08-23T11:05:42Z",
+      "recentCommits": [
+        {
+          "sha": "a54dfc2",
+          "message": "Screenshots",
+          "date": "2026-08-21T16:04:27Z"
+        },
+        {
+          "sha": "28e1853",
+          "message": "fix: integrate Gemini key into zoom bar, remove floating overlap",
+          "date": "2026-08-21T15:57:57Z"
+        },
+        {
+          "sha": "7c33f6a",
+          "message": "fix: move Gemini key bar to workspace-native UX",
+          "date": "2026-08-21T15:54:05Z"
+        },
+        {
+          "sha": "abe6028",
+          "message": "remove ss",
+          "date": "2026-08-21T15:49:34Z"
+        },
+        {
+          "sha": "9c8332c",
+          "message": "fix: update Gemini key validation to require a minimum length of 20 characters",
+          "date": "2026-08-21T15:49:24Z"
+        }
+      ],
+      "historicalHighlights": [
+        {
+          "sha": "28e1853",
+          "message": "fix: integrate Gemini key into zoom bar, remove floating overlap",
+          "date": "2026-08-21T15:57:57Z"
+        },
+        {
+          "sha": "7c33f6a",
+          "message": "fix: move Gemini key bar to workspace-native UX",
+          "date": "2026-08-21T15:54:05Z"
+        },
+        {
+          "sha": "9c8332c",
+          "message": "fix: update Gemini key validation to require a minimum length of 20 characters",
+          "date": "2026-08-21T15:49:24Z"
+        },
+        {
+          "sha": "f0776e1",
+          "message": "fix: update Gemini model version to 3.5-flash in .env.example",
+          "date": "2026-08-21T15:03:42Z"
+        },
+        {
+          "sha": "c5d6403",
+          "message": "fix: harden standalone Gemini — rate limit, retry, key validation, richer prompts",
+          "date": "2026-08-21T14:58:40Z"
+        }
+      ],
+      "hasFreshCommits": false
+    },
+    {
+      "name": "instagram-ai",
+      "fullName": "Drix10/instagram-ai",
+      "description": "An intelligent Instagram DM companion that converts shared educational Reels into actionable weekly schedules, transcribes video voice notes, organizes custom study notes, and sets automated habit reminders using Gemini 3.5 Flash & Node.js.",
+      "language": "JavaScript",
+      "stars": 1,
+      "updatedAt": "2026-08-23T11:05:55Z",
+      "recentCommits": [
+        {
+          "sha": "46fbba7",
+          "message": "feat: implement core client architecture and automated background task scheduler",
+          "date": "2026-07-08T13:01:14Z"
+        },
+        {
+          "sha": "d590dc5",
+          "message": "feat: implement AIHandler for video processing, media downloading, and transcription using Mesh AI and Whisper APIs",
+          "date": "2026-07-07T03:50:05Z"
+        },
+        {
+          "sha": "4bbb2bb",
+          "message": "feat: implement MessageHandler for queue-based processing and AI-driven command routing",
+          "date": "2026-07-06T19:24:06Z"
+        },
+        {
+          "sha": "adcf296",
+          "message": "changes",
+          "date": "2026-07-06T19:19:09Z"
+        },
+        {
+          "sha": "ac0da7b",
+          "message": "Mesh API",
+          "date": "2026-07-06T19:15:06Z"
+        }
+      ],
+      "historicalHighlights": [
+        {
+          "sha": "4bbb2bb",
+          "message": "feat: implement MessageHandler for queue-based processing and AI-driven command routing",
+          "date": "2026-07-06T19:24:06Z"
+        },
+        {
+          "sha": "6551e9a",
+          "message": "Refactor bot to general learning timetable, resources manager, and exam blockers/deadlines scheduler",
+          "date": "2026-07-05T19:24:16Z"
+        },
+        {
+          "sha": "a41cfbe",
+          "message": "Upgrade model to gemini-3.5-flash and integrate safety settings, retry, and timeout controls",
+          "date": "2026-07-05T19:19:51Z"
+        }
+      ],
+      "hasFreshCommits": false
+    },
+    {
+      "name": "YourResume",
+      "fullName": "Drix10/YourResume",
+      "description": "Automated resume creation by extracting and synthesizing developer profiles from GitHub & LinkedIn data.",
+      "language": "TypeScript",
+      "stars": 6,
+      "updatedAt": "2026-08-23T11:05:48Z",
+      "recentCommits": [
+        {
+          "sha": "23dbae9",
+          "message": "feat: add project limit configuration for resume generation and enhance project selection logic",
+          "date": "2026-08-15T20:12:22Z"
+        },
+        {
+          "sha": "8962ef1",
+          "message": "feat: enhance AI resume processing with structured JSON schema and technology summarization",
+          "date": "2026-08-15T20:03:07Z"
+        },
+        {
+          "sha": "8ddde27",
+          "message": "feat: enhance resume compact mode styles for improved readability and layout",
+          "date": "2026-08-15T19:51:50Z"
+        },
+        {
+          "sha": "77c018c",
+          "message": "feat: implement AI refinement timeout and enhance resume update logic with structured changes",
+          "date": "2026-08-15T19:44:18Z"
+        },
+        {
+          "sha": "6e07b56",
+          "message": "fix: refine print styles to prevent blank PDFs by adjusting visibility of screen-only elements",
+          "date": "2026-08-15T19:35:30Z"
+        }
+      ],
+      "historicalHighlights": [
+        {
+          "sha": "77c018c",
+          "message": "feat: implement AI refinement timeout and enhance resume update logic with structured changes",
+          "date": "2026-08-15T19:44:18Z"
+        },
+        {
+          "sha": "6e07b56",
+          "message": "fix: refine print styles to prevent blank PDFs by adjusting visibility of screen-only elements",
+          "date": "2026-08-15T19:35:30Z"
+        },
+        {
+          "sha": "02ac1a7",
+          "message": "fix: update Gemini AI model version to 3.5 in README and Hero component",
+          "date": "2026-08-15T18:58:14Z"
+        },
+        {
+          "sha": "d0c17c9",
+          "message": "refactor: move resume print and screen styles from index.html to index.css",
+          "date": "2026-07-30T06:17:23Z"
+        },
+        {
+          "sha": "e5645ab",
+          "message": "add timeout constant for github api requests",
+          "date": "2026-03-29T11:00:00Z"
+        }
+      ],
+      "hasFreshCommits": false
+    },
+    {
+      "name": "ai-resources",
+      "fullName": "Drix10/ai-resources",
+      "description": "Daily updated resources on AI across various domains including ML, development, education, healthcare, real estate, robotics, crypto, web3 and more, curated by enthusiasts.",
+      "language": "Multi-language",
+      "stars": 118,
+      "updatedAt": "2026-09-08T11:42:00Z",
+      "recentCommits": [
+        {
+          "sha": "a3383f1",
+          "message": "📚 Update README with latest tweets",
+          "date": "2026-09-08T11:40:55Z"
+        },
+        {
+          "sha": "6d51b32",
+          "message": "📝 Add resource collection: World News and Updates #206",
+          "date": "2026-09-08T11:40:25Z"
+        },
+        {
+          "sha": "4cb165d",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-08T11:09:56Z"
+        },
+        {
+          "sha": "2d020fd",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-08T10:16:22Z"
+        },
+        {
+          "sha": "8df0e52",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-08T09:46:55Z"
+        }
+      ],
+      "historicalHighlights": [
+        {
+          "sha": "4cb165d",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-08T11:09:56Z"
+        },
+        {
+          "sha": "2d020fd",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-08T10:16:22Z"
+        },
+        {
+          "sha": "8df0e52",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-08T09:46:55Z"
+        },
+        {
+          "sha": "ae07332",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-08T09:27:57Z"
+        },
+        {
+          "sha": "136a4e0",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-08T09:14:21Z"
+        }
+      ],
+      "hasFreshCommits": true
+    },
+    {
+      "name": "drix10",
+      "fullName": "Drix10/drix10",
+      "description": "",
+      "language": "Multi-language",
+      "stars": 2,
+      "updatedAt": "2026-08-30T15:20:30Z",
+      "recentCommits": [
+        {
+          "sha": "2d73eaa",
+          "message": "Update README.md",
+          "date": "2026-08-30T15:19:51Z"
+        },
+        {
+          "sha": "07023ea",
+          "message": "Update current projects listed in README",
+          "date": "2026-08-24T22:32:49Z"
+        },
+        {
+          "sha": "99bcba4",
+          "message": "Update README.md",
+          "date": "2026-08-20T13:28:14Z"
+        },
+        {
+          "sha": "d6cc3e0",
+          "message": "Update project stack information in README",
+          "date": "2026-07-09T17:37:06Z"
+        },
+        {
+          "sha": "812b6e8",
+          "message": "Revise personal status and project details in README",
+          "date": "2026-07-09T10:39:07Z"
+        }
+      ],
+      "historicalHighlights": [],
+      "hasFreshCommits": false
+    },
+    {
+      "name": "GAME-2",
+      "fullName": "Drix10/GAME-2",
+      "description": "A car game made using MIT app inventor",
+      "language": "Scheme",
+      "stars": 4,
+      "updatedAt": "2026-07-04T11:24:13Z",
+      "recentCommits": [
+        {
+          "sha": "fca063e",
+          "message": "Add files via upload",
+          "date": "2020-06-12T16:21:33Z"
+        },
+        {
+          "sha": "193684d",
+          "message": "Add files via upload",
+          "date": "2020-06-12T16:21:21Z"
+        },
+        {
+          "sha": "bc11819",
+          "message": "Add files via upload",
+          "date": "2020-06-12T16:21:08Z"
+        },
+        {
+          "sha": "6519ff1",
+          "message": "Add files via upload",
+          "date": "2020-06-12T16:20:55Z"
+        },
+        {
+          "sha": "e42c203",
+          "message": "Add files via upload",
+          "date": "2020-06-12T16:20:41Z"
+        }
+      ],
+      "historicalHighlights": [],
+      "hasFreshCommits": false
+    }
+  ],
+  "sparseFreshCommits": false
+}

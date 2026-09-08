@@ -261,14 +261,23 @@ const runEndofRunCuration = async (successfulArticles) => {
           for (let attempt = 1; attempt <= maxGenerationAttempts; attempt++) {
             logger.info(`LinkedIn Curation: Generating mega post draft (attempt ${attempt}/${maxGenerationAttempts})...`);
             try {
-              megaPostData = await llmService.generateLinkedInMasterPost(selectedArticles, 3, validationFeedback);
-            } catch (generationError) {
-              if (generationError.code !== "LOCAL_LLM_QUALITY_REJECTED" || attempt === maxGenerationAttempts) {
-                throw generationError;
+              if (typeof llmService.generateAutonomousFounderPost === "function") {
+                megaPostData = await llmService.generateAutonomousFounderPost({ curatedArticles: selectedArticles });
+              } else {
+                megaPostData = await llmService.generateLinkedInMasterPost(selectedArticles, 3, validationFeedback);
               }
-              validationFeedback = [generationError.message];
-              logger.warn(`LinkedIn Curation: Draft rejected; retrying with feedback: ${generationError.message}`);
-              continue;
+            } catch (generationError) {
+              logger.warn(`LinkedIn Curation: Autonomous generation failed (${generationError.message}), attempting standard master post...`);
+              try {
+                megaPostData = await llmService.generateLinkedInMasterPost(selectedArticles, 3, validationFeedback);
+              } catch (fallbackError) {
+                if (fallbackError.code !== "LOCAL_LLM_QUALITY_REJECTED" || attempt === maxGenerationAttempts) {
+                  throw fallbackError;
+                }
+                validationFeedback = [fallbackError.message];
+                logger.warn(`LinkedIn Curation: Draft rejected; retrying with feedback: ${fallbackError.message}`);
+                continue;
+              }
             }
             const githubUrl = selectedArticles[0].githubUrl || "";
             const sourceBulletCount = llmService.countSourceBullets(selectedArticles[0].fullContent || "");
@@ -383,8 +392,26 @@ ${megaPostData.postText}
               logger.warn(`Syndication invocation skipped: ${synErr.message}`);
             }
 
-            // 3. Auto-posting to live LinkedIn is disabled (human-in-the-loop manual review)
-            logger.info("LinkedIn Curation: Live LinkedIn automated posting is disabled. Post draft and visual concept saved to blog/content/LinkedIn Insights/ for manual review and publishing.");
+            // 3. Post to Live LinkedIn if enabled
+            if (config.social.linkedinPost) {
+              logger.info("LinkedIn Curation: Publishing post, companion slide image, and first comment live to LinkedIn...");
+              try {
+                const posted = await LinkedInService.postToLinkedIn(
+                  megaPostData.postText,
+                  slideImagePath,
+                  megaPostData.commentText
+                );
+                if (posted) {
+                  logger.info("🎉 SUCCESS: LinkedIn post, companion slide image, and first comment published live!");
+                } else {
+                  logger.warn("⚠️ LinkedIn poster returned false or was unable to submit.");
+                }
+              } catch (livePostErr) {
+                logger.error("LinkedIn Curation: Failed to publish live to LinkedIn:", livePostErr);
+              }
+            } else {
+              logger.info("LinkedIn Curation: Live LinkedIn posting is disabled (LINKEDIN_POST=false). Post draft and visual concept saved for review.");
+            }
           }
         } catch (postErr) {
           logger.error("LinkedIn Curation: Post generation or submission failed:", postErr);
@@ -426,7 +453,8 @@ const processAllFolders = async () => {
     const successfulArticles = [];
     let localLlmUnavailable = false;
     const rotation = getFoldersForRun();
-    const COMMIT_BATCH_SIZE = config.github.batchCommitSize || 5;
+    // Randomize batch commit size between 1 and 8 on each run
+    const COMMIT_BATCH_SIZE = Math.floor(Math.random() * 8) + 1;
     let pendingBatch = [];
 
     const flushBatch = async () => {
@@ -551,13 +579,22 @@ const processAllFolders = async () => {
           });
           logger.info("Cycle End: Automated build verification passed (100% clean). Proceeding to push...");
 
-          execSync('git add blog/content blog/lib/articles-index.json blog/public/slides "LinkedIn Insights" && git commit -m "feat(blog): sync new curated AI resource guides & LinkedIn insights" && git push origin main', {
+          execSync('git add blog/content blog/lib/articles-index.json blog/public/slides "LinkedIn Insights"', {
             stdio: "ignore",
-            timeout: 30000
+            timeout: 15000
           });
-          logger.info("Cycle End: Pushed updated Knowledge Hub articles to origin main (Triggered automated Vercel deploy).");
+          const hasChanges = execSync("git status --porcelain", { encoding: "utf8", timeout: 10000 }).trim().length > 0;
+          if (hasChanges) {
+            execSync('git commit -m "feat(blog): sync new curated AI resource guides & LinkedIn insights" && git push origin main', {
+              stdio: "ignore",
+              timeout: 30000
+            });
+            logger.info("Cycle End: Pushed updated Knowledge Hub articles to origin main (Triggered automated Vercel deploy).");
+          } else {
+            logger.info("Cycle End: Working tree clean, no new blog files to commit.");
+          }
         } catch (gitErr) {
-          logger.error(`Cycle End: Automated build verification failed or git push blocked: ${gitErr.message}`);
+          logger.warn(`Cycle End: Git sync status: ${gitErr.message}`);
         }
       }
     } catch (indexErr) {
