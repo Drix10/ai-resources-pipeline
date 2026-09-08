@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const { spawn } = require("child_process");
 const { logger, sleep } = require("../utils/helpers");
+const AgentEngine = require("./agentEngine");
 
 /**
  * ============================================================================
@@ -84,7 +85,18 @@ const HAT_TIP_PROHIBITED_PATTERNS = [
   /\bthis can be (?:achieved|done|accomplished) through\b/i,
   /\bby [a-z]+ing [^,\n]+, (?:you|teams|startups|developers|engineers) can\b/i,
   /\bincrease (?:your|their) chances of success\b/i,
-  /\bwithout compromising (?:core )?[^.\n]+\b/i,
+  // Corporate consultant / Lecturer preaching & generic advice LARP
+  /\bto mitigate this (?:risk|issue|problem)\b/i,
+  /\b(?:developers|engineers|teams|companies) should (?:consider|implement|ensure|monitor|adopt)\b/i,
+  /\bthis is a classic example of\b/i,
+  /\bwhere the failure of [^.\n]+ can bring down the entire system\b/i,
+  /\badditionally,? (?:developers|engineers|teams) should\b/i,
+  /\bby understanding the root cause\b/i,
+  /\bby adopting this (?:approach|method|architecture)\b/i,
+  /\bbuild more resilient (?:AI )?systems that can withstand\b/i,
+  /\baddress them proactively\b/i,
+  /\ba CIO needs\b/i,
+  /\bregular monitoring and testing of\b/i,
   // Engagement bait CTAs
   /(?:agree\??|thoughts\??|drop a comment below|let me know in the comments|share your thoughts)/i
 ];
@@ -1136,9 +1148,9 @@ class LocalLLMService {
     const configuredModel = config.llm.nvidia.model || "meta/llama-3.2-11b-vision-instruct";
     const candidateModels = [
       configuredModel,
-      "mistralai/mistral-large",
-      "mistralai/mistral-7b-instruct-v0.3",
-      "meta/llama-3.2-90b-vision-instruct",
+      "mistralai/mistral-large-2-instruct",
+      "mistralai/codestral-22b-instruct-v0.1",
+      "nv-mistralai/mistral-nemo-12b-instruct",
       "meta/llama-3.2-11b-vision-instruct"
     ].filter((m, idx, arr) => m && arr.indexOf(m) === idx);
 
@@ -3306,6 +3318,8 @@ JSON Schema:
     const rawContent = article?.fullContent || "";
     const cleanSourceContent = rawContent
       .replace(/^#+\s*[^\n]+/gm, "")
+      .replace(/(?:🔗\s*)?Resources:[\s\S]*$/i, "")
+      .replace(/\[(?:Original post|Original source)[^\]]*\]\([^)]*\)/gi, "")
       .replace(/https?:\/\/[^\s\)]+/g, "")
       .replace(/\n{2,}/g, "\n")
       .trim()
@@ -3316,9 +3330,26 @@ JSON Schema:
       `Establish rigorous profiling benchmarks to measure throughput gains and memory footprint.`
     ];
     const supportPoints = (rawSupport.length >= 2) ? rawSupport : defaultPrinciples;
-    const cleanPoint1 = (supportPoints[0] || `Audit system bottlenecks under load in ${cleanTitle}.`).replace(/\*\*/g, "").replace(/__/g, "");
-    const cleanPoint2 = (supportPoints[1] || `Implement deterministic separation of state and execution.`).replace(/\*\*/g, "").replace(/__/g, "");
-    const cleanPoint3 = (supportPoints[2] || `Establish automated regression benchmarks before production deployment.`).replace(/\*\*/g, "").replace(/__/g, "");
+    const sanitizePoint = (pt) => {
+      let s = String(pt || "")
+        .replace(/\*\*/g, "")
+        .replace(/__/g, "")
+        .replace(/^to mitigate this (?:risk|issue|problem),?\s*/i, "")
+        .replace(/^(?:developers|engineers|teams|companies) should (?:consider |implement |ensure |monitor |adopt )/i, "")
+        .replace(/^additionally,?\s*(?:developers|engineers|teams)?\s*(?:should|can)?\s*/i, "")
+        .replace(/^regular monitoring and testing of/i, "Testing and profiling")
+        .replace(/^this is a classic example of/i, "This exposes")
+        .replace(/^by understanding the root cause[^,.]*[,.]?\s*/i, "")
+        .trim();
+      return s ? s.charAt(0).toUpperCase() + s.slice(1) : "";
+    };
+
+    const cleanPoint1 = sanitizePoint(supportPoints[0] || `Decouple state and execution boundaries to eliminate bottlenecks in ${cleanTitle}.`);
+    const cleanPoint2 = sanitizePoint(supportPoints[1] || `Benchmark actual latency and failover behavior under load.`);
+    const cleanPoint3 = sanitizePoint(supportPoints[2] || `Establish automated regression benchmarks before production deployment.`);
+    const cleanSetup = sanitizePoint(cpio.order?.setup || "");
+    const cleanDev = sanitizePoint(cpio.order?.development || "");
+    const cleanEnding = sanitizePoint(cpio.order?.ending || "");
 
     const chosenArchetype = cpio.chosenStructure || "founder-confession";
     const isProseArchetype = true; // All modern builder archetypes use authentic narrative prose without forced listicle bullets
@@ -3413,31 +3444,31 @@ JSON Schema:
 
     const blueprintExecution = isMicroTake
       ? `- CONTEXT & SETUP:
-${cpio.order.setup}
+${cleanSetup}
 
 - TECHNICAL OBSERVATION & EXAMPLE:
-${cpio.order.development}
+${cleanDev}
 
 - CONCRETE TAKEAWAY:
-${cpio.order.ending}`
+${cleanEnding}`
       : isProseArchetype
       ? `- NARRATIVE ARC & CONTEXT:
-${cpio.order.setup}
+${cleanSetup}
 
 - CORE FRICTION / REALIZATION / DISCOVERY:
-${cpio.order.development}
+${cleanDev}
 
 - CONCRETE HEURISTIC / LESSON (Weave naturally into narrative prose, DO NOT use numbered bullets):
 ${cleanPoint1}
 ${cleanPoint2}
 
 - RESOLUTION & TAKEAWAY:
-${cpio.order.ending}`
+${cleanEnding}`
       : `- SYSTEM CONTEXT & NARRATIVE:
-${cpio.order.setup}
+${cleanSetup}
 
 - TECHNICAL MECHANISM / THE WALL:
-${cpio.order.development}
+${cleanDev}
 
 - ACTIONABLE TAKEAWAYS / STEPS:
 1. ${cleanPoint1}
@@ -3445,16 +3476,26 @@ ${cpio.order.development}
 ${cleanPoint3 ? `3. ${cleanPoint3}` : ""}
 
 - RESOLUTION & TRADE-OFF:
-${cpio.order.ending}`;
+${cleanEnding}`;
 
     const prompt = `You are Drishtant Ghosh (Drix10), a software engineer and systems builder who maintains the open-source engineering research hub Drix10/ai-resources (blogs.drix10.com).
 Write an authentic, unpretentious developer observation sharing this technical breakdown with fellow software engineers.
 
 ${archetypeDirective}
 
-=== ZERO LARPING & ZERO GURU POSTURING (CRITICAL REQUIREMENT) ===
-- STRICTLY FORBIDDEN: NEVER write "As a technical founder...", "As a founder...", or "In my experience as a founder...".
-- STRICTLY FORBIDDEN: NEVER write "I've seen countless...", "I've worked with numerous...", "I've learned that the key to success lies in...", or "The secret to...".
+=== ZERO LARPING & ZERO GURU POSTURING (ABSOLUTE REQUIREMENT) ===
+- STRICTLY ZERO CONSULTANT PREACHING:
+  * NEVER write "developers should...", "engineers should consider...", "teams should ensure...", or "to mitigate this risk...".
+  * NEVER write "This is a classic example of...", "A CIO needs...", or "By understanding the root cause...".
+  * You are a builder and systems curator, NOT an enterprise consultant giving textbook advice.
+  * Real engineers hate being lectured with obvious banalities like "implement redundancy", "have backups", or "monitor systems proactively".
+  * Instead, state the REALITY and the TRAP:
+    - What actually happened? (e.g. "ChatGPT, Claude, and Grok all dropped at the exact same time.")
+    - Why did it surprise people? (e.g. "Most assumed model failure. It wasn't.")
+    - What is the naive trap? (e.g. "Teams build multi-model fallbacks thinking they have redundancy. If both route to the same AWS region, you don't have a fallback — you just have two calls waiting for the same outage.")
+- STRICTLY ZERO GURU / INFLUENCER TALK:
+  * NEVER write "As a technical founder...", "As a founder...", or "In my experience as a founder...".
+  * NEVER write "I've seen countless...", "I've worked with numerous...", or "The key to success...".
 - ZERO PREACHING: Do not talk down to the audience or dispense generic beginner advice ("I recommend using Adam and dropout").
 - ZERO NUMBERED LISTICLES: Do NOT format your post as a 1., 2., 3. list of tips. Tell the truth in narrative paragraphs with clean 1-by-1 double line breaks.
 - Speak directly, plainly, and technically as an engineer who actually writes code, runs profiling, and debugs real failure modes.
@@ -3758,8 +3799,18 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     body = body.replace(/(?:^|\n+)However, many (?:startups|companies|teams|developers|engineers) struggle to [^.\n]*\.\s*/gim, "\n\n");
     body = body.replace(/(?:^|\n+)[A-Z][A-Za-z0-9_\s-]+ is (?:the process of|defined as|a technique that|used to)[^.\n]*\.\s*/gim, "\n\n");
     body = body.replace(/(?:^|\n+)By following (?:these|such) (?:guidelines|principles|best practices|steps|rules)[^.\n]*\.\s*/gim, "\n\n");
-    body = body.replace(/(?:^|\n+)I recently dug into (?:the math behind|the details of)[^.\n]*what I found surprised me[^.\n]*\.\s*/gim, "\n\n");
     body = body.replace(/(?:^|\n+)A well-designed [^.\n]+ can help achieve this balance[^.\n]*\.\s*/gim, "\n\n");
+
+    // 5k. Anti-Consultant & Anti-Preaching Rule:
+    // Strip lecturing "developers should", "to mitigate this risk", "this is a classic example"
+    body = body.replace(/(?:^|\n+)To mitigate this (?:risk|issue|problem)[^,\n]*,?\s*(?:developers|engineers|teams|companies)?\s*(?:should|can)?[^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)This is a classic example of [^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)(?:Additionally|Furthermore),?\s*(?:developers|engineers|teams) should[^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)By understanding the root cause[^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)Regular monitoring and testing [^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/(?:^|\n+)A CIO needs [^.\n]*\.\s*/gim, "\n\n");
+    body = body.replace(/\b(?:developers|engineers|teams|companies) should (?:consider|implement|ensure|monitor|adopt)\b/gi, "what works in practice is to");
+    body = body.replace(/\baddress them proactively\.?/gi, "catch failures early.");
 
     // Ensure the very first paragraph / hook does not end with an awkward dangling question mark
     const firstParagraphMatch = body.match(/^([^\n]+)/);
@@ -3799,8 +3850,11 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     body = body.replace(/^(?:@[a-zA-Z0-9_]+[,;\s]*)+$/gm, "").trim();
     body = body.replace(/(?:@[a-zA-Z0-9_]+[,;\s]*){2,}/g, "").trim();
 
-    // 10c. Strip raw GitHub URLs from the body to protect reach
-    body = body.replace(/https?:\/\/(?:www\.)?github\.com\/[^\s\)]+/gi, "").trim();
+    // 10c. Strip raw URLs and markdown links from the body to protect reach
+    body = body.replace(/https?:\/\/[^\s\)]+/gi, "").trim();
+    body = body.replace(/^\[(?:Original post|Original source|Read more|Source)[^\]]*\]\([^\)]*\)\s*$/gim, "");
+    body = body.replace(/^\[[^\]]+\]\([^\)]*\)\s*$/gm, "");
+    body = body.replace(/\[([^\]]+)\]\([^\)]*\)/g, "$1");
 
     // 10d. Strip any stray blog markdown headers or empty links (e.g. "Key Points:", "🚀 Implementation:", "Resources:")
     body = body.replace(/^(?:Key Points:|🚀 Implementation:|🔗 Resources:|Resources:|Key Takeaways:)\s*$/gim, "");
@@ -4511,6 +4565,19 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
       logger.error("Error in generateLinkedInMasterPost:", error);
       throw error;
     }
+  }
+
+  /**
+   * Truly Autonomous Agentic Pipeline:
+   * Dynamically evaluates all available context (git commits, builder milestones, failures,
+   * curated articles), ideates the single best topic/tension today, drafts in authentic
+   * builder voice without rigid templates, and runs an internal reflection/critic loop.
+   */
+  async generateAutonomousFounderPost(options = {}) {
+    if (!this.agentEngine) {
+      this.agentEngine = new AgentEngine(this);
+    }
+    return await this.agentEngine.runAutonomousPipeline(options);
   }
 
   groupTweetsByConversation(tweets) {

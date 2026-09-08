@@ -3,12 +3,12 @@
 /**
  * generate-linkedin-previews.js
  *
- * Local testing script that fetches existing markdown curation files from the
- * configured GitHub repository, simulates the pipeline's end-of-run agentic
- * curation flow, and generates ready-to-post LinkedIn updates using the optimized
- * 2026 virality prompts in the local LLM service.
+ * Truly autonomous agentic LinkedIn engine testing script.
+ * Evaluates multi-source context (Git commits, builder milestones, failures, and curated articles),
+ * ideates authentic builder angles without rigid templates, drafts in unpretentious developer voice,
+ * runs an internal reflection/critic loop, and previews the result.
  *
- * This runs completely locally and does NOT post anything to LinkedIn.
+ * This runs locally and publishes to LinkedIn when config.social.linkedinPost is true.
  */
 
 const fs = require("fs");
@@ -16,6 +16,8 @@ const path = require("path");
 const config = require("./config");
 const llmService = require("./src/services/llm");
 const githubService = require("./src/services/github");
+const linkedinService = require("./src/services/linkedin");
+const LinkedInService = new linkedinService();
 const { logger } = require("./src/utils/helpers");
 
 // Fallback high-quality mock articles to allow testing even if GitHub PAT or repository is not configured
@@ -149,8 +151,8 @@ async function fetchArticlesFromGithub() {
       });
 
       if (fileData && !Array.isArray(fileData) && fileData.content) {
-        const fileContent = Buffer.from(fileData.content, "base64").toString("utf-8");
-        const fileUrl = `https://github.com/${owner}/${repo}/blob/main/${encodeURIComponent(targetFile.path)}`;
+        const encodedPath = targetFile.path.split("/").map(encodeURIComponent).join("/");
+        const fileUrl = `https://github.com/${owner}/${repo}/blob/main/${encodedPath}`;
 
         collectedArticles.push({
           title: folder.name,
@@ -183,43 +185,16 @@ async function generateLinkedInPreviews() {
   try {
     // 1. Fetch articles (GitHub or Mock)
     const articles = await fetchArticlesFromGithub();
-
-    // 1b. If a single markdown file contains multiple sub-articles, flatten them so
-    // the topic selector returns a valid index for one focused topic.
     const flattenedArticles = llmService.splitArticlesIntoSubArticles(articles);
 
-    console.log(`\n📚 Loaded ${flattenedArticles.length} total articles for evaluation:`);
-    flattenedArticles.forEach((art, idx) => {
-      console.log(`   [Index ${idx}] Folder: "${art.title}" -> ${art.githubUrl}`);
-    });
+    console.log(`\n📚 Loaded ${flattenedArticles.length} total curated articles available in context.`);
 
-    // 2. Select the best article using selectBestArticlesForLinkedIn
-    console.log("\n🤖 Step 1: Querying local LLM to select the single best topic for LinkedIn...");
-    const selectedIndices = await llmService.selectBestArticlesForLinkedIn(flattenedArticles);
-    console.log(`✅ Selected indices from local LLM: ${JSON.stringify(selectedIndices)}`);
+    let postData;
+    let selectedArticles = [];
 
-    const uniqueIndices = [...new Set(selectedIndices.map((idx) => Number(idx)))];
-    const selectedArticles = uniqueIndices
-      .filter((idx) => Number.isInteger(idx) && idx >= 0 && idx < flattenedArticles.length)
-      .map((idx) => flattenedArticles[idx]);
-
-    if (uniqueIndices.length > 0 && selectedArticles.length !== uniqueIndices.length) {
-      console.warn(`⚠️ Some selected indices were out of range and ignored: ${JSON.stringify(uniqueIndices)}`);
-    }
-
-    if (selectedArticles.length === 0) {
-      console.warn("⚠️ No articles were selected by the local LLM. Defaulting to the first available article.");
-      selectedArticles.push(flattenedArticles[0]);
-    }
-
-    console.log(`\n✨ Selected Article(s) for Post Generation:`);
-    selectedArticles.forEach(art => {
-      console.log(`   - "${art.title}" (${art.githubUrl})`);
-    });
-
-    // 3. Generate LinkedIn post data using generateLinkedInMasterPost
-    console.log("\n🤖 Step 2: Running optimized 2026 virality formulas to generate LinkedIn post...");
-    const postData = await llmService.generateLinkedInMasterPost(selectedArticles);
+    console.log("\n🧠 [Truly Autonomous Agentic Mode]: Evaluating multi-source signals (Git commits, builder milestones, failures, and curated articles)...");
+      postData = await llmService.generateAutonomousFounderPost({ curatedArticles: flattenedArticles });
+      selectedArticles = flattenedArticles.slice(0, 1);
 
     console.log("\n=============================================================");
     console.log("🔥 GENERATED LINKEDIN POST PREVIEW 🔥");
@@ -238,11 +213,36 @@ async function generateLinkedInPreviews() {
     console.log("-------------------------------------------------------------");
     console.log(`   Title:     "${postData.title}"`);
     console.log(`   Points:    ${JSON.stringify(postData.slidePoints, null, 2)}`);
-    console.log(`   Tagline:   "${postData.slideTagline}"`);
-    console.log(`   Structure: "${postData.chosenStructure || "unspecified"}"`);
+    console.log(`   Origin:    "${postData.originType || postData.chosenStructure || "unspecified"}"`);
+    if (postData.criticScore) {
+      console.log(`   Critic:    ${postData.criticScore}/100 score`);
+    }
     console.log("-------------------------------------------------------------\n");
 
-    // 4. Save LinkedIn post as an article in "LinkedIn Insights" and "blog/content/LinkedIn Insights"
+    // 4. Render companion HTML slide image
+    let slideImagePath = null;
+    try {
+      console.log("🎨 Rendering custom companion slide image...");
+      slideImagePath = await LinkedInService.generateSlideImage(
+        postData.title,
+        postData.slidePoints,
+        postData.slideTagline || postData.coreInsight || "Systems Architecture Teardown · Drix10",
+        `github.com/Drix10/${postData.primaryRepo || "ai-resources"}`,
+        {
+          structureName: postData.chosenStructure || postData.originType,
+          diagramSteps: postData.diagramSteps,
+          coreInsight: postData.coreInsight,
+          category: postData.category || postData.primaryRepo || "Systems"
+        }
+      );
+      if (slideImagePath) {
+        console.log(`🖼️ Custom slide image rendered: ${slideImagePath}`);
+      }
+    } catch (imgErr) {
+      console.warn(`⚠️ Could not generate slide image: ${imgErr.message}`);
+    }
+
+    // 5. Save LinkedIn post as an article in "LinkedIn Insights" and "blog/content/LinkedIn Insights"
     const insightsDir = path.join(process.cwd(), "LinkedIn Insights");
     const blogInsightsDir = path.join(process.cwd(), "blog", "content", "LinkedIn Insights");
     if (!fs.existsSync(insightsDir)) fs.mkdirSync(insightsDir, { recursive: true });
@@ -258,13 +258,43 @@ async function generateLinkedInPreviews() {
     const blogFilePath = path.join(insightsDir, blogFileName);
     const blogContentPath = path.join(blogInsightsDir, blogFileName);
 
-    const blogMarkdownContent = `# ${postData.title || "LinkedIn Technical Insight"}
+    let slideEmbed = "";
+    if (slideImagePath && fs.existsSync(slideImagePath)) {
+      try {
+        const blogSlidesDir = path.join(process.cwd(), "blog", "public", "slides");
+        if (!fs.existsSync(blogSlidesDir)) fs.mkdirSync(blogSlidesDir, { recursive: true });
+        const slideFileName = `${seoSlug}-${timestamp}.png`;
+        fs.copyFileSync(slideImagePath, path.join(blogSlidesDir, slideFileName));
+        slideEmbed = `\n\n![${postData.title || "Systems Architecture Breakdown"}](/slides/${slideFileName})\n`;
+      } catch (copyErr) {
+        console.warn(`⚠️ Failed to copy slide to blog public slides: ${copyErr.message}`);
+      }
+    }
 
+    const repoTitles = {
+      "Grind": "Drix10/Grind: 100 Foundational C Programs & Low-Level Memory Fundamentals",
+      "intent-canvas": "Drix10/intent-canvas: Visual Workspace Mapping Natural Language to Agent Graphs",
+      "sentinal": "Drix10/sentinal: CLI Security Scanner with AST Taint Analysis",
+      "hypothesis-arena": "Drix10/hypothesis-arena: Multi-Agent Crypto Futures Arena",
+      "idolchat": "Drix10/idolchat: Real-Time AI Character Chat with WebSockets & Redis",
+      "CosLynx": "CosLynx.com: Autonomous Full-Stack AI MVP Orchestration Platform",
+      "ai-resources": "Drix10/ai-resources: Curated AI Systems, Infrastructure & Architecture Hub"
+    };
+
+    const sourceLabel = postData.primaryRepo
+      ? (repoTitles[postData.primaryRepo] || `Drix10/${postData.primaryRepo}`)
+      : (selectedArticles[0]?.title || "Drix10/ai-resources");
+    const sourceLink = postData.primaryRepo
+      ? `https://github.com/Drix10/${postData.primaryRepo}`
+      : (selectedArticles[0]?.githubUrl || "https://github.com/Drix10/ai-resources");
+
+    const blogMarkdownContent = `# ${postData.title || "LinkedIn Technical Insight"}
+${slideEmbed}
 ${postData.postText}
 
 ---
 ### 🔗 Reference & Source Breakdown
-- **Source Material**: [${selectedArticles[0]?.title || "Reference Breakdown"}](${selectedArticles[0]?.githubUrl || "#"})
+- **Source Material**: [${sourceLabel}](${sourceLink})
 - **Recommended Visual Asset**: ${postData.recommendedVisual || postData.slideTagline || "Terminal screenshot or real photo of code running"}
 - **Syndicated Channel**: LinkedIn & Personal Blog Hub
 `;
@@ -277,7 +307,7 @@ ${postData.postText}
       console.log(`📸 Recommended Visual: ${postData.recommendedVisual}`);
     }
 
-    // 5. Save results locally in a previews directory
+    // 6. Save results locally in a previews directory
     const outputDir = path.join(process.cwd(), "linkedin-previews");
     if (!fs.existsSync(outputDir)) {
       fs.mkdirSync(outputDir, { recursive: true });
@@ -289,17 +319,47 @@ ${postData.postText}
     fs.writeFileSync(outputPath, JSON.stringify({
       timestamp: new Date().toISOString(),
       sourceArticles: selectedArticles,
-      generatedPost: postData
+      generatedPost: postData,
+      slideImagePath
     }, null, 2));
 
     console.log(`💾 Preview saved locally to: ./${path.relative(process.cwd(), outputPath)}`);
-    console.log("\n=============================================================");
-    console.log("✅ PREVIEW COMPLETED SUCCESSFULLY! No actual posts were made. ✅");
-    console.log("=============================================================\n");
+
+    // 7. Push to live LinkedIn if enabled in config
+    if (config.social.linkedinPost) {
+      console.log("\n=============================================================");
+      console.log("🚀 PUBLISHING TO LINKEDIN (Live Post + Slide Image + Comment)");
+      console.log("=============================================================");
+      try {
+        const postSuccess = await LinkedInService.postToLinkedIn(
+          postData.postText,
+          slideImagePath,
+          postData.commentText
+        );
+        if (postSuccess) {
+          console.log("\n=============================================================");
+          console.log("🎉 SUCCESS: Post, companion slide, and comment published live to LinkedIn!");
+          console.log("=============================================================\n");
+        } else {
+          console.warn("\n⚠️ LinkedIn poster returned false status or was unable to submit.\n");
+        }
+      } catch (postErr) {
+        console.error("❌ Failed to publish to LinkedIn:", postErr.message);
+      }
+    } else {
+      console.log("\n=============================================================");
+      console.log("✅ PREVIEW COMPLETED (Safe Mode: set LINKEDIN_POST=true in .env to post live)");
+      console.log("   Preview and companion slide saved locally.");
+      console.log("=============================================================\n");
+    }
 
   } catch (error) {
-    logger.error(" Curation preview runner failed:", error);
+    logger.error(" Curation runner failed:", error);
     process.exit(1);
+  } finally {
+    try {
+      await LinkedInService.cleanup();
+    } catch (e) {}
   }
 }
 

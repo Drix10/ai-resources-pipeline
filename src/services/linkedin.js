@@ -12,6 +12,24 @@ class LinkedInService {
     this._isLoggedIn = false;
   }
 
+  static async isRemoteChromeRunning() {
+    return new Promise((resolve) => {
+      const http = require("http");
+      const req = http.get("http://127.0.0.1:9222/json/version", { timeout: 1000 }, (res) => {
+        resolve(res.statusCode === 200);
+      });
+      req.on("error", () => resolve(false));
+      req.on("timeout", () => {
+        req.destroy();
+        resolve(false);
+      });
+    });
+  }
+
+  async isRemoteChromeRunning() {
+    return LinkedInService.isRemoteChromeRunning();
+  }
+
   async ensureDriverConnected(requireLogin = false) {
     if (!this.driver || !this.isInitialized) {
       await this.init(requireLogin);
@@ -36,6 +54,13 @@ class LinkedInService {
 
   async init(requireLogin = true) {
     try {
+      const { isChromeRunning, ensureChromeReady } = require("../utils/chromeLauncher");
+
+      if (requireLogin && !(await isChromeRunning())) {
+        logger.info("LinkedInService: Chrome on port 9222 not running. Auto-starting Chrome with persistent profile (same as npm start)...");
+        await ensureChromeReady(15);
+      }
+
       if (!this.driver || !this.isInitialized) {
         let options = new chrome.Options();
         options.options_["debuggerAddress"] = "127.0.0.1:9222";
@@ -46,11 +71,11 @@ class LinkedInService {
             .setChromeOptions(options)
             .build();
 
-          logger.info("LinkedInService: Connected to existing Chrome browser");
+          logger.info("LinkedInService: Connected to existing Chrome browser on port 9222");
           this._driverOwned = false;
           this.isInitialized = true;
         } catch (connectionError) {
-          logger.warn("LinkedInService: Remote debugging Chrome not detected on 127.0.0.1:9222. Spawning headless fallback for slide rendering...");
+          logger.warn("LinkedInService: Remote debugging Chrome not detected on 127.0.0.1:9222. Spawning headless fallback for slide rendering only...");
           try {
             let headlessOptions = new chrome.Options();
             headlessOptions.addArguments("--headless=new", "--no-sandbox", "--disable-dev-shm-usage", "--disable-gpu");
@@ -259,7 +284,23 @@ class LinkedInService {
       .replace(/\[(.*?)\]\((.*?)\)/g, "$1: $2");
 
     try {
-      await this.ensureDriverConnected();
+      const { isChromeRunning, ensureChromeReady } = require("../utils/chromeLauncher");
+
+      if (this._driverOwned) {
+        logger.info("LinkedInService: Headless driver currently active. Switching to real debugging Chrome...");
+        await this.cleanup();
+      }
+
+      if (!(await isChromeRunning())) {
+        logger.info("LinkedInService: Chrome on port 9222 not open. Auto-starting Chrome with persistent profile (same as npm start)...");
+        const ready = await ensureChromeReady(15);
+        if (!ready) {
+          logger.warn("LinkedInService: Failed to start Chrome on port 9222. Skipping live post.");
+          return false;
+        }
+      }
+
+      await this.ensureDriverConnected(true);
 
       try {
         originalHandle = await this.driver.getWindowHandle();
@@ -272,6 +313,12 @@ class LinkedInService {
         await this.driver.get("https://www.linkedin.com/feed/");
       }
       await sleep(4000);
+
+      const currentUrl = await this.driver.getCurrentUrl();
+      if (currentUrl.includes("/authwall") || currentUrl.includes("/login") || currentUrl.includes("/checkpoint") || currentUrl.includes("/uas/login")) {
+        logger.warn(`LinkedInService: Browser was redirected to login/auth page (${currentUrl}). Cannot publish without an active logged-in LinkedIn session in Chrome.`);
+        return false;
+      }
 
       if (imageUrl) {
         logger.info("Locating 'Photo' or 'Start a post' trigger on feed page...");
@@ -932,6 +979,12 @@ class LinkedInService {
 
     // Dynamic structure badge mapping
     const badgeMap = {
+      "c-fundamentals-grind": "SYSTEMS_CORE // v2.6",
+      "autonomous-payment-ops": "AUTONOMOUS_OPS // v2.6",
+      "cli-security-scanner": "CLI_SECURITY // v2.6",
+      "war-on-ai-slop": "ANTI_SLOP // v2.6",
+      "deep-systems-teardown": "ARCH_TEARDOWN // v2.6",
+      "open-source-traction": "OPEN_SOURCE // v2.6",
       "founder-confession": "FOUNDER_CONFESSION // v2.6",
       "contrarian-hot-take": "CONTRARIAN_TAKE // v2.6",
       "tactical-playbook": "FOUNDER_PLAYBOOK // v2.6",

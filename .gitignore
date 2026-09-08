@@ -67,3 +67,6 @@ blog/lib/views-data.json
 blog/lib/views-data.json.tmp
 views-data.json
 *.tmp
+*.lock
+data/*.tmp*
+data/*.lock
