@@ -298,6 +298,34 @@ class AgentContextService {
   getPostTypes() {
     return [
       {
+        id: "partpilot-ai-search-sync",
+        label: "High-Concurrency Inventory Sync & AI Parts Parsing (PartPilot)",
+        targetAudience: "AI systems architects, backend engineers, search infra leads",
+        focus: "Architecting real-time automotive parts catalog search and inventory sync across high-volume supplier feeds in PartPilot. Solving SKU normalization, vector + BM25 hybrid search latency, and webhook fan-out contention under peak inventory ingest without locking SQL write streams.",
+        primaryRepo: "PartPilot"
+      },
+      {
+        id: "realtime-websocket-architecture",
+        label: "WebSockets, Heartbeats & Redis Pub/Sub at Scale (Drix10/idolchat)",
+        targetAudience: "Real-time systems engineers, mobile backend architects, WebSocket devs",
+        focus: "Building the idolchat real-time backend. Handling mobile WebSocket silent drops without onclose events, implementing 30-second ping/pong connection heartbeats, and scaling state synchronization with Redis pub/sub to prevent message dropouts or Prisma schema write bottlenecks.",
+        primaryRepo: "idolchat"
+      },
+      {
+        id: "multi-agent-crypto-trading",
+        label: "Multi-Agent Consensus & WebSocket Orderbooks (Drix10/hypothesis-arena)",
+        targetAudience: "Quantitative systems engineers, distributed systems builders, multi-agent AI devs",
+        focus: "Architecting 4 autonomous LLM agents debating WEEX crypto futures in hypothesis-arena. Processing high-frequency streaming WebSocket orderbook feeds without thread starvation, managing LibSQL/Turso DB write lock contention, and preventing stale state execution across agent consensus rounds.",
+        primaryRepo: "hypothesis-arena"
+      },
+      {
+        id: "algorithmic-hedging-risk-engine",
+        label: "Algorithmic Hedging, Delta Neutrality & Latency (miro-hedge)",
+        targetAudience: "Quant developers, algorithmic trading engineers, financial systems builders",
+        focus: "Designing low-latency algorithmic hedging engines in miro-hedge. Managing automated delta-neutral balancing, slippage calculation, order execution pipelines, and risk-limit triggers across volatile market spreads without blocking asynchronous order-routing threads.",
+        primaryRepo: "miro-hedge"
+      },
+      {
         id: "fintech-webhook-signatures",
         label: "Payment Webhooks & Raw Body Signatures (Drix10/intent-canvas)",
         targetAudience: "Full-stack developers, SaaS founders, backend engineers",
@@ -305,17 +333,10 @@ class AgentContextService {
         primaryRepo: "intent-canvas"
       },
       {
-        id: "multi-agent-crypto-trading",
-        label: "Multi-Agent Systems & Orderbook Feeds (Canopy / Drix10/hypothesis-arena)",
-        targetAudience: "AI systems engineers, quant developers, agent builders",
-        focus: "Architecting 4 autonomous LLM agents debating WEEX crypto futures. Managing streaming WebSocket orderbook feeds without thread starvation, using Prisma ORM with LibSQL/Turso DB for sub-millisecond persistence.",
-        primaryRepo: "hypothesis-arena"
-      },
-      {
         id: "appsec-ast-parsing",
         label: "AST Node Traversal vs Dumb Regex (Drix10/sentinal)",
         targetAudience: "Application security engineers, CLI developers, TypeScript devs",
-        focus: "Why regex-based code scanners spam false positives. How parsing the Abstract Syntax Tree (AST) with Gemini AI maps real taint flow from user input to sinks, producing zero-noise vulnerability patches.",
+        focus: "Why regex-based code scanners spam false positives. How parsing the Abstract Syntax Tree (AST) with Gemini AI maps real taint flow from user input to sinks, producing zero-noise vulnerability patches in sentinal.",
         primaryRepo: "sentinal"
       },
       {
@@ -324,27 +345,6 @@ class AgentContextService {
         targetAudience: "C/C++ developers, systems programmers, low-level engineers",
         focus: "Why memorizing LeetCode graph tricks is useless if you don't understand raw memory in C. How careless struct member ordering turns a 16-byte payload into 32 bytes due to word alignment, doubling L1 cache line misses.",
         primaryRepo: "Grind"
-      },
-      {
-        id: "realtime-websocket-architecture",
-        label: "WebSockets & Redis Pub/Sub at Scale (Drix10/idolchat)",
-        targetAudience: "Mobile & full-stack developers, React Native devs",
-        focus: "Building real-time AI character chat in React Native/Expo. Handling mobile WebSocket disconnects, connection heartbeats, and Redis pub/sub state synchronization without dropping chat history in Prisma.",
-        primaryRepo: "idolchat"
-      },
-      {
-        id: "llm-code-orchestration",
-        label: "LLM Code Orchestration for 400+ MVPs (CosLynx.com)",
-        targetAudience: "AI product builders, full-stack engineers, startup founders",
-        focus: "Lessons from shipping 400+ MVPs via CosLynx. How to structure TypeScript and Node.js multi-step LLM code generation pipelines so models don't hallucinate non-existent npm dependencies.",
-        primaryRepo: "CosLynx"
-      },
-      {
-        id: "practical-ml-inference-bounds",
-        label: "Local Inference Latency & Memory Bounds (Drix10/ai-resources)",
-        targetAudience: "AI engineers, ML infra practitioners",
-        focus: "Concrete benchmarks when running local models (Ollama/NVIDIA NIM). Quantization trade-offs (4-bit vs 8-bit), KV cache memory limits, and why context window growth explodes GPU VRAM.",
-        primaryRepo: "ai-resources"
       }
     ];
   }

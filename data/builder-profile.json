@@ -91,6 +91,46 @@
   ],
   "verifiedProjects": [
     {
+      "name": "PartPilot",
+      "repo": "PartPilot/core",
+      "stack": [
+        "TypeScript",
+        "Python",
+        "FastAPI",
+        "PostgreSQL",
+        "pgvector",
+        "Redis"
+      ],
+      "description": "High-throughput automotive parts search engine and real-time inventory synchronization platform.",
+      "realMechanics": "Hybrid BM25 and vector embeddings for SKU search, high-volume supplier catalog ingestion, Redis locks for inventory write streams."
+    },
+    {
+      "name": "Miro Hedge",
+      "repo": "Drix10/miro-hedge",
+      "stack": [
+        "TypeScript",
+        "Python",
+        "WebSockets",
+        "Redis",
+        "TimescaleDB"
+      ],
+      "description": "Quantitative algorithmic hedging and risk-management engine for delta-neutral market making.",
+      "realMechanics": "Automated delta balancing, real-time slippage monitoring, multi-exchange order routing, and asynchronous risk triggers."
+    },
+    {
+      "name": "PayScope",
+      "repo": "Drix10/payscope",
+      "stack": [
+        "TypeScript",
+        "Node.js",
+        "Express.js",
+        "Server-Sent Events",
+        "Razorpay API"
+      ],
+      "description": "Autonomous payment-operations agent for Razorpay merchants with real-time SSE push streams.",
+      "realMechanics": "Transient network timeout resilience in background workers, SSE reconnection streams, idempotent webhook processing."
+    },
+    {
       "name": "Intent Canvas",
       "repo": "Drix10/intent-canvas",
       "stack": [

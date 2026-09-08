@@ -272,11 +272,14 @@ async function generateLinkedInPreviews() {
     }
 
     const repoTitles = {
-      "Grind": "Drix10/Grind: 100 Foundational C Programs & Low-Level Memory Fundamentals",
+      "PartPilot": "PartPilot: High-Concurrency Automotive Parts Parsing & Inventory Sync Engine",
+      "idolchat": "Drix10/idolchat: Real-Time AI Character Chat with WebSockets & Redis",
+      "hypothesis-arena": "Drix10/hypothesis-arena: Multi-Agent Crypto Futures Arena",
+      "miro-hedge": "Drix10/miro-hedge: Quantitative Algorithmic Hedging & Risk Engine",
+      "payscope": "Drix10/payscope: Autonomous Payment Operations & Gateway Failover Agent",
       "intent-canvas": "Drix10/intent-canvas: Visual Workspace Mapping Natural Language to Agent Graphs",
       "sentinal": "Drix10/sentinal: CLI Security Scanner with AST Taint Analysis",
-      "hypothesis-arena": "Drix10/hypothesis-arena: Multi-Agent Crypto Futures Arena",
-      "idolchat": "Drix10/idolchat: Real-Time AI Character Chat with WebSockets & Redis",
+      "Grind": "Drix10/Grind: 100 Foundational C Programs & Low-Level Memory Fundamentals",
       "CosLynx": "CosLynx.com: Autonomous Full-Stack AI MVP Orchestration Platform",
       "ai-resources": "Drix10/ai-resources: Curated AI Systems, Infrastructure & Architecture Hub"
     };
@@ -285,7 +288,9 @@ async function generateLinkedInPreviews() {
       ? (repoTitles[postData.primaryRepo] || `Drix10/${postData.primaryRepo}`)
       : (selectedArticles[0]?.title || "Drix10/ai-resources");
     const sourceLink = postData.primaryRepo
-      ? `https://github.com/Drix10/${postData.primaryRepo}`
+      ? (postData.primaryRepo === "PartPilot"
+          ? "https://github.com/PartPilot"
+          : `https://github.com/Drix10/${postData.primaryRepo}`)
       : (selectedArticles[0]?.githubUrl || "https://github.com/Drix10/ai-resources");
 
     const blogMarkdownContent = `# ${postData.title || "LinkedIn Technical Insight"}
