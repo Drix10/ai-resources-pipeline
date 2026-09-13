@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Inter } from 'next/font/google';
 import type { Metadata, Viewport } from 'next';
 import { getAllCategories } from '@/lib/markdown';
+import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 
 const inter = Inter({
@@ -297,6 +298,7 @@ export default function RootLayout({
             </div>
           </div>
         </footer>
+        <Analytics />
       </body>
     </html>
   );
