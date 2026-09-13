@@ -1,5 +1,17 @@
 [
   {
+    "postType": "realtime-websocket-architecture",
+    "topicTitle": "WebSockets, Heartbeats & Redis Pub/Sub at Scale (Drix10/idolchat)",
+    "repo": "idolchat",
+    "timestamp": "2026-09-12T03:07:02.865Z"
+  },
+  {
+    "postType": "partpilot-ai-search-sync",
+    "topicTitle": "High-Concurrency Inventory Sync & AI Parts Parsing",
+    "repo": "PartPilot",
+    "timestamp": "2026-09-11T00:12:57.156Z"
+  },
+  {
     "postType": "fintech-webhook-signatures",
     "topicTitle": "Why Payment Webhooks Fail HMAC Signature Verification",
     "repo": "intent-canvas",
