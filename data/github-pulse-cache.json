@@ -1,5 +1,5 @@
 {
-  "timestamp": 1789331344265,
+  "timestamp": 1789379872538,
   "user": "Drix10",
   "repos": [
     {
@@ -393,59 +393,59 @@
       "description": "Daily updated resources on AI across various domains including ML, development, education, healthcare, real estate, robotics, crypto, web3 and more, curated by enthusiasts.",
       "language": "Multi-language",
       "stars": 118,
-      "updatedAt": "2026-09-13T20:26:20Z",
+      "updatedAt": "2026-09-14T09:57:44Z",
       "recentCommits": [
         {
-          "sha": "aa7d32e",
+          "sha": "ac3e37a",
           "message": "📚 Update README with latest tweets",
-          "date": "2026-09-13T20:26:17Z"
+          "date": "2026-09-14T09:57:39Z"
         },
         {
-          "sha": "3ec0348",
-          "message": "📝 Batch sync: 2 resource collections",
-          "date": "2026-09-13T20:25:40Z"
+          "sha": "f8ee958",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-14T09:55:37Z"
         },
         {
-          "sha": "6521f2f",
-          "message": "📝 Batch sync: 6 resource collections",
-          "date": "2026-09-13T20:10:18Z"
+          "sha": "aa615a0",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-14T09:35:15Z"
         },
         {
-          "sha": "fb0d630",
-          "message": "📝 Batch sync: 6 resource collections",
-          "date": "2026-09-13T19:16:06Z"
+          "sha": "f150a97",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-14T09:19:40Z"
         },
         {
-          "sha": "2d5b42e",
-          "message": "📝 Batch sync: 6 resource collections",
-          "date": "2026-09-13T18:56:16Z"
+          "sha": "d3def26",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-14T09:00:33Z"
         }
       ],
       "historicalHighlights": [
         {
-          "sha": "3ec0348",
-          "message": "📝 Batch sync: 2 resource collections",
-          "date": "2026-09-13T20:25:40Z"
+          "sha": "f8ee958",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-14T09:55:37Z"
         },
         {
-          "sha": "6521f2f",
-          "message": "📝 Batch sync: 6 resource collections",
-          "date": "2026-09-13T20:10:18Z"
+          "sha": "aa615a0",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-14T09:35:15Z"
         },
         {
-          "sha": "fb0d630",
-          "message": "📝 Batch sync: 6 resource collections",
-          "date": "2026-09-13T19:16:06Z"
+          "sha": "f150a97",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-14T09:19:40Z"
         },
         {
-          "sha": "2d5b42e",
-          "message": "📝 Batch sync: 6 resource collections",
-          "date": "2026-09-13T18:56:16Z"
+          "sha": "d3def26",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-14T09:00:33Z"
         },
         {
-          "sha": "046c51f",
-          "message": "📝 Batch sync: 6 resource collections",
-          "date": "2026-09-13T18:28:27Z"
+          "sha": "59285ed",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-14T08:43:49Z"
         }
       ],
       "hasFreshCommits": true
@@ -467,11 +467,6 @@
           "sha": "41b14e8",
           "message": "Update Config",
           "date": "2026-09-13T03:40:26Z"
-        },
-        {
-          "sha": "c381e7e",
-          "message": "Gaming mode rework",
-          "date": "2026-09-12T03:19:57Z"
         }
       ],
       "historicalHighlights": [
