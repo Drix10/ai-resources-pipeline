@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from 'react';
 
 const ROLES = [
-  'Co-Founder @ PartPilot',
-  '1x Acquired Serial Founder (ReeF)',
   'AI Systems & LLM Architect',
+  '1x Acquired Serial Founder (ReeF)',
+  'Founder & CEO @ CosLynx.com',
   'Canopy @ Founders, Inc.',
   'Cybersecurity Student @ DSU',
   '2x International Hackathon Winner 🏆',

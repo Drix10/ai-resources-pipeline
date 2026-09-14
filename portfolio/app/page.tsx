@@ -131,28 +131,6 @@ export default function HomePage() {
         </div>
 
         <div className="space-y-6 border-l-2 border-zinc-800 pl-4 sm:pl-6 ml-2 sm:ml-4">
-          {/* PartPilot */}
-          <div className="relative space-y-2">
-            <div className="absolute -left-[23px] sm:-left-[31px] top-1.5 w-3 h-3 rounded-full bg-emerald-500 border-2 border-[#09090b]"></div>
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <div>
-                <h3 className="font-bold text-base text-zinc-100">Co-Founder — PartPilot</h3>
-                <span className="text-xs text-zinc-400 font-medium">Remote • Self-Employed</span>
-              </div>
-              <span className="text-xs font-mono px-2 py-0.5 rounded bg-zinc-800 text-zinc-300">
-                Jul 2026 — Present
-              </span>
-            </div>
-            <p className="text-xs text-zinc-300 leading-relaxed">
-              Co-founded PartPilot, a platform designed to identify supply chain risks before they impact production. Developing a comprehensive intelligence tool for engineering, sourcing, compliance, and supply chain teams to manage component risk.
-            </p>
-            <div className="flex flex-wrap gap-1.5 text-[10px] font-mono text-zinc-400">
-              <span className="px-2 py-0.5 rounded bg-zinc-800/70">Computer Hardware</span>
-              <span className="px-2 py-0.5 rounded bg-zinc-800/70">Start-up Leadership</span>
-              <span className="px-2 py-0.5 rounded bg-zinc-800/70">Supply Chain AI</span>
-            </div>
-          </div>
-
           {/* Canopy @ Founders, Inc. */}
           <div className="relative space-y-2 pt-4">
             <div className="absolute -left-[23px] sm:-left-[31px] top-5.5 w-3 h-3 rounded-full bg-zinc-400 border-2 border-[#09090b]"></div>

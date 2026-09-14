@@ -21,15 +21,15 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://drix10.com'),
   title: {
-    default: 'Drishtant Ghosh (Drix10) — Co-Founder @ PartPilot | AI Systems Engineer & 1x Acq Founder',
+    default: 'Drishtant Ghosh (Drix10) — AI Systems Engineer & 1x Acquired Founder',
     template: '%s | Drishtant Ghosh (Drix10)',
   },
   description:
-    'Drishtant Ghosh (Drix10) is a Co-Founder @ PartPilot, 1x Acquired Serial Founder (ReeF), Canopy @ Founders, Inc., and Cybersecurity Researcher at Dayananda Sagar University. Building autonomous LLM architectures and high-performance full-stack products.',
+    'Drishtant Ghosh (Drix10) is an AI Systems Engineer, 1x Acquired Serial Founder (ReeF), Canopy @ Founders, Inc., and Cybersecurity Researcher at Dayananda Sagar University. Building autonomous LLM architectures and high-performance full-stack products.',
   keywords: [
     'Drishtant Ghosh',
     'Drix10',
-    'PartPilot',
+    'Drishtant Ghosh AI Engineer',
     'Drix10 Portfolio',
     'Drishtant Ghosh AI',
     'Drishtant Ghosh Founder',
@@ -68,9 +68,9 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://drix10.com',
     siteName: 'Drishtant Ghosh (Drix10)',
-    title: 'Drishtant Ghosh (Drix10) — Co-Founder @ PartPilot | AI Systems Engineer',
+    title: 'Drishtant Ghosh (Drix10) — AI Systems Engineer & 1x Acquired Founder',
     description:
-      'Co-Founder @ PartPilot, 1x Acquired Founder (ReeF), Canopy @ Founders, Inc., and Cybersecurity Researcher. Author of technical breakdowns at Drix10 Blogs.',
+      'AI Systems Engineer, 1x Acquired Founder (ReeF), Canopy @ Founders, Inc., and Cybersecurity Researcher. Author of technical breakdowns at Drix10 Blogs.',
     images: [
       {
         url: '/avatar.png',
@@ -82,9 +82,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Drishtant Ghosh (Drix10) — Co-Founder @ PartPilot | AI Systems Engineer',
+    title: 'Drishtant Ghosh (Drix10) — AI Systems Engineer & 1x Acquired Founder',
     description:
-      'Co-Founder @ PartPilot, 1x Acquired Founder (ReeF), Canopy @ Founders, Inc., and Cybersecurity Researcher at DSU.',
+      'AI Systems Engineer, 1x Acquired Founder (ReeF), Canopy @ Founders, Inc., and Cybersecurity Researcher at DSU.',
     creator: '@DrishtantGhosh',
     images: ['/avatar.png'],
   },
@@ -108,12 +108,8 @@ export default function RootLayout({
         alternateName: ['Drix10', 'drix10', 'Drix'],
         url: 'https://drix10.com',
         image: 'https://drix10.com/avatar.png',
-        jobTitle: 'Co-Founder @ PartPilot & AI Systems Engineer',
+        jobTitle: 'AI Systems Engineer & 1x Acquired Founder',
         email: 'ggdrishtant@gmail.com',
-        worksFor: {
-          '@type': 'Organization',
-          name: 'PartPilot',
-        },
         alumniOf: [
           {
             '@type': 'EducationalOrganization',
@@ -135,7 +131,7 @@ export default function RootLayout({
         },
         award: '2x International Hackathon Winner',
         description:
-          'Drishtant Ghosh (known online as Drix10) is a Co-Founder @ PartPilot, 1x Acquired Serial Founder (ReeF), and Cybersecurity Researcher at Dayananda Sagar University. Creator of CosLynx and author of technical breakdowns at Drix10 Blogs.',
+          'Drishtant Ghosh (known online as Drix10) is an AI Systems Engineer, 1x Acquired Serial Founder (ReeF), and Cybersecurity Researcher at Dayananda Sagar University. Creator of CosLynx and author of technical breakdowns at Drix10 Blogs.',
         sameAs: [
           'https://github.com/Drix10',
           'https://www.linkedin.com/in/drix10',
@@ -260,7 +256,7 @@ export default function RootLayout({
             <div className="flex flex-col sm:flex-row items-center gap-2">
               <span className="font-semibold text-zinc-300">Drishtant Ghosh (Drix10)</span>
               <span className="hidden sm:inline text-zinc-700">•</span>
-              <span>Co-Founder @ PartPilot | 1x Acq Founder | AI Systems Engineer</span>
+              <span>AI Systems Engineer | 1x Acq Founder | Autonomous LLM Architect</span>
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-4 text-zinc-400">

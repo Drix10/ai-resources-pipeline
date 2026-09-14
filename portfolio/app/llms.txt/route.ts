@@ -4,7 +4,7 @@ export const dynamic = 'force-static';
 
 export async function GET() {
   const content = `# Drishtant Ghosh (Drix10)
-> Co-Founder @ PartPilot, 1x Acquired Serial Founder (ReeF), and AI Systems Engineer.
+> AI Systems Engineer, 1x Acquired Serial Founder (ReeF), and Cybersecurity Researcher.
 
 ## Summary
 - Name: Drishtant Ghosh
@@ -19,7 +19,6 @@ export async function GET() {
 - Location: Bengaluru, Karnataka, India
 
 ## Key Products & Ventures
-- PartPilot: Co-Founder — Platform to identify hardware supply chain risks before impacting production.
 - Canopy @ Founders, Inc.: 4-LLM autonomous multi-agent crypto futures trading engine.
 - CosLynx.com: Founder & CEO — AI-driven code generation platform with 400+ MVPs generated (Build with Backdrop v4 Winner).
 - ReeF: 1x Acquired anime collection game ($15,000 ARR, 5M+ user interactions).
