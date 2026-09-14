@@ -1,5 +1,11 @@
 [
   {
+    "postType": "multi-agent-crypto-trading",
+    "topicTitle": "Multi-Agent Consensus & WebSocket Orderbooks (Drix10/hypothesis-arena)",
+    "repo": "hypothesis-arena",
+    "timestamp": "2026-09-14T10:00:39.968Z"
+  },
+  {
     "postType": "realtime-websocket-architecture",
     "topicTitle": "WebSockets, Heartbeats & Redis Pub/Sub at Scale (Drix10/idolchat)",
     "repo": "idolchat",
@@ -64,11 +70,5 @@
     "topicTitle": "The Hidden Dangers of Premature DSA",
     "repo": "Grind",
     "timestamp": "2026-09-08T11:55:39.681Z"
-  },
-  {
-    "postType": "c-fundamentals-grind",
-    "topicTitle": "Why Modern Engineering Culture Fosters AI Slop",
-    "repo": "Grind",
-    "timestamp": "2026-09-08T11:06:28.479Z"
   }
 ]
