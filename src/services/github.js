@@ -257,7 +257,7 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
         const commitMessage = preparedItems.length === 1
           ? `📝 Add resource collection: ${preparedItems[0].decodedFolder} #${preparedItems[0].nextNumber}`
           : `📝 Batch sync: ${preparedItems.length} resource collections\n\n` +
-            preparedItems.map(it => `- ${it.decodedFolder} (#${it.nextNumber})`).join("\n");
+          preparedItems.map(it => `- ${it.decodedFolder} (#${it.nextNumber})`).join("\n");
 
         const authorInfo = {
           name: "Drix10",
@@ -425,26 +425,79 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
       }
 
       const headerContent = `
-<div align="center">
-  <h1><a href="https://x.com/DrishtantGhosh" target="_blank">🚀 AI Resources by Drix10</a></h1>
-  <p><strong>Explore a comprehensive collection of top AI resources curated by experts on 𝕏</strong></p>
-  <p>🌟 Daily updates • 💡 Expert insights • 🔥 Trending Topics</p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Markdown-Dark.svg" width="80" alt="Drishtant Ghosh (Drix10) — AI Resources" />
+</p>
 
-  <img src="https://img.shields.io/badge/Maintainer-Drix10-blue?style=for-the-badge" alt="Maintainer Drix10" />
-  <img src="https://img.shields.io/badge/Topics-Everything%2C%20AI-red?style=for-the-badge" alt="Topics" />
-  <img src="https://img.shields.io/github/last-commit/Drix10/ai-resources?style=for-the-badge&color=5D6D7E" alt="Last Updated" />
-  <a href="https://github.com/Drix10/ai-resources"><img src="https://img.shields.io/github/stars/Drix10/ai-resources?style=for-the-badge&color=yellow" alt="GitHub Stars" /></a>
+<h1 align="center">Drishtant Ghosh (Drix10) — AI Resources</h1>
 
-  <br>
+<p align="center">
+  <strong>AI Systems Engineer • 1x Acquired Founder (ReeF) • Autonomous LLM Architect • Technical Writer</strong>
+</p>
 
-  <h3>🌟 Quick Links</h3>
-    <a href="https://x.com/DrishtantGhosh">
-      <img src="https://img.shields.io/badge/Follow_on_𝕏-black?style=for-the-badge&logo=x&logoColor=white" alt="Follow on X" />
-    </a>
-    <a href="https://github.com/Drix10">
-      <img src="https://img.shields.io/badge/Follow_on_GitHub-black?style=for-the-badge&logo=github&logoColor=white" alt="Follow on GitHub" />
-    </a>
-</div>
+<p align="center">
+  <em>Continuous technical curation by <a href="https://drix10.com">Drishtant Ghosh</a> — zero-slop engineering breakdowns across AI systems, distributed infrastructure, and cybersecurity.</em>
+</p>
+
+<p align="center">
+  <a href="https://drix10.com"><img src="https://img.shields.io/badge/PORTFOLIO-DRIX10.COM-10b981?style=for-the-badge&logo=vercel&logoColor=white" alt="Drishtant Ghosh Portfolio" /></a>
+  <a href="https://blogs.drix10.com"><img src="https://img.shields.io/badge/BLOG-BLOGS.DRIX10.COM-0077b5?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Drix10 Blogs" /></a>
+  <img src="https://img.shields.io/github/last-commit/${owner}/${repo}?style=for-the-badge&color=5D6D7E&label=LAST_UPDATE" alt="Last Updated" />
+  <a href="https://github.com/${owner}/${repo}"><img src="https://img.shields.io/github/stars/${owner}/${repo}?style=for-the-badge&color=yellow&label=STARS" alt="GitHub Stars" /></a>
+</p>
+
+<p align="center">
+  <a href="https://x.com/DrishtantGhosh"><img src="https://img.shields.io/badge/FOLLOW_ON_𝕏-000000?style=for-the-badge&logo=x&logoColor=white" alt="Drishtant Ghosh on X" /></a>
+  <a href="https://github.com/Drix10"><img src="https://img.shields.io/badge/FOLLOW_ON_GITHUB-181717?style=for-the-badge&logo=github&logoColor=white" alt="Drix10 on GitHub" /></a>
+  <a href="https://www.linkedin.com/in/drix10"><img src="https://img.shields.io/badge/CONNECT_ON_LINKEDIN-0077b5?style=for-the-badge&logo=linkedin&logoColor=white" alt="Drishtant Ghosh on LinkedIn" /></a>
+  <a href="https://peerlist.io/drix10"><img src="https://img.shields.io/badge/PEERLIST-DRIX10-00AA45?style=for-the-badge&logo=peerlist&logoColor=white" alt="Drix10 on Peerlist" /></a>
+</p>
+
+---
+
+## 👤 About Drishtant Ghosh (Drix10)
+
+**Drishtant Ghosh** — known online as **Drix10** — is an AI Systems Engineer and 1x Acquired Founder based in **Bengaluru, India**. He builds autonomous LLM architectures, multi-agent swarms, real-time distributed systems, and high-performance full-stack products.
+
+- **1x Acquired Founder** — ReeF (scaled to $15,000 ARR and 5M+ user interactions before acquisition in August 2024)
+- **Founder & CEO** — CosLynx.com (AI code-generation platform, 400+ live MVPs, Build with Backdrop v4 Winner)
+- **AI Systems Architect** — Canopy @ Founders, Inc. (4-LLM autonomous multi-agent trading engine)
+- **Cybersecurity Student** — Dayananda Sagar University
+- **2x International Hackathon Winner** • **IBM AI Engineering Professional Certificate**
+
+> This repository is the public knowledge base behind that work: a continuously updated, high-signal archive of AI systems, developer infrastructure, and security engineering breakdowns — no motivational fluff, no consultant larp, just mechanics and code reality.
+
+**Connect:** [Portfolio](https://drix10.com) • [Blog](https://blogs.drix10.com) • [GitHub](https://github.com/Drix10) • [LinkedIn](https://www.linkedin.com/in/drix10) • [X / Twitter](https://x.com/DrishtantGhosh) • [Peerlist](https://peerlist.io/drix10) • [DEV.to](https://dev.to/drix10) • [Medium](https://medium.com/@drix10)
+
+---
+
+## 📦 What's Inside This Repository
+
+This is not a link dump. It is a **continuously regenerated technical archive** — an autonomous pipeline scrapes curated X/Twitter lists, LinkedIn insights, and systems research, then distills each signal into a structured, publish-ready markdown article.
+
+| Layer | What It Contains |
+| --- | --- |
+| **🗂️ 41 Curated Categories** | AI Developer Tools, AI Leaders & Thinkers, AI Companies & Ventures, CS Academics, Tech VIPs, VC Firms, Devs/Designers/DevRel, Tech Infrastructure, Founders & Entrepreneurs, AI Organizations & Media, AI in Healthcare & Science, AI Generated Music & Audio, AI Policy & Ethics, AI & Robotics, AI Driven Vehicles, Computer Vision, Crypto & Web3, Decentralized AI, Quantum Computing, Spatial Computing, Cybersecurity & Tech, Neuroscience & AI, Climate Tech, AR/VR, and more. |
+| **📝 Scraped & Synthesized Articles** | Every \`resources-NNN.md\` file is generated from real X/Twitter list content and LinkedIn insights — deduplicated, ranked, and rewritten into dense technical breakdowns with concrete mechanics instead of hype. |
+| **🧠 LinkedIn Insights** | Long-form postmortems and engineering reflections (payment webhook failures, vector search tuning, struct padding, AST vs regex scanning, concurrency races) captured as standalone markdown. |
+| **✍️ Personal Essays** | Founder-journey and systems-thinking pieces — building autonomous AI systems, scaling and selling a startup, the memory-first mental model, and the signal-to-noise problem in AI resources. |
+| **🔗 Multi-Channel Syndication** | Every article is cross-published to [blogs.drix10.com](https://blogs.drix10.com), [DEV.to](https://dev.to/drix10), and [Medium](https://medium.com/@drix10), each with a canonical SEO backlink and a Next.js 14 interactive version. |
+| **⚙️ Zero-Slop Quality Gates** | Deterministic validation rejects any model output that lacks a real article, strips credentials/secrets, and bans motivational fluff and consultant larp before anything is committed. |
+
+### 🔄 How It Works
+
+\`\`\`mermaid
+flowchart LR
+    A["X/Twitter Curated Lists (41 categories)"] --> D["Autonomous Curation Engine"]
+    B["LinkedIn Insights & Postmortems"] --> D
+    C["Systems Research & Repo Pulse"] --> D
+    D --> E["LLM Synthesis (Ollama / NVIDIA NIM)"]
+    E --> F["Zero-Slop Quality Gate + Secret Redaction"]
+    F --> G["resources-NNN.md committed to this repo"]
+    G --> H["blogs.drix10.com (Next.js 14)"]
+    G --> I["DEV.to Syndication"]
+    G --> J["Medium Syndication"]
+\`\`\`
 
 ---
 
@@ -461,7 +514,7 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
         try {
           // Add delay to prevent hitting rate limits
           await new Promise(resolve => setTimeout(resolve, Math.random() * 2000));
-          
+
           const { data } = await this.octokit.repos.getContent({
             owner,
             repo,
@@ -483,9 +536,8 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
           if (files.length > 0) {
             sectionContent += `*   [Latest Update (#${String(
               files[0].number
-            ).padStart(3, "0")})](${files[0].url}) - *${
-              folder.description || "Resources related to " + folder.name
-            }*\n`;
+            ).padStart(3, "0")})](${files[0].url}) - *${folder.description || "Resources related to " + folder.name
+              }*\n`;
           } else {
             sectionContent += `*   No resources yet.\n`;
           }
@@ -502,9 +554,9 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
           return { name: folder.name, content: sectionContent };
         }
       });
-      
+
       // Sort results to maintain order from config
-      const orderedContent = config.folders.map(folder => 
+      const orderedContent = config.folders.map(folder =>
         folderResults.find(r => r.name === folder.name)?.content || ""
       ).join("");
 

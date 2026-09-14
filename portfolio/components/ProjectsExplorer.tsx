@@ -15,13 +15,12 @@ interface Project {
 
 const PROJECTS: Project[] = [
   {
-    title: 'PartPilot',
-    category: 'Startups & Systems',
-    period: 'Jul 2026 — Present • Remote',
+    title: 'Keystroke LLM',
+    category: 'AI & LLMs',
     description:
-      'Platform engineered to identify hardware supply chain risks before they impact production. Comprehensive component intelligence tool for engineering, sourcing, and compliance teams.',
-    tags: ['Next.js 14', 'TypeScript', 'Prisma', 'PostgreSQL', 'Supply Chain AI', 'Cloud Infra'],
-    highlight: 'Co-Founded Startup • Remote',
+      'A tiny language model that turns your keyboard into its own prediction display. Start typing a word and the model predicts which keys will come next. The Kreo Hive 75 lights the keys based on confidence.',
+    tags: ['Machine Learning', 'NumPy', 'Hardware', 'Transformers'],
+    highlight: 'Hardware ML',
   },
   {
     title: 'Canopy @ Founders, Inc.',
@@ -137,11 +136,10 @@ export default function ProjectsExplorer() {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-3 py-1.5 rounded-lg transition-all ${
-                activeCategory === cat
+              className={`px-3 py-1.5 rounded-lg transition-all ${activeCategory === cat
                   ? 'bg-zinc-100 text-zinc-950 font-semibold shadow'
                   : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
-              }`}
+                }`}
             >
               {cat}
             </button>
