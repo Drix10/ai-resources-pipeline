@@ -122,7 +122,9 @@ class SyndicationService {
 
             return { ok: response.ok, status: response.status, data };
           } catch (fetchErr) {
-            if (attempt < maxRetries && fetchErr.name !== "AbortError") {
+            // ponytail: timeouts are transient too; error.log shows DEV.to
+            // publishes dying on first-attempt AbortError with zero retries.
+            if (attempt < maxRetries) {
               const waitSeconds = 3 + attempt * 2;
               logger.warn(`SyndicationService: Network error (${fetchErr.message}). Retrying in ${waitSeconds}s (attempt ${attempt + 1}/${maxRetries})...`);
               await new Promise((res) => setTimeout(res, waitSeconds * 1000));

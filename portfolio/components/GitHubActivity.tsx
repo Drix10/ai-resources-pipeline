@@ -17,6 +17,7 @@ export default function GitHubActivity() {
   const [weeks, setWeeks] = useState<Week[]>([]);
   const [total, setTotal] = useState<number>(0);
   const [hovered, setHovered] = useState<{ date: string; count: number } | null>(null);
+  const [isLive, setIsLive] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -26,6 +27,9 @@ export default function GitHubActivity() {
         if (data?.weeks) {
           setWeeks(data.weeks);
           setTotal(data.totalContributions || 2450);
+          // ponytail: API falls back to a synthetic heatmap when GitHub is
+          // unreachable; surface that instead of labeling it live.
+          setIsLive(data.isLive !== false);
         }
       })
       .catch(() => {})
@@ -51,7 +55,9 @@ export default function GitHubActivity() {
             </h3>
           </div>
           <p className="text-xs text-zinc-400">
-            Real-time public commit activity, repository maintenance, and autonomous AI systems.
+            {isLive
+              ? 'Real-time public commit activity, repository maintenance, and autonomous AI systems.'
+              : 'Cached commit snapshot — GitHub API unreachable, live data will resume automatically.'}
           </p>
         </div>
 

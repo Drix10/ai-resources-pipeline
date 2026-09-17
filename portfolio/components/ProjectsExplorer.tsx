@@ -20,6 +20,7 @@ const PROJECTS: Project[] = [
     description:
       'A tiny language model that turns your keyboard into its own prediction display. Start typing a word and the model predicts which keys will come next. The Kreo Hive 75 lights the keys based on confidence.',
     tags: ['Machine Learning', 'NumPy', 'Hardware', 'Transformers'],
+    github: 'https://github.com/Drix10/keystroke-llm',
     highlight: 'Hardware ML',
   },
   {
@@ -70,6 +71,7 @@ const PROJECTS: Project[] = [
     description:
       'Evidence-first revenue operations workspace for SaaS teams built for the OpenAI Codex Hackathon. Integrates with Dodo Payments to turn webhook signals into reviewable recovery cases.',
     tags: ['React.js', 'OpenAI Codex', 'Dodo Payments', 'Webhook Analytics', 'UX'],
+    github: 'https://github.com/Drix10/intent-canvas',
     highlight: 'OpenAI Codex Hackathon',
   },
   {
@@ -79,7 +81,7 @@ const PROJECTS: Project[] = [
     description:
       'Application security CLI combining deterministic AST parsing, attack/knowledge graphs, multi-file codebase context, Gemini 2.5 Flash AI reasoning, and zero-breakage autonomous patching.',
     tags: ['Cybersecurity', 'AST Parser', 'Attack Graphs', 'Gemini 2.5 Flash', 'Python/Node'],
-    github: 'https://github.com/Drix10',
+    github: 'https://github.com/Drix10/sentinal',
     highlight: 'AppSec & Zero-Breakage',
   },
   {
@@ -89,6 +91,7 @@ const PROJECTS: Project[] = [
     description:
       'Cross-platform AI character-interaction mobile game. Create unlimited custom AI characters, chat with anime legends and gaming icons, and collect rare digital cards in daily drops.',
     tags: ['React Native', 'WebSockets', 'Mobile App', 'LLM Prompting', 'Gamification'],
+    github: 'https://github.com/Drix10/idolchat',
     highlight: 'Mobile & AI Gaming',
   },
   {
@@ -98,6 +101,7 @@ const PROJECTS: Project[] = [
     description:
       'Intelligent Instagram DM companion converting educational Reels into actionable weekly schedules, transcribing video notes, and setting automated habit reminders with Gemini 3.5 Flash.',
     tags: ['Instagram API', 'Gemini 3.5 Flash', 'Node.js', 'Audio Transcription'],
+    github: 'https://github.com/Drix10/instagram-ai',
     highlight: 'Gemini 3.5 Flash',
   },
   {

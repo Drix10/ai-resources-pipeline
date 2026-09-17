@@ -7,10 +7,12 @@ export default function ContactCard() {
   const email = 'ggdrishtant@gmail.com';
 
   const copyEmail = () => {
-    if (typeof navigator !== 'undefined') {
-      navigator.clipboard.writeText(email);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2500);
+    // ponytail: clipboard can reject (permissions/insecure context); never float it.
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(email).then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2500);
+      }).catch(() => {});
     }
   };
 

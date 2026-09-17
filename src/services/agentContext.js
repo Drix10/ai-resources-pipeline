@@ -125,28 +125,27 @@ class AgentContextService {
         per_page: 30
       });
 
-      const priorityRepoNames = [
-        "Grind",
-        "payscope",
-        "sentinal",
-        "hypothesis-arena",
-        "intent-canvas",
-        "instagram-ai",
-        "YourResume",
-        "ai-resources",
-        "Twitter-Gemini-GitHub-MVP"
-      ];
       const activeRepos = (reposRes.data || []).filter(r => !r.fork && r.name !== username);
 
-      // Prioritize core builder repos first so they are never omitted
-      activeRepos.sort((a, b) => {
-        const aIdx = priorityRepoNames.indexOf(a.name);
-        const bIdx = priorityRepoNames.indexOf(b.name);
-        if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
-        if (aIdx !== -1) return -1;
-        if (bIdx !== -1) return 1;
-        return 0;
-      });
+      // ponytail: keep API sort:updated order. A priority re-sort here used to
+      // bury the actually-active repos (ml-videos, ai-resources) under stale ones.
+      // Union archetype repos that fall outside the per_page window so the pulse covers them.
+      const extraRepos = [
+        { owner: username, name: "idolchat" }
+      ];
+      const seen = new Set(activeRepos.map(r => `${r.owner?.login}/${r.name}`.toLowerCase()));
+      for (const e of extraRepos) {
+        if (seen.has(`${e.owner}/${e.name}`.toLowerCase())) continue;
+        try {
+          const { data } = await octokit.repos.get({ owner: e.owner, repo: e.name });
+          if (!data.fork) activeRepos.push(data);
+        } catch {
+          // 404/private/renamed: skip, archetypes referencing it stay uncovered (see diagnosis).
+        }
+      }
+
+      // Most-recently-updated first so the LLM sees live activity, not stale picks.
+      activeRepos.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
 
       const repoDetails = [];
       let totalFreshCommitsCount = 0;
@@ -154,10 +153,10 @@ class AgentContextService {
       const twoDaysMs = 48 * 60 * 60 * 1000;
       const interestingKeywords = /\b(fix|refactor|perf|leak|timeout|optimize|memory|race|solve|crash|break|pointer|alloc|ast|sarif|stream|queue|buffer|sync)\b/i;
 
-      for (const repo of activeRepos.slice(0, 10)) {
+      for (const repo of activeRepos.slice(0, 12)) {
         try {
           const commitsRes = await octokit.repos.listCommits({
-            owner: username,
+            owner: (repo.owner && repo.owner.login) || username,
             repo: repo.name,
             per_page: 25
           });
@@ -297,13 +296,6 @@ class AgentContextService {
    */
   getPostTypes() {
     return [
-      {
-        id: "partpilot-ai-search-sync",
-        label: "High-Concurrency Inventory Sync & AI Parts Parsing (PartPilot)",
-        targetAudience: "AI systems architects, backend engineers, search infra leads",
-        focus: "Architecting real-time automotive parts catalog search and inventory sync across high-volume supplier feeds in PartPilot. Solving SKU normalization, vector + BM25 hybrid search latency, and webhook fan-out contention under peak inventory ingest without locking SQL write streams.",
-        primaryRepo: "PartPilot"
-      },
       {
         id: "realtime-websocket-architecture",
         label: "WebSockets, Heartbeats & Redis Pub/Sub at Scale (Drix10/idolchat)",
