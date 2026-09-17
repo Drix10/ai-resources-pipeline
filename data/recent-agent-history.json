@@ -1,5 +1,17 @@
 [
   {
+    "postType": "fintech-webhook-signatures",
+    "topicTitle": "Why Payment Webhooks Fail HMAC Signature Verification",
+    "repo": "intent-canvas",
+    "timestamp": "2026-09-16T21:46:33.601Z"
+  },
+  {
+    "postType": "algorithmic-hedging-risk-engine",
+    "topicTitle": "Algorithmic Hedging, Delta Neutrality & Latency (miro-hedge)",
+    "repo": "miro-hedge",
+    "timestamp": "2026-09-15T00:40:12.244Z"
+  },
+  {
     "postType": "multi-agent-crypto-trading",
     "topicTitle": "Multi-Agent Consensus & WebSocket Orderbooks (Drix10/hypothesis-arena)",
     "repo": "hypothesis-arena",
@@ -16,12 +28,6 @@
     "topicTitle": "High-Concurrency Inventory Sync & AI Parts Parsing",
     "repo": "PartPilot",
     "timestamp": "2026-09-11T00:12:57.156Z"
-  },
-  {
-    "postType": "fintech-webhook-signatures",
-    "topicTitle": "Why Payment Webhooks Fail HMAC Signature Verification",
-    "repo": "intent-canvas",
-    "timestamp": "2026-09-08T13:51:10.583Z"
   },
   {
     "postType": "appsec-ast-parsing",
@@ -64,11 +70,5 @@
     "topicTitle": "The Hidden Knobs of Vector Search Tuning",
     "repo": "ai-resources",
     "timestamp": "2026-09-08T12:08:40.023Z"
-  },
-  {
-    "postType": "c-fundamentals-grind",
-    "topicTitle": "The Hidden Dangers of Premature DSA",
-    "repo": "Grind",
-    "timestamp": "2026-09-08T11:55:39.681Z"
   }
 ]

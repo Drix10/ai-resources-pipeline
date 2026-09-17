@@ -1091,9 +1091,12 @@ class LocalLLMService {
     const endpoint = `${config.llm.baseUrl}/api/generate`;
     await this.ensureLocalOllamaAvailable();
     logger.info(`LocalLLMService: Generating with local model "${config.llm.model}".`);
+    // ponytail: honor per-call timeoutMs like the Nvidia path; big multi-source
+    // generations budget sourceCount * 25s and were aborted at the 300s default.
+    const { format, timeoutMs, ...generationOptions } = options;
+    const requestTimeout = Math.max(config.llm.requestTimeoutMs, typeof timeoutMs === "number" ? timeoutMs : 0);
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), config.llm.requestTimeoutMs);
-    const { format, ...generationOptions } = options;
+    const timeout = setTimeout(() => controller.abort(), requestTimeout);
 
     try {
       const response = await fetch(endpoint, {
@@ -1128,7 +1131,7 @@ class LocalLLMService {
     } catch (error) {
       if (error?.code === "LOCAL_LLM_UNAVAILABLE") throw error;
       if (error?.name === "AbortError") {
-        const timeoutError = new Error(`Local LLM generation exceeded ${config.llm.requestTimeoutMs}ms.`);
+        const timeoutError = new Error(`Local LLM generation exceeded ${requestTimeout}ms.`);
         timeoutError.code = "LOCAL_LLM_UNAVAILABLE";
         throw timeoutError;
       }

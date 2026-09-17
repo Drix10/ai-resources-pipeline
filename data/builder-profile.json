@@ -91,20 +91,6 @@
   ],
   "verifiedProjects": [
     {
-      "name": "PartPilot",
-      "repo": "PartPilot/core",
-      "stack": [
-        "TypeScript",
-        "Python",
-        "FastAPI",
-        "PostgreSQL",
-        "pgvector",
-        "Redis"
-      ],
-      "description": "High-throughput automotive parts search engine and real-time inventory synchronization platform.",
-      "realMechanics": "Hybrid BM25 and vector embeddings for SKU search, high-volume supplier catalog ingestion, Redis locks for inventory write streams."
-    },
-    {
       "name": "Miro Hedge",
       "repo": "Drix10/miro-hedge",
       "stack": [

@@ -82,6 +82,7 @@ async function fetchArticlesFromGithub() {
       if (fileData && !Array.isArray(fileData) && fileData.content) {
         const encodedPath = targetFile.path.split("/").map(encodeURIComponent).join("/");
         const fileUrl = `https://github.com/${owner}/${repo}/blob/main/${encodedPath}`;
+        const fileContent = Buffer.from(fileData.content, "base64").toString("utf8");
 
         collectedArticles.push({
           title: folder.name,
@@ -185,7 +186,6 @@ async function runLivePost() {
     }
 
     const repoTitles = {
-      "PartPilot": "PartPilot: High-Concurrency Automotive Parts Parsing & Inventory Sync Engine",
       "idolchat": "Drix10/idolchat: Real-Time AI Character Chat with WebSockets & Redis",
       "hypothesis-arena": "Drix10/hypothesis-arena: Multi-Agent Crypto Futures Arena",
       "miro-hedge": "Drix10/miro-hedge: Quantitative Algorithmic Hedging & Risk Engine",
@@ -201,9 +201,7 @@ async function runLivePost() {
       ? (repoTitles[postData.primaryRepo] || `Drix10/${postData.primaryRepo}`)
       : "Drix10 Codebase";
     const sourceLink = postData.primaryRepo
-      ? (postData.primaryRepo === "PartPilot"
-          ? "https://github.com/PartPilot"
-          : `https://github.com/Drix10/${postData.primaryRepo}`)
+      ? `https://github.com/Drix10/${postData.primaryRepo}`
       : "https://github.com/Drix10/ai-resources";
 
     const blogMarkdownContent = `# ${postData.title || "LinkedIn Technical Insight"}

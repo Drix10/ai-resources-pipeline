@@ -1369,7 +1369,7 @@ class LinkedInService {
         <div class="avatar">DG</div>
         <div class="founder-info">
           <div class="founder-name">Drishtant Ghosh (Drix10) <span class="verified-icon">✓</span></div>
-          <div class="founder-role">AI Systems &amp; LLM Architect · Co-Founder @ PartPilot</div>
+          <div class="founder-role">Full-Stack AI Engineer · Drix10</div>
         </div>
       </div>
       <div class="status-badge">

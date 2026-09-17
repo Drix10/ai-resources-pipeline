@@ -1,7 +1,213 @@
 {
-  "timestamp": 1789379872538,
+  "timestamp": 1789668290121,
   "user": "Drix10",
   "repos": [
+    {
+      "name": "ml-videos",
+      "fullName": "Drix10/ml-videos",
+      "description": "Small brains, visible struggle, big learning curves — real training runs rendered as watchable videos.",
+      "language": "Python",
+      "stars": 0,
+      "updatedAt": "2026-09-17T14:16:39Z",
+      "recentCommits": [
+        {
+          "sha": "e4e3cc6",
+          "message": "Night Hunt Complete",
+          "date": "2026-09-17T14:16:26Z"
+        },
+        {
+          "sha": "1373646",
+          "message": "Both hunks applied, verified, documented. Closing summary:",
+          "date": "2026-09-17T10:19:35Z"
+        },
+        {
+          "sha": "5151cdd",
+          "message": "plateau exit strat",
+          "date": "2026-09-17T09:40:18Z"
+        },
+        {
+          "sha": "0b6876c",
+          "message": "Update README",
+          "date": "2026-09-17T09:15:21Z"
+        },
+        {
+          "sha": "dc97161",
+          "message": "Fixes & Improvements",
+          "date": "2026-09-17T06:25:14Z"
+        }
+      ],
+      "historicalHighlights": [
+        {
+          "sha": "05847ea",
+          "message": "Audit: fix L6 min_gens/inf (finale could never fire), id-collision cache guard, resume, autobar, docs",
+          "date": "2026-09-16T15:27:19Z"
+        }
+      ],
+      "hasFreshCommits": true
+    },
+    {
+      "name": "ai-resources",
+      "fullName": "Drix10/ai-resources",
+      "description": "Daily updated resources on AI across various domains including ML, development, education, healthcare, real estate, robotics, crypto, web3 and more, curated by enthusiasts.",
+      "language": "Multi-language",
+      "stars": 118,
+      "updatedAt": "2026-09-16T21:45:12Z",
+      "recentCommits": [
+        {
+          "sha": "3b65198",
+          "message": "📚 Update README with latest tweets",
+          "date": "2026-09-16T21:45:08Z"
+        },
+        {
+          "sha": "cf58691",
+          "message": "📝 Add resource collection: World News and Updates #212",
+          "date": "2026-09-16T21:44:39Z"
+        },
+        {
+          "sha": "eeaa2e2",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-16T21:40:57Z"
+        },
+        {
+          "sha": "7103e77",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-16T21:24:17Z"
+        },
+        {
+          "sha": "cf88ec5",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-16T21:05:07Z"
+        }
+      ],
+      "historicalHighlights": [
+        {
+          "sha": "eeaa2e2",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-16T21:40:57Z"
+        },
+        {
+          "sha": "7103e77",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-16T21:24:17Z"
+        },
+        {
+          "sha": "cf88ec5",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-16T21:05:07Z"
+        },
+        {
+          "sha": "c182113",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-16T20:47:01Z"
+        },
+        {
+          "sha": "ab0ae20",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-16T20:32:05Z"
+        }
+      ],
+      "hasFreshCommits": true
+    },
+    {
+      "name": "keystroke-llm",
+      "fullName": "Drix10/keystroke-llm",
+      "description": "A tiny language model that turns your keyboard into its own prediction display. Start typing a word and the model predicts which keys will come next. The Kreo Hive 75 lights the keys based on confidence.",
+      "language": "Python",
+      "stars": 3,
+      "updatedAt": "2026-09-13T15:37:25Z",
+      "recentCommits": [
+        {
+          "sha": "202117b",
+          "message": "Fix Startup Process issues",
+          "date": "2026-09-13T04:04:59Z"
+        },
+        {
+          "sha": "41b14e8",
+          "message": "Update Config",
+          "date": "2026-09-13T03:40:26Z"
+        },
+        {
+          "sha": "c381e7e",
+          "message": "Gaming mode rework",
+          "date": "2026-09-12T03:19:57Z"
+        },
+        {
+          "sha": "0479913",
+          "message": "fix: ignore Ctrl+C in input reader to maintain process stability",
+          "date": "2026-09-11T15:26:01Z"
+        },
+        {
+          "sha": "5c945d4",
+          "message": "feat: add runtime configuration support with validation and default settings in JSON format",
+          "date": "2026-09-11T14:21:21Z"
+        }
+      ],
+      "historicalHighlights": [
+        {
+          "sha": "202117b",
+          "message": "Fix Startup Process issues",
+          "date": "2026-09-13T04:04:59Z"
+        },
+        {
+          "sha": "0479913",
+          "message": "fix: ignore Ctrl+C in input reader to maintain process stability",
+          "date": "2026-09-11T15:26:01Z"
+        },
+        {
+          "sha": "514b833",
+          "message": "fix: update gaming mode behavior to ignore Space key and clarify resume conditions in documentation and tests",
+          "date": "2026-09-11T13:22:37Z"
+        },
+        {
+          "sha": "7eb1679",
+          "message": "fix: extend gaming idle timeout to 12 seconds for better pause handling in predictive lighting",
+          "date": "2026-09-11T13:19:16Z"
+        },
+        {
+          "sha": "8ccd5d3",
+          "message": "fix: update idle timeout default value and clarify behavior in documentation and tests",
+          "date": "2026-09-11T13:13:22Z"
+        }
+      ],
+      "hasFreshCommits": false
+    },
+    {
+      "name": "drix10",
+      "fullName": "Drix10/drix10",
+      "description": "",
+      "language": "Multi-language",
+      "stars": 2,
+      "updatedAt": "2026-09-13T04:21:19Z",
+      "recentCommits": [
+        {
+          "sha": "79c7ebb",
+          "message": "Update README.md",
+          "date": "2026-09-13T04:21:15Z"
+        },
+        {
+          "sha": "ff23cb0",
+          "message": "Update README",
+          "date": "2026-09-11T08:56:29Z"
+        },
+        {
+          "sha": "80f99f5",
+          "message": "Revise README with new accomplishments and projects",
+          "date": "2026-09-11T08:54:15Z"
+        },
+        {
+          "sha": "2d73eaa",
+          "message": "Update README.md",
+          "date": "2026-08-30T15:19:51Z"
+        },
+        {
+          "sha": "07023ea",
+          "message": "Update current projects listed in README",
+          "date": "2026-08-24T22:32:49Z"
+        }
+      ],
+      "historicalHighlights": [],
+      "hasFreshCommits": false
+    },
     {
       "name": "Grind",
       "fullName": "Drix10/Grind",
@@ -37,6 +243,59 @@
         }
       ],
       "historicalHighlights": [],
+      "hasFreshCommits": false
+    },
+    {
+      "name": "sentinal",
+      "fullName": "Drix10/sentinal",
+      "description": "CLI tool for scanning repositories and reporting vulnerabilities",
+      "language": "TypeScript",
+      "stars": 1,
+      "updatedAt": "2026-08-30T08:20:13Z",
+      "recentCommits": [
+        {
+          "sha": "11ee016",
+          "message": "feat: implement core Sentinel AI security analysis CLI with SARIF reporting and attack orchestration",
+          "date": "2026-08-02T20:49:52Z"
+        },
+        {
+          "sha": "ee4d2d3",
+          "message": "feat: implement CLI entry point, SARIF reporting, update notifier, and command orchestration structure.",
+          "date": "2026-07-28T05:46:47Z"
+        },
+        {
+          "sha": "653cce1",
+          "message": "feat: implement core security analysis engine, AI-driven remediation pipeline, and CLI command structure",
+          "date": "2026-07-28T05:12:30Z"
+        },
+        {
+          "sha": "5c5cae7",
+          "message": "Update README.md",
+          "date": "2026-07-27T11:41:36Z"
+        },
+        {
+          "sha": "9244924",
+          "message": "feat: implement attack orchestration engine and add post-install setup script",
+          "date": "2026-07-27T11:21:21Z"
+        }
+      ],
+      "historicalHighlights": [
+        {
+          "sha": "11ee016",
+          "message": "feat: implement core Sentinel AI security analysis CLI with SARIF reporting and attack orchestration",
+          "date": "2026-08-02T20:49:52Z"
+        },
+        {
+          "sha": "ee4d2d3",
+          "message": "feat: implement CLI entry point, SARIF reporting, update notifier, and command orchestration structure.",
+          "date": "2026-07-28T05:46:47Z"
+        },
+        {
+          "sha": "676260e",
+          "message": "Fix spelling Sentinal ->  Sentinel",
+          "date": "2026-07-20T12:41:01Z"
+        }
+      ],
       "hasFreshCommits": false
     },
     {
@@ -98,175 +357,6 @@
           "sha": "5f418f0",
           "message": "fix: allow query parameter authentication for EventSource SSE stream to fix production reconnecting status",
           "date": "2026-08-27T16:58:10Z"
-        }
-      ],
-      "hasFreshCommits": false
-    },
-    {
-      "name": "sentinal",
-      "fullName": "Drix10/sentinal",
-      "description": "CLI tool for scanning repositories and reporting vulnerabilities",
-      "language": "TypeScript",
-      "stars": 1,
-      "updatedAt": "2026-08-30T08:20:13Z",
-      "recentCommits": [
-        {
-          "sha": "11ee016",
-          "message": "feat: implement core Sentinel AI security analysis CLI with SARIF reporting and attack orchestration",
-          "date": "2026-08-02T20:49:52Z"
-        },
-        {
-          "sha": "ee4d2d3",
-          "message": "feat: implement CLI entry point, SARIF reporting, update notifier, and command orchestration structure.",
-          "date": "2026-07-28T05:46:47Z"
-        },
-        {
-          "sha": "653cce1",
-          "message": "feat: implement core security analysis engine, AI-driven remediation pipeline, and CLI command structure",
-          "date": "2026-07-28T05:12:30Z"
-        },
-        {
-          "sha": "5c5cae7",
-          "message": "Update README.md",
-          "date": "2026-07-27T11:41:36Z"
-        },
-        {
-          "sha": "9244924",
-          "message": "feat: implement attack orchestration engine and add post-install setup script",
-          "date": "2026-07-27T11:21:21Z"
-        }
-      ],
-      "historicalHighlights": [
-        {
-          "sha": "11ee016",
-          "message": "feat: implement core Sentinel AI security analysis CLI with SARIF reporting and attack orchestration",
-          "date": "2026-08-02T20:49:52Z"
-        },
-        {
-          "sha": "ee4d2d3",
-          "message": "feat: implement CLI entry point, SARIF reporting, update notifier, and command orchestration structure.",
-          "date": "2026-07-28T05:46:47Z"
-        },
-        {
-          "sha": "676260e",
-          "message": "Fix spelling Sentinal ->  Sentinel",
-          "date": "2026-07-20T12:41:01Z"
-        }
-      ],
-      "hasFreshCommits": false
-    },
-    {
-      "name": "hypothesis-arena",
-      "fullName": "Drix10/hypothesis-arena",
-      "description": "4 AI analysts engage in debates to make collaborative trading decisions on WEEX Crypto Futures. ",
-      "language": "TypeScript",
-      "stars": 9,
-      "updatedAt": "2026-08-02T23:27:18Z",
-      "recentCommits": [
-        {
-          "sha": "eef9856",
-          "message": "Revise README with project overview and features",
-          "date": "2026-04-26T16:18:21Z"
-        },
-        {
-          "sha": "ce2020b",
-          "message": "Clean up README and remove outdated information",
-          "date": "2026-04-18T21:34:17Z"
-        },
-        {
-          "sha": "a796a59",
-          "message": "Update README.md with new features and structure",
-          "date": "2026-02-09T15:09:21Z"
-        },
-        {
-          "sha": "9ccabce",
-          "message": "plan",
-          "date": "2026-02-06T20:49:12Z"
-        },
-        {
-          "sha": "65ff794",
-          "message": "prompt fixes",
-          "date": "2026-01-30T13:43:04Z"
-        }
-      ],
-      "historicalHighlights": [
-        {
-          "sha": "9c9460b",
-          "message": "refactor(trading): update judge prompt to BTC-only scalping strategy",
-          "date": "2026-01-20T16:48:46Z"
-        },
-        {
-          "sha": "0f2b2b0",
-          "message": "feat(position): add TP/SL sync and trade hydration",
-          "date": "2026-01-20T11:25:13Z"
-        },
-        {
-          "sha": "575c4c4",
-          "message": "feat(ai): optimize analyst calls with combined execution and caching",
-          "date": "2026-01-19T13:55:44Z"
-        }
-      ],
-      "hasFreshCommits": false
-    },
-    {
-      "name": "intent-canvas",
-      "fullName": "Drix10/intent-canvas",
-      "description": "Intent Canvas is a browser-first spatial workspace for expressing business outcomes through context nodes, relationships, and natural-language intent.",
-      "language": "TypeScript",
-      "stars": 1,
-      "updatedAt": "2026-08-23T11:05:42Z",
-      "recentCommits": [
-        {
-          "sha": "a54dfc2",
-          "message": "Screenshots",
-          "date": "2026-08-21T16:04:27Z"
-        },
-        {
-          "sha": "28e1853",
-          "message": "fix: integrate Gemini key into zoom bar, remove floating overlap",
-          "date": "2026-08-21T15:57:57Z"
-        },
-        {
-          "sha": "7c33f6a",
-          "message": "fix: move Gemini key bar to workspace-native UX",
-          "date": "2026-08-21T15:54:05Z"
-        },
-        {
-          "sha": "abe6028",
-          "message": "remove ss",
-          "date": "2026-08-21T15:49:34Z"
-        },
-        {
-          "sha": "9c8332c",
-          "message": "fix: update Gemini key validation to require a minimum length of 20 characters",
-          "date": "2026-08-21T15:49:24Z"
-        }
-      ],
-      "historicalHighlights": [
-        {
-          "sha": "28e1853",
-          "message": "fix: integrate Gemini key into zoom bar, remove floating overlap",
-          "date": "2026-08-21T15:57:57Z"
-        },
-        {
-          "sha": "7c33f6a",
-          "message": "fix: move Gemini key bar to workspace-native UX",
-          "date": "2026-08-21T15:54:05Z"
-        },
-        {
-          "sha": "9c8332c",
-          "message": "fix: update Gemini key validation to require a minimum length of 20 characters",
-          "date": "2026-08-21T15:49:24Z"
-        },
-        {
-          "sha": "f0776e1",
-          "message": "fix: update Gemini model version to 3.5-flash in .env.example",
-          "date": "2026-08-21T15:03:42Z"
-        },
-        {
-          "sha": "c5d6403",
-          "message": "fix: harden standalone Gemini — rate limit, retry, key validation, richer prompts",
-          "date": "2026-08-21T14:58:40Z"
         }
       ],
       "hasFreshCommits": false
@@ -388,132 +478,157 @@
       "hasFreshCommits": false
     },
     {
-      "name": "ai-resources",
-      "fullName": "Drix10/ai-resources",
-      "description": "Daily updated resources on AI across various domains including ML, development, education, healthcare, real estate, robotics, crypto, web3 and more, curated by enthusiasts.",
-      "language": "Multi-language",
-      "stars": 118,
-      "updatedAt": "2026-09-14T09:57:44Z",
+      "name": "intent-canvas",
+      "fullName": "Drix10/intent-canvas",
+      "description": "Intent Canvas is a browser-first spatial workspace for expressing business outcomes through context nodes, relationships, and natural-language intent.",
+      "language": "TypeScript",
+      "stars": 1,
+      "updatedAt": "2026-08-23T11:05:42Z",
       "recentCommits": [
         {
-          "sha": "ac3e37a",
-          "message": "📚 Update README with latest tweets",
-          "date": "2026-09-14T09:57:39Z"
+          "sha": "a54dfc2",
+          "message": "Screenshots",
+          "date": "2026-08-21T16:04:27Z"
         },
         {
-          "sha": "f8ee958",
-          "message": "📝 Batch sync: 8 resource collections",
-          "date": "2026-09-14T09:55:37Z"
+          "sha": "28e1853",
+          "message": "fix: integrate Gemini key into zoom bar, remove floating overlap",
+          "date": "2026-08-21T15:57:57Z"
         },
         {
-          "sha": "aa615a0",
-          "message": "📝 Batch sync: 8 resource collections",
-          "date": "2026-09-14T09:35:15Z"
+          "sha": "7c33f6a",
+          "message": "fix: move Gemini key bar to workspace-native UX",
+          "date": "2026-08-21T15:54:05Z"
         },
         {
-          "sha": "f150a97",
-          "message": "📝 Batch sync: 8 resource collections",
-          "date": "2026-09-14T09:19:40Z"
+          "sha": "abe6028",
+          "message": "remove ss",
+          "date": "2026-08-21T15:49:34Z"
         },
         {
-          "sha": "d3def26",
-          "message": "📝 Batch sync: 8 resource collections",
-          "date": "2026-09-14T09:00:33Z"
+          "sha": "9c8332c",
+          "message": "fix: update Gemini key validation to require a minimum length of 20 characters",
+          "date": "2026-08-21T15:49:24Z"
         }
       ],
       "historicalHighlights": [
         {
-          "sha": "f8ee958",
-          "message": "📝 Batch sync: 8 resource collections",
-          "date": "2026-09-14T09:55:37Z"
+          "sha": "28e1853",
+          "message": "fix: integrate Gemini key into zoom bar, remove floating overlap",
+          "date": "2026-08-21T15:57:57Z"
         },
         {
-          "sha": "aa615a0",
-          "message": "📝 Batch sync: 8 resource collections",
-          "date": "2026-09-14T09:35:15Z"
+          "sha": "7c33f6a",
+          "message": "fix: move Gemini key bar to workspace-native UX",
+          "date": "2026-08-21T15:54:05Z"
         },
         {
-          "sha": "f150a97",
-          "message": "📝 Batch sync: 8 resource collections",
-          "date": "2026-09-14T09:19:40Z"
+          "sha": "9c8332c",
+          "message": "fix: update Gemini key validation to require a minimum length of 20 characters",
+          "date": "2026-08-21T15:49:24Z"
         },
         {
-          "sha": "d3def26",
-          "message": "📝 Batch sync: 8 resource collections",
-          "date": "2026-09-14T09:00:33Z"
+          "sha": "f0776e1",
+          "message": "fix: update Gemini model version to 3.5-flash in .env.example",
+          "date": "2026-08-21T15:03:42Z"
         },
         {
-          "sha": "59285ed",
-          "message": "📝 Batch sync: 8 resource collections",
-          "date": "2026-09-14T08:43:49Z"
+          "sha": "c5d6403",
+          "message": "fix: harden standalone Gemini — rate limit, retry, key validation, richer prompts",
+          "date": "2026-08-21T14:58:40Z"
         }
       ],
-      "hasFreshCommits": true
+      "hasFreshCommits": false
     },
     {
-      "name": "keystroke-llm",
-      "fullName": "Drix10/keystroke-llm",
-      "description": "A tiny language model that turns your keyboard into its own prediction display. Start typing a word and the model predicts which keys will come next. The Kreo Hive 75 lights the keys based on confidence.",
-      "language": "Python",
-      "stars": 3,
-      "updatedAt": "2026-09-13T15:37:25Z",
+      "name": "hypothesis-arena",
+      "fullName": "Drix10/hypothesis-arena",
+      "description": "4 AI analysts engage in debates to make collaborative trading decisions on WEEX Crypto Futures. ",
+      "language": "TypeScript",
+      "stars": 9,
+      "updatedAt": "2026-08-02T23:27:18Z",
       "recentCommits": [
         {
-          "sha": "202117b",
-          "message": "Fix Startup Process issues",
-          "date": "2026-09-13T04:04:59Z"
+          "sha": "eef9856",
+          "message": "Revise README with project overview and features",
+          "date": "2026-04-26T16:18:21Z"
         },
         {
-          "sha": "41b14e8",
-          "message": "Update Config",
-          "date": "2026-09-13T03:40:26Z"
+          "sha": "ce2020b",
+          "message": "Clean up README and remove outdated information",
+          "date": "2026-04-18T21:34:17Z"
+        },
+        {
+          "sha": "a796a59",
+          "message": "Update README.md with new features and structure",
+          "date": "2026-02-09T15:09:21Z"
+        },
+        {
+          "sha": "9ccabce",
+          "message": "plan",
+          "date": "2026-02-06T20:49:12Z"
+        },
+        {
+          "sha": "65ff794",
+          "message": "prompt fixes",
+          "date": "2026-01-30T13:43:04Z"
         }
       ],
       "historicalHighlights": [
         {
-          "sha": "202117b",
-          "message": "Fix Startup Process issues",
-          "date": "2026-09-13T04:04:59Z"
+          "sha": "9c9460b",
+          "message": "refactor(trading): update judge prompt to BTC-only scalping strategy",
+          "date": "2026-01-20T16:48:46Z"
         },
         {
-          "sha": "0479913",
-          "message": "fix: ignore Ctrl+C in input reader to maintain process stability",
-          "date": "2026-09-11T15:26:01Z"
+          "sha": "0f2b2b0",
+          "message": "feat(position): add TP/SL sync and trade hydration",
+          "date": "2026-01-20T11:25:13Z"
         },
         {
-          "sha": "514b833",
-          "message": "fix: update gaming mode behavior to ignore Space key and clarify resume conditions in documentation and tests",
-          "date": "2026-09-11T13:22:37Z"
-        },
-        {
-          "sha": "7eb1679",
-          "message": "fix: extend gaming idle timeout to 12 seconds for better pause handling in predictive lighting",
-          "date": "2026-09-11T13:19:16Z"
-        },
-        {
-          "sha": "8ccd5d3",
-          "message": "fix: update idle timeout default value and clarify behavior in documentation and tests",
-          "date": "2026-09-11T13:13:22Z"
+          "sha": "575c4c4",
+          "message": "feat(ai): optimize analyst calls with combined execution and caching",
+          "date": "2026-01-19T13:55:44Z"
         }
       ],
-      "hasFreshCommits": true
+      "hasFreshCommits": false
     },
     {
-      "name": "drix10",
-      "fullName": "Drix10/drix10",
-      "description": "",
-      "language": "Multi-language",
-      "stars": 2,
-      "updatedAt": "2026-09-13T04:21:19Z",
+      "name": "GAME-2",
+      "fullName": "Drix10/GAME-2",
+      "description": "A car game made using MIT app inventor",
+      "language": "Scheme",
+      "stars": 4,
+      "updatedAt": "2026-07-04T11:24:13Z",
       "recentCommits": [
         {
-          "sha": "79c7ebb",
-          "message": "Update README.md",
-          "date": "2026-09-13T04:21:15Z"
+          "sha": "fca063e",
+          "message": "Add files via upload",
+          "date": "2020-06-12T16:21:33Z"
+        },
+        {
+          "sha": "193684d",
+          "message": "Add files via upload",
+          "date": "2020-06-12T16:21:21Z"
+        },
+        {
+          "sha": "bc11819",
+          "message": "Add files via upload",
+          "date": "2020-06-12T16:21:08Z"
+        },
+        {
+          "sha": "6519ff1",
+          "message": "Add files via upload",
+          "date": "2020-06-12T16:20:55Z"
+        },
+        {
+          "sha": "e42c203",
+          "message": "Add files via upload",
+          "date": "2020-06-12T16:20:41Z"
         }
       ],
       "historicalHighlights": [],
-      "hasFreshCommits": true
+      "hasFreshCommits": false
     }
   ],
   "sparseFreshCommits": false
