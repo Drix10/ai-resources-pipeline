@@ -73,20 +73,20 @@ export const metadata: Metadata = {
       'AI Systems Engineer, 1x Acquired Founder (ReeF), Canopy @ Founders, Inc., and Cybersecurity Researcher. Author of technical breakdowns at Drix10 Blogs.',
     images: [
       {
-        url: '/avatar.png',
-        width: 800,
-        height: 800,
-        alt: 'Drishtant Ghosh (Drix10)',
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Drix10 — AI Systems Engineer & 1x Acquired Founder',
       },
     ],
   },
   twitter: {
-    card: 'summary_large_image',
+    card: 'summary',
     title: 'Drishtant Ghosh (Drix10) — AI Systems Engineer & 1x Acquired Founder',
     description:
       'AI Systems Engineer, 1x Acquired Founder (ReeF), Canopy @ Founders, Inc., and Cybersecurity Researcher at DSU.',
     creator: '@DrishtantGhosh',
-    images: ['/avatar.png'],
+    images: ['/og-image.png'],
   },
   alternates: {
     canonical: 'https://drix10.com',

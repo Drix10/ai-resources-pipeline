@@ -15,6 +15,16 @@ interface Project {
 
 const PROJECTS: Project[] = [
   {
+    title: 'Night Hunt — Evolving Mice',
+    category: 'AI & LLMs',
+    period: 'Sep 2026',
+    description:
+      'An owl hunts 32 mice in the dark; the school shares one tiny brain that evolves escape behavior from scratch. Nobody programs the fleeing: random brains try, survivors breed, and the learning curve renders as 9:16 video with the live brain thinking up top and the hunt below.',
+    tags: ['Neuroevolution', 'PyTorch', 'Python', 'Generative Video'],
+    github: 'https://github.com/Drix10/ml-videos',
+    highlight: 'Tiny Brains · 9:16 Video',
+  },
+  {
     title: 'Keystroke LLM',
     category: 'AI & LLMs',
     description:
