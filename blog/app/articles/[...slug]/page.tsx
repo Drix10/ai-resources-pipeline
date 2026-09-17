@@ -1,5 +1,3 @@
-import ArticleViewTracker from '@/components/ArticleViewTracker';
-import { getArticleViews } from '@/lib/views-manager';
 import { getAllArticles, getArticleBySlug } from '@/lib/markdown';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
@@ -34,12 +32,21 @@ export async function generateMetadata({ params }: { params: { slug: string[] } 
       publishedTime: article.date,
       authors: ['https://drix10.com', 'Drishtant Ghosh (Drix10)'],
       tags: [article.category, 'Drishtant Ghosh', 'Drix10', 'Cybersecurity', 'AI Engineering'],
+      images: [
+        {
+          url: '/og-image.png',
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: article.title,
       description: article.description,
       creator: '@DrishtantGhosh',
+      images: ['/og-image.png'],
     },
   };
 }
@@ -166,18 +173,6 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
         <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-zinc-100 tracking-tight leading-snug sm:leading-tight">
           {article.title}
         </h1>
-
-        {(() => {
-          const viewStats = getArticleViews(article.slug);
-          return (
-            <ArticleViewTracker
-              key={article.slug}
-              slug={article.slug}
-              initialViews={viewStats.views}
-              initialAiViews={viewStats.aiViews}
-            />
-          );
-        })()}
       </header>
 
       {/* Answer-First Executive Summary for AI Overviews & Fan-Out Crawlers (Screenshot 6: Lead with the answer) */}
