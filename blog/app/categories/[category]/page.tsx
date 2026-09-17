@@ -41,6 +41,20 @@ export async function generateMetadata({ params }: { params: { category: string 
       description: `Curated technical research and architecture breakdowns on ${categoryName}.`,
       url: canonicalUrl,
       type: 'website',
+      images: [
+        {
+          url: '/og-image.png',
+          width: 1200,
+          height: 630,
+          alt: `${categoryName} - Drix10 Blogs`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${categoryName} - Drix10 Blogs`,
+      description: `Curated technical research and architecture breakdowns on ${categoryName}.`,
+      images: ['/og-image.png'],
     },
   };
 }

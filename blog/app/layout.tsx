@@ -1,4 +1,3 @@
-import HeaderLiveCounter from '@/components/HeaderLiveCounter';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Inter } from 'next/font/google';
@@ -74,10 +73,10 @@ export const metadata: Metadata = {
     description: 'Curated technical research, system architectures, cybersecurity breakdowns, and AI engineering notes by Drishtant Ghosh (Drix10).',
     images: [
       {
-        url: '/avatar.png',
-        width: 800,
-        height: 800,
-        alt: 'Drishtant Ghosh (Drix10)',
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Drix10 Blogs — Technical Research & Engineering Hub',
       },
     ],
   },
@@ -86,7 +85,7 @@ export const metadata: Metadata = {
     title: 'Drishtant Ghosh (Drix10) — Technical Research & Engineering Hub',
     description: 'Curated technical research, system architectures, and AI engineering notes by Drishtant Ghosh (Drix10).',
     creator: '@DrishtantGhosh',
-    images: ['/avatar.png'],
+    images: ['/og-image.png'],
   },
   alternates: {
     canonical: 'https://blogs.drix10.com',
@@ -211,7 +210,6 @@ export default function RootLayout({
             </nav>
             
             <div className="flex items-center gap-2.5">
-              <HeaderLiveCounter />
               <a 
                 href="https://github.com/Drix10" 
                 target="_blank" 
