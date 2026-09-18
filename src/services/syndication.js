@@ -224,7 +224,7 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
     }
 
     return this.syndicateAll({
-      title: `${title} - Autonomous AI Engineering Resource Breakdown`,
+      title: String(title || "Technical Breakdown").trim().slice(0, 120),
       markdown: enrichedMarkdown,
       tags: this.sanitizeTags(tags),
       canonicalUrl,

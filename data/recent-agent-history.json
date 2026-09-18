@@ -1,5 +1,11 @@
 [
   {
+    "postType": "c-memory-alignment",
+    "topicTitle": "Why careless struct member ordering turns a 16-byte payload into 32 bytes due to word alignment, doubling L1 cache line misses",
+    "repo": "Grind",
+    "timestamp": "2026-09-17T21:22:43.621Z"
+  },
+  {
     "postType": "fintech-webhook-signatures",
     "topicTitle": "Why Payment Webhooks Fail HMAC Signature Verification",
     "repo": "intent-canvas",
@@ -64,11 +70,5 @@
     "topicTitle": "The Hidden Dangers of Premature LeetCode",
     "repo": "Grind",
     "timestamp": "2026-09-08T12:22:13.601Z"
-  },
-  {
-    "postType": "deep-systems-teardown",
-    "topicTitle": "The Hidden Knobs of Vector Search Tuning",
-    "repo": "ai-resources",
-    "timestamp": "2026-09-08T12:08:40.023Z"
   }
 ]
