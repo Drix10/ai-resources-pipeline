@@ -512,8 +512,8 @@ flowchart LR
       const folderResults = await this.mapWithConcurrency(config.folders, 4, async (folder) => {
         const decodedFolder = folder.name.replace(/ /g, " ");
         try {
-          // Add delay to prevent hitting rate limits
-          await new Promise(resolve => setTimeout(resolve, Math.random() * 2000));
+          // ponytail: fixed 250ms courtesy delay; was random 0-2s x41 folders (~1min/run) for reads GitHub happily serves concurrently.
+          await new Promise(resolve => setTimeout(resolve, 250));
 
           const { data } = await this.octokit.repos.getContent({
             owner,

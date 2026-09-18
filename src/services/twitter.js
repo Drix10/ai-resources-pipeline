@@ -207,9 +207,9 @@ class TwitterService {
   async findContent() {
     try {
       const THREADS_NEEDED = 10;
-      const MAX_SCROLL_ATTEMPTS = 40;
+      const MAX_SCROLL_ATTEMPTS = 24;
       const SCROLL_PAUSE = 700;
-      const INITIAL_LOAD_TIMEOUT = 15000;
+      const INITIAL_LOAD_TIMEOUT = 10000;
       const MIN_TOTAL_WORDS = 30;
       const MIN_WORDS_WITH_EXTERNAL_LINK = 15;
 
@@ -338,7 +338,7 @@ class TwitterService {
 
         if (newInScroll === 0) {
           sameContentCount++;
-          if (sameContentCount >= 8) {
+          if (sameContentCount >= 5) {
             logger.info("No more new tweets loading after multiple fast scrolls, finishing list.");
             break;
           }
@@ -507,7 +507,7 @@ class TwitterService {
         for (let i = 0; i < 3 && !navigationSuccessful; i++) {
           try {
             await this.driver.get(listUrl);
-            await this.driver.wait(until.urlContains(listUrl), 120000);
+            await this.driver.wait(until.urlContains(listUrl), 60000);
             navigationSuccessful = true;
           } catch (gotoError) {
             logger.error(
