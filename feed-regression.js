@@ -35,7 +35,14 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
 
 (async () => {
   await t("generic praise -> reject", EVAL_POST, "Pranav Joshi",
-    ["Great post! Really insightful breakdown of eval methods today.", "Great post! Really insightful breakdown of eval methods today."], false);
+    ["Great post! Really insightful breakdown of eval methods today.", "FAIL: content-free praise",
+     "Great post! Really insightful breakdown of eval methods today.", "FAIL: content-free praise"], false);
+  await t("opener with substance -> pass", EVAL_POST, "Pranav Joshi",
+    ["Great explanation of the BLEU and ROUGE tradeoff.", "PASS: names the point"], true);
+  await t("announcement acknowledgment -> pass",
+    "Announcing the Cambridge x Tencent Games hackathon, Oct 10-11. Student teams build game prototypes, judged by engineers.",
+    "Jessy Tang",
+    ["The Cambridge plus Tencent Games combination is interesting.", "PASS: grounded acknowledgment"], true);
   await t("grounded restatement -> passes as acknowledgment", EVAL_POST, "Pranav Joshi",
     [RESTATE, "PASS: grounded acknowledgment, zero new claims"], true);
   await t("persistent fabrication -> eventually invalid (SKIP)", EVAL_POST, "Pranav Joshi",

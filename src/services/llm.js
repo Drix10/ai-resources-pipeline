@@ -4399,31 +4399,20 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
       .replace(/great points?|thanks for sharing|thanks|100%|well said|so true|awesome|nice|love this|agree|exactly|great post|insightful|powerful|well put/gi, "")
       .replace(/[!.,\s👏🙌🔥💯]/g, "");
     if (!praiseStripped) {
-      errors.push("Reply is generic praise with zero signal; add a concrete detail, name, or follow-up question.");
+      errors.push("Reply is generic praise with zero signal; name the specific point instead.");
     }
-    if (/\b(sounds|looks|seems) like (a\s+)?(great|amazing|wonderful|fantastic|awesome|incredible)\b/i.test(reply)) {
-      errors.push("Reply opens with a praise frame; lead with the technical point, never with how the post made you feel.");
-    }
-    if (/\bgreat experience\b/i.test(reply)) errors.push("Reply leans on filler praise; say the concrete thing instead.");
-    if (/\bhave you (considered|tried|thought about|looked into|seen|noticed|found|measured)\b/i.test(reply)) {
-      errors.push("Reply lectures with 'have you considered'; ask from inside the author's frame, never above it.");
-    }
-    if (/\b(is|are|'s|’s)\s+(a real thing|impressive|great|good|solid|nice|helpful|useful|fair|valid|reasonable|amazing|interesting|awesome)\s*,?\s*but\b/i.test(reply)) {
-      errors.push("Reply uses the praise-but review shape; open inside the claim, never above it.");
-    }
-    if (/\bany metrics\b/i.test(reply)) errors.push("Reply asks for numbers nobody stated; question only what the author put on the table.");
-    if (/\bin your workflows?\b/i.test(reply)) errors.push("Reply ends with a guru tail ('in your workflows'); cut it.");
     if (/\?/.test(reply)) errors.push("Reply contains a question; peer comments are statements only.");
     if (/\byou're (not just|learning)|\bwhat you need\b|\byou need to\b/i.test(reply)) {
       errors.push("Reply lectures the author in second person; describe the mechanism, never coach the human.");
     }
     // Prescriptions: peers describe, never prescribe. Remedies/mitigations/recommendations
     // are derived solutions wearing helpfulness, never peer observations.
-    if (/\b(can be mitigated|mitigated by|should implement|consider implementing|recommends? (implementing|adding|using|building)|could be (solved|fixed|addressed|improved)|the fix is|to (fix|address|solve) this|to avoid)\b/i.test(reply)) {
+    if (/\b(can be mitigated|mitigated by|should implement|consider implementing|recommends? (implementing|adding|using|building)|could be (solved|fixed|addressed|improved)|the fix is|to (fix|address|solve) this)\b/i.test(reply)) {
       errors.push("Reply prescribes a remedy; peers describe the mechanism, never prescribe the fix.");
     }
-    // Synthetic engagement phrases: fluent, says nothing. Name the observation itself instead.
-    if (/\bwhat settles? it\b|\bthe interesting part\b|\bthis highlights?\b|\bis equivalent to\b|\bis basically\b|\bis the same as\b|\bmaps? (neatly |directly )?to\b|\bboils down to\b|\bmak(?:e|es|ing) it easier to\b|\bgreat breakdown\b|\bgood breakdown\b|\bimportant distinction\b|\breally shows?\b|\bkey takeaways?\b|\bspeaks volumes\b|\bsays a lot\b|\bsheds light\b|\bgame[- ]changer\b/i.test(reply)) {
+    // Synthetic equivalence/verdict phrases: these manufacture claims (false equivalence,
+    // false verdicts, filler that says nothing). Pure style-cringe is the critic's job, not ours.
+    if (/\bwhat settles? it\b|\bis equivalent to\b|\bis basically\b|\bis the same as\b|\bmaps? (neatly |directly )?to\b|\bmak(?:e|es|ing) it easier to\b|\bkey takeaways?\b/i.test(reply)) {
       errors.push("Reply leans on a synthetic engagement phrase; replace it with the concrete observation itself.");
     }
     // Comparative/conclusive claims the post never states: factual drift, not voice.
@@ -4450,21 +4439,18 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     if (/\bresearch(ers?)?\s+(suggests?|shows?|indicates?|finds?|found)\b|\bstud(y|ies)\s+(show|suggest)\b|\bdata\s+shows?\b/i.test(reply)) {
       errors.push("Reply cites an uncited study/data claim; never invent statistics.");
     }
-    if (/^(great post|thanks for sharing|thank you for sharing|love this|insightful|awesome post|nice post|well said|great insights?|great breakdown|congratulations on|fascinating (read|post|piece))\b/i.test(reply)) {
-      errors.push("Reply opens with generic praise; lead with the technical point instead.");
-    }
-    // Verbatim restatement: any 6-word run lifted straight from the post means the draft
-    // echoes instead of contributing (paraphrase at minimum, observation at best).
+    // Verbatim restatement: any 8-word run lifted straight from the post means the draft
+    // echoes instead of reacting (put it in your own words at minimum).
     const words = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9\s]/g, " ").split(/\s+/).filter(Boolean);
     const postWords = words(post);
     const replyLower = ` ${words(reply).join(" ")} `;
     let echoed = "";
-    for (let i = 0; i + 6 <= postWords.length; i++) {
-      const run = ` ${postWords.slice(i, i + 6).join(" ")} `;
-      if (replyLower.includes(run)) { echoed = postWords.slice(i, i + 6).join(" "); break; }
+    for (let i = 0; i + 8 <= postWords.length; i++) {
+      const run = ` ${postWords.slice(i, i + 8).join(" ")} `;
+      if (replyLower.includes(run)) { echoed = postWords.slice(i, i + 8).join(" "); break; }
     }
     if (echoed) {
-      errors.push(`Reply lifts a verbatim run from the post ("${echoed}") - paraphrase at minimum, contribute an observation at best.`);
+      errors.push(`Reply lifts a verbatim run from the post ("${echoed}") - put it in your own words at minimum.`);
     }
     // never touched the post at all. Threshold stays at 1 - the critic judges relevance.
     const STOP = new Set("about which would could should there their have been were with from that this these those than then when while also just like more most other into over under using thing things point claim words really very does doing done make makes made many much such every each they them your youre theyre its are was were been have has will shall may might must could would shall does did your our their than then what when where which whose why than then than".split(" "));
@@ -4512,7 +4498,7 @@ ${feedbackSection}
 === COMMENT MODES (natural reactions, not reviews - default to the lightest true one) ===
 1. ACKNOWLEDGE (default): 1-2 short sentences endorsing a SPECIFIC point with its own nouns. Zero new claims. Most comments live here.
 2. OBSERVE (only when the post invites it): one grounded reaction - an implication, tradeoff, or distinction from relationships the post already states.
-3. SKIP: no safe true comment exists - personal news, gratitude, celebrations, gigs, milestones with no technical point, or anything where honesty needs facts you don't have.
+3. SKIP: no specific point to endorse (empty posts, giveaway spam, vague bait); grief, tragedy, politics, controversy; or honesty needs facts you don't have. Everything else is commentable: technical posts, launches, announcements, milestones, events. Announcements get acknowledgment, never invented analysis.
 - 1-2 sentences under 400 chars, STATEMENTS ONLY. One strong sentence beats two padded ones - when the point lands, STOP. Zero questions, zero hashtags, zero praise openers, zero coaching.
 - Reuse ONLY nouns, numbers, and mechanisms already in the post. Every figure you write must already exist in the post text.
 - Never preach ("you should", "teams should"), never coach ("you're learning", "what you need"), never praise ("great post", "love this", "insightful"), never ask ("have you considered", "did you").
@@ -4582,7 +4568,7 @@ Return ONLY the comment text, or exactly SKIP.`;
   // Returns { pass, reason }. Any error = pass (mechanical gates already ran; the critic only adds rejections).
   async criticFeedComment(draft, post) {
     try {
-      const prompt = `You are a strict lie-detector for LinkedIn replies, not a novelty judge. Lack of novelty is FINE. SOURCE POST: """${String(post).slice(0, 1200)}""" PROPOSED REPLY: """${String(draft).slice(0, 500)}""" FAIL the reply if ANY holds: (1) content-free filler naming no specific point from the post (vague gestures like "interesting implications" with zero concrete nouns); (2) generic praise or agreement openers; (3) any claim, comparison, number, causal link, mechanism, failure mode, remedy, analogy, prescription, or entity NOT supported by the post; (4) facts attached to the wrong event (one exploit's time window on another incident's device = FAIL); (5) experience, personal-use, or "I have seen" claims; (6) possibility stated as certainty; (7) author name wedged or used unnaturally. PASS everything else - a short grounded acknowledgment endorsing a specific point with zero new claims PASSES even with no novelty; a genuine grounded observation PASSES. Reply with exactly one line: PASS or FAIL: <one-line reason>.`;
+      const prompt = `You are a strict lie-detector for LinkedIn replies, not a novelty judge. Lack of novelty is FINE. SOURCE POST: """${String(post).slice(0, 1200)}""" PROPOSED REPLY: """${String(draft).slice(0, 500)}""" FAIL the reply if ANY holds: (1) content-free filler naming no specific point from the post (vague gestures like "interesting implications" with zero concrete nouns); (2) praise or agreement that names no specific point from the post; (3) any claim, comparison, number, causal link, mechanism, failure mode, remedy, analogy, prescription, or entity NOT supported by the post; (4) facts attached to the wrong event (one exploit's time window on another incident's device = FAIL); (5) experience, personal-use, or "I have seen" claims; (6) possibility stated as certainty; (7) author name wedged or used unnaturally. PASS everything else - a short grounded acknowledgment endorsing a specific point with zero new claims PASSES even with no novelty; a genuine grounded observation PASSES. Reply with exactly one line: PASS or FAIL: <one-line reason>.`;
       const raw = await this.generateText(prompt, { temperature: 0.1, num_predict: 150, system: "You are a strict critic of LinkedIn replies. Answer with exactly one line: PASS or FAIL: <reason>." });
       const line = String(raw || "").trim().split(/\n/)[0];
       if (/^FAIL\b/i.test(line)) {
