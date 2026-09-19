@@ -120,6 +120,14 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
     "Oruk announcing Resonance-2, speech emotion recognition. Scores 31 emotion categories directly from audio signals for voice agents.",
     "Nathan Roll",
     ["Continuous audio signals are especially useful here.", "PASS: grounded acknowledgment"], true);
+  await t("typo of post term (halucinated) -> reject",
+    "Testing a small quantized model offline on Android. It sometimes produces hallucinated or inaccurate answers on device.",
+    "Anwar Zahid",
+    ["The model's halucinated output could be due to the small size and quantization.",
+     "The model's halucinated output could be due to the small size and quantization."], false);
+  await t("verdict filler (classic case / crucial aspect) -> reject", EVAL_POST, "Pranav Joshi",
+    ["This is a classic case of eval drift, a crucial aspect of metric design.",
+     "This is a classic case of eval drift, a crucial aspect of metric design."], false);
   await t("unsupported causal absent from post -> critic kills", EVAL_POST, "Pranav Joshi",
     ["Reference-based scoring causes teams to abandon BLEU entirely for agents.", "FAIL: unsupported causal claim, post never states abandonment",
      "Reference-based scoring causes teams to abandon BLEU entirely for agents.", "FAIL: unsupported causal claim"], false);
