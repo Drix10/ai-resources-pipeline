@@ -75,6 +75,20 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
   await t("unsupported causal absent from post -> critic kills", EVAL_POST, "Pranav Joshi",
     ["Reference-based scoring causes teams to abandon BLEU entirely for agents.", "FAIL: unsupported causal claim, post never states abandonment",
      "Reference-based scoring causes teams to abandon BLEU entirely for agents.", "FAIL: unsupported causal claim"], false);
+  await t("invented relationship from real numbers -> critic kills",
+    "Built GPT-6 Astra with the PaperRoute agent. One developer coordinated coding, 3D assets, checkpoints and iteration. 39 hours tracked development, 69 checkpoints, shipped in days not months.",
+    "Tejas Hirurkar",
+    ["The 39 hours of tracked development suggest a high degree of automation, but the 69 checkpoints indicate frequent manual intervention.", "FAIL: infers automation and manual intervention from numbers the post never connects",
+     "The 39 hours of tracked development suggest a high degree of automation, but the 69 checkpoints indicate frequent manual intervention.", "FAIL: infers automation and manual intervention"], false);
+  await t("invented causal link (sponsored -> enabled) -> critic kills",
+    "Infosys workshop on AI agents with hands-on labs in a sponsored sandbox environment. Leaders joined and interacted with teams throughout the day.",
+    "Ramesh Rajini",
+    ["The sponsored sandbox made the hands-on mode possible, and leaders leveled up the sessions.", "FAIL: post never says sponsorship enabled anything",
+     "The sponsored sandbox made the hands-on mode possible, and leaders leveled up the sessions.", "FAIL: invented causal link"], false);
+  await t("correct attribution of same facts -> pass",
+    "At Pwn2Own Ireland 2025 researchers chained five vulnerabilities against a Galaxy S25 and gained root access in under 60 seconds.",
+    "Srinivas L",
+    ["Five chained flaws collapsing to root in under a minute means the path matters more than any single bug.", "PASS"], true);
   console.log(`\n${passed} passed, ${failed} failed.`);
   process.exit(failed ? 1 : 0);
 })();
