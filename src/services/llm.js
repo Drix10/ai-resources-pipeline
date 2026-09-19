@@ -4406,7 +4406,7 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     }
     // Synthetic equivalence/verdict phrases: these manufacture claims (false equivalence,
     // false verdicts, filler that says nothing). Pure style-cringe is the critic's job, not ours.
-    if (/\bwhat settles? it\b|\bis equivalent to\b|\bis basically\b|\bis the same as\b|\bmaps? (neatly |directly )?to\b|\bmak(?:e|es|ing) it easier to\b|\bkey takeaways?\b|\bclassic case of\b|\btextbook example\b|\bcrucial aspect\b|\bessential for\b/i.test(reply)) {
+    if (/\bwhat settles? it\b|\bis equivalent to\b|\bis basically\b|\bis the same as\b|\bmaps? (neatly |directly )?to\b|\bmak(?:e|es|ing) it easier to\b|\bkey takeaways?\b|\bclassic case of\b|\btextbook example\b|\bcrucial aspect\b|\bessential for\b|\bdirect result of\b|\bcan be seen as\b|\blikely\b|\bprobably\b/i.test(reply)) {
       errors.push("Reply leans on a synthetic engagement phrase; replace it with the concrete observation itself.");
     }
     // Comparative/conclusive claims the post never states: factual drift, not voice.
@@ -4462,6 +4462,13 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     if (typo) {
       errors.push(`Reply misspells the post's own term ("${typo}") - copy post nouns exactly as written.`);
     }
+    // Imported machinery: high-risk outside nouns that fail when the post never states them.
+    // Same shape as the figures check - presence in the post excuses, absence convicts.
+    const IMPORT_TERMS = ["knowledge graph", "ontology", "fragmentation", "vector database", "digital twin", "paradigm shift", "embedding space"];
+    const imported = IMPORT_TERMS.find((term) => reply.toLowerCase().includes(term) && !String(post).toLowerCase().includes(term));
+    if (imported) {
+      errors.push(`Reply imports "${imported}" the post never states; react to what's there, never furnish the machinery.`);
+    }
     // never touched the post at all. Threshold stays at 1 - the critic judges relevance.
     const STOP = new Set("about which would could should there their have been were with from that this these those than then when while also just like more most other into over under using thing things point claim words really very does doing done make makes made many much such every each they them your youre theyre its are was were been have has will shall may might must could would shall does did your our their than then what when where which whose why than then than".split(" "));
     const stems = (t) => [...new Set(String(t || "").toLowerCase().replace(/[^a-z0-9\s]/g, " ").split(/\s+/).filter((w) => w.length >= 4 && !STOP.has(w)).map((w) => w.replace(/(es|ing|ed|s)$/, "")))];
@@ -4501,7 +4508,7 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     const prompt = `You are Drishtant Ghosh (Drix10), a software engineer scrolling LinkedIn, leaving a comment on a peer's post. Write like an engineer talking shop: direct, technical, zero fluff. A peer, not a fan, not a teacher.
 
 POST AUTHOR: ${author}
-FULL NAME: ${fullName} (you may include it once when the sentence speaks to them directly - leading "Name," is natural and the system tags them; NEVER wedge it mid-sentence between commas)
+FULL NAME: ${fullName} (leading "Name,..." or possessive "Name's..." only - never mid-sentence; the system tags them; most comments need no name at all)
 POST:
 ${cleanPost}
 ${feedbackSection}
@@ -4545,11 +4552,18 @@ Return ONLY the comment text, or exactly SKIP.`;
         return { comment: "", isValid: false, skipped: true, errors: ["no technical substance - skipped"] };
       }
       const check = this.validateCommentReply(forCheck, cleanPost);
-      // Wedged full-name vocative ("..., Pranav Joshi, which...") - the obvious insertion artifact.
-      // Single-name mid-vocatives ("The tradeoff, Ravi, is...") stay legal; the critic judges the rest.
-      if (check.isValid && fullName && fullName !== "there" && /,\s*[A-Z][a-z]+\s+[A-Z][a-z]+\s*,/.test(forCheck)) {
-        check.isValid = false;
-        check.errors.push(`Comment wedges the full name between commas ("${fullName}") - use it once naturally or not at all.`);
+      // Author-name placement: leading ("Albert Mao, ...") or possessive ("Mao's ...") only.
+      // Mid-sentence drops ("The context tax Albert Mao is talking about") are insertion artifacts.
+      if (check.isValid && fullName && fullName !== "there") {
+        const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        const parts = String(fullName).split(/\s+/).filter((w) => w.length >= 3);
+        const lead = new RegExp(`^(?:${parts.map(esc).join("\\s+")}|${esc(parts[0])})[,\\s:—-]*`, "i");
+        const stripped = forCheck.replace(lead, "");
+        const hit = parts.find((p) => new RegExp(`\\b${esc(p)}\\b(?!['’]s)`, "i").test(stripped));
+        if (hit) {
+          check.isValid = false;
+          check.errors.push(`Comment drops the name mid-sentence ("${hit}") - leading or possessive only, or none at all.`);
+        }
       }
       // Semantic claim verifier: a second pass judging contribution, not voice.
       if (check.isValid) {
