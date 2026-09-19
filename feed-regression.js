@@ -72,6 +72,20 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
     "Hardware hiring is broken. Resume keyword filters miss actual circuit understanding, which is what matters on the bench. ATS systems cannot tell them apart.",
     "Dana K",
     ["The resume-versus-circuit-understanding gap is the whole problem.", "PASS"], true);
+  await t("invented edge redesign->token-reduction -> critic kills",
+    "Joined Graphify Labs to lead product and AI. Gave the console and website a fresh look. Graphify is an open source on-device knowledge graph engine turning codebases into graphs for agents, cutting token consumption by 70 percent. 119k stars on GitHub.",
+    "Raihan Khan",
+    ["Graphify's console redesign likely impacts token consumption metrics, given the 70 percent reduction mentioned.", "FAIL: redesign never connected to token reduction in source",
+     "Graphify's console redesign likely impacts token consumption metrics, given the 70 percent reduction mentioned.", "FAIL: invented edge"], false);
+  await t("imported failure mode (overfitting/accents) -> critic kills",
+    "Oruk announcing Resonance-2, speech emotion recognition. Scores 31 emotion and speaking-style categories directly from audio. Recognized self-labeled emotions better than human listeners. Opening access to limited customers first.",
+    "Nathan Roll",
+    ["Resonance-2 maps 31 emotion categories directly from audio, but nothing in that mapping prevents overfitting to specific accents.", "FAIL: overfitting/accents failure mode absent from post",
+     "Resonance-2 maps 31 emotion categories directly from audio, but nothing in that mapping prevents overfitting to specific accents.", "FAIL: imported failure mode"], false);
+  await t("implication inside stated edge -> pass",
+    "Researchers chained five vulnerabilities into root access in under 60 seconds. Patching any single flaw would not have stopped the chain.",
+    "Srinivas L",
+    ["Blocking any single flaw leaves four working paths, so the chain survives individual patches.", "PASS"], true);
   await t("unsupported causal absent from post -> critic kills", EVAL_POST, "Pranav Joshi",
     ["Reference-based scoring causes teams to abandon BLEU entirely for agents.", "FAIL: unsupported causal claim, post never states abandonment",
      "Reference-based scoring causes teams to abandon BLEU entirely for agents.", "FAIL: unsupported causal claim"], false);

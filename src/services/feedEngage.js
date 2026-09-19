@@ -51,7 +51,8 @@ function shouldSkipTracked(track, key) {
   const e = entryOf(track[key]);
   if (!e.ts) return false;
   if (e.status === "commented") return true; // never twice, inside the 30d prune window
-  if (e.status === "rejected" && Date.now() - Date.parse(e.ts) < REJECT_TTL_MS) return true;
+  // Rejected AND generator-skipped posts rest 3 days, then become eligible again.
+  if ((e.status === "rejected" || e.status === "skipped") && Date.now() - Date.parse(e.ts) < REJECT_TTL_MS) return true;
   return false;
 }
 
@@ -94,6 +95,10 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
       return false;
     }
     if (draft.skipped) {
+      if (!dryRun) {
+        track[post.key] = { ts: new Date().toISOString(), status: "skipped" };
+        saveTrack(track);
+      }
       logger.info(`feedEngage: SKIP - no technical substance in @${post.author} post. Moving on.`);
       skipped++;
       return false;

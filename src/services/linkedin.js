@@ -945,7 +945,6 @@ class LinkedInService {
     const MIN_WORDS = 25;
     // Substance gate: a post with no digits AND none of these technical stems has no
     // technical claim to engage (gig recaps, gratitude, milestones). Skip before any LLM call.
-    const SUBSTANCE = /api|server|model|deploy|code\b|bug|latency|database|query|cache|pipelin|agent|token|gpu|cuda|kubernetes|docker|react|python|openai|github|oauth|redis|postgres|scal|p99|throughput|regress|migrat|refactor|ship|cpu|memory|bandwidth|encrypt|auth|websocket|grpc|oncall|incident|postmortem|rollback|outage|alert|monitor|dashboard|inference|\bllm|prompt|embedding|vector|checkpoint|compiler|kernel|thread|mutex|deadlock|bottleneck|flame|profil|container|microservice|\bsdk|\bcli|yaml|terraform|aws|gcp|azure|cloudflare|nginx|kafka|queue|shard|replica|schema|framework|library|commit|merge|branch|debug|trace|benchmark|tps|rpm|uptime|downtime|failover|kaggle|huggingface|pytorch|tensorflow|cuda|robot|firmware|pcb|sensor|actuator|matlab|solidworks|cad|fea|3d print/i;
     const keyOf = (href, bodyText) => crypto.createHash("sha1").update(`${href}|${bodyText.slice(0, 300)}`).digest("hex").slice(0, 16);
     try {
       await this.ensureDriverConnected(true);
@@ -1048,7 +1047,6 @@ class LinkedInService {
           const asciiLetters = text.match(/[A-Za-z]/g) || [];
           if (allLetters.length > 0 && asciiLetters.length / allLetters.length < 0.5) continue;
           // Personal posts (gigs, gratitude, milestones) ride the short bro register, not the peer engine.
-          if (!/\d/.test(bodyOnly) && !SUBSTANCE.test(bodyOnly)) continue; // no technical substance: skip
           out.push({ key, author: item.author || "unknown", href: item.href || "", text: text.slice(0, 1500) });
         }
         if (fresh === 0) {
