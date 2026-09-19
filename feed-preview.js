@@ -29,6 +29,10 @@ for (let i = 0; i < args.length; i++) {
     console.log(`WOULD COMMENT: ${p.comment}`);
   });
   if (!(r.previews || []).length) console.log("(no commentable drafts — everything skipped or rejected)");
+  if ((r.wouldLike || []).length) {
+    console.log(`\nWOULD LIKE (${r.wouldLike.length} posts, live-only - previews never like):`);
+    r.wouldLike.forEach((w, i) => console.log(`  ${i + 1}. @${w.author} - "${(w.snippet || "").replace(/\s+/g, " ").slice(0, 70)}..."`));
+  }
   console.log(`\nDone: ${r.previews ? r.previews.length : 0} previewed, ${r.skipped} skipped (${r.reason}).`);
   process.exit(0);
 })().catch((e) => { console.error("preview failed:", e.message); process.exit(1); });

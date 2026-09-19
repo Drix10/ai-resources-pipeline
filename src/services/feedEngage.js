@@ -69,7 +69,7 @@ function commentedToday(track) {
 
 async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
   if (!config.social.linkedinFeedReply && !dryRun) {
-    return { commented: 0, skipped: 0, previews: [], reason: "disabled" };
+    return { commented: 0, skipped: 0, liked: 0, previews: [], wouldLike: [], reason: "disabled" };
   }
   const track = loadTrack();
   // Prune entries older than 30 days so the file stays small.
@@ -78,11 +78,12 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
     if (Date.parse(entryOf(v).ts) < cutoff) delete track[key];
   }
   if (commentedToday(track) >= MAX_PER_DAY) {
-    return { commented: 0, skipped: 0, previews: [], reason: `daily cap (${MAX_PER_DAY}) reached` };
+    return { commented: 0, skipped: 0, liked: 0, previews: [], wouldLike: [], reason: `daily cap (${MAX_PER_DAY}) reached` };
   }
 
-  let commented = 0, skipped = 0;
+  let commented = 0, skipped = 0, liked = 0;
   const previews = [];
+  const wouldLike = []; // dry-run mirror of the like loop, so previews show like intent
 
   const engageOne = async (post, sort) => {
     if (track[post.key] && shouldSkipTracked(track, post.key)) { skipped++; return false; }
@@ -157,8 +158,19 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
         for (const post of posts) {
           if (likedThisRun.has(post.key)) continue;
           likedThisRun.add(post.key);
-          try { await LinkedInService.likeFeedCard(post.text.slice(0, 80)); } catch (e) {}
+          try {
+            if (await LinkedInService.likeFeedCard(post.text.slice(0, 80))) {
+              liked++;
+              logger.info(`feedEngage: liked @${post.author} (${liked} this cycle).`);
+            }
+          } catch (e) {}
           await sleep(LIKE_PACE_MS);
+        }
+      } else {
+        for (const post of posts) {
+          if (likedThisRun.has(post.key)) continue;
+          likedThisRun.add(post.key);
+          wouldLike.push({ author: post.author, snippet: post.text.slice(0, 60) });
         }
       }
       let attempted = 0;
@@ -184,7 +196,7 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
     if (!dryRun && commentedToday(track) >= MAX_PER_DAY) break;
   }
 
-  return { commented, skipped, previews, reason: dryRun ? "dry run - nothing posted or tracked" : "" };
+  return { commented, skipped, liked, previews, wouldLike, reason: dryRun ? "dry run - nothing posted or tracked" : "" };
 }
 
 module.exports = { runFeedEngagement };
