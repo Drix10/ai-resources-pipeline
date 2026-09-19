@@ -905,6 +905,301 @@ class LinkedInService {
     }
   }
 
+  // Shared: expand collapsed comment loaders on an open post page.
+  async _expandPostComments(maxRounds = 6) {
+    for (let round = 0; round < maxRounds; round++) {
+      const clicked = await this.driver.executeScript(`
+        const btns = Array.from(document.querySelectorAll("button"));
+        let hit = false;
+        for (const b of btns) {
+          const t = (b.innerText || "").trim().toLowerCase();
+          const r = b.getBoundingClientRect();
+          if (r.width === 0 && r.height === 0) continue;
+          if (t.includes("load more comment") || t.includes("show more comment") ||
+              t.includes("previous comment") || t.includes("more replies") || t.includes("show previous")) {
+            b.click();
+            hit = true;
+          }
+        }
+        window.scrollTo(0, document.body.scrollHeight);
+        return hit;
+      `).catch(() => false);
+      await sleep(2500);
+      if (!clicked) break;
+    }
+  }
+
+  // FEED SCAN: real LinkedIn markup (hashed classes, no data-urn). Cards = mainFeed
+  // children containing "Feed post". Flips Sort: Top -> Recent so we engage fresh posts.
+  // Identity = sha1(authorHref + text head) since no activity URNs exist in the DOM.
+  async scanFeedPosts({ maxPosts = 10, maxScrolls = 10, sort = "recent" } = {}) {
+    const crypto = require("crypto");
+    const FEED_SPAM = [
+      "we are hiring", "hiring for", "dm me to", "join my team", "dm for",
+      "check out my course", "buy my book", "join the waitlist", "sign up now",
+      "use my code", "limited spots", "giveaway", "subscribe for", "link in bio",
+      "say congrats", "congratulate", "work anniversary", "started a new position",
+      "welcome to the team", "happy to announce i have joined", "promoted",
+      "webinar", "masterclass", "bootcamp", "cohort", "register", "enroll", "early bird", "starts"
+    ];
+    const MIN_WORDS = 25;
+    // Substance gate: a post with no digits AND none of these technical stems has no
+    // technical claim to engage (gig recaps, gratitude, milestones). Skip before any LLM call.
+    const SUBSTANCE = /api|server|model|deploy|code\b|bug|latency|database|query|cache|pipelin|agent|token|gpu|cuda|kubernetes|docker|react|python|openai|github|oauth|redis|postgres|scal|p99|throughput|regress|migrat|refactor|ship|cpu|memory|bandwidth|encrypt|auth|websocket|grpc|oncall|incident|postmortem|rollback|outage|alert|monitor|dashboard|inference|\bllm|prompt|embedding|vector|checkpoint|compiler|kernel|thread|mutex|deadlock|bottleneck|flame|profil|container|microservice|\bsdk|\bcli|yaml|terraform|aws|gcp|azure|cloudflare|nginx|kafka|queue|shard|replica|schema|framework|library|commit|merge|branch|debug|trace|benchmark|tps|rpm|uptime|downtime|failover|kaggle|huggingface|pytorch|tensorflow|cuda|robot|firmware|pcb|sensor|actuator|matlab|solidworks|cad|fea|3d print/i;
+    const keyOf = (href, bodyText) => crypto.createHash("sha1").update(`${href}|${bodyText.slice(0, 300)}`).digest("hex").slice(0, 16);
+    try {
+      await this.ensureDriverConnected(true);
+      await this.driver.get("https://www.linkedin.com/feed/");
+      await sleep(5000);
+      const url = await this.driver.getCurrentUrl();
+      if (/authwall|login|checkpoint|uas\/login/.test(url)) {
+        logger.warn("LinkedInService: login/authwall hit while scanning feed.");
+        return [];
+      }
+      // Sort mode per phase: 'top' = default engagement feed, 'recent' = fresh posts.
+      const wantSort = String(sort || 'recent');
+      try {
+        const sortState = await this.driver.executeScript(
+          "const want = arguments[0];" +
+          " " +
+          "const ctl = Array.from(document.querySelectorAll('button, [role=\"button\"]'))" +
+          " " +
+          "  .find(b => (b.innerText || '').indexOf('Sort by') !== -1);" +
+          " " +
+          "if (!ctl) return 'missing';" +
+          " " +
+          "if ((ctl.innerText || '').toLowerCase().indexOf(want.toLowerCase()) !== -1) return 'already';" +
+          " " +
+          "ctl.click();" +
+          " " +
+          "return 'opened';",
+          wantSort === 'top' ? 'Top' : 'Recent'
+        );
+        if (sortState === 'opened') {
+          await sleep(1500);
+          await this.driver.executeScript(
+            "const want = arguments[0];" +
+            " " +
+            "const opt = Array.from(document.querySelectorAll('[role=\"option\"], [role=\"menuitemradio\"], [role=\"menuitem\"], button'))" +
+            " " +
+            "  .find(i => (i.innerText || '').trim() === want);" +
+            " " +
+            "if (opt) opt.click();",
+            wantSort === 'top' ? 'Top' : 'Recent'
+          );
+          await sleep(6000);
+          logger.info('LinkedInService: feed sort set to ' + wantSort + '.');
+        }
+      } catch (e) { logger.warn('LinkedInService: sort set skipped: ' + e.message); }
+
+      const seen = new Set();
+      const out = [];
+      let stallRounds = 0;
+      for (let round = 0; round < maxScrolls && out.length < maxPosts; round++) {
+        // Expand truncated posts so we read (and judge) the full text.
+        try {
+          await this.driver.executeScript(`
+            for (const b of document.querySelectorAll('div[data-testid="mainFeed"] button')) {
+              if ((b.innerText || '').includes('more')) { try { b.click(); } catch (e) {} }
+            }
+          `);
+          await sleep(800);
+        } catch (e) {}
+        let batch = [];
+        try {
+          batch = await this.driver.executeScript(`
+            const feed = document.querySelector('div[data-testid="mainFeed"]');
+            if (!feed) return [];
+            return Array.from(feed.children)
+              .filter(c => (c.innerText || '').includes('Feed post') && (c.innerText || '').length > 200)
+              .map(c => {
+                const links = Array.from(c.querySelectorAll('a[href*="/in/"], a[href*="/company/"]')).filter(x => (x.innerText || '').trim()); const a = links[0]; // first text-bearing profile/company link (avatar links are empty);
+                return {
+                  href: a ? a.href.split('?')[0] : '',
+                  author: a ? (a.innerText || '').trim().split('\\n')[0] : '',
+                  text: (c.innerText || '').trim()
+                };
+              });
+          `);
+        } catch (e) { logger.warn(`LinkedInService: feed batch extraction failed: ${e.message}`); }
+        let fresh = 0;
+        for (const item of batch || []) {
+          const text = String(item.text || "").trim();
+          if (!text) continue;
+          const tlines = text.split(/\r?\n/);
+          let bodyStart = 0;
+          for (let i = 0; i < Math.min(tlines.length, 10); i++) {
+            if (/\d+\s*[smhdw]\s*•/.test(tlines[i])) { bodyStart = i + 1; break; }
+          }
+          // Body (not header) drives identity: same post re-rendered = same key, no double-comments.
+          const bodyOnly = tlines.slice(bodyStart).join("\n").replace(/^follow\s*$/gim, "");
+          const key = keyOf(item.href, bodyOnly);
+          if (seen.has(key)) continue;
+          seen.add(key);
+          fresh++;
+          if (out.length >= maxPosts) break;
+          const lower = text.toLowerCase();
+          if (/\b((likes|loves|celebrates|supports) this|reposted this|commented on this)\b/i.test(text.slice(0, 300))) continue; // reaction/repost activity cards: not the author's own post
+          if (FEED_SPAM.some((kw) => lower.includes(kw))) continue;
+          if (/drishtant|drix10/i.test(`${item.author} ${item.href}`)) continue; // own post: never engage
+          if (text.split(/\s+/).length < MIN_WORDS) continue;
+          const allLetters = text.match(/[\p{L}]/gu) || [];
+          const asciiLetters = text.match(/[A-Za-z]/g) || [];
+          if (allLetters.length > 0 && asciiLetters.length / allLetters.length < 0.5) continue;
+          // Personal posts (gigs, gratitude, milestones) ride the short bro register, not the peer engine.
+          if (!/\d/.test(bodyOnly) && !SUBSTANCE.test(bodyOnly)) continue; // no technical substance: skip
+          out.push({ key, author: item.author || "unknown", href: item.href || "", text: text.slice(0, 1500) });
+        }
+        if (fresh === 0) {
+          stallRounds++;
+          if (stallRounds >= 4) break;
+        } else stallRounds = 0;
+        try { await this.driver.executeScript("window.scrollBy(0, window.innerHeight * 2);"); } catch (e) {}
+        await sleep(1500);
+      }
+      logger.info(`LinkedInService: feed scan collected ${out.length} commentable posts.`);
+      return out;
+    } catch (err) {
+      logger.error("LinkedInService: scanFeedPosts failed:", err.message);
+      return [];
+    }
+  }
+
+  // Comment INLINE on a feed card (no navigation: click its Comment toggle, type, submit).
+  // Re-finds the card by author href + text snippet (virtualized feed unmounts nodes).
+  async commentOnFeedCard(cardKey, authorHref, textSnippet, text, fullName = "") {
+    try {
+      await this.ensureDriverConnected(true);
+      const toggleResult = await this.driver.executeScript(`
+        const feed = document.querySelector('div[data-testid="mainFeed"]');
+        if (!feed) return null;
+        const cards = Array.from(feed.children).filter(c => (c.innerText || '').includes('Feed post'));
+        const card = cards.find(c =>
+          (c.innerText || '').includes(arguments[0]) &&
+          (arguments[1] ? !!c.querySelector('a[href*="' + arguments[1] + '"]') : true)
+        );
+        if (!card) return null;
+        try { card.scrollIntoView({ block: 'center' }); } catch (e) {}
+        // Like first (human flow: like, then comment). Non-fatal if it fails.
+        let liked = false;
+        try {
+          const likeBtn = Array.from(card.querySelectorAll('button')).find(b => {
+            const al = (b.getAttribute('aria-label') || '');
+            return al.toLowerCase() === 'like' ||
+              (al.indexOf('Reaction button state') === 0 && al.toLowerCase().indexOf('no reaction') !== -1);
+          });
+          if (likeBtn) { likeBtn.click(); liked = true; }
+        } catch (e) {}
+        const toggle = Array.from(card.querySelectorAll('button'))
+          .find(b => (b.getAttribute('aria-label') || '').toLowerCase() === 'comment');
+        if (!toggle) return null;
+        toggle.click();
+        return { toggled: true, liked: liked };
+      `, String(textSnippet).substring(0, 80), String(authorHref || "").split("/in/")[1] || "").catch(() => null);
+      if (!toggleResult || !toggleResult.toggled) {
+        logger.warn("LinkedInService: feed card or Comment toggle not found.");
+        return false;
+      }
+      if (toggleResult.liked) logger.info("LinkedInService: post liked before commenting.");
+      await sleep(2500);
+      // Re-query the open editor inside the same card.
+      const editor = await this.driver.executeScript(`
+        const feed = document.querySelector('div[data-testid="mainFeed"]');
+        const cards = Array.from(feed.children).filter(c => (c.innerText || '').includes('Feed post'));
+        const card = cards.find(c => (c.innerText || '').includes(arguments[0]));
+        if (!card) return null;
+        return card.querySelector('[aria-label="Text editor for creating comment"], .tiptap, .ProseMirror');
+      `, String(textSnippet).substring(0, 80)).catch(() => null);
+      if (!editor) {
+        logger.warn("LinkedInService: comment editor did not open on feed card.");
+        return false;
+      }
+      await editor.click();
+      await sleep(400);
+      await editor.sendKeys(Key.chord(Key.CONTROL, "a"), Key.BACK_SPACE);
+      await sleep(300);
+      const mentionState = await this._typeWithMention(editor, text, fullName);
+      logger.info(`LinkedInService: mention flow: ${mentionState}.`);
+      await sleep(2000);
+      let clicked = false;
+      try {
+        const submitEl = await this.driver.executeScript(`
+          const feed = document.querySelector('div[data-testid="mainFeed"]');
+          const cards = Array.from(feed.children).filter(c => (c.innerText || '').includes('Feed post'));
+          const card = cards.find(c => (c.innerText || '').includes(arguments[0]));
+          if (!card) return null;
+          const btn = Array.from(card.querySelectorAll('button'))
+            .find(b => (b.innerText || '').trim().toLowerCase() === 'comment' && !b.disabled);
+          if (!btn) return null;
+          try { btn.click(); return 'clicked'; } catch (e) { return null; }
+        `, String(textSnippet).substring(0, 80)).catch(() => null);
+        clicked = !!submitEl;
+      } catch (e) { /* keyboard fallback below */ }
+      if (!clicked) {
+        await editor.click();
+        await sleep(300);
+        const actions = this.driver.actions({ async: true });
+        await actions.keyDown("\uE009").sendKeys("\n").keyUp("\uE009").perform();
+      }
+      await sleep(5000);
+      const verified = await this.driver.executeScript(
+        "return document.body.innerText.includes(arguments[0]);",
+        String(text).substring(0, 40)
+      ).catch(() => false);
+      logger.info(`LinkedInService: feed comment posted+verified: ${!!verified}.`);
+      return !!verified;
+    } catch (err) {
+      logger.error("LinkedInService: commentOnFeedCard failed:", err.message);
+      return false;
+    }
+  }
+
+  // Type comment text, converting the author's name into a REAL @-mention.
+  // Falls back to plain text if the typeahead never offers the right person (never tag strangers).
+  async _typeWithMention(editor, text, fullName) {
+    try {
+      const name = String(fullName || "").trim();
+      const idx = name && name.toLowerCase() !== "there" && name.toLowerCase() !== "unknown"
+        ? String(text).toLowerCase().indexOf(name.toLowerCase())
+        : -1;
+      if (idx < 0) { await editor.sendKeys(text); return "plain"; }
+      const before = String(text).slice(0, idx);
+      const after = String(text).slice(idx + name.length);
+      if (before) await editor.sendKeys(before);
+      await editor.sendKeys("@" + name.split(/\s+/)[0]);
+      await sleep(2500);
+      const picked = await this.driver.executeScript(`
+        const menus = Array.from(document.querySelectorAll('[role="listbox"], [role="menu"], ul'));
+        for (const m of menus) {
+          if (!m.offsetParent) continue;
+          const opts = Array.from(m.querySelectorAll('[role="option"], li, div')).filter(o => o.offsetParent);
+          const hit = opts.find(o => (o.innerText || '').toLowerCase().indexOf(arguments[0].toLowerCase()) !== -1);
+          if (hit) { try { hit.click(); return 'picked'; } catch (e) { return null; } }
+        }
+        return null;
+      `, name).catch(() => null);
+      if (!picked) {
+        await editor.sendKeys(Key.chord(Key.CONTROL, "a"), Key.BACK_SPACE);
+        await sleep(300);
+        await editor.sendKeys(text);
+        return "plain-fallback";
+      }
+      await sleep(800);
+      if (after) await editor.sendKeys(after);
+      return "mentioned";
+    } catch (e) {
+      logger.warn(`LinkedInService: mention flow failed (${e.message}), plain-text fallback.`);
+      try {
+        await editor.sendKeys(Key.chord(Key.CONTROL, "a"), Key.BACK_SPACE);
+        await sleep(300);
+        await editor.sendKeys(text);
+      } catch (e2) {}
+      return "plain-fallback";
+    }
+  }
+
+
+
   async downloadImageWithRetry(url, destPath, retries = 3) {
     let lastError;
     for (let attempt = 1; attempt <= retries; attempt++) {

@@ -496,6 +496,18 @@ const processAllFolders = async () => {
             fullContent: item.content
           });
         }
+
+        // Interleaved engagement: 2 genuine feed comments per successful batch commit
+        // (first Top, then Recent). Daily-capped + rejection-memory inside.
+        if (config.social.linkedinFeedReply && !localLlmUnavailable) {
+          try {
+            const feedEngage = require("./feedEngage");
+            const feedResult = await feedEngage.runFeedEngagement({ max: 2 });
+            logger.info(`LinkedIn interleaved comment: ${feedResult.commented} commented, ${feedResult.skipped} skipped${feedResult.reason ? ` (${feedResult.reason})` : ""}.`);
+          } catch (feedErr) {
+            logger.error("LinkedIn interleaved comment failed (non-fatal):", feedErr.message);
+          }
+        }
       } catch (batchErr) {
         logger.error(`Batch GitHub commit failed for ${batchToCommit.length} folders:`, batchErr);
       }
