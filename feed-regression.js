@@ -101,6 +101,15 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
     "Nathan Roll",
     ["Separating reference-based scoring from judge-based evaluation is useful here. These categories may fail lexical overlap, which is why eval design matters.", "FAIL: lexical overlap / judge-based evaluation absent from post",
      "Separating reference-based scoring from judge-based evaluation is useful here. These categories may fail lexical overlap, which is why eval design matters.", "FAIL: domain import"], false);
+  await t("polished restatement of same proposition -> critic kills",
+    "The biggest cost of AI is not the API bill. Every question costs explanation time and context across 20 people and thousands of workflows. Humans repeatedly teach the machine the same company, market, and findings. Expensive amnesia.",
+    "Albert Mao",
+    ["The workflow overhead of explaining context to AI is compounded by the human effort required to re-explain it across multiple stakeholders.", "FAIL: same proposition, new wording",
+     "The workflow overhead of explaining context to AI is compounded by the human effort required to re-explain it across multiple stakeholders.", "FAIL: restatement"], false);
+  await t("genuine interpretation of latent mechanism -> pass",
+    "The biggest cost of AI is not the API bill. Every question costs explanation time and context across 20 people and thousands of workflows. Humans repeatedly teach the machine the same company, market, and findings. Expensive amnesia.",
+    "Albert Mao",
+    ["The expensive part is not passing context once but losing it between workflows, forcing humans to reconstruct it each time.", "PASS"], true);
   await t("unsupported causal absent from post -> critic kills", EVAL_POST, "Pranav Joshi",
     ["Reference-based scoring causes teams to abandon BLEU entirely for agents.", "FAIL: unsupported causal claim, post never states abandonment",
      "Reference-based scoring causes teams to abandon BLEU entirely for agents.", "FAIL: unsupported causal claim"], false);
