@@ -63,6 +63,15 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
     "Albert Mao",
     ["Thousands of workflows multiply the context tax, but so do hundreds of human annotators labeling each request.",
      "Thousands of workflows multiply the context tax, but so do hundreds of human annotators labeling each request."], false);
+  await t("unsupported analogy (equivalent to knowledge graph) -> reject",
+    "The biggest cost of AI is the context tax. Every question costs explanation time across 20 people and thousands of workflows. Expensive amnesia.",
+    "Albert Mao",
+    ["The context tax is equivalent to the overhead of maintaining a large knowledge graph.",
+     "The context tax is equivalent to the overhead of maintaining a large knowledge graph."], false);
+  await t("short vague-but-true endorsement -> pass",
+    "Hardware hiring is broken. Resume keyword filters miss actual circuit understanding, which is what matters on the bench. ATS systems cannot tell them apart.",
+    "Dana K",
+    ["The resume-versus-circuit-understanding gap is the whole problem.", "PASS"], true);
   await t("unsupported causal absent from post -> critic kills", EVAL_POST, "Pranav Joshi",
     ["Reference-based scoring causes teams to abandon BLEU entirely for agents.", "FAIL: unsupported causal claim, post never states abandonment",
      "Reference-based scoring causes teams to abandon BLEU entirely for agents.", "FAIL: unsupported causal claim"], false);
