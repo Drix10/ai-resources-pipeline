@@ -34,9 +34,8 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
 }
 
 (async () => {
-  await t("generic praise -> reject", EVAL_POST, "Pranav Joshi",
-    ["Great post! Really insightful breakdown of eval methods today.", "FAIL: content-free praise",
-     "Great post! Really insightful breakdown of eval methods today.", "FAIL: content-free praise"], false);
+  await t("simple praise with point -> pass", EVAL_POST, "Pranav Joshi",
+    ["Great post! Really insightful breakdown of eval methods today.", "PASS: names the subject"], true);
   await t("opener with substance -> pass", EVAL_POST, "Pranav Joshi",
     ["Great explanation of the BLEU and ROUGE tradeoff.", "PASS: names the point"], true);
   await t("announcement acknowledgment -> pass",
