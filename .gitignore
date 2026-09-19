@@ -70,3 +70,6 @@ views-data.json
 *.lock
 data/*.tmp*
 data/*.lock
+
+# Runtime state (machine-local trackers)
+data/linkedin-feed-commented.json

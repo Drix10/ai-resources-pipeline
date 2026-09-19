@@ -31,6 +31,7 @@ const config = {
   },
   social: {
     linkedinPost: process.env.LINKEDIN_POST === "true",
+    linkedinFeedReply: process.env.LINKEDIN_FEED_REPLY === "true",
     twitterPost: process.env.TWITTER_POST !== "false",
   },
   syndication: {

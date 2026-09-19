@@ -123,8 +123,11 @@ const HAT_TIP_PROHIBITED_PATTERNS = [
   /\ball (?:of )?the \w+\. none of the \w+/i,
   // Announcement openers (replace with the concrete moment)
   /^i'?m (?:excited|thrilled|honored|delighted) to (?:announce|share|be)/im,
-  // Comment-gate phrasing (March 2026 authenticity update target)
-  /comment \w+ to get/i,
+  // Comment-gate phrasing (March 2026 authenticity update target; keyword-gate shapes only —
+  /\b[Cc]omment\s+(?:YES|"[^"]+"|[A-Z]{2,})\s+to\s+(?:get|unlock|receive|access)\b/,
+  // Soft neg-parallel ("not just X, Y") - contrast family, banned in posts and comments alike
+  /\bnot just [^.\n]{1,40}, /i,
+  /\bcomment\s+\w+\s+below\s+to\s+(?:get|unlock|receive)\b/i,
   /\bcomment YES\b/i,
   // Cliché closers
   /let that sink in\.?$/im,
@@ -2155,9 +2158,10 @@ JSON schema:
     }
 
     // Check for em dashes (Humanizer V3 cap: ~1 per 100 words, max 2 per post; "--" always banned)
-    if (postText.includes("—") || postText.includes("--")) {
+    const dashCount = (postText.match(/—/g) || []).length;
+    if (dashCount > 2 || postText.includes("--")) {
       penaltyPoints += 20;
-      issues.push("Post contains em dashes (— or --); use colons, commas, or periods instead.");
+      issues.push(`Too many em dashes (${dashCount} em / -- present; cap is ~1 per 100 words, max 2 per post).`);
     }
 
     // Hashtag check (2026: 0-2 at end; 5+ reads as spam)
@@ -2327,10 +2331,10 @@ JSON schema:
       errors.push("Post contains markdown headers (# or ###); LinkedIn does not support markdown headers.");
     }
 
-    // Hat Tip prohibited patterns check
+    // Hat Tip prohibited patterns check (name the hit so the retry loop can fix exactly it)
     for (const pattern of HAT_TIP_PROHIBITED_PATTERNS) {
       if (pattern.test(postText)) {
-        errors.push("Post contains prohibited generic filler, guru posturing, or essay transitions. Write in direct, unpretentious developer prose focusing solely on the technical mechanism.");
+        errors.push(`Post matches prohibited pattern ${pattern.toString().slice(0, 90)}: rewrite that line in direct, unpretentious developer prose focusing solely on the technical mechanism.`);
         break;
       }
     }
@@ -2366,14 +2370,14 @@ JSON schema:
     if (/\?\s*$/.test(firstLine)) {
       errors.push(`Post opens with a question ("${firstLine.slice(0, 60)}..."); line 1 must be a statement or number (-34% Likes otherwise), move the question to the close.`);
     }
-    if (/^here'?s (what|how|why)\b/i.test(firstLine)) {
+    if (/^here(?:'s| is) (what|how|why)\b/i.test(firstLine)) {
       errors.push("Post opens with \"Here's what/how\" (-4.3%); lead line 1 with the first real number or statement instead.");
     }
     if (/^stop \w+/i.test(firstLine)) {
       errors.push("Post opens with \"Stop X...\" framing (-6.7%); rewrite the opener as a dated fact.");
     }
     // Density hard-fails: max 1 contrast frame, max 2 triads per post
-    const contrastHits = postText.match(/\bit'?s not [^,.\n]{1,40}, it'?s \b|\bnot [^,.\n]{1,30}, but \w|\bit'?s not about [^.\n]+, it'?s about|\bthis isn'?t [^.\n]+\. this is |\bstop [^.\n]+\. start \b/gi) || [];
+    const contrastHits = postText.match(/\bit(?:'?s| is) not [^,.\n]{1,40}, it(?:'?s| is) \b|\bnot [^,.\n]{1,30}, but \w|\bit(?:'?s| is) not about [^.\n]+, it(?:'?s| is) about|\bthis isn'?t [^.\n]+\. this is |\bthis is not [^.\n]+\. this is \b|\bstop [^.\n]+\. start \b/gi) || [];
     if (contrastHits.length > 1) {
       errors.push(`Post stacks ${contrastHits.length} contrast frames (max 1 per post); keep the strongest, rewrite the rest as plain declaratives.`);
     }
@@ -3564,7 +3568,8 @@ ${archetypeDirective}
 - Speak directly, plainly, and technically as an engineer who actually writes code, runs profiling, and debugs real failure modes.
 
 === THE GOLDEN BENCHMARK (HANK WU / ANTI-SLOP / ANTI-EMPTY STANDARD) ===
-Study this post carefully. THIS is the benchmark for tone, specificity, cadence, and founder conviction:
+Study this post carefully. THIS is the benchmark for tone, specificity, cadence, and founder conviction.
+NOTE: this example predates the one-contrast rule and stacks several contrasts itself. Imitate its SPECIFICITY, cadence, and conviction — NOT its contrast stacking. Your post gets ONE contrast frame total.
 
 "I run an AI content company.
 And I am very happy LinkedIn is fighting AI slop.
@@ -3826,15 +3831,18 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     body = body.replace(/(there's a way[^?\n]+)\?/gi, "$1.");
     body = body.replace(/^(I've seen[^?\n]+)\?/gm, "$1.");
 
-    // 5c. 2026 reveal bridges, sincerity markers, announcement openers (delete the frame, keep the fact)
-    body = body.replace(/^(?:here'?s (?:what|how|why)\b[^:\n]{0,40}[:.])\s*/gim, "");
+    // 5c. 2026 reveal bridges, sincerity markers, announcement openers (delete the frame, keep the fact).
+    // capNext preserves sentence case: "Honestly, the deploy..." -> "The deploy...", never "the deploy...".
+    const capNext = (m, next) => (next ? next.toUpperCase() : "");
+    body = body.replace(/^(?:here(?:'s| is) (?:what|how|why)\b[^:\n]{0,40}[:.])\s*([a-z])?/gim, capNext);
     body = body.replace(/(?:the (?:result|outcome|answer|lesson|catch|kicker|truth)\?|plot twist[:?]?|spoiler[:?]?|the twist[:?]?)(?=\s|$)/gi, "");
-    body = body.replace(/^(?:let me be (?:honest|real|direct|clear)|i(?:'ll| will) be (?:honest|real|direct)|honestly\?|honest (?:caveat|version|answer)|the honest (?:version|answer|truth) is|to be (?:direct|honest|fair|transparent)|real talk|full transparency|can i be (?:honest|vulnerable)|i'll say the quiet part|not gonna lie|unpopular opinion|confession:)\.?\s*/gim, "");
-    body = body.replace(/^i'?m (?:excited|thrilled|honored|delighted) to (?:announce|share|be)[^.\n]*\.\s*/gim, "");
+    body = body.replace(/^(?:let me be (?:honest|real|direct|clear)|i(?:'ll| will) be (?:honest|real|direct)|honestly[?,]?|honest (?:caveat|version|answer)|the honest (?:version|answer|truth) is|to be (?:direct|honest|fair|transparent)|real talk|full transparency|can i be (?:honest|vulnerable)|i'll say the quiet part|not gonna lie|unpopular opinion|confession:)\.?\s*([a-z])?/gim, capNext);
+    body = body.replace(/^i'?m (?:excited|thrilled|honored|delighted) to (?:announce|share|be)[^.\n]*\.\s*([a-z])?/gim, capNext);
     body = body.replace(/\bno \w+\. no \w+\. (?:just|only) \w+[.!]?/gi, "");
     body = body.replace(/^(?:comment \w+ to get[^.\n]*\.?|comment YES[^.\n]*\.?)\s*/gim, "");
     body = body.replace(/^(?:let that sink in|that'?s the real story)\.?\s*$/gim, "");
     body = body.replace(/^(?:still|mostly|exactly|full stop|period|that'?s it)\.\s*$/gim, "");
+    body = body.replace(/([^ \n]) {2,}([^ \n])/g, "$1 $2");
 
     // 5b. Strip "In today's" or generic zeitgeist scene-setting paragraphs
     body = body
@@ -4363,6 +4371,179 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
    * STEP 12: Visual Slide Card & Metadata Generation
    * Generates title (≤50 chars), 3 key points (≤65 chars), dynamic authoritative tagline, and first comment link.
    */
+  filterCommentReply(text) {
+    if (!text || typeof text !== "string") return text;
+    let body = this.sanitizeBannedWords(text);
+    body = this.applyHatTipEditorialFilter(body, {}, {});
+    // Replies carry no signoff, hashtags, or resource link: strip what the post filter appends
+    body = body.replace(/(?:^|\n+)[^\n]*curated at Drix10 Blogs[^\n]*/gi, "").trim();
+    body = body.replace(/(?:^|\n+)[^\n]*follow Drishtant[^\n]*/gi, "").trim();
+    body = body.replace(/(?:^|\n+)[ \t]*Best,\s*Drishtant[^\n]*/gi, "").trim();
+    body = body.replace(/(?:^|\n+)[ \t]*[-–—][ \t]*$/gm, "").trim();
+    body = body.replace(/🔗[^\n]*\n*/gi, "").trim();
+    body = body.replace(/(?:\r?\n|\s)*(?:#[a-zA-Z0-9_]+\s*)+$/g, "").trim();
+    body = body.replace(/\n{3,}/g, "\n\n").trim();
+    const qm = body.match(/^(["'“”‘’])([\s\S]*)\1$/);
+    if (qm) body = qm[2].trim();
+    body = body.replace(/^(agree with receipts|respectful pushback|sharp question)\s*:\s*/i, "");
+    return body;
+  }
+
+  validateCommentReply(replyText, postText = "") {
+    const errors = [];
+    const reply = String(replyText || "").trim();
+    const post = String(postText || "");
+    if (!reply) errors.push("Reply is empty.");
+    if (reply.length > 600) errors.push(`Reply too long (${reply.length} chars, max 600).`);
+    if (reply.length > 0 && reply.length < 30) errors.push("Reply too short to carry signal (min 30 chars).");
+    const foundBanned = BANNED_WORDS.filter((w) => {
+      const r = this.buildBannedWordRegex(w);
+      return r && r.test(reply);
+    });
+    if (foundBanned.length > 0) errors.push(`Banned word(s) in reply: ${foundBanned.join(", ")}`);
+    const praiseStripped = reply
+      .replace(/great points?|thanks for sharing|thanks|100%|well said|so true|awesome|nice|love this|agree|exactly|great post|insightful|powerful|well put/gi, "")
+      .replace(/[!.,\s👏🙌🔥💯]/g, "");
+    if (!praiseStripped) {
+      errors.push("Reply is generic praise with zero signal; add a concrete detail, name, or follow-up question.");
+    }
+    if (/\b(sounds|looks|seems) like (a\s+)?(great|amazing|wonderful|fantastic|awesome|incredible)\b/i.test(reply)) {
+      errors.push("Reply opens with a praise frame; lead with the technical point, never with how the post made you feel.");
+    }
+    if (/\bgreat experience\b/i.test(reply)) errors.push("Reply leans on filler praise; say the concrete thing instead.");
+    if (/\bhave you (considered|tried|thought about|looked into|seen|noticed|found|measured)\b/i.test(reply)) {
+      errors.push("Reply lectures with 'have you considered'; ask from inside the author's frame, never above it.");
+    }
+    if (/\b(is|are|'s|’s)\s+(a real thing|impressive|great|amazing|interesting|awesome)\s*,?\s*but\b/i.test(reply)) {
+      errors.push("Reply uses the praise-but review shape; open inside the claim, never above it.");
+    }
+    if (/\bany metrics\b/i.test(reply)) errors.push("Reply asks for numbers nobody stated; question only what the author put on the table.");
+    if (/\bin your workflows?\b/i.test(reply)) errors.push("Reply ends with a guru tail ('in your workflows'); cut it.");
+    if (/\?/.test(reply)) errors.push("Reply contains a question; peer comments are statements only.");
+    if (/\byou're (not just|learning)|\bwhat you need\b|\byou need to\b/i.test(reply)) {
+      errors.push("Reply lectures the author in second person; describe the mechanism, never coach the human.");
+    }
+    // Every figure in the comment must already exist in the post - no invented specifics.
+    const postDigits = post.match(/\d[\d.,]*/g) || [];
+    const replyNums = reply.match(/\d[\d.,]*/g) || [];
+    const invented = replyNums.filter((n) => !postDigits.includes(n));
+    if (invented.length > 0) {
+      errors.push(`Reply invents figures (${invented.join(", ")}) not stated in the post; never invent numbers.`);
+    }
+    if (/\byou should\b/i.test(reply)) errors.push("Reply preaches ('you should'); peers describe mechanisms, never assign homework.");
+    if (/i['’]ve seen\b|\bin my experience\b|\bwhen i built\b|\bworked with similar\b|\bsimilar setups?\b|\bfrom what i['’]ve seen\b/i.test(reply)) {
+      errors.push("Reply claims unverifiable personal experience; ground only in the post or plainly-known engineering reality.");
+    }
+    if (/\bresearch(ers?)?\s+(suggests?|shows?|indicates?|finds?|found)\b|\bstud(y|ies)\s+(show|suggest)\b|\bdata\s+shows?\b/i.test(reply)) {
+      errors.push("Reply cites an uncited study/data claim; never invent statistics.");
+    }
+    // Vocabulary overlap: the comment must reuse the author's own nouns (>=2 shared
+    // distinctive stems), otherwise it is a foreign-premise interrogation wearing relevance.
+    const STOP = new Set("about which would could should there their have been were with from that this these those than then when while also just like more most other into over under using thing things point claim words really very does doing done make makes made many much such every each they them your youre theyre its are was were been have has will shall may might must could would shall does did your our their than then what when where which whose why than then than".split(" "));
+    const stems = (t) => [...new Set(String(t || "").toLowerCase().replace(/[^a-z0-9\s]/g, " ").split(/\s+/).filter((w) => w.length >= 5 && !STOP.has(w)).map((w) => w.replace(/(es|ing|ed|s)$/, "")))];
+    const postStems = new Set(stems(post));
+    const shared = stems(reply).filter((w) => postStems.has(w));
+    if (post && shared.length < 2) {
+      errors.push(`Reply shares too little vocabulary with the post (${shared.length} shared stems); reuse the author's own nouns instead of importing foreign concepts.`);
+    }
+    for (const pattern of HAT_TIP_PROHIBITED_PATTERNS) {
+      if (pattern.test(reply)) {
+        errors.push("Reply contains a prohibited tell (reveal bridge, sincerity marker, staccato, or bait).");
+        break;
+      }
+    }
+    if (/(?:^|\n)#{1,6}\s+/m.test(reply)) errors.push("Reply contains markdown headers.");
+    if (reply.includes("**") || reply.includes("__")) errors.push("Reply contains markdown bold.");
+    if (/https?:\/\//.test(reply)) errors.push("Reply contains a URL; links live in the post's first comment, never in replies.");
+    return { isValid: errors.length === 0, errors };
+  }
+
+  /**
+   * FEED COMMENT ENGINE: genuine peer comment on someone ELSE's LinkedIn post.
+   * Same voice system (zero-LARP, Humanizer V3, fingerprints). Not praise, not a lecture:
+   * engage the post's actual claim and add one sharp thing.
+   */
+  async draftFeedComment({ postAuthor = "", postText = "" } = {}, retries = 1, feedback = []) {
+    const cleanPost = String(postText || "").replace(/https?:\/\/[^\s)]+/g, "").slice(0, 1500).trim();
+    if (cleanPost.split(/\s+/).length < 10) throw new Error("draftFeedComment: post too thin to engage.");
+    const author = String(postAuthor || "there").trim();
+    const firstName = author.split(/\s+/)[0] || "there";
+    const fullName = author === "there" ? "there" : author;
+    const feedbackSection = Array.isArray(feedback) && feedback.length > 0
+      ? `\n=== FIX THESE FROM THE REJECTED DRAFT ===\n${feedback.map((f) => `- ${f}`).join("\n")}\n`
+      : "";
+    const prompt = `You are Drishtant Ghosh (Drix10), a software engineer scrolling LinkedIn, leaving a comment on a peer's post. Write like an engineer talking shop: direct, technical, zero fluff. You are a peer, not a fan and not a teacher.
+
+POST AUTHOR: ${author}
+FULL NAME: ${fullName} (include exactly once, mid-comment - never the first word, never the last, like tagging them mid-thought)
+POST:
+${cleanPost}
+${feedbackSection}
+=== SKIP FIRST (DEFAULT TO SKIP) ===
+- If the post is personal news, gratitude/thanks, a celebration, a gig/show/event recap, a job update, a milestone, or otherwise has NO technical claim, mechanism, number, or decision to engage - return exactly: SKIP
+- NEVER turn a casual personal post into a fake technical interrogation (asking a guitarist about PA-system latency is embarrassing LARP - just SKIP).
+- Only proceed to comment when you can point to the exact technical claim you are engaging.
+
+=== HOW TO COMMENT (PICK EXACTLY ONE MOVE) ===
+- AGREE WITH RECEIPTS: paraphrase their sharpest claim, then add one concrete supporting detail (a number or mechanism from plainly-known engineering reality). Never bare agreement, never your own alleged war stories.
+- RESPECTFUL PUSHBACK: if the claim is shaky, say where it breaks with the actual mechanism, flatly and without snark. Steelman first in one clause.
+- NAME THE MECHANISM: state the concrete mechanism or failure mode their post points at, in plain words. End on a statement, never a question.
+- The labels above are stage directions, not text. NEVER output them, never prefix your comment with them.
+- Reuse ONLY nouns, mechanisms, and numbers already present in the post. If the post says "context tax", your comment says "context tax" - never introduce new concepts the author did not state.
+- Contractions always (that's, don't, it's). Plain words (fast, sharp, clean, solid, breaks, ships) over pundit words (impressive, turnaround, fascinating, landscape).
+
+=== HARD RULES (SAME SYSTEM AS YOUR POSTS) ===
+- 150-450 chars, 2-4 sentences, STATEMENTS ONLY - zero questions, never a "?" anywhere. Reference the post's ACTUAL point (quote a fragment or paraphrase it).
+- FORBIDDEN openers: "Great post!", "Thanks for sharing", "Insightful", "Love this", congrats-bait, question openers.
+- FORBIDDEN: preaching ("you should...", "teams should..."), trivia corrections, self-promo (zero mentions of your own work unless the post directly asks for it), textbook definitions.
+- FORBIDDEN: sincerity frames, reveal bridges, staccato stacks, "It's not X, it's Y" contrasts, more than 1 em dash.
+- Vocabulary density: no 3+ markers per paragraph from (significant, crucial, notably, comprehensive, insights, leverage, robust, foster, landscape, nuanced, streamline, elevate, empower, utilize, quietly, seamless, ecosystem). Verbs with the actor first.
+- NEVER fabricate stories, metrics, or anecdotes. Ground everything in the post above or plainly-known engineering reality. Zero hashtags, zero links, zero signoff, max 1 emoji (prefer zero).
+- NEVER claim experience you cannot prove: no fabricated observations, no invented war stories. Your detail must introduce ZERO new technical premises - say only what the author already put on the table.
+- NEVER open with "[X] is impressive/great, but" - the praise-but review shape. Open inside the claim, never above it.
+- NEVER invent thresholds, percentages, or timelines (no "under 1ms", no "3-5 minutes", no "up to 30%") unless stated in the post. Every figure you write must already exist in the post text.
+- Never coach the author ("you're learning", "what you need"). Describe the mechanism, never the human.
+- Exactly ZERO questions. Never "have you considered/seen" - lecture shapes, not peer talk.
+
+GOOD (imitate this shape): "The DGX boxes pulling a nationwide run in 2 days is fast, Ravi Suvvari, and inference staying on the same boxes is what settles it against classic climate models."
+GOOD: "The session lock serializing every checkout, Drix Ghosh, only shows up under burst. Token bucket was the right call for exactly that failure."
+BAD (never do this): "Your guitar gig sounds like a great experience, but did you notice latency issues with the PA system?" - praise opener, fabricated expertise, foreign premises.
+
+Return ONLY the comment text, or exactly SKIP.`;
+    try {
+      const raw = await this.generateText(prompt, { temperature: 0.4, num_predict: 800 });
+      const filtered = this.filterCommentReply(String(raw || "").trim());
+      if (/^skip\b/i.test(filtered)) {
+        return { comment: "", isValid: false, skipped: true, errors: ["no technical substance - skipped"] };
+      }
+      const check = this.validateCommentReply(filtered, cleanPost);
+      // Name must sit mid-comment (never first/last token), like a human tagging mid-thought.
+      if (check.isValid && fullName && fullName !== "there") {
+        const low = filtered.toLowerCase();
+        const toks = filtered.trim().split(/\s+/);
+        const hasMid = low.includes(fullName.toLowerCase()) &&
+          !toks[0].toLowerCase().startsWith(fullName.split(/\s+/)[0].toLowerCase()) &&
+          !toks[toks.length - 1].toLowerCase().endsWith(fullName.split(/\s+/).pop().toLowerCase());
+        if (!hasMid) {
+          check.isValid = false;
+          check.errors.push(`Comment must include the author's full name ("${fullName}") mid-comment - never first word, never last.`);
+        }
+      }
+      if (!check.isValid && retries > 0) {
+        logger.warn(`LocalLLMService: feed comment rejected (${check.errors.join("; ")}), retrying...`);
+        return this.draftFeedComment({ postAuthor, postText }, retries - 1, check.errors);
+      }
+      return { comment: filtered, isValid: check.isValid, skipped: false, errors: check.errors };
+    } catch (err) {
+      logger.error("LocalLLMService: draftFeedComment error:", err);
+      if (retries > 0) {
+        await this.sleepWithJitter(4000);
+        return this.draftFeedComment({ postAuthor, postText }, retries - 1, feedback);
+      }
+      throw err;
+    }
+  }
+
   generateSlideAndMeta(article, draftText, cpio) {
     const rawTitle = article?.title || "AI Systems Architecture";
 
