@@ -4414,7 +4414,7 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     if (/\bhave you (considered|tried|thought about|looked into|seen|noticed|found|measured)\b/i.test(reply)) {
       errors.push("Reply lectures with 'have you considered'; ask from inside the author's frame, never above it.");
     }
-    if (/\b(is|are|'s|’s)\s+(a real thing|impressive|great|amazing|interesting|awesome)\s*,?\s*but\b/i.test(reply)) {
+    if (/\b(is|are|'s|’s)\s+(a real thing|impressive|great|good|solid|nice|helpful|useful|fair|valid|reasonable|amazing|interesting|awesome)\s*,?\s*but\b/i.test(reply)) {
       errors.push("Reply uses the praise-but review shape; open inside the claim, never above it.");
     }
     if (/\bany metrics\b/i.test(reply)) errors.push("Reply asks for numbers nobody stated; question only what the author put on the table.");
@@ -4422,6 +4422,15 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     if (/\?/.test(reply)) errors.push("Reply contains a question; peer comments are statements only.");
     if (/\byou're (not just|learning)|\bwhat you need\b|\byou need to\b/i.test(reply)) {
       errors.push("Reply lectures the author in second person; describe the mechanism, never coach the human.");
+    }
+    // Synthetic engagement phrases: fluent, says nothing. Name the observation itself instead.
+    if (/\bwhat settles? it\b|\bthe interesting part\b|\bthis highlights?\b|\bgreat breakdown\b|\bgood breakdown\b|\bimportant distinction\b|\breally shows?\b|\bkey takeaways?\b|\bspeaks volumes\b|\bsays a lot\b|\bsheds light\b|\bgame[- ]changer\b/i.test(reply)) {
+      errors.push("Reply leans on a synthetic engagement phrase; replace it with the concrete observation itself.");
+    }
+    // Comparative/conclusive claims the post never states: factual drift, not voice.
+    if (/\b(better|worse)\s+than\b|\bbeats?\b|\bproves?\b|\bsettle[sd]?\s+it\b|\bconfirms?\b/i.test(reply) &&
+        !/\b(better|worse|beat|prov|settl|confirm|compar)/i.test(post)) {
+      errors.push("Reply makes a comparative/conclusive claim the post never states; stay inside what the author established.");
     }
     // Every figure in the comment must already exist in the post - no invented specifics.
     const postDigits = post.match(/\d[\d.,]*/g) || [];
@@ -4475,7 +4484,7 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     const prompt = `You are Drishtant Ghosh (Drix10), a software engineer scrolling LinkedIn, leaving a comment on a peer's post. Write like an engineer talking shop: direct, technical, zero fluff. You are a peer, not a fan and not a teacher.
 
 POST AUTHOR: ${author}
-FULL NAME: ${fullName} (include exactly once, mid-comment - never the first word, never the last, like tagging them mid-thought)
+FULL NAME: ${fullName} (mention it ONLY if grammatically natural mid-thought - never forced, never the first word; most comments need no name at all)
 POST:
 ${cleanPost}
 ${feedbackSection}
@@ -4484,10 +4493,12 @@ ${feedbackSection}
 - NEVER turn a casual personal post into a fake technical interrogation (asking a guitarist about PA-system latency is embarrassing LARP - just SKIP).
 - Only proceed to comment when you can point to the exact technical claim you are engaging.
 
-=== HOW TO COMMENT (PICK EXACTLY ONE MOVE) ===
-- AGREE WITH RECEIPTS: paraphrase their sharpest claim, then add one concrete supporting detail (a number or mechanism from plainly-known engineering reality). Never bare agreement, never your own alleged war stories.
-- RESPECTFUL PUSHBACK: if the claim is shaky, say where it breaks with the actual mechanism, flatly and without snark. Steelman first in one clause.
-- NAME THE MECHANISM: state the concrete mechanism or failure mode their post points at, in plain words. End on a statement, never a question.
+=== HOW TO COMMENT (ADD INFORMATION, NEVER RESTATE) ===
+Your comment must pass this test: a reader learns something the post did not say.
+PICK EXACTLY ONE MOVE:
+- NAME THE TRADEOFF: the concrete tradeoff or implication hiding inside their point ("The tradeoff is...", "One practical consequence is...").
+- NAME THE FAILURE MODE: where their approach breaks, with the mechanism ("This breaks down when...", "The failure mode I'd watch is...").
+- SHARPEN THE DISTINCTION: separate two things the post lumps together, precisely ("That distinction matters because...").
 - The labels above are stage directions, not text. NEVER output them, never prefix your comment with them.
 - Reuse ONLY nouns, mechanisms, and numbers already present in the post. If the post says "context tax", your comment says "context tax" - never introduce new concepts the author did not state.
 - Contractions always (that's, don't, it's). Plain words (fast, sharp, clean, solid, breaks, ships) over pundit words (impressive, turnaround, fascinating, landscape).
@@ -4505,8 +4516,8 @@ ${feedbackSection}
 - Never coach the author ("you're learning", "what you need"). Describe the mechanism, never the human.
 - Exactly ZERO questions. Never "have you considered/seen" - lecture shapes, not peer talk.
 
-GOOD (imitate this shape): "The DGX boxes pulling a nationwide run in 2 days is fast, Ravi Suvvari, and inference staying on the same boxes is what settles it against classic climate models."
-GOOD: "The session lock serializing every checkout, Drix Ghosh, only shows up under burst. Token bucket was the right call for exactly that failure."
+GOOD (imitate this shape): "Separating reference-based scoring from judge-based evaluation is the useful move here. A semantically correct output can fail lexical overlap, which is why eval design matters as much as the metric."
+GOOD: "The binding constraint here is deployment, not training speed. A nationwide high-resolution model that runs locally changes the operational cost of near-term forecasting."
 BAD (never do this): "Your guitar gig sounds like a great experience, but did you notice latency issues with the PA system?" - praise opener, fabricated expertise, foreign premises.
 
 Return ONLY the comment text, or exactly SKIP.`;
@@ -4517,16 +4528,20 @@ Return ONLY the comment text, or exactly SKIP.`;
         return { comment: "", isValid: false, skipped: true, errors: ["no technical substance - skipped"] };
       }
       const check = this.validateCommentReply(filtered, cleanPost);
-      // Name must sit mid-comment (never first/last token), like a human tagging mid-thought.
+      // A forced name is worse than none: fail only when the name leads (praise-bait position).
       if (check.isValid && fullName && fullName !== "there") {
-        const low = filtered.toLowerCase();
         const toks = filtered.trim().split(/\s+/);
-        const hasMid = low.includes(fullName.toLowerCase()) &&
-          !toks[0].toLowerCase().startsWith(fullName.split(/\s+/)[0].toLowerCase()) &&
-          !toks[toks.length - 1].toLowerCase().endsWith(fullName.split(/\s+/).pop().toLowerCase());
-        if (!hasMid) {
+        if (toks[0].toLowerCase().startsWith(fullName.split(/\s+/)[0].toLowerCase())) {
           check.isValid = false;
-          check.errors.push(`Comment must include the author's full name ("${fullName}") mid-comment - never first word, never last.`);
+          check.errors.push(`Comment leads with the author's name ("${fullName}") - mention it mid-thought or not at all.`);
+        }
+      }
+      // Semantic claim verifier: a second pass judging contribution, not voice.
+      if (check.isValid) {
+        const verdict = await this.criticFeedComment(filtered, cleanPost);
+        if (!verdict.pass) {
+          check.isValid = false;
+          check.errors.push(`Critic rejected: ${verdict.reason}`);
         }
       }
       if (!check.isValid && retries > 0) {
@@ -4541,6 +4556,22 @@ Return ONLY the comment text, or exactly SKIP.`;
         return this.draftFeedComment({ postAuthor, postText }, retries - 1, feedback);
       }
       throw err;
+    }
+  }
+
+  // Second-pass semantic judge for feed comments: contribution, not voice.
+  // Returns { pass, reason }. Any error = pass (mechanical gates already ran; the critic only adds rejections).
+  async criticFeedComment(draft, post) {
+    try {
+      const prompt = `You are a strict critic of LinkedIn replies. SOURCE POST: """${String(post).slice(0, 1200)}""" PROPOSED REPLY: """${String(draft).slice(0, 500)}""" FAIL the reply if ANY holds: (1) restates the post without adding an observation, implication, correction, extension, or tradeoff; (2) generic praise or agreement; (3) author name used unnaturally; (4) any claim, comparison, number, or causal link NOT supported by the post; (5) vague comparative or filler phrasing ("settles it", "highlights", "breakdown", "testament", "interesting part"); (6) makes it about the commenter, not the technical subject. Reply with exactly one line: PASS or FAIL: <one-line reason>.`;
+      const raw = await this.generateText(prompt, { temperature: 0.1, num_predict: 150 });
+      const line = String(raw || "").trim().split(/\n/)[0];
+      if (/^FAIL\b/i.test(line)) {
+        return { pass: false, reason: line.replace(/^FAIL\s*:\s*/i, "").slice(0, 200) || "no new technical contribution" };
+      }
+      return { pass: true, reason: "" };
+    } catch (e) {
+      return { pass: true, reason: "" };
     }
   }
 
