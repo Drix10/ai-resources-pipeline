@@ -83,7 +83,7 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
   const previews = [];
 
   const engageOne = async (post, sort) => {
-    if (track[post.key] && shouldSkipTracked(track, post.key)) { skipped++; return; }
+    if (track[post.key] && shouldSkipTracked(track, post.key)) { skipped++; return false; }
 
     let draft;
     try {
@@ -91,26 +91,28 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
     } catch (e) {
       logger.warn(`feedEngage: draft failed for ${post.key}: ${e.message}`);
       skipped++;
-      return;
+      return false;
     }
     if (draft.skipped) {
       logger.info(`feedEngage: SKIP - no technical substance in @${post.author} post. Moving on.`);
       skipped++;
-      return;
+      return false;
     }
     if (!draft.isValid) {
-      track[post.key] = { ts: new Date().toISOString(), status: "rejected" };
-      saveTrack(track);
+      if (!dryRun) {
+        track[post.key] = { ts: new Date().toISOString(), status: "rejected" };
+        saveTrack(track);
+      }
       logger.warn(`feedEngage: comment rejected (${(draft.errors || []).join("; ")}) — skipping ${post.key} for 3d.`);
       skipped++;
-      return;
+      return false;
     }
 
     if (dryRun) {
       previews.push({ author: post.author, key: post.key, postText: post.text, comment: draft.comment, sort });
       logger.info(`feedEngage DRYRUN [${sort}] would comment on @${post.author}: "${draft.comment}"`);
       skipped++;
-      return;
+      return false;
     }
     logger.info(`feedEngage [${sort}]: commenting on @${post.author}: "${draft.comment.slice(0, 90)}..."`);
     const ok = await LinkedInService.commentOnFeedCard(post.key, post.href, post.text.slice(0, 80), draft.comment, post.author);
@@ -119,28 +121,50 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
       saveTrack(track);
       commented++;
       logger.info(`feedEngage: commented (${commented}/${max} this cycle).`);
+      return true;
     } else {
       logger.warn(`feedEngage: comment post failed on ${post.key} (not tracked, retried next cycle).`);
       skipped++;
+      return false;
     }
   };
 
-  // Phase 1: Top (default feed order), Phase 2: Recent. One comment each per commit.
-  for (const sort of ["top", "recent"]) {
-    if (commented >= max) break;
-    if (commentedToday(track) >= MAX_PER_DAY) break;
-    const posts = await LinkedInService.scanFeedPosts({ maxPosts: 6, maxScrolls: 6, sort });
-    let engaged = false;
-    for (const post of posts) {
-      if (commented >= max) break;
-      if (commentedToday(track) >= MAX_PER_DAY) break;
-      if (track[post.key] && shouldSkipTracked(track, post.key)) { skipped++; continue; }
-      await engageOne(post, sort);
-      engaged = true;
-      break; // one comment per phase
+  // Phase 1: Top (default feed order), Phase 2: Recent. Quota split so max=2 still
+  // means 1 Top + 1 Recent; larger max fills Top first, Recent takes the remainder.
+  // Each phase keeps scanning deeper + trying candidates until its quota fills or the
+  // feed runs dry (consecutive scan with zero fresh candidates = exhausted).
+  const topQuota = Math.ceil(max / 2);
+  const seenThisRun = new Set();
+  // Dry runs never increment `commented` (nothing posted), so quota progress there = previews made.
+  const done = () => (dryRun ? previews.length : commented);
+  const phases = [{ sort: "top", quota: topQuota }, { sort: "recent", quota: max }];
+  for (const { sort, quota } of phases) {
+    let rounds = 0;
+    while (done() < quota && rounds < 4) {
+      if (!dryRun && commentedToday(track) >= MAX_PER_DAY) break;
+      // Each round scrolls deeper (page state persists, so later scans reach older posts).
+      const posts = await LinkedInService.scanFeedPosts({ maxPosts: 12, maxScrolls: 6 + rounds * 4, sort });
+      let attempted = 0;
+      for (const post of posts) {
+        if (done() >= quota) break;
+        if (!dryRun && commentedToday(track) >= MAX_PER_DAY) break;
+        if (seenThisRun.has(post.key)) continue;
+        if (track[post.key] && shouldSkipTracked(track, post.key)) continue;
+        seenThisRun.add(post.key);
+        attempted++;
+        const before = commented;
+        await engageOne(post, sort);
+        // Pace only published comments (nothing public happened on a rejection).
+        if (!dryRun && commented > before && commented < max) await sleep(PACE_MS);
+      }
+      if (attempted === 0) {
+        logger.info(`feedEngage [${sort}]: no fresh candidates after scrolling, moving on.`);
+        break;
+      }
+      rounds++;
     }
-    if (!engaged) logger.info(`feedEngage [${sort}]: no fresh candidate, moving on.`);
-    if (commented < max && sort === "top") await sleep(PACE_MS);
+    if (done() >= max) break;
+    if (!dryRun && commentedToday(track) >= MAX_PER_DAY) break;
   }
 
   return { commented, skipped, previews, reason: dryRun ? "dry run - nothing posted or tracked" : "" };
