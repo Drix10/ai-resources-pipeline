@@ -110,6 +110,10 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
     "The biggest cost of AI is not the API bill. Every question costs explanation time and context across 20 people and thousands of workflows. Humans repeatedly teach the machine the same company, market, and findings. Expensive amnesia.",
     "Albert Mao",
     ["The expensive part is not passing context once but losing it between workflows, forcing humans to reconstruct it each time.", "PASS"], true);
+  await t("single-sentence acknowledgment -> pass",
+    "Oruk announcing Resonance-2, speech emotion recognition. Scores 31 emotion categories directly from audio signals for voice agents.",
+    "Nathan Roll",
+    ["Continuous audio signals are especially useful here.", "PASS: grounded acknowledgment"], true);
   await t("unsupported causal absent from post -> critic kills", EVAL_POST, "Pranav Joshi",
     ["Reference-based scoring causes teams to abandon BLEU entirely for agents.", "FAIL: unsupported causal claim, post never states abandonment",
      "Reference-based scoring causes teams to abandon BLEU entirely for agents.", "FAIL: unsupported causal claim"], false);
