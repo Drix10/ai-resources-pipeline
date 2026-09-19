@@ -4395,12 +4395,6 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
       return r && r.test(reply);
     });
     if (foundBanned.length > 0) errors.push(`Banned word(s) in reply: ${foundBanned.join(", ")}`);
-    const praiseStripped = reply
-      .replace(/great points?|thanks for sharing|thanks|100%|well said|so true|awesome|nice|love this|agree|exactly|great post|insightful|powerful|well put/gi, "")
-      .replace(/[!.,\s👏🙌🔥💯]/g, "");
-    if (!praiseStripped) {
-      errors.push("Reply is generic praise with zero signal; name the specific point instead.");
-    }
     if (/\?/.test(reply)) errors.push("Reply contains a question; peer comments are statements only.");
     if (/\byou're (not just|learning)|\bwhat you need\b|\byou need to\b/i.test(reply)) {
       errors.push("Reply lectures the author in second person; describe the mechanism, never coach the human.");
@@ -4499,9 +4493,9 @@ ${feedbackSection}
 1. ACKNOWLEDGE (default): 1-2 short sentences endorsing a SPECIFIC point with its own nouns. Zero new claims. Most comments live here.
 2. OBSERVE (only when the post invites it): one grounded reaction - an implication, tradeoff, or distinction from relationships the post already states.
 3. SKIP: no specific point to endorse (empty posts, giveaway spam, vague bait); grief, tragedy, politics, controversy; or honesty needs facts you don't have. Everything else is commentable: technical posts, launches, announcements, milestones, events. Announcements get acknowledgment, never invented analysis.
-- 1-2 sentences under 400 chars, STATEMENTS ONLY. One strong sentence beats two padded ones - when the point lands, STOP. Zero questions, zero hashtags, zero praise openers, zero coaching.
+- 1-2 sentences under 400 chars, STATEMENTS ONLY. One strong sentence beats two padded ones - when the point lands, STOP. Zero questions, zero hashtags, zero coaching.
 - Reuse ONLY nouns, numbers, and mechanisms already in the post. Every figure you write must already exist in the post text.
-- Never preach ("you should", "teams should"), never coach ("you're learning", "what you need"), never ask ("have you considered", "did you"). Praise is fine when it names the specific point ("great breakdown of eval methods" works; "great post!" alone is empty) - never praise without post nouns.
+- Never preach ("you should", "teams should"), never coach ("you're learning", "what you need"), never ask ("have you considered", "did you").
 - Never claim what the post doesn't support: no new comparisons, no verdicts ("settles it", "proves", "better than"), no invented numbers.
 - Reaction = new INTERPRETATION of the post's evidence (implication, tradeoff, failure mode, distinction, mechanism). NEVER new EVIDENCE (stats, events, entities, benchmarks, causal claims, technical facts). If your sentence needs a fact the post doesn't state, delete the sentence.
 - Before each sentence ask: "Could I prove every factual component from the source post alone?" If NO: delete it, rewrite as pure interpretation, or SKIP. Never fill gaps from model knowledge. Never map the post onto outside analogies ("equivalent to a knowledge graph", "basically X") - a plausible analogy is still a new claim.
@@ -4511,13 +4505,13 @@ ${feedbackSection}
 - Contractions always (that's, don't, it's). Plain words (fast, breaks, ships, clean), never pundit words.
 - Shape, never template: short, specific, grounded in this post's nouns. Never lift phrasing from these instructions into your comment - every example here is off-limits as wording.
 === WHAT GETS REJECTED (every draft passes these gates - write to clear them) ===
-- praise openers, any question, hashtags, figures/quantifiers absent from the post (incl. hundreds/thousands/percent)
+- any question, hashtags, figures/quantifiers absent from the post (incl. hundreds/thousands/percent)
 - banned pundit words, synthetic phrases (settles it, highlights, breakdown, equivalent to, basically, key takeaway)
 - long paraphrases posing as reactions (acknowledgments stay short), verbatim 6-word runs lifted from the post, wedged author name
 - new evidence (stats, events, entities, benchmarks, causal claims), new analogies or equivalences
 - relationships the post never states (A caused B, A suggests B) - both entities existing is NOT enough
 - content-free filler naming no specific point
-BAD (never do this): praise opener + vague gesture naming nothing concrete ("great post" / "really interesting" + zero post nouns).
+BAD (never do this): vague gesture naming nothing concrete (zero post nouns, zero point).
 Return ONLY the comment text, or exactly SKIP.`;
 
     try {
@@ -4568,7 +4562,7 @@ Return ONLY the comment text, or exactly SKIP.`;
   // Returns { pass, reason }. Any error = pass (mechanical gates already ran; the critic only adds rejections).
   async criticFeedComment(draft, post) {
     try {
-      const prompt = `You are a strict lie-detector for LinkedIn replies, not a novelty judge. Lack of novelty is FINE. SOURCE POST: """${String(post).slice(0, 1200)}""" PROPOSED REPLY: """${String(draft).slice(0, 500)}""" FAIL the reply if ANY holds: (1) content-free filler naming no specific point from the post (vague gestures like "interesting implications" with zero concrete nouns); (2) praise or agreement that names no specific point from the post ("great post!" alone FAILS; "Great post! Really insightful breakdown of eval methods today." names the subject and PASSES); (3) any claim, comparison, number, causal link, mechanism, failure mode, remedy, analogy, prescription, or entity NOT supported by the post; (4) facts attached to the wrong event (one exploit's time window on another incident's device = FAIL); (5) experience, personal-use, or "I have seen" claims; (6) possibility stated as certainty; (7) author name wedged or used unnaturally. PASS everything else - a short grounded acknowledgment endorsing a specific point with zero new claims PASSES even with no novelty; a genuine grounded observation PASSES. Reply with exactly one line: PASS or FAIL: <one-line reason>.`;
+      const prompt = `You are a strict lie-detector for LinkedIn replies, not a novelty judge. Lack of novelty is FINE. SOURCE POST: """${String(post).slice(0, 1200)}""" PROPOSED REPLY: """${String(draft).slice(0, 500)}""" FAIL the reply if ANY holds: (1) content-free filler naming no specific point from the post (vague gestures like "interesting implications" with zero concrete nouns); (2) any claim, comparison, number, causal link, mechanism, failure mode, remedy, analogy, prescription, or entity NOT supported by the post; (3) facts attached to the wrong event (one exploit's time window on another incident's device = FAIL); (4) experience, personal-use, or "I have seen" claims; (5) possibility stated as certainty; (6) author name wedged or used unnaturally. PASS everything else - a short grounded acknowledgment endorsing a specific point with zero new claims PASSES even with no novelty ("Great post! Really insightful breakdown of eval methods today." PASSES); a genuine grounded observation PASSES. Reply with exactly one line: PASS or FAIL: <one-line reason>.`;
       const raw = await this.generateText(prompt, { temperature: 0.1, num_predict: 150, system: "You are a strict critic of LinkedIn replies. Answer with exactly one line: PASS or FAIL: <reason>." });
       const line = String(raw || "").trim().split(/\n/)[0];
       if (/^FAIL\b/i.test(line)) {
