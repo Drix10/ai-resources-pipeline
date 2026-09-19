@@ -64,7 +64,7 @@ const HAT_TIP_PROHIBITED_PATTERNS = [
   /we(?:'ve| have) all (?:been there|been caught|seen this|experienced)/i,
   // Fabricated personal war stories & fake company anecdotes
   /\blast (?:week|month|year),? we (?:deployed|broke|crashed|hit|were building)\b/i,
-  /\bwhen we deployed this at (?:PartPilot|our startup)\b/i,
+  /\bwhen we deployed this at (?:our startup|my company|my team)\b/i,
   /\bour (?:cluster|server|database) (?:crashed|went down|melted)\b/i,
   /\bwe burned \$\d+[\d,]*\b/i,
   // Cheap copywriting clichés

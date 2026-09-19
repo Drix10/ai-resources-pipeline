@@ -1031,9 +1031,12 @@ class LinkedInService {
             if (/\d+\s*[smhdw]\s*•/.test(tlines[i])) { bodyStart = i + 1; break; }
           }
           // Body (not header) drives identity: same post re-rendered = same key, no double-comments.
+          // Trailing count-only lines (reaction/comment/repost tallies) shift over time, so they
+          // are stripped from the key source only - counts rot keys and cause re-comments.
           const bodyOnly = tlines.slice(bodyStart).join("\n").replace(/^follow\s*$/gim, "");
+          const keySrc = bodyOnly.replace(/(\n\s*[\d][\d\s,.KMB]*)+$/, "");
           if (bodyOnly.split(/\s+/).filter(Boolean).length < 10) continue; // render fragment, not a post yet
-          const key = keyOf(item.href, bodyOnly);
+          const key = keyOf(item.href, keySrc);
           if (seen.has(key)) continue;
           seen.add(key);
           fresh++;

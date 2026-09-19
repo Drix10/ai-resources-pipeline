@@ -36,7 +36,11 @@ function saveTrack(track) {
   try {
     const dir = path.dirname(TRACK_PATH);
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    fs.writeFileSync(TRACK_PATH, JSON.stringify(track, null, 2), "utf8");
+    // Atomic write: crash mid-write must never leave a corrupt tracker (that would
+    // reset commented-memory and cause double comments). tmp + rename is atomic on POSIX/NTFS.
+    const tmp = `${TRACK_PATH}.${process.pid}.tmp`;
+    fs.writeFileSync(tmp, JSON.stringify(track, null, 2), "utf8");
+    fs.renameSync(tmp, TRACK_PATH);
   } catch (e) {
     logger.warn(`feedEngage: could not persist tracker: ${e.message}`);
   }
@@ -72,10 +76,11 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
     return { commented: 0, skipped: 0, liked: 0, previews: [], wouldLike: [], reason: "disabled" };
   }
   const track = loadTrack();
-  // Prune entries older than 30 days so the file stays small.
+  // Prune entries older than 30 days (and unparseable garbage) so the file stays small.
   const cutoff = Date.now() - 30 * 24 * 60 * 60 * 1000;
   for (const [key, v] of Object.entries(track)) {
-    if (Date.parse(entryOf(v).ts) < cutoff) delete track[key];
+    const ts = Date.parse(entryOf(v).ts);
+    if (!entryOf(v).ts || isNaN(ts) || ts < cutoff) delete track[key];
   }
   if (commentedToday(track) >= MAX_PER_DAY) {
     return { commented: 0, skipped: 0, liked: 0, previews: [], wouldLike: [], reason: `daily cap (${MAX_PER_DAY}) reached` };
