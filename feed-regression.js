@@ -58,6 +58,11 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
   await t("tortured profundity on shallow post -> reject", DASH_POST, "Acme Corp",
     ["The dashboard scalability implications are really interesting for modern teams.", "The dashboard scalability implications are really interesting for modern teams."], false);
   await t("generator SKIP on shallow post -> skipped", DASH_POST, "Acme Corp", ["SKIP"], false, true, 0);
+  await t("word-number invention (hundreds of annotators) -> reject",
+    "The biggest cost of AI is the context tax. Every question costs explanation time across 20 people and thousands of workflows. Expensive amnesia.",
+    "Albert Mao",
+    ["Thousands of workflows multiply the context tax, but so do hundreds of human annotators labeling each request.",
+     "Thousands of workflows multiply the context tax, but so do hundreds of human annotators labeling each request."], false);
   await t("unsupported causal absent from post -> critic kills", EVAL_POST, "Pranav Joshi",
     ["Reference-based scoring causes teams to abandon BLEU entirely for agents.", "FAIL: unsupported causal claim, post never states abandonment",
      "Reference-based scoring causes teams to abandon BLEU entirely for agents.", "FAIL: unsupported causal claim"], false);
