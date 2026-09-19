@@ -88,7 +88,12 @@ flowchart TD
 ### 🎲 5. Randomized Batch GitHub Commits (1 to 8)
 - Eliminates predictable static commit batching by randomly committing between 1 and 8 article updates per cycle, creating a natural commit rhythm on GitHub.
 
-### ⚡ 6. High-Speed Next.js 14 Knowledge Hub (`blog/`)
+### 🤝 7. LinkedIn Feed Engagement (2 comments + likes per commit)
+- **Interleaved With Commits**: after every successful batch commit, the engine likes fresh feed posts and leaves up to 2 genuine comments (Top, then Recent) — 8/day cap, 3-day rejection memory.
+- **Reaction-First Voice**: short acknowledgments by default, observation only when the post invites it; never invents facts, numbers, or relationships.
+- **Preview Before Live**: `node feed-preview.js --max 3` prints exactly what would be posted and liked — nothing runs live without approval.
+
+### ⚡ 8. High-Speed Next.js 14 Knowledge Hub (`blog/`)
 - **8,940+ Verified Technical Guides** across **42 Specialized Domains**.
 - **Sub-60ms In-Memory Search & Filtering** with tokenized search indexes (`blog/lib/articles-index.json`).
 - **Hybrid Incremental Static Regeneration (ISR)**: Builds in under 8 seconds with zero worker timeouts.
@@ -129,6 +134,7 @@ NVIDIA_MODEL=meta/llama-3.2-11b-vision-instruct
 
 # Social Automation
 LINKEDIN_POST=true
+LINKEDIN_FEED_REPLY=true
 DISCORD_WEBHOOK_URL=your_discord_webhook_url
 ```
 
@@ -142,6 +148,9 @@ node post-gen.js
 
 # Force immediate live publishing to LinkedIn
 node post-gen.js --publish
+
+# Preview feed engagement (comments + likes) without posting anything
+node feed-preview.js --max 3
 ```
 
 ---
