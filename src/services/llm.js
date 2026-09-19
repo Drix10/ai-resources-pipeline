@@ -4385,7 +4385,7 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     body = body.replace(/\n{3,}/g, "\n\n").trim();
     const qm = body.match(/^(["'“”‘’])([\s\S]*)\1$/);
     if (qm) body = qm[2].trim();
-    body = body.replace(/^(agree with receipts|respectful pushback|sharp question)\s*:\s*/i, "");
+    body = body.replace(/^(agree with receipts|respectful pushback|sharp question|name the mechanism|name the tradeoff|name the failure mode|sharpen the distinction)\s*:\s*/i, "");
     return body;
   }
 
@@ -4424,12 +4424,12 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
       errors.push("Reply lectures the author in second person; describe the mechanism, never coach the human.");
     }
     // Synthetic engagement phrases: fluent, says nothing. Name the observation itself instead.
-    if (/\bwhat settles? it\b|\bthe interesting part\b|\bthis highlights?\b|\bgreat breakdown\b|\bgood breakdown\b|\bimportant distinction\b|\breally shows?\b|\bkey takeaways?\b|\bspeaks volumes\b|\bsays a lot\b|\bsheds light\b|\bgame[- ]changer\b/i.test(reply)) {
+    if (/\bwhat settles? it\b|\bthe interesting part\b|\b(really|very|so|quite|pretty)\s+interesting\b|\bthis highlights?\b|\bgreat breakdown\b|\bgood breakdown\b|\bimportant distinction\b|\breally shows?\b|\bkey takeaways?\b|\bspeaks volumes\b|\bsays a lot\b|\bsheds light\b|\bgame[- ]changer\b/i.test(reply)) {
       errors.push("Reply leans on a synthetic engagement phrase; replace it with the concrete observation itself.");
     }
     // Comparative/conclusive claims the post never states: factual drift, not voice.
     if (/\b(better|worse)\s+than\b|\bbeats?\b|\bproves?\b|\bsettle[sd]?\s+it\b|\bconfirms?\b/i.test(reply) &&
-        !/\b(better|worse|beat|prov|settl|confirm|compar)/i.test(post)) {
+        !/\b(better|worse|beats?|beat|prov\w*|settl\w*|confirm\w*)\b/i.test(post)) {
       errors.push("Reply makes a comparative/conclusive claim the post never states; stay inside what the author established.");
     }
     // Every figure in the comment must already exist in the post - no invented specifics.
@@ -4484,7 +4484,7 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     const prompt = `You are Drishtant Ghosh (Drix10), a software engineer scrolling LinkedIn, leaving a comment on a peer's post. Write like an engineer talking shop: direct, technical, zero fluff. You are a peer, not a fan and not a teacher.
 
 POST AUTHOR: ${author}
-FULL NAME: ${fullName} (mention it ONLY if grammatically natural mid-thought - never forced, never the first word; most comments need no name at all)
+FULL NAME: ${fullName} (mention it ONLY if grammatically natural - a leading "Name," is fine when real substance follows; NEVER wedge it mid-sentence between commas; most comments need no name at all)
 POST:
 ${cleanPost}
 ${feedbackSection}
@@ -4523,22 +4523,27 @@ BAD (never do this): "Your guitar gig sounds like a great experience, but did yo
 Return ONLY the comment text, or exactly SKIP.`;
     try {
       const raw = await this.generateText(prompt, { temperature: 0.4, num_predict: 800 });
-      const filtered = this.filterCommentReply(String(raw || "").trim());
-      if (/^skip\b/i.test(filtered)) {
+      // Validate the draft's real sins BEFORE sanitizing: the post-pipeline sanitizer
+      // deletes banned phrases, which would launder a gutted draft into a false PASS.
+      // Only quote-unwrap + move-label strip here (neither removes sins); full filtering
+      // runs on accepted drafts only.
+      const forCheck = String(raw || "").trim()
+        .replace(/^["'“”‘’]+|["'“”‘’]+$/g, "")
+        .replace(/^(agree with receipts|respectful pushback|sharp question|name the mechanism|name the tradeoff|name the failure mode|sharpen the distinction)\s*:\s*/i, "")
+        .trim();
+      if (/^skip\b/i.test(forCheck)) {
         return { comment: "", isValid: false, skipped: true, errors: ["no technical substance - skipped"] };
       }
-      const check = this.validateCommentReply(filtered, cleanPost);
-      // A forced name is worse than none: fail only when the name leads (praise-bait position).
-      if (check.isValid && fullName && fullName !== "there") {
-        const toks = filtered.trim().split(/\s+/);
-        if (toks[0].toLowerCase().startsWith(fullName.split(/\s+/)[0].toLowerCase())) {
-          check.isValid = false;
-          check.errors.push(`Comment leads with the author's name ("${fullName}") - mention it mid-thought or not at all.`);
-        }
+      const check = this.validateCommentReply(forCheck, cleanPost);
+      // Wedged full-name vocative ("..., Pranav Joshi, which...") - the obvious insertion artifact.
+      // Single-name mid-vocatives ("The tradeoff, Ravi, is...") stay legal; the critic judges the rest.
+      if (check.isValid && fullName && fullName !== "there" && /,\s*[A-Z][a-z]+\s+[A-Z][a-z]+\s*,/.test(forCheck)) {
+        check.isValid = false;
+        check.errors.push(`Comment wedges the full name between commas ("${fullName}") - use it once naturally or not at all.`);
       }
       // Semantic claim verifier: a second pass judging contribution, not voice.
       if (check.isValid) {
-        const verdict = await this.criticFeedComment(filtered, cleanPost);
+        const verdict = await this.criticFeedComment(forCheck, cleanPost);
         if (!verdict.pass) {
           check.isValid = false;
           check.errors.push(`Critic rejected: ${verdict.reason}`);
@@ -4548,6 +4553,7 @@ Return ONLY the comment text, or exactly SKIP.`;
         logger.warn(`LocalLLMService: feed comment rejected (${check.errors.join("; ")}), retrying...`);
         return this.draftFeedComment({ postAuthor, postText }, retries - 1, check.errors);
       }
+      const filtered = check.isValid ? this.filterCommentReply(forCheck) : forCheck;
       return { comment: filtered, isValid: check.isValid, skipped: false, errors: check.errors };
     } catch (err) {
       logger.error("LocalLLMService: draftFeedComment error:", err);
@@ -4563,7 +4569,7 @@ Return ONLY the comment text, or exactly SKIP.`;
   // Returns { pass, reason }. Any error = pass (mechanical gates already ran; the critic only adds rejections).
   async criticFeedComment(draft, post) {
     try {
-      const prompt = `You are a strict critic of LinkedIn replies. SOURCE POST: """${String(post).slice(0, 1200)}""" PROPOSED REPLY: """${String(draft).slice(0, 500)}""" FAIL the reply if ANY holds: (1) restates the post without adding an observation, implication, correction, extension, or tradeoff; (2) generic praise or agreement; (3) author name used unnaturally; (4) any claim, comparison, number, or causal link NOT supported by the post; (5) vague comparative or filler phrasing ("settles it", "highlights", "breakdown", "testament", "interesting part"); (6) makes it about the commenter, not the technical subject. Reply with exactly one line: PASS or FAIL: <one-line reason>.`;
+      const prompt = `You are a strict critic of LinkedIn replies. SOURCE POST: """${String(post).slice(0, 1200)}""" PROPOSED REPLY: """${String(draft).slice(0, 500)}""" FAIL the reply if ANY holds: (1) restates the post without adding an observation, implication, correction, extension, or tradeoff; (2) generic praise or agreement; (3) author name used unnaturally; (4) any claim, comparison, number, or causal link NOT supported by the post; (5) vague comparative or filler phrasing ("settles it", "highlights", "breakdown", "testament", "interesting part"); (6) makes it about the commenter, not the technical subject; (7) the author name is wedged or used awkwardly (mid-sentence comma sandwich, tacked-on tag with no grammatical role). Reply with exactly one line: PASS or FAIL: <one-line reason>.`;
       const raw = await this.generateText(prompt, { temperature: 0.1, num_predict: 150 });
       const line = String(raw || "").trim().split(/\n/)[0];
       if (/^FAIL\b/i.test(line)) {
