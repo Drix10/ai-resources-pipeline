@@ -4406,7 +4406,7 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     }
     // Synthetic equivalence/verdict phrases: these manufacture claims (false equivalence,
     // false verdicts, filler that says nothing). Pure style-cringe is the critic's job, not ours.
-    if (/\bwhat settles? it\b|\bis equivalent to\b|\bis basically\b|\bis the same as\b|\bmaps? (neatly |directly )?to\b|\bmak(?:e|es|ing) it easier to\b|\bkey takeaways?\b/i.test(reply)) {
+    if (/\bwhat settles? it\b|\bis equivalent to\b|\bis basically\b|\bis the same as\b|\bmaps? (neatly |directly )?to\b|\bmak(?:e|es|ing) it easier to\b|\bkey takeaways?\b|\bclassic case of\b|\btextbook example\b|\bcrucial aspect\b|\bessential for\b/i.test(reply)) {
       errors.push("Reply leans on a synthetic engagement phrase; replace it with the concrete observation itself.");
     }
     // Comparative/conclusive claims the post never states: factual drift, not voice.
@@ -4445,6 +4445,22 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     }
     if (echoed) {
       errors.push(`Reply lifts a verbatim run from the post ("${echoed}") - put it in your own words at minimum.`);
+    }
+    // Typo tripwire: a reply word (6+ chars) one edit from a post word (6+ chars) is a
+    // misspelling of the author's own term, not a new word ("halucinated" vs "hallucinated").
+    const lev = (a, b) => {
+      const d = Array.from({ length: a.length + 1 }, (_, i) => [i, ...Array(b.length).fill(0)]);
+      for (let j = 1; j <= b.length; j++) d[0][j] = j;
+      for (let i = 1; i <= a.length; i++) for (let j = 1; j <= b.length; j++)
+        d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      return d[a.length][b.length];
+    };
+    const postSet = new Set(postWords.filter((w) => w.length >= 6));
+    const pluralOf = (a, b) => a === b + "s" || a === b + "es" || b === a + "s" || b === a + "es";
+    const typo = words(reply).filter((w) => w.length >= 6 && !postSet.has(w))
+      .find((w) => [...postSet].some((p) => !pluralOf(w, p) && Math.abs(p.length - w.length) <= 1 && lev(w, p) <= 1));
+    if (typo) {
+      errors.push(`Reply misspells the post's own term ("${typo}") - copy post nouns exactly as written.`);
     }
     // never touched the post at all. Threshold stays at 1 - the critic judges relevance.
     const STOP = new Set("about which would could should there their have been were with from that this these those than then when while also just like more most other into over under using thing things point claim words really very does doing done make makes made many much such every each they them your youre theyre its are was were been have has will shall may might must could would shall does did your our their than then what when where which whose why than then than".split(" "));
@@ -4490,11 +4506,12 @@ POST:
 ${cleanPost}
 ${feedbackSection}
 === COMMENT MODES (natural reactions, not reviews - default to the lightest true one) ===
-1. ACKNOWLEDGE (default): 1-2 short sentences endorsing a SPECIFIC point with its own nouns. Zero new claims. Most comments live here.
+1. ACKNOWLEDGE (default): ONE short sentence endorsing a SPECIFIC point with its own nouns. A second sentence only when it adds something the first lacks. Most comments live here.
 2. OBSERVE (only when the post invites it): one grounded reaction - an implication, tradeoff, or distinction from relationships the post already states.
 3. SKIP: no specific point to endorse (empty posts, giveaway spam, vague bait); grief, tragedy, politics, controversy; or honesty needs facts you don't have. Everything else is commentable: technical posts, launches, announcements, milestones, events. Announcements get acknowledgment, never invented analysis.
 - 1-2 sentences under 400 chars, STATEMENTS ONLY. One strong sentence beats two padded ones - when the point lands, STOP. Zero questions, zero hashtags, zero coaching.
 - Reuse ONLY nouns, numbers, and mechanisms already in the post. Every figure you write must already exist in the post text.
+- Copy the post's own terms EXACTLY as spelled - never respell its nouns (a typo ships as ignorance).
 - Never preach ("you should", "teams should"), never coach ("you're learning", "what you need"), never ask ("have you considered", "did you").
 - Never claim what the post doesn't support: no new comparisons, no verdicts ("settles it", "proves", "better than"), no invented numbers.
 - Reaction = new INTERPRETATION of the post's evidence (implication, tradeoff, failure mode, distinction, mechanism). NEVER new EVIDENCE (stats, events, entities, benchmarks, causal claims, technical facts). If your sentence needs a fact the post doesn't state, delete the sentence.
@@ -4562,7 +4579,7 @@ Return ONLY the comment text, or exactly SKIP.`;
   // Returns { pass, reason }. Any error = pass (mechanical gates already ran; the critic only adds rejections).
   async criticFeedComment(draft, post) {
     try {
-      const prompt = `You are a strict lie-detector for LinkedIn replies, not a novelty judge. Lack of novelty is FINE. SOURCE POST: """${String(post).slice(0, 1200)}""" PROPOSED REPLY: """${String(draft).slice(0, 500)}""" FAIL the reply if ANY holds: (1) content-free filler naming no specific point from the post (vague gestures like "interesting implications" with zero concrete nouns); (2) any claim, comparison, number, causal link, mechanism, failure mode, remedy, analogy, prescription, or entity NOT supported by the post; (3) facts attached to the wrong event (one exploit's time window on another incident's device = FAIL); (4) experience, personal-use, or "I have seen" claims; (5) possibility stated as certainty; (6) author name wedged or used unnaturally. PASS everything else - a short grounded acknowledgment endorsing a specific point with zero new claims PASSES even with no novelty ("Great post! Really insightful breakdown of eval methods today." PASSES); a genuine grounded observation PASSES. Reply with exactly one line: PASS or FAIL: <one-line reason>.`;
+      const prompt = `You are a strict lie-detector for LinkedIn replies, not a novelty judge. Lack of novelty is FINE. SOURCE POST: """${String(post).slice(0, 1200)}""" PROPOSED REPLY: """${String(draft).slice(0, 500)}""" FAIL the reply if ANY holds: (1) content-free filler naming no specific point from the post (vague gestures like "interesting implications" with zero concrete nouns); (2) any claim, comparison, number, causal link, mechanism, failure mode, remedy, analogy, prescription, coined abstraction, or entity NOT supported by the post (a new -tion noun like "information fragmentation" for a post about re-explaining context = FAIL); (3) facts attached to the wrong event (one exploit's time window on another incident's device = FAIL); (4) experience, personal-use, or "I have seen" claims; (5) possibility stated as certainty; (6) author name wedged or used unnaturally. PASS everything else - a short grounded acknowledgment endorsing a specific point with zero new claims PASSES even with no novelty ("Great post! Really insightful breakdown of eval methods today." PASSES); a genuine grounded observation PASSES. Reply with exactly one line: PASS or FAIL: <one-line reason>.`;
       const raw = await this.generateText(prompt, { temperature: 0.1, num_predict: 150, system: "You are a strict critic of LinkedIn replies. Answer with exactly one line: PASS or FAIL: <reason>." });
       const line = String(raw || "").trim().split(/\n/)[0];
       if (/^FAIL\b/i.test(line)) {
