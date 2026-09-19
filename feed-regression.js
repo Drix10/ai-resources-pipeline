@@ -82,8 +82,8 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
   await t("invented edge redesign->token-reduction -> critic kills",
     "Joined Graphify Labs to lead product and AI. Gave the console and website a fresh look. Graphify is an open source on-device knowledge graph engine turning codebases into graphs for agents, cutting token consumption by 70 percent. 119k stars on GitHub.",
     "Raihan Khan",
-    ["Graphify's console redesign likely impacts token consumption metrics, given the 70 percent reduction mentioned.", "FAIL: redesign never connected to token reduction in source",
-     "Graphify's console redesign likely impacts token consumption metrics, given the 70 percent reduction mentioned.", "FAIL: invented edge"], false);
+    ["Graphify's console redesign impacts token consumption metrics, given the 70 percent reduction mentioned.", "FAIL: redesign never connected to token reduction in source",
+     "Graphify's console redesign impacts token consumption metrics, given the 70 percent reduction mentioned.", "FAIL: invented edge"], false);
   await t("imported failure mode (overfitting/accents) -> critic kills",
     "Oruk announcing Resonance-2, speech emotion recognition. Scores 31 emotion and speaking-style categories directly from audio. Recognized self-labeled emotions better than human listeners. Opening access to limited customers first.",
     "Nathan Roll",
@@ -128,6 +128,19 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
   await t("verdict filler (classic case / crucial aspect) -> reject", EVAL_POST, "Pranav Joshi",
     ["This is a classic case of eval drift, a crucial aspect of metric design.",
      "This is a classic case of eval drift, a crucial aspect of metric design."], false);
+  await t("mid-sentence name drop -> reject",
+    "The biggest cost of AI is context tax. Humans repeatedly teach the machine the same thing.",
+    "Albert Mao",
+    ["The context tax Albert Mao is talking about is a real problem.",
+     "The context tax Albert Mao is talking about is a real problem."], false);
+  await t("hedged speculation (likely) -> reject", EVAL_POST, "Pranav Joshi",
+    ["This approach likely reduces eval fragmentation across teams.",
+     "This approach likely reduces eval fragmentation across teams."], false);
+  await t("imported machinery (knowledge graph) -> reject",
+    "The biggest cost of AI is context tax. Humans repeatedly teach the machine the same thing.",
+    "Albert Mao",
+    ["The overhead comes from maintaining a large knowledge graph.",
+     "The overhead comes from maintaining a large knowledge graph."], false);
   await t("unsupported causal absent from post -> critic kills", EVAL_POST, "Pranav Joshi",
     ["Reference-based scoring causes teams to abandon BLEU entirely for agents.", "FAIL: unsupported causal claim, post never states abandonment",
      "Reference-based scoring causes teams to abandon BLEU entirely for agents.", "FAIL: unsupported causal claim"], false);
