@@ -1179,13 +1179,7 @@ class LocalLLMService {
 
     const { format, temperature = 0.2, num_predict = 2500, system, ...generationOptions } = options;
     const configuredModel = config.llm.nvidia.model || "meta/llama-3.2-11b-vision-instruct";
-    const candidateModels = [
-      configuredModel,
-      "mistralai/mistral-large-2-instruct",
-      "mistralai/codestral-22b-instruct-v0.1",
-      "nv-mistralai/mistral-nemo-12b-instruct",
-      "meta/llama-3.2-11b-vision-instruct"
-    ].filter((m, idx, arr) => m && arr.indexOf(m) === idx);
+    const candidateModels = [configuredModel, "meta/llama-3.2-11b-vision-instruct"].filter((m, idx, arr) => m && arr.indexOf(m) === idx);
 
     let lastError = null;
 

@@ -22,7 +22,7 @@ const config = {
     nvidia: {
       apiKey: process.env.NVIDIA_API_KEY || "",
       baseUrl: (process.env.NVIDIA_BASE_URL || "https://integrate.api.nvidia.com/v1").replace(/\/$/, ""),
-      model: process.env.NVIDIA_MODEL || "nvidia/llama-3.1-nemotron-70b-instruct",
+      model: process.env.NVIDIA_MODEL || "meta/llama-3.2-11b-vision-instruct",
       requestTimeoutMs: parsePositiveInteger(process.env.NVIDIA_REQUEST_TIMEOUT_MS, 240000),
     },
   },
