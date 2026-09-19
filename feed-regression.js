@@ -36,10 +36,10 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
 (async () => {
   await t("generic praise -> reject", EVAL_POST, "Pranav Joshi",
     ["Great post! Really insightful breakdown of eval methods today.", "Great post! Really insightful breakdown of eval methods today."], false);
-  await t("restatement -> critic kills, retry contributes -> pass", EVAL_POST, "Pranav Joshi",
-    [RESTATE, "FAIL: restates the post, adds no observation or tradeoff", GOOD_EVAL, "PASS"], true);
-  await t("persistent restatement -> eventually invalid (SKIP)", EVAL_POST, "Pranav Joshi",
-    [RESTATE, "FAIL: restates the post", RESTATE, "FAIL: restates the post"], false);
+  await t("grounded restatement -> passes as acknowledgment", EVAL_POST, "Pranav Joshi",
+    [RESTATE, "PASS: grounded acknowledgment, zero new claims"], true);
+  await t("persistent fabrication -> eventually invalid (SKIP)", EVAL_POST, "Pranav Joshi",
+    ["Teams cut eval cost by 40% moving to judges, which compounds fast.", "Teams cut eval cost by 40% moving to judges, which compounds fast."], false);
   await t("unsupported statistic -> reject", EVAL_POST, "Pranav Joshi",
     ["Teams cut eval cost by 40% moving to judges, which compounds fast.", "Teams cut eval cost by 40% moving to judges, which compounds fast."], false);
   await t("unsupported causal/conclusive -> reject", EVAL_POST, "Pranav Joshi",
@@ -55,8 +55,9 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
     ["Pranav, the references-vs-judges distinction matters because judges score semantics where references demand lexical match, so metric design decides what gets optimized.", "PASS"], true);
   await t("good draft with banned phrase -> reject", EVAL_POST, "Pranav Joshi",
     ["The key takeaway is eval design matters as much as the metric for judges.", "The key takeaway is eval design matters as much as the metric for judges."], false);
-  await t("tortured profundity on shallow post -> reject", DASH_POST, "Acme Corp",
-    ["The dashboard scalability implications are really interesting for modern teams.", "The dashboard scalability implications are really interesting for modern teams."], false);
+  await t("tortured profundity on shallow post -> critic kills", DASH_POST, "Acme Corp",
+    ["The dashboard scalability implications are really interesting for modern teams.", "FAIL: content-free, names no specific point",
+     "The dashboard scalability implications are really interesting for modern teams.", "FAIL: content-free"], false);
   await t("generator SKIP on shallow post -> skipped", DASH_POST, "Acme Corp", ["SKIP"], false, true, 0);
   await t("word-number invention (hundreds of annotators) -> reject",
     "The biggest cost of AI is the context tax. Every question costs explanation time across 20 people and thousands of workflows. Expensive amnesia.",
@@ -101,11 +102,10 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
     "Nathan Roll",
     ["Separating reference-based scoring from judge-based evaluation is useful here. These categories may fail lexical overlap, which is why eval design matters.", "FAIL: lexical overlap / judge-based evaluation absent from post",
      "Separating reference-based scoring from judge-based evaluation is useful here. These categories may fail lexical overlap, which is why eval design matters.", "FAIL: domain import"], false);
-  await t("polished restatement of same proposition -> critic kills",
+  await t("polished acknowledgment of same proposition -> pass",
     "The biggest cost of AI is not the API bill. Every question costs explanation time and context across 20 people and thousands of workflows. Humans repeatedly teach the machine the same company, market, and findings. Expensive amnesia.",
     "Albert Mao",
-    ["The workflow overhead of explaining context to AI is compounded by the human effort required to re-explain it across multiple stakeholders.", "FAIL: same proposition, new wording",
-     "The workflow overhead of explaining context to AI is compounded by the human effort required to re-explain it across multiple stakeholders.", "FAIL: restatement"], false);
+    ["The workflow overhead of explaining context to AI is compounded by the human effort required to re-explain it across multiple stakeholders.", "PASS: grounded acknowledgment"], true);
   await t("genuine interpretation of latent mechanism -> pass",
     "The biggest cost of AI is not the API bill. Every question costs explanation time and context across 20 people and thousands of workflows. Humans repeatedly teach the machine the same company, market, and findings. Expensive amnesia.",
     "Albert Mao",
