@@ -86,6 +86,21 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
     "Researchers chained five vulnerabilities into root access in under 60 seconds. Patching any single flaw would not have stopped the chain.",
     "Srinivas L",
     ["Blocking any single flaw leaves four working paths, so the chain survives individual patches.", "PASS"], true);
+  await t("prescribed remedy (mitigated by) -> reject",
+    "The biggest cost of AI is the context tax. Every question costs explanation time across 20 people and thousands of workflows. Expensive amnesia.",
+    "Albert Mao",
+    ["The context tax is redundant data ingestion, which can be mitigated by designing more explicit inputs.",
+     "The context tax is redundant data ingestion, which can be mitigated by designing more explicit inputs."], false);
+  await t("consultant filler (making it easier to) -> reject",
+    "Graphify turns codebases into knowledge graphs highlighting impacted files and dependencies before changes ship.",
+    "Tushar Mishra",
+    ["Graphify highlights impacted files, making it easier to prioritize refactoring efforts across the codebase.",
+     "Graphify highlights impacted files, making it easier to prioritize refactoring efforts across the codebase."], false);
+  await t("domain import (lexical overlap into emotion eval) -> critic kills",
+    "Oruk announcing Resonance-2, speech emotion recognition. Scores 31 emotion and speaking-style categories directly from audio, beating human listeners on self-labeled emotions.",
+    "Nathan Roll",
+    ["Separating reference-based scoring from judge-based evaluation is useful here. These categories may fail lexical overlap, which is why eval design matters.", "FAIL: lexical overlap / judge-based evaluation absent from post",
+     "Separating reference-based scoring from judge-based evaluation is useful here. These categories may fail lexical overlap, which is why eval design matters.", "FAIL: domain import"], false);
   await t("unsupported causal absent from post -> critic kills", EVAL_POST, "Pranav Joshi",
     ["Reference-based scoring causes teams to abandon BLEU entirely for agents.", "FAIL: unsupported causal claim, post never states abandonment",
      "Reference-based scoring causes teams to abandon BLEU entirely for agents.", "FAIL: unsupported causal claim"], false);
