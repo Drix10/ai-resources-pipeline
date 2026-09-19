@@ -1066,6 +1066,32 @@ class LinkedInService {
 
   // Comment INLINE on a feed card (no navigation: click its Comment toggle, type, submit).
   // Re-finds the card by author href + text snippet (virtualized feed unmounts nodes).
+  // Like a feed card by text snippet. State-checked: only clicks an un-liked Like
+  // button, so it never unlikes or double-likes. True = like newly placed.
+  async likeFeedCard(textSnippet) {
+    try {
+      const res = await this.driver.executeScript(`
+        const feed = document.querySelector('div[data-testid="mainFeed"]');
+        if (!feed) return 'no-feed';
+        const cards = Array.from(feed.children).filter(c => (c.innerText || '').includes('Feed post'));
+        const card = cards.find(c => (c.innerText || '').includes(arguments[0]));
+        if (!card) return 'no-card';
+        try { card.scrollIntoView({ block: 'center' }); } catch (e) {}
+        const likeBtn = Array.from(card.querySelectorAll('button')).find(b => {
+          const al = (b.getAttribute('aria-label') || '');
+          return al.toLowerCase() === 'like' ||
+            (al.indexOf('Reaction button state') === 0 && al.toLowerCase().indexOf('no reaction') !== -1);
+        });
+        if (!likeBtn) return 'already';
+        try { likeBtn.click(); return 'liked'; } catch (e) { return 'fail'; }
+      `, String(textSnippet).substring(0, 80)).catch(() => 'fail');
+      if (res === 'liked') logger.info("LinkedInService: feed post liked.");
+      return res === 'liked';
+    } catch (e) {
+      return false;
+    }
+  }
+
   async commentOnFeedCard(cardKey, authorHref, textSnippet, text, fullName = "") {
     try {
       await this.ensureDriverConnected(true);
