@@ -19,13 +19,14 @@ export async function GET() {
 - Location: Bengaluru, Karnataka, India
 
 ## Key Products & Ventures
+- Keystroke-LLM: LLM built FROM SCRATCH in pure NumPy (no PyTorch/HF/API) — character-level causal Transformer with analytical backprop + Adam, trained on 207K chars, driving Kreo Hive 75 LEDs over reverse-engineered USB HID. https://github.com/Drix10/keystroke-llm
 - Canopy @ Founders, Inc.: 4-LLM autonomous multi-agent crypto futures trading engine.
 - CosLynx.com: Founder & CEO — AI-driven code generation platform with 400+ MVPs generated (Build with Backdrop v4 Winner).
 - ReeF: 1x Acquired anime collection game ($15,000 ARR, 5M+ user interactions).
 - Drix10 Blogs: Autonomous engineering knowledge hub & personal architectural postmortems.
 
 ## Technical Skills
-- AI & LLMs: Multi-Agent Swarms, Ollama, NVIDIA NIM, Vector DBs, Prompt Engineering.
+- AI & LLMs: LLMs From Scratch (NumPy Transformers, backprop), Multi-Agent Swarms, Ollama, NVIDIA NIM, Vector DBs, Prompt Engineering.
 - Systems: Node.js, TypeScript, Express.js, Python, Redis, PostgreSQL, Turso DB, Prisma, WebSockets.
 - Frontend: Next.js 14 (App Router, SSG/SSR), React 18, React Native, Tailwind CSS.
 - Security: Application Security, Exploit Mechanisms, Reverse Engineering, Threat Modeling (Cybersecurity @ DSU).
