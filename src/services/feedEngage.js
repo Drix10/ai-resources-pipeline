@@ -19,7 +19,7 @@ const LinkedInService = new linkedinService();
 const { logger, sleep } = require("../utils/helpers");
 
 const TRACK_PATH = path.join(process.cwd(), "data", "linkedin-feed-commented.json");
-const MAX_PER_DAY = 8;
+const MAX_PER_DAY = 15;
 const REJECT_TTL_MS = 3 * 24 * 60 * 60 * 1000; // rejected posts rest 3 days, then become eligible again
 const PACE_MS = 25000;
 const LIKE_PACE_MS = 8000; // bulk likes trip LinkedIn rate limits; space them out

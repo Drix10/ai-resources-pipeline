@@ -89,7 +89,7 @@ flowchart TD
 - Eliminates predictable static commit batching by randomly committing between 1 and 8 article updates per cycle, creating a natural commit rhythm on GitHub.
 
 ### 🤝 7. LinkedIn Feed Engagement (2 comments + likes per commit)
-- **Interleaved With Commits**: after every successful batch commit, the engine likes fresh feed posts and leaves up to 2 genuine comments (Top, then Recent) — 8/day cap, 3-day rejection memory.
+- **Interleaved With Commits**: after every successful batch commit, the engine likes fresh feed posts and leaves up to 2 genuine comments (Top, then Recent) — 15/day cap, 3-day rejection memory.
 - **Reaction-First Voice**: short acknowledgments by default, observation only when the post invites it; never invents facts, numbers, or relationships.
 - **Preview Before Live**: `node feed-preview.js --max 3` prints exactly what would be posted and liked — nothing runs live without approval.
 
