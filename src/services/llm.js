@@ -39,7 +39,19 @@ const BANNED_WORDS = [
   "paving the way", "incredible ways", "blurring lines", "deep dive",
   "supercharge", "supercharged", "supercharging", "paradigm shift",
   "synergy", "plethora", "myriad", "harness", "harnessing", "unleash", "unleashing",
-  "reconceptualize", "demassification", "attitudinally", "judgmentally", "utilize", "utilizing"
+  "reconceptualize", "demassification", "attitudinally", "judgmentally", "utilize", "utilizing",
+  // 2026 durable vocab markers (density-scored per Humanizer V3: 3+ per paragraph = rewrite)
+  "notably", "particularly", "comprehensive", "insights", "insight",
+  "foster", "fostering", "landscape", "nuanced", "multifaceted", "holistic",
+  "streamline", "streamlining", "streamlined", "empower", "empowering",
+  "facilitate", "facilitating", "navigate", "navigating", "ecosystem",
+  "fundamentally", "essentially", "ultimately", "crucially", "arguably",
+  "undoubtedly", "certainly", "definitely",
+  // 2026 LinkedIn-layer tells (were human idiom, now model idiom)
+  "quietly", "built different", "load-bearing", "doing the heavy lifting",
+  "let that sink in", "that's the real story", "the real question is",
+  "what nobody tells you", "what most people miss", "this is where it gets interesting",
+  "in the age of AI", "at the end of the day"
 ];
 
 const HAT_TIP_PROHIBITED_PATTERNS = [
@@ -98,28 +110,43 @@ const HAT_TIP_PROHIBITED_PATTERNS = [
   /\ba CIO needs\b/i,
   /\bregular monitoring and testing of\b/i,
   // Engagement bait CTAs
-  /(?:agree\??|thoughts\??|drop a comment below|let me know in the comments|share your thoughts)/i
+  /(?:agree\??|thoughts\??|drop a comment below|let me know in the comments|share your thoughts)/i,
+  // 2026 reveal bridges (measured reach-negative: -4.3% to -6.7%)
+  /^(?:the (?:result|outcome|answer|lesson|catch|kicker|truth)\?|plot twist[:?]?|spoiler[:?]?|the twist[:?]?)/im,
+  /^(?:here'?s (?:what|how|why)\b|stop \w+ing[^.\n]*\b(?:start|try)\b)/im,
+  // 2026 sincerity announcements / performed vulnerability (named tell: state the dated fact flat, no frame)
+  /^(?:let me be (?:honest|real|direct|clear)|i(?:'ll| will) be (?:honest|real|direct)|honestly\?|honest (?:caveat|version|answer)|the honest (?:version|answer|truth) is|to be (?:direct|honest|fair|transparent)|real talk|full transparency|can i be (?:honest|vulnerable)|i'll say the quiet part|not gonna lie|\bngl\b|unpopular opinion|confession[:]?)/im,
+  // Staccato fragment stacks (manufactured variance = #1 2026 tell)
+  /\bno \w+\. no \w+\. (?:just|only) \w+/i,
+  /^\w+\.$/m,
+  /\bshort\. punchy\. done\b/i,
+  /\ball (?:of )?the \w+\. none of the \w+/i,
+  // Announcement openers (replace with the concrete moment)
+  /^i'?m (?:excited|thrilled|honored|delighted) to (?:announce|share|be)/im,
+  // Comment-gate phrasing (March 2026 authenticity update target)
+  /comment \w+ to get/i,
+  /\bcomment YES\b/i,
+  // Cliché closers
+  /let that sink in\.?$/im,
+  /that'?s the real story\.?$/im,
+  /smash the (?:like|follow) button/i
 ];
 
+// NOTE (2026 update): only GENERIC survey bait is banned here. A specific,
+// experience-anchored closing question ("What's the worst rollback you shipped?")
+// is reach-positive (+3%) and must pass. Generic "Thoughts?"-class prompts fail.
 const WEAK_CTA_PATTERNS = [
-  /what(?:'s| is) your primary bottleneck/i,
   /what do you think/i,
-  /is .+ still viable/i,
-  /are you using .+ or/i,
-  /is your .+ ready for/i,
-  /which .+ do you (?:use|prefer)/i,
-  /what(?:'s| is) your go-to/i,
-  /have you tried .+ yet/i,
+  /thoughts\?/i,
   /agree or disagree/i,
   /tag someone (?:who|that)/i,
   /which one are you/i,
-  /what(?:'s| is) your (?:take|setup|experience)/i,
   /drop your (?:thoughts|experience|setup)/i,
   /leave a comment/i,
   /share your perspective/i,
   /curious to know/i,
-  /what would you add/i,
-  /how are you handling/i,
+  /let me know in the comments/i,
+  /comment below/i,
 ];
 
 const MID_QUALITY_PATTERNS = [
@@ -2127,19 +2154,29 @@ JSON schema:
       issues.push(`Banned word(s) found: ${foundBannedInPost.join(", ")}`);
     }
 
-    // Check for em dashes (strictly forbidden)
+    // Check for em dashes (Humanizer V3 cap: ~1 per 100 words, max 2 per post; "--" always banned)
     if (postText.includes("—") || postText.includes("--")) {
       penaltyPoints += 20;
       issues.push("Post contains em dashes (— or --); use colons, commas, or periods instead.");
     }
 
-    // Hashtag check (5-8 hashtags expected)
+    // Hashtag check (2026: 0-2 at end; 5+ reads as spam)
     const hashtagMatches = postText.match(/#[a-zA-Z0-9_]+/g) || [];
     const hashtagCount = hashtagMatches.length;
-    if (hashtagCount < 5) {
+    if (hashtagCount > 2) {
       penaltyPoints += 15;
-      issues.push(`Not enough hashtags: found ${hashtagCount} (expected 5-8)`);
-    } else if (hashtagCount <= 8) {
+      issues.push(`Too many hashtags: found ${hashtagCount} (2026: max 0-2 at end)`);
+    } else {
+      bonusPoints += 5;
+    }
+
+    // 2026 hook bonuses: number-first line 1 (+34% likes), specific closing question (+3%)
+    const scoreFirstPara = (postText.split(/\r?\n\s*\r?\n/)[0] || "").trim();
+    if (/\d/.test(scoreFirstPara.slice(0, 140))) {
+      bonusPoints += 5;
+    }
+    const scoreCta = this.getCtaQuestion(postText);
+    if (scoreCta && !WEAK_CTA_PATTERNS.some((p) => p.test(scoreCta))) {
       bonusPoints += 5;
     }
 
@@ -2277,8 +2314,9 @@ JSON schema:
       errors.push(`Banned word(s) found: ${foundBanned.join(", ")}`);
     }
 
-    if (postText.includes("—") || postText.includes("--")) {
-      errors.push("Post contains em dashes (— or --); use colons, commas, or periods instead.");
+    const emCount = (postText.match(/—/g) || []).length;
+    if (emCount > 2 || postText.includes("--")) {
+      errors.push(`Too many em dashes (${emCount} em / -- present; cap is ~1 per 100 words, max 2 per post); replace excess with comma, colon, or parentheses, never a period.`);
     }
 
     if (postText.includes("**") || postText.includes("__")) {
@@ -2318,8 +2356,30 @@ JSON schema:
 
     const hashtagMatches = postText.match(/#[a-zA-Z0-9_]+/g) || [];
     const hashtagCount = hashtagMatches.length;
-    if (hashtagCount < 5) {
-      errors.push(`Not enough hashtags: found ${hashtagCount} (expected at least 5-20 hashtags)`);
+    if (hashtagCount > 2) {
+      errors.push(`Too many hashtags: found ${hashtagCount} (2026: 0-2 at end; 5+ reads as spam)`);
+    }
+
+    // 2026 hook hard-fails: line 1 must be a statement or number, never a question/opener formula
+    const firstPara = (postText.split(/\r?\n\s*\r?\n/)[0] || "").trim();
+    const firstLine = (firstPara.split("\n")[0] || "").trim();
+    if (/\?\s*$/.test(firstLine)) {
+      errors.push(`Post opens with a question ("${firstLine.slice(0, 60)}..."); line 1 must be a statement or number (-34% Likes otherwise), move the question to the close.`);
+    }
+    if (/^here'?s (what|how|why)\b/i.test(firstLine)) {
+      errors.push("Post opens with \"Here's what/how\" (-4.3%); lead line 1 with the first real number or statement instead.");
+    }
+    if (/^stop \w+/i.test(firstLine)) {
+      errors.push("Post opens with \"Stop X...\" framing (-6.7%); rewrite the opener as a dated fact.");
+    }
+    // Density hard-fails: max 1 contrast frame, max 2 triads per post
+    const contrastHits = postText.match(/\bit'?s not [^,.\n]{1,40}, it'?s \b|\bnot [^,.\n]{1,30}, but \w|\bit'?s not about [^.\n]+, it'?s about|\bthis isn'?t [^.\n]+\. this is |\bstop [^.\n]+\. start \b/gi) || [];
+    if (contrastHits.length > 1) {
+      errors.push(`Post stacks ${contrastHits.length} contrast frames (max 1 per post); keep the strongest, rewrite the rest as plain declaratives.`);
+    }
+    const triadHits = postText.match(/\b\w+, \w+,? and \w+\b/gi) || [];
+    if (triadHits.length >= 3) {
+      errors.push(`Post stacks ${triadHits.length} triples (max 2, ideally 1 of sourced numbers/named acts, never stacked adjectives); break the extras into pairs or quartets.`);
     }
 
     const chosenArchetype = postData.chosenStructure || "";
@@ -3545,23 +3605,42 @@ Hank
    - Senior engineers and technical founders read this. NEVER explain or define basic concepts.
    - STRICTLY FORBIDDEN: "Overfitting occurs when...", "A database is...", "Latency refers to...", "Pipelines are...".
    - Replace definitions with REAL FRICTION: what actually broke in production, what assumption collapsed under load, what edge case made you rethink the setup.
-2. SHORT, STACCATO CONTRAST PAIRS:
+2. SHORT, STACCATO CONTRAST PAIRS (ONE-CONTRAST BUDGET PER POST):
    - Use high-contrast 1-sentence pivot lines:
      * "That might sound bad for X. It is not."
      * "Polished writing does not make people care. Specificity does."
-     * "AI should help communicate what you genuinely think. It should not invent a personality for you."
-     * "LinkedIn is not becoming anti-AI. It is becoming anti-empty."
+   - DENSITY RULE: ONE contrast frame per post, maximum. A second "It's not X, it's Y" / "Stop X, start Y" line anywhere else in the post is an instant fail. Never stack two contrasts.
 3. CONCRETE OPERATING CONTEXT:
    - Root-cause anatomy: Show why naive implementations fail ("The model has no real context. No production trace. No difficult trade-off...").
    - Tie the lesson to an actual operating philosophy or architectural conviction.
 4. CADENCE & LINE BREAKS:
    - 1-2 sentence paragraphs max.
    - Clean double line breaks between every thought.
-   - Zero markdown bolding (**), zero em dashes (—).
+   - Zero markdown bolding (**). Em dashes capped at ~1 per 100 words (one may stay; never zero-out a draft that earned one, never stack them).
 5. STOP AFTER YOUR FINAL TAKEAWAY:
    - Do NOT output any author signature ("Best, Drishtant"), links, or hashtags.
    - The publishing engine automatically appends the verified signoff and hashtags.
-   - End cleanly on your decisive concluding takeaway sentence.
+   - End cleanly on your decisive concluding takeaway sentence, a specific experience-anchored question, or a one-line P.S. follow-up.
+
+=== 2026 HOOK & REACH RULES (LINKEDIN ALGORITHM — HARD REQUIREMENTS) ===
+- LINE 1 IS A STATEMENT OR A NUMBER. NEVER A QUESTION. A question as the first line costs -34% median likes; an odd-precision number first ("$873.47", "41%", "14 March") gains +34%. If your hook idea is a question, invert it into the number that answers it and move the question to the close.
+- HOOK MUST LAND IN THE FIRST 210 CHARS (mobile folds at ~140). No throat-clearing, no "I want to share...", no "Here's what/how" opener (-4.3%), no "Stop X, start Y" opener (-6.7%), no ALL-CAPS first line, no "In today's fast-paced world".
+- EXECUTE THE BLUEPRINT HOOK AS LINE 1 ONLY IF it is a statement or number. If the blueprint hook is phrased as a question, invert it per the rule above.
+- CLOSE: end with exactly ONE of: a decisive takeaway sentence, ONE specific experience-anchored question ("What's the worst rollback you shipped?", never "Thoughts?" / "Agree?"), or a one-line P.S. with a real follow-up (+7.5%). Never two of these, never generic bait.
+- LENGTH: 900-1,300 characters default. 1,000+ chars = 1.18x reach, 20+ sentences = 1.14x. Micro-takes (400-750) are exempt by design.
+- DENSITY RULE: one contrast per post, one triple per post (and the triple must be three sourced numbers or three named acts, never three adjectives), ZERO reveal bridges ("The result?", "Plot twist:", "Here's what nobody tells you", "the real question is"). Every abstract line must pay for itself with a specific (date, dollar amount, name, percentage) within two lines.
+- "HOW I" BEATS "HOW TO": first-person experience ("How I cut p99 by 62%") over generic instruction. Never blend two hooks in one post.
+- REAL FAILURE IN THE FIRST 3 LINES: lead with what broke as a dated fact, with no candor announcement ("Let me be honest", "Confession:", "Real talk", "Unpopular opinion" are all banned tells). The fact carries the vulnerability, never the frame.
+- SHAPE BY GOAL: comments = controlled comparison, contrarian take with receipts, or specific question; saves = exact how-to, framework, or evidence stack with numbers; reposts = quotable one-line maxim or diverging-curves close.
+- ZERO EXTERNAL LINKS IN THE BODY (40-60% reach penalty). No GitHub URLs in post text. End with a natural pointer and the engine places the link in the first comment. 0-2 hashtags at the end, placed by the engine, never mid-sentence.
+
+=== HUMAN FINGERPRINTS (REQUIRED IN EVERY POST — NO EXCEPTIONS) ===
+Every draft must contain all five. If the source lacks one, state the closest flat technical fact available, never fabricate:
+1. One ODD-PRECISION NUMBER WITH A NAMED REFERENT: who, what, when, or what it cost ("31% p99 regression on the checkout path in the March deploy", not "$5k" and not "significant costs"). A bare number does not count.
+2. One NAMED ENTITY: a real tool, system, company, date, or city from the source.
+3. One FIRST-PERSON SENSORY/CONCRETE DETAIL: what was observed, measured, or run ("the flame graph showed…", "the second deploy timed out at…").
+4. One CONTRADICTION OR SELF-CORRECTION stated as flat fact ("I predicted 3 months. It took 11."), never framed.
+5. One SPECIFIC, DATED, UNCOMFORTABLE FACT stated flat with no framing sentence before or after it. Not "I'll be honest, this hurt." Just the fact.
 
 === VERIFIED SOURCE TECHNICAL FACTS (STRICT GROUNDING REQUIREMENT) ===
 Topic: ${cleanTitle}
@@ -3607,12 +3686,23 @@ ${cleanSourceContent}
    - Do NOT replace simple verbs with "serves as a testament", "stands as a reminder", "boasts", "features". Say "is", "has", "breaks", "costs".
 5. ZERO FORCED GROUPS OF THREE:
    - Do not force 3 adjectives or 3 nouns into every sentence.
-6. UNEVEN HUMAN RHYTHM:
-   - Mix short 3-word sentences with longer explanatory sentences. Break the robotic monotony of uniform sentence lengths.
+6. UNEVEN HUMAN RHYTHM (FIX FLAT, NEVER MANUFACTURE):
+   - Edit rhythm ONLY in a paragraph where every sentence runs the same flat length. Then extend the single sentence carrying the most content with a real subordinate clause (because / which / when / after). Once per paragraph, maximum.
+   - NEVER alternate long/short/long/short across the post (that seesaw is the humanizer fingerprint). NEVER stack fragments: at most 2 standalone fragments per post total ("Worth it." once is voice; three is a pattern).
+   - BANNED OUTRIGHT, always rewrite as full sentences: "The X? Y." reveals; "No X. No Y. Just Z."; "All the X. None of the Y."; "Simple. Effective. Easy." adjective stacks; one-word paragraphs ("Still."); pseudo-Socratic Q&A ("Why? Because..."); "Short. Punchy. Done." runs.
 7. WRITE WITH REAL TECHNICAL INTEGRITY (NO MADE-UP STORIES):
    - Focus 100% on the ACTUAL technical facts and architecture truth from the source material.
    - NEVER fabricate fictional stories, fake startup disasters, or imaginary anecdotes ("Last week our cluster crashed", "We hit a bottleneck", "We burned $20k").
    - Frame lessons objectively as systems engineering realities: "In production, systems hit a bottleneck when...", "Engineering teams deploying X discover that...", "The actual failure mode under concurrency is...".
+8. 2026 VOCABULARY DENSITY RULE (HUMANIZER V3):
+   - The unit of judgement is the PARAGRAPH, not the word. One ordinary word ("robust", "notably") in a paragraph is English. THREE OR MORE markers in one paragraph (significant, crucial, notably, comprehensive, insights, leverage/use-verbs, foster, landscape, nuanced, streamline, elevate, empower, utilize, harness, unlock, seamless, ecosystem, -ing clause openers, nominalisations like "the implementation of") = rewrite the whole paragraph in plain verbs with the actor first.
+   - Fixes: "leveraging our data, we cut churn" becomes "we cut churn with our data"; "the implementation of the flow" becomes "when we implemented the flow"; "significant growth" becomes the actual number or gets cut.
+   - Never swap a banned word for a synonym from the same family ("leverage" to "harness" is not a fix). Say "use".
+9. ZERO SINCERITY MARKERS & HEDGES:
+   - NEVER open or pivot with "let me be honest", "I'll be real", "honestly?", "to be direct", "real talk", "full transparency", "not gonna lie", "unpopular opinion", "can I be vulnerable". Performed hesitancy reads MORE artificial, not less.
+   - NEVER insert hedges the author never wrote ("perhaps", "I might be wrong but", "it seems"). If a beat needs vulnerability, use a flat dated fact instead.
+10. OVER-CORRECTION GUARD:
+   - After drafting, re-read once: did you create staccato stacks, reveal bridges, one-word paragraphs, or a long/short seesaw? Merge them back. Did scrubbing flatten all voice (no reaction, no blunt opinion, every long sentence chopped)? Restore it. A clean draft gets two or three touches, not a quota. When in doubt whether a pattern is the author or the model, leave it.
 
 === 90-DAY HAT TIP FOUNDER WRITING SYSTEM ===
 1. WRITE HOW YOU SPEAK: Use short, conversational words you would say out loud to an engineering peer. Say "use" instead of "utilize". Write in active voice throughout ("we found", "I learned", "I observed", not passive voice).
@@ -3623,7 +3713,7 @@ ${cleanSourceContent}
 6. NO RAW @MENTIONS: Do NOT include raw @company or @person tags.
 7. NO SIGNOFF OR HASHTAGS: Do NOT output any signoff, signature, or hashtags. The system attaches them.
 8. START DIRECTLY ON LINE 1: Start immediately with the opening hook. DO NOT output any title, greeting, or markdown headers.
-9. CLOSE WITH TRUST, NOT BAIT: End the post with a confident, complete closing statement or a soft signal of availability. Never end with an engagement-farming survey question ("Agree?", "Thoughts?").
+9. CLOSE WITH TRUST, NOT BAIT: End with a confident complete closing statement, ONE specific experience-anchored question, or a one-line P.S. Never end with generic engagement-farming bait ("Agree?", "Thoughts?", "What do you think?", "Tag someone").
 10. SEARCHABLE LONG-TAIL ASSET (SEO TECHNIQUE): Use the exact technical phrases an engineering lead or CTO would search when debugging this dilemma.
 
 === BLUEPRINT TO EXECUTE ===
@@ -3635,7 +3725,7 @@ ${blueprintExecution}
 ${feedbackSection}
 === STRICT PROHIBITIONS ===
 - STRICTLY ZERO MARKDOWN BOLDING OR ASTERISKS ("**" or "__"). Write clean plain text.
-- STRICTLY ZERO EM DASHES ("—" or "--"). Use colons, commas, or periods instead.
+- EM DASH CAP: at most ~1 em dash per 100 words (1-2 per post). Replace excess with comma, colon, parentheses, or a rewrite. NEVER a period. Zero dashes everywhere is itself a tell, so keep one that earns its place.
 - STRICTLY ZERO HEADERS OR SECTION TITLES: NEVER write markdown headers ("###", "##", "#") anywhere in the post. NEVER output labels like "Focus on a Niche:", "Concrete Operating Context:", "Takeaway:", or "Key Points:".
 - STRICTLY ZERO AUTHOR SIGNOFF OR HASHTAGS: NEVER write "Best, Drishtant", "➡️ curated at Drix10 Blogs", or "#hashtags". Stop immediately after the final sentence.
 - ZERO TEXTBOOK DEFINITIONS: NEVER define basic technical terms ("X occurs when...", "X is a technique...").
@@ -3643,7 +3733,7 @@ ${feedbackSection}
 - NO reversal framing ("Most people think X, but actually Y").
 - NO rhetorical questions ("Have you ever wondered...?").
 - NO repeated sentence openings.
-- NO generic AI buzzwords: ${BANNED_WORDS.slice(0, 15).join(", ")}.
+- NO generic AI buzzwords: ${BANNED_WORDS.join(", ")}.
 - NO forced engagement bait ("Agree?", "Thoughts?", "Drop a comment below").
 - STRICTLY FORBIDDEN: DO NOT output "Key Points:", "🚀 Implementation:", or "🔗 Resources:".
 - ${targetLength}.
@@ -3674,13 +3764,15 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
   applyHatTipEditorialFilter(draftText, article, cpio) {
     if (!draftText || typeof draftText !== "string") return draftText;
 
+    let emKept = 0; // Humanizer V3: cap em dashes at ~1 per 100 words (max 1-2 per post), never zero-out blindly
     let body = draftText
       .replace(/\r\n/g, "\n")
       .replace(/[‘’]/g, "'")
       .replace(/[“”]/g, '"')
       .replace(/```[\s\S]*?```/g, "")
-      .replace(/[—–\u2012\u2013\u2014\u2015]/g, ": ")
-      .replace(/--/g, "- ")
+      .replace(/[–\u2012\u2013\u2014\u2015]/g, ", ")
+      .replace(/--/g, ", ")
+      .replace(/—/g, () => (++emKept <= 1 ? "—" : ", "))
       .replace(/\[Company Name\]/gi, "the engineering team")
       .replace(/\[Insert.*?\]/gi, "")
       .trim();
@@ -3733,6 +3825,16 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     body = body.replace(/(?:have you ever wondered|what if I told you|why does this matter\?)\s*/gi, "");
     body = body.replace(/(there's a way[^?\n]+)\?/gi, "$1.");
     body = body.replace(/^(I've seen[^?\n]+)\?/gm, "$1.");
+
+    // 5c. 2026 reveal bridges, sincerity markers, announcement openers (delete the frame, keep the fact)
+    body = body.replace(/^(?:here'?s (?:what|how|why)\b[^:\n]{0,40}[:.])\s*/gim, "");
+    body = body.replace(/(?:the (?:result|outcome|answer|lesson|catch|kicker|truth)\?|plot twist[:?]?|spoiler[:?]?|the twist[:?]?)(?=\s|$)/gi, "");
+    body = body.replace(/^(?:let me be (?:honest|real|direct|clear)|i(?:'ll| will) be (?:honest|real|direct)|honestly\?|honest (?:caveat|version|answer)|the honest (?:version|answer|truth) is|to be (?:direct|honest|fair|transparent)|real talk|full transparency|can i be (?:honest|vulnerable)|i'll say the quiet part|not gonna lie|unpopular opinion|confession:)\.?\s*/gim, "");
+    body = body.replace(/^i'?m (?:excited|thrilled|honored|delighted) to (?:announce|share|be)[^.\n]*\.\s*/gim, "");
+    body = body.replace(/\bno \w+\. no \w+\. (?:just|only) \w+[.!]?/gi, "");
+    body = body.replace(/^(?:comment \w+ to get[^.\n]*\.?|comment YES[^.\n]*\.?)\s*/gim, "");
+    body = body.replace(/^(?:let that sink in|that'?s the real story)\.?\s*$/gim, "");
+    body = body.replace(/^(?:still|mostly|exactly|full stop|period|that'?s it)\.\s*$/gim, "");
 
     // 5b. Strip "In today's" or generic zeitgeist scene-setting paragraphs
     body = body
@@ -4115,7 +4217,7 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
       });
     body = body.replace(/,?\s*only to realize[^.]*\./i, '.');
 
-    // 15. Enforce 5-8 domain-specific hashtags strictly (add if too few, trim if too many)
+    // 15. Enforce 0-2 domain-specific hashtags max (2026: 5+ reads as spam; 0 performs equal-or-better)
     const trailingHashtagsMatch = body.match(/(?:(?:\r?\n|\s)+#[a-zA-Z0-9_]+)+\s*$/);
     let hashtagsFound = [];
     if (trailingHashtagsMatch) {
@@ -4131,21 +4233,21 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     const BANNED_HASHTAGS = new Set(["#focus", "#concrete", "#niche", "#operating", "#context", "#takeaway", "#heuristics", "#heuristic"]);
     hashtagsFound = hashtagsFound.filter(tag => !BANNED_HASHTAGS.has(tag.toLowerCase()));
 
-    if (hashtagsFound.length < 5) {
+    if (hashtagsFound.length === 0) {
       const dynamicTags = this.generateSpecificHashtags(article, body);
       for (const dt of dynamicTags) {
-        if (!hashtagsFound.some(h => h.toLowerCase() === dt.toLowerCase()) && hashtagsFound.length < 8) {
+        if (!hashtagsFound.some(h => h.toLowerCase() === dt.toLowerCase()) && hashtagsFound.length < 2) {
           hashtagsFound.push(dt);
         }
       }
     }
-    if (hashtagsFound.length > 8) {
-      // Collect only unique hashtags in order of first appearance, cap at 8
+    if (hashtagsFound.length > 2) {
+      // Collect only unique hashtags in order of first appearance, cap at 2 (2026 rule)
       const seen = new Set();
       const kept = [];
       for (const tag of hashtagsFound) {
         const lower = tag.toLowerCase();
-        if (!seen.has(lower) && kept.length < 8) {
+        if (!seen.has(lower) && kept.length < 2) {
           seen.add(lower);
           kept.push(tag);
         }
@@ -4351,7 +4453,14 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
         if (!text) text = "Architectural evaluation criteria";
         return text;
       })
-      .filter(Boolean);
+      .filter(Boolean)
+      // 2026 card rule: each slide point must scan in <=12 words (carousel slides carry <12 words/slide)
+      .map((pt) => {
+        const words = String(pt).split(/\s+/).filter(Boolean);
+        if (words.length <= 12) return pt;
+        const short = words.slice(0, 12).join(" ").replace(/[,;:—–-]+$/, "").replace(/\s+(?:to|and|the|with|for|in|of|by|that|or|as|at|from|an|a|is|are|be)$/i, "");
+        return `${short}.`;
+      });
 
     const fallbackSlidePoints = [
       `Modular state architecture for high reliability`,
@@ -4403,7 +4512,9 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
       }
     }
 
-    const recommendedVisual = `Real-world visual artifact: Clean dark-mode terminal screenshot of compiling or testing ${cleanTitle} manually, or a phone photo of code running on screen.`;
+    const firstHookLine = String(draftText || "").split(/\r?\n/).map((l) => l.trim()).filter(Boolean)[0] || "";
+    const hookCardLine = firstHookLine.slice(0, 140);
+    const recommendedVisual = `Primary: quote-card of the post hook ("${hookCardLine}") typeset white-on-black in dark terminal style with @Drix10 footer (9:16 or 1:1). Fallback: real dark-mode terminal screenshot of ${cleanTitle} compiling or under test, never a generic Canva infographic. Note: single image is baseline reach; carousel/PDF is the tracked upgrade (1.7-2.3x).`;
 
     return {
       title: cleanTitle,

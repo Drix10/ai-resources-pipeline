@@ -1,5 +1,5 @@
 {
-  "timestamp": 1789680098282,
+  "timestamp": 1789781071825,
   "user": "Drix10",
   "repos": [
     {
@@ -8,59 +8,107 @@
       "description": "Daily updated resources on AI across various domains including ML, development, education, healthcare, real estate, robotics, crypto, web3 and more, curated by enthusiasts.",
       "language": "Multi-language",
       "stars": 118,
-      "updatedAt": "2026-09-17T21:17:19Z",
+      "updatedAt": "2026-09-19T01:23:09Z",
       "recentCommits": [
         {
-          "sha": "6965c9d",
+          "sha": "01b9029",
           "message": "📚 Update README with latest tweets",
-          "date": "2026-09-17T21:17:14Z"
+          "date": "2026-09-19T01:24:23Z"
         },
         {
-          "sha": "548e1d1",
-          "message": "📝 Add resource collection: World News and Updates #213",
-          "date": "2026-09-17T21:16:43Z"
+          "sha": "b899422",
+          "message": "📝 Batch sync: 7 resource collections",
+          "date": "2026-09-19T01:23:05Z"
         },
         {
-          "sha": "e622bd1",
-          "message": "📝 Batch sync: 4 resource collections",
-          "date": "2026-09-17T21:12:46Z"
+          "sha": "78df2be",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-19T01:07:09Z"
         },
         {
-          "sha": "eb85c0d",
-          "message": "📝 Batch sync: 4 resource collections",
-          "date": "2026-09-17T21:06:24Z"
+          "sha": "6ba0258",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-19T00:51:07Z"
         },
         {
-          "sha": "6f9957e",
-          "message": "📝 Batch sync: 4 resource collections",
-          "date": "2026-09-17T20:57:49Z"
+          "sha": "3f5ccd8",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-19T00:30:01Z"
         }
       ],
       "historicalHighlights": [
         {
-          "sha": "e622bd1",
-          "message": "📝 Batch sync: 4 resource collections",
-          "date": "2026-09-17T21:12:46Z"
+          "sha": "b899422",
+          "message": "📝 Batch sync: 7 resource collections",
+          "date": "2026-09-19T01:23:05Z"
         },
         {
-          "sha": "eb85c0d",
-          "message": "📝 Batch sync: 4 resource collections",
-          "date": "2026-09-17T21:06:24Z"
+          "sha": "78df2be",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-19T01:07:09Z"
         },
         {
-          "sha": "6f9957e",
-          "message": "📝 Batch sync: 4 resource collections",
-          "date": "2026-09-17T20:57:49Z"
+          "sha": "6ba0258",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-19T00:51:07Z"
         },
         {
-          "sha": "b94f570",
-          "message": "📝 Batch sync: 4 resource collections",
-          "date": "2026-09-17T20:50:32Z"
+          "sha": "3f5ccd8",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-19T00:30:01Z"
         },
         {
-          "sha": "54b55d6",
-          "message": "📝 Batch sync: 4 resource collections",
-          "date": "2026-09-17T20:43:27Z"
+          "sha": "cd050ce",
+          "message": "📝 Batch sync: 8 resource collections",
+          "date": "2026-09-19T00:16:56Z"
+        }
+      ],
+      "hasFreshCommits": true
+    },
+    {
+      "name": "hypothesis-arena",
+      "fullName": "Drix10/hypothesis-arena",
+      "description": "Autonomous AI Hedge Fund - Part of Canopy Founders. Inc",
+      "language": "Python",
+      "stars": 9,
+      "updatedAt": "2026-09-18T19:26:09Z",
+      "recentCommits": [
+        {
+          "sha": "fe115f0",
+          "message": "Fix checker to use effective config; config regression tests; leakage audit",
+          "date": "2026-09-18T19:26:03Z"
+        },
+        {
+          "sha": "5f1e2d6",
+          "message": "Remove config/ folder; contract lives in .env.example header; root .env created",
+          "date": "2026-09-18T19:15:55Z"
+        },
+        {
+          "sha": "b6dde69",
+          "message": "config.py auto-loads root .env; exports override; docs updated",
+          "date": "2026-09-18T19:10:39Z"
+        },
+        {
+          "sha": "06dbf56",
+          "message": "Secrets contract: env example, config gate, history audited clean",
+          "date": "2026-09-18T19:07:48Z"
+        },
+        {
+          "sha": "875d9c7",
+          "message": "P1.4 acceptance automation: objective checks + pre-grader, humans last resort",
+          "date": "2026-09-18T19:02:35Z"
+        }
+      ],
+      "historicalHighlights": [
+        {
+          "sha": "fe115f0",
+          "message": "Fix checker to use effective config; config regression tests; leakage audit",
+          "date": "2026-09-18T19:26:03Z"
+        },
+        {
+          "sha": "b0179b1",
+          "message": "Freeze v2 cleanup: ctx snapshot v3 fields, D2 family tie-break",
+          "date": "2026-09-18T18:04:35Z"
         }
       ],
       "hasFreshCommits": true
@@ -521,59 +569,6 @@
           "sha": "c5d6403",
           "message": "fix: harden standalone Gemini — rate limit, retry, key validation, richer prompts",
           "date": "2026-08-21T14:58:40Z"
-        }
-      ],
-      "hasFreshCommits": false
-    },
-    {
-      "name": "hypothesis-arena",
-      "fullName": "Drix10/hypothesis-arena",
-      "description": "4 AI analysts engage in debates to make collaborative trading decisions on WEEX Crypto Futures. ",
-      "language": "TypeScript",
-      "stars": 9,
-      "updatedAt": "2026-08-02T23:27:18Z",
-      "recentCommits": [
-        {
-          "sha": "eef9856",
-          "message": "Revise README with project overview and features",
-          "date": "2026-04-26T16:18:21Z"
-        },
-        {
-          "sha": "ce2020b",
-          "message": "Clean up README and remove outdated information",
-          "date": "2026-04-18T21:34:17Z"
-        },
-        {
-          "sha": "a796a59",
-          "message": "Update README.md with new features and structure",
-          "date": "2026-02-09T15:09:21Z"
-        },
-        {
-          "sha": "9ccabce",
-          "message": "plan",
-          "date": "2026-02-06T20:49:12Z"
-        },
-        {
-          "sha": "65ff794",
-          "message": "prompt fixes",
-          "date": "2026-01-30T13:43:04Z"
-        }
-      ],
-      "historicalHighlights": [
-        {
-          "sha": "9c9460b",
-          "message": "refactor(trading): update judge prompt to BTC-only scalping strategy",
-          "date": "2026-01-20T16:48:46Z"
-        },
-        {
-          "sha": "0f2b2b0",
-          "message": "feat(position): add TP/SL sync and trade hydration",
-          "date": "2026-01-20T11:25:13Z"
-        },
-        {
-          "sha": "575c4c4",
-          "message": "feat(ai): optimize analyst calls with combined execution and caching",
-          "date": "2026-01-19T13:55:44Z"
         }
       ],
       "hasFreshCommits": false
