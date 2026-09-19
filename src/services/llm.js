@@ -4389,7 +4389,7 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     const post = String(postText || "");
     if (!reply) errors.push("Reply is empty.");
     if (reply.length > 600) errors.push(`Reply too long (${reply.length} chars, max 600).`);
-    if (reply.length > 0 && reply.length < 30) errors.push("Reply too short to carry signal (min 30 chars).");
+    if (reply.length > 0 && reply.length < 12) errors.push("Reply too short to carry signal (min 12 chars).");
     const foundBanned = BANNED_WORDS.filter((w) => {
       const r = this.buildBannedWordRegex(w);
       return r && r.test(reply);
@@ -4419,7 +4419,7 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     }
     // Prescriptions: peers describe, never prescribe. Remedies/mitigations/recommendations
     // are derived solutions wearing helpfulness, never peer observations.
-    if (/\b(can be mitigated|mitigated by|should implement|consider implementing|recommends? (implementing|adding|using|building)|could be (solved|fixed|addressed|improved)|the fix is|to (fix|address|solve) this)\b/i.test(reply)) {
+    if (/\b(can be mitigated|mitigated by|should implement|consider implementing|recommends? (implementing|adding|using|building)|could be (solved|fixed|addressed|improved)|the fix is|to (fix|address|solve) this|to avoid)\b/i.test(reply)) {
       errors.push("Reply prescribes a remedy; peers describe the mechanism, never prescribe the fix.");
     }
     // Synthetic engagement phrases: fluent, says nothing. Name the observation itself instead.
@@ -4513,7 +4513,7 @@ ${feedbackSection}
 1. ACKNOWLEDGE (default): 1-2 short sentences endorsing a SPECIFIC point with its own nouns ("Really interesting direction for voice AI. The continuous audio signals are especially useful here."). Zero new claims. Most comments live here.
 2. OBSERVE (only when the post invites it): one grounded implication, tradeoff, or distinction from relationships the post already states.
 3. SKIP: no safe true comment exists - personal news, gratitude, celebrations, gigs, milestones with no technical point, or anything where honesty needs facts you don't have.
-- 1-3 sentences under 400 chars, STATEMENTS ONLY. Zero questions, zero hashtags, zero praise openers, zero coaching.
+- 1-2 sentences under 400 chars, STATEMENTS ONLY. One strong sentence beats two padded ones - when the point lands, STOP. Zero questions, zero hashtags, zero praise openers, zero coaching.
 - Reuse ONLY nouns, numbers, and mechanisms already in the post. Every figure you write must already exist in the post text.
 - Never preach ("you should", "teams should"), never coach ("you're learning", "what you need"), never praise ("great post", "love this", "insightful"), never ask ("have you considered", "did you").
 - Never claim what the post doesn't support: no new comparisons, no verdicts ("settles it", "proves", "better than"), no invented numbers.
