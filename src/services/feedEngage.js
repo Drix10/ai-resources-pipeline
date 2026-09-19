@@ -22,6 +22,7 @@ const TRACK_PATH = path.join(process.cwd(), "data", "linkedin-feed-commented.jso
 const MAX_PER_DAY = 8;
 const REJECT_TTL_MS = 3 * 24 * 60 * 60 * 1000; // rejected posts rest 3 days, then become eligible again
 const PACE_MS = 25000;
+const LIKE_PACE_MS = 8000; // bulk likes trip LinkedIn rate limits; space them out
 
 function loadTrack() {
   try {
@@ -140,6 +141,7 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
   // feed runs dry (consecutive scan with zero fresh candidates = exhausted).
   const topQuota = Math.ceil(max / 2);
   const seenThisRun = new Set();
+  const likedThisRun = new Set();
   // Dry runs never increment `commented` (nothing posted), so quota progress there = previews made.
   const done = () => (dryRun ? previews.length : commented);
   const phases = [{ sort: "top", quota: topQuota }, { sort: "recent", quota: max }];
@@ -149,6 +151,16 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
       if (!dryRun && commentedToday(track) >= MAX_PER_DAY) break;
       // Each round scrolls deeper (page state persists, so later scans reach older posts).
       const posts = await LinkedInService.scanFeedPosts({ maxPosts: 12, maxScrolls: 6 + rounds * 4, sort });
+      // Like everything seen (live runs only): reply, skip, or reject - likes are unconditional.
+      // State-checked inside likeFeedCard, so already-liked cards are never toggled off.
+      if (!dryRun) {
+        for (const post of posts) {
+          if (likedThisRun.has(post.key)) continue;
+          likedThisRun.add(post.key);
+          try { await LinkedInService.likeFeedCard(post.text.slice(0, 80)); } catch (e) {}
+          await sleep(LIKE_PACE_MS);
+        }
+      }
       let attempted = 0;
       for (const post of posts) {
         if (done() >= quota) break;
