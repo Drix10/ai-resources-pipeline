@@ -1123,7 +1123,7 @@ class LocalLLMService {
     logger.info(`LocalLLMService: Generating with local model "${config.llm.model}".`);
     // ponytail: honor per-call timeoutMs like the Nvidia path; big multi-source
     // generations budget sourceCount * 25s and were aborted at the 300s default.
-    const { format, timeoutMs, ...generationOptions } = options;
+    const { format, timeoutMs, system, ...generationOptions } = options;
     const requestTimeout = Math.max(config.llm.requestTimeoutMs, typeof timeoutMs === "number" ? timeoutMs : 0);
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), requestTimeout);
@@ -1140,8 +1140,8 @@ class LocalLLMService {
           ...(format ? { format: typeof format === "object" ? "json" : format } : {}),
           options: { temperature: 0.1, num_predict: 2200, ...generationOptions },
           prompt: format
-            ? `${SYSTEM_PROMPT}\n\nCRITICAL MANDATORY DIRECTIVE: You are a structured JSON output engine. Return ONLY valid, parseable JSON without any commentary or markdown.\n\n${prompt}`
-            : `${SYSTEM_PROMPT}\n\n${prompt}`,
+            ? `${system || SYSTEM_PROMPT}\n\nCRITICAL MANDATORY DIRECTIVE: You are a structured JSON output engine. Return ONLY valid, parseable JSON without any commentary or markdown.\n\n${prompt}`
+            : `${system || SYSTEM_PROMPT}\n\n${prompt}`,
         }),
       });
 
@@ -1177,7 +1177,7 @@ class LocalLLMService {
     await this.ensureNvidiaAvailable();
     const endpoint = `${config.llm.nvidia.baseUrl}/chat/completions`;
 
-    const { format, temperature = 0.2, num_predict = 2500, ...generationOptions } = options;
+    const { format, temperature = 0.2, num_predict = 2500, system, ...generationOptions } = options;
     const configuredModel = config.llm.nvidia.model || "meta/llama-3.2-11b-vision-instruct";
     const candidateModels = [
       configuredModel,
@@ -1203,8 +1203,8 @@ class LocalLLMService {
 
         try {
           const systemContent = format === "json" || typeof format === "object"
-            ? `${SYSTEM_PROMPT || "You are an AI assistant."}\n\nCRITICAL MANDATORY DIRECTIVE: You are a structured JSON output engine. You must output ONLY a valid, parseable JSON object or array. Do NOT output any markdown backticks, explanations, preamble, conversational text, or postscripts. Start directly with { or [ and end directly with } or ].`
-            : (SYSTEM_PROMPT || "You are an AI assistant.");
+            ? `${system || SYSTEM_PROMPT || "You are an AI assistant."}\n\nCRITICAL MANDATORY DIRECTIVE: You are a structured JSON output engine. You must output ONLY a valid, parseable JSON object or array. Do NOT output any markdown backticks, explanations, preamble, conversational text, or postscripts. Start directly with { or [ and end directly with } or ].`
+            : (system || SYSTEM_PROMPT || "You are an AI assistant.");
 
           const userContent = String(prompt || "").trim() || "No content provided.";
 
@@ -4433,8 +4433,10 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
       errors.push("Reply makes a comparative/conclusive claim the post never states; stay inside what the author established.");
     }
     // Every figure in the comment must already exist in the post - no invented specifics.
-    const postDigits = post.match(/\d[\d.,]*/g) || [];
-    const replyNums = reply.match(/\d[\d.,]*/g) || [];
+    // (Trailing sentence punctuation stripped: "60 seconds." and "60" are the same figure.)
+    const figs = (t) => (String(t || "").match(/\d[\d.,]*/g) || []).map((n) => n.replace(/[.,]+$/, ""));
+    const postDigits = figs(post);
+    const replyNums = figs(reply);
     const invented = replyNums.filter((n) => !postDigits.includes(n));
     if (invented.length > 0) {
       errors.push(`Reply invents figures (${invented.join(", ")}) not stated in the post; never invent numbers.`);
@@ -4446,14 +4448,29 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     if (/\bresearch(ers?)?\s+(suggests?|shows?|indicates?|finds?|found)\b|\bstud(y|ies)\s+(show|suggest)\b|\bdata\s+shows?\b/i.test(reply)) {
       errors.push("Reply cites an uncited study/data claim; never invent statistics.");
     }
-    // Vocabulary overlap: the comment must reuse the author's own nouns (>=2 shared
-    // distinctive stems), otherwise it is a foreign-premise interrogation wearing relevance.
+    if (/^(great post|thanks for sharing|thank you for sharing|love this|insightful|awesome post|nice post|well said|great insights?|great breakdown|congratulations on|fascinating (read|post|piece))\b/i.test(reply)) {
+      errors.push("Reply opens with generic praise; lead with the technical point instead.");
+    }
+    // Verbatim restatement: any 6-word run lifted straight from the post means the draft
+    // echoes instead of contributing (paraphrase at minimum, observation at best).
+    const words = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9\s]/g, " ").split(/\s+/).filter(Boolean);
+    const postWords = words(post);
+    const replyLower = ` ${words(reply).join(" ")} `;
+    let echoed = "";
+    for (let i = 0; i + 6 <= postWords.length; i++) {
+      const run = ` ${postWords.slice(i, i + 6).join(" ")} `;
+      if (replyLower.includes(run)) { echoed = postWords.slice(i, i + 6).join(" "); break; }
+    }
+    if (echoed) {
+      errors.push(`Reply lifts a verbatim run from the post ("${echoed}") - paraphrase at minimum, contribute an observation at best.`);
+    }
+    // never touched the post at all. Threshold stays at 1 - the critic judges relevance.
     const STOP = new Set("about which would could should there their have been were with from that this these those than then when while also just like more most other into over under using thing things point claim words really very does doing done make makes made many much such every each they them your youre theyre its are was were been have has will shall may might must could would shall does did your our their than then what when where which whose why than then than".split(" "));
-    const stems = (t) => [...new Set(String(t || "").toLowerCase().replace(/[^a-z0-9\s]/g, " ").split(/\s+/).filter((w) => w.length >= 5 && !STOP.has(w)).map((w) => w.replace(/(es|ing|ed|s)$/, "")))];
+    const stems = (t) => [...new Set(String(t || "").toLowerCase().replace(/[^a-z0-9\s]/g, " ").split(/\s+/).filter((w) => w.length >= 4 && !STOP.has(w)).map((w) => w.replace(/(es|ing|ed|s)$/, "")))];
     const postStems = new Set(stems(post));
     const shared = stems(reply).filter((w) => postStems.has(w));
-    if (post && shared.length < 2) {
-      errors.push(`Reply shares too little vocabulary with the post (${shared.length} shared stems); reuse the author's own nouns instead of importing foreign concepts.`);
+    if (post && shared.length < 1) {
+      errors.push(`Reply shares no vocabulary with the post; reuse the author's own nouns instead of importing foreign concepts.`);
     }
     for (const pattern of HAT_TIP_PROHIBITED_PATTERNS) {
       if (pattern.test(reply)) {
@@ -4472,57 +4489,41 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
    * Same voice system (zero-LARP, Humanizer V3, fingerprints). Not praise, not a lecture:
    * engage the post's actual claim and add one sharp thing.
    */
-  async draftFeedComment({ postAuthor = "", postText = "" } = {}, retries = 1, feedback = []) {
+  // Lean system prompts for feed comments: the 2500-token post-writing SYSTEM_PROMPT
+  // drowns short comment drafts (instruction dilution). Gates + critic carry the strictness.
+  async draftFeedComment({ postAuthor = "", postText = "" } = {}, retries = 2, feedback = []) {
     const cleanPost = String(postText || "").replace(/https?:\/\/[^\s)]+/g, "").slice(0, 1500).trim();
     if (cleanPost.split(/\s+/).length < 10) throw new Error("draftFeedComment: post too thin to engage.");
     const author = String(postAuthor || "there").trim();
     const firstName = author.split(/\s+/)[0] || "there";
     const fullName = author === "there" ? "there" : author;
     const feedbackSection = Array.isArray(feedback) && feedback.length > 0
-      ? `\n=== FIX THESE FROM THE REJECTED DRAFT ===\n${feedback.map((f) => `- ${f}`).join("\n")}\n`
+      ? `\n=== FIX THESE FROM THE REJECTED DRAFT ===\n${feedback.map((f) => `- ${f}`).join("\n")}\n- Write a DIFFERENT observation: new angle, new nouns from the post, never a rewording of the rejected draft.\n`
       : "";
-    const prompt = `You are Drishtant Ghosh (Drix10), a software engineer scrolling LinkedIn, leaving a comment on a peer's post. Write like an engineer talking shop: direct, technical, zero fluff. You are a peer, not a fan and not a teacher.
+    const prompt = `You are Drishtant Ghosh (Drix10), a software engineer scrolling LinkedIn, leaving a comment on a peer's post. Write like an engineer talking shop: direct, technical, zero fluff. A peer, not a fan, not a teacher.
 
 POST AUTHOR: ${author}
-FULL NAME: ${fullName} (mention it ONLY if grammatically natural - a leading "Name," is fine when real substance follows; NEVER wedge it mid-sentence between commas; most comments need no name at all)
+FULL NAME: ${fullName} (mention it ONLY if grammatically natural - NEVER wedge it mid-sentence between commas; most comments need no name at all)
 POST:
 ${cleanPost}
 ${feedbackSection}
 === SKIP FIRST (DEFAULT TO SKIP) ===
-- If the post is personal news, gratitude/thanks, a celebration, a gig/show/event recap, a job update, a milestone, or otherwise has NO technical claim, mechanism, number, or decision to engage - return exactly: SKIP
-- NEVER turn a casual personal post into a fake technical interrogation (asking a guitarist about PA-system latency is embarrassing LARP - just SKIP).
-- Only proceed to comment when you can point to the exact technical claim you are engaging.
-
-=== HOW TO COMMENT (ADD INFORMATION, NEVER RESTATE) ===
-Your comment must pass this test: a reader learns something the post did not say.
-PICK EXACTLY ONE MOVE:
-- NAME THE TRADEOFF: the concrete tradeoff or implication hiding inside their point ("The tradeoff is...", "One practical consequence is...").
-- NAME THE FAILURE MODE: where their approach breaks, with the mechanism ("This breaks down when...", "The failure mode I'd watch is...").
-- SHARPEN THE DISTINCTION: separate two things the post lumps together, precisely ("That distinction matters because...").
-- The labels above are stage directions, not text. NEVER output them, never prefix your comment with them.
-- Reuse ONLY nouns, mechanisms, and numbers already present in the post. If the post says "context tax", your comment says "context tax" - never introduce new concepts the author did not state.
-- Contractions always (that's, don't, it's). Plain words (fast, sharp, clean, solid, breaks, ships) over pundit words (impressive, turnaround, fascinating, landscape).
-
-=== HARD RULES (SAME SYSTEM AS YOUR POSTS) ===
-- 150-450 chars, 2-4 sentences, STATEMENTS ONLY - zero questions, never a "?" anywhere. Reference the post's ACTUAL point (quote a fragment or paraphrase it).
-- FORBIDDEN openers: "Great post!", "Thanks for sharing", "Insightful", "Love this", congrats-bait, question openers.
-- FORBIDDEN: preaching ("you should...", "teams should..."), trivia corrections, self-promo (zero mentions of your own work unless the post directly asks for it), textbook definitions.
-- FORBIDDEN: sincerity frames, reveal bridges, staccato stacks, "It's not X, it's Y" contrasts, more than 1 em dash.
-- Vocabulary density: no 3+ markers per paragraph from (significant, crucial, notably, comprehensive, insights, leverage, robust, foster, landscape, nuanced, streamline, elevate, empower, utilize, quietly, seamless, ecosystem). Verbs with the actor first.
-- NEVER fabricate stories, metrics, or anecdotes. Ground everything in the post above or plainly-known engineering reality. Zero hashtags, zero links, zero signoff, max 1 emoji (prefer zero).
-- NEVER claim experience you cannot prove: no fabricated observations, no invented war stories. Your detail must introduce ZERO new technical premises - say only what the author already put on the table.
-- NEVER open with "[X] is impressive/great, but" - the praise-but review shape. Open inside the claim, never above it.
-- NEVER invent thresholds, percentages, or timelines (no "under 1ms", no "3-5 minutes", no "up to 30%") unless stated in the post. Every figure you write must already exist in the post text.
-- Never coach the author ("you're learning", "what you need"). Describe the mechanism, never the human.
-- Exactly ZERO questions. Never "have you considered/seen" - lecture shapes, not peer talk.
-
-GOOD (imitate this shape): "Separating reference-based scoring from judge-based evaluation is the useful move here. A semantically correct output can fail lexical overlap, which is why eval design matters as much as the metric."
-GOOD: "The binding constraint here is deployment, not training speed. A nationwide high-resolution model that runs locally changes the operational cost of near-term forecasting."
-BAD (never do this): "Your guitar gig sounds like a great experience, but did you notice latency issues with the PA system?" - praise opener, fabricated expertise, foreign premises.
-
+- Personal news, gratitude, celebrations, gigs, job updates, milestones, or anything with NO technical claim, mechanism, number, or decision: return exactly SKIP.
+- Only proceed when you can point to the exact technical claim you are engaging.
+=== ADD INFORMATION, NEVER RESTATE ===
+Pick ONE move: (1) the tradeoff hiding inside their point; (2) where it breaks, with the mechanism; (3) separate two things the post lumps together, precisely.
+- 150-400 chars, 2-3 sentences, STATEMENTS ONLY. Zero questions, zero hashtags, zero praise, zero coaching.
+- Reuse ONLY nouns, numbers, and mechanisms already in the post. Every figure you write must already exist in the post text.
+- Never preach ("you should", "teams should"), never coach ("you're learning", "what you need"), never praise ("great post", "love this", "insightful"), never ask ("have you considered", "did you").
+- Never claim what the post doesn't support: no new comparisons, no verdicts ("settles it", "proves", "better than"), no invented numbers.
+- Contractions always (that's, don't, it's). Plain words (fast, breaks, ships, clean), never pundit words.
+- The GOOD example shows the SHAPE only (observation + mechanism). Never reuse its words or claims - build yours from THIS post's nouns.
+GOOD: "Separating reference-based scoring from judge-based evaluation is the useful move here. A semantically correct output can fail lexical overlap, which is why eval design matters as much as the metric."
+BAD: "Great breakdown! The scalability implications here are really interesting." (praise opener, says nothing)
 Return ONLY the comment text, or exactly SKIP.`;
+
     try {
-      const raw = await this.generateText(prompt, { temperature: 0.4, num_predict: 800 });
+      const raw = await this.generateText(prompt, { temperature: retries > 0 ? 0.4 : 0.75, num_predict: 800, system: "You are Drishtant Ghosh (Drix10), a software engineer leaving a short peer comment on LinkedIn. Direct, technical, zero fluff. Statements only, never questions." });
       // Validate the draft's real sins BEFORE sanitizing: the post-pipeline sanitizer
       // deletes banned phrases, which would launder a gutted draft into a false PASS.
       // Only quote-unwrap + move-label strip here (neither removes sins); full filtering
@@ -4569,8 +4570,8 @@ Return ONLY the comment text, or exactly SKIP.`;
   // Returns { pass, reason }. Any error = pass (mechanical gates already ran; the critic only adds rejections).
   async criticFeedComment(draft, post) {
     try {
-      const prompt = `You are a strict critic of LinkedIn replies. SOURCE POST: """${String(post).slice(0, 1200)}""" PROPOSED REPLY: """${String(draft).slice(0, 500)}""" FAIL the reply if ANY holds: (1) restates the post without adding an observation, implication, correction, extension, or tradeoff; (2) generic praise or agreement; (3) author name used unnaturally; (4) any claim, comparison, number, or causal link NOT supported by the post; (5) vague comparative or filler phrasing ("settles it", "highlights", "breakdown", "testament", "interesting part"); (6) makes it about the commenter, not the technical subject; (7) the author name is wedged or used awkwardly (mid-sentence comma sandwich, tacked-on tag with no grammatical role). Reply with exactly one line: PASS or FAIL: <one-line reason>.`;
-      const raw = await this.generateText(prompt, { temperature: 0.1, num_predict: 150 });
+      const prompt = `You are a strict critic of LinkedIn replies. SOURCE POST: """${String(post).slice(0, 1200)}""" PROPOSED REPLY: """${String(draft).slice(0, 500)}""" FAIL the reply if ANY holds: (1) restates the post without adding an observation, implication, correction, extension, or tradeoff; (2) generic praise or agreement; (3) author name used unnaturally; (4) any claim, comparison, number, or causal link NOT supported by the post; (5) vague comparative or filler phrasing ("settles it", "highlights", "breakdown", "testament", "interesting part"); (6) makes it about the commenter, not the technical subject; (7) the author name is wedged or used awkwardly (mid-sentence comma sandwich, tacked-on tag with no grammatical role). The reply's main point must NOT be verifiable entirely from the post - if every sentence restates or rewords post content, FAIL even when well written. Reply with exactly one line: PASS or FAIL: <one-line reason>.`;
+      const raw = await this.generateText(prompt, { temperature: 0.1, num_predict: 150, system: "You are a strict critic of LinkedIn replies. Answer with exactly one line: PASS or FAIL: <reason>." });
       const line = String(raw || "").trim().split(/\n/)[0];
       if (/^FAIL\b/i.test(line)) {
         return { pass: false, reason: line.replace(/^FAIL\s*:\s*/i, "").slice(0, 200) || "no new technical contribution" };

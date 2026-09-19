@@ -1033,6 +1033,7 @@ class LinkedInService {
           }
           // Body (not header) drives identity: same post re-rendered = same key, no double-comments.
           const bodyOnly = tlines.slice(bodyStart).join("\n").replace(/^follow\s*$/gim, "");
+          if (bodyOnly.split(/\s+/).filter(Boolean).length < 10) continue; // render fragment, not a post yet
           const key = keyOf(item.href, bodyOnly);
           if (seen.has(key)) continue;
           seen.add(key);
