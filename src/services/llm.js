@@ -4434,7 +4434,10 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     }
     // Every figure in the comment must already exist in the post - no invented specifics.
     // (Trailing sentence punctuation stripped: "60 seconds." and "60" are the same figure.)
-    const figs = (t) => (String(t || "").match(/\d[\d.,]*/g) || []).map((n) => n.replace(/[.,]+$/, ""));
+    // Word-numbers count too ("hundreds" of annotators nobody mentioned = invented).
+    const figs = (t) => ((String(t || "").match(/\d[\d.,]*/g) || []).map((n) => n.replace(/[.,]+$/, "")).concat(
+      (String(t || "").toLowerCase().match(/\b(hundreds?|thousands?|millions?|billions?|dozens?|percent)\b/g) || []).map((n) => n.replace(/s$/, ""))
+    ));
     const postDigits = figs(post);
     const replyNums = figs(reply);
     const invented = replyNums.filter((n) => !postDigits.includes(n));
@@ -4516,6 +4519,7 @@ Pick ONE move: (1) the tradeoff hiding inside their point; (2) where it breaks, 
 - Reuse ONLY nouns, numbers, and mechanisms already in the post. Every figure you write must already exist in the post text.
 - Never preach ("you should", "teams should"), never coach ("you're learning", "what you need"), never praise ("great post", "love this", "insightful"), never ask ("have you considered", "did you").
 - Never claim what the post doesn't support: no new comparisons, no verdicts ("settles it", "proves", "better than"), no invented numbers.
+- Contribution = new INTERPRETATION of the post's evidence (implication, tradeoff, failure mode, distinction, mechanism). NEVER new EVIDENCE (stats, events, entities, benchmarks, causal claims, technical facts). If your sentence needs a fact the post doesn't state, delete the sentence.
 - Contractions always (that's, don't, it's). Plain words (fast, breaks, ships, clean), never pundit words.
 - The GOOD example shows the SHAPE only (observation + mechanism). Never reuse its words or claims - build yours from THIS post's nouns.
 GOOD: "Separating reference-based scoring from judge-based evaluation is the useful move here. A semantically correct output can fail lexical overlap, which is why eval design matters as much as the metric."
@@ -4570,7 +4574,7 @@ Return ONLY the comment text, or exactly SKIP.`;
   // Returns { pass, reason }. Any error = pass (mechanical gates already ran; the critic only adds rejections).
   async criticFeedComment(draft, post) {
     try {
-      const prompt = `You are a strict critic of LinkedIn replies. SOURCE POST: """${String(post).slice(0, 1200)}""" PROPOSED REPLY: """${String(draft).slice(0, 500)}""" FAIL the reply if ANY holds: (1) restates the post without adding an observation, implication, correction, extension, or tradeoff; (2) generic praise or agreement; (3) author name used unnaturally; (4) any claim, comparison, number, or causal link NOT supported by the post; (5) vague comparative or filler phrasing ("settles it", "highlights", "breakdown", "testament", "interesting part"); (6) makes it about the commenter, not the technical subject; (7) the author name is wedged or used awkwardly (mid-sentence comma sandwich, tacked-on tag with no grammatical role). The reply's main point must NOT be verifiable entirely from the post - if every sentence restates or rewords post content, FAIL even when well written. Reply with exactly one line: PASS or FAIL: <one-line reason>.`;
+      const prompt = `You are a strict critic of LinkedIn replies. SOURCE POST: """${String(post).slice(0, 1200)}""" PROPOSED REPLY: """${String(draft).slice(0, 500)}""" FAIL the reply if ANY holds: (1) restates the post without adding an observation, implication, correction, extension, or tradeoff; (2) generic praise or agreement; (3) author name used unnaturally; (4) any claim, comparison, number, or causal link NOT supported by the post; (5) vague comparative or filler phrasing ("settles it", "highlights", "breakdown", "testament", "interesting part"); (6) makes it about the commenter, not the technical subject; (7) the author name is wedged or used awkwardly (mid-sentence comma sandwich, tacked-on tag with no grammatical role). The reply's main point must NOT be verifiable entirely from the post - if every sentence restates or rewords post content, FAIL even when well written. (8) ENTITY/EVENT ATTRIBUTION: list every person, device, model, event, number, date in the reply - each must exist in the post AND stay attached to its own event (one exploit's time window on another incident's device = FAIL). (9) NO NEW EVIDENCE: interpretations allowed (implication, tradeoff, failure mode, distinction); new statistics, events, entities, benchmarks, causal claims, or technical facts = FAIL. (10) ALREADY-STATED DISTINCTION: if the post itself draws the distinction the reply offers, FAIL. Reply with exactly one line: PASS or FAIL: <one-line reason>.`;
       const raw = await this.generateText(prompt, { temperature: 0.1, num_predict: 150, system: "You are a strict critic of LinkedIn replies. Answer with exactly one line: PASS or FAIL: <reason>." });
       const line = String(raw || "").trim().split(/\n/)[0];
       if (/^FAIL\b/i.test(line)) {
