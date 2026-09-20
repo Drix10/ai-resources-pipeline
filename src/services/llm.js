@@ -54,6 +54,53 @@ const BANNED_WORDS = [
   "in the age of AI", "at the end of the day"
 ];
 
+// REPLY-SYSTEM V2 POLICY: vague goodwill is allowed, added knowledge is not.
+// The old engine demanded "one sharp thing" per comment and rejected plain
+// congrats — so on non-technical posts (joined a college, new role) the model was
+// FORCED to invent substance (teaching subjects, role details). These gates invert
+// that: GOODWILL_RE exempts short goodwill from the shared-vocabulary gate, and
+// REPLY_FILLER backs the substantive-grounding gate (every other content word in
+// the reply must already exist in the post, stemmed).
+const GOODWILL_RE = /\b(congrats?|congratulations|well deserved|best wishes|good luck|all the best|happy for you|happy birthday|happy bday|proud of you|way to go|kudos|interesting (read|post|share|perspective)|well said|love this|cheers to)\b|\bhappy \d/i;
+// Shape discipline: free-form drafts are where fragments ("Desk, good coffee, good
+// company is free.") and echo-paraphrases come from - and "Great post on X" itself
+// became mass-produced slop, so it is BANNED as a shape. Anything that isn't short
+// goodwill must use exactly one human ACK frame below - otherwise reshape or SKIP.
+// Each frame has exactly ONE capturing group: the X topic slot.
+const ACK_SHAPES = [
+  /^(?:[\w.()]+,\s*)?the (.+?) really lands\.?$/i,
+  /^(?:[\w.()]+,\s*)?good reminder on (.+?)\.?$/i,
+  /^(?:[\w.()]+,\s*)?fully agree on (.+?)\.?$/i,
+  /^(?:[\w.()]+,\s*)?this nails (.+?)\.?$/i,
+  /^(?:[\w.()]+,\s*)?well said on (.+?)\.?$/i,
+  /^(.+?) is exactly right\.?$/i,
+  /^(.+?) is the key detail(?: here)?\.?$/i,
+  /^(.+?) is the line that stuck with me\.?$/i,
+  /^(.+?) deserves more attention\.?$/i,
+  /^(.+?) is (?:useful|helpful|interesting|practical|valuable|solid|sharp|clear|the whole point|the point)\b.{0,12}$/i,
+];
+function ackShapeMatch(reply) {
+  const r = String(reply || "");
+  for (const re of ACK_SHAPES) {
+    const m = r.match(re);
+    if (m) return m[1].trim();
+  }
+  return null;
+}
+// X-slot discipline: X must be a tight topic phrase. Kills three observed failures:
+// a lone generic noun ("Great post on AI"), a full clause ("...portals were built
+// for volume hiring"), a contraction-led fragment ("...don't gate keep math").
+const GENERIC_X = new Set("ai tech technology technologies startup startups job jobs hiring work career business businesses data future software engineer engineers engineering team teams company companies people life story stories update updates news journey journeys post posts success growth leadership management marketing sales product products founder founders".split(" "));
+const X_CLAUSE_RE = /\b(was|were|been|being|is|are|am|has|have|had|built|made|done)\b|n['’]t\b|\b\w+['’](ll|re|ve|d)\b/i;
+const REPLY_FILLER = new Set(("congrats congratulation congratulations deserved wishes wish wishing luck journey journeys milestone milestones achievement achievements move moves chapter chapters news update updates role roles position positions opportunity opportunities future success successes successful ahead exciting excited excitement happy proud inspiring inspired love loved lovely glad welcome kudos cheers bravo birthday bday anniversary career careers step steps path venture ventures beginning beginnings onwards onward best post posts share sharing shared breakdown breakdowns analysis explanation explanations overview overviews writeup perspective perspectives piece pieces article articles thread take takes point points detail details detailed approach note notes read writing great good nice awesome wonderful excellent amazing insightful informative helpful thoughtful thorough practical useful valuable timely crisp sharp solid strong clear honest candid compelling succinct neat cool fantastic brilliant smart interesting thanks thank agree agreed resonates resonate resonant relatable makes sense whole entire really quite truly exactly absolutely simply purely fully highly deeply strongly today recent lately team folks story stories hear heard sound sounds looking forward lands right reminder stuck nails deserves attention").split(" "));
+// Naive stemmer with a root-length guard: never strip a suffix when the root left
+// behind would be shorter than 4 chars. Without the guard, "need"->"ne" and
+// "miss"->"mis", so "needing" fails to match a post that says "need".
+const stemTok = (w) => {
+  const s = String(w || "").replace(/(es|ing|ed|s)$/, "");
+  return s.length >= 4 ? s : String(w || "");
+};
+
 const HAT_TIP_PROHIBITED_PATTERNS = [
   // Reversal framing: a common belief followed by dramatic correction
   /(?:most people|everyone) (?:thinks?|believes?|assumes?)[^.\n]*\.\s*(?:but|however|in reality|actually)/i,
@@ -792,6 +839,19 @@ class LocalLLMService {
     return { ...this.metrics };
   }
 
+  // Per-1M-token prices for known reply models; unknown slugs use a conservative
+  // fallback so the preview always shows a (slightly high) number, never zero.
+  commentCostUsd(promptTokens, completionTokens, model) {
+    const table = {
+      "google/gemini-2.5-flash-lite": [0.10, 0.40],
+      "deepseek/deepseek-v4-flash": [0.037, 0.073],
+      "gemini-2.5-flash-lite": [0.10, 0.40],
+      "gemini-2.5-flash": [0.30, 2.50],
+    };
+    const [pi, po] = table[model || config.llm.openrouter.commentModel] || [0.30, 1.00];
+    return (Number(promptTokens) || 0) / 1e6 * pi + (Number(completionTokens) || 0) / 1e6 * po;
+  }
+
   resetMetrics() {
     for (const key of Object.keys(this.metrics)) this.metrics[key] = 0;
   }
@@ -1104,7 +1164,7 @@ class LocalLLMService {
     if (!word || typeof word !== "string") return null;
     const useStem = word.endsWith("e") && word.length > 4;
     const stem = useStem ? word.slice(0, -1) : word;
-    const pattern = (useStem ? stem : word).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+    const pattern = (useStem ? stem : word).replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&').replace(/\\-/g, '[-\\s]');
     const optionalE = useStem ? "e?" : "";
     return new RegExp(`\\b${pattern}${optionalE}(s|ed|ing|ly|tion|ness|er|est|ance|ence|ment|ive|ize|ise|able|ible)?\\b`, 'i');
   }
@@ -1114,16 +1174,50 @@ class LocalLLMService {
     if (this.isLocalMode()) {
       return this.generateTextViaOllama(prompt, options);
     }
+    // Provider chain: Gemini-direct -> OpenRouter -> NVIDIA legacy. Each step throws
+    // when unusable; the last error propagates so callers' existing retry/skip logic
+    // engages (replies skip the post, article jobs skip the cycle). Nothing here
+    // ever returns placeholder text - a silent wrong answer is worse than a skip.
+    if (config.llm.gemini.apiKey) {
+      try {
+        return await this.generateTextViaGemini(prompt, options);
+      } catch (e) {
+        logger.warn(`Gemini call failed (${e.message}), trying OpenRouter...`);
+      }
+    }
+    if (config.llm.openrouter.apiKey) {
+      try {
+        // Article-scale jobs need the main model, not the reply-only lite default.
+        return await this.generateTextViaOpenRouter(prompt, { ...options, model: options.model || config.llm.openrouter.model });
+      } catch (e) {
+        logger.warn(`OpenRouter call failed (${e.message}), falling back to legacy...`);
+      }
+    }
     return this.generateTextViaNvidia(prompt, options);
+  }
+
+  // Model pickers: never send a foreign slug to a provider (guaranteed 400).
+  // Gemini only speaks gemini-*, OpenRouter takes any slug (provider 404s there
+  // just fall through to legacy, which owns the NVIDIA ids natively).
+  geminiModelFor(requested, fallback) {
+    if (/^(gemini|models\/)/i.test(String(requested || ""))) return String(requested);
+    return fallback || config.llm.gemini.model;
+  }
+
+  // Reply-system model: short constraint-following jobs run on the cheap comment
+  // model, never the big article model. Empty string = reuse the main model.
+  commentModelName() {
+    if (config.llm.useLocal) return config.llm.commentModel || config.llm.model;
+    return config.llm.nvidia.commentModel || config.llm.nvidia.model;
   }
 
   async generateTextViaOllama(prompt, options = {}) {
     const endpoint = `${config.llm.baseUrl}/api/generate`;
     await this.ensureLocalOllamaAvailable();
-    logger.info(`LocalLLMService: Generating with local model "${config.llm.model}".`);
+    logger.info(`LocalLLMService: Generating with local model "${model || config.llm.model}".`);
     // ponytail: honor per-call timeoutMs like the Nvidia path; big multi-source
     // generations budget sourceCount * 25s and were aborted at the 300s default.
-    const { format, timeoutMs, system, ...generationOptions } = options;
+    const { format, timeoutMs, system, model, ...generationOptions } = options;
     const requestTimeout = Math.max(config.llm.requestTimeoutMs, typeof timeoutMs === "number" ? timeoutMs : 0);
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), requestTimeout);
@@ -1134,7 +1228,7 @@ class LocalLLMService {
         headers: { "Content-Type": "application/json" },
         signal: controller.signal,
         body: JSON.stringify({
-          model: config.llm.model,
+          model: model || config.llm.model,
           stream: false,
           think: false,
           ...(format ? { format: typeof format === "object" ? "json" : format } : {}),
@@ -1177,8 +1271,8 @@ class LocalLLMService {
     await this.ensureNvidiaAvailable();
     const endpoint = `${config.llm.nvidia.baseUrl}/chat/completions`;
 
-    const { format, temperature = 0.2, num_predict = 2500, system, ...generationOptions } = options;
-    const configuredModel = config.llm.nvidia.model || "meta/llama-3.2-11b-vision-instruct";
+    const { format, temperature = 0.2, num_predict = 2500, system, model, reasoning, ...generationOptions } = options;
+    const configuredModel = model || config.llm.nvidia.model || "meta/llama-3.2-11b-vision-instruct";
     const candidateModels = [configuredModel, "meta/llama-3.2-11b-vision-instruct"].filter((m, idx, arr) => m && arr.indexOf(m) === idx);
 
     let lastError = null;
@@ -1212,7 +1306,10 @@ class LocalLLMService {
             ],
             temperature: typeof temperature === "number" ? temperature : 0.1,
             max_tokens: maxTokens,
-            stream: false
+            stream: false,
+            // gpt-oss-style reasoning models think out loud by default (500+ tok +
+            // 60s+ per comment); "low" keeps the one-sentence reply job terse.
+            ...(reasoning ? { reasoning_effort: reasoning } : {}),
           };
 
           const response = await fetch(endpoint, {
@@ -1283,6 +1380,204 @@ class LocalLLMService {
     }
 
     throw lastError || new Error("All NVIDIA candidate models failed.");
+  }
+
+  // Reply path: Gemini-direct (flash-lite) -> OpenRouter -> legacy comment model.
+  // Provider failure falls through silently - a sustained outage skips comments,
+  // never crashes the pipeline.
+  async generateCommentText(prompt, options = {}) {
+    if (config.llm.gemini.apiKey) {
+      try {
+        return await this.generateTextViaGemini(prompt, { ...options, model: this.geminiModelFor(options.model, config.llm.gemini.commentModel) });
+      } catch (e) {
+        logger.warn(`Gemini comment call failed (${e.message}), trying OpenRouter...`);
+      }
+    }
+    if (config.llm.openrouter.apiKey) {
+      try {
+        return await this.generateTextViaOpenRouter(prompt, options);
+      } catch (e) {
+        logger.warn(`OpenRouter comment call failed (${e.message}), falling back to ${this.commentModelName()}.`);
+      }
+    }
+    // Last resort: legacy route directly (NOT via generateText - that would re-enter
+    // this chain and burn a main-model call for a comment-scale job).
+    if (this.isLocalMode()) {
+      return this.generateTextViaOllama(prompt, { ...options, model: this.commentModelName() });
+    }
+    return this.generateTextViaNvidia(prompt, { ...options, model: this.commentModelName() });
+  }
+
+  async generateTextViaOpenRouter(prompt, options = {}) {
+    const { baseUrl, apiKey, commentModel, requestTimeoutMs } = config.llm.openrouter;
+    if (!apiKey || !apiKey.trim()) {
+      const error = new Error("OPENROUTER_API_KEY is missing. Set it in .env to use OpenRouter for replies.");
+      error.code = "OPENROUTER_UNAVAILABLE";
+      throw error;
+    }
+    const { temperature = 0.4, num_predict = 800, system, model, timeoutMs } = options;
+    const modelName = model || commentModel;
+    const endpoint = `${baseUrl}/chat/completions`;
+    const maxRetries = 2;
+    let lastError = null;
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      const controller = new AbortController();
+      const requestTimeout = Math.max(requestTimeoutMs, typeof timeoutMs === "number" ? timeoutMs : 0);
+      const timeout = setTimeout(() => controller.abort(), requestTimeout);
+      try {
+        logger.info(`OpenRouter: generating comment with model "${modelName}" (attempt ${attempt}).`);
+        // Clean OpenAI-compatible payload: no provider-specific extras (unknown
+        // fields 400 on some providers). reasoning/think options stay out.
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${apiKey}`,
+            "X-Title": "ai-resources-pipeline",
+          },
+          signal: controller.signal,
+          body: JSON.stringify({
+            model: modelName,
+            messages: [
+              { role: "system", content: String(system || "You write short natural LinkedIn replies.") },
+              { role: "user", content: String(prompt || "").trim() || "No content provided." },
+            ],
+            temperature: typeof temperature === "number" ? temperature : 0.4,
+            max_tokens: typeof num_predict === "number" ? num_predict : 800,
+            stream: false,
+          }),
+        });
+        if (!response.ok) {
+          const errText = await response.text();
+          if ((response.status === 429 || response.status >= 500) && attempt < maxRetries) {
+            this.recordMetric("llmRetries");
+            await this.sleepWithJitter(attempt * 2500);
+            continue;
+          }
+          throw new Error(`OpenRouter generation failed (${response.status}): ${errText.slice(0, 200)}`);
+        }
+        const data = await response.json();
+        const rawContent = data?.choices?.[0]?.message?.content;
+        if (!rawContent || typeof rawContent !== "string") {
+          throw new Error(`OpenRouter returned empty response for ${modelName} (finish_reason: ${data?.choices?.[0]?.finish_reason})`);
+        }
+        if (data?.usage) {
+          this.recordMetric("openrouterPromptTokens", Number(data.usage.prompt_tokens) || 0);
+          this.recordMetric("openrouterCompletionTokens", Number(data.usage.completion_tokens) || 0);
+          logger.info(`OpenRouter: tokens used - prompt: ${data.usage.prompt_tokens}, completion: ${data.usage.completion_tokens}`);
+        }
+        return rawContent
+          .replace(/<think>[\s\S]*?<\/think>/gi, "")
+          .trim();
+      } catch (error) {
+        lastError = error;
+        if (error?.name === "AbortError") {
+          logger.warn(`OpenRouter: comment call timed out after ${requestTimeout}ms.`);
+          break;
+        }
+        if (attempt < maxRetries && error?.code !== "OPENROUTER_UNAVAILABLE") {
+          this.recordMetric("llmRetries");
+          await this.sleepWithJitter(attempt * 2000);
+          continue;
+        }
+      } finally {
+        clearTimeout(timeout);
+      }
+    }
+    throw lastError || new Error("OpenRouter comment generation failed.");
+  }
+
+  // Direct Google AI Studio REST (docs: ai.google.dev/gemini-api/docs). Same retry
+  // shape as the NVIDIA/OpenRouter providers: AbortController timeout, 2 attempts,
+  // jittered backoff on 429/5xx, candidate fallback on unknown-model 404.
+  // Security: key travels ONLY in the x-goog-api-key header, never the URL;
+  // error bodies are sliced before logging and never contain the key.
+  async generateTextViaGemini(prompt, options = {}) {
+    const { apiKey, requestTimeoutMs } = config.llm.gemini;
+    if (!apiKey || !apiKey.trim()) {
+      const error = new Error("GEMINI_API_KEY is missing. Set it in .env to use Gemini-direct.");
+      error.code = "GEMINI_UNAVAILABLE";
+      throw error;
+    }
+    const { temperature = 0.4, num_predict = 2000, system, model, timeoutMs, format } = options;
+    const candidates = [this.geminiModelFor(model, config.llm.gemini.model), "gemini-2.5-flash"]
+      .filter((m, idx, arr) => m && arr.indexOf(m) === idx);
+    let lastError = null;
+    for (const modelName of candidates) {
+      logger.info(`Gemini: generating with model "${modelName}".`);
+      const maxRetries = 2;
+      for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        const controller = new AbortController();
+        const requestTimeout = Math.max(requestTimeoutMs, typeof timeoutMs === "number" ? timeoutMs : 0);
+        const timeout = setTimeout(() => controller.abort(), requestTimeout);
+        try {
+          const userContent = String(prompt || "").trim() || "No content provided.";
+          const systemContent = (format === "json" || typeof format === "object")
+            ? `${system || SYSTEM_PROMPT || "You are an AI assistant."}\n\nCRITICAL MANDATORY DIRECTIVE: output ONLY a valid, parseable JSON object or array. No markdown backticks, explanations, preamble, or postscripts. Start directly with { or [ and end directly with } or ].`
+            : String(system || "You are a helpful assistant.");
+          const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-goog-api-key": apiKey,
+            },
+            signal: controller.signal,
+            body: JSON.stringify({
+              systemInstruction: { parts: [{ text: systemContent }] },
+              contents: [{ parts: [{ text: userContent }] }],
+              generationConfig: {
+                temperature: typeof temperature === "number" ? temperature : 0.4,
+                maxOutputTokens: typeof num_predict === "number" ? num_predict : 2000,
+              },
+            }),
+          });
+          if (!response.ok) {
+            const errText = await response.text();
+            if ((response.status === 404 || response.status === 400) && /not found|unsupported/i.test(errText)) {
+              logger.warn(`Gemini: model ${modelName} unavailable (${response.status}). Trying next candidate...`);
+              break;
+            }
+            if ((response.status === 429 || response.status >= 500) && attempt < maxRetries) {
+              this.recordMetric("llmRetries");
+              await this.sleepWithJitter(attempt * 2500);
+              continue;
+            }
+            throw new Error(`Gemini generation failed (${response.status}): ${errText.slice(0, 200)}`);
+          }
+          const data = await response.json();
+          if (data?.promptFeedback?.blockReason) {
+            throw new Error(`Gemini blocked the prompt (${data.promptFeedback.blockReason}); not retryable here.`);
+          }
+          const parts = data?.candidates?.[0]?.content?.parts || [];
+          const rawContent = parts.map((p) => p?.text || "").join("");
+          if (!rawContent || typeof rawContent !== "string" || !rawContent.trim()) {
+            throw new Error(`Gemini returned empty response for ${modelName} (finishReason: ${data?.candidates?.[0]?.finishReason})`);
+          }
+          const usage = data?.usageMetadata || {};
+          const promptTokens = Number(usage.promptTokenCount) || 0;
+          const completionTokens = Number(usage.candidatesTokenCount) || 0;
+          this.recordMetric("geminiPromptTokens", promptTokens);
+          this.recordMetric("geminiCompletionTokens", completionTokens);
+          logger.info(`Gemini: tokens used - prompt: ${promptTokens}, completion: ${completionTokens}`);
+          return rawContent.trim();
+        } catch (error) {
+          lastError = error;
+          if (error?.name === "AbortError") {
+            logger.warn(`Gemini: call timed out after ${requestTimeout}ms.`);
+            break;
+          }
+          if (/blocked the prompt/i.test(error?.message || "")) break; // safety blocks never clear on retry
+          if (attempt < maxRetries && error?.code !== "GEMINI_UNAVAILABLE") {
+            this.recordMetric("llmRetries");
+            await this.sleepWithJitter(attempt * 2000);
+            continue;
+          }
+        } finally {
+          clearTimeout(timeout);
+        }
+      }
+    }
+    throw lastError || new Error("Gemini generation failed.");
   }
 
   async generateJson(prompt, schema = "json") {
@@ -4377,19 +4672,22 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     body = body.replace(/🔗[^\n]*\n*/gi, "").trim();
     body = body.replace(/(?:\r?\n|\s)*(?:#[a-zA-Z0-9_]+\s*)+$/g, "").trim();
     body = body.replace(/\n{3,}/g, "\n\n").trim();
+    body = body.replace(/[\p{Extended_Pictographic}\uFE0F\u200D]+/gu, "").replace(/ {2,}/g, " ").trim();
     const qm = body.match(/^(["'“”‘’])([\s\S]*)\1$/);
     if (qm) body = qm[2].trim();
     body = body.replace(/^(agree with receipts|respectful pushback|sharp question|name the mechanism|name the tradeoff|name the failure mode|sharpen the distinction)\s*:\s*/i, "");
     return body;
   }
 
-  validateCommentReply(replyText, postText = "") {
+  validateCommentReply(replyText, postText = "", authorName = "") {
     const errors = [];
     const reply = String(replyText || "").trim();
     const post = String(postText || "");
     if (!reply) errors.push("Reply is empty.");
     if (reply.length > 600) errors.push(`Reply too long (${reply.length} chars, max 600).`);
-    if (reply.length > 0 && reply.length < 12) errors.push("Reply too short to carry signal (min 12 chars).");
+    // Short goodwill ("Great post!", "Congrats!") is explicitly allowed - the length
+    // floor only applies to substantive comments, which need room to name a point.
+    if (reply.length > 0 && reply.length < 12 && !GOODWILL_RE.test(reply)) errors.push("Reply too short to carry signal (min 12 chars).");
     const foundBanned = BANNED_WORDS.filter((w) => {
       const r = this.buildBannedWordRegex(w);
       return r && r.test(reply);
@@ -4430,6 +4728,12 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     if (/i['’]ve seen\b|\bin my experience\b|\bwhen i built\b|\bworked with similar\b|\bsimilar setups?\b|\bfrom what i['’]ve seen\b/i.test(reply)) {
       errors.push("Reply claims unverifiable personal experience; ground only in the post or plainly-known engineering reality.");
     }
+    // False attendance: implying we were there, met anyone, or tried anything -
+    // the "loved the session (we never attended)" class. React from the feed only.
+    const _att = reply.match(/\b((i|we)\s+(attended|was\s+there|joined|tried|tested|used|loved|found|caught|saw|met|visited|ran|deployed|shipped)|my\s+(takeaway|takeaways|experience|visit|time\s+there)|(great|nice|good|lovely|wonderful)\s+(meeting|seeing|catching)\s+(you|u|everyone|all)|(session|event|talk|meetup|workshop|webinar)\s+(was|is)\s+(great|good|amazing|awesome|fantastic|insightful|excellent|lovely|wonderful))\b/i);
+    if (_att) {
+      errors.push(`Reply pretends attendance/participation ("${_att[1].slice(0, 60)}") you don't have; react from the feed, never claim you were there.`);
+    }
     if (/\bresearch(ers?)?\s+(suggests?|shows?|indicates?|finds?|found)\b|\bstud(y|ies)\s+(show|suggest)\b|\bdata\s+shows?\b/i.test(reply)) {
       errors.push("Reply cites an uncited study/data claim; never invent statistics.");
     }
@@ -4469,13 +4773,58 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     if (imported) {
       errors.push(`Reply imports "${imported}" the post never states; react to what's there, never furnish the machinery.`);
     }
-    // never touched the post at all. Threshold stays at 1 - the critic judges relevance.
+    // never touched the post at all. Short goodwill reactions (congrats, great post)
+    // are exempt: vagueness is allowed, invention is not (grounding gate below).
     const STOP = new Set("about which would could should there their have been were with from that this these those than then when while also just like more most other into over under using thing things point claim words really very does doing done make makes made many much such every each they them your youre theyre its are was were been have has will shall may might must could would shall does did your our their than then what when where which whose why than then than".split(" "));
     const stems = (t) => [...new Set(String(t || "").toLowerCase().replace(/[^a-z0-9\s]/g, " ").split(/\s+/).filter((w) => w.length >= 4 && !STOP.has(w)).map((w) => w.replace(/(es|ing|ed|s)$/, "")))];
     const postStems = new Set(stems(post));
     const shared = stems(reply).filter((w) => postStems.has(w));
-    if (post && shared.length < 1) {
+    const isGoodwill = GOODWILL_RE.test(reply) && reply.length <= 220;
+    if (post && shared.length < 1 && !isGoodwill) {
       errors.push(`Reply shares no vocabulary with the post; reuse the author's own nouns instead of importing foreign concepts.`);
+    }
+    // Substantive grounding: every content word (5+ chars) in the reply must either be
+    // generic filler (praise, meta, goodwill), the author's own name (placement is
+    // checked separately above), or already exist in the post (stemmed).
+    // This is the mechanical backstop against the "teaching X at Y college" bug class:
+    // invented subjects, role details, org names, and mechanisms fail here even when
+    // the rest of the sentence is harmless. Endorse or congratulate; never inform.
+    {
+      const authorWords = new Set(String(authorName || "").toLowerCase().replace(/[^a-z0-9\s]/g, " ").split(/\s+/).filter(Boolean));
+      const postToks = new Set(words(post).map(stemTok));
+      const bad = [...new Set(words(reply).filter((w) => w.length >= 5 && !STOP.has(w) && !REPLY_FILLER.has(w) && !authorWords.has(w)))]
+        .map((w) => stemTok(w))
+        .filter((s) => s.length >= 4 && !postToks.has(s) && !REPLY_FILLER.has(s));
+      if (bad.length > 0) {
+        errors.push(`Reply adds detail the post never states (${bad.slice(0, 3).join(", ")}); endorse or congratulate using only the post's own words.`);
+      }
+    }
+    // Shape discipline: fixed frames are ALLOWED but no longer required - free-form
+    // drafts read human, templates read robotic. Dead slop shapes are banned outright;
+    // framed replies still face the X-slot rules below.
+    const shapeX = ackShapeMatch(reply);
+    if (!isGoodwill && /^(great|nice|awesome|excellent|amazing|insightful|informative|solid)\s+(post|article|insights?|reads?|shares?|breakdowns?|threads?|points?)\b/i.test(reply)) {
+      errors.push("Reply is dead praise with no topic (\"Great post\"-family); name the post's specific point instead.");
+    }
+    if (!isGoodwill && /thanks?\s+for\s+sharing|thank\s+you\s+for\s+(sharing|posting)|^i\s+agree[.!]*$|^so\s+true[.!]*$/i.test(reply)) {
+      errors.push("Reply is empty agreement/thanks; name the post's specific point instead.");
+    }
+    // X-slot discipline (applies whenever a shape matched, goodwill or not):
+    // "Great post on AI" names nothing; clauses and contraction fragments aren't topics.
+    {
+      const x = shapeX;
+      if (x) {
+        const bare = x.replace(/^(the|a|an)\s+/i, "").trim();
+        const xWords = bare.split(/\s+/).filter(Boolean);
+        const loneGeneric = xWords.length === 1 && GENERIC_X.has(bare.toLowerCase());
+        // A lone non-generic noun ("vibecode") is still dumb: one word only when the
+        // post uses it as a proper term (capitalized: HNSW, Jev). NFKC folds styled
+        // unicode (HNSW) so the case test works on real posts.
+        const occ = xWords.length === 1 ? String(post || "").normalize("NFKC").match(new RegExp(`\\b${bare.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "i")) : null;
+        const loneCommon = xWords.length === 1 && !(occ && /[A-Z]/.test(occ[0]));
+        if (loneGeneric || loneCommon) errors.push(`Reply names only a generic noun ("${bare}"); name the post's specific point instead.`);
+        else if (X_CLAUSE_RE.test(x) || /\b(how|what|why|when|that|which|while|because)\b/i.test(x)) errors.push(`Reply's topic is a clause ("${x.slice(0, 60)}"); name a tight topic phrase instead.`);
+      }
     }
     for (const pattern of HAT_TIP_PROHIBITED_PATTERNS) {
       if (pattern.test(reply)) {
@@ -4490,9 +4839,10 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
   }
 
   /**
-   * FEED COMMENT ENGINE: genuine peer comment on someone ELSE's LinkedIn post.
-   * Same voice system (zero-LARP, Humanizer V3, fingerprints). Not praise, not a lecture:
-   * engage the post's actual claim and add one sharp thing.
+   * FEED COMMENT ENGINE: short peer comment on someone ELSE's LinkedIn post.
+   * Reply-system V2: vague goodwill is allowed, added knowledge is not. Congrats
+   * on life updates, one grounded sentence on everything else, SKIP only for
+   * grief/politics/spam. The model never informs, only endorses or congratulates.
    */
   // Lean system prompts for feed comments: the 2500-token post-writing SYSTEM_PROMPT
   // drowns short comment drafts (instruction dilution). Gates + critic carry the strictness.
@@ -4500,46 +4850,45 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     const cleanPost = String(postText || "").replace(/https?:\/\/[^\s)]+/g, "").slice(0, 1500).trim();
     if (cleanPost.split(/\s+/).length < 10) throw new Error("draftFeedComment: post too thin to engage.");
     const author = String(postAuthor || "there").trim();
-    const firstName = author.split(/\s+/)[0] || "there";
+    // SIMPLE MODE (LINKEDIN_SIMPLE_REPLY=true): raw LLM reply. No persona prompt,
+    // no shapes, no gates, no critic, no retries. Only the hashtag/emoji sanitizer
+    // runs (it cleans, never rejects). Everything else passes through verbatim.
+    if (config.social.linkedinSimpleReply) {
+      const raw = await this.generateCommentText(
+        `Write a short, natural LinkedIn reply (1-2 sentences) to the post below, as its reader Drishtant Ghosh, a software engineer. Sound like a real peer: specific, warm, zero fluff, no hashtags, no emojis. Return only the reply text, or exactly SKIP if there is nothing worth saying.\n\nPOST BY ${author}:\n${cleanPost}`,
+        { temperature: 0.7, num_predict: 200, system: "You write short natural LinkedIn replies." });
+      const comment = String(raw || "").trim().replace(/^["'\u201C\u201D\u2018\u2019]+|["'\u201C\u201D\u2018\u2019]+$/g, "");
+      if (/^skip\b/i.test(comment)) return { comment: "", isValid: false, skipped: true, errors: ["simple-mode skip"] };
+      return { comment: this.filterCommentReply(comment), isValid: true, skipped: false, errors: [] };
+    }
     const fullName = author === "there" ? "there" : author;
     const feedbackSection = Array.isArray(feedback) && feedback.length > 0
-      ? `\n=== FIX THESE FROM THE REJECTED DRAFT ===\n${feedback.map((f) => `- ${f}`).join("\n")}\n- Write a DIFFERENT observation: new angle, new nouns from the post, never a rewording of the rejected draft.\n`
+      ? `\n=== FIX THESE FROM THE REJECTED DRAFT ===\n${feedback.map((f) => `- ${f}`).join("\n")}\n- Write a SIMPLER comment: drop every word the post doesn't state, fall back to plain congrats or one ACK frame ("Good reminder on X" / "The X really lands") using only the post's own nouns. Never a rewording of the rejected draft.\n`
       : "";
-    const prompt = `You are Drishtant Ghosh (Drix10), a software engineer scrolling LinkedIn, leaving a comment on a peer's post. Write like an engineer talking shop: direct, technical, zero fluff. A peer, not a fan, not a teacher.
+    const prompt = `You are Drishtant Ghosh (Drix10), a software engineer scrolling LinkedIn, leaving a comment on a peer's post. Write like a busy engineer: warm, brief, zero fluff. A peer, not a fan, not a teacher.
 
 POST AUTHOR: ${author}
 FULL NAME: ${fullName} (leading "Name,..." or possessive "Name's..." only - never mid-sentence; the system tags them; most comments need no name at all)
 POST:
 ${cleanPost}
 ${feedbackSection}
-=== COMMENT MODES (natural reactions, not reviews - default to the lightest true one) ===
-1. ACKNOWLEDGE (default): ONE short sentence endorsing a SPECIFIC point with its own nouns. A second sentence only when it adds something the first lacks. Most comments live here.
-2. OBSERVE (only when the post invites it): one grounded reaction - an implication, tradeoff, or distinction from relationships the post already states.
-3. SKIP: no specific point to endorse (empty posts, giveaway spam, vague bait); grief, tragedy, politics, controversy; or honesty needs facts you don't have. Everything else is commentable: technical posts, launches, announcements, milestones, events. Announcements get acknowledgment, never invented analysis.
-- 1-2 sentences under 400 chars, STATEMENTS ONLY. One strong sentence beats two padded ones - when the point lands, STOP. Zero questions, zero hashtags, zero coaching.
-- Reuse ONLY nouns, numbers, and mechanisms already in the post. Every figure you write must already exist in the post text.
-- Copy the post's own terms EXACTLY as spelled - never respell its nouns (a typo ships as ignorance).
-- Never preach ("you should", "teams should"), never coach ("you're learning", "what you need"), never ask ("have you considered", "did you").
-- Never claim what the post doesn't support: no new comparisons, no verdicts ("settles it", "proves", "better than"), no invented numbers.
-- Reaction = new INTERPRETATION of the post's evidence (implication, tradeoff, failure mode, distinction, mechanism). NEVER new EVIDENCE (stats, events, entities, benchmarks, causal claims, technical facts). If your sentence needs a fact the post doesn't state, delete the sentence.
-- Before each sentence ask: "Could I prove every factual component from the source post alone?" If NO: delete it, rewrite as pure interpretation, or SKIP. Never fill gaps from model knowledge. Never map the post onto outside analogies ("equivalent to a knowledge graph", "basically X") - a plausible analogy is still a new claim.
-- Before generating, name the exact source facts AND relationships supporting the comment. If observation needs outside knowledge, a new mechanism, failure mode, remedy, causal link, or connecting facts the post never connects: drop to ACKNOWLEDGE, or SKIP if even that isn't honest. A technically correct statement is still invalid when the post doesn't support it.
-- Do not turn source facts into evidence for a new causal or correlational claim. Numbers may be interpreted only when the post directly supports the reading. Words like "suggests", "indicates", "shows", "because", "led to" are critic triggers: use one only when the relationship is stated in the post or follows by direct logic, never to bridge two unrelated source facts.
-- Reaction = a new interpretation of relationships ALREADY ESTABLISHED by the post. Never connect two source facts the post does not connect, never speculate about effects/causes/correlations/failure modes absent from the post. Speculative hedges ("likely impacts", "may affect", "could explain", "probably caused") do not make an ungrounded relationship safe - they still fail.
-- Contractions always (that's, don't, it's). Plain words (fast, breaks, ships, clean), never pundit words.
-- Shape, never template: short, specific, grounded in this post's nouns. Never lift phrasing from these instructions into your comment - every example here is off-limits as wording.
-=== WHAT GETS REJECTED (every draft passes these gates - write to clear them) ===
-- any question, hashtags, figures/quantifiers absent from the post (incl. hundreds/thousands/percent)
-- banned pundit words, synthetic phrases (settles it, highlights, breakdown, equivalent to, basically, key takeaway)
-- long paraphrases posing as reactions (acknowledgments stay short), verbatim 6-word runs lifted from the post, wedged author name
-- new evidence (stats, events, entities, benchmarks, causal claims), new analogies or equivalences
-- relationships the post never states (A caused B, A suggests B) - both entities existing is NOT enough
-- content-free filler naming no specific point
-BAD (never do this): vague gesture naming nothing concrete (zero post nouns, zero point).
+=== COMMENT MODES (pick the lightest true one - never reach for a heavier one) ===
+1. CONGRATS (life updates, announcements, milestones: birthday, new job, joined a college/company, promotion, award, graduation, launch, anniversary, event): ONE warm sentence on the post's MAIN news - the reason the author posted TODAY. Never congratulate a background resume bullet or past milestone mentioned in passing (a birthday post listing old jobs gets "Happy 20th!", never congrats on an old role). Reuse ONLY people, places, and roles the post already names. NEVER add what the post doesn't say: no role details, no subjects taught, no org description, no duties, no "what this means".
+2. ACK (everything else commentable): ONE natural sentence under 200 chars endorsing the post's MAIN point - the author's central claim, never a side detail, example, or passing mention. Write like a peer, not a template: vary your syntax every time, start with the point, not with praise. Banned dead openers: "Great post", "Great insights", "Thanks for sharing", "Interesting read", bare "Well said" / "I agree" with no topic. Name the specific point using the post BODY's own words - never the author's name, job title, or headline. Do not rephrase with new words: every content word you write must already appear in the post. Pick the headline claim by asking what the author most wants remembered - a rant ending in a lesson means the lesson ("doing it well"), not the setup; an explainer means the core mechanism ("the decode cost"), not a side bullet; never a thanked name, a number in passing, or the first sentence when the point lands at the end. Never copy a whole clause from the post verbatim (copied phrases get rejected, wasting the attempt). When even that isn't honest, SKIP - a skip beats slop.
+3. SKIP: grief, tragedy, politics, controversy, giveaway/spam, empty posts. Nothing else needs a SKIP.
+=== HARD RULES (these are enforced by automated gates - write to clear them) ===
+- NEVER add information or knowledge: no facts, numbers, mechanisms, tradeoffs, implications, interpretations, advice, or causal claims beyond what the post states. Endorse or congratulate, never inform.
+- Every figure/quantifier must already exist in the post. Copy the post's own terms EXACTLY as spelled - never respell its nouns (a typo ships as ignorance).
+- STATEMENTS ONLY: zero questions, zero hashtags, zero URLs, zero coaching ("you should", "teams should"), zero experience claims ("I've seen", "when I built").
+- Never imply you attended, met anyone, tried anything, or were there: no "I loved the session", "great meeting you", "my takeaway", "I tried X". You are reacting from your feed, nothing more.
+- Contractions always (that's, don't, it's). Plain words, never pundit words.
+- Never lift phrasing from these instructions into your comment - every example here is off-limits as wording.
+BAD (never do this): post says "joined ABC college" -> "Teaching data structures at ABC will shape young minds" (invents role details the post never states).
+GOOD: "Congratulations on joining ABC!" / "Going under the hood beats only learning to use the models."
 Return ONLY the comment text, or exactly SKIP.`;
 
     try {
-      const raw = await this.generateText(prompt, { temperature: retries > 0 ? 0.4 : 0.75, num_predict: 800, system: "You are Drishtant Ghosh (Drix10), a software engineer leaving a short peer comment on LinkedIn. Direct, technical, zero fluff. Statements only, never questions." });
+      const raw = await this.generateCommentText(prompt, { temperature: retries > 0 ? 0.4 : 0.75, num_predict: 800, system: "You are Drishtant Ghosh (Drix10), a software engineer leaving a short peer comment on LinkedIn. Direct, technical, zero fluff. Statements only, never questions." });
       // Validate the draft's real sins BEFORE sanitizing: the post-pipeline sanitizer
       // deletes banned phrases, which would launder a gutted draft into a false PASS.
       // Only quote-unwrap + move-label strip here (neither removes sins); full filtering
@@ -4549,9 +4898,9 @@ Return ONLY the comment text, or exactly SKIP.`;
         .replace(/^(agree with receipts|respectful pushback|sharp question|name the mechanism|name the tradeoff|name the failure mode|sharpen the distinction)\s*:\s*/i, "")
         .trim();
       if (/^skip\b/i.test(forCheck)) {
-        return { comment: "", isValid: false, skipped: true, errors: ["no technical substance - skipped"] };
+        return { comment: "", isValid: false, skipped: true, errors: ["no safe angle - skipped"] };
       }
-      const check = this.validateCommentReply(forCheck, cleanPost);
+      const check = this.validateCommentReply(forCheck, cleanPost, author);
       // Author-name placement: leading ("Albert Mao, ...") or possessive ("Mao's ...") only.
       // Mid-sentence drops ("The context tax Albert Mao is talking about") are insertion artifacts.
       if (check.isValid && fullName && fullName !== "there") {
@@ -4593,8 +4942,8 @@ Return ONLY the comment text, or exactly SKIP.`;
   // Returns { pass, reason }. Any error = pass (mechanical gates already ran; the critic only adds rejections).
   async criticFeedComment(draft, post) {
     try {
-      const prompt = `You are a strict lie-detector for LinkedIn replies, not a novelty judge. Lack of novelty is FINE. SOURCE POST: """${String(post).slice(0, 1200)}""" PROPOSED REPLY: """${String(draft).slice(0, 500)}""" FAIL the reply if ANY holds: (1) content-free filler naming no specific point from the post (vague gestures like "interesting implications" with zero concrete nouns); (2) any claim, comparison, number, causal link, mechanism, failure mode, remedy, analogy, prescription, coined abstraction, or entity NOT supported by the post (a new -tion noun like "information fragmentation" for a post about re-explaining context = FAIL); (3) facts attached to the wrong event (one exploit's time window on another incident's device = FAIL); (4) experience, personal-use, or "I have seen" claims; (5) possibility stated as certainty; (6) author name wedged or used unnaturally. PASS everything else - a short grounded acknowledgment endorsing a specific point with zero new claims PASSES even with no novelty ("Great post! Really insightful breakdown of eval methods today." PASSES); a genuine grounded observation PASSES. Reply with exactly one line: PASS or FAIL: <one-line reason>.`;
-      const raw = await this.generateText(prompt, { temperature: 0.1, num_predict: 150, system: "You are a strict critic of LinkedIn replies. Answer with exactly one line: PASS or FAIL: <reason>." });
+      const prompt = `You are a strict lie-detector for LinkedIn replies. SOURCE POST: """${String(post).slice(0, 1200)}""" PROPOSED REPLY: """${String(draft).slice(0, 500)}""" Decide PASS or FAIL. No fixed template is required; judge only invention and attendance, never style. Short congrats ("Congratulations on X", "Happy 20th") PASS. Vagueness NEVER fails - "too vague" is not a valid reason. FAIL only if you can quote the exact offending span from the reply: (1) a fact, number, role detail, subject, org, mechanism, remedy, analogy, causal claim, comparison, or entity NOT stated in the post (reply "Teaching data structures at X" for a post saying only "joined X college" = FAIL, quote "Teaching data structures"); (2) congrats on a background detail instead of the post's main event (birthday post + "Congratulations on becoming CMO" = FAIL); (3) "I have seen / when I built" experience claims; (4) implies attendance, meeting, usage, or participation you don't have ("loved the session", "great meeting you", "my takeaway", "I tried X" = FAIL, quote it); (5) author name used unnaturally mid-sentence; (6) empty echo - restates post content with zero reaction, endorsement, or congrats ("Desk, good coffee, good company is free." for the offer post = FAIL, quote it). Examples: mentoring-interns post + "Good reminder on mentoring." = PASS. Birthday post + "Happy 20th!" = PASS. "Joined X college" post + "Teaching data structures at X will shape minds" = FAIL: "Teaching data structures". Office-hours post + "Desk, good coffee, good company is free." = FAIL: echo, restates the offer with zero reaction. Reply with exactly one line: PASS or FAIL: <one-line reason, quoting the span when FAIL>.`;
+      const raw = await this.generateCommentText(prompt, { temperature: 0.1, num_predict: 150, system: "You are a strict critic of LinkedIn replies. Answer with exactly one line: PASS or FAIL: <reason>." });
       const line = String(raw || "").trim().split(/\n/)[0];
       if (/^FAIL\b/i.test(line)) {
         return { pass: false, reason: line.replace(/^FAIL\s*:\s*/i, "").slice(0, 200) || "no new technical contribution" };

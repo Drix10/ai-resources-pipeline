@@ -1,5 +1,11 @@
 [
   {
+    "postType": "fintech-webhook-signatures",
+    "topicTitle": "Why Payment Webhooks Fail HMAC Signature Verification",
+    "repo": "intent-canvas",
+    "timestamp": "2026-09-20T12:05:51.146Z"
+  },
+  {
     "postType": "algorithmic-hedging-risk-engine",
     "topicTitle": "Algorithmic Hedging, Delta Neutrality & Latency (miro-hedge)",
     "repo": "miro-hedge",
@@ -22,12 +28,6 @@
     "topicTitle": "Why careless struct member ordering turns a 16-byte payload into 32 bytes due to word alignment, doubling L1 cache line misses",
     "repo": "Grind",
     "timestamp": "2026-09-17T21:22:43.621Z"
-  },
-  {
-    "postType": "fintech-webhook-signatures",
-    "topicTitle": "Why Payment Webhooks Fail HMAC Signature Verification",
-    "repo": "intent-canvas",
-    "timestamp": "2026-09-16T21:46:33.601Z"
   },
   {
     "postType": "partpilot-ai-search-sync",

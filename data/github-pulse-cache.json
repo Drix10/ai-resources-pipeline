@@ -1,5 +1,5 @@
 {
-  "timestamp": 1789781071825,
+  "timestamp": 1789905621716,
   "user": "Drix10",
   "repos": [
     {
@@ -8,59 +8,59 @@
       "description": "Daily updated resources on AI across various domains including ML, development, education, healthcare, real estate, robotics, crypto, web3 and more, curated by enthusiasts.",
       "language": "Multi-language",
       "stars": 118,
-      "updatedAt": "2026-09-19T01:23:09Z",
+      "updatedAt": "2026-09-20T12:00:08Z",
       "recentCommits": [
         {
-          "sha": "01b9029",
+          "sha": "d4ea2cf",
           "message": "📚 Update README with latest tweets",
-          "date": "2026-09-19T01:24:23Z"
+          "date": "2026-09-20T12:00:04Z"
         },
         {
-          "sha": "b899422",
-          "message": "📝 Batch sync: 7 resource collections",
-          "date": "2026-09-19T01:23:05Z"
+          "sha": "6410472",
+          "message": "📝 Batch sync: 3 resource collections",
+          "date": "2026-09-20T11:57:32Z"
         },
         {
-          "sha": "78df2be",
-          "message": "📝 Batch sync: 8 resource collections",
-          "date": "2026-09-19T01:07:09Z"
+          "sha": "e1c87e6",
+          "message": "📝 Batch sync: 4 resource collections",
+          "date": "2026-09-20T11:50:09Z"
         },
         {
-          "sha": "6ba0258",
-          "message": "📝 Batch sync: 8 resource collections",
-          "date": "2026-09-19T00:51:07Z"
+          "sha": "51e48b0",
+          "message": "📝 Batch sync: 4 resource collections",
+          "date": "2026-09-20T11:40:34Z"
         },
         {
-          "sha": "3f5ccd8",
-          "message": "📝 Batch sync: 8 resource collections",
-          "date": "2026-09-19T00:30:01Z"
+          "sha": "fa12350",
+          "message": "📝 Batch sync: 4 resource collections",
+          "date": "2026-09-20T11:31:19Z"
         }
       ],
       "historicalHighlights": [
         {
-          "sha": "b899422",
-          "message": "📝 Batch sync: 7 resource collections",
-          "date": "2026-09-19T01:23:05Z"
+          "sha": "6410472",
+          "message": "📝 Batch sync: 3 resource collections",
+          "date": "2026-09-20T11:57:32Z"
         },
         {
-          "sha": "78df2be",
-          "message": "📝 Batch sync: 8 resource collections",
-          "date": "2026-09-19T01:07:09Z"
+          "sha": "e1c87e6",
+          "message": "📝 Batch sync: 4 resource collections",
+          "date": "2026-09-20T11:50:09Z"
         },
         {
-          "sha": "6ba0258",
-          "message": "📝 Batch sync: 8 resource collections",
-          "date": "2026-09-19T00:51:07Z"
+          "sha": "51e48b0",
+          "message": "📝 Batch sync: 4 resource collections",
+          "date": "2026-09-20T11:40:34Z"
         },
         {
-          "sha": "3f5ccd8",
-          "message": "📝 Batch sync: 8 resource collections",
-          "date": "2026-09-19T00:30:01Z"
+          "sha": "fa12350",
+          "message": "📝 Batch sync: 4 resource collections",
+          "date": "2026-09-20T11:31:19Z"
         },
         {
-          "sha": "cd050ce",
-          "message": "📝 Batch sync: 8 resource collections",
-          "date": "2026-09-19T00:16:56Z"
+          "sha": "c969cf1",
+          "message": "📝 Batch sync: 4 resource collections",
+          "date": "2026-09-20T11:25:15Z"
         }
       ],
       "hasFreshCommits": true
@@ -71,44 +71,39 @@
       "description": "Autonomous AI Hedge Fund - Part of Canopy Founders. Inc",
       "language": "Python",
       "stars": 9,
-      "updatedAt": "2026-09-18T19:26:09Z",
+      "updatedAt": "2026-09-20T11:28:53Z",
       "recentCommits": [
         {
-          "sha": "fe115f0",
-          "message": "Fix checker to use effective config; config regression tests; leakage audit",
-          "date": "2026-09-18T19:26:03Z"
+          "sha": "385da7e",
+          "message": "TODO: record P3.3 gate and P3.1 amendment",
+          "date": "2026-09-20T11:28:45Z"
         },
         {
-          "sha": "5f1e2d6",
-          "message": "Remove config/ folder; contract lives in .env.example header; root .env created",
-          "date": "2026-09-18T19:15:55Z"
+          "sha": "1f90d7a",
+          "message": "Docs: P3.3 gate record, P3.1 amendment, kernel pins",
+          "date": "2026-09-20T11:28:09Z"
         },
         {
-          "sha": "b6dde69",
-          "message": "config.py auto-loads root .env; exports override; docs updated",
-          "date": "2026-09-18T19:10:39Z"
+          "sha": "0d3683f",
+          "message": "JEV single-flight covers sign and cache",
+          "date": "2026-09-20T11:26:11Z"
         },
         {
-          "sha": "06dbf56",
-          "message": "Secrets contract: env example, config gate, history audited clean",
-          "date": "2026-09-18T19:07:48Z"
+          "sha": "f8be0ac",
+          "message": "P3.3: typed state, kernel state, deterministic decision table",
+          "date": "2026-09-20T11:26:06Z"
         },
         {
-          "sha": "875d9c7",
-          "message": "P1.4 acceptance automation: objective checks + pre-grader, humans last resort",
-          "date": "2026-09-18T19:02:35Z"
+          "sha": "52ccedb",
+          "message": "P3.1 amendment: correct ScalarLessL L-table (pending re-sign)",
+          "date": "2026-09-20T11:25:42Z"
         }
       ],
       "historicalHighlights": [
         {
-          "sha": "fe115f0",
-          "message": "Fix checker to use effective config; config regression tests; leakage audit",
-          "date": "2026-09-18T19:26:03Z"
-        },
-        {
-          "sha": "b0179b1",
-          "message": "Freeze v2 cleanup: ctx snapshot v3 fields, D2 family tie-break",
-          "date": "2026-09-18T18:04:35Z"
+          "sha": "6208f75",
+          "message": "TODO: record projection fix",
+          "date": "2026-09-20T10:41:51Z"
         }
       ],
       "hasFreshCommits": true
@@ -119,17 +114,29 @@
       "description": "",
       "language": "Multi-language",
       "stars": 2,
-      "updatedAt": "2026-09-17T19:42:47Z",
+      "updatedAt": "2026-09-19T08:36:32Z",
       "recentCommits": [
         {
-          "sha": "fb4960d",
+          "sha": "3d355cd",
           "message": "Update README.md",
-          "date": "2026-09-17T19:42:43Z"
-        },
+          "date": "2026-09-19T08:36:28Z"
+        }
+      ],
+      "historicalHighlights": [],
+      "hasFreshCommits": true
+    },
+    {
+      "name": "Grind",
+      "fullName": "Drix10/Grind",
+      "description": "Before you touch LeetCode or DSA, finish these 100. Start from Program 1 and go in order. Basics first, then moderate, then challenge. Wherever you see n, it is taken as user input.",
+      "language": "C",
+      "stars": 1,
+      "updatedAt": "2026-09-19T08:32:05Z",
+      "recentCommits": [
         {
-          "sha": "834ca14",
-          "message": "Update README.md",
-          "date": "2026-09-17T19:41:45Z"
+          "sha": "ad0e078",
+          "message": "If else - leap year",
+          "date": "2026-09-19T08:31:46Z"
         }
       ],
       "historicalHighlights": [],
@@ -176,7 +183,7 @@
           "date": "2026-09-16T15:27:19Z"
         }
       ],
-      "hasFreshCommits": true
+      "hasFreshCommits": false
     },
     {
       "name": "keystroke-llm",
@@ -239,43 +246,6 @@
           "date": "2026-09-11T13:13:22Z"
         }
       ],
-      "hasFreshCommits": false
-    },
-    {
-      "name": "Grind",
-      "fullName": "Drix10/Grind",
-      "description": "Before you touch LeetCode or DSA, finish these 100. Start from Program 1 and go in order. Basics first, then moderate, then challenge. Wherever you see n, it is taken as user input.",
-      "language": "C",
-      "stars": 1,
-      "updatedAt": "2026-09-07T13:27:40Z",
-      "recentCommits": [
-        {
-          "sha": "6069702",
-          "message": "If Else - Smallest among 3",
-          "date": "2026-09-07T13:26:51Z"
-        },
-        {
-          "sha": "39e9c6f",
-          "message": "Foarmetting & Level 2, 13 -> Greatest among 3 numbers",
-          "date": "2026-09-07T13:25:06Z"
-        },
-        {
-          "sha": "3fe4c94",
-          "message": "If Else - +ve/-ve/0",
-          "date": "2026-09-07T12:45:45Z"
-        },
-        {
-          "sha": "8aa4869",
-          "message": "If Else - Even Odd check",
-          "date": "2026-09-07T12:34:57Z"
-        },
-        {
-          "sha": "03a6f11",
-          "message": "Level 1",
-          "date": "2026-09-03T16:38:08Z"
-        }
-      ],
-      "historicalHighlights": [],
       "hasFreshCommits": false
     },
     {

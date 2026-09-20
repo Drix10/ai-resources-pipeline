@@ -34,5 +34,9 @@ for (let i = 0; i < args.length; i++) {
     r.wouldLike.forEach((w, i) => console.log(`  ${i + 1}. @${w.author} - "${(w.snippet || "").replace(/\s+/g, " ").slice(0, 70)}..."`));
   }
   console.log(`\nDone: ${r.previews ? r.previews.length : 0} previewed, ${r.skipped} skipped (${r.reason}).`);
+  if (r.cost) {
+    const c = r.cost.openrouter, g = r.cost.gemini;
+    console.log(`COST: ~$${(c.usd + g.usd).toFixed(4)} this run (Gemini $${g.usd.toFixed(4)} ${g.prompt}+${g.completion} tok; OpenRouter $${c.usd.toFixed(4)} ${c.prompt}+${c.completion} tok; legacy provider ${r.cost.legacy.prompt}+${r.cost.legacy.completion} tok, billed separately).`);
+  }
   process.exit(0);
 })().catch((e) => { console.error("preview failed:", e.message); process.exit(1); });
