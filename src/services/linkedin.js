@@ -492,7 +492,10 @@ class LinkedInService {
       await sleep(1000);
 
       logger.info("LinkedInService: Formatting and injecting post text into editor...");
-      await this.driver.executeScript(function(postText) {
+      // Engine-level typing ONLY. Direct innerHTML assignment leaves the Post button
+      // permanently disabled (proven live: visible text, disabled:true); execCommand
+      // routes through the editing engine, which flips it to enabled.
+      const typedLen = await this.driver.executeScript(function(postText) {
         var editorEl = null;
         var outlet = document.getElementById("interop-outlet");
         if (outlet && outlet.shadowRoot) {
@@ -501,32 +504,30 @@ class LinkedInService {
         if (!editorEl) {
           editorEl = document.querySelector("div.ql-editor, div[role='textbox'][contenteditable='true']");
         }
-        if (editorEl) {
-          editorEl.innerHTML = "";
-          var ZWS = String.fromCharCode(0x200B);
-          var lines = postText.split("\n");
-          var fragment = document.createDocumentFragment();
-          for (var i = 0; i < lines.length; i++) {
-            var p = document.createElement("p");
-            var trimmed = lines[i].trim();
-            if (!trimmed) {
-              p.appendChild(document.createElement("br"));
-            } else {
-              if (trimmed.charAt(0) === "#") trimmed = ZWS + trimmed;
-              p.textContent = trimmed;
-            }
-            fragment.appendChild(p);
-          }
-          editorEl.appendChild(fragment);
-          editorEl.dispatchEvent(new Event("input", { bubbles: true }));
+        if (!editorEl) return 'no-editor';
+        var ZWS = String.fromCharCode(0x200B);
+        editorEl.focus();
+        try { document.execCommand('selectAll', false, null); } catch (e) {}
+        try { document.execCommand('delete', false, null); } catch (e) { editorEl.innerHTML = ''; }
+        var lines = String(postText).split("\n");
+        for (var i = 0; i < lines.length; i++) {
+          var trimmed = lines[i].trim();
+          if (i > 0) { try { document.execCommand('insertParagraph', false, null); } catch (e) {} }
+          if (!trimmed) continue;
+          if (trimmed.charAt(0) === "#") trimmed = ZWS + trimmed;
+          try { document.execCommand('insertText', false, trimmed); } catch (e) {}
         }
+        editorEl.dispatchEvent(new Event("input", { bubbles: true }));
+        return 'typed:' + (editorEl.innerText || '').length;
       }, cleanedText);
+      logger.info(`LinkedInService: editor typing result: ${typedLen}.`);
       await sleep(3000);
 
       logger.info("LinkedInService: Locating and confirming Post submission button...");
       let postClicked = false;
+      let postBtnState = "missing";
       for (let i = 0; i < 20; i++) {
-        postClicked = await this.driver.executeScript(`
+        postBtnState = await this.driver.executeScript(`
           const allRoots = [document];
           const modalOutlet = document.getElementById("artdeco-modal-outlet");
           if (modalOutlet) allRoots.push(modalOutlet);
@@ -543,28 +544,33 @@ class LinkedInService {
 
           for (const r of allRoots) {
             const btns = Array.from(r.querySelectorAll("button, div[role='button']"));
+            let seenDisabled = false;
             const postBtn = btns.find(b => {
               const txt = (b.innerText || b.textContent || "").trim().toLowerCase();
               const aria = (b.getAttribute("aria-label") || "").trim().toLowerCase();
               const isPost = txt === "post" || aria === "post" ||
                              b.classList.contains("share-actions__primary-action") ||
                              b.classList.contains("share-box-footer__primary-btn");
+              if (isPost && b.disabled) seenDisabled = true;
               return isPost && !b.disabled;
             });
             if (postBtn) {
               postBtn.scrollIntoView({ behavior: 'auto', block: 'center' });
               postBtn.click();
-              return true;
+              return 'clicked';
             }
+            if (seenDisabled) return 'disabled-only';
           }
-          return false;
+          return 'missing';
         `);
-        if (postClicked) {
+        if (postBtnState === 'clicked') {
+          postClicked = true;
           logger.info("LinkedInService: Successfully clicked Post submission button!");
           break;
         }
         await sleep(1000);
       }
+      if (!postClicked) logger.warn(`LinkedInService: Post button never clickable (last state: ${postBtnState}).`);
 
       if (!postClicked) {
         logger.warn("LinkedInService: Direct script click on Post button failed. Trying Actions / ShadowEl fallback...");
@@ -597,6 +603,15 @@ class LinkedInService {
       if (postConfirmed) {
         postSucceeded = true;
         logger.info("LinkedInService: Post submitted successfully!");
+        // Second opinion: LinkedIn fires a "Post published / View post" toast on success.
+        // Modal-close alone also happens on discard, so log what the toast says.
+        const toastSeen = await this.driver.executeScript(`
+          const t = (document.body.innerText || '').toLowerCase();
+          if (t.includes('view post')) return 'view-post';
+          if (t.includes('post published') || t.includes('your post was')) return 'published-note';
+          return null;
+        `).catch(() => null);
+        logger.info(`LinkedInService: success toast: ${toastSeen || 'none visible'}.`);
       } else {
         logger.warn("LinkedInService: Post confirmation did not complete within timeout.");
       }
@@ -932,19 +947,69 @@ class LinkedInService {
   // FEED SCAN: real LinkedIn markup (hashed classes, no data-urn). Cards = mainFeed
   // children containing "Feed post". Flips Sort: Top -> Recent so we engage fresh posts.
   // Identity = sha1(authorHref + text head) since no activity URNs exist in the DOM.
-  async scanFeedPosts({ maxPosts = 10, maxScrolls = 10, sort = "recent" } = {}) {
-    const crypto = require("crypto");
+  // Pure predicate so the spam gate is unit-testable without a browser.
+  // Life updates (joined, new role, promotion, anniversary) are CONGRATS targets,
+  // not spam. Only LinkedIn's own "Promoted" ad label is filtered - matched in the
+  // card header, and never when the body talks about a promotion.
+  static isFeedSpamText(text) {
     const FEED_SPAM = [
-      "we are hiring", "hiring for", "dm me to", "join my team", "dm for",
+      "we are hiring", "we're hiring", "hiring for", "hiring our", "dm me to", "join my team", "dm for",
       "check out my course", "buy my book", "join the waitlist", "sign up now",
       "use my code", "limited spots", "giveaway", "subscribe for", "link in bio",
-      "say congrats", "congratulate", "work anniversary", "started a new position",
-      "welcome to the team", "happy to announce i have joined", "promoted",
+      "say congrats", "congratulate", "only connections can comment",
+      "apply:", "apply here", "reopen applications", "rolling basis", "currently unpaid", "send your resume", "send in your resume", "interested candidates",
       "webinar", "masterclass", "bootcamp", "cohort", "register", "enroll", "early bird", "starts"
     ];
-    const MIN_WORDS = 25;
-    // Substance gate: a post with no digits AND none of these technical stems has no
-    // technical claim to engage (gig recaps, gratitude, milestones). Skip before any LLM call.
+    const lower = String(text || "").toLowerCase();
+    if (FEED_SPAM.some((kw) => lower.includes(kw))) return true;
+    const head = String(text || "").slice(0, 300);
+    if (/\bpromoted\b/i.test(head) && !/\bpromot(ed to|ion)\b|been promoted/i.test(String(text || ""))) return true;
+    return false;
+  }
+
+  // Pure: split a raw card innerText into its post body (header chrome, author
+  // headline, and trailing tally lines removed) so drafting/validation only ever
+  // see what the author wrote. Headline leakage is what produced comments like
+  // "Great post on Machine Learning Engineer" on a post about intern interviews.
+  static postBodyFromLines(tlines) {
+    let bodyStart = 0, followLine = -1;
+    for (let i = 0; i < Math.min(tlines.length, 12); i++) {
+      if (/\d+\s*[smhdw]\s*•/.test(tlines[i])) { bodyStart = i + 1; break; }
+      if (followLine < 0 && /^\s*follow\s*$/i.test(tlines[i])) followLine = i;
+    }
+    if (bodyStart === 0 && followLine >= 0) bodyStart = followLine + 1;
+    // Body (not header) drives identity: same post re-rendered = same key, no double-comments.
+    // Trailing count-only lines (reaction/comment/repost tallies) shift over time, so they
+    // are stripped - counts rot keys and cause re-comments (and leak digits into drafts).
+    // NOTE: no .trim() here - keySrc must stay byte-identical to the pre-refactor key
+    // computation, or every previously-commented post becomes commentable again.
+    // Zero-width/format chars are stripped FIRST: they break the tally regex ($ anchor)
+    // and inflate word counts ("97\n9\n\u200b" never strips otherwise).
+    return tlines.slice(bodyStart).join("\n").replace(/[\u200b-\u200d\ufeff]/g, "").replace(/^follow\s*$/gim, "").replace(/(\n\s*[\d][\d\s,.KMB]*)+$/, "");
+  }
+
+  // Pure: LinkedIn wraps other people's posts in activity chrome ("X supports this",
+  // "Y commented", "Followed by Z"). Commenting there attributes the wrong author -
+  // the Rohini-card-is-actually-Shrey's-post class of bug. Skip the whole card.
+  static isActivityCard(text) {
+    const head = String(text || "").slice(0, 400);
+    // "commented" only counts at a line end (LinkedIn's "Hank Wu commented" header) -
+    // body sentences like "most commented threads" must not trip it.
+    return /(likes|loves|celebrates|supports)\s+this\b|commented on this|\breposted\b|followed by/i.test(head)
+      || /^.*\bcommented\s*$/m.test(head)
+      || /\bcommented\s+[A-Z][\w.()]*\s+\S+\s*•/.test(head);
+  }
+
+  // Pure: two connection-degree markers (• 1st/2nd/3rd+) = two author headers merged
+  // in one card (judge commentary + winner's post). Attribution is unknowable: skip.
+  static hasMixedAuthors(text) {
+    const markers = String(text || "").match(/•\s*(1st|2nd|3rd\+?)\b/gi) || [];
+    return markers.length >= 2;
+  }
+
+  async scanFeedPosts({ maxPosts = 10, maxScrolls = 10, sort = "recent" } = {}) {
+    const crypto = require("crypto");
+    const MIN_WORDS = 15;
     const keyOf = (href, bodyText) => crypto.createHash("sha1").update(`${href}|${bodyText.slice(0, 300)}`).digest("hex").slice(0, 16);
     try {
       await this.ensureDriverConnected(true);
@@ -993,6 +1058,10 @@ class LinkedInService {
 
       const seen = new Set();
       const out = [];
+      // Rejection breakdown so "0 commentable posts" is diagnosable: empty feed
+      // vs everything filtered (and by which filter) look identical otherwise.
+      const dropped = { fragment: 0, dupe: 0, activity: 0, mixed: 0, spam: 0, own: 0, thin: 0, nonlatin: 0 };
+      let cardsSeen = 0;
       let stallRounds = 0;
       for (let round = 0; round < maxScrolls && out.length < maxPosts; round++) {
         // Expand truncated posts so we read (and judge) the full text.
@@ -1024,33 +1093,28 @@ class LinkedInService {
         let fresh = 0;
         for (const item of batch || []) {
           const text = String(item.text || "").trim();
-          if (!text) continue;
+          if (!text) { dropped.fragment++; continue; }
           const tlines = text.split(/\r?\n/);
-          let bodyStart = 0;
-          for (let i = 0; i < Math.min(tlines.length, 10); i++) {
-            if (/\d+\s*[smhdw]\s*•/.test(tlines[i])) { bodyStart = i + 1; break; }
-          }
-          // Body (not header) drives identity: same post re-rendered = same key, no double-comments.
-          // Trailing count-only lines (reaction/comment/repost tallies) shift over time, so they
-          // are stripped from the key source only - counts rot keys and cause re-comments.
-          const bodyOnly = tlines.slice(bodyStart).join("\n").replace(/^follow\s*$/gim, "");
-          const keySrc = bodyOnly.replace(/(\n\s*[\d][\d\s,.KMB]*)+$/, "");
-          if (bodyOnly.split(/\s+/).filter(Boolean).length < 10) continue; // render fragment, not a post yet
+          const keySrc = LinkedInService.postBodyFromLines(tlines);
+          if (keySrc.split(/\s+/).filter(Boolean).length < 10) { dropped.fragment++; continue; } // render fragment, not a post yet
           const key = keyOf(item.href, keySrc);
-          if (seen.has(key)) continue;
+          if (seen.has(key)) { dropped.dupe++; continue; }
           seen.add(key);
+          cardsSeen++;
           fresh++;
           if (out.length >= maxPosts) break;
-          const lower = text.toLowerCase();
-          if (/\b((likes|loves|celebrates|supports) this|reposted this|commented on this)\b/i.test(text.slice(0, 300))) continue; // reaction/repost activity cards: not the author's own post
-          if (FEED_SPAM.some((kw) => lower.includes(kw))) continue;
-          if (/drishtant|drix10/i.test(`${item.author} ${item.href}`)) continue; // own post: never engage
-          if (text.split(/\s+/).length < MIN_WORDS) continue;
-          const allLetters = text.match(/[\p{L}]/gu) || [];
-          const asciiLetters = text.match(/[A-Za-z]/g) || [];
-          if (allLetters.length > 0 && asciiLetters.length / allLetters.length < 0.5) continue;
-          // Personal posts (gigs, gratitude, milestones) ride the short bro register, not the peer engine.
-          out.push({ key, author: item.author || "unknown", href: item.href || "", text: text.slice(0, 1500) });
+          if (LinkedInService.isActivityCard(text)) { dropped.activity++; continue; } // someone else's post in activity chrome: wrong author
+          if (LinkedInService.hasMixedAuthors(text)) { dropped.mixed++; continue; } // two authors merged in one card: attribution unknowable
+          if (LinkedInService.isFeedSpamText(text)) { dropped.spam++; continue; }
+          if (/drishtant|drix10/i.test(`${item.author} ${item.href}`)) { dropped.own++; continue; } // own post: never engage
+          if (keySrc.split(/\s+/).length < MIN_WORDS) { dropped.thin++; continue; }
+          const allLetters = keySrc.match(/[\p{L}]/gu) || [];
+          const asciiLetters = keySrc.match(/[A-Za-z]/g) || [];
+          if (allLetters.length > 0 && asciiLetters.length / allLetters.length < 0.5) { dropped.nonlatin++; continue; }
+          // Life updates and milestones pass through: they ride the CONGRATS path.
+          // Drafting/validation see the clean BODY only - never the headline (which is
+          // what produced "Great post on Machine Learning Engineer" on an interview post).
+          out.push({ key, author: item.author || "unknown", href: item.href || "", text: keySrc.slice(0, 1500) });
         }
         if (fresh === 0) {
           stallRounds++;
@@ -1059,7 +1123,7 @@ class LinkedInService {
         try { await this.driver.executeScript("window.scrollBy(0, window.innerHeight * 2);"); } catch (e) {}
         await sleep(1500);
       }
-      logger.info(`LinkedInService: feed scan collected ${out.length} commentable posts.`);
+      logger.info(`LinkedInService: feed scan collected ${out.length} commentable posts (saw ${cardsSeen} unique cards; dropped: fragment ${dropped.fragment}, dupe ${dropped.dupe}, activity ${dropped.activity}, mixed-authors ${dropped.mixed}, spam ${dropped.spam}, own ${dropped.own}, thin ${dropped.thin}, non-latin ${dropped.nonlatin}).`);
       return out;
     } catch (err) {
       logger.error("LinkedInService: scanFeedPosts failed:", err.message);
@@ -1148,32 +1212,80 @@ class LinkedInService {
       await sleep(300);
       const mentionState = await this._typeWithMention(editor, text, fullName);
       logger.info(`LinkedInService: mention flow: ${mentionState}.`);
+      // Read back what actually landed in the editor: distinguishes "typed into the
+      // void" (focus lost) from "submit never fired" later. Empty here = typing failed.
+      let typedLen = -1;
+      try { typedLen = String(await editor.getText()).length; } catch (e) {}
+      logger.info(`LinkedInService: comment editor holds ${typedLen} chars after typing.`);
+      if (typedLen === 0) {
+        logger.warn("LinkedInService: editor empty after typing - focus lost, aborting post.");
+        return false;
+      }
       await sleep(2000);
+      // Submit finder: the submit button is the ONLY button whose visible text is exactly
+      // "Comment" (toggles show a count like "7" and carry aria-label="Comment" instead).
+      // Do NOT match aria-label here - that would click the toggle and close the editor.
+      // The button renders only after typing fires input events, so poll for it.
+      const clickSubmit = `
+        const feed = document.querySelector('div[data-testid="mainFeed"]');
+        const cards = Array.from(feed.children).filter(c => (c.innerText || '').includes('Feed post'));
+        const card = cards.find(c => (c.innerText || '').includes(arguments[0]));
+        if (!card) return 'no-card';
+        const btn = Array.from(card.querySelectorAll('button'))
+          .find(b => (b.innerText || '').trim().toLowerCase() === 'comment' && !b.disabled);
+        if (!btn) return 'no-button';
+        try { btn.click(); return 'clicked'; } catch (e) { return 'click-threw'; }
+      `;
       let clicked = false;
-      try {
-        const submitEl = await this.driver.executeScript(`
-          const feed = document.querySelector('div[data-testid="mainFeed"]');
-          const cards = Array.from(feed.children).filter(c => (c.innerText || '').includes('Feed post'));
-          const card = cards.find(c => (c.innerText || '').includes(arguments[0]));
-          if (!card) return null;
-          const btn = Array.from(card.querySelectorAll('button'))
-            .find(b => (b.innerText || '').trim().toLowerCase() === 'comment' && !b.disabled);
-          if (!btn) return null;
-          try { btn.click(); return 'clicked'; } catch (e) { return null; }
-        `, String(textSnippet).substring(0, 80)).catch(() => null);
-        clicked = !!submitEl;
-      } catch (e) { /* keyboard fallback below */ }
+      let submitHow = "none";
+      let submitEl = null;
+      for (let attempt = 0; attempt < 4 && !clicked; attempt++) {
+        if (attempt > 0) await sleep(2000); // button renders async after input events
+        try { submitEl = await this.driver.executeScript(clickSubmit, String(textSnippet).substring(0, 80)).catch(() => null); } catch (e) { submitEl = null; }
+        clicked = submitEl === "clicked";
+      }
+      logger.info(`LinkedInService: submit button state: ${submitEl}.`);
+      if (clicked) submitHow = "button";
       if (!clicked) {
         await editor.click();
         await sleep(300);
         const actions = this.driver.actions({ async: true });
         await actions.keyDown("\uE009").sendKeys("\n").keyUp("\uE009").perform();
+        submitHow = "keyboard-fallback";
+        logger.info("LinkedInService: submit fell back to keyboard.");
       }
       await sleep(5000);
-      const verified = await this.driver.executeScript(
-        "return document.body.innerText.includes(arguments[0]);",
-        String(text).substring(0, 40)
-      ).catch(() => false);
+      const checkPosted = async () => {
+        const onPage = await this.driver.executeScript(
+          "return document.body.innerText.includes(arguments[0]);",
+          String(text).substring(0, 40)
+        ).catch(() => false);
+        let residual = -1;
+        try { residual = String(await editor.getText()).length; } catch (e) {}
+        return { onPage: !!onPage, residual };
+      };
+      let { onPage: verified, residual } = await checkPosted();
+      logger.info(`LinkedInService: after submit (${submitHow}): on-page=${verified}, editor-residual=${residual}.`);
+      if (!verified && residual > 0) {
+        // Text still sitting in the editor = submit never fired. One retry, then Enter.
+        logger.warn("LinkedInService: submit missed (text still in editor) - retrying once.");
+        try { await this.driver.executeScript(clickSubmit, String(textSnippet).substring(0, 80)).catch(() => null); } catch (e) {}
+        await sleep(2000);
+        try { residual = String(await editor.getText()).length; } catch (e) {}
+        if (residual > 0) {
+          try {
+            await editor.click();
+            const actions = this.driver.actions({ async: true });
+            await actions.sendKeys("\uE007").perform(); // Enter on the focused editor
+          } catch (e) {}
+          await sleep(3000);
+        }
+        ({ onPage: verified, residual } = await checkPosted());
+        logger.info(`LinkedInService: after retry: on-page=${verified}, editor-residual=${residual}.`);
+      }
+      if (!verified && residual === 0) {
+        logger.warn("LinkedInService: text left the editor but is not on the page - likely posted but hidden by comment sorting, or silently dropped.");
+      }
       logger.info(`LinkedInService: feed comment posted+verified: ${!!verified}.`);
       return !!verified;
     } catch (err) {
@@ -1183,8 +1295,22 @@ class LinkedInService {
   }
 
   // Type comment text, converting the author's name into a REAL @-mention.
-  // Falls back to plain text if the typeahead never offers the right person (never tag strangers).
+  // Three hard rules (from live-DOM inspection): the typeahead popup must be ANCHORED
+  // near this editor (a far-away listbox belongs to another card - never touch it),
+  // the option's FIRST LINE must equal the full name (LinkedIn renders "Name\nheadline"),
+  // and the pick must be VERIFIED as a chip in the editor. Anything else falls back
+  // to plain text. This is how "never tag strangers" is actually enforced.
   async _typeWithMention(editor, text, fullName) {
+    const plainFallback = async () => {
+      try {
+        try { await editor.sendKeys(Key.ESCAPE); } catch (e) {}
+        await sleep(300);
+        await editor.sendKeys(Key.chord(Key.CONTROL, "a"), Key.BACK_SPACE);
+        await sleep(300);
+        await editor.sendKeys(text);
+      } catch (e2) {}
+      return "plain-fallback";
+    };
     try {
       const name = String(fullName || "").trim();
       const idx = name && name.toLowerCase() !== "there" && name.toLowerCase() !== "unknown"
@@ -1195,34 +1321,59 @@ class LinkedInService {
       const after = String(text).slice(idx + name.length);
       if (before) await editor.sendKeys(before);
       await editor.sendKeys("@" + name.split(/\s+/)[0]);
-      await sleep(2500);
-      const picked = await this.driver.executeScript(`
-        const menus = Array.from(document.querySelectorAll('[role="listbox"], [role="menu"], ul'));
-        for (const m of menus) {
-          if (!m.offsetParent) continue;
-          const opts = Array.from(m.querySelectorAll('[role="option"], li, div')).filter(o => o.offsetParent);
-          const hit = opts.find(o => (o.innerText || '').toLowerCase().indexOf(arguments[0].toLowerCase()) !== -1);
-          if (hit) { try { hit.click(); return 'picked'; } catch (e) { return null; } }
-        }
-        return null;
-      `, name).catch(() => null);
-      if (!picked) {
-        await editor.sendKeys(Key.chord(Key.CONTROL, "a"), Key.BACK_SPACE);
-        await sleep(300);
-        await editor.sendKeys(text);
-        return "plain-fallback";
+      const edRect = await this.driver.executeScript(
+        "const e = document.querySelector('[aria-label=\"Text editor for creating comment\"]'); return e ? e.getBoundingClientRect().toJSON() : null;"
+      ).catch(() => null);
+      // Poll for the popup (server-side filter is async); match exact full name only.
+      let picked = null;
+      for (let i = 0; i < 6 && !picked; i++) {
+        await sleep(1000);
+        picked = await this.driver.executeScript(`
+          const clean = (s) => String(s || "").toLowerCase().replace(/[.]+/g, "").replace(/\\s+/g, " ").trim();
+          const want = clean(arguments[0]);
+          const edR = arguments[1];
+          const boxes = Array.from(document.querySelectorAll('[role="listbox"]')).filter(m => m.offsetParent);
+          for (const m of boxes) {
+            if (edR) {
+              const r = m.getBoundingClientRect();
+              if (Math.abs(r.top - edR.top) > 500 && Math.abs(r.bottom - edR.bottom) > 500) continue;
+            }
+            const opts = Array.from(m.querySelectorAll('[role="option"]')).filter(o => o.offsetParent);
+            for (const o of opts) {
+              const first = clean((o.innerText || "").split("\\n")[0]);
+              if (first === want || (want.length >= 3 && first.indexOf(want + " ") === 0)) {
+                try { o.click(); return 'picked:' + first.slice(0, 60); } catch (e) { return 'click-threw'; }
+              }
+            }
+          }
+          return null;
+        `, name, edRect).catch(() => null);
+        if (picked && picked.indexOf("picked:") !== 0) { picked = null; break; }
       }
+      if (!picked) return await plainFallback();
+      logger.info(`LinkedInService: mention picked (${picked}).`);
       await sleep(800);
+      // Verify the pick landed: a chip element, or the "@" consumed with the name
+      // present. A leftover "@First" means the popup just closed - fall back (the
+      // fallback wipes and retypes clean text, so no stray @ ever posts).
+      const st = await this.driver.executeScript(`
+        const ed = document.querySelector('[aria-label="Text editor for creating comment"]');
+        if (!ed) return 'no-editor';
+        const t = ed.innerText || '';
+        const chip = ed.querySelector('a, [data-entity], [data-type="mention"], .mention');
+        return JSON.stringify({ chip: !!chip, hasAt: t.indexOf('@') !== -1, hasName: t.toLowerCase().indexOf(arguments[0].toLowerCase()) !== -1 });
+      `, name).catch(() => null);
+      let landed = false;
+      try { const s = JSON.parse(st); landed = s.chip || (!s.hasAt && s.hasName); } catch (e) {}
+      if (!landed) {
+        logger.warn("LinkedInService: mention pick did not land - plain fallback.");
+        return await plainFallback();
+      }
       if (after) await editor.sendKeys(after);
       return "mentioned";
     } catch (e) {
       logger.warn(`LinkedInService: mention flow failed (${e.message}), plain-text fallback.`);
-      try {
-        await editor.sendKeys(Key.chord(Key.CONTROL, "a"), Key.BACK_SPACE);
-        await sleep(300);
-        await editor.sendKeys(text);
-      } catch (e2) {}
-      return "plain-fallback";
+      return await plainFallback();
     }
   }
 

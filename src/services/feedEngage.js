@@ -23,6 +23,9 @@ const MAX_PER_DAY = 15;
 const REJECT_TTL_MS = 3 * 24 * 60 * 60 * 1000; // rejected posts rest 3 days, then become eligible again
 const PACE_MS = 25000;
 const LIKE_PACE_MS = 8000; // bulk likes trip LinkedIn rate limits; space them out
+// Scroll persistence: keep going deeper until the phase quota fills or the feed is
+// genuinely exhausted (a round with zero fresh candidates). 10 bounds the worst
+// case on LinkedIn's near-infinite feed; normal runs exit in 1-2 rounds.
 
 function loadTrack() {
   try {
@@ -36,6 +39,14 @@ function saveTrack(track) {
   try {
     const dir = path.dirname(TRACK_PATH);
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    // Sweep orphaned tmp files from crashed runs (crash between write + rename
+    // leaves TRACK_PATH.<pid>.tmp behind; unbounded over months of crashes).
+    for (const f of fs.readdirSync(dir)) {
+      if (f.startsWith(`${path.basename(TRACK_PATH)}.`) && f.endsWith(".tmp")) {
+        const fp = path.join(dir, f);
+        try { if (Date.now() - fs.statSync(fp).mtimeMs > 3600000) fs.unlinkSync(fp); } catch (e) {}
+      }
+    }
     // Atomic write: crash mid-write must never leave a corrupt tracker (that would
     // reset commented-memory and cause double comments). tmp + rename is atomic on POSIX/NTFS.
     const tmp = `${TRACK_PATH}.${process.pid}.tmp`;
@@ -73,8 +84,23 @@ function commentedToday(track) {
 
 async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
   if (!config.social.linkedinFeedReply && !dryRun) {
-    return { commented: 0, skipped: 0, liked: 0, previews: [], wouldLike: [], reason: "disabled" };
+    return { commented: 0, skipped: 0, liked: 0, previews: [], wouldLike: [], reason: "disabled", cost: null };
   }
+  // Cost readout: snapshot LLM token meters so every run reports its own spend.
+  const m0 = llmService.getMetrics();
+  const runCost = () => {
+    const m1 = llmService.getMetrics();
+    const d = (k) => (Number(m1[k]) || 0) - (Number(m0[k]) || 0);
+    const orPrompt = d("openrouterPromptTokens"), orCompletion = d("openrouterCompletionTokens");
+    const gmPrompt = d("geminiPromptTokens"), gmCompletion = d("geminiCompletionTokens");
+    const nvPrompt = d("nvidiaPromptTokens"), nvCompletion = d("nvidiaCompletionTokens");
+    const gmModel = config.llm.gemini.model;
+    return {
+      openrouter: { prompt: orPrompt, completion: orCompletion, usd: llmService.commentCostUsd(orPrompt, orCompletion) },
+      gemini: { prompt: gmPrompt, completion: gmCompletion, usd: llmService.commentCostUsd(gmPrompt, gmCompletion, gmModel) },
+      legacy: { prompt: nvPrompt, completion: nvCompletion },
+    };
+  };
   const track = loadTrack();
   // Prune entries older than 30 days (and unparseable garbage) so the file stays small.
   const cutoff = Date.now() - 30 * 24 * 60 * 60 * 1000;
@@ -83,7 +109,7 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
     if (!entryOf(v).ts || isNaN(ts) || ts < cutoff) delete track[key];
   }
   if (commentedToday(track) >= MAX_PER_DAY) {
-    return { commented: 0, skipped: 0, liked: 0, previews: [], wouldLike: [], reason: `daily cap (${MAX_PER_DAY}) reached` };
+    return { commented: 0, skipped: 0, liked: 0, previews: [], wouldLike: [], reason: `daily cap (${MAX_PER_DAY}) reached`, cost: runCost() };
   }
 
   let commented = 0, skipped = 0, liked = 0;
@@ -97,6 +123,13 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
     try {
       draft = await llmService.draftFeedComment({ postAuthor: post.author, postText: post.text });
     } catch (e) {
+      // Thin posts (<10 words) throw before any LLM call: park them for 3d so every
+      // cycle doesn't waste a scan slot re-attempting them. Anything else (network,
+      // LLM down) stays untracked and retries next cycle.
+      if (/too thin/i.test(e.message || "") && !dryRun) {
+        track[post.key] = { ts: new Date().toISOString(), status: "skipped" };
+        saveTrack(track);
+      }
       logger.warn(`feedEngage: draft failed for ${post.key}: ${e.message}`);
       skipped++;
       return false;
@@ -106,7 +139,7 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
         track[post.key] = { ts: new Date().toISOString(), status: "skipped" };
         saveTrack(track);
       }
-      logger.info(`feedEngage: SKIP - no technical substance in @${post.author} post. Moving on.`);
+      logger.info(`feedEngage: SKIP - no safe angle on @${post.author} post. Moving on.`);
       skipped++;
       return false;
     }
@@ -153,7 +186,7 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
   const phases = [{ sort: "top", quota: topQuota }, { sort: "recent", quota: max }];
   for (const { sort, quota } of phases) {
     let rounds = 0;
-    while (done() < quota && rounds < 4) {
+    while (done() < quota && rounds < 10) {
       if (!dryRun && commentedToday(track) >= MAX_PER_DAY) break;
       // Each round scrolls deeper (page state persists, so later scans reach older posts).
       const posts = await LinkedInService.scanFeedPosts({ maxPosts: 12, maxScrolls: 6 + rounds * 4, sort });
@@ -197,11 +230,14 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
       }
       rounds++;
     }
+    if (done() < quota) logger.info(`feedEngage [${sort}]: quota unfilled after ${rounds} rounds (feed still yielding rejects) - moving on.`);
     if (done() >= max) break;
     if (!dryRun && commentedToday(track) >= MAX_PER_DAY) break;
   }
 
-  return { commented, skipped, liked, previews, wouldLike, reason: dryRun ? "dry run - nothing posted or tracked" : "" };
+  const cost = runCost();
+  logger.info(`feedEngage: run cost ~$${(cost.openrouter.usd + cost.gemini.usd).toFixed(4)} (Gemini $${cost.gemini.usd.toFixed(4)} ${cost.gemini.prompt}+${cost.gemini.completion} tok; OpenRouter $${cost.openrouter.usd.toFixed(4)} ${cost.openrouter.prompt}+${cost.openrouter.completion} tok; legacy ${cost.legacy.prompt}+${cost.legacy.completion} tok).`);
+  return { commented, skipped, liked, previews, wouldLike, reason: dryRun ? "dry run - nothing posted or tracked" : "", cost };
 }
 
 module.exports = { runFeedEngagement };

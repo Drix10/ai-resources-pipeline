@@ -15,6 +15,7 @@ const config = {
     useLocal: process.env.LOCAL_LLM !== undefined ? process.env.LOCAL_LLM === "true" : (process.env.USE_LOCAL_LLM !== undefined ? process.env.USE_LOCAL_LLM === "true" : true),
     baseUrl: (process.env.LOCAL_LLM_BASE_URL || "http://127.0.0.1:11434").replace(/\/$/, ""),
     model: process.env.LOCAL_LLM_MODEL || "gemma4:latest",
+    commentModel: process.env.LOCAL_LLM_COMMENT_MODEL || process.env.LOCAL_LLM_MODEL || "gemma4:latest",
     requestTimeoutMs: parsePositiveInteger(process.env.LOCAL_LLM_REQUEST_TIMEOUT_MS, 300000),
     startupTimeoutMs: parsePositiveInteger(process.env.LOCAL_LLM_STARTUP_TIMEOUT_MS, 60000),
     autoStart: process.env.LOCAL_LLM_AUTO_START !== "false",
@@ -23,7 +24,31 @@ const config = {
       apiKey: process.env.NVIDIA_API_KEY || "",
       baseUrl: (process.env.NVIDIA_BASE_URL || "https://integrate.api.nvidia.com/v1").replace(/\/$/, ""),
       model: process.env.NVIDIA_MODEL || "meta/llama-3.2-11b-vision-instruct",
+      // Replies are short constraint-following jobs: a cheap text instruct model beats
+      // the big article model here. Override with NVIDIA_COMMENT_MODEL="" to reuse the main model.
+      commentModel: process.env.NVIDIA_COMMENT_MODEL !== undefined ? process.env.NVIDIA_COMMENT_MODEL : "openai/gpt-oss-20b",
       requestTimeoutMs: parsePositiveInteger(process.env.NVIDIA_REQUEST_TIMEOUT_MS, 240000),
+    },
+    openrouter: {
+      apiKey: process.env.OPENROUTER_API_KEY || "",
+      baseUrl: (process.env.OPENROUTER_BASE_URL || "https://openrouter.ai/api/v1").replace(/\/$/, ""),
+      // Reply-only model: short constrained comments. Gemini Flash-Lite class =
+      // best instruction-following per dollar here (~$0.10/$0.40 per 1M tok).
+      // Swap with OPENROUTER_COMMENT_MODEL (e.g. deepseek/deepseek-v4-flash for ~3x cheaper).
+      commentModel: process.env.OPENROUTER_COMMENT_MODEL || "google/gemini-2.5-flash-lite",
+      // Main-model fallback for article-scale jobs routed through OpenRouter
+      // (the post pipeline). Any explicit options.model slug passes through instead.
+      model: process.env.OPENROUTER_MODEL || "google/gemini-2.5-flash",
+      requestTimeoutMs: parsePositiveInteger(process.env.OPENROUTER_REQUEST_TIMEOUT_MS, 120000),
+    },
+    gemini: {
+      apiKey: process.env.GEMINI_API_KEY || "",
+      // Direct Google AI Studio REST. FIRST in the provider chain for all LinkedIn
+      // LLM work (replies + post pipeline): fastest round-trip, cheapest per token.
+      // Auth goes in the x-goog-api-key header, never the URL (URLs leak into logs).
+      model: process.env.GEMINI_MODEL || "gemini-2.5-flash",
+      commentModel: process.env.GEMINI_COMMENT_MODEL || "gemini-2.5-flash-lite",
+      requestTimeoutMs: parsePositiveInteger(process.env.GEMINI_REQUEST_TIMEOUT_MS, 120000),
     },
   },
   discord: {
@@ -32,6 +57,10 @@ const config = {
   social: {
     linkedinPost: process.env.LINKEDIN_POST === "true",
     linkedinFeedReply: process.env.LINKEDIN_FEED_REPLY === "true",
+    // Simple mode: raw LLM reply, no system prompting, no gates, no critic.
+    // Experiment flag for comparing against the policed pipeline. Nothing posts
+    // without LINKEDIN_FEED_REPLY=true; previews stay dry-run either way.
+    linkedinSimpleReply: process.env.LINKEDIN_SIMPLE_REPLY === "true",
     twitterPost: process.env.TWITTER_POST !== "false",
   },
   syndication: {
