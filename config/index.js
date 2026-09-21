@@ -32,10 +32,10 @@ const config = {
     openrouter: {
       apiKey: process.env.OPENROUTER_API_KEY || "",
       baseUrl: (process.env.OPENROUTER_BASE_URL || "https://openrouter.ai/api/v1").replace(/\/$/, ""),
-      // Reply-only model: short constrained comments. Gemini Flash-Lite class =
-      // best instruction-following per dollar here (~$0.10/$0.40 per 1M tok).
-      // Swap with OPENROUTER_COMMENT_MODEL (e.g. deepseek/deepseek-v4-flash for ~3x cheaper).
-      commentModel: process.env.OPENROUTER_COMMENT_MODEL || "google/gemini-2.5-flash-lite",
+      // Reply + critic model: DeepSeek V4 Flash wins the bake-off (constraint-
+      // following per dollar; $0.14/$0.28 per 1M tok). Flash-lite drafts restate;
+      // DeepSeek takes stances. Swap with OPENROUTER_COMMENT_MODEL.
+      commentModel: process.env.OPENROUTER_COMMENT_MODEL || "deepseek/deepseek-v4-flash",
       // Main-model fallback for article-scale jobs routed through OpenRouter
       // (the post pipeline). Any explicit options.model slug passes through instead.
       model: process.env.OPENROUTER_MODEL || "google/gemini-2.5-flash",
@@ -57,6 +57,9 @@ const config = {
   social: {
     linkedinPost: process.env.LINKEDIN_POST === "true",
     linkedinFeedReply: process.env.LINKEDIN_FEED_REPLY === "true",
+    // Like-only engagement while comments stay disabled (perfecting replies).
+    // Runs 3-9 random likes across Top + Recent per prepared file.
+    linkedinLike: process.env.LINKEDIN_LIKE !== "false",
     // Simple mode: raw LLM reply, no system prompting, no gates, no critic.
     // Experiment flag for comparing against the policed pipeline. Nothing posts
     // without LINKEDIN_FEED_REPLY=true; previews stay dry-run either way.

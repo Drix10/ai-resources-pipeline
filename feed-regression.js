@@ -268,7 +268,7 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
     };
     config.llm.openrouter.apiKey = "test-key";
     const out = await realGenerateCommentText("hello", { temperature: 0.5, num_predict: 50, system: "sys", reasoning: "low" });
-    const payloadOk = seen.body.model === "google/gemini-2.5-flash-lite"
+    const payloadOk = seen.body.model === "deepseek/deepseek-v4-flash"
       && seen.body.temperature === 0.5 && seen.body.max_tokens === 50
       && !("reasoning_effort" in seen.body) && seen.body.stream === false;
     const urlOk = seen.url === "https://openrouter.ai/api/v1/chat/completions" && seen.auth === "Bearer test-key";
@@ -364,11 +364,11 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
     if (r.isValid && !r.skipped && /teaching data structures/i.test(r.comment)) { passed++; console.log("PASS | simple mode passes raw reply through"); }
     else { failed++; console.log(`FAIL | simple mode passes raw reply through | valid=${r.isValid} comment=${JSON.stringify(r.comment).slice(0, 80)}`); }
   }
-  // Cost estimator: your preview run (~39.6k prompt + ~0.5k completion tok).
+  // Cost estimator: your preview run (~39.6k prompt + ~0.5k completion tok) at DeepSeek V4 Flash rates.
   {
     const usd = svc.commentCostUsd(39588, 538);
     const fallback = svc.commentCostUsd(1000, 100, "some/unknown-model");
-    if (Math.abs(usd - 0.004174) < 0.0005 && Math.abs(fallback - 0.0004) < 1e-9) { passed++; console.log(`PASS | cost estimator ($${usd.toFixed(4)})`); }
+    if (Math.abs(usd - 0.005693) < 0.0005 && Math.abs(fallback - 0.0004) < 1e-9) { passed++; console.log(`PASS | cost estimator ($${usd.toFixed(4)})`); }
     else { failed++; console.log(`FAIL | cost estimator | usd=${usd} fallback=${fallback}`); }
   }
   // Thin-post guard: throws before any LLM call (no mock consumed).
@@ -429,6 +429,18 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
     const m = LinkedInService.hasMixedAuthors(text);
     if (a === wantActivity && m === wantMixed) { passed++; console.log(`PASS | attr: ${name}`); }
     else { failed++; console.log(`FAIL | attr: ${name} | activity=${a}(want ${wantActivity}) mixed=${m}(want ${wantMixed})`); }
+  }
+  // Recommendation modules are UI, not posts: jobs/people cards must never draft or like.
+  const moduleCases = [
+    ["jobs module skipped", "Feed post Jobs recommended for you AI First Product Manager Deltek Bengaluru (Remote) 1 school alumni works here Actively reviewing applicants Show more", true],
+    ["people module skipped", "Feed post People you may know Anish Kumar • 2nd Founder at Foo 5d • Follow", true],
+    ["normal post passes module gate", "Feed post Sasha Yan • 3rd+ Machine Learning Engineer 5h • Follow Recently I interviewed intern candidates.", false],
+    ["sponsored-sandbox post passes module gate", "Infosys workshop on AI agents with hands-on labs in a sponsored sandbox environment. Leaders joined.", false],
+  ];
+  for (const [name, text, wantModule] of moduleCases) {
+    const got = LinkedInService.isFeedModuleText(text);
+    if (got === wantModule) { passed++; console.log(`PASS | module: ${name}`); }
+    else { failed++; console.log(`FAIL | module: ${name} | got=${got}(want ${wantModule})`); }
   }
   console.log(`\n${passed} passed, ${failed} failed.`);
   process.exit(failed ? 1 : 0);

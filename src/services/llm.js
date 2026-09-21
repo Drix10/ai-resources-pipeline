@@ -92,7 +92,7 @@ function ackShapeMatch(reply) {
 // for volume hiring"), a contraction-led fragment ("...don't gate keep math").
 const GENERIC_X = new Set("ai tech technology technologies startup startups job jobs hiring work career business businesses data future software engineer engineers engineering team teams company companies people life story stories update updates news journey journeys post posts success growth leadership management marketing sales product products founder founders".split(" "));
 const X_CLAUSE_RE = /\b(was|were|been|being|is|are|am|has|have|had|built|made|done)\b|n['’]t\b|\b\w+['’](ll|re|ve|d)\b/i;
-const REPLY_FILLER = new Set(("congrats congratulation congratulations deserved wishes wish wishing luck journey journeys milestone milestones achievement achievements move moves chapter chapters news update updates role roles position positions opportunity opportunities future success successes successful ahead exciting excited excitement happy proud inspiring inspired love loved lovely glad welcome kudos cheers bravo birthday bday anniversary career careers step steps path venture ventures beginning beginnings onwards onward best post posts share sharing shared breakdown breakdowns analysis explanation explanations overview overviews writeup perspective perspectives piece pieces article articles thread take takes point points detail details detailed approach note notes read writing great good nice awesome wonderful excellent amazing insightful informative helpful thoughtful thorough practical useful valuable timely crisp sharp solid strong clear honest candid compelling succinct neat cool fantastic brilliant smart interesting thanks thank agree agreed resonates resonate resonant relatable makes sense whole entire really quite truly exactly absolutely simply purely fully highly deeply strongly today recent lately team folks story stories hear heard sound sounds looking forward lands right reminder stuck nails deserves attention").split(" "));
+const REPLY_FILLER = new Set(("congrats congratulation congratulations deserved wishes wish wishing luck journey journeys milestone milestones achievement achievements move moves chapter chapters news update updates role roles position positions opportunity opportunities future success successes successful ahead exciting excited excitement happy proud inspiring inspired love loved lovely glad welcome kudos cheers bravo birthday bday anniversary career careers step steps path venture ventures beginning beginnings onwards onward best post posts share sharing shared breakdown breakdowns analysis explanation explanations overview overviews writeup perspective perspectives piece pieces article articles thread take takes point points detail details detailed approach note notes read writing great good nice awesome wonderful excellent amazing insightful informative helpful thoughtful thorough practical useful valuable timely crisp sharp solid strong clear honest candid compelling succinct neat cool fantastic brilliant smart interesting thanks thank agree agreed resonates resonate resonant relatable makes sense whole entire really quite truly exactly absolutely simply purely fully highly deeply strongly today recent lately team folks story stories hear heard sound sounds looking forward lands right reminder stuck nails deserves attention being hardest hard").split(" "));
 // Naive stemmer with a root-length guard: never strip a suffix when the root left
 // behind would be shorter than 4 chars. Without the guard, "need"->"ne" and
 // "miss"->"mis", so "needing" fails to match a post that says "need".
@@ -100,6 +100,10 @@ const stemTok = (w) => {
   const s = String(w || "").replace(/(es|ing|ed|s)$/, "");
   return s.length >= 4 ? s : String(w || "");
 };
+// NOTE: silent-e pairs ("outliving" vs "outlive") and short-verb gerunds
+// ("using" vs "use", "coding" vs "code") still stem apart under the guard.
+// Comparators that need them unified expand with rawStem variants (stem and
+// stem+"e" on both sides) - see the grounding gate in validateCommentReply.
 
 const HAT_TIP_PROHIBITED_PATTERNS = [
   // Reversal framing: a common belief followed by dramatic correction
@@ -843,8 +847,8 @@ class LocalLLMService {
   // fallback so the preview always shows a (slightly high) number, never zero.
   commentCostUsd(promptTokens, completionTokens, model) {
     const table = {
+      "deepseek/deepseek-v4-flash": [0.14, 0.28],
       "google/gemini-2.5-flash-lite": [0.10, 0.40],
-      "deepseek/deepseek-v4-flash": [0.037, 0.073],
       "gemini-2.5-flash-lite": [0.10, 0.40],
       "gemini-2.5-flash": [0.30, 2.50],
     };
@@ -1169,15 +1173,27 @@ class LocalLLMService {
     return new RegExp(`\\b${pattern}${optionalE}(s|ed|ing|ly|tion|ness|er|est|ance|ence|ment|ive|ize|ise|able|ible)?\\b`, 'i');
   }
 
+  // Default text route (X / article pipeline): local Ollama or plain NVIDIA.
+  // The Gemini -> OpenRouter -> NVIDIA chain lives ONLY in generateLinkedInText
+  // (LinkedIn post generation) and generateCommentText (comment system).
   async generateText(prompt, options = {}) {
     this.recordMetric("llmCalls");
     if (this.isLocalMode()) {
       return this.generateTextViaOllama(prompt, options);
     }
-    // Provider chain: Gemini-direct -> OpenRouter -> NVIDIA legacy. Each step throws
-    // when unusable; the last error propagates so callers' existing retry/skip logic
-    // engages (replies skip the post, article jobs skip the cycle). Nothing here
-    // ever returns placeholder text - a silent wrong answer is worse than a skip.
+    return this.generateTextViaNvidia(prompt, options);
+  }
+
+  // LinkedIn post-generation route: Gemini-direct -> OpenRouter -> NVIDIA legacy.
+  // Each step throws when unusable; the last error propagates so callers'
+  // existing retry/skip logic engages. Nothing here ever returns placeholder
+  // text - a silent wrong answer is worse than a skip.
+  async generateLinkedInText(prompt, options = {}) {
+    this.recordMetric("llmCalls");
+    if (this.isLocalMode()) {
+      return this.generateTextViaOllama(prompt, options);
+    }
+    // Provider chain: Gemini-direct -> OpenRouter -> NVIDIA legacy.
     if (config.llm.gemini.apiKey) {
       try {
         return await this.generateTextViaGemini(prompt, options);
@@ -1335,7 +1351,9 @@ class LocalLLMService {
               await this.sleepWithJitter(delayMs);
               continue;
             }
-            throw new Error(`NVIDIA API generation failed (${response.status}): ${errText}`);
+            const httpError = new Error(`NVIDIA API generation failed (${response.status}): ${errText}`);
+            httpError.status = response.status;
+            throw httpError;
           }
 
           const data = await response.json();
@@ -1368,6 +1386,11 @@ class LocalLLMService {
             logger.warn(`NvidiaLLMService: Model ${modelName} timed out after ${requestTimeout}ms. Trying next candidate model...`);
             break;
           }
+          // Fail fast on client errors: 401/403 (bad key) can never clear by
+          // retrying or switching candidates; other 4xx break to the next
+          // candidate (a per-model 400 may clear, e.g. unknown model id).
+          if (error?.status === 401 || error?.status === 403) throw error;
+          if (error?.status && error.status !== 429 && error.status < 500) break;
           if (attempt < maxRetries && error?.code !== "NVIDIA_LLM_UNAVAILABLE") {
             this.recordMetric("llmRetries");
             await this.sleepWithJitter(attempt * 2000);
@@ -1382,22 +1405,23 @@ class LocalLLMService {
     throw lastError || new Error("All NVIDIA candidate models failed.");
   }
 
-  // Reply path: Gemini-direct (flash-lite) -> OpenRouter -> legacy comment model.
-  // Provider failure falls through silently - a sustained outage skips comments,
-  // never crashes the pipeline.
+  // Comment route: OpenRouter (DeepSeek V4 Flash default - best constraint-
+  // following per dollar in its class) -> Gemini-direct lite -> legacy comment
+  // model. Provider failure falls through silently - a sustained outage skips
+  // comments, never crashes the pipeline.
   async generateCommentText(prompt, options = {}) {
-    if (config.llm.gemini.apiKey) {
-      try {
-        return await this.generateTextViaGemini(prompt, { ...options, model: this.geminiModelFor(options.model, config.llm.gemini.commentModel) });
-      } catch (e) {
-        logger.warn(`Gemini comment call failed (${e.message}), trying OpenRouter...`);
-      }
-    }
     if (config.llm.openrouter.apiKey) {
       try {
         return await this.generateTextViaOpenRouter(prompt, options);
       } catch (e) {
-        logger.warn(`OpenRouter comment call failed (${e.message}), falling back to ${this.commentModelName()}.`);
+        logger.warn(`OpenRouter comment call failed (${e.message}), trying Gemini...`);
+      }
+    }
+    if (config.llm.gemini.apiKey) {
+      try {
+        return await this.generateTextViaGemini(prompt, { ...options, model: this.geminiModelFor(options.model, config.llm.gemini.commentModel) });
+      } catch (e) {
+        logger.warn(`Gemini comment call failed (${e.message}), falling back to ${this.commentModelName()}.`);
       }
     }
     // Last resort: legacy route directly (NOT via generateText - that would re-enter
@@ -1454,7 +1478,9 @@ class LocalLLMService {
             await this.sleepWithJitter(attempt * 2500);
             continue;
           }
-          throw new Error(`OpenRouter generation failed (${response.status}): ${errText.slice(0, 200)}`);
+          const httpError = new Error(`OpenRouter generation failed (${response.status}): ${errText.slice(0, 200)}`);
+          httpError.status = response.status;
+          throw httpError;
         }
         const data = await response.json();
         const rawContent = data?.choices?.[0]?.message?.content;
@@ -1475,6 +1501,9 @@ class LocalLLMService {
           logger.warn(`OpenRouter: comment call timed out after ${requestTimeout}ms.`);
           break;
         }
+        // Fail fast on client errors (bad key / bad payload never clear on retry).
+        if (error?.status === 401 || error?.status === 403) throw error;
+        if (error?.status && error.status !== 429 && error.status < 500) break;
         if (attempt < maxRetries && error?.code !== "OPENROUTER_UNAVAILABLE") {
           this.recordMetric("llmRetries");
           await this.sleepWithJitter(attempt * 2000);
@@ -1542,7 +1571,9 @@ class LocalLLMService {
               await this.sleepWithJitter(attempt * 2500);
               continue;
             }
-            throw new Error(`Gemini generation failed (${response.status}): ${errText.slice(0, 200)}`);
+            const httpError = new Error(`Gemini generation failed (${response.status}): ${errText.slice(0, 200)}`);
+            httpError.status = response.status;
+            throw httpError;
           }
           const data = await response.json();
           if (data?.promptFeedback?.blockReason) {
@@ -1567,6 +1598,10 @@ class LocalLLMService {
             break;
           }
           if (/blocked the prompt/i.test(error?.message || "")) break; // safety blocks never clear on retry
+          // Fail fast on client errors: 401/403 (bad key) can never clear by
+          // retrying or switching candidates; other 4xx break to the next candidate.
+          if (error?.status === 401 || error?.status === 403) throw error;
+          if (error?.status && error.status !== 429 && error.status < 500) break;
           if (attempt < maxRetries && error?.code !== "GEMINI_UNAVAILABLE") {
             this.recordMetric("llmRetries");
             await this.sleepWithJitter(attempt * 2000);
@@ -1582,6 +1617,17 @@ class LocalLLMService {
 
   async generateJson(prompt, schema = "json") {
     const rawText = await this.generateText(prompt, {
+      format: schema,
+      temperature: 0,
+      num_predict: 4096,
+    });
+
+    return this.parseJsonSafely(rawText);
+  }
+
+  // LinkedIn post-generation JSON route: same chain as generateLinkedInText.
+  async generateLinkedInJson(prompt, schema = "json") {
+    const rawText = await this.generateLinkedInText(prompt, {
       format: schema,
       temperature: 0,
       num_predict: 4096,
@@ -1847,62 +1893,6 @@ Exactly 5-8 relevant technical and company hashtags on their own line at the ver
 - EMOJIS: 0-3 maximum as visual anchors.
 - Post length target: ${minLength}-${maxLength} characters total (including hook).
 `;
-  }
-
-  async filterSubstantiveContent(items, retries = 3) {
-    if (!items || items.length === 0) return [];
-
-    const itemsText = items.map((item, idx) => {
-      let text = `[Index ${idx}]\n`;
-      if (typeof item === 'string') {
-        text += item;
-      } else if (Array.isArray(item)) {
-        // It's a thread (array of tweets)
-        text += item.map(t => t.text || "").join("\n");
-      } else if (item.text) {
-        // It's a post object or tweet object
-        text += item.text;
-      } else {
-        text += JSON.stringify(item);
-      }
-      return text;
-    }).join("\n\n---\n\n");
-
-    const prompt = `
-You are a senior developer and technical curator.
-
-Analyze the list of content items below and filter out any items that are low-value noise, advertisements, self-promotional spam, hiring announcements, open/closed polls, generic marketing fluff, or motivational/career/lifestyle advice without real technical substance.
-
-Only select items containing genuine, high-quality technical insights, software architecture lessons, programming guides, code snippets, or real tools/libraries/frameworks.
-
-Content items:
-${itemsText}
-
-Return ONLY a valid raw JSON object. No markdown, no explanations, no commentary.
-
-JSON schema:
-{
-  "substantiveIndices": array of substantive item indices (integers)
-}
-`;
-
-    return this.withJsonRetry(
-      async () => {
-        const data = await this.generateJson(prompt);
-        if (!data || !Array.isArray(data.substantiveIndices)) {
-          throw new Error("Invalid response format: missing substantiveIndices array");
-        }
-        return data.substantiveIndices;
-      },
-      {
-        retries,
-        delayMs: 15000,
-        label: "filterSubstantiveContent",
-        // If every retry fails, fall back to keeping everything rather than
-        // silently dropping content and breaking the pipeline.
-        onExhausted: () => items.map((_, idx) => idx),
-      }
-    );
   }
 
   saveRecentTopic(topic) {
@@ -3189,70 +3179,6 @@ ${combinedPrompt}</source_material>
     }
   }
 
-  async generateLinkedInSummaryPost(threads, linkedinPosts, githubUrl, retries = 3) {
-    if ((!threads || threads.length === 0) && (!linkedinPosts || linkedinPosts.length === 0)) {
-      throw new Error("generateLinkedInSummaryPost requires at least one thread or LinkedIn post.");
-    }
-
-    let combinedPrompt = "";
-
-    if (threads && threads.length > 0) {
-      combinedPrompt += "--- TWITTER/X THREADS ---\n\n";
-      threads.forEach((t, i) => {
-        combinedPrompt += `Item #${i + 1} (X):\n${t.tweets ? t.tweets.map(tweet => tweet.text).join("\n") : t.url}\n`;
-        if (t.tweets) {
-          t.tweets.forEach(tweet => {
-            if (tweet.images) combinedPrompt += tweet.images.map(img => `Image: ${img}\n`).join("");
-          });
-        }
-        combinedPrompt += "\n";
-      });
-    }
-
-    if (linkedinPosts && linkedinPosts.length > 0) {
-      combinedPrompt += "--- LINKEDIN POSTS ---\n\n";
-      linkedinPosts.forEach((post, i) => {
-        combinedPrompt += `Item #${i + 1} (LinkedIn) by ${post.author}:\n${post.text}\n`;
-        if (post.images) combinedPrompt += post.images.map(img => `Image: ${img}\n`).join("");
-        combinedPrompt += "\n";
-      });
-    }
-
-    const postRules = this.buildLinkedInPostRules(githubUrl, true);
-
-    const prompt = `
-You are a world-class technical LinkedIn copywriter for developer and AI audiences.
-
-Write ONE high-engagement summary post from the scraped content. Drive traffic to GitHub.
-
-GitHub URL: ${githubUrl}
-
-Content:
-${combinedPrompt}
-
-${postRules}
-
-Return ONLY a valid raw JSON object. No markdown, no explanations.
-
-JSON schema:
-{
-  "postText": string (full formatted post with proper newlines (use \\n)),
-  "imageToAttach": string or null (best image URL from content or null)
-}
-`;
-
-    return this.withJsonRetry(
-      async () => {
-        const data = await this.generateJson(prompt);
-        if (!data.postText) {
-          throw new Error("Invalid response format: missing postText");
-        }
-        return data;
-      },
-      { retries, delayMs: 30000, label: "generateLinkedInSummaryPost" }
-    );
-  }
-
   async selectBestArticlesForLinkedIn(articles, recentTopics = [], retries = 3) {
     if (!Array.isArray(articles) || articles.length === 0) {
       logger.warn("selectBestArticlesForLinkedIn: Empty or invalid articles array provided.");
@@ -3362,7 +3288,7 @@ JSON schema:
 
     return this.withJsonRetry(
       async () => {
-        const data = await this.generateJson(prompt);
+        const data = await this.generateLinkedInJson(prompt);
         let rawIndices = [];
         if (Array.isArray(data)) {
           rawIndices = data;
@@ -3474,7 +3400,7 @@ JSON Schema:
     try {
       const data = await this.withJsonRetry(
         async () => {
-          return await this.generateJson(prompt);
+          return await this.generateLinkedInJson(prompt);
         },
         { retries, delayMs: 4000, label: "extractBuyerQuestionsAndFunnel" }
       );
@@ -3579,7 +3505,7 @@ JSON Schema:
     try {
       const data = await this.withJsonRetry(
         async () => {
-          return await this.generateJson(prompt);
+          return await this.generateLinkedInJson(prompt);
         },
         { retries, delayMs: 4000, label: "generateCPIOBlueprint" }
       );
@@ -4035,7 +3961,7 @@ ${feedbackSection}
 Return ONLY the complete raw text ready to post on LinkedIn.`;
 
     try {
-      let body = await this.generateText(prompt, {
+      let body = await this.generateLinkedInText(prompt, {
         temperature: 0.25,
         num_predict: isMicroTake ? 1500 : 3500
       });
@@ -4783,6 +4709,55 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     if (post && shared.length < 1 && !isGoodwill) {
       errors.push(`Reply shares no vocabulary with the post; reuse the author's own nouns instead of importing foreign concepts.`);
     }
+    // Ordered echo: a frameless reply restating the post's points in the post's
+    // own order (reworded or not) with zero reaction - the paraphrase class the
+    // verbatim check can't see ("Feels like Kubernetes for agent executions"
+    // back at the author who wrote exactly that). Exempt framed endorsements
+    // (ACK shapes) and goodwill: those carry a reaction by construction.
+    // Fires on run >= 6 always, or run >= 4 when the post itself is short -
+    // restating 4+ ordered points of a <=20-point post means you repeated the
+    // whole thing (selecting one clause of a long post is emphasis, not echo).
+    if (!isGoodwill && !ackShapeMatch(reply)) {
+      const content = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9\s]/g, " ").split(/\s+/).filter((w) => w.length >= 4 && !STOP.has(w)).map((w) => stemTok(w));
+      const rToks = content(reply);
+      const pToks = content(post);
+      let best = 0;
+      for (let i = 0; i < rToks.length; i++) {
+        let pi = 0, run = 0;
+        for (let r = i; r < rToks.length; r++) {
+          const found = pToks.indexOf(rToks[r], pi);
+          if (found === -1) break;
+          pi = found + 1; run++;
+        }
+        if (run > best) best = run;
+      }
+      if (best >= 6 || (best >= 4 && pToks.length <= 20)) {
+        errors.push(`Reply echoes the post in order (${best}-point run) with zero reaction; endorse the point instead of restating it.`);
+      }
+      // Full-coverage restatement: nearly every content word is the post's own
+      // ("Open-sourcing data lets work outlive the organization, a gift to the
+      // robotics community" = the post summarized, not reacted to). Short framed
+      // selections ("Closer to what happens underneath the models") stay legal -
+      // only frameless replies of 5+ points at >=85% containment fail here.
+      const pSet = new Set(pToks);
+      const contained = rToks.filter((w) => pSet.has(w)).length;
+      if (rToks.length >= 5 && contained / rToks.length >= 0.85) {
+        errors.push(`Reply restates the post with no reaction (${contained}/${rToks.length} of its points are the post's own words); endorse one point instead of summarizing.`);
+      }
+    }
+    // Congrats specificity: a congrats-mode reply on a milestone post (it states
+    // numbers, artifacts, results) must name something specific using the post's
+    // own figures - bare "Congratulations on [generic frame]" reads as bot slop
+    // ("Congratulations on OpenAI highlighting your pull request" when the post
+    // hands you PR #265, XSA, and 571 submissions). Very short goodwill
+    // ("Congrats on the launch!") stays exempt; posts without figures are unaffected.
+    if (GOODWILL_RE.test(reply) && reply.length >= 40) {
+      const postFigs = figs(post);
+      const replyFigs = figs(reply);
+      if (postFigs.length > 0 && replyFigs.length === 0) {
+        errors.push("Congrats names no specific milestone; reuse one of the post's own numbers or artifacts (PR #, submissions, results). Very short goodwill is exempt - shorten it or name the milestone.");
+      }
+    }
     // Substantive grounding: every content word (5+ chars) in the reply must either be
     // generic filler (praise, meta, goodwill), the author's own name (placement is
     // checked separately above), or already exist in the post (stemmed).
@@ -4791,10 +4766,28 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     // the rest of the sentence is harmless. Endorse or congratulate; never inform.
     {
       const authorWords = new Set(String(authorName || "").toLowerCase().replace(/[^a-z0-9\s]/g, " ").split(/\s+/).filter(Boolean));
-      const postToks = new Set(words(post).map(stemTok));
+      const rawStem = (w) => String(w || "").replace(/(es|ing|ed|s)$/, "");
+      const postToks = new Set();
+      for (const w of words(post)) {
+        postToks.add(stemTok(w));
+        const r = rawStem(w);
+        // Verb/noun bridges the suffix-stripper can't see: silent-e (use/using)
+        // and -ion nominalizations (exhaust/exhaustion, connect/connection).
+        // Variants only ever excuse words, never convict: worst case a near-miss
+        // passes grounding while every other gate still applies.
+        postToks.add(r); postToks.add(`${r}e`);
+        const rio = r.replace(/ion$/, "");
+        if (rio !== r) { postToks.add(rio); postToks.add(`${rio}e`); }
+      }
       const bad = [...new Set(words(reply).filter((w) => w.length >= 5 && !STOP.has(w) && !REPLY_FILLER.has(w) && !authorWords.has(w)))]
         .map((w) => stemTok(w))
-        .filter((s) => s.length >= 4 && !postToks.has(s) && !REPLY_FILLER.has(s));
+        .filter((s) => {
+          if (s.length < 4 || postToks.has(s) || REPLY_FILLER.has(s)) return false;
+          const r = rawStem(s);
+          if (postToks.has(r) || postToks.has(`${r}e`)) return false;
+          const rio = r.replace(/ion$/, "");
+          return !(rio !== r && (postToks.has(rio) || postToks.has(`${rio}e`)));
+        });
       if (bad.length > 0) {
         errors.push(`Reply adds detail the post never states (${bad.slice(0, 3).join(", ")}); endorse or congratulate using only the post's own words.`);
       }
@@ -4806,7 +4799,7 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     if (!isGoodwill && /^(great|nice|awesome|excellent|amazing|insightful|informative|solid)\s+(post|article|insights?|reads?|shares?|breakdowns?|threads?|points?)\b/i.test(reply)) {
       errors.push("Reply is dead praise with no topic (\"Great post\"-family); name the post's specific point instead.");
     }
-    if (!isGoodwill && /thanks?\s+for\s+sharing|thank\s+you\s+for\s+(sharing|posting)|^i\s+agree[.!]*$|^so\s+true[.!]*$/i.test(reply)) {
+    if (!isGoodwill && /thanks?\s+for\s+sharing|thank\s+you\s+for\s+(sharing|posting)|^i\s+agree[.!]*$|^so\s+true[.!]*$|^(it['’]s|that['’]s|this is)\s+(so\s+)?true\b|^absolutely[,.]/i.test(reply)) {
       errors.push("Reply is empty agreement/thanks; name the post's specific point instead.");
     }
     // X-slot discipline (applies whenever a shape matched, goodwill or not):
@@ -4849,6 +4842,18 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
   async draftFeedComment({ postAuthor = "", postText = "" } = {}, retries = 2, feedback = []) {
     const cleanPost = String(postText || "").replace(/https?:\/\/[^\s)]+/g, "").slice(0, 1500).trim();
     if (cleanPost.split(/\s+/).length < 10) throw new Error("draftFeedComment: post too thin to engage.");
+    // Commercial promos and lead-gen ads (coaching/course pitches with contact
+    // info plus an enrollment CTA, or hashtag-stuffed promos) get no earnest peer
+    // reply - commenting on ads is bot behavior. Deterministic SKIP before any LLM
+    // call. Kept narrow: peer milestones and event posts carry no contact info.
+    {
+      const promoCta = /(whatsapp|call\s+(us|now)|register|enroll|admissions?\s+open|limited\s+seats|early\s+bird|discount|link\s+in\s+bio|\bDM\s+(me|us)|sessions?\s+start|new\s+batch|book\s+(your|a)\s+(seat|slot|demo)|free\s+(demo|trial|webinar)|join\s+our\s+(coaching|program|course))/i.test(cleanPost);
+      const hasContact = /(\+\d[\d\s\-]{6,}\d|whatsapp|[\w.]+@[\w.]+\.\w+)/i.test(cleanPost);
+      const hashtagCount = (cleanPost.match(/#[\p{L}\p{N}_]+/gu) || []).length;
+      if ((hasContact && promoCta) || (promoCta && hashtagCount >= 8)) {
+        return { comment: "", isValid: false, skipped: true, errors: ["commercial promo/lead-gen ad - skipped"] };
+      }
+    }
     const author = String(postAuthor || "there").trim();
     // SIMPLE MODE (LINKEDIN_SIMPLE_REPLY=true): raw LLM reply. No persona prompt,
     // no shapes, no gates, no critic, no retries. Only the hashtag/emoji sanitizer
@@ -4865,26 +4870,32 @@ Return ONLY the complete raw text ready to post on LinkedIn.`;
     const feedbackSection = Array.isArray(feedback) && feedback.length > 0
       ? `\n=== FIX THESE FROM THE REJECTED DRAFT ===\n${feedback.map((f) => `- ${f}`).join("\n")}\n- Write a SIMPLER comment: drop every word the post doesn't state, fall back to plain congrats or one ACK frame ("Good reminder on X" / "The X really lands") using only the post's own nouns. Never a rewording of the rejected draft.\n`
       : "";
-    const prompt = `You are Drishtant Ghosh (Drix10), a software engineer scrolling LinkedIn, leaving a comment on a peer's post. Write like a busy engineer: warm, brief, zero fluff. A peer, not a fan, not a teacher.
+    const prompt = `You are Drishtant Ghosh (Drix10), a software engineer leaving ONE comment on a peer's LinkedIn post. Busy peer, not a fan, not a teacher. Warm, brief, zero fluff.
 
-POST AUTHOR: ${author}
-FULL NAME: ${fullName} (leading "Name,..." or possessive "Name's..." only - never mid-sentence; the system tags them; most comments need no name at all)
+POST AUTHOR: ${author} (use their name only to open the sentence - the system tags them; most comments need no name at all)
 POST:
 ${cleanPost}
 ${feedbackSection}
-=== COMMENT MODES (pick the lightest true one - never reach for a heavier one) ===
-1. CONGRATS (life updates, announcements, milestones: birthday, new job, joined a college/company, promotion, award, graduation, launch, anniversary, event): ONE warm sentence on the post's MAIN news - the reason the author posted TODAY. Never congratulate a background resume bullet or past milestone mentioned in passing (a birthday post listing old jobs gets "Happy 20th!", never congrats on an old role). Reuse ONLY people, places, and roles the post already names. NEVER add what the post doesn't say: no role details, no subjects taught, no org description, no duties, no "what this means".
-2. ACK (everything else commentable): ONE natural sentence under 200 chars endorsing the post's MAIN point - the author's central claim, never a side detail, example, or passing mention. Write like a peer, not a template: vary your syntax every time, start with the point, not with praise. Banned dead openers: "Great post", "Great insights", "Thanks for sharing", "Interesting read", bare "Well said" / "I agree" with no topic. Name the specific point using the post BODY's own words - never the author's name, job title, or headline. Do not rephrase with new words: every content word you write must already appear in the post. Pick the headline claim by asking what the author most wants remembered - a rant ending in a lesson means the lesson ("doing it well"), not the setup; an explainer means the core mechanism ("the decode cost"), not a side bullet; never a thanked name, a number in passing, or the first sentence when the point lands at the end. Never copy a whole clause from the post verbatim (copied phrases get rejected, wasting the attempt). When even that isn't honest, SKIP - a skip beats slop.
-3. SKIP: grief, tragedy, politics, controversy, giveaway/spam, empty posts. Nothing else needs a SKIP.
-=== HARD RULES (these are enforced by automated gates - write to clear them) ===
-- NEVER add information or knowledge: no facts, numbers, mechanisms, tradeoffs, implications, interpretations, advice, or causal claims beyond what the post states. Endorse or congratulate, never inform.
-- Every figure/quantifier must already exist in the post. Copy the post's own terms EXACTLY as spelled - never respell its nouns (a typo ships as ignorance).
-- STATEMENTS ONLY: zero questions, zero hashtags, zero URLs, zero coaching ("you should", "teams should"), zero experience claims ("I've seen", "when I built").
-- Never imply you attended, met anyone, tried anything, or were there: no "I loved the session", "great meeting you", "my takeaway", "I tried X". You are reacting from your feed, nothing more.
-- Contractions always (that's, don't, it's). Plain words, never pundit words.
-- Never lift phrasing from these instructions into your comment - every example here is off-limits as wording.
-BAD (never do this): post says "joined ABC college" -> "Teaching data structures at ABC will shape young minds" (invents role details the post never states).
-GOOD: "Congratulations on joining ABC!" / "Going under the hood beats only learning to use the models."
+Pick the lightest true mode. Never reach for a heavier one.
+
+1. CONGRATS - the post's MAIN news is a life event or milestone (birthday, new job, promotion, award, launch, anniversary): ONE warm sentence naming the milestone with the post's own numbers or artifact. "Congratulations on PR #265 showing up in 571 submissions." NEVER congrats on a background detail, NEVER add what the post doesn't say (no role details, no subjects taught, no duties, no org description).
+2. ACK - everything else commentable: ONE sentence under 200 chars that takes an explicit STANCE on the author's central claim. Start with the point, never with praise. "The decode cost is the line that stuck with me." A reply the author could have written themselves is a failed reply - restating their claim in new words always fails. Name the sharpest sub-point, or say why the claim matters.
+3. SKIP - grief, tragedy, politics, giveaways, promos/ads, empty posts. Product launches and announcements are CONGRATS, not promos - SKIP only lead-gen with contact info or enrollment CTAs. A skip beats slop.
+
+HARD RULES (automated gates enforce these - write to clear them):
+- Only the post's own words, numbers, and figures. Nothing added, nothing invented.
+- Statements only. No questions, hashtags, URLs, coaching ("you should"), or experience claims ("I've seen", "when I built").
+- Never imply attendance or participation ("loved the session", "great meeting you", "my takeaway", "I tried X").
+- Contractions always. Plain words, never pundit words.
+- BANNED openers: "Great post", "Thanks for sharing", "Interesting read", "I agree", "It's true", "Absolutely", "So true", bare "Well said", "Congratulations on" with no milestone.
+- Every example in these instructions is off-limits as wording.
+
+SLIPPERY (all real failures - never do these):
+- post: "it feels like kubernetes for agent executions" -> "Feels like Kubernetes for agent executions." (parroted their analogy back)
+- post: YC hands-off doctrine -> "It's true, the data will tell you what wins." (mantra restated, zero stance)
+- post: open-sourced robotics data as a gift -> "Open-sourcing data lets work outlive the organization, a gift to the community." (summarized the post)
+- post: PR #265, XSA, 571 submissions -> "Congratulations on OpenAI highlighting your pull request." (generic frame, ignored every specific)
+
 Return ONLY the comment text, or exactly SKIP.`;
 
     try {
@@ -4908,7 +4919,10 @@ Return ONLY the comment text, or exactly SKIP.`;
         const parts = String(fullName).split(/\s+/).filter((w) => w.length >= 3);
         const lead = new RegExp(`^(?:${parts.map(esc).join("\\s+")}|${esc(parts[0])})[,\\s:—-]*`, "i");
         const stripped = forCheck.replace(lead, "");
-        const hit = parts.find((p) => new RegExp(`\\b${esc(p)}\\b(?!['’]s)`, "i").test(stripped));
+        // Prepositional use ("the launch of Microsoft IQ Live") names the entity,
+        // not a mid-sentence author drop - strip those spans before testing.
+        const denuded = stripped.replace(new RegExp(`\\b(?:of|for|at|to|from|with)\\s+(?:${parts.map(esc).join("\\s+")}|${esc(parts[0])})(?![\\w’']s)`, "gi"), " ");
+        const hit = parts.find((p) => new RegExp(`\\b${esc(p)}\\b(?!['’]s)`, "i").test(denuded));
         if (hit) {
           check.isValid = false;
           check.errors.push(`Comment drops the name mid-sentence ("${hit}") - leading or possessive only, or none at all.`);
@@ -4942,7 +4956,15 @@ Return ONLY the comment text, or exactly SKIP.`;
   // Returns { pass, reason }. Any error = pass (mechanical gates already ran; the critic only adds rejections).
   async criticFeedComment(draft, post) {
     try {
-      const prompt = `You are a strict lie-detector for LinkedIn replies. SOURCE POST: """${String(post).slice(0, 1200)}""" PROPOSED REPLY: """${String(draft).slice(0, 500)}""" Decide PASS or FAIL. No fixed template is required; judge only invention and attendance, never style. Short congrats ("Congratulations on X", "Happy 20th") PASS. Vagueness NEVER fails - "too vague" is not a valid reason. FAIL only if you can quote the exact offending span from the reply: (1) a fact, number, role detail, subject, org, mechanism, remedy, analogy, causal claim, comparison, or entity NOT stated in the post (reply "Teaching data structures at X" for a post saying only "joined X college" = FAIL, quote "Teaching data structures"); (2) congrats on a background detail instead of the post's main event (birthday post + "Congratulations on becoming CMO" = FAIL); (3) "I have seen / when I built" experience claims; (4) implies attendance, meeting, usage, or participation you don't have ("loved the session", "great meeting you", "my takeaway", "I tried X" = FAIL, quote it); (5) author name used unnaturally mid-sentence; (6) empty echo - restates post content with zero reaction, endorsement, or congrats ("Desk, good coffee, good company is free." for the offer post = FAIL, quote it). Examples: mentoring-interns post + "Good reminder on mentoring." = PASS. Birthday post + "Happy 20th!" = PASS. "Joined X college" post + "Teaching data structures at X will shape minds" = FAIL: "Teaching data structures". Office-hours post + "Desk, good coffee, good company is free." = FAIL: echo, restates the offer with zero reaction. Reply with exactly one line: PASS or FAIL: <one-line reason, quoting the span when FAIL>.`;
+      const prompt = `You are a strict judge for LinkedIn replies. SOURCE POST: """${String(post).slice(0, 1200)}""" PROPOSED REPLY: """${String(draft).slice(0, 500)}""" Reply PASS or FAIL in one line. Short congrats naming a specific milestone PASS. Vagueness never fails. FAIL only with the exact offending span quoted: (1) anything stated nowhere in the post (facts, numbers, roles, subjects, mechanisms, remedies, analogies, causal claims); (2) congrats on a background detail instead of the main event; (3) experience claims ("I've seen", "when I built"); (4) implied attendance or participation ("loved the session", "my takeaway", "I tried X"); (5) restatement with zero stance - the reply parrots, rewords, or summarizes the post without endorsing, congratulating, or judging.
+PASS: mentoring-interns post + "Good reminder on mentoring interns."
+PASS: birthday post + "Happy 20th!"
+PASS: PR post + "Congratulations on PR #265 showing up in 571 submissions."
+FAIL: "joined ABC college" post + "Teaching data structures at ABC will shape minds" (invented role detail, quote it)
+FAIL: YC post + "It's true, the data will tell you what wins" (reworded mantra, zero stance, quote it)
+FAIL: robotics-data post + "Open-sourcing data lets work outlive the organization" (summary, zero stance, quote it)
+FAIL: AX post + "Feels like Kubernetes for agent executions" (parroted analogy, quote it)
+Reply with exactly one line: PASS or FAIL: <reason, quoting the span when FAIL>.`;
       const raw = await this.generateCommentText(prompt, { temperature: 0.1, num_predict: 150, system: "You are a strict critic of LinkedIn replies. Answer with exactly one line: PASS or FAIL: <reason>." });
       const line = String(raw || "").trim().split(/\n/)[0];
       if (/^FAIL\b/i.test(line)) {
@@ -5116,37 +5138,6 @@ Return ONLY the comment text, or exactly SKIP.`;
       category: categoryTag,
       coreInsight: cleanCoreInsight,
       recommendedVisual
-    };
-  }
-
-  // Compatibility wrappers for existing code paths
-  async generateHook(selectedArticles, retries = 3) {
-    const primary = selectedArticles[0];
-    const strategy = await this.extractBuyerQuestionsAndFunnel(primary, retries);
-    const cpio = await this.generateCPIOBlueprint(primary, strategy, [], retries);
-    return [{
-      hook: cpio.package.hook,
-      promise: cpio.package.hookPromise,
-      sourceIndex: 0
-    }];
-  }
-
-  async generateBody(selectedArticles, chosenHook, retries = 3, validationFeedback = [], recentStructures = [], previousDraft = null) {
-    const primary = selectedArticles[0];
-    const strategy = await this.extractBuyerQuestionsAndFunnel(primary, retries);
-    const cpio = await this.generateCPIOBlueprint(primary, strategy, recentStructures, retries);
-    if (chosenHook?.hook) cpio.package.hook = chosenHook.hook;
-    let draft = await this.draftFounderPost(primary, strategy, cpio, retries, validationFeedback);
-    draft = this.applyHatTipEditorialFilter(draft, primary, cpio);
-    const meta = this.generateSlideAndMeta(primary, draft, cpio);
-
-    return {
-      postText: draft,
-      commentText: meta.commentText,
-      title: meta.title,
-      slidePoints: meta.slidePoints,
-      slideTagline: meta.slideTagline,
-      chosenStructure: cpio.chosenStructure
     };
   }
 

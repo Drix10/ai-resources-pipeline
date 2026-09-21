@@ -489,6 +489,7 @@ const processAllFolders = async () => {
             logger.info(`Twitter posting disabled (TWITTER_POST=false). Skipping tweet for ${item.queryName}.`);
           }
 
+          // (Likes run per prepared file; comments stay disabled.)
           logger.info(`Pipeline succeeded for folder type ${item.queryName}: ${item.url}`);
           successfulArticles.push({
             title: item.queryName,
@@ -497,17 +498,7 @@ const processAllFolders = async () => {
           });
         }
 
-        // Interleaved engagement: 2 genuine feed comments per successful batch commit
-        // (first Top, then Recent). Daily-capped + rejection-memory inside.
-        if (config.social.linkedinFeedReply && !localLlmUnavailable) {
-          try {
-            const feedEngage = require("./feedEngage");
-            const feedResult = await feedEngage.runFeedEngagement({ max: 2 });
-            logger.info(`LinkedIn interleaved comment: ${feedResult.commented} commented, ${feedResult.skipped} skipped${feedResult.reason ? ` (${feedResult.reason})` : ""}.`);
-          } catch (feedErr) {
-            logger.error("LinkedIn interleaved comment failed (non-fatal):", feedErr.message);
-          }
-        }
+        // (Likes run per prepared file above; comments stay disabled.)
       } catch (batchErr) {
         logger.error(`Batch GitHub commit failed for ${batchToCommit.length} folders:`, batchErr);
       }
@@ -523,6 +514,17 @@ const processAllFolders = async () => {
             `Prepared article for ${prepared.queryName}. Queued in commit batch (${pendingBatch.length + 1}/${COMMIT_BATCH_SIZE}).`
           );
           pendingBatch.push(prepared);
+          // Like pass per prepared .md file (not per batch commit): 3-9 random
+          // likes across Top + Recent. No drafting, no commenting, no LLM spend.
+          if (config.social.linkedinLike) {
+            try {
+              const feedEngage = require("./feedEngage");
+              const likeResult = await feedEngage.runLikePass({ min: 3, max: 9 });
+              logger.info(`LinkedIn likes after ${prepared.queryName}: ${likeResult.liked}/${likeResult.picked} liked (target ${likeResult.target}).`);
+            } catch (feedErr) {
+              logger.error("LinkedIn likes failed (non-fatal):", feedErr.message);
+            }
+          }
           if (pendingBatch.length >= COMMIT_BATCH_SIZE) {
             await flushBatch();
           }
