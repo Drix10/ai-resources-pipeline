@@ -530,7 +530,7 @@ const processAllFolders = async () => {
           }
         } else {
           logger.info(
-            `Pipeline completed for folder, but no new threads/posts were found.`
+            `Pipeline completed for folder with no article (no new threads, or generation failed gates - see warnings above).`
           );
         }
       } catch (error) {
