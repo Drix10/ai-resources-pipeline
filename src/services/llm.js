@@ -228,8 +228,10 @@ const PROMPT_LEAK_PATTERNS = [
   /\breturn only (?:valid|raw)\b/i,
   /\bas an ai language model\b/i,
   /\bjson schema\b/i,
-  /\bfunction calling\b/i,
-  /\b(?:pydantic|few-shot|retrieval augmented generation|rag system)\b/i,
+  // NOTE: technical vocabulary (pydantic, few-shot, RAG, function calling)
+  // is LEGITIMATE article content, never prompt leakage - an AI-tools batch
+  // about RAG must be able to say "retrieval augmented generation". Only
+  // instruction-shaped phrases belong here.
 ];
 
 const MIN_POST_LENGTH = 900;
@@ -2867,7 +2869,7 @@ Exactly 5-8 relevant technical and company hashtags on their own line at the ver
     return markdown;
   }
 
-  async generateMarkdown(threads, retries = 2, validationFeedback = [], folderName = "") {
+  async generateMarkdown(threads, retries = 2, validationFeedback = [], folderName = "", chainTried = false) {
     try {
       if (!threads || threads.length === 0) {
         logger.warn("No threads provided to generateMarkdown.");
@@ -3003,6 +3005,21 @@ ${combinedPrompt}</source_material>
           await this.sleepWithJitter(2_000);
           return this.generateMarkdown(threads, retries - 1, nextFeedback, folderName);
         }
+        // NVIDIA-first per routing policy; one chain attempt as safety net when the
+        // cheap model fails validation (never silently ship a bad article, never kill
+        // the folder for a weak draft). Local mode stays local - no chain there.
+        if (isQualityRejection && !chainTried && !this.isLocalMode()) {
+          logger.warn("LocalLLMService: NVIDIA drafts failed validation; one chain attempt before skipping.");
+          try {
+            const chainText = await this.generateLinkedInText(prompt, {
+              num_predict: Math.min(2600, Math.max(1400, groupedThreads.length * 900)),
+              timeoutMs: Math.max(180000, groupedThreads.length * 25000),
+            });
+            return this.finalizeGeneratedMarkdown(chainText, sourceRecords, groupedThreads.length, { finalDocument: true });
+          } catch (chainError) {
+            logger.error("LocalLLMService: chain fallback also failed:", chainError.message);
+          }
+        }
         logger.error("Failed to generate content:", error);
         throw error;
       }
@@ -3012,7 +3029,7 @@ ${combinedPrompt}</source_material>
     }
   }
 
-  async generateMarkdownFromCombined(threads, linkedinPosts, retries = 2, batching = false, validationFeedback = [], folderName = "") {
+  async generateMarkdownFromCombined(threads, linkedinPosts, retries = 2, batching = false, validationFeedback = [], folderName = "", chainTried = false) {
     try {
       if ((!threads || threads.length === 0) && (!linkedinPosts || linkedinPosts.length === 0)) {
         logger.warn("No content provided to generateMarkdownFromCombined.");
@@ -3169,6 +3186,26 @@ ${combinedPrompt}</source_material>
           );
           await this.sleepWithJitter(2_000);
           return this.generateMarkdownFromCombined(threads, linkedinPosts, retries - 1, batching, nextFeedback, folderName);
+        }
+        // NVIDIA-first per routing policy; one chain attempt as safety net when the
+        // cheap model fails validation (never silently ship a bad article, never kill
+        // the folder for a weak draft). Local mode stays local - no chain there.
+        if (isQualityRejection && !chainTried && !this.isLocalMode()) {
+          logger.warn("LocalLLMService: NVIDIA drafts failed validation; one chain attempt before skipping.");
+          try {
+            const chainText = await this.generateLinkedInText(prompt, {
+              num_predict: Math.min(2600, Math.max(1400, sourceCount * 900)),
+              timeoutMs: Math.max(180000, sourceCount * 25000),
+            });
+            return this.finalizeGeneratedMarkdown(
+              chainText,
+              sourceRecords,
+              groupedThreads.length + curatedLinkedinPosts.length,
+              { finalDocument: !batching },
+            );
+          } catch (chainError) {
+            logger.error("LocalLLMService: chain fallback also failed:", chainError.message);
+          }
         }
         logger.error("Failed to generate combined markdown content:", error);
         throw error;
