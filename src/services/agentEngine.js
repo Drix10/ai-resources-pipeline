@@ -88,7 +88,7 @@ Return ONLY a raw JSON object:
     try {
       return await this.llm.withJsonRetry(
         async () => {
-          const data = await this.llm.generateJson(prompt);
+          const data = await this.llm.generateLinkedInJson(prompt);
           if (data && data.topicTitle && data.hookOpening && data.postType) {
             // Validate postType against defined archetypes
             const matchedType = (postTypes || []).find(p => p.id === data.postType);
@@ -210,7 +210,7 @@ ${feedbackBlock}
 Write ONLY the post text. Start directly on line 1 with the opening hook.`;
 
     try {
-      const draft = await this.llm.generateText(prompt, {
+      const draft = await this.llm.generateLinkedInText(prompt, {
         temperature: 0.3,
         num_predict: 2500
       });
@@ -332,7 +332,7 @@ Return ONLY a raw JSON object:
     try {
       return await this.llm.withJsonRetry(
         async () => {
-          const res = await this.llm.generateJson(prompt);
+          const res = await this.llm.generateLinkedInJson(prompt);
           if (res && (typeof res.score === "number" || !isNaN(Number(res.score)))) {
             const toBool = (v, defaultVal = false) => {
               if (typeof v === "boolean") return v;

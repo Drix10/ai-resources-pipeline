@@ -159,19 +159,22 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
       skipped++;
       return false;
     }
-    logger.info(`feedEngage [${sort}]: commenting on @${post.author}: "${draft.comment.slice(0, 90)}..."`);
-    const ok = await LinkedInService.commentOnFeedCard(post.key, post.href, post.text.slice(0, 80), draft.comment, post.author);
-    if (ok) {
-      track[post.key] = { ts: new Date().toISOString(), status: "commented" };
-      saveTrack(track);
-      commented++;
-      logger.info(`feedEngage: commented (${commented}/${max} this cycle).`);
-      return true;
-    } else {
-      logger.warn(`feedEngage: comment post failed on ${post.key} (not tracked, retried next cycle).`);
-      skipped++;
-      return false;
-    }
+    // ==== COMMENTS DISABLED until replies are perfected (dry-run previews above still work) ====
+    // logger.info(`feedEngage [${sort}]: commenting on @${post.author}: "${draft.comment.slice(0, 90)}..."`);
+    // const ok = await LinkedInService.commentOnFeedCard(post.key, post.href, post.text.slice(0, 80), draft.comment, post.author);
+    // if (ok) {
+    //   track[post.key] = { ts: new Date().toISOString(), status: "commented" };
+    //   saveTrack(track);
+    //   commented++;
+    //   logger.info(`feedEngage: commented (${commented}/${max} this cycle).`);
+    //   return true;
+    // } else {
+    //   logger.warn(`feedEngage: comment post failed on ${post.key} (not tracked, retried next cycle).`);
+    //   skipped++;
+    //   return false;
+    // }
+    skipped++;
+    return false;
   };
 
   // Phase 1: Top (default feed order), Phase 2: Recent. Quota split so max=2 still
@@ -240,4 +243,77 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
   return { commented, skipped, liked, previews, wouldLike, reason: dryRun ? "dry run - nothing posted or tracked" : "", cost };
 }
 
-module.exports = { runFeedEngagement };
+// Like-only pass: no drafting, no commenting, no LLM spend. Per sort: scan,
+// shuffle, like immediately - cards virtualize out within a minute, so likes
+// fire seconds after their scan, never after both scans. Target 3-9 total.
+// Already-liked keys persist in the tracker so later cycles skip them;
+// likeFeedCard is state-checked (already-liked cards are never toggled off).
+async function runLikePass({ min = 3, max = 9 } = {}) {
+  const target = min + Math.floor(Math.random() * (max - min + 1));
+  const track = loadTrack();
+  const seen = new Set();
+  let liked = 0, picked = 0, rounds = 0, emptyRounds = 0;
+  // Scroll-until-goal: each round scans Top + Recent deeper than the last and
+  // likes what it finds. Stops when the target fills or 3 straight rounds find
+  // nothing fresh (feed exhausted). 10 rounds caps worst-case runtime.
+  const runSort = async (sort, maxScrolls) => {
+    let posts = [];
+    try {
+      posts = await LinkedInService.scanFeedPosts({ maxPosts: 12, maxScrolls, sort });
+    } catch (e) {
+      logger.warn(`feedEngage like-pass: ${sort} scan failed: ${e.message}`);
+    }
+    const pool = [];
+    for (const post of posts) {
+      if (!post || seen.has(post.key)) continue;
+      seen.add(post.key);
+      if (entryOf(track[post.key]).status === "liked") continue;
+      pool.push(post);
+    }
+    for (let i = pool.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+    for (const post of pool) {
+      if (liked >= target) break;
+      picked++;
+      try {
+        if (await LinkedInService.likeFeedCard(post.text.slice(0, 80))) {
+          liked++;
+          track[post.key] = { ts: new Date().toISOString(), status: "liked" };
+          logger.info(`feedEngage like-pass: liked @${post.author} (${liked}/${target}).`);
+          await sleep(LIKE_PACE_MS);
+        } else {
+          await sleep(2000);
+        }
+      } catch (e) {
+        await sleep(2000);
+      }
+    }
+    return pool.length;
+  };
+  while (liked < target && rounds < 10 && emptyRounds < 3) {
+    let roundFresh = 0;
+    for (const sort of ["top", "recent"]) {
+      if (liked >= target) break;
+      roundFresh += await runSort(sort, Math.min(6 + rounds * 4, 18));
+    }
+    if (roundFresh === 0) emptyRounds++;
+    else emptyRounds = 0;
+    rounds++;
+  }
+  if (liked < target) logger.warn(`feedEngage like-pass: feed exhausted after ${rounds} rounds (${liked}/${target} liked).`);
+  try {
+    // Bound tracker growth: liked keys accumulate daily; prune entries older
+    // than 30 days (same window as the comment path) so the file stays small.
+    const cutoff = Date.now() - 30 * 24 * 60 * 60 * 1000;
+    for (const [key, v] of Object.entries(track)) {
+      const ts = Date.parse(entryOf(v).ts);
+      if (!entryOf(v).ts || isNaN(ts) || ts < cutoff) delete track[key];
+    }
+    saveTrack(track);
+  } catch (e) {}
+  return { liked, picked, target };
+}
+
+module.exports = { runFeedEngagement, runLikePass };
