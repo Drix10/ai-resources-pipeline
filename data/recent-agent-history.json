@@ -1,5 +1,41 @@
 [
   {
+    "postType": "appsec-ast-parsing",
+    "topicTitle": "AST Parsing for Vulnerability Analysis: Beyond Regex Noise",
+    "repo": "sentinal",
+    "timestamp": "2026-09-26T14:20:04.521Z"
+  },
+  {
+    "postType": "fintech-webhook-signatures",
+    "topicTitle": "Payment Webhooks: Why `express.json()` Breaks HMAC Signatures",
+    "repo": "intent-canvas",
+    "timestamp": "2026-09-25T17:38:18.904Z"
+  },
+  {
+    "postType": "multi-agent-crypto-trading",
+    "topicTitle": "Multi-Agent Consensus & WebSocket Orderbooks",
+    "repo": "hypothesis-arena",
+    "timestamp": "2026-09-24T19:09:19.898Z"
+  },
+  {
+    "postType": "c-memory-alignment",
+    "topicTitle": "C Struct Padding: Why Your 16-Byte Payload Becomes 32 Bytes",
+    "repo": "Grind",
+    "timestamp": "2026-09-24T00:05:52.906Z"
+  },
+  {
+    "postType": "realtime-websocket-architecture",
+    "topicTitle": "WebSocket Heartbeats: Preventing Silent Mobile Disconnects with Redis Pub/Sub",
+    "repo": "idolchat",
+    "timestamp": "2026-09-22T17:34:30.445Z"
+  },
+  {
+    "postType": "appsec-ast-parsing",
+    "topicTitle": "AST Node Traversal vs Dumb Regex for Vulnerability Scanning",
+    "repo": "sentinal",
+    "timestamp": "2026-09-21T22:01:26.562Z"
+  },
+  {
     "postType": "fintech-webhook-signatures",
     "topicTitle": "Why Payment Webhooks Fail HMAC Signature Verification",
     "repo": "intent-canvas",
@@ -34,41 +70,5 @@
     "topicTitle": "High-Concurrency Inventory Sync & AI Parts Parsing",
     "repo": "PartPilot",
     "timestamp": "2026-09-11T00:12:57.156Z"
-  },
-  {
-    "postType": "appsec-ast-parsing",
-    "topicTitle": "AST Node Traversal vs Dumb Regex: Why Regex-Based Code Scanners Spam False Positives",
-    "repo": "sentinal",
-    "timestamp": "2026-09-08T13:40:31.020Z"
-  },
-  {
-    "postType": "c-memory-alignment",
-    "topicTitle": "The Hidden Dangers of Struct Padding in C",
-    "repo": "Grind",
-    "timestamp": "2026-09-08T13:29:14.940Z"
-  },
-  {
-    "postType": "high-signal-curation-anti-slop",
-    "topicTitle": "The Signal-to-Noise Ratio in AI Resources: Why 90% of PRs are Fluff",
-    "repo": "ai-resources",
-    "timestamp": "2026-09-08T13:01:38.785Z"
-  },
-  {
-    "postType": "c-fundamentals-grind",
-    "topicTitle": "Memory Layouts in C",
-    "repo": "Grind",
-    "timestamp": "2026-09-08T12:51:34.332Z"
-  },
-  {
-    "postType": "c-systems-memory-model",
-    "topicTitle": "The Memory-First Mental Model: Why Beginners Rush to LeetCode Tree Problems",
-    "repo": "Grind",
-    "timestamp": "2026-09-08T12:46:31.601Z"
-  },
-  {
-    "postType": "c-fundamentals-grind",
-    "topicTitle": "The Hidden Dangers of Premature LeetCode",
-    "repo": "Grind",
-    "timestamp": "2026-09-08T12:22:13.601Z"
   }
 ]
