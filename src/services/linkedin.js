@@ -908,7 +908,7 @@ class LinkedInService {
       return false;
     } finally {
       try {
-        if (localImagePath && fs.existsSync(localImagePath)) {
+        if (localImagePath && isRemote && fs.existsSync(localImagePath)) {
           fs.unlinkSync(localImagePath);
           logger.info(`LinkedInService: Cleaned up temporary image file: ${localImagePath}`);
         }

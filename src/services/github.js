@@ -31,11 +31,12 @@ class GithubService {
               return true;
             }
           },
-          onSecondaryRateLimit: (retryAfter, options, octokit) => {
+          onSecondaryRateLimit: (retryAfter, options) => {
+            const attempt = options.request?.retryCount ?? 0;
             logger.warn(
-              `Secondary rate limit hit for ${options.method} ${options.url}`
+              `Secondary rate limit hit for ${options.method} ${options.url} (attempt ${attempt + 1}/3)`
             );
-            return true;
+            return attempt < 3;
           },
         },
       });
@@ -371,6 +372,25 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
       const numbers = data
         .filter((file) => file.name.match(/^resources-\d{3}\.md$/))
         .map((file) => parseInt(file.name.match(/\d{3}/)[0]));
+
+      // GitHub Contents API caps at 1000 entries. If we're at the limit the
+      // folder may have more files than returned; fall back to the Git tree API
+      // which returns all entries without pagination gaps.
+      if (data.length >= 1000) {
+        logger.warn(`getNextFileNumber: folder "${folder}" hit the 1000-entry Contents API cap, falling back to git tree.`);
+        try {
+          const branchData = await this.octokit.repos.getBranch({ owner, repo, branch: "main" });
+          const treeSha = branchData.data.commit.commit.tree.sha;
+          const tree = await this.octokit.git.getTree({ owner, repo, tree_sha: treeSha, recursive: "1" });
+          const prefix = folder.replace(/\/?$/, "/");
+          const treeNumbers = (tree.data.tree || [])
+            .filter(e => e.path.startsWith(prefix) && /resources-\d{3}\.md$/.test(e.path))
+            .map(e => parseInt(e.path.match(/(\d{3})\.md$/)[1]));
+          return treeNumbers.length > 0 ? Math.max(...treeNumbers) + 1 : 1;
+        } catch (treeErr) {
+          logger.warn(`getNextFileNumber: git tree fallback failed: ${treeErr.message}`);
+        }
+      }
 
       return numbers.length > 0 ? Math.max(...numbers) + 1 : 1;
     } catch (error) {

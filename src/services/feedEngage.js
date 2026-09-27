@@ -280,6 +280,7 @@ async function runLikePass({ min = 3, max = 9 } = {}) {
         if (await LinkedInService.likeFeedCard(post.text.slice(0, 80))) {
           liked++;
           track[post.key] = { ts: new Date().toISOString(), status: "liked" };
+          saveTrack(track); // persist immediately so a crash can't re-like this post
           logger.info(`feedEngage like-pass: liked @${post.author} (${liked}/${target}).`);
           await sleep(LIKE_PACE_MS);
         } else {
