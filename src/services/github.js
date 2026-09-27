@@ -394,7 +394,21 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
                 .map(e => parseInt(e.path.match(/(\d{3})\.md$/)[1]));
               return subNumbers.length > 0 ? Math.max(...subNumbers) + 1 : 1;
             }
-            logger.warn(`getNextFileNumber: tree truncated and folder not found in partial result, using Contents API result.`);
+            // Folder entry was not in the partial recursive tree. Walk the path
+            // components with non-recursive fetches to find the folder's tree SHA.
+            const parts = folder.replace(/\/$/, "").split("/").filter(Boolean);
+            let currentSha = treeSha;
+            for (const part of parts) {
+              const level = await this.octokit.git.getTree({ owner, repo, tree_sha: currentSha });
+              const entry = (level.data.tree || []).find(e => e.type === "tree" && e.path === part);
+              if (!entry) throw new Error(`folder component "${part}" not found in tree`);
+              currentSha = entry.sha;
+            }
+            const subTree2 = await this.octokit.git.getTree({ owner, repo, tree_sha: currentSha });
+            const subNumbers2 = (subTree2.data.tree || [])
+              .filter(e => /^resources-\d{3}\.md$/.test(e.path))
+              .map(e => parseInt(e.path.match(/(\d{3})\.md$/)[1]));
+            return subNumbers2.length > 0 ? Math.max(...subNumbers2) + 1 : 1;
           } else {
             const treeNumbers = (tree.data.tree || [])
               .filter(e => e.path.startsWith(prefix) && /^resources-\d{3}\.md$/.test(e.path.slice(prefix.length)))
