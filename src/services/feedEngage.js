@@ -159,22 +159,19 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
       skipped++;
       return false;
     }
-    // ==== COMMENTS DISABLED until replies are perfected (dry-run previews above still work) ====
-    // logger.info(`feedEngage [${sort}]: commenting on @${post.author}: "${draft.comment.slice(0, 90)}..."`);
-    // const ok = await LinkedInService.commentOnFeedCard(post.key, post.href, post.text.slice(0, 80), draft.comment, post.author);
-    // if (ok) {
-    //   track[post.key] = { ts: new Date().toISOString(), status: "commented" };
-    //   saveTrack(track);
-    //   commented++;
-    //   logger.info(`feedEngage: commented (${commented}/${max} this cycle).`);
-    //   return true;
-    // } else {
-    //   logger.warn(`feedEngage: comment post failed on ${post.key} (not tracked, retried next cycle).`);
-    //   skipped++;
-    //   return false;
-    // }
-    skipped++;
-    return false;
+    logger.info(`feedEngage [${sort}]: commenting on @${post.author}: "${draft.comment.slice(0, 90)}..."`);
+    const ok = await LinkedInService.commentOnFeedCard(post.key, post.href, post.text.slice(0, 80), draft.comment, post.author);
+    if (ok) {
+      track[post.key] = { ts: new Date().toISOString(), status: "commented" };
+      saveTrack(track);
+      commented++;
+      logger.info(`feedEngage: commented (${commented}/${max} this cycle).`);
+      return true;
+    } else {
+      logger.warn(`feedEngage: comment post failed on ${post.key} (not tracked, retried next cycle).`);
+      skipped++;
+      return false;
+    }
   };
 
   // Phase 1: Top (default feed order), Phase 2: Recent. Quota split so max=2 still
@@ -202,6 +199,8 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
           try {
             if (await LinkedInService.likeFeedCard(post.text.slice(0, 80))) {
               liked++;
+              track[post.key] = { ts: new Date().toISOString(), status: "liked" };
+              saveTrack(track);
               logger.info(`feedEngage: liked @${post.author} (${liked} this cycle).`);
             }
           } catch (e) {}
