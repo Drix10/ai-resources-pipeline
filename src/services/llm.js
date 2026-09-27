@@ -1232,10 +1232,10 @@ class LocalLLMService {
   async generateTextViaOllama(prompt, options = {}) {
     const endpoint = `${config.llm.baseUrl}/api/generate`;
     await this.ensureLocalOllamaAvailable();
-    logger.info(`LocalLLMService: Generating with local model "${model || config.llm.model}".`);
     // ponytail: honor per-call timeoutMs like the Nvidia path; big multi-source
     // generations budget sourceCount * 25s and were aborted at the 300s default.
     const { format, timeoutMs, system, model, ...generationOptions } = options;
+    logger.info(`LocalLLMService: Generating with local model "${model || config.llm.model}".`);
     const requestTimeout = Math.max(config.llm.requestTimeoutMs, typeof timeoutMs === "number" ? timeoutMs : 0);
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), requestTimeout);

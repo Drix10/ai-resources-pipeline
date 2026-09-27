@@ -706,7 +706,7 @@ const initCronJob = () => {
       return scheduledJob;
     }
 
-    runInitialPipeline();
+    runInitialPipeline().catch(err => logger.error("Initial pipeline run failed:", err.message));
     scheduleRandomJob();
 
     return scheduledJob;

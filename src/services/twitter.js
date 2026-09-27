@@ -106,7 +106,9 @@ class TwitterService {
       );
       await sleep(waitTime);
     }
-    this.lastRequestTime = now;
+    // Record timestamp AFTER the sleep so the next caller measures from when
+    // this request actually completed, not when the wait started.
+    this.lastRequestTime = Date.now();
   }
 
   async ensureDriverConnected() {
