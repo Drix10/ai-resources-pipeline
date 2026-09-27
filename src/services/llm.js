@@ -4994,9 +4994,17 @@ Return ONLY the comment text, or exactly SKIP.`;
           `Write a single short, natural LinkedIn reply (1 sentence, max 150 chars) to the post below. Sound like a real peer named Drishtant Ghosh: direct, specific, zero fluff, no hashtags, no emojis. Use the post's own words. Reply with only the text, or exactly SKIP.\n\nPOST BY ${author}:\n${cleanPost.slice(0, 600)}`,
           { temperature: 0.75, num_predict: 180, system: "You write short natural LinkedIn replies as a software engineer." }
         ).catch(() => "");
-        const fallback = String(raw || "").trim().replace(/^["'""'']+|["'""'']+$/g, "");
+        const fallback = String(raw || "").trim().replace(/^["'“”‘’]+|["'“”‘’]+$/g, "");
         if (!fallback || /^skip\b/i.test(fallback)) {
           return { comment: "", isValid: false, skipped: true, errors: ["simple-mode fallback also skipped"] };
+        }
+        const fbCheck = this.validateCommentReply(fallback, cleanPost, author);
+        if (fbCheck.isValid) {
+          const verdict = await this.criticFeedComment(fallback, cleanPost);
+          if (!verdict.pass) { fbCheck.isValid = false; fbCheck.errors.push(`Critic rejected: ${verdict.reason}`); }
+        }
+        if (!fbCheck.isValid) {
+          return { comment: fallback, isValid: false, skipped: false, errors: fbCheck.errors };
         }
         const filtered2 = this.filterCommentReply(fallback);
         logger.info(`LocalLLMService: simple-mode fallback produced: "${filtered2.slice(0, 80)}"`);
