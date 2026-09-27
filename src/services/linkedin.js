@@ -1216,11 +1216,13 @@ class LinkedInService {
     try {
       await this.ensureDriverConnected(true);
       const toggleResult = await this.driver.executeScript(`
+        const norm = s => (s || '').replace(/[​-‍﻿]/g, '').replace(/\s+/g, ' ').trim();
         const feed = document.querySelector('div[data-testid="mainFeed"]');
         if (!feed) return null;
         const cards = Array.from(feed.children).filter(c => (c.innerText || '').includes('Feed post'));
+        const nq = norm(arguments[0]);
         const card = cards.find(c =>
-          (c.innerText || '').includes(arguments[0]) &&
+          norm(c.innerText).includes(nq) &&
           (arguments[1] ? !!c.querySelector('a[href*="' + arguments[1] + '"]') : true)
         );
         if (!card) return null;
@@ -1230,10 +1232,8 @@ class LinkedInService {
         try {
           const likeBtn = Array.from(card.querySelectorAll('button')).find(b => {
             const al = (b.getAttribute('aria-label') || '').toLowerCase();
-
-            return al.toLowerCase() === 'like' ||
+            return al === 'like' || al === 'react like' ||
               (al.startsWith('reaction button state') && al.includes('no reaction'));
-
           });
           if (likeBtn) { likeBtn.click(); liked = true; }
         } catch (e) {}
@@ -1251,9 +1251,11 @@ class LinkedInService {
       await sleep(2500);
       // Re-query the open editor inside the same card.
       const editor = await this.driver.executeScript(`
+        const norm = s => (s || '').replace(/[​-‍﻿]/g, '').replace(/\s+/g, ' ').trim();
         const feed = document.querySelector('div[data-testid="mainFeed"]');
         const cards = Array.from(feed.children).filter(c => (c.innerText || '').includes('Feed post'));
-        const card = cards.find(c => (c.innerText || '').includes(arguments[0]));
+        const nq = norm(arguments[0]);
+        const card = cards.find(c => norm(c.innerText).includes(nq));
         if (!card) return null;
         return card.querySelector('[aria-label="Text editor for creating comment"], .tiptap, .ProseMirror');
       `, String(textSnippet).substring(0, 80)).catch(() => null);
@@ -1282,9 +1284,11 @@ class LinkedInService {
       // Do NOT match aria-label here - that would click the toggle and close the editor.
       // The button renders only after typing fires input events, so poll for it.
       const clickSubmit = `
+        const norm = s => (s || '').replace(/[​-‍﻿]/g, '').replace(/\s+/g, ' ').trim();
         const feed = document.querySelector('div[data-testid="mainFeed"]');
         const cards = Array.from(feed.children).filter(c => (c.innerText || '').includes('Feed post'));
-        const card = cards.find(c => (c.innerText || '').includes(arguments[0]));
+        const nq = norm(arguments[0]);
+        const card = cards.find(c => norm(c.innerText).includes(nq));
         if (!card) return 'no-card';
         const btn = Array.from(card.querySelectorAll('button'))
           .find(b => (b.innerText || '').trim().toLowerCase() === 'comment' && !b.disabled);
@@ -1311,12 +1315,14 @@ class LinkedInService {
       }
       await sleep(5000);
       const checkPosted = async () => {
-        const onPage = await this.driver.executeScript(
-          "return document.body.innerText.includes(arguments[0]);",
-          String(text).substring(0, 40)
-        ).catch(() => false);
         let residual = -1;
         try { residual = String(await editor.getText()).length; } catch (e) {}
+        const onPage = residual === 0 && await this.driver.executeScript(`
+          const ed = arguments[1];
+          const nodes = Array.from(document.querySelectorAll('article, [class*="comment"]'))
+            .filter(n => !(ed && (n.contains(ed) || ed.contains(n))));
+          return nodes.some(n => (n.innerText || '').includes(arguments[0]));
+        `, String(text).substring(0, 40), editor).catch(() => false);
         return { onPage: !!onPage, residual };
       };
       let { onPage: verified, residual } = await checkPosted();
@@ -1340,6 +1346,8 @@ class LinkedInService {
       }
       if (!verified && residual === 0) {
         logger.warn("LinkedInService: text left the editor but is not on the page - likely posted but hidden by comment sorting, or silently dropped.");
+        logger.info(`LinkedInService: feed comment posted+verified: uncertain.`);
+        return "uncertain";
       }
       logger.info(`LinkedInService: feed comment posted+verified: ${!!verified}.`);
       return !!verified;
@@ -1378,7 +1386,7 @@ class LinkedInService {
       if (before) await editor.sendKeys(before);
       await editor.sendKeys("@" + name.split(/\s+/)[0]);
       const edRect = await this.driver.executeScript(
-        "const e = document.querySelector('[aria-label=\"Text editor for creating comment\"]'); return e ? e.getBoundingClientRect().toJSON() : null;"
+        "const e = arguments[0]; return e ? e.getBoundingClientRect().toJSON() : null;", editor
       ).catch(() => null);
       // Poll for the popup (server-side filter is async); match exact full name only.
       let picked = null;
@@ -1413,12 +1421,12 @@ class LinkedInService {
       // present. A leftover "@First" means the popup just closed - fall back (the
       // fallback wipes and retypes clean text, so no stray @ ever posts).
       const st = await this.driver.executeScript(`
-        const ed = document.querySelector('[aria-label="Text editor for creating comment"]');
+        const ed = arguments[1];
         if (!ed) return 'no-editor';
         const t = ed.innerText || '';
         const chip = ed.querySelector('a, [data-entity], [data-type="mention"], .mention');
         return JSON.stringify({ chip: !!chip, hasAt: t.indexOf('@') !== -1, hasName: t.toLowerCase().indexOf(arguments[0].toLowerCase()) !== -1 });
-      `, name).catch(() => null);
+      `, name, editor).catch(() => null);
       let landed = false;
       try { const s = JSON.parse(st); landed = s.chip || (!s.hasAt && s.hasName); } catch (e) {}
       if (!landed) {
