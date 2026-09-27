@@ -31,11 +31,12 @@ class GithubService {
               return true;
             }
           },
-          onSecondaryRateLimit: (retryAfter, options, octokit) => {
+          onSecondaryRateLimit: (retryAfter, options) => {
+            const attempt = options.request?.retryCount ?? 0;
             logger.warn(
-              `Secondary rate limit hit for ${options.method} ${options.url}`
+              `Secondary rate limit hit for ${options.method} ${options.url} (attempt ${attempt + 1}/3)`
             );
-            return true;
+            return attempt < 3;
           },
         },
       });
@@ -172,7 +173,7 @@ class GithubService {
       if (folderNumberMap.has(decodedFolder)) {
         nextNumber = folderNumberMap.get(decodedFolder) + 1;
       } else {
-        nextNumber = await this.getNextFileNumber(owner, repo, decodedFolder);
+        nextNumber = await this.getNextFileNumber(owner, repo, decodedFolder, branch);
       }
       folderNumberMap.set(decodedFolder, nextNumber);
 
@@ -360,17 +361,64 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
     return results[0];
   }
 
-  async getNextFileNumber(owner, repo, folder) {
+  async getNextFileNumber(owner, repo, folder, branch = "main") {
     try {
       const { data } = await this.octokit.repos.getContent({
         owner,
         repo,
         path: folder,
+        ref: branch,
       });
 
       const numbers = data
         .filter((file) => file.name.match(/^resources-\d{3}\.md$/))
         .map((file) => parseInt(file.name.match(/\d{3}/)[0]));
+
+      // GitHub Contents API caps at 1000 entries. If we're at the limit the
+      // folder may have more files than returned; fall back to the Git tree API
+      // which returns all entries without pagination gaps.
+      if (data.length >= 1000) {
+        logger.warn(`getNextFileNumber: folder "${folder}" hit the 1000-entry Contents API cap, falling back to git tree.`);
+        try {
+          const branchData = await this.octokit.repos.getBranch({ owner, repo, branch });
+          const treeSha = branchData.data.commit.commit.tree.sha;
+          const tree = await this.octokit.git.getTree({ owner, repo, tree_sha: treeSha, recursive: "1" });
+          const prefix = folder.replace(/\/?$/, "/");
+          if (tree.data.truncated) {
+            // Recursive tree was truncated; fetch just the folder's own subtree non-recursively.
+            const folderEntry = (tree.data.tree || []).find(e => e.type === "tree" && (e.path === folder || e.path + "/" === prefix));
+            if (folderEntry) {
+              const subTree = await this.octokit.git.getTree({ owner, repo, tree_sha: folderEntry.sha });
+              const subNumbers = (subTree.data.tree || [])
+                .filter(e => /^resources-\d{3}\.md$/.test(e.path))
+                .map(e => parseInt(e.path.match(/(\d{3})\.md$/)[1]));
+              return subNumbers.length > 0 ? Math.max(...subNumbers) + 1 : 1;
+            }
+            // Folder entry was not in the partial recursive tree. Walk the path
+            // components with non-recursive fetches to find the folder's tree SHA.
+            const parts = folder.replace(/\/$/, "").split("/").filter(Boolean);
+            let currentSha = treeSha;
+            for (const part of parts) {
+              const level = await this.octokit.git.getTree({ owner, repo, tree_sha: currentSha });
+              const entry = (level.data.tree || []).find(e => e.type === "tree" && e.path === part);
+              if (!entry) throw new Error(`folder component "${part}" not found in tree`);
+              currentSha = entry.sha;
+            }
+            const subTree2 = await this.octokit.git.getTree({ owner, repo, tree_sha: currentSha });
+            const subNumbers2 = (subTree2.data.tree || [])
+              .filter(e => /^resources-\d{3}\.md$/.test(e.path))
+              .map(e => parseInt(e.path.match(/(\d{3})\.md$/)[1]));
+            return subNumbers2.length > 0 ? Math.max(...subNumbers2) + 1 : 1;
+          } else {
+            const treeNumbers = (tree.data.tree || [])
+              .filter(e => e.path.startsWith(prefix) && /^resources-\d{3}\.md$/.test(e.path.slice(prefix.length)))
+              .map(e => parseInt(e.path.match(/(\d{3})\.md$/)[1]));
+            return treeNumbers.length > 0 ? Math.max(...treeNumbers) + 1 : 1;
+          }
+        } catch (treeErr) {
+          logger.warn(`getNextFileNumber: git tree fallback failed: ${treeErr.message}`);
+        }
+      }
 
       return numbers.length > 0 ? Math.max(...numbers) + 1 : 1;
     } catch (error) {

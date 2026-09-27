@@ -573,6 +573,18 @@ const processAllFolders = async () => {
       logger.info(`Cycle End: Successfully processed and syndicated ${successfulArticles.length} curated guide(s).`);
     }
 
+    // Feed engagement: comment pass after each successful pipeline run.
+    if (config.social.linkedinFeedReply && successfulArticles.length > 0) {
+      try {
+        const feedEngage = require("./feedEngage");
+        logger.info("Cycle End: Running LinkedIn feed comment engagement pass...");
+        const engageResult = await feedEngage.runFeedEngagement({ max: 2 });
+        logger.info(`LinkedIn feed engagement: ${engageResult.commented} commented, ${engageResult.liked} liked, ${engageResult.skipped} skipped. ${engageResult.reason || ""}`);
+      } catch (feedErr) {
+        logger.error("LinkedIn feed engagement failed (non-fatal):", feedErr.message);
+      }
+    }
+
     // --- End-of-Cycle Batched Synchronization ---
     // Automatically rebuilds the blog index and synchronizes all new articles in ONE single consolidated batch commit
     try {
@@ -599,7 +611,8 @@ const processAllFolders = async () => {
           });
           const hasChanges = execSync("git status --porcelain", { encoding: "utf8", timeout: 10000 }).trim().length > 0;
           if (hasChanges) {
-            execSync('git commit -m "feat(blog): sync new curated AI resource guides & LinkedIn insights" && git push origin main', {
+            const currentBranch = execSync("git rev-parse --abbrev-ref HEAD", { encoding: "utf8", timeout: 5000 }).trim() || "main";
+          execSync(`git commit -m "feat(blog): sync new curated AI resource guides & LinkedIn insights" && git push origin ${currentBranch}`, {
               stdio: "ignore",
               timeout: 30000
             });
@@ -693,7 +706,7 @@ const initCronJob = () => {
       return scheduledJob;
     }
 
-    runInitialPipeline();
+    runInitialPipeline().catch(err => logger.error("Initial pipeline run failed:", err.message));
     scheduleRandomJob();
 
     return scheduledJob;

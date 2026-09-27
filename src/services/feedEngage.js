@@ -159,22 +159,19 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
       skipped++;
       return false;
     }
-    // ==== COMMENTS DISABLED until replies are perfected (dry-run previews above still work) ====
-    // logger.info(`feedEngage [${sort}]: commenting on @${post.author}: "${draft.comment.slice(0, 90)}..."`);
-    // const ok = await LinkedInService.commentOnFeedCard(post.key, post.href, post.text.slice(0, 80), draft.comment, post.author);
-    // if (ok) {
-    //   track[post.key] = { ts: new Date().toISOString(), status: "commented" };
-    //   saveTrack(track);
-    //   commented++;
-    //   logger.info(`feedEngage: commented (${commented}/${max} this cycle).`);
-    //   return true;
-    // } else {
-    //   logger.warn(`feedEngage: comment post failed on ${post.key} (not tracked, retried next cycle).`);
-    //   skipped++;
-    //   return false;
-    // }
-    skipped++;
-    return false;
+    logger.info(`feedEngage [${sort}]: commenting on @${post.author}: "${draft.comment.slice(0, 90)}..."`);
+    const ok = await LinkedInService.commentOnFeedCard(post.key, post.href, post.text.slice(0, 80), draft.comment, post.author);
+    if (ok === true || ok === "uncertain") {
+      track[post.key] = { ts: new Date().toISOString(), status: "commented", ...(ok === "uncertain" ? { unverified: true } : {}) };
+      saveTrack(track);
+      commented++;
+      logger.info(`feedEngage: commented (${commented}/${max} this cycle)${ok === "uncertain" ? " [unverified - text left editor]" : ""}.`);
+      return true;
+    } else {
+      logger.warn(`feedEngage: comment post failed on ${post.key} (not tracked, retried next cycle).`);
+      skipped++;
+      return false;
+    }
   };
 
   // Phase 1: Top (default feed order), Phase 2: Recent. Quota split so max=2 still
@@ -202,6 +199,11 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
           try {
             if (await LinkedInService.likeFeedCard(post.text.slice(0, 80))) {
               liked++;
+              const existingEntry = entryOf(track[post.key]);
+              track[post.key] = existingEntry.status
+                ? { ...existingEntry, likedAt: new Date().toISOString() }
+                : { ts: new Date().toISOString(), status: "liked", likedAt: new Date().toISOString() };
+              saveTrack(track);
               logger.info(`feedEngage: liked @${post.author} (${liked} this cycle).`);
             }
           } catch (e) {}
@@ -267,7 +269,7 @@ async function runLikePass({ min = 3, max = 9 } = {}) {
     for (const post of posts) {
       if (!post || seen.has(post.key)) continue;
       seen.add(post.key);
-      if (entryOf(track[post.key]).status === "liked") continue;
+      if (entryOf(track[post.key]).likedAt) continue;
       pool.push(post);
     }
     for (let i = pool.length - 1; i > 0; i--) {
@@ -280,7 +282,11 @@ async function runLikePass({ min = 3, max = 9 } = {}) {
       try {
         if (await LinkedInService.likeFeedCard(post.text.slice(0, 80))) {
           liked++;
-          track[post.key] = { ts: new Date().toISOString(), status: "liked" };
+          const existingEntry2 = entryOf(track[post.key]);
+          track[post.key] = existingEntry2.status
+            ? { ...existingEntry2, likedAt: new Date().toISOString() }
+            : { ts: new Date().toISOString(), status: "liked", likedAt: new Date().toISOString() };
+          saveTrack(track); // persist immediately so a crash can't re-like this post
           logger.info(`feedEngage like-pass: liked @${post.author} (${liked}/${target}).`);
           await sleep(LIKE_PACE_MS);
         } else {
