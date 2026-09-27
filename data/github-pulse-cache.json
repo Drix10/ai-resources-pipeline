@@ -1,5 +1,5 @@
 {
-  "timestamp": 1789905621716,
+  "timestamp": 1790432380111,
   "user": "Drix10",
   "repos": [
     {
@@ -8,102 +8,59 @@
       "description": "Daily updated resources on AI across various domains including ML, development, education, healthcare, real estate, robotics, crypto, web3 and more, curated by enthusiasts.",
       "language": "Multi-language",
       "stars": 118,
-      "updatedAt": "2026-09-20T12:00:08Z",
+      "updatedAt": "2026-09-26T14:19:19Z",
       "recentCommits": [
         {
-          "sha": "d4ea2cf",
+          "sha": "9ed2367",
           "message": "📚 Update README with latest tweets",
-          "date": "2026-09-20T12:00:04Z"
+          "date": "2026-09-26T14:19:15Z"
         },
         {
-          "sha": "6410472",
-          "message": "📝 Batch sync: 3 resource collections",
-          "date": "2026-09-20T11:57:32Z"
+          "sha": "f5c7238",
+          "message": "📝 Add resource collection: World News and Updates #222",
+          "date": "2026-09-26T14:13:55Z"
         },
         {
-          "sha": "e1c87e6",
+          "sha": "8a50b4c",
           "message": "📝 Batch sync: 4 resource collections",
-          "date": "2026-09-20T11:50:09Z"
+          "date": "2026-09-26T14:10:00Z"
         },
         {
-          "sha": "51e48b0",
+          "sha": "d3e16a7",
           "message": "📝 Batch sync: 4 resource collections",
-          "date": "2026-09-20T11:40:34Z"
+          "date": "2026-09-26T13:47:19Z"
         },
         {
-          "sha": "fa12350",
+          "sha": "f6398b6",
           "message": "📝 Batch sync: 4 resource collections",
-          "date": "2026-09-20T11:31:19Z"
+          "date": "2026-09-26T13:24:15Z"
         }
       ],
       "historicalHighlights": [
         {
-          "sha": "6410472",
-          "message": "📝 Batch sync: 3 resource collections",
-          "date": "2026-09-20T11:57:32Z"
-        },
-        {
-          "sha": "e1c87e6",
+          "sha": "8a50b4c",
           "message": "📝 Batch sync: 4 resource collections",
-          "date": "2026-09-20T11:50:09Z"
+          "date": "2026-09-26T14:10:00Z"
         },
         {
-          "sha": "51e48b0",
+          "sha": "d3e16a7",
           "message": "📝 Batch sync: 4 resource collections",
-          "date": "2026-09-20T11:40:34Z"
+          "date": "2026-09-26T13:47:19Z"
         },
         {
-          "sha": "fa12350",
+          "sha": "f6398b6",
           "message": "📝 Batch sync: 4 resource collections",
-          "date": "2026-09-20T11:31:19Z"
+          "date": "2026-09-26T13:24:15Z"
         },
         {
-          "sha": "c969cf1",
+          "sha": "87f1a34",
           "message": "📝 Batch sync: 4 resource collections",
-          "date": "2026-09-20T11:25:15Z"
-        }
-      ],
-      "hasFreshCommits": true
-    },
-    {
-      "name": "hypothesis-arena",
-      "fullName": "Drix10/hypothesis-arena",
-      "description": "Autonomous AI Hedge Fund - Part of Canopy Founders. Inc",
-      "language": "Python",
-      "stars": 9,
-      "updatedAt": "2026-09-20T11:28:53Z",
-      "recentCommits": [
-        {
-          "sha": "385da7e",
-          "message": "TODO: record P3.3 gate and P3.1 amendment",
-          "date": "2026-09-20T11:28:45Z"
+          "date": "2026-09-26T13:05:11Z"
         },
         {
-          "sha": "1f90d7a",
-          "message": "Docs: P3.3 gate record, P3.1 amendment, kernel pins",
-          "date": "2026-09-20T11:28:09Z"
-        },
-        {
-          "sha": "0d3683f",
-          "message": "JEV single-flight covers sign and cache",
-          "date": "2026-09-20T11:26:11Z"
-        },
-        {
-          "sha": "f8be0ac",
-          "message": "P3.3: typed state, kernel state, deterministic decision table",
-          "date": "2026-09-20T11:26:06Z"
-        },
-        {
-          "sha": "52ccedb",
-          "message": "P3.1 amendment: correct ScalarLessL L-table (pending re-sign)",
-          "date": "2026-09-20T11:25:42Z"
-        }
-      ],
-      "historicalHighlights": [
-        {
-          "sha": "6208f75",
-          "message": "TODO: record projection fix",
-          "date": "2026-09-20T10:41:51Z"
+          "sha": "4b2bcc3",
+          "message": "📝 Batch sync: 4 resource collections",
+          "date": "2026-09-26T12:49:57Z"
         }
       ],
       "hasFreshCommits": true
@@ -114,16 +71,96 @@
       "description": "",
       "language": "Multi-language",
       "stars": 2,
-      "updatedAt": "2026-09-19T08:36:32Z",
+      "updatedAt": "2026-09-26T05:05:40Z",
       "recentCommits": [
         {
-          "sha": "3d355cd",
+          "sha": "0963573",
           "message": "Update README.md",
-          "date": "2026-09-19T08:36:28Z"
+          "date": "2026-09-26T05:05:36Z"
         }
       ],
       "historicalHighlights": [],
       "hasFreshCommits": true
+    },
+    {
+      "name": "hypothesis-arena",
+      "fullName": "Drix10/hypothesis-arena",
+      "description": "Autonomous AI Hedge Fund - Part of Canopy Founders. Inc",
+      "language": "Python",
+      "stars": 9,
+      "updatedAt": "2026-09-25T21:50:14Z",
+      "recentCommits": [
+        {
+          "sha": "afc3fd6",
+          "message": "H1 runner portability: Linux includes, no thread dep",
+          "date": "2026-09-25T21:50:07Z"
+        },
+        {
+          "sha": "278cd9c",
+          "message": "Docs: Addendum 118 + TODO for H1 tenth corrective and G0 runner",
+          "date": "2026-09-25T21:25:50Z"
+        },
+        {
+          "sha": "d4f1bbe",
+          "message": "H1 integration: G0 runner (durable journal, reconcile, S2, drills)",
+          "date": "2026-09-25T21:25:14Z"
+        },
+        {
+          "sha": "51003d9",
+          "message": "H1 tenth corrective: entry REST-terminal authority, stream-order wording",
+          "date": "2026-09-25T20:27:24Z"
+        },
+        {
+          "sha": "fe5db94",
+          "message": "Docs: Addendum 117 + TODO for H1 ninth corrective",
+          "date": "2026-09-25T18:42:25Z"
+        }
+      ],
+      "historicalHighlights": [
+        {
+          "sha": "51003d9",
+          "message": "H1 tenth corrective: entry REST-terminal authority, stream-order wording",
+          "date": "2026-09-25T20:27:24Z"
+        }
+      ],
+      "hasFreshCommits": true
+    },
+    {
+      "name": "discord-bot-web",
+      "fullName": "Drix10/discord-bot-web",
+      "description": "Discord bot website, Good for showing bot commands & has different pages",
+      "language": "CSS",
+      "stars": 29,
+      "updatedAt": "2026-09-22T22:22:16Z",
+      "recentCommits": [
+        {
+          "sha": "dfe9d93",
+          "message": "Update README.md",
+          "date": "2023-03-20T03:58:01Z"
+        },
+        {
+          "sha": "8656aee",
+          "message": "Update README.md",
+          "date": "2023-03-14T18:07:07Z"
+        },
+        {
+          "sha": "3f52b18",
+          "message": ":up: update(nav): Add about page to nav",
+          "date": "2023-02-01T10:49:36Z"
+        },
+        {
+          "sha": "aff344a",
+          "message": "Update README.md",
+          "date": "2022-06-08T19:56:24Z"
+        },
+        {
+          "sha": "2079855",
+          "message": "first commit",
+          "date": "2022-06-08T19:55:35Z"
+        }
+      ],
+      "historicalHighlights": [],
+      "hasFreshCommits": false
     },
     {
       "name": "Grind",
@@ -137,10 +174,30 @@
           "sha": "ad0e078",
           "message": "If else - leap year",
           "date": "2026-09-19T08:31:46Z"
+        },
+        {
+          "sha": "6069702",
+          "message": "If Else - Smallest among 3",
+          "date": "2026-09-07T13:26:51Z"
+        },
+        {
+          "sha": "39e9c6f",
+          "message": "Foarmetting & Level 2, 13 -> Greatest among 3 numbers",
+          "date": "2026-09-07T13:25:06Z"
+        },
+        {
+          "sha": "3fe4c94",
+          "message": "If Else - +ve/-ve/0",
+          "date": "2026-09-07T12:45:45Z"
+        },
+        {
+          "sha": "8aa4869",
+          "message": "If Else - Even Odd check",
+          "date": "2026-09-07T12:34:57Z"
         }
       ],
       "historicalHighlights": [],
-      "hasFreshCommits": true
+      "hasFreshCommits": false
     },
     {
       "name": "ml-videos",
@@ -541,43 +598,6 @@
           "date": "2026-08-21T14:58:40Z"
         }
       ],
-      "hasFreshCommits": false
-    },
-    {
-      "name": "GAME-2",
-      "fullName": "Drix10/GAME-2",
-      "description": "A car game made using MIT app inventor",
-      "language": "Scheme",
-      "stars": 4,
-      "updatedAt": "2026-07-04T11:24:13Z",
-      "recentCommits": [
-        {
-          "sha": "fca063e",
-          "message": "Add files via upload",
-          "date": "2020-06-12T16:21:33Z"
-        },
-        {
-          "sha": "193684d",
-          "message": "Add files via upload",
-          "date": "2020-06-12T16:21:21Z"
-        },
-        {
-          "sha": "bc11819",
-          "message": "Add files via upload",
-          "date": "2020-06-12T16:21:08Z"
-        },
-        {
-          "sha": "6519ff1",
-          "message": "Add files via upload",
-          "date": "2020-06-12T16:20:55Z"
-        },
-        {
-          "sha": "e42c203",
-          "message": "Add files via upload",
-          "date": "2020-06-12T16:20:41Z"
-        }
-      ],
-      "historicalHighlights": [],
       "hasFreshCommits": false
     }
   ],
