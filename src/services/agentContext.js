@@ -262,8 +262,7 @@ class AgentContextService {
               }
             } catch {}
             const delay = Math.floor(Math.random() * 50) + 20;
-            const waitUntil = Date.now() + delay;
-            while (Date.now() < waitUntil) {}
+            Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, delay);
           } else {
             break;
           }
