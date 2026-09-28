@@ -304,6 +304,7 @@ ${postData.postText}
 
     fs.writeFileSync(blogFilePath, blogMarkdownContent, "utf8");
     fs.writeFileSync(blogContentPath, blogMarkdownContent, "utf8");
+    if (postData.isValid && postData.historyRecord) require("./src/services/agentContext").recordPost(postData.historyRecord);
     console.log(`📝 LinkedIn post saved to LinkedIn Insights: ./${path.relative(process.cwd(), blogFilePath)}`);
     console.log(`📝 Also synced to blog: ./${path.relative(process.cwd(), blogContentPath)}`);
     if (postData.recommendedVisual) {

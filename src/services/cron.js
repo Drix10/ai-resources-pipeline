@@ -368,6 +368,7 @@ ${sourceArticle?.githubUrl ? `- **Source Material**: [${sourceArticle.title}](${
               fs.writeFileSync(path.join(blogInsightsDir, blogFileName), blogMarkdownContent, "utf8");
               fs.writeFileSync(path.join(rootInsightsDir, blogFileName), blogMarkdownContent, "utf8");
               logger.info(`LinkedIn Curation: Saved insight article to blog Knowledge Hub: blog/content/LinkedIn Insights/${blogFileName}`);
+              if (megaPostData.historyRecord) require("./agentContext").recordPost(megaPostData.historyRecord);
 
               const recentTopic = megaPostData.sourceTitle || sourceArticle?.title;
               if (recentTopic) llmService.saveRecentTopic(recentTopic);

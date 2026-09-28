@@ -283,17 +283,19 @@ Return ONLY JSON: {"invented":boolean,"robotic":boolean,"score":number,"fix":"on
     try {
       const raw = await this.llm.generateCommentText(prompt, { temperature: 0.1, num_predict: 200 });
       const res = this.llm.parseJsonSafely(raw) || {};
-      const truthy = (v) => v === true || String(v).toLowerCase() === "true";
       const score = Number(res.score);
+      if (!Number.isFinite(score) || typeof res.invented === "undefined") throw new Error("unparseable critic verdict");
+      const truthy = (v) => v === true || String(v).toLowerCase() === "true";
       return {
         invented: truthy(res.invented),
         robotic: truthy(res.robotic),
-        score: Number.isFinite(score) ? score : 75,
+        score,
         fix: String(res.fix || "").slice(0, 200),
       };
     } catch (err) {
-      logger.warn(`AgentEngine: critic unavailable (${err.message}); relying on deterministic checks.`);
-      return { invented: false, robotic: false, score: 75, fix: "" };
+      // Fail closed: without the invented-facts check the post must not ship.
+      logger.warn(`AgentEngine: critic unavailable (${err.message}); post not verified.`);
+      return { invented: false, robotic: false, score: 0, fix: "Critic unavailable; post not verified.", unavailable: true };
     }
   }
 
@@ -334,7 +336,7 @@ Return ONLY JSON: {"invented":boolean,"robotic":boolean,"score":number,"fix":"on
   }
 
   async runAutonomousPipeline(options = {}) {
-    const { curatedArticles = [], maxRefineAttempts = 1, dryRun = false, recentHistory = null } = options;
+    const { curatedArticles = [], maxRefineAttempts = 1, recentHistory = null } = options;
     const snapshot = await agentContext.compileContextSnapshot([]);
     if (Array.isArray(recentHistory)) snapshot.recentHistory = recentHistory;
     const plan = this.plan(snapshot, curatedArticles);
@@ -352,6 +354,7 @@ Return ONLY JSON: {"invented":boolean,"robotic":boolean,"score":number,"fix":"on
       }
       verdict = await this.critique(draft, facts);
       logger.info(`AgentEngine: critic score ${verdict.score}/100 (invented: ${verdict.invented}, robotic: ${verdict.robotic}).`);
+      if (verdict.unavailable) break;
       if (!verdict.invented && !verdict.robotic && verdict.score >= 70) break;
       feedback = [
         verdict.invented && "It states facts that are not in the list. Remove them or use only listed facts.",
@@ -375,9 +378,8 @@ Return ONLY JSON: {"invented":boolean,"robotic":boolean,"score":number,"fix":"on
       hook: body.split("\n")[0].slice(0, 160),
       repo: draft.repo || "general",
     };
-    if (passed && !dryRun) {
-      agentContext.recordPost(record);
-    } else if (!passed) {
+    // Callers record history once the post is actually saved or published.
+    if (!passed) {
       logger.warn(`AgentEngine: post did not pass (${errors.join("; ") || "critic"}); not recorded.`);
     }
 

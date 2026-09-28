@@ -452,6 +452,33 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
       prev = p.pillar.id; seenTypes.add(p.pillar.id);
       hist = [{ postType: p.pillar.id, format: p.formatId, hookStyle: p.hookStyle }, ...hist];
     }
+    // Critic must fail closed, and the engine must never write history itself.
+    {
+      const ctx = require("./src/services/agentContext");
+      const saveCtx = { pulse: ctx.getMultiRepoGitPulse, rec: ctx.recordPost };
+      const saveLlm = { j: svc.generateLinkedInJson, c: svc.generateCommentText };
+      let recorded = 0;
+      ctx.getMultiRepoGitPulse = async () => ({ repos: [] });
+      ctx.recordPost = () => { recorded++; };
+      svc.generateLinkedInJson = async () => ({ title: "t", post: body, hashtags: ["AI", "Dev", "Career"], slidePoints: [], sourceIndex: -1, repo: "" });
+      try {
+        for (const [name, critic, wantValid] of [
+          ["critic down -> not valid", async () => { throw new Error("all providers down"); }, false],
+          ["critic junk -> not valid", async () => "no json here", false],
+          ["critic pass -> valid", async () => '{"invented":false,"robotic":false,"score":85,"fix":""}', true],
+        ]) {
+          svc.generateCommentText = critic;
+          const r = await eng.runAutonomousPipeline({ curatedArticles: [], recentHistory: [] });
+          if (r.isValid === wantValid) { passed++; console.log(`PASS | post critic: ${name}`); }
+          else { failed++; console.log(`FAIL | post critic: ${name} | valid=${r.isValid}`); }
+        }
+        if (recorded === 0) { passed++; console.log("PASS | engine never records history itself"); }
+        else { failed++; console.log(`FAIL | engine recorded history ${recorded}x`); }
+      } finally {
+        ctx.getMultiRepoGitPulse = saveCtx.pulse; ctx.recordPost = saveCtx.rec;
+        svc.generateLinkedInJson = saveLlm.j; svc.generateCommentText = saveLlm.c;
+      }
+    }
     if (repeats === 0 && seenTypes.size >= 6) { passed++; console.log(`PASS | post rotation (${seenTypes.size} types in 20 posts, no back-to-back repeats)`); }
     else { failed++; console.log(`FAIL | post rotation | repeats=${repeats} types=${seenTypes.size}`); }
   }

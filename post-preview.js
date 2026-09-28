@@ -40,7 +40,7 @@ function localArticles(limit = 8) {
   let history = agentContext.getRecentHistory();
   console.log(`Loaded ${articles.length} article sections. Generating ${count} post(s); nothing is published.\n`);
   for (let i = 0; i < count; i++) {
-    const r = await engine.runAutonomousPipeline({ curatedArticles: articles.slice(0, 12), dryRun: true, recentHistory: history });
+    const r = await engine.runAutonomousPipeline({ curatedArticles: articles.slice(0, 12), recentHistory: history });
     const ctx = r.sourceContext || {};
     console.log(`================ POST ${i + 1}/${count} ================`);
     console.log(`type: ${ctx.pillar} | shape: ${ctx.format} | hook: ${ctx.hookStyle} | score: ${r.criticScore} | ${r.isValid ? "WOULD POST" : "REJECTED: " + r.validationErrors.join("; ")}`);

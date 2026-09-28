@@ -217,6 +217,7 @@ ${postData.postText}
 
     fs.writeFileSync(blogFilePath, blogMarkdownContent, "utf8");
     fs.writeFileSync(blogContentPath, blogMarkdownContent, "utf8");
+    if (postData.isValid && postData.historyRecord) require("./src/services/agentContext").recordPost(postData.historyRecord);
     console.log(`📝 LinkedIn post saved to: ./${path.relative(process.cwd(), blogFilePath)}`);
     console.log(`📝 Synced to blog hub: ./${path.relative(process.cwd(), blogContentPath)}`);
 
