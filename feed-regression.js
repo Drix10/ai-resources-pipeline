@@ -6,7 +6,6 @@
 const svc = require("./src/services/llm.js");
 
 let queue = [];
-const realGenerateText = svc.generateText.bind(svc); // original chain entry (mocked below)
 svc.generateText = async (p) => {
   const item = queue.shift();
   if (item === undefined) throw new Error("mock queue empty for prompt: " + String(p).slice(0, 80));
@@ -266,9 +265,11 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
       seen.url = String(url); seen.auth = opts?.headers?.Authorization; seen.body = JSON.parse(opts?.body || "{}");
       return { ok: true, status: 200, json: async () => ({ choices: [{ message: { content: "routed reply" } }], usage: { prompt_tokens: 10, completion_tokens: 5 } }) };
     };
+    const saveModel = config.llm.openrouter.model;
     config.llm.openrouter.apiKey = "test-key";
-    const out = await realGenerateCommentText("hello", { temperature: 0.5, num_predict: 50, system: "sys", reasoning: "low" });
-    const payloadOk = seen.body.model === "deepseek/deepseek-v4-flash"
+    config.llm.openrouter.model = "test/linkedin-model";
+    const out = await realGenerateCommentText("hello", { temperature: 0.5, num_predict: 50, system: "sys", reasoning: "low", model: "foreign/slug" });
+    const payloadOk = seen.body.model === "test/linkedin-model"
       && seen.body.temperature === 0.5 && seen.body.max_tokens === 50
       && !("reasoning_effort" in seen.body) && seen.body.stream === false;
     const urlOk = seen.url === "https://openrouter.ai/api/v1/chat/completions" && seen.auth === "Bearer test-key";
@@ -289,69 +290,46 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
     const out2 = await realGenerateCommentText("hello", { temperature: 0.2 });
     svc.generateTextViaNvidia = realVia;
     config.llm.useLocal = saveLocal;
+    config.llm.openrouter.model = saveModel;
     global.fetch = realFetch;
     if (out2 === "legacy reply" && legacyOpts && typeof legacyOpts.model === "string") { passed++; console.log("PASS | openrouter: keyless falls back to legacy comment model"); }
     else { failed++; console.log(`FAIL | openrouter: keyless fallback | out=${out2} opts=${JSON.stringify(legacyOpts)}`); }
   }
-  // Gemini-direct provider + chain: Gemini first, OpenRouter second, legacy last.
+  // LinkedIn post chain: OpenRouter first, NVIDIA on failure, never Gemini.
   {
     const config = require("./config");
     const realFetch = global.fetch;
-    const save = { gm: config.llm.gemini.apiKey, gmm: config.llm.gemini.model, or: config.llm.openrouter.apiKey, nv: config.llm.nvidia.apiKey, local: config.llm.useLocal };
+    const realVia = svc.generateTextViaNvidia;
+    const save = { or: config.llm.openrouter.apiKey, orm: config.llm.openrouter.model, nv: config.llm.nvidia.apiKey, local: config.llm.useLocal };
     config.llm.useLocal = false;
-    config.llm.gemini.model = "gemini-2.5-flash";
     try {
-      // 1. Payload shape: header auth (never URL), systemInstruction, generationConfig, usage metrics.
-      let seen = {};
-      global.fetch = async (url, opts) => {
-        seen = { url: String(url), hdr: opts?.headers?.["x-goog-api-key"], body: JSON.parse(opts?.body || "{}") };
-        return { ok: true, status: 200, json: async () => ({ candidates: [{ content: { parts: [{ text: "  gemini reply  " }] } }], usageMetadata: { promptTokenCount: 100, candidatesTokenCount: 20 } }) };
-      };
-      config.llm.gemini.apiKey = "test-gem-key";
-      const m0 = svc.getMetrics();
-      const out = await svc.generateTextViaGemini("hello", { temperature: 0.5, num_predict: 50, system: "sys", model: "gemini-2.5-flash-lite" });
-      const m1 = svc.getMetrics();
-      const bodyOk = seen.body.systemInstruction?.parts?.[0]?.text === "sys"
-        && seen.body.contents?.[0]?.parts?.[0]?.text === "hello"
-        && seen.body.generationConfig?.temperature === 0.5 && seen.body.generationConfig?.maxOutputTokens === 50;
-      const secOk = seen.url === "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent"
-        && seen.hdr === "test-gem-key" && !seen.url.includes("test-gem-key")
-        && ((m1.geminiPromptTokens || 0) - (m0.geminiPromptTokens || 0)) === 100
-        && ((m1.geminiCompletionTokens || 0) - (m0.geminiCompletionTokens || 0)) === 20;
-      if (out === "gemini reply" && bodyOk && secOk) { passed++; console.log("PASS | gemini: payload shape + header auth + metrics"); }
-      else { failed++; console.log(`FAIL | gemini: payload | out=${out} bodyOk=${bodyOk} secOk=${secOk}`); }
-      // 2. Blocked prompt throws after a SINGLE fetch (safety blocks never retry).
-      let calls = 0;
-      global.fetch = async () => { calls++; return { ok: true, status: 200, json: async () => ({ promptFeedback: { blockReason: "SAFETY" } }) }; };
-      let threwBlocked = false;
-      try { await svc.generateTextViaGemini("x", {}); } catch (e) { threwBlocked = /blocked/i.test(e.message); }
-      if (threwBlocked && calls === 1) { passed++; console.log("PASS | gemini: safety block throws without retry"); }
-      else { failed++; console.log(`FAIL | gemini: block | threw=${threwBlocked} calls=${calls}`); }
-      // 3. Chain: Gemini 500s -> OpenRouter serves.
-      global.fetch = async (url) => {
-        if (String(url).includes("generativelanguage")) return { ok: false, status: 500, text: async () => "overloaded" };
-        return { ok: true, status: 200, json: async () => ({ choices: [{ message: { content: "or fallback" } }], usage: { prompt_tokens: 1, completion_tokens: 1 } }) };
-      };
-      config.llm.openrouter.apiKey = "test-or-key";
-      const chained = await realGenerateText("chain me", {});
-      if (chained === "or fallback") { passed++; console.log("PASS | chain: gemini 500 -> openrouter serves"); }
-      else { failed++; console.log(`FAIL | chain: fallback | out=${chained}`); }
-      // 4. Chain exhausts to legacy: no keys anywhere -> fast NVIDIA-unavailable throw (skip engages).
-      config.llm.gemini.apiKey = ""; config.llm.openrouter.apiKey = ""; config.llm.nvidia.apiKey = "";
-      let threwLegacy = false;
-      try { await realGenerateText("chain me", {}); } catch (e) { threwLegacy = /NVIDIA|missing/i.test(e.message); }
-      if (threwLegacy) { passed++; console.log("PASS | chain: exhaustion throws for skip logic"); }
+      let fetches = 0, nvidiaCalls = 0;
+      svc.generateTextViaNvidia = async () => { nvidiaCalls++; return "nvidia post"; };
+      config.llm.openrouter.apiKey = "test-or-key"; config.llm.openrouter.model = "test/linkedin-model";
+      global.fetch = async () => { fetches++; return { ok: true, status: 200, json: async () => ({ choices: [{ message: { content: "openrouter post" } }] }) }; };
+      const first = await svc.generateLinkedInText("write", {});
+      if (first === "openrouter post" && nvidiaCalls === 0) { passed++; console.log("PASS | chain: openrouter serves posts first"); }
+      else { failed++; console.log(`FAIL | chain: openrouter first | out=${first} nvidia=${nvidiaCalls}`); }
+      global.fetch = async () => ({ ok: false, status: 400, text: async () => "bad model" });
+      const fell = await svc.generateLinkedInText("write", {});
+      if (fell === "nvidia post") { passed++; console.log("PASS | chain: openrouter error -> nvidia serves"); }
+      else { failed++; console.log(`FAIL | chain: fallback | out=${fell}`); }
+      config.llm.openrouter.model = ""; fetches = 0;
+      const noModel = await svc.generateLinkedInText("write", {});
+      if (noModel === "nvidia post" && fetches === 0) { passed++; console.log("PASS | chain: no OPENROUTER_MODEL skips openrouter"); }
+      else { failed++; console.log(`FAIL | chain: no model | out=${noModel} fetches=${fetches}`); }
+      svc.generateTextViaNvidia = realVia;
+      config.llm.openrouter.apiKey = ""; config.llm.nvidia.apiKey = "";
+      let threw = false;
+      try { await svc.generateLinkedInText("write", {}); } catch (e) { threw = /NVIDIA|missing/i.test(e.message); }
+      if (threw) { passed++; console.log("PASS | chain: exhaustion throws for skip logic"); }
       else { failed++; console.log("FAIL | chain: exhaustion did not throw"); }
-      // 5. Pure helpers: foreign slugs never leak to Gemini; flash pricing math.
-      const pickOk = svc.geminiModelFor("meta/llama-3.2-11b-vision-instruct", "gemini-2.5-flash-lite") === "gemini-2.5-flash-lite"
-        && svc.geminiModelFor("gemini-2.0-flash", "X") === "gemini-2.0-flash";
-      const costOk = Math.abs(svc.commentCostUsd(1000000, 1000000, "gemini-2.5-flash") - 2.80) < 1e-9;
-      if (pickOk && costOk) { passed++; console.log("PASS | gemini: model picker + pricing"); }
-      else { failed++; console.log(`FAIL | gemini: helpers | pick=${pickOk} cost=${costOk}`); }
+      if (!("gemini" in config.llm) && typeof svc.generateTextViaGemini === "undefined") { passed++; console.log("PASS | gemini fully removed"); }
+      else { failed++; console.log("FAIL | gemini still present"); }
     } finally {
-      config.llm.gemini.apiKey = save.gm; config.llm.gemini.model = save.gmm;
-      config.llm.openrouter.apiKey = save.or; config.llm.nvidia.apiKey = save.nv;
-      config.llm.useLocal = save.local; global.fetch = realFetch;
+      svc.generateTextViaNvidia = realVia;
+      config.llm.openrouter.apiKey = save.or; config.llm.openrouter.model = save.orm;
+      config.llm.nvidia.apiKey = save.nv; config.llm.useLocal = save.local; global.fetch = realFetch;
     }
   }
   // SIMPLE MODE: raw passthrough, would-be-rejected drafts ship verbatim.
@@ -366,7 +344,7 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
   }
   // Cost estimator: your preview run (~39.6k prompt + ~0.5k completion tok) at DeepSeek V4 Flash rates.
   {
-    const usd = svc.commentCostUsd(39588, 538);
+    const usd = svc.commentCostUsd(39588, 538, "deepseek/deepseek-v4-flash");
     const fallback = svc.commentCostUsd(1000, 100, "some/unknown-model");
     if (Math.abs(usd - 0.005693) < 0.0005 && Math.abs(fallback - 0.0004) < 1e-9) { passed++; console.log(`PASS | cost estimator ($${usd.toFixed(4)})`); }
     else { failed++; console.log(`FAIL | cost estimator | usd=${usd} fallback=${fallback}`); }
@@ -441,6 +419,41 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
     const got = LinkedInService.isFeedModuleText(text);
     if (got === wantModule) { passed++; console.log(`PASS | module: ${name}`); }
     else { failed++; console.log(`FAIL | module: ${name} | got=${got}(want ${wantModule})`); }
+  }
+  // LinkedIn POST gates (agentEngine.deterministicValidate): what must never ship.
+  {
+    const AgentEngine = require("./src/services/agentEngine");
+    const eng = new AgentEngine(svc);
+    const plan = { format: { min: 400, max: 1200 }, recentTitles: ["Why payment webhooks fail HMAC signature verification"] };
+    const body = "I shipped a retry budget for my payment ops agent last week.\n\n" + "It kept hammering a failed settlement query until the provider rate limited it. ".repeat(4) + "\n\nWhat guardrail did you add after your first agent outage?";
+    const cases = [
+      ["good post passes", body, true],
+      ["AI slop phrase", body.replace("I shipped", "In today's fast-paced world, I shipped"), false],
+      ["engagement bait", body.replace(/What guardrail[^?]*\?/, "Comment YES if you agree?"), false],
+      ["link in body", body.replace("last week.", "last week. https://github.com/Drix10/payscope"), false],
+      ["hashtag in body", body.replace("last week.", "last week. #AI"), false],
+      ["no closing question", body.replace(/\n\nWhat guardrail[^?]*\?/, ""), false],
+      ["fake seniority", body.replace("I shipped", "As a senior engineer, I shipped"), false],
+      ["em dash", body.replace("last week.", "last week \u2014 finally."), false],
+      ["repeats an old opening", "Why payment webhooks fail HMAC signature verification in Express.\n\n" + body, false],
+      ["too short for the shape", "Short take.\n\nWhat would you do?", false],
+    ];
+    for (const [name, text, wantOk] of cases) {
+      const errs = eng.deterministicValidate(text, plan).errors;
+      if ((errs.length === 0) === wantOk) { passed++; console.log(`PASS | post-gate: ${name}`); }
+      else { failed++; console.log(`FAIL | post-gate: ${name} | errors=${errs.join("; ")}`); }
+    }
+    // Rotation: 20 consecutive plans never repeat a type back to back and use every type.
+    let hist = [], prev = null, repeats = 0; const seenTypes = new Set();
+    const arts = [1, 2, 3].map(i => ({ title: `AI agents topic ${i}`, fullContent: "LLM agents inference code developer API model benchmark ".repeat(20) }));
+    for (let i = 0; i < 20; i++) {
+      const p = eng.plan({ recentHistory: hist, multiRepoPulse: { repos: [{ name: "r", recentCommits: [{ message: "fix" }], hasFreshCommits: true }] }, experience: [{}] }, arts);
+      if (p.pillar.id === prev) repeats++;
+      prev = p.pillar.id; seenTypes.add(p.pillar.id);
+      hist = [{ postType: p.pillar.id, format: p.formatId, hookStyle: p.hookStyle }, ...hist];
+    }
+    if (repeats === 0 && seenTypes.size >= 6) { passed++; console.log(`PASS | post rotation (${seenTypes.size} types in 20 posts, no back-to-back repeats)`); }
+    else { failed++; console.log(`FAIL | post rotation | repeats=${repeats} types=${seenTypes.size}`); }
   }
   console.log(`\n${passed} passed, ${failed} failed.`);
   process.exit(failed ? 1 : 0);

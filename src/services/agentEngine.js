@@ -64,6 +64,10 @@ const HOOK_STYLES = [
 const AI_SLOP = /\b(?:game[- ]changer|in today's (?:fast-paced|digital|ever)|let's dive|dive in(?:to)?|delve|unlock(?:ing)? the|the harsh (?:truth|reality)|let that sink in|here's the thing|buckle up|a testament to|navigat(?:e|ing) the (?:complex|ever)|ever-evolving|landscape of|revolutioniz|supercharge|synerg|thought leader|trust the process|start with the basics|keep grinding)\b/i;
 const ENGAGEMENT_BAIT = /\b(?:comment ["']?(?:yes|below|me)|like if|repost if|agree\?|thoughts\?$|drop a|tag someone|follow me for)\b/i;
 
+// Audience fit: an AI/software engineer's followers. Scraped folders also carry
+// lifestyle and generic business threads that would read as off-brand.
+const ON_BRAND = /\b(?:AI|LLMs?|GPT|models?|agents?|agentic|inference|training|fine-?tun\w*|RAG|embeddings?|GPUs?|code|coding|developers?|engineer\w*|software|API|open[- ]source|GitHub|startups?|founders?|SaaS|security|vulnerabilit\w*|data|database|cloud|infra\w*|compiler|robot\w*|automation|benchmark\w*|latency|Python|TypeScript|Rust)\b/gi;
+
 const tokens = (s) => new Set(String(s || "").toLowerCase().replace(/[^a-z0-9 ]+/g, " ").split(/\s+/).filter(w => w.length > 3));
 const jaccard = (a, b) => {
   const A = tokens(a), B = tokens(b);
@@ -103,7 +107,9 @@ class AgentEngine {
       .map((a, idx) => ({ ...a, idx, body: plain(a.fullContent || a.snippet || "") }))
       .filter(a => a.title && a.body.length > 200)
       .filter(a => !recentTitles.some(t => jaccard(t, a.title) > 0.45))
-      .sort((a, b) => b.body.length - a.body.length)
+      .map(a => ({ ...a, relevance: (`${a.title} ${a.body}`.match(ON_BRAND) || []).length }))
+      .filter(a => a.relevance >= 3)
+      .sort((a, b) => b.relevance - a.relevance || b.body.length - a.body.length)
       .slice(0, limit);
   }
 
@@ -233,7 +239,7 @@ Return ONLY JSON:
   async generateDraft(plan, facts, feedback = []) {
     const data = await this.llm.withJsonRetry(
       async () => {
-        const res = await this.llm.generateLinkedInJson(this.buildPrompt(plan, facts, feedback));
+        const res = await this.llm.generateLinkedInJson(this.buildPrompt(plan, facts, feedback), "json", { temperature: 0.8, num_predict: 1500 });
         if (!res || typeof res.post !== "string" || !res.post.trim()) throw new Error("draft JSON missing post");
         return res;
       },
@@ -328,8 +334,9 @@ Return ONLY JSON: {"invented":boolean,"robotic":boolean,"score":number,"fix":"on
   }
 
   async runAutonomousPipeline(options = {}) {
-    const { curatedArticles = [], maxRefineAttempts = 1 } = options;
+    const { curatedArticles = [], maxRefineAttempts = 1, dryRun = false, recentHistory = null } = options;
     const snapshot = await agentContext.compileContextSnapshot([]);
+    if (Array.isArray(recentHistory)) snapshot.recentHistory = recentHistory;
     const plan = this.plan(snapshot, curatedArticles);
     const facts = this.buildFacts(snapshot, plan);
     logger.info(`AgentEngine: plan pillar=${plan.pillar.id} format=${plan.formatId} hook="${plan.hookStyle}" (articles ${plan.articles.length}, commit repos ${plan.commitRepos.length}).`);
@@ -360,16 +367,17 @@ Return ONLY JSON: {"invented":boolean,"robotic":boolean,"score":number,"fix":"on
     const score = verdict ? verdict.score : 50;
     const errors = passed ? [] : [...det.errors, ...(verdict ? feedback : [])];
 
-    if (passed) {
-      agentContext.recordPost({
-        postType: plan.pillar.id,
-        format: plan.formatId,
-        hookStyle: plan.hookStyle,
-        topicTitle: draft.title,
-        hook: body.split("\n")[0].slice(0, 160),
-        repo: draft.repo || "general",
-      });
-    } else {
+    const record = {
+      postType: plan.pillar.id,
+      format: plan.formatId,
+      hookStyle: plan.hookStyle,
+      topicTitle: draft.title,
+      hook: body.split("\n")[0].slice(0, 160),
+      repo: draft.repo || "general",
+    };
+    if (passed && !dryRun) {
+      agentContext.recordPost(record);
+    } else if (!passed) {
       logger.warn(`AgentEngine: post did not pass (${errors.join("; ") || "critic"}); not recorded.`);
     }
 
@@ -396,6 +404,7 @@ Return ONLY JSON: {"invented":boolean,"robotic":boolean,"score":number,"fix":"on
       qualityScore: score,
       validationErrors: errors,
       sourceContext: { pillar: plan.pillar.id, format: plan.formatId, hookStyle: plan.hookStyle },
+      historyRecord: record,
     };
   }
 }
