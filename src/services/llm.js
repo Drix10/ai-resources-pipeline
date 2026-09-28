@@ -2971,6 +2971,9 @@ Strict rules:
 - COVERAGE IS A HARD REQUIREMENT: create exactly ${groupedThreads.length} article sections, one for every numbered source. Do not choose a favourite, omit a source, combine unrelated sources, or turn this into a one-item roundup.
 - Do not repeat content or links within a single article.
 - Separate distinct articles with "---" and a newline.
+- DISCOVERABILITY: the Specific Topic in each heading must name the actual tool, company, model or technique in the words people type into search. No vague or clickbait headings.
+- The first sentence of each introduction must name that subject and say, in plain words, why a builder should care. It doubles as the search snippet.
+- Write for a smart reader new to this niche: define jargon in a few words the first time it appears.
 - The source content is the only authority. Do not reuse a topic, claim, title, or prose from these instructions.
 
 ${feedbackBlock}
@@ -3144,6 +3147,9 @@ Strict rules:
 - COVERAGE IS A HARD REQUIREMENT: create exactly ${groupedThreads.length + curatedLinkedinPosts.length} article sections, one for every numbered source. Do not select a favourite subset, omit a source, or publish a one-item roundup.
 - Do not repeat content or links within a single article.
 - Separate distinct articles with "---" and a newline.
+- DISCOVERABILITY: the Specific Topic in each heading must name the actual tool, company, model or technique in the words people type into search. No vague or clickbait headings.
+- The first sentence of each introduction must name that subject and say, in plain words, why a builder should care. It doubles as the search snippet.
+- Write for a smart reader new to this niche: define jargon in a few words the first time it appears.
 - The source content is the only authority. Do not reuse a topic, claim, title, or prose from these instructions.
 
 ${feedbackBlock}

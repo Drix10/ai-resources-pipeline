@@ -229,25 +229,23 @@ const runEndofRunCuration = async (successfulArticles) => {
   if (successfulArticles.length > 0) {
     try {
       logger.info(`Starting LinkedIn Agentic Curation Flow for ${successfulArticles.length} raw files (flattening sub-articles)...`);
-      const flattenedArticles = llmService.splitArticlesIntoSubArticles(successfulArticles);
-      let selectedIndices = [0];
-      try {
-        selectedIndices = await llmService.selectBestArticlesForLinkedIn(flattenedArticles);
-      } catch (selectErr) {
-        logger.warn("LinkedIn Curation: LLM article selection failed, safely falling back to top article:", selectErr.message);
-        selectedIndices = [0];
-      }
-      logger.info(`LinkedIn Curation: Selected article indices: ${JSON.stringify(selectedIndices)}`);
-
-      const uniqueIndices = [...new Set(selectedIndices)];
-      const selectedArticles = uniqueIndices
-        .map(idx => flattenedArticles[idx])
-        .filter(art => !!art);
-
-      if (selectedArticles.length === 0) {
-        logger.warn("LinkedIn Curation: No articles were selected by the local LLM. Defaulting to the first available article.");
-        selectedArticles.push(flattenedArticles[0]);
-      }
+      const flattenedArticles = llmService.splitArticlesIntoSubArticles(successfulArticles).filter(Boolean);
+      // The agent engine picks its own source from the flattened list, so the LLM
+      // selection call only runs if we fall back to the legacy master-post path.
+      let legacySelection = null;
+      const selectForLegacy = async () => {
+        if (legacySelection) return legacySelection;
+        let selectedIndices = [0];
+        try {
+          selectedIndices = await llmService.selectBestArticlesForLinkedIn(flattenedArticles);
+        } catch (selectErr) {
+          logger.warn("LinkedIn Curation: LLM article selection failed, safely falling back to top article:", selectErr.message);
+        }
+        legacySelection = [...new Set(selectedIndices)].map(idx => flattenedArticles[idx]).filter(Boolean);
+        if (legacySelection.length === 0) legacySelection = [flattenedArticles[0]];
+        return legacySelection;
+      };
+      const selectedArticles = flattenedArticles;
 
       if (selectedArticles.length > 0) {
         let slideImagePath = null;
@@ -261,15 +259,11 @@ const runEndofRunCuration = async (successfulArticles) => {
           for (let attempt = 1; attempt <= maxGenerationAttempts; attempt++) {
             logger.info(`LinkedIn Curation: Generating mega post draft (attempt ${attempt}/${maxGenerationAttempts})...`);
             try {
-              if (typeof llmService.generateAutonomousFounderPost === "function") {
-                megaPostData = await llmService.generateAutonomousFounderPost({ curatedArticles: selectedArticles });
-              } else {
-                megaPostData = await llmService.generateLinkedInMasterPost(selectedArticles, 3, validationFeedback);
-              }
+              megaPostData = await llmService.generateAutonomousFounderPost({ curatedArticles: selectedArticles.slice(0, 12) });
             } catch (generationError) {
               logger.warn(`LinkedIn Curation: Autonomous generation failed (${generationError.message}), attempting standard master post...`);
               try {
-                megaPostData = await llmService.generateLinkedInMasterPost(selectedArticles, 3, validationFeedback);
+                megaPostData = await llmService.generateLinkedInMasterPost(await selectForLegacy(), 3, validationFeedback);
               } catch (fallbackError) {
                 if (fallbackError.code !== "LOCAL_LLM_QUALITY_REJECTED" || attempt === maxGenerationAttempts) {
                   throw fallbackError;
@@ -279,8 +273,9 @@ const runEndofRunCuration = async (successfulArticles) => {
                 continue;
               }
             }
-            const githubUrl = selectedArticles[0].githubUrl || "";
-            const sourceBulletCount = llmService.countSourceBullets(selectedArticles[0].fullContent || "");
+            const primarySource = (megaPostData && megaPostData.sourceArticle) || (legacySelection && legacySelection[0]) || selectedArticles[0];
+            const githubUrl = primarySource.githubUrl || "";
+            const sourceBulletCount = llmService.countSourceBullets(primarySource.fullContent || "");
 
             // Prefer the validation that ran inside generateLinkedInMasterPost (with hook-filtered manual points).
             const internalValidation = megaPostData && megaPostData.isValid !== undefined;
@@ -314,7 +309,7 @@ const runEndofRunCuration = async (successfulArticles) => {
               megaPostData.title,
               megaPostData.slidePoints,
               megaPostData.slideTagline,
-              "github.com/Drix10/ai-resources",
+              megaPostData.primaryRepo ? `github.com/Drix10/${megaPostData.primaryRepo}` : "blogs.drix10.com",
               {
                 structureName: megaPostData.chosenStructure,
                 diagramSteps: megaPostData.diagramSteps,
@@ -330,7 +325,10 @@ const runEndofRunCuration = async (successfulArticles) => {
           if (megaPostData.postText) {
             // 1. ALWAYS save the insight post as an article in Knowledge Hub "LinkedIn Insights"
             const timestamp = Date.now();
-            const seoSlug = String(megaPostData.title || selectedArticles[0]?.title || "technical-insight")
+            const sourceArticle = "sourceArticle" in megaPostData
+              ? megaPostData.sourceArticle
+              : (legacySelection && legacySelection[0]) || null;
+            const seoSlug = String(megaPostData.title || sourceArticle?.title || "technical-insight")
               .toLowerCase()
               .replace(/[^a-z0-9]+/g, "-")
               .replace(/^-|-$/g, "")
@@ -356,8 +354,7 @@ ${megaPostData.postText}
 
 ---
 ### 🔗 Reference & Source Breakdown
-- **Source Material**: [${selectedArticles[0]?.title || "Reference Breakdown"}](${selectedArticles[0]?.githubUrl || "#"})
-- **Recommended Visual Asset**: ${megaPostData.recommendedVisual || megaPostData.slideTagline || "Screenshot of terminal or code"}
+${sourceArticle?.githubUrl ? `- **Source Material**: [${sourceArticle.title}](${sourceArticle.githubUrl})\n` : ""}- **Recommended Visual Asset**: ${megaPostData.recommendedVisual || megaPostData.slideTagline || "Screenshot of terminal or code"}
 - **First Comment**: ${megaPostData.commentText || "Full breakdown in comments"}
 - **Syndicated Channel**: LinkedIn & Personal Blog Hub
 `;
@@ -372,8 +369,8 @@ ${megaPostData.postText}
               fs.writeFileSync(path.join(rootInsightsDir, blogFileName), blogMarkdownContent, "utf8");
               logger.info(`LinkedIn Curation: Saved insight article to blog Knowledge Hub: blog/content/LinkedIn Insights/${blogFileName}`);
 
-              const recentTopic = megaPostData.sourceTitle || selectedArticles[0].title;
-              llmService.saveRecentTopic(recentTopic);
+              const recentTopic = megaPostData.sourceTitle || sourceArticle?.title;
+              if (recentTopic) llmService.saveRecentTopic(recentTopic);
             } catch (saveErr) {
               logger.warn(`LinkedIn Curation: Failed to save insight article to blog: ${saveErr.message}`);
             }
@@ -384,7 +381,9 @@ ${megaPostData.postText}
               syndicationService.syndicateMarkdownArticle({
                 title: megaPostData.title || "LinkedIn Technical Insight",
                 markdown: blogMarkdownContent,
-                tags: ["linkedin", "ai", "architecture", "coding"],
+                tags: (megaPostData.hashtags || []).length
+                  ? megaPostData.hashtags.map(h => String(h).replace(/^#/, "").toLowerCase())
+                  : ["ai", "programming", "webdev", "career"],
                 category: "LinkedIn Insights",
                 relativePath: `LinkedIn Insights/${blogFileName}`,
               }).catch(err => logger.warn(`Syndication error for LinkedIn Insight (non-fatal): ${err.message}`));
