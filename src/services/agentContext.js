@@ -1,6 +1,5 @@
 const fs = require("fs");
 const path = require("path");
-const { execSync } = require("child_process");
 const config = require("../../config");
 const { logger } = require("../utils/helpers");
 
@@ -60,37 +59,6 @@ class AgentContextService {
       logger.warn(`AgentContextService: Failed to safe-read ${path.basename(filePath)}: ${err.message}`);
     }
     return fallback;
-  }
-
-  /**
-   * Reads local git commit history and diff stats from current working repo.
-   */
-  getLocalGitPulse(limit = 6) {
-    try {
-      const gitLogCmd = `git log -n ${limit} --pretty=format:"%h|%s|%cr"`;
-      const rawLog = execSync(gitLogCmd, { encoding: "utf8", timeout: 10000, stdio: ["ignore", "pipe", "ignore"] }).trim();
-      if (!rawLog) return { recentCommits: [], touchedSummary: "" };
-
-      const commits = rawLog.split("\n").map(line => {
-        const [hash, message, relativeTime] = line.split("|");
-        return { hash, message, relativeTime };
-      }).filter(c => c.message && !c.message.startsWith("Merge"));
-
-      let touchedSummary = "";
-      try {
-        touchedSummary = execSync("git diff --stat HEAD~2 HEAD", { encoding: "utf8", timeout: 10000, stdio: ["ignore", "pipe", "ignore"] }).trim();
-      } catch {
-        // shallow clone diff fallback
-      }
-
-      return {
-        recentCommits: commits,
-        touchedSummary: touchedSummary.slice(0, 500)
-      };
-    } catch (err) {
-      logger.warn(`AgentContextService: Failed to retrieve local git pulse: ${err.message}`);
-      return { recentCommits: [], touchedSummary: "" };
-    }
   }
 
   /**
@@ -276,7 +244,7 @@ class AgentContextService {
           timestamp: new Date().toISOString()
         },
         ...history.filter(h => h && h.topicTitle !== record.topicTitle)
-      ].slice(0, 12);
+      ].slice(0, 30);
       this.safeWriteJson(this.historyPath, updated);
     } catch (err) {
       logger.warn(`AgentContextService: Failed to record post history: ${err.message}`);
@@ -289,65 +257,11 @@ class AgentContextService {
   }
 
   /**
-   * Concrete Engineering Archetypes Grounded in Real Experience:
-   * Every archetype focuses on a real tool, concrete mechanism, or architectural lesson
-   * directly from Drishtant's projects.
-   */
-  getPostTypes() {
-    return [
-      {
-        id: "realtime-websocket-architecture",
-        label: "WebSockets, Heartbeats & Redis Pub/Sub at Scale (Drix10/idolchat)",
-        targetAudience: "Real-time systems engineers, mobile backend architects, WebSocket devs",
-        focus: "Building the idolchat real-time backend. Handling mobile WebSocket silent drops without onclose events, implementing 30-second ping/pong connection heartbeats, and scaling state synchronization with Redis pub/sub to prevent message dropouts or Prisma schema write bottlenecks.",
-        primaryRepo: "idolchat"
-      },
-      {
-        id: "multi-agent-crypto-trading",
-        label: "Multi-Agent Consensus & WebSocket Orderbooks (Drix10/hypothesis-arena)",
-        targetAudience: "Quantitative systems engineers, distributed systems builders, multi-agent AI devs",
-        focus: "Architecting 4 autonomous LLM agents debating WEEX crypto futures in hypothesis-arena. Processing high-frequency streaming WebSocket orderbook feeds without thread starvation, managing LibSQL/Turso DB write lock contention, and preventing stale state execution across agent consensus rounds.",
-        primaryRepo: "hypothesis-arena"
-      },
-      {
-        id: "algorithmic-hedging-risk-engine",
-        label: "Algorithmic Hedging, Delta Neutrality & Latency (miro-hedge)",
-        targetAudience: "Quant developers, algorithmic trading engineers, financial systems builders",
-        focus: "Designing low-latency algorithmic hedging engines in miro-hedge. Managing automated delta-neutral balancing, slippage calculation, order execution pipelines, and risk-limit triggers across volatile market spreads without blocking asynchronous order-routing threads.",
-        primaryRepo: "miro-hedge"
-      },
-      {
-        id: "fintech-webhook-signatures",
-        label: "Payment Webhooks & Raw Body Signatures (Drix10/intent-canvas)",
-        targetAudience: "Full-stack developers, SaaS founders, backend engineers",
-        focus: "Why payment webhooks (like Dodo Payments) silently fail HMAC signature verification when express.json() middleware parses the body before hashing. Explain how to capture the immutable binary Buffer via express.json({ verify: (req, res, buf) => req.rawBody = buf }), verify HMAC using crypto.createHmac and crypto.timingSafeEqual, and only then pass req.body into Zod schema validation.",
-        primaryRepo: "intent-canvas"
-      },
-      {
-        id: "appsec-ast-parsing",
-        label: "AST Node Traversal vs Dumb Regex (Drix10/sentinal)",
-        targetAudience: "Application security engineers, CLI developers, TypeScript devs",
-        focus: "Why regex-based code scanners spam false positives. How parsing the Abstract Syntax Tree (AST) with Gemini AI maps real taint flow from user input to sinks, producing zero-noise vulnerability patches in sentinal.",
-        primaryRepo: "sentinal"
-      },
-      {
-        id: "c-memory-alignment",
-        label: "Struct Padding & 64-Byte Cache Lines (Drix10/Grind)",
-        targetAudience: "C/C++ developers, systems programmers, low-level engineers",
-        focus: "Why memorizing LeetCode graph tricks is useless if you don't understand raw memory in C. How careless struct member ordering turns a 16-byte payload into 32 bytes due to word alignment, doubling L1 cache line misses.",
-        primaryRepo: "Grind"
-      }
-    ];
-  }
-
-  /**
    * Compiles the comprehensive all-source context snapshot.
    */
   async compileContextSnapshot(curatedArticles = []) {
-    const localPulse = this.getLocalGitPulse();
     const multiRepoPulse = await this.getMultiRepoGitPulse();
     const profile = this.getBuilderProfile();
-    const postTypes = this.getPostTypes();
     const recentHistory = this.getRecentHistory();
 
     return {
@@ -358,9 +272,7 @@ class AgentContextService {
       experience: profile.experience || [],
       verifiedProjects: profile.verifiedProjects || [],
       strictToneRules: profile.strictToneRules || {},
-      localPulse,
       multiRepoPulse,
-      postTypes,
       recentHistory,
       curatedArticles: (curatedArticles || []).slice(0, 5).map(a => ({
         title: a.title,

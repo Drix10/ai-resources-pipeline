@@ -32,23 +32,12 @@ const config = {
     openrouter: {
       apiKey: process.env.OPENROUTER_API_KEY || "",
       baseUrl: (process.env.OPENROUTER_BASE_URL || "https://openrouter.ai/api/v1").replace(/\/$/, ""),
-      // Reply + critic model: DeepSeek V4 Flash wins the bake-off (constraint-
-      // following per dollar; $0.14/$0.28 per 1M tok). Flash-lite drafts restate;
-      // DeepSeek takes stances. Swap with OPENROUTER_COMMENT_MODEL.
-      commentModel: process.env.OPENROUTER_COMMENT_MODEL || "deepseek/deepseek-v4-flash",
-      // Main-model fallback for article-scale jobs routed through OpenRouter
-      // (the post pipeline). Any explicit options.model slug passes through instead.
-      model: process.env.OPENROUTER_MODEL || "google/gemini-2.5-flash",
+      // One model for all LinkedIn writing: posts, feed comments and both critics.
+      // Use the exact slug from openrouter.ai/models. Empty = skip to NVIDIA.
+      model: process.env.OPENROUTER_MODEL || "",
+      // "input,output" USD per 1M tokens, for run-cost logs only.
+      pricePerM: String(process.env.OPENROUTER_PRICE_PER_M || "").split(",").map(Number).filter(n => Number.isFinite(n) && n >= 0),
       requestTimeoutMs: parsePositiveInteger(process.env.OPENROUTER_REQUEST_TIMEOUT_MS, 120000),
-    },
-    gemini: {
-      apiKey: process.env.GEMINI_API_KEY || "",
-      // Direct Google AI Studio REST. FIRST in the provider chain for all LinkedIn
-      // LLM work (replies + post pipeline): fastest round-trip, cheapest per token.
-      // Auth goes in the x-goog-api-key header, never the URL (URLs leak into logs).
-      model: process.env.GEMINI_MODEL || "gemini-2.5-flash",
-      commentModel: process.env.GEMINI_COMMENT_MODEL || "gemini-2.5-flash-lite",
-      requestTimeoutMs: parsePositiveInteger(process.env.GEMINI_REQUEST_TIMEOUT_MS, 120000),
     },
   },
   discord: {

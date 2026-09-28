@@ -92,12 +92,9 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
     const m1 = llmService.getMetrics();
     const d = (k) => (Number(m1[k]) || 0) - (Number(m0[k]) || 0);
     const orPrompt = d("openrouterPromptTokens"), orCompletion = d("openrouterCompletionTokens");
-    const gmPrompt = d("geminiPromptTokens"), gmCompletion = d("geminiCompletionTokens");
     const nvPrompt = d("nvidiaPromptTokens"), nvCompletion = d("nvidiaCompletionTokens");
-    const gmModel = config.llm.gemini.model;
     return {
       openrouter: { prompt: orPrompt, completion: orCompletion, usd: llmService.commentCostUsd(orPrompt, orCompletion) },
-      gemini: { prompt: gmPrompt, completion: gmCompletion, usd: llmService.commentCostUsd(gmPrompt, gmCompletion, gmModel) },
       legacy: { prompt: nvPrompt, completion: nvCompletion },
     };
   };
@@ -241,7 +238,7 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
   }
 
   const cost = runCost();
-  logger.info(`feedEngage: run cost ~$${(cost.openrouter.usd + cost.gemini.usd).toFixed(4)} (Gemini $${cost.gemini.usd.toFixed(4)} ${cost.gemini.prompt}+${cost.gemini.completion} tok; OpenRouter $${cost.openrouter.usd.toFixed(4)} ${cost.openrouter.prompt}+${cost.openrouter.completion} tok; legacy ${cost.legacy.prompt}+${cost.legacy.completion} tok).`);
+  logger.info(`feedEngage: run cost ~$${cost.openrouter.usd.toFixed(4)} (OpenRouter ${cost.openrouter.prompt}+${cost.openrouter.completion} tok; NVIDIA ${cost.legacy.prompt}+${cost.legacy.completion} tok).`);
   return { commented, skipped, liked, previews, wouldLike, reason: dryRun ? "dry run - nothing posted or tracked" : "", cost };
 }
 

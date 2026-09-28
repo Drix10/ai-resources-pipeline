@@ -850,11 +850,11 @@ class LocalLLMService {
   commentCostUsd(promptTokens, completionTokens, model) {
     const table = {
       "deepseek/deepseek-v4-flash": [0.14, 0.28],
-      "google/gemini-2.5-flash-lite": [0.10, 0.40],
-      "gemini-2.5-flash-lite": [0.10, 0.40],
-      "gemini-2.5-flash": [0.30, 2.50],
     };
-    const [pi, po] = table[model || config.llm.openrouter.commentModel] || [0.30, 1.00];
+    const configured = config.llm.openrouter.pricePerM || [];
+    const [pi, po] = table[model || config.llm.openrouter.model]
+      || (!model && configured.length === 2 ? configured : null)
+      || [0.30, 1.00];
     return (Number(promptTokens) || 0) / 1e6 * pi + (Number(completionTokens) || 0) / 1e6 * po;
   }
 
@@ -1175,9 +1175,8 @@ class LocalLLMService {
     return new RegExp(`\\b${pattern}${optionalE}(s|ed|ing|ly|tion|ness|er|est|ance|ence|ment|ive|ize|ise|able|ible)?\\b`, 'i');
   }
 
-  // Default text route (X / article pipeline): local Ollama or plain NVIDIA.
-  // The Gemini -> OpenRouter -> NVIDIA chain lives ONLY in generateLinkedInText
-  // (LinkedIn post generation) and generateCommentText (comment system).
+  // Article pipeline: local Ollama or NVIDIA. LinkedIn writing goes through
+  // generateLinkedInText / generateCommentText (OpenRouter first, NVIDIA fallback).
   async generateText(prompt, options = {}) {
     this.recordMetric("llmCalls");
     if (this.isLocalMode()) {
@@ -1186,40 +1185,26 @@ class LocalLLMService {
     return this.generateTextViaNvidia(prompt, options);
   }
 
-  // LinkedIn post-generation route: Gemini-direct -> OpenRouter -> NVIDIA legacy.
-  // Each step throws when unusable; the last error propagates so callers'
-  // existing retry/skip logic engages. Nothing here ever returns placeholder
-  // text - a silent wrong answer is worse than a skip.
+  // LinkedIn posts: OpenRouter, then NVIDIA. The last error propagates so callers'
+  // retry/skip logic engages; never returns placeholder text.
   async generateLinkedInText(prompt, options = {}) {
     this.recordMetric("llmCalls");
     if (this.isLocalMode()) {
       return this.generateTextViaOllama(prompt, options);
     }
-    // Provider chain: Gemini-direct -> OpenRouter -> NVIDIA legacy.
-    if (config.llm.gemini.apiKey) {
+    if (this.openRouterReady()) {
       try {
-        return await this.generateTextViaGemini(prompt, options);
+        return await this.generateTextViaOpenRouter(prompt, options);
       } catch (e) {
-        logger.warn(`Gemini call failed (${e.message}), trying OpenRouter...`);
-      }
-    }
-    if (config.llm.openrouter.apiKey) {
-      try {
-        // Article-scale jobs need the main model, not the reply-only lite default.
-        return await this.generateTextViaOpenRouter(prompt, { ...options, model: options.model || config.llm.openrouter.model });
-      } catch (e) {
-        logger.warn(`OpenRouter call failed (${e.message}), falling back to legacy...`);
+        logger.warn(`OpenRouter post call failed (${e.message}), falling back to NVIDIA...`);
       }
     }
     return this.generateTextViaNvidia(prompt, options);
   }
 
-  // Model pickers: never send a foreign slug to a provider (guaranteed 400).
-  // Gemini only speaks gemini-*, OpenRouter takes any slug (provider 404s there
-  // just fall through to legacy, which owns the NVIDIA ids natively).
-  geminiModelFor(requested, fallback) {
-    if (/^(gemini|models\/)/i.test(String(requested || ""))) return String(requested);
-    return fallback || config.llm.gemini.model;
+  openRouterReady() {
+    const { apiKey, model } = config.llm.openrouter;
+    return Boolean(apiKey && apiKey.trim() && model && model.trim());
   }
 
   // Reply-system model: short constraint-following jobs run on the cheap comment
@@ -1407,27 +1392,16 @@ class LocalLLMService {
     throw lastError || new Error("All NVIDIA candidate models failed.");
   }
 
-  // Comment route: OpenRouter (DeepSeek V4 Flash default - best constraint-
-  // following per dollar in its class) -> Gemini-direct lite -> legacy comment
-  // model. Provider failure falls through silently - a sustained outage skips
-  // comments, never crashes the pipeline.
+  // Comments and critics: OpenRouter, then the cheap NVIDIA/local comment model.
+  // A sustained outage skips comments; it never crashes the pipeline.
   async generateCommentText(prompt, options = {}) {
-    if (config.llm.openrouter.apiKey) {
+    if (this.openRouterReady()) {
       try {
         return await this.generateTextViaOpenRouter(prompt, options);
       } catch (e) {
-        logger.warn(`OpenRouter comment call failed (${e.message}), trying Gemini...`);
+        logger.warn(`OpenRouter comment call failed (${e.message}), falling back to ${this.commentModelName()}.`);
       }
     }
-    if (config.llm.gemini.apiKey) {
-      try {
-        return await this.generateTextViaGemini(prompt, { ...options, model: this.geminiModelFor(options.model, config.llm.gemini.commentModel) });
-      } catch (e) {
-        logger.warn(`Gemini comment call failed (${e.message}), falling back to ${this.commentModelName()}.`);
-      }
-    }
-    // Last resort: legacy route directly (NOT via generateText - that would re-enter
-    // this chain and burn a main-model call for a comment-scale job).
     if (this.isLocalMode()) {
       return this.generateTextViaOllama(prompt, { ...options, model: this.commentModelName() });
     }
@@ -1435,14 +1409,14 @@ class LocalLLMService {
   }
 
   async generateTextViaOpenRouter(prompt, options = {}) {
-    const { baseUrl, apiKey, commentModel, requestTimeoutMs } = config.llm.openrouter;
-    if (!apiKey || !apiKey.trim()) {
-      const error = new Error("OPENROUTER_API_KEY is missing. Set it in .env to use OpenRouter for replies.");
+    const { baseUrl, apiKey, model: configuredModel, requestTimeoutMs } = config.llm.openrouter;
+    if (!this.openRouterReady()) {
+      const error = new Error("OPENROUTER_API_KEY or OPENROUTER_MODEL is missing in .env.");
       error.code = "OPENROUTER_UNAVAILABLE";
       throw error;
     }
-    const { temperature = 0.4, num_predict = 800, system, model, timeoutMs } = options;
-    const modelName = model || commentModel;
+    const { temperature = 0.4, num_predict = 800, system, timeoutMs } = options;
+    const modelName = configuredModel;
     const endpoint = `${baseUrl}/chat/completions`;
     const maxRetries = 2;
     let lastError = null;
@@ -1451,7 +1425,7 @@ class LocalLLMService {
       const requestTimeout = Math.max(requestTimeoutMs, typeof timeoutMs === "number" ? timeoutMs : 0);
       const timeout = setTimeout(() => controller.abort(), requestTimeout);
       try {
-        logger.info(`OpenRouter: generating comment with model "${modelName}" (attempt ${attempt}).`);
+        logger.info(`OpenRouter: generating with model "${modelName}" (attempt ${attempt}).`);
         // Clean OpenAI-compatible payload: no provider-specific extras (unknown
         // fields 400 on some providers). reasoning/think options stay out.
         const response = await fetch(endpoint, {
@@ -1465,7 +1439,7 @@ class LocalLLMService {
           body: JSON.stringify({
             model: modelName,
             messages: [
-              { role: "system", content: String(system || "You write short natural LinkedIn replies.") },
+              { role: "system", content: String(system || "You are a careful writer. Follow the instructions exactly and return only what is asked for.") },
               { role: "user", content: String(prompt || "").trim() || "No content provided." },
             ],
             temperature: typeof temperature === "number" ? temperature : 0.4,
@@ -1500,7 +1474,7 @@ class LocalLLMService {
       } catch (error) {
         lastError = error;
         if (error?.name === "AbortError") {
-          logger.warn(`OpenRouter: comment call timed out after ${requestTimeout}ms.`);
+          logger.warn(`OpenRouter: call timed out after ${requestTimeout}ms.`);
           break;
         }
         // Fail fast on client errors (bad key / bad payload never clear on retry).
@@ -1515,106 +1489,7 @@ class LocalLLMService {
         clearTimeout(timeout);
       }
     }
-    throw lastError || new Error("OpenRouter comment generation failed.");
-  }
-
-  // Direct Google AI Studio REST (docs: ai.google.dev/gemini-api/docs). Same retry
-  // shape as the NVIDIA/OpenRouter providers: AbortController timeout, 2 attempts,
-  // jittered backoff on 429/5xx, candidate fallback on unknown-model 404.
-  // Security: key travels ONLY in the x-goog-api-key header, never the URL;
-  // error bodies are sliced before logging and never contain the key.
-  async generateTextViaGemini(prompt, options = {}) {
-    const { apiKey, requestTimeoutMs } = config.llm.gemini;
-    if (!apiKey || !apiKey.trim()) {
-      const error = new Error("GEMINI_API_KEY is missing. Set it in .env to use Gemini-direct.");
-      error.code = "GEMINI_UNAVAILABLE";
-      throw error;
-    }
-    const { temperature = 0.4, num_predict = 2000, system, model, timeoutMs, format } = options;
-    const candidates = [this.geminiModelFor(model, config.llm.gemini.model), "gemini-2.5-flash"]
-      .filter((m, idx, arr) => m && arr.indexOf(m) === idx);
-    let lastError = null;
-    for (const modelName of candidates) {
-      logger.info(`Gemini: generating with model "${modelName}".`);
-      const maxRetries = 2;
-      for (let attempt = 1; attempt <= maxRetries; attempt++) {
-        const controller = new AbortController();
-        const requestTimeout = Math.max(requestTimeoutMs, typeof timeoutMs === "number" ? timeoutMs : 0);
-        const timeout = setTimeout(() => controller.abort(), requestTimeout);
-        try {
-          const userContent = String(prompt || "").trim() || "No content provided.";
-          const systemContent = (format === "json" || typeof format === "object")
-            ? `${system || SYSTEM_PROMPT || "You are an AI assistant."}\n\nCRITICAL MANDATORY DIRECTIVE: output ONLY a valid, parseable JSON object or array. No markdown backticks, explanations, preamble, or postscripts. Start directly with { or [ and end directly with } or ].`
-            : String(system || "You are a helpful assistant.");
-          const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "x-goog-api-key": apiKey,
-            },
-            signal: controller.signal,
-            body: JSON.stringify({
-              systemInstruction: { parts: [{ text: systemContent }] },
-              contents: [{ parts: [{ text: userContent }] }],
-              generationConfig: {
-                temperature: typeof temperature === "number" ? temperature : 0.4,
-                maxOutputTokens: typeof num_predict === "number" ? num_predict : 2000,
-              },
-            }),
-          });
-          if (!response.ok) {
-            const errText = await response.text();
-            if ((response.status === 404 || response.status === 400) && /not found|unsupported/i.test(errText)) {
-              logger.warn(`Gemini: model ${modelName} unavailable (${response.status}). Trying next candidate...`);
-              break;
-            }
-            if ((response.status === 429 || response.status >= 500) && attempt < maxRetries) {
-              this.recordMetric("llmRetries");
-              await this.sleepWithJitter(attempt * 2500);
-              continue;
-            }
-            const httpError = new Error(`Gemini generation failed (${response.status}): ${errText.slice(0, 200)}`);
-            httpError.status = response.status;
-            throw httpError;
-          }
-          const data = await response.json();
-          if (data?.promptFeedback?.blockReason) {
-            throw new Error(`Gemini blocked the prompt (${data.promptFeedback.blockReason}); not retryable here.`);
-          }
-          const parts = data?.candidates?.[0]?.content?.parts || [];
-          const rawContent = parts.map((p) => p?.text || "").join("");
-          if (!rawContent || typeof rawContent !== "string" || !rawContent.trim()) {
-            throw new Error(`Gemini returned empty response for ${modelName} (finishReason: ${data?.candidates?.[0]?.finishReason})`);
-          }
-          const usage = data?.usageMetadata || {};
-          const promptTokens = Number(usage.promptTokenCount) || 0;
-          const completionTokens = Number(usage.candidatesTokenCount) || 0;
-          this.recordMetric("geminiPromptTokens", promptTokens);
-          this.recordMetric("geminiCompletionTokens", completionTokens);
-          logger.info(`Gemini: tokens used - prompt: ${promptTokens}, completion: ${completionTokens}`);
-          return rawContent.trim();
-        } catch (error) {
-          lastError = error;
-          if (error?.name === "AbortError") {
-            logger.warn(`Gemini: call timed out after ${requestTimeout}ms.`);
-            break;
-          }
-          if (/blocked the prompt/i.test(error?.message || "")) break; // safety blocks never clear on retry
-          // Fail fast on client errors: 401/403 (bad key) can never clear by
-          // retrying or switching candidates; other 4xx break to the next candidate.
-          if (error?.status === 401 || error?.status === 403) throw error;
-          if (error?.status && error.status !== 429 && error.status < 500) break;
-          if (attempt < maxRetries && error?.code !== "GEMINI_UNAVAILABLE") {
-            this.recordMetric("llmRetries");
-            await this.sleepWithJitter(attempt * 2000);
-            continue;
-          }
-        } finally {
-          clearTimeout(timeout);
-        }
-      }
-    }
-    throw lastError || new Error("Gemini generation failed.");
+    throw lastError || new Error("OpenRouter generation failed.");
   }
 
   async generateJson(prompt, schema = "json") {
@@ -1628,11 +1503,12 @@ class LocalLLMService {
   }
 
   // LinkedIn post-generation JSON route: same chain as generateLinkedInText.
-  async generateLinkedInJson(prompt, schema = "json") {
+  async generateLinkedInJson(prompt, schema = "json", options = {}) {
     const rawText = await this.generateLinkedInText(prompt, {
       format: schema,
       temperature: 0,
       num_predict: 4096,
+      ...options,
     });
 
     return this.parseJsonSafely(rawText);
@@ -2971,6 +2847,9 @@ Strict rules:
 - COVERAGE IS A HARD REQUIREMENT: create exactly ${groupedThreads.length} article sections, one for every numbered source. Do not choose a favourite, omit a source, combine unrelated sources, or turn this into a one-item roundup.
 - Do not repeat content or links within a single article.
 - Separate distinct articles with "---" and a newline.
+- DISCOVERABILITY: the Specific Topic in each heading must name the actual tool, company, model or technique in the words people type into search. No vague or clickbait headings.
+- The first sentence of each introduction must name that subject and say, in plain words, why a builder should care. It doubles as the search snippet.
+- Write for a smart reader new to this niche: define jargon in a few words the first time it appears.
 - The source content is the only authority. Do not reuse a topic, claim, title, or prose from these instructions.
 
 ${feedbackBlock}
@@ -3144,6 +3023,9 @@ Strict rules:
 - COVERAGE IS A HARD REQUIREMENT: create exactly ${groupedThreads.length + curatedLinkedinPosts.length} article sections, one for every numbered source. Do not select a favourite subset, omit a source, or publish a one-item roundup.
 - Do not repeat content or links within a single article.
 - Separate distinct articles with "---" and a newline.
+- DISCOVERABILITY: the Specific Topic in each heading must name the actual tool, company, model or technique in the words people type into search. No vague or clickbait headings.
+- The first sentence of each introduction must name that subject and say, in plain words, why a builder should care. It doubles as the search snippet.
+- Write for a smart reader new to this niche: define jargon in a few words the first time it appears.
 - The source content is the only authority. Do not reuse a topic, claim, title, or prose from these instructions.
 
 ${feedbackBlock}
@@ -4983,32 +4865,6 @@ Return ONLY the comment text, or exactly SKIP.`;
       if (!check.isValid && retries > 0) {
         logger.warn(`LocalLLMService: feed comment rejected (${check.errors.join("; ")}), retrying...`);
         return this.draftFeedComment({ postAuthor, postText }, retries - 1, check.errors);
-      }
-      // Final retry exhausted and still invalid: fall back to simple mode for a
-      // usable comment rather than returning nothing. Simple mode skips all gates
-      // and asks for one natural sentence - the worst that comes out is a short
-      // genuine reaction, never hallucinated facts.
-      if (!check.isValid && retries === 0) {
-        logger.warn(`LocalLLMService: all gate retries exhausted, using simple-mode fallback.`);
-        const raw = await this.generateCommentText(
-          `Write a single short, natural LinkedIn reply (1 sentence, max 150 chars) to the post below. Sound like a real peer named Drishtant Ghosh: direct, specific, zero fluff, no hashtags, no emojis. Use the post's own words. Reply with only the text, or exactly SKIP.\n\nPOST BY ${author}:\n${cleanPost.slice(0, 600)}`,
-          { temperature: 0.75, num_predict: 180, system: "You write short natural LinkedIn replies as a software engineer." }
-        ).catch(() => "");
-        const fallback = String(raw || "").trim().replace(/^["'“”‘’]+|["'“”‘’]+$/g, "");
-        if (!fallback || /^skip\b/i.test(fallback)) {
-          return { comment: "", isValid: false, skipped: true, errors: ["simple-mode fallback also skipped"] };
-        }
-        const fbCheck = this.validateCommentReply(fallback, cleanPost, author);
-        if (fbCheck.isValid) {
-          const verdict = await this.criticFeedComment(fallback, cleanPost);
-          if (!verdict.pass) { fbCheck.isValid = false; fbCheck.errors.push(`Critic rejected: ${verdict.reason}`); }
-        }
-        if (!fbCheck.isValid) {
-          return { comment: fallback, isValid: false, skipped: false, errors: fbCheck.errors };
-        }
-        const filtered2 = this.filterCommentReply(fallback);
-        logger.info(`LocalLLMService: simple-mode fallback produced: "${filtered2.slice(0, 80)}"`);
-        return { comment: filtered2, isValid: true, skipped: false, errors: [] };
       }
       const filtered = check.isValid ? this.filterCommentReply(forCheck) : forCheck;
       return { comment: filtered, isValid: check.isValid, skipped: false, errors: check.errors };
