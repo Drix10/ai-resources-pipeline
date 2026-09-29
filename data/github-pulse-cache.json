@@ -1,5 +1,5 @@
 {
-  "timestamp": 1790432380111,
+  "timestamp": 1790629604428,
   "user": "Drix10",
   "repos": [
     {
@@ -8,59 +8,170 @@
       "description": "Daily updated resources on AI across various domains including ML, development, education, healthcare, real estate, robotics, crypto, web3 and more, curated by enthusiasts.",
       "language": "Multi-language",
       "stars": 118,
-      "updatedAt": "2026-09-26T14:19:19Z",
+      "updatedAt": "2026-09-28T21:05:38Z",
       "recentCommits": [
         {
-          "sha": "9ed2367",
+          "sha": "dc6e9bf",
           "message": "📚 Update README with latest tweets",
-          "date": "2026-09-26T14:19:15Z"
+          "date": "2026-09-28T21:06:36Z"
         },
         {
-          "sha": "f5c7238",
-          "message": "📝 Add resource collection: World News and Updates #222",
-          "date": "2026-09-26T14:13:55Z"
+          "sha": "b0ce47e",
+          "message": "📝 Batch sync: 5 resource collections",
+          "date": "2026-09-28T21:05:33Z"
         },
         {
-          "sha": "8a50b4c",
-          "message": "📝 Batch sync: 4 resource collections",
-          "date": "2026-09-26T14:10:00Z"
+          "sha": "2a01bd7",
+          "message": "📝 Batch sync: 6 resource collections",
+          "date": "2026-09-28T20:39:53Z"
         },
         {
-          "sha": "d3e16a7",
-          "message": "📝 Batch sync: 4 resource collections",
-          "date": "2026-09-26T13:47:19Z"
+          "sha": "1e185e3",
+          "message": "📝 Batch sync: 6 resource collections",
+          "date": "2026-09-28T20:08:36Z"
         },
         {
-          "sha": "f6398b6",
-          "message": "📝 Batch sync: 4 resource collections",
-          "date": "2026-09-26T13:24:15Z"
+          "sha": "6e6747a",
+          "message": "📝 Batch sync: 6 resource collections",
+          "date": "2026-09-28T19:32:50Z"
         }
       ],
       "historicalHighlights": [
         {
-          "sha": "8a50b4c",
-          "message": "📝 Batch sync: 4 resource collections",
-          "date": "2026-09-26T14:10:00Z"
+          "sha": "b0ce47e",
+          "message": "📝 Batch sync: 5 resource collections",
+          "date": "2026-09-28T21:05:33Z"
         },
         {
-          "sha": "d3e16a7",
-          "message": "📝 Batch sync: 4 resource collections",
-          "date": "2026-09-26T13:47:19Z"
+          "sha": "2a01bd7",
+          "message": "📝 Batch sync: 6 resource collections",
+          "date": "2026-09-28T20:39:53Z"
         },
         {
-          "sha": "f6398b6",
-          "message": "📝 Batch sync: 4 resource collections",
-          "date": "2026-09-26T13:24:15Z"
+          "sha": "1e185e3",
+          "message": "📝 Batch sync: 6 resource collections",
+          "date": "2026-09-28T20:08:36Z"
         },
         {
-          "sha": "87f1a34",
-          "message": "📝 Batch sync: 4 resource collections",
-          "date": "2026-09-26T13:05:11Z"
+          "sha": "6e6747a",
+          "message": "📝 Batch sync: 6 resource collections",
+          "date": "2026-09-28T19:32:50Z"
         },
         {
-          "sha": "4b2bcc3",
-          "message": "📝 Batch sync: 4 resource collections",
-          "date": "2026-09-26T12:49:57Z"
+          "sha": "9e5fd53",
+          "message": "📝 Batch sync: 6 resource collections",
+          "date": "2026-09-28T18:58:34Z"
+        }
+      ],
+      "hasFreshCommits": true
+    },
+    {
+      "name": "hypothesis-arena",
+      "fullName": "Drix10/hypothesis-arena",
+      "description": "Autonomous AI Hedge Fund - Part of Canopy Founders. Inc",
+      "language": "Python",
+      "stars": 9,
+      "updatedAt": "2026-09-28T17:40:09Z",
+      "recentCommits": [
+        {
+          "sha": "74a6e6f",
+          "message": "Strategy: S7-C re-audit P1s (ratio repair + snapshot + chain)",
+          "date": "2026-09-28T17:40:02Z"
+        },
+        {
+          "sha": "35ff4ea",
+          "message": "Strategy: S7-C crash-window adversarial pins",
+          "date": "2026-09-28T16:35:56Z"
+        },
+        {
+          "sha": "6ff80e6",
+          "message": "Strategy: S7-C reserve-boundary adversarial pins",
+          "date": "2026-09-28T16:30:40Z"
+        },
+        {
+          "sha": "a3a3142",
+          "message": "Strategy: S7-C P1 remove tier-result cache (cross-process stale)",
+          "date": "2026-09-28T16:21:10Z"
+        },
+        {
+          "sha": "30c81a3",
+          "message": "Strategy: S7-B correction (runbook gaps + deterministic stdlib clock)",
+          "date": "2026-09-28T15:56:58Z"
+        }
+      ],
+      "historicalHighlights": [
+        {
+          "sha": "35ff4ea",
+          "message": "Strategy: S7-C crash-window adversarial pins",
+          "date": "2026-09-28T16:35:56Z"
+        },
+        {
+          "sha": "45fb58c",
+          "message": "Kernel: fix test-only dangling g_reply caught by ASan",
+          "date": "2026-09-28T15:21:05Z"
+        }
+      ],
+      "hasFreshCommits": true
+    },
+    {
+      "name": "agent-flow",
+      "fullName": "Drix10/agent-flow",
+      "description": "A self-bootstrapping, self-healing agent engineering skill for any repository.",
+      "language": "TypeScript",
+      "stars": 6,
+      "updatedAt": "2026-09-28T15:28:41Z",
+      "recentCommits": [
+        {
+          "sha": "1465b47",
+          "message": "chore: bump to 1.1.2, changelog entry, forward-looking roadmap",
+          "date": "2026-09-28T15:27:44Z"
+        },
+        {
+          "sha": "b3ec995",
+          "message": "docs: remove session log, rewrite roadmap forward-looking, changelog unreleased section",
+          "date": "2026-09-28T15:14:19Z"
+        },
+        {
+          "sha": "ebef555",
+          "message": "docs: drop unlisted skills.sh badge, portable launch flags, version agreement, audit rows 67-76",
+          "date": "2026-09-28T14:59:31Z"
+        },
+        {
+          "sha": "00104ba",
+          "message": "fix: CLI value handling (bare --issue/--manifest, = in values) and repair file typing",
+          "date": "2026-09-28T14:59:31Z"
+        },
+        {
+          "sha": "cbfbd90",
+          "message": "fix: close ref-rewrite holes (bare push, fetch refspec, update-ref, replace)",
+          "date": "2026-09-28T14:59:30Z"
+        }
+      ],
+      "historicalHighlights": [
+        {
+          "sha": "00104ba",
+          "message": "fix: CLI value handling (bare --issue/--manifest, = in values) and repair file typing",
+          "date": "2026-09-28T14:59:31Z"
+        },
+        {
+          "sha": "cbfbd90",
+          "message": "fix: close ref-rewrite holes (bare push, fetch refspec, update-ref, replace)",
+          "date": "2026-09-28T14:59:30Z"
+        },
+        {
+          "sha": "a1ba0a8",
+          "message": "fix(windows): withLock treats \"delete pending\" EPERM/EACCES as contention",
+          "date": "2026-09-28T11:09:24Z"
+        },
+        {
+          "sha": "991b77d",
+          "message": "fix(windows): role runner keeps argv intact and kills the whole tree on timeout",
+          "date": "2026-09-28T11:06:48Z"
+        },
+        {
+          "sha": "a734897",
+          "message": "fix: pre-commit hook works in non-Node repos; prose drift skips `x/y`-style adjectives",
+          "date": "2026-09-28T11:03:28Z"
         }
       ],
       "hasFreshCommits": true
@@ -77,53 +188,30 @@
           "sha": "0963573",
           "message": "Update README.md",
           "date": "2026-09-26T05:05:36Z"
+        },
+        {
+          "sha": "3d355cd",
+          "message": "Update README.md",
+          "date": "2026-09-19T08:36:28Z"
+        },
+        {
+          "sha": "fb4960d",
+          "message": "Update README.md",
+          "date": "2026-09-17T19:42:43Z"
+        },
+        {
+          "sha": "834ca14",
+          "message": "Update README.md",
+          "date": "2026-09-17T19:41:45Z"
+        },
+        {
+          "sha": "79c7ebb",
+          "message": "Update README.md",
+          "date": "2026-09-13T04:21:15Z"
         }
       ],
       "historicalHighlights": [],
-      "hasFreshCommits": true
-    },
-    {
-      "name": "hypothesis-arena",
-      "fullName": "Drix10/hypothesis-arena",
-      "description": "Autonomous AI Hedge Fund - Part of Canopy Founders. Inc",
-      "language": "Python",
-      "stars": 9,
-      "updatedAt": "2026-09-25T21:50:14Z",
-      "recentCommits": [
-        {
-          "sha": "afc3fd6",
-          "message": "H1 runner portability: Linux includes, no thread dep",
-          "date": "2026-09-25T21:50:07Z"
-        },
-        {
-          "sha": "278cd9c",
-          "message": "Docs: Addendum 118 + TODO for H1 tenth corrective and G0 runner",
-          "date": "2026-09-25T21:25:50Z"
-        },
-        {
-          "sha": "d4f1bbe",
-          "message": "H1 integration: G0 runner (durable journal, reconcile, S2, drills)",
-          "date": "2026-09-25T21:25:14Z"
-        },
-        {
-          "sha": "51003d9",
-          "message": "H1 tenth corrective: entry REST-terminal authority, stream-order wording",
-          "date": "2026-09-25T20:27:24Z"
-        },
-        {
-          "sha": "fe5db94",
-          "message": "Docs: Addendum 117 + TODO for H1 ninth corrective",
-          "date": "2026-09-25T18:42:25Z"
-        }
-      ],
-      "historicalHighlights": [
-        {
-          "sha": "51003d9",
-          "message": "H1 tenth corrective: entry REST-terminal authority, stream-order wording",
-          "date": "2026-09-25T20:27:24Z"
-        }
-      ],
-      "hasFreshCommits": true
+      "hasFreshCommits": false
     },
     {
       "name": "discord-bot-web",
@@ -533,69 +621,6 @@
           "sha": "e5645ab",
           "message": "add timeout constant for github api requests",
           "date": "2026-03-29T11:00:00Z"
-        }
-      ],
-      "hasFreshCommits": false
-    },
-    {
-      "name": "intent-canvas",
-      "fullName": "Drix10/intent-canvas",
-      "description": "Intent Canvas is a browser-first spatial workspace for expressing business outcomes through context nodes, relationships, and natural-language intent.",
-      "language": "TypeScript",
-      "stars": 1,
-      "updatedAt": "2026-08-23T11:05:42Z",
-      "recentCommits": [
-        {
-          "sha": "a54dfc2",
-          "message": "Screenshots",
-          "date": "2026-08-21T16:04:27Z"
-        },
-        {
-          "sha": "28e1853",
-          "message": "fix: integrate Gemini key into zoom bar, remove floating overlap",
-          "date": "2026-08-21T15:57:57Z"
-        },
-        {
-          "sha": "7c33f6a",
-          "message": "fix: move Gemini key bar to workspace-native UX",
-          "date": "2026-08-21T15:54:05Z"
-        },
-        {
-          "sha": "abe6028",
-          "message": "remove ss",
-          "date": "2026-08-21T15:49:34Z"
-        },
-        {
-          "sha": "9c8332c",
-          "message": "fix: update Gemini key validation to require a minimum length of 20 characters",
-          "date": "2026-08-21T15:49:24Z"
-        }
-      ],
-      "historicalHighlights": [
-        {
-          "sha": "28e1853",
-          "message": "fix: integrate Gemini key into zoom bar, remove floating overlap",
-          "date": "2026-08-21T15:57:57Z"
-        },
-        {
-          "sha": "7c33f6a",
-          "message": "fix: move Gemini key bar to workspace-native UX",
-          "date": "2026-08-21T15:54:05Z"
-        },
-        {
-          "sha": "9c8332c",
-          "message": "fix: update Gemini key validation to require a minimum length of 20 characters",
-          "date": "2026-08-21T15:49:24Z"
-        },
-        {
-          "sha": "f0776e1",
-          "message": "fix: update Gemini model version to 3.5-flash in .env.example",
-          "date": "2026-08-21T15:03:42Z"
-        },
-        {
-          "sha": "c5d6403",
-          "message": "fix: harden standalone Gemini — rate limit, retry, key validation, richer prompts",
-          "date": "2026-08-21T14:58:40Z"
         }
       ],
       "hasFreshCommits": false
