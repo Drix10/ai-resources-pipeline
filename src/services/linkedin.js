@@ -364,7 +364,10 @@ class LinkedInService {
           // Life updates and milestones pass through: they ride the CONGRATS path.
           // Drafting/validation see the clean BODY only - never the headline (which is
           // what produced "Great post on Machine Learning Engineer" on an interview post).
-          out.push({ key, author: item.author || "unknown", href: item.href || "", text: keySrc.slice(0, 1500) });
+          // head = author/headline/timestamp chrome above the body, used only for audience scoring.
+          const ageM = text.match(/(\d+)\s*([smhdw])\s*•/);
+          const ageH = ageM ? Number(ageM[1]) * { s: 1 / 3600, m: 1 / 60, h: 1, d: 24, w: 168 }[ageM[2]] : 999;
+          out.push({ key, author: item.author || "unknown", href: item.href || "", text: keySrc.slice(0, 1500), head: tlines.slice(0, 8).join(" "), ageH });
         }
         if (fresh === 0) {
           stallRounds++;
@@ -681,6 +684,137 @@ class LinkedInService {
       return await plainFallback();
     }
   }
+  // Follow the author of a feed card (state-checked: only clicks a plain Follow
+  // button, never unfollows). Following shapes what LinkedIn ranks into the feed.
+  async followFeedCard(textSnippet) {
+    const snip = String(textSnippet).substring(0, 80);
+    const FIND = `
+      const norm = s => (s || '').replace(/[\\u200b-\\u200d\\ufeff]/g, '').replace(/\\s+/g, ' ').trim();
+      const feed = document.querySelector('div[data-testid="mainFeed"]');
+      if (!feed) return null;
+      const nq = norm(arguments[0]).slice(0, 80);
+      if (!nq) return null;
+      return Array.from(feed.children).find(c => (c.innerText || '').includes('Feed post') && norm(c.innerText).includes(nq)) || null;
+    `;
+    try {
+      const clicked = await this.driver.executeScript(`
+        const card = (function() { ${FIND} }).apply(null, arguments);
+        if (!card) return 'no-card';
+        try { card.scrollIntoView({ block: 'center' }); } catch (e) {}
+        const btn = Array.from(card.querySelectorAll('button')).find(b => {
+          const t = (b.innerText || '').replace(/\\s+/g, ' ').trim().toLowerCase();
+          const al = (b.getAttribute('aria-label') || '').toLowerCase();
+          return t === 'follow' || t === '+ follow' || al.indexOf('follow ') === 0;
+        });
+        if (!btn) return 'no-button';
+        try { btn.click(); return 'clicked'; } catch (e) { return 'fail'; }
+      `, snip).catch(() => 'fail');
+      if (clicked !== 'clicked') return false;
+      await sleep(2000);
+      const state = await this.driver.executeScript(`
+        const card = (function() { ${FIND} }).apply(null, arguments);
+        if (!card) return 'gone';
+        const txt = Array.from(card.querySelectorAll('button')).map(b => (b.innerText || '').trim().toLowerCase());
+        return txt.some(t => t === 'following') ? 'following' : 'unknown';
+      `, snip).catch(() => 'fail');
+      return state === "following";
+    } catch (e) {
+      return false;
+    }
+  }
+
+  // People search (US only via geoUrn, 2nd-degree only, which accept far more often).
+  // Returns visible Connect candidates: { label, name, href, text }.
+  async scanPeopleSearch(keywords, page = 1) {
+    try {
+      await this.ensureDriverConnected(true);
+      const url = "https://www.linkedin.com/search/results/people/?keywords=" + encodeURIComponent(keywords) +
+        "&geoUrn=%5B%22103644278%22%5D&network=%5B%22S%22%5D&origin=FACETED_SEARCH&page=" + page;
+      await this.driver.get(url);
+      await sleep(5000);
+      const cur = await this.driver.getCurrentUrl();
+      if (/authwall|login|checkpoint|uas\/login/.test(cur)) return { blocked: true, people: [] };
+      for (let i = 0; i < 3; i++) {
+        try { await this.driver.executeScript("window.scrollBy(0, window.innerHeight);"); } catch (e) {}
+        await sleep(1200);
+      }
+      const people = await this.driver.executeScript(`
+        const out = [];
+        const btns = Array.from(document.querySelectorAll('a, button')).filter(b => /^Invite .+ to connect$/i.test((b.getAttribute('aria-label') || '').trim()));
+        for (const b of btns) {
+          let c = b;
+          for (let i = 0; i < 8 && c.parentElement; i++) {
+            c = c.parentElement;
+            if (c.querySelector('a[href*="/in/"]') && (c.innerText || '').length > 60) break;
+          }
+          const a = c.querySelector('a[href*="/in/"]');
+          const label = (b.getAttribute('aria-label') || '').trim();
+          out.push({
+            label: label,
+            name: label.replace(/^Invite\\s+/i, '').replace(/\\s+to connect$/i, ''),
+            href: a ? a.href.split('?')[0] : '',
+            text: (c.innerText || '').replace(/\\s+/g, ' ').trim().slice(0, 400)
+          });
+        }
+        return out;
+      `).catch(() => []);
+      return { blocked: false, people: people || [] };
+    } catch (e) {
+      logger.warn(`LinkedInService: people search failed: ${e.message}`);
+      return { blocked: false, people: [] };
+    }
+  }
+
+  // Send one connection request WITHOUT a note from the current search page.
+  // Returns 'sent' | 'limit' (weekly cap hit: stop everything) | 'email' | 'fail'.
+  async sendConnectRequest(label) {
+    try {
+      const clicked = await this.driver.executeScript(`
+        const label = arguments[0];
+        const b = Array.from(document.querySelectorAll('a, button')).find(x => (x.getAttribute('aria-label') || '').trim() === label);
+        if (!b) return 'no-button';
+        try { b.scrollIntoView({ block: 'center' }); b.click(); return 'clicked'; } catch (e) { return 'fail'; }
+      `, label).catch(() => 'fail');
+      if (clicked !== 'clicked') return "fail";
+      await sleep(1800);
+      // The invite modal renders inside #interop-outlet's shadow root, invisible to document queries.
+      const modal = await this.driver.executeScript(`
+        const host = document.querySelector('#interop-outlet');
+        const dlg = (host && host.shadowRoot) || document.querySelector('[role="dialog"], .artdeco-modal');
+        if (!dlg) return 'no-modal';
+        const txt = (dlg.textContent || '').toLowerCase();
+        if (txt.indexOf('invitation limit') !== -1 || txt.indexOf('weekly invitation') !== -1) return 'limit';
+        if (dlg.querySelector('input[type="email"], input[name="email"]')) return 'email';
+        const btns = Array.from(dlg.querySelectorAll('button'));
+        const send = btns.find(x => /send without a note/i.test((x.getAttribute('aria-label') || '') + ' ' + (x.innerText || '')))
+          || btns.find(x => (x.innerText || '').trim().toLowerCase() === 'send');
+        if (!send) return 'no-send';
+        try { send.click(); return 'sent-click'; } catch (e) { return 'fail'; }
+      `).catch(() => 'fail');
+      if (modal === "limit" || modal === "email" || modal === "no-send" || modal === "fail") {
+        try { await this.driver.actions().sendKeys(Key.ESCAPE).perform(); } catch (e) {}
+        return modal === "limit" ? "limit" : modal === "email" ? "email" : "fail";
+      }
+      await sleep(2200);
+      // Proof: the Invite button is gone (swapped to Pending) and no dialog is left open.
+      const state = await this.driver.executeScript(`
+        const label = arguments[0];
+        const still = Array.from(document.querySelectorAll('a, button')).some(x => (x.getAttribute('aria-label') || '').trim() === label);
+        const host = document.querySelector('#interop-outlet');
+        const dlg = host && host.shadowRoot;
+        const dtxt = dlg ? (dlg.textContent || '').toLowerCase() : '';
+        if (dtxt.indexOf('invitation limit') !== -1 || dtxt.indexOf('weekly invitation') !== -1) return 'limit';
+        return still ? 'still-there' : 'gone';
+      `, label).catch(() => 'fail');
+      if (state === "limit") { try { await this.driver.actions().sendKeys(Key.ESCAPE).perform(); } catch (e) {} return "limit"; }
+      if (state === "gone") return "sent";
+      try { await this.driver.actions().sendKeys(Key.ESCAPE).perform(); } catch (e) {}
+      return "fail";
+    } catch (e) {
+      return "fail";
+    }
+  }
+
   cleanupDebugScreenshots() {
     try {
       const tempDir = path.join(process.cwd(), "temp");

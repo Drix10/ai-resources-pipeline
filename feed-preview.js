@@ -19,6 +19,15 @@ for (let i = 0; i < args.length; i++) {
 
 (async () => {
   const feedEngage = require("./src/services/feedEngage");
+  // node feed-preview.js --connect [--live N]: preview (or, with --live, really send) N connection requests.
+  if (args.includes("--connect")) {
+    const li = args.indexOf("--live");
+    const n = li >= 0 ? Math.max(1, parseInt(args[li + 1], 10) || 2) : 5;
+    const r = await feedEngage.runConnectPass({ min: n, max: n, dryRun: li < 0 });
+    (r.previews || []).forEach((p, i) => console.log(`${i + 1}. ${p.name} [${p.kw}] ${p.text}`));
+    console.log(`\nConnect ${li < 0 ? "DRY RUN" : "LIVE"}: ${r.sent}/${r.target} (scanned ${r.scanned}) ${r.reason || ""}`);
+    process.exit(0);
+  }
   const r = await feedEngage.runFeedEngagement({ max, dryRun: true });
   console.log("\n================ PREVIEW ================");
   (r.previews || []).forEach((p, i) => {

@@ -228,6 +228,7 @@ const processAllFolders = async () => {
     // Randomize batch commit size between 1 and 8 on each run
     const COMMIT_BATCH_SIZE = Math.floor(Math.random() * 8) + 1;
     let pendingBatch = [];
+    let likePasses = 0;
 
     const flushBatch = async () => {
       if (pendingBatch.length === 0) return;
@@ -290,6 +291,7 @@ const processAllFolders = async () => {
           // likes across Top + Recent. No drafting, no commenting, no LLM spend.
           if (config.social.linkedinLike) {
             try {
+              likePasses++;
               const likeResult = await feedEngage.runLikePass({ min: 3, max: 9 });
               logger.info(`LinkedIn likes after ${prepared.queryName}: ${likeResult.liked}/${likeResult.picked} liked (target ${likeResult.target}).`);
             } catch (feedErr) {
@@ -338,14 +340,34 @@ const processAllFolders = async () => {
       logger.info(`Cycle End: Successfully processed and syndicated ${successfulArticles.length} curated guide(s).`);
     }
 
-    // Feed engagement: comment pass after each successful pipeline run.
-    if (config.social.linkedinFeedReply && successfulArticles.length > 0) {
+    // LinkedIn growth runs every cycle, independent of whether an article was produced:
+    // likes/follows (if none ran per article), then comments, then connections.
+    if (config.social.linkedinLike && likePasses === 0) {
+      try {
+        const likeResult = await feedEngage.runLikePass({ min: 3, max: 9 });
+        logger.info(`LinkedIn likes (cycle end): ${likeResult.liked}/${likeResult.picked} liked (target ${likeResult.target}).`);
+      } catch (feedErr) {
+        logger.error("LinkedIn likes failed (non-fatal):", feedErr.message);
+      }
+    }
+    if (config.social.linkedinFeedReply) {
       try {
         logger.info("Cycle End: Running LinkedIn feed comment engagement pass...");
         const engageResult = await feedEngage.runFeedEngagement({ max: 2 });
         logger.info(`LinkedIn feed engagement: ${engageResult.commented} commented, ${engageResult.liked} liked, ${engageResult.skipped} skipped. ${engageResult.reason || ""}`);
       } catch (feedErr) {
         logger.error("LinkedIn feed engagement failed (non-fatal):", feedErr.message);
+      }
+    }
+
+    // Connection pass: 20-30 no-note requests to US AI/tech/finance/investing people.
+    if (config.social.linkedinConnect) {
+      try {
+        logger.info("Cycle End: Running LinkedIn connection pass...");
+        const conn = await feedEngage.runConnectPass({ min: 20, max: 30 });
+        logger.info(`LinkedIn connections: ${conn.sent}/${conn.target} sent. ${conn.reason || ""}`);
+      } catch (connErr) {
+        logger.error("LinkedIn connection pass failed (non-fatal):", connErr.message);
       }
     }
 

@@ -53,6 +53,8 @@ const config = {
     // Experiment flag for comparing against the policed pipeline. Nothing posts
     // without LINKEDIN_FEED_REPLY=true; previews stay dry-run either way.
     linkedinSimpleReply: process.env.LINKEDIN_SIMPLE_REPLY === "true",
+    // 20-30 no-note connection requests per run to US people in AI/tech/finance/investing.
+    linkedinConnect: process.env.LINKEDIN_CONNECT !== "false",
     twitterPost: process.env.TWITTER_POST !== "false",
   },
   syndication: {
