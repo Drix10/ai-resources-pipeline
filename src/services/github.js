@@ -317,7 +317,7 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
       logger.warn(`Blog index rebuild warning (non-fatal): ${idxErr.message}`);
     }
 
-    // Syndicate sequentially in background so DEV.to rate limits (1 req/sec) are not exceeded
+    // Syndicate sequentially in background; SyndicationService's queue paces requests and trips a breaker on 401/429
     (async () => {
       for (const item of preparedItems) {
         try {
@@ -329,8 +329,6 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
             relativePath: item.filePath,
             seoSlug: item.seoSlug,
           });
-          // Wait 2.5s between syndications to respect DEV.to burst & 30 req/30s rate limits
-          await new Promise((res) => setTimeout(res, 2500));
         } catch (err) {
           logger.warn(`Syndication error (non-fatal): ${err.message}`);
         }

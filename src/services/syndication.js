@@ -4,7 +4,12 @@ const { logger, generateSeoSlug } = require("../utils/helpers");
 class SyndicationService {
   constructor() {
     this.DEFAULT_TIMEOUT_MS = 30000;
-    this.RATE_LIMIT_DELAY_MS = 2500;
+    // DEV.to throttles article creation hard; 2.5s spacing tripped 429s on every batch.
+    this.RATE_LIMIT_DELAY_MS = 10000;
+    // Circuit breaker: after a 401/429 stop calling DEV.to for a cooldown instead of
+    // burning a request (and a 429 strike) per queued article.
+    this._blockedUntil = 0;
+    this._blockReason = "";
     this._queue = Promise.resolve();
     this._pendingCount = 0;
   }
@@ -16,10 +21,13 @@ class SyndicationService {
   async enqueue(task) {
     this._pendingCount++;
     const run = this._queue.then(async () => {
+      let result;
       try {
-        return await task();
+        result = await task();
+        return result;
       } finally {
-        await new Promise((res) => setTimeout(res, this.RATE_LIMIT_DELAY_MS));
+        // A skipped task made no request, so it owes no rate-limit spacing.
+        if (!result?.skipped) await new Promise((res) => setTimeout(res, this.RATE_LIMIT_DELAY_MS));
       }
     });
     this._queue = run
@@ -31,6 +39,12 @@ class SyndicationService {
         }
       });
     return run;
+  }
+
+  tripBreaker(ms, reason) {
+    this._blockedUntil = Date.now() + ms;
+    this._blockReason = reason;
+    logger.warn(`SyndicationService: DEV.to paused for ${Math.round(ms / 60000)} min (${reason}).`);
   }
 
   /**
@@ -64,6 +78,9 @@ class SyndicationService {
    */
   async publishToDevTo({ title, markdown, tags = [], canonicalUrl, coverImage, published = true }) {
     return this.enqueue(async () => {
+      if (Date.now() < this._blockedUntil) {
+        return { success: false, platform: "devto", skipped: true, error: `DEV.to paused: ${this._blockReason}` };
+      }
       const apiKey = config.syndication?.devto?.apiKey;
       if (!apiKey) {
         logger.warn("SyndicationService: DEVTO_API_KEY not configured. Skipping DEV.to publish.");
@@ -112,14 +129,20 @@ class SyndicationService {
               data = { error: rawText.trim() };
             }
 
+            if (response.status === 401) {
+              this.tripBreaker(6 * 60 * 60 * 1000, "HTTP 401 - check DEVTO_API_KEY");
+              return { ok: false, status: 401, data };
+            }
             const isTransient = response.status === 429 || response.status >= 500 || (typeof data?.error === "string" && data.error.toLowerCase().includes("retry later"));
             if (isTransient && attempt < maxRetries) {
-              const waitSeconds = 5 + attempt * 2;
+              const retryAfter = Number(response.headers.get("retry-after"));
+              const waitSeconds = Number.isFinite(retryAfter) && retryAfter > 0 ? Math.min(retryAfter, 60) : 5 + attempt * 2;
               logger.warn(`SyndicationService: DEV.to transient response (${rawText.trim() || response.status}). Backing off for ${waitSeconds}s before retry (attempt ${attempt + 1}/${maxRetries})...`);
               await new Promise((res) => setTimeout(res, waitSeconds * 1000));
               continue;
             }
 
+            if (response.status === 429) this.tripBreaker(15 * 60 * 1000, "HTTP 429 rate limited");
             return { ok: response.ok, status: response.status, data };
           } catch (fetchErr) {
             // ponytail: timeouts are transient too; error.log shows DEV.to

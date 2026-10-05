@@ -307,21 +307,21 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
       svc.generateTextViaNvidia = async () => { nvidiaCalls++; return "nvidia post"; };
       config.llm.openrouter.apiKey = "test-or-key"; config.llm.openrouter.model = "test/linkedin-model";
       global.fetch = async () => { fetches++; return { ok: true, status: 200, json: async () => ({ choices: [{ message: { content: "openrouter post" } }] }) }; };
-      const first = await svc.generateLinkedInText("write", {});
+      const first = await svc.generateChainText("write", {});
       if (first === "openrouter post" && nvidiaCalls === 0) { passed++; console.log("PASS | chain: openrouter serves posts first"); }
       else { failed++; console.log(`FAIL | chain: openrouter first | out=${first} nvidia=${nvidiaCalls}`); }
       global.fetch = async () => ({ ok: false, status: 400, text: async () => "bad model" });
-      const fell = await svc.generateLinkedInText("write", {});
+      const fell = await svc.generateChainText("write", {});
       if (fell === "nvidia post") { passed++; console.log("PASS | chain: openrouter error -> nvidia serves"); }
       else { failed++; console.log(`FAIL | chain: fallback | out=${fell}`); }
       config.llm.openrouter.model = ""; fetches = 0;
-      const noModel = await svc.generateLinkedInText("write", {});
+      const noModel = await svc.generateChainText("write", {});
       if (noModel === "nvidia post" && fetches === 0) { passed++; console.log("PASS | chain: no OPENROUTER_MODEL skips openrouter"); }
       else { failed++; console.log(`FAIL | chain: no model | out=${noModel} fetches=${fetches}`); }
       svc.generateTextViaNvidia = realVia;
       config.llm.openrouter.apiKey = ""; config.llm.nvidia.apiKey = "";
       let threw = false;
-      try { await svc.generateLinkedInText("write", {}); } catch (e) { threw = /NVIDIA|missing/i.test(e.message); }
+      try { await svc.generateChainText("write", {}); } catch (e) { threw = /NVIDIA|missing/i.test(e.message); }
       if (threw) { passed++; console.log("PASS | chain: exhaustion throws for skip logic"); }
       else { failed++; console.log("FAIL | chain: exhaustion did not throw"); }
       if (!("gemini" in config.llm) && typeof svc.generateTextViaGemini === "undefined") { passed++; console.log("PASS | gemini fully removed"); }
@@ -419,68 +419,6 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
     const got = LinkedInService.isFeedModuleText(text);
     if (got === wantModule) { passed++; console.log(`PASS | module: ${name}`); }
     else { failed++; console.log(`FAIL | module: ${name} | got=${got}(want ${wantModule})`); }
-  }
-  // LinkedIn POST gates (agentEngine.deterministicValidate): what must never ship.
-  {
-    const AgentEngine = require("./src/services/agentEngine");
-    const eng = new AgentEngine(svc);
-    const plan = { format: { min: 400, max: 1200 }, recentTitles: ["Why payment webhooks fail HMAC signature verification"] };
-    const body = "I shipped a retry budget for my payment ops agent last week.\n\n" + "It kept hammering a failed settlement query until the provider rate limited it. ".repeat(4) + "\n\nWhat guardrail did you add after your first agent outage?";
-    const cases = [
-      ["good post passes", body, true],
-      ["AI slop phrase", body.replace("I shipped", "In today's fast-paced world, I shipped"), false],
-      ["engagement bait", body.replace(/What guardrail[^?]*\?/, "Comment YES if you agree?"), false],
-      ["link in body", body.replace("last week.", "last week. https://github.com/Drix10/payscope"), false],
-      ["hashtag in body", body.replace("last week.", "last week. #AI"), false],
-      ["no closing question", body.replace(/\n\nWhat guardrail[^?]*\?/, ""), false],
-      ["fake seniority", body.replace("I shipped", "As a senior engineer, I shipped"), false],
-      ["em dash", body.replace("last week.", "last week \u2014 finally."), false],
-      ["repeats an old opening", "Why payment webhooks fail HMAC signature verification in Express.\n\n" + body, false],
-      ["too short for the shape", "Short take.\n\nWhat would you do?", false],
-    ];
-    for (const [name, text, wantOk] of cases) {
-      const errs = eng.deterministicValidate(text, plan).errors;
-      if ((errs.length === 0) === wantOk) { passed++; console.log(`PASS | post-gate: ${name}`); }
-      else { failed++; console.log(`FAIL | post-gate: ${name} | errors=${errs.join("; ")}`); }
-    }
-    // Rotation: 20 consecutive plans never repeat a type back to back and use every type.
-    let hist = [], prev = null, repeats = 0; const seenTypes = new Set();
-    const arts = [1, 2, 3].map(i => ({ title: `AI agents topic ${i}`, fullContent: "LLM agents inference code developer API model benchmark ".repeat(20) }));
-    for (let i = 0; i < 20; i++) {
-      const p = eng.plan({ recentHistory: hist, multiRepoPulse: { repos: [{ name: "r", recentCommits: [{ message: "fix" }], hasFreshCommits: true }] }, experience: [{}] }, arts);
-      if (p.pillar.id === prev) repeats++;
-      prev = p.pillar.id; seenTypes.add(p.pillar.id);
-      hist = [{ postType: p.pillar.id, format: p.formatId, hookStyle: p.hookStyle }, ...hist];
-    }
-    // Critic must fail closed, and the engine must never write history itself.
-    {
-      const ctx = require("./src/services/agentContext");
-      const saveCtx = { pulse: ctx.getMultiRepoGitPulse, rec: ctx.recordPost };
-      const saveLlm = { j: svc.generateLinkedInJson, c: svc.generateCommentText };
-      let recorded = 0;
-      ctx.getMultiRepoGitPulse = async () => ({ repos: [] });
-      ctx.recordPost = () => { recorded++; };
-      svc.generateLinkedInJson = async () => ({ title: "t", post: body, hashtags: ["AI", "Dev", "Career"], slidePoints: [], sourceIndex: -1, repo: "" });
-      try {
-        for (const [name, critic, wantValid] of [
-          ["critic down -> not valid", async () => { throw new Error("all providers down"); }, false],
-          ["critic junk -> not valid", async () => "no json here", false],
-          ["critic pass -> valid", async () => '{"invented":false,"robotic":false,"score":85,"fix":""}', true],
-        ]) {
-          svc.generateCommentText = critic;
-          const r = await eng.runAutonomousPipeline({ curatedArticles: [], recentHistory: [] });
-          if (r.isValid === wantValid) { passed++; console.log(`PASS | post critic: ${name}`); }
-          else { failed++; console.log(`FAIL | post critic: ${name} | valid=${r.isValid}`); }
-        }
-        if (recorded === 0) { passed++; console.log("PASS | engine never records history itself"); }
-        else { failed++; console.log(`FAIL | engine recorded history ${recorded}x`); }
-      } finally {
-        ctx.getMultiRepoGitPulse = saveCtx.pulse; ctx.recordPost = saveCtx.rec;
-        svc.generateLinkedInJson = saveLlm.j; svc.generateCommentText = saveLlm.c;
-      }
-    }
-    if (repeats === 0 && seenTypes.size >= 6) { passed++; console.log(`PASS | post rotation (${seenTypes.size} types in 20 posts, no back-to-back repeats)`); }
-    else { failed++; console.log(`FAIL | post rotation | repeats=${repeats} types=${seenTypes.size}`); }
   }
   console.log(`\n${passed} passed, ${failed} failed.`);
   process.exit(failed ? 1 : 0);

@@ -1,13 +1,18 @@
-const { spawn, exec } = require("child_process");
+const { spawn } = require("child_process");
+const fs = require("fs");
 const path = require("path");
 const http = require("http");
-const { promisify } = require("util");
-const execAsync = promisify(exec);
-const { logger } = require("./helpers");
+const { Builder, By, until } = require("selenium-webdriver");
+const chrome = require("selenium-webdriver/chrome");
+const { logger, sleep } = require("./helpers");
+
+const DEBUG_PORT = 9222;
+const DEBUG_ADDRESS = `127.0.0.1:${DEBUG_PORT}`;
 
 function probeHttpEndpoint(timeoutMs = 800) {
   return new Promise((resolve) => {
-    const req = http.get("http://127.0.0.1:9222/json/version", { timeout: timeoutMs }, (res) => {
+    const req = http.get(`http://${DEBUG_ADDRESS}/json/version`, { timeout: timeoutMs }, (res) => {
+      res.resume();
       resolve(res.statusCode === 200);
     });
     req.on("error", () => resolve(false));
@@ -18,106 +23,112 @@ function probeHttpEndpoint(timeoutMs = 800) {
   });
 }
 
-async function isChromeRunning() {
-  if (await probeHttpEndpoint(800)) return true;
+// The debug endpoint is the single source of truth: a listening socket that does
+// not answer /json/version is not a usable Chrome, so no netstat/lsof fallback.
+const isChromeRunning = () => probeHttpEndpoint(800);
 
-  try {
-    const isWindows = process.platform === "win32";
-    if (isWindows) {
-      // Filter strictly for sockets in LISTENING state (excluding TIME_WAIT, CLOSE_WAIT)
-      const { stdout } = await execAsync('netstat -ano -p tcp | findstr /R /C:":9222 .*LISTENING"');
-      return stdout.trim().length > 0;
-    } else {
-      const { stdout } = await execAsync("lsof -i :9222 -sTCP:LISTEN 2>/dev/null || true");
-      return stdout.trim().length > 0;
-    }
-  } catch {
-    return false;
-  }
+function findChromeExecutable() {
+  const candidates = process.platform === "win32"
+    ? [
+        "C:/Program Files/Google/Chrome/Application/chrome.exe",
+        "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe",
+        path.join(process.env.LOCALAPPDATA || "", "Google/Chrome/Application/chrome.exe"),
+      ]
+    : process.platform === "darwin"
+      ? ["/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"]
+      : ["google-chrome", "google-chrome-stable", "chromium"];
+  return candidates.find((p) => path.isAbsolute(p) && fs.existsSync(p)) || candidates[candidates.length - 1];
 }
 
 async function startChrome() {
-  if (await isChromeRunning()) {
-    return true;
-  }
+  if (await isChromeRunning()) return true;
 
-  const isWindows = process.platform === "win32";
-  const isMac = process.platform === "darwin";
-
-  let chromeCmd, chromeArgs;
-
-  if (isWindows) {
-    const userProfile = process.env.USERPROFILE || process.env.HOME || "";
-    const userDataDir = path.join(userProfile, "chrome-debug");
-    chromeCmd = "cmd";
-    chromeArgs = [
-      "/c",
-      "start",
-      "chrome",
-      "--remote-debugging-port=9222",
+  const home = process.env.USERPROFILE || process.env.HOME || "";
+  const userDataDir = path.join(home, "chrome-debug");
+  try {
+    fs.mkdirSync(userDataDir, { recursive: true });
+    const proc = spawn(findChromeExecutable(), [
+      `--remote-debugging-port=${DEBUG_PORT}`,
       `--user-data-dir=${userDataDir}`,
       "--disable-background-timer-throttling",
       "--disable-backgrounding-occluded-windows",
       "--disable-renderer-backgrounding",
-    ];
-  } else if (isMac) {
-    chromeCmd = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-    chromeArgs = [
-      "--remote-debugging-port=9222",
-      "--user-data-dir=" + (process.env.HOME || "") + "/chrome-debug",
-      "--disable-background-timer-throttling",
-      "--disable-backgrounding-occluded-windows",
-      "--disable-renderer-backgrounding",
-    ];
-  } else {
-    chromeCmd = "google-chrome";
-    chromeArgs = [
-      "--remote-debugging-port=9222",
-      "--user-data-dir=" + (process.env.HOME || "") + "/chrome-debug",
-      "--disable-background-timer-throttling",
-      "--disable-backgrounding-occluded-windows",
-      "--disable-renderer-backgrounding",
-    ];
-  }
-
-  try {
-    const chromeProc = spawn(chromeCmd, chromeArgs, {
-      detached: true,
-      stdio: "ignore",
-    });
-    chromeProc.unref();
+      "https://x.com",
+    ], { detached: true, stdio: "ignore" });
+    proc.on("error", (error) => logger.error(`Failed to launch Chrome: ${error.message}`));
+    proc.unref();
     return true;
   } catch (error) {
-    if (logger) logger.error("Failed to launch Chrome:", error.message);
+    logger.error(`Failed to launch Chrome: ${error.message}`);
     return false;
   }
 }
 
 async function ensureChromeReady(maxWaitSec = 15) {
-  if (await probeHttpEndpoint(1000)) {
-    return true;
-  }
+  if (await probeHttpEndpoint(1000)) return true;
 
-  if (logger) logger.info("Chrome debugging port 9222 not open. Auto-starting Chrome with persistent profile (same as npm start)...");
-  const started = await startChrome();
-  if (!started) return false;
+  logger.info(`Chrome debugging port ${DEBUG_PORT} not open. Auto-starting Chrome with persistent profile...`);
+  if (!(await startChrome())) return false;
 
-  let retries = maxWaitSec;
-  while (retries > 0) {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+  for (let waited = 0; waited < maxWaitSec; waited++) {
+    await sleep(1000);
     if (await probeHttpEndpoint(1000)) {
-      if (logger) logger.info("Chrome is ready on port 9222.");
+      logger.info(`Chrome is ready on port ${DEBUG_PORT}.`);
       return true;
     }
-    retries--;
+  }
+  logger.warn(`Chrome did not become responsive on port ${DEBUG_PORT} within ${maxWaitSec} seconds.`);
+  return false;
+}
+
+// Attach Selenium to the persistent, already-logged-in Chrome (never quits it).
+async function attachDriver() {
+  await ensureChromeReady();
+  const options = new chrome.Options();
+  options.options_["debuggerAddress"] = DEBUG_ADDRESS;
+  try {
+    return await new Builder().forBrowser("chrome").setChromeOptions(options).build();
+  } catch (error) {
+    throw new Error(`Chrome not running with remote debugging (${error.message}). Run: chrome --remote-debugging-port=${DEBUG_PORT}`);
+  }
+}
+
+const TRANSIENT_SESSION_ERRORS = [
+  "invalid session", "no such window", "chrome not reachable", "transport", "session not created", "session deleted",
+];
+
+// Waits (up to 5 min) for the user to be logged in to X in the attached Chrome.
+async function waitForXLogin(driver, label = "pipeline") {
+  const homeLink = By.css('[data-testid="AppTabBar_Home_Link"]');
+  await driver.get("https://x.com/home");
+  await sleep(3000);
+  try {
+    await driver.wait(until.elementLocated(homeLink), 5000);
+    logger.info("Already logged in to X (Twitter), skipping login process");
+    return;
+  } catch (e) {
+    logger.warn("⚠️ X (Twitter) Login Required: Please log in manually in the Chrome browser window.");
   }
 
-  if (logger) logger.warn(`Chrome did not become responsive on port 9222 within ${maxWaitSec} seconds.`);
-  return false;
+  for (let attempt = 0; attempt < 60; attempt++) {
+    try {
+      if ((await driver.findElements(homeLink)).length > 0) {
+        logger.info(`X (Twitter) login detected! Continuing ${label}...`);
+        return;
+      }
+    } catch (pollErr) {
+      const msg = String(pollErr?.message || "").toLowerCase();
+      if (TRANSIENT_SESSION_ERRORS.some((m) => msg.includes(m))) throw pollErr;
+    }
+    await sleep(5000);
+  }
+  throw new Error("Twitter manual login timed out after 5 minutes.");
 }
 
 module.exports = {
   isChromeRunning,
   startChrome,
-  ensureChromeReady
+  ensureChromeReady,
+  attachDriver,
+  waitForXLogin,
 };

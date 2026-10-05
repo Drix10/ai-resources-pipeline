@@ -1,8 +1,8 @@
-const { Builder, By, Key, until } = require("selenium-webdriver");
-const chrome = require("selenium-webdriver/chrome");
+const { By, until } = require("selenium-webdriver");
 const axios = require("axios");
 const config = require("../config");
 const { logger, sleep } = require("../src/utils/helpers");
+const { attachDriver, waitForXLogin } = require("../src/utils/chromeLauncher");
 
 const LIST_ID = config.monitoring.targetListId;
 const LIST_URL = `https://x.com/i/lists/${LIST_ID}`;
@@ -35,25 +35,9 @@ class TwitterListTracker {
   async init() {
     try {
       if (!this.driver || !this.isInitialized) {
-        let options = new chrome.Options();
-        options.options_["debuggerAddress"] = "127.0.0.1:9222";
-
-        try {
-          this.driver = await new Builder()
-            .forBrowser("chrome")
-            .setChromeOptions(options)
-            .build();
-
-          logger.info("Connected to existing Chrome browser");
-          this.isInitialized = true;
-        } catch (connectionError) {
-          logger.error(
-            "Failed to connect to Chrome. Make sure Chrome is running with: chrome --remote-debugging-port=9222",
-          );
-          throw new Error(
-            "Chrome not running with remote debugging. Run start.ps1 first",
-          );
-        }
+        this.driver = await attachDriver();
+        logger.info("Connected to existing Chrome browser");
+        this.isInitialized = true;
 
         this.browserStartTime = Date.now();
       }
@@ -116,54 +100,7 @@ class TwitterListTracker {
 
   async login() {
     try {
-      await this.driver.get("https://x.com/home");
-      await sleep(3000);
-
-      try {
-        await this.driver.wait(
-          until.elementLocated(By.css('[data-testid="AppTabBar_Home_Link"]')),
-          5000,
-        );
-        logger.info("Already logged in to X (Twitter), skipping login process");
-        return;
-      } catch (e) {
-        logger.info("Not logged in to X (Twitter), prompting for manual login...");
-      }
-
-      logger.warn("⚠️ X (Twitter) Login Required: Please log in manually in the Chrome browser window.");
-
-      const maxLoginAttempts = 60;
-      let loginAttempts = 0;
-      while (loginAttempts < maxLoginAttempts) {
-        try {
-          const currentUrl = await this.driver.getCurrentUrl();
-          if (currentUrl.includes("/home") || currentUrl.includes("/explore") || currentUrl.includes("x.com")) {
-            const homeLink = await this.driver.findElements(By.css('[data-testid="AppTabBar_Home_Link"]'));
-            if (homeLink.length > 0) {
-              logger.info("X (Twitter) login detected! Continuing tracker...");
-              return;
-            }
-          }
-        } catch (pollErr) {
-          const msg = String(pollErr?.message || "").toLowerCase();
-          if (
-            msg.includes("invalid session") ||
-            msg.includes("invalid session id") ||
-            msg.includes("no such window") ||
-            msg.includes("chrome not reachable") ||
-            msg.includes("transport") ||
-            msg.includes("session not created") ||
-            msg.includes("session deleted")
-          ) {
-            throw pollErr;
-          }
-          // Ignore known transient polling errors and continue waiting for manual login.
-        }
-        loginAttempts++;
-        await sleep(5000);
-      }
-
-      throw new Error("Twitter manual login timed out after 5 minutes.");
+      await waitForXLogin(this.driver, "tracker");
     } catch (error) {
       logger.error("Error during X (Twitter) login check in list-tracker:", error);
       throw error;

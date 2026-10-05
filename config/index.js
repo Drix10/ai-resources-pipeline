@@ -12,7 +12,8 @@ const config = {
     repo: process.env.GITHUB_REPONAME,
   },
   llm: {
-    useLocal: process.env.LOCAL_LLM !== undefined ? process.env.LOCAL_LLM === "true" : (process.env.USE_LOCAL_LLM !== undefined ? process.env.USE_LOCAL_LLM === "true" : true),
+    // Default matches .env.example: NVIDIA NIM unless LOCAL_LLM=true.
+    useLocal: (process.env.LOCAL_LLM ?? process.env.USE_LOCAL_LLM ?? "false") === "true",
     baseUrl: (process.env.LOCAL_LLM_BASE_URL || "http://127.0.0.1:11434").replace(/\/$/, ""),
     model: process.env.LOCAL_LLM_MODEL || "gemma4:latest",
     commentModel: process.env.LOCAL_LLM_COMMENT_MODEL || process.env.LOCAL_LLM_MODEL || "gemma4:latest",
@@ -44,7 +45,6 @@ const config = {
     webhookUrl: process.env.DISCORD_WEBHOOK_URL,
   },
   social: {
-    linkedinPost: process.env.LINKEDIN_POST === "true",
     linkedinFeedReply: process.env.LINKEDIN_FEED_REPLY === "true",
     // Like-only engagement while comments stay disabled (perfecting replies).
     // Runs 3-9 random likes across Top + Recent per prepared file.

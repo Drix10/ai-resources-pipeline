@@ -1,7 +1,7 @@
-const { Builder, By, Key, until } = require("selenium-webdriver");
-const chrome = require("selenium-webdriver/chrome");
+const { By, Key, until } = require("selenium-webdriver");
 const config = require("../../config");
 const { logger, sleep } = require("../utils/helpers");
+const { attachDriver, waitForXLogin } = require("../utils/chromeLauncher");
 const fs = require("fs");
 const path = require("path");
 
@@ -126,76 +126,12 @@ class TwitterService {
     }
   }
 
-  async ensureChromeRunning() {
-    try {
-      const res = await fetch("http://127.0.0.1:9222/json/version");
-      if (res.ok) return true;
-    } catch (e) {}
-
-    const { spawn } = require("child_process");
-    const userProfile = process.env.USERPROFILE || process.env.HOME || "";
-    const userDataDir = path.join(userProfile, "chrome-debug");
-    if (!fs.existsSync(userDataDir)) {
-      fs.mkdirSync(userDataDir, { recursive: true });
-    }
-
-    const chromeCandidates = [
-      "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
-      "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
-      path.join(process.env.LOCALAPPDATA || "", "Google\\Chrome\\Application\\chrome.exe"),
-      "google-chrome",
-      "chrome"
-    ];
-
-    let chromeExe = chromeCandidates.find(p => fs.existsSync(p)) || "chrome";
-    try {
-      const proc = spawn(chromeExe, [
-        "--remote-debugging-port=9222",
-        `--user-data-dir=${userDataDir}`,
-        "--disable-background-timer-throttling",
-        "--disable-backgrounding-occluded-windows",
-        "--disable-renderer-backgrounding",
-        "https://x.com"
-      ], { detached: true, stdio: "ignore" });
-      proc.unref();
-
-      for (let i = 0; i < 15; i++) {
-        await sleep(1000);
-        try {
-          const res = await fetch("http://127.0.0.1:9222/json/version");
-          if (res.ok) return true;
-        } catch (err) {}
-      }
-    } catch (launchErr) {
-      logger.warn(`Could not auto-launch Chrome: ${launchErr.message}`);
-    }
-    return false;
-  }
-
   async init() {
     try {
       if (!this.driver || !this.isInitialized) {
-        await this.ensureChromeRunning();
-
-        let options = new chrome.Options();
-        options.options_["debuggerAddress"] = "127.0.0.1:9222";
-
-        try {
-          this.driver = await new Builder()
-            .forBrowser("chrome")
-            .setChromeOptions(options)
-            .build();
-
-          logger.info("Connected to existing Chrome browser");
-          this.isInitialized = true;
-        } catch (connectionError) {
-          logger.error(
-            "Failed to connect to Chrome. Make sure Chrome is running with: chrome --remote-debugging-port=9222"
-          );
-          throw new Error(
-            "Chrome not running with remote debugging. Run: chrome --remote-debugging-port=9222"
-          );
-        }
+        this.driver = await attachDriver();
+        logger.info("Connected to existing Chrome browser");
+        this.isInitialized = true;
       }
       await this.login();
     } catch (error) {
@@ -423,56 +359,7 @@ class TwitterService {
         logger.info("TwitterService: No matching tab found, opening a new tab...");
         await this.driver.switchTo().newWindow("tab");
       }
-      // First check if already logged in
-      await this.driver.get("https://x.com/home");
-      await sleep(3000);
-
-      try {
-        // Check if we're already on the home page (logged in)
-        await this.driver.wait(
-          until.elementLocated(By.css('[data-testid="AppTabBar_Home_Link"]')),
-          5000
-        );
-        logger.info("Already logged in to X (Twitter), skipping login process");
-        return;
-      } catch (e) {
-        logger.info("Not logged in to X (Twitter), prompting for manual login...");
-      }
-
-      logger.warn("⚠️ X (Twitter) Login Required: Please log in manually in the Chrome browser window.");
-
-      const maxLoginAttempts = 60;
-      let loginAttempts = 0;
-      while (loginAttempts < maxLoginAttempts) {
-        try {
-          const currentUrl = await this.driver.getCurrentUrl();
-          if (currentUrl.includes("/home") || currentUrl.includes("/explore") || currentUrl.includes("x.com")) {
-            const homeLink = await this.driver.findElements(By.css('[data-testid="AppTabBar_Home_Link"]'));
-            if (homeLink.length > 0) {
-              logger.info("X (Twitter) login detected! Continuing pipeline...");
-              return;
-            }
-          }
-        } catch (pollErr) {
-          const msg = String(pollErr?.message || "").toLowerCase();
-          if (
-            msg.includes("invalid session") ||
-            msg.includes("invalid session id") ||
-            msg.includes("no such window") ||
-            msg.includes("chrome not reachable") ||
-            msg.includes("transport") ||
-            msg.includes("session not created") ||
-            msg.includes("session deleted")
-          ) {
-            throw pollErr;
-          }
-          // Ignore known transient polling errors and continue waiting for manual login.
-        }
-        loginAttempts++;
-        await sleep(5000);
-      }
-
-      throw new Error("Twitter manual login timed out after 5 minutes.");
+      await waitForXLogin(this.driver, "pipeline");
     } catch (error) {
       logger.error("Error during X (Twitter) login check:", error);
       throw error;
