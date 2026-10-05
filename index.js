@@ -37,9 +37,10 @@ const startApplication = async () => {
       logger.error("Uncaught Exception:", error);
       handleShutdown("uncaughtException");
     });
-    process.on("unhandledRejection", (reason, promise) => {
-      logger.error("Unhandled Rejection at:", promise, "reason:", reason);
-      handleShutdown("unhandledRejection");
+    // A stray rejection from one scraper/LLM call must not kill the long-running
+    // scheduler; log it and keep going. Truly uncaught exceptions still shut down.
+    process.on("unhandledRejection", (reason) => {
+      logger.error("Unhandled Rejection (non-fatal):", reason);
     });
   } catch (error) {
     logger.error("Failed to start application:", error);

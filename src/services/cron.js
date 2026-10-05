@@ -4,12 +4,12 @@ const path = require("path");
 const config = require("../../config");
 const twitterService = require("./twitter");
 const TwitterService = new twitterService();
-const linkedinService = require("./linkedin");
-const LinkedInService = new linkedinService();
+const feedEngage = require("./feedEngage");
 const GithubService = require("./github");
 const llmService = require("./llm");
 const cron = require("node-cron");
 
+const BLOG_PATHS = ["blog/content", "blog/lib/articles-index.json"];
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 5000;
 const MIN_PUBLISHABLE_CANDIDATES = 6;
@@ -154,9 +154,6 @@ const savePipelineState = (nextFolderIndex, totalFolders) => {
 const runDataPipeline = async (folder) => {
   for (let retryCount = 0; retryCount < MAX_RETRIES; retryCount++) {
     try {
-      // LinkedIn scraping disabled at user request
-      const linkedinPosts = [];
-
       logger.info(`Fetching tweets for folder: ${folder.name}...`);
       // Let failures reach the retry loop. Converting a browser/network failure
       // into an empty array makes the pipeline falsely report "no new content".
@@ -165,12 +162,12 @@ const runDataPipeline = async (folder) => {
          throw new Error(`X fetch returned an invalid result for folder ${folder.name}`);
        }
 
-      if (tweets.length === 0 && linkedinPosts.length === 0) {
+      if (tweets.length === 0) {
         logger.info(`No new content found on X for folder: ${folder.name}`);
         return null;
       }
 
-      const sourceCount = tweets.length + linkedinPosts.length;
+      const sourceCount = tweets.length;
       if (sourceCount < MIN_PUBLISHABLE_CANDIDATES) {
         logger.info(
           `Skipping ${folder.name}: only ${sourceCount}/${MIN_PUBLISHABLE_CANDIDATES} pre-vetted sources were collected; preserving the quality bar.`
@@ -178,22 +175,12 @@ const runDataPipeline = async (folder) => {
         return null;
       }
 
-      const markdownContent = await llmService.generateMarkdownFromCombined(
-        tweets,
-        linkedinPosts,
-        2,
-        false,
-        [],
-        folder?.name
-      );
-      const expectedArticleCount = llmService.normalizeCollectedThreads(tweets).length + linkedinPosts.filter(Boolean).length;
-      llmService.assertPublishableMarkdown(markdownContent, expectedArticleCount);
+      const { markdown: markdownContent } = await llmService.generateMarkdownBatched(tweets, folder?.name);
 
       return {
         folder,
         queryName: folder.name,
         tweets,
-        linkedinPosts,
         markdownContent,
         fileBuffer: Buffer.from(markdownContent)
       };
@@ -224,221 +211,6 @@ function getTopicName(queryName) {
   const folder = config.folders.find((f) => f.name === queryName);
   return folder ? folder.name : "AI Scrapped";
 }
-
-const runEndofRunCuration = async (successfulArticles) => {
-  if (successfulArticles.length > 0) {
-    try {
-      logger.info(`Starting LinkedIn Agentic Curation Flow for ${successfulArticles.length} raw files (flattening sub-articles)...`);
-      const flattenedArticles = llmService.splitArticlesIntoSubArticles(successfulArticles).filter(Boolean);
-      // The agent engine picks its own source from the flattened list, so the LLM
-      // selection call only runs if we fall back to the legacy master-post path.
-      let legacySelection = null;
-      const selectForLegacy = async () => {
-        if (legacySelection) return legacySelection;
-        let selectedIndices = [0];
-        try {
-          selectedIndices = await llmService.selectBestArticlesForLinkedIn(flattenedArticles);
-        } catch (selectErr) {
-          logger.warn("LinkedIn Curation: LLM article selection failed, safely falling back to top article:", selectErr.message);
-        }
-        legacySelection = [...new Set(selectedIndices)].map(idx => flattenedArticles[idx]).filter(Boolean);
-        if (legacySelection.length === 0) legacySelection = [flattenedArticles[0]];
-        return legacySelection;
-      };
-      const selectedArticles = flattenedArticles;
-
-      if (selectedArticles.length > 0) {
-        let slideImagePath = null;
-
-        try {
-          const maxGenerationAttempts = 2;
-          let megaPostData = null;
-          let validation = null;
-          let validationFeedback = [];
-
-          for (let attempt = 1; attempt <= maxGenerationAttempts; attempt++) {
-            logger.info(`LinkedIn Curation: Generating mega post draft (attempt ${attempt}/${maxGenerationAttempts})...`);
-            try {
-              megaPostData = await llmService.generateAutonomousFounderPost({ curatedArticles: selectedArticles.slice(0, 12) });
-            } catch (generationError) {
-              logger.warn(`LinkedIn Curation: Autonomous generation failed (${generationError.message}), attempting standard master post...`);
-              try {
-                megaPostData = await llmService.generateLinkedInMasterPost(await selectForLegacy(), 3, validationFeedback);
-              } catch (fallbackError) {
-                if (fallbackError.code !== "LOCAL_LLM_QUALITY_REJECTED" || attempt === maxGenerationAttempts) {
-                  throw fallbackError;
-                }
-                validationFeedback = [fallbackError.message];
-                logger.warn(`LinkedIn Curation: Draft rejected; retrying with feedback: ${fallbackError.message}`);
-                continue;
-              }
-            }
-            const primarySource = (megaPostData && megaPostData.sourceArticle) || (legacySelection && legacySelection[0]) || selectedArticles[0];
-            const githubUrl = primarySource.githubUrl || "";
-            const sourceBulletCount = llmService.countSourceBullets(primarySource.fullContent || "");
-
-            // Prefer the validation that ran inside generateLinkedInMasterPost (with hook-filtered manual points).
-            const internalValidation = megaPostData && megaPostData.isValid !== undefined;
-            validation = internalValidation
-              ? {
-                  isValid: megaPostData.isValid,
-                  qualityScore: megaPostData.qualityScore,
-                  errors: megaPostData.validationErrors || []
-                }
-              : llmService.validatePostText(megaPostData, githubUrl, sourceBulletCount);
-
-            if (validation.isValid) {
-              logger.info(`LinkedIn Curation: Mega post passed quality validation (score: ${validation.qualityScore}/100)`);
-              break;
-            }
-
-            logger.warn(`LinkedIn Curation: Mega post failed quality validation (score: ${validation.qualityScore}/100):`);
-            validation.errors.forEach(err => logger.warn(`  - ${err}`));
-
-            if (attempt === maxGenerationAttempts) {
-              logger.warn("LinkedIn Curation: Aborting publish due to repeated quality validation failures.");
-              return;
-            }
-
-            validationFeedback = validation.errors;
-            logger.info("LinkedIn Curation: Retrying mega post generation with validation feedback...");
-          }
-
-          try {
-            slideImagePath = await LinkedInService.generateSlideImage(
-              megaPostData.title,
-              megaPostData.slidePoints,
-              megaPostData.slideTagline,
-              megaPostData.primaryRepo ? `github.com/Drix10/${megaPostData.primaryRepo}` : "blogs.drix10.com",
-              {
-                structureName: megaPostData.chosenStructure,
-                diagramSteps: megaPostData.diagramSteps,
-                coreInsight: megaPostData.coreInsight,
-                category: megaPostData.category
-              }
-            );
-          } catch (imageErr) {
-            logger.error("LinkedIn Curation: Failed to generate slide image, continuing without image:", imageErr);
-            slideImagePath = null;
-          }
-
-          if (megaPostData.postText) {
-            // 1. ALWAYS save the insight post as an article in Knowledge Hub "LinkedIn Insights"
-            const timestamp = Date.now();
-            const sourceArticle = "sourceArticle" in megaPostData
-              ? megaPostData.sourceArticle
-              : (legacySelection && legacySelection[0]) || null;
-            const seoSlug = String(megaPostData.title || sourceArticle?.title || "technical-insight")
-              .toLowerCase()
-              .replace(/[^a-z0-9]+/g, "-")
-              .replace(/^-|-$/g, "")
-              .slice(0, 50);
-            const blogFileName = `${seoSlug}-${timestamp}.md`;
-            const slideFileName = `${seoSlug}-${timestamp}.png`;
-            let slideEmbed = "";
-
-            if (slideImagePath && fs.existsSync(slideImagePath)) {
-              try {
-                const blogSlidesDir = path.join(process.cwd(), "blog", "public", "slides");
-                if (!fs.existsSync(blogSlidesDir)) fs.mkdirSync(blogSlidesDir, { recursive: true });
-                fs.copyFileSync(slideImagePath, path.join(blogSlidesDir, slideFileName));
-                slideEmbed = `\n\n![${megaPostData.title || "Systems Architecture Breakdown"}](/slides/${slideFileName})\n`;
-              } catch (copyErr) {
-                logger.warn(`LinkedIn Curation: Failed to copy slide to blog public slides: ${copyErr.message}`);
-              }
-            }
-
-            const blogMarkdownContent = `# ${megaPostData.title || "LinkedIn Technical Insight"}
-${slideEmbed}
-${megaPostData.postText}
-
----
-### 🔗 Reference & Source Breakdown
-${sourceArticle?.githubUrl ? `- **Source Material**: [${sourceArticle.title}](${sourceArticle.githubUrl})\n` : ""}- **Recommended Visual Asset**: ${megaPostData.recommendedVisual || megaPostData.slideTagline || "Screenshot of terminal or code"}
-- **First Comment**: ${megaPostData.commentText || "Full breakdown in comments"}
-- **Syndicated Channel**: LinkedIn & Personal Blog Hub
-`;
-
-            try {
-              const blogInsightsDir = path.join(process.cwd(), "blog", "content", "LinkedIn Insights");
-              const rootInsightsDir = path.join(process.cwd(), "LinkedIn Insights");
-              if (!fs.existsSync(blogInsightsDir)) fs.mkdirSync(blogInsightsDir, { recursive: true });
-              if (!fs.existsSync(rootInsightsDir)) fs.mkdirSync(rootInsightsDir, { recursive: true });
-
-              fs.writeFileSync(path.join(blogInsightsDir, blogFileName), blogMarkdownContent, "utf8");
-              fs.writeFileSync(path.join(rootInsightsDir, blogFileName), blogMarkdownContent, "utf8");
-              logger.info(`LinkedIn Curation: Saved insight article to blog Knowledge Hub: blog/content/LinkedIn Insights/${blogFileName}`);
-              if (megaPostData.historyRecord) require("./agentContext").recordPost(megaPostData.historyRecord);
-
-              const recentTopic = megaPostData.sourceTitle || sourceArticle?.title;
-              if (recentTopic) llmService.saveRecentTopic(recentTopic);
-            } catch (saveErr) {
-              logger.warn(`LinkedIn Curation: Failed to save insight article to blog: ${saveErr.message}`);
-            }
-
-            // 2. Syndicate insight article to DEV.to if enabled
-            try {
-              const syndicationService = require("./syndication");
-              syndicationService.syndicateMarkdownArticle({
-                title: megaPostData.title || "LinkedIn Technical Insight",
-                markdown: blogMarkdownContent,
-                tags: (megaPostData.hashtags || []).length
-                  ? megaPostData.hashtags.map(h => String(h).replace(/^#/, "").toLowerCase())
-                  : ["ai", "programming", "webdev", "career"],
-                category: "LinkedIn Insights",
-                relativePath: `LinkedIn Insights/${blogFileName}`,
-              }).catch(err => logger.warn(`Syndication error for LinkedIn Insight (non-fatal): ${err.message}`));
-            } catch (synErr) {
-              logger.warn(`Syndication invocation skipped: ${synErr.message}`);
-            }
-
-            // 3. Post to Live LinkedIn if enabled
-            if (config.social.linkedinPost) {
-              logger.info("LinkedIn Curation: Publishing post, companion slide image, and first comment live to LinkedIn...");
-              try {
-                const posted = await LinkedInService.postToLinkedIn(
-                  megaPostData.postText,
-                  slideImagePath,
-                  megaPostData.commentText
-                );
-                if (posted) {
-                  logger.info("🎉 SUCCESS: LinkedIn post, companion slide image, and first comment published live!");
-                } else {
-                  logger.warn("⚠️ LinkedIn poster returned false or was unable to submit.");
-                }
-              } catch (livePostErr) {
-                logger.error("LinkedIn Curation: Failed to publish live to LinkedIn:", livePostErr);
-              }
-            } else {
-              logger.info("LinkedIn Curation: Live LinkedIn posting is disabled (LINKEDIN_POST=false). Post draft and visual concept saved for review.");
-            }
-          }
-        } catch (postErr) {
-          logger.error("LinkedIn Curation: Post generation or submission failed:", postErr);
-        } finally {
-          LinkedInService.cleanupDebugScreenshots();
-          if (slideImagePath && typeof slideImagePath === "string") {
-            const tempDir = path.join(process.cwd(), "temp");
-            const normalizedPath = path.resolve(slideImagePath).replace(/\\/g, "/");
-            const normalizedTemp = path.resolve(tempDir).replace(/\\/g, "/");
-            const isTemporary = normalizedPath === normalizedTemp || normalizedPath.startsWith(`${normalizedTemp}/`);
-            if (isTemporary) {
-              try {
-                if (fs.existsSync(slideImagePath)) fs.unlinkSync(slideImagePath);
-              } catch (e) { }
-            }
-          }
-        }
-      } else {
-        logger.warn("LinkedIn Curation: No valid articles matched the selected indices.");
-      }
-    } catch (curationErr) {
-      logger.error("LinkedIn Curation: Curation pipeline failed:", curationErr);
-    }
-  } else {
-    logger.info("LinkedIn Curation: No successful articles generated, skipping curation.");
-  }
-};
 
 /**
  * Single canonical pipeline runner: initialises services, processes all folders,
@@ -518,7 +290,6 @@ const processAllFolders = async () => {
           // likes across Top + Recent. No drafting, no commenting, no LLM spend.
           if (config.social.linkedinLike) {
             try {
-              const feedEngage = require("./feedEngage");
               const likeResult = await feedEngage.runLikePass({ min: 3, max: 9 });
               logger.info(`LinkedIn likes after ${prepared.queryName}: ${likeResult.liked}/${likeResult.picked} liked (target ${likeResult.target}).`);
             } catch (feedErr) {
@@ -563,12 +334,6 @@ const processAllFolders = async () => {
       config.github.repo
     );
 
-    if (!localLlmUnavailable) {
-      await runEndofRunCuration(successfulArticles);
-    } else {
-      logger.warn("Cycle End: LLM service was unavailable, skipping LinkedIn curation flow.");
-    }
-
     if (successfulArticles.length > 0) {
       logger.info(`Cycle End: Successfully processed and syndicated ${successfulArticles.length} curated guide(s).`);
     }
@@ -576,7 +341,6 @@ const processAllFolders = async () => {
     // Feed engagement: comment pass after each successful pipeline run.
     if (config.social.linkedinFeedReply && successfulArticles.length > 0) {
       try {
-        const feedEngage = require("./feedEngage");
         logger.info("Cycle End: Running LinkedIn feed comment engagement pass...");
         const engageResult = await feedEngage.runFeedEngagement({ max: 2 });
         logger.info(`LinkedIn feed engagement: ${engageResult.commented} commented, ${engageResult.liked} liked, ${engageResult.skipped} skipped. ${engageResult.reason || ""}`);
@@ -597,7 +361,7 @@ const processAllFolders = async () => {
       // Automatically git commit & push newly synced articles ONLY if automated build verification passes
       if (successfulArticles.length > 0) {
         try {
-          const { execSync } = require("child_process");
+          const { execSync, spawnSync } = require("child_process");
           logger.info("Cycle End: Running automated build verification before git push...");
           execSync("npm --prefix blog run build", {
             stdio: "pipe",
@@ -605,14 +369,13 @@ const processAllFolders = async () => {
           });
           logger.info("Cycle End: Automated build verification passed (100% clean). Proceeding to push...");
 
-          execSync('git add blog/content blog/lib/articles-index.json blog/public/slides "LinkedIn Insights"', {
-            stdio: "ignore",
-            timeout: 15000
-          });
-          const hasChanges = execSync("git status --porcelain", { encoding: "utf8", timeout: 10000 }).trim().length > 0;
+          spawnSync("git", ["add", "--", ...BLOG_PATHS], { stdio: "ignore", timeout: 15000 });
+          // Only staged blog files count: unrelated working-tree edits must not trigger an empty commit.
+          const hasChanges = spawnSync("git", ["diff", "--cached", "--quiet", "--", ...BLOG_PATHS], { timeout: 10000 }).status === 1;
           if (hasChanges) {
             const currentBranch = execSync("git rev-parse --abbrev-ref HEAD", { encoding: "utf8", timeout: 5000 }).trim() || "main";
-          execSync(`git commit -m "feat(blog): sync new curated AI resource guides & LinkedIn insights" && git push origin ${currentBranch}`, {
+            // Commit only the blog paths so unrelated local edits never ride along.
+            execSync(`git commit -m "feat(blog): sync new curated AI resource guides" -- ${BLOG_PATHS.join(" ")} && git push origin ${currentBranch}`, {
               stdio: "ignore",
               timeout: 30000
             });
@@ -630,12 +393,7 @@ const processAllFolders = async () => {
 
     // Cleanup leftover debug screenshots from root
     TwitterService.cleanupScreenshots();
-    LinkedInService.cleanupDebugScreenshots();
-    try {
-      if (fs.existsSync("linkedin-post-failed.png")) {
-        fs.unlinkSync("linkedin-post-failed.png");
-      }
-    } catch (e) { }
+    feedEngage.cleanup().catch(() => {});
   } finally {
     releasePipelineLock();
   }
@@ -647,8 +405,8 @@ let activePipelinePromise = null;
 
 /**
  * Schedules a single cron job with a random interval (1–16 hours).
- * NOTE: Does NOT recursively reschedule itself — reschedule is done once on init only.
- * This prevents cron instance accumulation over time.
+ * Replaces (stops) the previous task each time it is called, so tasks never accumulate.
+ * The run callback calls it again after every execution to re-roll the interval.
  */
 const scheduleRandomJob = () => {
   const RandNum = Math.floor(Math.random() * 16) + 1;
@@ -687,13 +445,13 @@ const scheduleRandomJob = () => {
       } finally {
         isJobRunning = false;
         if (activePipelinePromise === scheduledPipelinePromise) activePipelinePromise = null;
+        // Re-roll the 1-16h interval after every run instead of freezing the first
+        // roll for the process lifetime. Deferred so the task is not stopped from
+        // inside its own callback; scheduleRandomJob stops the old task first.
+        if (scheduledJob) setImmediate(() => { try { scheduleRandomJob(); } catch (e) { logger.error("Failed to reschedule pipeline:", e); } });
       }
     },
-    {
-      scheduled: true,
-      timezone: "UTC",
-      runOnInit: false,
-    }
+    { timezone: "UTC" }
   );
 
   logger.info(`Cron job initialized with schedule: ${schedule}`);
@@ -742,7 +500,7 @@ const stopCronJob = async () => {
     logger.error("Error cleaning up Twitter service:", error);
   }
   try {
-    await LinkedInService.cleanup();
+    await feedEngage.cleanup();
     logger.info("LinkedIn service cleaned up");
   } catch (error) {
     logger.error("Error cleaning up LinkedIn service:", error);

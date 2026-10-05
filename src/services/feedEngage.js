@@ -319,4 +319,6 @@ async function runLikePass({ min = 3, max = 9 } = {}) {
   return { liked, picked, target };
 }
 
-module.exports = { runFeedEngagement, runLikePass };
+const cleanup = () => LinkedInService.cleanup();
+
+module.exports = { runFeedEngagement, runLikePass, cleanup };
