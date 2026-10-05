@@ -1984,7 +1984,7 @@ ${combinedPrompt}</source_material>
   // Lean system prompts for feed comments: the 2500-token post-writing SYSTEM_PROMPT
   // drowns short comment drafts (instruction dilution). Gates + critic carry the strictness.
   async draftFeedComment({ postAuthor = "", postText = "" } = {}, retries = 3, feedback = []) {
-    const cleanPost = String(postText || "").replace(/https?:\/\/[^\s)]+/g, "").slice(0, 1500).replace(/[�-�](?![�-�])|(?<![�-�])[�-�]/g, "").trim();
+    const cleanPost = String(postText || "").replace(/https?:\/\/[^\s)]+/g, "").normalize("NFKC").replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u200B-\u200F\u2028\u2029\uFEFF]/g, "").slice(0, 1500).replace(/[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/g, "").trim();
     if (cleanPost.split(/\s+/).length < 10) throw new Error("draftFeedComment: post too thin to engage.");
     // Commercial promos and lead-gen ads (coaching/course pitches with contact
     // info plus an enrollment CTA, or hashtag-stuffed promos) get no earnest peer
