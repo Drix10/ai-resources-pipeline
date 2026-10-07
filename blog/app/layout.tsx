@@ -1,24 +1,31 @@
 import Link from 'next/link';
-import Image from 'next/image';
-import { Inter } from 'next/font/google';
+import { Bricolage_Grotesque, JetBrains_Mono, Newsreader } from 'next/font/google';
 import type { Metadata, Viewport } from 'next';
 import { getAllCategories } from '@/lib/markdown';
 import { Analytics } from '@vercel/analytics/next';
+import ThemeToggle from '@/components/ThemeToggle';
+import { jsonLd } from '@/lib/url';
 import './globals.css';
 
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
-});
+// Same faces as drix10.com: a variable grotesque for interface and headings,
+// a screen-drawn serif for everything you read, a monospace only for code.
+const display = Bricolage_Grotesque({ subsets: ['latin'], display: 'swap', variable: '--font-display', axes: ['wdth', 'opsz'] });
+const text = Newsreader({ subsets: ['latin'], display: 'swap', variable: '--font-text', style: ['normal', 'italic'], axes: ['opsz'] });
+const code = JetBrains_Mono({ subsets: ['latin'], display: 'swap', variable: '--font-code' });
 
 export const viewport: Viewport = {
-  themeColor: '#09090b',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#f1f3f0' },
+    { media: '(prefers-color-scheme: dark)', color: '#0c1320' },
+  ],
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
 };
+
+// Runs before first paint so a saved theme never flashes the wrong palette.
+const themeScript = `try{var q=new URLSearchParams(location.search).get('theme');var t=q||localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.CANONICAL_BASE_URL || 'https://blogs.drix10.com'),
@@ -158,141 +165,80 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" className={`${display.variable} ${text.variable} ${code.variable}`} suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <link rel="icon" href="/avatar.png" type="image/png" />
         <link rel="apple-touch-icon" href="/avatar.png" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(rootKnowledgeGraphSchema) }}
-        />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(rootKnowledgeGraphSchema) }} />
       </head>
-      <body className={`${inter.variable} font-sans min-h-screen flex flex-col bg-[#09090b] text-zinc-100 antialiased selection:bg-zinc-800 selection:text-zinc-100 overflow-x-hidden`}>
-        {/* Global Navigation Header (Matched with Portfolio Design System) */}
-        <header className="border-b border-zinc-800/80 bg-[#09090b]/95 backdrop-blur-md sticky top-0 z-50">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <Link href="/" className="flex items-center gap-2.5 group">
-                <Image
-                  src="/avatar.png"
-                  alt="Drishtant Ghosh (Drix10)"
-                  width={32}
-                  height={32}
-                  priority
-                  className="w-8 h-8 rounded-full object-cover border border-zinc-700 shadow-sm group-hover:border-zinc-400 transition-colors"
-                />
-                <div className="flex items-center gap-1.5 font-bold tracking-tight text-sm text-zinc-100 group-hover:text-white transition-colors">
-                  <span>drix10</span>
-                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-zinc-400 font-mono font-normal">
-                    blogs
-                  </span>
-                </div>
-              </Link>
-            </div>
+      <body className="flex min-h-screen flex-col overflow-x-hidden">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-ink focus:px-3 focus:py-2 focus:text-sm focus:text-paper"
+        >
+          Skip to content
+        </a>
 
-            {/* Desktop Navigation Links */}
-            <nav className="hidden md:flex items-center gap-5 text-xs font-medium text-zinc-400">
-              <a
-                href="https://drix10.com"
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-zinc-100 transition-colors flex items-center gap-1 font-semibold text-zinc-300"
-              >
-                <span>Portfolio</span>
-                <span className="text-[10px] text-zinc-500">↗</span>
+        <header className="sticky top-0 z-40 border-b border-rule/70 bg-paper/85 backdrop-blur-md">
+          <div className="mx-auto flex h-14 max-w-[1100px] items-center justify-between gap-6 px-5 sm:px-8">
+            <Link href="/" className="display text-[1.0625rem] font-semibold text-ink">
+              Drix10 Blog
+            </Link>
+
+            <nav aria-label="Primary" className="flex items-center gap-5 text-[0.9375rem] sm:gap-7">
+              <Link href="/categories" className="text-body transition-colors hover:text-ink">
+                Topics
+              </Link>
+              <Link href="/categories/personal" className="hidden text-body transition-colors hover:text-ink sm:inline">
+                Founder notes
+              </Link>
+              <a href="https://drix10.com" target="_blank" rel="noopener noreferrer" className="hidden text-body transition-colors hover:text-ink sm:inline">
+                Portfolio
               </a>
-              <Link href="/categories" className="hover:text-zinc-100 transition-colors">
-                Categories
-              </Link>
-              <Link href="/categories/personal" className="text-amber-400/90 hover:text-amber-300 font-mono transition-colors font-medium">
-                Founder Notes
-              </Link>
+              <ThemeToggle />
             </nav>
-            
-            <div className="flex items-center gap-2.5">
-              <a 
-                href="https://github.com/Drix10" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                aria-label="GitHub Profile"
-                className="text-xs font-medium px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 hover:text-white transition-colors"
-              >
-                GitHub
-              </a>
-              <a 
-                href="https://www.linkedin.com/in/drix10" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                aria-label="Connect on LinkedIn"
-                className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-zinc-950 transition-colors"
-              >
-                LinkedIn
-              </a>
-            </div>
           </div>
         </header>
 
-        {/* Main Content Area */}
-        <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        <main id="main" className="mx-auto w-full max-w-[1100px] flex-1 px-5 py-10 sm:px-8 sm:py-14">
           {children}
         </main>
 
-        {/* Global Footer (Matched with Portfolio Layout) */}
-        <footer className="border-t border-zinc-800/80 bg-[#09090b] py-10 mt-16 text-xs text-zinc-500">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col gap-6">
-            
-            {/* Category Directory Block */}
-            <div className="pt-2">
-              <h4 className="text-xs font-mono uppercase tracking-wider text-zinc-400 font-semibold mb-3">Explore Categories Directory</h4>
-              <nav aria-label="Footer Directory" className="flex flex-wrap gap-x-3 gap-y-2">
-                {categories.map(c => (
-                  <Link key={c.slug} href={`/categories/${c.slug}`} className="text-zinc-500 hover:text-zinc-300 transition-colors">
-                    {c.name}
-                  </Link>
+        <footer className="border-t border-rule/70">
+          <div className="mx-auto max-w-[1100px] space-y-8 px-5 py-10 text-[0.9375rem] sm:px-8">
+            <div>
+              <h2 className="mb-3 font-semibold text-ink">Popular topics</h2>
+              <ul className="flex flex-wrap gap-x-5 gap-y-2">
+                {categories.slice(0, 14).map((c) => (
+                  <li key={c.slug}>
+                    <Link href={`/categories/${c.slug}`} className="text-body transition-colors hover:text-ink">
+                      {c.name}
+                    </Link>
+                  </li>
                 ))}
-              </nav>
+                <li>
+                  <Link href="/categories" className="link">
+                    All {categories.length} topics
+                  </Link>
+                </li>
+              </ul>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left pt-6 border-t border-zinc-800/60">
-              <div className="flex flex-col gap-1">
-                <span className="font-semibold text-zinc-300">Drishtant Ghosh (Drix10)</span>
-                <span className="text-zinc-500 max-w-md text-xs leading-relaxed">
-                  Technical founder and engineer working across AI systems, developer infrastructure, and cybersecurity.
-                </span>
-              </div>
-
-              <div className="flex flex-wrap items-center justify-center gap-3 text-zinc-400">
-                <Link href="/" className="hover:text-zinc-100 hover:underline">
-                  Blog
-                </Link>
-                <span>·</span>
-                <a href="https://drix10.com" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-100 hover:underline">
-                  Portfolio
-                </a>
-                <span>·</span>
-                <a href="https://github.com/Drix10" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-100 hover:underline">
-                  GitHub
-                </a>
-                <span>·</span>
-                <a href="https://www.linkedin.com/in/drix10" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-100 hover:underline">
-                  LinkedIn
-                </a>
-                <span>·</span>
-                <a href="https://x.com/DrishtantGhosh" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-100 hover:underline">
-                  X
-                </a>
-                <span>·</span>
-                <a href="mailto:ggdrishtant@gmail.com" className="hover:text-zinc-100 hover:underline">
-                  Email
-                </a>
-                <span className="text-zinc-700">|</span>
-                <Link href="/llms.txt" className="hover:text-zinc-100 hover:underline font-mono text-[11px] text-emerald-400/90">
-                  llms.txt
-                </Link>
-                <Link href="/sitemap.xml" className="hover:text-zinc-100 hover:underline">
-                  Sitemap
-                </Link>
-              </div>
+            <div className="flex flex-col gap-4 border-t border-rule/70 pt-6 sm:flex-row sm:items-center sm:justify-between">
+              <p className="max-w-md text-faint">
+                By Drishtant Ghosh. Short, sourced digests on AI, developer tools and security, collected daily.
+              </p>
+              <ul className="flex flex-wrap gap-x-5 gap-y-2">
+                <li><a href="https://drix10.com" target="_blank" rel="noopener noreferrer" className="text-body hover:text-ink">Portfolio</a></li>
+                <li><a href="https://github.com/Drix10" target="_blank" rel="noopener noreferrer" className="text-body hover:text-ink">GitHub</a></li>
+                <li><a href="https://www.linkedin.com/in/drix10" target="_blank" rel="noopener noreferrer" className="text-body hover:text-ink">LinkedIn</a></li>
+                <li><a href="https://x.com/DrishtantGhosh" target="_blank" rel="noopener noreferrer" className="text-body hover:text-ink">X</a></li>
+                <li><a href="mailto:ggdrishtant@gmail.com" className="text-body hover:text-ink">Email</a></li>
+                <li><Link href="/rss.xml" className="text-body hover:text-ink">RSS</Link></li>
+                <li><Link href="/llms.txt" className="text-body hover:text-ink">llms.txt</Link></li>
+                <li><Link href="/sitemap.xml" className="text-body hover:text-ink">Sitemap</Link></li>
+              </ul>
             </div>
           </div>
         </footer>

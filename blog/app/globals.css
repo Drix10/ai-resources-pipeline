@@ -2,123 +2,273 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Same palette as drix10.com so the two sites read as one. RGB triplets let Tailwind
+   apply opacity (bg-accent/10). The OS preference or the toggle (data-theme) picks the theme. */
+:root {
+  --paper: 241 243 240;
+  --sunk: 232 236 231;
+  --ink: 15 27 45;
+  --body: 52 66 85;
+  --faint: 88 101 116;
+  --rule: 203 210 204;
+  --accent: 23 54 245;
+  --mark: 220 227 255;
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --paper: 12 19 32;
+  --sunk: 19 28 45;
+  --ink: 233 238 245;
+  --body: 190 201 216;
+  --faint: 140 153 171;
+  --rule: 36 48 70;
+  --accent: 124 147 255;
+  --mark: 27 40 80;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --paper: 12 19 32;
+    --sunk: 19 28 45;
+    --ink: 233 238 245;
+    --body: 190 201 216;
+    --faint: 140 153 171;
+    --rule: 36 48 70;
+    --accent: 124 147 255;
+    --mark: 27 40 80;
+    color-scheme: dark;
+  }
+}
+
 @layer base {
-  * {
-    @apply border-zinc-800;
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
   }
   body {
-    @apply bg-[#09090b] text-zinc-100 antialiased;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    @apply bg-paper font-sans text-body antialiased;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: rgb(var(--mark));
+    color: rgb(var(--ink));
+  }
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-/* Custom minimal scrollbar */
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-::-webkit-scrollbar-track {
-  background: #09090b;
-}
-::-webkit-scrollbar-thumb {
-  background: #27272a;
-  border-radius: 9999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
-}
-
-/* Hide scrollbar utility for horizontal scroll containers */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+@layer components {
+  .link {
+    @apply text-ink underline decoration-rule decoration-[1.5px] underline-offset-[5px] transition-colors;
+  }
+  .link:hover {
+    @apply text-accent decoration-accent;
+  }
+  .display {
+    font-variation-settings: 'wdth' 92;
+    letter-spacing: -0.02em;
+  }
+  .scroll-x-hidden::-webkit-scrollbar {
+    display: none;
+  }
+  .scroll-x-hidden {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
-/* Prose Markdown custom styling */
-.prose pre {
-  background-color: #121215 !important;
-  border: 1px solid #27272a !important;
-  border-radius: 0.5rem !important;
+/* ---- Digest reading styles ---------------------------------------------------
+   Everything inside .digest is generated markdown, so it is styled by element. */
+.digest p,
+.digest li {
+  font-family: var(--font-text), Georgia, serif;
+  font-size: 1.1875rem;
+  line-height: 1.7;
+  color: rgb(var(--body));
 }
-
-.prose code {
-  color: #e4e4e7 !important;
-  background-color: #18181b !important;
-  padding: 0.15rem 0.35rem !important;
-  border-radius: 0.25rem !important;
-  border: 1px solid #27272a !important;
-  font-size: 0.85em !important;
-  font-weight: 500 !important;
+.digest p {
+  margin: 0 0 1.1rem;
+  max-width: 66ch;
 }
-
-.prose pre code {
-  background-color: transparent !important;
-  border: none !important;
-  padding: 0 !important;
+.digest h3.label {
+  margin: 1.8rem 0 0.6rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgb(var(--ink));
+  font-variation-settings: 'wdth' 92;
 }
-
-.prose blockquote {
-  border-left-color: #3f3f46 !important;
-  color: #a1a1aa !important;
-  font-style: normal !important;
+.digest ul,
+.digest ol {
+  margin: 0 0 1.2rem;
+  padding-left: 1.25rem;
+  max-width: 66ch;
 }
-
-.prose hr {
-  border-color: #27272a !important;
+.digest ul {
+  list-style: disc;
 }
-
-.prose table {
-  border-collapse: collapse;
+.digest ol {
+  list-style: decimal;
+}
+.digest li {
+  margin: 0.55rem 0;
+  padding-left: 0.2rem;
+}
+.digest li::marker {
+  color: rgb(var(--faint));
+}
+.digest li strong,
+.digest p strong {
+  color: rgb(var(--ink));
+  font-weight: 600;
+}
+.digest a {
+  color: rgb(var(--ink));
+  text-decoration: underline;
+  text-decoration-color: rgb(var(--rule));
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+  transition: color 0.15s, text-decoration-color 0.15s;
+  overflow-wrap: anywhere;
+}
+.digest a:hover {
+  color: rgb(var(--accent));
+  text-decoration-color: rgb(var(--accent));
+}
+.digest a.ext::after {
+  content: '\2197';
+  margin-left: 0.2em;
+  font-size: 0.8em;
+  color: rgb(var(--faint));
+}
+/* The source list is reference material: smaller, in the interface face. */
+.digest h3.label.sources {
+  margin-top: 1.6rem;
+  font-size: 0.9375rem;
+  color: rgb(var(--faint));
+}
+.digest h3.label.sources + ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+.digest h3.label.sources + ul li {
+  margin: 0.3rem 0;
+  padding: 0;
+}
+.digest h3.sources + ul li,
+.digest h3.sources + ul li a {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+.digest code {
+  font-family: var(--font-code), ui-monospace, monospace;
+  font-size: 0.86em;
+  background: rgb(var(--sunk));
+  padding: 0.12em 0.35em;
+  border-radius: 4px;
+  color: rgb(var(--ink));
+  overflow-wrap: anywhere;
+}
+.digest pre {
+  margin: 1.2rem 0 1.6rem;
+  padding: 1rem 1.1rem;
+  background: rgb(var(--sunk));
+  border: 1px solid rgb(var(--rule));
+  border-radius: 8px;
+  overflow-x: auto;
+  line-height: 1.55;
+}
+.digest pre code {
+  background: none;
+  padding: 0;
+  font-size: 0.875rem;
+  overflow-wrap: normal;
+}
+.digest blockquote {
+  margin: 1.2rem 0;
+  padding-left: 1rem;
+  border-left: 3px solid rgb(var(--rule));
+  max-width: 66ch;
+}
+.digest blockquote p {
+  color: rgb(var(--faint));
+}
+.digest hr {
+  border: 0;
+  border-top: 1px solid rgb(var(--rule));
+  margin: 2rem 0;
+}
+.digest h1,
+.digest h2,
+.digest h3 {
+  color: rgb(var(--ink));
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  font-variation-settings: 'wdth' 92;
+}
+.digest h1 {
+  font-size: 2rem;
+  margin: 2.5rem 0 1rem;
+}
+.digest h2 {
+  font-size: 1.6rem;
+  margin: 2.4rem 0 0.9rem;
+}
+.digest h3 {
+  font-size: 1.3rem;
+  margin: 2rem 0 0.7rem;
+}
+.digest-figure {
+  margin: 1.4rem 0;
+}
+.digest-figure img {
+  max-width: 100%;
+  max-height: 28rem;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid rgb(var(--rule));
+}
+.digest-table {
+  margin: 1.4rem 0;
+  overflow-x: auto;
+  border: 1px solid rgb(var(--rule));
+  border-radius: 8px;
+}
+.digest-table table {
   width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
 }
-
-.prose th {
-  border-bottom: 1px solid #3f3f46 !important;
-  color: #f4f4f5 !important;
-  padding: 0.5rem !important;
+.digest-table th {
   text-align: left;
+  padding: 0.6rem 0.8rem;
+  color: rgb(var(--ink));
+  background: rgb(var(--sunk));
+  font-weight: 600;
 }
-
-.prose td {
-  border-bottom: 1px solid #27272a !important;
-  padding: 0.5rem !important;
-  color: #d4d4d8 !important;
-}
-
-.prose ul {
-  list-style-type: disc !important;
-  padding-left: 1.5rem !important;
-  margin-top: 0.75rem !important;
-  margin-bottom: 1.25rem !important;
-}
-
-.prose ol {
-  list-style-type: decimal !important;
-  padding-left: 1.5rem !important;
-  margin-top: 0.75rem !important;
-  margin-bottom: 1.25rem !important;
-}
-
-.prose li {
-  margin-top: 0.4rem !important;
-  margin-bottom: 0.4rem !important;
-  line-height: 1.7 !important;
-  color: #d4d4d8 !important;
-}
-
-.prose li strong {
-  color: #f4f4f5 !important;
-  font-weight: 600 !important;
-}
-
-.prose h3 {
-  margin-top: 2rem !important;
-  margin-bottom: 0.75rem !important;
-  font-size: 1.25rem !important;
-  font-weight: 700 !important;
-  color: #f4f4f5 !important;
-  letter-spacing: -0.01em !important;
+.digest-table td {
+  padding: 0.6rem 0.8rem;
+  border-top: 1px solid rgb(var(--rule));
+  color: rgb(var(--body));
 }

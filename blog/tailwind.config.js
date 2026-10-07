@@ -1,34 +1,31 @@
 /** @type {import('tailwindcss').Config} */
+const token = (name) => `rgb(var(--${name}) / <alpha-value>)`;
+
 module.exports = {
   content: [
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./lib/**/*.{js,ts,jsx,tsx,mdx}",
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './lib/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  darkMode: "class",
+  darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     extend: {
-      screens: {
-        xs: '475px',
+      colors: {
+        paper: token('paper'),
+        sunk: token('sunk'),
+        ink: token('ink'),
+        body: token('body'),
+        faint: token('faint'),
+        rule: token('rule'),
+        accent: token('accent'),
+        mark: token('mark'),
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-      },
-      colors: {
-        background: "#09090b",
-        foreground: "#fafafa",
-        muted: "#71717a",
-        border: "#27272a",
-        card: {
-          DEFAULT: "#18181b",
-          foreground: "#fafafa",
-        },
-        accent: {
-          DEFAULT: "#27272a",
-          foreground: "#fafafa",
-        },
+        sans: ['var(--font-display)', 'system-ui', 'sans-serif'],
+        serif: ['var(--font-text)', 'Georgia', 'serif'],
+        mono: ['var(--font-code)', 'ui-monospace', 'monospace'],
       },
     },
   },
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [],
 };
