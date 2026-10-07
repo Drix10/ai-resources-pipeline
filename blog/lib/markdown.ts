@@ -85,7 +85,8 @@ export function formatDate(iso: string): string {
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 }
 
-export function getArticleBySlug(slugPath: string[]): Article | null {
+// Resolves any known address of a digest (current slug, bare slug, legacy counter slug) to its index entry.
+export function findSummary(slugPath: string[]): ArticleSummary | null {
   if (!Array.isArray(slugPath) || slugPath.length === 0) return null;
   let targetSlug = slugPath.join('/').toLowerCase();
   try {
@@ -116,6 +117,11 @@ export function getArticleBySlug(slugPath: string[]): Article | null {
       }
     }
   }
+  return summary ?? null;
+}
+
+export function getArticleBySlug(slugPath: string[]): Article | null {
+  const summary = findSummary(slugPath);
   if (!summary) return null;
 
   const contentDir = resolveContentRootDir();

@@ -1,41 +1,13 @@
 import { MetadataRoute } from 'next';
+import { SITE_URL } from '@/lib/site';
 
+// One rule for everyone, search engines and AI crawlers alike. (A crawler-specific group would
+// replace this one for that crawler, so repeating "allow" per bot would silently drop the disallows.)
+// Search result pages are an endless space of thin URLs, so they are not crawled.
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.CANONICAL_BASE_URL || 'https://blogs.drix10.com';
-
   return {
-    rules: [
-      {
-        userAgent: '*',
-        allow: '/',
-        disallow: ['/api/'],
-      },
-      {
-        userAgent: ['GPTBot', 'ChatGPT-User', 'OAI-SearchBot'],
-        allow: '/',
-      },
-      {
-        userAgent: ['ClaudeBot', 'anthropic-ai'],
-        allow: '/',
-      },
-      {
-        userAgent: ['PerplexityBot'],
-        allow: '/',
-      },
-      {
-        userAgent: ['Googlebot', 'Google-Extended'],
-        allow: '/',
-      },
-      {
-        userAgent: ['Applebot', 'Applebot-Extended'],
-        allow: '/',
-      },
-      {
-        userAgent: ['Bingbot', 'cohere-ai', 'Meta-ExternalAgent', 'Bytespider', 'CCBot'],
-        allow: '/',
-      },
-    ],
-    sitemap: `${baseUrl}/sitemap.xml`,
-    host: baseUrl,
+    rules: [{ userAgent: '*', allow: '/', disallow: ['/api/', '/search'] }],
+    sitemap: `${SITE_URL}/sitemap.xml`,
+    host: SITE_URL,
   };
 }

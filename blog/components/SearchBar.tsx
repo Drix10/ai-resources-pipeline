@@ -3,13 +3,15 @@
 import { useEffect, useRef, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search, X } from 'lucide-react';
-import { homeUrl } from '@/lib/url';
+import { searchUrl } from '@/lib/url';
 
 interface Props {
-  q: string;
-  topic: string;
-  sort: string;
-  topics: { name: string; slug: string; count: number }[];
+  q?: string;
+  topic?: string;
+  sort?: string;
+  topics?: { name: string; slug: string; count: number }[];
+  // Entry mode (home, archive): just the box. Typing opens the search page, which holds the results.
+  entry?: boolean;
 }
 
 const SORTS = [
@@ -18,7 +20,7 @@ const SORTS = [
   { value: 'alphabetical', label: 'A to Z' },
 ];
 
-export default function SearchBar({ q, topic, sort, topics }: Props) {
+export default function SearchBar({ q = '', topic = '', sort = 'newest', topics = [], entry = false }: Props) {
   const router = useRouter();
   const [value, setValue] = useState(q);
   const [pending, startTransition] = useTransition();
@@ -39,7 +41,10 @@ export default function SearchBar({ q, topic, sort, topics }: Props) {
 
   const go = (next: { q?: string; topic?: string; sort?: string }) => {
     if (next.q !== undefined) lastSent.current = next.q.trim();
-    startTransition(() => router.replace(homeUrl({ q, topic, sort, ...next, page: 1 }), { scroll: false }));
+    const href = searchUrl({ q, topic, sort, ...next, page: 1 });
+    // From the archive the first query is a real navigation (back returns to the archive); on the
+    // search page later keystrokes replace the entry so Back is not a stack of half-typed words.
+    startTransition(() => (entry ? router.push(href) : router.replace(href, { scroll: false })));
   };
 
   const onChange = (v: string) => {
@@ -96,6 +101,7 @@ export default function SearchBar({ q, topic, sort, topics }: Props) {
           }}
           placeholder="Search tools, models, companies, techniques"
           autoComplete="off"
+          autoFocus={!entry && Boolean(q)}
           enterKeyHint="search"
           className="h-14 w-full rounded-lg border border-rule bg-paper pl-12 pr-24 text-[1.0625rem] text-ink placeholder:text-faint focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/25"
         />
@@ -118,6 +124,7 @@ export default function SearchBar({ q, topic, sort, topics }: Props) {
         </div>
       </div>
 
+      {!entry && (
       <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-[0.9375rem]">
         <label className="flex items-center gap-2 text-faint lg:hidden">
           Topic
@@ -152,6 +159,7 @@ export default function SearchBar({ q, topic, sort, topics }: Props) {
           {pending ? 'Searching' : ''}
         </span>
       </div>
+      )}
     </form>
   );
 }

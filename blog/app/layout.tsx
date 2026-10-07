@@ -5,6 +5,7 @@ import { getAllCategories } from '@/lib/markdown';
 import { Analytics } from '@vercel/analytics/next';
 import ThemeToggle from '@/components/ThemeToggle';
 import { jsonLd } from '@/lib/url';
+import { PERSON_ID, PORTFOLIO_URL, SITE_URL } from '@/lib/site';
 import './globals.css';
 
 // Same faces as drix10.com: a variable grotesque for interface and headings,
@@ -28,10 +29,10 @@ export const viewport: Viewport = {
 const themeScript = `try{var q=new URLSearchParams(location.search).get('theme');var t=q||localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}`;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.CANONICAL_BASE_URL || 'https://blogs.drix10.com'),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'Drishtant Ghosh (Drix10) — Technical Research & Engineering Hub',
-    template: '%s | Drishtant Ghosh (Drix10)',
+    template: '%s | Drix10 Blog',
   },
   description: 'Authoritative technical research, system designs, cybersecurity notes, and autonomous AI architectures by Drishtant Ghosh (Drix10).',
   keywords: [
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
     'LLM Engineering',
     'Autonomous Agents'
   ],
-  authors: [{ name: 'Drishtant Ghosh (Drix10)', url: 'https://drix10.com' }],
+  authors: [{ name: 'Drishtant Ghosh (Drix10)', url: PORTFOLIO_URL }],
   creator: 'Drishtant Ghosh (Drix10)',
   publisher: 'Drishtant Ghosh',
   applicationName: 'Drix10 Blogs',
@@ -66,6 +67,11 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  // Optional ownership tokens from Search Console / Bing Webmaster Tools, set as env vars.
+  verification: {
+    ...(process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : {}),
+    ...(process.env.BING_SITE_VERIFICATION ? { other: { 'msvalidate.01': process.env.BING_SITE_VERIFICATION } } : {}),
+  },
   icons: {
     icon: '/avatar.png',
     shortcut: '/avatar.png',
@@ -74,7 +80,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://blogs.drix10.com',
+    url: SITE_URL,
     siteName: 'Drix10 Blogs — Drishtant Ghosh',
     title: 'Drishtant Ghosh (Drix10) — Technical Research & Engineering Hub',
     description: 'Curated technical research, system architectures, cybersecurity breakdowns, and AI engineering notes by Drishtant Ghosh (Drix10).',
@@ -95,9 +101,9 @@ export const metadata: Metadata = {
     images: ['/og-image.png'],
   },
   alternates: {
-    canonical: 'https://blogs.drix10.com',
+    canonical: SITE_URL,
     types: {
-      'application/rss+xml': 'https://blogs.drix10.com/rss.xml',
+      'application/rss+xml': `${SITE_URL}/rss.xml`,
     },
   },
   other: {
@@ -118,11 +124,11 @@ export default function RootLayout({
     '@graph': [
       {
         '@type': 'Person',
-        '@id': 'https://drix10.com/#person',
+        '@id': PERSON_ID,
         name: 'Drishtant Ghosh',
         alternateName: ['Drix10', 'drix10', 'Drix'],
-        url: 'https://drix10.com',
-        image: 'https://blogs.drix10.com/avatar.png',
+        url: PORTFOLIO_URL,
+        image: `${SITE_URL}/avatar.png`,
         jobTitle: 'Technical Founder & Engineer',
         description: 'Technical founder and engineer working across AI systems, developer infrastructure, and cybersecurity. Author and curator at Drix10 Blogs.',
         sameAs: [
@@ -145,19 +151,19 @@ export default function RootLayout({
       },
       {
         '@type': 'WebSite',
-        '@id': 'https://blogs.drix10.com/#website',
-        url: 'https://blogs.drix10.com',
+        '@id': `${SITE_URL}/#website`,
+        url: SITE_URL,
         name: 'Drix10 Blogs by Drishtant Ghosh',
         description: 'Continuous engineering research, AI system architectures, and cybersecurity breakdowns by Drishtant Ghosh (Drix10).',
         publisher: {
-          '@id': 'https://drix10.com/#person',
+          '@id': PERSON_ID,
         },
         author: {
-          '@id': 'https://drix10.com/#person',
+          '@id': PERSON_ID,
         },
         potentialAction: {
           '@type': 'SearchAction',
-          target: 'https://blogs.drix10.com/?search={search_term_string}',
+          target: `${SITE_URL}/search?q={search_term_string}`,
           'query-input': 'required name=search_term_string',
         },
       },
@@ -193,7 +199,7 @@ export default function RootLayout({
               <Link href="/categories/personal" className="hidden text-body transition-colors hover:text-ink sm:inline">
                 Founder notes
               </Link>
-              <a href="https://drix10.com" target="_blank" rel="noopener noreferrer" className="hidden text-body transition-colors hover:text-ink sm:inline">
+              <a href={PORTFOLIO_URL} target="_blank" rel="noopener noreferrer" className="hidden text-body transition-colors hover:text-ink sm:inline">
                 Portfolio
               </a>
               <ThemeToggle />
@@ -230,7 +236,7 @@ export default function RootLayout({
                 By Drishtant Ghosh. Short, sourced digests on AI, developer tools and security, collected daily.
               </p>
               <ul className="flex flex-wrap gap-x-5 gap-y-2">
-                <li><a href="https://drix10.com" target="_blank" rel="noopener noreferrer" className="text-body hover:text-ink">Portfolio</a></li>
+                <li><a href={PORTFOLIO_URL} target="_blank" rel="noopener noreferrer" className="text-body hover:text-ink">Portfolio</a></li>
                 <li><a href="https://github.com/Drix10" target="_blank" rel="noopener noreferrer" className="text-body hover:text-ink">GitHub</a></li>
                 <li><a href="https://www.linkedin.com/in/drix10" target="_blank" rel="noopener noreferrer" className="text-body hover:text-ink">LinkedIn</a></li>
                 <li><a href="https://x.com/DrishtantGhosh" target="_blank" rel="noopener noreferrer" className="text-body hover:text-ink">X</a></li>

@@ -1,5 +1,6 @@
 import { cleanTitle, formatDate, getAllArticles, getArticleBySlug } from '@/lib/markdown';
 import { jsonLd } from '@/lib/url';
+import { PERSON_ID, PORTFOLIO_URL, SITE_NAME, SITE_URL, absolute, topicHref } from '@/lib/site';
 import ReadingProgress from '@/components/ReadingProgress';
 import DigestToc from '@/components/DigestToc';
 import CopyLink from '@/components/CopyLink';
@@ -18,41 +19,59 @@ export async function generateStaticParams() {
   }));
 }
 
+const shorten = (text: string, max: number) => {
+  const t = String(text || '').replace(/\s+/g, ' ').trim();
+  if (t.length <= max) return t;
+  const cut = t.slice(0, max - 1);
+  return cut.replace(/\s+\S*$/, '') + '…';
+};
+
 export async function generateMetadata({ params }: { params: { slug: string[] } }): Promise<Metadata> {
   const article = getArticleBySlug(params.slug);
-  if (!article) return { title: 'Article Not Found' };
+  if (!article) return { title: 'Article not found', robots: { index: false, follow: false } };
 
+  const fullTitle = cleanTitle(article.title);
+  // The <title> is capped so title + site name stays within what search results show; the page
+  // heading and structured data keep the full title.
+  const title = shorten(fullTitle, 56);
+  const base = article.description.trim();
+  const n = article.itemCount && article.itemCount > 1 ? ` with ${article.itemCount} sourced items` : '';
+  const description = shorten(base.length >= 90 ? base : `${base} A ${article.category} digest${n}, ${formatDate(article.date)}, by Drishtant Ghosh.`.trim(), 158);
   return {
-    title: cleanTitle(article.title),
-    description: article.description,
-    alternates: {
-      canonical: article.canonicalUrl,
-    },
+    title,
+    description,
+    alternates: { canonical: article.canonicalUrl },
+    // The share image is generated per digest by /og/<slug> (title, topic and date on a card).
     openGraph: {
-      title: cleanTitle(article.title) + ' | Drishtant Ghosh (Drix10)',
-      description: article.description,
+      title: `${fullTitle} | ${SITE_NAME}`,
+      description,
       url: article.canonicalUrl,
       type: 'article',
       publishedTime: article.date,
-      authors: ['https://drix10.com', 'Drishtant Ghosh (Drix10)'],
-      tags: [article.category, 'Drishtant Ghosh', 'Drix10', 'Cybersecurity', 'AI Engineering'],
-      images: [
-        {
-          url: '/og-image.png',
-          width: 1200,
-          height: 630,
-          alt: cleanTitle(article.title),
-        },
-      ],
+      modifiedTime: article.date,
+      authors: [PORTFOLIO_URL],
+      section: article.category,
+      tags: [article.category, ...(article.items || []).slice(0, 6).map(cleanTitle)],
+      images: [{ url: absolute(`/og/${article.slug}`), width: 1200, height: 630, alt: fullTitle }],
     },
-    twitter: {
-      card: 'summary_large_image',
-      title: cleanTitle(article.title),
-      description: article.description,
-      creator: '@DrishtantGhosh',
-      images: ['/og-image.png'],
-    },
+    twitter: { card: 'summary_large_image', title: fullTitle, description, creator: '@DrishtantGhosh', images: [absolute(`/og/${article.slug}`)] },
   };
+}
+
+// Outbound sources cited by a digest, taken from its rendered "Sources" lists.
+function citedSources(sections: { html: string }[], limit = 25): string[] {
+  const urls = new Set<string>();
+  for (const s of sections) {
+    for (const block of s.html.split('<h3 class="label sources">').slice(1)) {
+      const list = block.split('<h3')[0];
+      for (const m of list.matchAll(/<a href="(https?:\/\/[^"]+)"/g)) {
+        const url = m[1].replace(/&amp;/g, '&');
+        if (!url.startsWith(SITE_URL)) urls.add(url);
+        if (urls.size >= limit) return [...urls];
+      }
+    }
+  }
+  return [...urls];
 }
 
 export default function ArticlePage({ params }: { params: { slug: string[] } }) {
@@ -67,74 +86,46 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
     ? `https://github.com/Drix10/ai-resources/blob/main/${encodeURIComponent(article.category)}/${encodeURIComponent(article.filename)}`
     : 'https://github.com/Drix10/ai-resources';
 
-  const techArticleSchema = {
+  const isEssay = article.category.toLowerCase() === 'personal';
+  const headlineText = cleanTitle(article.title);
+  const sources = citedSources(article.sections);
+
+  const articleSchema = {
     '@context': 'https://schema.org',
-    '@type': 'TechArticle',
-    headline: cleanTitle(article.title),
+    '@type': isEssay ? 'BlogPosting' : 'TechArticle',
+    '@id': `${article.canonicalUrl}#article`,
+    headline: shorten(headlineText, 110),
     description: article.description,
     url: article.canonicalUrl,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': article.canonicalUrl },
+    image: [absolute(`/og/${article.slug}`)],
     datePublished: article.date,
     dateModified: article.date,
+    inLanguage: 'en',
+    articleSection: article.category,
+    keywords: [article.category, ...(article.items || []).slice(0, 8).map(cleanTitle)].join(', '),
     wordCount: article.wordCount,
-    about: {
-      '@type': 'Thing',
-      name: article.category,
-    },
+    timeRequired: `PT${article.readingTimeMinutes}M`,
+    isAccessibleForFree: true,
+    about: { '@type': 'Thing', name: article.category },
+    isPartOf: { '@id': `${SITE_URL}/#website` },
     ...(isFolderResource ? { isBasedOn: githubFileUrl } : {}),
-    author: {
-      '@type': 'Person',
-      '@id': 'https://drix10.com/#person',
-      name: 'Drishtant Ghosh',
-      alternateName: ['Drix10', 'drix10'],
-      url: 'https://drix10.com',
-      image: 'https://blogs.drix10.com/avatar.png',
-      description: 'Technical founder and engineer working across AI systems, developer infrastructure, and cybersecurity.',
-      sameAs: [
-        'https://github.com/Drix10',
-        'https://www.linkedin.com/in/drix10',
-        'https://peerlist.io/drix10',
-        'https://medium.com/@drix10',
-        'https://dev.to/drix10',
-        'https://x.com/DrishtantGhosh',
-      ],
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Drix10 Blogs',
-      url: 'https://blogs.drix10.com',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://blogs.drix10.com/avatar.png',
-      },
-    },
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': article.canonicalUrl,
-    },
+    ...(sources.length ? { citation: sources.map((url) => ({ '@type': 'CreativeWork', url })) } : {}),
+    ...(article.sections.length > 1
+      ? { hasPart: article.sections.slice(0, 30).map((s) => ({ '@type': 'WebPageElement', name: s.title, url: `${article.canonicalUrl}#${s.id}` })) }
+      : {}),
+    author: { '@type': 'Person', '@id': PERSON_ID, name: 'Drishtant Ghosh', url: PORTFOLIO_URL },
+    publisher: { '@type': 'Organization', '@id': `${SITE_URL}/#org`, name: SITE_NAME, url: SITE_URL, logo: { '@type': 'ImageObject', url: `${SITE_URL}/avatar.png` } },
   };
+  const techArticleSchema = articleSchema;
 
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: 'https://blogs.drix10.com',
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: article.category,
-        item: 'https://blogs.drix10.com/categories/' + article.categorySlug,
-      },
-      {
-        '@type': 'ListItem',
-        position: 3,
-        name: cleanTitle(article.title),
-        item: article.canonicalUrl,
-      },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: article.category, item: absolute(topicHref(article.categorySlug)) },
+      { '@type': 'ListItem', position: 3, name: headlineText, item: article.canonicalUrl },
     ],
   };
 
@@ -241,7 +232,7 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
         )}
 
         <aside className="flex items-start gap-4 border-t border-rule pt-8">
-          <a href="https://drix10.com" target="_blank" rel="noopener noreferrer" className="shrink-0">
+          <a href={PORTFOLIO_URL} target="_blank" rel="noopener noreferrer" className="shrink-0">
             <Image src="/avatar.png" alt="Drishtant Ghosh" width={48} height={48} className="h-12 w-12 rounded-full object-cover" />
           </a>
           <div className="text-[0.9375rem]">
@@ -250,7 +241,7 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
               Technical founder and engineer working on AI systems, developer infrastructure and cybersecurity.
             </p>
             <p className="mt-2 flex flex-wrap gap-x-5 gap-y-1">
-              <a href="https://drix10.com" target="_blank" rel="noopener noreferrer" className="link">Portfolio</a>
+              <a href={PORTFOLIO_URL} target="_blank" rel="noopener noreferrer" className="link">Portfolio</a>
               <a href="https://github.com/Drix10" target="_blank" rel="noopener noreferrer" className="link">GitHub</a>
               <a href="https://x.com/DrishtantGhosh" target="_blank" rel="noopener noreferrer" className="link">X</a>
               <a href="mailto:ggdrishtant@gmail.com" className="link">Email</a>
