@@ -73,3 +73,9 @@ data/*.lock
 
 # Runtime state (machine-local trackers)
 data/linkedin-feed-commented.json
+
+# TypeScript incremental build caches
+*.tsbuildinfo
+
+# Personal list of LinkedIn creators to engage with (copy config/creators.example.json)
+config/creators.json
