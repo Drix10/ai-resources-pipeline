@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface Agent {
   x: number;
@@ -17,6 +17,27 @@ const FLEE_RADIUS = 150;
 // or in a background tab, and drawn once without motion when reduced motion is on.
 export default function AgentField() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  // The system asks for less motion (on Windows this is "Animation effects" being off). That is
+  // respected by default, but a visitor may choose to play the flock; the choice is remembered.
+  const [osReduced, setOsReduced] = useState(false);
+  const [optIn, setOptIn] = useState(false);
+
+  useEffect(() => {
+    try {
+      setOptIn(localStorage.getItem('flock-motion') === 'on');
+    } catch {
+      // Storage blocked: the choice just lasts for this visit.
+    }
+  }, []);
+
+  const choose = (on: boolean) => {
+    setOptIn(on);
+    try {
+      localStorage.setItem('flock-motion', on ? 'on' : 'off');
+    } catch {
+      // ignore
+    }
+  };
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -24,6 +45,8 @@ export default function AgentField() {
     if (!canvas || !ctx) return;
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const calm = () => reduced.matches && !optIn; // true = draw one still frame
+    setOsReduced(reduced.matches);
     let width = 0;
     let height = 0;
     let dpr = 1;
@@ -148,7 +171,7 @@ export default function AgentField() {
       raf = requestAnimationFrame(frame);
     };
     const start = () => {
-      if (running || reduced.matches || !visible || document.hidden) return;
+      if (running || calm() || !visible || document.hidden) return;
       running = true;
       last = 0;
       raf = requestAnimationFrame(frame);
@@ -195,7 +218,8 @@ export default function AgentField() {
     const onVisibility = () => (document.hidden ? stop() : start());
     const onMotion = () => {
       stop();
-      reduced.matches ? draw() : start();
+      setOsReduced(reduced.matches);
+      calm() ? draw() : start();
     };
 
     window.addEventListener('pointermove', onPointer, { passive: true });
@@ -217,7 +241,21 @@ export default function AgentField() {
       scheme.removeEventListener('change', onScheme);
       reduced.removeEventListener('change', onMotion);
     };
-  }, []);
+  }, [optIn]);
 
-  return <canvas ref={canvasRef} aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full" />;
+  return (
+    <>
+      <canvas ref={canvasRef} aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full" />
+      {osReduced && (
+        <button
+          type="button"
+          onClick={() => choose(!optIn)}
+          aria-pressed={optIn}
+          className="absolute bottom-5 right-5 z-10 rounded-md border border-rule bg-paper/80 px-3 py-1.5 text-[0.875rem] text-body backdrop-blur transition-colors hover:text-ink sm:right-8"
+        >
+          {optIn ? 'Pause the flock' : 'Play the flock'}
+        </button>
+      )}
+    </>
+  );
 }

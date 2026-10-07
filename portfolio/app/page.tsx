@@ -6,6 +6,7 @@ import GitHubActivity from '@/components/GitHubActivity';
 import Writing from '@/components/Writing';
 import ContactEmail from '@/components/ContactEmail';
 import { getGitHubProfile, USERNAME } from '@/lib/github';
+import { PERSON_ID, jsonLd } from '@/lib/site';
 import { EDUCATION, HACKATHONS, NOW_BUILDING, ROLES, SKILLS } from '@/lib/profile';
 
 // Projects, stars, activity and open-source work are read from GitHub; rebuild hourly.
@@ -31,8 +32,28 @@ export default async function HomePage() {
   const more = gh?.selection.more ?? [];
   const hasProjects = featured.length + more.length > 0;
 
+  const projectList = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Projects by Drishtant Ghosh',
+    itemListElement: [...featured, ...more].map((r, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'SoftwareSourceCode',
+        name: r.name,
+        description: r.description || undefined,
+        codeRepository: r.url,
+        url: r.homepage || r.url,
+        programmingLanguage: r.language || undefined,
+        author: { '@id': PERSON_ID },
+      },
+    })),
+  };
+
   return (
     <>
+      {hasProjects && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(projectList) }} />}
       <section className="relative overflow-hidden" aria-labelledby="name">
         <AgentField />
         <div className="relative mx-auto flex min-h-[calc(100svh-3.5rem)] max-w-[1100px] flex-col justify-center px-5 pb-16 pt-14 sm:px-8 sm:pb-24">
@@ -44,6 +65,7 @@ export default async function HomePage() {
             Drishtant
             <br />
             Ghosh
+            <span className="sr-only"> (Drix10), AI systems engineer and serial founder in Bengaluru</span>
           </h1>
 
           <p className="prose-text mt-8 max-w-[34ch] text-[1.375rem] sm:mt-10 sm:max-w-[46ch] sm:text-[1.625rem] sm:leading-[1.5]">

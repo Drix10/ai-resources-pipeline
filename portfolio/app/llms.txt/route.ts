@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { BLOG_URL, SITE_URL } from '@/lib/site';
 
 export const dynamic = 'force-static';
 
@@ -9,8 +10,8 @@ export async function GET() {
 ## Summary
 - Name: Drishtant Ghosh
 - Handle: Drix10 (@drix10)
-- Primary Website: https://drix10.com
-- Technical Blog: https://blogs.drix10.com
+- Primary Website: ${SITE_URL}
+- Technical Blog: ${BLOG_URL}
 - GitHub: https://github.com/Drix10
 - LinkedIn: https://www.linkedin.com/in/drix10
 - Peerlist: https://peerlist.io/drix10
