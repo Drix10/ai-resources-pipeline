@@ -4,6 +4,7 @@ import { Bricolage_Grotesque, Newsreader } from 'next/font/google';
 import CommandPalette from '@/components/CommandPalette';
 import ThemeToggle from '@/components/ThemeToggle';
 import LocalTimeBadge from '@/components/LocalTimeBadge';
+import { BLOG_URL, DESCRIPTION, PERSON_ID, SITE_URL, TITLE, jsonLd } from '@/lib/site';
 import './globals.css';
 
 // Display and interface: a variable grotesque whose width axis lets the name set tight.
@@ -48,17 +49,16 @@ const ELSEWHERE = [
   { href: 'https://www.linkedin.com/in/drix10', label: 'LinkedIn' },
   { href: 'https://x.com/DrishtantGhosh', label: 'X' },
   { href: 'https://peerlist.io/drix10', label: 'Peerlist' },
-  { href: 'https://blogs.drix10.com', label: 'Blog' },
+  { href: BLOG_URL, label: 'Blog' },
 ];
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://drix10.com'),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Drishtant Ghosh (Drix10) — AI Systems Engineer & 1x Acquired Founder',
+    default: TITLE,
     template: '%s | Drishtant Ghosh (Drix10)',
   },
-  description:
-    'Drishtant Ghosh (Drix10) is an AI Systems Engineer, 1x Acquired Serial Founder (ReeF), Canopy @ Founders, Inc., and a B.Sc. Cybersecurity student at Dayananda Sagar University. Building autonomous LLM architectures and high-performance full-stack products.',
+  description: DESCRIPTION,
   keywords: [
     'Drishtant Ghosh',
     'Drix10',
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
     'Autonomous Multi-Agent Systems',
     'Agent infrastructure'
   ],
-  authors: [{ name: 'Drishtant Ghosh (Drix10)', url: 'https://drix10.com' }],
+  authors: [{ name: 'Drishtant Ghosh (Drix10)', url: SITE_URL }],
   creator: 'Drishtant Ghosh (Drix10)',
   publisher: 'Drishtant Ghosh',
   applicationName: 'Drix10 Portfolio',
@@ -91,6 +91,10 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
+    other: process.env.BING_SITE_VERIFICATION ? { 'msvalidate.01': process.env.BING_SITE_VERIFICATION } : undefined,
+  },
   icons: {
     icon: '/avatar.png',
     shortcut: '/avatar.png',
@@ -99,11 +103,10 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'profile',
     locale: 'en_US',
-    url: 'https://drix10.com',
+    url: SITE_URL,
     siteName: 'Drishtant Ghosh (Drix10)',
-    title: 'Drishtant Ghosh (Drix10) — AI Systems Engineer & 1x Acquired Founder',
-    description:
-      'AI Systems Engineer, 1x Acquired Founder (ReeF), Canopy @ Founders, Inc., and a cybersecurity student. Author of technical breakdowns at Drix10 Blogs.',
+    title: TITLE,
+    description: DESCRIPTION,
     images: [
       {
         url: '/og-image.png',
@@ -115,14 +118,13 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Drishtant Ghosh (Drix10) — AI Systems Engineer & 1x Acquired Founder',
-    description:
-      'AI Systems Engineer, 1x Acquired Founder (ReeF), Canopy @ Founders, Inc., and cybersecurity student at DSU.',
+    title: TITLE,
+    description: DESCRIPTION,
     creator: '@DrishtantGhosh',
     images: ['/og-image.png'],
   },
   alternates: {
-    canonical: 'https://drix10.com',
+    canonical: SITE_URL,
   },
 };
 
@@ -136,11 +138,13 @@ export default function RootLayout({
     '@graph': [
       {
         '@type': 'Person',
-        '@id': 'https://drix10.com/#person',
+        '@id': PERSON_ID,
+        mainEntityOfPage: { '@id': `${SITE_URL}/#profile` },
         name: 'Drishtant Ghosh',
         alternateName: ['Drix10', 'drix10', 'Drix'],
-        url: 'https://drix10.com',
-        image: 'https://drix10.com/avatar.png',
+        url: SITE_URL,
+        image: `${SITE_URL}/avatar.png`,
+        homeLocation: { '@type': 'Place', name: 'Bengaluru, Karnataka, India' },
         jobTitle: 'AI Systems Engineer & 1x Acquired Founder',
         email: 'ggdrishtant@gmail.com',
         alumniOf: [
@@ -172,7 +176,7 @@ export default function RootLayout({
           'https://medium.com/@drix10',
           'https://dev.to/drix10',
           'https://x.com/DrishtantGhosh',
-          'https://blogs.drix10.com',
+          BLOG_URL,
         ],
         knowsAbout: [
           'Artificial Intelligence',
@@ -194,13 +198,23 @@ export default function RootLayout({
       },
       {
         '@type': 'WebSite',
-        '@id': 'https://drix10.com/#website',
-        url: 'https://drix10.com',
+        '@id': `${SITE_URL}/#website`,
+        url: SITE_URL,
+        inLanguage: 'en',
         name: 'Drishtant Ghosh (Drix10) Portfolio',
         description: 'Official portfolio and engineering showcase of Drishtant Ghosh (Drix10).',
         publisher: {
-          '@id': 'https://drix10.com/#person',
+          '@id': PERSON_ID,
         },
+      },
+      {
+        '@type': 'ProfilePage',
+        '@id': `${SITE_URL}/#profile`,
+        url: SITE_URL,
+        name: TITLE,
+        inLanguage: 'en',
+        isPartOf: { '@id': `${SITE_URL}/#website` },
+        mainEntity: { '@id': PERSON_ID },
       },
     ],
   };
@@ -209,7 +223,7 @@ export default function RootLayout({
     <html lang="en" className={`${display.variable} ${text.variable} scroll-smooth`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(profileSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(profileSchema) }} />
       </head>
       <body className="flex min-h-screen flex-col">
         <a
@@ -253,7 +267,7 @@ export default function RootLayout({
             <ul className="flex flex-wrap gap-x-6 gap-y-2">
               {ELSEWHERE.map((item) => (
                 <li key={item.href}>
-                  <a href={item.href} target="_blank" rel="noreferrer" className="text-body transition-colors hover:text-ink">
+                  <a href={item.href} target="_blank" rel="me noreferrer" className="text-body transition-colors hover:text-ink">
                     {item.label}
                   </a>
                 </li>
