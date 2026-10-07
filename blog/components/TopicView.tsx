@@ -40,6 +40,7 @@ export default function TopicView({ slug, page }: { slug: string; page: number }
       </header>
 
       <div className="mt-8 max-w-[52rem] border-t border-rule">
+        <h2 className="sr-only">Digests in {name}</h2>
         {items.map((article) => (
           <DigestRow key={article.slug} article={article} showTopic={false} />
         ))}
