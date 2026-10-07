@@ -2,9 +2,15 @@ const { Octokit } = require("@octokit/rest");
 const fs = require("fs");
 const path = require("path");
 const config = require("../../config");
-const { logger, handleError, generateSeoSlug, rebuildBlogIndex } = require("../utils/helpers");
-const llmService = require("./llm");
+const { logger, handleError, generateSeoSlug, rebuildBlogIndex, redactSecrets } = require("../utils/helpers");
 const syndicationService = require("./syndication");
+
+// Files are zero-padded to 3 digits but keep growing past 999
+// (resources-1000.md), so match 3 or more digits.
+const resourceNumber = (name) => {
+  const m = String(name || "").match(/^resources-(\d{3,})\.md$/);
+  return m ? parseInt(m[1], 10) : null;
+};
 
 class GithubService {
   constructor() {
@@ -12,122 +18,16 @@ class GithubService {
     this.MAX_RETRIES = 3;
 
     try {
+      // Plain Octokit: @octokit/rest ships without the retry/throttling plugins,
+      // so options for them were silently ignored. uploadMarkdownBatch retries
+      // the commit itself.
       this.octokit = new Octokit({
         auth: config.github.personalAccessToken,
         timeZone: "UTC",
-        baseUrl: "https://api.github.com",
-        retry: {
-          enabled: true,
-          retries: 3,
-          doNotRetry: [401, 403, 404],
-        },
-        throttle: {
-          onRateLimit: (retryAfter, options, octokit) => {
-            logger.warn(
-              `Request quota exhausted for request ${options.method} ${options.url}`
-            );
-            if (options.request.retryCount <= 2) {
-              logger.info(`Retrying after ${retryAfter} seconds!`);
-              return true;
-            }
-          },
-          onSecondaryRateLimit: (retryAfter, options) => {
-            const attempt = options.request?.retryCount ?? 0;
-            logger.warn(
-              `Secondary rate limit hit for ${options.method} ${options.url} (attempt ${attempt + 1}/3)`
-            );
-            return attempt < 3;
-          },
-        },
       });
       logger.info("GitHub client initialized successfully");
     } catch (error) {
       handleError(error, "Failed to initialize GitHub client");
-      throw error;
-    }
-  }
-
-  async createMarkdownFileFromTweets(threadData, queryName, folder) {
-    try {
-      const threads = Array.isArray(threadData) ? threadData : [];
-      logger.info(
-        `Generating markdown content for ${threads.length} threads of type ${queryName}`
-      );
-
-      if (!config.github.repo) {
-        throw new Error("GitHub repository configuration is missing");
-      }
-
-      const markdownContent = await llmService.generateMarkdown(threads, 2, [], folder?.name || queryName);
-      llmService.assertPublishableMarkdown(
-        markdownContent,
-        llmService.normalizeCollectedThreads(threads).length,
-      );
-      const fileBuffer = Buffer.from(markdownContent);
-
-      const result = await this.uploadMarkdownFile(
-        fileBuffer,
-        `${config.github.owner}/${config.github.repo}`,
-        folder
-      );
-
-      if (!result.success) {
-        throw new Error(`Failed to upload markdown: ${result.message}`);
-      }
-
-      logger.info(`Success: ${result.url}`);
-
-      return {
-        success: true,
-        url: result.url,
-        content: markdownContent,
-        folder: folder.name,
-      };
-    } catch (error) {
-      logger.error("Error creating markdown file:", error);
-      throw error;
-    }
-  }
-
-  async createMarkdownFileFromCombined(threads, linkedinPosts, queryName, folder) {
-    try {
-      const safeThreads = Array.isArray(threads) ? threads : [];
-      const safeLinkedinPosts = Array.isArray(linkedinPosts) ? linkedinPosts : [];
-      logger.info(
-        `Generating markdown content for ${safeThreads.length} X threads and ${safeLinkedinPosts.length} LinkedIn posts of type ${queryName}`
-      );
-
-      if (!config.github.repo) {
-        throw new Error("GitHub repository configuration is missing");
-      }
-
-      const markdownContent = await llmService.generateMarkdownFromCombined(safeThreads, safeLinkedinPosts, 2, false, [], folder?.name || queryName);
-      // This is a final defensive boundary: no model response can create a
-      // repository file (or social announcement) unless it contains a real article.
-      const expectedArticleCount = llmService.normalizeCollectedThreads(safeThreads).length + safeLinkedinPosts.filter(Boolean).length;
-      llmService.assertPublishableMarkdown(markdownContent, expectedArticleCount);
-      const fileBuffer = Buffer.from(markdownContent);
-
-      const result = await this.uploadMarkdownFile(
-        fileBuffer,
-        `${config.github.owner}/${config.github.repo}`,
-        folder
-      );
-
-      if (!result.success) {
-        throw new Error(`Failed to upload markdown: ${result.message}`);
-      }
-
-      logger.info(`Success combined markdown upload: ${result.url}`);
-
-      return {
-        success: true,
-        url: result.url,
-        content: markdownContent,
-        folder: folder.name,
-      };
-    } catch (error) {
-      logger.error("Error creating combined markdown file:", error);
       throw error;
     }
   }
@@ -166,7 +66,7 @@ class GithubService {
       if (!folderObj || typeof folderObj.name !== "string" || !folderObj.name.trim()) {
         throw new Error("A valid destination folder is required for each batch item");
       }
-      const decodedFolder = folderObj.name.replace(/ /g, " ");
+      const decodedFolder = folderObj.name;
       const urlSafeFolder = encodeURIComponent(decodedFolder);
 
       let nextNumber;
@@ -180,7 +80,9 @@ class GithubService {
       const fileName = `resources-${String(nextNumber).padStart(3, "0")}.md`;
       const filePath = `${decodedFolder}/${fileName}`;
       const fileUrl = `https://github.com/${owner}/${repo}/blob/${branch}/${urlSafeFolder}/${fileName}`;
-      let content = item.fileBuffer ? item.fileBuffer.toString("utf8") : String(item.markdownContent || "");
+      // Last boundary before a public commit: redact again in case content came
+      // from anywhere other than generateArticle.
+      let content = redactSecrets(item.fileBuffer ? item.fileBuffer.toString("utf8") : String(item.markdownContent || ""));
 
       // Attach promotional section and exact SEO backlink (skip for personal & linkedin insights)
       const isSpecialFolder = decodedFolder.toLowerCase() === "personal" || decodedFolder.toLowerCase() === "linkedin insights";
@@ -191,7 +93,7 @@ class GithubService {
         const titleMatch = content.match(/^#\s+(.+)$/m) || content.match(/^###\s+(.+)$/m);
         const rawTitle = titleMatch ? titleMatch[1] : (`${decodedFolder} #${nextNumber}`);
         seoSlug = generateSeoSlug(rawTitle, content, fileName, decodedFolder);
-        const blogArticleUrl = `https://blogs.drix10.com/articles/${categorySlug}/${seoSlug}`;
+        const blogArticleUrl = `${config.syndication.canonicalBaseUrl}/articles/${categorySlug}/${seoSlug}`;
 
         if (!content.includes("Read More & Connect") && !content.includes("Read on the AI Knowledge Hub")) {
           const promoSection = `
@@ -351,14 +253,6 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
     }));
   }
 
-  async uploadMarkdownFile(fileBuffer, repoName, folder) {
-    const results = await this.uploadMarkdownBatch([{ fileBuffer, folder }], repoName);
-    if (!results || results.length === 0) {
-      throw new Error("Failed to upload markdown file");
-    }
-    return results[0];
-  }
-
   async getNextFileNumber(owner, repo, folder, branch = "main") {
     try {
       const { data } = await this.octokit.repos.getContent({
@@ -369,8 +263,8 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
       });
 
       const numbers = data
-        .filter((file) => file.name.match(/^resources-\d{3}\.md$/))
-        .map((file) => parseInt(file.name.match(/\d{3}/)[0]));
+        .map((file) => resourceNumber(file.name))
+        .filter((n) => n !== null);
 
       // GitHub Contents API caps at 1000 entries. If we're at the limit the
       // folder may have more files than returned; fall back to the Git tree API
@@ -388,8 +282,8 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
             if (folderEntry) {
               const subTree = await this.octokit.git.getTree({ owner, repo, tree_sha: folderEntry.sha });
               const subNumbers = (subTree.data.tree || [])
-                .filter(e => /^resources-\d{3}\.md$/.test(e.path))
-                .map(e => parseInt(e.path.match(/(\d{3})\.md$/)[1]));
+                .map(e => resourceNumber(e.path))
+                .filter(n => n !== null);
               return subNumbers.length > 0 ? Math.max(...subNumbers) + 1 : 1;
             }
             // Folder entry was not in the partial recursive tree. Walk the path
@@ -404,13 +298,14 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
             }
             const subTree2 = await this.octokit.git.getTree({ owner, repo, tree_sha: currentSha });
             const subNumbers2 = (subTree2.data.tree || [])
-              .filter(e => /^resources-\d{3}\.md$/.test(e.path))
-              .map(e => parseInt(e.path.match(/(\d{3})\.md$/)[1]));
+              .map(e => resourceNumber(e.path))
+              .filter(n => n !== null);
             return subNumbers2.length > 0 ? Math.max(...subNumbers2) + 1 : 1;
           } else {
             const treeNumbers = (tree.data.tree || [])
-              .filter(e => e.path.startsWith(prefix) && /^resources-\d{3}\.md$/.test(e.path.slice(prefix.length)))
-              .map(e => parseInt(e.path.match(/(\d{3})\.md$/)[1]));
+              .filter(e => e.path.startsWith(prefix))
+              .map(e => resourceNumber(e.path.slice(prefix.length)))
+              .filter(n => n !== null);
             return treeNumbers.length > 0 ? Math.max(...treeNumbers) + 1 : 1;
           }
         } catch (treeErr) {
@@ -527,7 +422,7 @@ This is not a link dump. It is a **continuously regenerated technical archive** 
 | **📝 Scraped & Synthesized Articles** | Every \`resources-NNN.md\` file is generated from real X/Twitter list content and LinkedIn insights — deduplicated, ranked, and rewritten into dense technical breakdowns with concrete mechanics instead of hype. |
 | **🧠 LinkedIn Insights** | Long-form postmortems and engineering reflections (payment webhook failures, vector search tuning, struct padding, AST vs regex scanning, concurrency races) captured as standalone markdown. |
 | **✍️ Personal Essays** | Founder-journey and systems-thinking pieces — building autonomous AI systems, scaling and selling a startup, the memory-first mental model, and the signal-to-noise problem in AI resources. |
-| **🔗 Multi-Channel Syndication** | Every article is cross-published to [blogs.drix10.com](https://blogs.drix10.com), [DEV.to](https://dev.to/drix10), and [Medium](https://medium.com/@drix10), each with a canonical SEO backlink and a Next.js 14 interactive version. |
+| **🔗 Multi-Channel Syndication** | Every article is cross-published to [blogs.drix10.com](https://blogs.drix10.com) and [DEV.to](https://dev.to/drix10), each with a canonical SEO backlink and a Next.js 14 interactive version. |
 | **⚙️ Zero-Slop Quality Gates** | Deterministic validation rejects any model output that lacks a real article, strips credentials/secrets, and bans motivational fluff and consultant larp before anything is committed. |
 
 ### 🔄 How It Works
@@ -542,7 +437,6 @@ flowchart LR
     F --> G["resources-NNN.md committed to this repo"]
     G --> H["blogs.drix10.com (Next.js 14)"]
     G --> I["DEV.to Syndication"]
-    G --> J["Medium Syndication"]
 \`\`\`
 
 ---
@@ -556,7 +450,7 @@ flowchart LR
       // GitHub's contents API is rate-limited. A small bounded pool is faster
       // than sequential calls without turning one README refresh into a burst.
       const folderResults = await this.mapWithConcurrency(config.folders, 4, async (folder) => {
-        const decodedFolder = folder.name.replace(/ /g, " ");
+        const decodedFolder = folder.name;
         try {
           // ponytail: fixed 250ms courtesy delay; was random 0-2s x41 folders (~1min/run) for reads GitHub happily serves concurrently.
           await new Promise(resolve => setTimeout(resolve, 250));
@@ -568,9 +462,9 @@ flowchart LR
           });
 
           const files = data
-            .filter((file) => file.name.match(/^resources-\d{3}\.md$/))
+            .filter((file) => resourceNumber(file.name) !== null)
             .map((file) => ({
-              number: parseInt(file.name.match(/\d{3}/)[0]),
+              number: resourceNumber(file.name),
               url: `https://github.com/${owner}/${repo}/blob/main/${encodeURIComponent(
                 decodedFolder
               )}/${file.name}`,
@@ -644,38 +538,6 @@ flowchart LR
       }
       throw error;
     }
-  }
-
-  handleGitHubError(error) {
-    let errorMessage = "Failed to upload file to GitHub";
-    let statusCode = 500;
-
-    const errorMap = {
-      401: "GitHub authentication failed - check your token",
-      403: "No permission to access repository",
-      404: "Repository not found",
-      422: "Invalid file content or path",
-      429: "GitHub API rate limit exceeded",
-    };
-
-    if (error.status in errorMap) {
-      errorMessage = errorMap[error.status];
-      statusCode = error.status;
-    }
-
-    if (error.response?.headers?.["x-ratelimit-remaining"]) {
-      errorMessage += ` (Rate limit: ${error.response.headers["x-ratelimit-remaining"]} remaining)`;
-    }
-
-    handleError(error, errorMessage);
-
-    return {
-      success: false,
-      message: errorMessage,
-      status: statusCode,
-      error: error.message,
-      rateLimitReset: error.response?.headers?.["x-ratelimit-reset"],
-    };
   }
 
   async checkRateLimit() {
@@ -763,35 +625,6 @@ flowchart LR
         message: "Failed to update README",
         error: error.message,
       };
-    }
-  }
-
-  async ensureFolderExists(owner, repo, folder) {
-    try {
-      await this.octokit.repos.getContent({
-        owner,
-        repo,
-        path: folder,
-      });
-    } catch (error) {
-      if (error.status === 404) {
-        try {
-          await this.octokit.repos.createOrUpdateFileContents({
-            owner,
-            repo,
-            path: `${folder}/.gitkeep`,
-            message: `Create ${folder} folder`,
-            content: Buffer.from("").toString("base64"),
-            branch: "main",
-          });
-          logger.info(`Created new folder: ${folder}`);
-        } catch (createError) {
-          logger.error(`Failed to create folder ${folder}:`, createError);
-          throw new Error(`Failed to create folder: ${createError.message}`);
-        }
-      } else {
-        throw error;
-      }
     }
   }
 

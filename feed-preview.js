@@ -2,8 +2,9 @@
  * feed-preview.js
  *
  * TERMINAL PREVIEW ONLY — never posts, never tracks.
- * Scans your live LinkedIn Recent feed, drafts a comment per post with the full
- * voice pipeline (SKIP / validate / retry), and prints exactly what WOULD be posted.
+ * Scans your live LinkedIn post sources (finance/AI/founder content search plus config/creators.json,
+ * or the home feed with LINKEDIN_SOURCE=feed), drafts a comment per post with the full voice
+ * pipeline (SKIP / validate / retry), and prints exactly what WOULD be posted.
  *
  *   node feed-preview.js [--max 3]
  *
@@ -22,6 +23,11 @@ for (let i = 0; i < args.length; i++) {
   // node feed-preview.js --connect [--live N]: preview (or, with --live, really send) N connection requests.
   if (args.includes("--connect")) {
     const li = args.indexOf("--live");
+    // The live pass writes the same tracker file as the scheduler; two writers would lose entries.
+    if (li >= 0 && require("fs").existsSync(require("path").join(process.cwd(), ".pipeline.lock"))) {
+      console.error("The pipeline is running (.pipeline.lock exists). Run --live after it finishes so both do not write the tracker at once.");
+      process.exit(1);
+    }
     const n = li >= 0 ? Math.max(1, parseInt(args[li + 1], 10) || 2) : 5;
     const r = await feedEngage.runConnectPass({ min: n, max: n, dryRun: li < 0 });
     (r.previews || []).forEach((p, i) => console.log(`${i + 1}. ${p.name} [${p.kw}] ${p.text}`));

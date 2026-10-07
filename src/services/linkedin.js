@@ -1,8 +1,18 @@
 const { By, Key } = require("selenium-webdriver");
 const { logger, sleep } = require("../utils/helpers");
-const { attachDriver } = require("../utils/chromeLauncher");
+const { attachDriver, releaseDriver, MOD_KEY } = require("../utils/chromeLauncher");
 const fs = require("fs");
 const path = require("path");
+
+// Card lookup shared by scan/like/comment/follow. Home feed cards are children of
+// mainFeed; other pages (content search, profile activity) have no mainFeed, so
+// fall back to list items inside <main>. Sets `cards` (never null).
+const CARDS_JS = `
+  const feedRoot = document.querySelector('div[data-testid="mainFeed"]');
+  const cards = feedRoot
+    ? Array.from(feedRoot.children).filter(c => (c.innerText || '').includes('Feed post'))
+    : Array.from(document.querySelectorAll('main li, main [role="listitem"]')).filter(c => (c.innerText || '').length > 200 && !(c.parentElement && c.parentElement.closest('li, [role="listitem"]')));
+`;
 
 class LinkedInService {
   constructor() {
@@ -74,7 +84,8 @@ class LinkedInService {
             hostname = new URL(url).hostname;
           } catch (urlErr) { }
 
-          if (hostname.endsWith(domainKeyword) || hostname === domainKeyword) {
+          // Exact host or a real subdomain: "notlinkedin.com" must not match.
+          if (hostname === domainKeyword || hostname.endsWith(`.${domainKeyword}`)) {
             if (!domainMatchHandle) {
               domainMatchHandle = handle;
             }
@@ -182,9 +193,11 @@ class LinkedInService {
   }
 
 
-  // FEED SCAN: real LinkedIn markup (hashed classes, no data-urn). Cards = mainFeed
-  // children containing "Feed post". Flips Sort: Top -> Recent so we engage fresh posts.
-  // Identity = sha1(authorHref + text head) since no activity URNs exist in the DOM.
+  // FEED SCAN: real LinkedIn markup (hashed classes, no data-urn). On the home feed, cards are
+  // the mainFeed children containing "Feed post" (sort is set to Top or Recent); on content
+  // search and profile pages they are the outermost list items (see CARDS_JS).
+  // Identity = sha1 of the post text, so the same post is one post whichever page it is found on;
+  // legacyKey (author link + text) is kept to recognise posts tracked before that change.
   // Pure predicate so the spam gate is unit-testable without a browser.
   // Life updates (joined, new role, promotion, anniversary) are CONGRATS targets,
   // not spam. Only LinkedIn's own "Promoted" ad label is filtered - matched in the
@@ -196,10 +209,12 @@ class LinkedInService {
       "use my code", "limited spots", "giveaway", "subscribe for", "link in bio",
       "say congrats", "congratulate", "only connections can comment",
       "apply:", "apply here", "reopen applications", "rolling basis", "currently unpaid", "send your resume", "send in your resume", "interested candidates",
-      "webinar", "masterclass", "bootcamp", "cohort", "register", "enroll", "early bird", "starts"
+      "webinar", "masterclass", "bootcamp", "cohort", "enroll", "early bird",
+      // event promotion, phrased so finance posts ("register of members", "starts the quarter") pass
+      "register now", "register here", "register today", "register for", "registration is open"
     ];
     const lower = String(text || "").toLowerCase();
-    if (FEED_SPAM.some((kw) => lower.includes(kw))) return true;
+    if (FEED_SPAM.some((kw) => lower.includes(kw)) || /starts (?:on|at|in) /.test(lower)) return true;
     const head = String(text || "").slice(0, 300);
     if (/\bpromoted\b/i.test(head) && !/\bpromot(ed to|ion)\b|been promoted/i.test(String(text || ""))) return true;
     return false;
@@ -247,22 +262,24 @@ class LinkedInService {
 
   // Pure: LinkedIn recommendation modules are UI, not human posts (Jobs cards,
   // People-You-May-Know). Commenting on - or liking - them is bot behavior.
-
-  // Pure: LinkedIn recommendation modules are UI, not human posts (Jobs cards,
-  // People-You-May-Know). Commenting on - or liking - them is bot behavior.
   // Matched on card headers/body markers a real post would never contain.
   static isFeedModuleText(text) {
     const head = String(text || "").slice(0, 400);
     return /jobs recommended for you|people you may know|\bopenings near you\b|alumni works here|actively reviewing applicants/i.test(head);
   }
 
-  async scanFeedPosts({ maxPosts = 10, maxScrolls = 10, sort = "recent" } = {}) {
+  async scanFeedPosts({ maxPosts = 10, maxScrolls = 10, sort = "recent", url: sourceUrl = "" } = {}) {
     const crypto = require("crypto");
     const MIN_WORDS = 15;
-    const keyOf = (href, bodyText) => crypto.createHash("sha1").update(`${href}|${bodyText.slice(0, 300)}`).digest("hex").slice(0, 16);
+    // Older trackers keyed posts by author link + text; that key differed between search results,
+    // profile pages and the home feed, so it is kept only to recognise posts handled before.
+    const legacyKeyOf = (href, bodyText) => crypto.createHash("sha1").update(`${href}|${bodyText.slice(0, 300)}`).digest("hex").slice(0, 16);
+    const keyOf = (href, bodyText) =>
+      bodyText.length >= 60 ? crypto.createHash("sha1").update(`body|${bodyText.slice(0, 300)}`).digest("hex").slice(0, 16) : legacyKeyOf(href, bodyText);
     try {
       await this.ensureDriverConnected(true);
-      await this.driver.get("https://www.linkedin.com/feed/");
+      const homeFeed = !sourceUrl;
+      await this.driver.get(sourceUrl || "https://www.linkedin.com/feed/");
       await sleep(5000);
       const url = await this.driver.getCurrentUrl();
       if (/authwall|login|checkpoint|uas\/login/.test(url)) {
@@ -271,7 +288,7 @@ class LinkedInService {
       }
       // Sort mode per phase: 'top' = default engagement feed, 'recent' = fresh posts.
       const wantSort = String(sort || 'recent');
-      try {
+      if (homeFeed) try {
         const sortState = await this.driver.executeScript(
           "const want = arguments[0];" +
           " " +
@@ -316,8 +333,8 @@ class LinkedInService {
         // Expand truncated posts so we read (and judge) the full text.
         try {
           await this.driver.executeScript(`
-            for (const b of document.querySelectorAll('div[data-testid="mainFeed"] button')) {
-              if ((b.innerText || '').includes('more')) { try { b.click(); } catch (e) {} }
+            for (const b of document.querySelectorAll('div[data-testid="mainFeed"] button, main li button')) {
+              if (/^(?:\\u2026|\\.\\.\\.)?\\s*(?:see\\s+)?more$/i.test((b.innerText || '').trim())) { try { b.click(); } catch (e) {} }
             }
           `);
           await sleep(800);
@@ -325,10 +342,9 @@ class LinkedInService {
         let batch = [];
         try {
           batch = await this.driver.executeScript(`
-            const feed = document.querySelector('div[data-testid="mainFeed"]');
-            if (!feed) return [];
-            return Array.from(feed.children)
-              .filter(c => (c.innerText || '').includes('Feed post') && (c.innerText || '').length > 200)
+            ${CARDS_JS}
+            return cards
+              .filter(c => (c.innerText || '').length > 200)
               .map(c => {
                 const links = Array.from(c.querySelectorAll('a[href*="/in/"], a[href*="/company/"]')).filter(x => (x.innerText || '').trim()); const a = links[0]; // first text-bearing profile/company link (avatar links are empty);
                 return {
@@ -367,7 +383,7 @@ class LinkedInService {
           // head = author/headline/timestamp chrome above the body, used only for audience scoring.
           const ageM = text.match(/(\d+)\s*([smhdw])\s*•/);
           const ageH = ageM ? Number(ageM[1]) * { s: 1 / 3600, m: 1 / 60, h: 1, d: 24, w: 168 }[ageM[2]] : 999;
-          out.push({ key, author: item.author || "unknown", href: item.href || "", text: keySrc.slice(0, 1500), head: tlines.slice(0, 8).join(" "), ageH });
+          out.push({ key, legacyKey: legacyKeyOf(item.href, keySrc), author: item.author || "unknown", href: item.href || "", text: keySrc.slice(0, 1500), head: tlines.slice(0, 8).join(" "), ageH });
         }
         if (fresh === 0) {
           stallRounds++;
@@ -396,9 +412,7 @@ class LinkedInService {
     const snip = String(textSnippet).substring(0, 80);
     const FIND_CARD = `
       const norm = s => (s || '').replace(/[\\u200b-\\u200d\\ufeff]/g, '').replace(/\\s+/g, ' ').trim();
-      const feed = document.querySelector('div[data-testid="mainFeed"]');
-      if (!feed) return null;
-      const cards = Array.from(feed.children).filter(c => (c.innerText || '').includes('Feed post'));
+      ${CARDS_JS}
       const nq = norm(q).slice(0, 80);
       if (!nq) return null;
       return cards.find(c => norm(c.innerText).includes(nq)) || null;
@@ -460,10 +474,8 @@ class LinkedInService {
     try {
       await this.ensureDriverConnected(true);
       const toggleResult = await this.driver.executeScript(`
-        const norm = s => (s || '').replace(/[​-‍﻿]/g, '').replace(/\s+/g, ' ').trim();
-        const feed = document.querySelector('div[data-testid="mainFeed"]');
-        if (!feed) return null;
-        const cards = Array.from(feed.children).filter(c => (c.innerText || '').includes('Feed post'));
+        const norm = s => (s || '').replace(/[\\u200b-\\u200d\\ufeff]/g, '').replace(/\\s+/g, ' ').trim();
+        ${CARDS_JS}
         const nq = norm(arguments[0]);
         const card = cards.find(c =>
           norm(c.innerText).includes(nq) &&
@@ -495,9 +507,8 @@ class LinkedInService {
       await sleep(2500);
       // Re-query the open editor inside the same card.
       const editor = await this.driver.executeScript(`
-        const norm = s => (s || '').replace(/[​-‍﻿]/g, '').replace(/\s+/g, ' ').trim();
-        const feed = document.querySelector('div[data-testid="mainFeed"]');
-        const cards = Array.from(feed.children).filter(c => (c.innerText || '').includes('Feed post'));
+        const norm = s => (s || '').replace(/[\\u200b-\\u200d\\ufeff]/g, '').replace(/\\s+/g, ' ').trim();
+        ${CARDS_JS}
         const nq = norm(arguments[0]);
         const card = cards.find(c => norm(c.innerText).includes(nq));
         if (!card) return null;
@@ -509,7 +520,7 @@ class LinkedInService {
       }
       await editor.click();
       await sleep(400);
-      await editor.sendKeys(Key.chord(Key.CONTROL, "a"), Key.BACK_SPACE);
+      await editor.sendKeys(Key.chord(MOD_KEY, "a"), Key.BACK_SPACE);
       await sleep(300);
       const mentionState = await this._typeWithMention(editor, text, fullName);
       logger.info(`LinkedInService: mention flow: ${mentionState}.`);
@@ -528,9 +539,8 @@ class LinkedInService {
       // Do NOT match aria-label here - that would click the toggle and close the editor.
       // The button renders only after typing fires input events, so poll for it.
       const clickSubmit = `
-        const norm = s => (s || '').replace(/[​-‍﻿]/g, '').replace(/\s+/g, ' ').trim();
-        const feed = document.querySelector('div[data-testid="mainFeed"]');
-        const cards = Array.from(feed.children).filter(c => (c.innerText || '').includes('Feed post'));
+        const norm = s => (s || '').replace(/[\\u200b-\\u200d\\ufeff]/g, '').replace(/\\s+/g, ' ').trim();
+        ${CARDS_JS}
         const nq = norm(arguments[0]);
         const card = cards.find(c => norm(c.innerText).includes(nq));
         if (!card) return 'no-card';
@@ -553,7 +563,7 @@ class LinkedInService {
         await editor.click();
         await sleep(300);
         const actions = this.driver.actions({ async: true });
-        await actions.keyDown("\uE009").sendKeys("\n").keyUp("\uE009").perform();
+        await actions.keyDown(MOD_KEY).sendKeys(Key.ENTER).keyUp(MOD_KEY).perform();
         submitHow = "keyboard-fallback";
         logger.info("LinkedInService: submit fell back to keyboard.");
       }
@@ -581,7 +591,7 @@ class LinkedInService {
           try {
             await editor.click();
             const actions = this.driver.actions({ async: true });
-            await actions.sendKeys("\uE007").perform(); // Enter on the focused editor
+            await actions.sendKeys(Key.ENTER).perform(); // Enter on the focused editor
           } catch (e) {}
           await sleep(3000);
         }
@@ -613,7 +623,7 @@ class LinkedInService {
       try {
         try { await editor.sendKeys(Key.ESCAPE); } catch (e) {}
         await sleep(300);
-        await editor.sendKeys(Key.chord(Key.CONTROL, "a"), Key.BACK_SPACE);
+        await editor.sendKeys(Key.chord(MOD_KEY, "a"), Key.BACK_SPACE);
         await sleep(300);
         await editor.sendKeys(text);
       } catch (e2) {}
@@ -690,11 +700,10 @@ class LinkedInService {
     const snip = String(textSnippet).substring(0, 80);
     const FIND = `
       const norm = s => (s || '').replace(/[\\u200b-\\u200d\\ufeff]/g, '').replace(/\\s+/g, ' ').trim();
-      const feed = document.querySelector('div[data-testid="mainFeed"]');
-      if (!feed) return null;
+      ${CARDS_JS}
       const nq = norm(arguments[0]).slice(0, 80);
       if (!nq) return null;
-      return Array.from(feed.children).find(c => (c.innerText || '').includes('Feed post') && norm(c.innerText).includes(nq)) || null;
+      return cards.find(c => norm(c.innerText).includes(nq)) || null;
     `;
     try {
       const clicked = await this.driver.executeScript(`
@@ -841,7 +850,11 @@ class LinkedInService {
 
   async cleanup() {
     // Never quit(): the attached Chrome is the user's persistent logged-in session.
-    if (this.driver) logger.info("LinkedInService: Releasing WebDriver control of debugging browser session");
+    // Stop only this session's chromedriver process so reconnects don't leak them.
+    if (this.driver) {
+      logger.info("LinkedInService: Releasing WebDriver control of debugging browser session");
+      await releaseDriver(this.driver);
+    }
     this.driver = null;
     this.isInitialized = false;
     this._isLoggedIn = false;

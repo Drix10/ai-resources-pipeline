@@ -34,26 +34,35 @@ const config = {
       apiKey: process.env.OPENROUTER_API_KEY || "",
       baseUrl: (process.env.OPENROUTER_BASE_URL || "https://openrouter.ai/api/v1").replace(/\/$/, ""),
       // One model for all LinkedIn writing: posts, feed comments and both critics.
-      // Use the exact slug from openrouter.ai/models. Empty = skip to NVIDIA.
-      model: process.env.OPENROUTER_MODEL || "",
+      // Pinned: DeepSeek V4 Flash for every comment/critic call. OPENROUTER_MODEL in
+      // .env no longer overrides it; set OPENROUTER_MODEL_OVERRIDE to change it.
+      model: process.env.OPENROUTER_MODEL_OVERRIDE || "deepseek/deepseek-v4-flash",
+      // Article writer, picked by benchmark (30 real posts, judged for faithfulness,
+      // specificity and publishability): strongest accuracy, skips thin posts, ~$0.0001/article.
+      articleModel: process.env.OPENROUTER_ARTICLE_MODEL || "openai/gpt-oss-120b",
+      articleFallbackModel: process.env.OPENROUTER_ARTICLE_FALLBACK_MODEL || "qwen/qwen3.7-flash",
       // "input,output" USD per 1M tokens, for run-cost logs only.
       pricePerM: String(process.env.OPENROUTER_PRICE_PER_M || "").split(",").map(Number).filter(n => Number.isFinite(n) && n >= 0),
       requestTimeoutMs: parsePositiveInteger(process.env.OPENROUTER_REQUEST_TIMEOUT_MS, 120000),
     },
   },
+  // Used by the list tracker (npm run list), not by the main pipeline.
   discord: {
     webhookUrl: process.env.DISCORD_WEBHOOK_URL,
   },
   social: {
     linkedinFeedReply: process.env.LINKEDIN_FEED_REPLY === "true",
     // Like-only engagement while comments stay disabled (perfecting replies).
-    // Runs 3-9 random likes across Top + Recent per prepared file.
+    // 5-9 likes per cycle on targeted finance/AI/founder posts.
     linkedinLike: process.env.LINKEDIN_LIKE !== "false",
     // Simple mode: raw LLM reply, no system prompting, no gates, no critic.
     // Experiment flag for comparing against the policed pipeline. Nothing posts
     // without LINKEDIN_FEED_REPLY=true; previews stay dry-run either way.
     linkedinSimpleReply: process.env.LINKEDIN_SIMPLE_REPLY === "true",
-    // 20-30 no-note connection requests per run to US people in AI/tech/finance/investing.
+    // Post sources for likes/comments: "targeted" (default: content search + config/creators.json,
+    // home-feed fallback) or "feed" (home feed Top/Recent only).
+    linkedinSource: process.env.LINKEDIN_SOURCE === "feed" ? "feed" : "targeted",
+    // 10-15 no-note connection requests per run to US people in AI/tech/finance/investing.
     linkedinConnect: process.env.LINKEDIN_CONNECT !== "false",
     twitterPost: process.env.TWITTER_POST !== "false",
   },
@@ -62,10 +71,6 @@ const config = {
     devto: {
       apiKey: process.env.DEVTO_API_KEY || "",
       enabled: process.env.DEVTO_AUTO_PUBLISH === "true",
-    },
-    medium: {
-      token: process.env.MEDIUM_TOKEN || "",
-      enabled: process.env.MEDIUM_AUTO_PUBLISH === "true",
     },
   },
   monitoring: {

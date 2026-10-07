@@ -164,11 +164,13 @@ class SyndicationService {
         logger.info(`SyndicationService: Publishing to DEV.to ("${safeTitle.slice(0, 40)}...")...`);
         let result = await sendRequest(buildPayload(validCanonical));
 
-        // Edge-Case Safeguard: If DEV.to rejects with 422 due to duplicate canonical URL, retry with unique timestamp param or standalone
+        // A 422 about the canonical URL means this article is already on DEV.to.
+        // Re-posting under a cache-busted canonical would publish a duplicate and
+        // point search engines at a URL that does not exist, so treat it as done.
         if (!result.ok && result.status === 422 && JSON.stringify(result.data).toLowerCase().includes("canonical url")) {
-          logger.warn("SyndicationService: Canonical URL collision detected. Retrying with unique timestamped canonical...");
-          const uniqueCanonical = validCanonical ? `${validCanonical}?v=${Date.now()}` : undefined;
-          result = await sendRequest(buildPayload(uniqueCanonical));
+          logger.info("SyndicationService: DEV.to already has an article with this canonical URL; skipping duplicate.");
+          // Not "skipped": a request was made, so the queue still owes rate-limit spacing.
+          return { success: true, platform: "devto", duplicate: true };
         }
 
         if (!result.ok) {
@@ -221,7 +223,7 @@ class SyndicationService {
       const computedSlug = seoSlug || generateSeoSlug(rawTitle, enrichedMarkdown, fileName, folderName);
 
       const cleanPath = `${categorySlug}/${computedSlug}`;
-      canonicalUrl = `https://blogs.drix10.com/articles/${cleanPath}`;
+      canonicalUrl = `${config.syndication.canonicalBaseUrl}/articles/${cleanPath}`;
 
       // Guarantee DEV.to articles contain reciprocal backlinks to both the blog and GitHub file
       const isSpecial = categorySlug === "personal" || categorySlug === "linkedin-insights";
@@ -243,7 +245,7 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
       }
     } else {
       const categorySlug = String(category || title || "tech").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80);
-      canonicalUrl = `https://blogs.drix10.com/articles/${categorySlug}-${Date.now()}`;
+      canonicalUrl = `${config.syndication.canonicalBaseUrl}/articles/${categorySlug}-${Date.now()}`;
     }
 
     return this.syndicateAll({
