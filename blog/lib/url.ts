@@ -1,20 +1,20 @@
-export interface HomeQuery {
+export interface SearchQuery {
   q?: string;
   topic?: string;
   sort?: string;
   page?: number;
 }
 
-// Builds "/?q=...&topic=...": the home page is fully driven by its URL, so every
-// search and filter state can be shared, bookmarked and server-rendered.
-export function homeUrl({ q, topic, sort, page }: HomeQuery): string {
+// Builds "/search?q=...&topic=...": the search page is fully driven by its URL, so every
+// search and filter state can be shared and bookmarked.
+export function searchUrl({ q, topic, sort, page }: SearchQuery): string {
   const params = new URLSearchParams();
   if (q && q.trim()) params.set('q', q.trim());
   if (topic) params.set('topic', topic);
   if (sort && sort !== 'newest') params.set('sort', sort);
   if (page && page > 1) params.set('page', String(page));
   const qs = params.toString();
-  return qs ? `/?${qs}` : '/';
+  return qs ? `/search?${qs}` : '/search';
 }
 
 // JSON-LD lives inside <script>, so "<" must never appear raw (a title containing "</script>").

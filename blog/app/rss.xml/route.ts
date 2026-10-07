@@ -1,9 +1,14 @@
-import { getAllArticles } from '@/lib/markdown';
+import { cleanTitle, getAllArticles } from '@/lib/markdown';
+import { SITE_URL } from '@/lib/site';
+
+// Text inside CDATA may not contain the terminator.
+const cdata = (s: string) => String(s ?? '').replace(/\]\]>/g, ']]]]><![CDATA[>');
+const xml = (s: string) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 export async function GET() {
   const allArticles = getAllArticles();
   const recentArticles = allArticles.slice(0, 150);
-  const siteUrl = process.env.CANONICAL_BASE_URL || 'https://blogs.drix10.com';
+  const siteUrl = SITE_URL;
 
   const rssItems = recentArticles
     .map((article) => {
@@ -18,13 +23,13 @@ export async function GET() {
       const linkUrl = article.canonicalUrl || `${siteUrl}/articles/${article.slug}`;
       return `
     <item>
-      <title><![CDATA[${article.title}]]></title>
+      <title><![CDATA[${cdata(cleanTitle(article.title))}]]></title>
       <link>${linkUrl}</link>
       <guid>${linkUrl}</guid>
       <pubDate>${pubDateStr}</pubDate>
-      <description><![CDATA[${article.description}]]></description>
-      <category>${article.category}</category>
-      <author>drishtant@drix10.com (Drishtant Ghosh (Drix10))</author>
+      <description><![CDATA[${cdata(article.description)}]]></description>
+      <category>${xml(article.category)}</category>
+      <author>ggdrishtant@gmail.com (Drishtant Ghosh)</author>
     </item>`;
     })
     .join('');
@@ -36,8 +41,8 @@ export async function GET() {
     <link>${siteUrl}</link>
     <description>Curated technical research, system architectures, cybersecurity breakdowns, and AI engineering notes by Drishtant Ghosh (Drix10).</description>
     <language>en</language>
-    <managingEditor>drishtant@drix10.com (Drishtant Ghosh)</managingEditor>
-    <webMaster>drishtant@drix10.com (Drishtant Ghosh)</webMaster>
+    <managingEditor>ggdrishtant@gmail.com (Drishtant Ghosh)</managingEditor>
+    <webMaster>ggdrishtant@gmail.com (Drishtant Ghosh)</webMaster>
     <atom:link href="${siteUrl}/rss.xml" rel="self" type="application/rss+xml"/>
     ${rssItems}
   </channel>

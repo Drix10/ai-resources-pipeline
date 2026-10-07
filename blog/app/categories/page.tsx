@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getAllCategories } from '@/lib/markdown';
+import { absolute, topicHref } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Topics',
   description: 'Every topic in the Drix10 blog: AI tools, models, companies, security, founder notes and more, by Drishtant Ghosh.',
   alternates: {
-    canonical: 'https://blogs.drix10.com/categories',
+    canonical: absolute('/categories'),
   },
 };
 
@@ -29,7 +30,7 @@ export default function CategoriesIndexPage() {
 
       {founder && (
         <section className="mt-12 border-t border-rule pt-8">
-          <Link href={`/categories/${founder.slug}`} className="group block max-w-[44rem]">
+          <Link href={topicHref(founder.slug)} className="group block max-w-[44rem]">
             <h2 className="display text-[1.75rem] font-semibold leading-tight text-ink transition-colors group-hover:text-accent">
               {founder.name}: essays by the author
             </h2>
@@ -47,7 +48,7 @@ export default function CategoriesIndexPage() {
         <ul className="columns-1 gap-12 sm:columns-2 lg:columns-3">
           {rest.map((c) => (
             <li key={c.slug} className="break-inside-avoid border-b border-rule/80">
-              <Link href={`/categories/${c.slug}`} className="group flex items-baseline justify-between gap-4 py-3">
+              <Link href={topicHref(c.slug)} className="group flex items-baseline justify-between gap-4 py-3">
                 <span className="text-ink transition-colors group-hover:text-accent">{c.name}</span>
                 <span className="text-[0.9375rem] tabular-nums text-faint">{c.count}</span>
               </Link>

@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 import indexData from '@/lib/articles-index.json';
+import { PORTFOLIO_URL, SITE_URL } from '@/lib/site';
 
 export async function GET() {
-  const baseUrl = process.env.CANONICAL_BASE_URL || 'https://blogs.drix10.com';
+  const baseUrl = SITE_URL;
   const articles = indexData.articles.slice(0, 100);
   const categories = indexData.categories;
 
@@ -10,7 +11,7 @@ export async function GET() {
 > High-signal engineering research, autonomous multi-agent architectures, cybersecurity breakdowns, and personal founder essays.
 > Canonical Domain: ${baseUrl}
 > Primary Author & Creator: Drishtant Ghosh (known online as Drix10)
-> Portfolio & Bio: https://drix10.com
+> Portfolio & Bio: ${PORTFOLIO_URL}
 > Email: ggdrishtant@gmail.com
 > Verified Socials:
 > - X / Twitter: https://x.com/DrishtantGhosh (@DrishtantGhosh)
