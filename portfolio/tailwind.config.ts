@@ -1,5 +1,7 @@
 import type { Config } from 'tailwindcss';
 
+const token = (name: string) => `rgb(var(--${name}) / <alpha-value>)`;
+
 const config: Config = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -9,14 +11,21 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: 'var(--background)',
-        foreground: 'var(--foreground)',
+        paper: token('paper'),
+        sunk: token('sunk'),
+        ink: token('ink'),
+        body: token('body'),
+        faint: token('faint'),
+        rule: token('rule'),
+        accent: token('accent'),
+        mark: token('mark'),
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-display)', 'system-ui', 'sans-serif'],
+        serif: ['var(--font-text)', 'Georgia', 'serif'],
       },
     },
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [require('tailwindcss-animate')],
 };
 export default config;

@@ -1,376 +1,179 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import RoleCycle from '@/components/RoleCycle';
-import LocalTimeBadge from '@/components/LocalTimeBadge';
-import ProjectsExplorer from '@/components/ProjectsExplorer';
+import type { ReactNode } from 'react';
+import AgentField from '@/components/AgentField';
+import Work from '@/components/Work';
+import OpenSource from '@/components/OpenSource';
 import GitHubActivity from '@/components/GitHubActivity';
-import ContactCard from '@/components/ContactCard';
+import Writing from '@/components/Writing';
+import ContactEmail from '@/components/ContactEmail';
+import { getGitHubProfile, USERNAME } from '@/lib/github';
+import { EDUCATION, HACKATHONS, NOW_BUILDING, ROLES, SKILLS } from '@/lib/profile';
 
-export default function HomePage() {
+// Projects, stars, activity and open-source work are read from GitHub; rebuild hourly.
+export const revalidate = 3600;
+
+function Section({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
-    <div className="space-y-16 sm:space-y-20">
-      {/* 1. Hero Section */}
-      <section id="about" className="space-y-6 pt-4 sm:pt-6">
-        <div className="flex items-center justify-between">
-          <LocalTimeBadge />
-          <div className="flex items-center gap-1.5 text-xs font-mono text-zinc-500">
-            <span>Press</span>
-            <kbd className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-[10px] text-zinc-300">
-              ⌘K
-            </kbd>
-            <span>for quick menu</span>
-          </div>
-        </div>
+    <section id={id} className="border-t border-rule/80">
+      <div className="mx-auto grid max-w-[1100px] gap-8 px-5 py-16 sm:px-8 sm:py-24 md:grid-cols-[13rem_1fr] md:gap-12">
+        <h2 className="section-title md:sticky md:top-24 md:self-start">{title}</h2>
+        <div className="min-w-0">{children}</div>
+      </div>
+    </section>
+  );
+}
 
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-          <Image
-            src="/avatar.png"
-            alt="Drishtant Ghosh (Drix10)"
-            width={112}
-            height={112}
-            priority
-            className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl object-cover border-2 border-zinc-700 shadow-2xl shadow-zinc-950"
-          />
-          <div className="space-y-2 flex-1">
-            <div className="flex flex-wrap items-center gap-2.5">
-              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-100">
-                Drishtant Ghosh
-              </h1>
-              <span className="px-2.5 py-1 rounded-md bg-zinc-900 border border-zinc-800 font-mono text-xs text-zinc-300 font-semibold">
-                @Drix10
+export default async function HomePage() {
+  const gh = await getGitHubProfile();
+  // Throwing keeps the previous version of the page being served during revalidation and fails a
+  // build loudly, instead of caching an empty "GitHub did not answer" page for an hour.
+  if (!gh && process.env.NODE_ENV === 'production') throw new Error('GitHub data unavailable');
+  const featured = gh?.selection.featured ?? [];
+  const more = gh?.selection.more ?? [];
+  const hasProjects = featured.length + more.length > 0;
+
+  return (
+    <>
+      <section className="relative overflow-hidden" aria-labelledby="name">
+        <AgentField />
+        <div className="relative mx-auto flex min-h-[calc(100svh-3.5rem)] max-w-[1100px] flex-col justify-center px-5 pb-16 pt-14 sm:px-8 sm:pb-24">
+          <h1
+            id="name"
+            className="text-[clamp(3.6rem,17vw,11.5rem)] font-bold leading-[0.9] tracking-[-0.03em] text-ink"
+            style={{ fontVariationSettings: "'wdth' 92" }}
+          >
+            Drishtant
+            <br />
+            Ghosh
+          </h1>
+
+          <p className="prose-text mt-8 max-w-[34ch] text-[1.375rem] sm:mt-10 sm:max-w-[46ch] sm:text-[1.625rem] sm:leading-[1.5]">
+            Serial founder and AI systems engineer in Bengaluru, building since 2019. I ran ReeF from its first commit to an acquisition, and now build agent infrastructure and research systems.
+          </p>
+
+          <p className="mt-6 max-w-[60ch] text-[1.0625rem] text-body">
+            <span className="font-semibold text-ink">Building now: </span>
+            {NOW_BUILDING.map((n, i) => (
+              <span key={n.name}>
+                <a href={n.href} target="_blank" rel="noreferrer" className="link">
+                  {n.name}
+                </a>
+                {i < NOW_BUILDING.length - 1 ? ', ' : '.'}
               </span>
-              <span className="px-2 py-0.5 rounded-md bg-emerald-950/60 border border-emerald-800/80 text-[11px] font-mono text-emerald-400 font-medium">
-                📍 Bengaluru, India
-              </span>
-            </div>
+            ))}
+          </p>
 
-            <div className="flex items-center gap-2 text-sm sm:text-base font-medium">
-              <RoleCycle />
-            </div>
+          <ul className="mt-8 flex flex-wrap gap-x-7 gap-y-3 text-[1.0625rem]">
+            <li><a className="link" href="mailto:ggdrishtant@gmail.com">Email</a></li>
+            <li><a className="link" href="https://github.com/Drix10" target="_blank" rel="noreferrer">GitHub</a></li>
+            <li><a className="link" href="https://www.linkedin.com/in/drix10" target="_blank" rel="noreferrer">LinkedIn</a></li>
+            <li><a className="link" href="https://x.com/DrishtantGhosh" target="_blank" rel="noreferrer">X</a></li>
+            <li><a className="link" href="https://blogs.drix10.com" target="_blank" rel="noreferrer">Blog</a></li>
+          </ul>
 
-            <p className="text-xs sm:text-sm text-zinc-300 max-w-2xl leading-relaxed">
-              I build AI systems and full-stack products that turn complex workflows into usable software. My work spans multi-agent swarms, LLM orchestration, real-time distributed applications, developer tooling, and high-concurrency cloud infrastructure.
-            </p>
-          </div>
-        </div>
-
-        {/* Quick Action Buttons */}
-        <div className="flex flex-wrap items-center gap-2.5 pt-2">
-          <a
-            href="#projects"
-            className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold text-xs font-mono transition-colors shadow-lg shadow-emerald-950/40 flex items-center gap-1.5"
-          >
-            <span>⚡ View Systems & Code</span>
-            <span>↓</span>
-          </a>
-          <a
-            href="https://github.com/Drix10"
-            target="_blank"
-            rel="noreferrer"
-            className="px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-200 text-xs font-semibold transition-colors flex items-center gap-1.5"
-          >
-            <span>GitHub (@Drix10)</span>
-          </a>
-          <a
-            href="https://www.linkedin.com/in/drix10"
-            target="_blank"
-            rel="noreferrer"
-            className="px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-200 text-xs font-semibold transition-colors flex items-center gap-1.5"
-          >
-            <span>LinkedIn</span>
-          </a>
-          <a
-            href="https://x.com/DrishtantGhosh"
-            target="_blank"
-            rel="noreferrer"
-            className="px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-200 text-xs font-semibold transition-colors flex items-center gap-1.5"
-          >
-            <span>X / Twitter</span>
-          </a>
-          <a
-            href="https://blogs.drix10.com"
-            target="_blank"
-            rel="noreferrer"
-            className="px-3.5 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-emerald-400 text-xs font-mono font-semibold transition-colors flex items-center gap-1.5"
-          >
-            <span>Technical Writing</span>
-            <span>↗</span>
-          </a>
-        </div>
-      </section>
-
-      {/* 2. Key Numbers & Metrics Ribbon */}
-      <section className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="p-4 rounded-2xl bg-zinc-900/40 border border-zinc-800/80 space-y-1 text-center sm:text-left">
-          <div className="text-2xl font-black font-mono text-emerald-400">1x Acquired</div>
-          <div className="text-[11px] text-zinc-500 font-medium">ReeF ($15k ARR, 5M+ reqs)</div>
-        </div>
-        <div className="p-4 rounded-2xl bg-zinc-900/40 border border-zinc-800/80 space-y-1 text-center sm:text-left">
-          <div className="text-2xl font-black font-mono text-zinc-100">400+</div>
-          <div className="text-[11px] text-zinc-500 font-medium">CosLynx MVP Deployments</div>
-        </div>
-        <div className="p-4 rounded-2xl bg-zinc-900/40 border border-zinc-800/80 space-y-1 text-center sm:text-left">
-          <div className="text-2xl font-black font-mono text-zinc-100">5M+</div>
-          <div className="text-[11px] text-zinc-500 font-medium">Production User Actions</div>
-        </div>
-        <div className="p-4 rounded-2xl bg-zinc-900/40 border border-zinc-800/80 space-y-1 text-center sm:text-left">
-          <div className="text-2xl font-black font-mono text-emerald-400">2x 🏆</div>
-          <div className="text-[11px] text-zinc-500 font-medium">International Hackathons</div>
-        </div>
-      </section>
-
-      {/* 3. Work Experience & Startups Timeline */}
-      <section id="experience" className="space-y-6">
-        <div className="space-y-1">
-          <h2 className="text-xs font-mono uppercase tracking-wider font-bold text-zinc-400">
-            01. Professional Experience & Founder Journey
-          </h2>
-          <p className="text-xl font-bold text-zinc-100 tracking-tight">
-            Track record of founding, scaling, and architecting systems.
+          <p className="mt-12 hidden text-[0.9375rem] text-faint [@media(hover:hover)]:block">
+            The flock behind the name is a nod to{' '}
+            <a href="https://github.com/Drix10/ml-videos" target="_blank" rel="noreferrer" className="link">
+              Night-Hunt
+            </a>
+            , my evolving-mice experiment. Move your cursor through it.
           </p>
         </div>
+      </section>
 
-        <div className="space-y-6 border-l-2 border-zinc-800 pl-4 sm:pl-6 ml-2 sm:ml-4">
-          {/* Canopy @ Founders, Inc. */}
-          <div className="relative space-y-2 pt-4">
-            <div className="absolute -left-[23px] sm:-left-[31px] top-5.5 w-3 h-3 rounded-full bg-zinc-400 border-2 border-[#09090b]"></div>
-            <div className="flex flex-wrap items-center justify-between gap-2">
+      <Section id="work" title="Work">
+        {hasProjects ? (
+          <>
+            <p className="prose-text mb-10">
+              Read from GitHub, so the descriptions, stars and dates here are the ones on the repositories. Pin a repository on my profile and it appears in this list.
+            </p>
+            <Work featured={featured} more={more} pinned={gh?.source === 'graphql'} />
+          </>
+        ) : (
+          <p className="prose-text">
+            Projects load from GitHub and it did not answer just now. They are all at{' '}
+            <a className="link" href={`https://github.com/${USERNAME}`} target="_blank" rel="noreferrer">
+              github.com/{USERNAME}
+            </a>
+            .
+          </p>
+        )}
+        {gh?.calendar && (
+          <div className="mt-16">
+            <GitHubActivity total={gh.calendar.total} weeks={gh.calendar.weeks} pullRequests={gh.totals?.pullRequests} username={USERNAME} />
+          </div>
+        )}
+      </Section>
+
+      {gh && gh.openSource.length > 0 && (
+        <Section id="open-source" title="Open source">
+          <p className="prose-text mb-8">
+            Pull requests I have sent to other people&rsquo;s projects over the past year, with the state GitHub reports for each.
+          </p>
+          <OpenSource repos={gh.openSource} />
+        </Section>
+      )}
+
+      <Section id="experience" title="Experience">
+        <ol className="space-y-12">
+          {ROLES.map((r) => (
+            <li key={r.org} className="grid gap-2 sm:grid-cols-[10.5rem_1fr] sm:gap-8">
+              <p className="pt-1 text-[0.9375rem] tabular-nums text-faint">{r.when}</p>
               <div>
-                <h3 className="font-bold text-base text-zinc-100">AI Systems Architect — Canopy (Founders, Inc.)</h3>
-                <span className="text-xs text-zinc-400 font-medium">San Francisco / Remote</span>
+                <h3 className="text-[1.375rem] font-semibold leading-snug tracking-tight text-ink" style={{ fontVariationSettings: "'wdth' 92" }}>
+                  {r.title}, {r.org}
+                </h3>
+                <p className="mt-0.5 text-[0.9375rem] text-faint">{r.where}</p>
+                <p className="prose-text mt-3">{r.body}</p>
               </div>
-              <span className="text-xs font-mono px-2 py-0.5 rounded bg-zinc-800 text-zinc-300">
-                Apr 2026 — May 2026
-              </span>
+            </li>
+          ))}
+        </ol>
+
+        <div className="mt-16 border-t border-rule pt-10">
+          <h3 className="mb-4 font-semibold text-ink">Hackathons</h3>
+          <ul className="divide-y divide-rule border-y border-rule">
+            {HACKATHONS.map((h) => (
+              <li key={`${h.event}-${h.project}`} className="grid gap-x-8 gap-y-1 py-4 sm:grid-cols-[10.5rem_1fr]">
+                <p className="text-[0.9375rem] tabular-nums text-faint">{h.when}</p>
+                <p className="text-ink">
+                  <span className="font-semibold">{h.event}</span>, {h.project}
+                  <span className="block font-serif text-[1.0625rem] text-body">{h.result}</span>
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="mt-16 grid gap-10 border-t border-rule pt-10 sm:grid-cols-2">
+          {EDUCATION.map((e) => (
+            <div key={e.name}>
+              <h3 className="font-semibold text-ink">{e.name}</h3>
+              <p className="text-[0.9375rem] tabular-nums text-faint">{e.when}</p>
+              <p className="mt-2 font-serif text-[1.0625rem] leading-relaxed text-body">{e.line}</p>
             </div>
-            <p className="text-xs text-zinc-300 leading-relaxed">
-              Architected autonomous AI trading platform, integrating 4 LLM models with 4 different methodology agents for real-time WEEX crypto futures. Implemented WebSockets for live market event streams and Prisma with Turso DB, optimizing trade execution and multi-agent decision consensus.
-            </p>
-            <div className="flex flex-wrap gap-1.5 text-[10px] font-mono text-zinc-400">
-              <span className="px-2 py-0.5 rounded bg-zinc-800/70">LLM Multi-Agent Swarms</span>
-              <span className="px-2 py-0.5 rounded bg-zinc-800/70">WebSockets</span>
-              <span className="px-2 py-0.5 rounded bg-zinc-800/70">Turso DB & Prisma</span>
-              <span className="px-2 py-0.5 rounded bg-zinc-800/70">Trading Systems</span>
+          ))}
+        </div>
+
+        <dl className="mt-16 grid gap-x-10 gap-y-8 border-t border-rule pt-10 sm:grid-cols-2">
+          {SKILLS.map((s) => (
+            <div key={s.group}>
+              <dt className="font-semibold text-ink">{s.group}</dt>
+              <dd className="mt-1.5 font-serif text-[1.0625rem] leading-relaxed text-body">{s.items}</dd>
             </div>
-          </div>
+          ))}
+        </dl>
+      </Section>
 
-          {/* CosLynx.com */}
-          <div className="relative space-y-2 pt-4">
-            <div className="absolute -left-[23px] sm:-left-[31px] top-5.5 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[#09090b]"></div>
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <div>
-                <h3 className="font-bold text-base text-zinc-100">Founder and CEO — CosLynx.com</h3>
-                <span className="text-xs text-zinc-400 font-medium">Build with Backdrop v4 Winner</span>
-              </div>
-              <span className="text-xs font-mono px-2 py-0.5 rounded bg-zinc-800 text-zinc-300">
-                May 2024 — May 2025
-              </span>
-            </div>
-            <p className="text-xs text-zinc-300 leading-relaxed">
-              Founded and led CosLynx.com, an AI-driven code generation and codebase intelligence platform leveraging LLMs with TypeScript/Node.js. Enabled users to generate 400+ live MVPs and won Build with Backdrop v4.
-            </p>
-            <div className="flex flex-wrap gap-1.5 text-[10px] font-mono text-zinc-400">
-              <span className="px-2 py-0.5 rounded bg-zinc-800/70">LLM Code Generation</span>
-              <span className="px-2 py-0.5 rounded bg-zinc-800/70">TypeScript</span>
-              <span className="px-2 py-0.5 rounded bg-zinc-800/70">Product Leadership</span>
-              <span className="px-2 py-0.5 rounded bg-zinc-800/70">AST Parsing</span>
-            </div>
-          </div>
+      <Section id="writing" title="Writing">
+        <Writing />
+      </Section>
 
-          {/* ReeF */}
-          <div className="relative space-y-2 pt-4">
-            <div className="absolute -left-[23px] sm:-left-[31px] top-5.5 w-3 h-3 rounded-full bg-emerald-500 border-2 border-[#09090b]"></div>
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <div>
-                <h3 className="font-bold text-base text-zinc-100">Ex Chief Executive Officer — ReeF (1x Acquired)</h3>
-                <span className="text-xs text-emerald-400 font-medium">Acquired in August 2024</span>
-              </div>
-              <span className="text-xs font-mono px-2 py-0.5 rounded bg-emerald-950 border border-emerald-800 text-emerald-300">
-                Apr 2022 — Aug 2024
-              </span>
-            </div>
-            <p className="text-xs text-zinc-300 leading-relaxed">
-              Spearheaded ReeF, an interactive anime character collection game, scaling to $15,000 Annual Recurring Revenue (ARR). Managed a user base generating 5M+ interactions and successfully orchestrated the acquisition of the platform.
-            </p>
-            <div className="flex flex-wrap gap-1.5 text-[10px] font-mono text-zinc-400">
-              <span className="px-2 py-0.5 rounded bg-zinc-800/70">1x Acquisition</span>
-              <span className="px-2 py-0.5 rounded bg-zinc-800/70">Node.js & Redis</span>
-              <span className="px-2 py-0.5 rounded bg-zinc-800/70">MongoDB</span>
-              <span className="px-2 py-0.5 rounded bg-zinc-800/70">5M+ User Actions</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Projects & Live GitHub Matrix */}
-      <section id="projects" className="space-y-6">
-        <div className="space-y-1">
-          <h2 className="text-xs font-mono uppercase tracking-wider font-bold text-zinc-400">
-            02. Featured Projects & Production Systems
-          </h2>
-          <p className="text-xl font-bold text-zinc-100 tracking-tight">
-            Autonomous agents, revenue workspaces, and security tooling.
-          </p>
-        </div>
-
-        <ProjectsExplorer />
-
-        <div className="pt-2">
-          <GitHubActivity />
-        </div>
-      </section>
-
-      {/* 5. Education & Licenses */}
-      <section id="education" className="space-y-6">
-        <div className="space-y-1">
-          <h2 className="text-xs font-mono uppercase tracking-wider font-bold text-zinc-400">
-            03. Education & Professional Credentials
-          </h2>
-          <p className="text-xl font-bold text-zinc-100 tracking-tight">
-            Cybersecurity foundations and AI professional certifications.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="p-5 rounded-2xl bg-zinc-900/40 border border-zinc-800 space-y-2">
-            <div className="flex items-center justify-between">
-              <h3 className="font-bold text-sm text-zinc-100">Dayananda Sagar University (DSU)</h3>
-              <span className="text-xs font-mono text-zinc-500">2026 — 2029</span>
-            </div>
-            <p className="text-xs text-emerald-400 font-mono">Bachelor's Degree in Cybersecurity</p>
-            <p className="text-xs text-zinc-400 leading-relaxed">
-              Focusing on application security, threat modeling, network security, cryptography, and reverse engineering.
-            </p>
-          </div>
-
-          <div className="p-5 rounded-2xl bg-zinc-900/40 border border-zinc-800 space-y-2">
-            <div className="flex items-center justify-between">
-              <h3 className="font-bold text-sm text-zinc-100">IBM AI Engineering Professional Certificate</h3>
-              <span className="text-xs font-mono text-emerald-400">Verified</span>
-            </div>
-            <p className="text-xs text-zinc-300 font-mono">IBM • Credential ID: 7P0EYJX1P5NN</p>
-            <p className="text-xs text-zinc-400 leading-relaxed">
-              Machine learning algorithms, deep neural network architectures, LLM fine-tuning, and scalable AI pipeline deployment.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* 6. Core Skills Matrix */}
-      <section id="skills" className="space-y-6">
-        <div className="space-y-1">
-          <h2 className="text-xs font-mono uppercase tracking-wider font-bold text-zinc-400">
-            04. Core Technical Arsenal
-          </h2>
-          <p className="text-xl font-bold text-zinc-100 tracking-tight">
-            Specialized engineering stack and domain mastery.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs font-mono">
-          <div className="p-4 rounded-2xl bg-zinc-900/40 border border-zinc-800 space-y-2">
-            <div className="font-bold text-emerald-400">🤖 AI & LLM Systems</div>
-            <ul className="text-zinc-400 space-y-1 text-[11px]">
-              <li>• Multi-Agent Swarms & Consensus</li>
-              <li>• LLM Orchestration & Evaluation</li>
-              <li>• NVIDIA NIM, Ollama & Gemini</li>
-              <li>• Vector DBs, Embeddings & RAG</li>
-              <li>• Deterministic Quality Gates</li>
-            </ul>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-zinc-900/40 border border-zinc-800 space-y-2">
-            <div className="font-bold text-zinc-200">⚡ Backend & Systems</div>
-            <ul className="text-zinc-400 space-y-1 text-[11px]">
-              <li>• Node.js & TypeScript</li>
-              <li>• Express.js & Python</li>
-              <li>• WebSockets & Real-Time Streams</li>
-              <li>• Prisma, Redis & Turso DB</li>
-              <li>• PostgreSQL & MongoDB</li>
-            </ul>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-zinc-900/40 border border-zinc-800 space-y-2">
-            <div className="font-bold text-zinc-200">🎨 Frontend & Mobile</div>
-            <ul className="text-zinc-400 space-y-1 text-[11px]">
-              <li>• Next.js 14 (App Router, SSG)</li>
-              <li>• React 18 & Server Components</li>
-              <li>• React Native (Cross-Platform)</li>
-              <li>• Tailwind CSS & CSS Cascade</li>
-              <li>• High-Performance UX Design</li>
-            </ul>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-zinc-900/40 border border-zinc-800 space-y-2">
-            <div className="font-bold text-zinc-200">🛡️ Security & Cloud</div>
-            <ul className="text-zinc-400 space-y-1 text-[11px]">
-              <li>• Application Security (AppSec)</li>
-              <li>• AST Analysis & Attack Graphs</li>
-              <li>• Docker & Containerization</li>
-              <li>• Vercel, Cloudflare & Linux</li>
-              <li>• GitHub Actions CI/CD</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* 7. Writing & Technical Research Section */}
-      <section id="writing" className="p-6 sm:p-8 rounded-3xl bg-zinc-900/30 border border-zinc-800 space-y-4">
-        <div className="flex items-center justify-between">
-          <span className="text-xs font-mono text-zinc-400 font-semibold">05. Research & Engineering Writing</span>
-          <span className="text-xs font-mono text-emerald-400">780+ Deep Dives</span>
-        </div>
-        <div className="space-y-2">
-          <h3 className="text-lg font-bold text-zinc-100">
-            Autonomous Technical Research & System Architecture Notes
-          </h3>
-          <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed max-w-2xl">
-            Autonomous technical research and deep engineering breakdowns across AI systems, distributed architectures, and cybersecurity. Cross-syndicated across blogs.drix10.com, GitHub, and DEV.to.
-          </p>
-        </div>
-        <div className="flex flex-wrap items-center gap-3 pt-2 text-xs font-mono">
-          <a
-            href="https://blogs.drix10.com"
-            target="_blank"
-            rel="noreferrer"
-            className="text-emerald-400 hover:text-emerald-300 underline font-semibold"
-          >
-            Explore AI Knowledge Hub (blogs.drix10.com) ↗
-          </a>
-          <span className="text-zinc-700">•</span>
-          <a
-            href="https://github.com/Drix10/ai-resources"
-            target="_blank"
-            rel="noreferrer"
-            className="text-zinc-300 hover:text-white underline font-semibold"
-          >
-            GitHub Repository (Drix10/ai-resources) ↗
-          </a>
-          <span className="text-zinc-700">•</span>
-          <a
-            href="https://dev.to/drix10"
-            target="_blank"
-            rel="noreferrer"
-            className="text-zinc-400 hover:text-zinc-200 underline"
-          >
-            DEV.to Articles ↗
-          </a>
-          <span className="text-zinc-700">•</span>
-          <a
-            href="https://www.smashingmagazine.com"
-            target="_blank"
-            rel="noreferrer"
-            className="text-zinc-400 hover:text-zinc-200 underline"
-          >
-            Smashing Magazine ↗
-          </a>
-        </div>
-      </section>
-
-      {/* 8. Contact Section */}
-      <section id="contact">
-        <ContactCard />
-      </section>
-    </div>
+      <Section id="contact" title="Contact">
+        <p className="prose-text mb-8">
+          Open to founding-engineer roles, agent infrastructure, security and research systems, and to collaborations. Email is the quickest way to reach me.
+        </p>
+        <ContactEmail />
+      </Section>
+    </>
   );
 }
