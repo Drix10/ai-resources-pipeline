@@ -2,7 +2,7 @@ const { By, until } = require("selenium-webdriver");
 const axios = require("axios");
 const config = require("../config");
 const { logger, sleep } = require("../src/utils/helpers");
-const { attachDriver, waitForXLogin } = require("../src/utils/chromeLauncher");
+const { attachDriver, releaseDriver, waitForXLogin } = require("../src/utils/chromeLauncher");
 
 const LIST_ID = config.monitoring.targetListId;
 const LIST_URL = `https://x.com/i/lists/${LIST_ID}`;
@@ -566,6 +566,7 @@ class TwitterListTracker {
     try {
       if (this.driver) {
         logger.info("ListTracker: Releasing WebDriver control of debugging browser session");
+        await releaseDriver(this.driver);
         this.driver = null;
       }
     } catch (error) {

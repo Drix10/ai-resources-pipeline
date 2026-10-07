@@ -92,7 +92,41 @@ const createErrorResponse = (message, statusCode = 500, details = {}) => {
   };
 };
 
+// Read from env at call time: requiring config here would make every script
+// that loads helpers fail without GitHub credentials, and helpers can load
+// before dotenv runs. Same default as config.
+const canonicalBaseUrl = () => (process.env.CANONICAL_BASE_URL || "https://blogs.drix10.com").replace(/\/$/, "");
+
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// Credentials, webhook URLs, private keys and internal IPs must never reach a
+// public commit. Applied to generated markdown and again right before upload.
+const SECRET_PATTERNS = [
+  [/-----BEGIN [A-Z0-9 ]*PRIVATE KEY-----[\s\S]*?-----END [A-Z0-9 ]*PRIVATE KEY-----/g, "[REDACTED PRIVATE KEY]"],
+  [/https?:\/\/(?:(?:ptb\.|canary\.)?discord(?:app)?\.com\/api\/webhooks|hooks\.slack\.com\/(?:services|workflows|triggers))\/[^\s)\]>"'`]+/gi, "[REDACTED WEBHOOK]"],
+  [/\b(?:AKIA|ASIA)[0-9A-Z]{16}\b/g, "[REDACTED]"],
+  [/\bgh[pousr]_[A-Za-z0-9]{36,}\b/g, "[REDACTED]"],
+  [/\bgithub_pat_[A-Za-z0-9_]{22,}\b/g, "[REDACTED]"],
+  [/\bsk-(?:ant-|proj-|or-)?(?=[A-Za-z0-9_-]*\d)[A-Za-z0-9_-]{20,}/g, "[REDACTED]"],
+  [/\bnvapi-[A-Za-z0-9_-]{20,}/g, "[REDACTED]"],
+  [/\bxox[abprs]-[A-Za-z0-9-]{10,}/g, "[REDACTED]"],
+  [/\bAIza[0-9A-Za-z_-]{35}\b/g, "[REDACTED]"],
+  [/\b[sr]k_(?:live|test)_[A-Za-z0-9]{16,}\b/g, "[REDACTED]"],
+  [/\beyJ[A-Za-z0-9_-]{10,}\.eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}/g, "[REDACTED JWT]"],
+  // key = "literal": only a quoted literal is a leaked value (process.env.X and function calls are code).
+  [/\b((?:api[_-]?key|secret|access[_-]?token|auth[_-]?token|password|passwd)["']?\s*[:=]\s*["'])[A-Za-z0-9_\-\/+=]{16,}(?=["'])/gi, "$1[REDACTED]"],
+  // .env style: NAME_KEY=value on its own line, but only when the value looks like a real secret.
+  [/^([A-Z][A-Z0-9_]*(?:KEY|SECRET|TOKEN|PASSWORD)\s*=\s*)(?=[A-Za-z0-9_\-\/+=]*\d)(?=[A-Za-z0-9_\-\/+=]*[A-Za-z])[A-Za-z0-9_\-\/+=]{20,}$/gm, "$1[REDACTED]"],
+  [/(https?:\/\/)[^\s\/:@]+:[^\s\/@]+@/gi, "$1[REDACTED]@"],
+  [/\b(?:10(?:\.\d{1,3}){3}|192\.168(?:\.\d{1,3}){2}|172\.(?:1[6-9]|2\d|3[01])(?:\.\d{1,3}){2})\b/g, "[internal IP]"],
+];
+
+const redactSecrets = (text) => {
+  if (!text || typeof text !== "string") return text;
+  let out = text;
+  for (const [pattern, replacement] of SECRET_PATTERNS) out = out.replace(pattern, replacement);
+  return out;
+};
 
 /**
  * Generates a clean, unique, keyword-rich SEO slug based on article title, content, and resource number.
@@ -165,6 +199,54 @@ const generateSeoSlug = (rawTitle, content = "", filename = "", categoryName = "
 /**
  * Automatically scans all workspace markdown folders and rebuilds blog/lib/articles-index.json
  */
+const stripEmoji = (s) => String(s || "").replace(/^[\p{Extended_Pictographic}️‍\s]+/u, "").trim();
+const cutAtSentence = (text, max) => {
+  const t = String(text || "").replace(/\s+/g, " ").trim();
+  if (t.length <= max) return t;
+  const head = t.slice(0, max);
+  const stop = Math.max(head.lastIndexOf(". "), head.lastIndexOf("? "), head.lastIndexOf("! "));
+  if (stop > max * 0.5) return head.slice(0, stop + 1);
+  return head.replace(/\s+\S*$/, "") + "...";
+};
+
+/**
+ * A digest file holds several "### " items. Returns the item titles plus a clean
+ * one-paragraph summary (the first item's opening paragraph) for listings.
+ */
+const PLACEHOLDER_TITLE = /^(?:category\s*[-:]\s*)?specific topic$/i;
+
+const parseDigestItems = (content) => {
+  // Split on "### " lines that are outside fenced code, exactly as the blog does when it renders.
+  const raw = [];
+  let fence = null;
+  for (const line of String(content || "").split(/\r?\n/)) {
+    const open = line.match(/^ {0,3}(`{3,}|~{3,})/);
+    if (fence) {
+      if (open && open[1][0] === fence[0] && open[1].length >= fence.length && line.trim() === open[1]) fence = null;
+    } else if (open) {
+      fence = open[1];
+    }
+    const heading = !fence && !open && line.match(/^###\s+(.+)$/);
+    if (heading) raw.push({ title: heading[1], lines: [] });
+    else if (raw.length) raw[raw.length - 1].lines.push(line);
+  }
+
+  const items = [];
+  for (const item of raw) {
+    const title = stripEmoji(item.title.replace(/\*\*/g, ""));
+    if (!title || PLACEHOLDER_TITLE.test(title) || /^(read more|read on the|support)/i.test(title)) continue;
+    const body = item.lines.join("\n").trim();
+    if (!body) continue; // the blog drops empty items, so they must not be counted here either
+    const para = body.split(/\n\s*\n/).map((p) => p.replace(/\*\*|__|`/g, "").replace(/\s+/g, " ").trim())
+      .find((p) => p.length > 40 && !/^(key points|🔗|resources|-|\*|•|\d+\.)/i.test(p));
+    items.push({ title: title.slice(0, 120), summary: cutAtSentence(para || "", 170) });
+  }
+  const lead = items.find((i) => i.summary);
+  return { items, summary: lead ? cutAtSentence(lead.summary, 200) : "" };
+};
+
+const isPersonalEntry = (name) => String(name).toLowerCase() === "personal";
+
 const rebuildBlogIndex = () => {
   try {
     const rootDir = path.resolve(__dirname, "../../");
@@ -173,6 +255,7 @@ const rebuildBlogIndex = () => {
 
     const ignored = new Set(["node_modules", ".git", ".next", ".gemini", "blog", "config", "src", "utils", "tests", "logs", "linkedin-previews", "scratch", "temp", "tracker"]);
     const articles = [];
+    const seenSlugs = new Set();
     const categoryCountMap = new Map();
 
     const contentDir = path.join(blogDir, "content");
@@ -230,13 +313,16 @@ const rebuildBlogIndex = () => {
           if (stats.size < 40) continue; // skip stubs
 
           const content = fs.readFileSync(filePath, "utf8");
-          const titleMatch = content.match(/^#\s+(.+)$/m) || content.match(/^###\s+(.+)$/m);
-          const rawTitle = titleMatch ? titleMatch[1] : (entry.name + " - " + file.replace(".md", ""));
+          const parsed = parseDigestItems(content);
+          const titleMatch = content.match(/^#\s+(.+)$/m);
+          const rawTitle = isPersonalEntry(entry.name) && titleMatch
+            ? titleMatch[1]
+            : (parsed.items[0] && parsed.items[0].title) || (titleMatch && titleMatch[1]) || (entry.name + " - " + file.replace(".md", ""));
           const title = String(rawTitle).replace(/^#+\s*/, "").trim();
           const isPersonal = entry.name.toLowerCase() === "personal";
 
-          const snippet = content.replace(/^#+.*$/gm, "").replace(/\*\*|__|\*|_/g, "").replace(/```[\s\S]*?```/g, "").trim().slice(0, 180);
-          const description = snippet || ("Technical breakdown of " + title);
+          const { items, summary } = parsed;
+          const description = summary || ("Technical breakdown of " + title);
           const wordCount = content.split(/\s+/).filter(Boolean).length;
           const readingTimeMinutes = Math.max(1, Math.ceil(wordCount / 200));
 
@@ -262,9 +348,11 @@ const rebuildBlogIndex = () => {
           const fileBase = file.replace(".md", "");
           const legacySlug = categorySlug + "/" + fileBase;
           const articleSeoSlug = generateSeoSlug(title, content, file, entry.name);
-          const slug = categorySlug + "/" + articleSeoSlug;
+          let slug = categorySlug + "/" + articleSeoSlug;
+          for (let n = 2; seenSlugs.has(slug); n++) slug = categorySlug + "/" + articleSeoSlug + "-" + n;
+          seenSlugs.add(slug);
 
-          const searchKeywords = (title + " " + description + " " + entry.name + " " + content.slice(0, 600)).toLowerCase().replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ");
+          const searchKeywords = (title + " " + description + " " + entry.name + " " + items.map((i) => i.title).join(" ") + " " + content.slice(0, 600)).toLowerCase().replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ");
 
           articles.push({
             slug,
@@ -275,13 +363,15 @@ const rebuildBlogIndex = () => {
             filePath: path.relative(rootDir, filePath),
             title,
             description,
+            items: items.slice(0, 10).map((i) => i.title),
+            itemCount: items.length,
             searchKeywords,
             date,
             readingTimeMinutes,
             wordCount,
             author: "Drishtant Ghosh (Drix10)",
             isPersonal,
-            canonicalUrl: "https://blogs.drix10.com/articles/" + slug,
+            canonicalUrl: canonicalBaseUrl() + "/articles/" + slug,
             mtimeMs: stats.mtimeMs
           });
 
@@ -314,7 +404,7 @@ const rebuildBlogIndex = () => {
 
     fs.writeFileSync(
       path.join(blogDir, "lib/articles-index.json"),
-      JSON.stringify({ articles, categories }),
+      JSON.stringify({ articles: articles.map(({ mtimeMs, ...rest }) => rest), categories }),
       "utf8"
     );
     logger.info("rebuildBlogIndex: Successfully updated blog/lib/articles-index.json with " + articles.length + " articles.");
@@ -329,6 +419,8 @@ module.exports = Object.freeze({
   createErrorResponse,
   logger,
   sleep,
+  redactSecrets,
   generateSeoSlug,
   rebuildBlogIndex,
+  parseDigestItems,
 });

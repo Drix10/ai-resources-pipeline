@@ -1,7 +1,7 @@
 const { By, Key, until } = require("selenium-webdriver");
 const config = require("../../config");
 const { logger, sleep } = require("../utils/helpers");
-const { attachDriver, waitForXLogin } = require("../utils/chromeLauncher");
+const { attachDriver, releaseDriver, waitForXLogin, MOD_KEY } = require("../utils/chromeLauncher");
 const fs = require("fs");
 const path = require("path");
 
@@ -15,6 +15,9 @@ const NON_TECH_PATTERNS = [
   /\b(comment ['"]?(yes|link|send|guide|prompt)['"]?|drop a like and i['’]?ll (dm|send)|retweet for a chance|giveaway|airdrop|whitelist|presale|free tokens)\b/i,
   /\b(\d+\s+(?:morning\s+)?habits\b|morning routine\b|mindset shift\b|how to wake up at \d|financial freedom in \d|crypto signal group|passive income|billionaire(?:s)?\b|millionaire(?:s)?\b)\b/i,
 ];
+
+// Event, hiring and awareness-day promotion: never a concrete technical or business fact.
+const PROMO_RE = /\b(join us|register (?:now|here|today)|webinar|rsvp|early.?bird|tickets? (?:are )?(?:on sale|available)|we(?:'|’)re hiring|now hiring|open roles?|speaking at|fireside chat|come meet|see you (?:at|in)|celebrating .{0,40}\bday\b)\b/i;
 
 function isOfftopicTweet(text) {
   if (!text || typeof text !== "string") return false;
@@ -144,7 +147,9 @@ class TwitterService {
 
   async findContent() {
     try {
-      const THREADS_NEEDED = 10;
+      // The writer skips roughly half of what it is given (opinion, PR, thin posts),
+      // so collect a deeper pool; generation keeps at most 8 articles per file.
+      const THREADS_NEEDED = 16;
       const MAX_SCROLL_ATTEMPTS = 24;
       const SCROLL_PAUSE = 700;
       const INITIAL_LOAD_TIMEOUT = 10000;
@@ -246,6 +251,11 @@ class TwitterService {
             continue;
           }
 
+          if (PROMO_RE.test(text)) {
+            logger.debug(`Skipping tweet ${tweetId}: event / hiring / day-celebration promo`);
+            continue;
+          }
+
           if (isOfftopicTweet(text)) {
             logger.debug(`Tweet ${tweetId} is non-technical / off-topic content, skipping`);
             continue;
@@ -318,14 +328,10 @@ class TwitterService {
           try {
             hostname = new URL(url).hostname;
           } catch (urlErr) { }
-          if (
-            hostname.endsWith(domainKeyword) ||
-            hostname === domainKeyword ||
-            hostname.endsWith("twitter.com") ||
-            hostname === "twitter.com" ||
-            hostname.endsWith("x.com") ||
-            hostname === "x.com"
-          ) {
+          // Exact host or a real subdomain only: a bare endsWith("x.com") also
+          // matched dropbox.com, netflix.com, etc. and hijacked those tabs.
+          const isHost = (d) => hostname === d || hostname.endsWith(`.${d}`);
+          if ([domainKeyword, "x.com", "twitter.com"].some(isHost)) {
             logger.info(`TwitterService: Switched to tab matching "${domainKeyword}": ${url}`);
             try {
               await this.driver.sendDevToolsCommand("Page.bringToFront");
@@ -443,7 +449,9 @@ class TwitterService {
     try {
       if (this.driver) {
         logger.info("TwitterService: Releasing WebDriver control of debugging browser session");
-        // Detach connection by clearing reference without calling quit() to preserve user's browser tabs
+        // No quit(): that would close the user's browser tabs. Stop only this
+        // session's chromedriver process so reconnects don't leak them.
+        await releaseDriver(this.driver);
         this.driver = null;
       }
     } catch (error) {
@@ -491,9 +499,16 @@ class TwitterService {
       await tweetTextarea.sendKeys(text);
       await sleep(2000);
 
-      await tweetTextarea.sendKeys(Key.chord(Key.CONTROL, Key.ENTER));
-      await sleep(2000);
-      logger.info("Enter key pressed (using Selenium)");
+      await tweetTextarea.sendKeys(Key.chord(MOD_KEY, Key.ENTER));
+      // Only a closed compose modal counts as posted; a dropped shortcut leaves
+      // it open. (The home timeline has its own inline composer, so check the URL.)
+      const posted = await this.driver
+        .wait(async () => !(await this.driver.getCurrentUrl()).includes("/compose/"), 15000)
+        .then(() => true, () => false);
+      if (!posted) {
+        throw new Error("Composer still open after submit; tweet was not posted.");
+      }
+      logger.info("Tweet posted (composer closed).");
       return true;
     } catch (error) {
       logger.error("Failed to post tweet:", error);

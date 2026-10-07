@@ -1,13 +1,16 @@
 /**
  * feedEngage.js
  *
- * Fully automated LinkedIn feed engagement (mirrors the X automation shape):
- * scroll home feed -> pick substantive posts -> comment genuinely as the
- * user would (real @-mention, like first) -> track + budget, never spams.
+ * Fully automated LinkedIn growth, run once per cycle from cron.js (after the
+ * content loop, whether or not articles were produced):
+ *  1. runLikePass       (LINKEDIN_LIKE, default on): 5-9 likes
+ *  2. runFeedEngagement (LINKEDIN_FEED_REPLY=true): up to 2 comments, like-first
+ *  3. runConnectPass    (LINKEDIN_CONNECT, default on): 10-15 no-note invites
  *
- * Run-and-leave: called after every successful GitHub batch commit from cron.js
- * (flushBatch) when config.social.linkedinFeedReply is true. No URLs, no args.
- * Per commit: 2 comments — first from Top (default feed), then one from Recent.
+ * Posts come from targeted sources (finance/AI/founder content search plus
+ * optional creator profiles in config/creators.json), not the home feed. The
+ * home feed is only the fallback when targeted sources yield nothing, or the
+ * whole thing when LINKEDIN_SOURCE=feed.
  */
 
 const fs = require("fs");
@@ -23,6 +26,7 @@ const MAX_PER_DAY = 15;
 const REJECT_TTL_MS = 3 * 24 * 60 * 60 * 1000; // rejected posts rest 3 days, then become eligible again
 const PACE_MS = 25000;
 const LIKE_PACE_MS = 8000; // bulk likes trip LinkedIn rate limits; space them out
+const LIKES_MAX_PER_DAY = 40;
 
 // ---- Audience targeting: US-based people in AI, tech, finance, investing ----
 // Every feed card gets a score; likes, follows and comments only go to posts that
@@ -38,7 +42,7 @@ const FOLLOW_PER_RUN = 3;
 const FIN_RE = /\b(fintech|finance|financial|banks?|banking|investment banking|payments?|cfo|investors?|investing|investment|investments|venture|vcs?|private equity|hedge funds?|asset management|wealth|portfolio|equity|equities|markets?|stocks?|trading|traders?|earnings|valuation|ipo|m&a|buyouts?|fed|federal reserve|rates|yields?|treasury|bonds?|credit|inflation|recession|gdp|cpi|macro|economy|economic|etfs?|capital|funding|fundraising|seed|series [a-d]|family office|real estate|reits?|commodities|derivatives|options|hedging|liquidity|dealmaking|wall street|nasdaq|s&p)\b/gi;
 const TECH_RE = /\b(ai|artificial intelligence|machine learning|ml|llms?|gpt|agents?|agentic|openai|anthropic|claude|gemini|genai|generative|deep learning|neural|inference|nvidia|copilot|chatgpt|software|engineering|engineers?|developers?|devops|cloud|aws|kubernetes|infrastructure|open.?source|saas|startups?|founders?|cto|cybersecurity|backend|programming|coding|semiconductors?|robotics|tech)\b/gi;
 const US_RE = /\b(united states|usa|u\.s\.a?|us-based|new york|nyc|manhattan|san francisco|bay area|silicon valley|palo alto|menlo park|austin|seattle|boston|chicago|los angeles|miami|denver|atlanta|dallas|houston|california|texas|washington,? dc|wall street|nasdaq|nyse|s&p|federal reserve|congress)\b|\$\d/i;
-const NOISE_RE = /\b(giveaway|we(?:'re| are) hiring|hiring now|apply now|webinar|register (?:now|here)|dm me|link in bio|open ?to ?work|bootcamp|cohort|enroll|discount code|follow me for)\b/i;
+const NOISE_RE = /\b(giveaway|hiring|we(?:'re| are) hiring|apply now|webinar|register (?:now|here)|dm me|link in bio|open ?to ?work|bootcamp|cohort|enroll|discount code|follow me for)\b/i;
 function scorePost(post) {
   const hay = `${post.head || ""} ${post.text || ""}`;
   const distinct = (re) => new Set((hay.match(re) || []).map((m) => m.toLowerCase())).size;
@@ -81,9 +85,33 @@ const CONNECT_MAX_PER_DAY = 30;
 const CONNECT_MAX_PER_WEEK = 100;
 const CONNECT_KEY = (href) => `conn:${String(href || "").replace(/\/$/, "")}`;
 
-// Scroll persistence: keep going deeper until the phase quota fills or the feed is
-// genuinely exhausted (a round with zero fresh candidates). 10 bounds the worst
-// case on LinkedIn's near-infinite feed; normal runs exit in 1-2 rounds.
+// ---- Targeted post sources ----
+// Content-search queries (newest first) aimed at the finance + AI + founder audience.
+const SOURCE_QUERIES = [
+  "fintech founder", "AI in finance", "venture capital AI", "private equity AI",
+  "quant trading machine learning", "AI startup funding", "banking AI agents",
+  "hedge fund AI", "fintech startup", "generative AI investing", "CFO AI",
+];
+const searchUrl = (q) => "https://www.linkedin.com/search/results/content/?keywords=" + encodeURIComponent(q) +
+  "&datePosted=%22past-week%22&sortBy=%22date_posted%22";
+function loadCreators() {
+  try {
+    const list = JSON.parse(fs.readFileSync(path.join(process.cwd(), "config", "creators.json"), "utf8"));
+    return (Array.isArray(list) ? list : []).filter((u) => /linkedin\.com\/in\//i.test(u))
+      .map((u) => String(u).split("?")[0].replace(/\/$/, "") + "/recent-activity/all/");
+  } catch (e) { return []; }
+}
+// Ordered scan sources for one pass. Creators first (highest signal), then shuffled
+// searches. "feed" mode, or a targeted run that finds nothing, uses home Top/Recent.
+function buildSources(limit = 6) {
+  if (config.social.linkedinSource === "feed") return [{ label: "feed:top", sort: "top" }, { label: "feed:recent", sort: "recent" }];
+  const creators = shuffled(loadCreators()).slice(0, 2).map((url) => ({ label: `creator:${url.split("/in/")[1].split("/")[0]}`, url }));
+  const searches = shuffled(SOURCE_QUERIES).map((q) => ({ label: `search:${q}`, url: searchUrl(q) }));
+  return [...creators, ...searches].slice(0, limit);
+}
+const FALLBACK_SOURCES = [{ label: "feed:top", sort: "top" }, { label: "feed:recent", sort: "recent" }];
+const scanSource = (src, maxScrolls = 8) =>
+  LinkedInService.scanFeedPosts({ maxPosts: 12, maxScrolls, ...(src.url ? { url: src.url } : { sort: src.sort }) });
 
 function loadTrack() {
   try {
@@ -121,8 +149,13 @@ function entryOf(v) {
   return { ts: String(v || ""), status: "commented" };
 }
 
-function shouldSkipTracked(track, key) {
-  const e = entryOf(track[key]);
+// A post's entry under its current key, or under the older key used before posts were identified by their text.
+function entryOfPost(track, post) {
+  return entryOf(track[post.key] !== undefined ? track[post.key] : track[post.legacyKey]);
+}
+
+function shouldSkipTracked(track, key, legacyKey) {
+  const e = entryOf(track[key] !== undefined ? track[key] : track[legacyKey]);
   if (!e.ts) return false;
   if (e.status === "commented") return true; // never twice, inside the 30d prune window
   // Rejected AND generator-skipped posts rest 3 days, then become eligible again.
@@ -144,7 +177,7 @@ function commentedToday(track) {
 // what LinkedIn ranks into the feed. Never unfollows; state-checked in the service.
 async function maybeFollow(post, track, state) {
   if (!state || state.n >= FOLLOW_PER_RUN || post.score < FOLLOW_MIN) return;
-  const e = entryOf(track[post.key]);
+  const e = entryOfPost(track, post);
   if (e.followedAt) return;
   try {
     if (await LinkedInService.followFeedCard(post.text.slice(0, 80))) {
@@ -191,7 +224,7 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
   const wouldLike = []; // dry-run mirror of the like loop, so previews show like intent
 
   const engageOne = async (post, sort) => {
-    if (track[post.key] && shouldSkipTracked(track, post.key)) { skipped++; return false; }
+    if (shouldSkipTracked(track, post.key, post.legacyKey)) { skipped++; return false; }
 
     let draft;
     try {
@@ -248,112 +281,81 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
     }
   };
 
-  // Phase 1: Top (default feed order), Phase 2: Recent. Quota split so max=2 still
-  // means 1 Top + 1 Recent; larger max fills Top first, Recent takes the remainder.
-  // Each phase keeps scanning deeper + trying candidates until its quota fills or the
-  // feed runs dry (consecutive scan with zero fresh candidates = exhausted).
-  const topQuota = Math.ceil(max / 2);
+  // Walk targeted sources until `max` comments land or sources run out. Posts are
+  // scored (finance/AI/founder, US, fresh); only COMMENT_MIN+ get a draft, best first.
+  // No separate like loop here: commentOnFeedCard likes first, and the like pass
+  // already ran this cycle.
   const seenThisRun = new Set();
-  const likedThisRun = new Set();
-  const followState = { n: 0 };
-  // Dry runs never increment `commented` (nothing posted), so quota progress there = previews made.
+  const wanted = new Set();
   const done = () => (dryRun ? previews.length : commented);
-  const phases = [{ sort: "top", quota: topQuota }, { sort: "recent", quota: max }];
-  for (const { sort, quota } of phases) {
-    let rounds = 0;
-    while (done() < quota && rounds < 10) {
+  const commentFrom = async (src) => {
+    const posts = (await scanSource(src, 10))
+      .map((p) => ({ ...p, score: scorePost(p) }))
+      .sort((a, b) => b.score - a.score);
+    let fresh = 0;
+    for (const post of posts) {
+      if (done() >= max) break;
       if (!dryRun && commentedToday(track) >= MAX_PER_DAY) break;
-      // Each round scrolls deeper (page state persists, so later scans reach older posts).
-      const posts = (await LinkedInService.scanFeedPosts({ maxPosts: 12, maxScrolls: 6 + rounds * 4, sort }))
-        .map((p) => ({ ...p, score: scorePost(p) }))
-        .sort((a, b) => b.score - a.score);
-      // Like only target-audience posts (live runs only): every like trains the feed.
-      // State-checked inside likeFeedCard, so already-liked cards are never toggled off.
-      if (!dryRun) {
-        for (const post of posts) {
-          if (likedThisRun.has(post.key)) continue;
-          if (post.score < LIKE_MIN) continue;
-          likedThisRun.add(post.key);
-          await maybeFollow(post, track, followState);
-          try {
-            if (await LinkedInService.likeFeedCard(post.text.slice(0, 80))) {
-              liked++;
-              const existingEntry = entryOf(track[post.key]);
-              track[post.key] = existingEntry.status
-                ? { ...existingEntry, likedAt: new Date().toISOString() }
-                : { ts: new Date().toISOString(), status: "liked", likedAt: new Date().toISOString() };
-              saveTrack(track);
-              logger.info(`feedEngage: liked @${post.author} (${liked} this cycle).`);
-            }
-          } catch (e) {}
-          await sleep(LIKE_PACE_MS);
-        }
-      } else {
-        for (const post of posts) {
-          if (likedThisRun.has(post.key)) continue;
-          if (post.score < LIKE_MIN) continue;
-          likedThisRun.add(post.key);
-          wouldLike.push({ author: post.author, snippet: post.text.slice(0, 60), score: post.score });
-        }
+      if (seenThisRun.has(post.key)) continue;
+      if (shouldSkipTracked(track, post.key, post.legacyKey)) continue;
+      seenThisRun.add(post.key);
+      fresh++;
+      if (dryRun && post.score >= LIKE_MIN && !wanted.has(post.key)) {
+        wanted.add(post.key);
+        wouldLike.push({ author: post.author, snippet: post.text.slice(0, 60), score: post.score });
       }
-      let attempted = 0, fresh = 0;
-      // Highest-scoring (target audience, fresh) posts first; off-audience posts never get a comment.
-      for (const post of posts) {
-        if (done() >= quota) break;
-        if (!dryRun && commentedToday(track) >= MAX_PER_DAY) break;
-        if (seenThisRun.has(post.key)) continue;
-        if (track[post.key] && shouldSkipTracked(track, post.key)) continue;
-        seenThisRun.add(post.key);
-        fresh++;
-        if (post.score < COMMENT_MIN) continue;
-        attempted++;
-        const before = commented;
-        await engageOne(post, sort);
-        // Pace only published comments (nothing public happened on a rejection).
-        if (!dryRun && commented > before && commented < max) await sleep(PACE_MS);
-      }
-      if (fresh === 0) {
-        logger.info(`feedEngage [${sort}]: no fresh candidates after scrolling, moving on.`);
-        break;
-      }
-      rounds++;
+      if (post.score < COMMENT_MIN) continue;
+      const before = commented;
+      await engageOne(post, src.label);
+      // Pace only published comments (nothing public happened on a rejection).
+      if (!dryRun && commented > before && commented < max) await sleep(PACE_MS);
     }
-    if (done() < quota) logger.info(`feedEngage [${sort}]: quota unfilled after ${rounds} rounds (feed still yielding rejects) - moving on.`);
-    if (done() >= max) break;
-    if (!dryRun && commentedToday(track) >= MAX_PER_DAY) break;
+    return fresh;
+  };
+  let found = 0;
+  for (const src of buildSources()) {
+    if (done() >= max || (!dryRun && commentedToday(track) >= MAX_PER_DAY)) break;
+    try { found += await commentFrom(src); } catch (e) { logger.warn(`feedEngage [${src.label}]: scan failed: ${e.message}`); }
   }
+  if (found === 0 && done() < max && config.social.linkedinSource !== "feed") {
+    logger.warn("feedEngage: targeted sources yielded nothing - falling back to home feed.");
+    for (const src of FALLBACK_SOURCES) {
+      if (done() >= max) break;
+      try { await commentFrom(src); } catch (e) { logger.warn(`feedEngage [${src.label}]: scan failed: ${e.message}`); }
+    }
+  }
+  if (done() < max) logger.info(`feedEngage: ${done()}/${max} comments - sources exhausted, moving on.`);
 
   const cost = runCost();
   logger.info(`feedEngage: run cost ~$${cost.openrouter.usd.toFixed(4)} (OpenRouter ${cost.openrouter.prompt}+${cost.openrouter.completion} tok; NVIDIA ${cost.legacy.prompt}+${cost.legacy.completion} tok).`);
   return { commented, skipped, liked, previews, wouldLike, reason: dryRun ? "dry run - nothing posted or tracked" : "", cost };
 }
 
-// Like-only pass: no drafting, no commenting, no LLM spend. Per sort: scan,
-// shuffle, like immediately - cards virtualize out within a minute, so likes
-// fire seconds after their scan, never after both scans. Target 3-9 total.
-// Already-liked keys persist in the tracker so later cycles skip them;
-// likeFeedCard is state-checked (already-liked cards are never toggled off).
-async function runLikePass({ min = 3, max = 9 } = {}) {
-  const target = min + Math.floor(Math.random() * (max - min + 1));
+// Like-only pass: no drafting, no commenting, no LLM spend. Walks the targeted
+// sources, likes the best-scoring fresh posts right after each scan (cards
+// virtualize out within a minute), stops at the 5-9 target. Already-liked keys
+// persist in the tracker; likeFeedCard is state-checked (never toggles off).
+async function runLikePass({ min = 5, max = 9 } = {}) {
   const track = loadTrack();
+  const day = new Date().toISOString().slice(0, 10);
+  const likedToday = Object.values(track).filter((v) => String(entryOf(v).likedAt || "").slice(0, 10) === day).length;
+  const target = Math.min(min + Math.floor(Math.random() * (max - min + 1)), LIKES_MAX_PER_DAY - likedToday);
+  if (target <= 0) return { liked: 0, picked: 0, target: 0 };
   const seen = new Set();
-  let liked = 0, picked = 0, rounds = 0, emptyRounds = 0;
+  let liked = 0, picked = 0;
   const followState = { n: 0 };
-  // Scroll-until-goal: each round scans Top + Recent deeper than the last and
-  // likes what it finds. Stops when the target fills or 3 straight rounds find
-  // nothing fresh (feed exhausted). 10 rounds caps worst-case runtime.
-  const runSort = async (sort, maxScrolls) => {
+  const likeFrom = async (src) => {
     let posts = [];
     try {
-      posts = await LinkedInService.scanFeedPosts({ maxPosts: 12, maxScrolls, sort });
+      posts = await scanSource(src);
     } catch (e) {
-      logger.warn(`feedEngage like-pass: ${sort} scan failed: ${e.message}`);
+      logger.warn(`feedEngage like-pass: ${src.label} scan failed: ${e.message}`);
     }
     const pool = [];
     for (const post of posts) {
       if (!post || seen.has(post.key)) continue;
       seen.add(post.key);
-      if (entryOf(track[post.key]).likedAt) continue;
+      if (entryOfPost(track, post).likedAt) continue;
       post.score = scorePost(post);
       if (post.score < LIKE_MIN) continue; // only target-audience posts train the feed
       pool.push(post);
@@ -367,12 +369,12 @@ async function runLikePass({ min = 3, max = 9 } = {}) {
       try {
         if (await LinkedInService.likeFeedCard(post.text.slice(0, 80))) {
           liked++;
-          const existingEntry2 = entryOf(track[post.key]);
-          track[post.key] = existingEntry2.status
-            ? { ...existingEntry2, likedAt: new Date().toISOString() }
+          const e = entryOfPost(track, post);
+          track[post.key] = e.status
+            ? { ...e, likedAt: new Date().toISOString() }
             : { ts: new Date().toISOString(), status: "liked", likedAt: new Date().toISOString() };
           saveTrack(track); // persist immediately so a crash can't re-like this post
-          logger.info(`feedEngage like-pass: liked @${post.author} (${liked}/${target}).`);
+          logger.info(`feedEngage like-pass: liked @${post.author} via ${src.label} (${liked}/${target}).`);
           await sleep(LIKE_PACE_MS);
         } else {
           await sleep(2000);
@@ -383,20 +385,22 @@ async function runLikePass({ min = 3, max = 9 } = {}) {
     }
     return pool.length;
   };
-  while (liked < target && rounds < 10 && emptyRounds < 3) {
-    let roundFresh = 0;
-    for (const sort of ["top", "recent"]) {
-      if (liked >= target) break;
-      roundFresh += await runSort(sort, Math.min(6 + rounds * 4, 18));
-    }
-    if (roundFresh === 0) emptyRounds++;
-    else emptyRounds = 0;
-    rounds++;
+  let found = 0;
+  for (const src of buildSources()) {
+    if (liked >= target) break;
+    found += await likeFrom(src);
   }
-  if (liked < target) logger.warn(`feedEngage like-pass: feed exhausted after ${rounds} rounds (${liked}/${target} liked).`);
+  // Targeted sources empty (markup change, nothing fresh): fall back to the home feed.
+  if (found === 0 && liked < target && config.social.linkedinSource !== "feed") {
+    logger.warn("feedEngage like-pass: targeted sources yielded nothing - falling back to home feed.");
+    for (const src of FALLBACK_SOURCES) {
+      if (liked >= target) break;
+      await likeFrom(src);
+    }
+  }
+  if (liked < target) logger.warn(`feedEngage like-pass: sources exhausted (${liked}/${target} liked).`);
   try {
-    // Bound tracker growth: liked keys accumulate daily; prune entries older
-    // than 30 days (same window as the comment path) so the file stays small.
+    // Bound tracker growth: prune entries older than 30 days.
     const cutoff = Date.now() - 30 * 24 * 60 * 60 * 1000;
     for (const [key, v] of Object.entries(track)) {
       const ts = Date.parse(entryOf(v).ts);
@@ -407,10 +411,10 @@ async function runLikePass({ min = 3, max = 9 } = {}) {
   return { liked, picked, target };
 }
 
-// Connection pass: 20-30 no-note requests per run to US, 2nd-degree people in
+// Connection pass: 10-15 no-note requests per run to US, 2nd-degree people in
 // AI/tech/finance/investing, found through US-filtered people search. Fully
 // automated; stops cleanly on LinkedIn's weekly cap or any checkpoint.
-async function runConnectPass({ min = 20, max = 30, dryRun = false } = {}) {
+async function runConnectPass({ min = 10, max = 15, dryRun = false } = {}) {
   const track = loadTrack();
   const now = Date.now();
   const invitedSince = (ms) => Object.values(track).filter((v) => {
@@ -475,4 +479,4 @@ async function runConnectPass({ min = 20, max = 30, dryRun = false } = {}) {
 
 const cleanup = () => LinkedInService.cleanup();
 
-module.exports = { runFeedEngagement, runLikePass, runConnectPass, scorePost, cleanup };
+module.exports = { runFeedEngagement, runLikePass, runConnectPass, scorePost, cleanup, _tracker: { shouldSkipTracked, entryOfPost } };

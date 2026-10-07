@@ -7,15 +7,13 @@ const TwitterService = new twitterService();
 const feedEngage = require("./feedEngage");
 const GithubService = require("./github");
 const llmService = require("./llm");
-const cron = require("node-cron");
 
 const BLOG_PATHS = ["blog/content", "blog/lib/articles-index.json"];
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 5000;
-const MIN_PUBLISHABLE_CANDIDATES = 6;
+const MIN_PUBLISHABLE_CANDIDATES = 8;
 const PIPELINE_LOCK_PATH = path.join(process.cwd(), ".pipeline.lock");
-const PIPELINE_STATE_PATH = path.join(process.cwd(), ".pipeline-state.json");
-const PIPELINE_LOCK_STALE_AFTER_MS = 2 * 60 * 1000;
+const PIPELINE_LOCK_STALE_AFTER_MS = 10 * 60 * 1000;
 let lockHeartbeatTimer = null;
 
 const replaceRuntimeFile = (filePath, content) => {
@@ -27,6 +25,15 @@ const replaceRuntimeFile = (filePath, content) => {
     if (!['EEXIST', 'EPERM'].includes(error.code)) throw error;
     fs.rmSync(filePath, { force: true });
     fs.renameSync(tempPath, filePath);
+  }
+};
+
+// Two processes can race to reclaim the same stale lock; the loser finds it already gone.
+const safeUnlink = (filePath) => {
+  try {
+    fs.unlinkSync(filePath);
+  } catch (error) {
+    if (error.code !== 'ENOENT') throw error;
   }
 };
 
@@ -84,16 +91,23 @@ const acquirePipelineLock = () => {
           logger.warn("Pipeline lock is being initialized; skipping this run.");
           return false;
         }
-        fs.unlinkSync(PIPELINE_LOCK_PATH);
+        safeUnlink(PIPELINE_LOCK_PATH);
         return acquirePipelineLock();
       }
       // A stale lock from a terminated run must not prevent the next scheduled run.
       process.kill(lock.pid, 0);
+      // The PID may have been reused by an unrelated process: a live holder keeps
+      // heartbeating, so a stale heartbeat means the lock is dead.
+      if (!lockIsFresh(lock)) {
+        logger.warn(`Pipeline lock heartbeat is stale (PID ${lock.pid} reused or hung); reclaiming.`);
+        safeUnlink(PIPELINE_LOCK_PATH);
+        return acquirePipelineLock();
+      }
       logger.warn(`Another pipeline process is already running (PID ${lock.pid}); skipping this run.`);
       return false;
     } catch (lockError) {
       if (lockError.code === "ESRCH" || (lockError instanceof SyntaxError && !lockFileIsFresh())) {
-        fs.unlinkSync(PIPELINE_LOCK_PATH);
+        safeUnlink(PIPELINE_LOCK_PATH);
         return acquirePipelineLock();
       }
       if (lockError instanceof SyntaxError && lockFileIsFresh()) {
@@ -102,7 +116,7 @@ const acquirePipelineLock = () => {
       }
       if (lockError.code === "EPERM") {
         if (!lock || !lockIsFresh(lock)) {
-          fs.unlinkSync(PIPELINE_LOCK_PATH);
+          safeUnlink(PIPELINE_LOCK_PATH);
           return acquirePipelineLock();
         }
         logger.warn(`Pipeline lock belongs to an inaccessible active process (PID ${lock.pid}); skipping this run.`);
@@ -121,33 +135,81 @@ const releasePipelineLock = () => {
   try {
     if (!fs.existsSync(PIPELINE_LOCK_PATH)) return;
     const lock = JSON.parse(fs.readFileSync(PIPELINE_LOCK_PATH, "utf8"));
-    if (lock.pid === process.pid) fs.unlinkSync(PIPELINE_LOCK_PATH);
+    if (lock.pid === process.pid) safeUnlink(PIPELINE_LOCK_PATH);
   } catch (error) {
     logger.warn(`Could not release pipeline lock: ${error.message}`);
   }
 };
 
-const getFoldersForRun = () => {
-  const allFolders = config.folders;
-  logger.info(`Processing all ${allFolders.length} folders this run.`);
-  return {
-    folders: allFolders,
-    nextFolderIndex: 0,
-    batchSize: allFolders.length,
-    totalFolders: allFolders.length,
-  };
-};
+// Runs a command without blocking the event loop (the lock heartbeat must keep beating during a
+// multi-minute build) and returns its exit status and output instead of throwing.
+const run = (command, args, { timeout = 60000, shell = false } = {}) =>
+  new Promise((resolve) => {
+    const { spawn } = require("child_process");
+    let out = "";
+    let err = "";
+    let timedOut = false;
+    const child = spawn(command, args, { shell, windowsHide: true });
+    const timer = setTimeout(() => {
+      timedOut = true;
+      child.kill();
+    }, timeout);
+    child.stdout.on("data", (d) => { out = (out + d).slice(-4000); });
+    child.stderr.on("data", (d) => { err = (err + d).slice(-4000); });
+    child.on("error", (e) => {
+      clearTimeout(timer);
+      resolve({ status: -1, out, err: err || e.message, timedOut });
+    });
+    child.on("close", (status) => {
+      clearTimeout(timer);
+      resolve({ status: timedOut ? -1 : status, out, err, timedOut });
+    });
+  });
 
-const savePipelineState = (nextFolderIndex, totalFolders) => {
-  const safeIndex = ((nextFolderIndex % totalFolders) + totalFolders) % totalFolders;
-  const tempPath = `${PIPELINE_STATE_PATH}.tmp`;
-  fs.writeFileSync(tempPath, JSON.stringify({ nextFolderIndex: safeIndex }), "utf8");
+// Publishes blog/content and the search index to the repo that Vercel deploys. The pipeline's own
+// GitHub API commits advance origin first, so a plain push would be rejected as non-fast-forward:
+// rebase onto origin before pushing, and say exactly which step failed.
+const syncBlogToGit = async () => {
+  const fail = (step, result) => {
+    const detail = (result.err || result.out || "").trim().split("\n").slice(-3).join(" | ");
+    logger.error(`Cycle End: blog sync stopped at "${step}"${result.timedOut ? " (timed out)" : ""}: ${detail}`);
+  };
   try {
-    fs.renameSync(tempPath, PIPELINE_STATE_PATH);
+    const added = await run("git", ["add", "--", ...BLOG_PATHS], { timeout: 30000 });
+    if (added.status !== 0) return fail("git add", added);
+
+    const branchResult = await run("git", ["rev-parse", "--abbrev-ref", "HEAD"], { timeout: 10000 });
+    const branch = branchResult.out.trim();
+    if (branchResult.status !== 0 || !branch || branch === "HEAD") {
+      return logger.error("Cycle End: blog sync skipped: not on a branch (detached HEAD).");
+    }
+
+    // Staged blog files only: unrelated working-tree edits must never trigger or ride along.
+    const hasStaged = (await run("git", ["diff", "--cached", "--quiet", "--", ...BLOG_PATHS], { timeout: 30000 })).status === 1;
+    const unpushed = await run("git", ["log", `origin/${branch}..HEAD`, "--oneline", "--", ...BLOG_PATHS], { timeout: 30000 });
+    const hasUnpushed = unpushed.status === 0 && unpushed.out.trim().length > 0; // a previous cycle's push that failed
+    if (!hasStaged && !hasUnpushed) return logger.info("Cycle End: no new blog files to publish.");
+
+    if (hasStaged) {
+      logger.info("Cycle End: running the blog build before publishing...");
+      const build = await run("npm", ["--prefix", "blog", "run", "build"], { timeout: 15 * 60 * 1000, shell: true });
+      if (build.status !== 0) return fail("blog build", build);
+      logger.info("Cycle End: blog build passed.");
+
+      const commit = await run("git", ["commit", "-m", "feat(blog): sync new curated AI resource guides", "--", ...BLOG_PATHS], { timeout: 60000 });
+      if (commit.status !== 0) return fail("git commit", commit);
+    }
+
+    const pulled = await run("git", ["pull", "--rebase", "--autostash", "origin", branch], { timeout: 120000 });
+    if (pulled.status !== 0) {
+      await run("git", ["rebase", "--abort"], { timeout: 30000 });
+      return fail("git pull --rebase", pulled);
+    }
+    const pushed = await run("git", ["push", "origin", branch], { timeout: 120000 });
+    if (pushed.status !== 0) return fail("git push", pushed);
+    logger.info(`Cycle End: pushed the blog to origin/${branch} (triggers the Vercel deploy).`);
   } catch (error) {
-    if (!['EEXIST', 'EPERM'].includes(error.code)) throw error;
-    fs.rmSync(PIPELINE_STATE_PATH, { force: true });
-    fs.renameSync(tempPath, PIPELINE_STATE_PATH);
+    logger.error(`Cycle End: blog sync failed unexpectedly: ${error.message}`);
   }
 };
 
@@ -224,11 +286,11 @@ const processAllFolders = async () => {
 
     const successfulArticles = [];
     let localLlmUnavailable = false;
-    const rotation = getFoldersForRun();
+    const folders = config.folders;
+    logger.info(`Processing all ${folders.length} folders this run.`);
     // Randomize batch commit size between 1 and 8 on each run
     const COMMIT_BATCH_SIZE = Math.floor(Math.random() * 8) + 1;
     let pendingBatch = [];
-    let likePasses = 0;
 
     const flushBatch = async () => {
       if (pendingBatch.length === 0) return;
@@ -262,7 +324,6 @@ const processAllFolders = async () => {
             logger.info(`Twitter posting disabled (TWITTER_POST=false). Skipping tweet for ${item.queryName}.`);
           }
 
-          // (Likes run per prepared file; comments stay disabled.)
           logger.info(`Pipeline succeeded for folder type ${item.queryName}: ${item.url}`);
           successfulArticles.push({
             title: item.queryName,
@@ -271,15 +332,12 @@ const processAllFolders = async () => {
           });
         }
 
-        // (Likes run per prepared file above; comments stay disabled.)
       } catch (batchErr) {
         logger.error(`Batch GitHub commit failed for ${batchToCommit.length} folders:`, batchErr);
       }
     };
 
-    for (let folderOffset = 0; folderOffset < rotation.folders.length; folderOffset++) {
-      const folder = rotation.folders[folderOffset];
-      let advanceRotation = true;
+    for (const folder of folders) {
       try {
         const prepared = await runDataPipeline(folder);
         if (prepared) {
@@ -287,17 +345,6 @@ const processAllFolders = async () => {
             `Prepared article for ${prepared.queryName}. Queued in commit batch (${pendingBatch.length + 1}/${COMMIT_BATCH_SIZE}).`
           );
           pendingBatch.push(prepared);
-          // Like pass per prepared .md file (not per batch commit): 3-9 random
-          // likes across Top + Recent. No drafting, no commenting, no LLM spend.
-          if (config.social.linkedinLike) {
-            try {
-              likePasses++;
-              const likeResult = await feedEngage.runLikePass({ min: 3, max: 9 });
-              logger.info(`LinkedIn likes after ${prepared.queryName}: ${likeResult.liked}/${likeResult.picked} liked (target ${likeResult.target}).`);
-            } catch (feedErr) {
-              logger.error("LinkedIn likes failed (non-fatal):", feedErr.message);
-            }
-          }
           if (pendingBatch.length >= COMMIT_BATCH_SIZE) {
             await flushBatch();
           }
@@ -308,20 +355,12 @@ const processAllFolders = async () => {
         }
       } catch (error) {
         logger.error(`Pipeline iteration failed for folder ${folder.name}:`, error);
-        advanceRotation = false;
         if (error.code === "LOCAL_LLM_UNAVAILABLE") {
           localLlmUnavailable = true;
           logger.warn("Local Ollama service is unavailable. Stopping this run instead of retrying every folder.");
           break;
         }
         // Continue to next folder despite error
-      }
-
-      if (advanceRotation) {
-        savePipelineState(
-          rotation.nextFolderIndex + folderOffset + 1,
-          rotation.totalFolders,
-        );
       }
     }
 
@@ -340,31 +379,29 @@ const processAllFolders = async () => {
       logger.info(`Cycle End: Successfully processed and syndicated ${successfulArticles.length} curated guide(s).`);
     }
 
-    // LinkedIn growth runs every cycle, independent of whether an article was produced:
-    // likes/follows (if none ran per article), then comments, then connections.
-    if (config.social.linkedinLike && likePasses === 0) {
+    // LinkedIn growth: once per cycle, after content, whether or not an article was
+    // produced. Targeted finance/AI/founder sources: likes, then comments, then connects.
+    if (config.social.linkedinLike) {
       try {
-        const likeResult = await feedEngage.runLikePass({ min: 3, max: 9 });
-        logger.info(`LinkedIn likes (cycle end): ${likeResult.liked}/${likeResult.picked} liked (target ${likeResult.target}).`);
+        const likeResult = await feedEngage.runLikePass({ min: 5, max: 9 });
+        logger.info(`Cycle End: LinkedIn likes ${likeResult.liked}/${likeResult.target}.`);
       } catch (feedErr) {
         logger.error("LinkedIn likes failed (non-fatal):", feedErr.message);
       }
     }
     if (config.social.linkedinFeedReply) {
       try {
-        logger.info("Cycle End: Running LinkedIn feed comment engagement pass...");
+        logger.info("Cycle End: Running LinkedIn comment pass...");
         const engageResult = await feedEngage.runFeedEngagement({ max: 2 });
-        logger.info(`LinkedIn feed engagement: ${engageResult.commented} commented, ${engageResult.liked} liked, ${engageResult.skipped} skipped. ${engageResult.reason || ""}`);
+        logger.info(`LinkedIn comments: ${engageResult.commented} posted, ${engageResult.skipped} skipped. ${engageResult.reason || ""}`);
       } catch (feedErr) {
-        logger.error("LinkedIn feed engagement failed (non-fatal):", feedErr.message);
+        logger.error("LinkedIn comment pass failed (non-fatal):", feedErr.message);
       }
     }
-
-    // Connection pass: 20-30 no-note requests to US AI/tech/finance/investing people.
     if (config.social.linkedinConnect) {
       try {
         logger.info("Cycle End: Running LinkedIn connection pass...");
-        const conn = await feedEngage.runConnectPass({ min: 20, max: 30 });
+        const conn = await feedEngage.runConnectPass({ min: 10, max: 15 });
         logger.info(`LinkedIn connections: ${conn.sent}/${conn.target} sent. ${conn.reason || ""}`);
       } catch (connErr) {
         logger.error("LinkedIn connection pass failed (non-fatal):", connErr.message);
@@ -380,35 +417,8 @@ const processAllFolders = async () => {
         logger.info("Cycle End: Rebuilt local Knowledge Hub search index.");
       }
 
-      // Automatically git commit & push newly synced articles ONLY if automated build verification passes
-      if (successfulArticles.length > 0) {
-        try {
-          const { execSync, spawnSync } = require("child_process");
-          logger.info("Cycle End: Running automated build verification before git push...");
-          execSync("npm --prefix blog run build", {
-            stdio: "pipe",
-            timeout: 180000
-          });
-          logger.info("Cycle End: Automated build verification passed (100% clean). Proceeding to push...");
-
-          spawnSync("git", ["add", "--", ...BLOG_PATHS], { stdio: "ignore", timeout: 15000 });
-          // Only staged blog files count: unrelated working-tree edits must not trigger an empty commit.
-          const hasChanges = spawnSync("git", ["diff", "--cached", "--quiet", "--", ...BLOG_PATHS], { timeout: 10000 }).status === 1;
-          if (hasChanges) {
-            const currentBranch = execSync("git rev-parse --abbrev-ref HEAD", { encoding: "utf8", timeout: 5000 }).trim() || "main";
-            // Commit only the blog paths so unrelated local edits never ride along.
-            execSync(`git commit -m "feat(blog): sync new curated AI resource guides" -- ${BLOG_PATHS.join(" ")} && git push origin ${currentBranch}`, {
-              stdio: "ignore",
-              timeout: 30000
-            });
-            logger.info("Cycle End: Pushed updated Knowledge Hub articles to origin main (Triggered automated Vercel deploy).");
-          } else {
-            logger.info("Cycle End: Working tree clean, no new blog files to commit.");
-          }
-        } catch (gitErr) {
-          logger.warn(`Cycle End: Git sync status: ${gitErr.message}`);
-        }
-      }
+      // Commit and push the blog content, but only after the blog still builds with it.
+      await syncBlogToGit();
     } catch (indexErr) {
       logger.warn("Cycle End: Index rebuild skipped:", indexErr.message);
     }
@@ -425,39 +435,29 @@ let scheduledJob = null;
 let isJobRunning = false;
 let activePipelinePromise = null;
 
+// A run takes a few hours, so 20-24h after it ends keeps the cadence at about one run per day.
+const MIN_INTERVAL_HOURS = 20;
+const MAX_INTERVAL_HOURS = 24;
+
 /**
- * Schedules a single cron job with a random interval (1–16 hours).
- * Replaces (stops) the previous task each time it is called, so tasks never accumulate.
- * The run callback calls it again after every execution to re-roll the interval.
+ * Schedules the next run 20-24 hours from now (re-rolled after every run).
+ * A cron expression like "0 *\/N * * *" does not mean "every N hours": it
+ * fires on clock hours divisible by N, so N=13..16 only ran at 00:00 and N:00
+ * UTC. A plain timer gives the intended random gap.
  */
 const scheduleRandomJob = () => {
-  const RandNum = Math.floor(Math.random() * 16) + 1;
-  const schedule = `0 */${RandNum} * * *`;
+  const hours = MIN_INTERVAL_HOURS + Math.floor(Math.random() * (MAX_INTERVAL_HOURS - MIN_INTERVAL_HOURS + 1));
+  const delayMs = hours * 60 * 60 * 1000;
 
-  if (!cron.validate(schedule)) {
-    throw new Error(`Invalid cron schedule: ${schedule}`);
-  }
+  if (scheduledJob) scheduledJob.stop();
 
-  logger.info(`Scheduling job to run every ${RandNum} hours`);
-
-  if (scheduledJob) {
-    scheduledJob.stop();
-    scheduledJob = null;
-  }
-
-  scheduledJob = cron.schedule(
-    schedule,
-    async () => {
-      // Prevent concurrent runs
-      if (isJobRunning) {
-        logger.warn("Previous job still running, skipping this execution");
-        return;
-      }
-
+  const timer = setTimeout(async () => {
+    if (scheduledJob?.timer !== timer) return; // superseded or stopped
+    if (isJobRunning) {
+      logger.warn("Previous job still running, skipping this execution");
+    } else {
       isJobRunning = true;
-      const timestamp = new Date().toISOString();
-      logger.info(`Running scheduled pipeline at ${timestamp}`);
-
+      logger.info(`Running scheduled pipeline at ${new Date().toISOString()}`);
       const scheduledPipelinePromise = processAllFolders();
       activePipelinePromise = scheduledPipelinePromise;
       try {
@@ -467,16 +467,20 @@ const scheduleRandomJob = () => {
       } finally {
         isJobRunning = false;
         if (activePipelinePromise === scheduledPipelinePromise) activePipelinePromise = null;
-        // Re-roll the 1-16h interval after every run instead of freezing the first
-        // roll for the process lifetime. Deferred so the task is not stopped from
-        // inside its own callback; scheduleRandomJob stops the old task first.
-        if (scheduledJob) setImmediate(() => { try { scheduleRandomJob(); } catch (e) { logger.error("Failed to reschedule pipeline:", e); } });
       }
-    },
-    { timezone: "UTC" }
-  );
+    }
+    // Re-roll only if nobody stopped the scheduler while the run was in flight.
+    if (scheduledJob?.timer === timer) {
+      try { scheduleRandomJob(); } catch (e) { logger.error("Failed to reschedule pipeline:", e); }
+    }
+  }, delayMs);
 
-  logger.info(`Cron job initialized with schedule: ${schedule}`);
+  scheduledJob = {
+    timer,
+    nextRunAt: new Date(Date.now() + delayMs),
+    stop: () => clearTimeout(timer),
+  };
+  logger.info(`Next pipeline run in ${hours}h (at ${scheduledJob.nextRunAt.toISOString()}).`);
 };
 
 const initCronJob = () => {
@@ -563,4 +567,5 @@ module.exports = {
   runDataPipeline,
   initCronJob,
   stopCronJob,
+  syncBlogToGit,
 };

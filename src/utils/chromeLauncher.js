@@ -2,7 +2,7 @@ const { spawn } = require("child_process");
 const fs = require("fs");
 const path = require("path");
 const http = require("http");
-const { Builder, By, until } = require("selenium-webdriver");
+const { By, Key, until } = require("selenium-webdriver");
 const chrome = require("selenium-webdriver/chrome");
 const { logger, sleep } = require("./helpers");
 
@@ -81,16 +81,38 @@ async function ensureChromeReady(maxWaitSec = 15) {
   return false;
 }
 
+// Select-all / submit shortcuts use Cmd on macOS and Ctrl elsewhere. On a Mac,
+// Ctrl+A in a text field only moves the caret to line start.
+const MOD_KEY = process.platform === "darwin" ? Key.COMMAND : Key.CONTROL;
+
+// Each attached session owns a chromedriver process. Track it so callers can
+// stop that process without quitting the user's Chrome.
+const driverServices = new WeakMap();
+
 // Attach Selenium to the persistent, already-logged-in Chrome (never quits it).
 async function attachDriver() {
   await ensureChromeReady();
   const options = new chrome.Options();
-  options.options_["debuggerAddress"] = DEBUG_ADDRESS;
+  options.debuggerAddress(DEBUG_ADDRESS);
+  const service = new chrome.ServiceBuilder().build();
   try {
-    return await new Builder().forBrowser("chrome").setChromeOptions(options).build();
+    const driver = chrome.Driver.createSession(options, service);
+    await driver.getSession();
+    driverServices.set(driver, service);
+    return driver;
   } catch (error) {
+    try { await service.kill(); } catch (e) { }
     throw new Error(`Chrome not running with remote debugging (${error.message}). Run: chrome --remote-debugging-port=${DEBUG_PORT}`);
   }
+}
+
+// Stops the chromedriver process behind a session. Chrome itself and its tabs
+// are untouched (no driver.quit()), so the logged-in browser stays as it was.
+async function releaseDriver(driver) {
+  const service = driver && driverServices.get(driver);
+  if (!service) return;
+  driverServices.delete(driver);
+  try { await service.kill(); } catch (e) { logger.warn(`Could not stop chromedriver: ${e.message}`); }
 }
 
 const TRANSIENT_SESSION_ERRORS = [
@@ -130,5 +152,7 @@ module.exports = {
   startChrome,
   ensureChromeReady,
   attachDriver,
+  releaseDriver,
   waitForXLogin,
+  MOD_KEY,
 };

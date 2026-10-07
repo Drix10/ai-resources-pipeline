@@ -30,8 +30,8 @@
 
 ```mermaid
 flowchart TD
-    A["X curated lists (41 folders, Selenium on Chrome :9222)"] --> B["Chunked LLM article generation (3 sources per call)"]
-    B --> C["Quality + source-grounding gates, secret redaction"]
+    A["X curated lists (41 folders, Selenium on Chrome :9222)"] --> B["One article per source post (DeepSeek V4 Flash, no padding; thin posts skipped)"]
+    B --> C["Fact gates (numbers, names, filler phrasing), code-built resource links, secret redaction"]
     C --> D["One batched GitHub commit"]
     D --> E["blogs.drix10.com (Next.js 14)"]
     D --> F["DEV.to syndication (rate-limited, circuit breaker)"]
@@ -44,13 +44,14 @@ flowchart TD
 ## ✨ Key Features
 
 ### 🧠 1. Grounded Article Generation
-- Ten pre-vetted threads per folder are generated in chunks of three, so no single call has to fit ten articles. Chunks that fail validation are dropped, and the file ships only if the survivors cover at least half the sources.
-- Deterministic gates reject 3rd-person boilerplate, ungrounded links and invented implementation sections.
+- Up to 16 pre-vetted posts per folder, one article per post (never several posts in one call). The writer is `openai/gpt-oss-120b` on OpenRouter, picked by benchmark over 9 models on 30 real posts (judged for faithfulness, specificity and publishability), about $0.0001 per article. Posts with nothing concrete are skipped, not padded; a file ships with 2-8 articles.
+- Resource links come from the post itself, built in code, so none are invented, empty or duplicated. Every number and name in an article must appear in the post, filler phrasing and banned words are rejected, and a rejected article gets one retry with the reasons.
+- Code blocks in generated articles are preserved as written.
 
 ### 💬 2. LinkedIn Comment Engine
 - Short peer comments (congrats, honest ACK, or skip), checked by mechanical gates plus a semantic critic. If the critic is unavailable the comment is not posted.
 - 15/day cap, 3-day memory for rejected posts, like-only mode via `LINKEDIN_LIKE`.
-- Providers: OpenRouter (`OPENROUTER_MODEL`) first, then the NVIDIA/Ollama comment model.
+- Providers: OpenRouter (DeepSeek V4 Flash; set `OPENROUTER_MODEL_OVERRIDE` to change it) first, then the NVIDIA/Ollama comment model.
 - Preview without posting: `node feed-preview.js --max 3`. Regression checks: `node feed-regression.js`.
 
 ### 🛡️ 3. Safety Guardrails
@@ -59,13 +60,14 @@ flowchart TD
 ### 🎲 Randomized Batch GitHub Commits (1 to 8)
 - Eliminates predictable static commit batching by randomly committing between 1 and 8 article updates per cycle, creating a natural commit rhythm on GitHub.
 
-### 🤝 4. LinkedIn Feed Engagement (2 comments + likes per commit)
-- **Interleaved With Commits**: after every successful batch commit, the engine likes fresh feed posts and leaves up to 2 genuine comments (Top, then Recent) — 15/day cap, 3-day rejection memory.
+### 🤝 4. LinkedIn Feed Engagement (likes per article, comments per cycle)
+- **Decoupled Growth Loop**: content (scrape, generate, commit, tweet) never touches LinkedIn. Once per cycle, even with zero articles, the engine likes 5-9 posts, leaves up to 2 genuine comments (`LINKEDIN_FEED_REPLY=true`), then connects. Posts come from finance/AI/founder content search plus optional creators in `config/creators.json` (copy `creators.example.json`); `LINKEDIN_SOURCE=feed` restores home-feed sourcing. 15/day cap, 3-day rejection memory.
+- **Connection Pass**: 10-15 no-note requests per cycle (30/day, 100/week caps). On by default; set `LINKEDIN_CONNECT=false` to turn it off.
 - **Reaction-First Voice**: short acknowledgments by default, observation only when the post invites it; never invents facts, numbers, or relationships.
 - **Preview Before Live**: `node feed-preview.js --max 3` prints exactly what would be posted and liked — nothing runs live without approval.
 
 ### ⚡ 5. High-Speed Next.js 14 Knowledge Hub (`blog/`)
-- **8,940+ Verified Technical Guides** across **42 Specialized Domains**.
+- **1,800+ Articles** across **42 Specialized Domains**.
 - **Sub-60ms In-Memory Search & Filtering** with tokenized search indexes (`blog/lib/articles-index.json`).
 - **Hybrid Incremental Static Regeneration (ISR)**: Builds in under 8 seconds with zero worker timeouts.
 - **Live Deployment**: Hosted at [https://blogs.drix10.com](https://blogs.drix10.com).
@@ -106,6 +108,7 @@ NVIDIA_MODEL=meta/llama-3.2-11b-vision-instruct
 # Social Automation
 LINKEDIN_LIKE=true
 LINKEDIN_FEED_REPLY=true
+LINKEDIN_CONNECT=true
 DISCORD_WEBHOOK_URL=your_discord_webhook_url
 ```
 
