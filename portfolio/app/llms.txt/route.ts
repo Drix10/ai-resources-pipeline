@@ -4,7 +4,7 @@ export const dynamic = 'force-static';
 
 export async function GET() {
   const content = `# Drishtant Ghosh (Drix10)
-> AI Systems Engineer, 1x Acquired Serial Founder (ReeF), and Cybersecurity Researcher.
+> AI Systems Engineer, 1x Acquired Serial Founder (ReeF), and B.Sc. Cybersecurity student.
 
 ## Summary
 - Name: Drishtant Ghosh
@@ -19,11 +19,15 @@ export async function GET() {
 - Location: Bengaluru, Karnataka, India
 
 ## Key Products & Ventures
-- Keystroke-LLM: LLM built FROM SCRATCH in pure NumPy (no PyTorch/HF/API) — character-level causal Transformer with analytical backprop + Adam, trained on 207K chars, driving Kreo Hive 75 LEDs over reverse-engineered USB HID. https://github.com/Drix10/keystroke-llm
-- Canopy @ Founders, Inc.: 4-LLM autonomous multi-agent crypto futures trading engine.
-- CosLynx.com: Founder & CEO — AI-driven code generation platform with 400+ MVPs generated (Build with Backdrop v4 Winner).
-- ReeF: 1x Acquired anime collection game ($15,000 ARR, 5M+ user interactions).
-- Drix10 Blogs: Autonomous engineering knowledge hub & personal architectural postmortems.
+- Agent Flow: runs AI coding agents unattended with a guard that blocks what they must never touch (https://github.com/Drix10/agent-flow).
+- MiroHedge (the hypothesis-arena repository): AI-assisted systematic hedge-fund research; models read, deterministic code decides; paper trading only (https://github.com/Drix10/hypothesis-arena).
+- Keystroke-LLM: character-level Transformer written from scratch in pure NumPy that lights a keyboard (https://github.com/Drix10/keystroke-llm).
+- Canopy @ Founders, Inc.: autonomous multi-agent trading platform with four LLM agents.
+- CosLynx.com: Founder & CEO; AI code-generation platform where users shipped 400+ MVPs (Backdrop Build v4 and v6 finalist).
+- ReeF: Discord game acquired in August 2024 ($15K ARR, 5M+ interactions).
+- Drix10 Blogs: daily, sourced digests on AI, developer tools and security, plus founder essays.
+
+The full, current project list is read from GitHub: https://github.com/Drix10
 
 ## Technical Skills
 - AI & LLMs: LLMs From Scratch (NumPy Transformers, backprop), Multi-Agent Swarms, Ollama, NVIDIA NIM, Vector DBs, Prompt Engineering.
