@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { getAllCategories } from '@/lib/markdown';
 
 export const metadata: Metadata = {
-  title: 'Categories & Technical Topics - Drix10 Blogs',
-  description: 'Explore technical breakdowns, system design guides, and engineering notes across all curated categories by Drishtant Ghosh (Drix10).',
+  title: 'Topics',
+  description: 'Every topic in the Drix10 blog: AI tools, models, companies, security, founder notes and more, by Drishtant Ghosh.',
   alternates: {
     canonical: 'https://blogs.drix10.com/categories',
   },
@@ -14,78 +14,47 @@ export const revalidate = 86400;
 
 export default function CategoriesIndexPage() {
   const categories = getAllCategories();
+  const founder = categories.find((c) => c.slug === 'personal');
+  const rest = [...categories].filter((c) => c.slug !== 'personal').sort((a, b) => a.name.localeCompare(b.name));
+  const total = categories.reduce((n, c) => n + c.count, 0);
 
   return (
-    <div className="space-y-10 sm:space-y-12 max-w-5xl mx-auto">
-      {/* Header matching portfolio section header */}
-      <div className="space-y-3 pb-6 border-b border-zinc-800/80">
-        <div className="flex items-center justify-between">
-          <Link href="/" className="text-xs font-mono text-zinc-500 hover:text-zinc-300 inline-flex items-center gap-1.5 transition-colors">
-            <span>←</span> Back to All Breakdowns
-          </Link>
-          <span className="px-2.5 py-0.5 rounded-md bg-zinc-900 border border-zinc-800 text-[11px] font-mono text-zinc-400 font-medium">
-            Directory
-          </span>
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-100">
-          Categories & Topic Hubs
-        </h1>
-        <p className="text-xs sm:text-sm text-zinc-300 max-w-2xl leading-relaxed">
-          Browse through curated engineering research, system architectures, cybersecurity analyses, and founder notes organized by topic.
+    <div>
+      <header className="max-w-[44rem]">
+        <h1 className="display text-[clamp(2.4rem,7vw,4.5rem)] font-bold leading-[1.02] text-ink">Topics</h1>
+        <p className="mt-5 max-w-[54ch] font-serif text-[1.25rem] leading-[1.6] text-body">
+          {total.toLocaleString()} digests sorted into {categories.length} topics. Pick one to see everything in it, newest first.
         </p>
-      </div>
+      </header>
 
-      {/* Special Highlight: Personal Category */}
-      <div className="p-6 sm:p-7 rounded-3xl bg-gradient-to-br from-amber-950/30 via-zinc-900 to-zinc-900/60 border border-amber-800/50 shadow-sm space-y-3">
-        <div className="flex items-center justify-between">
-          <span className="px-2.5 py-1 rounded-md bg-amber-900/60 border border-amber-700/60 text-amber-300 font-mono text-xs font-semibold flex items-center gap-1.5">
-            <span>✍️</span>
-            <span>Featured Founder Notes</span>
-          </span>
-          <Link
-            href="/categories/personal"
-            className="text-xs font-mono font-semibold text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1"
-          >
-            View Category →
+      {founder && (
+        <section className="mt-12 border-t border-rule pt-8">
+          <Link href={`/categories/${founder.slug}`} className="group block max-w-[44rem]">
+            <h2 className="display text-[1.75rem] font-semibold leading-tight text-ink transition-colors group-hover:text-accent">
+              {founder.name}: essays by the author
+            </h2>
+            <p className="mt-2 font-serif text-[1.1875rem] leading-[1.6] text-body">
+              Building and selling a startup, and what it takes to make AI systems reliable. Written by hand, not collected.
+            </p>
           </Link>
-        </div>
-        <h2 className="text-lg sm:text-xl font-bold text-zinc-100">
-          Personal Founder Essays & Architecture Postmortems
+        </section>
+      )}
+
+      <section aria-labelledby="all-topics" className="mt-12 border-t border-rule pt-8">
+        <h2 id="all-topics" className="mb-4 font-semibold text-ink">
+          All topics, A to Z
         </h2>
-        <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed max-w-2xl">
-          First-hand founder journeys, building autonomous AI systems, startup exits, and engineering lessons learned going from intern to acquisition.
-        </p>
-      </div>
-
-      {/* Grid of All Categories */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-xs font-mono uppercase tracking-wider font-bold text-zinc-400">
-            02. All Topic Hubs ({categories.length})
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5">
-          {categories.map((cat) => (
-            <Link
-              key={cat.slug}
-              href={`/categories/${cat.slug}`}
-              className="p-5 rounded-2xl bg-zinc-900/40 hover:bg-zinc-900/80 border border-zinc-800/80 hover:border-zinc-700 transition-all duration-150 group flex flex-col justify-between gap-4 active:scale-[0.99] shadow-sm"
-            >
-              <div className="space-y-1.5">
-                <h3 className="text-sm sm:text-base font-bold text-zinc-100 group-hover:text-emerald-400 transition-colors leading-snug">
-                  {cat.name}
-                </h3>
-              </div>
-
-              <div className="flex items-center justify-between text-xs text-zinc-500 pt-2.5 border-t border-zinc-800/60 font-mono">
-                <span className="text-zinc-400">{cat.count} guide{cat.count !== 1 ? 's' : ''}</span>
-                <span className="text-zinc-500 group-hover:text-zinc-200 transition-colors font-medium">Explore Hub →</span>
-              </div>
-            </Link>
+        <ul className="columns-1 gap-12 sm:columns-2 lg:columns-3">
+          {rest.map((c) => (
+            <li key={c.slug} className="break-inside-avoid border-b border-rule/80">
+              <Link href={`/categories/${c.slug}`} className="group flex items-baseline justify-between gap-4 py-3">
+                <span className="text-ink transition-colors group-hover:text-accent">{c.name}</span>
+                <span className="text-[0.9375rem] tabular-nums text-faint">{c.count}</span>
+              </Link>
+            </li>
           ))}
-        </div>
-      </div>
+        </ul>
+      </section>
     </div>
   );
 }

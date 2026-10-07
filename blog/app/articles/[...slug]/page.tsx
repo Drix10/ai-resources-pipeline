@@ -1,4 +1,8 @@
-import { getAllArticles, getArticleBySlug } from '@/lib/markdown';
+import { cleanTitle, formatDate, getAllArticles, getArticleBySlug } from '@/lib/markdown';
+import { jsonLd } from '@/lib/url';
+import ReadingProgress from '@/components/ReadingProgress';
+import DigestToc from '@/components/DigestToc';
+import CopyLink from '@/components/CopyLink';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -19,13 +23,13 @@ export async function generateMetadata({ params }: { params: { slug: string[] } 
   if (!article) return { title: 'Article Not Found' };
 
   return {
-    title: article.title,
+    title: cleanTitle(article.title),
     description: article.description,
     alternates: {
       canonical: article.canonicalUrl,
     },
     openGraph: {
-      title: article.title + ' | Drishtant Ghosh (Drix10)',
+      title: cleanTitle(article.title) + ' | Drishtant Ghosh (Drix10)',
       description: article.description,
       url: article.canonicalUrl,
       type: 'article',
@@ -37,13 +41,13 @@ export async function generateMetadata({ params }: { params: { slug: string[] } 
           url: '/og-image.png',
           width: 1200,
           height: 630,
-          alt: article.title,
+          alt: cleanTitle(article.title),
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: article.title,
+      title: cleanTitle(article.title),
       description: article.description,
       creator: '@DrishtantGhosh',
       images: ['/og-image.png'],
@@ -66,7 +70,7 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
   const techArticleSchema = {
     '@context': 'https://schema.org',
     '@type': 'TechArticle',
-    headline: article.title,
+    headline: cleanTitle(article.title),
     description: article.description,
     url: article.canonicalUrl,
     datePublished: article.date,
@@ -128,192 +132,131 @@ export default function ArticlePage({ params }: { params: { slug: string[] } }) 
       {
         '@type': 'ListItem',
         position: 3,
-        name: article.title,
+        name: cleanTitle(article.title),
         item: article.canonicalUrl,
       },
     ],
   };
 
-  return (
-    <div className="max-w-3xl mx-auto space-y-6 sm:space-y-8">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(techArticleSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
+  const digestSections = article.sections;
+  const isDigest = digestSections.length > 0;
+  const hasToc = digestSections.length > 1;
+  // The page heading is the digest's lead item, so the page is named for what it leads with.
+  const headline = cleanTitle(isDigest ? digestSections[0].title : article.title) || cleanTitle(article.title);
+  const siblings = getAllArticles().filter((a) => a.category === article.category && a.slug !== article.slug);
+  const related = siblings.slice(0, 4);
 
-      {/* Mobile-Friendly Breadcrumbs */}
-      <nav className="flex items-center gap-1.5 sm:gap-2 text-xs font-medium text-zinc-500 overflow-x-auto pb-1 no-scrollbar">
-        <Link href="/" className="hover:text-zinc-200 transition-colors flex-shrink-0">Home</Link>
-        <span>/</span>
-        <Link href={'/categories/' + article.categorySlug} className="hover:text-zinc-200 transition-colors flex-shrink-0">
-          {article.category}
-        </Link>
-        <span>/</span>
-        <span className="text-zinc-400 truncate max-w-[160px] sm:max-w-[240px] flex-shrink-0">{article.title}</span>
+  // Single essays carry their own H1 in the markdown; the page header already shows it.
+  const essayHtml = article.htmlContent.replace(/^\s*<h1[^>]*>[\s\S]*?<\/h1>\s*/i, '');
+
+  return (
+    <div>
+      <ReadingProgress />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(techArticleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema) }} />
+
+      <nav aria-label="Breadcrumb" className="text-[0.9375rem] text-faint">
+        <ol className="flex flex-wrap items-center gap-x-2">
+          <li>
+            <Link href="/categories" className="hover:text-ink">
+              Topics
+            </Link>
+          </li>
+          <li aria-hidden>/</li>
+          <li>
+            <Link href={`/categories/${article.categorySlug}`} className="hover:text-ink">
+              {article.category}
+            </Link>
+          </li>
+        </ol>
       </nav>
 
-      {/* Article Header */}
-      <header className="space-y-2.5 sm:space-y-3 border-b border-zinc-800 pb-4 sm:pb-6">
-        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs text-zinc-400">
-          <span className="px-2.5 py-0.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 font-mono">
-            {article.category}
-          </span>
-          <span>•</span>
-          <time dateTime={article.date}>{article.date}</time>
-          <span>•</span>
-          <span>{article.readingTimeMinutes} min read</span>
-          <span>•</span>
-          <span className="font-mono text-zinc-500">{article.wordCount} words</span>
-        </div>
-
-        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-zinc-100 tracking-tight leading-snug sm:leading-tight">
-          {article.title}
+      <header className="mt-6 max-w-[48rem]">
+        <h1 className="display text-[clamp(2rem,5.4vw,3.4rem)] font-bold leading-[1.08] text-ink">
+          {headline}
         </h1>
+        <p className="mt-4 text-[0.9375rem] text-faint">
+          <time dateTime={article.date}>{formatDate(article.date)}</time>
+          {hasToc ? `, ${digestSections.length} items in ${article.category}` : ''}, {article.readingTimeMinutes} min read
+        </p>
       </header>
 
-      {/* Answer-First Executive Summary for AI Overviews & Fan-Out Crawlers (Screenshot 6: Lead with the answer) */}
-      {article.description && (
-        <section className="p-4 sm:p-5 rounded-2xl bg-zinc-900/50 border border-zinc-800/80 text-xs sm:text-sm text-zinc-300 leading-relaxed font-sans shadow-sm">
-          <div className="flex items-center gap-2 mb-2 text-emerald-400 font-mono text-[11px] font-semibold uppercase tracking-wider">
-            <span>⚡</span>
-            <span>Direct Technical Summary</span>
-          </div>
-          <p className="text-zinc-300 leading-relaxed">
-            {article.description}
+      <div className={`mt-10 grid gap-x-14 gap-y-8 border-t border-rule pt-10 ${hasToc ? 'lg:grid-cols-[16rem_minmax(0,1fr)]' : ''}`}>
+        {hasToc && <DigestToc items={digestSections.map((s) => ({ id: s.id, title: s.title }))} />}
+
+        <article className="digest min-w-0">
+          {isDigest ? (
+            digestSections.map((s, i) => (
+              <section key={s.id} id={s.id} className={i === 0 ? '' : 'mt-12 border-t border-rule pt-12'}>
+                {/* The first item is already the page heading above, so it gets no heading of its own. */}
+                {i > 0 && (
+                  <div className="flex items-start justify-between gap-4">
+                    <h2 className="display max-w-[36ch] text-[1.75rem] font-semibold leading-tight text-ink sm:text-[2rem]" style={{ margin: 0 }}>
+                      {s.title}
+                    </h2>
+                    <CopyLink id={s.id} label={s.title} />
+                  </div>
+                )}
+                <div className={i > 0 ? 'mt-4' : ''} dangerouslySetInnerHTML={{ __html: s.html }} />
+              </section>
+            ))
+          ) : (
+            <div className="mx-auto max-w-[44rem] lg:mx-0" dangerouslySetInnerHTML={{ __html: essayHtml }} />
+          )}
+        </article>
+      </div>
+
+      <div className="mt-16 space-y-12 border-t border-rule pt-10">
+        {isFolderResource && (
+          <p className="text-[0.9375rem] text-body">
+            This digest is also a plain Markdown file in the{' '}
+            <a href={githubFileUrl} target="_blank" rel="noopener noreferrer" className="link">
+              ai-resources repository on GitHub
+            </a>
+            .
           </p>
-        </section>
-      )}
+        )}
 
-      {/* Article Prose with Mobile Overflow Protection */}
-      <article 
-        className="prose prose-invert prose-zinc max-w-none text-sm sm:text-[15px] leading-relaxed sm:leading-loose prose-headings:font-semibold prose-headings:text-zinc-100 prose-h1:text-lg sm:prose-h1:text-xl prose-h2:text-base sm:prose-h2:text-lg prose-h3:text-sm sm:prose-h3:text-base prose-p:text-zinc-300 prose-strong:text-zinc-100 prose-pre:bg-zinc-900 prose-pre:border prose-pre:border-zinc-800 prose-a:text-zinc-200 prose-a:underline hover:prose-a:text-white overflow-x-auto"
-        dangerouslySetInnerHTML={{ __html: article.htmlContent }}
-      />
+        {related.length > 0 && (
+          <section aria-labelledby="related">
+            <h2 id="related" className="mb-2 font-semibold text-ink">
+              More from {article.category}
+            </h2>
+            <ul className="divide-y divide-rule/80 border-y border-rule/80">
+              {related.map((r) => (
+                <li key={r.slug}>
+                  <Link href={`/articles/${r.slug}`} className="group flex items-baseline justify-between gap-6 py-3.5">
+                    <span className="text-ink transition-colors group-hover:text-accent">{cleanTitle(r.title)}</span>
+                    <time dateTime={r.date} className="shrink-0 text-[0.875rem] tabular-nums text-faint">
+                      {formatDate(r.date)}
+                    </time>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <Link href={`/categories/${article.categorySlug}`} className="link mt-4 inline-block text-[0.9375rem]">
+              All {siblings.length + 1} in {article.category}
+            </Link>
+          </section>
+        )}
 
-      {/* Article-Specific Source / Implementation Link */}
-      {isFolderResource && (
-        <section className="mt-8 p-4 rounded-xl bg-zinc-900/40 border border-zinc-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs font-mono">
-          <div className="flex items-center gap-2.5 text-zinc-400">
-            <span className="text-base">📂</span>
-            <span>Source / Implementation:</span>
-            <span className="text-zinc-200 font-semibold">{article.category} / {article.filename}</span>
-          </div>
-          <a
-            href={githubFileUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white transition-colors text-[11px] font-medium shrink-0"
-            title={`View raw ${article.category}/${article.filename} on GitHub`}
-          >
-            <span>GitHub Repository</span>
-            <span className="text-[10px] text-zinc-400">↗</span>
+        <aside className="flex items-start gap-4 border-t border-rule pt-8">
+          <a href="https://drix10.com" target="_blank" rel="noopener noreferrer" className="shrink-0">
+            <Image src="/avatar.png" alt="Drishtant Ghosh" width={48} height={48} className="h-12 w-12 rounded-full object-cover" />
           </a>
-        </section>
-      )}
-
-      {/* Internal Linking: Related Guides in same category for SEO/GEO crawl graph */}
-      <section className="mt-8 pt-6 border-t border-zinc-800/80">
-        <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider font-mono mb-3">
-          Related {article.category} Breakdowns
-        </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {getAllArticles()
-            .filter((a) => a.category === article.category && a.slug !== article.slug)
-            .slice(0, 4)
-            .map((related) => (
-              <Link
-                key={related.slug}
-                href={`/articles/${related.slug}`}
-                className="group p-3 rounded-xl bg-zinc-900/40 border border-zinc-800/60 hover:border-zinc-700 hover:bg-zinc-900/80 transition-all flex flex-col justify-between"
-              >
-                <div className="text-xs font-semibold text-zinc-200 group-hover:text-white line-clamp-2 mb-1.5">
-                  {related.title}
-                </div>
-                <div className="text-[11px] text-zinc-500 font-mono flex items-center justify-between">
-                  <span>{related.readingTimeMinutes}m read</span>
-                  <span className="group-hover:translate-x-0.5 transition-transform text-zinc-400">Read ↗</span>
-                </div>
-              </Link>
-            ))}
-        </div>
-      </section>
-
-      {/* Author Metadata */}
-      <div className="mt-8 sm:mt-12 pt-6 border-t border-zinc-800/80 space-y-4">
-        <div className="p-5 sm:p-6 rounded-2xl bg-zinc-900/40 border border-zinc-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 shadow-sm">
-          <div className="flex items-center gap-3.5">
-            <a href="https://drix10.com" target="_blank" rel="noopener noreferrer" className="shrink-0" title="Drishtant Ghosh (Drix10)">
-              <Image
-                src="/avatar.png"
-                alt="Drishtant Ghosh (Drix10)"
-                width={48}
-                height={48}
-                className="w-12 h-12 rounded-full object-cover border border-zinc-700 shadow-md hover:border-zinc-400 transition-colors"
-              />
-            </a>
-            <div className="space-y-1">
-              <div className="text-xs font-bold text-zinc-100 flex items-center gap-1.5">
-                <span>Drishtant Ghosh (Drix10)</span>
-                <span className="text-zinc-600 font-mono">•</span>
-                <span className="text-emerald-400 font-mono text-[11px] font-medium">Author & Engineer</span>
-              </div>
-              <p className="text-xs text-zinc-400 leading-relaxed max-w-md">
-                Technical founder and engineer working across AI systems, developer infrastructure, and cybersecurity.
-              </p>
-            </div>
+          <div className="text-[0.9375rem]">
+            <p className="font-semibold text-ink">Drishtant Ghosh</p>
+            <p className="mt-0.5 max-w-[52ch] text-body">
+              Technical founder and engineer working on AI systems, developer infrastructure and cybersecurity.
+            </p>
+            <p className="mt-2 flex flex-wrap gap-x-5 gap-y-1">
+              <a href="https://drix10.com" target="_blank" rel="noopener noreferrer" className="link">Portfolio</a>
+              <a href="https://github.com/Drix10" target="_blank" rel="noopener noreferrer" className="link">GitHub</a>
+              <a href="https://x.com/DrishtantGhosh" target="_blank" rel="noopener noreferrer" className="link">X</a>
+              <a href="mailto:ggdrishtant@gmail.com" className="link">Email</a>
+            </p>
           </div>
-
-          <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-400 font-mono">
-            <a href="https://drix10.com" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-100 hover:underline">
-              Portfolio
-            </a>
-            <span>·</span>
-            <a href="https://github.com/Drix10" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-100 hover:underline">
-              GitHub
-            </a>
-            <span>·</span>
-            <a href="https://www.linkedin.com/in/drix10" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-100 hover:underline">
-              LinkedIn
-            </a>
-            <span>·</span>
-            <a href="https://x.com/DrishtantGhosh" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-100 hover:underline">
-              X
-            </a>
-            <span>·</span>
-            <a href="mailto:ggdrishtant@gmail.com" className="hover:text-zinc-100 hover:underline">
-              Email
-            </a>
-          </div>
-        </div>
-
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-500 text-center sm:text-left">
-          <Link href="/" className="hover:text-zinc-300 transition-colors py-1">
-            ← Back to all breakdowns
-          </Link>
-          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2 font-mono text-[11px]">
-            {isFolderResource && (
-              <>
-                <a
-                  href={githubFileUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-zinc-300 underline decoration-zinc-800 hover:decoration-zinc-500 transition-colors"
-                  title={`View source ${article.category}/${article.filename} on GitHub`}
-                >
-                  GitHub: {article.category}/{article.filename} ↗
-                </a>
-                <span className="text-zinc-700 hidden sm:inline">•</span>
-              </>
-            )}
-            <a href={article.canonicalUrl} className="hover:text-zinc-300 truncate max-w-[280px]">
-              {article.canonicalUrl}
-            </a>
-          </div>
-        </div>
+        </aside>
       </div>
     </div>
   );

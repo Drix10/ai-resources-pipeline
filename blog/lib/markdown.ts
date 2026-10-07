@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { marked } from 'marked';
+import { buildSections, cleanTitle, renderMarkdown, type DigestSection } from './render';
 import indexData from './articles-index.json';
 
 export interface ArticleSummary {
@@ -12,6 +12,8 @@ export interface ArticleSummary {
   filePath: string;
   title: string;
   description: string;
+  items?: string[];
+  itemCount?: number;
   searchKeywords: string;
   date: string;
   isoTimestamp?: string;
@@ -25,22 +27,9 @@ export interface ArticleSummary {
 export interface Article extends ArticleSummary {
   content: string;
   htmlContent: string;
+  // Present when the file is a multi-item digest; empty for single essays.
+  sections: DigestSection[];
 }
-
-const renderer = new marked.Renderer();
-renderer.image = ({ href, title, text }) => {
-  return '<div class="my-6 text-center"><img src="' + href + '" alt="' + (text || 'Technical illustration') + '" title="' + (title || '') + '" class="rounded-xl border border-zinc-800 shadow-xl max-w-full h-auto mx-auto inline-block hover:border-zinc-700 transition-all" loading="lazy" />' + (text ? '<p class="text-xs text-zinc-500 mt-2 font-mono">' + text + '</p>' : '') + '</div>';
-};
-renderer.link = ({ href, title, text }) => {
-  if (!href) return text || '';
-  const isInternal = href.startsWith('/') || href.startsWith('https://blogs.drix10.com');
-  const isExternal = href.startsWith('http') && !isInternal;
-  return '<a href="' + href + '" ' + (isExternal ? 'target="_blank" rel="noopener noreferrer"' : '') + ' title="' + (title || '') + '" class="text-zinc-200 underline decoration-zinc-700 underline-offset-4 hover:decoration-zinc-300 hover:text-white transition-colors">' + text + (isExternal ? ' ↗' : '') + '</a>';
-};
-renderer.table = ({ header, rows }) => {
-  return '<div class="my-6 overflow-x-auto rounded-lg border border-zinc-800"><table class="w-full text-left border-collapse text-xs"><thead class="bg-zinc-900/90 border-b border-zinc-800 text-zinc-300 font-semibold">' + header + '</thead><tbody class="divide-y divide-zinc-800/60 text-zinc-400 bg-zinc-950/40">' + rows + '</tbody></table></div>';
-};
-marked.setOptions({ gfm: true, breaks: true, renderer });
 
 const articlesList: ArticleSummary[] = indexData.articles as ArticleSummary[];
 const categoriesList = indexData.categories as { name: string; slug: string; count: number }[];
@@ -82,8 +71,18 @@ export function getArticleSummaries(): ArticleSummary[] {
   return articlesList;
 }
 
+export { cleanTitle };
+export type { DigestSection };
+
 export function getAllCategories() {
   return categoriesList;
+}
+
+// "2026-10-05" -> "Oct 5, 2026" (UTC so server and client agree).
+export function formatDate(iso: string): string {
+  const d = new Date(`${String(iso).slice(0, 10)}T00:00:00Z`);
+  if (isNaN(d.getTime())) return String(iso || '');
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 }
 
 export function getArticleBySlug(slugPath: string[]): Article | null {
@@ -110,7 +109,9 @@ export function getArticleBySlug(slugPath: string[]): Article | null {
         const cat = slugPath[0].toLowerCase();
         summary = slugMap.get(`${cat}/resources-${paddedNum}`) || slugMap.get(`${cat}/resources-${numInt}`);
       }
-      if (!summary) {
+      // Without a matching category only an explicit "resources-N" is accepted, so arbitrary
+      // "anything-123" URLs are a 404 instead of an unbounded space of duplicate pages.
+      if (!summary && /^resources-\d+$/.test(lastPart)) {
         summary = slugMap.get(`resources-${paddedNum}`) || slugMap.get(`resources-${numInt}`);
       }
     }
@@ -130,13 +131,17 @@ export function getArticleBySlug(slugPath: string[]): Article | null {
     }
   }
 
-  // For web blog rendering, strip the static GitHub promo section since the web
-  // article page already renders the interactive React Author Card and GitHub source card.
-  const cleanContentForWeb = content.replace(/(?:\r?\n)+\s*---\s*###\s*(?:🌐\s*)?(?:Read on the AI Knowledge Hub|Read More & Connect|⭐️\s*Support)[\s\S]*$/i, '').trim();
+  // The static GitHub promo footer is replaced on the web by the author card.
+  const cleanContentForWeb = content
+    .replace(/(?:\r?\n)+\s*---\s*###\s*(?:🌐\s*)?(?:Read on the AI Knowledge Hub|Read More & Connect|⭐️\s*Support)[\s\S]*$/i, '')
+    .trim();
+
+  const sections = summary.isPersonal || summary.category.toLowerCase() === 'personal' ? [] : buildSections(cleanContentForWeb);
 
   return {
     ...summary,
     content,
-    htmlContent: marked.parse(cleanContentForWeb) as string,
+    htmlContent: renderMarkdown(cleanContentForWeb),
+    sections,
   };
 }

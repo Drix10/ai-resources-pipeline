@@ -2,20 +2,15 @@ import Link from 'next/link';
 
 export default function NotFound() {
   return (
-    <div className="max-w-md mx-auto py-20 text-center space-y-4">
-      <div className="w-12 h-12 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 font-mono text-lg flex items-center justify-center mx-auto">
-        404
-      </div>
-      <h1 className="text-xl font-bold text-zinc-100">Article or Topic Not Found</h1>
-      <p className="text-xs text-zinc-400">
-        The requested technical breakdown or folder does not exist or has been moved.
+    <div className="max-w-[40rem] py-10">
+      <h1 className="display text-[clamp(2.2rem,6vw,3.5rem)] font-bold leading-[1.05] text-ink">That page is not here</h1>
+      <p className="mt-5 font-serif text-[1.25rem] leading-[1.6] text-body">
+        The digest may have been renamed or removed. Search the archive, or browse by topic.
       </p>
-      <Link
-        href="/"
-        className="inline-block px-4 py-2 rounded-md bg-zinc-100 text-zinc-950 text-xs font-semibold hover:bg-zinc-200 transition-colors"
-      >
-        ← Back to Knowledge Hub
-      </Link>
+      <p className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+        <Link href="/" className="link">Search all digests</Link>
+        <Link href="/categories" className="link">Browse topics</Link>
+      </p>
     </div>
   );
 }

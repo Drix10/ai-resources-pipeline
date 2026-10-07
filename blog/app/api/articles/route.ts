@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, getClientIp } from '@/lib/rate-limiter';
-import indexData from '@/lib/articles-index.json';
-
-const allArticles = Array.isArray(indexData?.articles) ? indexData.articles : [];
+import { searchArticles } from '@/lib/search';
 
 export async function GET(request: NextRequest) {
   const clientIp = getClientIp(request);
@@ -12,50 +10,24 @@ export async function GET(request: NextRequest) {
   }
 
   const { searchParams } = request.nextUrl;
-  const q = (searchParams.get('search') || searchParams.get('q') || '').trim().slice(0, 100).toLowerCase();
-  const category = (searchParams.get('category') || '').trim().slice(0, 80);
-  
-  // Safe integer parsing with strict boundary guards
   const rawPage = parseInt(searchParams.get('page') || '1', 10);
-  const page = Number.isInteger(rawPage) && rawPage > 0 ? Math.min(rawPage, 10000) : 1;
-
   const rawLimit = parseInt(searchParams.get('limit') || '25', 10);
-  const limit = Number.isInteger(rawLimit) && rawLimit > 0 ? Math.min(100, Math.max(10, rawLimit)) : 25;
 
-  const sort = searchParams.get('sort') || 'newest';
-
-  let filtered = allArticles;
-
-  if (category) {
-    filtered = filtered.filter((a) => a.category === category || a.categorySlug === category);
-  }
-
-  if (q) {
-    const terms = q.split(/\s+/).filter(Boolean).slice(0, 8); // Cap max search terms to 8
-    filtered = filtered.filter((a) => {
-      const kw = (a.searchKeywords || (a.title + ' ' + a.category + ' ' + a.description)).toLowerCase();
-      return terms.every((t) => kw.includes(t));
-    });
-  }
-
-  if (sort === 'quick' || sort === 'quickest') {
-    filtered = [...filtered].sort((a, b) => a.readingTimeMinutes - b.readingTimeMinutes);
-  } else if (sort === 'alphabetical') {
-    filtered = [...filtered].sort((a, b) => a.title.localeCompare(b.title));
-  }
-
-  const total = filtered.length;
-  const totalPages = Math.ceil(total / limit) || 1;
-  const offset = (page - 1) * limit;
-  const items = filtered.slice(offset, offset + limit);
+  const result = searchArticles({
+    q: searchParams.get('search') || searchParams.get('q') || '',
+    category: (searchParams.get('category') || '').trim().slice(0, 80),
+    sort: searchParams.get('sort') || 'newest',
+    page: Number.isInteger(rawPage) && rawPage > 0 ? Math.min(rawPage, 10000) : 1,
+    limit: rawLimit,
+  });
 
   return NextResponse.json({
-    articles: items,
-    items: items,
-    totalCount: total,
-    total: total,
-    page,
-    limit,
-    totalPages,
+    articles: result.articles,
+    items: result.articles,
+    totalCount: result.totalCount,
+    total: result.totalCount,
+    page: result.page,
+    limit: result.limit,
+    totalPages: result.totalPages,
   });
 }
