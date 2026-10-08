@@ -4,9 +4,9 @@ import { useEffect, useRef } from 'react';
 
 // The hero background is the "night hunt" simulation from Drix10/ml-videos: a school of mice that
 // have learned to run from an owl. Mice, owl, trails and the catch burst are drawn after that
-// project's own sprites (visualizer.py). The owl is the cursor; with no cursor (touch, or the
-// pointer elsewhere) it hunts the nearest mouse by itself, as in the video. Always moving, hidden
-// from assistive tech, and paused only while offscreen or in a background tab.
+// project's own sprites (visualizer.py). The owl hunts on its own, as in the video; it ignores the
+// pointer. Always moving, hidden from assistive tech, and paused only while offscreen or in a
+// background tab.
 
 interface Mouse {
   x: number;
@@ -29,7 +29,6 @@ const FLEE_BOOST = 0.9;
 const TURN_RATE = 0.06;
 const OWL_SPEED = 1.25;
 const OWL_TURN = 0.06;
-const OWL_CHASE_SPEED = 2.4; // the cursor owl hurries to keep up with a hand
 const SENSE_RADIUS = 190;
 const CATCH_RADIUS = 11;
 const WALL = 46;
@@ -54,7 +53,8 @@ export default function AgentField() {
     let mice: Mouse[] = [];
     const sparks: Spark[] = [];
     const owl = { x: 0, y: 0, a: 0, trail: [] as { x: number; y: number }[] };
-    const cursor = { x: 0, y: 0, on: false };
+    let prey: Mouse | null = null; // the mouse the owl is currently after
+    let preyFor = 0; // frames before it may pick again
     let flash = 0; // frames of catch ring left
     let raf = 0;
     let last = 0;
@@ -102,26 +102,29 @@ export default function AgentField() {
     };
 
     const step = (dt: number) => {
-      // The owl: follows the cursor when there is one, otherwise hunts the nearest mouse.
-      let target: { x: number; y: number } | null = null;
-      if (cursor.on) target = cursor;
-      else {
-        let best = Infinity;
-        for (const m of mice) {
-          if (m.deadFor) continue;
-          const d = (m.x - owl.x) ** 2 + (m.y - owl.y) ** 2;
-          if (d < best) {
-            best = d;
-            target = m;
+      // The owl picks a mouse, stays on it for a while, then picks again. Mostly the nearest, now and
+      // then a random one, so the hunt wanders instead of always sweeping the same patch.
+      preyFor -= dt;
+      if (!prey || prey.deadFor || preyFor <= 0) {
+        const alive = mice.filter((m) => !m.deadFor);
+        prey = null;
+        if (alive.length) {
+          if (Math.random() < 0.3) prey = alive[Math.floor(Math.random() * alive.length)];
+          else {
+            let best = Infinity;
+            for (const m of alive) {
+              const d = (m.x - owl.x) ** 2 + (m.y - owl.y) ** 2;
+              if (d < best) {
+                best = d;
+                prey = m;
+              }
+            }
           }
         }
+        preyFor = 120 + Math.random() * 240;
       }
-      let owlSpeed = OWL_SPEED;
-      if (target) {
-        const dist = Math.hypot(target.x - owl.x, target.y - owl.y);
-        owl.a = steer(owl.a, Math.atan2(target.y - owl.y, target.x - owl.x), OWL_TURN * dt);
-        if (cursor.on) owlSpeed = Math.min(OWL_CHASE_SPEED, 0.6 + dist * 0.02);
-      }
+      const owlSpeed = OWL_SPEED;
+      if (prey) owl.a = steer(owl.a, Math.atan2(prey.y - owl.y, prey.x - owl.x), OWL_TURN * dt);
       owl.x += Math.cos(owl.a) * owlSpeed * dt;
       owl.y += Math.sin(owl.a) * owlSpeed * dt;
       if (owl.x < 14 || owl.x > width - 14) {
@@ -309,19 +312,6 @@ export default function AgentField() {
       cancelAnimationFrame(raf);
     };
 
-    const onPointer = (e: PointerEvent) => {
-      if (e.pointerType === 'touch') return; // a finger has no hover; the owl hunts on its own
-      const rect = canvas.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      cursor.on = x >= -40 && x <= rect.width + 40 && y >= -40 && y <= rect.height + 40;
-      cursor.x = x;
-      cursor.y = y;
-    };
-    const onLeave = () => {
-      cursor.on = false;
-    };
-
     readColors();
     resize();
     start();
@@ -345,9 +335,6 @@ export default function AgentField() {
     };
     const onVisibility = () => (document.hidden ? stop() : start());
 
-    window.addEventListener('pointermove', onPointer, { passive: true });
-    document.documentElement.addEventListener('pointerleave', onLeave);
-    window.addEventListener('blur', onLeave);
     document.addEventListener('visibilitychange', onVisibility);
     scheme.addEventListener('change', onScheme);
 
@@ -356,9 +343,6 @@ export default function AgentField() {
       resizeObserver.disconnect();
       intersection.disconnect();
       themeObserver.disconnect();
-      window.removeEventListener('pointermove', onPointer);
-      document.documentElement.removeEventListener('pointerleave', onLeave);
-      window.removeEventListener('blur', onLeave);
       document.removeEventListener('visibilitychange', onVisibility);
       scheme.removeEventListener('change', onScheme);
     };
