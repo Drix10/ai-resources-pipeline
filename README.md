@@ -5,12 +5,12 @@
 <h1 align="center">⚡ Autonomous AI Knowledge & Multi-Channel Syndication Engine</h1>
 
 <p align="center">
-  <strong>Continuous Technical Curation • Dual-Engine LLM Pipeline • Next.js Knowledge Hub • Automated DEV.to Syndication</strong>
+  <strong>Continuous Technical Curation • OpenRouter LLM Pipeline • Next.js Knowledge Hub • Live GitHub Portfolio</strong>
 </p>
 
 <p align="center">
   <a href="https://blogs.drix10.com"><img src="https://img.shields.io/badge/LIVE_HUB-BLOGS.DRIX10.COM-10b981?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Hub" /></a>
-  <img src="https://img.shields.io/badge/DUAL_LLM-OLLAMA_%26_NVIDIA_NIM-76b900?style=for-the-badge&logo=nvidia&logoColor=white" alt="Dual LLM" />
+  <img src="https://img.shields.io/badge/LLM-OPENROUTER-6467f2?style=for-the-badge&logo=openai&logoColor=white" alt="OpenRouter LLM" />
   <img src="https://img.shields.io/badge/WEB-NEXT.JS_14_APP_ROUTER-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js 14" />
 </p>
 
@@ -30,13 +30,13 @@
 
 ```mermaid
 flowchart TD
-    A["X curated lists (41 folders, Selenium on Chrome :9222)"] --> B["One article per source post (DeepSeek V4 Flash, no padding; thin posts skipped)"]
+    A["X curated lists (41 folders, Selenium on Chrome :9222)"] --> B["One article per source post (gpt-oss-120b via OpenRouter, qwen fallback; thin posts skipped)"]
     B --> C["Fact gates (numbers, names, filler phrasing), code-built resource links, secret redaction"]
     C --> D["One batched GitHub commit"]
     D --> E["blogs.drix10.com (Next.js 14)"]
     D --> F["DEV.to syndication (rate-limited, circuit breaker)"]
     D --> G["Announcement tweet"]
-    D --> H["LinkedIn feed: likes + gated comments"]
+    D --> H["After each batch: 5-9 LinkedIn likes + 1-2 English-only comments"]
 ```
 
 ---
@@ -51,6 +51,7 @@ flowchart TD
 ### 💬 2. LinkedIn Comment Engine
 - Short peer comments (congrats, honest ACK, or skip), checked by mechanical gates plus a semantic critic. If the critic is unavailable the comment is not posted.
 - 15/day cap, 3-day memory for rejected posts, like-only mode via `LINKEDIN_LIKE`.
+- English only: posts in other languages are never liked, followed or commented on, and a non-English draft is rejected.
 - Providers: OpenRouter (DeepSeek V4 Flash; set `OPENROUTER_MODEL_OVERRIDE` to change it) first, then the NVIDIA/Ollama comment model.
 - Preview without posting: `node feed-preview.js --max 3`. Regression checks: `node feed-regression.js`.
 
@@ -60,14 +61,15 @@ flowchart TD
 ### 🎲 Randomized Batch GitHub Commits (1 to 8)
 - Eliminates predictable static commit batching by randomly committing between 1 and 8 article updates per cycle, creating a natural commit rhythm on GitHub.
 
-### 🤝 4. LinkedIn Feed Engagement (likes per article, comments per cycle)
-- **Decoupled Growth Loop**: content (scrape, generate, commit, tweet) never touches LinkedIn. Once per cycle, even with zero articles, the engine likes 5-9 posts, leaves up to 2 genuine comments (`LINKEDIN_FEED_REPLY=true`), then connects. Posts come from finance/AI/founder content search plus optional creators in `config/creators.json` (copy `creators.example.json`); `LINKEDIN_SOURCE=feed` restores home-feed sourcing. 15/day cap, 3-day rejection memory.
+### 🤝 4. LinkedIn Feed Engagement (after every batch commit)
+- **Growth Loop**: content generation never touches LinkedIn. After each successful batch commit the engine likes a random 5-9 posts and leaves 1 or 2 genuine, English-only comments (`LINKEDIN_FEED_REPLY=true`); once per cycle it then sends connection requests. Posts come from finance/AI/founder content search plus optional creators in `config/creators.json` (copy `creators.example.json`); `LINKEDIN_SOURCE=feed` restores home-feed sourcing. 15/day cap, 3-day rejection memory.
 - **Connection Pass**: 10-15 no-note requests per cycle (30/day, 100/week caps). On by default; set `LINKEDIN_CONNECT=false` to turn it off.
 - **Reaction-First Voice**: short acknowledgments by default, observation only when the post invites it; never invents facts, numbers, or relationships.
 - **Preview Before Live**: `node feed-preview.js --max 3` prints exactly what would be posted and liked — nothing runs live without approval.
 
 ### ⚡ 5. High-Speed Next.js 14 Knowledge Hub (`blog/`)
-- **1,800+ Articles** across **42 Specialized Domains**.
+- **1,800+ Articles** across **42 Specialized Domains**, with static topic and archive pages so everything caches at the edge.
+- **SEO**: per-digest share images (`/og/<slug>`), Article/Breadcrumb/CollectionPage structured data, a sitemap of every indexable URL, search results kept out of the index. Audit any deployment with `npm run seo:audit -- <url>`.
 - **Sub-60ms In-Memory Search & Filtering** with tokenized search indexes (`blog/lib/articles-index.json`).
 - **Hybrid Incremental Static Regeneration (ISR)**: Builds in under 8 seconds with zero worker timeouts.
 - **Live Deployment**: Hosted at [https://blogs.drix10.com](https://blogs.drix10.com).
@@ -77,8 +79,8 @@ flowchart TD
 ## 🛠️ Tech Stack
 
 - **Pipeline**: Node.js, Octokit REST, Selenium WebDriver, Winston Logger
-- **AI Models**: NVIDIA NIM Cloud API (`meta/llama-3.2-11b-vision-instruct`) / Local Ollama (`gemma4`)
-- **Frontend / Web**: Next.js 14 (App Router), React 18, TypeScript, Tailwind CSS
+- **AI Models**: OpenRouter (`openai/gpt-oss-120b` for articles, `deepseek/deepseek-v4-flash` for comments); optional NVIDIA NIM or local Ollama as comment fallbacks
+- **Frontend / Web**: Next.js 14 (App Router), React 18, TypeScript, Tailwind CSS. `blog/` is the knowledge hub; `portfolio/` is [drix10.com](https://drix10.com), which reads projects, open-source work and the contribution graph live from GitHub and draws the Night-Hunt mice behind the name (after [ml-videos](https://github.com/Drix10/ml-videos)).
 - **Syndication**: DEV.to API, LinkedIn feed engagement, GitHub Octokit REST
 
 ---
@@ -102,8 +104,9 @@ GITHUB_REPONAME=ai-resources
 
 # AI LLM Engine Configuration
 LOCAL_LLM=false
-NVIDIA_API_KEY=your_nvidia_nim_api_key
-NVIDIA_MODEL=meta/llama-3.2-11b-vision-instruct
+OPENROUTER_API_KEY=your_openrouter_api_key
+# Optional fallbacks
+# NVIDIA_API_KEY=your_nvidia_nim_api_key
 
 # Social Automation
 LINKEDIN_LIKE=true
@@ -120,6 +123,11 @@ node start-app.js
 # Preview feed engagement (comments + likes) without posting anything
 node feed-preview.js --max 3
 ```
+
+---
+
+### 4. Deploying the sites
+Set `NEXT_PUBLIC_SITE_URL` (portfolio) and `CANONICAL_BASE_URL` (blog) to the exact public address, and `GITHUB_READ_TOKEN` on the portfolio. Optional: `GOOGLE_SITE_VERIFICATION`, `BING_SITE_VERIFICATION`.
 
 ---
 
