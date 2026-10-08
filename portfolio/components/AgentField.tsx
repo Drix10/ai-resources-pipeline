@@ -27,8 +27,8 @@ interface Spark {
 const MOUSE_SPEED = 1.7;
 const FLEE_BOOST = 0.9;
 const TURN_RATE = 0.06;
-const OWL_SPEED = 1.25;
-const OWL_TURN = 0.06;
+const OWL_SPEED = 2.5; // faster than a wandering mouse, a little slower than one fleeing flat out, as in the video
+const OWL_TURN = 0.085;
 const SENSE_RADIUS = 190;
 const CATCH_RADIUS = 11;
 const WALL = 46;
