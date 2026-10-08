@@ -292,6 +292,27 @@ const processAllFolders = async () => {
     const COMMIT_BATCH_SIZE = Math.floor(Math.random() * 8) + 1;
     let pendingBatch = [];
 
+    // After every batch commit: one LinkedIn like per article just committed, then two comments.
+    // Targeted finance/AI/founder sources; non-English posts are skipped. Never fatal.
+    const engageAfterBatch = async (articleCount) => {
+      if (config.social.linkedinLike && articleCount > 0) {
+        try {
+          const likeResult = await feedEngage.runLikePass({ min: articleCount, max: articleCount });
+          logger.info(`Batch done: LinkedIn likes ${likeResult.liked}/${likeResult.target} (one per article).`);
+        } catch (feedErr) {
+          logger.error("LinkedIn likes failed (non-fatal):", feedErr.message);
+        }
+      }
+      if (config.social.linkedinFeedReply) {
+        try {
+          const engageResult = await feedEngage.runFeedEngagement({ max: 2 });
+          logger.info(`Batch done: LinkedIn comments ${engageResult.commented} posted, ${engageResult.skipped} skipped. ${engageResult.reason || ""}`);
+        } catch (feedErr) {
+          logger.error("LinkedIn comment pass failed (non-fatal):", feedErr.message);
+        }
+      }
+    };
+
     const flushBatch = async () => {
       if (pendingBatch.length === 0) return;
       const batchToCommit = [...pendingBatch];
@@ -332,6 +353,7 @@ const processAllFolders = async () => {
           });
         }
 
+        await engageAfterBatch(results.length);
       } catch (batchErr) {
         logger.error(`Batch GitHub commit failed for ${batchToCommit.length} folders:`, batchErr);
       }
@@ -379,26 +401,7 @@ const processAllFolders = async () => {
       logger.info(`Cycle End: Successfully processed and syndicated ${successfulArticles.length} curated guide(s).`);
     }
 
-    // LinkedIn growth: once per cycle, after content, whether or not an article was
-    // produced. Targeted finance/AI/founder sources: likes, then comments, then connects.
-    // One like per article written this run; two comments per full run, once every batch commit is done.
-    if (config.social.linkedinLike && successfulArticles.length > 0) {
-      try {
-        const likeResult = await feedEngage.runLikePass({ min: successfulArticles.length, max: successfulArticles.length });
-        logger.info(`Cycle End: LinkedIn likes ${likeResult.liked}/${likeResult.target} (one per article written).`);
-      } catch (feedErr) {
-        logger.error("LinkedIn likes failed (non-fatal):", feedErr.message);
-      }
-    }
-    if (config.social.linkedinFeedReply) {
-      try {
-        logger.info("Cycle End: Running LinkedIn comment pass...");
-        const engageResult = await feedEngage.runFeedEngagement({ max: 2 });
-        logger.info(`LinkedIn comments: ${engageResult.commented} posted, ${engageResult.skipped} skipped. ${engageResult.reason || ""}`);
-      } catch (feedErr) {
-        logger.error("LinkedIn comment pass failed (non-fatal):", feedErr.message);
-      }
-    }
+    // LinkedIn connections: once per cycle. Likes and comments run after each batch commit (see engageAfterBatch).
     if (config.social.linkedinConnect) {
       try {
         logger.info("Cycle End: Running LinkedIn connection pass...");
