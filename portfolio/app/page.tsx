@@ -92,12 +92,12 @@ export default async function HomePage() {
             <li><a className="link" href="https://blogs.drix10.com" target="_blank" rel="noreferrer">Blog</a></li>
           </ul>
 
-          <p className="mt-12 hidden text-[0.9375rem] text-faint [@media(hover:hover)]:block">
-            The flock behind the name is a nod to{' '}
+          <p className="mt-12 text-[0.9375rem] text-faint">
+            The mice behind the name run from an owl, as in{' '}
             <a href="https://github.com/Drix10/ml-videos" target="_blank" rel="noreferrer" className="link">
               Night-Hunt
             </a>
-            , my evolving-mice experiment. Move your cursor through it.
+            , my evolving-mice experiment.
           </p>
         </div>
       </section>
