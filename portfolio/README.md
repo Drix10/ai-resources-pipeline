@@ -32,3 +32,9 @@ npm test                     # selection and parsing logic, run against a real G
 
 - **Pinned on GitHub**: the pinned repositories, in pin order (forks and archived repos are kept if you pinned them).
 - **More recent work**: other original repositories that have a real description and were updated in the last 18 months, or have at least 5 stars. Hide a repo by adding its name to `HIDDEN_REPOS` in `lib/profile.ts`.
+
+## Hero and SEO
+
+- The mice behind the name are the Night-Hunt simulation from [ml-videos](https://github.com/Drix10/ml-videos): mice that run from an owl, drawn after that project's sprites. The owl hunts by itself; the pointer does nothing. It always animates and pauses only offscreen or in a background tab (`components/AgentField.tsx`).
+- `NEXT_PUBLIC_SITE_URL` sets the address used for canonicals, the sitemap and structured data (default `https://drix10.com`). Match it to whichever of apex or `www` your host redirects to. Optional: `GOOGLE_SITE_VERIFICATION`, `BING_SITE_VERIFICATION`.
+- Audit a deployment from the repository root: `npm run seo:audit -- https://drix10.com`.

@@ -401,10 +401,10 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
 **Drishtant Ghosh** — known online as **Drix10** — is an AI Systems Engineer and 1x Acquired Founder based in **Bengaluru, India**. He builds autonomous LLM architectures, multi-agent swarms, real-time distributed systems, and high-performance full-stack products.
 
 - **1x Acquired Founder** — ReeF (scaled to $15,000 ARR and 5M+ user interactions before acquisition in August 2024)
-- **Founder & CEO** — CosLynx.com (AI code-generation platform, 400+ live MVPs, Build with Backdrop v4 Winner)
+- **Founder & CEO** — CosLynx.com (AI code-generation platform, 400+ live MVPs, Backdrop Build v4 and v6 finalist)
 - **AI Systems Architect** — Canopy @ Founders, Inc. (4-LLM autonomous multi-agent trading engine)
 - **Cybersecurity Student** — Dayananda Sagar University
-- **2x International Hackathon Winner** • **IBM AI Engineering Professional Certificate**
+- **Hackathons** — Backdrop Build v4 and v6 finalist, NYC Code Quest 3rd place • **IBM AI Engineering Professional Certificate**
 
 > This repository is the public knowledge base behind that work: a continuously updated, high-signal archive of AI systems, developer infrastructure, and security engineering breakdowns — no motivational fluff, no consultant larp, just mechanics and code reality.
 
@@ -432,7 +432,7 @@ flowchart LR
     A["X/Twitter Curated Lists (41 categories)"] --> D["Autonomous Curation Engine"]
     B["LinkedIn Insights & Postmortems"] --> D
     C["Systems Research & Repo Pulse"] --> D
-    D --> E["LLM Synthesis (Ollama / NVIDIA NIM)"]
+    D --> E["LLM Synthesis (OpenRouter)"]
     E --> F["Zero-Slop Quality Gate + Secret Redaction"]
     F --> G["resources-NNN.md committed to this repo"]
     G --> H["blogs.drix10.com (Next.js 14)"]
