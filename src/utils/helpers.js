@@ -413,6 +413,34 @@ const rebuildBlogIndex = () => {
   }
 };
 
+// English-only gate for LinkedIn engagement. Rejects text written mostly in another script, and
+// Latin-script text whose function words are clearly Spanish, Portuguese, French, German, Italian
+// or Dutch. Short or all-technical text passes: it carries no language signal to reject.
+const EN_WORDS = new Set("the and to of in is for that with on are this it as be we you at by from not have has can will but or an our your their about more how what new just was were been into than they them its who when which one all out up so if do does".split(" "));
+const FOREIGN_WORDS = new Set((
+  "el la los las de del que y en un una es por con para se no su al lo como mas pero sus le les des du et est une pour dans qui sur pas plus ce cette sont avec nous vous " +
+  "der die das und ist nicht ein eine mit von zu den dem auf fur auch sich im es wie wir sie ich aber oder bei nach " +
+  "o os as da do dos das em um uma nao para com por mais mas uma seu sua voce nos ao " +
+  "il lo gli di che non per con una sono questo anche come ma " +
+  "het een van en dat niet voor met zijn ook maar"
+).split(" "));
+function isEnglish(text) {
+  const clean = String(text || "")
+    .replace(/https?:\/\/\S+/g, " ")
+    .replace(/[@#]\w+/g, " ")
+    .normalize("NFKC");
+  const letters = clean.match(/\p{L}/gu) || [];
+  if (letters.length === 0) return true;
+  const latin = clean.match(/\p{Script=Latin}/gu) || [];
+  if ((letters.length - latin.length) / letters.length > 0.15) return false;
+  let en = 0, foreign = 0;
+  for (const w of clean.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").match(/[a-z]+/g) || []) {
+    if (EN_WORDS.has(w)) en++;
+    if (FOREIGN_WORDS.has(w) && !EN_WORDS.has(w)) foreign++;
+  }
+  return !(foreign >= 2 && foreign > en);
+}
+
 module.exports = Object.freeze({
   sanitizeInput,
   handleError,
@@ -423,4 +451,5 @@ module.exports = Object.freeze({
   generateSeoSlug,
   rebuildBlogIndex,
   parseDigestItems,
+  isEnglish,
 });

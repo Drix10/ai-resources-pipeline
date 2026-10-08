@@ -381,10 +381,11 @@ const processAllFolders = async () => {
 
     // LinkedIn growth: once per cycle, after content, whether or not an article was
     // produced. Targeted finance/AI/founder sources: likes, then comments, then connects.
-    if (config.social.linkedinLike) {
+    // One like per article written this run; two comments per full run, once every batch commit is done.
+    if (config.social.linkedinLike && successfulArticles.length > 0) {
       try {
-        const likeResult = await feedEngage.runLikePass({ min: 5, max: 9 });
-        logger.info(`Cycle End: LinkedIn likes ${likeResult.liked}/${likeResult.target}.`);
+        const likeResult = await feedEngage.runLikePass({ min: successfulArticles.length, max: successfulArticles.length });
+        logger.info(`Cycle End: LinkedIn likes ${likeResult.liked}/${likeResult.target} (one per article written).`);
       } catch (feedErr) {
         logger.error("LinkedIn likes failed (non-fatal):", feedErr.message);
       }
