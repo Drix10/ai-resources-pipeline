@@ -292,20 +292,20 @@ const processAllFolders = async () => {
     const COMMIT_BATCH_SIZE = Math.floor(Math.random() * 8) + 1;
     let pendingBatch = [];
 
-    // After every batch commit: one LinkedIn like per article just committed, then two comments.
+    // After every batch commit: a random 5-9 LinkedIn likes, then 1 or 2 comments (random).
     // Targeted finance/AI/founder sources; non-English posts are skipped. Never fatal.
-    const engageAfterBatch = async (articleCount) => {
-      if (config.social.linkedinLike && articleCount > 0) {
+    const engageAfterBatch = async () => {
+      if (config.social.linkedinLike) {
         try {
-          const likeResult = await feedEngage.runLikePass({ min: articleCount, max: articleCount });
-          logger.info(`Batch done: LinkedIn likes ${likeResult.liked}/${likeResult.target} (one per article).`);
+          const likeResult = await feedEngage.runLikePass({ min: 5, max: 9 });
+          logger.info(`Batch done: LinkedIn likes ${likeResult.liked}/${likeResult.target} `);
         } catch (feedErr) {
           logger.error("LinkedIn likes failed (non-fatal):", feedErr.message);
         }
       }
       if (config.social.linkedinFeedReply) {
         try {
-          const engageResult = await feedEngage.runFeedEngagement({ max: 2 });
+          const engageResult = await feedEngage.runFeedEngagement({ max: 1 + Math.floor(Math.random() * 2) });
           logger.info(`Batch done: LinkedIn comments ${engageResult.commented} posted, ${engageResult.skipped} skipped. ${engageResult.reason || ""}`);
         } catch (feedErr) {
           logger.error("LinkedIn comment pass failed (non-fatal):", feedErr.message);
@@ -353,7 +353,7 @@ const processAllFolders = async () => {
           });
         }
 
-        await engageAfterBatch(results.length);
+        await engageAfterBatch();
       } catch (batchErr) {
         logger.error(`Batch GitHub commit failed for ${batchToCommit.length} folders:`, batchErr);
       }
