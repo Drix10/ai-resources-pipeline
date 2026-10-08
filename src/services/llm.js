@@ -2,7 +2,7 @@ const config = require("../../config");
 const fs = require("fs");
 const path = require("path");
 const { spawn } = require("child_process");
-const { logger, sleep, redactSecrets } = require("../utils/helpers");
+const { logger, sleep, redactSecrets, isEnglish } = require("../utils/helpers");
 const { fetchPage } = require("../utils/pageFetch");
 
 /**
@@ -913,6 +913,7 @@ class LocalLLMService {
     const reply = String(replyText || "").trim();
     const post = String(postText || "");
     if (!reply) errors.push("Reply is empty.");
+    if (reply && !isEnglish(reply)) errors.push("Reply must be in English.");
     if (reply.length > 600) errors.push(`Reply too long (${reply.length} chars, max 600).`);
     // Short goodwill ("Great post!", "Congrats!") is explicitly allowed - the length
     // floor only applies to substantive comments, which need room to name a point.
@@ -1153,6 +1154,7 @@ class LocalLLMService {
   async draftFeedComment({ postAuthor = "", postText = "" } = {}, retries = 3, feedback = []) {
     const cleanPost = String(postText || "").replace(/https?:\/\/[^\s)]+/g, "").normalize("NFKC").replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u200B-\u200F\u2028\u2029\uFEFF]/g, "").slice(0, 1500).replace(/[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/g, "").trim();
     if (cleanPost.split(/\s+/).length < 10) throw new Error("draftFeedComment: post too thin to engage.");
+    if (!isEnglish(cleanPost)) throw new Error("draftFeedComment: post is not in English, skipping.");
     // Commercial promos and lead-gen ads (coaching/course pitches with contact
     // info plus an enrollment CTA, or hashtag-stuffed promos) get no earnest peer
     // reply - commenting on ads is bot behavior. Deterministic SKIP before any LLM

@@ -3,7 +3,7 @@
  *
  * Fully automated LinkedIn growth, run once per cycle from cron.js (after the
  * content loop, whether or not articles were produced):
- *  1. runLikePass       (LINKEDIN_LIKE, default on): 5-9 likes
+ *  1. runLikePass       (LINKEDIN_LIKE, default on): one like per article written
  *  2. runFeedEngagement (LINKEDIN_FEED_REPLY=true): up to 2 comments, like-first
  *  3. runConnectPass    (LINKEDIN_CONNECT, default on): 10-15 no-note invites
  *
@@ -19,7 +19,7 @@ const config = require("../../config");
 const llmService = require("./llm");
 const linkedinService = require("./linkedin");
 const LinkedInService = new linkedinService();
-const { logger, sleep } = require("../utils/helpers");
+const { logger, sleep, isEnglish } = require("../utils/helpers");
 
 const TRACK_PATH = path.join(process.cwd(), "data", "linkedin-feed-commented.json");
 const MAX_PER_DAY = 15;
@@ -45,6 +45,8 @@ const US_RE = /\b(united states|usa|u\.s\.a?|us-based|new york|nyc|manhattan|san
 const NOISE_RE = /\b(giveaway|hiring|we(?:'re| are) hiring|apply now|webinar|register (?:now|here)|dm me|link in bio|open ?to ?work|bootcamp|cohort|enroll|discount code|follow me for)\b/i;
 function scorePost(post) {
   const hay = `${post.head || ""} ${post.text || ""}`;
+  // English only: likes, follows and comments all key off this score.
+  if (!isEnglish(hay)) return -99;
   const distinct = (re) => new Set((hay.match(re) || []).map((m) => m.toLowerCase())).size;
   let score = 2 * Math.min(distinct(FIN_RE), 3) + Math.min(distinct(TECH_RE), 3);
   if (US_RE.test(hay)) score += 2;
