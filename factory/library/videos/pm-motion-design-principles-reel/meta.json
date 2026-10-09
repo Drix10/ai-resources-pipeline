@@ -1,0 +1,23 @@
+{
+  "title": "Motion design principles reel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/tolgayhickiran-e90799",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "kinetic-type",
+    "particles",
+    "shapes",
+    "hud",
+    "chaptered",
+    "dark"
+  ],
+  "score": 3,
+  "why": "Wrap every segment in a persistent viewfinder HUD (numbered chapter label like '03 / GRID WAVE', running timecode, spec line) so a grab-bag of unrelated styles reads as one indexed reel.",
+  "video": "video.mp4"
+}

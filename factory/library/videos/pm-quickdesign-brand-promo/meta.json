@@ -1,0 +1,23 @@
+{
+  "title": "QuickDesign brand promo",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/quickdesignio-dd93d0",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "brand-promo",
+    "product-ui",
+    "counters",
+    "lime-accent",
+    "dark-mode",
+    "ad-grid",
+    "serif-italic"
+  ],
+  "score": 3,
+  "why": "Prove scale with a counter: a grid of blank cards fills one by one as an 'ADS GENERATED 00/12' tally ticks to 12, landing the line 'One brief. Twelve ads.'",
+  "video": "video.mp4"
+}

@@ -1,0 +1,22 @@
+{
+  "title": "Negroni recipe animation",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/ror-fly-9950f1",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "explainer",
+    "recipe",
+    "illustration",
+    "step-tracker",
+    "hand-drawn",
+    "data-viz",
+    "square"
+  ],
+  "score": 3,
+  "why": "Lock the layout (glass left, measure card right, step tracker below) and let only the liquid level, pouring bottle and step counter change, so a six-step recipe reads at a glance.",
+  "video": "video.mp4"
+}

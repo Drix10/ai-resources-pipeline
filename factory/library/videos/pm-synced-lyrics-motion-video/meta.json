@@ -1,0 +1,23 @@
+{
+  "title": "Synced lyrics motion video",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/samaote-5e2fc2",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "lyric-video",
+    "kinetic-type",
+    "sun-motif",
+    "countdown",
+    "serif-type",
+    "music-sync",
+    "cinematic"
+  ],
+  "score": 3,
+  "why": "Bind the lyric staging to one sunrise-to-burnout arc, with the sun rising, igniting, orbiting and shrinking to a white dwarf as a \"last light in\" countdown runs down, and switch type treatment per line (serif italic, blown-up words, grid-cell layout) without ever losing the sun motif.",
+  "video": "video.mp4"
+}

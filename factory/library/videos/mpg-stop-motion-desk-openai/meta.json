@@ -1,0 +1,23 @@
+{
+  "title": "Stop-Motion Desk",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/stop-motion-desk-openai/",
+  "model": "gpt-6-astra",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "stop-motion",
+    "3d",
+    "tool",
+    "onion-skin",
+    "timeline",
+    "character",
+    "gif"
+  ],
+  "score": 3,
+  "why": "An onion-skin preview of the previous pose sits under every new capture, so motion is planned frame by frame as visible deltas, and timing is a separate per-frame value that can be retimed later.",
+  "video": "video.mp4"
+}

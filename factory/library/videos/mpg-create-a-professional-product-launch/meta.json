@@ -1,0 +1,23 @@
+{
+  "title": "Create a professional product launch video with motion graphics.",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/create-a-professional-product-launch-video-with-motion-graph/",
+  "model": "claude-opus-5-5",
+  "engine": "gsap",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "launch",
+    "product",
+    "saas",
+    "serif",
+    "soft-gradient",
+    "calm",
+    "pain-point"
+  ],
+  "score": 3,
+  "why": "Pain lines stack one at a time in an anaphora ('The same reports. / The same price checks. / The same hours, gone.') with the last line in italic, and the logo resolution follows on a soft pastel gradient at a deliberately slow pace.",
+  "video": "video.mp4"
+}

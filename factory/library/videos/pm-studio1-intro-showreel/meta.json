@@ -1,0 +1,23 @@
+{
+  "title": "Studio1 intro showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/astrodevil-3f2054",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "agency-reel",
+    "stat-reveal",
+    "dark-mode",
+    "kinetic-type",
+    "logo-wall",
+    "case-study",
+    "terminal"
+  ],
+  "score": 3,
+  "why": "Run a near-black canvas with a single orange ember glow and make each case study one giant counting hero number (1.8M+, 7,043, Page 1) with a tiny proof widget beside it.",
+  "video": "video.mp4"
+}

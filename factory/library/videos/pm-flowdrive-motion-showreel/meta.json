@@ -1,0 +1,23 @@
+{
+  "title": "Flowdrive motion showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/manuelogomigo-f33ca9",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product-promo",
+    "dot-matrix",
+    "halftone",
+    "orange",
+    "serif",
+    "feature-cards",
+    "saas"
+  ],
+  "score": 3,
+  "why": "Build every icon and visual (file, progress bar, globe, infinity loop) from the same orange dot-matrix halftone so the brand motif carries through each feature card.",
+  "video": "video.mp4"
+}

@@ -1,0 +1,23 @@
+{
+  "title": "38-second fictional game trailer built entirely in code",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/38-second-game-trailer-built-in-code-theparuchh/",
+  "model": "gpt-6-astra",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "cinematic",
+    "trailer",
+    "3d",
+    "game",
+    "procedural",
+    "sound-design",
+    "blender"
+  ],
+  "score": 3,
+  "why": "A five-act trailer template (quiet dawn wides, day-to-night timelapse with first threat, beat-cut climax, black-screen impact into logo, quiet 'Coming 2027' tail) with music tempo locked to cut timecodes.",
+  "video": "video.mp4"
+}

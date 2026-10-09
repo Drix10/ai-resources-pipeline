@@ -1,0 +1,23 @@
+{
+  "title": "Claude motion design showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/sudo-kiran-49176d",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "fluid",
+    "dot-grid",
+    "dashboard",
+    "kinetic-type",
+    "bold-color",
+    "particles"
+  ],
+  "score": 3,
+  "why": "Fill a liquid blob with gradient colour and let the word FLUID knock out of it, then reverse it as a black disc on lime, so each chapter title enacts its own technique.",
+  "video": "video.mp4"
+}

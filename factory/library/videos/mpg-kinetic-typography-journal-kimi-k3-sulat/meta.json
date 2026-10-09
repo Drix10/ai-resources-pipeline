@@ -1,0 +1,21 @@
+{
+  "title": "EM DASH: kinetic typography journal",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/kinetic-typography-journal-kimi-k3-sulat/",
+  "model": "kimi-k3",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "kinetic-typography",
+    "variable-fonts",
+    "editorial",
+    "scroll",
+    "web",
+    "type-only"
+  ],
+  "score": 3,
+  "why": "Every kinetic headline effect (scatter and reassemble, scroll-driven weight and width axes, outlines that fill as you read) must settle into a perfectly legible resting state, so the motion always resolves to readable type."
+}

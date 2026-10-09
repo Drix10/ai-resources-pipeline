@@ -1,0 +1,23 @@
+{
+  "title": "Nuclear blast simulation over a 3D city",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/nuclear-blast-over-a-3d-city-ashishthakur/",
+  "model": "gpt-6-astra",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "3d",
+    "simulation",
+    "particles",
+    "destruction",
+    "cinematic",
+    "shockwave",
+    "vfx"
+  ],
+  "score": 3,
+  "why": "Stage the effect as a propagation front: flash, then an expanding shockwave ring, and each building fractures only at the moment the ring reaches it, so the wave itself paces the destruction.",
+  "video": "video.mp4"
+}

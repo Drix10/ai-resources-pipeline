@@ -1,0 +1,21 @@
+{
+  "title": "Side-scrolling chase with a frame table",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/side-scrolling-chase-with-a-frame-table/",
+  "model": "gpt-6-astra",
+  "engine": "remotion",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "animation",
+    "parkour",
+    "side-scroll",
+    "character",
+    "timing",
+    "previs"
+  ],
+  "score": 3,
+  "why": "A frame table assigns each move exact start/end frames while the camera keeps the lead runner locked at a fixed x (~720px) with vertical drift capped at plus or minus 18px, so the world scrolls and the action stays readable.",
+  "video": "video.mp4"
+}

@@ -1,0 +1,23 @@
+{
+  "title": "《权力的游戏》S1: animated Westeros power map",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/game-of-thrones-s1-map-animation-wshuyi/",
+  "model": "kimi-k3",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "map",
+    "data-viz",
+    "story",
+    "timeline",
+    "territory",
+    "animation",
+    "chinese"
+  ],
+  "score": 3,
+  "why": "The story is told by a camera moving over one map, panning region to region as events happen, with icon pins for key moments and territory fills that change colour as power shifts.",
+  "video": "video.mp4"
+}

@@ -1,0 +1,22 @@
+{
+  "title": "Create and render a 15-second motion graphics video introducing…",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/create-and-render-a-15-second-motion-graphics-video-introduc/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "launch",
+    "product",
+    "developer-tool",
+    "kinetic-code",
+    "data-flow",
+    "sound-design"
+  ],
+  "score": 3,
+  "why": "One continuous signal from a blinking cursor is the through-line: every transition is that same stream physically demonstrating a feature (swapping providers, morphing modalities, freezing and resuming) instead of swapping title cards.",
+  "video": "video.mp4"
+}

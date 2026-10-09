@@ -1,0 +1,22 @@
+{
+  "title": "Drowned Spires: neo-gothic storm-city shader",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/drowned-spires-neo-gothic-storm-shader-emollick/",
+  "model": "kimi-k3",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "shader",
+    "raymarching",
+    "procedural",
+    "gothic",
+    "ocean",
+    "atmospheric"
+  ],
+  "score": 3,
+  "why": "An infinite repeated domain of gothic towers half-sunk in a stormy wave field: one repeating motif plus one hostile element gives endless scale from a single fragment shader.",
+  "video": "video.mp4"
+}

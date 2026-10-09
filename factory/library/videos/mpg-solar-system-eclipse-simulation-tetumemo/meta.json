@@ -1,0 +1,23 @@
+{
+  "title": "Solar system orrery that predicts eclipses",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/solar-system-eclipse-simulation-tetumemo/",
+  "model": "claude-fable-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "simulation",
+    "space",
+    "physics",
+    "educational",
+    "data-viz",
+    "interactive",
+    "dark"
+  ],
+  "score": 3,
+  "why": "A side panel shows the live intermediate maths (mean anomaly, eccentric anomaly, radius) beside the animated orbits with a one-line plain-language gloss for each step, and an on-screen note says that scale has been compressed.",
+  "video": "video.mp4"
+}

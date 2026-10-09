@@ -1,0 +1,23 @@
+{
+  "title": "Supademo launch video",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/jhylee95-e1152f",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "launch-film",
+    "kinetic-type",
+    "beat-sync",
+    "colour-blocking",
+    "product-ui",
+    "one-word-cuts",
+    "saas"
+  ],
+  "score": 3,
+  "why": "Run a one-word-per-beat drumbeat (guide. voice. brand. measure. qualifies.) with a trailing coloured full stop, flipping the full-bleed background colour on every cut and dropping UI in only as proof.",
+  "video": "video.mp4"
+}

@@ -1,0 +1,24 @@
+{
+  "title": "Animated agent session story",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/jake11moran-a269c4",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "characters",
+    "mascot",
+    "illustrated",
+    "locked-off",
+    "storytelling",
+    "cosy",
+    "agent"
+  ],
+  "score": 3,
+  "why": "Lock a single cosy illustrated room and tell the whole story through the mascot's facial expressions, window day/night shifts and props appearing on the desk, so continuity carries the narrative without cuts.",
+  "repo": "https://github.com/heygen-com/hyperframes-community-skills/tree/master/skills/session-story",
+  "video": "video.mp4"
+}

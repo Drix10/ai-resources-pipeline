@@ -1,0 +1,23 @@
+{
+  "title": "\"Enter the K\": Kimi K3 launch site as a scroll-driven type film",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/kimi-k3-launch-site-enter-the-k-jumperz/",
+  "model": "kimi-k3",
+  "engine": "gsap",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "scroll",
+    "kinetic-typography",
+    "launch",
+    "editorial",
+    "mask",
+    "monochrome",
+    "brand"
+  ],
+  "score": 3,
+  "why": "One letter (K) is the portal for the whole film, used as solid type, mask, negative space, grid and nav marker, and every scene is built from geometry already on screen, with the signal colour held back for one climax and no crossfades.",
+  "video": "video.mp4"
+}

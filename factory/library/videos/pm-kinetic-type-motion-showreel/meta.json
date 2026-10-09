@@ -1,0 +1,23 @@
+{
+  "title": "Kinetic type motion showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/topi-003-9ca6b5",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "kinetic-type",
+    "echo-type",
+    "hud-frame",
+    "particles",
+    "flow-field",
+    "japanese"
+  ],
+  "score": 3,
+  "why": "Replace the O letters of a word with brand rings and stack outlined echo copies of it behind the solid word, then later recolour a single word letter-by-letter between diagonal-stripe bands.",
+  "video": "video.mp4"
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Cycle of life animation",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/loicrambo-ad6830",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "characters",
+    "storytelling",
+    "loop",
+    "flat-illustration",
+    "hud",
+    "life-cycle",
+    "montage"
+  ],
+  "score": 3,
+  "why": "Keep one persistent HUD (age counter top-left, heart-rate BPM top-right) and one ground line across every life stage, so a flat-illustration montage reads as a single continuous life that flatlines to loop.",
+  "video": "video.mp4"
+}

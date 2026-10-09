@@ -1,0 +1,23 @@
+{
+  "title": "Launch video remake comparison",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/notdwd-c2037d",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "launch-film",
+    "product-ui",
+    "side-by-side",
+    "remake",
+    "liquid-glass",
+    "apple-style",
+    "comparison"
+  ],
+  "score": 3,
+  "why": "Prove a shot-for-shot remake by playing original and remake side by side in frame-synced paired panels, so timing and camera moves can be compared directly.",
+  "video": "video.mp4"
+}

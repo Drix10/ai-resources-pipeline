@@ -1,0 +1,22 @@
+{
+  "title": "SYNTHWAVE DRIVE — Neon Horizon, Infinite Miles",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/synthwave-drive-neon-horizon-infinite-miles-plinius/",
+  "model": "claude-fable-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "retro",
+    "synthwave",
+    "loop",
+    "generative",
+    "neon",
+    "endless-drive"
+  ],
+  "score": 3,
+  "why": "The classic synthwave infinite-drive setup: a neon grid floor scrolls toward a striped setting sun on a fixed horizon, an endless loop that needs no cuts.",
+  "repo": "https://github.com/elder-plinius/FABLE-SHOWCASE"
+}

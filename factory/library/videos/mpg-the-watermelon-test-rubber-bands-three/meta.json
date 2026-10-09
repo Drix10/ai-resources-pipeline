@@ -1,0 +1,21 @@
+{
+  "title": "The Watermelon Test (rubber bands, Three.js)",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/the-watermelon-test-rubber-bands-three-js-vib3coded/",
+  "model": "gpt-6-astra",
+  "engine": "three",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "3d",
+    "toy",
+    "tension",
+    "physics",
+    "humor",
+    "audio",
+    "interactive"
+  ],
+  "score": 3,
+  "why": "Tension builds through an escalating caption ladder ('Everything seems fine.', 'Bro is under pressure.', 'Maybe stop.'), a progress line that turns red past a threshold, and 0.34 s of violent shake before the burst."
+}

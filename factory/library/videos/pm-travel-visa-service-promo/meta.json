@@ -1,0 +1,23 @@
+{
+  "title": "Travel visa service promo",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/thismacapital-dfba20",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "promo",
+    "product-ui",
+    "hero-object",
+    "photos",
+    "circle-wipe",
+    "kinetic-type",
+    "travel"
+  ],
+  "score": 3,
+  "why": "A recurring hero object (a branded suitcase) stays centre-frame while status cards swap above it, then an expanding blue disc wipes into destination footage and the end card.",
+  "video": "video.mp4"
+}

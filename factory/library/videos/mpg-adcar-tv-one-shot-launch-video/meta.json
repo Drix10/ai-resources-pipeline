@@ -1,0 +1,23 @@
+{
+  "title": "AdCar TV one-shot launch video",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/adcar-tv-one-shot-launch-video/",
+  "model": "gpt-6-astra",
+  "engine": "remotion",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "launch",
+    "product",
+    "automotive",
+    "kinetic-typography",
+    "3d",
+    "voiceover",
+    "bold"
+  ],
+  "score": 3,
+  "why": "A two-line all-caps claim with the key phrase in red ('BUY AN AD ON / SOMEONE'S CAR.') hands off to one hero object (a 3D car) on which the ad slot is built up panel by panel in place.",
+  "video": "video.mp4"
+}

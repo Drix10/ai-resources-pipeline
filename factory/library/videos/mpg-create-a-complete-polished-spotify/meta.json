@@ -1,0 +1,23 @@
+{
+  "title": "Create a complete, polished Spotify-themed motion graphics…",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/create-a-complete-polished-spotify-themed-motion-graphics-br/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "brand",
+    "product",
+    "ui",
+    "music",
+    "launch",
+    "match-cut",
+    "typography"
+  ],
+  "score": 3,
+  "why": "One persistent player bar anchors the bottom of a rounded stage through every shot while a single hero artwork is handed through search, detail, brand tile and zoom by match-position transitions, with the outgoing title always gone before the incoming one takes its place.",
+  "video": "video.mp4"
+}

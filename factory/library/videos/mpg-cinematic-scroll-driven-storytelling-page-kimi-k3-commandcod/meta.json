@@ -1,0 +1,23 @@
+{
+  "title": "Cinematic scroll-driven storytelling page",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/cinematic-scroll-driven-storytelling-page-kimi-k3-commandcod/",
+  "model": "kimi-k3",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "scroll",
+    "storytelling",
+    "brand",
+    "eco",
+    "web",
+    "3d",
+    "chapters"
+  ],
+  "score": 3,
+  "why": "Four chapters (Problem, Journey, Solution, Impact) are tied to a colour arc from dark polluted to natural, with an earth/moon pair of spheres that moves with scroll and carries the viewer between chapters.",
+  "repo": "https://github.com/CommandCodeAI/slash-design-showcase"
+}

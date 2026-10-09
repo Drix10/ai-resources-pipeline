@@ -1,0 +1,23 @@
+{
+  "title": "Taxtello bookkeeping app film",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/daniel-haida-8691d4",
+  "model": "claude-opus-5-5",
+  "engine": "remotion",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product-ui",
+    "fintech",
+    "premium",
+    "dark",
+    "3d-tilt",
+    "gold-accent",
+    "apple-style"
+  ],
+  "score": 3,
+  "why": "Keep everything on near-black with one warm gold accent and let real dashboard panels drift at slight 3D angles under a shallow-focus feel, with a paper receipt dropping in as the single tactile object.",
+  "video": "video.mp4"
+}

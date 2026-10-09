@@ -1,0 +1,23 @@
+{
+  "title": "Voice agent SaaS launch",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/fractadev-149adc",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "launch-film",
+    "saas",
+    "product-ui",
+    "light-mode",
+    "blur-transition",
+    "problem-solution",
+    "voice-ai"
+  ],
+  "score": 3,
+  "why": "Pair each pain-point headline with a single floating UI card (missed-call card, transcript bubble), and use a word-blur dissolve where the headline's last word ('captures') carries into the next shot.",
+  "video": "video.mp4"
+}

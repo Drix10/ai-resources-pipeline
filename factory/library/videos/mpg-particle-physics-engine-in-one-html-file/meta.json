@@ -1,0 +1,21 @@
+{
+  "title": "Particle physics engine in one HTML file",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/particle-physics-engine-in-one-html-file-cyrilxbt/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "simulation",
+    "particles",
+    "physics",
+    "sandbox",
+    "pixel-art",
+    "interactive"
+  ],
+  "score": 3,
+  "why": "A falling-sand cellular automaton where each material (sand, water, oil, fire, lava, steam) has one simple neighbour rule, so emergent interactions provide the motion for free.",
+  "video": "video.mp4"
+}

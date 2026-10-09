@@ -1,0 +1,23 @@
+{
+  "title": "Collision-driven music machine",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/kamstudiolabs-447565",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "music",
+    "physics",
+    "particles",
+    "generative",
+    "beat-sync",
+    "single-shot",
+    "dark"
+  ],
+  "score": 3,
+  "why": "Lay out instruments as fixed rows of struck bars and make every note a falling body that flashes its bar on impact, so the score is literally visible as physics.",
+  "video": "video.mp4"
+}

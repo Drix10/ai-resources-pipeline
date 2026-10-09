@@ -1,0 +1,23 @@
+{
+  "title": "Tally product demo",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/visheshbaghell-3aba37",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product-ui",
+    "demo",
+    "text-highlight",
+    "before-after",
+    "saas",
+    "light-theme",
+    "big-number"
+  ],
+  "score": 3,
+  "why": "Open with a messy real-world technician note typed out, then have the product highlight and annotate the exact phrases that map to missed charges, ending on one giant blue money figure.",
+  "video": "video.mp4"
+}

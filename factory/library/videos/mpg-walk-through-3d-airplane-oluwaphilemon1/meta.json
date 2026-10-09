@@ -1,0 +1,21 @@
+{
+  "title": "Walk-through 3D airplane",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/walk-through-3d-airplane-oluwaphilemon1-fable5/",
+  "model": "claude-fable-5",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "3d",
+    "walkthrough",
+    "interior",
+    "airplane",
+    "first-person",
+    "scene"
+  ],
+  "score": 3,
+  "why": "An exterior-to-interior move (orbit the airplane, then step inside and walk the cabin) is a reusable camera arc for revealing a product from the outside in."
+}

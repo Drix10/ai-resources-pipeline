@@ -1,0 +1,23 @@
+{
+  "title": "AjustaCV Pro pricing promo",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/thayto-dev-44b911",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product-ui",
+    "pricing",
+    "comparison",
+    "data-viz",
+    "serif-type",
+    "saas",
+    "promo"
+  ],
+  "score": 3,
+  "why": "Sell price with a running tally: per-item charges stack into a growing total beside the flat Pro price, so the arithmetic makes the argument.",
+  "video": "video.mp4"
+}

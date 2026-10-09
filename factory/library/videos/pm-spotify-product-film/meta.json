@@ -1,0 +1,23 @@
+{
+  "title": "Spotify product film",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/brainextends-e19ac3",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product-ui",
+    "music",
+    "launch-film",
+    "app-window",
+    "brand-colour",
+    "album-art",
+    "ad"
+  ],
+  "score": 3,
+  "why": "Keep one rounded app window and persistent player bar locked in frame while content swaps inside it, punctuated by full-bleed album-art blow-ups and fanned cover stacks that collapse into the logo.",
+  "video": "video.mp4"
+}

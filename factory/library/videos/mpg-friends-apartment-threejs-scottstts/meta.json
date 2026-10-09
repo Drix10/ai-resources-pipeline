@@ -1,0 +1,21 @@
+{
+  "title": "Monica’s apartment from Friends, first-person in Three.js",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/friends-apartment-threejs-scottstts/",
+  "model": "claude-fable-5",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "3d",
+    "interior",
+    "first-person",
+    "nostalgia",
+    "warm-lighting",
+    "recreation"
+  ],
+  "score": 3,
+  "why": "Recognition comes from fidelity to a floor plan plus warm lighting: build a famous set to its real layout and let a slow first-person walkthrough do the storytelling."
+}

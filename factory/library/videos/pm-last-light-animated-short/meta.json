@@ -1,0 +1,23 @@
+{
+  "title": "The Last Light animated short",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/faroukzy-9ff23e",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "short-film",
+    "characters",
+    "storytelling",
+    "lighthouse",
+    "robot",
+    "letterbox",
+    "warm-light"
+  ],
+  "score": 3,
+  "why": "Anchor a long short-film on one recurring light source: the lighthouse beam doubles as the robot's chest glow, so every scene (storm, rescue, dawn) is lit and motivated by the same warm motif.",
+  "video": "video.mp4"
+}

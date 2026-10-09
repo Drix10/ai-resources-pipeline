@@ -1,0 +1,23 @@
+{
+  "title": "Motion designer showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/himanshutwtxs-5f4b43",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "explainer",
+    "annotations",
+    "hand-drawn",
+    "easing",
+    "kinetic-type",
+    "particles"
+  ],
+  "score": 3,
+  "why": "Teach the principles while showing them: handwritten blue annotations ('linear = robotic', 'follow-through', 'anticipation') label each motion live, like a designer marking up their own work.",
+  "video": "video.mp4"
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Motion piece by @GroundControl",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-piece-by-groundcontrol-groundcontrol/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "data-viz",
+    "hand-drawn",
+    "pencil",
+    "japan",
+    "climate",
+    "audio",
+    "editorial"
+  ],
+  "score": 3,
+  "why": "Data is presented as a pencil field sketchbook on paper, with a hatched red sun, a red hanko seal and slight chromatic aberration, so the numbers read as hand-noted observations rather than dashboard charts.",
+  "video": "video.mp4"
+}

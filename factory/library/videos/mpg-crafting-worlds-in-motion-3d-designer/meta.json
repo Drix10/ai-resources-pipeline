@@ -1,0 +1,23 @@
+{
+  "title": "“Crafting Worlds in Motion” 3D designer portfolio",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/crafting-worlds-in-motion-3d-designer-portfolio-kimi-k3-comm/",
+  "model": "kimi-k3",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "web",
+    "portfolio",
+    "3d",
+    "scroll",
+    "neon",
+    "cyber",
+    "parallax"
+  ],
+  "score": 3,
+  "why": "Scroll is the timeline: vertical scroll drives a horizontal gallery that reveals 3D pieces one by one, and a mouse-reactive sculpture behind a dramatic title reveal sets the hero.",
+  "repo": "https://github.com/CommandCodeAI/slash-design-showcase"
+}

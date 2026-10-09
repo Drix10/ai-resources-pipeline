@@ -1,0 +1,24 @@
+{
+  "title": "Melting Space: Ricci flow and the Poincaré conjecture",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/melting-space-ricci-flow-kimik3manim/",
+  "model": "kimi-k3",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "math",
+    "explainer",
+    "3d",
+    "wireframe",
+    "educational",
+    "cinematic",
+    "neon"
+  ],
+  "score": 3,
+  "why": "A strict colour code (gold for the sphere, cyan-to-magenta heat for curvature, red reserved only for the surgery incision) plus one callback motif, a rubber-band loop that opens the film and closes it by sliding off the final sphere.",
+  "repo": "https://github.com/HarleyCoops/KimiK3Manim",
+  "video": "video.mp4"
+}

@@ -1,0 +1,21 @@
+{
+  "title": "Living Cell",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/living-cell-openai/",
+  "model": "gpt-6-astra",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "biology",
+    "3d",
+    "scientific",
+    "educational",
+    "fluorescence",
+    "cutaway"
+  ],
+  "score": 3,
+  "why": "Use restrained fluorescence colours (cyan, ultraviolet, coral) and a cutaway slider so mechanisms (motor proteins walking, ATP synthase turning) read clearly instead of becoming a cloud of spheres."
+}

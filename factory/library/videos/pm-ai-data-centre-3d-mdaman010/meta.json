@@ -1,0 +1,23 @@
+{
+  "title": "AI data centre 3D film",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/mdaman010-e7226a",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "3d",
+    "explainer",
+    "flow-tracing",
+    "colour-legend",
+    "infrastructure",
+    "cutaway",
+    "player-chrome"
+  ],
+  "score": 3,
+  "why": "Give a long explainer a through-line by following one physical flow end to end: red heat and cyan coolant pipes trace from chip to rack to rooftop coolers, with a persistent colour legend top-right decoding them.",
+  "video": "video.mp4"
+}

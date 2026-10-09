@@ -1,0 +1,22 @@
+{
+  "title": "Shot-by-shot iPhone 17 Pro commercial recreation",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/iphone-17-pro-commercial-recreation-chatcutapp/",
+  "model": "gpt-6-astra",
+  "engine": "unknown",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "product",
+    "commercial",
+    "3d",
+    "blender",
+    "recreation",
+    "typography",
+    "hero-shot"
+  ],
+  "score": 3,
+  "why": "Break a reference ad down shot by shot (model, material, light, camera, timing, type animation) and rebuild each layer separately, using the reference's own cut timing as the edit grid.",
+  "video": "video.mp4"
+}

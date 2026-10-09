@@ -1,0 +1,23 @@
+{
+  "title": "Developer portfolio site showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/wani-shola-16ca7a",
+  "model": "claude-opus-5-5",
+  "engine": "remotion",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "portfolio",
+    "product-ui",
+    "browser-mockup",
+    "editorial",
+    "serif",
+    "stat-reveal",
+    "beat-sync"
+  ],
+  "score": 3,
+  "why": "Sell a person through their real site: float captured browser windows on a warm cream ground under a single serif headline per shot, and close on a dark stats strip of four big numbers.",
+  "video": "video.mp4"
+}

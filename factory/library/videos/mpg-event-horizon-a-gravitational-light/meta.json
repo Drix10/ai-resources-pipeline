@@ -1,0 +1,22 @@
+{
+  "title": "EVENT HORIZON — A Gravitational Light Study",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/event-horizon-a-gravitational-light-study-plinius/",
+  "model": "claude-fable-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "generative",
+    "space",
+    "black-hole",
+    "shader",
+    "light",
+    "single-file"
+  ],
+  "score": 3,
+  "why": "A light study built on one physical rule, gravitational lensing bending the background around a dark centre, so a single distortion effect gives the whole piece its depth and drama.",
+  "repo": "https://github.com/elder-plinius/FABLE-SHOWCASE"
+}

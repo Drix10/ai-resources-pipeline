@@ -1,0 +1,21 @@
+{
+  "title": "Open Sea — realtime WebGPU ocean",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/open-sea-realtime-webgpu-ocean-kimi/",
+  "model": "kimi-k3",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "ocean",
+    "3d",
+    "shader",
+    "sky",
+    "time-of-day",
+    "ambient"
+  ],
+  "score": 3,
+  "why": "Tie the sky and the water to one time-of-day value, so a single slider (or a slow drift) re-lights the whole scene coherently instead of each element being animated separately."
+}

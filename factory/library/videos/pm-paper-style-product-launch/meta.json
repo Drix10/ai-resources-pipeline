@@ -1,0 +1,24 @@
+{
+  "title": "Paper-style product launch film",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/ik-builds-b8bdcf",
+  "model": "claude-opus-5-5",
+  "engine": "gsap",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "explainer",
+    "launch-film",
+    "paper",
+    "hand-drawn",
+    "onion-skin",
+    "data-viz",
+    "light-dark-switch",
+    "physics"
+  ],
+  "score": 3,
+  "why": "Use one bouncing ball with onion-skin trails as the through-line character: it bounces on paper, flattens against a 'ceiling' line on a chart, then arcs off into the logo, with hard light/dark switches.",
+  "video": "video.mp4"
+}

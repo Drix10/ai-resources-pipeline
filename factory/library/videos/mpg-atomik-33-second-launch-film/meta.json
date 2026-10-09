@@ -1,0 +1,22 @@
+{
+  "title": "Atomik 33-second launch film",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/atomik-33-second-launch-film/",
+  "model": "gpt-6-astra",
+  "engine": "remotion",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "launch",
+    "brand",
+    "remotion",
+    "cursor",
+    "typography",
+    "rocket"
+  ],
+  "score": 3,
+  "why": "Spec the film as an acceptance contract (exact duration, frame count, and every rocket, cursor and type element rendered from code with no hidden pre-rendered layer) so the render is fully reproducible.",
+  "video": "video.mp4"
+}

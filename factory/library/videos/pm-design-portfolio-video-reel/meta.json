@@ -1,0 +1,22 @@
+{
+  "title": "Design portfolio video reel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/kikelopezdesign-7cc9e8",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "portfolio",
+    "product-ui",
+    "camera-move",
+    "canvas",
+    "phone-mockup",
+    "light-ui"
+  ],
+  "score": 3,
+  "why": "Present a portfolio as a pan-and-zoom across a Figma-style canvas: selecting each frame opens a right-hand inspector whose 'impact' field shows a big orange metric.",
+  "video": "video.mp4"
+}

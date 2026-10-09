@@ -1,0 +1,22 @@
+{
+  "title": "Motion piece by @songkeys",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-piece-by-songkeys-songkeys/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "hand-drawn",
+    "storybook",
+    "narrative",
+    "wordless",
+    "doodle",
+    "history"
+  ],
+  "score": 3,
+  "why": "A pencil on an open sketchbook draws the world into existence, then the camera pushes into the drawing to enter it, a wordless frame device that reads across languages.",
+  "video": "video.mp4"
+}

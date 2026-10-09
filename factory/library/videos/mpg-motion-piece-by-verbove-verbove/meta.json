@@ -1,0 +1,22 @@
+{
+  "title": "Motion piece by @verbove",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-piece-by-verbove-verbove/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "ui",
+    "product",
+    "morph",
+    "loop",
+    "springs",
+    "120bpm",
+    "deterministic"
+  ],
+  "score": 3,
+  "why": "One container shape is never cut and morphs size, radius and colour through every UI state on a 120 bpm grid, with content entering after the morph starts and leaving before the next so text never overlaps.",
+  "video": "video.mp4"
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Elena Voss: 3D floating-frame photography portfolio",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/elena-voss-3d-floating-frame-photography-portfolio-fable-5-c/",
+  "model": "claude-fable-5",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "web",
+    "portfolio",
+    "photography",
+    "minimal",
+    "3d-tilt",
+    "parallax",
+    "elegant"
+  ],
+  "score": 3,
+  "why": "Restraint as a rule: lots of whitespace and soft type, with 3D used only as a slight float and rotation of photo frames so the motion frames the images instead of competing with them.",
+  "repo": "https://github.com/CommandCodeAI/slash-design-showcase"
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Lighthouse keeper silent short",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/kamstudiolabs-0b0824",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "silent-film",
+    "silhouette",
+    "storytelling",
+    "lighting",
+    "cinematic",
+    "moody",
+    "characters"
+  ],
+  "score": 3,
+  "why": "Tell the whole story in flat layered silhouettes against fog, with a single warm practical light (stove, lantern, then the lamp itself) as the only saturated element, so the climb up the spiral stair reads purely as the warm point moving toward the top.",
+  "video": "video.mp4"
+}

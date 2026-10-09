@@ -1,0 +1,23 @@
+{
+  "title": "Type, form, space showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/web3wesley-7bb108",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "kinetic-type",
+    "bauhaus",
+    "shapes",
+    "3d",
+    "chapter-cards",
+    "editorial"
+  ],
+  "score": 3,
+  "why": "Bookend the reel with a printed CV card listing four skills (Type, Form, Space, Time), and devote one chapter to each so the structure itself is the résumé.",
+  "video": "video.mp4"
+}

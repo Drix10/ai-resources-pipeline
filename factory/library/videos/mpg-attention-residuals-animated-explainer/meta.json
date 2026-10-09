@@ -1,0 +1,21 @@
+{
+  "title": "Attention Residuals: Kimi paper as an animated explainer",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/attention-residuals-animated-explainer-kimi-showcase/",
+  "model": "kimi-k3",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "explainer",
+    "ml",
+    "educational",
+    "diagram",
+    "math",
+    "academic"
+  ],
+  "score": 3,
+  "why": "The structure is problem, naive fix, then refined fix: depth dilution is animated first so the viewer sees the magnitude grow, then the full solution and its cheaper block variant, ending on a cost comparison."
+}

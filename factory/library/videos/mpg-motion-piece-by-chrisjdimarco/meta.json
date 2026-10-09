@@ -1,0 +1,23 @@
+{
+  "title": "Motion piece by @chrisjdimarco",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-piece-by-chrisjdimarco-chrisjdimarco/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "kinetic-typography",
+    "civic",
+    "manifesto",
+    "cinematic",
+    "minimal",
+    "red-accent",
+    "60-second"
+  ],
+  "score": 3,
+  "why": "A repeated sentence frame ('Democracy runs on ...') where only the last word changes on each beat (facts, questions, a free press), with a red accent used only on the key verb ('keep it') and on the hard transitions.",
+  "video": "video.mp4"
+}

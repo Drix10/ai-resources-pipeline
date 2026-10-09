@@ -1,0 +1,22 @@
+{
+  "title": "Parenting app hype video",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/francoxavier33-d2dfd2",
+  "model": "claude-opus-5-5",
+  "engine": "remotion",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "app-promo",
+    "vertical",
+    "serif-italic",
+    "highlighter",
+    "warm-palette",
+    "product-ui",
+    "notification-stack"
+  ],
+  "score": 3,
+  "why": "Set each beat as a two-line serif headline with the final word in warm italic plus a hand-drawn highlighter swash ('busy parents.', 'village.'), with UI cards stacking in like chat notifications beneath.",
+  "video": "video.mp4"
+}

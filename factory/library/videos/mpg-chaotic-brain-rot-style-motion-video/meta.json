@@ -1,0 +1,22 @@
+{
+  "title": "Chaotic brain-rot style motion video",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/chaotic-brain-rot-style-motion-video-kloss-xyz/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "kinetic-typography",
+    "vertical",
+    "glitch",
+    "first-person",
+    "launch",
+    "audio",
+    "brain-rot"
+  ],
+  "score": 3,
+  "why": "A live HUD (context % meter plus a running clock) frames the whole piece while giant type speaks in the AI's first person ('I WAS BORN. 2.15 seconds ago.'), the counter ticking in real time under the headline.",
+  "video": "video.mp4"
+}

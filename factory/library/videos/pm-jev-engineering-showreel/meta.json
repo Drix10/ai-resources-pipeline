@@ -1,0 +1,23 @@
+{
+  "title": "Jev engineering showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/polydao-7a572b",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "explainer",
+    "retro-ui",
+    "halftone",
+    "diagram",
+    "magenta",
+    "comparison",
+    "kinetic-type"
+  ],
+  "score": 3,
+  "why": "Dress every scene as a retro OS window (title bar, chunky borders, hard drop shadow) with magenta halftone corners, so a technical diagram reads as a branded deck.",
+  "video": "video.mp4"
+}

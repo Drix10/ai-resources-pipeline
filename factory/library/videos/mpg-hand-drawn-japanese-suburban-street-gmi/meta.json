@@ -1,0 +1,20 @@
+{
+  "title": "Hand-drawn Japanese suburban street",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/hand-drawn-japanese-suburban-street-gmi-cloud-fable5/",
+  "model": "claude-fable-5",
+  "engine": "three",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "3d",
+    "anime",
+    "hand-drawn",
+    "environment",
+    "explorable",
+    "npr"
+  ],
+  "score": 3,
+  "why": "Use non-photoreal rendering to make a real 3D street read like a painted anime background (flat painted fills and ink edges), keeping camera freedom while the look stays 2D."
+}

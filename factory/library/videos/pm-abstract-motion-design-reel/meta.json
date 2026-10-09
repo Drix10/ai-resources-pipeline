@@ -1,0 +1,23 @@
+{
+  "title": "Abstract motion design reel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/ajith-io-b5626e",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "motif",
+    "particles",
+    "circular-type",
+    "kinetic-type",
+    "shapes",
+    "end-card"
+  ],
+  "score": 3,
+  "why": "A single red dot is the throughline: it appears as a point, a design-tool selected circle, a dot-grid sphere and the centre of spiral type, ending as the wordmark's full stop.",
+  "video": "video.mp4"
+}

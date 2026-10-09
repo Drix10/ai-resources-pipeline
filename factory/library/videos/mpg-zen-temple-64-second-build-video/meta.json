@@ -1,0 +1,21 @@
+{
+  "title": "禅境·古寺: 64-second Zen temple build-process video",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/zen-temple-64-second-build-video-huoshan007/",
+  "model": "gpt-6-astra",
+  "engine": "three",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "3d",
+    "isometric",
+    "build-process",
+    "architecture",
+    "diorama",
+    "square"
+  ],
+  "score": 3,
+  "why": "One locked 45-degree orthographic camera watches a diorama assemble in timed stages (plan lines, massing, details, roof, landscape, white model to PBR colour, light) with only a short stage label as text.",
+  "video": "video.mp4"
+}

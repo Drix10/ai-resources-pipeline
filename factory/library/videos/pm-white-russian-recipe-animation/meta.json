@@ -1,0 +1,23 @@
+{
+  "title": "White Russian recipe animation",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/sarut0bisasuke-cefa43",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "explainer",
+    "recipe",
+    "illustrated",
+    "checklist",
+    "step-by-step",
+    "warm-palette",
+    "hand-lettered"
+  ],
+  "score": 3,
+  "why": "Split the frame into a step stage (drawn glass filling, big fractional measurement) and a persistent checklist sidebar where an arrow advances and ticks each ingredient, so viewers always know where they are.",
+  "video": "video.mp4"
+}

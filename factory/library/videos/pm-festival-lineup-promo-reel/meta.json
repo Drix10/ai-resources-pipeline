@@ -1,0 +1,22 @@
+{
+  "title": "Festival lineup promo reel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/gonzalomacagno-2de1a9",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "festival",
+    "lineup",
+    "kinetic-type",
+    "type-hierarchy",
+    "color-wipe",
+    "pastel-gradient",
+    "vertical-promo"
+  ],
+  "score": 3,
+  "why": "Keep the looping ribbon backdrop fixed and swap only a striped date tab plus a tiered type stack (headliner huge, second line mid, undercard shrinking line by line), wiping between days with a purple-and-orange colour-bar sweep before landing on dates and a ticket CTA.",
+  "video": "video.mp4"
+}

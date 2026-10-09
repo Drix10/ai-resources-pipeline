@@ -1,0 +1,22 @@
+{
+  "title": "Hollowflux",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/hollowflux-openai/",
+  "model": "gpt-6-astra",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "pixel-art",
+    "game",
+    "fluid",
+    "dungeon",
+    "lighting",
+    "concept-art",
+    "systemic"
+  ],
+  "score": 3,
+  "why": "One readable colour rule (a red cape on a small character) keeps the hero legible against busy fluid, spark and lighting effects, and the cape layers correctly for each facing direction."
+}

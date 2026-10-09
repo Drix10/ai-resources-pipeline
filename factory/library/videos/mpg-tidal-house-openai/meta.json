@@ -1,0 +1,21 @@
+{
+  "title": "Tidal House",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/tidal-house-openai/",
+  "model": "gpt-6-astra",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "web",
+    "hospitality",
+    "editorial",
+    "architecture",
+    "cutaway",
+    "landscape"
+  ],
+  "score": 3,
+  "why": "On selection the camera pushes in and the roof lifts away to reveal the floor plan, while one morning/evening and one tide control re-light the same consistent geometry."
+}

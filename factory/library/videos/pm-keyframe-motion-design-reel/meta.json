@@ -1,0 +1,22 @@
+{
+  "title": "Keyframe motion design reel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/grace-sunnyy-29bc61",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "kinetic-type",
+    "timeline-hud",
+    "3d",
+    "monochrome-accent",
+    "dark"
+  ],
+  "score": 3,
+  "why": "Run an After-Effects-style keyframe timeline along the bottom of every shot, its red playhead hitting diamond keys exactly as on-screen events fire, framing the reel as its own animation curve.",
+  "video": "video.mp4"
+}

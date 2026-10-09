@@ -1,0 +1,22 @@
+{
+  "title": "Pelican riding a bicycle",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/axtonliu-0b861d",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "3d",
+    "characters",
+    "cinematic",
+    "golden-hour",
+    "close-ups",
+    "short-film"
+  ],
+  "score": 3,
+  "why": "Treat a meme subject as a cinematic short: wide establishing shot, wheel and beak close-ups, a wing-flap beat, all under one golden-hour sunset light on a pier.",
+  "video": "video.mp4"
+}

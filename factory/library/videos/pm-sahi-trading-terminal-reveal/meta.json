@@ -1,0 +1,23 @@
+{
+  "title": "Sahi trading terminal reveal",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/dale-vaz-cc612a",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product-ui",
+    "fintech",
+    "scale-zoom",
+    "charts",
+    "phone-mockup",
+    "dark",
+    "single-shot"
+  ],
+  "score": 3,
+  "why": "Do a powers-of-ten zoom: from a single dot, into dense terminal windows and a glowing live-price tick, out until the desktop is a star in space, then back in to a landscape phone screen.",
+  "video": "video.mp4"
+}

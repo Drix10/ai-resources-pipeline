@@ -1,0 +1,22 @@
+{
+  "title": "Rolling the obelisk: 3D Egyptology physics explainer",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/rush-test-egyptology-kimi-k3/",
+  "model": "kimi-k3",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "explainer",
+    "3d",
+    "engineering",
+    "history",
+    "physics",
+    "step-by-step",
+    "labels"
+  ],
+  "score": 3,
+  "why": "Barber-pole stripes on the rolling logs, rotating exactly at position/radius, make no-slip rolling visible, and leader-line labels track each object through a numbered seven-stage sequence."
+}

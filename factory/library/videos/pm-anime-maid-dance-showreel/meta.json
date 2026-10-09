@@ -1,0 +1,24 @@
+{
+  "title": "Anime maid dance showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/topi-003-b0e12c",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "characters",
+    "anime",
+    "dance",
+    "pop-art",
+    "kinetic-type",
+    "showreel",
+    "halftone",
+    "beat-sync"
+  ],
+  "score": 3,
+  "why": "Treat one rigged character like a pop-art print: duplicate her into Warhol-style colour-shifted grids and side-by-side panels, punctuated by giant manga onomatopoeia ('STEP!', 'JUMP!!') on each move.",
+  "video": "video.mp4"
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Brand motion showreel from a reference video",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/brand-motion-showreel-from-a-reference-video-ajith-io/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "brand",
+    "showreel",
+    "hand-drawn",
+    "metaphor",
+    "particles",
+    "explainer",
+    "30-second"
+  ],
+  "score": 3,
+  "why": "Turn the product promise into a visual metaphor sequence: a sketched document is pulled into a cosmic orbit and then a prism refracts a white beam into rainbow stripes, so document becomes video without showing any UI.",
+  "video": "video.mp4"
+}

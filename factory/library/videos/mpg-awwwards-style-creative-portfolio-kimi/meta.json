@@ -1,0 +1,22 @@
+{
+  "title": "Awwwards-style creative portfolio",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/awwwards-style-creative-portfolio-kimi-k3-commandcode/",
+  "model": "kimi-k3",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "web",
+    "portfolio",
+    "scroll",
+    "minimal",
+    "dark",
+    "typography"
+  ],
+  "score": 3,
+  "why": "A dark minimalist page where oversized elegant type is the hero and every scroll section enters with a staggered reveal rather than a fade.",
+  "repo": "https://github.com/CommandCodeAI/slash-design-showcase"
+}

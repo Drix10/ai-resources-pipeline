@@ -1,0 +1,23 @@
+{
+  "title": "Tengwang Pavilion moonlit river",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/demitiyageekzen-7770ad",
+  "model": "claude-opus-5-5",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "single-shot",
+    "landscape",
+    "time-lapse",
+    "chinese",
+    "poetry",
+    "ambient",
+    "webgl"
+  ],
+  "score": 3,
+  "why": "Use a single locked river horizon and let time of day do the storytelling, from pink sunset skyline to moonlit lantern-lit pavilion, revealing vertical classical-poetry lines one at a time.",
+  "video": "video.mp4"
+}

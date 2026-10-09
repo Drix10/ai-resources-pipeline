@@ -1,0 +1,22 @@
+{
+  "title": "Motion design showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/safarkhanshuvo-ffd52d",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "kinetic-type",
+    "retro",
+    "shapes",
+    "particles",
+    "data-viz"
+  ],
+  "score": 3,
+  "why": "Give each principle word a backdrop that enacts it: POP on a spinning retro sunburst, SPACING inside a tunnel of nested rotated squares.",
+  "video": "video.mp4"
+}

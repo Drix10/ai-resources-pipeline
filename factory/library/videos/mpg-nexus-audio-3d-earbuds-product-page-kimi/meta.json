@@ -1,0 +1,23 @@
+{
+  "title": "NEXUS Audio: 3D earbuds product page",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/nexus-audio-3d-earbuds-product-page-kimi-k3-commandcode/",
+  "model": "kimi-k3",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product",
+    "3d",
+    "web",
+    "dark",
+    "audio",
+    "glassmorphism",
+    "interactive"
+  ],
+  "score": 3,
+  "why": "The hero product is a live 3D object whose colour can be swapped in real time, and a canvas sound visualisation reacts to faked audio so 'sound quality' becomes something you can see.",
+  "repo": "https://github.com/CommandCodeAI/slash-design-showcase"
+}

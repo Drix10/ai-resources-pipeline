@@ -1,0 +1,22 @@
+{
+  "title": "Animated personal website with cursor reactions",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/animated-personal-site-nicky-sap/",
+  "model": "kimi-k3",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "web",
+    "portfolio",
+    "cursor",
+    "interactive",
+    "experimental",
+    "landing-page"
+  ],
+  "score": 3,
+  "why": "Ban the defaults (no parallax, no slides): the cursor becomes the protagonist, and every section reacts to it in a distinct way.",
+  "video": "video.mp4"
+}

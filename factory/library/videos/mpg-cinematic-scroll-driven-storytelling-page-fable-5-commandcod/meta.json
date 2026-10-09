@@ -1,0 +1,22 @@
+{
+  "title": "Cinematic scroll-driven storytelling page",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/cinematic-scroll-driven-storytelling-page-fable-5-commandcod/",
+  "model": "claude-fable-5",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "scroll",
+    "storytelling",
+    "brand",
+    "eco",
+    "web",
+    "chapters"
+  ],
+  "score": 3,
+  "why": "A four-act problem, journey, solution, impact arc opening on a forest-to-moon parallax transition, with the impact numbers flying in as the final payoff before the CTA.",
+  "repo": "https://github.com/CommandCodeAI/slash-design-showcase"
+}

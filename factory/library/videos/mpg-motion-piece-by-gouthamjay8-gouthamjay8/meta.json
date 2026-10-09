@@ -1,0 +1,23 @@
+{
+  "title": "Motion piece by @gouthamjay8",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-piece-by-gouthamjay8-gouthamjay8/",
+  "model": "claude-opus-5-5",
+  "engine": "gsap",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "saas",
+    "launch",
+    "product",
+    "social-proof",
+    "kinetic-typography",
+    "ui",
+    "cards"
+  ],
+  "score": 3,
+  "why": "Real testimonial cards float around a centred serif-italic headline and then scatter and blur as the line changes ('Buried in DMs.' then 'Lost in feeds.'), so the cards act out the problem before the product appears.",
+  "video": "video.mp4"
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Claude motion reel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/codestackr-c071bf",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "hud-frame",
+    "kinetic-type",
+    "particles",
+    "easing",
+    "orange-accent",
+    "frame-counter"
+  ],
+  "score": 3,
+  "why": "Make a giant running frame counter ('frame no. 0251') a scene in its own right, reinforcing the HUD timecode and selling the piece as precision-timed craft.",
+  "video": "video.mp4"
+}

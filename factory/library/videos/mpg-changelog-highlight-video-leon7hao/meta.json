@@ -1,0 +1,22 @@
+{
+  "title": "Changelog highlight video (no skill installed)",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/changelog-highlight-video-leon7hao/",
+  "model": "gpt-6-astra",
+  "engine": "remotion",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product",
+    "changelog",
+    "ui",
+    "minimal",
+    "saas",
+    "feature-reel"
+  ],
+  "score": 3,
+  "why": "A fixed editorial template (logo top-left, date range top-right, headline left, live UI panel right, progress line at bottom) is reused for every feature so only the UI interaction changes, like a toggle flipping.",
+  "video": "video.mp4"
+}

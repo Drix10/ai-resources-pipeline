@@ -1,0 +1,21 @@
+{
+  "title": "Pig Love Notes: An Animated App Promo",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/pig-love-notes-an-animated-app-promo-jackfriks/",
+  "model": "claude-opus-5-5",
+  "engine": "gsap",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "character",
+    "story",
+    "app-promo",
+    "vertical",
+    "cute",
+    "sound-design"
+  ],
+  "score": 3,
+  "why": "A tiny wordless character story (pig posts love notes in a mailbox) carries the emotion first, and the app only appears as the teaser button at the very end.",
+  "video": "video.mp4"
+}

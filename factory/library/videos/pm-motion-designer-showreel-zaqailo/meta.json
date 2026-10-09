@@ -1,0 +1,23 @@
+{
+  "title": "Motion designer showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/zaqailo-212ad3",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "kinetic-type",
+    "hidden-word",
+    "particles",
+    "3d",
+    "metaballs",
+    "bauhaus"
+  ],
+  "score": 3,
+  "why": "Open on a single thin red horizon line on black, then reveal 'EMOTION' with the E in accent red so the word hides 'MOTION', before cycling through bauhaus tiles, particle sphere and glossy metaballs.",
+  "video": "video.mp4"
+}

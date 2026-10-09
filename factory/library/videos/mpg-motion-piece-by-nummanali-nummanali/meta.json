@@ -1,0 +1,22 @@
+{
+  "title": "Motion piece by @nummanali",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-piece-by-nummanali-nummanali/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "data-viz",
+    "timeline",
+    "ai",
+    "kinetic-typography",
+    "terminal",
+    "stats"
+  ],
+  "score": 3,
+  "why": "Open on a blinking terminal timestamp boot line, slam in a big stat card (\"101 MODEL RELEASES.\"), then build a dashboard where stat columns are added one at a time over a starfield-warp background.",
+  "video": "video.mp4"
+}

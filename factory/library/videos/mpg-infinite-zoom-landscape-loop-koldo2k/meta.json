@@ -1,0 +1,23 @@
+{
+  "title": "Infinite-zoom landscape loop",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/infinite-zoom-landscape-loop-koldo2k/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "loop",
+    "infinite-zoom",
+    "collage",
+    "vintage",
+    "parallax",
+    "music",
+    "transition"
+  ],
+  "score": 3,
+  "why": "Each world is entered through a portal object whose glass already holds the next world, with exponential zoom to a fixed point and each segment's duration proportional to log(zoom), so the camera speed stays constant and the loop lands exactly on 8 bars at 96 BPM.",
+  "video": "video.mp4"
+}

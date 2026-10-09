@@ -1,0 +1,24 @@
+{
+  "title": "Reddit marketing tool launch video",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/anthonyriera-9b1b2a",
+  "model": "claude-opus-5-5",
+  "engine": "remotion",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "launch-film",
+    "product-ui",
+    "mascot",
+    "characters",
+    "dark-mode",
+    "orange",
+    "saas"
+  ],
+  "score": 3,
+  "why": "A spiky orange mascot hops between UI moments on black (account graph, karma bars, browser post), ending as an outline character beside Google and ChatGPT results.",
+  "repo": "https://github.com/Rieranthony/product-film-skill",
+  "video": "video.mp4"
+}

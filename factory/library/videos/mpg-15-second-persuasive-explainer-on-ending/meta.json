@@ -1,0 +1,21 @@
+{
+  "title": "15-second persuasive explainer on ending the Fed",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/15-second-persuasive-explainer-on-ending-the-fed-cboyack/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "explainer",
+    "data-viz",
+    "persuasive",
+    "kinetic-typography",
+    "vertical",
+    "counter"
+  ],
+  "score": 3,
+  "why": "A dollar bill literally burns away left-to-right while the year ticks 1913 to 2026 and its purchasing power counts down to $0.03, so one object carries the entire statistic.",
+  "video": "video.mp4"
+}

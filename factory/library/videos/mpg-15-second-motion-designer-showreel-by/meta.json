@@ -1,0 +1,23 @@
+{
+  "title": "15-second motion designer showreel by @leonabboud",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/15-second-motion-designer-showreel-by-leonabboud-leonabboud/",
+  "model": "claude-opus-5-5",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "3d",
+    "particles",
+    "data-viz",
+    "kinetic-typography",
+    "bold-color",
+    "montage"
+  ],
+  "score": 3,
+  "why": "Each scene shows off one discipline (3D, typography, data, particles) inside the same corner-bracket viewfinder with scene numbers and timecode, and that shared frame turns a grab-bag montage into one reel.",
+  "video": "video.mp4"
+}

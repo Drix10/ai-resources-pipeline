@@ -1,0 +1,22 @@
+{
+  "title": "Create a self contained aesthetically pleasing, breathtaking…",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/create-a-self-contained-aesthetically-pleasing-breathtaking/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product",
+    "fintech",
+    "ui",
+    "zoom",
+    "camera",
+    "data-viz"
+  ],
+  "score": 3,
+  "why": "A powers-of-ten structure: start from a single dot, zoom out until the whole desktop collapses to a point in space, then zoom back in on that point to reveal the mobile version.",
+  "video": "video.mp4"
+}

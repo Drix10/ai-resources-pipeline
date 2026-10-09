@@ -1,0 +1,22 @@
+{
+  "title": "Matra caption app promo",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/gautam-mer1-2ae354",
+  "model": "claude-opus-5-5",
+  "engine": "remotion",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "app-promo",
+    "vertical",
+    "apple-style",
+    "captions",
+    "phone-mockup",
+    "gradient-type",
+    "footage"
+  ],
+  "score": 3,
+  "why": "Demo a caption app by letting the feature act on real footage: the creator's talking-head gets live word-highlighted captions, a word-chip timeline scrubs, then a 6-up grid shows the same clip in caption styles.",
+  "video": "video.mp4"
+}

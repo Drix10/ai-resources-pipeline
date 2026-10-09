@@ -1,0 +1,23 @@
+{
+  "title": "founder.page launch video",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/ratheejaisal-1f4538",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product-ui",
+    "launch-film",
+    "feature-cards",
+    "data-viz",
+    "saas",
+    "minimal",
+    "fast-paced"
+  ],
+  "score": 3,
+  "why": "Use one repeatable layout per feature: two-line bold headline with the second line in brand colour on the left, a single live data card animating on the right, on a pale gradient.",
+  "video": "video.mp4"
+}

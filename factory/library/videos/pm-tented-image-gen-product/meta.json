@@ -1,0 +1,23 @@
+{
+  "title": "Tented image gen product video",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/justincooperman-e7bbc4",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product-ui",
+    "ai",
+    "workflow-demo",
+    "chat-ui",
+    "light-mode",
+    "captions",
+    "marketing"
+  ],
+  "score": 3,
+  "why": "Show the agent workflow end to end in one continuous UI: a chat prompt types, a placeholder fills with the generated image, then that image flies into the email layout, captioned by black pill subtitles.",
+  "video": "video.mp4"
+}

@@ -1,0 +1,20 @@
+{
+  "title": "Walking Theo Jansen Strandbeest in Three.js",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/walking-strandbeest-threejs-fresh-resolution182/",
+  "model": "kimi-k3",
+  "engine": "three",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "3d",
+    "mechanism",
+    "linkage",
+    "loop",
+    "kinetic-sculpture",
+    "walk-cycle"
+  ],
+  "score": 3,
+  "why": "Motion that comes from real linkage geometry: every leg is driven by one rotating crank through fixed-length rods, so the walk cycle loops naturally with no keyframes."
+}

@@ -1,0 +1,21 @@
+{
+  "title": "Motion graphics video made within a usage limit",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-graphics-video-made-within-a-usage-limit-yarhmm/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "social",
+    "reel",
+    "sound-design",
+    "voiceover",
+    "svg",
+    "arabic"
+  ],
+  "score": 3,
+  "why": "Restrict the sound palette almost entirely to camera shutter and lens sounds, so every transition reads as a photographic snap and the audio carries one coherent identity.",
+  "video": "video.mp4"
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Three.js Skyraider aircraft model",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/buildfastwithai-ed9447",
+  "model": "claude-opus-5-5",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "3d",
+    "threejs",
+    "product-demo",
+    "feature-tour",
+    "captions",
+    "aircraft",
+    "orbit-camera"
+  ],
+  "score": 3,
+  "why": "Demo a code-built 3D model as a feature tour: one caption pill per shot naming a single capability (canopy, wing fold, weathering) while the camera orbits and a live control panel stays docked right.",
+  "video": "video.mp4"
+}

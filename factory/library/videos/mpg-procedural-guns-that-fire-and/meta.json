@@ -1,0 +1,21 @@
+{
+  "title": "Procedural guns that fire and disassemble",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/procedural-guns-that-fire-and-disassemble-thehypedotnews-k3/",
+  "model": "kimi-k3",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "3d",
+    "procedural",
+    "exploded-view",
+    "mechanical",
+    "audio",
+    "labels"
+  ],
+  "score": 3,
+  "why": "An exploded-view toggle that pulls the object apart into labelled parts and rebuilds it, paired with one action button whose feedback is layered (sound, flash, recoil, ejected casing) in a single synced hit."
+}

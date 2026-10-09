@@ -1,0 +1,22 @@
+{
+  "title": "Sunwake",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/sunwake-openai/",
+  "model": "gpt-6-astra",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "game",
+    "3d",
+    "low-poly",
+    "water",
+    "sunrise",
+    "procedural",
+    "stylized"
+  ],
+  "score": 3,
+  "why": "Pair a stylized look with smooth physics (faceted triangular water that still drives buoyancy, wakes and spray) so the style reads as a choice and the motion still feels natural."
+}

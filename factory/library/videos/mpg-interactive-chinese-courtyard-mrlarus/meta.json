@@ -1,0 +1,23 @@
+{
+  "title": "Interactive Chinese courtyard with koi, fireflies and day/night",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/interactive-chinese-courtyard-mrlarus/",
+  "model": "gpt-6-astra",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "3d",
+    "architecture",
+    "interactive",
+    "day-night",
+    "ambient",
+    "nature",
+    "blender"
+  ],
+  "score": 3,
+  "why": "Layer life in gradually and keep it subtle (flowing water, koi, frogs, dragonflies, then fireflies only at night), so a day/night switch reveals a different set of ambient motion rather than just a change of lighting.",
+  "video": "video.mp4"
+}

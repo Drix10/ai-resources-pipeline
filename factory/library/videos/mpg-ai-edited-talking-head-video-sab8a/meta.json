@@ -1,0 +1,22 @@
+{
+  "title": "AI-edited talking-head video",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/ai-edited-talking-head-video-sab8a/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "talking-head",
+    "subtitles",
+    "edit",
+    "social",
+    "graphics",
+    "music"
+  ],
+  "score": 3,
+  "why": "Treat the raw clip as the spine and layer punch-in cuts, word-by-word burned-in subtitles and pop-up graphics on the speaker's emphasis words.",
+  "video": "video.mp4"
+}

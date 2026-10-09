@@ -1,0 +1,23 @@
+{
+  "title": "Claude motion designer showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/crazyalphaaa-bc7e75",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "limited-palette",
+    "easing-curve",
+    "particles",
+    "shapes",
+    "chapter-cards",
+    "lime"
+  ],
+  "score": 3,
+  "why": "Restrict the reel to a four-colour toy palette (black, cobalt, acid lime, red-orange) and title each chapter by its physics principle (Gravity, Spacing, Systems, Easing, Depth, Liquid) with an easing-curve diagram as proof.",
+  "video": "video.mp4"
+}

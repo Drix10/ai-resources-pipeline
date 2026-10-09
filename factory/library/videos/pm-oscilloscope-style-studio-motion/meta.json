@@ -1,0 +1,23 @@
+{
+  "title": "Oscilloscope-style studio motion graphic",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/rneayan-ea6129",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "oscilloscope",
+    "phosphor-green",
+    "waveform",
+    "lissajous",
+    "line-art",
+    "retro-tech",
+    "studio-intro"
+  ],
+  "score": 3,
+  "why": "Render everything, type included, as glowing green phosphor traces over a scope graticule, with a live waveform running along the bottom and each line of copy flickering in as lissajous figures resolve into the next word, number or the airship logo outline.",
+  "video": "video.mp4"
+}

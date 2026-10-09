@@ -1,0 +1,22 @@
+{
+  "title": "Kael Thorn: scroll-driven dimension journey",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/kael-thorn-scroll-driven-dimension-journey-kimi-k3-commandco/",
+  "model": "kimi-k3",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "scroll",
+    "web",
+    "3d",
+    "particles",
+    "cosmic",
+    "portfolio"
+  ],
+  "score": 3,
+  "why": "Make each section a different dimension (2D to 3D, text that shatters into particles, then reassembles from fragments), so the medium itself changes as the story progresses.",
+  "repo": "https://github.com/CommandCodeAI/slash-design-showcase"
+}

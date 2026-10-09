@@ -1,0 +1,22 @@
+{
+  "title": "Motion piece by @Gdgtify",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-piece-by-gdgtify-gdgtify/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "kinetic-typography",
+    "spoken-word",
+    "editorial",
+    "loop",
+    "deterministic",
+    "architecture",
+    "serif"
+  ],
+  "score": 3,
+  "why": "Words are given structural roles (WAIT is a lintel, VOICE is a support, FLOOR is a platform) and the final line has to stand on a platform built from earlier words, with one 400 ms dead stillness held back for the first level horizontal.",
+  "video": "video.mp4"
+}

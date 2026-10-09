@@ -1,0 +1,22 @@
+{
+  "title": "High-speed parkour motion previz",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/high-speed-parkour-motion-previz/",
+  "model": "gpt-6-astra",
+  "engine": "remotion",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "previz",
+    "3d",
+    "parkour",
+    "camera",
+    "remotion",
+    "deterministic",
+    "proxy-character"
+  ],
+  "score": 3,
+  "why": "A two-primitive proxy character (sphere head plus capsule body) carries all action through lean, squash and landing sink, and the camera arcs around the figure instead of lerping through it when switching from chase to head-on.",
+  "video": "video.mp4"
+}

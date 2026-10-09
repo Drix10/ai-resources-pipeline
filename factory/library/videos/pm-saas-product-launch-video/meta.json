@@ -1,0 +1,23 @@
+{
+  "title": "SaaS product launch video",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/xelandre-363f00",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "launch-film",
+    "saas",
+    "radar",
+    "serif",
+    "subtitles",
+    "light-mode",
+    "product-ui"
+  ],
+  "score": 3,
+  "why": "Build the narration as a serif sentence that grows across scenes ('Chaque signal,' / 'chaque message,') with burned-in subtitle pills, and visualise prospect detection as a radar sweep picking up labelled dots.",
+  "video": "video.mp4"
+}

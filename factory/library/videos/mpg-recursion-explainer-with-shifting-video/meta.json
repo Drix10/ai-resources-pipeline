@@ -1,0 +1,22 @@
+{
+  "title": "Recursion explainer with shifting video styles",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/recursion-explainer-with-shifting-video-styles-emollick/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "explainer",
+    "educational",
+    "style-shift",
+    "self-referential",
+    "fast-cut",
+    "canvas"
+  ],
+  "score": 3,
+  "why": "Let the form enact the concept: each new explanation switches to a radically different visual style, so the video's own structure becomes the self-referential example it is explaining.",
+  "video": "video.mp4"
+}

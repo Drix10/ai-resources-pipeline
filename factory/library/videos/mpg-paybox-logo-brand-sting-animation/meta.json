@@ -1,0 +1,23 @@
+{
+  "title": "PayBox logo brand-sting animation",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/paybox-logo-brand-sting-animation-0xvalure/",
+  "model": "claude-opus-5-5",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "brand",
+    "logo-sting",
+    "kinetic-typography",
+    "3d",
+    "monochrome",
+    "hud",
+    "10-second"
+  ],
+  "score": 3,
+  "why": "Cycle through visual registers (a typed prompt, a giant one-word slam, a repeating wordmark wall, a cube tessellation) before resolving on the logo, with HUD corner marks and a red 'live' dot as the only colour accent.",
+  "video": "video.mp4"
+}

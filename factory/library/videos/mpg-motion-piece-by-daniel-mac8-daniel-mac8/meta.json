@@ -1,0 +1,21 @@
+{
+  "title": "Motion piece by @daniel_mac8",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-piece-by-daniel-mac8-daniel-mac8/",
+  "model": "claude-opus-5-5",
+  "engine": "gsap",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "character",
+    "terminal",
+    "ai",
+    "svg",
+    "story",
+    "explosion-transition"
+  ],
+  "score": 3,
+  "why": "Open on a literal UI action in the terminal (selecting a setting), then explode that exact moment into a metaphor world where mascot characters act out what the feature does.",
+  "video": "video.mp4"
+}

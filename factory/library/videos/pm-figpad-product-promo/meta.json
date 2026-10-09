@@ -1,0 +1,22 @@
+{
+  "title": "FigPad product promo",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/ai-baymax-0ef9dd",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product-ui",
+    "saas",
+    "explainer",
+    "light-ui",
+    "chaptered",
+    "product-tour"
+  ],
+  "score": 3,
+  "why": "Template every feature as a fixed split: numbered pill, two-line 'input in / output out' headline and feature chips on the left, a live browser window with cursor on the right.",
+  "video": "video.mp4"
+}

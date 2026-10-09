@@ -1,0 +1,22 @@
+{
+  "title": "30-second motion promo for Kody",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/30-second-motion-promo-for-kody-kentcdodds/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "launch",
+    "product",
+    "kinetic-typography",
+    "mascot",
+    "dark",
+    "pain-point"
+  ],
+  "score": 3,
+  "why": "A repeated prefix pattern ('RE-TEACH. / RE-WIRE. / RE-BUILD.') with only the verb recoloured per beat states the pain three times fast, then a single line resolves it before the mascot reveal.",
+  "video": "video.mp4"
+}

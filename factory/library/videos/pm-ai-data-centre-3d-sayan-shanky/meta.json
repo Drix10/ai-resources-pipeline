@@ -1,0 +1,23 @@
+{
+  "title": "AI data centre 3D tour",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/sayan-shanky-f850d8",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "3d",
+    "explainer",
+    "scale-zoom",
+    "diagram",
+    "infrastructure",
+    "editorial",
+    "cutaway"
+  ],
+  "score": 3,
+  "why": "Zoom through scales in one continuous 3D world (site, hall, rack, tray, die, cooling loop), each stop paired with a numbered serif headline card and colour-coded flow pipes (red heat, cyan coolant).",
+  "video": "video.mp4"
+}

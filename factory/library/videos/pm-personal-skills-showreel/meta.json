@@ -1,0 +1,22 @@
+{
+  "title": "Personal skills showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/ibrahimwasim240-809370",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "pixel-art",
+    "retro",
+    "game",
+    "resume",
+    "characters",
+    "hud"
+  ],
+  "score": 3,
+  "why": "Frame a résumé as a retro game run: persistent 1P/score/lives/level HUD and a countdown timer, each skill a level, a boss fight, and a world-map recap.",
+  "video": "video.mp4"
+}

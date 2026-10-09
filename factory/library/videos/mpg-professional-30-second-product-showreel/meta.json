@@ -1,0 +1,22 @@
+{
+  "title": "Professional 30-second product showreel",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/professional-30-second-product-showreel-ho-ba/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product",
+    "launch",
+    "ui",
+    "deconstruction",
+    "music",
+    "saas"
+  ],
+  "score": 3,
+  "why": "Never show a raw screenshot: break the product UI into its component icons and panels and animate each piece separately, so the interface assembles on the music instead of sliding in as a flat image.",
+  "video": "video.mp4"
+}

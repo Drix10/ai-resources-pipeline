@@ -1,0 +1,23 @@
+{
+  "title": "AI Arena product promo",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/ezshine-c90d73",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product-ui",
+    "launch-film",
+    "feature-cards",
+    "ai",
+    "games",
+    "dark",
+    "chinese"
+  ],
+  "score": 3,
+  "why": "Use a consistent feature-slide grammar: small numbered pill, headline with one gold-highlighted phrase, then one hero visual (model roster grid, live board with streaming reasoning bubbles, device pair).",
+  "video": "video.mp4"
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Engraving-style Claude ad",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/lexnlin-038035",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "ad",
+    "editorial",
+    "collage",
+    "vertical",
+    "monochrome",
+    "brand-mark",
+    "kinetic-type",
+    "archival"
+  ],
+  "score": 3,
+  "why": "Paint bold vector strokes and a coral brand mark directly over cut-out engravings, statues and Muybridge plates so archival imagery reads as part of the brand language.",
+  "video": "video.mp4"
+}

@@ -1,0 +1,23 @@
+{
+  "title": "SaaS launch video",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/aschapmann-131210",
+  "model": "claude-opus-5-5",
+  "engine": "remotion",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "launch-film",
+    "saas",
+    "product-ui",
+    "kinetic-type",
+    "problem-solution",
+    "dark-mode",
+    "mascot"
+  ],
+  "score": 3,
+  "why": "Write the headline as a sentence that completes across shots ('But Reddit marketing is' ... 'hard') over a tilted wall of real post cards, with the brand colour reserved for the punch word.",
+  "video": "video.mp4"
+}

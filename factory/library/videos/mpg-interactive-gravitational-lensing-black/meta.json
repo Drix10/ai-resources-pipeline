@@ -1,0 +1,23 @@
+{
+  "title": "Interactive gravitational lensing black hole lab",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/interactive-gravitational-lensing-black-hole-lab-voxyz-ai/",
+  "model": "claude-opus-5-5",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "science",
+    "interactive",
+    "shader",
+    "3d",
+    "educational",
+    "space",
+    "explainer"
+  ],
+  "score": 3,
+  "why": "The payoff is gated on alignment: dragging the black hole bends the background into arcs that close into a full Einstein ring only when everything lines up, so the viewer earns the perfect frame.",
+  "video": "video.mp4"
+}

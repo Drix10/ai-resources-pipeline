@@ -1,0 +1,23 @@
+{
+  "title": "Alan agent platform promo",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/prasad-pilla-2c0cba",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product-ui",
+    "agent",
+    "pipeline",
+    "minimal",
+    "diagram",
+    "launch-film",
+    "light-theme"
+  ],
+  "score": 3,
+  "why": "Introduce the pipeline as a single line that literally passes through an hourglass bottleneck, then resolve it into four connected step-cards (Plan, Build, Verify, Ship) on a near-white canvas with one lime accent.",
+  "video": "video.mp4"
+}

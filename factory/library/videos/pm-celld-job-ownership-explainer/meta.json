@@ -1,0 +1,23 @@
+{
+  "title": "Celld job ownership explainer",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/0xnfrith-5be616",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "explainer",
+    "diagram",
+    "neo-brutalist",
+    "pastel",
+    "systems",
+    "step-by-step",
+    "flat"
+  ],
+  "score": 3,
+  "why": "Model a distributed-systems idea as physical props: machines as cards, a shared bucket holding an ownership sheet, and draining lease bars that expire and hand off.",
+  "video": "video.mp4"
+}

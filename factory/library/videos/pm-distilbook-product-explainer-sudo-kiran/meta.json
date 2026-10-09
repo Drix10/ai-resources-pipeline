@@ -1,0 +1,23 @@
+{
+  "title": "DistilBook product explainer",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/sudo-kiran-6609ed",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "explainer",
+    "product-ui",
+    "strikethrough",
+    "illustrated",
+    "waveform",
+    "launch-film",
+    "before-after"
+  ],
+  "score": 3,
+  "why": "Open on the pain ('Nobody reads the PDF' over a pile stamped UNREAD) and close by literally striking out 'documents' and swapping in a play-button 'videos' pill, bookending problem and answer in type.",
+  "video": "video.mp4"
+}

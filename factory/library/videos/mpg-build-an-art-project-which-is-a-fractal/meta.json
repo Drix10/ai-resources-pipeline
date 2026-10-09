@@ -1,0 +1,22 @@
+{
+  "title": "Build an art project which is a fractal visulizer (mandelbrot,…",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/build-an-art-project-which-is-a-fractal-visulizer-mandelbrot/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "fractal",
+    "papercraft",
+    "shader",
+    "generative",
+    "cinematic",
+    "art"
+  ],
+  "score": 3,
+  "why": "Render a mathematical subject (the Mandelbrot set) in a handmade material language (cut paper and cardboard layers with cinematic post-processing), so precise maths reads as tactile craft.",
+  "video": "video.mp4"
+}

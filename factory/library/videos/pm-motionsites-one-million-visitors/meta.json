@@ -1,0 +1,23 @@
+{
+  "title": "MotionSites one million visitors",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/viktoroddy-98c1d8",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "milestone",
+    "counter",
+    "data-viz",
+    "product-ui",
+    "dark-mode",
+    "gradient-type",
+    "launch-film"
+  ],
+  "score": 3,
+  "why": "A live visitor counter rides the tip of a rising line chart, digits rolling from 0 toward one million, then pays off with a 'thank you' card and confetti sparks.",
+  "video": "video.mp4"
+}

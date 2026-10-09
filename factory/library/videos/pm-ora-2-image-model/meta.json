@@ -1,0 +1,22 @@
+{
+  "title": "Ora 2 image model launch film",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/rossaxbt-3085b7",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "launch-film",
+    "voiceover",
+    "product-ui",
+    "photos",
+    "image-cloud",
+    "square",
+    "typewriter"
+  ],
+  "score": 3,
+  "why": "Voiceover-led typing: each spoken line types on word-synced while one prompt or control panel visualises it, then dozens of generated images swarm in a 3D cloud around the closing wordmark.",
+  "video": "video.mp4"
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Talking-head clip edit",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/sab8a-364a5a",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "talking-head",
+    "captions",
+    "cutout",
+    "style-switch",
+    "social",
+    "comedy",
+    "real-footage"
+  ],
+  "score": 3,
+  "why": "Each idea the speaker pitches becomes a full-frame style swap around a cut-out of her (shonen manga, kawaii heart, trading card), cutting back to raw footage with word-pop captions.",
+  "video": "video.mp4"
+}

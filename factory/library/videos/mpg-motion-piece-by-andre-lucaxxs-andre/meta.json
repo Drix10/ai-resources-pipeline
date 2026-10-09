@@ -1,0 +1,22 @@
+{
+  "title": "Motion piece by @andre_lucaxxs",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-piece-by-andre-lucaxxs-andre-lucaxxs/",
+  "model": "claude-opus-5-5",
+  "engine": "gsap",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "app-promo",
+    "mobile",
+    "ui",
+    "serif",
+    "pastel",
+    "vertical",
+    "feature-tour"
+  ],
+  "score": 3,
+  "why": "Numbered feature chapters (01 REGISTRO, 02 CALENDÁRIO, 03 MÚSICA) each pair a serif headline with one italic accent-colour word above a live phone UI demo, with drifting petals as a constant brand texture.",
+  "video": "video.mp4"
+}

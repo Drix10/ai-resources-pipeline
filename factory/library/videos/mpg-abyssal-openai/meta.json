@@ -1,0 +1,21 @@
+{
+  "title": "Abyssal",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/abyssal-openai/",
+  "model": "gpt-6-astra",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "underwater",
+    "3d",
+    "bioluminescence",
+    "particles",
+    "ambient",
+    "webgl"
+  ],
+  "score": 3,
+  "why": "A strict palette of cyan, violet and a rare warm vent-orange against inky water, with creatures pulsing independently rather than in sync, makes a dark scene feel alive."
+}

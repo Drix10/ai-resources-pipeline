@@ -1,0 +1,23 @@
+{
+  "title": "Launch motion video for mounis.app",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/launch-motion-video-for-mounis-app-mustaphafenzar/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "launch",
+    "app",
+    "product",
+    "typography",
+    "serif",
+    "phone-mockup",
+    "dark"
+  ],
+  "score": 3,
+  "why": "An accumulating serif list builds one line per shot beside a phone mockup (\"Le Coran, / les adhkar, / les du'as, ...\") and resolves on an italic gold closer, so the copy itself becomes the timeline and the payoff.",
+  "video": "video.mp4"
+}

@@ -1,0 +1,24 @@
+{
+  "title": "Cinetic skill launch film",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/lexnlin-6161a6",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "launch-film",
+    "product-ui",
+    "code",
+    "caret",
+    "kinetic-type",
+    "terminal",
+    "minimal"
+  ],
+  "score": 3,
+  "why": "A blinking text caret is the throughline: it types the headline, then becomes the cursor and playhead driving each sample clip, ending on the install command.",
+  "repo": "https://github.com/Leonxlnx/cinetic",
+  "video": "video.mp4"
+}

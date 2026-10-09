@@ -1,0 +1,22 @@
+{
+  "title": "Type Field",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/type-field-openai/",
+  "model": "gpt-6-astra",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "typography",
+    "variable-fonts",
+    "swiss",
+    "poster",
+    "web",
+    "orange",
+    "interactive"
+  ],
+  "score": 3,
+  "why": "One specimen is carried through three compositions as you scroll (compact headline, editorial paragraph, large poster) in an orange, warm-white and black Swiss grid, and it must work as a still image at every stop."
+}

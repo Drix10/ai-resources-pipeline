@@ -1,0 +1,23 @@
+{
+  "title": "Claude self-promo spot",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/slvdev-64c45a",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "ad",
+    "brand-promo",
+    "kinetic-type",
+    "flat-color",
+    "list-montage",
+    "product-ui",
+    "playful"
+  ],
+  "score": 3,
+  "why": "Answer one question card ('What do you want to make?') with a rapid list of noun cards, each on its own flat colour with one illustrative object (app, plan, game, website, bug fix), before 'Just ask.'",
+  "video": "video.mp4"
+}

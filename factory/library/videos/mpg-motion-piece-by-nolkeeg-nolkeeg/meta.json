@@ -1,0 +1,22 @@
+{
+  "title": "Motion piece by @nolkeeg",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-piece-by-nolkeeg-nolkeeg/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "educational",
+    "data-viz",
+    "cinematic",
+    "space",
+    "counter",
+    "minimal"
+  ],
+  "score": 3,
+  "why": "The whole film lives inside one second: a ticking odometer counter (km travelled by light) is the spine, and every scene is a scale comparison measured against that same running number.",
+  "video": "video.mp4"
+}

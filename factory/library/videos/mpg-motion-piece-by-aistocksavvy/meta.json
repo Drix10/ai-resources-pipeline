@@ -1,0 +1,22 @@
+{
+  "title": "Motion piece by @AIStockSavvy",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-piece-by-aistocksavvy-aistocksavvy/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product",
+    "fintech",
+    "ui",
+    "kinetic-typography",
+    "showreel",
+    "dark"
+  ],
+  "score": 3,
+  "why": "Each feature chapter is numbered (01 LIVE NEWS, 02 EARNINGS...) with a persistent bottom nav highlighting the active section, giving a fast UI montage a readable table-of-contents spine.",
+  "video": "video.mp4"
+}

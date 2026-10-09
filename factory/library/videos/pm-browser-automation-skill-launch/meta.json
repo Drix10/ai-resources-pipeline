@@ -1,0 +1,23 @@
+{
+  "title": "Browser automation skill launch",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/hqmank-7c61f1",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "launch-film",
+    "product-ui",
+    "code",
+    "split-screen",
+    "cursor",
+    "terminal",
+    "open-source"
+  ],
+  "score": 3,
+  "why": "Prove the tagline 'site, goal, clicks' with a split screen: fake browser on the left being driven by a cursor while a dark agent log on the right ticks off each step in sync.",
+  "video": "video.mp4"
+}

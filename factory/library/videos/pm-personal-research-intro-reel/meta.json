@@ -1,0 +1,23 @@
+{
+  "title": "Personal research intro reel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/madhav-xo-f97f20",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "personal-brand",
+    "particles",
+    "terminal",
+    "dark-mode",
+    "kinetic-type",
+    "chrome-type",
+    "intro"
+  ],
+  "score": 3,
+  "why": "Open on a terminal compile command, then let every claim dissolve into and re-form from a particle cloud, resolving onto a chrome wide-tracked wordmark with a typed serif tagline.",
+  "video": "video.mp4"
+}

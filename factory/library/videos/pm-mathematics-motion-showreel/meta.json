@@ -1,0 +1,23 @@
+{
+  "title": "Mathematics motion showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/math-files-39c9d0",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "math",
+    "showreel",
+    "fourier",
+    "fractal",
+    "dark-mode",
+    "neon",
+    "data-viz"
+  ],
+  "score": 3,
+  "why": "Let one variable t drive every scene (unit circle to sine, Fourier drawing of pi, fractal, phyllotaxis) ending on e^(i pi)+1=0, with live t readouts in the frame.",
+  "video": "video.mp4"
+}

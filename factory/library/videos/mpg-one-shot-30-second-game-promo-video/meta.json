@@ -1,0 +1,22 @@
+{
+  "title": "One-shot 30-second promo video for an Astra-built game",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/one-shot-30-second-game-promo-video-therohanvarma/",
+  "model": "gpt-6-astra",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "game",
+    "promo",
+    "gameplay",
+    "retro",
+    "mmo",
+    "social"
+  ],
+  "score": 3,
+  "why": "The trailer is pure in-game capture with the full HUD left on (minimap, inventory, chat log), and real UI moments ('Steel full helm equipped', 'Anyone up for goblins?') do the storytelling.",
+  "video": "video.mp4"
+}

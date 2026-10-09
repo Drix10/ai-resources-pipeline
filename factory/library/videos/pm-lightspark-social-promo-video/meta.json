@@ -1,0 +1,22 @@
+{
+  "title": "Lightspark social promo video",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/davidmarcus-a28a60",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "vertical",
+    "kinetic-type",
+    "swiss-grid",
+    "fintech",
+    "minimal",
+    "monochrome",
+    "code"
+  ],
+  "score": 3,
+  "why": "A strict Swiss grid with fixed header rail and section label; copy accumulates line by line in grey while only the newest line is full black, inverting to dark for the punchline.",
+  "video": "video.mp4"
+}

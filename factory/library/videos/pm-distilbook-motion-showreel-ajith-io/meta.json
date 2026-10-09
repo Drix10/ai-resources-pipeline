@@ -1,0 +1,23 @@
+{
+  "title": "Distilbook motion showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/ajith-io-ea7f2d",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "metaphor",
+    "prism",
+    "hand-drawn",
+    "dark-mode",
+    "particles",
+    "product-ui"
+  ],
+  "score": 3,
+  "why": "A light ray through a prism splits into a rainbow spectrum as a metaphor for one document becoming many illustrated scenes, bookended by a hand-drawn mascot on paper.",
+  "video": "video.mp4"
+}

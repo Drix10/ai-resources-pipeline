@@ -1,0 +1,22 @@
+{
+  "title": "Motion piece by @TheGrootDev",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-piece-by-thegrootdev-thegrootdev/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "ui",
+    "morph",
+    "loop",
+    "beat-sync",
+    "springs",
+    "cursor",
+    "pokemon"
+  ],
+  "score": 3,
+  "why": "One persistent shape is never cut and morphs into every UI state, with something happening on each of 28 beats at 120 BPM, and the last frame matches the first in geometry, cursor position and cursor velocity so the loop is seamless.",
+  "video": "video.mp4"
+}

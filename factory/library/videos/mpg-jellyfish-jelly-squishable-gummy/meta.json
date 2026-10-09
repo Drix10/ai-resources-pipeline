@@ -1,0 +1,20 @@
+{
+  "title": "Jellyfish Jelly: squishable gummy jellyfish (WebGPU)",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/jellyfish-jelly-squishable-gummy-jellyfish-webgpu-vib3coded/",
+  "model": "gpt-6-astra",
+  "engine": "unknown",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "3d",
+    "soft-body",
+    "webgpu",
+    "editorial",
+    "interactive",
+    "translucent"
+  ],
+  "score": 3,
+  "why": "Thickness-dependent colour (rich where the form is thick, clear at the edges) on a warm off-white editorial ground with a big italic serif title makes a 3D object read as a premium product still."
+}

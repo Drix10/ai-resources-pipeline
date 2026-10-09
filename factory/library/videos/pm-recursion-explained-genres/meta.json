@@ -1,0 +1,23 @@
+{
+  "title": "Recursion explained in genres",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/emollick-8661a8",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "explainer",
+    "genre-switch",
+    "recursion",
+    "self-referential",
+    "characters",
+    "code",
+    "comedy"
+  ],
+  "score": 3,
+  "why": "Make the form the concept: each explanation plays inside the previous one and switches genre (terminal, nature doc, noir, infomercial, trailer) while a breadcrumb bar and depth counter track the stack.",
+  "video": "video.mp4"
+}

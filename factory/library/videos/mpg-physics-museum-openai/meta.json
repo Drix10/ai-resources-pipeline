@@ -1,0 +1,21 @@
+{
+  "title": "Physics museum",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/physics-museum-openai/",
+  "model": "gpt-6-astra",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "3d",
+    "physics",
+    "museum",
+    "simulation",
+    "camera",
+    "interactive"
+  ],
+  "score": 3,
+  "why": "Exactly five checkpoints, each a different silhouette and simulation, linked by smooth camera moves between them and ending on a quiet look back across the whole room."
+}

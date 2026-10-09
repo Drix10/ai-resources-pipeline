@@ -1,0 +1,23 @@
+{
+  "title": "DistilBook product explainer",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/sudo-kiran-4f8b59",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "explainer",
+    "saas",
+    "product-ui",
+    "strikethrough",
+    "numbered-steps",
+    "gradient-type",
+    "stat-reveal"
+  ],
+  "score": 3,
+  "why": "Open by striking through the old way ('Stop sending documents.') over a flurry of paper sheets, then walk numbered 01/02/03 gradient-number steps beside floating app windows.",
+  "video": "video.mp4"
+}

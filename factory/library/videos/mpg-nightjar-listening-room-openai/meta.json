@@ -1,0 +1,22 @@
+{
+  "title": "Nightjar Listening Room",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/nightjar-listening-room-openai/",
+  "model": "gpt-6-astra",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "web",
+    "audio-reactive",
+    "hospitality",
+    "warm",
+    "music",
+    "interactive",
+    "editorial"
+  ],
+  "score": 3,
+  "why": "Visual motion is tied to the real audio state: the tonearm lowers, the platter spins only while playing, and the meters and room light follow the actual amplitude, all in a tight palette of tobacco wood, oxblood and amber."
+}

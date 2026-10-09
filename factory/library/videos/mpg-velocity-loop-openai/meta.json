@@ -1,0 +1,22 @@
+{
+  "title": "Velocity Loop",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/velocity-loop-openai/",
+  "model": "gpt-6-astra",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "game",
+    "3d",
+    "racing",
+    "ui",
+    "menu",
+    "webgl"
+  ],
+  "score": 3,
+  "why": "Use a die-cast miniature look (toy cars, warm workshop lighting, material atlas) as a scale conceit: real-world physics shot like a tabletop model reads charming instead of generic CG.",
+  "video": "video.mp4"
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Animated short about a bug",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/kamstudiolabs-c9bb28",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "short-film",
+    "characters",
+    "code",
+    "metaphor",
+    "dark-mode",
+    "storytelling",
+    "glow"
+  ],
+  "score": 3,
+  "why": "Abstract source code into coloured rounded token bars so the 'world' is a code editor, and make the giant OS mouse cursor the antagonist hunting a glowing firefly-bug character.",
+  "video": "video.mp4"
+}

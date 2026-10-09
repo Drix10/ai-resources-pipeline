@@ -1,0 +1,22 @@
+{
+  "title": "One-prompt SaaS launch video",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/one-prompt-saas-launch-video-moritzkremb/",
+  "model": "claude-opus-5-5",
+  "engine": "gsap",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "saas",
+    "launch",
+    "product",
+    "features",
+    "brand",
+    "gsap"
+  ],
+  "score": 3,
+  "why": "Follow the Twitter launch-video formula: real brand assets, one feature per beat with a benefit headline, then a logo and CTA lockup, so the audience recognises the product instantly.",
+  "video": "video.mp4"
+}

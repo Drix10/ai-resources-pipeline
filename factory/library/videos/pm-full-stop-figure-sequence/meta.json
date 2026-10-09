@@ -1,0 +1,23 @@
+{
+  "title": "Full Stop figure sequence",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/hbcoop-de365c",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "morph",
+    "editorial",
+    "figure-captions",
+    "3d",
+    "particles",
+    "minimal",
+    "loop"
+  ],
+  "score": 3,
+  "why": "Title every scene as a numbered figure caption ('Fig. 6 a ball') and morph one black dot through point, circle, lens, ball and flock before it returns as the full stop of the closing sentence.",
+  "video": "video.mp4"
+}

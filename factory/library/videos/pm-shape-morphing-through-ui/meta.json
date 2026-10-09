@@ -1,0 +1,23 @@
+{
+  "title": "Shape morphing through UI states",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/twoclipping-5cba86",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "product-ui",
+    "morph",
+    "single-shot",
+    "beat-sync",
+    "cursor",
+    "loop",
+    "monochrome",
+    "springs"
+  ],
+  "score": 3,
+  "why": "Never cut: one element morphs size, radius and colour through button, loader, player, toggle, tabs, chart and command palette, each change triggered on-beat by a cursor click, last frame matching the first.",
+  "video": "video.mp4"
+}

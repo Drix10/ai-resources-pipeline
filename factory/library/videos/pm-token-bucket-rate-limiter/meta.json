@@ -1,0 +1,22 @@
+{
+  "title": "Token bucket rate limiter",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/parkerrex-1a54fe",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "explainer",
+    "algorithm",
+    "data-viz",
+    "step-chart",
+    "terminal-aesthetic",
+    "canvas",
+    "locked-layout"
+  ],
+  "score": 3,
+  "why": "Lock a three-part layout (bucket gauge with big count, scrolling request log, token-over-time step chart with taken/refused ticks) and change only the caption per phase, so steady, burst, empty and refill read as one chart drawing itself to the takeaway line.",
+  "video": "video.mp4"
+}

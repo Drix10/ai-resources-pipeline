@@ -1,0 +1,23 @@
+{
+  "title": "Claude motion designer showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/mrtanviir-132457",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "kinetic-type",
+    "particles",
+    "shapes",
+    "flat-color",
+    "typographic-ring",
+    "minimal"
+  ],
+  "score": 3,
+  "why": "Keep one red dot as the constant across flat-colour fields: it spawns, becomes a selected shape with transform handles, populates a point-sphere and particle plane, then sits at the centre of a rotating word-ring.",
+  "video": "video.mp4"
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Sherwood agentic hedge fund explainer",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/imthatcarlos-e04bfe",
+  "model": "claude-opus-5-5",
+  "engine": "remotion",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "explainer",
+    "crypto",
+    "fintech",
+    "step-rail",
+    "product-ui",
+    "split-screen",
+    "agent"
+  ],
+  "score": 3,
+  "why": "Explain the protocol as a four-step progress rail (Deposit, Propose, Verify, Settle) across the top, each step a numbered headline left and a single UI card right, then cut to a split-screen Creation-of-Adam image.",
+  "video": "video.mp4"
+}

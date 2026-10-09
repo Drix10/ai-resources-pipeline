@@ -1,0 +1,21 @@
+{
+  "title": "Live generative code art from a typed word",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/live-generative-code-art-from-a-typed-word-miaai-lab/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "generative",
+    "typography",
+    "shader",
+    "particles",
+    "cinematic",
+    "space"
+  ],
+  "score": 3,
+  "why": "A single typed word ('let there be LIGHT') is written by a cursor, filled with flowing fire texture, then dissolves into the matter of the next scene, a black hole collapsing to a single point of light.",
+  "video": "video.mp4"
+}

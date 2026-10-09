@@ -1,0 +1,22 @@
+{
+  "title": "Render a recipe motion graphic animation using JavaScript or…",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/render-a-recipe-motion-graphic-animation-using-javascript-or/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "recipe",
+    "explainer",
+    "cocktail",
+    "step-by-step",
+    "food",
+    "infographic"
+  ],
+  "score": 3,
+  "why": "One glass is the fixed stage: each ingredient pours in as a measured layer with its label and quantity, so the frame fills from empty to finished and the fill level shows progress.",
+  "video": "video.mp4"
+}

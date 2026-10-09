@@ -1,0 +1,22 @@
+{
+  "title": "Tokyo Tower day-and-night 3D film",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/tokyo-tower-day-and-night-3d-film-wafffle-dev/",
+  "model": "gpt-6-astra",
+  "engine": "unknown",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "3d",
+    "blender",
+    "architecture",
+    "day-night",
+    "landmark",
+    "cinematic",
+    "research"
+  ],
+  "score": 3,
+  "why": "The shot vocabulary has three scales (looking up from the ground, a close pass along the steel lattice, a wide reveal of the whole tower) repeated across a day-to-night lighting change.",
+  "video": "video.mp4"
+}

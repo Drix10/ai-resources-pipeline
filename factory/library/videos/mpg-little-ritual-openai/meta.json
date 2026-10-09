@@ -1,0 +1,23 @@
+{
+  "title": "Little Ritual",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/little-ritual-openai/",
+  "model": "gpt-6-astra",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "3d",
+    "game",
+    "webgl",
+    "cute",
+    "exploration",
+    "character",
+    "blender"
+  ],
+  "score": 3,
+  "why": "A tiny spherical planet with a curved horizon makes every walk reveal the next destination over the rim, so a whole world fits in one continuous camera without cuts.",
+  "video": "video.mp4"
+}

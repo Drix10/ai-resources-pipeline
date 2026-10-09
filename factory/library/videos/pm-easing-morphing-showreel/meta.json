@@ -1,0 +1,23 @@
+{
+  "title": "Easing and morphing showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/roundtablespace-d3a1be",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "easing",
+    "morph",
+    "kinetic-type",
+    "colour-blocking",
+    "editorial",
+    "patterns"
+  ],
+  "score": 3,
+  "why": "Turn the craft itself into content: a 'six ways to get from A to B' easing chart with racing dots, alternated across hard flat colour-field backgrounds (red, cobalt, black, acid-yellow) per chapter.",
+  "video": "video.mp4"
+}

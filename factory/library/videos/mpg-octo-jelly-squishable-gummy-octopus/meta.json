@@ -1,0 +1,21 @@
+{
+  "title": "Octo Jelly: squishable gummy octopus (WebGPU)",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/octo-jelly-squishable-gummy-octopus-webgpu-vib3coded/",
+  "model": "gpt-6-astra",
+  "engine": "html",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "3d",
+    "soft-body",
+    "interactive",
+    "webgpu",
+    "cute",
+    "material-study",
+    "editorial"
+  ],
+  "score": 3,
+  "why": "Thickness-dependent translucency (thick areas richer, thin tips transmit light) plus jiggle-and-settle soft-body physics make a cute creature feel tactile, framed by an editorial 'material studies' layout."
+}

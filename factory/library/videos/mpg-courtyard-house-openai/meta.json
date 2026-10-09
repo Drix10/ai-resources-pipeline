@@ -1,0 +1,22 @@
+{
+  "title": "Courtyard House",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/courtyard-house-openai/",
+  "model": "gpt-6-astra",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "architecture",
+    "3d",
+    "scroll",
+    "diagram",
+    "daylight",
+    "minimal",
+    "web"
+  ],
+  "score": 3,
+  "why": "One reversible scroll strips a single coherent model from exterior to roof-off cutaway to floor plan, and a time-of-day control keeps the sun direction, shadows and compass in agreement."
+}

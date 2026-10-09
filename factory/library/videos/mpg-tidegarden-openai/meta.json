@@ -1,0 +1,21 @@
+{
+  "title": "Tidegarden",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/tidegarden-openai/",
+  "model": "gpt-6-astra",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "3d",
+    "island",
+    "water",
+    "ambient",
+    "realtime",
+    "nature"
+  ],
+  "score": 3,
+  "why": "A generated realtime reference image serves as the visual north star, and the scene is refined against it, with wave crests timed so their arrival matches the shore wash."
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Particle sphere motion reel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/blue-clarity-ef56d0",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "particles",
+    "easing",
+    "morph",
+    "grid-recap",
+    "kinetic-type",
+    "hud-frame"
+  ],
+  "score": 3,
+  "why": "Annotate each technique on screen with its own spec label and a live easing-curve thumbnail in the corner, then end on a 3x3 grid of mini-demos that recaps the whole reel at once.",
+  "video": "video.mp4"
+}

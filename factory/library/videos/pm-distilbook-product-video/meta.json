@@ -1,0 +1,23 @@
+{
+  "title": "Distilbook product video",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/ajith-io-c52e09",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product-ui",
+    "explainer",
+    "step-tracker",
+    "illustration",
+    "whiteboard",
+    "saas",
+    "launch-film"
+  ],
+  "score": 3,
+  "why": "A three-segment coloured progress bar pinned top-centre tracks Step 1/2/3 across scenes, so a product walkthrough reads as a guided flow rather than a feature list.",
+  "video": "video.mp4"
+}

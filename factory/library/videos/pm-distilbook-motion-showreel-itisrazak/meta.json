@@ -1,0 +1,23 @@
+{
+  "title": "Distilbook motion showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/itisrazak-3ad902",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product-ui",
+    "showreel",
+    "illustration",
+    "multilingual",
+    "counter",
+    "kinetic-type",
+    "explainer"
+  ],
+  "score": 3,
+  "why": "Show the product's output language-by-language: one narration line stacked in many translations with only the current language lit and an '08 / 19' counter.",
+  "video": "video.mp4"
+}

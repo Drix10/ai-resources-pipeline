@@ -1,0 +1,22 @@
+{
+  "title": "Morphing UI states loop",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/demonugc-4c5753",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "morph",
+    "product-ui",
+    "loop",
+    "beat-sync",
+    "springs",
+    "single-shot",
+    "minimal"
+  ],
+  "score": 3,
+  "why": "Use one never-cut shape that morphs through button, loader, island, player, slider, toggle, chart, command palette and toast on a 120 BPM beat grid, cursor-driven with closed-form springs, last frame equal to first.",
+  "video": "video.mp4"
+}

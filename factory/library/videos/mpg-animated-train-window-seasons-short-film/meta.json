@@ -1,0 +1,23 @@
+{
+  "title": "Animated train window seasons short film",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/animated-train-window-seasons-short-film-itsolelehmann/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "loop",
+    "cozy",
+    "storybook",
+    "seasons",
+    "parallax",
+    "wes-anderson",
+    "symmetry"
+  ],
+  "score": 3,
+  "why": "A locked, perfectly symmetrical foreground frame (curtains, lamps, coffee cup) stays still while only the parallax landscape behind the glass changes seasons, with a passing train as the wipe between them.",
+  "video": "video.mp4"
+}

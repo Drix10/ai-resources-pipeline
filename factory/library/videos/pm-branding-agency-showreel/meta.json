@@ -1,0 +1,22 @@
+{
+  "title": "Branding agency showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/jacksonfall-54b2ac",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "branding",
+    "mockups",
+    "logo-animation",
+    "editorial",
+    "photos"
+  ],
+  "score": 3,
+  "why": "Cut between fully built brand-world mockups (posters, street stickers, invitation cards), each with its own logo animation, so the reel sells finished identities rather than effects.",
+  "video": "video.mp4"
+}

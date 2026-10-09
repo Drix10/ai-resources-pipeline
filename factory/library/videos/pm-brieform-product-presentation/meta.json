@@ -1,0 +1,22 @@
+{
+  "title": "Brieform product presentation",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/majorbaguette-fb11d7",
+  "model": "claude-opus-5-5",
+  "engine": "remotion",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product-ui",
+    "explainer",
+    "saas",
+    "dark",
+    "highlight",
+    "chaptered"
+  ],
+  "score": 3,
+  "why": "Walk a three-step flow with numbered lime eyebrow tags and captions whose key clause is lime-highlighted, dimming each finished step to grey before the next lights up.",
+  "video": "video.mp4"
+}

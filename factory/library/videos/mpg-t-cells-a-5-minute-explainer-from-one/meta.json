@@ -1,0 +1,23 @@
+{
+  "title": "T cells: a 5-minute explainer from one line",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/t-cells-a-5-minute-explainer-from-one-line/",
+  "model": "gpt-6-astra",
+  "engine": "remotion",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "educational",
+    "explainer",
+    "biology",
+    "long-form",
+    "voiceover",
+    "captions",
+    "chaptered"
+  ],
+  "score": 3,
+  "why": "A chaptered layout that never changes (eyebrow label, a three-word headline like 'Built. Screened. Sent out.', a left-to-right process diagram with arrows, a burned-in caption bar and a 02/07 chapter counter) keeps five minutes of content easy to follow.",
+  "video": "video.mp4"
+}

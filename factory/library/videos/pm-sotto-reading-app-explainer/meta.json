@@ -1,0 +1,23 @@
+{
+  "title": "Sotto reading app explainer",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/1stnoel-c20a89",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "explainer",
+    "app-promo",
+    "phone-mockup",
+    "editorial",
+    "serif",
+    "cream",
+    "step-tabs"
+  ],
+  "score": 3,
+  "why": "Use a top tab strip of numbered steps (01 Read, 02 Tap, 03 Listen, 04 Speak) that advances per scene beside the phone, so the explainer's progress is always visible.",
+  "video": "video.mp4"
+}

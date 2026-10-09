@@ -1,0 +1,23 @@
+{
+  "title": "What day is it",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/tankazunori0914-0fc886",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "kinetic-type",
+    "hud-frame",
+    "beat-sync",
+    "scan-reveal",
+    "data-viz",
+    "japanese",
+    "dark"
+  ],
+  "score": 3,
+  "why": "Stage a trivial answer as a search: a typed query, a weekday strip whose highlight box scans across cells, then a slammed giant answer over a scrolling ghost-text band, followed by stat rows (ISO week, day-of-year bar).",
+  "video": "video.mp4"
+}

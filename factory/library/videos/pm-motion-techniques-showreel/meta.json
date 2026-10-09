@@ -1,0 +1,23 @@
+{
+  "title": "Motion techniques showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/lukasersil-0ed38e",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "3d",
+    "primary-shapes",
+    "fluid",
+    "particles",
+    "bauhaus",
+    "glitch"
+  ],
+  "score": 3,
+  "why": "Escalate the same primary trio (blue circle, red square, yellow triangle) from flat 2D to lit 3D to fluid to particles, then reuse them as the end-card logo.",
+  "video": "video.mp4"
+}

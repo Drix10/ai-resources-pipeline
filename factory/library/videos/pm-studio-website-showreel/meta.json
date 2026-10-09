@@ -1,0 +1,23 @@
+{
+  "title": "Studio website showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/andginja-333d32",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "agency-reel",
+    "footage",
+    "editorial",
+    "serif-italic",
+    "browser-mockup",
+    "stat-reveal",
+    "dark-mode"
+  ],
+  "score": 3,
+  "why": "Overlay real location footage with a mixed sans + italic-serif headline where the italic carries the emotional word ('a reason', 'next.'), and stamp GPS coordinates and timecode in the corners as a studio signature.",
+  "video": "video.mp4"
+}

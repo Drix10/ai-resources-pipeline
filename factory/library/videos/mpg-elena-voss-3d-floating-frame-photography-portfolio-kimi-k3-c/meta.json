@@ -1,0 +1,22 @@
+{
+  "title": "Elena Voss: 3D floating-frame photography portfolio",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/elena-voss-3d-floating-frame-photography-portfolio-kimi-k3-c/",
+  "model": "kimi-k3",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "portfolio",
+    "photography",
+    "web",
+    "3d",
+    "minimal",
+    "parallax"
+  ],
+  "score": 3,
+  "why": "The hero image floats inside a slightly rotating 3D frame with lots of whitespace, a quiet depth cue that makes a still photo feel like an object without adding motion clutter.",
+  "repo": "https://github.com/CommandCodeAI/slash-design-showcase"
+}

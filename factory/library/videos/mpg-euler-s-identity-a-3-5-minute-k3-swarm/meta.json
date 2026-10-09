@@ -1,0 +1,23 @@
+{
+  "title": "Euler’s Identity, a 3.5-minute K3 swarm film",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/euler-s-identity-a-3-5-minute-k3-swarm-film-kimik3manim/",
+  "model": "kimi-k3",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "math",
+    "manim",
+    "educational",
+    "pipeline",
+    "explainer",
+    "long-form"
+  ],
+  "score": 3,
+  "why": "Pipeline the film as concept, prerequisites, enrichment, visual design, screenplay, code and finally a self-review of the rendered frames, so a separate screenplay pass locks the beats before any animation code is written.",
+  "repo": "https://github.com/HarleyCoops/KimiK3Manim",
+  "video": "video.mp4"
+}

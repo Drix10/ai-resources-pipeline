@@ -1,0 +1,23 @@
+{
+  "title": "Create best motion graphics explainer of the (your product)…",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/create-best-motion-graphics-explainer-of-the-your-product-su/",
+  "model": "claude-opus-5-5",
+  "engine": "gsap",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "explainer",
+    "product",
+    "launch",
+    "kinetic-typography",
+    "ui",
+    "saas",
+    "30-second"
+  ],
+  "score": 3,
+  "why": "Open on a provocative negative hook built word by word ('Nobody reads the PDF.') that is visually staged with a pile of unread documents, then pivot to the product as a numbered three-step flow (reads it, writes the script, you approve).",
+  "video": "video.mp4"
+}

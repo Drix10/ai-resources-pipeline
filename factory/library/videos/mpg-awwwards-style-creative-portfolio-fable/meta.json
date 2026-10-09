@@ -1,0 +1,22 @@
+{
+  "title": "Awwwards-style creative portfolio",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/awwwards-style-creative-portfolio-fable-5-commandcode/",
+  "model": "claude-fable-5",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "web",
+    "portfolio",
+    "scroll",
+    "minimal",
+    "dark",
+    "micro-interactions"
+  ],
+  "score": 3,
+  "why": "An immersive hero section followed by creative section transitions, where micro-interactions on hover carry personality instead of decoration.",
+  "repo": "https://github.com/CommandCodeAI/slash-design-showcase"
+}

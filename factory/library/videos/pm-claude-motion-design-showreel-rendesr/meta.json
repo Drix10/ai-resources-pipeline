@@ -1,0 +1,23 @@
+{
+  "title": "Claude motion design showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/rendesr-86be44",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "timing",
+    "halftone",
+    "flow-field",
+    "characters",
+    "acid-palette",
+    "kinetic-type"
+  ],
+  "score": 3,
+  "why": "Open on a literal timing-and-spacing diagram (bouncing ball over a frame-ticked ruler) before each scene showcases one principle, ending with a winking 3D character for warmth.",
+  "video": "video.mp4"
+}

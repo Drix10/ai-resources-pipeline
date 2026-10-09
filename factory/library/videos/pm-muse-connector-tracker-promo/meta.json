@@ -1,0 +1,23 @@
+{
+  "title": "Muse connector tracker promo",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/elliot-garreffa-f334bc",
+  "model": "claude-opus-5-5",
+  "engine": "remotion",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product-ui",
+    "saas",
+    "launch-film",
+    "two-tone-type",
+    "mascot",
+    "light-mode",
+    "numbered-steps"
+  ],
+  "score": 3,
+  "why": "Give every scene a numbered eyebrow label ('03 / FIND YOUR CATEGORY') above a two-tone headline whose last phrase is brand-blue, over the same soft halftone-gradient field for continuity.",
+  "video": "video.mp4"
+}

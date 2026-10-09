@@ -1,0 +1,22 @@
+{
+  "title": "Void Explorer",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/void-explorer-openai/",
+  "model": "gpt-6-astra",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "space",
+    "game",
+    "retro",
+    "neon",
+    "procedural",
+    "3d",
+    "flight"
+  ],
+  "score": 3,
+  "why": "One continuous descent from orbit through the atmosphere to the ground, with stars and dust streaking past to sell speed, and retro-neon low-poly shading pitched halfway between realistic and simple."
+}

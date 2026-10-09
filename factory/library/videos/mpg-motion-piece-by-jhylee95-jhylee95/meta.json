@@ -1,0 +1,23 @@
+{
+  "title": "Motion piece by @jhylee95",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-piece-by-jhylee95-jhylee95/",
+  "model": "claude-opus-5-5",
+  "engine": "gsap",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "saas",
+    "launch",
+    "beat-sync",
+    "kinetic-typography",
+    "ui",
+    "quick-cuts",
+    "brand"
+  ],
+  "score": 3,
+  "why": "A one-word lowercase title with a coloured brand period on a full-bleed colour field, swapped on every beat (guide. voice. brand. measure.), between short real-UI proof shots.",
+  "video": "video.mp4"
+}

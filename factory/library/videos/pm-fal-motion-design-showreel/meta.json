@@ -1,0 +1,23 @@
+{
+  "title": "fal motion design showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/influencer-seo-ce8c33",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "image-in-type",
+    "generative-media",
+    "dark",
+    "purple",
+    "api",
+    "code"
+  ],
+  "score": 3,
+  "why": "Fill giant knockout capitals (IMAGE, AUDIO) with actual generated media, each tagged with its model endpoint name, so the type itself becomes a window onto the product's output.",
+  "video": "video.mp4"
+}

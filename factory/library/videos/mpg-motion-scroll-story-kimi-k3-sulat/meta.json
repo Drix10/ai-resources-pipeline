@@ -1,0 +1,22 @@
+{
+  "title": "PERIHELION: scroll-driven solar-sail story",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-scroll-story-kimi-k3-sulat/",
+  "model": "kimi-k3",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "scroll",
+    "storytelling",
+    "space",
+    "telemetry",
+    "cinematic",
+    "chapters",
+    "web"
+  ],
+  "score": 3,
+  "why": "The scrollbar is the mission timeline: each chapter is a pinned, scrubbed scene and telemetry readouts react to scroll speed, so the viewer's pace becomes part of the story."
+}

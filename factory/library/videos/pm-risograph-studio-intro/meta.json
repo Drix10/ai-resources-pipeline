@@ -1,0 +1,22 @@
+{
+  "title": "Risograph studio intro",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/rneayan-474bcf",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "risograph",
+    "print-texture",
+    "diagrams",
+    "kinetic-type",
+    "studio-intro",
+    "retro"
+  ],
+  "score": 3,
+  "why": "Fake risograph print with only pink, blue and yellow spot inks, grain, slight misregistration and multiply overlaps, so a Venn overlap darkens where the inks cross.",
+  "video": "video.mp4"
+}

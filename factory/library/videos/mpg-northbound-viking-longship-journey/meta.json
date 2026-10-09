@@ -1,0 +1,23 @@
+{
+  "title": "Northbound: Viking longship journey through a fjord",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/northbound-viking-longship-journey-vib3coded/",
+  "model": "gpt-6-astra",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "3d",
+    "threejs",
+    "shader",
+    "water",
+    "cinematic",
+    "interactive",
+    "nordic"
+  ],
+  "score": 3,
+  "why": "Effects fire only where they make physical contact: ripples, foam and droplets spawn at the real blade-water contact points on each oar stroke and stay in world space as they fade, never while the blades are in the air.",
+  "video": "video.mp4"
+}

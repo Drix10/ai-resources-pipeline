@@ -1,0 +1,23 @@
+{
+  "title": "Derivative concept explainer",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/linearuncle-5d2bae",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "math",
+    "explainer",
+    "manim",
+    "graph",
+    "education",
+    "voiceover",
+    "chinese"
+  ],
+  "score": 3,
+  "why": "Shrink delta-t live beside a converging table (1, 0.1, 0.01, 0.001) while the secant swings into the tangent, so the limit is seen rather than stated.",
+  "video": "video.mp4"
+}

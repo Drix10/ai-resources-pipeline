@@ -1,0 +1,22 @@
+{
+  "title": "Claude motion design reel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/ghinaiya-nirmal-5d8fec",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "kinetic-type",
+    "dot-matrix",
+    "particles",
+    "fluid",
+    "shapes"
+  ],
+  "score": 3,
+  "why": "Form a giant numeral from a dot-matrix grid by scaling and tinting only the cells inside the glyph's silhouette, leaving the off-cells as faint texture.",
+  "video": "video.mp4"
+}

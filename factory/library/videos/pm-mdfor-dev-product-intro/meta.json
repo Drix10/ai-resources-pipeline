@@ -1,0 +1,23 @@
+{
+  "title": "mdfor.dev product intro video",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/ho-ba-f3f0e9",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product-ui",
+    "launch-film",
+    "serif-type",
+    "icons",
+    "warm-palette",
+    "kinetic-type",
+    "code"
+  ],
+  "score": 3,
+  "why": "Explode the product's markdown syntax into floating chips ('bold', 'quote') and scattered glyphs that converge into the wordmark, so UI parts become the animation.",
+  "video": "video.mp4"
+}

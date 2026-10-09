@@ -1,0 +1,23 @@
+{
+  "title": "Pixel art LLM history",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/pluginplay-3d4006",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "pixel-art",
+    "characters",
+    "history",
+    "retro",
+    "loop",
+    "narrative",
+    "humor"
+  ],
+  "score": 3,
+  "why": "Reuse one fixed pixel-art tableau (cliff at sunset) and repeat the same action, a boomerang throw, per era, letting a year tag and caption box carry progression until the loop breaks into escalation.",
+  "video": "video.mp4"
+}

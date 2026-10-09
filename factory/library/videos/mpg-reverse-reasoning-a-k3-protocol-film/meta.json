@@ -1,0 +1,23 @@
+{
+  "title": "Reverse Reasoning: a K3 protocol film",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/reverse-reasoning-a-k3-protocol-film-kimik3manim/",
+  "model": "kimi-k3",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "math",
+    "manim",
+    "educational",
+    "explainer",
+    "pipeline",
+    "diagram"
+  ],
+  "score": 3,
+  "why": "A staged pipeline (concept, prerequisites, math enrichment, visual design, screenplay, code, then self-review of rendered frames) treats the screenplay as a separate pass before any animation code.",
+  "repo": "https://github.com/HarleyCoops/KimiK3Manim",
+  "video": "video.mp4"
+}

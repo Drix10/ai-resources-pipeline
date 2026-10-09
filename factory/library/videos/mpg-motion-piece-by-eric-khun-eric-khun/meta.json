@@ -1,0 +1,23 @@
+{
+  "title": "Motion piece by @eric_khun",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-piece-by-eric-khun-eric-khun/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "hand-drawn",
+    "mascot",
+    "festival",
+    "cultural",
+    "bilingual",
+    "fast-cuts",
+    "brand"
+  ],
+  "score": 3,
+  "why": "A strictly specified mascot (flat black silhouette, white V moon mark) stays on-model through fast cuts and zooms, and the moon mark on its chest rhymes visually with the Mid-Autumn moon it gazes at.",
+  "video": "video.mp4"
+}

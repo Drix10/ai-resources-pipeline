@@ -1,0 +1,23 @@
+{
+  "title": "Trezio app motion reel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/agonaliu-466a8f",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product-ui",
+    "launch-film",
+    "serif-sans-pairing",
+    "node-graph",
+    "hud-frame",
+    "light-theme",
+    "search"
+  ],
+  "score": 3,
+  "why": "Pair a heavy grotesque verb with an italic serif object ('Save anything.', 'Find everything.') as the headline system, and grow one saved card into a hub-and-spoke graph of linked notes.",
+  "video": "video.mp4"
+}

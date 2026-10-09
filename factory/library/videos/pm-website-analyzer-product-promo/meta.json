@@ -1,0 +1,22 @@
+{
+  "title": "Website analyzer product promo",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/en-ra-81c6dd",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "product-ui",
+    "cursor",
+    "floating-cards",
+    "flow",
+    "minimal",
+    "mascot",
+    "square"
+  ],
+  "score": 3,
+  "why": "Run the whole flow as a cursor-driven sequence of single floating cards on a blank warm canvas (input, scan pill, match list, scored thread, drafted reply, posted result), never showing a full app window.",
+  "video": "video.mp4"
+}

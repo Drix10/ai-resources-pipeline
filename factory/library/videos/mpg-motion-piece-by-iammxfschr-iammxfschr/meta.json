@@ -1,0 +1,22 @@
+{
+  "title": "Motion piece by @iamMXFSCHR",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-piece-by-iammxfschr-iammxfschr/",
+  "model": "claude-opus-5-5",
+  "engine": "gsap",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "launch",
+    "startup",
+    "ai",
+    "punchy",
+    "gsap",
+    "music"
+  ],
+  "score": 3,
+  "why": "The brief is three adjectives (\"modern, slick and punchy\") plus a single goal (go viral); the reusable lesson is to treat a tone-only brief as the style constraint and add trending music as a final pass.",
+  "video": "video.mp4"
+}

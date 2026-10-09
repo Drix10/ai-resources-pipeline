@@ -1,0 +1,23 @@
+{
+  "title": "Abiogenesis to multicellular life in raw WebGL",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/abiogenesis-and-evolution-in-raw-webgl-yume-arasaki/",
+  "model": "gpt-6-astra",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "simulation",
+    "shader",
+    "evolution",
+    "generative",
+    "documentary",
+    "hud",
+    "particles"
+  ],
+  "score": 3,
+  "why": "Every mutation must produce a visible trait so lineages read by colour, shape and appendages, while a small HUD ticks elapsed eons and species count to make escalating complexity legible.",
+  "video": "video.mp4"
+}

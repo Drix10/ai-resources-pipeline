@@ -1,0 +1,22 @@
+{
+  "title": "GARGANTUA: real-time Schwarzschild black-hole raytracer",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/gargantua-black-hole-raytracer-kimi-showcase/",
+  "model": "kimi-k3",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "space",
+    "black-hole",
+    "shader",
+    "simulation",
+    "hud",
+    "cinematic"
+  ],
+  "score": 3,
+  "why": "Named camera presets (cinematic, poster, edge, polar) chained into an auto cinematic sequence under a mission-control HUD give a single real-time object a whole shot list.",
+  "video": "video.mp4"
+}

@@ -1,0 +1,21 @@
+{
+  "title": "Explorable workstation room (“surprise me”)",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/explorable-workstation-room-surprise-me-thehypedotnews-k3/",
+  "model": "kimi-k3",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "3d",
+    "procedural",
+    "interior",
+    "threejs",
+    "exploration",
+    "open-brief"
+  ],
+  "score": 3,
+  "why": "A procedural-only constraint (no meshes, no image textures) forces every prop in the room to be built from primitives, giving the whole scene one consistent, readable visual language."
+}

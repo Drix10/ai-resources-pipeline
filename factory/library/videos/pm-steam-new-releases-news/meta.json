@@ -1,0 +1,23 @@
+{
+  "title": "Steam new releases news recap",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/gigabit-million-16b3a0",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "news",
+    "games",
+    "template",
+    "data-cards",
+    "japanese",
+    "dark",
+    "recap"
+  ],
+  "score": 3,
+  "why": "Use a rigid news-card template per game (numbered tab, title, one-line hook, three numbered selling points, stat footer) with a bespoke mini-illustration panel on the right, closing on a summary grid.",
+  "video": "video.mp4"
+}

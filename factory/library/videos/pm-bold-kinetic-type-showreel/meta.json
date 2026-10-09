@@ -1,0 +1,23 @@
+{
+  "title": "Bold kinetic type showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/shneural-2abdfa",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "kinetic-type",
+    "marquee",
+    "3d",
+    "chrome",
+    "bold-color",
+    "editorial"
+  ],
+  "score": 3,
+  "why": "Tile one word into a repeating marquee wall in alternating weights, then pull a single row out as a high-contrast colour band to become the hero instance of the word.",
+  "video": "video.mp4"
+}

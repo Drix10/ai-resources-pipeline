@@ -1,0 +1,22 @@
+{
+  "title": "Animated pixel art wizard casting a spell",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/animated-pixel-art-wizard-casting-a-spell-majidmanzarpour/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "pixel-art",
+    "loop",
+    "character",
+    "particles",
+    "retro",
+    "state-machine",
+    "magic"
+  ],
+  "score": 3,
+  "why": "Animate pose parameters smoothly but quantize them to a 128x96 grid each frame, so motion reads at 8-12 fps sprite cadence, inside an IDLE, CHARGE, CAST, RECOVER loop where particles step through a fixed palette from white to magic colour to dark.",
+  "video": "video.mp4"
+}

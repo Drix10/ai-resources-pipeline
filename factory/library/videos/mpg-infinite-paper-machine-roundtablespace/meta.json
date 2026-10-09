@@ -1,0 +1,21 @@
+{
+  "title": "Infinite paper machine",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/infinite-paper-machine-roundtablespace-fable5/",
+  "model": "claude-fable-5",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "3d",
+    "loop",
+    "paper",
+    "machine",
+    "generative",
+    "printing"
+  ],
+  "score": 3,
+  "why": "An endless conveyor (a paper strip rolling through a machine while images print onto it) is a seamless-loop device that can carry any sequence of content."
+}

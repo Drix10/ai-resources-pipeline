@@ -1,0 +1,22 @@
+{
+  "title": "One-shot music video from song and lyrics",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/one-shot-music-video-from-song-and-lyrics-paranoidamerica/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "music",
+    "lyrics-sync",
+    "cutout",
+    "illustration",
+    "horror",
+    "ai-image"
+  ],
+  "score": 3,
+  "why": "One continuous camera journey (outside, through the parlor, through a secret bookshelf door, down to the basement) gives the whole song a spatial arc, rendered as Monty-Python cut-out postcards mixed with ballpoint sketch.",
+  "video": "video.mp4"
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Fiery samurai kata",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/chrisjdimarco-f068db",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "characters",
+    "particles",
+    "fire",
+    "single-shot",
+    "japanese",
+    "procedural-animation",
+    "red-palette"
+  ],
+  "score": 3,
+  "why": "Keep the samurai on one spot before a fixed red sun and label each pose with a vertical kanji title plus small English gloss, so a static stage reads as a named sequence of moves.",
+  "video": "video.mp4"
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Dub promo video",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/steventey-0d20e4",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "launch-film",
+    "saas",
+    "data-viz",
+    "counter",
+    "globe",
+    "dark-mode",
+    "product-ui"
+  ],
+  "score": 3,
+  "why": "Make the metric the hero: a live click counter ticks over a glowing dotted globe horizon, so a SaaS number feels like a planet-scale event.",
+  "video": "video.mp4"
+}

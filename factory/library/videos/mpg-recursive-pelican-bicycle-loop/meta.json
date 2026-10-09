@@ -1,0 +1,23 @@
+{
+  "title": "Recursive pelican-on-a-bicycle looping animation",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/recursive-pelican-bicycle-loop-1littlecoder/",
+  "model": "kimi-k3",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "loop",
+    "recursive",
+    "zoom",
+    "flat",
+    "humor",
+    "meta",
+    "short"
+  ],
+  "score": 3,
+  "why": "A Droste loop: the character receives the very video we are watching on his phone, and the camera zooms into the thumbnail until it fills the frame, which is frame 1 again.",
+  "video": "video.mp4"
+}

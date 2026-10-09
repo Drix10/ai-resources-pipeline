@@ -1,0 +1,23 @@
+{
+  "title": "Motion piece by @pound75423",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-piece-by-pound75423-pound75423/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "music-video",
+    "glitch",
+    "psychedelic",
+    "beat-sync",
+    "character",
+    "kaleidoscope",
+    "anime"
+  ],
+  "score": 3,
+  "why": "One cut per beat with no pose repeated on adjacent beats, the strongest white flash on beat 1 of each bar, and effect intensity scaled by section (intro 40%, verse 70%, chorus 100%) so the energy curve follows the song.",
+  "video": "video.mp4"
+}

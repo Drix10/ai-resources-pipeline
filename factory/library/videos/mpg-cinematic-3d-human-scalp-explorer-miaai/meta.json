@@ -1,0 +1,22 @@
+{
+  "title": "Cinematic 3D human scalp explorer",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/cinematic-3d-human-scalp-explorer-miaai-lab/",
+  "model": "kimi-k3",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "3d",
+    "medical",
+    "educational",
+    "exploded-view",
+    "cross-section",
+    "interactive"
+  ],
+  "score": 3,
+  "why": "A slow fly-in orbit settles on the hero object, then a cross-section slice and an exploded view separate its layers while keeping their spatial relationships, which reads as a museum exhibit.",
+  "video": "video.mp4"
+}

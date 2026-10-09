@@ -1,0 +1,23 @@
+{
+  "title": "YouTube transcript product ad",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/tstfully-0aa6b4",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "ad",
+    "product-ui",
+    "kinetic-type",
+    "serif-italic",
+    "dark-mode",
+    "red",
+    "saas"
+  ],
+  "score": 3,
+  "why": "Type the value prop as a sentence that completes over beats, with the key word switching to a red italic serif ('playlists', 'problem', 'any'), on a dark ground lit by a faint red bloom.",
+  "video": "video.mp4"
+}

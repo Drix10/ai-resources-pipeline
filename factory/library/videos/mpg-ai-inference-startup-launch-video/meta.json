@@ -1,0 +1,23 @@
+{
+  "title": "AI inference startup launch video",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/ai-inference-startup-launch-video-deedydas/",
+  "model": "claude-opus-5-5",
+  "engine": "gsap",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "launch",
+    "startup",
+    "kinetic-typography",
+    "data-viz",
+    "minimal",
+    "japanese",
+    "brand"
+  ],
+  "score": 3,
+  "why": "The brand concept is built on one borrowed word (muda, the Japanese for waste) shown as a dictionary entry, and the film closes on a receipt comparing its own runtime (26.000 s) with the product's answer time (0.038 s).",
+  "video": "video.mp4"
+}

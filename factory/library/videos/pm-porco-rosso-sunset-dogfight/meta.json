@@ -1,0 +1,23 @@
+{
+  "title": "Porco Rosso sunset dogfight",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/nft-chen-5f8bb0",
+  "model": "claude-opus-5-5",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "3d",
+    "anime",
+    "flight",
+    "chase-camera",
+    "sunset",
+    "captions",
+    "cinematic"
+  ],
+  "score": 3,
+  "why": "A chase camera locked behind the plane rolls with it through purple cumulus over a sunset sea, with serif lyric captions and small manoeuvre labels as the only graphics.",
+  "video": "video.mp4"
+}

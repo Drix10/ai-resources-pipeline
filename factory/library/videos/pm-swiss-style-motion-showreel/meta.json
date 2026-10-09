@@ -1,0 +1,23 @@
+{
+  "title": "Swiss-style motion showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/levabashidze-2d713a",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "swiss-style",
+    "kinetic-type",
+    "chapter-cards",
+    "isometric",
+    "grid",
+    "render-gag"
+  ],
+  "score": 3,
+  "why": "End the reel on a fake render-progress screen (098% counting, filmstrip of every chapter's thumbnail) so the recap doubles as a self-aware 'still rendering' gag before the logo.",
+  "video": "video.mp4"
+}

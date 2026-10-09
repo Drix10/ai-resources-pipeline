@@ -1,0 +1,22 @@
+{
+  "title": "Motion piece by @FornYapayZeka",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-piece-by-fornyapayzeka-fornyapayzeka/",
+  "model": "claude-opus-5-5",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "explosion",
+    "3d",
+    "shader",
+    "vfx",
+    "cinematic",
+    "interactive"
+  ],
+  "score": 3,
+  "why": "Make an explosion legible as cause and effect: show its ignition, the force propagating outward and the lasting change it leaves on the scene, rather than one bright flash or random particle spray.",
+  "video": "video.mp4"
+}

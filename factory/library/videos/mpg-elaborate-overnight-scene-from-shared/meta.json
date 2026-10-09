@@ -1,0 +1,23 @@
+{
+  "title": "Elaborate overnight scene from shared prompt",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/elaborate-overnight-scene-from-shared-prompt-anabology/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "music-video",
+    "cinematic",
+    "hud",
+    "kinetic-typography",
+    "character",
+    "lyrics",
+    "zeitgeist"
+  ],
+  "score": 3,
+  "why": "Plan lyric placement into the shot composition: keep the background quiet where lyrics run big on the left with the character on the right, and vary the lyric scale from subtitle to full-frame, using the largest type for the opening hook.",
+  "video": "video.mp4"
+}

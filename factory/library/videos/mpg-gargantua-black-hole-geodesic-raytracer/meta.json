@@ -1,0 +1,22 @@
+{
+  "title": "Gargantua black-hole geodesic raytracer (WebGL2)",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/gargantua-black-hole-geodesic-raytracer-webgl2-devloper-hs-k/",
+  "model": "kimi-k3",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "space",
+    "black-hole",
+    "shader",
+    "physics",
+    "webgl",
+    "cyberpunk"
+  ],
+  "score": 3,
+  "why": "Physical accuracy as the visual: gravitational lensing, Doppler beaming and redshift computed honestly make the glowing disk's asymmetry the hero image, with no decorative fakery.",
+  "video": "video.mp4"
+}

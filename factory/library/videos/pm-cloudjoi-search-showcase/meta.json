@@ -1,0 +1,22 @@
+{
+  "title": "CloudJoi search showcase",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/lester-tyy-f897f7",
+  "model": "claude-opus-5-5",
+  "engine": "remotion",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product-ui",
+    "search",
+    "photos",
+    "light-ui",
+    "app-promo",
+    "typing"
+  ],
+  "score": 3,
+  "why": "Anchor the film on one centred search bar: each typed query triggers a different result choreography (carousel, fanned stack, poster avalanche) before snapping back to the empty bar.",
+  "video": "video.mp4"
+}

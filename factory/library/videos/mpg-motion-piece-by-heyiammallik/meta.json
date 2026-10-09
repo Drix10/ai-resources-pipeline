@@ -1,0 +1,22 @@
+{
+  "title": "Motion piece by @heyiammallik",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-piece-by-heyiammallik-heyiammallik/",
+  "model": "claude-opus-5-5",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "portfolio",
+    "kinetic-typography",
+    "3d",
+    "showreel",
+    "dark",
+    "brand"
+  ],
+  "score": 3,
+  "why": "Punch single-word cards (\"COMPLEX\" / \"CLEAR,\" / \"RELIABLE\") with a different treatment each (echo-tiled, corner-bracketed, red highlight block), then hand off to dark 3D work shots captioned with short red-boxed claims.",
+  "video": "video.mp4"
+}

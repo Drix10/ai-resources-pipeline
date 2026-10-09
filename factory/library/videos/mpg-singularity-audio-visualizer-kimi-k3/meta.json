@@ -1,0 +1,21 @@
+{
+  "title": "SINGULARITY: black-hole audio visualizer with code-generated EDM",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/singularity-audio-visualizer-kimi-k3-sulat/",
+  "model": "kimi-k3",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "music",
+    "audio-reactive",
+    "shader",
+    "space",
+    "edm",
+    "visualizer"
+  ],
+  "score": 3,
+  "why": "Each song section (build, verse, riser, drop, breakdown, bigger drop, outro) gets its own visual chapter: the scene comes apart on the drop and breathes in the breakdown."
+}

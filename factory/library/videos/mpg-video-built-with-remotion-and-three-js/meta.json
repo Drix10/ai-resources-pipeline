@@ -1,0 +1,23 @@
+{
+  "title": "Video built with Remotion and Three.js",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/video-built-with-remotion-and-three-js-lnkiai/",
+  "model": "claude-opus-5-5",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "ui",
+    "3d",
+    "product",
+    "material-design",
+    "launch",
+    "mobile",
+    "shapes"
+  ],
+  "score": 3,
+  "why": "An explosion of 3D brand-shaped primitives collapses into the logo, then a single blob shape masks a one-word title ('Ship.') on a flat colour field before cutting to linked phone-screen flows.",
+  "video": "video.mp4"
+}

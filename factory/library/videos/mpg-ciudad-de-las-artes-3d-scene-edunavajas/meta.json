@@ -1,0 +1,20 @@
+{
+  "title": "Ciudad de las Artes y las Ciencias: navigable 3D scene with day/night",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/ciudad-de-las-artes-3d-scene-edunavajas/",
+  "model": "kimi-k3",
+  "engine": "three",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "3d",
+    "architecture",
+    "day-night",
+    "reflections",
+    "tour",
+    "city"
+  ],
+  "score": 3,
+  "why": "A time-of-day slider drives sky colour, moving shadows and night-time building lights together, so one parameter sweeps the whole mood of the scene."
+}

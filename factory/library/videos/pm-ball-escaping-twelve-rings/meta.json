@@ -1,0 +1,22 @@
+{
+  "title": "Ball escaping twelve rings",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/kantamk-61f410",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "physics",
+    "concentric-rings",
+    "countdown",
+    "generative-audio",
+    "particles",
+    "challenge-hook",
+    "vertical"
+  ],
+  "score": 3,
+  "why": "Pin a challenge headline and a live \"N RINGS LEFT\" countdown above twelve concentric gapped rings, so each bounce plays the next note and each ring the ball escapes shatters into particles, turns the next ring hue and ticks the counter down to a reveal card.",
+  "video": "video.mp4"
+}

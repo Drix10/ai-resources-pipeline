@@ -1,0 +1,22 @@
+{
+  "title": "Clockwork Observatory",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/clockwork-observatory-openai/",
+  "model": "gpt-6-astra",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "3d",
+    "architecture",
+    "mechanical",
+    "impossible-space",
+    "cinematic",
+    "etching",
+    "reconfigure"
+  ],
+  "score": 3,
+  "why": "Stage mechanical reconfiguration as a continuous sequence (stairs fold, bridges extend, rings turn, counterweights drop) that builds to a fleeting aligned impossible loop and then separates again, lit with warm practical light against cool moonlight."
+}

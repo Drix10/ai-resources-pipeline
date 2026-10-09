@@ -1,0 +1,24 @@
+{
+  "title": "NEON VOID: liquid-metal text studio site",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/neon-void-liquid-metal-text-studio-site-kimi-k3-commandcode/",
+  "model": "kimi-k3",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "web",
+    "landing-page",
+    "liquid-metal",
+    "3d",
+    "neon",
+    "interactive",
+    "typography"
+  ],
+  "score": 3,
+  "why": "The hero type is a material, not a label: liquid-metal letters distort around the mouse while abstract 3D shapes float behind them, so the brand name is the first piece of motion.",
+  "repo": "https://github.com/CommandCodeAI/slash-design-showcase",
+  "video": "video.mp4"
+}

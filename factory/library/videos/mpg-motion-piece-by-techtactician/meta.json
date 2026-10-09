@@ -1,0 +1,23 @@
+{
+  "title": "Motion piece by @techtactician",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-piece-by-techtactician-techtactician/",
+  "model": "claude-opus-5-5",
+  "engine": "gsap",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "saas",
+    "launch",
+    "kinetic-typography",
+    "problem-solution",
+    "warm",
+    "ui",
+    "product"
+  ],
+  "score": 3,
+  "why": "Pain points pop in as small UI chips with red x marks, then each is struck through, before a blur-in question ('What if it took seconds?') whose payoff word switches to the brand orange.",
+  "video": "video.mp4"
+}

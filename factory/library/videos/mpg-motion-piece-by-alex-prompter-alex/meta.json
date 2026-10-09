@@ -1,0 +1,23 @@
+{
+  "title": "Motion piece by @alex_prompter",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-piece-by-alex-prompter-alex-prompter/",
+  "model": "claude-opus-5-5",
+  "engine": "gsap",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "explainer",
+    "small-business",
+    "minimal",
+    "5-scene",
+    "kinetic-typography",
+    "30-second",
+    "newsletter"
+  ],
+  "score": 3,
+  "why": "A fixed five-scene skeleton (customer problem, what I do, how it works in three steps, one proof point, name at the end), with the three steps revealed as numbered cards one by one and a single counting-up number as the proof.",
+  "video": "video.mp4"
+}

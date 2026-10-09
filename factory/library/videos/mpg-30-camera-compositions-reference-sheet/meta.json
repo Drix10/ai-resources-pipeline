@@ -1,0 +1,21 @@
+{
+  "title": "30 camera compositions reference sheet",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/30-camera-compositions-reference-sheet/",
+  "model": "gpt-6-astra",
+  "engine": "remotion",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "camera",
+    "storyboard",
+    "reference",
+    "composition",
+    "svg",
+    "educational"
+  ],
+  "score": 3,
+  "why": "Block every shot with two colour-coded stick figures (cyan A, orange B) in a 16:9 thumbnail so position, facing and tilt read instantly, and pick each shot by ID from a 30-framing vocabulary (OTS, low angle, POV, orbit and so on).",
+  "video": "video.mp4"
+}

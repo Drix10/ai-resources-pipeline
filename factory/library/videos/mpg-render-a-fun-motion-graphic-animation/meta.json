@@ -1,0 +1,22 @@
+{
+  "title": "Render a fun motion graphic animation using the GSAP animation…",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/render-a-fun-motion-graphic-animation-using-the-gsap-animati/",
+  "model": "claude-opus-5-5",
+  "engine": "gsap",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "explainer",
+    "history",
+    "timeline",
+    "cartoon",
+    "vertical",
+    "kinetic-typography",
+    "fun"
+  ],
+  "score": 3,
+  "why": "A persistent year ruler along the top with a globe marker that travels date by date, so each scene (blueprint, shovels down, opening) is stamped with a red date tag and a chunky headline over a single cartoon stage.",
+  "video": "video.mp4"
+}

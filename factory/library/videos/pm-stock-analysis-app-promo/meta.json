@@ -1,0 +1,23 @@
+{
+  "title": "Stock analysis app promo",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/aistocksavvy-3fb9f5",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product-ui",
+    "fintech",
+    "launch-film",
+    "3d-tilt",
+    "chromatic-aberration",
+    "dark",
+    "nav-tracker"
+  ],
+  "score": 3,
+  "why": "Run a persistent bottom nav whose active tab tracks the current feature chapter, while UI cards fly in at 3D tilt and a final wall of tilted screenshots sells breadth.",
+  "video": "video.mp4"
+}

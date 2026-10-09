@@ -1,0 +1,22 @@
+{
+  "title": "15-second motion showreel rendered with Remotion",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/15-second-motion-showreel-rendered-with-remotion-ajith-io/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "kinetic-typography",
+    "color-block",
+    "particles",
+    "minimal",
+    "loop"
+  ],
+  "score": 3,
+  "why": "A single red dot carries through every shot over hard full-bleed colour changes (black, red, cream, blue, yellow) inside a constant HUD frame showing bar/BPM and timecode, ending as the full stop of the wordmark.",
+  "video": "video.mp4"
+}

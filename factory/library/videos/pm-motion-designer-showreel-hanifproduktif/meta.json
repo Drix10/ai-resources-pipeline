@@ -1,0 +1,22 @@
+{
+  "title": "Motion designer showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/hanifproduktif-54bdee",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "kinetic-type",
+    "self-describing-type",
+    "bold-color",
+    "beat-sync",
+    "minimal"
+  ],
+  "score": 3,
+  "why": "One word per beat, each word animated by the technique it names (STRETCH stretches, SPLIT splits, BLUR blurs), on hard-cut flat colour backgrounds.",
+  "video": "video.mp4"
+}

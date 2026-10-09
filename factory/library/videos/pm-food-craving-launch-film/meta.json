@@ -1,0 +1,23 @@
+{
+  "title": "Food craving launch film",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/ultimaxbt-2ddf1e",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "launch-film",
+    "product-ui",
+    "phone-mockup",
+    "color-flood",
+    "single-shot",
+    "photos",
+    "beat-sync"
+  ],
+  "score": 3,
+  "why": "An iridescent glowing composer types a messy human request, then a lime ripple from the send button floods the frame and shrinks into the result card.",
+  "video": "video.mp4"
+}

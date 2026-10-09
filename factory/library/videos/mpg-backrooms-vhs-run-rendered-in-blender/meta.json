@@ -1,0 +1,23 @@
+{
+  "title": "Backrooms VHS run, rendered in Blender",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/backrooms-vhs-run-rendered-in-blender-chrisfirst/",
+  "model": "gpt-6-astra",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "found-footage",
+    "vhs",
+    "horror",
+    "first-person",
+    "blender",
+    "handheld",
+    "audio"
+  ],
+  "score": 3,
+  "why": "An unseen offscreen roar behind the camera drives the escalation from looking around to panicked running, so the threat lives only in the sound and the camera's reaction.",
+  "video": "video.mp4"
+}

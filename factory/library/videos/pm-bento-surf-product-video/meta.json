@@ -1,0 +1,23 @@
+{
+  "title": "Bento.surf product video",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/bizibeast-10f264",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product-promo",
+    "saas",
+    "bento-grid",
+    "price-comparison",
+    "bold-color",
+    "product-ui",
+    "creator-tools"
+  ],
+  "score": 3,
+  "why": "Open by scattering competitor price tags that sum to '$181/month', then snap them into one bento-grid of tiles at '$15', so the product's own grid metaphor becomes the value argument.",
+  "video": "video.mp4"
+}

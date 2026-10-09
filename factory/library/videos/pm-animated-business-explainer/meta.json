@@ -1,0 +1,22 @@
+{
+  "title": "Animated business explainer",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/alex-prompter-1ea044",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "explainer",
+    "counter",
+    "how-it-works",
+    "flat",
+    "newsletter",
+    "kinetic-type"
+  ],
+  "score": 3,
+  "why": "Open on the actual prompt being typed into the chat box, then dissolve into the explainer it produced, with a counter ticking up to land the proof point.",
+  "video": "video.mp4"
+}

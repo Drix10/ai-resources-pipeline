@@ -1,0 +1,22 @@
+{
+  "title": "3D motion design showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/sahildesigner23-ee3155",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "kinetic-type",
+    "3d",
+    "voxels",
+    "product-3d",
+    "dark"
+  ],
+  "score": 3,
+  "why": "Run one word, MOTION, through successive treatments (flat, outline-tiled, extruded 3D, inside a fake NLE timeline) so the constant subject makes every style change legible.",
+  "video": "video.mp4"
+}

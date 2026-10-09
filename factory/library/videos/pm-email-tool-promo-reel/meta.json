@@ -1,0 +1,23 @@
+{
+  "title": "Email tool promo reel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/melvynx-6cde6c",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product-ui",
+    "saas",
+    "kinetic-type",
+    "dot-grid",
+    "red-accent",
+    "terminal",
+    "promo"
+  ],
+  "score": 3,
+  "why": "Use a single red ball as the accent through every scene (wordmark dot, bill bubble, error X, hot-lead dots in a grid) so problem and solution share one marker.",
+  "video": "video.mp4"
+}

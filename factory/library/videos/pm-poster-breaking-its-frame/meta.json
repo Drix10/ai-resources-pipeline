@@ -1,0 +1,23 @@
+{
+  "title": "Poster breaking its frame",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/pankajkumar-dev-0bee87",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "kinetic-type",
+    "swiss-poster",
+    "bauhaus",
+    "frame-break",
+    "3d",
+    "primary-colours",
+    "loop"
+  ],
+  "score": 3,
+  "why": "Start with a gridded Swiss poster inside a drawn frame, then let a giant letterform physically spill past the border and pull the camera into a 3D Bauhaus space before snapping back to the empty frame.",
+  "video": "video.mp4"
+}

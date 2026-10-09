@@ -1,0 +1,21 @@
+{
+  "title": "Exploded-view animation of a Japanese flower shop",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/exploded-view-japanese-flower-shop-kanaworks-ai/",
+  "model": "gpt-6-astra",
+  "engine": "unknown",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "3d",
+    "exploded-view",
+    "blender",
+    "diorama",
+    "cartoon",
+    "reassembly"
+  ],
+  "score": 3,
+  "why": "Explode, hold, reverse: parts fly out with staggered timing, varied speeds and layered trajectories onto a neutral studio backdrop, hold for reading, then fly back to reassemble the original scene.",
+  "video": "video.mp4"
+}

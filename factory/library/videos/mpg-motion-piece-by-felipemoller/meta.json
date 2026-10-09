@@ -1,0 +1,22 @@
+{
+  "title": "Motion piece by @felipemoller",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-piece-by-felipemoller-felipemoller/",
+  "model": "claude-opus-5-5",
+  "engine": "three",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "product",
+    "fintech",
+    "isometric",
+    "3d",
+    "vertical",
+    "ui",
+    "explainer"
+  ],
+  "score": 3,
+  "why": "A repeated three-beat structure (isometric diorama of a place, price tag pops on it, matching expense card drops in below) varies only the input method each round (voice, photo, text) before the tagline pays it off.",
+  "video": "video.mp4"
+}

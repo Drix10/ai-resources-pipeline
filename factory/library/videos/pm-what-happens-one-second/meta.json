@@ -1,0 +1,22 @@
+{
+  "title": "What happens in one second",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/nolkeeg-bf062e",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "science",
+    "space",
+    "data-viz",
+    "kinetic-type",
+    "particles",
+    "3d"
+  ],
+  "score": 3,
+  "why": "Structure the film around a single second ticking on a bottom progress bar, each scene one giant stat (km, bolts) with a small italic serif gloss of what happens in that second.",
+  "video": "video.mp4"
+}

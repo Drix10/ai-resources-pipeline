@@ -1,0 +1,23 @@
+{
+  "title": "Kinetic shapes showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/shinskinakamoto-20190b",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "chaptered",
+    "viewfinder-hud",
+    "particles",
+    "wireframe",
+    "hard-cuts",
+    "shapes"
+  ],
+  "score": 3,
+  "why": "Give every vignette identical viewfinder chrome (corner brackets, running timecode, chapter number) and a one-word skill title, then cut hard between radically different palettes, from orange dot on rings to particle vortex to wireframe cube to joy-division waveform, so the frame unifies what the content does not.",
+  "video": "video.mp4"
+}

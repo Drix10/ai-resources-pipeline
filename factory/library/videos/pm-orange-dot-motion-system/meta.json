@@ -1,0 +1,23 @@
+{
+  "title": "Orange dot motion system",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/ultimaxbt-bbebf5",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "motif",
+    "kinetic-type",
+    "loop",
+    "springs",
+    "graph",
+    "orange",
+    "shapes"
+  ],
+  "score": 3,
+  "why": "One orange dot carries every scene: the i-dot in a word, a spring graph's tracer, a frame-filling circle, the centre of orbiting type, ending where it began so the video loops.",
+  "video": "video.mp4"
+}

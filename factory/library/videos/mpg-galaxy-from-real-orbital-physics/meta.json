@@ -1,0 +1,21 @@
+{
+  "title": "Galaxy flythrough from real orbital physics",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/galaxy-from-real-orbital-physics-argona0x/",
+  "model": "gpt-6-astra",
+  "engine": "unknown",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "space",
+    "simulation",
+    "particles",
+    "3d",
+    "flythrough",
+    "one-shot"
+  ],
+  "score": 3,
+  "why": "A single unbroken 30-second flight through a physically simulated structure; one continuous camera path with no cuts lets scale and motion do all the storytelling.",
+  "video": "video.mp4"
+}

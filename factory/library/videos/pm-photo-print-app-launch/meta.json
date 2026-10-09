@@ -1,0 +1,23 @@
+{
+  "title": "Photo print app launch film",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/twoclipping-221cab",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "launch-film",
+    "product-ui",
+    "single-shot",
+    "morph",
+    "liquid-glass",
+    "photos",
+    "cursor",
+    "beat-sync"
+  ],
+  "score": 3,
+  "why": "One continuous take where each scene is built from the last: a black pill becomes an iris, the photo grid unfolds like a paper map, and the digital print ends as real hands holding the framed photo.",
+  "video": "video.mp4"
+}

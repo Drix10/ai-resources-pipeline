@@ -1,0 +1,23 @@
+{
+  "title": "Prompt Motion site promo",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/antonio-kodheli-490109",
+  "model": "claude-opus-5-5",
+  "engine": "remotion",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product-ui",
+    "site-tour",
+    "beat-sync",
+    "match-cut",
+    "camera-move",
+    "launch-film",
+    "light-ui"
+  ],
+  "score": 3,
+  "why": "Drive one camera over a single world layer and take tile corner radius to zero as a tile reaches full-bleed, so pull-back, whip-in and match-cut-back between grid and full-screen reel are seamless.",
+  "video": "video.mp4"
+}

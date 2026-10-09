@@ -1,0 +1,23 @@
+{
+  "title": "Animated space cartoon episode",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/ryzoft-4f85bd",
+  "model": "claude-opus-5-5",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "3d",
+    "threejs",
+    "characters",
+    "short-film",
+    "letterbox",
+    "space",
+    "retro-cartoon"
+  ],
+  "score": 3,
+  "why": "Frame a code-built 3D cartoon as a real episode: letterboxed 2.39 bars, a chrome-orange title card with lens streak, burned-in dialogue subtitles, and a centred end-credits roll naming the cast.",
+  "video": "video.mp4"
+}

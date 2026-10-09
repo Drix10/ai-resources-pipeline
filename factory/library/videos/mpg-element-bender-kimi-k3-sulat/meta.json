@@ -1,0 +1,22 @@
+{
+  "title": "Element Bender: 30-second cinematic elemental VFX animation",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/element-bender-kimi-k3-sulat/",
+  "model": "kimi-k3",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "vfx",
+    "particles",
+    "3d",
+    "elemental",
+    "orbit-camera",
+    "cinematic",
+    "character"
+  ],
+  "score": 3,
+  "why": "A glowing spline drawn once on the floor becomes the shared track that four distinct elemental effects ride in turn, each leaving its own aftermath before the next, so the piece reads as one continuous shot."
+}

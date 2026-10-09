@@ -1,0 +1,21 @@
+{
+  "title": "Rolling the obelisk: 3D Egyptology physics explainer",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/rush-test-egyptology-claude-fable/",
+  "model": "claude-fable-5",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "3d",
+    "explainer",
+    "history",
+    "engineering",
+    "staged",
+    "labels"
+  ],
+  "score": 3,
+  "why": "Barber-pole stripes on rolling logs with rotation locked to distance/radius make the mechanism visibly honest, and a seven-stage state machine with tracking leader-line labels turns the process into readable beats."
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Clay-style music video",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/davidshulmanfl-371638",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "music-video",
+    "claymation",
+    "stop-motion",
+    "characters",
+    "satire",
+    "bold-color",
+    "parody"
+  ],
+  "score": 3,
+  "why": "Imitate stop-motion claymation: one plasticine protagonist in a suit cycles through saturated flat-colour sets with googly-eyed object sidekicks, contact-sheet grids and cardboard props, cut per lyric.",
+  "video": "video.mp4"
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Bold typographic motion showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/motiondsgnr-9dcfa6",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "kinetic-type",
+    "chapter-cards",
+    "particles",
+    "generative-art",
+    "grid-recap",
+    "bold-color"
+  ],
+  "score": 3,
+  "why": "Frame every segment as a numbered chapter (01 Typography, 04 Shape Morphing...) inside persistent timecode/slate chrome, then recap all chapters as a tiled grid behind one slammed 'ALL OF IT.' line.",
+  "video": "video.mp4"
+}

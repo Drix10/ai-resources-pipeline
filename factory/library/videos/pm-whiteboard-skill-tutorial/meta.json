@@ -1,0 +1,23 @@
+{
+  "title": "Whiteboard skill tutorial",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/lemomo-ai-0d9cff",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "whiteboard",
+    "tutorial",
+    "product-ui",
+    "hand-drawn",
+    "bilingual",
+    "subtitles",
+    "explainer"
+  ],
+  "score": 3,
+  "why": "Mix real app screenshots into a whiteboard world: a marker draws numbered circles, arrows and frames around live UI, with bilingual subtitle captions, ending on a single board mapping the whole flow.",
+  "video": "video.mp4"
+}

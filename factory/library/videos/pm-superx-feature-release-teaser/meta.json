@@ -1,0 +1,22 @@
+{
+  "title": "SuperX feature release teaser",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/robj3d3-b18fad",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "teaser",
+    "logo-reveal",
+    "light-streak",
+    "dark-mode",
+    "product-ui",
+    "warm-glow"
+  ],
+  "score": 3,
+  "why": "Hijack a known symbol: a glowing light streak traces the X logo, reframes it ('X = Twitter'), then scatters it into a constellation of x's before resolving to 'Soon.'",
+  "video": "video.mp4"
+}

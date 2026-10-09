@@ -1,0 +1,22 @@
+{
+  "title": "Motion piece by @abderrahmen_g",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-piece-by-abderrahmen-g-abderrahmen-g/",
+  "model": "claude-opus-5-5",
+  "engine": "gsap",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "hand-drawn",
+    "playful",
+    "sound-design",
+    "character",
+    "collage",
+    "joyful"
+  ],
+  "score": 3,
+  "why": "Scanned hand-drawn input images are animated directly as cut-out puppets, with every pop and move paired to a matching sound effect so the authentic sketch texture carries the charm.",
+  "video": "video.mp4"
+}

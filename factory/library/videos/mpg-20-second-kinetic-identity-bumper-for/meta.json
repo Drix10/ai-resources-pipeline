@@ -1,0 +1,22 @@
+{
+  "title": "20-second kinetic identity bumper for TechHalla",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/20-second-kinetic-identity-bumper-for-techhalla-techhalla/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "kinetic-typography",
+    "brand",
+    "bumper",
+    "loop",
+    "poster",
+    "beat-sync",
+    "social"
+  ],
+  "score": 3,
+  "why": "A locked 6-line message is cut to a 120 bpm grid with per-glyph springs staggered at 1/16 notes (125ms), and the outgoing word's own outlines become the mask that reveals the next line.",
+  "video": "video.mp4"
+}

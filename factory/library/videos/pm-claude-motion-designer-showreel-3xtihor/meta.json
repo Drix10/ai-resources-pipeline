@@ -1,0 +1,22 @@
+{
+  "title": "Claude motion designer showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/3xtihor-0f6911",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "kinetic-type",
+    "3d-type",
+    "particles",
+    "shapes",
+    "dark"
+  ],
+  "score": 3,
+  "why": "Wrap a list of skills around a rotating 3D cylinder band of text with alternating colour phrases, inner face showing mirrored, for instant depth without any 3D models.",
+  "video": "video.mp4"
+}

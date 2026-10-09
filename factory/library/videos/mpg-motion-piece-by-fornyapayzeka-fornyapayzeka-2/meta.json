@@ -1,0 +1,22 @@
+{
+  "title": "Motion piece by @FornYapayZeka",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-piece-by-fornyapayzeka-fornyapayzeka-2/",
+  "model": "claude-opus-5-5",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "fireworks",
+    "particles",
+    "3d",
+    "shader",
+    "finale",
+    "lighting"
+  ],
+  "score": 3,
+  "why": "Design a fireworks show as a sequence with rhythm, depth layers and light spilling onto the environment, building to one memorable finale, instead of repeating the same small burst.",
+  "video": "video.mp4"
+}

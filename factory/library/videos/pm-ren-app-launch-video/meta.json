@@ -1,0 +1,23 @@
+{
+  "title": "Ren app launch video",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/macrohou-33959d",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "launch-film",
+    "product-ui",
+    "phone-mockup",
+    "editorial",
+    "copy-led",
+    "light-dark-switch",
+    "minimal"
+  ],
+  "score": 3,
+  "why": "Tell the product as a one-line-per-card syllogism ('Everyone swears it works' -> 'Ren runs a trial of one' -> 'Then, an honest verdict') alternating cream and black backgrounds, one UI object per card.",
+  "video": "video.mp4"
+}

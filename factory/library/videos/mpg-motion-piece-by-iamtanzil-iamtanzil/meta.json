@@ -1,0 +1,22 @@
+{
+  "title": "Motion piece by @iamtanzil_",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-piece-by-iamtanzil-iamtanzil/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "web",
+    "hero",
+    "product",
+    "reveal",
+    "mask",
+    "editorial"
+  ],
+  "score": 3,
+  "why": "A feathered radial mask (120px solid core, 165px fade) acts as an x-ray torch revealing an internal-structure image layered under the exterior photo, paired with a word-by-word pull-up headline at 80ms stagger.",
+  "video": "video.mp4"
+}

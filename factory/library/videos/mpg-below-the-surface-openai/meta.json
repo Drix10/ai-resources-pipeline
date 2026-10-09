@@ -1,0 +1,22 @@
+{
+  "title": "Below the Surface",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/below-the-surface-openai/",
+  "model": "gpt-6-astra",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "scroll",
+    "educational",
+    "ocean",
+    "storytelling",
+    "depth",
+    "web",
+    "science"
+  ],
+  "score": 3,
+  "why": "Scroll position is depth: the palette shifts from bright surface to saturated blue to near-black as a compact depth gauge orients the viewer, and a size-comparison view puts specimens at the same scale as a diver."
+}

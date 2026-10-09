@@ -1,0 +1,23 @@
+{
+  "title": "Chuseok pixel night scene",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/hoyoyoda-3a5c08",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "pixel-art",
+    "single-shot",
+    "holiday",
+    "characters",
+    "retro",
+    "bar-wipe",
+    "ambient-loop"
+  ],
+  "score": 3,
+  "why": "Hold one locked pixel-art tableau (moon, village, festival crowd) and animate only small layered details, then exit with a stepped rainbow bar wipe dropping down like a pixel curtain.",
+  "video": "video.mp4"
+}

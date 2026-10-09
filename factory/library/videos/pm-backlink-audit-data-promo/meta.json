@@ -1,0 +1,22 @@
+{
+  "title": "Backlink audit data promo",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/palashbagchi11-0a4b6b",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "data-viz",
+    "kinetic-type",
+    "editorial",
+    "explainer",
+    "ad",
+    "minimal"
+  ],
+  "score": 3,
+  "why": "Make each data point one dot in a waffle grid (one dot per URL) and recolour only the offending subset, so percentages are counted rather than charted.",
+  "video": "video.mp4"
+}

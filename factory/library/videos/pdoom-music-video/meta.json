@@ -1,8 +1,19 @@
 {
   "title": "I'm Upping My P(doom) music video (mexicat/pdoom-video)",
-  "formats": ["reel"],
-  "tags": ["music", "lyrics", "ai", "opinion", "generative"],
+  "formats": [
+    "reel"
+  ],
+  "tags": [
+    "music",
+    "lyrics",
+    "ai",
+    "opinion",
+    "generative"
+  ],
   "score": 4,
   "why": "Word-synced kinetic typography from forced-aligned lyrics; scenes anchored to lyric lines and snapped to the beat grid; every frame is a pure function of song time so preview equals export.",
-  "repo": "https://github.com/mexicat/pdoom-video"
+  "repo": "https://github.com/mexicat/pdoom-video",
+  "source": "github",
+  "model": "claude",
+  "engine": "three"
 }

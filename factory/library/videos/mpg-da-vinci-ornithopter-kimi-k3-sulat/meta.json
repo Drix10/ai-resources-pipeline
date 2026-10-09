@@ -1,0 +1,21 @@
+{
+  "title": "Da Vinci's ornithopter: working mechanism in a living manuscript",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/da-vinci-ornithopter-kimi-k3-sulat/",
+  "model": "kimi-k3",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "3d",
+    "mechanism",
+    "exploded-view",
+    "manuscript",
+    "sepia",
+    "explainer"
+  ],
+  "score": 3,
+  "why": "Frame a 3D mechanism inside its own sketchbook: sepia ink annotations, cross-sections and leader-line labels surround the working machine, and an exploded assembly comes apart and rebuilds piece by piece."
+}

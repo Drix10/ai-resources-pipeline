@@ -1,0 +1,22 @@
+{
+  "title": "Crux motion design showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/marouanegazouzi-6071d5",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product-ui",
+    "data-viz",
+    "showreel",
+    "serif-type",
+    "dark",
+    "charts"
+  ],
+  "score": 3,
+  "why": "Prove a stat by filling a permutation-test histogram shuffle by shuffle, then dropping the real value as a glowing marker outside the 95th-percentile band.",
+  "video": "video.mp4"
+}

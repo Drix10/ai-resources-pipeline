@@ -1,0 +1,21 @@
+{
+  "title": "Procedural 3D cherry blossom tree",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/procedural-3d-cherry-blossom-tree-zhodonx-fable5/",
+  "model": "claude-fable-5",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "3d",
+    "generative",
+    "nature",
+    "procedural",
+    "threejs",
+    "botanical"
+  ],
+  "score": 3,
+  "why": "The form is grown by recursive branching rules instead of from an asset, so you can animate the structure itself growing from trunk to blossom as the reveal."
+}

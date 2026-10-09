@@ -1,0 +1,22 @@
+{
+  "title": "Motion showreel with a fully code-synthesized soundtrack",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-showreel-with-a-fully-code-synthesized-soundtrack-pra/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "music",
+    "shader",
+    "synth-audio",
+    "beat-sync",
+    "abstract"
+  ],
+  "score": 3,
+  "why": "Write the soundtrack in code first and derive the cut list from its beat grid, so every cut and transition is forced to land on a beat rather than being nudged to fit afterward.",
+  "video": "video.mp4"
+}

@@ -1,0 +1,23 @@
+{
+  "title": "UX decision explainer animation",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/ux-decision-explainer-animation-moguzbulbul/",
+  "model": "claude-opus-5-5",
+  "engine": "gsap",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "ux",
+    "ui",
+    "explainer",
+    "before-after",
+    "minimal",
+    "design-process",
+    "wireframe"
+  ],
+  "score": 3,
+  "why": "The same screen is shown before and after the redesign, with a blueprint wireframe overlay between the two states and a one-line caption per step stating the problem (six buttons with the same weight) and then the fix.",
+  "video": "video.mp4"
+}

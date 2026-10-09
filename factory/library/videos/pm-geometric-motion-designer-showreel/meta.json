@@ -1,0 +1,22 @@
+{
+  "title": "Geometric motion designer showreel",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/leonkohli-6dc01b",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "showreel",
+    "bauhaus",
+    "shapes",
+    "geometric",
+    "3d",
+    "kinetic-type"
+  ],
+  "score": 3,
+  "why": "Fill the frame with a Bauhaus tile grid of quarter-circles and squares in a strict four-colour palette whose tiles rotate and swap on the beat, a pattern scene that doubles as a transition.",
+  "video": "video.mp4"
+}

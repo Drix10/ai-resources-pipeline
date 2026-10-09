@@ -1,0 +1,22 @@
+{
+  "title": "Distilbook motion graphics showreel",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/distilbook-motion-graphics-showreel-ajith-io/",
+  "model": "claude-opus-5-5",
+  "engine": "gsap",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product",
+    "showreel",
+    "ui",
+    "hand-drawn",
+    "edtech",
+    "minimal"
+  ],
+  "score": 3,
+  "why": "Open on a typed aphorism whose payoff line is drawn in handwriting ('They draw it.'), then walk the product as a numbered 3-step progress bar that persists at the top of every UI shot.",
+  "video": "video.mp4"
+}

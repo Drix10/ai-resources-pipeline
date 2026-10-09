@@ -1,0 +1,23 @@
+{
+  "title": "Claude self-intro motion graphic",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/1littlecoder-9fef89",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "kinetic-type",
+    "brand-intro",
+    "accent-dot",
+    "word-list",
+    "two-colour",
+    "minimal",
+    "self-portrait"
+  ],
+  "score": 3,
+  "why": "A single orange dot acts as protagonist: it scribbles, then becomes the tittle of the i and every full stop in a vertically scrolling word list, tying all type back to one recurring accent.",
+  "video": "video.mp4"
+}

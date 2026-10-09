@@ -1,0 +1,23 @@
+{
+  "title": "Motion piece by @loicRambo",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/motion-piece-by-loicrambo-loicrambo/",
+  "model": "claude-opus-5-5",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "character",
+    "life-cycle",
+    "loop",
+    "flat-illustration",
+    "narrative",
+    "showreel",
+    "retro"
+  ],
+  "score": 3,
+  "why": "One character ages through life stages, each in its own art style (storybook, synthwave, grey office clock), while an always-on age counter and a heartbeat line that starts and ends as a flatline close the loop.",
+  "video": "video.mp4"
+}

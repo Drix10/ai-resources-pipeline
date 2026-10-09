@@ -1,0 +1,23 @@
+{
+  "title": "Beat-synced bouncing 3D ball",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/gorden-sun-041f56",
+  "model": "claude-opus-5-5",
+  "engine": "three",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "3d",
+    "beat-sync",
+    "music-video",
+    "neon",
+    "bounce",
+    "characters",
+    "classical"
+  ],
+  "score": 3,
+  "why": "Each bounce of the falling ball lands on a beat and lights the object it hits, turning a descending path of mushrooms into a visible score of the music.",
+  "video": "video.mp4"
+}

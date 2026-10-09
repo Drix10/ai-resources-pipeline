@@ -1,0 +1,23 @@
+{
+  "title": "Norilu product launch video",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/sachaarbonel-8f14f4",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product-ui",
+    "launch-film",
+    "editorial-serif",
+    "soft-gradient",
+    "floating-cards",
+    "agent",
+    "calm"
+  ],
+  "score": 3,
+  "why": "Pair a warm serif two-line headline (second line italic) with a single tilted floating UI card on a soft peach-lavender gradient, and break the rhythm once with a dark 'while you sleep' clock scene.",
+  "video": "video.mp4"
+}

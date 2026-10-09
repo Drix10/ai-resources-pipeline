@@ -1,0 +1,22 @@
+{
+  "title": "3D pelican riding a bicycle",
+  "source": "motionpromptgallery.com",
+  "url": "https://motionpromptgallery.com/p/3d-pelican-riding-a-bicycle-aibuilderclub/",
+  "model": "gpt-6-astra",
+  "engine": "html",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "3d",
+    "character",
+    "playful",
+    "interactive",
+    "webgl",
+    "cycle"
+  ],
+  "score": 3,
+  "why": "Sell speed with stylised speed lines plus a pedalling cycle tied to one speed value, so the character's motion and the motion graphics stay in sync as the speed changes.",
+  "video": "video.mp4"
+}

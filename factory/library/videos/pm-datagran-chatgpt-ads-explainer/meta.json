@@ -1,0 +1,23 @@
+{
+  "title": "Datagran ChatGPT ads explainer",
+  "source": "prompt-motion.com",
+  "url": "https://prompt-motion.com/charlesmendez-73b6e4",
+  "model": "claude-opus-5-5",
+  "engine": "unknown",
+  "formats": [
+    "reel",
+    "landscape"
+  ],
+  "tags": [
+    "product-explainer",
+    "saas",
+    "dark-ui",
+    "chaptered",
+    "dashboard",
+    "accent-green",
+    "funnel"
+  ],
+  "score": 3,
+  "why": "Frame every scene with the same numbered HUD chrome (step label top-left, progress rule along the bottom) and pair a two-line headline whose last word turns accent green with one live UI panel on the right, so a seven-step product funnel reads as one continuous chaptered film.",
+  "video": "video.mp4"
+}
