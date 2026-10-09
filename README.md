@@ -69,7 +69,7 @@ flowchart TD
 - **Preview Before Live**: `node feed-preview.js --max 3` prints exactly what would be posted and liked — nothing runs live without approval.
 
 ### 🎬 Instagram Content Factory (`factory/`, `src/factory/`)
-- Turns fresh articles into **one-off reels and carousels**: Opus writes a fact-gated storyboard, OpenRouter (Nano Banana 2.1) paints textless plates, and your **local Claude Code** (Opus 5.5, `--effort xhigh`, no API key) builds each reel as a bespoke code-rendered film in Remotion or HyperFrames.
+- Turns fresh articles into **one-off reels and carousels**: at the end of each run an Opus editor picks the day's best story and researches its links, Opus writes a fact-gated storyboard, and your **local Claude Code** (Opus 5.5, `--effort xhigh`, no API key) builds each reel as a bespoke code-rendered film in Remotion or HyperFrames, after studying the full library of gallery prompts and reference repos. No image models: everything is code plus real screenshots of the pages the story links to.
 - Every reel is a new topic and a new look: topic dedupe (TF-IDF) plus a memory of recent films' visual ideas, palettes and techniques.
 - Beat-locked synthesized soundtrack, vision QA on rendered stills, a review ledger, and an Instagram publisher on the logged-in Chrome (dry run by default, daily cap).
 - Off until `FACTORY_ENABLED=true`; nothing posts until `IG_POST=true`. Full guide: [`docs/CONTENT_FACTORY.md`](docs/CONTENT_FACTORY.md).

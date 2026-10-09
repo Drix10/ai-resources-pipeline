@@ -81,6 +81,9 @@ data/linkedin-feed-commented.json
 # Personal list of LinkedIn creators to engage with (copy config/creators.example.json)
 config/creators.json
 
-# Instagram content factory: renders, plates, agent workspaces, ledger
+# Instagram content factory: renders, agent workspaces, ledger
 factory/state/
 factory/out/
+# Reference library: cloned repos (npm run factory:library) and downloaded videos
+factory/library/repos/
+factory/library/videos/*/video.mp4

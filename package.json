@@ -30,7 +30,8 @@
     "test": "node --require ./tests/_env.js --test tests/*.test.js",
     "seo:audit": "node scripts/seo-audit.mjs",
     "factory": "node factory-run.js",
-    "factory:install": "cd factory && npm install",
+    "factory:install": "cd factory && npm install && cd .. && node factory-run.js --sync-library",
+    "factory:library": "node factory-run.js --sync-library",
     "factory:sample": "node factory-run.js --sample",
     "factory:studio": "cd factory && npm run studio"
   }
