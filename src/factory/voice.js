@@ -174,7 +174,10 @@ function analyzeLevels(levels, words) {
   const voicedAt = (i) => levels[i] > thr;
   const first = levels.findIndex((_, i) => voicedAt(i));
   if (first < 0) return { ok: false, reason: "silent" };
-  const needVoiced = words / 4.5; // seconds of voiced windows a full read cannot be under
+  // Seconds of voiced windows a full read cannot be under. Voiced time leaves out the dips between
+  // words, so a brisk full read of 9 words can measure 1.7 s: the transcript check proves the
+  // words, this only catches a model that stops early and streams silence.
+  const needVoiced = words / 6;
   const maxLen = words / 1.9 + 0.8; // seconds a slow but natural read stays within
   let voiced = 0;
   let lastVoiced = first;

@@ -357,9 +357,17 @@ function mixHero({ film, cues, seconds, outDir, storyboard, voice, music, palett
     renderSoundtrack(fallbackWav, { bpm: Number(cues.bpm) || storyboard.bpm, seconds, cuts: Array.isArray(cues.cuts) ? cues.cuts : [], seed: Date.now() % 100000 });
   }
   const captions = hasVoice && cues.captions !== true;
+  // A film longer than planned must not run past the end of the track into silence: move the
+  // window back by whole bars (the beat phase holds; the drop lands that many bars later).
+  let start = music ? music.plan.start : 0;
+  if (music) {
+    const bar = 240 / (music.plan.bpm || 120);
+    while (start + seconds > music.track.duration - 0.3 && start - bar >= 0) start -= bar;
+    if (start !== music.plan.start) logger.warn(`Factory: the film (${seconds.toFixed(1)} s) is longer than planned; music starts ${(music.plan.start - start).toFixed(1)} s earlier.`);
+  }
   const out = mixReel({
     film, out: path.join(outDir, "reel.mp4"), seconds,
-    music: music ? { file: music.track.file, start: music.plan.start, refDb: music.track.refDb, vocals: music.track.vocals } : null,
+    music: music ? { file: music.track.file, start, refDb: music.track.refDb, vocals: music.track.vocals } : null,
     sfx, voice: hasVoice ? { file: voice.file, words } : null, captions, accent: accentFrom(palette), fallbackWav, workDir: outDir,
   });
   return {

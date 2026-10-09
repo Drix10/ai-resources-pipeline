@@ -597,9 +597,9 @@ class TwitterService {
                 const showMore = Array.from(el.querySelectorAll('[data-testid="tweet-text-show-more-link"]'));
                 const truncated = showMore.some((n) => !inQuote(n));
 
-                // Promoted posts: the placement tracker, or a bare "Ad"/"Promoted" label outside the text.
-                const isAd = !!(el.closest('[data-testid="placementTracking"]') || el.querySelector('[data-testid="placementTracking"]'))
-                  || Array.from(el.querySelectorAll("span")).some((s) => !s.closest('[data-testid="tweetText"]') && /^(Ad|Promoted)$/.test((s.textContent || "").trim()));
+                // Promoted posts: a bare "Ad"/"Promoted" label outside the text. Not placementTracking:
+                // X wraps every organic video player in it, so it would drop all video demos.
+                const isAd = Array.from(el.querySelectorAll("span")).some((s) => !s.closest('[data-testid="tweetText"]') && /^(Ad|Promoted)$/.test((s.textContent || "").trim()));
 
                 const isReply = Array.from(el.querySelectorAll("div")).some((n) => !inQuote(n)
                   && !n.closest('[data-testid="tweetText"]') && /^Replying to\b/.test((n.textContent || "").trim()));

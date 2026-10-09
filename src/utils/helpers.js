@@ -25,17 +25,20 @@ const logger = winston.createLogger({
   ),
   defaultMeta: { service: "helpers" },
   transports: [
-    new winston.transports.File({
-      filename: "error.log",
-      level: "error",
-      maxsize: 5242880, // 5MB
-      maxFiles: 5,
-    }),
-    new winston.transports.File({
-      filename: "helpers.log",
-      maxsize: 5242880, // 5MB
-      maxFiles: 5,
-    }),
+    // Test runs (node --test sets NODE_TEST_CONTEXT) must not write into the live bot's logs.
+    ...(process.env.NODE_TEST_CONTEXT ? [] : [
+      new winston.transports.File({
+        filename: "error.log",
+        level: "error",
+        maxsize: 5242880, // 5MB
+        maxFiles: 5,
+      }),
+      new winston.transports.File({
+        filename: "helpers.log",
+        maxsize: 5242880, // 5MB
+        maxFiles: 5,
+      }),
+    ]),
     new winston.transports.Console({
       format: winston.format.combine(
         winston.format.colorize(),

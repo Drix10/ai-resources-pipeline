@@ -317,13 +317,16 @@ const runDataPipeline = async (folder) => {
         fileBuffer: Buffer.from(markdownContent)
       };
     } catch (error) {
-      logger.error(`Pipeline error for folder ${folder.name} (attempt ${retryCount + 1}/${MAX_RETRIES}):`, error);
+      if (error.code === "MARKDOWN_QUALITY_REJECTED") {
+        // The writer judged these sources (thin, off-topic, rejected): mark them so the next run
+        // does not spend calls on them again. The error carries them, so log only its message.
+        if (Array.isArray(error.usedTweets) && error.usedTweets.length) TwitterService.markContentAsPublished(error.usedTweets);
+        logger.warn(`${folder.name}: no file this run (${error.message}); ${error.usedTweets?.length || 0} judged source(s) will not be retried.`);
+        return null;
+      }
+      logger.error(`Pipeline error for folder ${folder.name} (attempt ${retryCount + 1}/${MAX_RETRIES}): ${error.message}`, { code: error.code });
       if (RUN_ENDING_CODES.has(error.code)) {
         throw error;
-      }
-      if (error.code === "MARKDOWN_QUALITY_REJECTED") {
-        logger.warn(`Generated content for ${folder.name} still failed the publication standard after feedback-guided local LLM retries; skipping it safely.`);
-        return null;
       }
       if (retryCount === MAX_RETRIES - 1) {
         handleError(
