@@ -292,6 +292,8 @@ const processAllFolders = async () => {
     const nextBatchSize = () => Math.floor(Math.random() * 8) + 1;
     let COMMIT_BATCH_SIZE = nextBatchSize(); // re-rolled after every batch commit
     let pendingBatch = [];
+    // Instagram content factory: digest items committed this run become reel/carousel candidates.
+    const factoryInbox = [];
 
     // LinkedIn runs in step with the content, never ahead of it:
     //  - after every article (.md) is written: a few random likes (likeAfterArticle)
@@ -359,6 +361,13 @@ const processAllFolders = async () => {
           }
 
           logger.info(`Pipeline succeeded for folder type ${item.queryName}: ${item.url}`);
+          if (config.factory.enabled) {
+            try {
+              factoryInbox.push(...require("../factory/sources").fromDigest(item.content, { topic: item.queryName, url: item.url }));
+            } catch (inboxErr) {
+              logger.warn(`Factory: could not read ${item.queryName} digest (non-fatal): ${inboxErr.message}`);
+            }
+          }
           successfulArticles.push({
             title: item.queryName,
             githubUrl: item.url,
@@ -428,6 +437,17 @@ const processAllFolders = async () => {
       await syncBlogToGit();
     } catch (indexErr) {
       logger.warn("Cycle End: Index rebuild skipped:", indexErr.message);
+    }
+
+    // --- Instagram content factory (FACTORY_ENABLED=true) ---
+    // Storyboard -> plates -> render -> QA -> queue -> post, after the blog is synced so the
+    // caption can point at live articles. Never fatal to the content pipeline.
+    if (config.factory.enabled) {
+      try {
+        await require("../factory").runCycle({ extraSources: factoryInbox });
+      } catch (factoryErr) {
+        logger.error("Content factory pass failed (non-fatal):", factoryErr.message);
+      }
     }
 
     // Cleanup leftover debug screenshots from root
