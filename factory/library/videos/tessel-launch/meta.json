@@ -1,0 +1,8 @@
+{
+  "title": "Tessel launch film (Leonxlnx/claude-launchvideo)",
+  "formats": ["reel"],
+  "tags": ["launch", "product", "ui", "brand"],
+  "score": 5,
+  "why": "One relay object (a red 'now' dot) is handed from shot to shot and never leaves the screen; every act is cut on a bar at 120 bpm; the soundtrack is synthesized from the same timeline so every snap has its sound.",
+  "repo": "https://github.com/Leonxlnx/claude-launchvideo"
+}
