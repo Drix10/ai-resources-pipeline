@@ -1,0 +1,106 @@
+{
+  "id": "sample-struct-padding",
+  "format": "reel",
+  "title": "C struct padding",
+  "theme": "night",
+  "bpm": 120,
+  "handle": "@drix10",
+  "author": "Drishtant Ghosh",
+  "plates": [
+    {
+      "id": "p1",
+      "prompt": "Macro photograph of a memory chip on a dark circuit board, cool blue rim light, shallow depth of field, no text, no logos, vertical 9:16 composition with empty space in the lower half"
+    }
+  ],
+  "scenes": [
+    {
+      "type": "hook",
+      "beats": 6,
+      "kicker": "Systems / C",
+      "text": "Your 16-byte struct is secretly 32 bytes.",
+      "emphasis": [
+        "32 bytes."
+      ]
+    },
+    {
+      "type": "plate",
+      "beats": 6,
+      "plate": "p1",
+      "headline": "Double the L1 cache misses.",
+      "sub": "The culprit was member ordering, not the algorithm."
+    },
+    {
+      "type": "code",
+      "beats": 10,
+      "lang": "c",
+      "code": "struct {\n  char a;  // 1 byte\n  int  b;  // needs 4-byte alignment\n  char c;  // 1 byte\n};",
+      "caption": "Logically 6 bytes. sizeof says 12.",
+      "highlight": [
+        3
+      ]
+    },
+    {
+      "type": "stat",
+      "beats": 6,
+      "from": 6,
+      "value": 12,
+      "suffix": " bytes",
+      "label": "3 padding bytes after a, then the struct rounds up to a multiple of 4."
+    },
+    {
+      "type": "list",
+      "beats": 10,
+      "title": "Fix it in review",
+      "items": [
+        "Order members largest to smallest",
+        "Check sizeof() in a test",
+        "Profile L1 misses, not just big-O"
+      ]
+    },
+    {
+      "type": "cta",
+      "beats": 6,
+      "text": "Daily systems engineering & code teardowns.",
+      "sub": "Full write-up on blogs.drix10.com"
+    }
+  ],
+  "slides": [
+    {
+      "type": "cover",
+      "kicker": "Systems / C",
+      "title": "Why your 16-byte payload becomes 32 bytes"
+    },
+    {
+      "type": "point",
+      "n": 1,
+      "title": "Compilers align members",
+      "body": "Members are aligned to their size or the CPU word size. To make that work, the compiler inserts padding bytes you never declared."
+    },
+    {
+      "type": "code",
+      "title": "6 bytes on paper",
+      "code": "struct {\n  char a;\n  int  b;\n  char c;\n};",
+      "caption": "int b cannot start at address 1, so it starts at 4. sizeof is 12, not 6.",
+      "highlight": [
+        3
+      ]
+    },
+    {
+      "type": "stat",
+      "value": "32 B",
+      "label": "for a payload that is 16 bytes on paper",
+      "body": "Careless member ordering doubled the footprint and doubled L1 cache misses."
+    },
+    {
+      "type": "cta",
+      "title": "Order members largest to smallest.",
+      "body": "Follow for daily systems engineering & code teardowns."
+    }
+  ],
+  "caption": "A 16-byte struct that is really 32 bytes. Struct padding, explained before your coffee cools. Which struct in your codebase would you check first?",
+  "hashtags": [
+    "#cprogramming",
+    "#systemsprogramming",
+    "#softwareengineering"
+  ]
+}
