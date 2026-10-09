@@ -5,41 +5,53 @@
 /* Colours are RGB triplets so Tailwind can apply opacity (bg-accent/10).
    Light is the default; the OS preference or the toggle (data-theme) switches it. */
 :root {
-  --paper: 241 243 240;
-  --sunk: 232 236 231;
-  --ink: 15 27 45;
-  --body: 52 66 85;
-  --faint: 88 101 116;
-  --rule: 203 210 204;
-  --accent: 23 54 245;
-  --mark: 220 227 255;
+  --paper: 244 241 234;
+  --sunk: 234 230 221;
+  --ink: 12 12 13;
+  --body: 54 52 49;
+  --faint: 104 100 94;
+  --rule: 207 202 192;
+  --accent: 205 30 18;
+  --mark: 255 214 205;
   color-scheme: light;
 }
 
 :root[data-theme='dark'] {
-  --paper: 12 19 32;
-  --sunk: 19 28 45;
-  --ink: 233 238 245;
-  --body: 190 201 216;
-  --faint: 140 153 171;
-  --rule: 36 48 70;
-  --accent: 124 147 255;
-  --mark: 27 40 80;
+  --paper: 10 10 11;
+  --sunk: 20 20 22;
+  --ink: 244 241 234;
+  --body: 204 200 192;
+  --faint: 146 142 135;
+  --rule: 44 42 41;
+  --accent: 255 70 48;
+  --mark: 70 18 12;
   color-scheme: dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --paper: 12 19 32;
-    --sunk: 19 28 45;
-    --ink: 233 238 245;
-    --body: 190 201 216;
-    --faint: 140 153 171;
-    --rule: 36 48 70;
-    --accent: 124 147 255;
-    --mark: 27 40 80;
+    --paper: 10 10 11;
+    --sunk: 20 20 22;
+    --ink: 244 241 234;
+    --body: 204 200 192;
+    --faint: 146 142 135;
+    --rule: 44 42 41;
+    --accent: 255 70 48;
+    --mark: 70 18 12;
     color-scheme: dark;
   }
+}
+
+/* While the pinned opening is on screen the header sits over a black stage, so it uses the dark palette. */
+html[data-on-hero='1'] .site-header {
+  --paper: 10 10 11;
+  --ink: 244 241 234;
+  --body: 204 200 192;
+  --faint: 146 142 135;
+  --rule: 44 42 41;
+  --accent: 255 70 48;
+  background-color: rgb(10 10 11 / 0.94);
+  border-color: rgb(244 241 234 / 0.08);
 }
 
 @layer base {
@@ -88,9 +100,38 @@
     @apply font-serif text-[1.1875rem] leading-[1.65] text-body;
     max-width: 62ch;
   }
+  /* Big condensed section titles with a red slash, the one repeated motif of the page. */
   .section-title {
-    @apply font-sans text-[clamp(1.5rem,2.4vw,2rem)] font-semibold leading-none tracking-tight text-ink;
-    font-variation-settings: 'wdth' 92;
+    @apply font-sans text-[clamp(3.4rem,12vw,9.5rem)] font-extrabold leading-[0.84] tracking-[-0.04em] text-ink;
+    font-variation-settings: 'wdth' 76;
+  }
+  .section-title .slash {
+    display: inline-block;
+    width: 0.1em;
+    height: 0.74em;
+    margin-left: 0.1em;
+    background: rgb(var(--accent));
+    transform: skewX(-22deg);
+  }
+  /* A red slash sweeps in behind a row on hover or keyboard focus. */
+  .row-slash {
+    position: relative;
+    isolation: isolate;
+  }
+  .row-slash::before {
+    content: '';
+    position: absolute;
+    inset: 0 -1.25rem;
+    z-index: -1;
+    background: rgb(var(--accent) / 0.09);
+    border-left: 3px solid rgb(var(--accent));
+    transform: scaleX(0) skewX(-18deg);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .row-slash:hover::before,
+  .row-slash:focus-within::before {
+    transform: scaleX(1) skewX(-18deg);
   }
   .scroll-x-hidden::-webkit-scrollbar {
     display: none;
