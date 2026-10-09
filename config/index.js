@@ -73,6 +73,63 @@ const config = {
       enabled: process.env.DEVTO_AUTO_PUBLISH === "true",
     },
   },
+  // Instagram content factory (src/factory/, docs/CONTENT_FACTORY.md). Off unless FACTORY_ENABLED=true.
+  factory: {
+    enabled: process.env.FACTORY_ENABLED === "true",
+    // Opus is the director: storyboard JSON (template mode), vision QA, and full code films
+    // (agent/hero mode). Default backend is the LOCAL Claude Code CLI (`claude -p`) on the machine
+    // that runs `npm start`, signed in with your Claude plan: no Anthropic API key needed.
+    // "anthropic" / "openrouter" are optional API fallbacks for headless servers.
+    opusBackend: ["claude-code", "anthropic", "openrouter"].includes(process.env.FACTORY_OPUS_BACKEND) ? process.env.FACTORY_OPUS_BACKEND : "claude-code",
+    claudeBin: process.env.CLAUDE_BIN || "claude",
+    // Claude Code --effort: low | medium | high | xhigh | max. xhigh = "extra" effort.
+    claudeEffort: ["low", "medium", "high", "xhigh", "max"].includes(process.env.FACTORY_CLAUDE_EFFORT) ? process.env.FACTORY_CLAUDE_EFFORT : "xhigh",
+    anthropic: {
+      apiKey: process.env.ANTHROPIC_API_KEY || "",
+      baseUrl: (process.env.ANTHROPIC_BASE_URL || "https://api.anthropic.com").replace(/\/$/, ""),
+      model: process.env.FACTORY_OPUS_MODEL || "claude-opus-5-5",
+      requestTimeoutMs: parsePositiveInteger(process.env.FACTORY_OPUS_TIMEOUT_MS, 600000),
+    },
+    openrouterOpusModel: process.env.FACTORY_OPENROUTER_OPUS_MODEL || "anthropic/claude-opus-5.5",
+    // Storyboard plates. Any OpenRouter image model that speaks POST /images.
+    imageModel: process.env.FACTORY_IMAGE_MODEL || "google/gemini-nano-banana-2.1",
+    imageResolution: process.env.FACTORY_IMAGE_RESOLUTION || "2K",
+    maxPlates: parsePositiveInteger(process.env.FACTORY_MAX_PLATES, 3),
+    // Pieces produced per pipeline cycle, and which formats to make for each source.
+    perCycle: parsePositiveInteger(process.env.FACTORY_PER_CYCLE, 2),
+    formats: String(process.env.FACTORY_FORMATS || "reel,carousel").split(",").map((f) => f.trim()).filter((f) => f === "reel" || f === "carousel"),
+    // Vision QA: Opus looks at rendered stills and can send the storyboard back once.
+    visionQa: process.env.FACTORY_VISION_QA !== "false",
+    // How reels are made after the storyboard + plates exist:
+    //   agent    (default) every reel is a one-off film written by your local Claude Code agent,
+    //            with its own look; recent looks and topics are fed back so nothing repeats
+    //   hybrid   house templates for most reels plus heroPerWeek agent films
+    //   template house templates only (fast previews; every reel shares one look)
+    videoMode: ["hybrid", "agent", "template"].includes(process.env.FACTORY_VIDEO_MODE) ? process.env.FACTORY_VIDEO_MODE : "agent",
+    heroPerWeek: parsePositiveInteger(process.env.FACTORY_HERO_PER_WEEK, 2),
+    // When an agent film fails: false (default) = mark failed and retry next cycle, so every
+    // posted reel stays unique; true = ship a templated reel instead.
+    templateFallback: process.env.FACTORY_TEMPLATE_FALLBACK === "true",
+    // Novelty memory: how many recent pieces' looks/topics the director must avoid repeating.
+    noveltyWindow: parsePositiveInteger(process.env.FACTORY_NOVELTY_WINDOW, 15),
+    heroTimeoutMs: parsePositiveInteger(process.env.FACTORY_HERO_TIMEOUT_MS, 60 * 60 * 1000),
+    // Engine the agent builds with: remotion (Remotion + its skills), hyperframes (HeyGen HTML+GSAP),
+    // or auto (alternate between the two each film; needs both installed).
+    heroEngine: ["remotion", "hyperframes", "auto"].includes(process.env.FACTORY_HERO_ENGINE) ? process.env.FACTORY_HERO_ENGINE : "remotion",
+    // Skills/plugins the agent is told to use if installed in your local Claude Code (comma-separated slash names).
+    heroSkills: String(process.env.FACTORY_HERO_SKILLS || "").split(",").map((x) => x.trim()).filter(Boolean),
+    handle: process.env.FACTORY_HANDLE || "@drix10",
+    author: process.env.FACTORY_AUTHOR || "Drishtant Ghosh",
+    // Chromium for Remotion renders; empty lets Remotion download its own headless shell.
+    browserExecutable: process.env.REMOTION_BROWSER || "",
+  },
+  instagram: {
+    // Nothing is shared unless IG_POST=true; otherwise uploads stop before the Share click.
+    post: process.env.IG_POST === "true",
+    dailyCap: parsePositiveInteger(process.env.IG_DAILY_CAP, 2),
+    // Minimum gap between two published pieces.
+    minGapMinutes: parsePositiveInteger(process.env.IG_MIN_GAP_MINUTES, 180),
+  },
   monitoring: {
     targetListId: process.env.MONITOR_LIST_ID,
     checkInterval: parsePositiveInteger(process.env.CHECK_INTERVAL, 300000),
