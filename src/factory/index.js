@@ -23,6 +23,7 @@ const editor = require("./editor");
 const director = require("./director");
 const { withFactoryLock } = require("./lock");
 const { InstagramPublisher, canPostNow, composeCaption } = require("./instagram");
+const music = require("./music");
 
 const JOBS = path.join(queue.STATE_DIR, "jobs");
 const WEEK = 7 * 24 * 3600 * 1000;
@@ -45,6 +46,47 @@ function withShots(sb, assets) {
 }
 
 const withoutShots = (sb) => ({ ...sb, slides: (sb.slides || []).map(({ src, ...s }) => s) });
+
+// Tracks of the last pieces are not used again (32 tracks: about a week and a half of reels).
+const MUSIC_MEMORY = 8;
+
+const recentMusic = () => novelty.recent(MUSIC_MEMORY * 2).map((it) => it.music?.id).filter(Boolean).slice(0, MUSIC_MEMORY);
+
+/** The music library for the director, with the recently used tracks marked. Never throws. */
+function musicLines() {
+  try {
+    const recent = new Set(recentMusic());
+    return music.catalogLines(music.catalog({ log: (m) => logger.info(m) })).split("\n").filter(Boolean)
+      .map((l) => (recent.has(l.slice(2).split(" | ")[0]) ? `${l} | used recently` : l)).join("\n");
+  } catch (e) {
+    logger.warn(`Factory: music library unavailable (${e.message}).`);
+    return "";
+  }
+}
+
+/**
+ * The track and the part of it a reel of `seconds` uses: the director's pick when it fits, else
+ * the best fit for the story's mood. Its drop is planned onto the climax (~60% in). Never throws:
+ * without the library the reel falls back to the synth.
+ */
+function pickMusic({ sb, article, voice = null, brief = null, seconds }) {
+  try {
+    const tracks = music.catalog({ log: (m) => logger.info(m) });
+    if (!tracks.length) return null;
+    const climaxAt = Math.round(seconds * 0.62 * 10) / 10;
+    const mood = music.moodFor(`${article.title}\n${JSON.stringify(sb.scenes || sb.slides || [])}`);
+    const track = music.chooseTrack({ tracks, mood, seconds, climaxAt, narrated: !!voice, recent: recentMusic(), director: brief });
+    if (!track) return null;
+    const plan = music.planWindow(track, { seconds, climaxAt });
+    logger.info(`Factory: music "${track.title}"${track.artist ? ` by ${track.artist}` : ""} from ${plan.start.toFixed(1)} s, ${plan.bpm} bpm${plan.dropAt !== null ? `, drop at ${plan.dropAt.toFixed(1)} s` : ""}.`);
+    return { track, plan };
+  } catch (e) {
+    logger.warn(`Factory: music skipped (${e.message}).`);
+    return null;
+  }
+}
+
+const musicRecord = (m) => (m ? { id: m.track.id, title: m.track.title, artist: m.track.artist, mood: m.track.mood, start: m.plan.start, bpm: m.plan.bpm, dropAt: m.plan.dropAt } : null);
 
 function chooseReelMode() {
   const mode = config.factory.videoMode;
@@ -88,6 +130,7 @@ async function produce(article, format, opts = {}) {
   let look = null;
   let mode = ["agent", "template"].includes(opts.mode) ? opts.mode : format === "reel" ? chooseReelMode() : config.factory.carouselMode;
   let sb = withShots(await writeStoryboard(article, format, null, null, { mode }), assets);
+  let chosenMusic = null;
 
   if (mode === "agent") {
     try {
@@ -97,13 +140,19 @@ async function produce(article, format, opts = {}) {
       const engine = format === "carousel" ? "remotion" : pickEngine();
       const avoid = novelty.looksToAvoid();
       const references = await director.selectReferences(article, format, { avoid });
-      const brief = await director.writeDirectorPrompt({ story: article, storyboard: sb, refs: references, assets, avoid, voice, engine });
+      const brief = await director.writeDirectorPrompt({ story: article, storyboard: sb, refs: references, assets, avoid, voice, engine, music: format === "reel" ? musicLines() : "" });
+      // The music is chosen and beat-mapped BEFORE the build, so the film is cut to it.
+      if (format === "reel") {
+        chosenMusic = pickMusic({ sb, article, voice, brief, seconds: director.filmSeconds(sb, voice) });
+        if (chosenMusic) sb = { ...sb, bpm: Math.round(chosenMusic.plan.bpm) };
+      }
       try {
         fs.writeFileSync(path.join(dir, "references.json"), JSON.stringify(references.map((r) => ({ slug: r.slug, title: r.title, steal: r.steal })), null, 2));
         if (brief) fs.writeFileSync(path.join(dir, "director-prompt.md"), brief);
+        if (chosenMusic) fs.writeFileSync(path.join(dir, "music.json"), JSON.stringify({ ...musicRecord(chosenMusic), beats: chosenMusic.plan.beats, energy: chosenMusic.plan.energy }, null, 2));
       } catch { /* review files only */ }
       if (!brief) logger.warn(`Factory: no director's prompt for ${sb.id}; the agent writes its own brief.`);
-      const piece = await makeHero({ storyboard: sb, article, outDir: dir, assets, director: brief, references, voice, engine });
+      const piece = await makeHero({ storyboard: sb, article, outDir: dir, assets, director: brief, references, voice, engine, music: chosenMusic });
       files = format === "reel" ? { video: piece.video, poster: piece.poster } : { slides: piece.slides };
       look = piece.look;
     } catch (e) {
@@ -129,7 +178,11 @@ async function produce(article, format, opts = {}) {
         logger.warn(`Factory: QA revision rejected for ${sb.id} (${e.message}); keeping the first storyboard.`);
       }
     }
-    if (format === "reel") files = await renderReel(sb, dir);
+    if (format === "reel") {
+      files = await renderReel(sb, dir, { pickMusic: (seconds) => pickMusic({ sb, article, seconds }) });
+      chosenMusic = files.music || null;
+      if (files.bpm) sb = { ...sb, bpm: files.bpm };
+    }
     else files = await renderCarousel(sb, dir);
   }
 
@@ -162,6 +215,7 @@ async function produce(article, format, opts = {}) {
     hook: format === "reel" ? sb.scenes[0]?.text : sb.slides[0]?.title,
     pattern: sb.pattern,
     look,
+    music: format === "reel" ? musicRecord(chosenMusic) : null,
   });
   logger.info(`Factory: ${format} ready for review/posting: ${dir}`);
   return item;
@@ -177,6 +231,8 @@ async function runCycle(opts = {}) {
   // This run's stories are saved before anything else: a pass that is skipped (lock held,
   // crash, Opus down) leaves them for the next one instead of losing them.
   try { editor.rememberRun(opts.extraSources || []); } catch (e) { logger.warn(`Factory: inbox not saved (${e.message}).`); }
+  // A stop asked for before the pass began holds: resetting the abort here would undo it.
+  if (stopped) return [];
   opus.resetAbort();
   return (await withFactoryLock("cycle", () => {
     try { pruneState(); } catch (e) { logger.warn(`Factory: pruning skipped (${e.message}).`); }
@@ -209,7 +265,7 @@ function pruneState(now = Date.now()) {
         if (/^agent-/.test(sub)) {
           unlinkLinks(p);
           try { fs.rmSync(p, { recursive: true, force: true, maxRetries: 3 }); } catch { /* next time */ }
-        } else if (/^(agent\.log|agent-prompt\.md|soundtrack\.wav|reel\.video\.mp4)$/.test(sub)) {
+        } else if (/^(agent\.log|agent-prompt\.md|soundtrack\.wav|sfx\.wav|reel\.video\.mp4)$/.test(sub)) {
           fs.rmSync(p, { force: true });
         }
       }
@@ -220,7 +276,10 @@ function pruneState(now = Date.now()) {
 }
 
 /** Stops a running cycle: claude processes are killed and the cycle stops at its next step. */
+// Set by stop() for the rest of the process: shutdown never starts a new pass.
+let stopped = false;
 function stop() {
+  stopped = true;
   opus.abortAll();
 }
 

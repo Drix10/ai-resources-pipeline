@@ -16,6 +16,7 @@ const config = require("../../config");
 const { logger } = require("../utils/helpers");
 const { renderSoundtrack } = require("./soundtrack");
 const { FPS, reelTimeline, reelDuration } = require("./timeline");
+const { planWindow } = require("./music");
 
 const FACTORY_DIR = path.resolve(__dirname, "../../factory");
 const ENTRY = path.join(FACTORY_DIR, "src/index.ts");
@@ -61,8 +62,30 @@ async function selectComp(id, inputProps) {
 }
 
 /** Renders the reel and muxes the soundtrack. Returns { video, poster, seconds }. */
-async function renderReel(storyboard, outDir) {
+/**
+ * A track from the music library for a template reel, with the storyboard's tempo moved onto the
+ * track's (half or double when that is closer to the templates' ~120 bpm), so every scene cut
+ * lands on the music's beats. Returns {storyboard, music} (music null: keep the synth).
+ */
+function withLibraryMusic(storyboard, pickMusic) {
+  const first = pickMusic ? pickMusic(reelDuration(storyboard) / FPS) : null;
+  if (!first) return { storyboard, music: null };
+  const bpm = [0.5, 1, 2].map((k) => first.plan.bpm * k).filter((b) => b >= 70 && b <= 160).sort((a, b) => Math.abs(a - 120) - Math.abs(b - 120))[0];
+  if (!bpm) return { storyboard, music: null };
+  const sb = { ...storyboard, bpm: Math.round(bpm * 100) / 100 };
+  const seconds = reelDuration(sb) / FPS;
+  if (first.track.duration < seconds + 2) return { storyboard, music: null };
+  return { storyboard: sb, music: { track: first.track, plan: planWindow(first.track, { seconds, climaxAt: Math.round(seconds * 0.62 * 10) / 10 }) } };
+}
+
+async function renderReel(storyboard, outDir, { pickMusic = null } = {}) {
   fs.mkdirSync(outDir, { recursive: true });
+  let music = null;
+  try {
+    ({ storyboard, music } = withLibraryMusic(storyboard, pickMusic));
+  } catch (e) {
+    logger.warn(`Factory: library music skipped for ${storyboard.id} (${e.message}); using the synth.`);
+  }
   const inputProps = { storyboard };
   const { renderer, serveUrl, composition } = await selectComp("Reel", inputProps);
   const muted = path.join(outDir, "reel.muted.mp4");
@@ -92,16 +115,25 @@ async function renderReel(storyboard, outDir) {
 
   const seconds = reelDuration(storyboard) / FPS;
   const cuts = reelTimeline(storyboard).map((s) => s.from / FPS);
-  renderSoundtrack(wav, { bpm: storyboard.bpm, seconds, cuts, seed: hash(storyboard.id) });
-  // AAC 48k stereo + faststart: what Instagram's uploader re-encodes from with the least damage.
-  ffmpeg(["-i", muted, "-i", wav, "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "aac", "-b:a", "256k", "-ar", "48000", "-shortest", "-movflags", "+faststart", video]);
+  if (music) {
+    // Library track on the cut grid, a whoosh on every cut and a riser into a boom on the drop.
+    const { renderSfx, normalizeEvents } = require("./sfx");
+    const { mixReel } = require("./mix");
+    const events = normalizeEvents({ cuts }, seconds, { dropAt: music.plan.dropAt });
+    const sfx = renderSfx(path.join(outDir, "sfx.wav"), { seconds, events, seed: hash(storyboard.id) })?.file || null;
+    mixReel({ film: muted, out: video, seconds, music: { file: music.track.file, start: music.plan.start, refDb: music.track.refDb, vocals: music.track.vocals }, sfx, workDir: outDir });
+  } else {
+    renderSoundtrack(wav, { bpm: storyboard.bpm, seconds, cuts, seed: hash(storyboard.id) });
+    // AAC 48k stereo + faststart: what Instagram's uploader re-encodes from with the least damage.
+    ffmpeg(["-i", muted, "-i", wav, "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "aac", "-b:a", "256k", "-ar", "48000", "-shortest", "-movflags", "+faststart", video]);
+  }
   fs.rmSync(muted, { force: true });
 
   // Cover frame: the end of the hook, when the headline is fully on screen.
   const poster = path.join(outDir, "cover.jpg");
   const hookEnd = reelTimeline(storyboard)[0];
   await renderer.renderStill({ serveUrl, composition, inputProps, frame: Math.max(0, hookEnd.dur - 4), output: poster, imageFormat: "jpeg", jpegQuality: 92, ...browserOpts() });
-  return { video, poster, seconds };
+  return { video, poster, seconds, music, bpm: storyboard.bpm };
 }
 
 /** Stills at the end of every scene (text fully revealed), for QA and contact sheets. */

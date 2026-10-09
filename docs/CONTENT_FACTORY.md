@@ -15,8 +15,9 @@ flowchart TD
     E -- "rejected (once)" --> D
     E --> V["Voice: ElevenLabs eleven_v4 with audio tags (OpenRouter fallback), recorded first, word timings"]
     V --> S["Director: Opus picks 6 references from the whole library, then writes a director's prompt that remixes their techniques around one concept, held to THE BAR"]
-    S --> H["Agent: Claude Code builds it (reel: Remotion or HyperFrames film timed to the voice; carousel: designed stills), checks its own frames, renders"]
-    H --> M["Mix: voice over ducked original music, -14 LUFS"]
+    S --> U["Music: the director's track from factory/library/music (or the best fit), its drop placed on the climax, the real beat grid"]
+    U --> H["Agent: Claude Code builds it (reel: Remotion or HyperFrames film cut to the music and timed to the voice, with library clips and effects; carousel: designed stills), checks its own frames, renders, writes its SFX cues"]
+    H --> M["Mix: music stepped down under the voice and up in the pauses, synthesized SFX, word-by-word captions, -14 LUFS"]
     M --> K["Ledger: factory/state/queue.json"]
     K --> L["Instagram publisher (Chrome :9222): posts THIS run's piece within the cap; dry run until IG_POST=true"]
 ```
@@ -38,8 +39,10 @@ At the end of each run (after the articles, the LinkedIn steps and the blog sync
 5. **Writes the storyboard**: the words and the arc only (the type labels classify copy, not layouts), and for reels a spoken `voiceover` line per scene with ElevenLabs audio tags. Everything a viewer reads or hears passes the fact gates.
 6. **Records the voice** (`voice.js`, reels): ElevenLabs is the main provider (`eleven_v4`, then the fallbacks), the whole script in one request with exact word timings; without a key, OpenRouter's speech model reads it scene by scene, every clip proven by its own audio. The film is timed to the voice, never the other way round.
 7. **Directs** (`director.js`): Opus reads the whole catalog, picks 6 references by craft (with the exact technique to take from each), then writes a director's prompt in the gallery's register: concept, form, through-line, palette, type system, the locked message, sections and arc, transitions, real-material plan, required techniques credited to their references, banned moves, gotchas.
-8. **Builds** (`hero.js`): Claude Code builds the piece from that prompt in a throwaway workspace (reels in Remotion or HyperFrames, carousels as Remotion stills), checks its own frames against the bar, and renders. The finished reel gets the voice over ducked original music, mastered to about -14 LUFS.
-9. **Posts** this run's piece (not the backlog) within `IG_DAILY_CAP` and `IG_MIN_GAP_MINUTES`.
+8. **Scores** (`music.js`, reels): the director picks a track from the music library (or the code picks the best fit for the story's mood); its biggest drop is placed on the climax and the agent gets the real beats and downbeats in film time.
+9. **Builds** (`hero.js`): Claude Code builds the piece from that prompt in a throwaway workspace (reels in Remotion or HyperFrames, carousels as Remotion stills), with the visual library's clips and effects at hand, checks its own frames against the bar, renders, and lists its sound effects in `out/cues.json`.
+10. **Mixes** (`mix.js`, reels): music, voice, synthesized SFX and captions (see Sound).
+11. **Posts** this run's piece (not the backlog) within `IG_DAILY_CAP` and `IG_MIN_GAP_MINUTES`.
 
 ## Where things run
 
@@ -68,6 +71,19 @@ Opus runs with `--model claude-opus-5-5 --effort xhigh`. Change these with `FACT
 - **OpenRouter fallback** (`openai/gpt-audio-mini`): strict text-to-speech framing, one request per scene, each clip checked by its own audio (enough voiced time, no long gap, a length cap) and transcript.
 - **Refusals** are remembered by cause: a bad key blocks the provider for 6 h, an unusable model blocks that model for 24 h, a quota or script error blocks nothing. The whole step has a 6-minute deadline; takes are cached by script.
 - `FACTORY_VOICE=off` turns it off. Carousels and template reels are not narrated.
+
+## Sound
+
+- **Music** only from `factory/library/music/<mood>/` (educational, emotional, inspirational, storytelling). `music.js` analyses every track once (tempo and beat grid, loudness, energy per second, drops) into `catalog.json`; edit `vocals`, `exclude`, `tags` or `notes` there by hand. The director picks the track (`MUSIC: <id>` in its prompt; recently used tracks are marked), else the best fit for the story's mood that was not used in the last 8 pieces, instrumentals first under a voice. The window is planned so the drop lands on the climax (~62% in) and starts on a downbeat; the beat grid is re-fitted on that stretch. The audio files stay on this machine (gitignored: commercial recordings are never published from this repo); copy the folder to a new machine by hand.
+- **Mix** (`mix.js`): the music is levelled from its analysis, faded in on the downbeat and out at the end. Under the voice it steps down about 10 dB (14 dB for tracks with vocals) with a 2.8 kHz pocket carved for the voice, and comes back up in every pause longer than half a second; a light sidechain catches the rest. The voice gets a rumble cut and gentle compression. Two-pass loudness normalisation masters the reel to -14 LUFS / -1.5 dBTP.
+- **SFX** (`sfx.js`): whoosh, impact, boom, riser, swell, tick, pop, glitch, shutter and keystroke, synthesized in code (nothing to license) and placed where the agent says its motion lands (`out/cues.json` `sfx`); without cues, a whoosh on every cut and a riser into a boom on the drop. Effects under the voice are softened.
+- **Captions**: viewers watch muted, so the spoken words are always on screen. The agent may build its own (and say so with `"captions": true`); otherwise word-by-word captions (Anton, the spoken word lit in the piece's accent colour) are burned in at the bottom of the safe area.
+- **Fallback**: with an empty music library the old beat-locked synth (`soundtrack.js`) scores the reel. Template reels get library music too, their tempo moved onto the track's so every cut lands on a beat.
+- **Instagram caption**: line 1 is a hook of at most 110 characters (all Instagram shows before "more"), then one concrete detail the video does not show, a reason to save or send it, and a question to answer in the comments; 3-6 specific hashtags.
+
+## Visual library
+
+`factory/library/visuals/<slug>/meta.json`: licensed stock clips (Mixkit free licence: overlays such as light leaks and glitch textures, an ink matte, abstract backgrounds, real-world b-roll) and techniques to rebuild in code (GEOMETRIC contour/dither art, SHATTER glass fracture, a liquid ORB), each with how it earns its place. Clips are hard-linked into every reel workspace (`visuals/`); the agent ffmpegs in only the part it uses. They are texture, transition and atmosphere, never a stand-in for the story's real material; techniques are applied to the real captures. The clips are gitignored (licences forbid redistributing them as-is): `npm run factory:library` downloads missing ones.
 
 ## Skills the agent can use
 
@@ -98,7 +114,7 @@ The agent can only use file tools plus `npx remotion`, `npx hyperframes`, `npx t
 - **No double posts.** An item is marked `sharing` before the Share click. If Instagram does not confirm, it becomes `unconfirmed` (the tab is left open so a slow upload can finish): check your profile; it is never posted again automatically. Both count toward the cap and spacing. A posted (or possibly posted) item is never replaced, even by `--source --force`.
 - **No stuck queue.** A cycle posts the piece it just made. Otherwise the next item is the one with the fewest failed attempts, then the oldest, and only if its files exist. After 3 failed publishes it becomes `publish_failed`. A failed dry run never counts.
 - **The ledger is never silently reset.** A missing `queue.json` is empty; a locked one is retried; an unreadable one stops the factory and is copied to `queue.json.corrupt-<time>`.
-- **Time-boxed everything.** The agent (`FACTORY_HERO_TIMEOUT_MS`; on timeout its whole process tree is killed), every Opus call (`FACTORY_OPUS_TIMEOUT_MS`; the director at least 25 min), the voice step (6 min), every DevTools call and capture, ffmpeg, and the soundtrack (cue values clamped).
+- **Time-boxed everything.** The agent (`FACTORY_HERO_TIMEOUT_MS`; on timeout its whole process tree is killed), every Opus call (`FACTORY_OPUS_TIMEOUT_MS`; the director at least 25 min), the voice step (6 min), every DevTools call and capture, ffmpeg, music analysis, and the SFX and soundtrack (cue values clamped).
 - **The piece is the proof.** A reel counts when `out/hero.muted.mp4` is a readable 5-180 s video; if it is shorter than the voice, its last frame is held so the narration and CTA are never cut. A carousel counts when there is one 4:5 image per slide.
 - **Disk.** Job folders older than 21 days lose their agent workspace and transcript (the finished piece stays); voice takes older than 30 days and debug screenshots older than 14 days are deleted.
 
@@ -113,7 +129,7 @@ Opus designs the motion, but it cannot change what the piece claims.
    - the pipeline's `BANNED_WORDS` list (shared with `llm.js`) is rejected in any inflection, unless the author's own text used the word;
    - no emoji anywhere a viewer reads, every field has the right type, and every phone-safe length limit is enforced (a malformed reply goes back to Opus).
 2. The director carries the copy as a LOCKED MESSAGE, and the agent receives it as FIXED WORDING: it may split lines across beats or drop at most one reel line, never add claims.
-3. The music is synthesized by `soundtrack.js` from the film's cut times (original audio, nothing to clear). Licensed music and SFX are on the list in `factory/TODO.md`.
+3. Sound makes no claims: music from our own library, synthesized effects, and the voice, which passed the same gates as the screen.
 
 ## Files
 
@@ -124,15 +140,20 @@ factory/                      Remotion package (own package.json, like blog/)
   src/Reel.tsx, Carousel.tsx  9:16 reel and 4:5 slide templates (template mode / fallback)
   library/videos/<slug>/      reference library: meta.json + prompt.md (+ contact.jpg, video.mp4, src/)
   library/repos/              shallow clones of every linked repo (gitignored; npm run factory:library)
+  library/music/<mood>/       the only music reels use (audio gitignored) + catalog.json (analysis)
+  library/visuals/<slug>/     stock clips and techniques: meta.json + contact.jpg (clip.mp4 gitignored)
+  library/fonts/              Anton (OFL) for burned-in captions
   fixtures/struct-padding.json  sample storyboard (studio default, tests)
-  TODO.md                     music, SFX/VFX work still to do
 src/factory/
   index.js       orchestrator: runCycle (lock, inbox, prune), produce, publishDue, stop
   editor.js      fresh sources + inbox, the viral pick, deep dive
   assets.js      real screenshots through the checked proxy
   shot.js        the agent's screenshot tool
   storyboard.js  words, arc, voiceover + the gates
-  voice.js       ElevenLabs / OpenRouter voiceover, mix
+  voice.js       ElevenLabs / OpenRouter voiceover
+  music.js       music library: analysis, track choice, window and beat grid
+  sfx.js         synthesized sound effects from the agent's cues
+  mix.js         the final reel: picture + captions, music/voice/SFX mix, mastering
   director.js    THE BAR, reference picks, the director's prompt
   hero.js        Claude Code agent pieces (reels and carousels)
   library.js     reference library: catalog, closest prompts, repo sync
@@ -141,7 +162,7 @@ src/factory/
   novelty.js     topic dedupe + look memory
   sources.js     LinkedIn Insights + digest items -> sources, links
   opus.js        claude -p client (API fallbacks optional), process tracking
-  soundtrack.js  beat-locked synth
+  soundtrack.js  beat-locked synth (fallback when the music library is empty)
   instagram.js   Selenium publisher
   queue.js       ledger at factory/state/queue.json
   lock.js        one factory at a time
@@ -172,7 +193,7 @@ node factory-run.js --publish --dry     # walk Instagram's upload flow, stop bef
 npm run factory:studio                  # Remotion Studio for the templates
 ```
 
-With `FACTORY_ENABLED=true`, `npm start` runs a factory pass at the end of every pipeline run, after the blog sync. It makes `FACTORY_PER_CYCLE` stories in every format in `FACTORY_FORMATS`, and posts this run's piece when `IG_POST=true`. A reel takes roughly 30-90 minutes end to end at `xhigh` (storyboard, voice, references, director's prompt, agent film). Review a piece in its job folder: `reel.mp4` or `slide-*.jpg`, `contact.jpg`, `caption.txt`, `storyboard.json`, `voice.json`, `references.json`, `director-prompt.md`, `treatment.md` and `look.json`.
+With `FACTORY_ENABLED=true`, `npm start` runs a factory pass at the end of every pipeline run, after the blog sync. It makes `FACTORY_PER_CYCLE` stories in every format in `FACTORY_FORMATS`, and posts this run's piece when `IG_POST=true`. A reel takes roughly 30-90 minutes end to end at `xhigh` (storyboard, voice, references, director's prompt, agent film). Review a piece in its job folder: `reel.mp4` or `slide-*.jpg`, `contact.jpg`, `caption.txt`, `storyboard.json`, `voice.json`, `music.json`, `sound.json` (track, SFX events, captions), `references.json`, `director-prompt.md`, `treatment.md` and `look.json`.
 
 ## Before going live
 

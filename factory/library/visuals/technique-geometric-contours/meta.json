@@ -1,0 +1,8 @@
+{
+  "slug": "technique-geometric-contours",
+  "title": "GEOMETRIC: contour, edge and dither art from a real image",
+  "kind": "technique",
+  "source": "https://geometric-art.com",
+  "license": "Technique reference only: rebuild it in code; never paste the site's output.",
+  "use": "Turn a REAL capture (the story's page, a product shot) into living geometry: Sobel edges -> contour lines that draw on over time, an ordered (Bayer 8x8) dither in two palette colours, a data-grid of sampled luminance dots, flow lines that follow the image gradient. Build it as a canvas/WebGL pass seeded by frame: read the capture's pixels once, precompute edges and gradients, then animate thresholds, line length and dot size with the beat. The capture stays recognisable: it is the story's real thing, re-drawn."
+}

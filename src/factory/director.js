@@ -136,14 +136,14 @@ ${windows}
 }
 
 /** Opus remixes the references into one director's prompt for this story. Returns null on failure. */
-async function writeDirectorPrompt({ story, storyboard, refs, assets = [], avoid = "", engine, voice = null }) {
+async function writeDirectorPrompt({ story, storyboard, refs, assets = [], avoid = "", engine, voice = null, music = "" }) {
   const format = storyboard.format;
   const f = FORMATS[format];
   const refText = refs.map((r) => `### ${r.slug}: ${r.title}\nTAKE: ${r.steal}\n${String(r.prompt || "").slice(0, REF_CHARS)}`).join("\n\n");
   const material = assets.map((a) => `- ${a.id} (${a.kind}, ${a.width}x${a.height}) ${a.title ? `"${a.title.slice(0, 70)}" ` : ""}${a.url}`).join("\n");
   const shape = format === "reel"
     ? `SECTIONS (for each section of the form: what the image does, which locked lines it carries and HOW they are integrated into the image, the in-world staging of any number or code)
-NARRATIVE ARC (timed sections on the ${storyboard.bpm} bpm bar grid, e.g. "0.0-2.0s COLD OPEN ..."; every beat of the message placed; what moves, what cuts, where the camera goes)
+NARRATIVE ARC (timed sections on the bar grid of the track you chose under MUSIC (${storyboard.bpm} bpm if none), e.g. "0.0-2.0s COLD OPEN ..."; every beat of the message placed; what moves, what cuts, where the camera goes)
 TRANSITIONS (every cut named and specified: what carries over, what masks what)
 REAL MATERIAL PLAN (which capture appears where, framed how, what is pushed in on)
 REQUIRED TECHNIQUES (numbered; each one concrete enough to implement, credited "(from <slug>)" and adapted to this story; at least 6)
@@ -175,20 +175,21 @@ ${copyLines(storyboard)}
 
 REAL MATERIAL AVAILABLE (screenshots of the pages the story links to; use what serves the story):
 ${material || "- none"}
-${voice ? `\n${voiceBlock(voice)}\n` : ""}
+${voice ? `\n${voiceBlock(voice)}\n` : ""}${format === "reel" && music ? `\nMUSIC LIBRARY (the only music this piece may use: pick ONE track whose mood, tempo and energy fit the story and the form; under a voiceover prefer an instrumental; never a track marked "used recently"; its biggest drop will be placed on your climax):\n${music}\n` : ""}
 HARD CONSTRAINTS
 - Format: ${f.size}; ${f.safe}. Readable with the sound off, on a phone, at a glance: your own type >= 34 px.
 - ${format === "reel" ? `About ${filmSeconds(storyboard, voice)} seconds at ${storyboard.bpm} bpm; every frame a pure function of time; the last frame loops into the first.` : `${storyboard.slides.length} slides, rendered as stills, one per locked entry (none dropped); slide 1 is the cover that must stop the scroll.`}
 - Ends on a follow lockup: ${storyboard.author}, ${storyboard.handle}.
 - Fonts only from @fontsource (name the exact families). At most 4 colours plus neutrals, in hex.
-- No stock imagery, no robots/brains/circuit boards, no purple-blue neon, no glassmorphism, no invented UI or fake dashboards, no emoji.
+- No stock imagery except our VISUAL LIBRARY below, as texture, transition or atmosphere. No robots/brains/circuit boards, no purple-blue neon, no glassmorphism, no invented UI or fake dashboards, no emoji.
+${format === "reel" ? library.visualsBlock(() => "library clip").replace(/ -> library clip/g, "") : ""}
 
 WRITE THE PROMPT WITH THESE SECTIONS, in this order, as plain text with the section names in capitals:
 CONCEPT (one sentence: the visual idea, drawn from the subject)
 FORM (one line naming the form from THE BAR, or a new one, and why it suits this story; it must differ from the recent pieces' forms)
 THROUGH-LINE (what carries the eye across every cut or slide, and how it changes)
 PALETTE (strict hex list with a role for each)
-TYPE SYSTEM (each face, its role, weights, tracking)
+${format === "reel" && music ? "MUSIC (first line exactly `MUSIC: <track id>` from the MUSIC LIBRARY; then one line on why it fits and where its drop lands in your arc)\n" : ""}TYPE SYSTEM (each face, its role, weights, tracking)
 MESSAGE (the locked copy, verbatim, in order)
 ${shape}
 BANNED (what would make this generic, specific to this piece)

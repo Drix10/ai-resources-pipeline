@@ -4,7 +4,8 @@
  *
  *   node factory-run.js --sample                      render the bundled sample reel + carousel (no keys, no Claude)
  *   node factory-run.js --list                        list candidate sources, best first
- *   node factory-run.js --sync-library                clone/update the reference repos the library links to
+ *   node factory-run.js --sync-library                clone/update the reference repos, download missing
+ *                                                     visual clips, analyse new music tracks
  *   node factory-run.js --source "LinkedIn Insights/<file>.md" [--format reel|carousel] [--mode agent|template]
  *                                                   (--force re-makes a piece already in the ledger, never a posted one)
  *   node factory-run.js --cycle [--publish [--dry]]   one full factory pass: pick, research, make; posts only with --publish
@@ -44,7 +45,9 @@ async function main() {
   if (flag("sync-library")) {
     const library = require("./src/factory/library");
     for (const r of library.syncRepos()) console.log(`${r.ok ? "ok    " : "FAILED"} ${r.url}${r.error ? `\n       ${r.error}` : ""}`);
-    console.log(`${library.videos().length} library entries; the film agent sees all of them.`);
+    for (const r of await library.syncVisuals()) console.log(`${r.ok ? "ok    " : "FAILED"} visuals/${r.slug}${r.error ? `: ${r.error}` : ""}`);
+    const music = require("./src/factory/music").catalog({ refresh: true, log: (m) => console.log(m) });
+    console.log(`${library.videos().length} library films, ${library.visuals().length} visuals, ${music.length} music tracks; the film agent sees all of them.`);
     return;
   }
 

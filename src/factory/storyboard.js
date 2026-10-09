@@ -63,7 +63,7 @@ Rules that are checked in code, and a storyboard that breaks one is rejected:
 1. Facts: every number and every named product, company or person must appear in the article. Never invent results, benchmarks, quotes or dates.
 2. Hook first: the hook states the surprising concrete claim in plain words. No questions like "Did you know". No clickbait the article cannot back.
 3. Plain voice. No hype words (e.g. unlock, game-changer, revolutionary, delve, leverage, seamless, supercharge), no emojis in on-screen text.
-4. Caption: 1-3 short paragraphs (<= 1200 chars) that add one detail beyond the video, ending with a one-line question or a save prompt. 3-6 lowercase hashtags, specific not generic (#cprogramming, not #tech).
+4. Caption (Instagram shows only its first line before "more"): line 1 is a hook of <= 110 chars that opens a gap the video closes (a stake or a sharp claim, never a summary or a label). Then 1-2 short paragraphs (blank line between) that add one concrete detail the video does not show. Then one line that gives a reason to save or send it ("Save this for ..." / "Send this to the person who ..."), and last a specific question people can answer in a comment. <= 1200 chars in all. 3-6 lowercase hashtags, mostly specific (#cprogramming) with at most one broad one (#ai).
 5. Respect every length limit in the spec. Short text reads better on a phone than complete text.
 
 Return ONLY the JSON object, no prose.`;
@@ -284,6 +284,7 @@ function validate(sb, article, format, { mode = "template" } = {}) {
 
   if (!isStr(sb.caption) || !sb.caption.trim()) errors.push("caption is required.");
   len(sb.caption, 1200, "caption");
+  if (isStr(sb.caption) && sb.caption.trim().split("\n")[0].length > 110) errors.push("caption line 1 (the hook Instagram shows before \"more\") must be <= 110 chars.");
   if (!isStrArray(sb.hashtags) || sb.hashtags.length < 3 || sb.hashtags.length > 6) errors.push("Use 3-6 hashtags.");
   else if (sb.hashtags.some((h) => !/^#[a-z0-9_]{2,40}$/.test(h))) errors.push("Hashtags must be lowercase #words with no spaces.");
   if (errors.length) return errors; // the content gates below assume the shapes above

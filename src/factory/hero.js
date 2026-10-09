@@ -18,7 +18,8 @@
  *  - Runs in a per-piece workspace under the job dir, never in the repo.
  *  - Fixed wording: on-screen words come from a storyboard that already passed the fact gates.
  *  - Tools limited to file edits plus remotion / hyperframes / ffmpeg and the screenshot tool.
- *  - Our soundtrack synth scores reels from the agent's cue file, so audio stays original.
+ *  - Sound is ours: music from factory/library/music (chosen and beat-mapped before the build),
+ *    code-synthesized SFX from the agent's cue file, the voice, captions; mixed in mix.js.
  *  - Time-boxed (FACTORY_HERO_TIMEOUT_MS); the library is restored if the agent touches it.
  */
 const fs = require("fs");
@@ -29,12 +30,14 @@ const { logger } = require("../utils/helpers");
 const library = require("./library");
 const { FACTORY_DIR, ffmpeg } = require("./render");
 const { renderSoundtrack } = require("./soundtrack");
+const { musicBlock } = require("./music");
+const { renderSfx, normalizeEvents, KINDS: SFX_KINDS } = require("./sfx");
+const { mixReel, speechWindows, accentFrom } = require("./mix");
 const { THEME_NOTE } = require("./theme-note");
 const { runClaude, claudeArgs } = require("./opus");
 const novelty = require("./novelty");
 const assetsLib = require("./assets");
 const { CRAFT_BAR, copyLines, voiceBlock, filmSeconds } = require("./director");
-const { voiceMixArgs } = require("./voice");
 
 const browserFlag = () => (config.factory.browserExecutable ? ` --browser-executable=${config.factory.browserExecutable}` : "");
 
@@ -91,7 +94,14 @@ function referenceLines(refs) {
   }).join("\n");
 }
 
-function heroPrompt({ storyboard, article, references = [], director = null, assets = [], engine, skills, avoid, voice = null }) {
+/** Sound design and captions: what the agent hands the mix (out/cues.json). */
+function soundBlock(voice) {
+  return `SOUND DESIGN (you design it; we synthesize and mix it, so render the film muted)
+- In out/cues.json list an "sfx" event wherever your motion lands: {"t": <seconds>, "kind": "${SFX_KINDS.join("|")}", "weight": 0..1}. whoosh = a camera move, slide or wipe (peaks on t); impact = a slam, stamp or hard cut; boom = the one big reveal; riser / swell = a build that ENDS on t; tick = counters or typing beats; pop = an element appearing; glitch = a glitch cut; shutter = a screenshot or capture; type = a keystroke. Fewer, well-placed sounds beat a sound on everything: 6-20 for a 30 s film.${voice ? `
+- CAPTIONS: viewers watch muted, so the spoken words must be on screen. Either build them into the film (2-4 words at a time from voice.json, the spoken word lit, styled as part of your design, inside the safe area, never over the key visual) and set "captions": true, or set "captions": false and keep the band y 1260..1480 free of anything important: we burn standard word-by-word captions there.` : ""}`;
+}
+
+function heroPrompt({ storyboard, article, references = [], director = null, assets = [], engine, skills, avoid, voice = null, music = null }) {
   const format = storyboard.format === "carousel" ? "carousel" : "reel";
   const slides = storyboard.slides.length;
   const seconds = format === "reel" ? filmSeconds(storyboard, voice) : 0;
@@ -103,7 +113,7 @@ function heroPrompt({ storyboard, article, references = [], director = null, ass
 2. Build it.
 3. Render one still per section and LOOK at every one against THE BAR and the director's CHECKS. Anything that reads as text on a background, a card, a list or a centred stat is a failure: rebuild that section. Fix clipped or cramped text, contrast, orphan words, empty frames. Repeat until every still would stop a scroll.
 4. Render the muted film to out/hero.muted.mp4.
-5. Write out/cues.json: {"bpm": ${storyboard.bpm}, "seconds": <exact duration>, "cuts": [<every cut time in seconds>]}. The soundtrack is synthesized from it.
+5. Write out/cues.json: {"bpm": ${storyboard.bpm}, "seconds": <exact duration>, "cuts": [<every cut time in seconds>], "sfx": [<events, see SOUND DESIGN>]${voice ? `, "captions": true|false` : ""}}. Music, voice and effects are mixed from it.
 6. Your final reply is one line: DONE, or FAILED: <reason>.`
     : `1. Read the director's prompt, then the references' prompts, frames and code for every technique it names. Write out/treatment.md (your plan: form, through-line, slide by slide, techniques and where each comes from) and out/look.json:
    {"form": "<one line>", "idea": "<one line>", "palette": ["#hex", "..."], "fonts": ["Display face", "Text face"], "technique": "<one line>", "engine": "remotion"}
@@ -124,14 +134,15 @@ ${copyLines(storyboard)}
 - Format: ${format === "reel" ? "1080x1920, 30 fps. All text inside x 84..930, y 230..1520 (Instagram UI covers the rest). The last frame loops cleanly into the first." : "1080x1350 stills. All text inside x 72..1008, y 96..1250."}
 - End on a follow lockup: ${storyboard.author}, ${storyboard.handle}.
 - Your own type is crisp, large (>= 34 px) and high-contrast.
-- No stock imagery, robots/brains/circuit boards, purple-blue neon, glassmorphism, spinning logos, invented UI or fake dashboards, emoji. No copying a reference or a recent piece.
+- No stock imagery except the VISUAL LIBRARY's clips, used the way it says. No robots/brains/circuit boards, purple-blue neon, glassmorphism, spinning logos, invented UI or fake dashboards, emoji. No copying a reference or a recent piece.
 - House defaults you MAY use only if they suit this piece: ${THEME_NOTE}
 
 RECENT PIECES ON THE CHANNEL (do not reuse their form, idea, palette, type pairing or technique):
 ${avoid}
 
 ${materialBlock(assets, format === "carousel" ? "remotion" : engine, assetsLib.allowedHosts(article))}
-${voice && format === "reel" ? `\n${voiceBlock(voice)}\n- Word-by-word timings: voice.json here. Do NOT put the voice in the film (it is mixed in afterwards); render the film muted.\n` : ""}${format === "reel" ? `\nTIMING\n${storyboard.bpm} bpm, cuts on beats. Every frame is a pure function of the frame number: no CSS transitions, no timers, no unseeded randomness. Springs and named easings only.\n` : ""}
+${format === "reel" ? `\n${library.visualsBlock((slug) => `visuals/${slug}.mp4`)}\nTo use a clip, ffmpeg only the part you need into your project, trimmed, scaled and silent (e.g. ffmpeg -ss 2 -t 3 -i visuals/<slug>.mp4 -vf scale=1080:-2 -an ${engine === "remotion" ? "public" : "film"}/<slug>.mp4); never copy the whole folder.\n` : ""}
+${voice && format === "reel" ? `\n${voiceBlock(voice)}\n- Word-by-word timings: voice.json here. Do NOT put the voice in the film (it is mixed in afterwards); render the film muted.\n` : ""}${format === "reel" ? `\n${music ? musicBlock(music.track, music.plan) : `TIMING\n${storyboard.bpm} bpm, cuts on beats.`}\nEvery frame is a pure function of the frame number: no CSS transitions, no timers, no unseeded randomness. Springs and named easings only.\n\n${soundBlock(voice)}\n` : ""}
 REFERENCES (read access: ${library.LIB}). The director picked these for this piece; open their prompts, frames and code for every technique you use:
 ${referenceLines(references) || "- (none: browse LIBRARY.md)"}
 THE STANDARD (read for the level of craft, never to copy their look): ${referenceLines(gold).replace(/^- /gm, "")}
@@ -165,6 +176,16 @@ function prepareWorkspace(workDir, engine) {
     if (!fs.existsSync(nm)) fs.symlinkSync(path.join(FACTORY_DIR, "node_modules"), nm, process.platform === "win32" ? "junction" : "dir");
   }
   fs.mkdirSync(path.join(workDir, "out"), { recursive: true });
+  // The visual library's clips, hard-linked (free on the same disk; a copy otherwise). Outside the
+  // project's public/ so a bundle never copies all of them: the agent ffmpegs in what it uses.
+  const vis = path.join(workDir, "visuals");
+  fs.mkdirSync(vis, { recursive: true });
+  for (const v of library.visuals()) {
+    if (!v.clip) continue;
+    const dest = path.join(vis, `${v.slug}.mp4`);
+    if (fs.existsSync(dest)) continue;
+    try { fs.linkSync(v.clip, dest); } catch { try { fs.copyFileSync(v.clip, dest); } catch { /* the brief marks it missing */ } }
+  }
   // The only node the agent may run: this launcher for the screenshot tool (see ALLOWED_TOOLS).
   fs.writeFileSync(path.join(workDir, "shot.cjs"), `require(${JSON.stringify(SHOT_TOOL)});\n`);
 }
@@ -232,7 +253,7 @@ function probeSize(file) {
  * Builds one reel or carousel with the local agent.
  * @returns {Promise<{video?:string, poster:string, slides?:string[], look:object, costUsd:number}>}
  */
-async function makeHero({ storyboard, article, outDir, assets = [], director = null, references = null, voice = null, engine: chosen = null }) {
+async function makeHero({ storyboard, article, outDir, assets = [], director = null, references = null, voice = null, engine: chosen = null, music = null }) {
   const format = storyboard.format === "carousel" ? "carousel" : "reel";
   // The engine is chosen once per piece (before the director writes for it) and passed in.
   const engine = format === "carousel" ? "remotion" : chosen || pickEngine();
@@ -245,7 +266,7 @@ async function makeHero({ storyboard, article, outDir, assets = [], director = n
   fs.writeFileSync(path.join(workDir, "LIBRARY.md"), `# Reference library\n\n${library.catalog()}\n`);
   if (format !== "reel") voice = null;
   if (voice) fs.copyFileSync(voice.manifestFile, path.join(workDir, "voice.json"));
-  const prompt = heroPrompt({ storyboard, article, references: refs, director, assets, engine, skills: config.factory.heroSkills, avoid: novelty.looksToAvoid(), voice });
+  const prompt = heroPrompt({ storyboard, article, references: refs, director, assets, engine, skills: config.factory.heroSkills, avoid: novelty.looksToAvoid(), voice, music });
   fs.writeFileSync(path.join(outDir, "agent-prompt.md"), prompt);
 
   const args = claudeArgs(["--permission-mode", "acceptEdits", "--allowedTools", ...ALLOWED_TOOLS, "--add-dir", library.LIB, ...(engine === "remotion" ? ["--add-dir", path.join(FACTORY_DIR, "node_modules")] : [])]);
@@ -309,28 +330,42 @@ async function makeHero({ storyboard, article, outDir, assets = [], director = n
     seconds = probeSeconds(film) || seconds + hold;
   }
   let cues = {};
-  try { cues = JSON.parse(fs.readFileSync(path.join(workDir, "out/cues.json"), "utf8")); } catch { /* fall back below */ }
-  // Length comes from the real file: a wrong cues.seconds must never cut the end of the film.
-  const wav = path.join(outDir, "soundtrack.wav");
-  renderSoundtrack(wav, { bpm: Number(cues.bpm) || storyboard.bpm, seconds, cuts: Array.isArray(cues.cuts) ? cues.cuts : [], seed: Date.now() % 100000 });
+  try { cues = JSON.parse(fs.readFileSync(path.join(workDir, "out/cues.json"), "utf8")) || {}; } catch { /* fall back below */ }
   const video = path.join(outDir, "reel.mp4");
-  // Re-encode to Instagram's sweet spot whatever the engine produced (1080x1920, 30 fps, yuv420p).
-  const scale = ["-vf", "scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2", "-c:v", "libx264", "-crf", "18", "-pix_fmt", "yuv420p", "-r", "30"];
-  if (voice && fs.existsSync(voice.file)) {
-    // Video first, then the voice over the ducked music, mastered for Instagram.
-    const silentVideo = path.join(outDir, "reel.video.mp4");
-    ffmpeg(["-i", film, ...scale, "-an", silentVideo]);
-    try {
-      ffmpeg(voiceMixArgs({ video: silentVideo, music: wav, voice: voice.file, out: video }));
-    } finally {
-      fs.rmSync(silentVideo, { force: true });
-    }
-  } else {
-    ffmpeg(["-i", film, "-i", wav, "-map", "0:v", "-map", "1:a", ...scale, "-c:a", "aac", "-b:a", "256k", "-ar", "48000", "-shortest", "-movflags", "+faststart", video]);
-  }
+  const sound = mixHero({ film, cues, seconds, outDir, storyboard, voice, music, palette: look.palette });
+  try { fs.writeFileSync(path.join(outDir, "sound.json"), JSON.stringify(sound, null, 2)); } catch { /* review file only */ }
   const poster = path.join(outDir, "cover.jpg");
   ffmpeg(["-ss", String(Math.min(2.5, seconds / 4)), "-i", video, "-frames:v", "1", "-q:v", "3", poster]);
   return { video, poster, look, costUsd };
 }
 
-module.exports = { makeHero, heroPrompt, pickEngine };
+/**
+ * Sound for an agent film: the planned music window (or the synth when the library is empty),
+ * the agent's SFX (or whooshes on its cuts), the voice, and captions unless the film has its own.
+ * Length comes from the real file: a wrong cues.seconds must never cut the end of the film.
+ */
+function mixHero({ film, cues, seconds, outDir, storyboard, voice, music, palette }) {
+  const hasVoice = !!(voice && fs.existsSync(voice.file));
+  const words = hasVoice ? voice.words || [] : [];
+  const events = normalizeEvents(cues, seconds, { dropAt: music?.plan?.dropAt ?? null });
+  let sfx = null;
+  try { sfx = renderSfx(path.join(outDir, "sfx.wav"), { seconds, events, speech: speechWindows(words), seed: Date.now() % 100000 })?.file || null; } catch (e) { logger.warn(`Factory: SFX skipped (${e.message}).`); }
+  let fallbackWav = null;
+  if (!music) {
+    logger.warn("Factory: no track from the music library; using the synth soundtrack.");
+    fallbackWav = path.join(outDir, "soundtrack.wav");
+    renderSoundtrack(fallbackWav, { bpm: Number(cues.bpm) || storyboard.bpm, seconds, cuts: Array.isArray(cues.cuts) ? cues.cuts : [], seed: Date.now() % 100000 });
+  }
+  const captions = hasVoice && cues.captions !== true;
+  const out = mixReel({
+    film, out: path.join(outDir, "reel.mp4"), seconds,
+    music: music ? { file: music.track.file, start: music.plan.start, refDb: music.track.refDb, vocals: music.track.vocals } : null,
+    sfx, voice: hasVoice ? { file: voice.file, words } : null, captions, accent: accentFrom(palette), fallbackWav, workDir: outDir,
+  });
+  return {
+    music: music ? { id: music.track.id, title: music.track.title, artist: music.track.artist, start: music.plan.start, bpm: music.plan.bpm, dropAt: music.plan.dropAt } : null,
+    sfx: events, captions: out.captions ? "burned" : hasVoice ? "in film" : "none", speech: out.windows,
+  };
+}
+
+module.exports = { makeHero, heroPrompt, pickEngine, mixHero, soundBlock };

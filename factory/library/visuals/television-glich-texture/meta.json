@@ -1,0 +1,9 @@
+{
+  "slug": "television-glich-texture",
+  "title": "TV glitch texture",
+  "kind": "overlay",
+  "source": "https://mixkit.co/free-stock-video/television-glich-texture-3524/",
+  "file_url": "https://assets.mixkit.co/videos/3524/3524-720.mp4",
+  "license": "Mixkit Stock Video Free License: free in commercial and personal projects, social media included, no attribution required; never redistributed as-is (the file stays out of git).",
+  "use": "Overlay/difference blend for 3-8 frames on a glitch cut; pair with an sfx \"glitch\" event."
+}

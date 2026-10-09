@@ -90,7 +90,7 @@
       "body": "Follow for daily systems engineering & code teardowns."
     }
   ],
-  "caption": "A 16-byte struct that is really 32 bytes. Struct padding, explained before your coffee cools. Which struct in your codebase would you check first?",
+  "caption": "A 16-byte struct that is really 32 bytes.\n\nStruct padding, explained before your coffee cools.\n\nWhich struct in your codebase would you check first?",
   "hashtags": [
     "#cprogramming",
     "#systemsprogramming",

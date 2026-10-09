@@ -1,0 +1,8 @@
+{
+  "slug": "technique-liquid-orb",
+  "title": "LIQUID ORB: a refractive liquid sphere",
+  "kind": "technique",
+  "source": "https://lersent001.github.io/orb/",
+  "license": "Technique reference only: rebuild it in code; never paste the site's output.",
+  "use": "A glossy liquid sphere as the piece's living object: an SDF metaball (2-4 blobs) raymarched in a fragment shader (three.js / @remotion/three or a raw WebGL canvas), with fresnel rim light, a palette-tinted environment gradient, and refraction that distorts a REAL capture seen through it. Its surface can pulse with the music's energy curve and split/merge on downbeats. Seed every motion by frame."
+}

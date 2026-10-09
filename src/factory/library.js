@@ -133,6 +133,72 @@ function syncRepos({ run = require("child_process").spawnSync } = {}) {
   });
 }
 
+const VISUALS = path.join(LIB, "visuals");
+// Only these hosts serve library clips: a meta.json is data, never a way to fetch from anywhere.
+const CLIP_HOSTS = new Set(["assets.mixkit.co"]);
+const CLIP_MAX_BYTES = 120 * 1024 * 1024;
+
+/** Footage, overlays, mattes and techniques (factory/library/visuals/<slug>/meta.json). */
+function visuals() {
+  if (!fs.existsSync(VISUALS)) return [];
+  return fs.readdirSync(VISUALS, { withFileTypes: true })
+    .filter((d) => d.isDirectory())
+    .map((d) => {
+      const dir = path.join(VISUALS, d.name);
+      const meta = readJson(path.join(dir, "meta.json"), null);
+      if (!meta) return null;
+      const clip = path.join(dir, "clip.mp4");
+      return { ...meta, slug: d.name, dir, clip: fs.existsSync(clip) ? clip : null, contact: fs.existsSync(path.join(dir, "contact.jpg")) ? path.join(dir, "contact.jpg") : null };
+    })
+    .filter(Boolean)
+    .sort((a, b) => String(a.kind).localeCompare(String(b.kind)) || a.slug.localeCompare(b.slug));
+}
+
+/** Downloads every missing clip (1080p when the source has it), checks it is an MP4, writes a preview. */
+async function syncVisuals({ log = () => {} } = {}) {
+  const { spawnSync } = require("child_process");
+  const results = [];
+  for (const v of visuals()) {
+    if (v.kind === "technique" || v.clip || !v.file_url) continue;
+    let host = "";
+    try { host = new URL(v.file_url).hostname; } catch { /* rejected below */ }
+    if (!CLIP_HOSTS.has(host)) { results.push({ slug: v.slug, ok: false, error: `host ${host || "?"} is not an allowed clip source` }); continue; }
+    const urls = [v.file_url.replace(/-720\.mp4$/, "-1080.mp4"), v.file_url].filter((u, i, a) => a.indexOf(u) === i);
+    let done = null;
+    for (const url of urls) {
+      try {
+        const res = await fetch(url, { redirect: "error", signal: AbortSignal.timeout(180000) });
+        if (!res.ok) continue;
+        if (Number(res.headers.get("content-length") || 0) > CLIP_MAX_BYTES) continue;
+        const buf = Buffer.from(await res.arrayBuffer());
+        if (buf.length > CLIP_MAX_BYTES || buf.length < 1024 || buf.toString("latin1", 4, 8) !== "ftyp") continue;
+        const tmp = path.join(v.dir, `clip.${process.pid}.tmp`);
+        fs.writeFileSync(tmp, buf);
+        fs.renameSync(tmp, path.join(v.dir, "clip.mp4"));
+        done = url;
+        break;
+      } catch { /* next size */ }
+    }
+    if (!done) { results.push({ slug: v.slug, ok: false, error: "download failed" }); continue; }
+    // Preview: three frames side by side.
+    spawnSync("ffmpeg", ["-hide_banner", "-loglevel", "error", "-y", "-i", path.join(v.dir, "clip.mp4"), "-vf", "fps=1/2,scale=320:-2,tile=3x1", "-frames:v", "1", "-q:v", "5", path.join(v.dir, "contact.jpg")], { timeout: 120000, windowsHide: true });
+    log(`Factory library: ${v.slug} <- ${done}`);
+    results.push({ slug: v.slug, ok: true, url: done });
+  }
+  return results;
+}
+
+/** The VISUAL LIBRARY block of the agent's brief. `where` maps a slug to the clip's workspace path. */
+function visualsBlock(where) {
+  const lines = visuals().map((v) => {
+    const at = v.kind === "technique" ? "" : v.clip ? ` -> ${where(v.slug)}` : " (clip not downloaded: skip)";
+    return `- [${v.kind}] ${v.title}${at}\n  ${v.use}`;
+  });
+  return lines.length ? `VISUAL LIBRARY (licensed stock clips and techniques; use what serves THIS story, never as a stand-in for the story's real material)
+${lines.join("\n")}
+Clips are textures, transitions and atmosphere: graded to your palette, blended, masked, keyed or comped, each on screen for seconds, never a literal illustration of the story's facts. Techniques are effects to build in code and apply to the story's REAL captures (shatter a capture on the drop, contour-trace a product page, refract a page through a liquid orb).` : "";
+}
+
 // Characters Windows forbids, names ending in a dot or space, and reserved device names (CON, aux.js...).
 const BAD_WIN_PATH = /[<>:"|?*\\\u0000-\u001f]|[. ](\/|$)|(^|\/)(con|prn|aux|nul|com[0-9]|lpt[0-9])(\.[^/]*)?(\/|$)/i;
 
@@ -149,4 +215,4 @@ function checkoutValidPaths(dir, run, rev = "HEAD") {
   return co.status === 0 ? all.length - ok.length : null;
 }
 
-module.exports = { patterns, videos, patternsFor, heroReferences, catalog, syncRepos, parseRepo, BAD_WIN_PATH, LIB, REPOS };
+module.exports = { patterns, videos, patternsFor, heroReferences, catalog, syncRepos, parseRepo, visuals, syncVisuals, visualsBlock, BAD_WIN_PATH, LIB, REPOS, VISUALS };

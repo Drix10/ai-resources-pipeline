@@ -1,0 +1,9 @@
+{
+  "slug": "light-leaks-overlay",
+  "title": "Light leaks overlay",
+  "kind": "overlay",
+  "source": "https://mixkit.co/free-stock-video/light-leaks-overlay-48011/",
+  "file_url": "https://assets.mixkit.co/videos/48011/48011-720.mp4",
+  "license": "Mixkit Stock Video Free License: free in commercial and personal projects, social media included, no attribution required; never redistributed as-is (the file stays out of git).",
+  "use": "Screen/add blend over a cut or a reveal for a filmic flash; grade it to the palette (hue rotate, desaturate) and keep it under 1 s at full strength."
+}

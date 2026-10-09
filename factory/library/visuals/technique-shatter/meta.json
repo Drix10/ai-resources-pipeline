@@ -1,0 +1,8 @@
+{
+  "slug": "technique-shatter",
+  "title": "SHATTER: a real image breaking like glass",
+  "kind": "technique",
+  "source": "https://designminis.com/shatter",
+  "license": "Technique reference only: rebuild it in code; never paste the site's output.",
+  "use": "On the drop or the big reveal, fracture a REAL capture: a seeded Voronoi diagram (d3-delaunay, ~40-120 cells, denser near an impact point) clips the image into shards; each shard gets a deterministic velocity, spin and slight 3D tilt from the impact, a thin bright edge (refraction highlight), and falls/expands over 10-24 frames to reveal the next scene beneath. Add an \"impact\" or \"boom\" sfx event on the break frame."
+}
