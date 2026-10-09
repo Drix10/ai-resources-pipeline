@@ -42,28 +42,10 @@
   }
 }
 
-/* While the pinned opening is on screen the header sits over a black stage, so it uses the dark palette. */
-html[data-on-hero='1'] .site-header {
-  --paper: 10 10 11;
-  --ink: 244 241 234;
-  --body: 204 200 192;
-  --faint: 146 142 135;
-  --rule: 44 42 41;
-  --accent: 255 70 48;
-  background-color: rgb(10 10 11 / 0.94);
-  border-color: rgb(244 241 234 / 0.08);
-}
-
-/* Lenis owns smooth scrolling; the native smooth behaviour would fight it. */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-.lenis.lenis-stopped {
-  overflow: clip;
+/* Once the swarm is drawing the name, the heading keeps its place in the page (for search engines,
+   screen readers and selection) but stops painting its own glyphs. */
+.swarm-on .swarm-name {
+  color: transparent;
 }
 
 @layer base {
