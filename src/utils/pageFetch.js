@@ -112,6 +112,9 @@ function pinnedLookup(hostname, options, callback) {
 function secureFetch(url, { headers = {}, signal } = {}) {
   return new Promise((resolve, reject) => {
     const target = new URL(url);
+    // Node skips the lookup hook for literal IPs, so pinnedLookup alone would let 127.0.0.1 through.
+    const literal = target.hostname.replace(/^\[|\]$/g, "");
+    if (net.isIP(literal) && isPrivateIp(literal)) return reject(new Error("blocked address"));
     const transport = target.protocol === "https:" ? https : http;
     const req = transport.request(target, { method: "GET", headers, lookup: pinnedLookup, signal }, (res) => {
       const out = new Headers();
