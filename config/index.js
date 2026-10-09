@@ -91,16 +91,12 @@ const config = {
       requestTimeoutMs: parsePositiveInteger(process.env.FACTORY_OPUS_TIMEOUT_MS, 600000),
     },
     openrouterOpusModel: process.env.FACTORY_OPENROUTER_OPUS_MODEL || "anthropic/claude-opus-5.5",
-    // Storyboard plates. Any OpenRouter image model that speaks POST /images.
-    imageModel: process.env.FACTORY_IMAGE_MODEL || "google/gemini-nano-banana-2.1",
-    imageResolution: process.env.FACTORY_IMAGE_RESOLUTION || "2K",
-    maxPlates: parsePositiveInteger(process.env.FACTORY_MAX_PLATES, 3),
-    // Pieces produced per pipeline cycle, and which formats to make for each source.
-    perCycle: parsePositiveInteger(process.env.FACTORY_PER_CYCLE, 2),
-    formats: String(process.env.FACTORY_FORMATS || "reel,carousel").split(",").map((f) => f.trim()).filter((f) => f === "reel" || f === "carousel"),
+    // Stories per pipeline cycle (the editor picks the best of the run), and the formats made from each.
+    perCycle: parsePositiveInteger(process.env.FACTORY_PER_CYCLE, 1),
+    formats: String(process.env.FACTORY_FORMATS || "reel").split(",").map((f) => f.trim()).filter((f) => f === "reel" || f === "carousel"),
     // Vision QA: Opus looks at rendered stills and can send the storyboard back once.
     visionQa: process.env.FACTORY_VISION_QA !== "false",
-    // How reels are made after the storyboard + plates exist:
+    // How reels are made after the storyboard exists:
     //   agent    (default) every reel is a one-off film written by your local Claude Code agent,
     //            with its own look; recent looks and topics are fed back so nothing repeats
     //   hybrid   house templates for most reels plus heroPerWeek agent films
@@ -113,11 +109,13 @@ const config = {
     // Novelty memory: how many recent pieces' looks/topics the director must avoid repeating.
     noveltyWindow: parsePositiveInteger(process.env.FACTORY_NOVELTY_WINDOW, 15),
     heroTimeoutMs: parsePositiveInteger(process.env.FACTORY_HERO_TIMEOUT_MS, 60 * 60 * 1000),
+    // Real material: how many of the article's linked pages to screenshot (0 = none).
+    assetPages: process.env.FACTORY_ASSET_PAGES === "0" ? 0 : parsePositiveInteger(process.env.FACTORY_ASSET_PAGES, 4),
     // Engine the agent builds with: remotion (Remotion + its skills), hyperframes (HeyGen HTML+GSAP),
     // or auto (alternate between the two each film; needs both installed).
     heroEngine: ["remotion", "hyperframes", "auto"].includes(process.env.FACTORY_HERO_ENGINE) ? process.env.FACTORY_HERO_ENGINE : "remotion",
     // Skills/plugins the agent is told to use if installed in your local Claude Code (comma-separated slash names).
-    heroSkills: String(process.env.FACTORY_HERO_SKILLS || "").split(",").map((x) => x.trim()).filter(Boolean),
+    heroSkills: String(process.env.FACTORY_HERO_SKILLS || "/remotion:remotion-best-practices,/hyperframes:motion-graphics").split(",").filter((x) => x.trim() !== "none").map((x) => x.trim()).filter(Boolean),
     handle: process.env.FACTORY_HANDLE || "@drix10",
     author: process.env.FACTORY_AUTHOR || "Drishtant Ghosh",
     // Chromium for Remotion renders; empty lets Remotion download its own headless shell.

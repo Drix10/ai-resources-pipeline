@@ -11,15 +11,15 @@ const opus = require("./opus");
 const library = require("./library");
 const novelty = require("./novelty");
 
-const SCENE_TYPES = ["hook", "plate", "code", "stat", "list", "compare", "quote", "cta"];
-const SLIDE_TYPES = ["cover", "point", "code", "stat", "cta"];
+const SCENE_TYPES = ["hook", "statement", "code", "stat", "list", "compare", "quote", "cta"];
+const SLIDE_TYPES = ["cover", "point", "code", "stat", "shot", "cta"];
 const THEMES = ["night", "paper", "signal"];
 
 const REEL_SPEC = `REEL (1080x1920, 30fps). Durations are in BEATS at the storyboard's bpm (120 bpm: 1 beat = 0.5 s).
 Total 34-56 beats (17-28 s). 4-7 scenes. First scene is a "hook" of 4-6 beats; last scene is a "cta" of 5-6 beats.
 Scene types (all text is rendered live in code; NEVER put words in image prompts):
-- hook   {beats, text <= 60 chars, emphasis?: [exact phrase(s) from text to colour], kicker?: "TOPIC / SUBTOPIC" <= 24 chars, plate?: id}
-- plate  {beats 4-7, plate: id, headline <= 50 chars, sub?: <= 80 chars}      full-bleed generated image, slow push-in
+- hook   {beats, text <= 60 chars, emphasis?: [exact phrase(s) from text to colour], kicker?: "TOPIC / SUBTOPIC" <= 24 chars}
+- statement {beats 4-7, headline <= 50 chars, sub?: <= 80 chars}             one big claim, a line under it
 - code   {beats 8-12, code: <= 10 lines, <= 38 chars per line, lang?, caption?: <= 60 chars, highlight?: [1-based line numbers]}  types out
 - stat   {beats 4-7, value: number, from?: number, prefix?, suffix?, label <= 90 chars, decimals?}  counts up
 - list   {beats 2 per item + 3, title <= 40 chars, items: 2-4 strings <= 42 chars}
@@ -29,10 +29,11 @@ Scene types (all text is rendered live in code; NEVER put words in image prompts
 
 const CAROUSEL_SPEC = `CAROUSEL (1080x1350, 4:5). 5-8 slides. First is "cover", last is "cta".
 Slide types:
-- cover {title <= 70 chars, kicker?: <= 24 chars, plate?: id}
-- point {n?: number, title <= 50 chars, body <= 260 chars, plate?: id}
+- cover {title <= 70 chars, kicker?: <= 24 chars}
+- point {n?: number, title <= 50 chars, body <= 260 chars}
 - code  {title?: <= 40, code <= 14 lines and <= 42 chars per line, lang?, caption?: <= 160, highlight?: [line numbers]}
 - stat  {value: string <= 8 chars e.g. "2x" "32 B" "87%", label <= 70 chars, body?: <= 200 chars}
+- shot  {asset: id, title <= 50 chars, caption?: <= 140 chars}   a real screenshot of a page the article links to, in a browser frame (only ids listed under REAL SCREENSHOTS)
 - cta   {title <= 60 chars, body?: <= 120 chars}`;
 
 const SYSTEM = `You are the director of an Instagram channel for a hands-on systems/AI engineer. You turn one article into one short piece that a busy engineer would stop scrolling for, learn one concrete thing from, and save.
@@ -43,11 +44,13 @@ Rules that are checked in code, and a storyboard that breaks one is rejected:
 1. Facts: every number and every named product, company or person must appear in the article. Never invent results, benchmarks, quotes or dates.
 2. Hook first: the hook states the surprising concrete claim in plain words. No questions like "Did you know". No clickbait the article cannot back.
 3. Plain voice. No hype words (e.g. unlock, game-changer, revolutionary, delve, leverage, seamless, supercharge), no emojis in on-screen text.
-4. Image plates are mood/setting only: describe a photographic or illustrated scene with lighting, lens and composition. They must contain NO text, letters, numbers, UI, logos or watermarks, and leave calm negative space where type will sit (lower half for reels). 0-3 plates.
-5. Caption: 1-3 short paragraphs (<= 1200 chars) that add one detail beyond the video, ending with a one-line question or a save prompt. 3-6 lowercase hashtags, specific not generic (#cprogramming, not #tech).
-6. Respect every length limit in the spec. Short text reads better on a phone than complete text.
+4. Caption: 1-3 short paragraphs (<= 1200 chars) that add one detail beyond the video, ending with a one-line question or a save prompt. 3-6 lowercase hashtags, specific not generic (#cprogramming, not #tech).
+5. Respect every length limit in the spec. Short text reads better on a phone than complete text.
 
 Return ONLY the JSON object, no prose.`;
+
+/** Screenshots a carousel can show (the tall mobile captures do not fit a 4:5 frame). */
+const shotAssets = (article) => (article.assets || []).filter((a) => a.kind === "card" || a.kind === "image");
 
 function buildPrompt({ article, format, feedback, patterns, avoid }) {
   const spec = format === "reel" ? REEL_SPEC : CAROUSEL_SPEC;
@@ -57,13 +60,16 @@ function buildPrompt({ article, format, feedback, patterns, avoid }) {
     spec,
     "",
     "JSON SHAPE:",
-    `{"title": short internal title, "pattern": the pattern id you used or "new", "theme": one of ${THEMES.join("|")} (night = default; signal = launches/hot takes; paper = calm explainers), "bpm": 112-128, "plates": [{"id":"p1","prompt":"..."}], ${shape}, "caption": "...", "hashtags": ["#..."]}`,
+    `{"title": short internal title, "pattern": the pattern id you used or "new", "theme": one of ${THEMES.join("|")} (night = default; signal = launches/hot takes; paper = calm explainers), "bpm": 112-128, ${shape}, "caption": "...", "hashtags": ["#..."]}`,
     "",
     patterns ? `PROVEN PATTERNS FROM OUR LIBRARY (pick the one that fits, adapt freely):\n${patterns}\n` : "",
     avoid ? `RECENT PIECES ON THE CHANNEL (use a different hook shape and structure from these):\n${avoid}\n` : "",
+    format === "carousel" && shotAssets(article).length
+      ? `REAL SCREENSHOTS (captured from pages the article links to; show one on a "shot" slide when the real page makes the point land: the repo, the docs, the post):\n${shotAssets(article).map((a) => `- ${a.id}: ${a.title || a.url} (${a.url})`).join("\n")}\n`
+      : "",
     `ARTICLE TITLE: ${article.title}`,
     "ARTICLE:",
-    article.text.slice(0, 9000),
+    article.text.slice(0, 16000),
     feedback ? `\nYOUR PREVIOUS STORYBOARD WAS REJECTED. Fix exactly these problems and keep everything else:\n- ${feedback.join("\n- ")}` : "",
   ].join("\n");
 }
@@ -74,7 +80,7 @@ const norm = (s) => String(s || "").replace(/(\d),(?=\d)/g, "$1").replace(/[’]
 function visibleText(sb) {
   const out = [];
   const walk = (v, key) => {
-    if (key === "prompt" || key === "plate" || key === "type" || key === "id" || key === "lang" || key === "src") return;
+    if (key === "type" || key === "id" || key === "lang" || key === "asset" || key === "src" || key === "host") return;
     if (typeof v === "string") out.push(v);
     else if (typeof v === "number" && key !== "beats" && key !== "n" && key !== "decimals" && key !== "highlight") out.push(String(v));
     else if (Array.isArray(v)) v.forEach((x) => walk(x, key === "highlight" ? "highlight" : undefined));
@@ -93,14 +99,6 @@ function validate(sb, article, format) {
   if (!sb || typeof sb !== "object") return ["Reply was not a JSON object."];
   if (!THEMES.includes(sb.theme)) errors.push(`theme must be one of ${THEMES.join(", ")}.`);
   if (!(sb.bpm >= 100 && sb.bpm <= 140)) errors.push("bpm must be between 100 and 140.");
-  const plateIds = new Set((sb.plates || []).map((p) => p.id));
-  if ((sb.plates || []).length > config.factory.maxPlates) errors.push(`Use at most ${config.factory.maxPlates} plates.`);
-  for (const p of sb.plates || []) {
-    if (!p.id || !p.prompt || p.prompt.length < 40) errors.push(`Plate ${p.id || "?"} needs a descriptive prompt (40+ chars).`);
-    if (/\b(text|words?|letters?|caption|headline|title|logo|label|sign that says|typography)\b/i.test(p.prompt.replace(/\bno (text|words|letters|logos?|labels?|typography)\b/gi, "")))
-      errors.push(`Plate ${p.id} prompt asks for text/logos; plates must be textless.`);
-  }
-  const usesPlate = (id) => { if (id && !plateIds.has(id)) errors.push(`Plate "${id}" is used but not defined in plates.`); };
 
   if (format === "reel") {
     const scenes = Array.isArray(sb.scenes) ? sb.scenes : [];
@@ -113,8 +111,8 @@ function validate(sb, article, format) {
       const at = `Scene ${i + 1} (${s.type})`;
       if (!SCENE_TYPES.includes(s.type)) return errors.push(`${at}: unknown type.`);
       if (!(s.beats >= 2 && s.beats <= 14)) errors.push(`${at}: beats must be 2-14.`);
-      if (s.type === "hook") { req(s.text, `${at} text`); len(s.text, 60, `${at} text`); len(s.kicker, 24, `${at} kicker`); usesPlate(s.plate); for (const e of s.emphasis || []) if (!String(s.text).toLowerCase().includes(String(e).toLowerCase())) errors.push(`${at}: emphasis "${e}" is not in the text.`); }
-      if (s.type === "plate") { usesPlate(s.plate); if (!s.plate) errors.push(`${at}: needs a plate id.`); req(s.headline, `${at} headline`); len(s.headline, 50, `${at} headline`); len(s.sub, 80, `${at} sub`); }
+      if (s.type === "hook") { req(s.text, `${at} text`); len(s.text, 60, `${at} text`); len(s.kicker, 24, `${at} kicker`); for (const e of s.emphasis || []) if (!String(s.text).toLowerCase().includes(String(e).toLowerCase())) errors.push(`${at}: emphasis "${e}" is not in the text.`); }
+      if (s.type === "statement") { req(s.headline, `${at} headline`); len(s.headline, 50, `${at} headline`); len(s.sub, 80, `${at} sub`); }
       if (s.type === "code") {
         const lines = String(s.code || "").split("\n");
         req(s.code, `${at} code`);
@@ -142,10 +140,11 @@ function validate(sb, article, format) {
     slides.forEach((s, i) => {
       const at = `Slide ${i + 1} (${s.type})`;
       if (!SLIDE_TYPES.includes(s.type)) return errors.push(`${at}: unknown type.`);
-      if (s.type === "cover") { req(s.title, `${at} title`); len(s.title, 70, `${at} title`); len(s.kicker, 24, `${at} kicker`); usesPlate(s.plate); }
-      if (s.type === "point") { req(s.title, `${at} title`); req(s.body, `${at} body`); len(s.title, 50, `${at} title`); len(s.body, 260, `${at} body`); usesPlate(s.plate); }
+      if (s.type === "cover") { req(s.title, `${at} title`); len(s.title, 70, `${at} title`); len(s.kicker, 24, `${at} kicker`); }
+      if (s.type === "point") { req(s.title, `${at} title`); req(s.body, `${at} body`); len(s.title, 50, `${at} title`); len(s.body, 260, `${at} body`); }
       if (s.type === "code") { req(s.code, `${at} code`); const lines = String(s.code || "").split("\n"); if (lines.length > 14 || lines.some((l) => l.length > 42)) errors.push(`${at}: code must be <= 14 lines of <= 42 chars.`); len(s.caption, 160, `${at} caption`); }
       if (s.type === "stat") { req(s.value, `${at} value`); req(s.label, `${at} label`); len(s.value, 8, `${at} value`); len(s.label, 70, `${at} label`); len(s.body, 200, `${at} body`); }
+      if (s.type === "shot") { req(s.title, `${at} title`); len(s.title, 50, `${at} title`); len(s.caption, 140, `${at} caption`); if (!shotAssets(article).some((a) => a.id === s.asset)) errors.push(`${at}: asset "${s.asset}" is not one of the REAL SCREENSHOTS.`); }
       if (s.type === "cta") { req(s.title, `${at} title`); len(s.title, 60, `${at} title`); len(s.body, 120, `${at} body`); }
     });
   }
@@ -184,7 +183,6 @@ function finalize(raw, { article, format }) {
     bpm: Math.round(Number(raw.bpm) || 120),
     handle: config.factory.handle,
     author: config.factory.author,
-    plates: (raw.plates || []).map((p) => ({ id: String(p.id), prompt: String(p.prompt) })),
     scenes: format === "reel" ? raw.scenes || [] : [],
     slides: format === "carousel" ? (raw.slides || []).map((s) => (s && s.type === "stat" && s.value !== undefined ? { ...s, value: String(s.value) } : s)) : [],
     caption: String(raw.caption || "").trim(),
@@ -205,7 +203,7 @@ async function writeStoryboard(article, format, extraFeedback = null, previous =
   let last = previous;
   for (let attempt = 1; attempt <= 2; attempt++) {
     let prompt = buildPrompt({ article, format, feedback, patterns, avoid });
-    if (feedback && last) prompt += `\n\nPREVIOUS STORYBOARD:\n${JSON.stringify({ ...last, plates: last.plates.map(({ src, ...p }) => p) })}`;
+    if (feedback && last) prompt += `\n\nPREVIOUS STORYBOARD:\n${JSON.stringify(last)}`;
     const reply = await opus.ask({ system: SYSTEM, prompt, maxTokens: 6000, temperature: 0.8 });
     let raw;
     try {

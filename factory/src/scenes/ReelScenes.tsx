@@ -1,7 +1,7 @@
 import React from 'react';
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
 import { FONT, REEL, Theme } from '../brand';
-import { FieldBg, Kicker, PlateBg, Words } from '../fx/fx';
+import { FieldBg, Kicker, Words } from '../fx/fx';
 import { E, fitSize, hitPulse, prog, spr, SPR, tw } from '../lib/anim';
 import type { ReelScene, Storyboard } from '../schema';
 
@@ -17,7 +17,6 @@ export type SceneProps<T extends ReelScene['type']> = {
 const S = REEL.safe;
 const CW = REEL.w - S.left - S.right; // content width inside the Instagram-safe box
 
-const plateSrc = (sb: Storyboard, id?: string) => (id ? sb.plates.find((p) => p.id === id)?.src : undefined);
 
 const Box: React.FC<{ children: React.ReactNode; justify?: 'center' | 'flex-end' | 'flex-start'; gap?: number }> = ({ children, justify = 'center', gap = 36 }) => (
   <div
@@ -44,7 +43,7 @@ export const Hook: React.FC<SceneProps<'hook'>> = ({ scene, sb, theme, dur, inde
   const slam = spr(frame, 0, fps, SPR.pop);
   return (
     <AbsoluteFill>
-      {scene.plate ? <PlateBg src={plateSrc(sb, scene.plate)} theme={theme} dur={dur} seed={`h${index}`} /> : <FieldBg theme={theme} seed={`h${index}`} />}
+      <FieldBg theme={theme} seed={`h${index}`} />
       <Box>
         {scene.kicker ? <Kicker text={scene.kicker} theme={theme} start={2} /> : null}
         <div
@@ -66,17 +65,18 @@ export const Hook: React.FC<SceneProps<'hook'>> = ({ scene, sb, theme, dur, inde
   );
 };
 
-export const PlateScene: React.FC<SceneProps<'plate'>> = ({ scene, sb, theme, dur, index }) => {
+/** One big claim and an optional line under it, over the field background. */
+export const StatementScene: React.FC<SceneProps<'statement'>> = ({ scene, theme, index }) => {
   const size = fitSize(scene.headline, CW, 4, 104, 56);
   return (
     <AbsoluteFill>
-      <PlateBg src={plateSrc(sb, scene.plate)} theme={theme} dur={dur} seed={`p${index}`} />
-      <Box justify="flex-end" gap={28}>
-        <div style={{ fontFamily: FONT.display, fontWeight: 720, fontSize: size, lineHeight: 1.02, letterSpacing: '-0.03em', color: 'rgb(244 246 248)' }}>
+      <FieldBg theme={theme} seed={`p${index}`} />
+      <Box gap={28}>
+        <div style={{ fontFamily: FONT.display, fontWeight: 720, fontSize: size, lineHeight: 1.02, letterSpacing: '-0.03em', color: theme.ink }}>
           <Words text={scene.headline} start={3} theme={theme} />
         </div>
         {scene.sub ? (
-          <div style={{ fontFamily: FONT.text, fontSize: 46, lineHeight: 1.25, color: 'rgb(214 220 228)' }}>
+          <div style={{ fontFamily: FONT.text, fontSize: 46, lineHeight: 1.25, color: theme.body }}>
             <Words text={scene.sub} start={10} stagger={2} theme={theme} />
           </div>
         ) : null}
@@ -324,7 +324,7 @@ export const CtaScene: React.FC<SceneProps<'cta'>> = ({ scene, sb, theme, beat, 
 
 export const SCENES: Record<ReelScene['type'], React.FC<any>> = {
   hook: Hook,
-  plate: PlateScene,
+  statement: StatementScene,
   code: CodeScene,
   stat: StatScene,
   list: ListScene,

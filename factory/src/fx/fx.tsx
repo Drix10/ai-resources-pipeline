@@ -1,5 +1,5 @@
 import React from 'react';
-import { AbsoluteFill, Img, useCurrentFrame, useVideoConfig } from 'remotion';
+import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
 import type { Theme } from '../brand';
 import { E, prog, rand, tw } from '../lib/anim';
 
@@ -50,29 +50,7 @@ export const Words: React.FC<{
   );
 };
 
-/** Full-bleed generated plate with a slow push-in, scrim and vignette so type always reads. */
-export const PlateBg: React.FC<{ src?: string; theme: Theme; dur: number; seed: string; scrim?: number }> = ({ src, theme, dur, seed, scrim }) => {
-  const frame = useCurrentFrame();
-  const s = tw(frame, 0, dur, 1.04, 1.12, E.linear);
-  const dx = (rand(seed) - 0.5) * 40 * prog(frame, 0, dur, E.linear);
-  const a = scrim ?? theme.scrim;
-  return (
-    <AbsoluteFill style={{ background: theme.bg, overflow: 'hidden' }}>
-      {src ? (
-        <Img src={src} style={{ width: '100%', height: '100%', objectFit: 'cover', transform: `translateX(${dx}px) scale(${s})` }} />
-      ) : (
-        <FieldBg theme={theme} seed={seed} />
-      )}
-      <AbsoluteFill
-        style={{
-          background: `linear-gradient(180deg, rgba(0,0,0,${a * 0.55}) 0%, rgba(0,0,0,${a * 0.35}) 35%, rgba(0,0,0,${a}) 75%, rgba(0,0,0,${Math.min(0.92, a + 0.2)}) 100%)`,
-        }}
-      />
-    </AbsoluteFill>
-  );
-};
-
-/** Plate-less background: a drifting accent glow on the theme ground plus a faint grid. */
+/** Background: a drifting accent glow on the theme ground plus a faint grid. */
 export const FieldBg: React.FC<{ theme: Theme; seed: string }> = ({ theme, seed }) => {
   const frame = useCurrentFrame();
   const { width, height } = useVideoConfig();

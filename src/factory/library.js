@@ -1,12 +1,27 @@
 /**
- * The reference library (factory/library/): storyboard patterns plus your Opus videos.
- * Template mode gets short "proven pattern" notes; hero mode gets full prompts and code paths.
+ * The reference library (factory/library/): storyboard patterns plus every film from the two
+ * motion galleries and the reference repos. Template mode gets short "proven pattern" notes;
+ * agent films get the whole catalog, the closest prompts in full and read access to all of it.
  */
 const fs = require("fs");
 const path = require("path");
 
 const LIB = path.resolve(__dirname, "../../factory/library");
 const VIDEOS = path.join(LIB, "videos");
+// Shallow clones of every meta.json "repo" (npm run factory:library); gitignored.
+const REPOS = path.join(LIB, "repos");
+
+/** "https://github.com/o/r/tree/main/skills/x" -> clone https://github.com/o/r, look inside skills/x. */
+function parseRepo(url) {
+  const m = String(url || "").match(/^https:\/\/github\.com\/([^/]+)\/([^/#?]+?)(?:\.git)?(?:\/tree\/[^/]+\/(.+?))?\/?$/);
+  return m ? { clone: `https://github.com/${m[1]}/${m[2]}`, name: m[2], sub: m[3] || "" } : null;
+}
+
+function repoPath(url) {
+  const r = parseRepo(url);
+  const dir = r && path.join(REPOS, r.name, r.sub);
+  return dir && fs.existsSync(dir) ? dir : null;
+}
 
 const readJson = (f, fallback) => {
   try { return JSON.parse(fs.readFileSync(f, "utf8")); } catch { return fallback; }
@@ -24,14 +39,19 @@ function videos() {
       const dir = path.join(VIDEOS, d.name);
       const meta = readJson(path.join(dir, "meta.json"), null);
       if (!meta) return null;
-      const promptFile = path.join(dir, "prompt.md");
+      const has = (f) => (fs.existsSync(path.join(dir, f)) ? path.join(dir, f) : null);
+      const promptFile = has("prompt.md");
       return {
         slug: d.name,
         dir,
         ...meta,
         tags: (meta.tags || []).map((t) => String(t).toLowerCase()),
-        prompt: fs.existsSync(promptFile) ? fs.readFileSync(promptFile, "utf8") : "",
-        srcDir: fs.existsSync(path.join(dir, "src")) ? path.join(dir, "src") : null,
+        prompt: promptFile ? fs.readFileSync(promptFile, "utf8") : "",
+        promptFile,
+        contact: has("contact.jpg"),
+        video: has("video.mp4"),
+        srcDir: has("src"),
+        repoDir: repoPath(meta.repo),
       };
     })
     .filter(Boolean);
@@ -66,8 +86,57 @@ function patternsFor(article, format) {
 }
 
 /** References for hero mode: closest library videos with prompts and code. */
-function heroReferences(article, n = 2) {
+function heroReferences(article, n = 3) {
   return rank(videos(), article, "reel").slice(0, n);
 }
 
-module.exports = { patterns, videos, patternsFor, heroReferences, LIB };
+const label = (v) => `${v.title}${v.model ? ` [${v.model}${v.engine ? `, ${v.engine}` : ""}]` : ""}`;
+
+/**
+ * The whole library, one entry per film; every agent run sees all of it.
+ * compact: one line each for the prompt (files live at videos/<slug>/). Full: every path, for a file.
+ */
+function catalog({ compact = false } = {}) {
+  return videos()
+    .sort((a, b) => (b.score || 0) - (a.score || 0) || a.slug.localeCompare(b.slug))
+    .map((v) => {
+      if (compact) {
+        const has = [v.contact && "frames", v.video && "video", (v.srcDir || v.repoDir) && "code"].filter(Boolean);
+        return `- ${v.slug} | ${label(v)}${has.length ? ` (${has.join(", ")})` : ""}: ${v.why || ""}`;
+      }
+      const files = [v.promptFile && `prompt ${v.promptFile}`, v.contact && `frames ${v.contact}`, v.video && `video ${v.video}`, v.srcDir && `code ${v.srcDir}`, v.repoDir && `repo ${v.repoDir}`].filter(Boolean);
+      return `- ${label(v)}: ${v.why || ""}\n  ${files.join(" | ")}`;
+    })
+    .join("\n");
+}
+
+/** Clones (or fast-forwards) every repo a library entry links to into factory/library/repos/. */
+function syncRepos({ run = require("child_process").spawnSync } = {}) {
+  fs.mkdirSync(REPOS, { recursive: true });
+  const repos = new Map(videos().map((v) => parseRepo(v.repo)).filter(Boolean).map((r) => [r.clone, r]));
+  return [...repos.values()].map(({ clone: url, name }) => {
+    const dir = path.join(REPOS, name);
+    const args = fs.existsSync(path.join(dir, ".git")) ? ["-C", dir, "pull", "--ff-only", "--depth", "1"] : ["clone", "--depth", "1", url, dir];
+    const r = run("git", args, { encoding: "utf8" });
+    if (r.status !== 0 && fs.existsSync(path.join(dir, ".git"))) {
+      // Cloned but the checkout failed: usually a filename Windows forbids (":" etc). Take every other file.
+      const skipped = checkoutValidPaths(dir, run);
+      if (skipped !== null) return { url, dir, ok: true, error: skipped ? `skipped ${skipped} path(s) this OS cannot store` : null };
+    }
+    return { url, dir, ok: r.status === 0, error: r.status === 0 ? null : String(r.stderr || "").trim().slice(-200) };
+  });
+}
+
+const BAD_WIN_PATH = /[<>:"|?*\u0000-\u001f]|[. ](\/|$)/;
+
+/** Checks out every path this OS can store; returns how many were skipped, or null on failure. */
+function checkoutValidPaths(dir, run) {
+  const ls = run("git", ["-C", dir, "ls-tree", "-r", "-z", "--name-only", "HEAD"], { encoding: "utf8" });
+  if (ls.status !== 0) return null;
+  const all = ls.stdout.split("\0").filter(Boolean);
+  const ok = process.platform === "win32" ? all.filter((p) => !BAD_WIN_PATH.test(p)) : all;
+  const co = run("git", ["-C", dir, "checkout", "HEAD", "--pathspec-from-file=-", "--pathspec-file-nul"], { encoding: "utf8", input: ok.join("\0") });
+  return co.status === 0 ? all.length - ok.length : null;
+}
+
+module.exports = { patterns, videos, patternsFor, heroReferences, catalog, syncRepos, parseRepo, LIB, REPOS };

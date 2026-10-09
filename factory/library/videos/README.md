@@ -1,13 +1,15 @@
-# Opus video library
+# Reference library
 
-Drop each of your Opus-made videos here as one folder:
+Every film the agent learns from, one folder each: the motionpromptgallery.com (`mpg-*`) and
+prompt-motion.com (`pm-*`) galleries, the two reference repos, and your own pieces:
 
 ```
 videos/<slug>/
   meta.json      # required
-  prompt.md      # the prompt that produced it (required: this is what hero mode learns from)
-  video.mp4      # optional, for humans; not read by the pipeline
-  src/           # optional: the code Opus wrote (Remotion / HTML / three.js)
+  prompt.md      # the full prompt, verbatim (required: this is what the agent learns from)
+  contact.jpg    # 3x3 frames across the film, so the agent can see it
+  video.mp4      # optional (gitignored); the agent can pull extra frames with ffmpeg
+  src/           # optional: the code (Remotion / HTML / three.js)
 ```
 
 `meta.json`:
@@ -26,7 +28,8 @@ How the pipeline uses it:
 
 - **Template mode** (`src/factory/storyboard.js`): the `why` lines of the best-scoring entries whose
   tags match the article are added to the storyboard prompt as proven patterns, next to `../patterns.json`.
-- **Hero mode** (`src/factory/hero.js`): the agent gets the 2 closest entries' `prompt.md` (and `src/`
-  if present) as references before it writes a bespoke film.
+- **Agent films** (`src/factory/hero.js`): the agent gets a catalog of EVERY entry with its file paths,
+  the full `prompt.md` of the 3 closest, and read access to this whole folder plus `../repos/`
+  (clones of every `repo` URL; `npm run factory:library`).
 
 `score` (1-5) is yours to set after a piece has been live for a week; higher scores win ties.

@@ -14,12 +14,12 @@ Report ONLY problems a viewer would notice on a phone:
 - an image that does not fit the scene's message or is visually confusing
 - a frame that looks empty or broken
 Do not comment on taste if nothing is wrong. Return JSON only:
-{"pass": true|false, "issues": [{"frame": 1-based index, "problem": "...", "fix": "a concrete storyboard change, e.g. shorten scene 3 headline to <= 30 chars, or rewrite plate p2 prompt to ..."}]}`;
+{"pass": true|false, "issues": [{"frame": 1-based index, "problem": "...", "fix": "a concrete storyboard change, e.g. shorten scene 3 headline to <= 30 chars"}]}`;
 
 async function reviewFrames(storyboard, files) {
   const kind = storyboard.format === "reel" ? "reel scenes" : "carousel slides";
   const summary = storyboard.format === "reel"
-    ? storyboard.scenes.map((s, i) => `${i + 1}. ${s.type}${s.plate ? ` (plate ${s.plate})` : ""}`).join("\n")
+    ? storyboard.scenes.map((s, i) => `${i + 1}. ${s.type}`).join("\n")
     : storyboard.slides.map((s, i) => `${i + 1}. ${s.type}`).join("\n");
   const reply = await opus.ask({
     system: SYSTEM,

@@ -14,7 +14,7 @@
  */
 const fs = require("fs");
 const path = require("path");
-const { By, until } = require("selenium-webdriver");
+const { By, Key, until } = require("selenium-webdriver");
 const config = require("../../config");
 const { logger, sleep } = require("../utils/helpers");
 const { attachDriver, releaseDriver } = require("../utils/chromeLauncher");
@@ -26,10 +26,13 @@ const SEL = {
   home: 'svg[aria-label="Home"]',
   create: ['svg[aria-label="New post"]', 'svg[aria-label="Create"]'],
   createMenuPost: ["Post"],
+  // 2026 layout: Create expands a "Post" link in the sidebar instead of a menu.
+  createMenuPostIcon: ['svg[aria-label="Post"]'],
   fileInput: 'div[role="dialog"] input[type="file"], form input[type="file"][accept*="image"]',
   reelsNoticeOk: ["OK"],
-  cropButton: ['svg[aria-label="Select crop"]', 'svg[aria-label="Select Crop"]'],
-  cropOption: { reel: ["Original", "9:16"], carousel: ["4:5"] },
+  cropButton: ['svg[aria-label="Select Crop"]', 'svg[aria-label="Select crop"]'],
+  cropOriginal: ["Original"],
+  dialogTitle: 'div[role="dialog"] div[role="heading"], div[role="dialog"] h1',
   next: ["Next"],
   caption: 'div[role="dialog"] div[contenteditable="true"][role="textbox"], div[aria-label^="Write a caption"]',
   share: ["Share"],
@@ -79,6 +82,8 @@ class InstagramPublisher {
             for (const el of cands) {
               const t = (el.innerText || "").trim();
               if (!wanted.includes(t)) continue;
+              // Innermost match only: a wrapper div with the same text is not the button.
+              if ([...el.children].some((c) => (c.innerText || "").trim() === t)) continue;
               const r = el.getBoundingClientRect();
               if (r.width === 0 || r.height === 0) continue;
               const target = el.closest('button, div[role="button"], a') || el;
@@ -115,18 +120,50 @@ class InstagramPublisher {
     return false;
   }
 
+  /** Clicks Next and waits until the dialog's title changes (Crop -> Edit -> New post/reel). */
+  async next() {
+    const title = () => this.driver.executeScript((sel) => (document.querySelector(sel) || {}).innerText || "", SEL.dialogTitle);
+    const before = await title();
+    if (!before || !(await this.clickText(SEL.next))) return false;
+    const deadline = Date.now() + 15000;
+    while (Date.now() < deadline) {
+      await sleep(700);
+      if ((await title()) !== before) return true;
+    }
+    return false;
+  }
+
+  /** Instagram opens uploads at a square crop: switch to Original (9:16 reel / 4:5 slides) and close the menu. */
+  async keepOriginalCrop() {
+    if (!(await this.clickSvg(SEL.cropButton, 6000))) return false;
+    await sleep(700);
+    const ok = await this.clickText(SEL.cropOriginal, { timeoutMs: 4000 });
+    await sleep(500);
+    await this.clickSvg(SEL.cropButton, 3000); // toggles the menu shut so Next is reachable
+    await sleep(500);
+    return ok;
+  }
+
   async typeCaption(text) {
     const box = await this.driver.wait(until.elementLocated(By.css(SEL.caption)), 20000);
     await box.click();
     await sleep(300);
-    // The editor accepts insertText (including newlines); read back to verify it landed.
-    await this.driver.executeScript((el, t) => { el.focus(); document.execCommand("insertText", false, t); }, box, text);
+    // The editor ignores scripted line breaks, so lines are typed as keystrokes with Enter between
+    // them (hashtags only sit on the last line, so Enter never picks a hashtag suggestion). A
+    // trailing space closes the suggestion list. Read back to verify it landed.
+    const lines = text.split("\n");
+    for (const [i, line] of lines.entries()) {
+      if (line) await box.sendKeys(line);
+      if (i < lines.length - 1) await box.sendKeys(Key.ENTER);
+    }
+    await box.sendKeys(" ");
     await sleep(800);
     const got = await this.driver.executeScript((el) => el.innerText || "", box);
     const want = text.replace(/\s+/g, " ").slice(0, 40);
     if (!got.replace(/\s+/g, " ").includes(want)) {
       await box.sendKeys(text.replace(/\n/g, " "));
     }
+    if (/\n\s*\n/.test(text) && !/\n/.test(got)) logger.warn("Instagram: caption line breaks did not survive the editor.");
   }
 
   async discard() {
@@ -153,25 +190,23 @@ class InstagramPublisher {
 
     await step("open-create", () => this.clickSvg(SEL.create));
     await sleep(1200);
-    // Newer layouts open a small menu (Post / Live video / Ad) first.
-    await this.clickText(SEL.createMenuPost, { timeoutMs: 3000, inDialog: false });
+    // Newer layouts open a "Post" entry first (a sidebar link, or a small Post / Live / Ad menu).
+    if (!(await this.clickSvg(SEL.createMenuPostIcon, 4000))) await this.clickText(SEL.createMenuPost, { timeoutMs: 3000, inDialog: false });
     await sleep(1200);
 
-    const input = await this.driver.wait(until.elementLocated(By.css(SEL.fileInput)), 20000);
+    let input;
+    await step("file-input", async () => {
+      input = await this.driver.wait(until.elementLocated(By.css(SEL.fileInput)), 20000).catch(() => null);
+      return !!input;
+    });
     await input.sendKeys(piece.files.map((f) => path.resolve(f)).join("\n"));
     await sleep(piece.format === "reel" ? 6000 : 3500);
     await this.clickText(SEL.reelsNoticeOk, { timeoutMs: 3000 });
 
-    if (await this.clickSvg(SEL.cropButton, 6000)) {
-      await sleep(600);
-      await this.clickText(SEL.cropOption[piece.format], { timeoutMs: 4000 });
-      await sleep(600);
-    }
-    await step("next-1", () => this.clickText(SEL.next));
-    await sleep(2500);
-    await step("next-2", () => this.clickText(SEL.next));
-    await sleep(2500);
-    await this.typeCaption(piece.caption);
+    await step("crop-original", () => this.keepOriginalCrop());
+    await step("next-1", () => this.next());
+    await step("next-2", () => this.next());
+    await step("caption", () => this.typeCaption(piece.caption).then(() => true, () => false));
     await sleep(1000);
 
     if (dryRun) {

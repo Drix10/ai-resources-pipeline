@@ -15,8 +15,6 @@ export type Theme = {
   accent: string;
   /** Text colour on top of an accent fill. */
   onAccent: string;
-  /** Plate treatment: how much the image is darkened under type (0..1). */
-  scrim: number;
 };
 
 export const THEMES: Record<ThemeName, Theme> = {
@@ -29,7 +27,6 @@ export const THEMES: Record<ThemeName, Theme> = {
     rule: 'rgb(36 48 70)',
     accent: 'rgb(124 147 255)',
     onAccent: 'rgb(12 19 32)',
-    scrim: 0.58,
   },
   paper: {
     bg: 'rgb(241 243 240)',
@@ -40,7 +37,6 @@ export const THEMES: Record<ThemeName, Theme> = {
     rule: 'rgb(203 210 204)',
     accent: 'rgb(23 54 245)',
     onAccent: 'rgb(241 243 240)',
-    scrim: 0.35,
   },
   // High-energy variant for hooks and launches: same ink, accent swapped to signal orange.
   signal: {
@@ -52,7 +48,6 @@ export const THEMES: Record<ThemeName, Theme> = {
     rule: 'rgb(44 48 56)',
     accent: 'rgb(255 92 41)',
     onAccent: 'rgb(10 12 16)',
-    scrim: 0.62,
   },
 };
 

@@ -37,15 +37,34 @@ async function ask({ system, prompt, imageFiles = [], maxTokens = 8000, temperat
 
 // ---------------------------------------------------------------- Claude Code (default)
 
+/**
+ * On Windows an npm install puts `claude.cmd` on PATH, and spawn() cannot run a .cmd without a
+ * shell (which would mangle long multi-line args). Resolve to the claude.exe the shim launches.
+ */
+function resolveBin(bin, { platform = process.platform, pathEnv = process.env.PATH } = {}) {
+  if (platform !== "win32" || path.extname(bin)) return bin;
+  for (const dir of String(pathEnv || "").split(path.delimiter).filter(Boolean)) {
+    const exe = path.join(dir, `${bin}.exe`);
+    if (fs.existsSync(exe)) return exe;
+    const cmd = path.join(dir, `${bin}.cmd`);
+    if (!fs.existsSync(cmd)) continue;
+    const m = fs.readFileSync(cmd, "utf8").match(/"%dp0%\\?([^"]+\.exe)"/i);
+    if (m && fs.existsSync(path.join(dir, m[1]))) return path.join(dir, m[1]);
+  }
+  return bin;
+}
+let resolvedBin = null;
+const claudeBin = () => (resolvedBin ??= resolveBin(config.factory.claudeBin));
+
 /** Runs `claude -p` with the prompt on stdin. Resolves with the final text result. */
-function runClaude(args, { input, cwd, timeoutMs, logFile = null, stream = false }) {
+function runClaude(args, { input, cwd, timeoutMs, logFile = null, stream = false, env = {} }) {
   if (stream) {
     // Live transcript: one JSON event per line; the last "result" event carries the answer.
     const i = args.indexOf("--output-format");
     if (i >= 0) args = [...args.slice(0, i), "--output-format", "stream-json", "--verbose", ...args.slice(i + 2)];
   }
   return new Promise((resolve, reject) => {
-    const child = spawn(config.factory.claudeBin, args, { cwd, env: { ...process.env }, stdio: ["pipe", "pipe", "pipe"] });
+    const child = spawn(claudeBin(), args, { cwd, env: { ...process.env, ...env }, stdio: ["pipe", "pipe", "pipe"] });
     let out = "";
     let err = "";
     const log = logFile ? fs.createWriteStream(logFile, { flags: "w" }) : null;
@@ -55,7 +74,7 @@ function runClaude(args, { input, cwd, timeoutMs, logFile = null, stream = false
     const timer = setTimeout(() => { child.kill("SIGTERM"); reject(new Error(`claude -p timed out after ${Math.round(timeoutMs / 1000)}s`)); }, timeoutMs);
     child.on("error", (e) => {
       clearTimeout(timer);
-      const error = new Error(`Could not start Claude Code ("${config.factory.claudeBin}"): ${e.message}. Install it and sign in: npm i -g @anthropic-ai/claude-code && claude`);
+      const error = new Error(`Could not start Claude Code ("${claudeBin()}"): ${e.message}. Install it and sign in: npm i -g @anthropic-ai/claude-code && claude`);
       error.code = "OPUS_UNAVAILABLE";
       reject(error);
     });
@@ -194,4 +213,4 @@ function parseJson(text) {
   throw new Error("Opus reply had an unterminated JSON object.");
 }
 
-module.exports = { ask, parseJson, runClaude, claudeArgs, usage };
+module.exports = { ask, parseJson, runClaude, claudeArgs, resolveBin, usage };

@@ -6,12 +6,6 @@
   "bpm": 120,
   "handle": "@drix10",
   "author": "Drishtant Ghosh",
-  "plates": [
-    {
-      "id": "p1",
-      "prompt": "Macro photograph of a memory chip on a dark circuit board, cool blue rim light, shallow depth of field, no text, no logos, vertical 9:16 composition with empty space in the lower half"
-    }
-  ],
   "scenes": [
     {
       "type": "hook",
@@ -23,9 +17,8 @@
       ]
     },
     {
-      "type": "plate",
+      "type": "statement",
       "beats": 6,
-      "plate": "p1",
       "headline": "Double the L1 cache misses.",
       "sub": "The culprit was member ordering, not the algorithm."
     },

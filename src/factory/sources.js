@@ -25,12 +25,30 @@ function clean(md) {
     .trim();
 }
 
+// Pages that only render behind a login are useless as screenshots.
+const LOGIN_WALLED = /(^|\.)(x\.com|twitter\.com|t\.co|linkedin\.com|lnkd\.in|instagram\.com|facebook\.com|threads\.net)$/i;
+
+/** Every public http(s) link in the raw markdown (footer and Resources included), GitHub first. */
+function linksOf(md) {
+  const seen = new Set();
+  for (const m of String(md || "").matchAll(/https?:\/\/[^\s<>()\[\]"'`]+/g)) {
+    const raw = m[0].replace(/[.,;:!?*_]+$/, "");
+    let u;
+    try { u = new URL(raw); } catch { continue; }
+    if (LOGIN_WALLED.test(u.hostname)) continue;
+    u.hash = "";
+    seen.add(u.toString());
+  }
+  const rank = (s) => (/^https:\/\/github\.com\/[^/]+\/[^/]+\/?$/.test(s) ? 0 : /github\.com/.test(s) ? 1 : 2);
+  return [...seen].sort((a, b) => rank(a) - rank(b));
+}
+
 function fromInsight(file) {
   const raw = fs.readFileSync(file, "utf8");
   const title = (raw.match(/^#\s+(.+)$/m) || [])[1]?.trim() || path.basename(file, ".md");
   const text = clean(raw.replace(/^#\s+.+$/m, ""));
   const base = path.basename(file, ".md");
-  return { title, text, slug: slugify(base), url: `https://blogs.drix10.com`, tags: ["personal"], origin: path.relative(ROOT, file) };
+  return { title, text, slug: slugify(base), url: `https://blogs.drix10.com`, links: linksOf(raw), tags: ["personal"], origin: path.relative(ROOT, file) };
 }
 
 /** Every LinkedIn Insight, newest first (the file names end in a timestamp-ish id). */
@@ -66,7 +84,7 @@ function fromDigest(markdown, { topic = "", url = "", file = "" } = {}) {
       const text = clean(it.lines.join("\n").replace(/🔗 Resources:[\s\S]*$/m, ""));
       const slug = slugify(`${topic}-${it.title}`);
       // One origin per item (not per folder), so novelty never blocks a whole topic folder.
-      return { title: it.title, text, slug, url, tags: [topic.toLowerCase()], origin: `${file || url || topic}#${slug}` };
+      return { title: it.title, text, slug, url, links: linksOf(it.lines.join("\n")), tags: [topic.toLowerCase()], origin: `${file || url || topic}#${slug}` };
     })
     .filter((a) => a.title && words(a.text) >= 60);
 }
@@ -77,4 +95,4 @@ function rankSources(list) {
   return [...list].sort((a, b) => score(b) - score(a));
 }
 
-module.exports = { listInsights, fromInsight, fromDigest, rankSources, clean };
+module.exports = { listInsights, fromInsight, fromDigest, rankSources, clean, linksOf };

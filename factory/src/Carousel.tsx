@@ -13,19 +13,11 @@ import type { CarouselSlide, Storyboard } from './schema';
 const S = POST.safe;
 const CW = POST.w - S.left - S.right;
 
-const Chrome: React.FC<{ sb: Storyboard; theme: Theme; i: number; n: number; children: React.ReactNode; plate?: string }> = ({ sb, theme, i, n, children, plate }) => {
-  const src = plate ? sb.plates.find((p) => p.id === plate)?.src : undefined;
+const Chrome: React.FC<{ sb: Storyboard; theme: Theme; i: number; n: number; children: React.ReactNode }> = ({ sb, theme, i, n, children }) => {
   return (
     <AbsoluteFill style={{ background: theme.bg }}>
-      {src ? (
-        <>
-          <Img src={src} style={{ position: 'absolute', width: '100%', height: '100%', objectFit: 'cover' }} />
-          <AbsoluteFill style={{ background: `linear-gradient(180deg, rgba(0,0,0,${theme.scrim * 0.4}) 0%, rgba(0,0,0,${theme.scrim}) 60%, rgba(0,0,0,${Math.min(0.9, theme.scrim + 0.25)}) 100%)` }} />
-        </>
-      ) : (
-        <FieldBg theme={theme} seed={`slide${i}`} />
-      )}
-      <div style={{ position: 'absolute', top: S.top - 40, left: S.left, right: S.right, display: 'flex', justifyContent: 'space-between', fontFamily: FONT.mono, fontSize: 26, color: src ? 'rgba(255,255,255,0.7)' : theme.faint }}>
+      <FieldBg theme={theme} seed={`slide${i}`} />
+      <div style={{ position: 'absolute', top: S.top - 40, left: S.left, right: S.right, display: 'flex', justifyContent: 'space-between', fontFamily: FONT.mono, fontSize: 26, color: theme.faint }}>
         <span>{sb.handle}</span>
         <span>
           {String(i + 1).padStart(2, '0')} / {String(n).padStart(2, '0')}
@@ -49,23 +41,21 @@ const Body: React.FC<{ text: string; theme: Theme; color?: string }> = ({ text, 
   <div style={{ fontFamily: FONT.text, fontSize: text.length > 220 ? 38 : 44, lineHeight: 1.32, color: color ?? theme.body }}>{text}</div>
 );
 
-const SlideBody: React.FC<{ slide: CarouselSlide; theme: Theme; onPlate: boolean }> = ({ slide, theme, onPlate }) => {
-  const ink = onPlate ? 'rgb(244 246 248)' : undefined;
-  const body = onPlate ? 'rgb(214 220 228)' : undefined;
+const SlideBody: React.FC<{ slide: CarouselSlide; theme: Theme }> = ({ slide, theme }) => {
   switch (slide.type) {
     case 'cover':
       return (
         <>
           {slide.kicker ? <div style={{ fontFamily: FONT.mono, fontSize: 30, letterSpacing: '0.12em', textTransform: 'uppercase', color: theme.accent }}>{slide.kicker}</div> : null}
-          <H text={slide.title} theme={theme} max={128} lines={5} color={ink} />
+          <H text={slide.title} theme={theme} max={128} lines={5} />
         </>
       );
     case 'point':
       return (
         <>
           {slide.n !== undefined ? <div style={{ fontFamily: FONT.display, fontWeight: 800, fontSize: 150, lineHeight: 0.8, color: theme.accent }}>{String(slide.n).padStart(2, '0')}</div> : null}
-          <H text={slide.title} theme={theme} max={84} lines={3} color={ink} />
-          <Body text={slide.body} theme={theme} color={body} />
+          <H text={slide.title} theme={theme} max={84} lines={3} />
+          <Body text={slide.body} theme={theme} />
         </>
       );
     case 'code': {
@@ -94,6 +84,23 @@ const SlideBody: React.FC<{ slide: CarouselSlide; theme: Theme; onPlate: boolean
           {slide.body ? <Body text={slide.body} theme={theme} /> : null}
         </>
       );
+    case 'shot':
+      // A real capture of a page the article links to, in a drawn browser frame, top of page first.
+      return (
+        <>
+          <H text={slide.title} theme={theme} max={72} lines={2} />
+          <div style={{ borderRadius: 22, overflow: 'hidden', border: `2px solid ${theme.rule}`, background: theme.bg2, boxShadow: '0 30px 80px rgba(0,0,0,0.35)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '16px 22px', borderBottom: `2px solid ${theme.rule}` }}>
+              {['rgb(255 95 87)', 'rgb(254 188 46)', 'rgb(40 200 64)'].map((c) => (
+                <div key={c} style={{ width: 16, height: 16, borderRadius: 8, background: c }} />
+              ))}
+              <div style={{ marginLeft: 14, flex: 1, fontFamily: FONT.mono, fontSize: 24, color: theme.faint, background: theme.bg, borderRadius: 999, padding: '6px 20px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{slide.host ?? ''}</div>
+            </div>
+            {slide.src ? <Img src={slide.src} style={{ display: 'block', width: '100%', height: 560, objectFit: 'cover', objectPosition: 'top' }} /> : <div style={{ height: 560 }} />}
+          </div>
+          {slide.caption ? <Body text={slide.caption} theme={theme} /> : null}
+        </>
+      );
     case 'cta':
       return (
         <>
@@ -108,11 +115,10 @@ const SlideBody: React.FC<{ slide: CarouselSlide; theme: Theme; onPlate: boolean
 export const CarouselSlideComp: React.FC<{ storyboard: Storyboard; slide: number }> = ({ storyboard: sb, slide }) => {
   const theme = THEMES[sb.theme] ?? THEMES.night;
   const s = sb.slides[slide] ?? sb.slides[0];
-  const plate = 'plate' in s ? s.plate : undefined;
   return (
     <FontGate>
-      <Chrome sb={sb} theme={theme} i={slide} n={sb.slides.length} plate={plate}>
-        <SlideBody slide={s} theme={theme} onPlate={!!plate && !!sb.plates.find((p) => p.id === plate)?.src} />
+      <Chrome sb={sb} theme={theme} i={slide} n={sb.slides.length}>
+        <SlideBody slide={s} theme={theme} />
       </Chrome>
     </FontGate>
   );

@@ -1,5 +1,5 @@
 /**
- * Content factory orchestrator: article -> storyboard (Opus) -> plates (OpenRouter image model)
+ * Content factory orchestrator: article -> storyboard (Opus)
  * -> video/slides (Remotion templates or a local Claude Code agent) -> vision QA -> queue -> Instagram.
  *
  * Everything here is non-fatal to the main pipeline: cron.js calls runCycle() inside try/catch.
@@ -10,21 +10,35 @@ const path = require("path");
 const config = require("../../config");
 const { logger } = require("../utils/helpers");
 const { writeStoryboard } = require("./storyboard");
-const { generatePlates } = require("./plates");
-const { renderReel, renderReelStills, renderCarousel, contactSheet } = require("./render");
+const { renderReel, renderReelStills, renderCarousel, contactSheet, ffmpeg } = require("./render");
+const { gatherAssets } = require("./assets");
 const { reviewFrames } = require("./qa");
 const { makeHero } = require("./hero");
 const sources = require("./sources");
 const queue = require("./queue");
 const opus = require("./opus");
 const novelty = require("./novelty");
+const editor = require("./editor");
 const { InstagramPublisher, canPostNow, composeCaption } = require("./instagram");
 
 const JOBS = path.join(queue.STATE_DIR, "jobs");
 const WEEK = 7 * 24 * 3600 * 1000;
 
-const stripSrc = (sb) => ({ ...sb, plates: sb.plates.map(({ src, file, ...p }) => p) });
 const stamp = () => new Date().toISOString().slice(0, 10);
+
+/** Fills each "shot" slide with its screenshot (a small JPEG data URL) and the page's host. */
+function withShots(sb, assets) {
+  const slides = (sb.slides || []).map((s) => {
+    const a = s.type === "shot" && assets.find((x) => x.id === s.asset);
+    if (!a || !fs.existsSync(a.file)) return s;
+    const small = a.file.replace(/\.jpg$/, ".slide.jpg");
+    if (!fs.existsSync(small)) ffmpeg(["-i", a.file, "-vf", "scale='min(1000,iw)':-2", "-q:v", "4", small]);
+    return { ...s, src: `data:image/jpeg;base64,${fs.readFileSync(small).toString("base64")}`, host: new URL(a.page || a.url).hostname };
+  });
+  return { ...sb, slides };
+}
+
+const withoutShots = (sb) => ({ ...sb, slides: (sb.slides || []).map(({ src, ...s }) => s) });
 
 function chooseReelMode() {
   const mode = config.factory.videoMode;
@@ -60,8 +74,10 @@ async function produce(article, format, opts = {}) {
   const k = queue.key(article.origin, article.slug, format);
   fs.writeFileSync(path.join(dir, "source.md"), `# ${article.title}\n\n${article.text}\n`);
 
-  let sb = await writeStoryboard(article, format);
-  await generatePlates(sb, dir);
+  // Real material first, so the storyboard knows which screenshots exist.
+  const assets = await gatherAssets(article, dir);
+  article = { ...article, assets };
+  let sb = withShots(await writeStoryboard(article, format), assets);
 
   let files;
   let look = null;
@@ -69,7 +85,7 @@ async function produce(article, format, opts = {}) {
 
   if (mode === "agent") {
     try {
-      const hero = await makeHero({ storyboard: sb, article, outDir: dir });
+      const hero = await makeHero({ storyboard: sb, article, outDir: dir, assets });
       files = { video: hero.video, poster: hero.poster };
       look = hero.look;
     } catch (e) {
@@ -86,9 +102,8 @@ async function produce(article, format, opts = {}) {
     const feedback = await qaPass(sb, dir);
     if (feedback) {
       try {
-        const revised = await writeStoryboard(article, format, feedback, sb);
-        await generatePlates(revised, dir);
-        sb = revised;
+        const revised = await writeStoryboard(article, format, feedback, withoutShots(sb));
+        sb = withShots(revised, assets);
         logger.info(`Factory: ${sb.id} revised after QA.`);
       } catch (e) {
         logger.warn(`Factory: QA revision rejected for ${sb.id} (${e.message}); keeping the first storyboard.`);
@@ -100,7 +115,7 @@ async function produce(article, format, opts = {}) {
 
   const visuals = format === "reel" ? [files.poster] : files.slides;
   const sheet = contactSheet(visuals, path.join(dir, "contact.jpg"));
-  fs.writeFileSync(path.join(dir, "storyboard.json"), JSON.stringify(stripSrc(sb), null, 2));
+  fs.writeFileSync(path.join(dir, "storyboard.json"), JSON.stringify(withoutShots(sb), null, 2));
   const caption = composeCaption(sb);
   fs.writeFileSync(path.join(dir, "caption.txt"), caption);
 
@@ -128,35 +143,42 @@ async function produce(article, format, opts = {}) {
 }
 
 /**
- * One factory pass: pick the most concrete unseen sources, make up to FACTORY_PER_CYCLE pieces,
- * then post whatever the cap allows.
+ * One factory pass, at the end of a pipeline run: take this run's new material, let the editor
+ * pick the single best story, research it (deep dive into its links), make every configured
+ * format from it, then post whatever the cap allows. FACTORY_PER_CYCLE = stories per pass.
  * @param {{extraSources?: object[], publish?: boolean, dryRun?: boolean}} opts
  */
 async function runCycle({ extraSources = [], publish = config.instagram.post, dryRun = !config.instagram.post } = {}) {
   const made = [];
-  // Opus runs are not free (plan limits): stop a cycle after a few failures instead of walking the whole pool.
-  let failures = 0;
-  const maxFailures = config.factory.perCycle + 2;
-  // Best material first, then filtered and interleaved so every piece is a new topic.
-  const pool = novelty.orderForNovelty(sources.rankSources([...extraSources, ...sources.listInsights()]));
   const formats = config.factory.formats.length ? config.factory.formats : ["reel"];
-  outer: for (const article of pool) {
+  const { fresh, fallback } = editor.freshSources(extraSources);
+  if (!fresh.length) logger.info("Factory: nothing new this run; falling back to the Insights archive.");
+  // Unmade stories on topics the channel has not covered yet.
+  const open = novelty.orderForNovelty(fresh.length ? fresh : fallback)
+    .filter((a) => formats.some((f) => !queue.has(a, f)) && novelty.isFreshTopic(a, novelty.recent()));
+  const ranked = await editor.pickStory(open);
+  // Opus runs are not free (plan limits): a story that fails moves on to the next, twice at most.
+  let failures = 0;
+  let stories = 0;
+  for (const picked of ranked) {
+    if (stories >= config.factory.perCycle || failures >= 2) break;
+    const story = await editor.deepDive(picked);
+    let ok = false;
     for (const format of formats) {
-      if (made.length >= config.factory.perCycle) break outer;
-      if (queue.has(article, format)) continue;
-      // Re-check against everything made so far, including earlier picks in this cycle
-      // (a reel and a carousel of the same source is allowed; two sources on one topic is not).
-      if (!novelty.isFreshTopic(article, novelty.recent())) continue;
+      if (queue.has(story, format)) continue;
       try {
-        made.push(await produce(article, format));
+        made.push(await produce(story, format));
+        ok = true;
       } catch (e) {
-        logger.error(`Factory: ${format} for "${article.title}" failed (non-fatal): ${e.message}`);
-        queue.add({ key: queue.key(article.origin, article.slug, format), format, status: "failed", error: e.message, title: article.title, origin: article.origin });
-        if (e.code === "OPUS_UNAVAILABLE" || e.code === "FACTORY_RENDERER_MISSING" || ++failures >= maxFailures) break outer;
+        logger.error(`Factory: ${format} for "${story.title}" failed (non-fatal): ${e.message}`);
+        queue.add({ key: queue.key(story.origin, story.slug, format), format, status: "failed", error: e.message, title: story.title, origin: story.origin });
+        if (e.code === "OPUS_UNAVAILABLE" || e.code === "FACTORY_RENDERER_MISSING") failures = 2;
       }
     }
+    if (ok) stories++;
+    else failures++;
   }
-  logger.info(`Factory: made ${made.length} piece(s). Opus calls: ${opus.usage.calls}${opus.usage.costUsd ? `, plan-equivalent $${opus.usage.costUsd.toFixed(2)}` : ""}.`);
+  logger.info(`Factory: made ${made.length} piece(s) from ${stories} story(ies). Opus calls: ${opus.usage.calls}${opus.usage.costUsd ? `, plan-equivalent $${opus.usage.costUsd.toFixed(2)}` : ""}.`);
   if (publish) await publishDue({ dryRun });
   return made;
 }

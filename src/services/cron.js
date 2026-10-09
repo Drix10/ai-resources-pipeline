@@ -440,7 +440,7 @@ const processAllFolders = async () => {
     }
 
     // --- Instagram content factory (FACTORY_ENABLED=true) ---
-    // Storyboard -> plates -> render -> QA -> queue -> post, after the blog is synced so the
+    // Storyboard -> render -> QA -> queue -> post, after the blog is synced so the
     // caption can point at live articles. Never fatal to the content pipeline.
     if (config.factory.enabled) {
       try {

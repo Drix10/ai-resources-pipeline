@@ -31,6 +31,7 @@ const { renderSoundtrack } = require("./soundtrack");
 const { THEME_NOTE } = require("./theme-note");
 const { runClaude, claudeArgs } = require("./opus");
 const novelty = require("./novelty");
+const assetsLib = require("./assets");
 
 const browserFlag = () => (config.factory.browserExecutable ? ` --browser-executable=${config.factory.browserExecutable}` : "");
 
@@ -39,34 +40,55 @@ function engineBlock(engine) {
     return `ENGINE: HyperFrames (HeyGen). If the hyperframes skill is installed, invoke it first and follow it.
 - Create the project here: npx hyperframes init film  (then work inside ./film)
 - Root composition: data-width="1080" data-height="1920", 30 fps, GSAP timelines paused and registered on window.__timelines.
-- Plates (if any) are in ./public/plates; copy them into the project's assets.
-- Load every font from local files or @fontsource; never rely on system fonts.
+- Load every font from local files or @fontsource (npm install it); never rely on system fonts.
 - Check stills, then render with npx hyperframes render, and write the result without audio to out/hero.muted.mp4 (ffmpeg -i <render>.mp4 -an -c:v copy out/hero.muted.mp4).`;
   }
-  return `ENGINE: Remotion. You are inside a copy of our Remotion package. src/ holds house templates (brand.ts, lib/anim.ts, fx/fx.tsx, lib/FontGate.tsx): raw material you may borrow helpers from, NOT a look to repeat. Install any extra @fontsource or @remotion/* package you need with npm install. The Remotion skills, if installed, apply.
+  return `ENGINE: Remotion. You are inside a copy of our Remotion package. src/ holds house templates (brand.ts, lib/anim.ts, fx/fx.tsx, lib/FontGate.tsx): raw material you may borrow helpers from, NOT a look to repeat. Install any extra @fontsource or @remotion/* package you need with npm install: node_modules is a shared install, and adding to it is expected. The Remotion skills, if installed, apply.
 - Put the film in src/hero/ with its own index.ts that calls registerRoot and registers a composition with id "Hero" (1080x1920, 30 fps).
-- Plate images (if any) are in public/plates/; load them with staticFile("plates/<id>.jpg").
 - Check stills: npx remotion still src/hero/index.ts Hero out/check-N.png --frame=F${browserFlag()}
 - Render: npx remotion render src/hero/index.ts Hero out/hero.muted.mp4 --muted --crf=18${browserFlag()}`;
 }
 
-function heroPrompt({ storyboard, article, references, engine, skills, avoid }) {
+// Headless run: anything outside this list is refused, so the prompt spells it out for the agent.
+const ALLOWED_TOOLS = [
+  "Read", "Write", "Edit", "Glob", "Grep", "Skill",
+  "Bash(npx remotion:*)", "Bash(npx hyperframes:*)", "Bash(npx tsc:*)", "Bash(npm install:*)", "Bash(npm pack:*)", "Bash(tar:*)",
+  "Bash(ffmpeg:*)", "Bash(ffprobe:*)", "Bash(node:*)", "Bash(ls:*)", "Bash(mkdir:*)", "Bash(cp:*)",
+];
+const allowedCommands = ALLOWED_TOOLS.filter((t) => t.startsWith("Bash(")).map((t) => t.slice(5, -3)).join(", ");
+
+const PROMPT_INLINE = 15000;
+const clip = (text, file) => (text.length > PROMPT_INLINE ? `${text.slice(0, PROMPT_INLINE)}\n... (continues: read ${file})` : text);
+
+const SHOT_TOOL = path.resolve(__dirname, "shot.js");
+
+/** The REAL MATERIAL block: captures of the pages the article links to, and how to use them. */
+function materialBlock(assets, engine, hosts) {
+  const where = engine === "remotion" ? `public/assets/<id>.jpg, loaded with staticFile("assets/<id>.jpg")` : "assets/<id>.jpg here; copy what you use into the film project";
+  const list = assets.map((a) => `- ${a.id} (${a.kind}, ${a.width}x${a.height}) ${a.title ? `"${a.title.slice(0, 80)}" ` : ""}${a.url}`).join("\n");
+  return `REAL MATERIAL (captured from the pages this article links to; files at ${where})
+${list || "- none captured"}
+desktop = 1440-wide viewport (dark scheme), card = 900-wide close-up whose text reads at phone size, mobile = full-length phone page to scroll through, image = the page's own share image.
+A film that shows the real thing beats a pure abstraction: when the subject has a real page (a repo, docs, the blog post), show it. Put it in a browser or phone frame you draw, push in on the exact region that matters (crop by pixel coordinates), scroll a mobile capture, light up one line, or cut a mask from it, and mix it with designed motion. Screenshot text is texture: anything the viewer must read is set in your own type from FIXED WORDING. Never fake a UI, never alter what a capture shows, and never zoom into a number (stars, counts) as if it were a claim.
+More captures: node ${SHOT_TOOL} <url> out/<name>.jpg [--mobile] [--light] (only these hosts: ${hosts.join(", ")}).`;
+}
+
+function heroPrompt({ storyboard, article, references, catalog = "", assets = [], engine, skills, avoid }) {
   const seconds = Math.round((storyboard.scenes.reduce((a, s) => a + s.beats, 0) * 60) / storyboard.bpm);
   const copy = storyboard.scenes
     .map((s, i) => {
-      const { type, beats, plate, ...rest } = s;
-      return `${i + 1}. [${type}, ~${beats} beats${plate ? `, plate ${plate}` : ""}] ${JSON.stringify(rest)}`;
+      const { type, beats, ...rest } = s;
+      return `${i + 1}. [${type}, ~${beats} beats] ${JSON.stringify(rest)}`;
     })
     .join("\n");
-  const plates = storyboard.plates.filter((p) => p.src).map((p) => `- ${p.id}: ${p.prompt}`).join("\n");
   const refs = references
-    .map((r) => `- ${r.title}: ${r.why || ""}${r.srcDir ? `\n  Code you may read for technique: ${r.srcDir}` : ""}\n  Prompt it came from:\n${r.prompt.split("\n").map((l) => `    ${l}`).join("\n")}`)
+    .map((r) => `- ${r.title}: ${r.why || ""}${r.repoDir || r.srcDir ? `\n  Code you may read for technique: ${r.repoDir || r.srcDir}` : ""}\n  Prompt it came from:\n${clip(r.prompt, r.promptFile).split("\n").map((l) => `    ${l}`).join("\n")}`)
     .join("\n");
-  return `You are a top-tier motion designer and engineer. Make one Instagram Reel as a code-rendered film.
+  return `You are a top-tier motion designer and engineer. Make one Instagram Reel as a film rendered in code, mixing designed motion with real material from the article's sources.
 ${skills.length ? `\nSKILLS: before building, invoke these if they are installed: ${skills.join(", ")}.\n` : ""}
 GOAL
 A ~${seconds}-second reel that teaches one concrete thing from the article below to engineers, readable with sound off.
-It must look like NO other film on this channel. Invent a look for THIS subject: one visual idea drawn from the subject itself (a relay object handed between shots, a physical metaphor, a single impossible camera move, a diagram that builds itself, a material or texture), its own palette, its own type pairing, and its own signature technique (for example SVG line-drawing, a WebGL shader field, isometric 3D, paper cut-out, terminal/ASCII, a data-viz morph, kinetic type only, photo plates with masks). Carry the idea through every cut.
+It must look like NO other film on this channel. Invent a look for THIS subject: one visual idea drawn from the subject itself (a relay object handed between shots, a physical metaphor, a single impossible camera move, a diagram that builds itself, a material or texture), its own palette, its own type pairing, and its own signature technique (for example SVG line-drawing, a WebGL shader field, isometric 3D, paper cut-out, terminal/ASCII, a data-viz morph, kinetic type only, photographic textures you build in code). Carry the idea through every cut.
 
 FORMAT
 1080x1920, 30 fps. All text inside x 84..930, y 230..1520 (Instagram UI covers the rest). The last frame should loop cleanly into the first.
@@ -83,19 +105,29 @@ ${avoid}
 FIXED WORDING (use these words and numbers exactly; you may split lines across beats and drop at most one non-hook line; never add claims, numbers or names):
 ${copy}
 
-PLATES (generated stills, textless; use as backgrounds or textures, or ignore)
-${plates || "- none"}
+${materialBlock(assets, engine, assetsLib.allowedHosts(article))}
 
 TIMING
 ${storyboard.bpm} bpm, cuts on beats. Every frame is a pure function of the frame number: no CSS transitions, no timers, no unseeded randomness. Springs and named easings only.
 
 BANNED
-Stock imagery, robots/brains/circuit-board clichés, purple-blue neon, glassmorphism, spinning logos, fake dashboards, text baked into images, text smaller than 34 px, more than 3 colours plus neutrals, anything that copies a recent film above.
+Stock imagery, robots/brains/circuit-board clichés, purple-blue neon, glassmorphism, spinning logos, fake dashboards or invented UI, your own text smaller than 34 px, more than 3 colours plus neutrals, anything that copies a recent film above.
 
-REFERENCES FROM OUR LIBRARY
+REFERENCE LIBRARY (read access: ${library.LIB})
+Every film from motionpromptgallery.com and prompt-motion.com plus our own reference repos. Each entry has its full prompt, a 3x3 contact sheet of frames, often the video itself and sometimes the full source code. Study before you design: read the closest prompts below in full, then open at least 3 more entries from the catalog whose craft could serve THIS subject, Read their contact sheets, and read repo code for any technique you borrow (timeline files, scene modules, post-processing). Pull extra frames from a library video with ffmpeg into out/ if you need a closer look. Borrow techniques and structure, never a whole look. Name the entries you drew on in out/treatment.md.
+
+Closest prompts, in full:
 ${refs || "- (none yet)"}
 
+Full catalog, one line per film: slug | title [model, engine] (what exists): the reusable idea.
+Files for a slug: ${library.LIB}/videos/<slug>/prompt.md, contact.jpg, video.mp4. Every path, including repo code, is in LIBRARY.md here.
+${catalog || "- (empty)"}
+
 ${engineBlock(engine)}
+
+COMMANDS
+Use the Bash tool, one command per call, from the workspace root: no cd, no &&/; chains, no PowerShell. Those need approval nobody is there to give. Allowed: ${allowedCommands}.
+Fonts: npm install @fontsource/<name> or @fontsource-variable/<name>. Never use a system font (Arial, Bahnschrift, Segoe, Helvetica...): the film must render the same on any machine.
 
 PROCESS
 1. Write out/treatment.md (the one visual idea and a beat sheet with frame numbers) and out/look.json:
@@ -108,7 +140,7 @@ PROCESS
 
 ARTICLE (source of truth, for context)
 ${article.title}
-${article.text.slice(0, 6000)}`;
+${article.text.slice(0, 16000)}`;
 }
 
 function prepareWorkspace(workDir, engine) {
@@ -124,7 +156,6 @@ function prepareWorkspace(workDir, engine) {
   // A same-day retry reuses the job dir: never let a previous attempt's render pass for this one.
   fs.rmSync(path.join(workDir, "out"), { recursive: true, force: true });
   fs.mkdirSync(path.join(workDir, "out"), { recursive: true });
-  fs.mkdirSync(path.join(workDir, "public/plates"), { recursive: true });
 }
 
 function pickEngine() {
@@ -135,30 +166,25 @@ function pickEngine() {
 }
 
 /** @returns {Promise<{video:string, poster:string, look:object, costUsd:number}>} */
-async function makeHero({ storyboard, article, outDir }) {
+async function makeHero({ storyboard, article, outDir, assets = [] }) {
   const engine = pickEngine();
   const workDir = path.join(outDir, `agent-${engine}`);
   prepareWorkspace(workDir, engine);
-  for (const p of storyboard.plates) {
-    if (p.file && fs.existsSync(p.file)) fs.copyFileSync(p.file, path.join(workDir, "public/plates", `${p.id}.jpg`));
-  }
+  const assetDir = path.join(workDir, engine === "remotion" ? "public/assets" : "assets");
+  fs.mkdirSync(assetDir, { recursive: true });
+  for (const a of assets) if (fs.existsSync(a.file)) fs.copyFileSync(a.file, path.join(assetDir, `${a.id}.jpg`));
   const refs = library.heroReferences(article);
-  const prompt = heroPrompt({ storyboard, article, references: refs, engine, skills: config.factory.heroSkills, avoid: novelty.looksToAvoid() });
+  fs.writeFileSync(path.join(workDir, "LIBRARY.md"), `# Reference library\n\n${library.catalog()}\n`);
+  const prompt = heroPrompt({ storyboard, article, references: refs, catalog: library.catalog({ compact: true }), assets, engine, skills: config.factory.heroSkills, avoid: novelty.looksToAvoid() });
   fs.writeFileSync(path.join(outDir, "agent-prompt.md"), prompt);
 
-  const allowed = [
-    "Read", "Write", "Edit", "Glob", "Grep", "Skill",
-    "Bash(npx remotion:*)", "Bash(npx hyperframes:*)", "Bash(npm install:*)", "Bash(ffmpeg:*)", "Bash(ffprobe:*)",
-    "Bash(node:*)", "Bash(ls:*)", "Bash(mkdir:*)", "Bash(cp:*)",
-  ];
-  const addDirs = refs.map((r) => r.srcDir).filter(Boolean);
-  const args = claudeArgs(["--permission-mode", "acceptEdits", "--allowedTools", ...allowed, ...(addDirs.length ? ["--add-dir", ...addDirs] : [])]);
+  const args = claudeArgs(["--permission-mode", "acceptEdits", "--allowedTools", ...ALLOWED_TOOLS, "--add-dir", library.LIB]);
 
   logger.info(`Factory agent: Opus (${config.factory.claudeEffort}) is building ${storyboard.id} with ${engine} in ${workDir} ...`);
   const started = Date.now();
   // stream-json streams the transcript into agent.log while the agent works (tail -f it).
   const logFile = path.join(outDir, "agent.log");
-  const { text, raw } = await runClaude(args, { input: prompt, cwd: workDir, timeoutMs: config.factory.heroTimeoutMs, logFile, stream: true });
+  const { text, raw } = await runClaude(args, { input: prompt, cwd: workDir, timeoutMs: config.factory.heroTimeoutMs, logFile, stream: true, env: { FACTORY_SHOT_HOSTS: assetsLib.allowedHosts(article).join(",") } });
   logger.info(`Factory agent: finished in ${Math.round((Date.now() - started) / 60000)} min: ${text.slice(0, 120)}`);
   if (/^\s*FAILED\b/m.test(text) || !/^\s*DONE\b/m.test(text)) throw new Error(`Agent did not finish: ${text.slice(0, 300)}`);
 

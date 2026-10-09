@@ -4,6 +4,7 @@
  *
  *   node factory-run.js --sample                      render the bundled sample reel + carousel (no keys, no Claude)
  *   node factory-run.js --list                        list candidate sources, best first
+ *   node factory-run.js --sync-library                clone/update the reference repos the library links to
  *   node factory-run.js --source "LinkedIn Insights/<file>.md" [--format reel|carousel] [--mode agent|template]
  *   node factory-run.js --cycle                       one full factory pass (same as the cron hook)
  *   node factory-run.js --queue                       show the ledger
@@ -38,6 +39,13 @@ async function main() {
 
   if (flag("sample")) return sample();
 
+  if (flag("sync-library")) {
+    const library = require("./src/factory/library");
+    for (const r of library.syncRepos()) console.log(`${r.ok ? "ok    " : "FAILED"} ${r.url}${r.error ? `\n       ${r.error}` : ""}`);
+    console.log(`${library.videos().length} library entries; the film agent sees all of them.`);
+    return;
+  }
+
   if (flag("list")) {
     for (const a of sources.rankSources(sources.listInsights()).slice(0, 25)) console.log(`${a.origin}\n   ${a.title}`);
     return;
@@ -50,7 +58,7 @@ async function main() {
 
   if (opt("source")) {
     const file = path.resolve(opt("source"));
-    const article = sources.fromInsight(file);
+    const article = await require("./src/factory/editor").deepDive(sources.fromInsight(file));
     const formats = opt("format") ? [opt("format")] : config.factory.formats;
     for (const format of formats) await factory.produce(article, format, { mode: opt("mode") || undefined });
     return;
