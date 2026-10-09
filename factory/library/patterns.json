@@ -1,0 +1,37 @@
+[
+  {
+    "id": "myth-number",
+    "formats": ["reel"],
+    "tags": ["c", "memory", "performance", "systems", "bug", "postmortem", "latency", "cache"],
+    "summary": "Myth -> mechanism -> number -> fix. Best for a counter-intuitive technical fact.",
+    "beats": "hook 6 (the surprising claim, emphasis on the number) | plate 6 (where it bites in production) | code 10 (minimal repro, highlight the culprit line) | stat 6 (count from the expected to the real value) | list 8 (2-3 fixes) | cta 6"
+  },
+  {
+    "id": "versus",
+    "formats": ["reel", "carousel"],
+    "tags": ["comparison", "tools", "frameworks", "regex", "ast", "database", "vector", "models"],
+    "summary": "Two approaches, one winner, and the condition under which the loser is right.",
+    "beats": "hook 5 (the choice people get wrong) | compare 8 (winner set) | code 10 (the winning approach in 6-8 lines) | list 7 (when to pick which) | cta 6"
+  },
+  {
+    "id": "teardown",
+    "formats": ["carousel"],
+    "tags": ["architecture", "websocket", "payments", "webhooks", "infra", "distributed"],
+    "summary": "Cover with the failure, one slide per moving part, code for the fix, stat for the impact.",
+    "beats": "cover | point 1 (what broke) | point 2 (why) | code (the fix) | stat (the impact, only if the article has a number) | cta"
+  },
+  {
+    "id": "launch-news",
+    "formats": ["reel"],
+    "tags": ["launch", "release", "company", "funding", "model", "announcement", "news"],
+    "summary": "Signal theme. What shipped, the one number that matters, what it means for builders.",
+    "beats": "hook 4 (what shipped, signal theme) | plate 6 (mood plate) | stat 6 | list 8 (what you can do with it) | cta 5"
+  },
+  {
+    "id": "lesson",
+    "formats": ["reel", "carousel"],
+    "tags": ["career", "learning", "opinion", "culture", "leetcode", "dsa", "beginners"],
+    "summary": "A personal lesson. Quote-like hook, the mistake, the replacement habit. Paper theme reads calmer.",
+    "beats": "hook 6 | plate 6 (human setting, no faces needed) | list 8 (the habit) | quote 6 (only if the article has a quotable line) | cta 6"
+  }
+]
