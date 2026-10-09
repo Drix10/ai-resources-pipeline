@@ -1634,3 +1634,5 @@ ${feedback.length ? `\nYour previous attempt was rejected. Fix this:\n${feedback
 }
 
 module.exports = new LocalLLMService();
+// Shared with the content factory's storyboard gate (src/factory/storyboard.js).
+module.exports.BANNED_WORDS = BANNED_WORDS;
