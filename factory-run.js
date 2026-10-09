@@ -6,6 +6,7 @@
  *   node factory-run.js --list                        list candidate sources, best first
  *   node factory-run.js --sync-library                clone/update the reference repos the library links to
  *   node factory-run.js --source "LinkedIn Insights/<file>.md" [--format reel|carousel] [--mode agent|template]
+ *                                                   (--force re-makes a piece already in the ledger)
  *   node factory-run.js --cycle                       one full factory pass (same as the cron hook)
  *   node factory-run.js --queue                       show the ledger
  *   node factory-run.js --publish [--id <id>] [--dry] post (or dry-run) the next rendered piece
@@ -58,9 +59,17 @@ async function main() {
 
   if (opt("source")) {
     const file = path.resolve(opt("source"));
-    const article = await require("./src/factory/editor").deepDive(sources.fromInsight(file));
-    const formats = opt("format") ? [opt("format")] : config.factory.formats;
-    for (const format of formats) await factory.produce(article, format, { mode: opt("mode") || undefined });
+    const base = sources.fromInsight(file);
+    const formats = (opt("format") ? [opt("format")] : config.factory.formats).filter((f) => {
+      if (!queue.has(base, f) || flag("force")) return true;
+      logger.warn(`${f} of "${base.title}" is already in the ledger; pass --force to make it again (a posted piece is never replaced).`);
+      return false;
+    });
+    if (!formats.length) return;
+    await require("./src/factory/lock").withFactoryLock("source", async () => {
+      const article = await require("./src/factory/editor").deepDive(base);
+      for (const format of formats) await factory.produce(article, format, { mode: opt("mode") || undefined });
+    }, { logger });
     return;
   }
 

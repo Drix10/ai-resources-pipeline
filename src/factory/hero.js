@@ -43,7 +43,7 @@ function engineBlock(engine) {
 - Load every font from local files or @fontsource (npm install it); never rely on system fonts.
 - Check stills, then render with npx hyperframes render, and write the result without audio to out/hero.muted.mp4 (ffmpeg -i <render>.mp4 -an -c:v copy out/hero.muted.mp4).`;
   }
-  return `ENGINE: Remotion. You are inside a copy of our Remotion package. src/ holds house templates (brand.ts, lib/anim.ts, fx/fx.tsx, lib/FontGate.tsx): raw material you may borrow helpers from, NOT a look to repeat. Install any extra @fontsource or @remotion/* package you need with npm install: node_modules is a shared install, and adding to it is expected. The Remotion skills, if installed, apply.
+  return `ENGINE: Remotion. You are inside a copy of our Remotion package. src/ holds house templates (brand.ts, lib/anim.ts, fx/fx.tsx, lib/FontGate.tsx): raw material you may borrow helpers from, NOT a look to repeat. Install any extra @fontsource or @remotion/* package you need with npm install --ignore-scripts: node_modules is a shared install, and adding to it is expected. The Remotion skills, if installed, apply.
 - Put the film in src/hero/ with its own index.ts that calls registerRoot and registers a composition with id "Hero" (1080x1920, 30 fps).
 - Check stills: npx remotion still src/hero/index.ts Hero out/check-N.png --frame=F${browserFlag()}
 - Render: npx remotion render src/hero/index.ts Hero out/hero.muted.mp4 --muted --crf=18${browserFlag()}`;
@@ -52,9 +52,12 @@ function engineBlock(engine) {
 // Headless run: anything outside this list is refused, so the prompt spells it out for the agent.
 const ALLOWED_TOOLS = [
   "Read", "Write", "Edit", "Glob", "Grep", "Skill",
-  "Bash(npx remotion:*)", "Bash(npx hyperframes:*)", "Bash(npx tsc:*)", "Bash(npm install:*)", "Bash(npm pack:*)", "Bash(tar:*)",
-  "Bash(ffmpeg:*)", "Bash(ffprobe:*)", "Bash(node:*)", "Bash(ls:*)", "Bash(mkdir:*)", "Bash(cp:*)",
+  "Bash(npx remotion:*)", "Bash(npx hyperframes:*)", "Bash(npx tsc:*)", "Bash(npm install --ignore-scripts:*)",
+  "Bash(ffmpeg:*)", "Bash(ffprobe:*)", "Bash(node shot.cjs:*)", "Bash(ls:*)", "Bash(mkdir:*)", "Bash(cp:*)",
 ];
+// Not a sandbox: ffmpeg/cp can still touch any path the user can. What it does rule out is
+// running arbitrary code (no bare node, no npm lifecycle scripts) if third-party text in the
+// prompt (articles, linked pages, scraped gallery prompts) tries to steer the agent.
 const allowedCommands = ALLOWED_TOOLS.filter((t) => t.startsWith("Bash(")).map((t) => t.slice(5, -3)).join(", ");
 
 const PROMPT_INLINE = 15000;
@@ -70,7 +73,7 @@ function materialBlock(assets, engine, hosts) {
 ${list || "- none captured"}
 desktop = 1440-wide viewport (dark scheme), card = 900-wide close-up whose text reads at phone size, mobile = full-length phone page to scroll through, image = the page's own share image.
 A film that shows the real thing beats a pure abstraction: when the subject has a real page (a repo, docs, the blog post), show it. Put it in a browser or phone frame you draw, push in on the exact region that matters (crop by pixel coordinates), scroll a mobile capture, light up one line, or cut a mask from it, and mix it with designed motion. Screenshot text is texture: anything the viewer must read is set in your own type from FIXED WORDING. Never fake a UI, never alter what a capture shows, and never zoom into a number (stars, counts) as if it were a claim.
-More captures: node ${SHOT_TOOL} <url> out/<name>.jpg [--mobile] [--light] (only these hosts: ${hosts.join(", ")}).`;
+More captures: node shot.cjs <url> out/<name>.jpg [--mobile] [--card] [--light] (only these hosts: ${hosts.join(", ")}).`;
 }
 
 function heroPrompt({ storyboard, article, references, catalog = "", assets = [], engine, skills, avoid }) {
@@ -127,7 +130,8 @@ ${engineBlock(engine)}
 
 COMMANDS
 Use the Bash tool, one command per call, from the workspace root: no cd, no &&/; chains, no PowerShell. Those need approval nobody is there to give. Allowed: ${allowedCommands}.
-Fonts: npm install @fontsource/<name> or @fontsource-variable/<name>. Never use a system font (Arial, Bahnschrift, Segoe, Helvetica...): the film must render the same on any machine.
+The reference library is read-only: never write inside it.
+Fonts: npm install --ignore-scripts @fontsource/<name> or @fontsource-variable/<name>. Never use a system font (Arial, Bahnschrift, Segoe, Helvetica...): the film must render the same on any machine.
 
 PROCESS
 1. Write out/treatment.md (the one visual idea and a beat sheet with frame numbers) and out/look.json:
@@ -145,24 +149,52 @@ ${article.text.slice(0, 16000)}`;
 
 function prepareWorkspace(workDir, engine) {
   fs.mkdirSync(workDir, { recursive: true });
+  // A same-day retry reuses the job dir: never let a previous attempt's film or render leak in.
+  for (const stale of ["out", "src/hero", "film"]) fs.rmSync(path.join(workDir, stale), { recursive: true, force: true, maxRetries: 3, retryDelay: 500 });
   if (engine === "remotion") {
-    for (const entry of ["src", "package.json", "tsconfig.json", "remotion.config.ts"]) {
-      fs.cpSync(path.join(FACTORY_DIR, entry), path.join(workDir, entry), { recursive: true });
+    for (const entry of ["src", "package.json", "package-lock.json", "tsconfig.json", "remotion.config.ts"]) {
+      if (fs.existsSync(path.join(FACTORY_DIR, entry))) fs.cpSync(path.join(FACTORY_DIR, entry), path.join(workDir, entry), { recursive: true });
     }
-    // Shared install keeps a run fast; the agent may still npm install extras (they land in the shared tree).
+    // Shared install keeps a run fast. A junction needs no admin rights or Developer Mode on Windows.
     const nm = path.join(workDir, "node_modules");
-    if (!fs.existsSync(nm)) fs.symlinkSync(path.join(FACTORY_DIR, "node_modules"), nm, "dir");
+    if (!fs.existsSync(nm)) fs.symlinkSync(path.join(FACTORY_DIR, "node_modules"), nm, process.platform === "win32" ? "junction" : "dir");
   }
-  // A same-day retry reuses the job dir: never let a previous attempt's render pass for this one.
-  fs.rmSync(path.join(workDir, "out"), { recursive: true, force: true });
   fs.mkdirSync(path.join(workDir, "out"), { recursive: true });
+  // The only node the agent may run: this launcher for the screenshot tool (see ALLOWED_TOOLS).
+  fs.writeFileSync(path.join(workDir, "shot.cjs"), `require(${JSON.stringify(SHOT_TOOL)});\n`);
 }
 
+const ENGINE_STATE = path.join(require("./queue").STATE_DIR, "engine.json");
+
+/** Alternates engines by the last ATTEMPT (not the last success), so a failing engine never repeats forever. */
 function pickEngine() {
   if (config.factory.heroEngine !== "auto") return config.factory.heroEngine;
-  // Alternate engines so consecutive films come from different toolkits.
-  const last = novelty.recent().find((r) => r.look)?.look?.engine;
-  return last === "remotion" ? "hyperframes" : "remotion";
+  let last = null;
+  try { last = JSON.parse(fs.readFileSync(ENGINE_STATE, "utf8")).last; } catch { last = novelty.recent().find((r) => r.look)?.look?.engine || null; }
+  const next = last === "remotion" ? "hyperframes" : "remotion";
+  try { fs.mkdirSync(path.dirname(ENGINE_STATE), { recursive: true }); fs.writeFileSync(ENGINE_STATE, JSON.stringify({ last: next, at: new Date().toISOString() })); } catch { /* best effort */ }
+  return next;
+}
+
+/** The library is read-only for the agent: snapshot it with git and restore anything it changed. */
+function guardLibrary() {
+  const git = (args) => spawnSync("git", ["-C", path.resolve(library.LIB, "../.."), ...args], { encoding: "utf8", timeout: 60000 });
+  const scope = ["--", "factory/library/videos", "factory/library/patterns.json"];
+  const cleanBefore = git(["status", "--porcelain", ...scope]).stdout === "";
+  return () => {
+    if (!cleanBefore) return;
+    if (git(["status", "--porcelain", ...scope]).stdout === "") return;
+    logger.warn("Factory agent changed the reference library; restoring it from git.");
+    git(["checkout", "--", ...scope.slice(1)]);
+    git(["clean", "-fdq", ...scope]);
+  };
+}
+
+/** Real duration of a video in seconds, or 0 when it cannot be read. */
+function probeSeconds(file) {
+  const out = spawnSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", file], { encoding: "utf8", timeout: 30000 });
+  const s = Number(String(out.stdout || "").trim());
+  return Number.isFinite(s) && s > 0 ? s : 0;
 }
 
 /** @returns {Promise<{video:string, poster:string, look:object, costUsd:number}>} */
@@ -178,24 +210,35 @@ async function makeHero({ storyboard, article, outDir, assets = [] }) {
   const prompt = heroPrompt({ storyboard, article, references: refs, catalog: library.catalog({ compact: true }), assets, engine, skills: config.factory.heroSkills, avoid: novelty.looksToAvoid() });
   fs.writeFileSync(path.join(outDir, "agent-prompt.md"), prompt);
 
-  const args = claudeArgs(["--permission-mode", "acceptEdits", "--allowedTools", ...ALLOWED_TOOLS, "--add-dir", library.LIB]);
+  const args = claudeArgs(["--permission-mode", "acceptEdits", "--allowedTools", ...ALLOWED_TOOLS, "--add-dir", library.LIB, ...(engine === "remotion" ? ["--add-dir", path.join(FACTORY_DIR, "node_modules")] : [])]);
 
   logger.info(`Factory agent: Opus (${config.factory.claudeEffort}) is building ${storyboard.id} with ${engine} in ${workDir} ...`);
   const started = Date.now();
   // stream-json streams the transcript into agent.log while the agent works (tail -f it).
   const logFile = path.join(outDir, "agent.log");
-  const { text, raw } = await runClaude(args, { input: prompt, cwd: workDir, timeoutMs: config.factory.heroTimeoutMs, logFile, stream: true, env: { FACTORY_SHOT_HOSTS: assetsLib.allowedHosts(article).join(",") } });
+  const restoreLibrary = guardLibrary();
+  let text;
+  let raw;
+  try {
+    ({ text, raw } = await runClaude(args, { input: prompt, cwd: workDir, timeoutMs: config.factory.heroTimeoutMs, logFile, stream: true, env: { FACTORY_SHOT_HOSTS: assetsLib.allowedHosts(article).join(",") } }));
+  } finally {
+    restoreLibrary();
+  }
   logger.info(`Factory agent: finished in ${Math.round((Date.now() - started) / 60000)} min: ${text.slice(0, 120)}`);
-  if (/^\s*FAILED\b/m.test(text) || !/^\s*DONE\b/m.test(text)) throw new Error(`Agent did not finish: ${text.slice(0, 300)}`);
+  const verdict = text.replace(/[*_`#>]/g, "");
+  if (/^\s*FAILED\b/im.test(verdict)) throw new Error(`Agent gave up: ${text.slice(0, 300)}`);
 
+  // The film itself is the proof: it must exist and be a readable video of a sane length.
   const muted = path.join(workDir, "out/hero.muted.mp4");
-  if (!fs.existsSync(muted)) throw new Error("Agent reported DONE but out/hero.muted.mp4 is missing.");
+  if (!fs.existsSync(muted)) throw new Error(`Agent finished without out/hero.muted.mp4: ${text.slice(0, 200)}`);
+  const seconds = probeSeconds(muted);
+  if (seconds < 5 || seconds > 180) throw new Error(`out/hero.muted.mp4 is ${seconds ? `${seconds.toFixed(1)} s` : "unreadable"}; expected a 5-180 s film.`);
+  if (!/^\s*DONE\b/im.test(verdict)) logger.warn(`Factory agent: no DONE line, but the film is valid (${seconds.toFixed(1)} s); using it.`);
   let cues = {};
   try { cues = JSON.parse(fs.readFileSync(path.join(workDir, "out/cues.json"), "utf8")); } catch { /* fall back below */ }
-  const probe = spawnSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", muted], { encoding: "utf8" });
-  const seconds = Number(cues.seconds) || Number(probe.stdout) || 20;
+  // Length comes from the real file: a wrong cues.seconds must never cut the end of the film.
   const wav = path.join(outDir, "soundtrack.wav");
-  renderSoundtrack(wav, { bpm: Number(cues.bpm) || storyboard.bpm, seconds, cuts: (cues.cuts || []).map(Number).filter(Number.isFinite), seed: Date.now() % 100000 });
+  renderSoundtrack(wav, { bpm: Number(cues.bpm) || storyboard.bpm, seconds, cuts: Array.isArray(cues.cuts) ? cues.cuts : [], seed: Date.now() % 100000 });
   const video = path.join(outDir, "reel.mp4");
   // Re-encode to Instagram's sweet spot whatever the engine produced (1080x1920, 30 fps, yuv420p).
   ffmpeg(["-i", muted, "-i", wav, "-map", "0:v", "-map", "1:a", "-vf", "scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2", "-c:v", "libx264", "-crf", "18", "-pix_fmt", "yuv420p", "-r", "30", "-c:a", "aac", "-b:a", "256k", "-ar", "48000", "-shortest", "-movflags", "+faststart", video]);
@@ -206,7 +249,7 @@ async function makeHero({ storyboard, article, outDir, assets = [] }) {
     if (fs.existsSync(src)) fs.copyFileSync(src, path.join(outDir, f));
   }
   let look = { engine };
-  try { look = { engine, ...JSON.parse(fs.readFileSync(path.join(workDir, "out/look.json"), "utf8")) }; } catch { /* optional */ }
+  try { look = { ...JSON.parse(fs.readFileSync(path.join(workDir, "out/look.json"), "utf8")), engine }; } catch { /* optional */ }
   return { video, poster, look, costUsd: raw?.total_cost_usd || 0 };
 }
 

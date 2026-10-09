@@ -116,27 +116,36 @@ function syncRepos({ run = require("child_process").spawnSync } = {}) {
   const repos = new Map(videos().map((v) => parseRepo(v.repo)).filter(Boolean).map((r) => [r.clone, r]));
   return [...repos.values()].map(({ clone: url, name }) => {
     const dir = path.join(REPOS, name);
-    const args = fs.existsSync(path.join(dir, ".git")) ? ["-C", dir, "pull", "--ff-only", "--depth", "1"] : ["clone", "--depth", "1", url, dir];
-    const r = run("git", args, { encoding: "utf8" });
-    if (r.status !== 0 && fs.existsSync(path.join(dir, ".git"))) {
-      // Cloned but the checkout failed: usually a filename Windows forbids (":" etc). Take every other file.
-      const skipped = checkoutValidPaths(dir, run);
+    const opts = { encoding: "utf8", timeout: 10 * 60 * 1000 };
+    const fail = (r) => ({ url, dir, ok: false, error: String(r.stderr || r.error?.message || "").trim().slice(-200) });
+    const existing = fs.existsSync(path.join(dir, ".git"));
+    // A shallow clone cannot fast-forward once upstream moves on: fetch the new tip and reset to it.
+    const r = existing ? run("git", ["-C", dir, "fetch", "--depth", "1", "origin", "HEAD"], opts) : run("git", ["clone", "--depth", "1", url, dir], opts);
+    if (existing && r.status !== 0) return fail(r);
+    const co = existing ? run("git", ["-C", dir, "reset", "--hard", "FETCH_HEAD"], opts) : r;
+    if (co.status !== 0 && fs.existsSync(path.join(dir, ".git"))) {
+      // Fetched but the checkout failed: usually a filename Windows forbids (":" etc). Take every other file.
+      const skipped = checkoutValidPaths(dir, run, existing ? "FETCH_HEAD" : "HEAD");
       if (skipped !== null) return { url, dir, ok: true, error: skipped ? `skipped ${skipped} path(s) this OS cannot store` : null };
     }
-    return { url, dir, ok: r.status === 0, error: r.status === 0 ? null : String(r.stderr || "").trim().slice(-200) };
+    return co.status === 0 ? { url, dir, ok: true, error: null } : fail(co);
   });
 }
 
-const BAD_WIN_PATH = /[<>:"|?*\u0000-\u001f]|[. ](\/|$)/;
+// Characters Windows forbids, names ending in a dot or space, and reserved device names (CON, aux.js...).
+const BAD_WIN_PATH = /[<>:"|?*\\\u0000-\u001f]|[. ](\/|$)|(^|\/)(con|prn|aux|nul|com[0-9]|lpt[0-9])(\.[^/]*)?(\/|$)/i;
 
 /** Checks out every path this OS can store; returns how many were skipped, or null on failure. */
-function checkoutValidPaths(dir, run) {
-  const ls = run("git", ["-C", dir, "ls-tree", "-r", "-z", "--name-only", "HEAD"], { encoding: "utf8" });
+function checkoutValidPaths(dir, run, rev = "HEAD") {
+  const opts = { encoding: "utf8", timeout: 10 * 60 * 1000, maxBuffer: 64 * 1024 * 1024 };
+  const ls = run("git", ["-C", dir, "ls-tree", "-r", "-z", "--name-only", rev], opts);
   if (ls.status !== 0) return null;
   const all = ls.stdout.split("\0").filter(Boolean);
   const ok = process.platform === "win32" ? all.filter((p) => !BAD_WIN_PATH.test(p)) : all;
-  const co = run("git", ["-C", dir, "checkout", "HEAD", "--pathspec-from-file=-", "--pathspec-file-nul"], { encoding: "utf8", input: ok.join("\0") });
+  // Point HEAD at the new tip without touching the work tree, then write only the storable files.
+  if (rev !== "HEAD" && run("git", ["-C", dir, "reset", "--soft", rev], opts).status !== 0) return null;
+  const co = run("git", ["-C", dir, "checkout", rev, "--pathspec-from-file=-", "--pathspec-file-nul"], { ...opts, input: ok.join("\0") });
   return co.status === 0 ? all.length - ok.length : null;
 }
 
-module.exports = { patterns, videos, patternsFor, heroReferences, catalog, syncRepos, parseRepo, LIB, REPOS };
+module.exports = { patterns, videos, patternsFor, heroReferences, catalog, syncRepos, parseRepo, BAD_WIN_PATH, LIB, REPOS };

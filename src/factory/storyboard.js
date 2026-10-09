@@ -30,10 +30,10 @@ Scene types (all text is rendered live in code; NEVER put words in image prompts
 const CAROUSEL_SPEC = `CAROUSEL (1080x1350, 4:5). 5-8 slides. First is "cover", last is "cta".
 Slide types:
 - cover {title <= 70 chars, kicker?: <= 24 chars}
-- point {n?: number, title <= 50 chars, body <= 260 chars}
-- code  {title?: <= 40, code <= 14 lines and <= 42 chars per line, lang?, caption?: <= 160, highlight?: [line numbers]}
+- point {n?: step number 1-9, title <= 50 chars, body <= 260 chars}
+- code  {title?: <= 40, code <= 12 lines and <= 42 chars per line, lang?, caption?: <= 120, highlight?: [line numbers]}
 - stat  {value: string <= 8 chars e.g. "2x" "32 B" "87%", label <= 70 chars, body?: <= 200 chars}
-- shot  {asset: id, title <= 50 chars, caption?: <= 140 chars}   a real screenshot of a page the article links to, in a browser frame (only ids listed under REAL SCREENSHOTS)
+- shot  {asset: id, title <= 50 chars, caption?: <= 120 chars}   a real screenshot of a page the article links to, in a browser frame (only ids listed under REAL SCREENSHOTS)
 - cta   {title <= 60 chars, body?: <= 120 chars}`;
 
 const SYSTEM = `You are the director of an Instagram channel for a hands-on systems/AI engineer. You turn one article into one short piece that a busy engineer would stop scrolling for, learn one concrete thing from, and save.
@@ -69,111 +69,197 @@ function buildPrompt({ article, format, feedback, patterns, avoid }) {
       : "",
     `ARTICLE TITLE: ${article.title}`,
     "ARTICLE:",
-    article.text.slice(0, 16000),
+    article.text.slice(0, PROMPT_CHARS),
     feedback ? `\nYOUR PREVIOUS STORYBOARD WAS REJECTED. Fix exactly these problems and keep everything else:\n- ${feedback.join("\n- ")}` : "",
   ].join("\n");
 }
 
-const norm = (s) => String(s || "").replace(/(\d),(?=\d)/g, "$1").replace(/[’]/g, "'").toLowerCase();
+const norm = (s) => String(s || "").replace(/(\d),(?=\d)/g, "$1").replace(/[’‘]/g, "'").toLowerCase();
+
+/** The prompt shows Opus this much of the article; the gate checks against exactly the same. */
+const PROMPT_CHARS = 16000;
+
+/**
+ * What a claim may be checked against: the article and its research as shown to Opus, minus
+ * URLs and the research page headers (a "github.com/org/repo/issues/8123" line is not a fact).
+ */
+const factSource = (article) => norm(String(article.text || "").slice(0, PROMPT_CHARS).replace(/https?:\/\/\S+/g, " ").replace(/^--- .*$/gm, " "));
+
+/** The story itself, without research: hype words are only excused when the author used them. */
+const storySource = (article) => norm(article.baseText ?? article.text);
+
+/** Exactly what the reel stat scene draws (prefix + formatted value + suffix), see ReelScenes StatScene. */
+const statText = (s) => `${s.prefix || ""}${Number(s.value).toLocaleString("en-US", { minimumFractionDigits: s.decimals || 0, maximumFractionDigits: s.decimals || 0 })}${s.suffix || ""}`;
 
 /** Every string a viewer will read, for the fact and vocabulary gates. */
 function visibleText(sb) {
   const out = [];
   const walk = (v, key) => {
-    if (key === "type" || key === "id" || key === "lang" || key === "asset" || key === "src" || key === "host") return;
+    if (key === "type" || key === "id" || key === "asset" || key === "src" || key === "host" || key === "highlight" || key === "beats" || key === "decimals") return;
     if (typeof v === "string") out.push(v);
-    else if (typeof v === "number" && key !== "beats" && key !== "n" && key !== "decimals" && key !== "highlight") out.push(String(v));
-    else if (Array.isArray(v)) v.forEach((x) => walk(x, key === "highlight" ? "highlight" : undefined));
+    else if (typeof v === "number") out.push(String(v));
+    else if (Array.isArray(v)) v.forEach((x) => walk(x));
     else if (v && typeof v === "object") Object.entries(v).forEach(([k, x]) => walk(x, k));
   };
-  walk(sb.scenes);
+  // A reel stat is checked as drawn, so a number split across prefix/value/suffix cannot hide.
+  walk((sb.scenes || []).map((s) => (s && s.type === "stat" ? { label: s.label, shown: statText(s) } : s)));
   walk(sb.slides);
   return out;
 }
 
+const isStr = (v) => typeof v === "string";
+const isStrArray = (v) => Array.isArray(v) && v.every(isStr);
+const isIntArray = (v) => Array.isArray(v) && v.every((x) => Number.isInteger(x));
+const escapeRe = (w) => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+/** A banned word in any common inflection, hyphen or no hyphen ("unlocks", "game changer"). */
+const bannedRe = (w) => new RegExp(`\\b${escapeRe(w).replace(/-/g, "[-\\s]?")}(s|es|ed|d|ing)?\\b`, "i");
+// Pictographs, flags and keycaps; the trademark/copyright signs in product names are fine.
+const EMOJI = /\p{Extended_Pictographic}|\p{Regional_Indicator}|⃣|[✓✔★☆➔➜]/u;
+const hasEmoji = (t) => EMOJI.test(String(t).replace(/[©®™]/g, ""));
+// Magnitudes written as words are claims too.
+const WORD_NUMBERS = /\b(hundred|thousand|million|billion|trillion|dozen|twice|tenfold|hundredfold)s?\b/gi;
+// A number glued to letters ("40s", "5000qps", "64KiB") is a magnitude; so is one followed by a unit word.
+const NUMBER = /(?<![\d.])(\d+(?:\.\d+)?)(?:([a-z%×]+)|\s*(k|m|b|bn|x|×|%|ms|s|sec|seconds|min|minutes|hours|gb|mb|tb|kb|kib|mib|gib|million|billion|thousand|times|percent|users|requests)\b)?/g;
+
 /** Returns a list of problems; empty means the storyboard can be rendered. */
 function validate(sb, article, format) {
   const errors = [];
-  const len = (s, max, label) => { if (String(s || "").length > max) errors.push(`${label} is ${String(s).length} chars; limit ${max}.`); };
-  const req = (v, label) => { if (typeof v !== "string" || !v.trim()) errors.push(`${label} is required (non-empty text).`); };
   if (!sb || typeof sb !== "object") return ["Reply was not a JSON object."];
+  const len = (s, max, label) => { if (isStr(s) && s.length > max) errors.push(`${label} is ${s.length} chars; limit ${max}.`); };
+  const req = (v, label) => { if (!isStr(v) || !v.trim()) errors.push(`${label} is required (non-empty text).`); };
+  const opt = (v, label, max) => { if (v === undefined || v === null) return; if (!isStr(v)) errors.push(`${label} must be text.`); else len(v, max, label); };
   if (!THEMES.includes(sb.theme)) errors.push(`theme must be one of ${THEMES.join(", ")}.`);
   if (!(sb.bpm >= 100 && sb.bpm <= 140)) errors.push("bpm must be between 100 and 140.");
 
   if (format === "reel") {
     const scenes = Array.isArray(sb.scenes) ? sb.scenes : [];
+    if (!Array.isArray(sb.scenes)) errors.push("scenes must be an array.");
     if (scenes.length < 4 || scenes.length > 7) errors.push("A reel needs 4-7 scenes.");
-    const total = scenes.reduce((a, s) => a + (Number(s.beats) || 0), 0);
+    const total = scenes.reduce((a, s) => a + (Number(s?.beats) || 0), 0);
     if (total < 34 || total > 56) errors.push(`Total beats is ${total}; must be 34-56.`);
     if (scenes[0]?.type !== "hook") errors.push("The first scene must be a hook.");
     if (scenes[scenes.length - 1]?.type !== "cta") errors.push("The last scene must be a cta.");
     scenes.forEach((s, i) => {
+      if (!s || typeof s !== "object" || Array.isArray(s)) return errors.push(`Scene ${i + 1} must be an object.`);
       const at = `Scene ${i + 1} (${s.type})`;
       if (!SCENE_TYPES.includes(s.type)) return errors.push(`${at}: unknown type.`);
-      if (!(s.beats >= 2 && s.beats <= 14)) errors.push(`${at}: beats must be 2-14.`);
-      if (s.type === "hook") { req(s.text, `${at} text`); len(s.text, 60, `${at} text`); len(s.kicker, 24, `${at} kicker`); for (const e of s.emphasis || []) if (!String(s.text).toLowerCase().includes(String(e).toLowerCase())) errors.push(`${at}: emphasis "${e}" is not in the text.`); }
-      if (s.type === "statement") { req(s.headline, `${at} headline`); len(s.headline, 50, `${at} headline`); len(s.sub, 80, `${at} sub`); }
+      if (!(Number.isInteger(s.beats) && s.beats >= 2 && s.beats <= 14)) errors.push(`${at}: beats must be a whole number 2-14.`);
+      if (s.type === "hook") {
+        req(s.text, `${at} text`); len(s.text, 60, `${at} text`); opt(s.kicker, `${at} kicker`, 24);
+        if (s.emphasis !== undefined && !isStrArray(s.emphasis)) errors.push(`${at}: emphasis must be a list of phrases.`);
+        else for (const e of s.emphasis || []) if (!String(s.text).toLowerCase().includes(e.toLowerCase())) errors.push(`${at}: emphasis "${e}" is not in the text.`);
+      }
+      if (s.type === "statement") { req(s.headline, `${at} headline`); len(s.headline, 50, `${at} headline`); opt(s.sub, `${at} sub`, 80); }
       if (s.type === "code") {
-        const lines = String(s.code || "").split("\n");
         req(s.code, `${at} code`);
+        const lines = String(s.code || "").split("\n");
         if (lines.length > 10) errors.push(`${at}: code has ${lines.length} lines; limit 10.`);
         if (lines.some((l) => l.length > 38)) errors.push(`${at}: a code line is longer than 38 chars; shorten or wrap.`);
-        len(s.caption, 60, `${at} caption`);
+        opt(s.caption, `${at} caption`, 60);
+        if (s.lang !== undefined && !(isStr(s.lang) && /^[a-z0-9+#.-]{1,16}$/i.test(s.lang))) errors.push(`${at}: lang must be a short language name like "c" or "ts".`);
+        if (s.highlight !== undefined && !isIntArray(s.highlight)) errors.push(`${at}: highlight must be a list of line numbers.`);
       }
-      if (s.type === "stat") { if (typeof s.value !== "number" || !Number.isFinite(s.value)) errors.push(`${at}: value must be a number.`); req(s.label, `${at} label`); len(s.label, 90, `${at} label`); }
-      if (s.type === "list") { req(s.title, `${at} title`); (s.items || []).forEach((it, k) => req(it, `${at} item ${k + 1}`)); len(s.title, 40, `${at} title`); if (!Array.isArray(s.items) || s.items.length < 2 || s.items.length > 4) errors.push(`${at}: 2-4 items.`); (s.items || []).forEach((it, k) => len(it, 42, `${at} item ${k + 1}`)); }
-      if (s.type === "compare") { for (const side of ["left", "right"]) { if (!s[side]?.label || !s[side]?.value) errors.push(`${at}: ${side} needs label and value.`); len(s[side]?.value, 18, `${at} ${side}.value`); len(s[side]?.note, 60, `${at} ${side}.note`); } }
+      if (s.type === "stat") {
+        if (typeof s.value !== "number" || !Number.isFinite(s.value)) errors.push(`${at}: value must be a number.`);
+        if (s.decimals !== undefined && !(Number.isInteger(s.decimals) && s.decimals >= 0 && s.decimals <= 3)) errors.push(`${at}: decimals must be 0-3.`);
+        else if (typeof s.value === "number" && Number(s.value.toFixed(s.decimals || 0)) !== s.value) errors.push(`${at}: value ${s.value} would display rounded; set decimals to show it exactly.`);
+        for (const k of ["prefix", "suffix"]) { opt(s[k], `${at} ${k}`, 6); if (isStr(s[k]) && /\d/.test(s[k])) errors.push(`${at}: ${k} may not contain digits.`); }
+        if (s.from !== undefined && typeof s.from !== "number") errors.push(`${at}: from must be a number.`);
+        req(s.label, `${at} label`); len(s.label, 90, `${at} label`);
+      }
+      if (s.type === "list") {
+        req(s.title, `${at} title`); len(s.title, 40, `${at} title`);
+        if (!isStrArray(s.items) || s.items.length < 2 || s.items.length > 4) errors.push(`${at}: 2-4 text items.`);
+        else s.items.forEach((it, k) => { req(it, `${at} item ${k + 1}`); len(it, 42, `${at} item ${k + 1}`); });
+      }
+      if (s.type === "compare") {
+        opt(s.title, `${at} title`, 40);
+        for (const side of ["left", "right"]) {
+          const v = s[side];
+          if (!v || typeof v !== "object") { errors.push(`${at}: ${side} must be {label, value, note?}.`); continue; }
+          req(v.label, `${at} ${side}.label`); req(v.value, `${at} ${side}.value`); len(v.label, 24, `${at} ${side}.label`); len(v.value, 18, `${at} ${side}.value`); opt(v.note, `${at} ${side}.note`, 60);
+        }
+        if (s.winner !== undefined && s.winner !== "left" && s.winner !== "right") errors.push(`${at}: winner must be "left" or "right".`);
+      }
       if (s.type === "quote") {
-        req(s.text, `${at} text`);
-        len(s.text, 140, `${at} text`);
-        const squash = (t) => norm(t).replace(/[^a-z0-9]+/g, " ").trim();
-        if (!squash(article.text).includes(squash(s.text))) errors.push(`${at}: a quote must be verbatim from the article.`);
-        if (s.source && !squash(article.text).includes(squash(s.source))) errors.push(`${at}: quote source must be named in the article.`);
+        req(s.text, `${at} text`); len(s.text, 140, `${at} text`); opt(s.source, `${at} source`, 40);
+        // Word-bounded, Unicode-aware: a quote must be a run of at least 3 whole words of the article.
+        const squash = (t) => ` ${norm(t).replace(/[^\p{L}\p{N}]+/gu, " ").trim()} `;
+        const body = squash(storySource(article));
+        const q = squash(s.text);
+        if (q.trim().split(" ").filter(Boolean).length < 3 || !body.includes(q)) errors.push(`${at}: a quote must be verbatim from the article (3+ words).`);
+        if (s.source !== undefined && (!isStr(s.source) || !body.includes(squash(s.source)))) errors.push(`${at}: quote source must be named in the article.`);
       }
-      if (s.type === "cta") { req(s.text, `${at} text`); len(s.text, 60, `${at} text`); len(s.sub, 60, `${at} sub`); }
+      if (s.type === "cta") { req(s.text, `${at} text`); len(s.text, 60, `${at} text`); opt(s.sub, `${at} sub`, 60); }
     });
   } else {
     const slides = Array.isArray(sb.slides) ? sb.slides : [];
+    if (!Array.isArray(sb.slides)) errors.push("slides must be an array.");
     if (slides.length < 5 || slides.length > 8) errors.push("A carousel needs 5-8 slides.");
     if (slides[0]?.type !== "cover") errors.push("The first slide must be a cover.");
     if (slides[slides.length - 1]?.type !== "cta") errors.push("The last slide must be a cta.");
     slides.forEach((s, i) => {
+      if (!s || typeof s !== "object" || Array.isArray(s)) return errors.push(`Slide ${i + 1} must be an object.`);
       const at = `Slide ${i + 1} (${s.type})`;
       if (!SLIDE_TYPES.includes(s.type)) return errors.push(`${at}: unknown type.`);
-      if (s.type === "cover") { req(s.title, `${at} title`); len(s.title, 70, `${at} title`); len(s.kicker, 24, `${at} kicker`); }
-      if (s.type === "point") { req(s.title, `${at} title`); req(s.body, `${at} body`); len(s.title, 50, `${at} title`); len(s.body, 260, `${at} body`); }
-      if (s.type === "code") { req(s.code, `${at} code`); const lines = String(s.code || "").split("\n"); if (lines.length > 14 || lines.some((l) => l.length > 42)) errors.push(`${at}: code must be <= 14 lines of <= 42 chars.`); len(s.caption, 160, `${at} caption`); }
-      if (s.type === "stat") { req(s.value, `${at} value`); req(s.label, `${at} label`); len(s.value, 8, `${at} value`); len(s.label, 70, `${at} label`); len(s.body, 200, `${at} body`); }
-      if (s.type === "shot") { req(s.title, `${at} title`); len(s.title, 50, `${at} title`); len(s.caption, 140, `${at} caption`); if (!shotAssets(article).some((a) => a.id === s.asset)) errors.push(`${at}: asset "${s.asset}" is not one of the REAL SCREENSHOTS.`); }
-      if (s.type === "cta") { req(s.title, `${at} title`); len(s.title, 60, `${at} title`); len(s.body, 120, `${at} body`); }
+      if (s.type === "cover") { req(s.title, `${at} title`); len(s.title, 70, `${at} title`); opt(s.kicker, `${at} kicker`, 24); }
+      if (s.type === "point") {
+        req(s.title, `${at} title`); req(s.body, `${at} body`); len(s.title, 50, `${at} title`); len(s.body, 260, `${at} body`);
+        if (s.n !== undefined && !(Number.isInteger(s.n) && s.n >= 1 && s.n <= 9)) errors.push(`${at}: n is the step number, 1-9.`);
+      }
+      if (s.type === "code") {
+        req(s.code, `${at} code`);
+        const lines = String(s.code || "").split("\n");
+        if (lines.length > 12 || lines.some((l) => l.length > 42)) errors.push(`${at}: code must be <= 12 lines of <= 42 chars.`);
+        opt(s.title, `${at} title`, 40); opt(s.caption, `${at} caption`, 120);
+        if (s.lang !== undefined && !(isStr(s.lang) && /^[a-z0-9+#.-]{1,16}$/i.test(s.lang))) errors.push(`${at}: lang must be a short language name.`);
+        if (s.highlight !== undefined && !isIntArray(s.highlight)) errors.push(`${at}: highlight must be a list of line numbers.`);
+      }
+      if (s.type === "stat") { req(s.value, `${at} value`); req(s.label, `${at} label`); len(s.value, 8, `${at} value`); len(s.label, 70, `${at} label`); opt(s.body, `${at} body`, 200); }
+      if (s.type === "shot") { req(s.title, `${at} title`); len(s.title, 50, `${at} title`); opt(s.caption, `${at} caption`, 120); if (!shotAssets(article).some((a) => a.id === s.asset)) errors.push(`${at}: asset "${s.asset}" is not one of the REAL SCREENSHOTS.`); }
+      if (s.type === "cta") { req(s.title, `${at} title`); len(s.title, 60, `${at} title`); opt(s.body, `${at} body`, 120); }
     });
   }
 
+  if (!isStr(sb.caption) || !sb.caption.trim()) errors.push("caption is required.");
   len(sb.caption, 1200, "caption");
-  if (!Array.isArray(sb.hashtags) || sb.hashtags.length < 3 || sb.hashtags.length > 6) errors.push("Use 3-6 hashtags.");
+  if (!isStrArray(sb.hashtags) || sb.hashtags.length < 3 || sb.hashtags.length > 6) errors.push("Use 3-6 hashtags.");
   else if (sb.hashtags.some((h) => !/^#[a-z0-9_]{2,40}$/.test(h))) errors.push("Hashtags must be lowercase #words with no spaces.");
+  if (errors.length) return errors; // the content gates below assume the shapes above
 
-  // Fact gate: numbers on screen or in the caption must be in the article. Code is exempt
-  // (it is quoted or minimal illustration), as are the small counting numbers 0-10.
-  const source = norm(article.text);
-  const text = [...visibleText({ scenes: (sb.scenes || []).map(({ code, ...s }) => s), slides: (sb.slides || []).map(({ code, ...s }) => s) }), sb.caption || ""].join("\n");
-  // A small number with a magnitude ("5M", "3x", "8 GB") is a claim too, so only bare 0-10 are exempt.
-  const nums = [...norm(text).matchAll(/(\d+(?:\.\d+)?)\s*(k|m|b|bn|x|×|%|ms|gb|mb|tb|kb|million|billion|times)?(?![a-z])/g)]
-    .filter((m) => Number(m[1]) > 10 || m[2])
+  // Display type animates word by word and cannot wrap inside a word: a URL or path-length token
+  // would run off the frame.
+  const strip = (list) => list.map(({ code, ...s }) => s);
+  const longWord = visibleText({ scenes: strip(sb.scenes || []), slides: strip(sb.slides || []) }).join(" ").split(/\s+/).find((w) => w.length > 24);
+  if (longWord) errors.push(`"${longWord.slice(0, 40)}" is too long for on-screen type (max 24 characters per word).`);
+
+  // Fact gate: every number a viewer reads (screen, caption, hashtags) must be in the article or
+  // its research. Code is exempt (quoted or minimal illustration), and so are bare whole numbers
+  // 0-10 used for counting; a decimal or a number with a unit is always a claim.
+  const source = factSource(article);
+  const shown = [...visibleText({ scenes: strip(sb.scenes || []), slides: strip(sb.slides || []) }), sb.caption, ...sb.hashtags.map((h) => h.slice(1))].join("\n");
+  const said = norm(shown);
+  const nums = [...said.matchAll(NUMBER)]
+    .filter((m) => m[2] || m[3] || m[1].includes(".") || Number(m[1]) > 10)
     .map((m) => m[1]);
   const missing = [...new Set(nums.filter((n) => !new RegExp(`(?<![\\d.])${n.replace(/\./g, "\\.")}(?!\\d|\\.\\d)`).test(source)))];
   if (missing.length) errors.push(`These numbers are not in the article: ${missing.slice(0, 6).join(", ")}. Use only numbers from the article.`);
+  const words = [...new Set((said.match(WORD_NUMBERS) || []).map((w) => w.toLowerCase()))].filter((w) => !new RegExp(`\\b${w}\\b`).test(source));
+  if (words.length) errors.push(`These amounts are not in the article: ${words.join(", ")}.`);
 
-  const lowered = text.toLowerCase();
-  const banned = BANNED_WORDS.filter((w) => new RegExp(`\\b${w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "i").test(lowered) && !new RegExp(`\\b${w}\\b`, "i").test(source));
+  const story = storySource(article);
+  const banned = BANNED_WORDS.filter((w) => bannedRe(w).test(said) && !bannedRe(w).test(story));
   if (banned.length) errors.push(`Remove these words: ${banned.slice(0, 6).join(", ")}.`);
-  if (/\p{Extended_Pictographic}/u.test(visibleText(sb).join(" "))) errors.push("No emojis in on-screen text.");
+  if (hasEmoji(visibleText(sb).join(" "))) errors.push("No emojis in on-screen text.");
+  if (hasEmoji(sb.caption) || sb.hashtags.some(hasEmoji)) errors.push("No emojis in the caption.");
   return errors;
 }
 
 /** Fills defaults the templates rely on and drops fields the model should not set. */
 function finalize(raw, { article, format }) {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) raw = {};
   const id = `${format}-${article.slug}`.slice(0, 80);
+  const list = (v) => (Array.isArray(v) ? v : []);
   return {
     id,
     format,
@@ -183,10 +269,15 @@ function finalize(raw, { article, format }) {
     bpm: Math.round(Number(raw.bpm) || 120),
     handle: config.factory.handle,
     author: config.factory.author,
-    scenes: format === "reel" ? raw.scenes || [] : [],
-    slides: format === "carousel" ? (raw.slides || []).map((s) => (s && s.type === "stat" && s.value !== undefined ? { ...s, value: String(s.value) } : s)) : [],
-    caption: String(raw.caption || "").trim(),
-    hashtags: (raw.hashtags || []).map((h) => String(h).trim().toLowerCase()),
+    scenes: format === "reel" ? list(raw.scenes) : [],
+    // src/host of a shot slide are filled from the real capture by the pipeline, never by the model.
+    slides: format === "carousel" ? list(raw.slides).map((s) => {
+      if (!s || typeof s !== "object") return s;
+      const { src, host, ...rest } = s;
+      return rest.type === "stat" && rest.value !== undefined ? { ...rest, value: String(rest.value) } : rest;
+    }) : [],
+    caption: isStr(raw.caption) ? raw.caption.trim() : "",
+    hashtags: (isStr(raw.hashtags) ? raw.hashtags.split(/[\s,]+/) : list(raw.hashtags)).filter(Boolean).map((h) => String(h).trim().toLowerCase()),
     sourceUrl: article.url || "",
   };
 }
@@ -212,8 +303,16 @@ async function writeStoryboard(article, format, extraFeedback = null, previous =
       feedback = [`Your reply was not valid JSON (${e.message}). Return only the JSON object.`];
       continue;
     }
-    const sb = finalize(raw, { article, format });
-    const errors = validate(sb, article, format);
+    // A malformed reply goes back to Opus as feedback; it must never crash the cycle.
+    let sb;
+    let errors;
+    try {
+      sb = finalize(raw, { article, format });
+      errors = validate(sb, article, format);
+    } catch (e) {
+      feedback = [`Your JSON did not match the shape (${e.message}). Follow the JSON SHAPE and field types exactly.`];
+      continue;
+    }
     if (errors.length === 0) {
       logger.info(`Factory: storyboard ok for ${sb.id} (attempt ${attempt}).`);
       return sb;

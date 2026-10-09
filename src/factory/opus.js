@@ -40,23 +40,49 @@ async function ask({ system, prompt, imageFiles = [], maxTokens = 8000, temperat
 /**
  * On Windows an npm install puts `claude.cmd` on PATH, and spawn() cannot run a .cmd without a
  * shell (which would mangle long multi-line args). Resolve to the claude.exe the shim launches.
+ * Accepts a bare name ("claude"), or an absolute path with or without extension, quoted or not.
  */
 function resolveBin(bin, { platform = process.platform, pathEnv = process.env.PATH } = {}) {
-  if (platform !== "win32" || path.extname(bin)) return bin;
-  for (const dir of String(pathEnv || "").split(path.delimiter).filter(Boolean)) {
+  bin = String(bin || "claude").trim().replace(/^"(.*)"$/, "$1");
+  if (platform !== "win32") return bin;
+  const fromShim = (cmd) => {
+    if (!fs.existsSync(cmd)) return null;
+    const m = fs.readFileSync(cmd, "utf8").match(/"%dp0%\\?([^"]+\.exe)"/i);
+    const exe = m && path.join(path.dirname(cmd), m[1]);
+    return exe && fs.existsSync(exe) ? exe : null;
+  };
+  const ext = path.extname(bin).toLowerCase();
+  if (ext === ".exe") return bin;
+  if (ext === ".cmd") return fromShim(bin) || bin;
+  if (path.isAbsolute(bin)) return (fs.existsSync(`${bin}.exe`) && `${bin}.exe`) || fromShim(`${bin}.cmd`) || bin;
+  for (const raw of String(pathEnv || "").split(path.delimiter)) {
+    const dir = raw.trim().replace(/^"(.*)"$/, "$1");
+    if (!dir) continue;
     const exe = path.join(dir, `${bin}.exe`);
     if (fs.existsSync(exe)) return exe;
-    const cmd = path.join(dir, `${bin}.cmd`);
-    if (!fs.existsSync(cmd)) continue;
-    const m = fs.readFileSync(cmd, "utf8").match(/"%dp0%\\?([^"]+\.exe)"/i);
-    if (m && fs.existsSync(path.join(dir, m[1]))) return path.join(dir, m[1]);
+    const viaShim = fromShim(path.join(dir, `${bin}.cmd`));
+    if (viaShim) return viaShim;
   }
   return bin;
 }
 let resolvedBin = null;
 const claudeBin = () => (resolvedBin ??= resolveBin(config.factory.claudeBin));
 
-/** Runs `claude -p` with the prompt on stdin. Resolves with the final text result. */
+/** Kills a process and everything it started (Windows has no process groups for spawn()). */
+function killTree(child) {
+  if (!child || child.exitCode !== null) return;
+  if (process.platform === "win32") require("child_process").spawnSync("taskkill", ["/pid", String(child.pid), "/T", "/F"], { stdio: "ignore", timeout: 15000 });
+  else try { process.kill(-child.pid, "SIGKILL"); } catch { child.kill("SIGKILL"); }
+}
+
+const unavailable = (e) => Object.assign(new Error(`Could not start Claude Code ("${claudeBin()}"): ${e.message}. Install it and sign in: npm i -g @anthropic-ai/claude-code && claude`), { code: "OPUS_UNAVAILABLE" });
+const TAIL = 20000;
+
+/**
+ * Runs `claude -p` with the prompt on stdin. Resolves with the final text result.
+ * Output is parsed as it streams: only the last "result" event and a short tail are kept in
+ * memory (the full transcript goes to logFile). On timeout the whole process tree is killed.
+ */
 function runClaude(args, { input, cwd, timeoutMs, logFile = null, stream = false, env = {} }) {
   if (stream) {
     // Live transcript: one JSON event per line; the last "result" event carries the answer.
@@ -64,39 +90,62 @@ function runClaude(args, { input, cwd, timeoutMs, logFile = null, stream = false
     if (i >= 0) args = [...args.slice(0, i), "--output-format", "stream-json", "--verbose", ...args.slice(i + 2)];
   }
   return new Promise((resolve, reject) => {
-    const child = spawn(claudeBin(), args, { cwd, env: { ...process.env, ...env }, stdio: ["pipe", "pipe", "pipe"] });
-    let out = "";
+    let settled = false;
+    const finish = (fn, v) => { if (!settled) { settled = true; fn(v); } };
+    let child;
+    try {
+      child = spawn(claudeBin(), args, { cwd, env: { ...process.env, ...env }, stdio: ["pipe", "pipe", "pipe"], windowsHide: true, detached: process.platform !== "win32" });
+    } catch (e) {
+      return finish(reject, unavailable(e));
+    }
+    let log = null;
+    if (logFile) {
+      log = fs.createWriteStream(logFile, { flags: "w" });
+      log.on("error", () => { log = null; });
+    }
+    let line = "";
+    let result = null;
+    let tail = "";
     let err = "";
-    const log = logFile ? fs.createWriteStream(logFile, { flags: "w" }) : null;
-    child.stdout.on("data", (d) => { out += d; if (log) log.write(d); });
-    child.stderr.on("data", (d) => { err += d; if (log) log.write(d); });
-    child.on("close", () => log && log.end());
-    const timer = setTimeout(() => { child.kill("SIGTERM"); reject(new Error(`claude -p timed out after ${Math.round(timeoutMs / 1000)}s`)); }, timeoutMs);
-    child.on("error", (e) => {
-      clearTimeout(timer);
-      const error = new Error(`Could not start Claude Code ("${claudeBin()}"): ${e.message}. Install it and sign in: npm i -g @anthropic-ai/claude-code && claude`);
-      error.code = "OPUS_UNAVAILABLE";
-      reject(error);
+    const keep = (s, add) => (s + add).slice(-TAIL);
+    child.stdout.setEncoding("utf8");
+    child.stderr.setEncoding("utf8");
+    child.stdout.on("data", (d) => {
+      if (log) log.write(d);
+      tail = keep(tail, d);
+      if (!stream) return;
+      line += d;
+      let nl;
+      while ((nl = line.indexOf("\n")) >= 0) {
+        const one = line.slice(0, nl).trim();
+        line = line.slice(nl + 1);
+        if (one.startsWith('{"type":"result"')) try { result = JSON.parse(one); } catch { /* not a result line */ }
+      }
     });
+    child.stderr.on("data", (d) => { if (log) log.write(d); err = keep(err, d); });
+    // A claude that exits before reading the prompt must reject the promise, not crash the process.
+    child.stdin.on("error", () => {});
+    const timer = setTimeout(() => {
+      killTree(child);
+      finish(reject, new Error(`claude -p timed out after ${Math.round(timeoutMs / 1000)}s`));
+    }, timeoutMs);
+    child.on("error", (e) => { clearTimeout(timer); finish(reject, unavailable(e)); });
     child.on("close", (code) => {
       clearTimeout(timer);
-      let parsed = null;
-      if (stream) {
-        const lines = out.trim().split("\n").reverse();
-        for (const l of lines) { try { const ev = JSON.parse(l); if (ev.type === "result") { parsed = ev; break; } } catch { /* partial line */ } }
-      } else {
-        try { parsed = JSON.parse(out); } catch { /* non-json output */ }
-      }
+      if (log) log.end();
+      let parsed = result;
+      if (stream && !parsed && line.trim().startsWith("{")) try { const ev = JSON.parse(line.trim()); if (ev.type === "result") parsed = ev; } catch { /* partial */ }
+      if (!stream) try { parsed = JSON.parse(tail); } catch { /* non-json output */ }
       if (parsed) {
         usage.calls++;
         usage.inputTokens += parsed.usage?.input_tokens || 0;
         usage.outputTokens += parsed.usage?.output_tokens || 0;
         usage.costUsd += parsed.total_cost_usd || 0;
-        if (parsed.is_error || code !== 0) return reject(new Error(`claude -p failed: ${String(parsed.result || err).slice(0, 400)}`));
-        return resolve({ text: String(parsed.result || ""), raw: parsed, stdout: out, stderr: err });
+        if (parsed.is_error || code !== 0) return finish(reject, new Error(`claude -p failed: ${String(parsed.result || err).slice(0, 400)}`));
+        return finish(resolve, { text: String(parsed.result || ""), raw: parsed, stderr: err });
       }
-      if (code !== 0) return reject(new Error(`claude -p exited ${code}: ${(err || out).slice(-400)}`));
-      resolve({ text: out, raw: null, stdout: out, stderr: err });
+      if (code !== 0) return finish(reject, new Error(`claude -p exited ${code}: ${(err || tail).slice(-400)}`));
+      finish(resolve, { text: tail, raw: null, stderr: err });
     });
     child.stdin.end(input);
   });
@@ -104,7 +153,7 @@ function runClaude(args, { input, cwd, timeoutMs, logFile = null, stream = false
 
 /** Common flags: model, effort, JSON envelope. */
 function claudeArgs(extra = []) {
-  return ["-p", "--model", config.factory.anthropic.model, "--effort", config.factory.claudeEffort, "--output-format", "json", ...extra];
+  return ["-p", "--no-session-persistence", "--model", config.factory.anthropic.model, "--effort", config.factory.claudeEffort, "--output-format", "json", ...extra];
 }
 
 async function viaClaudeCode({ system, prompt, imageFiles }) {

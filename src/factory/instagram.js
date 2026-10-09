@@ -32,13 +32,22 @@ const SEL = {
   reelsNoticeOk: ["OK"],
   cropButton: ['svg[aria-label="Select Crop"]', 'svg[aria-label="Select crop"]'],
   cropOriginal: ["Original"],
-  dialogTitle: 'div[role="dialog"] div[role="heading"], div[role="dialog"] h1',
+  dialogHeading: 'div[role="heading"], h1, h2',
   next: ["Next"],
   caption: 'div[role="dialog"] div[contenteditable="true"][role="textbox"], div[aria-label^="Write a caption"]',
   share: ["Share"],
-  shared: /(post|reel) (has been )?shared|your (post|reel) has been shared/i,
+  // Read from the dialogs only (the feed behind them is noise). Wording varies by rollout.
+  shared: /(post|reel)\s+(was\s+|has\s+been\s+)?shared|shared\s+successfully/i,
   discard: ["Discard"],
+  // Interstitials that sit on top of the feed and swallow clicks.
+  notNow: ["Not Now", "Not now"],
 };
+
+/** innerText of the topmost dialog's heading: the create flow is always the last dialog opened. */
+const topDialogTitle = (driver) => driver.executeScript((sel) => {
+  const d = [...document.querySelectorAll('div[role="dialog"]')].pop();
+  return (d && (d.querySelector(sel) || {}).innerText) || "";
+}, SEL.dialogHeading);
 
 class InstagramPublisher {
   constructor() {
@@ -47,13 +56,22 @@ class InstagramPublisher {
 
   async init() {
     if (!this.driver) this.driver = await attachDriver();
+    // Work in a tab of our own: the X/LinkedIn bots and the user share this Chrome.
+    try { this.homeTab = await this.driver.getWindowHandle(); } catch { this.homeTab = null; }
+    await this.driver.switchTo().newWindow("tab");
+    this.tab = await this.driver.getWindowHandle();
     await this.driver.get("https://www.instagram.com/");
     await sleep(3500);
-    if ((await this.driver.findElements(By.css(SEL.home))).length > 0) return;
+    const ready = async () => {
+      // "Save your login info?" / notification prompts hide the sidebar until dismissed.
+      await this.clickText(SEL.notNow, { timeoutMs: 1500, inDialog: false });
+      return (await this.driver.findElements(By.css(SEL.home))).length > 0;
+    };
+    if (await ready()) return;
     logger.warn("Instagram login required: log in manually in the Chrome window (waiting up to 5 minutes)...");
     for (let i = 0; i < 60; i++) {
       await sleep(5000);
-      if ((await this.driver.findElements(By.css(SEL.home))).length > 0) return logger.info("Instagram login detected.");
+      if (await ready()) return logger.info("Instagram login detected.");
     }
     throw new Error("Instagram login timed out after 5 minutes.");
   }
@@ -122,7 +140,7 @@ class InstagramPublisher {
 
   /** Clicks Next and waits until the dialog's title changes (Crop -> Edit -> New post/reel). */
   async next() {
-    const title = () => this.driver.executeScript((sel) => (document.querySelector(sel) || {}).innerText || "", SEL.dialogTitle);
+    const title = () => topDialogTitle(this.driver);
     const before = await title();
     if (!before || !(await this.clickText(SEL.next))) return false;
     const deadline = Date.now() + 15000;
@@ -145,6 +163,9 @@ class InstagramPublisher {
   }
 
   async typeCaption(text) {
+    // ChromeDriver can only type the Basic Multilingual Plane; the storyboard gate already bans
+    // emoji, this keeps a stray one from breaking the step.
+    text = text.replace(/[\u{10000}-\u{10FFFF}]/gu, "");
     const box = await this.driver.wait(until.elementLocated(By.css(SEL.caption)), 20000);
     await box.click();
     await sleep(300);
@@ -160,8 +181,10 @@ class InstagramPublisher {
     await sleep(800);
     const got = await this.driver.executeScript((el) => el.innerText || "", box);
     const want = text.replace(/\s+/g, " ").slice(0, 40);
+    // Never type it a second time on top of the first: a mismatch clears the box and fails the step.
     if (!got.replace(/\s+/g, " ").includes(want)) {
-      await box.sendKeys(text.replace(/\n/g, " "));
+      await box.sendKeys(Key.chord(Key.CONTROL, "a"), Key.DELETE);
+      throw new Error(`caption did not land (box has "${got.slice(0, 60)}")`);
     }
     if (/\n\s*\n/.test(text) && !/\n/.test(got)) logger.warn("Instagram: caption line breaks did not survive the editor.");
   }
@@ -176,9 +199,23 @@ class InstagramPublisher {
 
   /**
    * @param {{format:"reel"|"carousel", files:string[], caption:string}} piece
-   * @param {{dryRun:boolean}} opts
+   * @param {{dryRun:boolean, onBeforeShare?:() => void}} opts  onBeforeShare runs right before the
+   *   Share click (the ledger marks the item "sharing" so a crash or timeout can never repost it).
    */
-  async publish(piece, { dryRun }) {
+  async publish(piece, { dryRun, onBeforeShare = () => {} }) {
+    let shared = false;
+    try {
+      const res = await this.flow(piece, { dryRun, onBeforeShare });
+      shared = !!res.shared;
+      return res;
+    } finally {
+      // Anything short of a confirmed share leaves no half-made draft behind.
+      if (!shared && this.driver) await this.discard();
+    }
+  }
+
+  async flow(piece, { dryRun, onBeforeShare }) {
+    for (const f of piece.files) if (!fs.existsSync(f)) throw new Error(`upload file is missing: ${f}`);
     await this.init();
     const step = async (label, fn) => {
       const ok = await fn();
@@ -212,14 +249,15 @@ class InstagramPublisher {
     if (dryRun) {
       const shot = await this.shot("dry-run-ready");
       logger.info(`Instagram DRY RUN: ready to share (${piece.format}); not shared. Screenshot: ${shot}`);
-      await this.discard();
       return { shared: false, dryRun: true, screenshot: shot };
     }
 
+    await onBeforeShare();
+    this.shareClicked = true;
     await step("share", () => this.clickText(SEL.share));
     const deadline = Date.now() + (piece.format === "reel" ? 240000 : 90000);
     while (Date.now() < deadline) {
-      const text = await this.driver.executeScript(() => document.body.innerText.slice(0, 5000));
+      const text = await this.driver.executeScript(() => [...document.querySelectorAll('div[role="dialog"]')].map((d) => d.innerText).join("\n"));
       if (SEL.shared.test(text)) {
         logger.info(`Instagram: ${piece.format} shared.`);
         await sleep(1500);
@@ -233,8 +271,16 @@ class InstagramPublisher {
   }
 
   async cleanup() {
-    if (this.driver) await releaseDriver(this.driver).catch(() => {});
+    if (this.driver) {
+      // Close our own tab and hand focus back to where it was.
+      try {
+        if (this.tab) { await this.driver.switchTo().window(this.tab); await this.driver.close(); }
+        if (this.homeTab) await this.driver.switchTo().window(this.homeTab);
+      } catch { /* tab already gone */ }
+      await releaseDriver(this.driver).catch(() => {});
+    }
     this.driver = null;
+    this.tab = null;
   }
 }
 

@@ -28,19 +28,31 @@ function clean(md) {
 // Pages that only render behind a login are useless as screenshots.
 const LOGIN_WALLED = /(^|\.)(x\.com|twitter\.com|t\.co|linkedin\.com|lnkd\.in|instagram\.com|facebook\.com|threads\.net)$/i;
 
-/** Every public http(s) link in the raw markdown (footer and Resources included), GitHub first. */
+const LOCAL_HOST = /^(localhost|.*\.localhost|.*\.local|.*\.internal|\d+\.\d+\.\d+\.\d+|\[.*\])$/i;
+
+/** Trailing prose punctuation is not part of a URL, but a ")" that closes a "(" inside it is. */
+function trimUrl(raw) {
+  let s = raw.replace(/[.,;:!?*'"…—–]+$/u, "");
+  while (s.endsWith(")") && (s.match(/\(/g) || []).length < (s.match(/\)/g) || []).length) s = s.slice(0, -1).replace(/[.,;:!?*'"…—–]+$/u, "");
+  return s;
+}
+
+/**
+ * Every public http(s) link in the raw markdown (footer and Resources included), GitHub repos
+ * first, one per page (host case, "www." and a trailing slash do not make a new page).
+ */
 function linksOf(md) {
-  const seen = new Set();
-  for (const m of String(md || "").matchAll(/https?:\/\/[^\s<>()\[\]"'`]+/g)) {
-    const raw = m[0].replace(/[.,;:!?*_]+$/, "");
+  const seen = new Map();
+  for (const m of String(md || "").matchAll(/https?:\/\/[^\s<>[\]"'`]+/g)) {
     let u;
-    try { u = new URL(raw); } catch { continue; }
-    if (LOGIN_WALLED.test(u.hostname)) continue;
+    try { u = new URL(trimUrl(m[0])); } catch { continue; }
+    if (LOGIN_WALLED.test(u.hostname) || LOCAL_HOST.test(u.hostname) || u.username || u.password) continue;
     u.hash = "";
-    seen.add(u.toString());
+    const id = `${u.hostname.replace(/^www\./, "")}${u.pathname.replace(/\/+$/, "")}${u.search}`.toLowerCase();
+    if (!seen.has(id)) seen.set(id, u.toString());
   }
   const rank = (s) => (/^https:\/\/github\.com\/[^/]+\/[^/]+\/?$/.test(s) ? 0 : /github\.com/.test(s) ? 1 : 2);
-  return [...seen].sort((a, b) => rank(a) - rank(b));
+  return [...seen.values()].sort((a, b) => rank(a) - rank(b));
 }
 
 function fromInsight(file) {
@@ -82,7 +94,8 @@ function fromDigest(markdown, { topic = "", url = "", file = "" } = {}) {
   return items
     .map((it) => {
       const text = clean(it.lines.join("\n").replace(/🔗 Resources:[\s\S]*$/m, ""));
-      const slug = slugify(`${topic}-${it.title}`);
+      // Topic + title can exceed the 60-char slug; a short hash keeps two long titles from colliding.
+      const slug = `${slugify(`${topic}-${it.title}`).slice(0, 50).replace(/-+$/, "")}-${require("crypto").createHash("sha1").update(`${topic}|${it.title}|${url}`).digest("hex").slice(0, 8)}`;
       // One origin per item (not per folder), so novelty never blocks a whole topic folder.
       return { title: it.title, text, slug, url, links: linksOf(it.lines.join("\n")), tags: [topic.toLowerCase()], origin: `${file || url || topic}#${slug}` };
     })

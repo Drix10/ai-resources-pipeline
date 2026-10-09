@@ -72,12 +72,15 @@ function recent(n = config.factory.noveltyWindow) {
 
 /**
  * IDF needs a real corpus: with only two documents every shared word scores zero.
- * The LinkedIn Insights archive is the background corpus (cached per process).
+ * The LinkedIn Insights archive is the background corpus, cached for an hour so a long-running
+ * `npm start` picks up Insights added after it started.
  */
 let background = null;
+let backgroundAt = 0;
 function backgroundCorpus() {
-  if (!background) {
-    try { background = require("./sources").listInsights(); } catch { background = []; }
+  if (!background || Date.now() - backgroundAt > 3600 * 1000) {
+    try { background = require("./sources").listInsights(); } catch { background = background || []; }
+    backgroundAt = Date.now();
   }
   return background;
 }

@@ -47,9 +47,10 @@ function getBundle() {
 
 const browserOpts = () => (config.factory.browserExecutable ? { browserExecutable: config.factory.browserExecutable } : {});
 
-function ffmpeg(args) {
-  const res = spawnSync("ffmpeg", ["-hide_banner", "-loglevel", "error", "-y", ...args], { encoding: "utf8" });
-  if (res.error || res.status !== 0) throw new Error(`ffmpeg failed: ${res.error?.message || res.stderr}`);
+/** Synchronous ffmpeg with a hard time limit, so a bad input can never block the process for good. */
+function ffmpeg(args, { timeoutMs = 15 * 60 * 1000 } = {}) {
+  const res = spawnSync("ffmpeg", ["-hide_banner", "-loglevel", "error", "-y", ...args], { encoding: "utf8", timeout: timeoutMs, maxBuffer: 16 * 1024 * 1024 });
+  if (res.error || res.status !== 0) throw new Error(`ffmpeg failed: ${res.error?.code === "ETIMEDOUT" ? `timed out after ${Math.round(timeoutMs / 1000)}s` : res.error?.message || res.stderr}`);
 }
 
 async function selectComp(id, inputProps) {
@@ -111,7 +112,7 @@ async function renderReelStills(storyboard, outDir) {
   const files = [];
   for (const [i, s] of reelTimeline(storyboard).entries()) {
     const file = path.join(outDir, `scene-${String(i + 1).padStart(2, "0")}.jpg`);
-    await renderer.renderStill({ serveUrl, composition, inputProps, frame: s.from + s.dur - 6, output: file, imageFormat: "jpeg", jpegQuality: 85, ...browserOpts() });
+    await renderer.renderStill({ serveUrl, composition, inputProps, frame: Math.max(s.from, s.from + s.dur - 6), output: file, imageFormat: "jpeg", jpegQuality: 85, ...browserOpts() });
     files.push(file);
   }
   return files;

@@ -34,11 +34,11 @@ const Chrome: React.FC<{ sb: Storyboard; theme: Theme; i: number; n: number; chi
 };
 
 const H: React.FC<{ text: string; theme: Theme; max?: number; lines?: number; color?: string }> = ({ text, theme, max = 112, lines = 4, color }) => (
-  <div style={{ fontFamily: FONT.display, fontWeight: 760, fontSize: fitSize(text, CW, lines, max, 48), lineHeight: 1.02, letterSpacing: '-0.035em', color: color ?? theme.ink }}>{text.replace(/(\w)-(\w)/g, '$1\u2011$2')}</div>
+  <div style={{ fontFamily: FONT.display, fontWeight: 760, fontSize: fitSize(text, CW, lines, max, 48), lineHeight: 1.02, letterSpacing: '-0.035em', color: color ?? theme.ink, overflowWrap: 'anywhere' }}>{text.replace(/(\w)-(\w)/g, '$1\u2011$2')}</div>
 );
 
 const Body: React.FC<{ text: string; theme: Theme; color?: string }> = ({ text, theme, color }) => (
-  <div style={{ fontFamily: FONT.text, fontSize: text.length > 220 ? 38 : 44, lineHeight: 1.32, color: color ?? theme.body }}>{text}</div>
+  <div style={{ fontFamily: FONT.text, fontSize: text.length > 220 ? 38 : 44, lineHeight: 1.32, color: color ?? theme.body, overflowWrap: 'anywhere' }}>{text}</div>
 );
 
 const SlideBody: React.FC<{ slide: CarouselSlide; theme: Theme }> = ({ slide, theme }) => {
@@ -61,7 +61,9 @@ const SlideBody: React.FC<{ slide: CarouselSlide; theme: Theme }> = ({ slide, th
     case 'code': {
       const lines = slide.code.replace(/\t/g, '  ').split('\n').slice(0, 18);
       const longest = Math.max(...lines.map((l) => l.length), 10);
-      const size = Math.max(22, Math.min(38, Math.floor((CW - 80) / (longest * 0.62))));
+      // Fit the width (longest line) AND the height left after the title and caption (content box ~1084 px).
+      const room = 1084 - (slide.title ? 160 : 0) - (slide.caption ? Math.ceil(slide.caption.length / 38) * 58 : 0) - 130;
+      const size = Math.max(20, Math.min(38, Math.floor((CW - 80) / (longest * 0.62)), Math.floor(room / (lines.length * 1.5))));
       return (
         <>
           {slide.title ? <H text={slide.title} theme={theme} max={72} lines={2} /> : null}

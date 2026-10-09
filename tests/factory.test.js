@@ -36,17 +36,22 @@ test("numbers inside code blocks and small counts are exempt from the fact gate"
   assert.deepEqual(validate(sb, ARTICLE, "reel"), []);
 });
 
-test("hype words, bad structure, long copy and the removed plate scene are rejected", () => {
+test("bad structure, long copy and the removed plate scene are rejected; hype words in any inflection too", () => {
   const sb = structuredClone(reelOf(FIXTURE));
-  sb.scenes[0].text = "Unlock the hidden 32 bytes";
   sb.scenes.push({ type: "hook", beats: 2, text: "x" });
   sb.scenes[1].headline = "x".repeat(70);
   sb.scenes.splice(2, 0, { type: "plate", beats: 4, plate: "p1", headline: "Old image scene" });
   const errs = validate(sb, ARTICLE, "reel").join("\n");
-  assert.match(errs, /unlock/);
   assert.match(errs, /plate/);
   assert.match(errs, /last scene must be a cta/);
   assert.match(errs, /headline is 70 chars/);
+  // Content gates run once the shape is right.
+  const hype = structuredClone(reelOf(FIXTURE));
+  delete hype.scenes[0].emphasis;
+  for (const text of ["Unlock the hidden 32 bytes", "It unlocks the cache", "A game changer for C"]) {
+    hype.scenes[0].text = text;
+    assert.match(validate(hype, ARTICLE, "reel").join("\n"), /Remove these words: (unlock|game-changer)/, text);
+  }
 });
 
 test("finalize pins handle, author, theme and id", () => {
@@ -250,18 +255,23 @@ test("the shot tool refuses hosts the article does not link to, and local addres
   assert.notEqual(r.status, 0);
   assert.match(r.stderr, /not linked from the article/);
   const { shootOne } = require("../src/factory/assets");
-  await assert.rejects(shootOne("http://127.0.0.1:8080/", "x.jpg"), /local host|blocked/);
-  await assert.rejects(shootOne("http://localhost/", "x.jpg"), /local host|blocked/);
+  await assert.rejects(shootOne("http://127.0.0.1:8080/", "x.jpg"), /refusing port/);
+  await assert.rejects(shootOne("http://127.0.0.1/", "x.jpg"), /blocked address/);
+  await assert.rejects(shootOne("http://localhost/", "x.jpg"), /blocked host/);
+  await assert.rejects(shootOne("file://github.com/share/x", "x.jpg"), /refusing file:/);
+  const bad = run("file://github.com/share/x", "github.com");
+  assert.match(bad.stderr, /only http\(s\)/);
 });
 
-test("editor: fresh run material only (archive is the fallback), Opus picks one, deep dive folds in linked pages", async () => {
+test("editor: fresh run material only, Opus picks one, deep dive folds in linked pages", async () => {
   const editor = require("../src/factory/editor");
   const item = (t, n) => ({ title: t, text: `${t} `.repeat(n), slug: t, origin: `x#${t}`, links: [] });
   const run = [item("vague", 30), item("concrete", 90)];
-  const { fresh, fallback } = editor.freshSources(run, { now: Number.MAX_SAFE_INTEGER });
-  assert.equal(fresh.length, 2);
-  assert.deepEqual(fallback, []);
-  assert.ok(editor.freshSources([], { now: Number.MAX_SAFE_INTEGER }).fallback.length > 0, "no fresh material falls back to the archive");
+  assert.equal(editor.freshSources(run, { now: Number.MAX_SAFE_INTEGER }).fresh.length, 2, "only this run's items when no Insight is recent");
+  // Freshness comes from the epoch in the Insight's file name, not its (git-touched) mtime.
+  assert.equal(editor.writtenAt("LinkedIn Insights/x-1790536700285.md"), 1790536700285);
+  const recentInsight = editor.freshSources([], { now: 1790536700285 + 3600 * 1000 }).fresh;
+  assert.ok(recentInsight.some((a) => /1790536700285/.test(a.origin)), "an Insight written an hour ago is fresh");
 
   const saved = opus.ask;
   try {
@@ -280,8 +290,174 @@ test("editor: fresh run material only (archive is the fallback), Opus picks one,
   assert.match(deep.text, /RESEARCH \(pages the article links to\)/);
   assert.equal(deep.research.length, 1);
   assert.equal(deep.slug, art.slug, "same story identity for the ledger and novelty");
+  assert.equal(deep.baseText, art.text, "the story's own text is kept apart from the research");
   const sb = structuredClone(reelOf(FIXTURE));
   sb.scenes[3] = { type: "stat", beats: 6, value: 4096, label: "connections per node" };
   assert.ok(validate(sb, ARTICLE, "reel").some((e) => /4096/.test(e)), "not in the article alone");
   assert.ok(!validate(sb, deep, "reel").some((e) => /4096/.test(e)), "allowed once the linked page says it");
+});
+
+// ---------------------------------------------------------------- hardening (review fixes)
+
+test("fact gate: numbers split across stat fields, glued units, decimals, words, hashtags and research URLs are all claims", () => {
+  const base = () => { const sb = structuredClone(reelOf(FIXTURE)); delete sb.scenes[0].emphasis; return sb; };
+  const hook = (text, art = ARTICLE) => { const sb = base(); sb.scenes[0].text = text; return validate(sb, art, "reel").join("\n"); };
+  let sb = base(); sb.scenes[3] = { type: "stat", beats: 6, suffix: "x", value: 9, label: "faster at startup" };
+  assert.match(validate(sb, ARTICLE, "reel").join("\n"), /not in the article: 9/, "9x drawn from suffix + value");
+  sb = base(); sb.scenes[3] = { type: "stat", beats: 6, prefix: "1", value: 5, suffix: "0", label: "x" };
+  assert.match(validate(sb, ARTICLE, "reel").join("\n"), /may not contain digits/);
+  sb = base(); sb.scenes[3] = { type: "stat", beats: 6, value: 3.25, label: "x" };
+  assert.match(validate(sb, ARTICLE, "reel").join("\n"), /display rounded/);
+  assert.match(hook("Builds took 40s on this struct"), /not in the article: 40/);
+  assert.match(hook("Handles 5000qps on one core"), /not in the article: 5000/);
+  assert.match(hook("Saves 7.5 seconds per call"), /not in the article: 7.5/);
+  assert.match(hook("A million users hit this"), /amounts are not in the article: million/);
+  sb = base(); sb.hashtags = ["#cprog", "#top9999", "#systems"];
+  assert.match(validate(sb, ARTICLE, "reel").join("\n"), /not in the article: 9999/);
+  assert.equal(hook("3 fields, one bad order"), "", "bare counting numbers are fine");
+  const deep = { ...ARTICLE, baseText: ARTICLE.text, text: `${ARTICLE.text}\n\nRESEARCH (pages the article links to):\n--- issue (https://github.com/org/repo/issues/8123)\nThe README says revolutionary seamless layouts. It measured 342 cache lines.` };
+  assert.match(hook("8123 bugs fixed in padding", deep), /not in the article: 8123/, "a number only in a research URL is not a fact");
+  assert.match(hook("A revolutionary seamless way", deep), /Remove these words/, "hype in a linked README is not the author's voice");
+  assert.equal(hook("It measured 342 cache lines", deep), "", "a number the research text states is allowed");
+});
+
+test("gate: wrong field types, smuggled text and emoji are rejected instead of crashing", () => {
+  const base = () => structuredClone(reelOf(FIXTURE));
+  const errs = (mut) => { const sb = base(); mut(sb); return validate(sb, ARTICLE, "reel").join("\n"); };
+  assert.match(errs((sb) => { sb.scenes[2].highlight = 3; }), /highlight must be a list/);
+  assert.match(errs((sb) => { sb.scenes[3] = { type: "stat", beats: 6, value: 2.5, decimals: 50, label: "x" }; }), /decimals must be 0-3/);
+  assert.match(errs((sb) => { sb.scenes[0].emphasis = 5; }), /emphasis must be a list/);
+  assert.match(errs((sb) => { sb.scenes[1] = null; }), /must be an object/);
+  assert.match(errs((sb) => { sb.scenes[2].lang = "UNLOCK 10000x FASTER"; }), /lang must be a short language name/);
+  assert.match(errs((sb) => { sb.caption = "Save this \u{1F680}"; }), /No emojis in the caption/);
+  assert.match(errs((sb) => { sb.scenes[1].headline = "Flag \u{1F1FA}\u{1F1F8} here"; }), /No emojis/);
+  assert.equal(errs((sb) => { sb.scenes[1].headline = "Rust™ and C©"; }), "", "trademark signs are not emoji");
+  assert.match(errs((sb) => { sb.scenes[1].headline = "see averyveryverylongpathname/thing"; }), /too long for on-screen type/);
+  for (const raw of [null, { slides: {} }, { hashtags: "#a #b" }, { scenes: [null] }]) {
+    assert.doesNotThrow(() => validate(finalize(raw, { article: ARTICLE, format: "reel" }), ARTICLE, "reel"));
+  }
+  const car = finalize({ slides: [{ type: "shot", asset: "x", title: "t", src: "https://evil.example/x.png", host: "unlock" }] }, { article: ARTICLE, format: "carousel" });
+  assert.equal(car.slides[0].src, undefined, "src/host never come from the model");
+  assert.equal(car.slides[0].host, undefined);
+});
+
+test("quote gate is word-bounded and Unicode-aware", () => {
+  const sb = structuredClone(reelOf(FIXTURE));
+  sb.scenes[1].beats = 4; sb.scenes[2].beats = 6;
+  for (const text of ["这是编造的引语", "Code graph", "!!!"]) {
+    const s = structuredClone(sb);
+    s.scenes.splice(4, 0, { type: "quote", beats: 4, text });
+    assert.match(validate(s, ARTICLE, "reel").join("\n"), /verbatim/, text);
+  }
+});
+
+test("ledger: a corrupt or locked file never reads as empty; live items are never replaced or reposted; a broken item stops blocking", () => {
+  const queue = require("../src/factory/queue");
+  const file = path.join(queue.STATE_DIR, "queue.json");
+  const backup = fs.existsSync(file) ? fs.readFileSync(file) : null;
+  const asideBefore = new Set(fs.readdirSync(queue.STATE_DIR));
+  try {
+    fs.rmSync(file, { force: true });
+    assert.deepEqual(queue.load(), { items: [] }, "a missing ledger is empty");
+    fs.writeFileSync(file, "{ not json");
+    assert.throws(() => queue.load(), /unreadable/);
+    const aside = fs.readdirSync(queue.STATE_DIR).filter((f) => f.startsWith("queue.json.corrupt-") && !asideBefore.has(f));
+    assert.equal(aside.length, 1, "the corrupt file is kept aside");
+    for (const f of aside) fs.rmSync(path.join(queue.STATE_DIR, f));
+
+    fs.rmSync(file, { force: true });
+    const up = path.join(os.tmpdir(), `factory-up-${process.pid}.mp4`);
+    fs.writeFileSync(up, "x");
+    queue.add({ key: "k1", status: "rendered", upload: [up] });
+    queue.add({ key: "k2", status: "rendered", upload: [path.join(os.tmpdir(), "missing-file.mp4")] });
+    queue.add({ key: "k3", status: "rendered", upload: [up] });
+    assert.equal(queue.nextToPost().key, "k1");
+    for (let i = 0; i < queue.MAX_PUBLISH_ATTEMPTS; i++) queue.publishFailed("k1", "boom");
+    assert.equal(queue.load().items.find((x) => x.key === "k1").status, "publish_failed");
+    assert.equal(queue.nextToPost().key, "k3", "a broken item and one with missing files are skipped");
+
+    queue.update("k3", { status: "sharing", shareClickedAt: new Date().toISOString() });
+    assert.equal(queue.postedSince(3600 * 1000).length, 1, "a share in flight counts toward the cap");
+    assert.throws(() => queue.add({ key: "k3", status: "rendered", upload: [up] }), /already sharing/);
+    queue.update("k3", { status: "unconfirmed" });
+    assert.equal(queue.nextToPost(), null, "an unconfirmed share is never retried automatically");
+    fs.rmSync(up, { force: true });
+  } finally {
+    if (backup) fs.writeFileSync(file, backup);
+    else fs.rmSync(file, { force: true });
+  }
+});
+
+test("factory lock: one run at a time, a dead owner's lock is taken over", async () => {
+  const { withFactoryLock, FILE } = require("../src/factory/lock");
+  const quiet = { warn: () => {} };
+  fs.rmSync(FILE, { force: true });
+  const inner = await withFactoryLock("outer", async () => {
+    // A second process would be refused while the first holds it: simulate with a foreign live pid.
+    const mine = fs.readFileSync(FILE, "utf8");
+    fs.writeFileSync(FILE, JSON.stringify({ pid: process.ppid || 4, label: "other", at: Date.now() }));
+    const r = await withFactoryLock("second", async () => "ran", { logger: quiet });
+    fs.writeFileSync(FILE, mine);
+    return r;
+  }, { logger: quiet });
+  assert.equal(inner, null, "refused while another live run holds the lock");
+  assert.equal(fs.existsSync(FILE), false, "released after the run");
+  fs.writeFileSync(FILE, JSON.stringify({ pid: 999999, label: "crashed", at: Date.now() }));
+  assert.equal(await withFactoryLock("after-crash", async () => "ran", { logger: quiet }), "ran", "a dead owner's lock is stale");
+  assert.equal(fs.existsSync(FILE), false);
+});
+
+test("capture proxy refuses private, local and non-web destinations", async () => {
+  const { startProxy, resolvePublic, assertCapturable } = require("../src/factory/assets");
+  for (const h of ["127.0.0.1", "10.1.2.3", "169.254.169.254", "[::1]", "localhost", "router", "printer.lan", "x.home.arpa"]) {
+    await assert.rejects(resolvePublic(h), /blocked/, h);
+  }
+  await assert.rejects(assertCapturable("http://example.com:22/"), /refusing port 22/);
+  await assert.rejects(assertCapturable("ftp://example.com/"), /refusing ftp:/);
+  const proxy = await startProxy();
+  const connect = (target) => new Promise((resolve) => {
+    const s = require("net").connect(proxy.port, "127.0.0.1", () => s.write(`CONNECT ${target} HTTP/1.1\r\nHost: ${target}\r\n\r\n`));
+    let got = "";
+    s.on("data", (d) => { got += d; if (got.includes("\r\n\r\n")) { s.destroy(); resolve(got.split("\r\n")[0]); } });
+    s.on("error", () => resolve("error"));
+  });
+  try {
+    assert.match(await connect("127.0.0.1:443"), /403/);
+    assert.match(await connect("10.0.0.1:443"), /403/);
+    assert.match(await connect("example.com:22"), /403/);
+  } finally {
+    await proxy.close();
+  }
+});
+
+test("soundtrack clamps hostile cue values instead of hanging or allocating gigabytes", () => {
+  for (const cue of [{ bpm: -120, seconds: 5 }, { bpm: Infinity, seconds: 3 }, { bpm: 1e6, seconds: 3 }, { bpm: 120, seconds: -5 }, { bpm: 120, seconds: 1e6, cuts: "x" }]) {
+    const { L } = synthesize(cue);
+    assert.ok(L.length > 0 && L.length <= 180 * 44100, JSON.stringify(cue));
+  }
+});
+
+test("links: balanced parentheses kept, one entry per page, local and credentialed links dropped; digest slugs never collide", () => {
+  const { linksOf } = require("../src/factory/sources");
+  assert.deepEqual(
+    linksOf("[w](https://en.wikipedia.org/wiki/Rust_(programming_language)). https://github.com/foo/bar and https://GitHub.com/foo/bar/ and https://www.example.com/a_b_ and http://localhost:3000/x and https://u:p@evil.com/"),
+    ["https://github.com/foo/bar", "https://en.wikipedia.org/wiki/Rust_(programming_language)", "https://www.example.com/a_b_"],
+  );
+  const md = (t) => `### ${t}\n\n${"word ".repeat(70)}\n`;
+  const items = fromDigest(`${md("Very long title about rust async runtimes and more")}---\n${md("Very long title about rust async runtimes and less")}`, { topic: "Artificial Intelligence and Machine Learning" });
+  assert.equal(items.length, 2);
+  assert.notEqual(items[0].slug, items[1].slug);
+});
+
+test("resolveBin handles absolute, quoted and extensionless claude paths", () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "factory-bin2-"));
+  try {
+    const exe = path.join(dir, "claude.exe");
+    fs.writeFileSync(exe, "");
+    assert.equal(opus.resolveBin(path.join(dir, "claude"), { platform: "win32", pathEnv: "" }), exe, "absolute without extension");
+    assert.equal(opus.resolveBin(`"${exe}"`, { platform: "win32", pathEnv: "" }), exe, "quoted");
+    assert.equal(opus.resolveBin("claude", { platform: "win32", pathEnv: `"${dir}"` }), exe, "quoted PATH entry");
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
 });

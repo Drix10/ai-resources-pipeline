@@ -34,7 +34,13 @@ const PROGRESSION = [
   { root: 43, triad: [55, 59, 62] },
 ];
 
+// The agent's cue file feeds these: bad values must never hang the loops or blow up the buffers.
+const clamp = (v, lo, hi, dflt) => (Number.isFinite(Number(v)) ? Math.min(hi, Math.max(lo, Number(v))) : dflt);
+
 function synthesize({ bpm = 120, seconds, cuts = [], seed = 7 }) {
+  bpm = clamp(bpm, 60, 200, 120);
+  seconds = clamp(seconds, 1, 180, 20);
+  cuts = (Array.isArray(cuts) ? cuts : []).map(Number).filter((c) => Number.isFinite(c) && c >= 0 && c < seconds).slice(0, 400);
   const n = Math.ceil(seconds * SR);
   const L = new Float32Array(n);
   const R = new Float32Array(n);

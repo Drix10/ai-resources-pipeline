@@ -81,7 +81,19 @@ FACTORY_HERO_SKILLS=/remotion:remotion-best-practices,/hyperframes:motion-graphi
 FACTORY_HERO_ENGINE=auto
 ```
 
-The agent can only use file tools plus `npx remotion`, `npx hyperframes`, `npm install`, `ffmpeg`, `ffprobe`, `node`, `ls`, `mkdir` and `cp`. It works in a per-piece workspace under `factory/state/jobs/<job>/agent-<engine>/`, never in the repo itself.
+The agent can only use file tools plus `npx remotion`, `npx hyperframes`, `npx tsc`, `npm install --ignore-scripts`, `ffmpeg`, `ffprobe`, `node shot.cjs` (the screenshot tool, nothing else), `ls`, `mkdir` and `cp`. It works in a per-piece workspace under `factory/state/jobs/<job>/agent-<engine>/`, never in the repo itself.
+
+This is not a sandbox: `ffmpeg` and `cp` can still reach any path your account can. What it rules out is running arbitrary code if third-party text in its prompt (articles, linked pages, scraped gallery prompts) tries to steer it: no bare `node`, no npm install scripts. The reference library is read-only for the agent: it is snapshotted with git before each film, and anything the agent changed is restored afterwards.
+
+## Failure handling and posting safety
+
+- **One factory at a time.** `factory/state/factory.lock` (owner pid) is held by a cycle, a `--source` run and `--publish`; a second one is skipped with a log line. A lock whose process is gone, or older than 3 h, is taken over.
+- **No double posts.** An item is marked `sharing` *before* the Share click. If Instagram does not confirm, it becomes `unconfirmed`: check your profile, because it is never posted again automatically. Both count toward `IG_DAILY_CAP` and `IG_MIN_GAP_MINUTES`. A posted (or possibly posted) item is never replaced, even by `--source --force`.
+- **No stuck queue.** The next item to post is the one with the fewest failed attempts, then the oldest, and only if its files still exist. After 3 failed publishes it becomes `publish_failed`.
+- **The ledger is never silently reset.** A missing `queue.json` is empty; a locked one is retried; an unreadable one stops the factory and is copied to `queue.json.corrupt-<time>`.
+- **Time-boxed everything.** The agent (`FACTORY_HERO_TIMEOUT_MS`, and on timeout its whole process tree is killed), every DevTools call and capture, ffmpeg, and the soundtrack (cue values are clamped).
+- **Screenshots cannot reach your network.** Chrome sends all traffic through an in-process proxy that resolves every host itself and refuses private, local and LAN addresses and any port but 80/443; Chrome is driven over a pipe (no debugging port) and exits with the factory.
+- **The film is the proof.** A film counts as done when `out/hero.muted.mp4` exists and is a readable 5-180 s video; its real length, not the agent's cue file, sets the soundtrack length.
 
 ## Fact safety
 
@@ -90,7 +102,10 @@ Opus designs the motion, but it cannot change what the piece claims.
 1. The storyboard is the only place where on-screen words are decided, and `storyboard.js#validate` checks them against the source article:
    - every number above 10 that appears on screen or in the caption must be in the article (code blocks are exempt);
    - quotes must be verbatim from the article;
-   - the pipeline's `BANNED_WORDS` list (shared with `llm.js`) is rejected;
+   - numbers are checked as drawn (a stat's prefix + value + suffix), with units glued or spaced ("40s", "5000qps", "8 GB"), decimals, magnitude words ("a million") and hashtags; only bare whole numbers 0-10 are free;
+   - research text from linked pages counts as a source, but its URLs and page headers do not;
+   - the pipeline's `BANNED_WORDS` list (shared with `llm.js`) is rejected in any inflection ("unlocks", "game changer"), unless the author's own text used the word (research text does not excuse it);
+   - every field must have the right type (a malformed reply goes back to Opus, it never crashes the cycle);
    - emojis are not allowed on screen;
    - every Instagram-safe length limit is enforced.
 2. The agent receives that wording as **FIXED WORDING**. It may split lines across beats or drop at most one line, but it may not add claims.

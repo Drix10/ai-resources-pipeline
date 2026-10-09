@@ -2,9 +2,12 @@ import '@fontsource-variable/bricolage-grotesque';
 import '@fontsource-variable/jetbrains-mono';
 import '@fontsource-variable/newsreader';
 import React, { useEffect, useState } from 'react';
-import { continueRender, delayRender } from 'remotion';
+import { cancelRender, continueRender, delayRender } from 'remotion';
 
-/** Holds every frame until the brand faces are decoded, so no frame ever shows a fallback font. */
+/**
+ * Holds every frame until the brand faces are decoded, so no frame ever shows a fallback font.
+ * A font that fails to load fails the render loudly: a blank frame must never be posted.
+ */
 export const FontGate: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [handle] = useState(() => delayRender('fonts'));
   const [ready, setReady] = useState(false);
@@ -20,7 +23,7 @@ export const FontGate: React.FC<{ children: React.ReactNode }> = ({ children }) 
         setReady(true);
         requestAnimationFrame(() => continueRender(handle));
       })
-      .catch(() => continueRender(handle));
+      .catch((err) => cancelRender(err));
   }, [handle]);
   return ready ? <>{children}</> : null;
 };

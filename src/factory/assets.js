@@ -4,33 +4,45 @@
  * construction: every pixel comes from a URL that is already in the source.
  *
  * Captures run in Remotion's own headless Chrome (no new dependency), driven over the
- * DevTools protocol with Node's built-in WebSocket. Navigation to private or local hosts is
- * refused at every hop (redirects included), same rules as utils/pageFetch.js.
+ * DevTools protocol on a pipe (no debugging port; Chrome exits when we do).
  *
- * Per page: a desktop viewport shot (dark scheme), a tall mobile shot to scroll through, and
- * the page's og:image when it has one. Written to <job>/assets/ with assets.json.
+ * Network safety: Chrome sends ALL traffic (documents, subresources, iframes, workers,
+ * WebSockets) through an in-process proxy that resolves every host itself and refuses
+ * private/local addresses and ports other than 80/443. One choke point, so DNS rebinding,
+ * names that resolve to 10.x/169.254.x, LAN names and literal IPs are all refused alike.
+ *
+ * Per page: a desktop viewport shot (dark scheme), a 900-wide "card" whose text reads at
+ * phone size, a tall mobile shot to scroll through, and the page's og:image when it has
+ * one. Written to <job>/assets/ with assets.json.
  */
 const fs = require("fs");
 const os = require("os");
+const net = require("net");
+const http = require("http");
 const path = require("path");
-const { spawn } = require("child_process");
+const dns = require("dns");
+const { spawn, spawnSync } = require("child_process");
 const config = require("../../config");
 const { logger } = require("../utils/helpers");
-const { assertPublicHost, isPrivateIp, secureFetch } = require("../utils/pageFetch");
+const { isPrivateIp, secureFetch } = require("../utils/pageFetch");
 const { FACTORY_DIR, ffmpeg } = require("./render");
 
 const NAV_TIMEOUT_MS = 25000;
+const CALL_TIMEOUT_MS = 30000;
+const CAPTURE_DEADLINE_MS = 75000;
+const MAX_IMAGE_BYTES = 8 * 1024 * 1024;
 const MOBILE_UA = "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1";
 const SHOTS = {
   desktop: { width: 1440, height: 900, dpr: 1.5, mobile: false },
-  mobile: { width: 390, height: 844, dpr: 3, mobile: true, fullMax: 2600 },
   // Narrow desktop layout at 2x: the page's own text stays readable inside a 4:5 slide.
   card: { width: 900, height: 620, dpr: 2, mobile: false },
+  mobile: { width: 390, height: 844, dpr: 3, mobile: true, fullMax: 2600 },
 };
 
-/** Remotion's downloaded chrome-headless-shell, or REMOTION_BROWSER. */
+/** Remotion's downloaded chrome-headless-shell, or REMOTION_BROWSER (only if it exists). */
 function chromeBinary() {
-  if (config.factory.browserExecutable) return config.factory.browserExecutable;
+  const own = config.factory.browserExecutable;
+  if (own) return fs.existsSync(own) ? own : null;
   const root = path.join(FACTORY_DIR, "node_modules/.remotion/chrome-headless-shell");
   if (!fs.existsSync(root)) return null;
   for (const plat of fs.readdirSync(root)) {
@@ -46,99 +58,239 @@ function chromeBinary() {
   return null;
 }
 
-/** A host that must never be loaded, judged without DNS (literal IPs and local names). */
-const obviouslyLocal = (host) => {
-  const bare = host.replace(/^\[|\]$/g, "").replace(/\.+$/, "");
-  return /^(localhost|.*\.localhost|.*\.local|.*\.internal)$/i.test(bare) || (require("net").isIP(bare) !== 0 && isPrivateIp(bare));
-};
+// ---------------------------------------------------------------- egress proxy
 
-// ---------------------------------------------------------------- minimal CDP client
+const LOCAL_NAME = /(^localhost$|\.localhost$|\.local$|\.internal$|\.lan$|\.home\.arpa$|\.corp$)/i;
+const ALLOWED_PORTS = new Set([80, 443]);
 
+/** Resolves a host to one public address, or throws. Single-label names (LAN) are refused. */
+async function resolvePublic(host) {
+  const bare = String(host || "").replace(/^\[|\]$/g, "").replace(/\.+$/, "").toLowerCase();
+  if (!bare || LOCAL_NAME.test(bare)) throw new Error(`blocked host ${bare}`);
+  if (net.isIP(bare)) {
+    if (isPrivateIp(bare)) throw new Error(`blocked address ${bare}`);
+    return bare;
+  }
+  if (!bare.includes(".")) throw new Error(`blocked host ${bare}`);
+  const records = await dns.promises.lookup(bare, { all: true });
+  if (!records.length || records.some((r) => isPrivateIp(r.address))) throw new Error(`blocked address for ${bare}`);
+  return records[0].address;
+}
+
+/** A URL is capturable: http(s) on 80/443 to a public host. Throws otherwise. */
+async function assertCapturable(rawUrl) {
+  const u = new URL(rawUrl);
+  if (u.protocol !== "https:" && u.protocol !== "http:") throw new Error(`refusing ${u.protocol} URL`);
+  const port = Number(u.port || (u.protocol === "https:" ? 443 : 80));
+  if (!ALLOWED_PORTS.has(port)) throw new Error(`refusing port ${port}`);
+  await resolvePublic(u.hostname);
+  return u;
+}
+
+/** Starts the proxy Chrome must use. Every connection is resolved and checked here. */
+function startProxy() {
+  const sockets = new Set();
+  const track = (s) => { sockets.add(s); s.on("close", () => sockets.delete(s)); s.setTimeout(60000, () => s.destroy()); };
+  const server = http.createServer((req, res) => {
+    // Plain http: the request line carries the absolute URL.
+    let u;
+    try { u = new URL(req.url); } catch { res.writeHead(400).end(); return; }
+    const port = Number(u.port || 80);
+    if (u.protocol !== "http:" || !ALLOWED_PORTS.has(port)) { res.writeHead(403).end(); return; }
+    resolvePublic(u.hostname).then((addr) => {
+      const headers = { ...req.headers, host: u.host };
+      delete headers["proxy-connection"];
+      delete headers["proxy-authorization"];
+      const up = http.request({ host: addr, port, path: `${u.pathname}${u.search}`, method: req.method, headers }, (r) => {
+        res.writeHead(r.statusCode || 502, r.headers);
+        r.pipe(res);
+      });
+      up.setTimeout(30000, () => up.destroy());
+      up.on("error", () => res.destroy());
+      req.pipe(up);
+    }, () => res.writeHead(403).end());
+  });
+  server.on("connection", track);
+  server.on("connect", (req, sock, head) => {
+    // https and WebSockets: CONNECT host:port, then a raw tunnel to the checked address.
+    let u;
+    try { u = new URL(`http://${req.url}`); } catch { sock.destroy(); return; }
+    const port = Number(u.port || 443);
+    if (!ALLOWED_PORTS.has(port)) { sock.end("HTTP/1.1 403 Forbidden\r\n\r\n"); return; }
+    sock.on("error", () => {});
+    resolvePublic(u.hostname).then((addr) => {
+      const up = net.connect(port, addr, () => {
+        sock.write("HTTP/1.1 200 Connection Established\r\n\r\n");
+        if (head && head.length) up.write(head);
+        up.pipe(sock);
+        sock.pipe(up);
+      });
+      track(up);
+      up.on("error", () => sock.destroy());
+      sock.on("close", () => up.destroy());
+    }, () => sock.end("HTTP/1.1 403 Forbidden\r\n\r\n"));
+  });
+  return new Promise((resolve, reject) => {
+    server.once("error", reject);
+    server.listen(0, "127.0.0.1", () => resolve({
+      port: server.address().port,
+      close: () => new Promise((done) => { for (const s of sockets) s.destroy(); server.close(() => done()); }),
+    }));
+  });
+}
+
+// ---------------------------------------------------------------- CDP over a pipe
+
+/** Launches Chrome behind the proxy. Resolves to a client whose close() always cleans up. */
 async function launch() {
   const exe = chromeBinary();
   if (!exe) throw Object.assign(new Error("No headless Chrome: run npm run factory:sample once (Remotion downloads it) or set REMOTION_BROWSER."), { code: "NO_BROWSER" });
+  const proxy = await startProxy();
   const profile = fs.mkdtempSync(path.join(os.tmpdir(), "factory-shot-"));
-  const child = spawn(exe, ["--headless", "--remote-debugging-port=0", `--user-data-dir=${profile}`, "--no-first-run", "--no-default-browser-check", "--hide-scrollbars", "--mute-audio", "--disable-extensions", "about:blank"], { stdio: ["ignore", "ignore", "pipe"] });
-  const wsUrl = await new Promise((resolve, reject) => {
-    let buf = "";
-    const timer = setTimeout(() => reject(new Error("headless Chrome did not start")), 20000);
-    child.stderr.on("data", (d) => {
-      buf += d;
-      const m = buf.match(/DevTools listening on (ws:\/\/\S+)/);
-      if (m) { clearTimeout(timer); resolve(m[1]); }
-    });
-    child.on("exit", (code) => { clearTimeout(timer); reject(new Error(`headless Chrome exited (${code})`)); });
-  });
-  const ws = new WebSocket(wsUrl);
-  await new Promise((resolve, reject) => { ws.onopen = resolve; ws.onerror = () => reject(new Error("CDP connect failed")); });
+  const args = [
+    "--headless", "--remote-debugging-pipe", `--user-data-dir=${profile}`,
+    `--proxy-server=http://127.0.0.1:${proxy.port}`, "--proxy-bypass-list=<-loopback>",
+    "--disable-quic", "--force-webrtc-ip-handling-policy=disable_non_proxied_udp", "--webrtc-ip-handling-policy=disable_non_proxied_udp",
+    "--disable-background-networking", "--dns-prefetch-disable", "--no-first-run", "--no-default-browser-check",
+    "--hide-scrollbars", "--mute-audio", "--disable-extensions", "about:blank",
+  ];
+  let child;
+  try {
+    child = spawn(exe, args, { stdio: ["ignore", "ignore", "ignore", "pipe", "pipe"], windowsHide: true });
+  } catch (e) {
+    await proxy.close();
+    removeProfile(profile);
+    throw e;
+  }
+  const out = child.stdio[3];
+  const inp = child.stdio[4];
   let nextId = 1;
+  let dead = null;
   const pending = new Map();
   const listeners = new Set();
-  ws.onmessage = (ev) => {
-    const msg = JSON.parse(ev.data);
-    if (msg.id && pending.has(msg.id)) {
-      const { resolve, reject } = pending.get(msg.id);
-      pending.delete(msg.id);
-      if (msg.error) reject(new Error(`${msg.error.message}`));
-      else resolve(msg.result);
-    } else if (msg.method) for (const fn of listeners) fn(msg);
+  const exited = new Promise((resolve) => child.once("exit", resolve));
+  const die = (why) => {
+    if (dead) return;
+    dead = why;
+    for (const { reject, timer } of pending.values()) { clearTimeout(timer); reject(new Error(`Chrome gone: ${why}`)); }
+    pending.clear();
   };
-  const send = (method, params = {}, sessionId) => new Promise((resolve, reject) => {
-    const id = nextId++;
-    pending.set(id, { resolve, reject });
-    ws.send(JSON.stringify({ id, method, params, ...(sessionId ? { sessionId } : {}) }));
+  child.on("error", (e) => die(e.message));
+  child.on("exit", (code) => die(`exited (${code})`));
+  out.on("error", (e) => die(e.message));
+  inp.on("error", (e) => die(e.message));
+  inp.on("close", () => die("pipe closed"));
+  let buf = "";
+  inp.setEncoding("utf8");
+  inp.on("data", (chunk) => {
+    buf += chunk;
+    let end;
+    while ((end = buf.indexOf("\0")) >= 0) {
+      const raw = buf.slice(0, end);
+      buf = buf.slice(end + 1);
+      let msg;
+      try { msg = JSON.parse(raw); } catch { continue; }
+      if (msg.id && pending.has(msg.id)) {
+        const { resolve, reject, timer } = pending.get(msg.id);
+        pending.delete(msg.id);
+        clearTimeout(timer);
+        if (msg.error) reject(new Error(msg.error.message));
+        else resolve(msg.result);
+      } else if (msg.method) for (const fn of listeners) fn(msg);
+    }
   });
-  const close = () => {
-    try { ws.close(); } catch { /* already closed */ }
-    child.kill();
-    setTimeout(() => fs.rmSync(profile, { recursive: true, force: true }), 1500);
-  };
-  return { send, on: (fn) => listeners.add(fn), off: (fn) => listeners.delete(fn), close };
+  const send = (method, params = {}, sessionId, timeoutMs = CALL_TIMEOUT_MS) => new Promise((resolve, reject) => {
+    if (dead) return reject(new Error(`Chrome gone: ${dead}`));
+    const id = nextId++;
+    const timer = setTimeout(() => { pending.delete(id); reject(new Error(`${method} timed out`)); }, timeoutMs);
+    pending.set(id, { resolve, reject, timer });
+    out.write(`${JSON.stringify({ id, method, params, ...(sessionId ? { sessionId } : {}) })}\0`);
+  });
+  let closing = null;
+  const close = () => (closing ??= (async () => {
+    if (!dead) await send("Browser.close", {}, undefined, 3000).catch(() => {});
+    const gone = await Promise.race([exited.then(() => true), new Promise((r) => setTimeout(() => r(false), 5000))]);
+    if (!gone) killTree(child.pid);
+    await Promise.race([exited, new Promise((r) => setTimeout(r, 3000))]);
+    await proxy.close();
+    removeProfile(profile);
+  })());
+  // The pipe is up as soon as Chrome answers; a browser that never answers is torn down.
+  try {
+    await send("Browser.getVersion", {}, undefined, 20000);
+  } catch (e) {
+    await close();
+    throw new Error(`headless Chrome did not start (${e.message})`);
+  }
+  return { send, on: (fn) => listeners.add(fn), off: (fn) => listeners.delete(fn), close, isDead: () => !!dead };
 }
 
-/** Opens a tab with the shot's viewport and the request guard installed. */
+function killTree(pid) {
+  if (!pid) return;
+  if (process.platform === "win32") spawnSync("taskkill", ["/pid", String(pid), "/T", "/F"], { stdio: "ignore", timeout: 10000 });
+  else try { process.kill(pid, "SIGKILL"); } catch { /* already gone */ }
+}
+
+/** Chrome's helper processes can hold the profile for a moment on Windows: retry, never throw. */
+function removeProfile(dir) {
+  try { fs.rmSync(dir, { recursive: true, force: true, maxRetries: 5, retryDelay: 300 }); } catch (e) { logger.warn(`Factory: could not remove ${dir} (${e.code || e.message}).`); }
+}
+
+const withDeadline = (promise, ms, what) => {
+  let timer;
+  return Promise.race([promise, new Promise((_, reject) => { timer = setTimeout(() => reject(new Error(`${what} took longer than ${Math.round(ms / 1000)}s`)), ms); })]).finally(() => clearTimeout(timer));
+};
+
+/** Opens a tab with the shot's viewport. Dialogs are dismissed so they can never block it. */
 async function openTab(cdp, shot, dark) {
   const { targetId } = await cdp.send("Target.createTarget", { url: "about:blank" });
-  const { sessionId } = await cdp.send("Target.attachToTarget", { targetId, flatten: true });
-  const s = (m, p) => cdp.send(m, p, sessionId);
-  await s("Page.enable");
-  await s("Emulation.setDeviceMetricsOverride", { width: shot.width, height: shot.height, deviceScaleFactor: shot.dpr, mobile: shot.mobile });
-  if (shot.mobile) await s("Emulation.setUserAgentOverride", { userAgent: MOBILE_UA });
-  await s("Emulation.setEmulatedMedia", { features: [{ name: "prefers-color-scheme", value: dark ? "dark" : "light" }] });
-  // Every request is checked: documents (and their redirects) with DNS, everything else by name.
-  await s("Fetch.enable", { patterns: [{ urlPattern: "*", requestStage: "Request" }] });
-  const guard = async (msg) => {
-    if (msg.sessionId !== sessionId || msg.method !== "Fetch.requestPaused") return;
-    const { requestId, request, resourceType } = msg.params;
-    let ok = false;
-    try {
-      const u = new URL(request.url);
-      if (u.protocol === "data:" || u.protocol === "blob:") ok = true;
-      else if ((u.protocol === "https:" || u.protocol === "http:") && !obviouslyLocal(u.hostname)) {
-        if (resourceType === "Document") await assertPublicHost(u.hostname);
-        ok = true;
-      }
-    } catch { ok = false; }
-    s(ok ? "Fetch.continueRequest" : "Fetch.failRequest", ok ? { requestId } : { requestId, errorReason: "BlockedByClient" }).catch(() => {});
+  let sessionId;
+  const onDialog = (msg) => {
+    if (msg.sessionId === sessionId && msg.method === "Page.javascriptDialogOpening") cdp.send("Page.handleJavaScriptDialog", { accept: false }, sessionId).catch(() => {});
   };
-  cdp.on(guard);
-  return { s, sessionId, close: async () => { cdp.off(guard); await cdp.send("Target.closeTarget", { targetId }).catch(() => {}); } };
+  const close = async () => { cdp.off(onDialog); await cdp.send("Target.closeTarget", { targetId }, undefined, 5000).catch(() => {}); };
+  try {
+    ({ sessionId } = await cdp.send("Target.attachToTarget", { targetId, flatten: true }));
+    cdp.on(onDialog);
+    const s = (m, p, t) => cdp.send(m, p, sessionId, t);
+    await s("Page.enable");
+    await s("Emulation.setDeviceMetricsOverride", { width: shot.width, height: shot.height, deviceScaleFactor: shot.dpr, mobile: shot.mobile });
+    if (shot.mobile) await s("Emulation.setUserAgentOverride", { userAgent: MOBILE_UA });
+    await s("Emulation.setEmulatedMedia", { features: [{ name: "prefers-color-scheme", value: dark ? "dark" : "light" }] });
+    return { s, sessionId, close };
+  } catch (e) {
+    await close();
+    throw e;
+  }
 }
 
-async function navigate(cdp, tab, url) {
+async function navigate(cdp, tab, url, shot) {
+  let timer;
+  let onLoad;
   const loaded = new Promise((resolve) => {
-    const fn = (msg) => { if (msg.sessionId === tab.sessionId && msg.method === "Page.loadEventFired") { cdp.off(fn); resolve(); } };
-    cdp.on(fn);
-    setTimeout(() => { cdp.off(fn); resolve(); }, NAV_TIMEOUT_MS);
+    onLoad = (msg) => { if (msg.sessionId === tab.sessionId && msg.method === "Page.loadEventFired") resolve(); };
+    cdp.on(onLoad);
+    timer = setTimeout(resolve, NAV_TIMEOUT_MS);
   });
-  const nav = await tab.s("Page.navigate", { url });
-  if (nav.errorText) throw new Error(`navigation failed: ${nav.errorText}`);
-  await loaded;
-  // Let late layout and lazy images settle, then hide cookie/consent overlays.
-  await new Promise((r) => setTimeout(r, 1800));
+  try {
+    const nav = await tab.s("Page.navigate", { url }, NAV_TIMEOUT_MS);
+    if (nav.errorText) throw new Error(`navigation failed: ${nav.errorText}`);
+    await loaded;
+  } finally {
+    clearTimeout(timer);
+    cdp.off(onLoad);
+  }
+  // Let late layout settle; walk a tall page once so lazy images load; drop cookie overlays.
+  await new Promise((r) => setTimeout(r, 1500));
+  if (shot.fullMax) {
+    await tab.s("Runtime.evaluate", {
+      awaitPromise: true,
+      expression: `(async () => { const end = Math.min(document.documentElement.scrollHeight, ${shot.fullMax}); for (let y = 0; y < end; y += 700) { scrollTo(0, y); await new Promise((r) => setTimeout(r, 120)); } scrollTo(0, 0); await new Promise((r) => setTimeout(r, 500)); })()`,
+    }, 20000).catch(() => {});
+  }
   await tab.s("Runtime.evaluate", {
     expression: `for (const el of document.querySelectorAll('[id*=cookie i],[class*=cookie i],[id*=consent i],[class*=consent i],[aria-label*=cookie i]')) { const cs = getComputedStyle(el); if (cs.position === 'fixed' || cs.position === 'sticky') el.remove(); }`,
-  });
+  }).catch(() => {});
   const info = await tab.s("Runtime.evaluate", {
     returnByValue: true,
     expression: `({ title: document.title, url: location.href, og: (document.querySelector('meta[property="og:image"],meta[name="og:image"],meta[name="twitter:image"]') || {}).content || '', height: Math.max(document.body ? document.body.scrollHeight : 0, document.documentElement.scrollHeight) })`,
@@ -146,53 +298,108 @@ async function navigate(cdp, tab, url) {
   return info.result.value || {};
 }
 
+/** Writes the JPEG and returns its pixel size (known from the viewport, no probe needed). */
 async function screenshot(tab, shot, pageHeight, file) {
-  const full = shot.fullMax && pageHeight > shot.height;
+  const fullHeight = shot.fullMax && pageHeight > shot.height ? Math.min(pageHeight, shot.fullMax) : 0;
   const params = { format: "jpeg", quality: 88 };
-  if (full) Object.assign(params, { captureBeyondViewport: true, clip: { x: 0, y: 0, width: shot.width, height: Math.min(pageHeight, shot.fullMax), scale: 1 } });
-  const { data } = await tab.s("Page.captureScreenshot", params);
+  if (fullHeight) Object.assign(params, { captureBeyondViewport: true, clip: { x: 0, y: 0, width: shot.width, height: fullHeight, scale: 1 } });
+  const { data } = await tab.s("Page.captureScreenshot", params, 45000);
   fs.writeFileSync(file, Buffer.from(data, "base64"));
+  return { width: Math.round(shot.width * shot.dpr), height: Math.round((fullHeight || shot.height) * shot.dpr) };
 }
 
-/** og:image through the same pinned, public-only fetch the pipeline uses for pages. */
+/** One capture with an overall deadline; the tab is always closed. */
+async function capture(cdp, url, kind, file, dark = true) {
+  const shot = SHOTS[kind] || SHOTS.desktop;
+  const run = async () => {
+    const tab = await openTab(cdp, shot, dark);
+    try {
+      const info = await navigate(cdp, tab, url, shot);
+      const size = await screenshot(tab, shot, info.height || 0, file);
+      return { ...info, ...size };
+    } finally {
+      await tab.close();
+    }
+  };
+  return withDeadline(run(), CAPTURE_DEADLINE_MS, `capture of ${url}`);
+}
+
+// ---------------------------------------------------------------- og:image
+
+const IMAGE_MAGIC = [
+  { demux: "png_pipe", test: (b) => b[0] === 0x89 && b[1] === 0x50 && b[2] === 0x4e && b[3] === 0x47 },
+  { demux: "jpeg_pipe", test: (b) => b[0] === 0xff && b[1] === 0xd8 && b[2] === 0xff },
+  { demux: "gif", test: (b) => b.subarray(0, 4).toString("latin1") === "GIF8" },
+  { demux: "webp_pipe", test: (b) => b.subarray(0, 4).toString("latin1") === "RIFF" && b.subarray(8, 12).toString("latin1") === "WEBP" },
+];
+
+async function readCapped(res) {
+  const declared = Number(res.headers.get("content-length") || 0);
+  if (declared > MAX_IMAGE_BYTES) throw new Error(`image is ${declared} bytes`);
+  const reader = res.body?.getReader?.();
+  if (!reader) throw new Error("no body");
+  const chunks = [];
+  let total = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    total += value.length;
+    if (total > MAX_IMAGE_BYTES) { await reader.cancel().catch(() => {}); throw new Error("image over 8 MB"); }
+    chunks.push(Buffer.from(value));
+  }
+  return Buffer.concat(chunks);
+}
+
+/** og:image: every hop checked (scheme, port, public address), size capped, format pinned by magic bytes. */
 async function downloadImage(url, file) {
   let res;
   for (let hop = 0; hop < 4; hop++) {
+    await assertCapturable(url);
     res = await secureFetch(url, { headers: { Accept: "image/*" }, signal: AbortSignal.timeout(20000) });
     const next = res.status >= 300 && res.status < 400 && res.headers.get("location");
     if (!next) break;
-    url = new URL(next, url).toString(); // secureFetch pins and checks every hop's address
+    url = new URL(next, url).toString();
   }
-  const type = res.headers.get("content-type") || "";
-  if (!res.ok || !/^image\/(png|jpe?g|webp|gif|avif)/.test(type)) throw new Error(`not an image (${res.status} ${type})`);
-  const buf = Buffer.from(await res.arrayBuffer());
-  if (buf.length > 8 * 1024 * 1024 || buf.length < 2000) throw new Error(`image size ${buf.length}`);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const buf = await readCapped(res);
+  if (buf.length < 2000) throw new Error(`image is only ${buf.length} bytes`);
+  const kind = IMAGE_MAGIC.find((m) => m.test(buf));
+  if (!kind) throw new Error("not a PNG/JPEG/GIF/WebP image");
   const tmp = `${file}.src`;
-  fs.writeFileSync(tmp, buf);
-  ffmpeg(["-i", tmp, "-vf", "scale='min(1600,iw)':-2", "-q:v", "3", file]);
-  fs.rmSync(tmp, { force: true });
+  try {
+    fs.writeFileSync(tmp, buf);
+    // The demuxer is pinned and only local files may be opened, so the bytes can never steer ffmpeg elsewhere.
+    ffmpeg(["-protocol_whitelist", "file", "-f", kind.demux, "-i", tmp, "-frames:v", "1", "-vf", "scale='min(1600,iw)':-2", "-q:v", "3", file], { timeoutMs: 30000 });
+  } finally {
+    fs.rmSync(tmp, { force: true });
+  }
 }
 
 const probe = (file) => {
-  const out = require("child_process").spawnSync("ffprobe", ["-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height", "-of", "csv=p=0", file], { encoding: "utf8" });
+  const out = spawnSync("ffprobe", ["-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height", "-of", "csv=p=0", file], { encoding: "utf8", timeout: 15000 });
   const [width, height] = String(out.stdout || "").trim().split(",").map(Number);
   return { width: width || 0, height: height || 0 };
 };
 
-/** Screenshots one URL to a file (used by the agent's shot tool). */
+// ---------------------------------------------------------------- public API
+
+/** Screenshots one URL to a file (the agent's shot tool). Always cleans up Chrome. */
 async function shootOne(url, file, { kind = "desktop", dark = true } = {}) {
-  const u = new URL(url);
-  if (obviouslyLocal(u.hostname)) throw new Error(`refusing local host ${u.hostname}`);
-  await assertPublicHost(u.hostname);
+  await assertCapturable(url);
   const cdp = await launch();
   try {
-    const tab = await openTab(cdp, SHOTS[kind] || SHOTS.desktop, dark);
-    const info = await navigate(cdp, tab, url);
-    await screenshot(tab, SHOTS[kind] || SHOTS.desktop, info.height || 0, file);
-    await tab.close();
-    return { ...info, ...probe(file) };
+    return await capture(cdp, url, kind, file, dark);
   } finally {
-    cdp.close();
+    await cdp.close();
+  }
+}
+
+function readManifest(file) {
+  try {
+    const list = JSON.parse(fs.readFileSync(file, "utf8"));
+    return Array.isArray(list) && list.length && list.every((a) => a && fs.existsSync(a.file)) ? list : null;
+  } catch {
+    return null;
   }
 }
 
@@ -203,59 +410,62 @@ async function shootOne(url, file, { kind = "desktop", dark = true } = {}) {
 async function gatherAssets(article, outDir, { maxPages = config.factory.assetPages } = {}) {
   const dir = path.join(outDir, "assets");
   const manifestFile = path.join(dir, "assets.json");
-  if (fs.existsSync(manifestFile)) return JSON.parse(fs.readFileSync(manifestFile, "utf8"));
+  const cached = readManifest(manifestFile);
+  if (cached) return cached;
   const links = (article.links || []).slice(0, maxPages);
   const assets = [];
   if (!links.length || maxPages <= 0) return assets;
   fs.mkdirSync(dir, { recursive: true });
-  let cdp;
-  try {
-    cdp = await launch();
-  } catch (e) {
-    logger.warn(`Factory: no screenshots for ${article.slug} (${e.message}).`);
-    return assets;
-  }
+  let cdp = null;
   try {
     for (const [i, url] of links.entries()) {
       const n = i + 1;
+      try {
+        await assertCapturable(url);
+      } catch (e) {
+        logger.warn(`Factory: skipping ${url} (${e.message}).`);
+        continue;
+      }
       let title = "";
       let og = "";
       for (const kind of ["desktop", "card", "mobile"]) {
         const file = path.join(dir, `page${n}-${kind}.jpg`);
-        let tab;
         try {
-          await assertPublicHost(new URL(url).hostname);
-          tab = await openTab(cdp, SHOTS[kind], true);
-          const info = await navigate(cdp, tab, url);
-          await screenshot(tab, SHOTS[kind], info.height || 0, file);
+          if (!cdp || cdp.isDead()) cdp = await launch();
+          const info = await capture(cdp, url, kind, file);
           title = title || String(info.title || "").trim();
           og = og || info.og || "";
-          assets.push({ id: `page${n}-${kind}`, kind, url: info.url || url, title, file, ...probe(file) });
+          assets.push({ id: `page${n}-${kind}`, kind, url: info.url || url, title, file, width: info.width, height: info.height });
         } catch (e) {
           logger.warn(`Factory: ${kind} shot of ${url} failed (${e.message}).`);
-        } finally {
-          if (tab) await tab.close();
+          // A stuck page can leave the browser wedged: start fresh for the next capture.
+          if (cdp) { await cdp.close(); cdp = null; }
         }
       }
       if (og) {
         const file = path.join(dir, `page${n}-image.jpg`);
         try {
-          await downloadImage(new URL(og, url).toString(), file);
-          assets.push({ id: `page${n}-image`, kind: "image", url: new URL(og, url).toString(), page: url, title, file, ...probe(file) });
+          const src = new URL(og, url).toString();
+          await downloadImage(src, file);
+          const size = probe(file);
+          if (size.width && size.height) assets.push({ id: `page${n}-image`, kind: "image", url: src, page: url, title, file, ...size });
         } catch (e) {
           logger.info(`Factory: og:image of ${url} skipped (${e.message}).`);
         }
       }
     }
+  } catch (e) {
+    logger.warn(`Factory: screenshots for ${article.slug} stopped (${e.message}).`);
   } finally {
-    cdp.close();
+    if (cdp) await cdp.close();
   }
-  fs.writeFileSync(manifestFile, JSON.stringify(assets, null, 2));
+  // Only a non-empty result is cached: a run that captured nothing tries again next time.
+  if (assets.length) fs.writeFileSync(manifestFile, JSON.stringify(assets, null, 2));
   logger.info(`Factory: ${assets.length} real assets for ${article.slug} from ${links.length} page(s).`);
   return assets;
 }
 
 /** Hosts the agent's shot tool may capture: the article's own links, plus GitHub. */
-const allowedHosts = (article) => [...new Set([...(article.links || []).map((l) => new URL(l).hostname), "github.com"])];
+const allowedHosts = (article) => [...new Set([...(article.links || []).map((l) => new URL(l).hostname.replace(/\.+$/, "").toLowerCase()), "github.com"])];
 
-module.exports = { gatherAssets, shootOne, allowedHosts, chromeBinary, SHOTS };
+module.exports = { gatherAssets, shootOne, allowedHosts, assertCapturable, resolvePublic, startProxy, chromeBinary, SHOTS };
