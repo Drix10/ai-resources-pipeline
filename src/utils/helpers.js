@@ -45,6 +45,8 @@ const logger = winston.createLogger({
   ],
   exitOnError: false,
 });
+// A full disk or a log file another program holds must never crash the long-running process.
+logger.on("error", () => {});
 
 /**
  * Sanitizes user input to prevent XSS attacks.

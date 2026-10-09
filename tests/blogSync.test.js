@@ -71,24 +71,47 @@ test("nothing to publish is a quiet no-op", { timeout: 60000 }, async () => {
   assert.equal(git(remote, "rev-parse", "main"), before);
 });
 
-test("a failing blog build publishes nothing and leaves the files staged for the next try", { timeout: 120000 }, async () => {
+test("a failing blog build publishes nothing and stages nothing (the next run picks the files up)", { timeout: 120000 }, async () => {
   const { work, remote } = sandbox({ buildPasses: false });
   const before = git(remote, "rev-parse", "main");
   write(work, "blog/content/Cat/b.md", "### B\nbody");
-  await inDir(work, () => syncBlogToGit());
+  assert.equal(await inDir(work, () => syncBlogToGit()), false);
   assert.equal(git(remote, "rev-parse", "main"), before, "remote untouched");
   assert.equal(git(work, "log", "-1", "--format=%s"), "init", "no commit was made");
-  assert.match(git(work, "status", "--porcelain"), /A\s+blog\/content\/Cat\/b\.md/, "still staged");
+  assert.equal(git(work, "diff", "--cached", "--name-only"), "", "nothing left in your index");
+  assert.match(git(work, "status", "--porcelain"), /\?\?\s+blog\/content\/Cat\//, "the file is still there, untracked");
 });
 
-test("a push that failed last cycle is retried even when there is nothing new", { timeout: 120000 }, async () => {
+test("a bot commit whose push failed last cycle is retried even when there is nothing new", { timeout: 120000 }, async () => {
   const { work, remote } = sandbox();
   write(work, "blog/content/Cat/b.md", "### B\nbody");
   git(work, "add", "-A");
-  git(work, "commit", "-m", "feat(blog): earlier cycle, push never happened");
+  git(work, "commit", "-m", "feat(blog): sync new curated AI resource guides");
   assert.notEqual(git(work, "rev-parse", "HEAD"), git(remote, "rev-parse", "main"));
-  await inDir(work, () => syncBlogToGit());
+  assert.equal(await inDir(work, () => syncBlogToGit()), true);
   assert.equal(git(work, "rev-parse", "HEAD"), git(remote, "rev-parse", "main"));
+});
+
+test("your own unpushed commits never ride along with the bot's push", { timeout: 120000 }, async () => {
+  const { work, remote } = sandbox();
+  write(work, "other/mine.txt", "work in progress");
+  git(work, "add", "-A");
+  git(work, "commit", "-m", "wip: my own change");
+  write(work, "blog/content/Cat/b.md", "### B\nbody");
+  const before = git(remote, "rev-parse", "main");
+  assert.equal(await inDir(work, () => syncBlogToGit()), false);
+  assert.equal(git(remote, "rev-parse", "main"), before, "nothing pushed");
+  assert.match(git(work, "log", "-1", "--format=%s"), /sync new curated AI resource guides/, "the blog is committed locally, ready to go with your push");
+});
+
+test("a checkout on another branch is never committed to or pushed", { timeout: 60000 }, async () => {
+  const { work, remote } = sandbox();
+  git(work, "checkout", "-b", "feature");
+  write(work, "blog/content/Cat/b.md", "### B\nbody");
+  const before = git(remote, "rev-parse", "main");
+  assert.equal(await inDir(work, () => syncBlogToGit()), false);
+  assert.equal(git(remote, "rev-parse", "main"), before);
+  assert.equal(git(work, "log", "-1", "--format=%s"), "init");
 });
 
 test("a detached HEAD is refused instead of pushing something odd", { timeout: 60000 }, async () => {

@@ -204,7 +204,9 @@ const config = {
     },
     {
       name: "AI Powered Film and Media",
-      lists: ["1846645136064995788", "1741902685669113995"],
+      // 1741902685669113995 belongs to "AI Organizations and Media" (its only list); sharing
+      // it made two folders scrape the same posts.
+      lists: ["1846645136064995788"],
     },
     {
       name: "AI Holodeck and Virtual Worlds",

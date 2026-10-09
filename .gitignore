@@ -61,6 +61,9 @@ login-error.png
 .pipeline-state.json.tmp
 .processed-tweet-ids.json
 .processed-tweet-ids.json.tmp
+.processed-tweet-ids.json.bak
+.processed-tweet-ids.json.corrupt-*
+.pipeline-schedule.json
 tracker/
 
 # Dynamic View Counter Data (Persists per-deployment)
@@ -74,6 +77,9 @@ data/*.lock
 
 # Runtime state (machine-local trackers)
 data/linkedin-feed-commented.json
+data/linkedin-feed-commented.json.*
+data/syndication-queue.json
+data/syndication-queue.json.*
 
 # TypeScript incremental build caches
 *.tsbuildinfo
@@ -87,3 +93,10 @@ factory/out/
 # Reference library: cloned repos (npm run factory:library) and downloaded videos
 factory/library/repos/
 factory/library/videos/*/video.mp4
+# Music: the tracks stay on this machine (commercial recordings, never published); the folder
+# layout and catalog.json (tempo, drops, energy, vocals) are versioned.
+factory/library/music/*/*
+!factory/library/music/*/.gitkeep
+# Stock clips: licences forbid redistributing them as-is; meta.json + contact.jpg are versioned.
+factory/library/visuals/*/clip.mp4
+factory/library/visuals/*/clip.*.tmp

@@ -1,0 +1,5 @@
+{
+  "watch": ["src", "config", "index.js", "start-app.js"],
+  "ext": "js",
+  "ignore": ["factory/state/**", "factory/library/**", "data/**", "blog/**", "portfolio/**", "logs/**", "*.json"]
+}

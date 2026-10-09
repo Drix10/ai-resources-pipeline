@@ -237,6 +237,17 @@ async function t(name, post, author, responses, expectValid, expectSkipped = fal
     "I just turned 20, and I still don't know if I've been chasing the right thing. From selling candy at 7 to becoming CMO of a YC startup at 19. But that's my life so far. So cheers to me turning 20.",
     "Hank Wu",
     ["Happy 20th!", "PASS: main-event congrats"], true);
+  // CONGRATS/SUPPORT modes face the critic too, and a decorated FAIL is still a FAIL.
+  await t("congrats mode still faces a fail-closed critic",
+    "Excited to share I have joined ABC College as an Assistant Professor. Grateful for the support of my mentors and looking forward to this new chapter.",
+    "Ravi Kumar",
+    ["MODE: CONGRATS\nREPLY: Congratulations on joining ABC College, well deserved!", "**FAIL**: wrong register",
+     "MODE: CONGRATS\nREPLY: Congratulations on joining ABC College, well deserved!", "Verdict: FAIL"], false);
+  // Only the first paragraph after REPLY: is the comment; trailing model notes never post.
+  await t("reply parser drops a trailing note paragraph",
+    "Most AI engineers learn how to use LLMs. Very few learn how they actually work under the hood. This Stanford CS336 playlist is a gem if you want to go deeper. It takes you closer to understanding what happens underneath them.",
+    "Arindam Majumder",
+    ["MODE: REACT\nREPLY: Closer to what happens underneath the models.\n\nNote: chose REACT because the playlist framing invites a reaction about hierarchical curriculum design.", "PASS"], true);
   console.log(`\n${passed} passed, ${failed} failed.`);
   // Scanner spam-gate unit tests (pure predicate, no browser).
   const LinkedInService = require("./src/services/linkedin.js");

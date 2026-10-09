@@ -219,25 +219,22 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
       logger.warn(`Blog index rebuild warning (non-fatal): ${idxErr.message}`);
     }
 
-    // Syndicate sequentially in background; SyndicationService's queue paces requests and trips a breaker on 401/429
-    (async () => {
-      for (const item of preparedItems) {
-        try {
-          await syndicationService.syndicateMarkdownArticle({
-            title: `${item.decodedFolder} #${item.nextNumber}`,
-            markdown: item.content,
-            tags: [item.decodedFolder.toLowerCase().replace(/[^a-z0-9]/g, "")],
-            category: item.decodedFolder,
-            relativePath: item.filePath,
-            seoSlug: item.seoSlug,
-          });
-        } catch (err) {
-          logger.warn(`Syndication error (non-fatal): ${err.message}`);
-        }
+    // DEV.to is only queued here: the canonical blog page does not exist until the blog is
+    // pushed and deployed. syndicationService.processQueue() posts once that URL is live.
+    for (const item of preparedItems) {
+      try {
+        await syndicationService.queueMarkdownArticle({
+          title: `${item.decodedFolder} #${item.nextNumber}`,
+          markdown: item.content,
+          tags: [item.decodedFolder.toLowerCase().replace(/[^a-z0-9]/g, "")],
+          category: item.decodedFolder,
+          relativePath: item.filePath,
+          seoSlug: item.seoSlug,
+        });
+      } catch (err) {
+        logger.warn(`Syndication queue error (non-fatal): ${err.message}`);
       }
-    })().catch((err) => {
-      logger.warn(`Syndication batch runner error (non-fatal): ${err.message}`);
-    });
+    }
 
     return preparedItems.map(it => ({
       success: true,

@@ -8,6 +8,13 @@ const { logger, sleep } = require("./helpers");
 
 const DEBUG_PORT = 9222;
 const DEBUG_ADDRESS = `127.0.0.1:${DEBUG_PORT}`;
+// Without these a minimised or background Chrome throttles timers and stalls scrolling
+// and page scripts. Shared by startChrome and the "start it yourself" hint.
+const ANTI_THROTTLE_FLAGS = [
+  "--disable-background-timer-throttling",
+  "--disable-backgrounding-occluded-windows",
+  "--disable-renderer-backgrounding",
+];
 
 function probeHttpEndpoint(timeoutMs = 800) {
   return new Promise((resolve) => {
@@ -50,9 +57,7 @@ async function startChrome() {
     const proc = spawn(findChromeExecutable(), [
       `--remote-debugging-port=${DEBUG_PORT}`,
       `--user-data-dir=${userDataDir}`,
-      "--disable-background-timer-throttling",
-      "--disable-backgrounding-occluded-windows",
-      "--disable-renderer-backgrounding",
+      ...ANTI_THROTTLE_FLAGS,
       "https://x.com",
     ], { detached: true, stdio: "ignore" });
     proc.on("error", (error) => logger.error(`Failed to launch Chrome: ${error.message}`));
@@ -102,7 +107,8 @@ async function attachDriver() {
     return driver;
   } catch (error) {
     try { await service.kill(); } catch (e) { }
-    throw new Error(`Chrome not running with remote debugging (${error.message}). Run: chrome --remote-debugging-port=${DEBUG_PORT}`);
+    const userDataDir = path.join(process.env.USERPROFILE || process.env.HOME || "", "chrome-debug");
+    throw new Error(`Chrome not running with remote debugging (${error.message}). Run: chrome --remote-debugging-port=${DEBUG_PORT} --user-data-dir="${userDataDir}" ${ANTI_THROTTLE_FLAGS.join(" ")}`);
   }
 }
 
