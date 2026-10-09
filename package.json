@@ -28,6 +28,10 @@
     "dev": "nodemon index.js",
     "list": "node tracker/start-list.js",
     "test": "node --require ./tests/_env.js --test tests/*.test.js",
-    "seo:audit": "node scripts/seo-audit.mjs"
+    "seo:audit": "node scripts/seo-audit.mjs",
+    "factory": "node factory-run.js",
+    "factory:install": "cd factory && npm install",
+    "factory:sample": "node factory-run.js --sample",
+    "factory:studio": "cd factory && npm run studio"
   }
 }

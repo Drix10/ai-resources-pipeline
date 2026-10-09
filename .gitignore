@@ -2,6 +2,7 @@
 /node_modules
 /blog/node_modules
 /portfolio/node_modules
+/factory/node_modules
 
 # Environment variables
 .env
@@ -79,3 +80,7 @@ data/linkedin-feed-commented.json
 
 # Personal list of LinkedIn creators to engage with (copy config/creators.example.json)
 config/creators.json
+
+# Instagram content factory: renders, plates, agent workspaces, ledger
+factory/state/
+factory/out/

@@ -68,6 +68,12 @@ flowchart TD
 - **Reaction-First Voice**: short acknowledgments by default, observation only when the post invites it; never invents facts, numbers, or relationships.
 - **Preview Before Live**: `node feed-preview.js --max 3` prints exactly what would be posted and liked — nothing runs live without approval.
 
+### 🎬 Instagram Content Factory (`factory/`, `src/factory/`)
+- Turns fresh articles into **one-off reels and carousels**: Opus writes a fact-gated storyboard, OpenRouter (Nano Banana 2.1) paints textless plates, and your **local Claude Code** (Opus 5.5, `--effort xhigh`, no API key) builds each reel as a bespoke code-rendered film in Remotion or HyperFrames.
+- Every reel is a new topic and a new look: topic dedupe (TF-IDF) plus a memory of recent films' visual ideas, palettes and techniques.
+- Beat-locked synthesized soundtrack, vision QA on rendered stills, a review ledger, and an Instagram publisher on the logged-in Chrome (dry run by default, daily cap).
+- Off until `FACTORY_ENABLED=true`; nothing posts until `IG_POST=true`. Full guide: [`docs/CONTENT_FACTORY.md`](docs/CONTENT_FACTORY.md).
+
 ### ⚡ 5. High-Speed Next.js 14 Knowledge Hub (`blog/`)
 - **1,800+ Articles** across **42 Specialized Domains**, with static topic and archive pages so everything caches at the edge.
 - **SEO**: per-digest share images (`/og/<slug>`), Article/Breadcrumb/CollectionPage structured data, a sitemap of every indexable URL, search results kept out of the index. Audit any deployment with `npm run seo:audit -- <url>`.
