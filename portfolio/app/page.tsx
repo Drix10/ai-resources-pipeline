@@ -59,6 +59,7 @@ export default async function HomePage() {
         <div className="relative mx-auto flex min-h-[calc(100svh-3.5rem)] max-w-[1100px] flex-col justify-center px-5 pb-16 pt-14 sm:px-8 sm:pb-24">
           <h1
             id="name"
+            data-quiet
             className="text-[clamp(3.6rem,17vw,11.5rem)] font-bold leading-[0.9] tracking-[-0.03em] text-ink"
             style={{ fontVariationSettings: "'wdth' 92" }}
           >
@@ -68,11 +69,11 @@ export default async function HomePage() {
             <span className="sr-only"> (Drix10), AI systems engineer and serial founder in Bengaluru</span>
           </h1>
 
-          <p className="prose-text mt-8 max-w-[34ch] text-[1.375rem] sm:mt-10 sm:max-w-[46ch] sm:text-[1.625rem] sm:leading-[1.5]">
+          <p data-quiet className="prose-text mt-8 max-w-[34ch] text-[1.375rem] sm:mt-10 sm:max-w-[46ch] sm:text-[1.625rem] sm:leading-[1.5]">
             Serial founder and AI systems engineer in Bengaluru, building since 2019. I ran ReeF from its first commit to an acquisition, and now build agent infrastructure and research systems.
           </p>
 
-          <p className="mt-6 max-w-[60ch] text-[1.0625rem] text-body">
+          <p data-quiet className="mt-6 max-w-[60ch] text-[1.0625rem] text-body">
             <span className="font-semibold text-ink">Building now: </span>
             {NOW_BUILDING.map((n, i) => (
               <span key={n.name}>
@@ -84,7 +85,7 @@ export default async function HomePage() {
             ))}
           </p>
 
-          <ul className="mt-8 flex flex-wrap gap-x-7 gap-y-3 text-[1.0625rem]">
+          <ul data-quiet className="mt-8 flex flex-wrap gap-x-7 gap-y-3 text-[1.0625rem]">
             <li><a className="link" href="mailto:ggdrishtant@gmail.com">Email</a></li>
             <li><a className="link" href="https://github.com/Drix10" target="_blank" rel="noreferrer">GitHub</a></li>
             <li><a className="link" href="https://www.linkedin.com/in/drix10" target="_blank" rel="noreferrer">LinkedIn</a></li>
@@ -92,7 +93,7 @@ export default async function HomePage() {
             <li><a className="link" href="https://blogs.drix10.com" target="_blank" rel="noreferrer">Blog</a></li>
           </ul>
 
-          <p className="mt-12 text-[0.9375rem] text-faint">
+          <p data-quiet className="mt-12 text-[0.9375rem] text-faint">
             The mice behind the name run from an owl, as in{' '}
             <a href="https://github.com/Drix10/ml-videos" target="_blank" rel="noreferrer" className="link">
               Night-Hunt
