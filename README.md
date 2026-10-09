@@ -36,7 +36,7 @@ flowchart TD
     D --> E["blogs.drix10.com (Next.js 14)"]
     D --> F["DEV.to syndication (rate-limited, circuit breaker)"]
     D --> G["Announcement tweet"]
-    D --> H["After each batch: 5-9 LinkedIn likes + 1-2 English-only comments"]
+    D --> H["Likes after each article; 1-2 comments + 3-5 connects after each batch"]
 ```
 
 ---
@@ -61,9 +61,10 @@ flowchart TD
 ### 🎲 Randomized Batch GitHub Commits (1 to 8)
 - Eliminates predictable static commit batching by randomly committing between 1 and 8 article updates per cycle, creating a natural commit rhythm on GitHub.
 
-### 🤝 4. LinkedIn Feed Engagement (after every batch commit)
-- **Growth Loop**: content generation never touches LinkedIn. After each successful batch commit the engine likes a random 5-9 posts and leaves 1 or 2 genuine, English-only comments (`LINKEDIN_FEED_REPLY=true`); once per cycle it then sends connection requests. Posts come from finance/AI/founder content search plus optional creators in `config/creators.json` (copy `creators.example.json`); `LINKEDIN_SOURCE=feed` restores home-feed sourcing. 15/day cap, 3-day rejection memory.
-- **Connection Pass**: 10-15 no-note requests per cycle (30/day, 100/week caps). On by default; set `LINKEDIN_CONNECT=false` to turn it off.
+### 🤝 4. LinkedIn Feed Engagement (woven into the run)
+- **Flow**: write one article, then a random 2-4 likes; repeat until the batch (a random 1-8 articles, re-rolled every batch) is committed; then 1 or 2 comments and 3-5 connection requests; then the next batch. Content generation never depends on LinkedIn, and every LinkedIn step is non-fatal. Posts come from finance/AI/founder content search plus optional creators in `config/creators.json`; `LINKEDIN_SOURCE=feed` restores home-feed sourcing.
+- **Caps**: 15 comments, 40 likes, 30 connections per day (100 per week); 3-day rejection memory. English only.
+- **Typing fallback**: if keystrokes do not land (an unattended window without focus), the comment is inserted with the editor's own insert command and read back before submitting.
 - **Reaction-First Voice**: short acknowledgments by default, observation only when the post invites it; never invents facts, numbers, or relationships.
 - **Preview Before Live**: `node feed-preview.js --max 3` prints exactly what would be posted and liked — nothing runs live without approval.
 

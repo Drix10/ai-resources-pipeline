@@ -3,9 +3,9 @@
  *
  * Fully automated LinkedIn growth, run once per cycle from cron.js (after the
  * content loop, whether or not articles were produced):
- *  1. runLikePass       (LINKEDIN_LIKE, default on): 5-9 likes after each batch commit
+ *  1. runLikePass       (LINKEDIN_LIKE, default on): 2-4 likes after each article is written
  *  2. runFeedEngagement (LINKEDIN_FEED_REPLY=true): 1 or 2 comments after each batch commit
- *  3. runConnectPass    (LINKEDIN_CONNECT, default on): 10-15 no-note invites
+ *  3. runConnectPass    (LINKEDIN_CONNECT, default on): 3-5 no-note invites after each batch commit
  *
  * Posts come from targeted sources (finance/AI/founder content search plus
  * optional creator profiles in config/creators.json), not the home feed. The
