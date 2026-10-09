@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { Bricolage_Grotesque, Newsreader } from 'next/font/google';
 import CommandPalette from '@/components/CommandPalette';
 import ThemeToggle from '@/components/ThemeToggle';
-import SmoothScroll from '@/components/SmoothScroll';
 import LocalTimeBadge from '@/components/LocalTimeBadge';
 import { BLOG_URL, DESCRIPTION, PERSON_ID, SITE_URL, TITLE, jsonLd } from '@/lib/site';
 import './globals.css';
@@ -227,7 +226,6 @@ export default function RootLayout({
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(profileSchema) }} />
       </head>
       <body className="flex min-h-screen flex-col">
-        <SmoothScroll />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-ink focus:px-3 focus:py-2 focus:text-sm focus:text-paper"
@@ -235,7 +233,7 @@ export default function RootLayout({
           Skip to content
         </a>
 
-        <header className="site-header sticky top-0 z-40 border-b border-rule/70 bg-paper/85 backdrop-blur-md transition-colors duration-300">
+        <header className="sticky top-0 z-40 border-b border-rule/70 bg-paper/85 backdrop-blur-md">
           <div className="mx-auto flex h-14 max-w-[1200px] items-center justify-between gap-6 px-5 sm:px-8">
             <Link href="/" className="text-[1.0625rem] font-semibold tracking-tight text-ink" style={{ fontVariationSettings: "'wdth' 92" }}>
               Drishtant Ghosh

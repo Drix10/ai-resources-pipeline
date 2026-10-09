@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react';
-import AgentField from '@/components/AgentField';
-import BankaiHero from '@/components/BankaiHero';
+import NameSwarm from '@/components/NameSwarm';
 import Work from '@/components/Work';
 import OpenSource from '@/components/OpenSource';
 import GitHubActivity from '@/components/GitHubActivity';
@@ -58,26 +57,50 @@ export default async function HomePage() {
   return (
     <>
       {hasProjects && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(projectList) }} />}
-      <BankaiHero />
-
-      <section aria-labelledby="hunt" className="relative overflow-hidden border-t border-rule bg-sunk">
-        <AgentField />
-        <div className="relative mx-auto max-w-[1200px] px-5 py-28 sm:px-8 sm:py-44">
-          <h2
-            id="hunt"
-            data-quiet
-            className="max-w-[13ch] font-sans text-[clamp(2.8rem,9vw,7rem)] font-extrabold leading-[0.88] tracking-[-0.035em] text-ink"
+      <section aria-labelledby="name" className="relative isolate overflow-hidden">
+        <NameSwarm />
+        <div className="relative mx-auto flex min-h-[calc(100svh-3.5rem)] max-w-[1200px] flex-col justify-center px-5 pb-14 pt-10 sm:px-8 sm:pb-20">
+          <h1
+            id="name"
+            className="swarm-name max-w-[11ch] font-sans text-[clamp(3.6rem,15.5vw,11rem)] font-extrabold leading-[0.86] tracking-[-0.035em] text-ink lg:max-w-none lg:text-[clamp(5rem,13vw,13rem)]"
             style={{ fontVariationSettings: "'wdth' 78" }}
           >
-            Small brains, big learning curves.
-          </h2>
-          <p data-quiet className="prose-text mt-8">
-            The mice behind this page run from an owl, a school that learned to survive over many generations. It is{' '}
-            <a href="https://github.com/Drix10/ml-videos" target="_blank" rel="noreferrer" className="link">
-              Night-Hunt
-            </a>
-            , one of my evolving-agent experiments, running live in your browser.
-          </p>
+            Drishtant Ghosh
+            <span className="sr-only"> (Drix10), AI systems engineer and serial founder in Bengaluru</span>
+          </h1>
+
+          <div className="mt-10 grid gap-x-16 gap-y-8 sm:mt-14 lg:grid-cols-[1.25fr_1fr]">
+            <p className="prose-text max-w-[34rem] text-[1.3125rem] sm:text-[1.5rem] sm:leading-[1.5]">
+              Serial founder and AI systems engineer in Bengaluru, building since 2019. I ran ReeF from its first commit to an acquisition, and now build agent infrastructure and research systems.
+            </p>
+            <div className="max-w-[30rem]">
+              <p className="text-[1.0625rem] text-body">
+                <span className="font-semibold text-ink">Building now: </span>
+                {NOW_BUILDING.map((n, i) => (
+                  <span key={n.name}>
+                    <a href={n.href} target="_blank" rel="noreferrer" className="link">
+                      {n.name}
+                    </a>
+                    {i < NOW_BUILDING.length - 1 ? ', ' : '.'}
+                  </span>
+                ))}
+              </p>
+              <ul className="mt-5 flex flex-wrap gap-x-7 gap-y-3 text-[1.0625rem]">
+                <li><a className="link" href="mailto:ggdrishtant@gmail.com">Email</a></li>
+                <li><a className="link" href="https://github.com/Drix10" target="_blank" rel="me noreferrer">GitHub</a></li>
+                <li><a className="link" href="https://www.linkedin.com/in/drix10" target="_blank" rel="me noreferrer">LinkedIn</a></li>
+                <li><a className="link" href="https://x.com/DrishtantGhosh" target="_blank" rel="me noreferrer">X</a></li>
+                <li><a className="link" href="https://blogs.drix10.com" target="_blank" rel="noreferrer">Blog</a></li>
+              </ul>
+              <p className="mt-6 text-[0.9375rem] text-faint">
+                The name is a swarm of agents. An owl crosses it on its own and whatever it scares runs, then returns: the{' '}
+                <a href="https://github.com/Drix10/ml-videos" target="_blank" rel="noreferrer" className="link">
+                  Night-Hunt
+                </a>{' '}
+                experiment.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
