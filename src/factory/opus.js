@@ -28,11 +28,11 @@ const usage = { calls: 0, inputTokens: 0, outputTokens: 0, costUsd: 0 };
  * @param {number} [p.maxTokens]  (API backends only)
  * @param {number} [p.temperature] (API backends only)
  */
-async function ask({ system, prompt, imageFiles = [], maxTokens = 8000, temperature = 0.7 }) {
+async function ask({ system, prompt, imageFiles = [], maxTokens = 8000, temperature = 0.7, timeoutMs = config.factory.anthropic.requestTimeoutMs }) {
   const backend = config.factory.opusBackend;
-  if (backend === "anthropic") return viaAnthropic({ system, prompt, imageFiles, maxTokens, temperature });
-  if (backend === "openrouter") return viaOpenRouter({ system, prompt, imageFiles, maxTokens, temperature });
-  return viaClaudeCode({ system, prompt, imageFiles });
+  if (backend === "anthropic") return viaAnthropic({ system, prompt, imageFiles, maxTokens, temperature, timeoutMs });
+  if (backend === "openrouter") return viaOpenRouter({ system, prompt, imageFiles, maxTokens, temperature, timeoutMs });
+  return viaClaudeCode({ system, prompt, imageFiles, timeoutMs });
 }
 
 // ---------------------------------------------------------------- Claude Code (default)
@@ -75,6 +75,23 @@ function killTree(child) {
   else try { process.kill(-child.pid, "SIGKILL"); } catch { child.kill("SIGKILL"); }
 }
 
+/**
+ * Every claude process we started and that is still running. Windows does not deliver Ctrl+C to
+ * a hidden child, and a child outlives a killed parent, so shutdown (and any exit) kills them
+ * here: an orphaned agent would keep rendering into a job dir for up to an hour.
+ */
+const live = new Set();
+let aborted = false;
+/** Stops everything: running claude processes die, and new ones are refused until resetAbort(). */
+function abortAll() {
+  aborted = true;
+  for (const c of live) killTree(c);
+}
+const resetAbort = () => { aborted = false; };
+const isAborted = () => aborted;
+process.on("exit", () => { for (const c of live) killTree(c); });
+
+const abortedError = () => Object.assign(new Error("the factory is shutting down"), { code: "ABORTED" });
 const unavailable = (e) => Object.assign(new Error(`Could not start Claude Code ("${claudeBin()}"): ${e.message}. Install it and sign in: npm i -g @anthropic-ai/claude-code && claude`), { code: "OPUS_UNAVAILABLE" });
 const TAIL = 20000;
 
@@ -83,7 +100,7 @@ const TAIL = 20000;
  * Output is parsed as it streams: only the last "result" event and a short tail are kept in
  * memory (the full transcript goes to logFile). On timeout the whole process tree is killed.
  */
-function runClaude(args, { input, cwd, timeoutMs, logFile = null, stream = false, env = {} }) {
+function runClaude(args, { input, cwd, timeoutMs, logFile = null, stream = false, env = {}, bin = null }) {
   if (stream) {
     // Live transcript: one JSON event per line; the last "result" event carries the answer.
     const i = args.indexOf("--output-format");
@@ -92,12 +109,15 @@ function runClaude(args, { input, cwd, timeoutMs, logFile = null, stream = false
   return new Promise((resolve, reject) => {
     let settled = false;
     const finish = (fn, v) => { if (!settled) { settled = true; fn(v); } };
+    if (aborted) return finish(reject, abortedError());
     let child;
     try {
-      child = spawn(claudeBin(), args, { cwd, env: { ...process.env, ...env }, stdio: ["pipe", "pipe", "pipe"], windowsHide: true, detached: process.platform !== "win32" });
+      child = spawn(bin || claudeBin(), args, { cwd, env: { ...process.env, ...env }, stdio: ["pipe", "pipe", "pipe"], windowsHide: true, detached: process.platform !== "win32" });
     } catch (e) {
       return finish(reject, unavailable(e));
     }
+    live.add(child);
+    child.once("exit", () => live.delete(child));
     let log = null;
     if (logFile) {
       log = fs.createWriteStream(logFile, { flags: "w" });
@@ -106,6 +126,9 @@ function runClaude(args, { input, cwd, timeoutMs, logFile = null, stream = false
     let line = "";
     let result = null;
     let tail = "";
+    // Non-stream replies are one JSON envelope: keep all of it (a long brief easily passes 20k chars).
+    let full = "";
+    const FULL_CAP = 16 * 1024 * 1024;
     let err = "";
     const keep = (s, add) => (s + add).slice(-TAIL);
     child.stdout.setEncoding("utf8");
@@ -113,6 +136,7 @@ function runClaude(args, { input, cwd, timeoutMs, logFile = null, stream = false
     child.stdout.on("data", (d) => {
       if (log) log.write(d);
       tail = keep(tail, d);
+      if (!stream && full.length < FULL_CAP) full += d;
       if (!stream) return;
       line += d;
       let nl;
@@ -135,7 +159,7 @@ function runClaude(args, { input, cwd, timeoutMs, logFile = null, stream = false
       if (log) log.end();
       let parsed = result;
       if (stream && !parsed && line.trim().startsWith("{")) try { const ev = JSON.parse(line.trim()); if (ev.type === "result") parsed = ev; } catch { /* partial */ }
-      if (!stream) try { parsed = JSON.parse(tail); } catch { /* non-json output */ }
+      if (!stream) try { parsed = JSON.parse(full); } catch { /* non-json output */ }
       if (parsed) {
         usage.calls++;
         usage.inputTokens += parsed.usage?.input_tokens || 0;
@@ -144,8 +168,9 @@ function runClaude(args, { input, cwd, timeoutMs, logFile = null, stream = false
         if (parsed.is_error || code !== 0) return finish(reject, new Error(`claude -p failed: ${String(parsed.result || err).slice(0, 400)}`));
         return finish(resolve, { text: String(parsed.result || ""), raw: parsed, stderr: err });
       }
+      if (aborted) return finish(reject, abortedError());
       if (code !== 0) return finish(reject, new Error(`claude -p exited ${code}: ${(err || tail).slice(-400)}`));
-      finish(resolve, { text: tail, raw: null, stderr: err });
+      finish(resolve, { text: stream ? tail : full, raw: null, stderr: err });
     });
     child.stdin.end(input);
   });
@@ -156,7 +181,7 @@ function claudeArgs(extra = []) {
   return ["-p", "--no-session-persistence", "--model", config.factory.anthropic.model, "--effort", config.factory.claudeEffort, "--output-format", "json", ...extra];
 }
 
-async function viaClaudeCode({ system, prompt, imageFiles }) {
+async function viaClaudeCode({ system, prompt, imageFiles, timeoutMs = config.factory.anthropic.requestTimeoutMs }) {
   // Director calls are pure text jobs: no tools except Read for the QA images.
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "factory-opus-"));
   try {
@@ -167,7 +192,7 @@ async function viaClaudeCode({ system, prompt, imageFiles }) {
     const extra = ["--append-system-prompt", system];
     if (files.length) extra.push("--allowedTools", "Read", "--add-dir", ...[...new Set(files.map((f) => path.dirname(f)))]);
     else extra.push("--disallowedTools", "Bash", "Edit", "Write", "WebFetch", "WebSearch");
-    const { text } = await runClaude(claudeArgs(extra), { input: `${prompt}${look}`, cwd: dir, timeoutMs: config.factory.anthropic.requestTimeoutMs });
+    const { text } = await runClaude(claudeArgs(extra), { input: `${prompt}${look}`, cwd: dir, timeoutMs });
     return text;
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
@@ -211,15 +236,15 @@ async function postJson(url, headers, body, timeoutMs) {
   }
 }
 
-async function viaAnthropic({ system, prompt, imageFiles, maxTokens, temperature }) {
-  const { apiKey, baseUrl, model, requestTimeoutMs } = config.factory.anthropic;
+async function viaAnthropic({ system, prompt, imageFiles, maxTokens, temperature, timeoutMs = config.factory.anthropic.requestTimeoutMs }) {
+  const { apiKey, baseUrl, model } = config.factory.anthropic;
   if (!apiKey) throw Object.assign(new Error("FACTORY_OPUS_BACKEND=anthropic needs ANTHROPIC_API_KEY."), { code: "OPUS_UNAVAILABLE" });
   const content = [
     ...imageFiles.map((f) => ({ type: "image", source: { type: "base64", media_type: mediaType(f), data: b64(f) } })),
     { type: "text", text: prompt },
   ];
   return withRetry("Opus (Anthropic API)", async () => {
-    const data = await postJson(`${baseUrl}/v1/messages`, { "x-api-key": apiKey, "anthropic-version": "2023-06-01" }, { model, max_tokens: maxTokens, temperature, system, messages: [{ role: "user", content }] }, requestTimeoutMs);
+    const data = await postJson(`${baseUrl}/v1/messages`, { "x-api-key": apiKey, "anthropic-version": "2023-06-01" }, { model, max_tokens: maxTokens, temperature, system, messages: [{ role: "user", content }] }, timeoutMs);
     usage.calls++;
     usage.inputTokens += data.usage?.input_tokens || 0;
     usage.outputTokens += data.usage?.output_tokens || 0;
@@ -227,7 +252,7 @@ async function viaAnthropic({ system, prompt, imageFiles, maxTokens, temperature
   });
 }
 
-async function viaOpenRouter({ system, prompt, imageFiles, maxTokens, temperature }) {
+async function viaOpenRouter({ system, prompt, imageFiles, maxTokens, temperature, timeoutMs = config.factory.anthropic.requestTimeoutMs }) {
   const { apiKey, baseUrl } = config.llm.openrouter;
   if (!apiKey) throw Object.assign(new Error("FACTORY_OPUS_BACKEND=openrouter needs OPENROUTER_API_KEY."), { code: "OPUS_UNAVAILABLE" });
   const content = [
@@ -235,7 +260,7 @@ async function viaOpenRouter({ system, prompt, imageFiles, maxTokens, temperatur
     { type: "text", text: prompt },
   ];
   return withRetry("Opus (OpenRouter)", async () => {
-    const data = await postJson(`${baseUrl}/chat/completions`, { Authorization: `Bearer ${apiKey}`, "X-Title": "ai-resources-pipeline/factory" }, { model: config.factory.openrouterOpusModel, max_tokens: maxTokens, temperature, messages: [{ role: "system", content: system }, { role: "user", content }] }, config.factory.anthropic.requestTimeoutMs);
+    const data = await postJson(`${baseUrl}/chat/completions`, { Authorization: `Bearer ${apiKey}`, "X-Title": "ai-resources-pipeline/factory" }, { model: config.factory.openrouterOpusModel, max_tokens: maxTokens, temperature, messages: [{ role: "system", content: system }, { role: "user", content }] }, timeoutMs);
     usage.calls++;
     usage.inputTokens += data.usage?.prompt_tokens || 0;
     usage.outputTokens += data.usage?.completion_tokens || 0;
@@ -262,4 +287,4 @@ function parseJson(text) {
   throw new Error("Opus reply had an unterminated JSON object.");
 }
 
-module.exports = { ask, parseJson, runClaude, claudeArgs, resolveBin, usage };
+module.exports = { ask, parseJson, runClaude, claudeArgs, resolveBin, usage, abortAll, resetAbort, isAborted };

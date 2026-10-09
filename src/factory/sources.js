@@ -41,12 +41,18 @@ function trimUrl(raw) {
  * Every public http(s) link in the raw markdown (footer and Resources included), GitHub repos
  * first, one per page (host case, "www." and a trailing slash do not make a new page).
  */
+// Images and media are not pages: nothing to read or screenshot (digests embed X images as ![](...)).
+const MEDIA_HOST = /(^|\.)(pbs\.twimg\.com|video\.twimg\.com|abs\.twimg\.com|i\.imgur\.com|media\.giphy\.com)$/i;
+const MEDIA_PATH = /\.(png|jpe?g|gif|webp|avif|svg|mp4|webm|mov|mp3|wav|pdf)$/i;
+
 function linksOf(md) {
   const seen = new Map();
-  for (const m of String(md || "").matchAll(/https?:\/\/[^\s<>[\]"'`]+/g)) {
+  // Markdown image targets are dropped before links are collected.
+  const text = String(md || "").replace(/!\[[^\]]*\]\([^)]*\)/g, " ");
+  for (const m of text.matchAll(/https?:\/\/[^\s<>[\]"'`]+/g)) {
     let u;
     try { u = new URL(trimUrl(m[0])); } catch { continue; }
-    if (LOGIN_WALLED.test(u.hostname) || LOCAL_HOST.test(u.hostname) || u.username || u.password) continue;
+    if (LOGIN_WALLED.test(u.hostname) || LOCAL_HOST.test(u.hostname) || MEDIA_HOST.test(u.hostname) || MEDIA_PATH.test(u.pathname) || u.username || u.password) continue;
     u.hash = "";
     const id = `${u.hostname.replace(/^www\./, "")}${u.pathname.replace(/\/+$/, "")}${u.search}`.toLowerCase();
     if (!seen.has(id)) seen.set(id, u.toString());

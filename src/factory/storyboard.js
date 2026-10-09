@@ -1,12 +1,15 @@
 /**
- * Template mode director: Opus reads one article and writes a storyboard (factory/src/schema.ts)
- * for a 9:16 reel or a 4:5 carousel. The storyboard is then checked in code, the same way
- * llm.js checks articles: shape, timing, Instagram copy limits, numbers that are not in the
- * source, hype vocabulary. A rejected storyboard goes back to Opus once with the reasons.
+ * The storyboard: Opus reads one story and writes the words, beats and arc (factory/src/schema.ts)
+ * of a 9:16 reel or a 4:5 carousel, plus a spoken voiceover line per scene for narrated reels.
+ * In agent mode it is copy only (the director and agent design everything); in template mode the
+ * house templates draw it. It is then checked in code, the same way llm.js checks articles:
+ * shape and field types, timing, Instagram copy limits, numbers and quotes that are not in the
+ * source, hype vocabulary, emoji. A rejected storyboard goes back to Opus once with the reasons.
  */
 const config = require("../../config");
 const { logger } = require("../utils/helpers");
 const { BANNED_WORDS } = require("../services/llm");
+const { stripTags, wordsOf, tagsOf, TAG, voiceAvailable } = require("./voice");
 const opus = require("./opus");
 const library = require("./library");
 const novelty = require("./novelty");
@@ -27,6 +30,22 @@ Scene types (all text is rendered live in code; NEVER put words in image prompts
 - quote  {beats 6-8, text <= 140 chars, source?}  only for a real quote that is in the article
 - cta    {beats 5-6, text <= 60 chars, sub?: <= 60 chars}`;
 
+/** Spoken words per second the voice can carry without rushing (ElevenLabs reads ~2.5-3 w/s). */
+const WORDS_PER_SECOND = 2.8;
+const MAX_TAG = 40;
+
+const VOICE_SPEC = `VOICEOVER (this reel is narrated; ElevenLabs Eleven v4 performs it). Every scene also gets
+"voiceover": the line spoken during that scene. Write it to be HEARD, by one sharp engineer talking to another:
+- It carries the story with the sound ON, while the screen carries it with the sound off: say more than the
+  screen (the why, the turn, the stakes), never repeat the on-screen words verbatim, never claim more than them.
+- Budget: at most ${WORDS_PER_SECOND} words per second of its scene (beats x 60 / bpm), contractions, short sentences,
+  rhythm. The hook line lands in the first 2 seconds. Numbers as digits, exactly as the article has them.
+- Audio tags in [square brackets] direct the performance, placed right before the words they colour: emotion
+  [curious] [deadpan] [amused] [surprised] [serious], delivery [whispers] [slowly] [rushed] [emphatic]
+  [low, steady voice], reactions [sighs] [exhales] [chuckles], timing [pause] [short pause] [long pause].
+  At most 3 tags per scene, each under ${MAX_TAG} characters; ellipses (...) and dashes also shape pauses.
+  No SSML, no <break>, no sound-effect tags (the music and effects are mixed separately).`;
+
 const CAROUSEL_SPEC = `CAROUSEL (1080x1350, 4:5). 5-8 slides. First is "cover", last is "cta".
 Slide types:
 - cover {title <= 70 chars, kicker?: <= 24 chars}
@@ -38,7 +57,7 @@ Slide types:
 
 const SYSTEM = `You are the director of an Instagram channel for a hands-on systems/AI engineer. You turn one article into one short piece that a busy engineer would stop scrolling for, learn one concrete thing from, and save.
 
-You do not write code or pixels. You write a STORYBOARD as JSON that a library of code-rendered motion templates will animate. Think like a motion designer: one idea per scene, every cut on the beat, the text carries the story with sound off.
+You do not write code or pixels. You write a STORYBOARD as JSON: the words, the beats and the arc of the piece, which is then built in code from it. Think like a motion designer: one idea per scene, every cut on the beat, the text carries the story with sound off.
 
 Rules that are checked in code, and a storyboard that breaks one is rejected:
 1. Facts: every number and every named product, company or person must appear in the article. Never invent results, benchmarks, quotes or dates.
@@ -52,12 +71,32 @@ Return ONLY the JSON object, no prose.`;
 /** Screenshots a carousel can show (the tall mobile captures do not fit a 4:5 frame). */
 const shotAssets = (article) => (article.assets || []).filter((a) => a.kind === "card" || a.kind === "image");
 
-function buildPrompt({ article, format, feedback, patterns, avoid }) {
+/**
+ * In agent mode nothing is templated: a motion designer builds the piece from scratch, so the
+ * storyboard is the words and the arc only, and the type labels classify copy, not layouts.
+ */
+const AGENT_NOTE = {
+  reel: `THIS PIECE IS DESIGNED FROM SCRATCH (no templates): a motion designer will build a whole visual world around your words, so your job is the WORDS and the ARC.
+- Arc, not a list: SETUP (the surprising concrete claim) -> TENSION (why it bites, what goes wrong) -> REVEAL (the mechanism or the fix) -> PAYOFF (what to do, then the CTA). Each beat is one idea.
+- The type label only classifies the copy (hook, statement, code, stat, compare, quote, list, cta); it is NOT a layout. Use "list" only if the article is truly a list, and "code" only for the single line that matters.
+- Short, concrete lines that can live INSIDE an image (stamped, typed, printed, etched): nouns and verbs, no filler, no colon headings.`,
+  carousel: `THIS CAROUSEL IS DESIGNED FROM SCRATCH (no templates): a designer will build every slide as part of one visual world, so your job is the WORDS and the ARC across the swipe.
+- Arc, not a list: the cover makes the surprising concrete claim, the middle slides build TENSION then the REVEAL (the mechanism or the fix), the last slides give the PAYOFF and the CTA. One idea per slide.
+- The slide type (cover, point, code, stat, shot, cta) only classifies the copy; it is NOT a layout. Use "code" only for the lines that matter, "shot" only when the real page makes the point.
+- Short, concrete lines that can live INSIDE an image: nouns and verbs, no filler, no colon headings.`,
+};
+
+/** Narration is written for agent reels when a voice can actually be made (template reels have none). */
+const narrated = (format, mode) => format === "reel" && mode === "agent" && voiceAvailable();
+
+function buildPrompt({ article, format, feedback, patterns, avoid, mode }) {
   const spec = format === "reel" ? REEL_SPEC : CAROUSEL_SPEC;
   const shape = format === "reel" ? '"scenes": [...], "slides": []' : '"scenes": [], "slides": [...]';
   return [
     `FORMAT: ${format}`,
     spec,
+    narrated(format, mode) ? `\n${VOICE_SPEC}` : "",
+    mode === "agent" ? `\n${AGENT_NOTE[format] || AGENT_NOTE.reel}` : "",
     "",
     "JSON SHAPE:",
     `{"title": short internal title, "pattern": the pattern id you used or "new", "theme": one of ${THEMES.join("|")} (night = default; signal = launches/hot takes; paper = calm explainers), "bpm": 112-128, ${shape}, "caption": "...", "hashtags": ["#..."]}`,
@@ -95,7 +134,7 @@ const statText = (s) => `${s.prefix || ""}${Number(s.value).toLocaleString("en-U
 function visibleText(sb) {
   const out = [];
   const walk = (v, key) => {
-    if (key === "type" || key === "id" || key === "asset" || key === "src" || key === "host" || key === "highlight" || key === "beats" || key === "decimals") return;
+    if (key === "type" || key === "id" || key === "asset" || key === "src" || key === "host" || key === "highlight" || key === "beats" || key === "decimals" || key === "voiceover") return;
     if (typeof v === "string") out.push(v);
     else if (typeof v === "number") out.push(String(v));
     else if (Array.isArray(v)) v.forEach((x) => walk(x));
@@ -121,8 +160,24 @@ const WORD_NUMBERS = /\b(hundred|thousand|million|billion|trillion|dozen|twice|t
 // A number glued to letters ("40s", "5000qps", "64KiB") is a magnitude; so is one followed by a unit word.
 const NUMBER = /(?<![\d.])(\d+(?:\.\d+)?)(?:([a-z%×]+)|\s*(k|m|b|bn|x|×|%|ms|s|sec|seconds|min|minutes|hours|gb|mb|tb|kb|kib|mib|gib|million|billion|thousand|times|percent|users|requests)\b)?/g;
 
+/** Voiceover rules: text, word budget for its scene, well-formed audio tags. */
+function checkVoiceover(s, at, bpm, errors) {
+  if (s.voiceover === undefined || s.voiceover === null) return;
+  if (!isStr(s.voiceover)) return errors.push(`${at}: voiceover must be text.`);
+  const budget = Math.ceil(((Number(s.beats) || 0) * 60 / (Number(bpm) || 120)) * WORDS_PER_SECOND) + 1;
+  const words = wordsOf(s.voiceover).length;
+  if (words > budget) errors.push(`${at}: voiceover is ${words} words; this scene can carry ${budget}. Cut words or lengthen the scene.`);
+  const tags = tagsOf(s.voiceover);
+  if (tags.length > 3) errors.push(`${at}: at most 3 audio tags per scene.`);
+  for (const t of tags) {
+    if (!t || t.length > MAX_TAG) errors.push(`${at}: audio tag [${t.slice(0, 50)}] must be 1-${MAX_TAG} characters.`);
+    if (/\d/.test(t)) errors.push(`${at}: audio tag [${t}] may not contain numbers.`);
+  }
+  if (/<\s*\/?\s*(break|speak|prosody|emphasis)\b/i.test(s.voiceover) || /[[\]]/.test(s.voiceover.replace(TAG, ""))) errors.push(`${at}: voiceover has SSML or a broken [tag]; use audio tags like [pause].`);
+}
+
 /** Returns a list of problems; empty means the storyboard can be rendered. */
-function validate(sb, article, format) {
+function validate(sb, article, format, { mode = "template" } = {}) {
   const errors = [];
   if (!sb || typeof sb !== "object") return ["Reply was not a JSON object."];
   const len = (s, max, label) => { if (isStr(s) && s.length > max) errors.push(`${label} is ${s.length} chars; limit ${max}.`); };
@@ -191,7 +246,13 @@ function validate(sb, article, format) {
         if (s.source !== undefined && (!isStr(s.source) || !body.includes(squash(s.source)))) errors.push(`${at}: quote source must be named in the article.`);
       }
       if (s.type === "cta") { req(s.text, `${at} text`); len(s.text, 60, `${at} text`); opt(s.sub, `${at} sub`, 60); }
+      checkVoiceover(s, at, sb.bpm, errors);
     });
+    if (narrated(format, mode)) {
+      if (!isStr(scenes[0]?.voiceover) || !wordsOf(scenes[0].voiceover).length) errors.push("The hook needs a voiceover line (this reel is narrated).");
+      const total = scenes.reduce((a, s) => a + (isStr(s?.voiceover) ? wordsOf(s.voiceover).length : 0), 0);
+      if (total < 12) errors.push(`The voiceover has ${total} words; a narrated reel needs at least 12.`);
+    }
   } else {
     const slides = Array.isArray(sb.slides) ? sb.slides : [];
     if (!Array.isArray(sb.slides)) errors.push("slides must be an array.");
@@ -237,7 +298,9 @@ function validate(sb, article, format) {
   // its research. Code is exempt (quoted or minimal illustration), and so are bare whole numbers
   // 0-10 used for counting; a decimal or a number with a unit is always a claim.
   const source = factSource(article);
-  const shown = [...visibleText({ scenes: strip(sb.scenes || []), slides: strip(sb.slides || []) }), sb.caption, ...sb.hashtags.map((h) => h.slice(1))].join("\n");
+  // The voice is held to the same facts as the screen (tags stripped: they are directions, not words).
+  const spoken = (sb.scenes || []).map((x) => (x && isStr(x.voiceover) ? stripTags(x.voiceover) : "")).filter(Boolean);
+  const shown = [...visibleText({ scenes: strip(sb.scenes || []), slides: strip(sb.slides || []) }), sb.caption, ...sb.hashtags.map((h) => h.slice(1)), ...spoken].join("\n");
   const said = norm(shown);
   const nums = [...said.matchAll(NUMBER)]
     .filter((m) => m[2] || m[3] || m[1].includes(".") || Number(m[1]) > 10)
@@ -251,6 +314,7 @@ function validate(sb, article, format) {
   const banned = BANNED_WORDS.filter((w) => bannedRe(w).test(said) && !bannedRe(w).test(story));
   if (banned.length) errors.push(`Remove these words: ${banned.slice(0, 6).join(", ")}.`);
   if (hasEmoji(visibleText(sb).join(" "))) errors.push("No emojis in on-screen text.");
+  if (spoken.some(hasEmoji)) errors.push("No emojis in the voiceover.");
   if (hasEmoji(sb.caption) || sb.hashtags.some(hasEmoji)) errors.push("No emojis in the caption.");
   return errors;
 }
@@ -287,13 +351,13 @@ function finalize(raw, { article, format }) {
  * @param {"reel"|"carousel"} format
  * @param {string[]} [extraFeedback] e.g. vision-QA findings on a previous render
  */
-async function writeStoryboard(article, format, extraFeedback = null, previous = null) {
+async function writeStoryboard(article, format, extraFeedback = null, previous = null, { mode = "template" } = {}) {
   const patterns = library.patternsFor(article, format);
   const avoid = novelty.storyboardsToAvoid();
   let feedback = extraFeedback;
   let last = previous;
   for (let attempt = 1; attempt <= 2; attempt++) {
-    let prompt = buildPrompt({ article, format, feedback, patterns, avoid });
+    let prompt = buildPrompt({ article, format, feedback, patterns, avoid, mode });
     if (feedback && last) prompt += `\n\nPREVIOUS STORYBOARD:\n${JSON.stringify(last)}`;
     const reply = await opus.ask({ system: SYSTEM, prompt, maxTokens: 6000, temperature: 0.8 });
     let raw;
@@ -308,7 +372,7 @@ async function writeStoryboard(article, format, extraFeedback = null, previous =
     let errors;
     try {
       sb = finalize(raw, { article, format });
-      errors = validate(sb, article, format);
+      errors = validate(sb, article, format, { mode });
     } catch (e) {
       feedback = [`Your JSON did not match the shape (${e.message}). Follow the JSON SHAPE and field types exactly.`];
       continue;

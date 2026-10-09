@@ -113,11 +113,13 @@ function startProxy() {
   server.on("connection", track);
   server.on("connect", (req, sock, head) => {
     // https and WebSockets: CONNECT host:port, then a raw tunnel to the checked address.
+    // The error handler goes first: Node removes its own before 'connect', so a reset on a refused
+    // socket would otherwise be an uncaught exception that takes the whole bot down.
+    sock.on("error", () => {});
     let u;
     try { u = new URL(`http://${req.url}`); } catch { sock.destroy(); return; }
     const port = Number(u.port || 443);
     if (!ALLOWED_PORTS.has(port)) { sock.end("HTTP/1.1 403 Forbidden\r\n\r\n"); return; }
-    sock.on("error", () => {});
     resolvePublic(u.hostname).then((addr) => {
       const up = net.connect(port, addr, () => {
         sock.write("HTTP/1.1 200 Connection Established\r\n\r\n");

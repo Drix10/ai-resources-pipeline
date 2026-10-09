@@ -1,59 +1,73 @@
 # Instagram content factory
 
-The factory turns the articles this pipeline already writes into Instagram reels and carousels. Each reel is a one-off film built in code by Opus 5.5, running through your local Claude Code. It is off until you set `FACTORY_ENABLED=true`, and nothing is posted until you set `IG_POST=true`.
+The factory turns what the pipeline already writes into Instagram reels and carousels. At the end of every pipeline run it picks the one story from that run most likely to travel, researches it, and has Opus 5.5 (your local Claude Code) build it as a one-off piece in code: a narrated reel, or a designed carousel. It is off until `FACTORY_ENABLED=true`, and nothing is posted until `IG_POST=true`.
 
 ## How a piece is made
 
 ```mermaid
 flowchart TD
-    A["End of a pipeline run: articles, LinkedIn, blog sync done (cron.js)"] --> B["Fresh sources: this run's digest items + Insights added in the last 36 h (archive only as fallback)"]
+    A["End of a pipeline run: articles committed, LinkedIn steps, blog sync (cron.js)"] --> B["Fresh sources: this run's digest items + any from the last 36 h (inbox) + Insights written in that window"]
     B --> C["Novelty filter: drop topics already made"]
-    C --> P["Editor: Opus picks the ONE story with the most concrete, showable idea"]
+    C --> P["Editor: Opus scores every story for virality (stop, stakes, proof, reach, now, share, show) and picks ONE"]
     P --> R["Deep dive: read every page the story links to (research) + screenshot them (real material)"]
-    R --> D["Storyboard: Opus via local claude -p writes JSON (copy, beats, caption), knowing the screenshots"]
-    D --> E{"Code gates: facts, numbers, lengths, hype words, emoji"}
+    R --> D["Storyboard: the words and the arc (setup, tension, reveal, payoff) + a voiceover line per scene"]
+    D --> E{"Code gates: facts and numbers (screen, caption, hashtags, voice), quotes, hype words, emoji, lengths, field types"}
     E -- "rejected (once)" --> D
-    E --> G{"Format"}
-    G -- reel --> H["Agent film: Claude Code (Opus 5.5, effort xhigh) studies the full reference library, builds a one-off film in Remotion or HyperFrames mixing designed motion with the real screenshots, checks its own stills, renders"]
-    G -- carousel --> I["Remotion slide templates (incl. a real-screenshot slide) + vision QA (Opus reads the stills, one fix round)"]
-    H --> J["Synthesized soundtrack from the film's cue file, muxed with ffmpeg"]
-    I --> K["Ledger: factory/state/queue.json"]
-    J --> K
-    K --> L["Instagram publisher (Selenium on Chrome :9222): cap, spacing, dry run by default"]
+    E --> V["Voice: ElevenLabs eleven_v4 with audio tags (OpenRouter fallback), recorded first, word timings"]
+    V --> S["Director: Opus picks 6 references from the whole library, then writes a director's prompt that remixes their techniques around one concept, held to THE BAR"]
+    S --> H["Agent: Claude Code builds it (reel: Remotion or HyperFrames film timed to the voice; carousel: designed stills), checks its own frames, renders"]
+    H --> M["Mix: voice over ducked original music, -14 LUFS"]
+    M --> K["Ledger: factory/state/queue.json"]
+    K --> L["Instagram publisher (Chrome :9222): posts THIS run's piece within the cap; dry run until IG_POST=true"]
 ```
 
-This follows the same order as the motion galleries (motionpromptgallery.com, prompt-motion.com) and the two reference repos (`Leonxlnx/claude-launchvideo`, `mexicat/pdoom-video`): a text beat sheet first, then a code-rendered film, then still checks and fixes, then the render. Like them, there are no image models: every word is drawn in code, so there is no garbled AI lettering and no image bill. The pictures that are not code are **real**: screenshots of the pages the story links to (the repo, the docs, the blog post) and the share images those pages publish.
+Every word on screen is drawn in code, so there is no garbled AI lettering and no image bill. The pictures that are not code are real: screenshots of the pages the story links to (the repo, the docs, the blog post) and the share images those pages publish.
+
+## The bar
+
+`src/factory/director.js` holds THE BAR every reel and carousel is held to. P(doom) (`repos/pdoom-video`) and Tessel (`repos/claude-launchvideo`) show the level, not a template: each piece picks its own form (one continuous take, a machine that runs the mechanism, a single camera move, plates, a document that writes itself...), and the look memory makes consecutive pieces pick different forms, palettes and type. The bar asks for a designed world with a through-line, images that do the explaining, words integrated into the image, numbers and code staged in the world, depth and light, beat-locked motion, and typographic craft. It rejects text on a background, code cards, bullet lists, centred stat counters and boxes with arrows.
 
 ## What gets made, and from what
 
-At the end of each pipeline run (after the articles, LinkedIn and the blog sync), the factory:
+At the end of each run (after the articles, the LinkedIn steps and the blog sync), the factory:
 
-1. **Collects fresh material**: the digest items this run committed, plus any LinkedIn Insight added in the last 36 hours. The Insights archive is used only when the run produced nothing new.
-2. **Lets an editor pick one story** (`src/factory/editor.js`): Opus reads a shortlist and picks the one with the most concrete, surprising, showable idea, ideally with a real page behind it. `FACTORY_PER_CYCLE` (default 1) is the number of stories per run.
-3. **Deep-dives it**: every page the story links to is read with the pipeline's safe page fetcher (public hosts only) and appended as RESEARCH. The storyboard gets more to work with, and the fact gate accepts what those pages say, so numbers from a linked README are fair game while invented ones are still rejected.
-4. **Captures real material** (`src/factory/assets.js`): for each linked page, a desktop shot, a 900-wide close-up "card" whose text reads at phone size, a full-length mobile page to scroll through, and the page's og:image. It runs in Remotion's own headless Chrome over the DevTools protocol; every request is checked, and private or local hosts are refused, redirects included. `FACTORY_ASSET_PAGES` (default 4, 0 = off) caps the pages.
-5. **Makes every format in `FACTORY_FORMATS`** (default `reel`) from that one story. The agent gets the captures under REAL MATERIAL and a tool (`node src/factory/shot.js <url> out/x.jpg [--mobile]`) to capture more, limited to the hosts the story links to. Carousels can use a `shot` slide: a real card capture in a drawn browser frame.
+1. **Collects fresh material**: the digest items this run committed, saved to `factory/state/inbox.json` so a pass that is skipped (lock held, crash, Opus down) does not lose them, plus any Insight written in the last 36 hours. With nothing new it makes nothing, unless `FACTORY_ARCHIVE_FALLBACK=true` lets it use the Insights archive.
+2. **Lets an editor pick one story** (`editor.js`): Opus scores a shortlist on STOP, STAKES, PROOF, REACH, NOW, SHARE and SHOW, and picks the one most likely to go viral with engineers. The runners-up follow by score. `FACTORY_PER_CYCLE` (default 1) is the number of stories per run.
+3. **Deep-dives it**: every page the story links to is read (public hosts only) and appended as research. Numbers from those pages pass the fact gate; their URLs and headers do not, and hype words in a linked README do not excuse hype in the copy.
+4. **Captures real material** (`assets.js`): desktop, a 900-wide readable card, a full mobile page, and the og:image of each linked page. Chrome sends all traffic through an in-process proxy that refuses private, local and LAN addresses and ports other than 80/443.
+5. **Writes the storyboard**: the words and the arc only (the type labels classify copy, not layouts), and for reels a spoken `voiceover` line per scene with ElevenLabs audio tags. Everything a viewer reads or hears passes the fact gates.
+6. **Records the voice** (`voice.js`, reels): ElevenLabs is the main provider (`eleven_v4`, then the fallbacks), the whole script in one request with exact word timings; without a key, OpenRouter's speech model reads it scene by scene, every clip proven by its own audio. The film is timed to the voice, never the other way round.
+7. **Directs** (`director.js`): Opus reads the whole catalog, picks 6 references by craft (with the exact technique to take from each), then writes a director's prompt in the gallery's register: concept, form, through-line, palette, type system, the locked message, sections and arc, transitions, real-material plan, required techniques credited to their references, banned moves, gotchas.
+8. **Builds** (`hero.js`): Claude Code builds the piece from that prompt in a throwaway workspace (reels in Remotion or HyperFrames, carousels as Remotion stills), checks its own frames against the bar, and renders. The finished reel gets the voice over ducked original music, mastered to about -14 LUFS.
+9. **Posts** this run's piece (not the backlog) within `IG_DAILY_CAP` and `IG_MIN_GAP_MINUTES`.
 
 ## Where things run
 
 | Step | Runs on | Needs |
 | --- | --- | --- |
-| Storyboard, vision QA, agent films | Your machine (the one that runs `npm start`), via `claude -p` | Claude Code installed and signed in with your Claude plan. **No Anthropic API key.** |
+| Editor, storyboard, director, QA, agent pieces | Your machine (the one that runs `npm start`), via `claude -p` | Claude Code installed and signed in with your Claude plan. **No Anthropic API key.** |
+| Voice | ElevenLabs API (main), OpenRouter (fallback) | `ELEVENLABS_API_KEY`; without it `OPENROUTER_API_KEY` (already set for the articles) |
+| Screenshots | Remotion's headless Chrome (downloaded by `factory:sample`) | nothing extra |
 | Rendering | Your machine: Remotion (`factory/node_modules`), headless Chromium, ffmpeg | `npm run factory:install`, ffmpeg on PATH |
-| Screenshots | Remotion's headless Chrome (already downloaded by `factory:sample`) | nothing extra |
 | Posting | The Chrome on `:9222` that the X and LinkedIn services already use | Log in to instagram.com once in that window |
 
-Opus runs with `--model claude-opus-5-5 --effort xhigh` ("extra" effort). Change these with `FACTORY_OPUS_MODEL` and `FACTORY_CLAUDE_EFFORT`. If the pipeline has to run on a server without Claude Code, set `FACTORY_OPUS_BACKEND=anthropic` or `=openrouter` to use an API key instead.
+Opus runs with `--model claude-opus-5-5 --effort xhigh`. Change these with `FACTORY_OPUS_MODEL` and `FACTORY_CLAUDE_EFFORT`. On a server without Claude Code, set `FACTORY_OPUS_BACKEND=anthropic` or `=openrouter`.
 
-## Every reel is unique
+## Every piece is unique
 
-- **New topic.** Each source gets a TF-IDF signature (the title weighted ×4, plus the body), compared against the recent pieces and the rest of the pool. A cosine of 0.28 or more counts as the same topic. On the current LinkedIn Insights this collapses 24 posts into 15–16 distinct topics. For example, the three struct-padding posts become one, and so do the two webhook-HMAC posts. Once a topic has been made, its near-duplicates are skipped from then on.
-- **New look.** Every agent film writes `out/look.json` describing its visual idea, palette, fonts, technique and engine. The next agent receives the last `FACTORY_NOVELTY_WINDOW` (15) looks under "do not reuse". The brand only fixes the end lockup (author + handle) and the legibility rules. Everything else is chosen per film. The house fonts and palette are offered as optional defaults, not as the look.
-- **New structure.** The storyboard writer also sees recent hooks and pattern ids, and is told to use a different hook shape and structure.
-- **Engines.** `FACTORY_HERO_ENGINE=auto` alternates between Remotion and HyperFrames from film to film.
-- **No templated fallback.** By default, a failed agent film is marked failed and retried next cycle rather than replaced by a template (`FACTORY_TEMPLATE_FALLBACK=false`). Each source gets two attempts, and if the picked story fails the cycle moves to the editor's next choice, at most twice, so it can't burn through your plan.
+- **New topic.** Each source gets a TF-IDF signature (title weighted x4, plus the story's own text, never the research), compared against recent pieces. A cosine of 0.28 or more counts as the same topic.
+- **New look and form.** Every agent piece writes `out/look.json` (form, idea, palette, fonts, technique, engine). The next one receives the last `FACTORY_NOVELTY_WINDOW` (15) looks under "do not reuse".
+- **New structure.** The storyboard writer sees recent hooks and structures and is told to use different ones.
+- **Engines.** `FACTORY_HERO_ENGINE=auto` alternates Remotion and HyperFrames by attempt; the director is told the engine that will actually build.
+- **No templated fallback.** A failed agent piece is retried next cycle (`FACTORY_TEMPLATE_FALLBACK=false`). Each source gets two attempts; failures that say nothing about the story (Claude down, plan limit, shutdown) do not use them up.
 
-Carousels (4:5 still posts) use the Remotion slide templates, with a theme picked per piece.
+## Voiceover
+
+- **Script**: one `voiceover` line per reel scene, written to be heard (more than the screen says, never more than the article says), at most 2.8 words per second of its scene, ElevenLabs audio tags such as `[curious]`, `[deadpan]`, `[pause]`, `[low, steady voice]` (at most 3 per scene). It passes the same number, banned-word and emoji gates as the screen, tags stripped.
+- **ElevenLabs** (`ELEVENLABS_API_KEY`, `ELEVENLABS_VOICE_ID`, `ELEVENLABS_MODEL=eleven_v4`): only `eleven_v3`/`v4` perform tags; any other fallback model gets the script with tags removed. Stability is snapped to 0 / 0.5 / 1 for v3/v4.
+- **OpenRouter fallback** (`openai/gpt-audio-mini`): strict text-to-speech framing, one request per scene, each clip checked by its own audio (enough voiced time, no long gap, a length cap) and transcript.
+- **Refusals** are remembered by cause: a bad key blocks the provider for 6 h, an unusable model blocks that model for 24 h, a quota or script error blocks nothing. The whole step has a 6-minute deadline; takes are cached by script.
+- `FACTORY_VOICE=off` turns it off. Carousels and template reels are not narrated.
 
 ## Skills the agent can use
 
@@ -67,75 +81,70 @@ claude plugin install remotion@remotion
 claude plugin install hyperframes@claude-plugins-official
 ```
 
-The Remotion plugin clones over SSH. Without a GitHub SSH key, run the install once over HTTPS
-(this does not change your git config):
+The Remotion plugin clones over SSH. Without a GitHub SSH key, run the install once over HTTPS (this does not change your git config):
 
 ```bash
 GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=url.https://github.com/.insteadOf GIT_CONFIG_VALUE_0=git@github.com: claude plugin install remotion@remotion
 ```
 
-Plugin skills are namespaced `/<plugin>:<skill>`. HyperFrames also ships `motion-graphics`.
+Plugin skills are namespaced `/<plugin>:<skill>`; the default is `/remotion:remotion-best-practices,/hyperframes:motion-graphics`.
 
-```env
-FACTORY_HERO_SKILLS=/remotion:remotion-best-practices,/hyperframes:motion-graphics
-FACTORY_HERO_ENGINE=auto
-```
-
-The agent can only use file tools plus `npx remotion`, `npx hyperframes`, `npx tsc`, `npm install --ignore-scripts`, `ffmpeg`, `ffprobe`, `node shot.cjs` (the screenshot tool, nothing else), `ls`, `mkdir` and `cp`. It works in a per-piece workspace under `factory/state/jobs/<job>/agent-<engine>/`, never in the repo itself.
-
-This is not a sandbox: `ffmpeg` and `cp` can still reach any path your account can. What it rules out is running arbitrary code if third-party text in its prompt (articles, linked pages, scraped gallery prompts) tries to steer it: no bare `node`, no npm install scripts. The reference library is read-only for the agent: it is snapshotted with git before each film, and anything the agent changed is restored afterwards.
+The agent can only use file tools plus `npx remotion`, `npx hyperframes`, `npx tsc`, `npm install --ignore-scripts`, `ffmpeg`, `ffprobe`, `node shot.cjs` (the screenshot tool, nothing else), `ls`, `mkdir` and `cp`, in a per-piece workspace under `factory/state/jobs/<job>/agent-<engine>/`. This is not a sandbox (`ffmpeg` and `cp` can reach any path your account can), but it rules out running arbitrary code if third-party text in its prompt tries to steer it. The reference library is read-only for the agent: tracked files it changed are restored from git, and new files are moved to `factory/state/library-quarantine/`, never deleted.
 
 ## Failure handling and posting safety
 
-- **One factory at a time.** `factory/state/factory.lock` (owner pid) is held by a cycle, a `--source` run and `--publish`; a second one is skipped with a log line. A lock whose process is gone, or older than 3 h, is taken over.
-- **No double posts.** An item is marked `sharing` *before* the Share click. If Instagram does not confirm, it becomes `unconfirmed`: check your profile, because it is never posted again automatically. Both count toward `IG_DAILY_CAP` and `IG_MIN_GAP_MINUTES`. A posted (or possibly posted) item is never replaced, even by `--source --force`.
-- **No stuck queue.** The next item to post is the one with the fewest failed attempts, then the oldest, and only if its files still exist. After 3 failed publishes it becomes `publish_failed`.
+- **One factory at a time.** `factory/state/factory.lock` (owner pid + a heartbeat every 2 min) is held by a cycle, `--source` and `--publish`; a second one is skipped. A lock is taken over only when its owner is gone or its heartbeat is 20 min old. `--publish` from the CLI also waits while the pipeline is running, since it uses the same Chrome.
+- **Shutdown.** Ctrl+C / SIGTERM stops the factory first: its claude processes are killed and the cycle stops at its next step, without posting. Any exit kills claude processes still running.
+- **No double posts.** An item is marked `sharing` before the Share click. If Instagram does not confirm, it becomes `unconfirmed` (the tab is left open so a slow upload can finish): check your profile; it is never posted again automatically. Both count toward the cap and spacing. A posted (or possibly posted) item is never replaced, even by `--source --force`.
+- **No stuck queue.** A cycle posts the piece it just made. Otherwise the next item is the one with the fewest failed attempts, then the oldest, and only if its files exist. After 3 failed publishes it becomes `publish_failed`. A failed dry run never counts.
 - **The ledger is never silently reset.** A missing `queue.json` is empty; a locked one is retried; an unreadable one stops the factory and is copied to `queue.json.corrupt-<time>`.
-- **Time-boxed everything.** The agent (`FACTORY_HERO_TIMEOUT_MS`, and on timeout its whole process tree is killed), every DevTools call and capture, ffmpeg, and the soundtrack (cue values are clamped).
-- **Screenshots cannot reach your network.** Chrome sends all traffic through an in-process proxy that resolves every host itself and refuses private, local and LAN addresses and any port but 80/443; Chrome is driven over a pipe (no debugging port) and exits with the factory.
-- **The film is the proof.** A film counts as done when `out/hero.muted.mp4` exists and is a readable 5-180 s video; its real length, not the agent's cue file, sets the soundtrack length.
+- **Time-boxed everything.** The agent (`FACTORY_HERO_TIMEOUT_MS`; on timeout its whole process tree is killed), every Opus call (`FACTORY_OPUS_TIMEOUT_MS`; the director at least 25 min), the voice step (6 min), every DevTools call and capture, ffmpeg, and the soundtrack (cue values clamped).
+- **The piece is the proof.** A reel counts when `out/hero.muted.mp4` is a readable 5-180 s video; if it is shorter than the voice, its last frame is held so the narration and CTA are never cut. A carousel counts when there is one 4:5 image per slide.
+- **Disk.** Job folders older than 21 days lose their agent workspace and transcript (the finished piece stays); voice takes older than 30 days and debug screenshots older than 14 days are deleted.
 
 ## Fact safety
 
 Opus designs the motion, but it cannot change what the piece claims.
 
-1. The storyboard is the only place where on-screen words are decided, and `storyboard.js#validate` checks them against the source article:
-   - every number above 10 that appears on screen or in the caption must be in the article (code blocks are exempt);
-   - quotes must be verbatim from the article;
-   - numbers are checked as drawn (a stat's prefix + value + suffix), with units glued or spaced ("40s", "5000qps", "8 GB"), decimals, magnitude words ("a million") and hashtags; only bare whole numbers 0-10 are free;
-   - research text from linked pages counts as a source, but its URLs and page headers do not;
-   - the pipeline's `BANNED_WORDS` list (shared with `llm.js`) is rejected in any inflection ("unlocks", "game changer"), unless the author's own text used the word (research text does not excuse it);
-   - every field must have the right type (a malformed reply goes back to Opus, it never crashes the cycle);
-   - emojis are not allowed on screen;
-   - every Instagram-safe length limit is enforced.
-2. The agent receives that wording as **FIXED WORDING**. It may split lines across beats or drop at most one line, but it may not add claims.
-3. The soundtrack is synthesized by `src/factory/soundtrack.js` from the film's cue times: kick, hats, bass, pad, riser and impacts at 120 bpm in A minor, mastered at roughly −13 LUFS. It is original audio, so there is nothing to clear.
+1. The storyboard is the only place where words are decided, and `storyboard.js#validate` checks them against the source article and its research:
+   - every number a viewer reads or hears (screen, caption, hashtags, voiceover) must be in the article or its research; numbers are checked as drawn (a stat's prefix + value + suffix), with units glued or spaced, decimals and magnitude words; only bare whole numbers 0-10 are free;
+   - research text counts as a source, but its URLs and page headers do not;
+   - quotes must be at least 3 whole words, verbatim from the story itself;
+   - the pipeline's `BANNED_WORDS` list (shared with `llm.js`) is rejected in any inflection, unless the author's own text used the word;
+   - no emoji anywhere a viewer reads, every field has the right type, and every phone-safe length limit is enforced (a malformed reply goes back to Opus).
+2. The director carries the copy as a LOCKED MESSAGE, and the agent receives it as FIXED WORDING: it may split lines across beats or drop at most one reel line, never add claims.
+3. The music is synthesized by `soundtrack.js` from the film's cut times (original audio, nothing to clear). Licensed music and SFX are on the list in `factory/TODO.md`.
 
 ## Files
 
 ```
 factory/                      Remotion package (own package.json, like blog/)
-  src/schema.ts               storyboard contract (scenes, slides)
+  src/schema.ts               storyboard contract (scenes with voiceover, slides)
   src/brand.ts                tokens from blogs.drix10.com, Instagram safe zones
-  src/Reel.tsx, Carousel.tsx  9:16 reel and 4:5 slide compositions
-  src/scenes/ReelScenes.tsx   hook, statement, code, stat, list, compare, quote, cta
-  library/patterns.json       storyboard patterns (myth-number, versus, teardown, ...)
+  src/Reel.tsx, Carousel.tsx  9:16 reel and 4:5 slide templates (template mode / fallback)
   library/videos/<slug>/      reference library: meta.json + prompt.md (+ contact.jpg, video.mp4, src/)
   library/repos/              shallow clones of every linked repo (gitignored; npm run factory:library)
   fixtures/struct-padding.json  sample storyboard (studio default, tests)
+  TODO.md                     music, SFX/VFX work still to do
 src/factory/
-  index.js       orchestrator: produce(), runCycle(), publishDue()
-  storyboard.js  Opus director + code gates
-  hero.js        Claude Code agent films (Remotion / HyperFrames)
+  index.js       orchestrator: runCycle (lock, inbox, prune), produce, publishDue, stop
+  editor.js      fresh sources + inbox, the viral pick, deep dive
+  assets.js      real screenshots through the checked proxy
+  shot.js        the agent's screenshot tool
+  storyboard.js  words, arc, voiceover + the gates
+  voice.js       ElevenLabs / OpenRouter voiceover, mix
+  director.js    THE BAR, reference picks, the director's prompt
+  hero.js        Claude Code agent pieces (reels and carousels)
   library.js     reference library: catalog, closest prompts, repo sync
-  render.js      Remotion renders, contact sheets, ffmpeg mux
-  qa.js          Opus vision check on rendered stills
+  render.js      Remotion template renders, contact sheets, ffmpeg
+  qa.js          Opus vision check on template stills
   novelty.js     topic dedupe + look memory
-  sources.js     LinkedIn Insights + digest items -> sources
-  opus.js        claude -p client (API fallbacks optional)
+  sources.js     LinkedIn Insights + digest items -> sources, links
+  opus.js        claude -p client (API fallbacks optional), process tracking
   soundtrack.js  beat-locked synth
   instagram.js   Selenium publisher
   queue.js       ledger at factory/state/queue.json
+  lock.js        one factory at a time
 factory-run.js   CLI
 ```
 
@@ -143,12 +152,11 @@ factory-run.js   CLI
 
 `factory/library/videos/<slug>/` holds every film from motionpromptgallery.com (`mpg-*`), prompt-motion.com (`pm-*`) and the two reference repos, plus anything you add:
 
-- `meta.json`: `title`, `source`, `url`, `model`, `engine`, `formats`, `tags`, `score` (1–5), `why` (the reusable craft idea) and optional `repo`.
+- `meta.json`: `title`, `source`, `url`, `model`, `engine`, `formats`, `tags`, `score` (1-5), `why` (the reusable craft idea) and optional `repo`.
 - `prompt.md`: the full prompt (or, for repo entries, the README and treatment docs) verbatim.
-- `contact.jpg`: nine frames across the film, so the agent can see it.
-- `video.mp4` (gitignored) and `src/` (optional).
+- `contact.jpg`: nine frames across the film. `video.mp4` (gitignored) and `src/` are optional.
 
-Every agent film gets the **whole** library: a catalog line per entry with the paths to its prompt, frames, video and code, the full text of the 3 entries whose tags best match the article, and read access to `factory/library/` (including `repos/`). It must open at least 3 more entries before designing and name the ones it drew on in `treatment.md`. The `why` lines of the best matches also go into the storyboard prompt. `npm run factory:library` clones or updates every repo an entry links to (`factory:install` runs it too). See `factory/library/videos/README.md`.
+Every piece gets the whole library: the director reads the full catalog and picks 6 references by craft; the agent gets their prompt, frames and code paths, P(doom) and Tessel as the standard to read, and `LIBRARY.md` with every path. `npm run factory:library` clones or updates every repo an entry links to (`factory:install` runs it too).
 
 ## Run it
 
@@ -157,18 +165,20 @@ npm run factory:install                 # once: Remotion into factory/node_modul
 npm i -g @anthropic-ai/claude-code && claude   # once: sign in with your Claude plan
 npm run factory:sample                  # render the bundled sample reel + carousel (no keys, no Claude)
 node factory-run.js --list              # candidate sources, best first
-node factory-run.js --source "LinkedIn Insights/<file>.md" --format reel   # one piece now
+node factory-run.js --source "LinkedIn Insights/<file>.md" --format reel   # one piece now (--force to remake)
+node factory-run.js --cycle             # one full pass: pick, research, make (posts only with --publish)
 node factory-run.js --queue             # ledger
 node factory-run.js --publish --dry     # walk Instagram's upload flow, stop before Share, discard
 npm run factory:studio                  # Remotion Studio for the templates
 ```
 
-With `FACTORY_ENABLED=true`, `npm start` runs a factory pass at the end of every cycle, after the blog sync. It makes up to `FACTORY_PER_CYCLE` pieces and posts at most one, within `IG_DAILY_CAP` and `IG_MIN_GAP_MINUTES`. Review a piece by opening its job folder, which contains `reel.mp4` or `slide-*.jpg`, `contact.jpg`, `caption.txt`, `storyboard.json`, `treatment.md` and `look.json`.
+With `FACTORY_ENABLED=true`, `npm start` runs a factory pass at the end of every pipeline run, after the blog sync. It makes `FACTORY_PER_CYCLE` stories in every format in `FACTORY_FORMATS`, and posts this run's piece when `IG_POST=true`. A reel takes roughly 30-90 minutes end to end at `xhigh` (storyboard, voice, references, director's prompt, agent film). Review a piece in its job folder: `reel.mp4` or `slide-*.jpg`, `contact.jpg`, `caption.txt`, `storyboard.json`, `voice.json`, `references.json`, `director-prompt.md`, `treatment.md` and `look.json`.
 
 ## Before going live
 
-1. Run one real piece with `--source` and watch the agent log (`agent.log` in the job folder). Expect roughly 15–40 minutes per film at `xhigh`, depending on the machine. This is untested.
-2. Run `--publish --dry` with Instagram logged in on `:9222`, and check the `dry-run-ready` screenshot in `factory/state/ig-debug/`. Instagram's web UI changes, so all selectors are kept in `SEL` at the top of `instagram.js`. As of October 2026: Create opens a "Post" link in the sidebar, uploads open at a square crop (the publisher switches to Original, so reels stay 9:16 and slides 4:5), and the caption is typed as keystrokes so its paragraph breaks survive. Every failed step saves a screenshot to `factory/state/ig-debug/`.
-3. Then set `IG_POST=true`.
+1. Run one real piece with `--source` and watch `agent.log` in the job folder.
+2. Add `ELEVENLABS_API_KEY` (and your `ELEVENLABS_VOICE_ID`) and listen to a narrated reel.
+3. Run `--publish --dry` with Instagram logged in on `:9222`, and check the `dry-run-ready` screenshot in `factory/state/ig-debug/`. Instagram's web UI changes, so all selectors are kept in `SEL` at the top of `instagram.js`. As of October 2026: Create opens a "Post" link in the sidebar, uploads open at a square crop (the publisher switches to Original), and the caption is typed as keystrokes so its paragraph breaks survive.
+4. Then set `IG_POST=true`.
 
 Browser automation on Instagram is against its terms of use and can get the account limited. The daily cap, spacing and dry-run default reduce the risk but do not remove it. The official Content Publishing API (Business/Creator account) is the safer path if that ever becomes an option.

@@ -207,10 +207,12 @@ class InstagramPublisher {
     try {
       const res = await this.flow(piece, { dryRun, onBeforeShare });
       shared = !!res.shared;
+      this.shared = shared;
       return res;
     } finally {
       // Anything short of a confirmed share leaves no half-made draft behind.
-      if (!shared && this.driver) await this.discard();
+      // After the Share click the upload may still be running: discarding would cancel it.
+      if (!shared && !this.shareClicked && this.driver) await this.discard();
     }
   }
 
@@ -272,9 +274,10 @@ class InstagramPublisher {
 
   async cleanup() {
     if (this.driver) {
-      // Close our own tab and hand focus back to where it was.
+      // Close our own tab and hand focus back to where it was. A tab whose Share was clicked but
+      // never confirmed stays open: a slow upload must be allowed to finish.
       try {
-        if (this.tab) { await this.driver.switchTo().window(this.tab); await this.driver.close(); }
+        if (this.tab && (!this.shareClicked || this.shared)) { await this.driver.switchTo().window(this.tab); await this.driver.close(); }
         if (this.homeTab) await this.driver.switchTo().window(this.homeTab);
       } catch { /* tab already gone */ }
       await releaseDriver(this.driver).catch(() => {});

@@ -65,7 +65,8 @@ function similarity(corpus) {
 /** Recent produced pieces, newest first (any format, rendered or posted). */
 function recent(n = config.factory.noveltyWindow) {
   return queue.load().items
-    .filter((it) => it.status === "rendered" || it.status === "posted")
+    // Everything that was made, posted or not (only production failures are not pieces).
+    .filter((it) => it.status && it.status !== "failed")
     .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
     .slice(0, n);
 }
@@ -115,10 +116,10 @@ function orderForNovelty(pool, recents = recent()) {
 
 /** Prompt block for the agent: looks it must not reuse. */
 function looksToAvoid(recents = recent()) {
-  const looks = recents.filter((r) => r.look).map((r) => r.look);
-  if (!looks.length) return "- (none yet: this is the first film, set a strong direction)";
+  const looks = recents.filter((r) => r.look).map((r) => ({ ...r.look, format: r.format }));
+  if (!looks.length) return "- (none yet: this is the first piece, set a strong direction)";
   return looks
-    .map((l, i) => `${i + 1}. idea: ${l.idea || "?"} | palette: ${(l.palette || []).join(", ")} | type: ${(l.fonts || []).join(" + ")} | technique: ${l.technique || "?"} | engine: ${l.engine || "?"}`)
+    .map((l, i) => `${i + 1}. [${l.format || "reel"}] form: ${l.form || "?"} | idea: ${l.idea || "?"} | palette: ${(l.palette || []).join(", ")} | type: ${(l.fonts || []).join(" + ")} | technique: ${l.technique || "?"} | engine: ${l.engine || "?"}`)
     .join("\n");
 }
 

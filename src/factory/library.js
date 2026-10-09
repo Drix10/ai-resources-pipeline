@@ -1,7 +1,8 @@
 /**
  * The reference library (factory/library/): storyboard patterns plus every film from the two
- * motion galleries and the reference repos. Template mode gets short "proven pattern" notes;
- * agent films get the whole catalog, the closest prompts in full and read access to all of it.
+ * motion galleries and the reference repos. Template mode gets short "proven pattern" notes; for
+ * agent pieces the director reads the whole catalog and picks references, and the agent gets
+ * their paths, LIBRARY.md with every path, and read access to all of it.
  */
 const fs = require("fs");
 const path = require("path");

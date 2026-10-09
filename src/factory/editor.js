@@ -30,13 +30,46 @@ function writtenAt(origin) {
   try { return fs.statSync(path.resolve(__dirname, "../..", origin)).mtimeMs; } catch { return 0; }
 }
 
-/** This run's material: the digest items it committed plus Insights written in the last 36 h. */
+const INBOX = () => path.join(require("./queue").STATE_DIR, "inbox.json");
+
+/** The saved inbox, pruned to the last 36 h. */
+function readInbox(now = Date.now()) {
+  try {
+    const list = JSON.parse(fs.readFileSync(INBOX(), "utf8"));
+    return Array.isArray(list) ? list.filter((x) => x && x.item && now - Number(x.addedAt) < FRESH_MS) : [];
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Saves a run's committed digest items, so a factory pass that is skipped (lock held, crash,
+ * Opus down) does not lose them: the next pass within 36 h still sees them.
+ */
+function rememberRun(items, { now = Date.now() } = {}) {
+  const kept = readInbox(now);
+  const seen = new Set(kept.map((x) => x.item.origin));
+  for (const item of items || []) {
+    if (!item?.origin || seen.has(item.origin)) continue;
+    seen.add(item.origin);
+    kept.push({ addedAt: now, item });
+  }
+  fs.mkdirSync(path.dirname(INBOX()), { recursive: true });
+  const tmp = `${INBOX()}.${process.pid}.tmp`;
+  fs.writeFileSync(tmp, JSON.stringify(kept, null, 1));
+  fs.renameSync(tmp, INBOX());
+  return kept.length;
+}
+
+/** This run's material: digest items committed in the last 36 h (this run's and any missed) plus Insights written in that window. */
 function freshSources(extraSources = [], { now = Date.now() } = {}) {
   const insights = sources.listInsights().filter((a) => {
     const age = now - writtenAt(a.origin);
     return writtenAt(a.origin) > 0 && age >= -FRESH_MS && age < FRESH_MS;
   });
-  return { fresh: [...extraSources, ...insights] };
+  const byOrigin = new Map();
+  for (const a of [...extraSources, ...readInbox(now).map((x) => x.item), ...insights]) if (a?.origin && !byOrigin.has(a.origin)) byOrigin.set(a.origin, a);
+  return { fresh: [...byOrigin.values()] };
 }
 
 /** Opus picks one candidate; returns the candidates reordered with the pick first. */
@@ -46,16 +79,34 @@ async function pickStory(candidates) {
   const menu = list.map((a, i) => `${i + 1}. ${a.title}\n   links: ${(a.links || []).length} | ${a.text.replace(/\s+/g, " ").slice(0, 420)}`).join("\n");
   try {
     const reply = await opus.ask({
-      system: "You are the editor of an Instagram channel for a hands-on systems/AI engineer. You pick the one story a short reel can teach best.",
-      prompt: `Pick the ONE story below that makes the best 20-second reel for engineers: a concrete, surprising, specific thing (a mechanism, a number, a bug, a technique) that can be SHOWN, ideally with a real page behind it (links). Skip vague opinion pieces and lists of news.\n\n${menu}\n\nReturn only JSON: {"pick": <number>, "why": "<one line>"}`,
-      maxTokens: 300,
+      system: "You are the editor of an Instagram channel for hands-on systems/AI engineers. You know what engineers save, share and argue about, and you pick the one story most likely to travel.",
+      prompt: `Score every story below for a 20-second reel, then pick the ONE most likely to go viral with engineers.
+
+Score each 1-10 on:
+- STOP: a surprising or counter-intuitive claim that stops a scroll in 2 seconds ("your X is secretly Y", a myth broken, a cost nobody noticed)
+- STAKES: something engineers feel (money, outages, security holes, latency, lost data, their career)
+- PROOF: concrete evidence (a number, a before/after, a real repo or release, a reproducible bug)
+- REACH: how many engineers it applies to (common stacks and everyday pain beat niche configuration trivia)
+- NOW: tied to something new this week (a release, an incident, a trend)
+- SHARE: would someone send it to a teammate or save it for later
+- SHOW: can it be SHOWN as a mechanism in 20 seconds (not just told), ideally with a real page behind it (links)
+Viral = the stories that score high on STOP, STAKES and SHARE together. Skip vague opinion pieces and lists of news.
+
+${menu}
+
+Return only JSON: {"scores": [{"n": <number>, "viral": <1-10>}], "pick": <number>, "why": "<one line: the hook that makes it travel>"}`,
+      maxTokens: 800,
       temperature: 0.2,
     });
-    const { pick, why } = opus.parseJson(reply);
+    const { pick, why, scores } = opus.parseJson(reply);
     const i = Number(pick) - 1;
     if (Number.isInteger(i) && list[i]) {
-      logger.info(`Factory editor: picked "${list[i].title}" (${why}).`);
-      return [list[i], ...list.filter((_, j) => j !== i)];
+      const score = Array.isArray(scores) ? scores.find((s) => Number(s?.n) === i + 1)?.viral : undefined;
+      logger.info(`Factory editor: picked "${list[i].title}"${score ? ` (viral ${score}/10)` : ""}: ${why}.`);
+      // The runner-ups follow by their viral score, so a failed pick falls back to the next best.
+      const rank = new Map((Array.isArray(scores) ? scores : []).map((s) => [Number(s?.n) - 1, Number(s?.viral) || 0]));
+      const rest = list.map((a, j) => ({ a, j })).filter((x) => x.j !== i).sort((x, y) => (rank.get(y.j) || 0) - (rank.get(x.j) || 0)).map((x) => x.a);
+      return [list[i], ...rest];
     }
   } catch (e) {
     logger.warn(`Factory editor: pick failed (${e.message}); using the ranking.`);
@@ -76,4 +127,4 @@ async function deepDive(article, { maxPages = RESEARCH_PAGES, fetch = fetchPage 
   return { ...article, baseText: article.text, research: pages, text: `${article.text}\n\nRESEARCH (pages the article links to):\n${block}` };
 }
 
-module.exports = { freshSources, pickStory, deepDive, writtenAt };
+module.exports = { freshSources, pickStory, deepDive, writtenAt, rememberRun, readInbox };

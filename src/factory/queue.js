@@ -15,7 +15,9 @@
 const fs = require("fs");
 const path = require("path");
 
-const STATE_DIR = path.resolve(__dirname, "../../factory/state");
+// FACTORY_STATE_DIR lets tests (and a second checkout) use their own ledger, lock and caches:
+// never the live ones a running `npm start` depends on.
+const STATE_DIR = path.resolve(process.env.FACTORY_STATE_DIR || path.join(__dirname, "../../factory/state"));
 const FILE = path.join(STATE_DIR, "queue.json");
 const MAX_PUBLISH_ATTEMPTS = 3;
 // Statuses that mean "this may be on Instagram": counted for the cap, never posted again.
@@ -70,19 +72,26 @@ function save(state) {
   }
 }
 
-const key = (origin, slug, format) => `${format}:${origin}:${slug}`;
+// Keys use "/" whatever the OS wrote into the origin, so a Windows ledger still dedupes elsewhere.
+const slash = (s) => String(s || "").replace(/\\/g, "/");
+const key = (origin, slug, format) => `${format}:${slash(origin)}:${slug}`;
+/** The item for a key, matching ledgers written before keys were normalised. */
+const find = (items, k) => items.find((it) => slash(it.key) === slash(k));
+/** The ledger entry for a source in a format, or null. */
+const entryFor = (article, format) => find(load().items, key(article.origin, article.slug, format)) || null;
 
 function has(article, format) {
   // A source that failed twice is not retried automatically (use the CLI to force it).
-  return load().items.some((it) => it.key === key(article.origin, article.slug, format) && (it.status !== "failed" || (it.attempts || 1) >= 2));
+  const it = entryFor(article, format);
+  return !!it && (it.status !== "failed" || (it.attempts || 1) >= 2);
 }
 
 /** Adds or replaces an item. Something that may already be on Instagram is never replaced. */
 function add(item) {
   const state = load();
-  const prev = state.items.find((it) => it.key === item.key);
+  const prev = find(state.items, item.key);
   if (prev && LIVE.has(prev.status)) throw Object.assign(new Error(`"${item.key}" is already ${prev.status} on Instagram; not replacing it.`), { code: "ALREADY_POSTED" });
-  state.items = state.items.filter((it) => it.key !== item.key);
+  state.items = state.items.filter((it) => slash(it.key) !== slash(item.key));
   const attempts = item.status === "failed" ? ((prev && prev.status === "failed" && prev.attempts) || 0) + 1 : undefined;
   state.items.push({ ...item, ...(attempts ? { attempts } : {}), createdAt: new Date().toISOString() });
   save(state);
@@ -91,7 +100,7 @@ function add(item) {
 
 function update(k, patch) {
   const state = load();
-  const it = state.items.find((x) => x.key === k);
+  const it = find(state.items, k);
   if (it) Object.assign(it, patch, { updatedAt: new Date().toISOString() });
   save(state);
   return it;
@@ -100,7 +109,7 @@ function update(k, patch) {
 /** Records a failed publish; after MAX_PUBLISH_ATTEMPTS the item stops blocking the queue. */
 function publishFailed(k, error) {
   const state = load();
-  const it = state.items.find((x) => x.key === k);
+  const it = find(state.items, k);
   if (!it) return null;
   it.publishAttempts = (it.publishAttempts || 0) + 1;
   it.lastError = String(error).slice(0, 500);
@@ -130,7 +139,8 @@ function postedSince(ms) {
 
 function heroesSince(ms) {
   const since = Date.now() - ms;
-  return load().items.filter((it) => it.mode === "agent" && it.status !== "failed" && Date.parse(it.createdAt) >= since);
+  // Agent REELS only: in hybrid mode agent carousels must not use up the weekly film budget.
+  return load().items.filter((it) => it.mode === "agent" && it.format !== "carousel" && it.status !== "failed" && Date.parse(it.createdAt) >= since);
 }
 
-module.exports = { load, add, update, has, key, nextToPost, postedSince, heroesSince, publishFailed, STATE_DIR, LIVE, MAX_PUBLISH_ATTEMPTS };
+module.exports = { load, add, update, has, key, entryFor, nextToPost, postedSince, heroesSince, publishFailed, STATE_DIR, LIVE, MAX_PUBLISH_ATTEMPTS };

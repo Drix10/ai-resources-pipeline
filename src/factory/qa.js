@@ -10,7 +10,7 @@ const SYSTEM = `You are the final-frame checker for an Instagram channel. You se
 Report ONLY problems a viewer would notice on a phone:
 - text clipped, overlapping, cramped, orphaned single words on a line, or too small to read
 - text with poor contrast against the image behind it
-- a generated image that contains garbled text, letters, logos, extra fingers/faces, or obvious AI artifacts
+- a frame that reads as a generic template: text floating on an empty background, a lone card, a bullet list
 - an image that does not fit the scene's message or is visually confusing
 - a frame that looks empty or broken
 Do not comment on taste if nothing is wrong. Return JSON only:

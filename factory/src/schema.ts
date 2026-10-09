@@ -9,7 +9,13 @@
 
 export type ThemeName = 'night' | 'paper' | 'signal';
 
-export type ReelScene =
+/**
+ * Every reel scene may carry `voiceover`: the line spoken during it (ElevenLabs audio tags in
+ * [brackets]). It is never drawn: the voice is recorded and mixed separately (src/factory/voice.js).
+ */
+export type ReelScene = ReelSceneBody & { voiceover?: string };
+
+type ReelSceneBody =
   | { type: 'hook'; beats: number; text: string; emphasis?: string[]; kicker?: string }
   | { type: 'statement'; beats: number; headline: string; sub?: string }
   | { type: 'code'; beats: number; code: string; lang?: string; caption?: string; highlight?: number[] }
