@@ -48,6 +48,20 @@ export default function BankaiHero() {
     <div ref={wrapRef} className="bankai relative" aria-labelledby="name">
       <div className="bk-stage">
         <div className="bk-glow bk-a" />
+        <div className="bk-tone" aria-hidden="true" />
+
+        {/* Impact: speed lines burst out of the blade at the moment of release */}
+        <div className="bk-impact bk-a" aria-hidden="true">
+          <svg viewBox="-500 -500 1000 1000">
+            {Array.from({ length: 56 }, (_, i) => {
+              const a = (i / 56) * Math.PI * 2 + Math.sin(i * 12.9) * 0.04;
+              const r0 = 150 + ((i * 37) % 70);
+              const r1 = 330 + ((i * 53) % 170);
+              const w = 1.2 + ((i * 29) % 5) * 0.9;
+              return <line key={i} x1={Math.cos(a) * r0} y1={Math.sin(a) * r0} x2={Math.cos(a) * r1} y2={Math.sin(a) * r1} stroke={i % 5 === 0 ? '#ff3a24' : '#f4f1ea'} strokeWidth={w} strokeLinecap="round" />;
+            })}
+          </svg>
+        </div>
 
         {/* The sword, drawn in separate pieces so each one is its own composited layer. */}
         <div className="bk-shake bk-a pointer-events-none absolute inset-0">
@@ -87,6 +101,7 @@ export default function BankaiHero() {
               </svg>
             </div>
             <div className="bk-blade bk-a">
+              <div className="bk-glint bk-a" />
               <svg className="bk-sealed bk-a" viewBox="-40 -500 80 500" aria-hidden="true">
                 <path d={BLADE} fill="#8c8a84" stroke="#d9d5cb" strokeWidth="1.6" />
                 <path d="M0 0 L0 -440" stroke="#5e5c57" strokeWidth="1.4" />
@@ -102,6 +117,7 @@ export default function BankaiHero() {
         </div>
 
         <div className="bk-flash bk-a" />
+        <div className="bk-grain" aria-hidden="true" />
 
         {/* Captions: the real timeline */}
         <div className="pointer-events-none absolute inset-x-0 top-[22%] mx-auto max-w-[1200px] px-5 sm:px-8">
@@ -127,7 +143,12 @@ export default function BankaiHero() {
               Drishtant Ghosh
               <span className="sr-only"> (Drix10), AI systems engineer and serial founder in Bengaluru</span>
             </h1>
-            <div className="bk-slash bk-a" aria-hidden="true" />
+            <div className="bk-slash bk-a" aria-hidden="true">
+              <svg viewBox="0 0 40 400" preserveAspectRatio="none">
+                <path d="M17 0 L27 0 L40 96 L31 210 L36 400 L24 400 L12 280 L18 150 L6 70 Z" fill="#ff3a24" />
+                <path d="M20 0 L24 0 L33 120 L27 250 L29 400 L25 400 L17 260 L22 140 Z" fill="#fff" />
+              </svg>
+            </div>
           </div>
           <div className="bk-role bk-a mt-7 max-w-[30rem] sm:mt-9">
             <p className="font-serif text-[clamp(1.2rem,2.2vw,1.55rem)] leading-[1.45] text-[#d9d5cb]">
