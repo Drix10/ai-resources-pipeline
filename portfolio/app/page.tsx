@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import AgentField from '@/components/AgentField';
+import BankaiHero from '@/components/BankaiHero';
 import Work from '@/components/Work';
 import OpenSource from '@/components/OpenSource';
 import GitHubActivity from '@/components/GitHubActivity';
@@ -14,10 +15,13 @@ export const revalidate = 3600;
 
 function Section({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
-    <section id={id} className="border-t border-rule/80">
-      <div className="mx-auto grid max-w-[1100px] gap-8 px-5 py-16 sm:px-8 sm:py-24 md:grid-cols-[13rem_1fr] md:gap-12">
-        <h2 className="section-title md:sticky md:top-24 md:self-start">{title}</h2>
-        <div className="min-w-0">{children}</div>
+    <section id={id} className="relative border-t border-rule">
+      <div className="mx-auto max-w-[1200px] px-5 py-20 sm:px-8 sm:py-32">
+        <h2 className="section-title">
+          {title}
+          <span className="slash" aria-hidden />
+        </h2>
+        <div className="mt-10 min-w-0 sm:mt-16">{children}</div>
       </div>
     </section>
   );
@@ -54,51 +58,25 @@ export default async function HomePage() {
   return (
     <>
       {hasProjects && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(projectList) }} />}
-      <section className="relative overflow-hidden" aria-labelledby="name">
+      <BankaiHero />
+
+      <section aria-labelledby="hunt" className="relative overflow-hidden border-t border-rule bg-sunk">
         <AgentField />
-        <div className="relative mx-auto flex min-h-[calc(100svh-3.5rem)] max-w-[1100px] flex-col justify-center px-5 pb-16 pt-14 sm:px-8 sm:pb-24">
-          <h1
-            id="name"
+        <div className="relative mx-auto max-w-[1200px] px-5 py-28 sm:px-8 sm:py-44">
+          <h2
+            id="hunt"
             data-quiet
-            className="text-[clamp(3.6rem,17vw,11.5rem)] font-bold leading-[0.9] tracking-[-0.03em] text-ink"
-            style={{ fontVariationSettings: "'wdth' 92" }}
+            className="max-w-[13ch] font-sans text-[clamp(2.8rem,9vw,7rem)] font-extrabold leading-[0.88] tracking-[-0.035em] text-ink"
+            style={{ fontVariationSettings: "'wdth' 78" }}
           >
-            Drishtant
-            <br />
-            Ghosh
-            <span className="sr-only"> (Drix10), AI systems engineer and serial founder in Bengaluru</span>
-          </h1>
-
-          <p data-quiet className="prose-text mt-8 max-w-[34ch] text-[1.375rem] sm:mt-10 sm:max-w-[46ch] sm:text-[1.625rem] sm:leading-[1.5]">
-            Serial founder and AI systems engineer in Bengaluru, building since 2019. I ran ReeF from its first commit to an acquisition, and now build agent infrastructure and research systems.
-          </p>
-
-          <p data-quiet className="mt-6 max-w-[60ch] text-[1.0625rem] text-body">
-            <span className="font-semibold text-ink">Building now: </span>
-            {NOW_BUILDING.map((n, i) => (
-              <span key={n.name}>
-                <a href={n.href} target="_blank" rel="noreferrer" className="link">
-                  {n.name}
-                </a>
-                {i < NOW_BUILDING.length - 1 ? ', ' : '.'}
-              </span>
-            ))}
-          </p>
-
-          <ul data-quiet className="mt-8 flex flex-wrap gap-x-7 gap-y-3 text-[1.0625rem]">
-            <li><a className="link" href="mailto:ggdrishtant@gmail.com">Email</a></li>
-            <li><a className="link" href="https://github.com/Drix10" target="_blank" rel="noreferrer">GitHub</a></li>
-            <li><a className="link" href="https://www.linkedin.com/in/drix10" target="_blank" rel="noreferrer">LinkedIn</a></li>
-            <li><a className="link" href="https://x.com/DrishtantGhosh" target="_blank" rel="noreferrer">X</a></li>
-            <li><a className="link" href="https://blogs.drix10.com" target="_blank" rel="noreferrer">Blog</a></li>
-          </ul>
-
-          <p data-quiet className="mt-12 text-[0.9375rem] text-faint">
-            The mice behind the name run from an owl, as in{' '}
+            Small brains, big learning curves.
+          </h2>
+          <p data-quiet className="prose-text mt-8">
+            The mice behind this page run from an owl, a school that learned to survive over many generations. It is{' '}
             <a href="https://github.com/Drix10/ml-videos" target="_blank" rel="noreferrer" className="link">
               Night-Hunt
             </a>
-            , my evolving-mice experiment.
+            , one of my evolving-agent experiments, running live in your browser.
           </p>
         </div>
       </section>
@@ -139,10 +117,10 @@ export default async function HomePage() {
       <Section id="experience" title="Experience">
         <ol className="space-y-12">
           {ROLES.map((r) => (
-            <li key={r.org} className="grid gap-2 sm:grid-cols-[10.5rem_1fr] sm:gap-8">
+            <li key={r.org} className="row-slash grid gap-2 border-l-2 border-rule py-1 pl-5 sm:grid-cols-[11rem_1fr] sm:gap-8 sm:pl-8">
               <p className="pt-1 text-[0.9375rem] tabular-nums text-faint">{r.when}</p>
               <div>
-                <h3 className="text-[1.375rem] font-semibold leading-snug tracking-tight text-ink" style={{ fontVariationSettings: "'wdth' 92" }}>
+                <h3 className="text-[clamp(1.5rem,3vw,2.25rem)] font-bold leading-tight tracking-tight text-ink" style={{ fontVariationSettings: "'wdth' 80" }}>
                   {r.title}, {r.org}
                 </h3>
                 <p className="mt-0.5 text-[0.9375rem] text-faint">{r.where}</p>

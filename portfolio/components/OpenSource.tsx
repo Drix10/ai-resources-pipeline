@@ -10,15 +10,15 @@ export default function OpenSource({ repos }: { repos: ContribRepo[] }) {
   return (
     <ul className="border-t border-rule">
       {repos.map((r) => (
-        <li key={r.fullName} className="border-b border-rule py-6">
+        <li key={r.fullName} className="row-slash border-b border-rule py-7">
           <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
             <h3>
               <a
                 href={r.url}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-baseline gap-1.5 break-all text-[1.375rem] font-semibold leading-tight tracking-tight text-ink transition-colors hover:text-accent"
-                style={{ fontVariationSettings: "'wdth' 92" }}
+                className="inline-flex items-baseline gap-1.5 break-all text-[clamp(1.5rem,2.8vw,2.1rem)] font-bold leading-tight tracking-tight text-ink transition-colors hover:text-accent"
+                style={{ fontVariationSettings: "'wdth' 80" }}
               >
                 {r.fullName}
                 <ArrowUpRight className="h-4 w-4 shrink-0 self-center text-faint" aria-hidden />

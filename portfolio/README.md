@@ -35,6 +35,7 @@ npm test                     # selection and parsing logic, run against a real G
 
 ## Hero and SEO
 
-- The mice behind the name are the Night-Hunt simulation from [ml-videos](https://github.com/Drix10/ml-videos): mice that run from an owl, drawn after that project's sprites. The owl hunts by itself; the pointer does nothing. It always animates and pauses only offscreen or in a background tab (`components/AgentField.tsx`).
+- The opening is a pinned, scroll-driven scene (`components/BankaiHero.tsx`): scroll position is the playhead, a sealed blade builds pressure and is released, and the name is cut into the page. The captions are the real timeline (first commit 2019, ReeF acquired 2024, agents now). It is an original illustration made of SVG and CSS transforms: no video, canvas or animation library, nothing runs while idle, and the page script is about 9 kB. It is scroll-linked, so it plays whatever the reduced-motion setting is.
+- The mice section after it is the Night-Hunt simulation from [ml-videos](https://github.com/Drix10/ml-videos): mice that run from an owl and are never caught. The owl hunts by itself and ignores the pointer; mice fade out of the way of the text (`data-quiet`) (`components/AgentField.tsx`).
 - `NEXT_PUBLIC_SITE_URL` sets the address used for canonicals, the sitemap and structured data (default `https://drix10.com`). Match it to whichever of apex or `www` your host redirects to. Optional: `GOOGLE_SITE_VERIFICATION`, `BING_SITE_VERIFICATION`.
 - Audit a deployment from the repository root: `npm run seo:audit -- https://drix10.com`.

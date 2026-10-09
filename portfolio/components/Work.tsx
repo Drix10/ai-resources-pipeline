@@ -20,15 +20,15 @@ function Row({ repo }: { repo: Repo }) {
   ].filter(Boolean);
 
   return (
-    <li className="grid gap-x-10 gap-y-2 border-b border-rule py-6 sm:grid-cols-[minmax(0,17rem)_1fr]">
+    <li className="row-slash grid gap-x-12 gap-y-2 border-b border-rule py-8 sm:grid-cols-[minmax(0,22rem)_1fr]">
       <div className="min-w-0">
         <h4>
           <a
             href={repo.url}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-baseline gap-1.5 break-words text-[1.5rem] font-semibold leading-tight tracking-tight text-ink transition-colors hover:text-accent"
-            style={{ fontVariationSettings: "'wdth' 92" }}
+            className="inline-flex items-baseline gap-2 break-words text-[clamp(1.75rem,3.4vw,2.6rem)] font-bold leading-[1.02] tracking-tight text-ink transition-colors hover:text-accent"
+            style={{ fontVariationSettings: "'wdth' 78" }}
           >
             {repo.name}
             <ArrowUpRight className="h-4 w-4 shrink-0 self-center text-faint" aria-hidden />

@@ -233,8 +233,8 @@ export default function RootLayout({
           Skip to content
         </a>
 
-        <header className="sticky top-0 z-40 border-b border-rule/70 bg-paper/85 backdrop-blur-md">
-          <div className="mx-auto flex h-14 max-w-[1100px] items-center justify-between gap-6 px-5 sm:px-8">
+        <header className="site-header sticky top-0 z-40 border-b border-rule/70 bg-paper/85 backdrop-blur-md transition-colors duration-300">
+          <div className="mx-auto flex h-14 max-w-[1200px] items-center justify-between gap-6 px-5 sm:px-8">
             <Link href="/" className="text-[1.0625rem] font-semibold tracking-tight text-ink" style={{ fontVariationSettings: "'wdth' 92" }}>
               Drishtant Ghosh
             </Link>
@@ -259,7 +259,7 @@ export default function RootLayout({
         </main>
 
         <footer className="border-t border-rule/70">
-          <div className="mx-auto flex max-w-[1100px] flex-col gap-6 px-5 py-10 text-[0.9375rem] sm:flex-row sm:items-center sm:justify-between sm:px-8">
+          <div className="mx-auto flex max-w-[1200px] flex-col gap-6 px-5 py-10 text-[0.9375rem] sm:flex-row sm:items-center sm:justify-between sm:px-8">
             <div className="space-y-1">
               <p className="font-medium text-ink">Drishtant Ghosh</p>
               <LocalTimeBadge />
