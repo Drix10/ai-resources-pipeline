@@ -2,9 +2,24 @@ const winston = require("winston");
 const fs = require("fs");
 const path = require("path");
 
+// logger.error("Step failed:", err.message) is used all over the codebase, and winston drops a
+// string passed after the message. Fold every extra argument into the message instead.
+const SPLAT = Symbol.for("splat");
+const foldExtras = winston.format((info) => {
+  const extras = info[SPLAT];
+  if (Array.isArray(extras) && extras.length) {
+    const parts = extras
+      .map((x) => (x instanceof Error ? x.stack || x.message : x && typeof x === "object" ? (() => { try { return JSON.stringify(x); } catch { return String(x); } })() : String(x)))
+      .filter((p) => p && !String(info.message).includes(p));
+    if (parts.length) info.message = `${info.message} ${parts.join(" ")}`;
+  }
+  return info;
+});
+
 const logger = winston.createLogger({
   level: process.env.NODE_ENV === "production" ? "info" : "debug",
   format: winston.format.combine(
+    foldExtras(),
     winston.format.timestamp(),
     winston.format.json()
   ),

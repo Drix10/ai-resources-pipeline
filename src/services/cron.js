@@ -145,25 +145,28 @@ const releasePipelineLock = () => {
 // multi-minute build) and returns its exit status and output instead of throwing.
 const run = (command, args, { timeout = 60000, shell = false } = {}) =>
   new Promise((resolve) => {
-    const { spawn } = require("child_process");
+    const { spawn, spawnSync } = require("child_process");
     let out = "";
     let err = "";
     let timedOut = false;
-    const child = spawn(command, args, { shell, windowsHide: true });
+    let done = false;
+    const finish = (r) => { if (!done) { done = true; clearTimeout(timer); resolve(r); } };
+    // Git must never wait on a login prompt or a credential-manager window nobody will answer.
+    const env = { ...process.env, GIT_TERMINAL_PROMPT: "0", GCM_INTERACTIVE: "never" };
+    const child = spawn(command, args, { shell, windowsHide: true, env });
     const timer = setTimeout(() => {
       timedOut = true;
-      child.kill();
+      // Kill the whole tree (a shell's grandchild holds the pipes open otherwise), then stop waiting.
+      if (process.platform === "win32") spawnSync("taskkill", ["/pid", String(child.pid), "/T", "/F"], { stdio: "ignore", timeout: 15000 });
+      else child.kill("SIGKILL");
+      child.stdout.destroy();
+      child.stderr.destroy();
+      finish({ status: -1, out, err, timedOut });
     }, timeout);
     child.stdout.on("data", (d) => { out = (out + d).slice(-4000); });
     child.stderr.on("data", (d) => { err = (err + d).slice(-4000); });
-    child.on("error", (e) => {
-      clearTimeout(timer);
-      resolve({ status: -1, out, err: err || e.message, timedOut });
-    });
-    child.on("close", (status) => {
-      clearTimeout(timer);
-      resolve({ status: timedOut ? -1 : status, out, err, timedOut });
-    });
+    child.on("error", (e) => finish({ status: -1, out, err: err || e.message, timedOut }));
+    child.on("close", (status) => finish({ status: timedOut ? -1 : status, out, err, timedOut }));
   });
 
 // Publishes blog/content and the search index to the repo that Vercel deploys. The pipeline's own
@@ -440,13 +443,14 @@ const processAllFolders = async () => {
     }
 
     // --- Instagram content factory (FACTORY_ENABLED=true) ---
-    // Storyboard -> render -> QA -> queue -> post, after the blog is synced so the
-    // caption can point at live articles. Never fatal to the content pipeline.
+    // Last, after every commit, the LinkedIn steps and the blog sync: the editor picks this run's
+    // one most viral story, researches it, makes the reel and posts within the cap. Never fatal
+    // to the content pipeline.
     if (config.factory.enabled) {
       try {
         await require("../factory").runCycle({ extraSources: factoryInbox });
       } catch (factoryErr) {
-        logger.error("Content factory pass failed (non-fatal):", factoryErr.message);
+        logger.error(`Content factory pass failed (non-fatal): ${factoryErr?.message ?? factoryErr}`);
       }
     }
 
@@ -537,6 +541,11 @@ const stopCronJob = async () => {
   }
 
   if (activePipelinePromise) {
+    // A film can take an hour: stop the factory's claude processes first, so shutdown is not
+    // held hostage by it (and nothing gets posted after a stop was asked for).
+    if (config.factory.enabled) {
+      try { require("../factory").stop(); } catch (error) { logger.warn(`Could not stop the content factory: ${error?.message ?? error}`); }
+    }
     try {
       await activePipelinePromise;
     } catch (error) {

@@ -102,6 +102,30 @@ const config = {
     //   hybrid   house templates for most reels plus heroPerWeek agent films
     //   template house templates only (fast previews; every reel shares one look)
     videoMode: ["hybrid", "agent", "template"].includes(process.env.FACTORY_VIDEO_MODE) ? process.env.FACTORY_VIDEO_MODE : "agent",
+    // Voiceover for agent reels (src/factory/voice.js): ElevenLabs is the main provider, OpenRouter
+    // (a speech model over chat completions) the fallback. Without either key reels get music only.
+    voice: {
+      enabled: process.env.FACTORY_VOICE !== "off",
+      elevenlabsKey: process.env.ELEVENLABS_API_KEY || "",
+      // A premade library voice until your own is set ("George": warm, articulate narrator).
+      voiceId: process.env.ELEVENLABS_VOICE_ID || "JBFqnCBsd6RMkjVDRZzb",
+      model: process.env.ELEVENLABS_MODEL || "eleven_v4",
+      // Tried in order when a model is refused (e.g. not enabled for the account, no timestamps).
+      fallbackModels: String(process.env.ELEVENLABS_FALLBACK_MODELS ?? "eleven_v3,eleven_multilingual_v2").split(",").map((x) => x.trim()).filter(Boolean),
+      // 0 = most expressive (tags land hardest), 0.5 = natural, 1 = most stable.
+      stability: (() => {
+        const n = Number(process.env.ELEVENLABS_STABILITY);
+        return process.env.ELEVENLABS_STABILITY?.trim() && Number.isFinite(n) ? Math.min(1, Math.max(0, n)) : 0.5;
+      })(),
+      orModel: process.env.FACTORY_VOICE_FALLBACK_MODEL || "openai/gpt-audio-mini",
+      orVoice: process.env.FACTORY_VOICE_FALLBACK_VOICE || "onyx",
+    },
+    // Carousels: agent = designed slide by slide by the local agent from a director's prompt
+    // (default); template = the house slide templates (fast, but every carousel shares one look).
+    carouselMode: process.env.FACTORY_CAROUSEL_MODE === "template" ? "template" : "agent",
+    // When a run brought nothing new (or everything new is made already): true = make a piece from
+    // the LinkedIn Insights archive; false (default) = skip, so the channel only posts fresh stories.
+    archiveFallback: process.env.FACTORY_ARCHIVE_FALLBACK === "true",
     heroPerWeek: parsePositiveInteger(process.env.FACTORY_HERO_PER_WEEK, 2),
     // When an agent film fails: false (default) = mark failed and retry next cycle, so every
     // posted reel stays unique; true = ship a templated reel instead.
