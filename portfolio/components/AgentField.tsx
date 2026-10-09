@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 
 // The hero background is the "night hunt" simulation from Drix10/ml-videos: a school of mice that
-// have learned to run from an owl. Mice, owl, trails and the catch burst are drawn after that
+// have learned to run from an owl. Mice, owl and trails are drawn after that
 // project's own sprites (visualizer.py). The owl hunts on its own, as in the video; it ignores the
 // pointer. Always moving, hidden from assistive tech, and paused only while offscreen or in a
 // background tab.
@@ -14,23 +14,16 @@ interface Mouse {
   a: number; // heading, radians
   wander: number; // slow random drift in heading
   trail: { x: number; y: number }[];
-  deadFor: number; // frames until it respawns after a catch, 0 = alive
 }
 
-interface Spark {
-  x: number;
-  y: number;
-  life: number;
-}
-
-// Speeds are in px per frame at 60fps, kept in the video's ratios (owl is about 0.73x a mouse).
+// Speeds are in px per frame at 60fps. A fleeing mouse outruns the owl, so nothing is ever caught.
 const MOUSE_SPEED = 1.7;
 const FLEE_BOOST = 0.9;
 const TURN_RATE = 0.06;
 const OWL_SPEED = 2.5; // faster than a wandering mouse, a little slower than one fleeing flat out, as in the video
 const OWL_TURN = 0.085;
 const SENSE_RADIUS = 190;
-const CATCH_RADIUS = 11;
+const PERSONAL_SPACE = 22; // the owl never touches a mouse: inside this, the mouse is pushed clear
 const WALL = 46;
 const MAX_TRAIL = 6;
 const OWL_TRAIL = 20;
@@ -51,11 +44,12 @@ export default function AgentField() {
     let height = 0;
     let dpr = 1;
     let mice: Mouse[] = [];
-    const sparks: Spark[] = [];
     const owl = { x: 0, y: 0, a: 0, trail: [] as { x: number; y: number }[] };
+    // Boxes around the hero copy (elements marked data-quiet). Mice and owl fade and drift out of them,
+    // so the page stays readable while the hunt carries on around it.
+    let quiet: { x1: number; y1: number; x2: number; y2: number }[] = [];
     let prey: Mouse | null = null; // the mouse the owl is currently after
     let preyFor = 0; // frames before it may pick again
-    let flash = 0; // frames of catch ring left
     let raf = 0;
     let last = 0;
     let running = false;
@@ -69,15 +63,25 @@ export default function AgentField() {
       colors.accent = triplet('--accent', colors.accent);
     };
 
-    const spawn = (away?: { x: number; y: number }): Mouse => {
-      let x = 0;
-      let y = 0;
-      for (let i = 0; i < 20; i++) {
-        x = WALL + Math.random() * Math.max(1, width - WALL * 2);
-        y = WALL + Math.random() * Math.max(1, height - WALL * 2);
-        if (!away || Math.hypot(x - away.x, y - away.y) > 140) break;
+    const spawn = (): Mouse => {
+      const x = WALL + Math.random() * Math.max(1, width - WALL * 2);
+      const y = WALL + Math.random() * Math.max(1, height - WALL * 2);
+      return { x, y, a: Math.random() * Math.PI * 2, wander: 0, trail: [] };
+    };
+
+    const readQuiet = () => {
+      const c = canvas.getBoundingClientRect();
+      quiet = Array.from(document.querySelectorAll('[data-quiet]')).map((el) => {
+        const r = el.getBoundingClientRect();
+        return { x1: r.left - c.left - 14, y1: r.top - c.top - 10, x2: r.right - c.left + 14, y2: r.bottom - c.top + 10 };
+      });
+    };
+    // 0 in open space, up to 1 deep inside a copy block.
+    const hush = (x: number, y: number) => {
+      for (const q of quiet) {
+        if (x > q.x1 && x < q.x2 && y > q.y1 && y < q.y2) return 1;
       }
-      return { x, y, a: Math.random() * Math.PI * 2, wander: 0, trail: [], deadFor: 0 };
+      return 0;
     };
 
     const seed = () => {
@@ -98,6 +102,7 @@ export default function AgentField() {
       canvas.height = Math.round(height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       seed();
+      readQuiet();
       draw();
     };
 
@@ -105,8 +110,8 @@ export default function AgentField() {
       // The owl picks a mouse, stays on it for a while, then picks again. Mostly the nearest, now and
       // then a random one, so the hunt wanders instead of always sweeping the same patch.
       preyFor -= dt;
-      if (!prey || prey.deadFor || preyFor <= 0) {
-        const alive = mice.filter((m) => !m.deadFor);
+      if (!prey || preyFor <= 0) {
+        const alive = mice;
         prey = null;
         if (alive.length) {
           if (Math.random() < 0.3) prey = alive[Math.floor(Math.random() * alive.length)];
@@ -139,11 +144,6 @@ export default function AgentField() {
       if (owl.trail.length > OWL_TRAIL) owl.trail.shift();
 
       for (const m of mice) {
-        if (m.deadFor) {
-          m.deadFor -= dt;
-          if (m.deadFor <= 0) Object.assign(m, spawn(owl));
-          continue;
-        }
         // The learned reflex: run from the owl, bend away from walls, otherwise drift.
         m.wander += (Math.random() - 0.5) * 0.02 * dt;
         m.wander *= 0.97;
@@ -170,6 +170,20 @@ export default function AgentField() {
         else if (m.y > height - WALL) wy = -1;
         if (wx || wy) desired = Math.atan2(Math.sin(desired) + wy * 1.4, Math.cos(desired) + wx * 1.4);
 
+        // Drift out of the copy: head for the nearest edge of the block the mouse is inside.
+        for (const q of quiet) {
+          if (m.x > q.x1 && m.x < q.x2 && m.y > q.y1 && m.y < q.y2) {
+            const l = m.x - q.x1;
+            const r = q.x2 - m.x;
+            const t = m.y - q.y1;
+            const b = q.y2 - m.y;
+            const edge = Math.min(l, r, t, b);
+            const ex = edge === l ? -1 : edge === r ? 1 : 0;
+            const ey = edge === t ? -1 : edge === b ? 1 : 0;
+            desired = Math.atan2(Math.sin(desired) + ey * 1.2, Math.cos(desired) + ex * 1.2);
+            break;
+          }
+        }
         m.a = steer(m.a, desired, TURN_RATE * dt);
         m.x += Math.cos(m.a) * speed * dt;
         m.y += Math.sin(m.a) * speed * dt;
@@ -184,21 +198,18 @@ export default function AgentField() {
         m.trail.push({ x: m.x, y: m.y });
         if (m.trail.length > MAX_TRAIL) m.trail.shift();
 
-        if (d < CATCH_RADIUS) {
-          m.deadFor = 140;
-          m.trail = [];
-          flash = 20;
-          for (let i = 0; i < 6; i++) sparks.push({ x: m.x, y: m.y, life: 1 });
+        // The school has learned to run: the owl gets close but never connects.
+        if (d < PERSONAL_SPACE && d > 0.01) {
+          m.x += (dx / d) * (PERSONAL_SPACE - d);
+          m.y += (dy / d) * (PERSONAL_SPACE - d);
         }
       }
-      if (flash > 0) flash -= dt;
-      for (const s of sparks) s.life -= 0.04 * dt;
-      while (sparks.length && sparks[0].life <= 0) sparks.shift();
     };
 
     // A pointed-oval body, two ears and a tail, oriented to the heading (visualizer.py draw_arena).
     const drawMouse = (m: Mouse, near: boolean) => {
-      const fill = near ? `rgba(${colors.accent},0.95)` : `rgba(${colors.ink},0.6)`;
+      const calm = hush(m.x, m.y) ? 0.28 : 1;
+      const fill = near ? `rgba(${colors.accent},${(0.95 * calm).toFixed(2)})` : `rgba(${colors.ink},${(0.6 * calm).toFixed(2)})`;
       ctx.save();
       ctx.translate(m.x, m.y);
       ctx.rotate(m.a);
@@ -230,6 +241,7 @@ export default function AgentField() {
       ctx.translate(owl.x, owl.y);
       ctx.rotate(owl.a);
       ctx.scale(1.25, 1.25);
+      ctx.globalAlpha = hush(owl.x, owl.y) ? 0.3 : 1;
       ctx.fillStyle = `rgba(${colors.ink},0.92)`;
       const poly = (pts: number[][]) => {
         ctx.beginPath();
@@ -264,8 +276,8 @@ export default function AgentField() {
       }
       ctx.lineWidth = 1.6;
       for (const m of mice) {
-        if (m.deadFor || m.trail.length < 2) continue;
-        ctx.strokeStyle = `rgba(${colors.ink},0.16)`;
+        if (m.trail.length < 2) continue;
+        ctx.strokeStyle = `rgba(${colors.ink},${hush(m.x, m.y) ? 0.04 : 0.16})`;
         ctx.beginPath();
         ctx.moveTo(m.trail[0].x, m.trail[0].y);
         for (const p of m.trail.slice(1)) ctx.lineTo(p.x, p.y);
@@ -273,23 +285,9 @@ export default function AgentField() {
       }
 
       for (const m of mice) {
-        if (m.deadFor) continue;
         drawMouse(m, Math.hypot(m.x - owl.x, m.y - owl.y) < SENSE_RADIUS * 0.45);
       }
 
-      if (flash > 0) {
-        ctx.strokeStyle = `rgba(${colors.accent},${Math.min(1, flash / 20).toFixed(2)})`;
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.arc(owl.x, owl.y, 16 + (20 - flash) * 2, 0, Math.PI * 2);
-        ctx.stroke();
-      }
-      for (const s of sparks) {
-        ctx.fillStyle = `rgba(${colors.accent},${Math.max(0, s.life).toFixed(2)})`;
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, Math.max(0.5, 3 * s.life), 0, Math.PI * 2);
-        ctx.fill();
-      }
       drawOwl();
     };
 
@@ -315,6 +313,7 @@ export default function AgentField() {
     readColors();
     resize();
     start();
+    const quietTimer = window.setInterval(readQuiet, 1500);
 
     const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(canvas);
@@ -339,6 +338,7 @@ export default function AgentField() {
     scheme.addEventListener('change', onScheme);
 
     return () => {
+      window.clearInterval(quietTimer);
       stop();
       resizeObserver.disconnect();
       intersection.disconnect();
