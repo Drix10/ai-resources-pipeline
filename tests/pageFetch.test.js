@@ -251,3 +251,71 @@ test("GitHub section pages are not treated as repositories, and a missing README
   assert.ok(page, "falls back to the HTML page when the README is missing");
   assert.equal(requested.length, 2);
 });
+
+// ---- review round: site-local/translated IPv6, charsets, sockets released, DNS inside the budget ----
+test("isPrivateIp blocks site-local fec0::/10 and IPv4-translated ::ffff:0:0/96", () => {
+  for (const ip of ["fec0::1", "feff::1", "::ffff:0:7f00:1", "::ffff:0:808:808"]) assert.equal(isPrivateIp(ip), true, ip);
+  assert.equal(isPrivateIp("fe00::1"), false, "fe00:: is outside both blocks");
+});
+
+test("pages are decoded by their declared charset, falling back to UTF-8", async () => {
+  const body = (head = "") => Buffer.from(`<html><head>${head}<title>Caf\xe9 \x93launch\x94 notes from the team</title></head><body><article>${para(20)}<p>The team saved 40\x80 per seat on every caf\xe9 plan in this cycle of releases.</p></article></body></html>`, "latin1");
+  const u = `https://${PUBLIC}/cp`;
+  const viaHeader = await fetchPage(u, { fetchImpl: async () => new Response(body(), { status: 200, headers: { "content-type": "text/html; charset=windows-1252" } }) });
+  assert.match(viaHeader.text, /saved 40€ per seat on every café plan/);
+  assert.equal(viaHeader.title, "Café “launch” notes from the team");
+  const viaMeta = await fetchPage(u, { fetchImpl: async () => new Response(body('<meta charset="windows-1252">'), { status: 200, headers: { "content-type": "text/html" } }) });
+  assert.match(viaMeta.text, /40€ per seat/);
+  const utf8 = Buffer.from(`<html><body><article>${para(20)}<p>The team saved 40€ per seat on every café plan in this cycle of releases.</p></article></body></html>`, "utf8");
+  for (const type of ["text/html", "text/html; charset=no-such-charset"]) {
+    const page = await fetchPage(u, { fetchImpl: async () => new Response(utf8, { status: 200, headers: { "content-type": type } }) });
+    assert.match(page.text, /40€ per seat on every café plan/, type);
+  }
+});
+
+// A body that never ends on its own, recording whether the reader released it.
+const endless = () => {
+  const state = { cancelled: false };
+  state.stream = new ReadableStream({
+    pull(c) { c.enqueue(new TextEncoder().encode("x".repeat(1024))); return new Promise((r) => setTimeout(r, 5)); },
+    cancel() { state.cancelled = true; },
+  });
+  return state;
+};
+
+test("unread redirect and error bodies are released, and the request is aborted when fetchPage returns", async () => {
+  const a = `https://${PUBLIC}/r`, b = `https://${PUBLIC}/final`;
+  const redirectBody = endless();
+  let signal;
+  const page = await fetchPage(a, {
+    fetchImpl: async (url, opts) => {
+      signal = opts.signal;
+      if (url === a) return new Response(redirectBody.stream, { status: 302, headers: { location: b } });
+      return reply(html(`<article>${para(20)}</article>`));
+    },
+  });
+  assert.ok(page);
+  assert.equal(redirectBody.cancelled, true, "redirect body cancelled, not drained");
+  assert.equal(signal.aborted, true, "the shared signal is aborted once fetchPage is done");
+  for (const [status, type] of [[500, "text/html"], [200, "application/pdf"]]) {
+    const body = endless();
+    assert.equal(await fetchPage(a, { fetchImpl: async () => new Response(body.stream, { status, headers: { "content-type": type } }) }), null);
+    assert.equal(body.cancelled, true, `${status} ${type} body cancelled before giving up`);
+  }
+});
+
+test("a stalled DNS lookup is bounded by the fetch budget", async () => {
+  const dns = require("node:dns");
+  const orig = dns.promises.lookup;
+  let lookups = 0;
+  dns.promises.lookup = () => { lookups++; return new Promise(() => {}); }; // never answers
+  try {
+    const t0 = Date.now();
+    assert.equal(await fetchPage("https://stalled-resolver.example/post", { fetchImpl: async () => reply("x"), timeoutMs: 150 }), null);
+    assert.ok(Date.now() - t0 < 2000, "returned at the budget, not when DNS gave up");
+    assert.equal(lookups, 1);
+    const aborted = AbortSignal.abort();
+    await assert.rejects(assertPublicHost("another.example", aborted), /aborted/);
+    assert.equal(lookups, 1, "no lookup is started once the budget is spent");
+  } finally { dns.promises.lookup = orig; }
+});

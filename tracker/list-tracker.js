@@ -48,6 +48,8 @@ class TwitterListTracker {
         this.initRetries = 0; // Reset on success
       } catch (driverError) {
         logger.warn("Driver disconnected, reinitializing...");
+        // Stop this session's chromedriver.exe before dropping the reference, or it leaks.
+        await releaseDriver(this.driver).catch(() => { });
         this.isInitialized = false;
         this.driver = null;
 
@@ -85,9 +87,8 @@ class TwitterListTracker {
   async refreshBrowser() {
     logger.info("Refreshing browser session to prevent issues...");
     try {
-      if (this.driver) {
-        this.driver = null;
-      }
+      // Release (not quit) so the old chromedriver.exe stops; Chrome and its tabs stay.
+      if (this.driver) await releaseDriver(this.driver);
     } catch (error) {
       logger.warn("Error detaching driver during refresh:", error);
     }

@@ -71,18 +71,31 @@ function isPrivateIp(ip) {
     const v4 = (hi, lo) => isPrivateV4(hi >> 8, hi & 255, lo >> 8);
     if (g.slice(0, 6).every((x) => x === 0)) return true; // ::, ::1 and the deprecated IPv4-compatible block
     if (g.slice(0, 5).every((x) => x === 0) && g[5] === 0xffff) return v4(g[6], g[7]); // IPv4-mapped
+    if (g.slice(0, 4).every((x) => x === 0) && g[4] === 0xffff && g[5] === 0) return true; // IPv4-translated (::ffff:0:0/96)
     if (g[0] === 0x64 && g[1] === 0xff9b) return true; // NAT64: reaches whatever the embedded IPv4 is
     if (g[0] === 0x2002) return true; // 6to4
     if (g[0] === 0x2001 && (g[1] === 0 || g[1] === 0xdb8)) return true; // Teredo, documentation
     if (g[0] === 0x100 && g[1] === 0 && g[2] === 0 && g[3] === 0) return true; // discard prefix
-    return (g[0] & 0xfe00) === 0xfc00 || (g[0] & 0xffc0) === 0xfe80 || (g[0] & 0xff00) === 0xff00;
+    // Unique-local, link-local, deprecated site-local (fec0::/10), multicast.
+    return (g[0] & 0xfe00) === 0xfc00 || (g[0] & 0xffc0) === 0xfe80 || (g[0] & 0xffc0) === 0xfec0 || (g[0] & 0xff00) === 0xff00;
   }
   return true;
 }
 
+// Runs start() and settles with it, or rejects as soon as the signal aborts (never starts when already aborted).
+function abortable(start, signal) {
+  if (!signal) return start();
+  if (signal.aborted) return Promise.reject(new Error("aborted"));
+  return new Promise((resolve, reject) => {
+    const onAbort = () => reject(new Error("aborted"));
+    signal.addEventListener("abort", onAbort, { once: true });
+    start().then(resolve, reject).finally(() => signal.removeEventListener("abort", onAbort));
+  });
+}
+
 // Rejects loopback, private, link-local and metadata addresses, including hostnames
 // that resolve to them, so a post can never point the fetcher at internal services.
-async function assertPublicHost(hostname) {
+async function assertPublicHost(hostname, signal) {
   const host = hostname.replace(/^\[|\]$/g, "");
   const bare = host.toLowerCase().replace(/\.+$/, ""); // "localhost." is localhost
   if (!bare || bare === "localhost" || bare.endsWith(".localhost") || bare.endsWith(".local") || bare.endsWith(".internal")) {
@@ -92,7 +105,8 @@ async function assertPublicHost(hostname) {
     if (isPrivateIp(host)) throw new Error("blocked address");
     return;
   }
-  const records = await dnsPromises.lookup(host, { all: true });
+  // dns.lookup takes no signal, so a stalled resolver is raced against the fetch budget.
+  const records = await abortable(() => dnsPromises.lookup(host, { all: true }), signal);
   if (records.length === 0 || records.some((r) => isPrivateIp(r.address))) throw new Error("blocked address");
 }
 
@@ -121,7 +135,8 @@ function secureFetch(url, { headers = {}, signal } = {}) {
       for (const [k, v] of Object.entries(res.headers)) if (v !== undefined) out.append(k, Array.isArray(v) ? v.join(", ") : v);
       const status = res.statusCode || 0;
       const empty = status < 200 || status === 204 || status === 205 || status === 304 || (status >= 300 && status < 400);
-      if (empty) res.resume();
+      // A redirect body is never read: close the socket instead of draining a body that may never end.
+      if (empty) res.destroy();
       resolve(new Response(empty ? null : Readable.toWeb(res), { status, headers: out }));
     });
     req.on("error", reject);
@@ -129,9 +144,33 @@ function secureFetch(url, { headers = {}, signal } = {}) {
   });
 }
 
-async function readCapped(response) {
+// The page's declared charset: the Content-Type header, else a <meta> in the first bytes.
+function detectCharset(type, bytes) {
+  if (bytes[0] === 0xef && bytes[1] === 0xbb && bytes[2] === 0xbf) return "utf-8";
+  const header = (String(type).match(/charset\s*=\s*["']?([\w.:-]+)/i) || [])[1];
+  if (header) return header;
+  const head = bytes.subarray(0, 4096).toString("latin1");
+  const meta = (head.match(/<meta[^>]+charset\s*=\s*["']?\s*([\w.:-]+)/i) || [])[1] || "utf-8";
+  return /^utf-?16/i.test(meta) ? "utf-8" : meta; // a page that could declare it in ASCII is not UTF-16
+
+}
+
+function decodeBody(bytes, type) {
+  try {
+    return new TextDecoder(detectCharset(type, bytes), { fatal: false }).decode(bytes);
+  } catch (e) {
+    return new TextDecoder("utf-8", { fatal: false }).decode(bytes); // unknown label
+  }
+}
+
+// Releases a response body that will not be read, so its socket closes now.
+async function discard(response) {
+  try { await response.body?.cancel(); } catch (e) { /* already closed */ }
+}
+
+async function readCapped(response, type = "") {
   const reader = response.body?.getReader?.();
-  if (!reader) return (await response.text()).slice(0, MAX_BYTES);
+  if (!reader) return decodeBody(Buffer.from(await response.arrayBuffer()).subarray(0, MAX_BYTES), type);
   const chunks = [];
   let total = 0;
   while (total < MAX_BYTES) {
@@ -141,7 +180,7 @@ async function readCapped(response) {
     total += value.length;
   }
   try { await reader.cancel(); } catch (e) { /* already closed */ }
-  return new TextDecoder("utf-8", { fatal: false }).decode(Buffer.concat(chunks.map((c) => Buffer.from(c))).subarray(0, MAX_BYTES));
+  return decodeBody(Buffer.concat(chunks.map((c) => Buffer.from(c))).subarray(0, MAX_BYTES), type);
 }
 
 // Follows redirects by hand so every hop is checked against the host rules.
@@ -152,22 +191,25 @@ async function getText(startUrl, { fetchImpl = secureFetch, signal } = {}) {
     if (!/^https?:$/.test(u.protocol)) throw new Error("unsupported protocol");
     if (hop > 0 && SKIP_HOST_RE.test(u.hostname)) throw new Error("skipped host");
     if (u.port && u.port !== "80" && u.port !== "443") throw new Error("blocked port"); // no probing of internal services
-    await assertPublicHost(u.hostname);
+    await assertPublicHost(u.hostname, signal);
     const res = await fetchImpl(url, {
       redirect: "manual",
       signal,
       headers: { "User-Agent": USER_AGENT, Accept: "text/html,text/plain,text/markdown;q=0.9,*/*;q=0.1", "Accept-Language": "en" },
     });
     if (res.status >= 300 && res.status < 400 && res.headers.get("location")) {
+      await discard(res);
       url = new URL(res.headers.get("location"), url).toString();
       continue;
     }
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const type = res.headers.get("content-type") || "";
-    if (!TEXT_TYPES.test(type)) throw new Error(`unsupported content type ${type}`);
     const length = Number(res.headers.get("content-length"));
-    if (length > MAX_BYTES * 4) throw new Error("page too large");
-    return { finalUrl: url, type, body: await readCapped(res) };
+    const problem = !res.ok ? `HTTP ${res.status}` : !TEXT_TYPES.test(type) ? `unsupported content type ${type}` : length > MAX_BYTES * 4 ? "page too large" : "";
+    if (problem) {
+      await discard(res); // an unread body would keep its socket open past the budget
+      throw new Error(problem);
+    }
+    return { finalUrl: url, type, body: await readCapped(res, type) };
   }
   throw new Error("too many redirects");
 }
@@ -261,6 +303,7 @@ async function fetchPage(rawUrl, { fetchImpl, timeoutMs = TIMEOUT_MS } = {}) {
     return null;
   } finally {
     clearTimeout(timer);
+    controller.abort(); // closes any request or body still open, whichever way we got here
   }
 }
 
