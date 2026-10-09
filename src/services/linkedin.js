@@ -530,8 +530,16 @@ class LinkedInService {
       try { typedLen = String(await editor.getText()).length; } catch (e) {}
       logger.info(`LinkedInService: comment editor holds ${typedLen} chars after typing.`);
       if (typedLen === 0) {
-        logger.warn("LinkedInService: editor empty after typing - focus lost, aborting post.");
-        return false;
+        // Keystrokes only land while the window has focus; an unattended run often does not. Put the
+        // text in with the editor's own insert command, which needs no OS focus, then read it back.
+        for (let attempt = 1; attempt <= 2 && typedLen === 0; attempt++) {
+          typedLen = await this._insertCommentText(textSnippet, text);
+          logger.info(`LinkedInService: insert fallback ${attempt}: editor holds ${typedLen} chars.`);
+        }
+        if (typedLen <= 0) {
+          logger.warn("LinkedInService: editor empty after typing and insert fallback - aborting post.");
+          return false;
+        }
       }
       await sleep(2000);
       // Submit finder: the submit button is the ONLY button whose visible text is exactly
@@ -617,6 +625,31 @@ class LinkedInService {
   // the option's FIRST LINE must equal the full name (LinkedIn renders "Name\nheadline"),
   // and the pick must be VERIFIED as a chip in the editor. Anything else falls back
   // to plain text. This is how "never tag strangers" is actually enforced.
+
+  // Fallback for typing that did not land: re-find this card's editor, focus it, and insert the text
+  // with execCommand (the same path paste uses). Returns the character count now in the editor.
+  async _insertCommentText(textSnippet, text) {
+    try {
+      try { await this.driver.sendDevToolsCommand("Page.bringToFront", {}); } catch (e) {}
+      return await this.driver.executeScript(`
+        const norm = s => (s || '').replace(/[\\u200b-\\u200d\\ufeff]/g, '').replace(/\\s+/g, ' ').trim();
+        ${CARDS_JS}
+        const nq = norm(arguments[0]);
+        const card = cards.find(c => norm(c.innerText).includes(nq));
+        if (!card) return -1;
+        const ed = card.querySelector('[aria-label="Text editor for creating comment"], .tiptap, .ProseMirror');
+        if (!ed) return -1;
+        try { window.focus(); } catch (e) {}
+        ed.focus();
+        document.execCommand('selectAll');
+        document.execCommand('delete');
+        document.execCommand('insertText', false, arguments[1]);
+        return (ed.innerText || '').trim().length;
+      `, String(textSnippet).substring(0, 80), String(text)).catch(() => -1);
+    } catch (e) {
+      return -1;
+    }
+  }
 
   async _typeWithMention(editor, text, fullName) {
     const plainFallback = async () => {
@@ -747,7 +780,7 @@ class LinkedInService {
         try { await this.driver.executeScript("window.scrollBy(0, window.innerHeight);"); } catch (e) {}
         await sleep(1200);
       }
-      const people = await this.driver.executeScript(`
+      const readPeople = () => this.driver.executeScript(`
         const out = [];
         const btns = Array.from(document.querySelectorAll('a, button')).filter(b => /^Invite .+ to connect$/i.test((b.getAttribute('aria-label') || '').trim()));
         for (const b of btns) {
@@ -767,6 +800,18 @@ class LinkedInService {
         }
         return out;
       `).catch(() => []);
+      let people = await readPeople();
+      // Results render lazily; give a slow page a few more chances before calling it empty.
+      for (let i = 0; i < 3 && !(people && people.length); i++) {
+        await sleep(3000);
+        try { await this.driver.executeScript("window.scrollBy(0, 300);"); } catch (e) {}
+        people = await readPeople();
+      }
+      if (!people || !people.length) {
+        const where = await this.driver.executeScript("return location.href.slice(0, 160) + ' | ' + document.title + ' | ' + (document.body ? document.body.innerText.slice(0, 120).split(String.fromCharCode(10)).join(' / ') : '')").catch(() => "?");
+        logger.warn(`LinkedInService: people search "${keywords}" page ${page} found no invite buttons (${where}).`);
+      }
+
       return { blocked: false, people: people || [] };
     } catch (e) {
       logger.warn(`LinkedInService: people search failed: ${e.message}`);

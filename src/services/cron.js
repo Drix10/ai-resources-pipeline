@@ -289,20 +289,24 @@ const processAllFolders = async () => {
     const folders = config.folders;
     logger.info(`Processing all ${folders.length} folders this run.`);
     // Randomize batch commit size between 1 and 8 on each run
-    const COMMIT_BATCH_SIZE = Math.floor(Math.random() * 8) + 1;
+    const nextBatchSize = () => Math.floor(Math.random() * 8) + 1;
+    let COMMIT_BATCH_SIZE = nextBatchSize(); // re-rolled after every batch commit
     let pendingBatch = [];
 
-    // After every batch commit: a random 5-9 LinkedIn likes, then 1 or 2 comments (random).
+    // LinkedIn runs in step with the content, never ahead of it:
+    //  - after every article (.md) is written: a few random likes (likeAfterArticle)
+    //  - after every batch commit: 1 or 2 comments, then a few connection requests (engageAfterBatch)
     // Targeted finance/AI/founder sources; non-English posts are skipped. Never fatal.
-    const engageAfterBatch = async () => {
-      if (config.social.linkedinLike) {
-        try {
-          const likeResult = await feedEngage.runLikePass({ min: 5, max: 9 });
-          logger.info(`Batch done: LinkedIn likes ${likeResult.liked}/${likeResult.target} `);
-        } catch (feedErr) {
-          logger.error("LinkedIn likes failed (non-fatal):", feedErr.message);
-        }
+    const likeAfterArticle = async () => {
+      if (!config.social.linkedinLike) return;
+      try {
+        const likeResult = await feedEngage.runLikePass({ min: 2, max: 4 });
+        logger.info(`Article done: LinkedIn likes ${likeResult.liked}/${likeResult.target}.`);
+      } catch (feedErr) {
+        logger.error("LinkedIn likes failed (non-fatal):", feedErr.message);
       }
+    };
+    const engageAfterBatch = async () => {
       if (config.social.linkedinFeedReply) {
         try {
           const engageResult = await feedEngage.runFeedEngagement({ max: 1 + Math.floor(Math.random() * 2) });
@@ -311,15 +315,24 @@ const processAllFolders = async () => {
           logger.error("LinkedIn comment pass failed (non-fatal):", feedErr.message);
         }
       }
+      if (config.social.linkedinConnect) {
+        try {
+          const conn = await feedEngage.runConnectPass({ min: 3, max: 5 });
+          logger.info(`Batch done: LinkedIn connections ${conn.sent}/${conn.target} sent. ${conn.reason || ""}`);
+        } catch (connErr) {
+          logger.error("LinkedIn connection pass failed (non-fatal):", connErr.message);
+        }
+      }
     };
 
     const flushBatch = async () => {
       if (pendingBatch.length === 0) return;
       const batchToCommit = [...pendingBatch];
       pendingBatch = [];
+      COMMIT_BATCH_SIZE = nextBatchSize();
 
       logger.info(
-        `Flushing batch of ${batchToCommit.length} folder article(s) to GitHub in 1 consolidated commit (batch size: ${COMMIT_BATCH_SIZE})...`
+        `Flushing batch of ${batchToCommit.length} folder article(s) to GitHub in 1 consolidated commit...`
       );
 
       try {
@@ -367,6 +380,7 @@ const processAllFolders = async () => {
             `Prepared article for ${prepared.queryName}. Queued in commit batch (${pendingBatch.length + 1}/${COMMIT_BATCH_SIZE}).`
           );
           pendingBatch.push(prepared);
+          await likeAfterArticle();
           if (pendingBatch.length >= COMMIT_BATCH_SIZE) {
             await flushBatch();
           }
@@ -399,17 +413,6 @@ const processAllFolders = async () => {
 
     if (successfulArticles.length > 0) {
       logger.info(`Cycle End: Successfully processed and syndicated ${successfulArticles.length} curated guide(s).`);
-    }
-
-    // LinkedIn connections: once per cycle. Likes and comments run after each batch commit (see engageAfterBatch).
-    if (config.social.linkedinConnect) {
-      try {
-        logger.info("Cycle End: Running LinkedIn connection pass...");
-        const conn = await feedEngage.runConnectPass({ min: 10, max: 15 });
-        logger.info(`LinkedIn connections: ${conn.sent}/${conn.target} sent. ${conn.reason || ""}`);
-      } catch (connErr) {
-        logger.error("LinkedIn connection pass failed (non-fatal):", connErr.message);
-      }
     }
 
     // --- End-of-Cycle Batched Synchronization ---
