@@ -21,7 +21,7 @@ const PIPELINE_LOCK_PATH = path.join(process.cwd(), ".pipeline.lock");
 const PIPELINE_LOCK_STALE_AFTER_MS = 30 * 60 * 1000;
 let lockHeartbeatTimer = null;
 
-// Set by stopCronJob: the running cycle stops at its next step (no new folders, no more posts).
+// Set by stopPipeline: the running cycle stops at its next step (no new folders, no more posts).
 let stopRequested = false;
 const stopping = () => stopRequested;
 
@@ -614,102 +614,35 @@ const processAllFolders = async () => {
     TwitterService.cleanupScreenshots();
     return { ran: true, articles: successfulArticles.length, xReady };
   } finally {
-    // Release the browsers between runs: a driver kept for 20 hours is usually dead by the next one.
+    // Release the browsers at the end of the run, whatever happened in it.
     await TwitterService.cleanup().catch(() => {});
     await feedEngage.cleanup().catch(() => {});
     releasePipelineLock();
   }
 };
 
-let scheduledJob = null;
-let isJobRunning = false;
 let activePipelinePromise = null;
 
-// A run takes a few hours, so 20-24h after it ends keeps the cadence at about one run per day.
-const MIN_INTERVAL_HOURS = 20;
-const MAX_INTERVAL_HOURS = 24;
-// The schedule lives on disk, so a restart (a crash, an update, a reboot) neither skips a day nor
-// runs a second pipeline the same day; a timer would forget it and a 20 h setTimeout also drifts
-// across laptop sleep. A tick checks it every few minutes instead.
-const SCHEDULE_PATH = path.join(process.cwd(), ".pipeline-schedule.json");
-const TICK_MS = 5 * 60 * 1000;
-const RETRY_AFTER_FAILURE_MS = 90 * 60 * 1000;
-const RETRY_AFTER_LOCKED_MS = 30 * 60 * 1000;
-
-const readSchedule = () => {
-  try {
-    return JSON.parse(fs.readFileSync(SCHEDULE_PATH, "utf8")) || {};
-  } catch {
-    return {};
+/**
+ * One full run, started by `npm start`: articles and batch commits, LinkedIn, the blog push, one
+ * reel, DEV.to. Resolves "ok", "locked" (another run holds the lock), "stopped" or "failed".
+ */
+const runPipeline = async () => {
+  if (activePipelinePromise) {
+    logger.warn("A pipeline run is already in progress.");
+    return "busy";
   }
-};
-
-const writeSchedule = (schedule) => {
-  try {
-    replaceRuntimeFile(SCHEDULE_PATH, JSON.stringify(schedule, null, 2));
-  } catch (error) {
-    logger.warn(`Could not save the pipeline schedule: ${error.message}`);
-  }
-};
-
-const nextGapMs = () =>
-  (MIN_INTERVAL_HOURS + Math.random() * (MAX_INTERVAL_HOURS - MIN_INTERVAL_HOURS)) * 60 * 60 * 1000;
-
-const runPipeline = async (reason) => {
-  if (isJobRunning) {
-    logger.warn("Previous job still running, skipping this execution");
-    return;
-  }
-  isJobRunning = true;
-  const startedAt = new Date();
-  // Written before the run: a crash or a kill mid-run retries in 90 minutes, not on every restart.
-  writeSchedule({ ...readSchedule(), lastStart: startedAt.toISOString(), nextRunAt: new Date(Date.now() + RETRY_AFTER_FAILURE_MS).toISOString() });
-  logger.info(`Running pipeline (${reason}) at ${startedAt.toISOString()}`);
-  let outcome = "failed";
+  logger.info(`Running the pipeline at ${new Date().toISOString()}`);
   const pipelinePromise = processAllFolders();
   activePipelinePromise = pipelinePromise;
   try {
     const result = await pipelinePromise;
-    outcome = result?.ran === false ? "locked" : result?.stopped ? "stopped" : "ok";
+    return result?.ran === false ? "locked" : result?.stopped ? "stopped" : "ok";
   } catch (error) {
     logger.error("Pipeline run failed:", error);
+    return "failed";
   } finally {
-    isJobRunning = false;
     if (activePipelinePromise === pipelinePromise) activePipelinePromise = null;
-  }
-  const delay = outcome === "ok" ? nextGapMs() : outcome === "locked" ? RETRY_AFTER_LOCKED_MS : RETRY_AFTER_FAILURE_MS;
-  const nextRunAt = new Date(Date.now() + delay);
-  writeSchedule({ lastStart: startedAt.toISOString(), lastEnd: new Date().toISOString(), lastOutcome: outcome, nextRunAt: nextRunAt.toISOString() });
-  if (!stopping()) logger.info(`Pipeline ${outcome}. Next run at ${nextRunAt.toISOString()} (in ${(delay / 3600000).toFixed(1)}h).`);
-};
-
-const tick = () => {
-  if (stopping() || isJobRunning || !scheduledJob) return;
-  const due = Date.parse(readSchedule().nextRunAt || "");
-  if (Number.isFinite(due) && Date.now() < due) return;
-  runPipeline(Number.isFinite(due) ? "scheduled" : "first run").catch((error) => logger.error("Pipeline run failed:", error));
-};
-
-/** Starts the scheduler. runNow forces a run on start; otherwise it runs when the saved schedule is due. */
-const initCronJob = ({ runNow = false } = {}) => {
-  try {
-    if (scheduledJob) {
-      logger.warn("Cron job already initialized");
-      return scheduledJob;
-    }
-    const timer = setInterval(tick, TICK_MS);
-    scheduledJob = { timer, stop: () => clearInterval(timer) };
-
-    const due = Date.parse(readSchedule().nextRunAt || "");
-    if (runNow || !Number.isFinite(due) || Date.now() >= due) {
-      runPipeline(runNow ? "start (--now)" : "start").catch((error) => logger.error("Initial pipeline run failed:", error));
-    } else {
-      logger.info(`Next pipeline run at ${new Date(due).toISOString()} (in ${((due - Date.now()) / 3600000).toFixed(1)}h). Start with --now to run immediately.`);
-    }
-    return scheduledJob;
-  } catch (error) {
-    logger.error("Failed to initialize cron job:", error);
-    throw error;
   }
 };
 
@@ -718,15 +651,9 @@ const requestStop = () => {
   stopRequested = true;
 };
 
-const stopCronJob = async () => {
+/** Stops the run (if any) at its next step, then releases the browsers and the local LLM. */
+const stopPipeline = async () => {
   requestStop();
-  if (scheduledJob) {
-    scheduledJob.stop();
-    scheduledJob = null;
-    logger.info("Cron job stopped");
-  } else {
-    logger.warn("No active cron job to stop");
-  }
 
   if (activePipelinePromise) {
     // A film can take an hour: stop the factory's claude processes first, so shutdown is not
@@ -768,8 +695,8 @@ process.on("exit", releasePipelineLock);
 
 module.exports = {
   runDataPipeline,
-  initCronJob,
-  stopCronJob,
+  runPipeline,
+  stopPipeline,
   requestStop,
   releasePipelineLock,
   syncBlogToGit,
