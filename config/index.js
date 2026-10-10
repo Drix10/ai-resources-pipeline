@@ -102,12 +102,14 @@ const config = {
     //   hybrid   house templates for most reels plus heroPerWeek agent films
     //   template house templates only (fast previews; every reel shares one look)
     videoMode: ["hybrid", "agent", "template"].includes(process.env.FACTORY_VIDEO_MODE) ? process.env.FACTORY_VIDEO_MODE : "agent",
-    // Stock footage and photos for the scenes that ask for them (src/factory/stock.js). Both keys
-    // are free; without them only Openverse photos (no key) are fetched.
+    // Footage and photos for the scenes that ask for them (src/factory/stock.js). Pexels and
+    // Pixabay keys are free; Mixkit video, Wikimedia Commons and Openverse photos need none.
     stock: {
       pexelsKey: process.env.PEXELS_API_KEY || "",
       pixabayKey: process.env.PIXABAY_API_KEY || "",
       openverse: process.env.FACTORY_OPENVERSE !== "off",
+      mixkit: process.env.FACTORY_MIXKIT !== "off",
+      commons: process.env.FACTORY_COMMONS !== "off",
     },
     // Voiceover for agent reels (src/factory/voice.js): ElevenLabs is the main provider, OpenRouter
     // (a speech model over chat completions) the fallback. Without either key reels get music only.
