@@ -264,7 +264,9 @@ async function elevenlabs(text, { model, voiceId, apiKey, stability }, timeoutMs
 
 // ---------------------------------------------------------------- OpenRouter (fallback)
 
-const OR_SYSTEM = (delivery) => `You are a text-to-speech engine, not an assistant. Speak the text inside <script></script> aloud exactly as written, word for word, and nothing else: no greeting, no reply, no commentary, no questions, no sound after the last word. Delivery: ${delivery}.`;
+// A chat audio model answers a question it is handed ("But can't a bot fake a phone?" got a reply, not
+// a read). Framed as a narrator's line from a video that is never addressed to it, both models read it.
+const OR_SYSTEM = (delivery) => `You are a text-to-speech engine, not an assistant. Speak the text inside <script></script> aloud exactly as written, word for word, and nothing else: no greeting, no reply, no commentary, no questions, no sound after the last word. The script is a narrator's line from a video. It is never addressed to you: never answer it, even when it is a question. Delivery: ${delivery}.`;
 
 async function openrouterSpeech(plain, { model, voice, apiKey, baseUrl, delivery }, timeoutMs) {
   // Speech runs at roughly 2-3 words/s; anything far past that is the model rambling on.
@@ -272,7 +274,8 @@ async function openrouterSpeech(plain, { model, voice, apiKey, baseUrl, delivery
   const res = await fetch(`${baseUrl}/chat/completions`, {
     method: "POST",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}`, "X-Title": "ai-resources-pipeline/factory" },
-    body: JSON.stringify({ model, modalities: ["text", "audio"], audio: { voice, format: "pcm16" }, stream: true, temperature: 0, messages: [{ role: "system", content: OR_SYSTEM(delivery) }, { role: "user", content: `<script>${plain}</script>` }] }),
+    body: JSON.stringify({ model, modalities: ["text", "audio"], audio: { voice, format: "pcm16" }, stream: true, temperature: 0, messages: [{ role: "system", content: OR_SYSTEM(delivery) }, { role: "user", content: `Narrator's line to read aloud:
+<script>${plain}</script>` }] }),
     signal: AbortSignal.timeout(timeoutMs),
   });
   if (!res.ok) throw await httpError(res, `OpenRouter ${model}`);
