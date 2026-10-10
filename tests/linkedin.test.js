@@ -157,7 +157,7 @@ test("tracker: corrupt with no backup disables LinkedIn instead of returning {}"
   const t = T.loadTrack();
   assert.ok(t.disabled, "disabled tracker");
   assert.equal(T.saveTrack(t), false, "a disabled tracker is never written");
-  assert.match(T.passBlocked(t, "like", { dryRun: true }), /^linkedin unavailable/);
+  assert.match(T.passBlocked(t, "like"), /^linkedin unavailable/);
   // Next run: the bad file was moved aside and nothing replaced it - still off, not a reset.
   assert.ok(T.loadTrack().disabled);
 });
@@ -167,7 +167,7 @@ test("tracker: old-format files load unchanged and have no cooldowns", () => {
   fs.writeFileSync(file, JSON.stringify({ a: "2026-09-19T16:07:27.441Z", b: { ts: ago(1), status: "liked" } }));
   const t = T.loadTrack();
   assert.equal(t.a, "2026-09-19T16:07:27.441Z");
-  assert.equal(T.passBlocked(t, "connect", { dryRun: true }), "");
+  assert.equal(T.passBlocked(t, "connect"), "");
 });
 
 // ---- Circuit breaker ----
@@ -175,31 +175,21 @@ test("cooldowns: 'all' stops every pass, 'connect' only connects", () => {
   reset();
   const t = {};
   T.setCooldown(t, "connect", 7 * DAY, "test");
-  assert.equal(T.passBlocked(t, "like", { dryRun: true }), "");
-  assert.match(T.passBlocked(t, "connect", { dryRun: true }), /^linkedin unavailable \(connect cooldown/);
+  assert.equal(T.passBlocked(t, "like"), "");
+  assert.match(T.passBlocked(t, "connect"), /^linkedin unavailable \(connect cooldown/);
   T.setCooldown(t, "all", DAY, "test");
-  assert.match(T.passBlocked(t, "comment", { dryRun: true }), /^linkedin unavailable \(cooldown/);
+  assert.match(T.passBlocked(t, "comment"), /^linkedin unavailable \(cooldown/);
   assert.ok(T.loadTrack().cooldowns.all, "cooldown persisted");
 });
 
 test("a process-level disable blocks every pass until reset", () => {
   LinkedInService.disable(60000, "login required");
   try {
-    assert.match(T.passBlocked({}, "like", { dryRun: true }), /^linkedin unavailable \(login required\)/);
+    assert.match(T.passBlocked({}, "like"), /^linkedin unavailable \(login required\)/);
   } finally {
     LinkedInService._resetDisabled();
   }
-  assert.equal(T.passBlocked({}, "like", { dryRun: true }), "");
-});
-
-test("active hours: 8-22 by default, wrapping specs work", () => {
-  const at = (h) => new Date(2026, 0, 1, h, 30);
-  assert.equal(T.withinActiveHours(at(7), "8-22"), false);
-  assert.equal(T.withinActiveHours(at(8), "8-22"), true);
-  assert.equal(T.withinActiveHours(at(21), "8-22"), true);
-  assert.equal(T.withinActiveHours(at(22), "8-22"), false);
-  assert.equal(T.withinActiveHours(at(23), "22-6"), true);
-  assert.equal(T.withinActiveHours(at(12), "22-6"), false);
+  assert.equal(T.passBlocked({}, "like"), "");
 });
 
 // ---- Entries merge, prune keeps what caps need ----

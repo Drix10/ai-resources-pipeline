@@ -125,8 +125,10 @@ DISCORD_WEBHOOK_URL=your_discord_webhook_url
 
 ### 3. Running the Engine
 ```bash
-# Start Chrome with remote debugging (attaches to your logged-in session)
-node start-app.js
+# One full run, right away, then exit: articles and batch commits, LinkedIn, the blog push,
+# one reel and DEV.to. Starts Chrome with remote debugging (your logged-in session) if needed.
+# There is no scheduler: run it again for the next batch.
+npm start
 
 # Preview feed engagement (comments + likes) without posting anything
 node feed-preview.js --max 3

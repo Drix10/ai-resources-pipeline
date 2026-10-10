@@ -12,7 +12,7 @@
  * whole thing when LINKEDIN_SOURCE=feed.
  *
  * Safety: every pass first checks the circuit breaker (signed out, checkpoint/limit
- * cooldowns persisted in the tracker, LINKEDIN_ACTIVE_HOURS) and runs under a 15 min
+ * cooldowns persisted in the tracker) and runs under a 15 min
  * timeout. Sensitive posts (grief, layoffs, war, politics) get no like, follow or comment.
  */
 
@@ -326,7 +326,7 @@ function pruneTrack(track) {
   }
 }
 
-// ---- Circuit breaker, active hours, pass guard ----
+// ---- Circuit breaker, pass guard ----
 function cooldownLeft(track, kind) {
   const until = Date.parse(((track && track.cooldowns) || {})[kind] || "");
   return Number.isFinite(until) ? Math.max(0, until - Date.now()) : 0;
@@ -338,22 +338,13 @@ function setCooldown(track, kind, ms, why) {
   saveTrack(track);
 }
 
-// LINKEDIN_ACTIVE_HOURS="8-22" (local time; "22-6" wraps midnight). Bots act at 3 am, people don't.
-function withinActiveHours(date = new Date(), spec = process.env.LINKEDIN_ACTIVE_HOURS || "8-22") {
-  const m = String(spec).match(/^\s*(\d{1,2})\s*-\s*(\d{1,2})\s*$/);
-  const from = m ? Number(m[1]) : 8, to = m ? Number(m[2]) : 22;
-  const h = date.getHours();
-  return from <= to ? h >= from && h < to : h >= from || h < to;
-}
-
 // Why a pass must not start, or "" when it may.
-function passBlocked(track, kind, { dryRun = false } = {}) {
+function passBlocked(track, kind) {
   const off = linkedinService.disabledReason();
   if (off) return `linkedin unavailable (${off})`;
   if (track.disabled) return `linkedin unavailable (${track.disabled})`;
   if (cooldownLeft(track, "all")) return `linkedin unavailable (cooldown until ${track.cooldowns.all})`;
   if (kind === "connect" && cooldownLeft(track, "connect")) return `linkedin unavailable (connect cooldown until ${track.cooldowns.connect})`;
-  if (!dryRun && !withinActiveHours()) return "outside active hours";
   return "";
 }
 
@@ -452,7 +443,7 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
   };
   const out = { commented: 0, skipped: 0, liked: 0, previews: [], wouldLike: [], reason: "", cost: null };
   const track = loadTrack();
-  const blocked = passBlocked(track, "comment", { dryRun });
+  const blocked = passBlocked(track, "comment");
   if (blocked) return { ...out, reason: blocked, cost: runCost() };
   pruneTrack(track);
   if (!dryRun && commentedSince(track, DAY) >= MAX_PER_DAY) {
@@ -684,7 +675,7 @@ function recordSearchLoad(track) {
 async function runConnectPass({ min = 10, max = 15, dryRun = false } = {}) {
   const out = { sent: 0, target: 0, scanned: 0, previews: [], reason: "" };
   const track = loadTrack();
-  const blocked = passBlocked(track, "connect", { dryRun });
+  const blocked = passBlocked(track, "connect");
   if (blocked) return { ...out, reason: blocked };
   const dayLeft = CONNECT_MAX_PER_DAY - invitedSince(track, DAY);
   const weekLeft = CONNECT_MAX_PER_WEEK - invitedSince(track, 7 * DAY);
@@ -761,5 +752,5 @@ const cleanup = () => LinkedInService.cleanup();
 
 module.exports = {
   runFeedEngagement, runLikePass, runConnectPass, scorePost, isSensitivePost, cleanup,
-  _tracker: { shouldSkipTracked, entryOfPost, markPost, loadTrack, saveTrack, pruneTrack, passBlocked, withinActiveHours, commentedSince, likedSince, setCooldown, cooldownLeft },
+  _tracker: { shouldSkipTracked, entryOfPost, markPost, loadTrack, saveTrack, pruneTrack, passBlocked, commentedSince, likedSince, setCooldown, cooldownLeft },
 };

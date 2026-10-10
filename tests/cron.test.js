@@ -32,7 +32,7 @@ config.factory = { ...config.factory, enabled: false };
 
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), "cron-"));
 const prev = process.cwd();
-process.chdir(dir); // lock and schedule files land here
+process.chdir(dir); // lock files land here
 const cron = require("../src/services/cron");
 const helpers = require("../src/utils/helpers");
 process.chdir(prev);
@@ -94,6 +94,17 @@ test("a failed GitHub batch is retried once at the end of the run", { timeout: 6
   const r = await inDir(() => cron.processAllFolders());
   assert.equal(r.articles, 4, "every article made it after the retry");
   assert.ok(calls.filter((c) => c.startsWith("upload:")).length >= 2);
+});
+
+test("runPipeline does one run and reports it; a second call during it is refused", { timeout: 60000 }, async () => {
+  calls.length = 0;
+  state.fetch = () => tweets(10);
+  const [first, second] = await inDir(() => Promise.all([cron.runPipeline(), cron.runPipeline()]));
+  assert.equal(first, "ok");
+  assert.equal(second, "busy");
+  assert.equal(calls.filter((c) => c === "init").length, 1, "one run, not two");
+  assert.ok(!fs.existsSync(path.join(dir, ".pipeline.lock")), "lock released");
+  assert.deepEqual(fs.readdirSync(dir).filter((f) => f.startsWith(".pipeline-schedule")), [], "no schedule is kept");
 });
 
 test("a stop request ends the run at the next step and skips README, blog and factory", { timeout: 60000 }, async () => {

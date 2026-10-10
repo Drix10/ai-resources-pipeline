@@ -63,7 +63,6 @@ login-error.png
 .processed-tweet-ids.json.tmp
 .processed-tweet-ids.json.bak
 .processed-tweet-ids.json.corrupt-*
-.pipeline-schedule.json
 tracker/
 
 # Dynamic View Counter Data (Persists per-deployment)
