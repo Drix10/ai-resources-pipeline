@@ -37,7 +37,7 @@ const { THEME_NOTE } = require("./theme-note");
 const { runClaude, claudeArgs } = require("./opus");
 const novelty = require("./novelty");
 const assetsLib = require("./assets");
-const { CRAFT_BAR, copyLines, voiceBlock, filmSeconds } = require("./director");
+const { CRAFT_BAR, REEL_BAR, copyLines, shotPlan, voiceBlock, filmSeconds } = require("./director");
 
 const browserFlag = () => (config.factory.browserExecutable ? ` --browser-executable=${config.factory.browserExecutable}` : "");
 
@@ -75,13 +75,22 @@ const SHOT_TOOL = path.resolve(__dirname, "shot.js");
 // The films we hold up as the level to reach (never as a look to copy).
 const GOLD = ["pdoom-music-video", "tessel-launch"];
 
-/** The REAL MATERIAL block: captures of the pages the article links to, and how to use them. */
-function materialBlock(assets, engine, hosts) {
-  const where = engine === "remotion" ? `public/assets/<id>.jpg, loaded with staticFile("assets/<id>.jpg")` : "assets/<id>.jpg here; copy what you use into the film project";
-  const list = assets.map((a) => `- ${a.id} (${a.kind}, ${a.width}x${a.height}) ${a.title ? `"${a.title.slice(0, 80)}" ` : ""}${a.url}`).join("\n");
-  return `REAL MATERIAL (captured from the pages this article links to; files at ${where})
+/** The file name an asset gets in the agent's workspace (its own extension: the post is a PNG, stock clips are MP4). */
+const assetName = (a) => `${a.id}${path.extname(a.file || "") || ".jpg"}`;
+// Clips stay out of the project's public folder (a bundle would copy every one): the agent trims in what it uses.
+const isClip = (a) => /\.(mp4|mov|webm)$/i.test(a.file || "");
+/** Where an asset sits in the agent's workspace. */
+const assetPath = (a, engine) => (isClip(a) ? `footage/${assetName(a)}` : `${engine === "remotion" ? "public/assets" : "assets"}/${assetName(a)}`);
+
+/** The REAL MATERIAL block: the source post, its photos, page captures, stock for the scenes, and how to use them. */
+function materialBlock(assets, engine, hosts, format = "reel") {
+  const where = engine === "remotion" ? `images in public/assets/ (staticFile("assets/<file>")), clips in footage/` : "images in assets/, clips in footage/; copy or trim what you use into the film project";
+  const list = assets.map((a) => `- ${a.id} -> ${assetPath(a, engine)} (${a.kind}, ${a.width}x${a.height}${a.seconds ? `, ${a.seconds} s` : ""}) ${a.title ? `"${String(a.title).slice(0, 80)}" ` : ""}${a.page || a.url}`).join("\n");
+  const reelUse = format === "reel" ? `
+In a reel this material IS the picture. Fill the 1080x1920 frame with it (cover-crop footage and photos; a landscape clip can also sit in a framed band over a blurred, darkened copy of itself), keep every still moving (a slow push-in or pan), and lay the graphics on top: highlight the exact line of a page or post that the voice is saying, circle the number, zoom into the region that matters. The source post (kind post, a transparent PNG cut along its card) can fill the width over a background, be pushed into, or have one line lit. Clips in footage/: ffmpeg only the seconds you use into your project, scaled and silent (e.g. ffmpeg -ss 1.5 -t 3 -i footage/stock-2.mp4 -vf scale=-2:1920 -an <project>/stock-2-a.mp4), never the whole file.` : "";
+  return `REAL MATERIAL (files at ${where})
 ${list || "- none captured"}
-desktop = 1440-wide viewport (dark scheme), card = 900-wide close-up whose text reads at phone size, mobile = full-length phone page to scroll through, image = the page's own share image.
+post = the X post this story comes from, exactly as X shows it; photo = a photo attached to that post; desktop = 1440-wide viewport (dark scheme), card = 900-wide close-up whose text reads at phone size, mobile = full-length phone page to scroll through, image = the page's own share image; stock-video / stock-photo = licensed footage or a photo found for one scene (see the shot plan).${reelUse}
 When the subject has a real page (a repo, docs, the blog post), showing the real thing beats an abstraction: frame it inside the world you build (a screen, a printout, a device, a wall), push in on the exact region that matters (crop by pixel coordinates), scroll a mobile capture, light up one line, or cut a mask from it. Screenshot text is texture: anything the viewer must read is set in your own type from FIXED WORDING. Never fake a UI, never alter what a capture shows, and never zoom into a number (stars, counts) as if it were a claim.
 More captures: node shot.cjs <url> out/<name>.jpg [--mobile] [--card] [--light] (only these hosts: ${hosts.join(", ")}).`;
 }
@@ -98,7 +107,7 @@ function referenceLines(refs) {
 function soundBlock(voice) {
   return `SOUND DESIGN (you design it; we synthesize and mix it, so render the film muted)
 - In out/cues.json list an "sfx" event wherever your motion lands: {"t": <seconds>, "kind": "${SFX_KINDS.join("|")}", "weight": 0..1}. whoosh = a camera move, slide or wipe (peaks on t); impact = a slam, stamp or hard cut; boom = the one big reveal; riser / swell = a build that ENDS on t; tick = counters or typing beats; pop = an element appearing; glitch = a glitch cut; shutter = a screenshot or capture; type = a keystroke. Fewer, well-placed sounds beat a sound on everything: 6-20 for a 30 s film.${voice ? `
-- CAPTIONS: viewers watch muted, so the spoken words must be on screen. Either build them into the film (2-4 words at a time from voice.json, the spoken word lit, styled as part of your design, inside the safe area, never over the key visual) and set "captions": true, or set "captions": false and keep the band y 1260..1480 free of anything important: we burn standard word-by-word captions there.` : ""}`;
+- CAPTIONS: viewers watch muted, so the spoken words must be on screen. Either build them into the film (2-4 words at a time from voice.json, the spoken word lit, styled as part of your design, inside the safe area, never over the key visual) and set "captions": true, or set "captions": false and keep the band y 1190..1340 free of anything important: we burn standard word-by-word captions there (1-3 words at a time).` : ""}`;
 }
 
 function heroPrompt({ storyboard, article, references = [], director = null, assets = [], engine, skills, avoid, voice = null, music = null }) {
@@ -111,7 +120,7 @@ function heroPrompt({ storyboard, article, references = [], director = null, ass
     ? `1. Read the director's prompt, then the references' prompts, frames and code for every technique it names. Write out/treatment.md (your plan: form, through-line, sections with frame numbers, techniques and where each comes from) and out/look.json:
    {"form": "<one line>", "idea": "<one line>", "palette": ["#hex", "..."], "fonts": ["Display face", "Text face"], "technique": "<one line>", "engine": "${engine}"}
 2. Build it.
-3. Render one still per section and LOOK at every one against THE BAR and the director's CHECKS. Anything that reads as text on a background, a card, a list or a centred stat is a failure: rebuild that section. Fix clipped or cramped text, contrast, orphan words, empty frames. Repeat until every still would stop a scroll.
+3. Render one still per scene and LOOK at every one against THE BAR FOR A REEL and the director's CHECKS: real material fills the frame, the headline reads over it, the captions band is clear. A scene that is type on a background, a card, a list or a centred stat is a failure: rebuild it. Fix clipped or cramped text, contrast, orphan words, empty frames. Then check the flow: stills at every second of the film (no frozen stretch while the voice talks, every cut lands on its spoken word, nothing ping-pongs). Repeat until every still would stop a scroll.
 4. Render the muted film to out/hero.muted.mp4.
 5. Write out/cues.json: {"bpm": ${storyboard.bpm}, "seconds": <exact duration>, "cuts": [<every cut time in seconds>], "sfx": [<events, see SOUND DESIGN>]${voice ? `, "captions": true|false` : ""}}. Music, voice and effects are mixed from it.
 6. Your final reply is one line: DONE, or FAILED: <reason>.`
@@ -121,32 +130,33 @@ function heroPrompt({ storyboard, article, references = [], director = null, ass
 3. Render all ${slides} slides and LOOK at every one against THE BAR and the director's CHECKS. Slide 1 must stop a scroll on its own. Anything that reads as text on a background, a card, a list or a centred stat is a failure: rebuild that slide. Fix clipped or cramped text, contrast and orphan words. Repeat until every slide is worth saving.
 4. Leave exactly out/slide-01.png .. out/slide-${String(slides).padStart(2, "0")}.png (1080x1350).
 5. Your final reply is one line: DONE, or FAILED: <reason>.`;
-  return `You are a world-class motion designer and engineer. Build ${what}, in code, to the director's prompt below.
+  const reel = format === "reel";
+  return `${reel ? `You are a world-class short-form video editor and motion engineer. Build ${what}, cut from the REAL MATERIAL under the voiceover, in code, to the director's prompt below.` : `You are a world-class motion designer and engineer. Build ${what}, in code, to the director's prompt below.`}
 ${skills.length ? `\nSKILLS: before building, invoke these if they are installed: ${skills.join(", ")}.\n` : ""}
 DIRECTOR'S PROMPT (your brief: build THIS. Where your own stills show a better choice, improve it, but keep its concept, form, palette and message)
-${director || "(none this time: before building, write your own director's prompt to THE BAR into out/treatment.md: concept, form, through-line, palette, type system, sections, techniques credited to the references)"}
+${director || `(none this time: before building, write your own director's prompt to THE BAR into out/treatment.md: ${reel ? "concept, through-line, palette, type system, a shot list scene by scene, transitions, techniques" : "concept, form, through-line, palette, type system, sections, techniques credited to the references"})`}
 
-${CRAFT_BAR}
+${reel ? REEL_BAR : CRAFT_BAR}
 
 CONTRACT (not negotiable)
 FIXED WORDING (use these words and numbers exactly; ${format === "reel" ? "you may split lines across beats and drop at most one non-hook line" : "one slide per entry, in this order, none dropped or added"}; never add claims, numbers or names. The type label only says what each line is: it is NOT a layout):
 ${copyLines(storyboard)}
-- Format: ${format === "reel" ? "1080x1920, 30 fps. All text inside x 84..930, y 230..1520 (Instagram UI covers the rest). The last frame loops cleanly into the first." : "1080x1350 stills. All text inside x 72..1008, y 96..1250."}
-- End on a follow lockup: ${storyboard.author}, ${storyboard.handle}.
+- Format: ${format === "reel" ? "1080x1920, 30 fps. headlines and anything to read inside x 90..930, y 250..1170; the band y 1190..1340 belongs to the captions; nothing that matters below y 1340 or right of x 930 (Instagram's caption, handle and buttons cover it). The last frame loops cleanly into the first." : "1080x1350 stills. All text inside x 72..1008, y 96..1250."}
+- ${reel ? `End on the CTA over real material, flowing back into frame 0: no logo, no end card, no outro (${storyboard.handle} may appear small inside the CTA).` : `End on a follow lockup: ${storyboard.author}, ${storyboard.handle}.`}
 - Your own type is crisp, large (>= 34 px) and high-contrast.
-- No stock imagery except the VISUAL LIBRARY's clips, used the way it says. No robots/brains/circuit boards, purple-blue neon, glassmorphism, spinning logos, invented UI or fake dashboards, emoji. No copying a reference or a recent piece.
+- ${reel ? "The picture is the REAL MATERIAL (and the VISUAL LIBRARY's clips for atmosphere and transitions); no other imagery." : "No stock imagery except the VISUAL LIBRARY's clips, used the way it says."} No robots/brains/circuit boards, purple-blue neon, glassmorphism, spinning logos, invented UI or fake dashboards, emoji. No copying a reference or a recent piece.
 - House defaults you MAY use only if they suit this piece: ${THEME_NOTE}
 
 RECENT PIECES ON THE CHANNEL (do not reuse their form, idea, palette, type pairing or technique):
 ${avoid}
 
-${materialBlock(assets, format === "carousel" ? "remotion" : engine, assetsLib.allowedHosts(article))}
+${materialBlock(assets, format === "carousel" ? "remotion" : engine, assetsLib.allowedHosts(article), format)}
+${reel ? `\nTHE STORYBOARD'S SHOT PLAN (what each scene shows, from which material, under which spoken line):\n${shotPlan(storyboard, assets)}\n` : ""}
 ${format === "reel" ? `\n${library.visualsBlock((slug) => `visuals/${slug}.mp4`)}\nTo use a clip, ffmpeg only the part you need into your project, trimmed, scaled and silent (e.g. ffmpeg -ss 2 -t 3 -i visuals/<slug>.mp4 -vf scale=1080:-2 -an ${engine === "remotion" ? "public" : "film"}/<slug>.mp4); never copy the whole folder.\n` : ""}
 ${voice && format === "reel" ? `\n${voiceBlock(voice)}\n- Word-by-word timings: voice.json here. Do NOT put the voice in the film (it is mixed in afterwards); render the film muted.\n` : ""}${format === "reel" ? `\n${music ? musicBlock(music.track, music.plan) : `TIMING\n${storyboard.bpm} bpm, cuts on beats.`}\nEvery frame is a pure function of the frame number: no CSS transitions, no timers, no unseeded randomness. Springs and named easings only.\n\n${soundBlock(voice)}\n` : ""}
 REFERENCES (read access: ${library.LIB}). The director picked these for this piece; open their prompts, frames and code for every technique you use:
 ${referenceLines(references) || "- (none: browse LIBRARY.md)"}
-THE STANDARD (read for the level of craft, never to copy their look): ${referenceLines(gold).replace(/^- /gm, "")}
-Every other film in the library, with all its paths: LIBRARY.md here.
+${reel ? "" : `THE STANDARD (read for the level of craft, never to copy their look): ${referenceLines(gold).replace(/^- /gm, "")}\n`}Every other film in the library, with all its paths: LIBRARY.md here.
 
 ${engineBlock(engine, format, slides)}
 
@@ -261,7 +271,13 @@ async function makeHero({ storyboard, article, outDir, assets = [], director = n
   prepareWorkspace(workDir, engine);
   const assetDir = path.join(workDir, engine === "remotion" ? "public/assets" : "assets");
   fs.mkdirSync(assetDir, { recursive: true });
-  for (const a of assets) if (fs.existsSync(a.file)) fs.copyFileSync(a.file, path.join(assetDir, `${a.id}.jpg`));
+  for (const a of assets) {
+    if (!a.file || !fs.existsSync(a.file)) continue;
+    const dest = path.join(workDir, assetPath(a, engine));
+    fs.mkdirSync(path.dirname(dest), { recursive: true });
+    // Hard links are free on the same disk; a copy otherwise.
+    try { fs.linkSync(a.file, dest); } catch { fs.copyFileSync(a.file, dest); }
+  }
   const refs = references || library.heroReferences(article);
   fs.writeFileSync(path.join(workDir, "LIBRARY.md"), `# Reference library\n\n${library.catalog()}\n`);
   if (format !== "reel") voice = null;

@@ -10,6 +10,7 @@
  *                                          and it counts toward the cap and spacing
  *   rendered -> publish_failed             publishing failed MAX_PUBLISH_ATTEMPTS times
  *   failed                                 production failed (retried once, then left)
+ *   rejected                               pulled from posting by hand: never posted automatically
  * Review a rendered item by opening its dir (reel.mp4 / slide-*.jpg, contact.jpg, caption.txt).
  */
 const fs = require("fs");

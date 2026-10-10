@@ -76,11 +76,11 @@ function freshSources(extraSources = [], { now = Date.now() } = {}) {
 async function pickStory(candidates) {
   const list = sources.rankSources(candidates).slice(0, SHORTLIST);
   if (list.length <= 1) return list;
-  const menu = list.map((a, i) => `${i + 1}. ${a.title}\n   links: ${(a.links || []).length} | ${a.text.replace(/\s+/g, " ").slice(0, 420)}`).join("\n");
+  const menu = list.map((a, i) => `${i + 1}. ${a.title}\n   links: ${(a.links || []).length} | post photos: ${(a.media || []).length} | ${a.text.replace(/\s+/g, " ").slice(0, 420)}`).join("\n");
   try {
     const reply = await opus.ask({
       system: "You are the editor of an Instagram channel for hands-on systems/AI engineers. You know what engineers save, share and argue about, and you pick the one story most likely to travel.",
-      prompt: `Score every story below for a 20-second reel, then pick the ONE most likely to go viral with engineers.
+      prompt: `Score every story below for a 40-second narrated reel cut from real footage, then pick the ONE most likely to go viral with engineers.
 
 Score each 1-10 on:
 - STOP: a surprising or counter-intuitive claim that stops a scroll in 2 seconds ("your X is secretly Y", a myth broken, a cost nobody noticed)
@@ -89,8 +89,8 @@ Score each 1-10 on:
 - REACH: how many engineers it applies to (common stacks and everyday pain beat niche configuration trivia)
 - NOW: tied to something new this week (a release, an incident, a trend)
 - SHARE: would someone send it to a teammate or save it for later
-- SHOW: can it be SHOWN as a mechanism in 20 seconds (not just told), ideally with a real page behind it (links)
-Viral = the stories that score high on STOP, STAKES and SHARE together. Skip vague opinion pieces and lists of news.
+- SHOW: is there something REAL to put on screen: a product or demo, the people involved, a real page (links), photos in the post, or a world stock footage can show (data centres, offices, factories, cities)? A story that is only numbers in a post, with nothing to show, makes a lifeless reel.
+Viral = the stories that score high on STOP, STAKES and SHARE together, with a real SHOW. Skip vague opinion pieces and lists of news.
 
 ${menu}
 

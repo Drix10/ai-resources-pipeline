@@ -19,6 +19,7 @@ const config = require("../../config");
 const { logger } = require("../utils/helpers");
 const library = require("./library");
 const opus = require("./opus");
+const { stripTags } = require("./voice");
 
 const PICKS = 6;
 const REF_CHARS = 9000;
@@ -41,8 +42,26 @@ const CRAFT_BAR = `THE BAR (the level every piece is held to; P(doom) and Tessel
 9. CRAFT DETAILS. Kerned display type, real typographic punctuation, grid discipline, asymmetric compositions, generous negative space, a type system with roles (display / machine voice / a rare third register).
 GENERIC (reject on sight): text fading in on a dark or gradient background; a code block on a rounded card; a bulleted list; a centred number counting up; a diagram of boxes and arrows; a "glowing" anything; the same layout repeated with new words; a copy of a reference.`;
 
+/**
+ * The bar for a narrated reel. The first live reel met CRAFT_BAR and still failed with its owner:
+ * no real images, type racing over a designed world, no voice, "looks generated". A reel is a
+ * story told over REAL footage and captures, led by the voice, with motion graphics as the layer
+ * on top. Hook/hold/pay-off rules adapted from Ootto's claude-content-skills (MIT): going-viral,
+ * reel-builder, b-roll-shot-list, on-screen-text-writer.
+ */
+const REEL_BAR = `THE BAR FOR A REEL (a narrated short a person would send to a friend; it must feel cut by a sharp human editor, never generated)
+1. REAL THINGS ON SCREEN. Nearly every second shows real material: the source post, its photos, the captured pages, stock footage of the world the story lives in (people, places, machines, screens), the library clips. Motion graphics are the layer ON TOP: a highlighter sweeping the line that matters, a circle or arrow on the real number, a zoom into a region of a page, a counter riding over footage, a split screen of two real things. A scene of type on an empty background is a failure; a pure graphic only where the storyboard says "graphic".
+2. FRAME 0 IS THE HOOK. The first frame already shows the most striking real image, moving (a push-in, a pan, footage in motion) and filling at least 40% of the frame; the hook headline lands at about 1.2-1.6 s, with the voice. No fade from black, no logo, no title card.
+3. THE VOICE LEADS. Cut and act on the spoken word (voice.json has every word's time): the picture turns when the voice turns, a highlight hits its exact word, the cut lands about 10 frames before the word it serves. Each beat is ONE forward action, start to finish; nothing ping-pongs.
+4. FLOW. One continuous thought, not a deck of slides: hard cuts on the beat between real shots, match cuts that carry a shape or position across, push-ins and whip pans that continue through a cut, the next shot arriving with its line. One recurring device ties the shots together (a highlighter colour, a frame, the source post returning, a cursor).
+5. NOTHING STATIC, NOTHING RUSHED. Every still moves (a slow push-in or pan, 4-10% over its shot); footage plays at real speed, trimmed to its best seconds; shots hold 1.5-3.5 s (the hook may cut faster). A headline stays up long enough to read twice: about 0.4 s per word, never under 1.5 s.
+6. TEXT IS A HEADLINE, NOT A TRANSCRIPT. One short line per beat (at most 6 words), one punched word in the accent colour, set big (headlines >= 72 px) and readable on any footage (a dark stroke, a shadow, or a solid plate). Never two headlines at once. The spoken words also appear as captions (see CAPTIONS): keep their band clear.
+7. ESCALATE TO THE PAYOFF. Each beat out-does the last; the promised payoff lands in the scene before the CTA (on the music's drop when it fits); then one clear CTA with its reason; the last frame flows back into the first.
+8. HONEST. Show the real post, the real pages, only the article's numbers. Never fake a UI, a post, a chart with invented values or a person's words. Stock shows the world of the story and never pretends to be a company's own footage.
+GENERIC (reject on sight): text fading in over a dark gradient; a scene that is only type; a centred number counting up on an empty field; boxes-and-arrows diagrams; a glowing anything; the same layout repeated with new words; stock that does not cover its line; robots, brains, circuit boards, purple-blue neon, glassmorphism.`;
+
 const FORMATS = {
-  reel: { name: "Instagram Reel", size: "1080x1920 (9:16), 30 fps", safe: "all type inside x 84..930, y 230..1520 (Instagram UI covers the rest)" },
+  reel: { name: "Instagram Reel", size: "1080x1920 (9:16), 30 fps", safe: "headlines and anything to read inside x 90..930, y 250..1170; the band y 1190..1340 belongs to the captions; nothing that matters below y 1340 or right of x 930 (Instagram's caption, handle and buttons cover it)" },
   carousel: { name: "Instagram carousel", size: "1080x1350 (4:5) stills, one per slide", safe: "all type inside x 72..1008, y 96..1250" },
 };
 
@@ -51,8 +70,23 @@ function copyLines(storyboard) {
   const list = storyboard.format === "carousel" ? storyboard.slides : storyboard.scenes;
   return list.map((s, i) => {
     // The voiceover is spoken, not shown: it reaches the agent through voice.json, never as on-screen copy.
-    const { type, beats, src, host, voiceover, ...rest } = s;
+    const { type, beats, src, host, voiceover, visual, ...rest } = s;
     return `${i + 1}. [${type}${beats ? `, ~${beats} beats` : ""}] ${JSON.stringify(rest)}`;
+  }).join("\n");
+}
+
+/** The storyboard's plan for the picture: what each scene shows, from which material, under which spoken line. */
+function shotPlan(storyboard, assets = []) {
+  const ids = new Set(assets.map((a) => a.id));
+  return (storyboard.scenes || []).map((s, i) => {
+    const v = (s && s.visual) || {};
+    const use = String(v.use || "").trim();
+    const stock = assets.find((a) => a.id === `stock-${i + 1}`);
+    const material = ids.has(use) ? use
+      : stock ? `${stock.id} (${stock.kind === "stock-video" ? `${stock.seconds || "?"} s video` : "photo"}, ${stock.width}x${stock.height}, found for "${stock.query}")`
+        : /^stock/i.test(use) ? `no stock was found for "${use.replace(/^stock\s*:\s*/i, "")}": use a library clip, a capture or a graphic`
+          : use || "graphic";
+    return `${i + 1}. SHOWS: ${v.show || "-"} | MATERIAL: ${material}${s && s.voiceover ? ` | SAYS: "${stripTags(s.voiceover)}"` : ""}`;
   }).join("\n");
 }
 
@@ -86,7 +120,9 @@ const GOLD = new Set(["pdoom-music-video", "tessel-launch"]);
 async function selectReferences(story, format, { avoid = "" } = {}) {
   const all = library.videos();
   const bySlug = new Map(all.map((v) => [v.slug, v]));
-  const fallback = () => library.heroReferences(story, PICKS + GOLD.size).filter((v) => !GOLD.has(v.slug)).slice(0, PICKS).map((v) => ({ ...v, steal: v.why || "" }));
+  // A reel borrows overlay and transition craft only: fewer motion films keep the picture real.
+  const picks = format === "reel" ? 4 : PICKS;
+  const fallback = () => library.heroReferences(story, picks + GOLD.size).filter((v) => !GOLD.has(v.slug)).slice(0, picks).map((v) => ({ ...v, steal: v.why || "" }));
   try {
     const reply = await opus.ask({
       system: "You are a motion design director with encyclopedic taste. You pick reference films for a new piece by craft, not by topic.",
@@ -101,19 +137,21 @@ ${avoid || "- none yet"}
 CATALOG (every film in our library; slug | title [model, engine] (frames/video/code): its reusable idea):
 ${library.catalog({ compact: true })}
 
-Pick the ${PICKS} films whose CRAFT can make this piece extraordinary: a motif or relay object, a transition, a type system, a camera move, a way of explaining a system, a pacing device. Match the craft to what this story needs to SHOW, not the topic. Prefer pieces with full prompts and frames or code. Make the six different from each other (not six kinetic-type pieces).
+${format === "reel"
+  ? `This reel is cut from REAL footage, photos and page captures under a voiceover; the library's films lend it craft for the layer on top. Pick the ${picks} films whose technique can be laid over real material: a way to highlight or annotate a screenshot, a zoom or camera move into a page, a transition between shots, a headline treatment that reads over footage, a way to stage a number on top of an image, a pacing device. Prefer pieces with full prompts and frames or code. Make them different from each other.`
+  : `Pick the ${picks} films whose CRAFT can make this piece extraordinary: a motif or relay object, a transition, a type system, a camera move, a way of explaining a system, a pacing device. Match the craft to what this story needs to SHOW, not the topic. Prefer pieces with full prompts and frames or code. Make the six different from each other (not six kinetic-type pieces).`}
 
 Return only JSON: {"picks": [{"slug": "<exact slug>", "steal": "<the exact technique to take, and how it serves this story, one sentence>"}]}`,
       maxTokens: 1500,
       temperature: 0.4,
     });
     const seen = new Set();
-    const picks = (opus.parseJson(reply).picks || [])
+    const chosen = (opus.parseJson(reply).picks || [])
       .filter((p) => p && bySlug.has(p.slug) && !GOLD.has(p.slug) && !seen.has(p.slug) && seen.add(p.slug))
-      .slice(0, PICKS);
-    if (picks.length >= 3) {
-      logger.info(`Factory director: references ${picks.map((p) => p.slug).join(", ")}.`);
-      return picks.map((p) => ({ ...bySlug.get(p.slug), steal: String(p.steal || "") }));
+      .slice(0, picks);
+    if (chosen.length >= 3) {
+      logger.info(`Factory director: references ${chosen.map((p) => p.slug).join(", ")}.`);
+      return chosen.map((p) => ({ ...bySlug.get(p.slug), steal: String(p.steal || "") }));
     }
     logger.warn("Factory director: too few valid reference picks; using tag matching.");
   } catch (e) {
@@ -123,6 +161,7 @@ Return only JSON: {"picks": [{"slug": "<exact slug>", "steal": "<the exact techn
 }
 
 const REQUIRED = ["CONCEPT", "FORM", "THROUGH-LINE", "PALETTE", "TYPE SYSTEM", "MESSAGE", "REQUIRED TECHNIQUES", "BANNED"];
+const REQUIRED_REEL = ["CONCEPT", "THROUGH-LINE", "PALETTE", "TYPE SYSTEM", "MESSAGE", "SHOT LIST", "REQUIRED TECHNIQUES", "BANNED"];
 /** A section heading as people write it: plain, numbered, "##", "**bold**" or "> quoted". */
 const hasSection = (text, h) => new RegExp(`^[\\s#*>\\d.)(_-]*${h.replace(/[.*+?^${}()|[\]\\-]/g, "\\$&")}\\b`, "mi").test(text);
 
@@ -140,14 +179,13 @@ async function writeDirectorPrompt({ story, storyboard, refs, assets = [], avoid
   const format = storyboard.format;
   const f = FORMATS[format];
   const refText = refs.map((r) => `### ${r.slug}: ${r.title}\nTAKE: ${r.steal}\n${String(r.prompt || "").slice(0, REF_CHARS)}`).join("\n\n");
-  const material = assets.map((a) => `- ${a.id} (${a.kind}, ${a.width}x${a.height}) ${a.title ? `"${a.title.slice(0, 70)}" ` : ""}${a.url}`).join("\n");
-  const shape = format === "reel"
-    ? `SECTIONS (for each section of the form: what the image does, which locked lines it carries and HOW they are integrated into the image, the in-world staging of any number or code)
-NARRATIVE ARC (timed sections on the bar grid of the track you chose under MUSIC (${storyboard.bpm} bpm if none), e.g. "0.0-2.0s COLD OPEN ..."; every beat of the message placed; what moves, what cuts, where the camera goes)
-TRANSITIONS (every cut named and specified: what carries over, what masks what)
-REAL MATERIAL PLAN (which capture appears where, framed how, what is pushed in on)
-REQUIRED TECHNIQUES (numbered; each one concrete enough to implement, credited "(from <slug>)" and adapted to this story; at least 6)
-CHECKS (frames to look at before the full render, and what must be true in each)`
+  const material = assets.map((a) => `- ${a.id} (${a.kind}, ${a.width}x${a.height}${a.seconds ? `, ${a.seconds} s` : ""}) ${a.title ? `"${a.title.slice(0, 70)}" ` : ""}${a.page || a.url}`).join("\n");
+  const reel = format === "reel";
+  const shape = reel
+    ? `SHOT LIST (scene by scene, timed to the voice windows: the material on screen and exactly how it is framed and moves (crop region, push-in or pan, which seconds of a clip), the overlay graphics on it, which locked line appears on which spoken word, and the cut into the next scene)
+TRANSITIONS (every cut named: hard cut on the beat, match cut, whip, push-through; what carries over)
+REQUIRED TECHNIQUES (numbered; each one concrete enough to implement on top of the real material, credited "(from <slug>)" when it comes from a reference; at least 5)
+CHECKS (frames to look at before the full render, and what must be true in each: real material on screen, the headline readable over it, the captions band clear)`
     : `SLIDE SYSTEM (grid, margins, where type sits; how every slide belongs to the same designed world)
 SWIPE CONTINUITY (how the slides read as one designed object when swiped: an element that crosses slide edges, a line that continues, a numbering system)
 SLIDE BY SLIDE (for every slide: layout, what is drawn, which capture if any and how it is framed, the exact copy it carries)
@@ -157,9 +195,11 @@ CHECKS (what must be true on every slide before it ships)`;
     system: `You write director's prompts for code-rendered motion pieces, in the exact craft register of the best prompts in our library: specific, numeric, opinionated, no filler. A prompt you write is handed to a world-class motion engineer (Claude Code with ${engine === "hyperframes" ? "HyperFrames: HTML + GSAP" : "Remotion: React"}) who builds it in code.`,
     prompt: `Write the director's prompt for ONE ${f.name} about the story below.
 
-${CRAFT_BAR}
+${reel ? REEL_BAR : CRAFT_BAR}
 
-REMIX, DON'T COPY: take the techniques named under TAKE from these references and combine them around ONE concept that comes from this story's own subject. The result must meet THE BAR, and look like none of the references and none of the recent pieces.
+${reel
+    ? "TECHNIQUES FROM THE LIBRARY: these references are motion pieces. Take ONLY what is named under TAKE (an overlay, a headline treatment, a transition, a camera move) and apply it to the REAL MATERIAL; the picture is never the reference's world. The result must meet THE BAR FOR A REEL and look like none of the recent pieces."
+    : "REMIX, DON'T COPY: take the techniques named under TAKE from these references and combine them around ONE concept that comes from this story's own subject. The result must meet THE BAR, and look like none of the references and none of the recent pieces."}
 
 ${refText}
 
@@ -173,22 +213,22 @@ ${String(story.text).slice(0, 8000)}
 LOCKED MESSAGE (the copy has passed our fact checks: carry it word for word, in this order; the type label only says what each line is, it is NOT a layout):
 ${copyLines(storyboard)}
 
-REAL MATERIAL AVAILABLE (screenshots of the pages the story links to; use what serves the story):
+REAL MATERIAL AVAILABLE (${reel ? "the source post, its photos, captures of the pages it links to, and the stock found for the scenes" : "screenshots of the pages the story links to; use what serves the story"}):
 ${material || "- none"}
+${reel ? `\nTHE STORYBOARD'S SHOT PLAN (follow it; improve the framing, never swap real material for a graphic):\n${shotPlan(storyboard, assets)}\n` : ""}
 ${voice ? `\n${voiceBlock(voice)}\n` : ""}${format === "reel" && music ? `\nMUSIC LIBRARY (the only music this piece may use: pick ONE track whose mood, tempo and energy fit the story and the form; under a voiceover prefer an instrumental; never a track marked "used recently"; its biggest drop will be placed on your climax):\n${music}\n` : ""}
 HARD CONSTRAINTS
 - Format: ${f.size}; ${f.safe}. Readable with the sound off, on a phone, at a glance: your own type >= 34 px.
 - ${format === "reel" ? `About ${filmSeconds(storyboard, voice)} seconds at ${storyboard.bpm} bpm; every frame a pure function of time; the last frame loops into the first.` : `${storyboard.slides.length} slides, rendered as stills, one per locked entry (none dropped); slide 1 is the cover that must stop the scroll.`}
-- Ends on a follow lockup: ${storyboard.author}, ${storyboard.handle}.
+- ${reel ? `Ends on the CTA over real material, flowing back into the first frame: no logo, no end card, no outro (${storyboard.handle} may appear small inside the CTA).` : `Ends on a follow lockup: ${storyboard.author}, ${storyboard.handle}.`}
 - Fonts only from @fontsource (name the exact families). At most 4 colours plus neutrals, in hex.
-- No stock imagery except our VISUAL LIBRARY below, as texture, transition or atmosphere. No robots/brains/circuit boards, no purple-blue neon, no glassmorphism, no invented UI or fake dashboards, no emoji.
+- ${reel ? "The picture is the REAL MATERIAL above (and the VISUAL LIBRARY below for atmosphere and transitions); no other imagery." : "No stock imagery except our VISUAL LIBRARY below, as texture, transition or atmosphere."} No robots/brains/circuit boards, no purple-blue neon, no glassmorphism, no invented UI or fake dashboards, no emoji.
 ${format === "reel" ? library.visualsBlock(() => "library clip").replace(/ -> library clip/g, "") : ""}
 
 WRITE THE PROMPT WITH THESE SECTIONS, in this order, as plain text with the section names in capitals:
-CONCEPT (one sentence: the visual idea, drawn from the subject)
-FORM (one line naming the form from THE BAR, or a new one, and why it suits this story; it must differ from the recent pieces' forms)
-THROUGH-LINE (what carries the eye across every cut or slide, and how it changes)
-PALETTE (strict hex list with a role for each)
+CONCEPT (one sentence: ${reel ? "the story's visual idea, built around the real thing at its centre" : "the visual idea, drawn from the subject"})
+${reel ? "" : "FORM (one line naming the form from THE BAR, or a new one, and why it suits this story; it must differ from the recent pieces' forms)\n"}THROUGH-LINE (${reel ? "the recurring device that ties the shots together, and how it changes" : "what carries the eye across every cut or slide, and how it changes"})
+PALETTE (strict hex list with a role for each${reel ? "; for a reel: the overlay accent, the headline colours and the plate or stroke colour" : ""})
 ${format === "reel" && music ? "MUSIC (first line exactly `MUSIC: <track id>` from the MUSIC LIBRARY; then one line on why it fits and where its drop lands in your arc)\n" : ""}TYPE SYSTEM (each face, its role, weights, tracking)
 MESSAGE (the locked copy, verbatim, in order)
 ${shape}
@@ -206,7 +246,7 @@ Return only the prompt.`,
   for (let attempt = 1; attempt <= 2; attempt++) {
     try {
       const text = String(await ask(feedback)).trim();
-      const missingSections = REQUIRED.filter((h) => !hasSection(text, h));
+      const missingSections = (reel ? REQUIRED_REEL : REQUIRED).filter((h) => !hasSection(text, h));
       if (!missingSections.length && text.length > 1500) {
         // A brief that paraphrases some copy is still a good brief: the exact words are appended
         // as the authority (the agent also gets them as FIXED WORDING), instead of a 25-minute redo.
@@ -226,4 +266,4 @@ Return only the prompt.`,
   return null;
 }
 
-module.exports = { selectReferences, writeDirectorPrompt, copyLines, lockedStrings, voiceBlock, filmSeconds, hasSection, canon, FORMATS, CRAFT_BAR, GOLD };
+module.exports = { selectReferences, writeDirectorPrompt, copyLines, shotPlan, lockedStrings, voiceBlock, filmSeconds, hasSection, canon, FORMATS, CRAFT_BAR, REEL_BAR, GOLD };

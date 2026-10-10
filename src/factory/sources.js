@@ -61,6 +61,24 @@ function linksOf(md) {
   return [...seen.values()].sort((a, b) => rank(a) - rank(b));
 }
 
+/** The X post a digest item was written from ("[Original post](https://x.com/<user>/status/<id>)"). */
+function postOf(md) {
+  const m = String(md || "").match(/https?:\/\/(?:www\.|mobile\.)?(?:x|twitter)\.com\/([A-Za-z0-9_]{1,15})\/status(?:es)?\/(\d{5,25})/);
+  return m ? { url: `https://x.com/${m[1]}/status/${m[2]}`, user: m[1], id: m[2] } : null;
+}
+
+/** The post's own photos (digests embed them as ![Image](https://pbs.twimg.com/media/...)), at full size. */
+function mediaOf(md) {
+  const out = [];
+  for (const m of String(md || "").matchAll(/!\[[^\]]*\]\((https:\/\/pbs\.twimg\.com\/(?:media|ext_tw_video_thumb|amplify_video_thumb|tweet_video_thumb)\/[^)\s]+)\)/g)) {
+    let u;
+    try { u = new URL(m[1]); } catch { continue; }
+    if (u.searchParams.has("name")) u.searchParams.set("name", "large");
+    if (!out.includes(u.toString())) out.push(u.toString());
+  }
+  return out.slice(0, 4);
+}
+
 function fromInsight(file) {
   const raw = fs.readFileSync(file, "utf8");
   const title = (raw.match(/^#\s+(.+)$/m) || [])[1]?.trim() || path.basename(file, ".md");
@@ -103,7 +121,8 @@ function fromDigest(markdown, { topic = "", url = "", file = "" } = {}) {
       // Topic + title can exceed the 60-char slug; a short hash keeps two long titles from colliding.
       const slug = `${slugify(`${topic}-${it.title}`).slice(0, 50).replace(/-+$/, "")}-${require("crypto").createHash("sha1").update(`${topic}|${it.title}|${url}`).digest("hex").slice(0, 8)}`;
       // One origin per item (not per folder), so novelty never blocks a whole topic folder.
-      return { title: it.title, text, slug, url, links: linksOf(it.lines.join("\n")), tags: [topic.toLowerCase()], origin: `${file || url || topic}#${slug}` };
+      const raw = it.lines.join("\n");
+      return { title: it.title, text, slug, url, links: linksOf(raw), post: postOf(raw), media: mediaOf(raw), tags: [topic.toLowerCase()], origin: `${file || url || topic}#${slug}` };
     })
     .filter((a) => a.title && words(a.text) >= 60);
 }
@@ -114,4 +133,4 @@ function rankSources(list) {
   return [...list].sort((a, b) => score(b) - score(a));
 }
 
-module.exports = { listInsights, fromInsight, fromDigest, rankSources, clean, linksOf };
+module.exports = { listInsights, fromInsight, fromDigest, rankSources, clean, linksOf, postOf, mediaOf };

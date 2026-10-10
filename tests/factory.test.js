@@ -18,6 +18,20 @@ const FIXTURE = JSON.parse(fs.readFileSync(path.join(ROOT, "factory/fixtures/str
 const ARTICLE = fromInsight(path.join(ROOT, "factory/fixtures/insights/c-struct-padding-why-your-16-byte-payload-becomes--1790208355844.md"));
 const reelOf = (sb) => ({ ...sb, slides: [] });
 const carouselOf = (sb) => ({ ...sb, format: "carousel", scenes: [] });
+// An agent reel: narrated, 37 s at 120 bpm, a real visual for every scene, headlines of <= 6 words.
+const agentReel = () => ({
+  ...reelOf(FIXTURE),
+  bpm: 120,
+  scenes: [
+    { type: "hook", beats: 10, text: "Your 16-byte struct is 32 bytes.", emphasis: ["32 bytes."], visual: { show: "Hands typing C at night, slow push-in", use: "stock: developer typing code at night" }, voiceover: "Your 16-byte struct is eating 32 bytes. And the last line is why." },
+    { type: "statement", beats: 10, headline: "Double the L1 cache misses.", visual: { show: "The repo page, pushed in on the struct", use: "page1-desktop" }, voiceover: "I hit a bottleneck where a tiny struct doubled the L1 cache misses." },
+    { type: "code", beats: 10, lang: "c", code: "struct {\n  char a;\n  int  b;\n  char c;\n};", caption: "6 bytes on paper.", visual: { show: "The struct typed out, line by line", use: "graphic" }, voiceover: "On paper this struct is 1 plus 4 plus 1. Six bytes." },
+    { type: "stat", beats: 14, from: 6, value: 12, suffix: " bytes", label: "sizeof says 12.", visual: { show: "Server racks, the number riding over them", use: "stock: server racks in a data center" }, voiceover: "But int b needs 4-byte alignment, so it starts at address 4. Three padding bytes. sizeof says 12." },
+    { type: "statement", beats: 10, headline: "It scales: 16 becomes 32.", visual: { show: "Memory chips in macro, a slow pan", use: "stock: memory chips close up" }, voiceover: "Scale that up and a 16-byte payload lands in 32 bytes of memory." },
+    { type: "list", beats: 10, title: "Fix it in review", items: ["Order members largest first", "Check sizeof in a test"], visual: { show: "Two people reviewing code on a laptop", use: "stock: code review on a laptop" }, voiceover: "The fix is boring. Order members largest first, and check sizeof in a test." },
+    { type: "cta", beats: 10, text: "Send this to your C reviewer.", visual: { show: "Back to the typing hands, the loop closes", use: "stock: developer typing code at night" }, voiceover: "Send this to the person who reviews your C. They'll thank you." },
+  ],
+});
 
 test("sample storyboard passes the reel and carousel gates against its own article", () => {
   assert.deepEqual(validate(reelOf(FIXTURE), ARTICLE, "reel"), []);
@@ -216,10 +230,15 @@ test("the agent sees the whole library: every entry in the catalog, the closest 
   const ref = { slug: "pm-x", title: "Picked one", steal: "the mask wipe from outgoing letterforms", promptFile: "/lib/x/prompt.md", contact: "/lib/x/contact.jpg", repoDir: "/lib/repos/x" };
   const p = heroPrompt({ storyboard: reelOf(FIXTURE), article: ARTICLE, references: [ref], director: "CONCEPT\nA ledger that balances itself.", engine: "remotion", skills: [], avoid: "" });
   assert.match(p, /DIRECTOR'S PROMPT[^\n]*\nCONCEPT\nA ledger that balances itself\./, "the director's prompt is the brief");
-  assert.match(p, /THE BAR/);
-  assert.match(p, /NOT a template/, "P(doom) and Tessel are the standard, not a look to copy");
+  assert.match(p, /^You are a world-class short-form video editor[^\n]*Build one Instagram Reel: a ~\d+-second film, cut from the REAL MATERIAL/, "a reel is an edit of real material");
+  assert.match(p, /THE BAR FOR A REEL/);
+  assert.match(p, /THE STORYBOARD'S SHOT PLAN/);
+  assert.match(p, /no logo, no end card, no outro/, "a reel loops instead of ending on a lockup");
+  assert.ok(!/THE STANDARD/.test(p), "a reel is not held to the motion films' look");
   assert.match(p, /- pm-x: Picked one\n  TAKE: the mask wipe from outgoing letterforms\n  prompt \/lib\/x\/prompt\.md \| frames \/lib\/x\/contact\.jpg \| code \/lib\/repos\/x/);
-  assert.match(p, /THE STANDARD[^\n]*pdoom-music-video[\s\S]*tessel-launch/, "the gold standard is always referenced");
+  const c = heroPrompt({ storyboard: carouselOf(FIXTURE), article: ARTICLE, references: [ref], director: null, engine: "remotion", skills: [], avoid: "" });
+  assert.match(c, /NOT a template/, "P(doom) and Tessel are the carousels' standard, not a look to copy");
+  assert.match(c, /THE STANDARD[^\n]*pdoom-music-video[\s\S]*tessel-launch/, "the gold standard is referenced for carousels");
   assert.match(p, /LIBRARY\.md/);
   assert.ok(p.length < 60000, `the catalog lives in LIBRARY.md, not the prompt (${p.length} chars)`);
   assert.match(p, /"form": "<one line>"/, "the look memory records the form");
@@ -246,11 +265,13 @@ test("director: references come from the whole catalog; a draft missing sections
   try {
     let seenCatalog = false;
     opus.ask = async ({ prompt }) => { seenCatalog = prompt.includes(`- ${slugs[5]} | `); return JSON.stringify({ picks: [...slugs.slice(0, 5).map((slug) => ({ slug, steal: "x" })), { slug: "not-a-real-slug", steal: "y" }] }); };
-    const refs = await director.selectReferences(ARTICLE, "reel");
+    const refs = await director.selectReferences(ARTICLE, "carousel");
     assert.ok(seenCatalog, "the picker reads the whole catalog");
     assert.deepEqual(refs.map((r) => r.slug), slugs.slice(0, 5), "unknown slugs are dropped");
+    assert.deepEqual((await director.selectReferences(ARTICLE, "reel")).map((r) => r.slug), slugs.slice(0, 4), "a reel borrows craft from 4 films");
 
-    const locked = director.lockedStrings(sb);
+    const car = carouselOf(FIXTURE);
+    const locked = director.lockedStrings(car);
     // Headings as people write them: numbered, markdown, bold.
     const heads = ["1. CONCEPT", "## FORM", "**THROUGH-LINE**", "PALETTE", "TYPE SYSTEM", "MESSAGE", "REQUIRED TECHNIQUES (numbered)", "BANNED"];
     const body = heads.map((h) => `${h}\nfilled in with real direction ${"x".repeat(220)}`).join("\n");
@@ -258,7 +279,7 @@ test("director: references come from the whole catalog; a draft missing sections
     const good = `${body}\n${locked.map((l) => l.replace(/'/g, "’").replace(/ - /g, " — ").toUpperCase()).join("\n")}`;
     const asked = [];
     opus.ask = async ({ prompt }) => { asked.push(prompt); return asked.length === 1 ? "CONCEPT only, too short" : good; };
-    const text = await director.writeDirectorPrompt({ story: ARTICLE, storyboard: sb, refs, engine: "remotion" });
+    const text = await director.writeDirectorPrompt({ story: ARTICLE, storyboard: car, refs, engine: "remotion" });
     assert.equal(text, good);
     assert.equal(asked.length, 2, "the first draft was rejected");
     assert.match(asked[1], /YOUR PREVIOUS DRAFT WAS REJECTED: missing sections: FORM, THROUGH-LINE/);
@@ -266,10 +287,23 @@ test("director: references come from the whole catalog; a draft missing sections
     assert.match(asked[0], /REMIX, DON'T COPY/);
     // A brief that paraphrases the copy is kept, with the exact copy appended as the authority.
     opus.ask = async () => body;
-    const kept = await director.writeDirectorPrompt({ story: ARTICLE, storyboard: sb, refs, engine: "remotion" });
+    const kept = await director.writeDirectorPrompt({ story: ARTICLE, storyboard: car, refs, engine: "remotion" });
     assert.ok(kept.startsWith(body));
     assert.match(kept, /LOCKED MESSAGE \(authoritative/);
     assert.ok(!/voiceover/.test(director.copyLines({ ...sb, scenes: sb.scenes.map((s) => ({ ...s, voiceover: "[curious] spoken" })) })), "the voiceover is never on-screen copy");
+    // A reel: the reel bar, the storyboard's shot plan, and a SHOT LIST instead of FORM.
+    const reel = agentReel();
+    const reelAssets = [{ id: "page1-desktop", kind: "desktop", width: 2160, height: 1350, url: "https://github.com/Drix10/Grind" }, { id: "stock-4", kind: "stock-video", width: 1080, height: 1920, seconds: 12, query: "server racks in a data center", url: "https://videos.pexels.com/x.mp4", page: "https://www.pexels.com/video/1/" }];
+    const reelHeads = ["CONCEPT", "THROUGH-LINE", "PALETTE", "TYPE SYSTEM", "MESSAGE", "SHOT LIST", "REQUIRED TECHNIQUES", "BANNED"];
+    const reelBody = `${reelHeads.map((h) => `${h}\nreal direction ${"x".repeat(220)}`).join("\n")}\n${director.lockedStrings(reel).join("\n")}`;
+    const reelAsked = [];
+    opus.ask = async ({ prompt }) => { reelAsked.push(prompt); return reelBody; };
+    assert.equal(await director.writeDirectorPrompt({ story: ARTICLE, storyboard: reel, refs, assets: reelAssets, engine: "remotion" }), reelBody, "a reel brief needs no FORM section");
+    assert.match(reelAsked[0], /THE BAR FOR A REEL/);
+    assert.match(reelAsked[0], /TECHNIQUES FROM THE LIBRARY/);
+    assert.match(reelAsked[0], /4\. SHOWS: Server racks, the number riding over them \| MATERIAL: stock-4 \(12 s video, 1080x1920, found for "server racks in a data center"\) \| SAYS: "But int b/);
+    assert.match(reelAsked[0], /5\. SHOWS: [^\n]*MATERIAL: no stock was found for "memory chips close up"/);
+    assert.ok(!/"visual"/.test(director.copyLines(reel)), "the visual plan is not on-screen copy");
     // The gold-standard films are never remix references.
     opus.ask = async () => JSON.stringify({ picks: [{ slug: "pdoom-music-video", steal: "x" }, ...slugs.map((slug) => ({ slug, steal: "x" })), { slug: slugs[0], steal: "dup" }] });
     const picks = await director.selectReferences(ARTICLE, "reel");
@@ -302,8 +336,11 @@ test("the agent gets the captured pages and a shot tool limited to the article's
   const assets = [{ id: "page1-desktop", kind: "desktop", width: 2160, height: 1350, title: "Drix10/idolchat", url: "https://github.com/Drix10/idolchat" }];
   const p = heroPrompt({ storyboard: reelOf(FIXTURE), article: art, references: [], assets, engine: "remotion", skills: [], avoid: "" });
   assert.match(p, /REAL MATERIAL/);
-  assert.match(p, /page1-desktop \(desktop, 2160x1350\)/);
-  assert.match(p, /staticFile\("assets\/<id>\.jpg"\)/);
+  assert.match(p, /page1-desktop -> public\/assets\/page1-desktop\.jpg \(desktop, 2160x1350\)/);
+  assert.match(p, /staticFile\("assets\/<file>"\)/);
+  const withPost = heroPrompt({ storyboard: reelOf(FIXTURE), article: art, references: [], assets: [{ id: "post", kind: "post", width: 1644, height: 1211, file: "C:/x/assets/post.png", url: "https://x.com/a/status/1" }, { id: "stock-3", kind: "stock-video", width: 1080, height: 1920, seconds: 12, file: "C:/x/assets/stock-3.mp4", url: "https://videos.pexels.com/x.mp4" }], engine: "hyperframes", skills: [], avoid: "" });
+  assert.match(withPost, /- post -> assets\/post\.png \(post, 1644x1211\)/, "the post keeps its PNG extension");
+  assert.match(withPost, /- stock-3 -> footage\/stock-3\.mp4 \(stock-video, 1080x1920, 12 s\)/, "clips live outside the project, to be trimmed in");
   assert.match(p, /only these hosts: github\.com, blogs\.drix10\.com/);
 });
 
@@ -564,10 +601,12 @@ test("voice gates: word budget per scene, well-formed tags, no SSML, and the sam
   const saved = { enabled: config.factory.voice.enabled, key: config.factory.voice.elevenlabsKey };
   try {
     Object.assign(config.factory.voice, { enabled: true, elevenlabsKey: "test-key" });
-    assert.match(errs(() => {}, { mode: "agent" }), /The hook needs a voiceover line/);
+    const art = { ...ARTICLE, assets: [{ id: "page1-desktop", kind: "desktop", url: "https://github.com/Drix10/Grind" }] };
+    const agent = (mut) => { const sb = agentReel(); mut(sb); return validate(sb, art, "reel", { mode: "agent" }).join("\n"); };
+    assert.match(agent((sb) => { delete sb.scenes[0].voiceover; }), /The hook needs a voiceover line/);
     assert.equal(errs(() => {}, { mode: "template" }), "");
     config.factory.voice.elevenlabsKey = "";
-    assert.equal(errs(() => {}, { mode: "agent" }), "", "no provider: nothing to narrate with");
+    assert.equal(agent((sb) => { for (const sc of sb.scenes) delete sc.voiceover; }), "", "no provider: nothing to narrate with");
   } finally {
     Object.assign(config.factory.voice, { enabled: saved.enabled, elevenlabsKey: saved.key });
   }

@@ -13,6 +13,7 @@ const { stripTags, wordsOf, tagsOf, TAG, voiceAvailable } = require("./voice");
 const opus = require("./opus");
 const library = require("./library");
 const novelty = require("./novelty");
+const { queryOf } = require("./stock");
 
 const SCENE_TYPES = ["hook", "statement", "code", "stat", "list", "compare", "quote", "cta"];
 const SLIDE_TYPES = ["cover", "point", "code", "stat", "shot", "cta"];
@@ -31,19 +32,57 @@ Scene types (all text is rendered live in code; NEVER put words in image prompts
 - cta    {beats 5-6, text <= 60 chars, sub?: <= 60 chars}`;
 
 /** Spoken words per second the voice can carry without rushing (ElevenLabs reads ~2.5-3 w/s). */
-const WORDS_PER_SECOND = 2.8;
+const WORDS_PER_SECOND = 2.7;
+
+// An agent reel: narrated, 30-45 s, real material on screen in every scene. The arc, hook,
+// on-screen-text and shot rules are adapted from Ootto's claude-content-skills (MIT, (c) 2026
+// Ootto): going-viral, reel-scripter, on-screen-text-writer, b-roll-shot-list, reel-builder.
+// 32-50 s: brand reels of 30-60 s get the most median views (Socialinsider, 6M reels, 2026); ~160 wpm voice.
+const AGENT_REEL = { minScenes: 6, maxScenes: 9, minSeconds: 32, maxSeconds: 51, maxWords: 6, maxGraphic: 2, minSpoken: 80, maxSpoken: 135, maxTagsPerScene: 1 };
+
+const agentReelSpec = (narrated) => `REEL (1080x1920, 30 fps)${narrated ? ", NARRATED" : ""}, ${AGENT_REEL.minSeconds}-${AGENT_REEL.maxSeconds - 1} seconds. Durations are in BEATS at the storyboard's bpm (120 bpm: 1 beat = 0.5 s, so ${AGENT_REEL.minSeconds * 2}-${(AGENT_REEL.maxSeconds - 1) * 2} beats in all). ${AGENT_REEL.minScenes}-${AGENT_REEL.maxScenes} scenes: the first is a "hook", the last a "cta".
+
+THE ARC (promise -> withhold -> escalate -> pay off)
+- Pick ONE goal before writing and drive its emotion: SAVE (relief + fear of forgetting: a finite system future-you will need), SHARE (awe, indignation or status: it makes the sender look early or right), FOLLOW (fear of falling behind). High arousal beats calm "value".
+- HOOK (scene 1, 0-3 s): the most striking REAL image from the story itself (the product, the post, the people, the footage) is on screen and moving from frame 0; the claim lands at about 1.2-1.6 s, spoken from the first word (no intro, no "hey guys"). Open a gap, not a fact: name the payoff and tease where it comes ("the last number is the one that hurts"); never give it away here.
+- CONTEXT (the next 3-5 s): the stakes: who this hits and why now.
+- VALUE (the middle): 3-4 beats, each ONE forward step that out-does the last; number them when they are a series, so the viewer sees the finish line. Around 12-16 s one PATTERN BREAK ("but here's the catch"): the picture switches mode (a giant number over footage, a face, a different kind of shot).${narrated ? ` Near 4 s, 9 s and 15 s the voiceover re-hooks with a short micro-loop ("but that's not the expensive part", "and it gets worse").` : ""}
+- PAYOFF (the scene before the CTA): deliver exactly what the hook promised, for real, plus ONE clear take: what it means for the viewer, said with conviction. Never resolve the gap earlier; never promise what the article cannot pay.
+- CTA (the last 4-6 s): ONE action with its reason: save ("you'll want this when ..."), send ("send this to the person who ..."), or follow. No "comment a word", no "link in bio".
+
+SCENE FIELDS (all text is set in code; the type label only classifies the copy, it is NOT a layout)
+- hook      {beats 4-6, text, emphasis?: [the one word or number to punch, exactly as in text], kicker?: topic in <= 3 words}
+- statement {beats 4-8, headline, sub?}
+- stat      {beats 4-8, value: number, from?: number, prefix?, suffix?, decimals?, label}   a number from the article
+- compare   {beats 6-10, title?, left: {label, value, note?}, right: {label, value, note?}, winner?: "left"|"right"}
+- quote     {beats 6-8, text <= 140 chars, source?}   only a real quote that is in the article
+- list      {beats 2 per item + 3, title, items: 2-4 strings}
+- code      {beats 6-10, code: <= 6 lines of <= 38 chars, lang?, caption?}   only the line that matters
+- cta       {beats 6-10, text, sub?}
+ON-SCREEN COPY IS THE HEADLINE OF THE BEAT, NOT A TRANSCRIPT: every on-screen line (text, headline, sub, label, title, item, value, note, caption) is at most ${AGENT_REEL.maxWords} words${narrated ? " and never repeats the voiceover word for word" : ""}. MUTE PASS: read the on-screen lines alone, in order: the reel must still make sense with the sound off.
+
+EVERY SCENE ALSO HAS
+${narrated ? `- "voiceover": the line spoken over it (see VOICEOVER).\n` : ""}- "visual": {"show": "<what the viewer SEES, concrete: the real thing, how it is framed and how it moves; <= 160 chars>", "use": "<a material id from REAL MATERIAL> | stock: <2-5 word search> | graphic"}
+  Show, don't tell: every line gets a visual that covers exactly what is said over it. Pretty footage with no line to cover is what makes a reel drag.
+  - a material id: the real post, its photos, a captured page. The strongest material: the real thing. When the source post is listed, show it early (hook or context).
+  - stock: real-world footage or a photo the story lives in, found by search (people, faces and hands at work beat empty objects): concrete nouns a stock library has ("stock: server racks in a data center", "stock: developer typing at night", "stock: stock market screens"). No brand or people's names, no abstractions ("innovation", "AI", "the future"), no robots or glowing brains.
+  - graphic: a pure motion graphic (a mechanism you can watch work, a chart of the article's numbers). At most ${AGENT_REEL.maxGraphic} scenes, never the hook.`;
 const MAX_TAG = 40;
 
-const VOICE_SPEC = `VOICEOVER (this reel is narrated; ElevenLabs Eleven v4 performs it). Every scene also gets
-"voiceover": the line spoken during that scene. Write it to be HEARD, by one sharp engineer talking to another:
+const VOICE_SPEC = `VOICEOVER (this reel is narrated; ElevenLabs performs it). Every scene also gets
+"voiceover": the line spoken during that scene. Write it to be HEARD, like a sharp creator telling a friend
+what just happened, not an announcer reading a summary:
 - It carries the story with the sound ON, while the screen carries it with the sound off: say more than the
   screen (the why, the turn, the stakes), never repeat the on-screen words verbatim, never claim more than them.
-- Budget: at most ${WORDS_PER_SECOND} words per second of its scene (beats x 60 / bpm), contractions, short sentences,
-  rhythm. The hook line lands in the first 2 seconds. Numbers as digits, exactly as the article has them.
+- Budget: at most ${WORDS_PER_SECOND} words per second of its scene (beats x 60 / bpm), and ${AGENT_REEL.minSpoken}-${AGENT_REEL.maxSpoken} words in all.
+  Unhurried: contractions, short sentences, one idea per sentence, room to breathe between scenes. The hook
+  line lands in the first 2 seconds. Numbers as digits, exactly as the article has them. Say the story's key
+  phrase out loud once (spoken words are indexed for search).
 - Audio tags in [square brackets] direct the performance, placed right before the words they colour: emotion
   [curious] [deadpan] [amused] [surprised] [serious], delivery [whispers] [slowly] [rushed] [emphatic]
   [low, steady voice], reactions [sighs] [exhales] [chuckles], timing [pause] [short pause] [long pause].
-  At most 3 tags per scene, each under ${MAX_TAG} characters; ellipses (...) and dashes also shape pauses.
+  Use them sparingly: at most one per scene, only where the delivery really turns, each under ${MAX_TAG} characters;
+  ellipses (...) and dashes shape pauses, and one short pause right before the payoff lands it.
   No SSML, no <break>, no sound-effect tags (the music and effects are mixed separately).`;
 
 const CAROUSEL_SPEC = `CAROUSEL (1080x1350, 4:5). 5-8 slides. First is "cover", last is "cta".
@@ -57,13 +96,13 @@ Slide types:
 
 const SYSTEM = `You are the director of an Instagram channel for a hands-on systems/AI engineer. You turn one article into one short piece that a busy engineer would stop scrolling for, learn one concrete thing from, and save.
 
-You do not write code or pixels. You write a STORYBOARD as JSON: the words, the beats and the arc of the piece, which is then built in code from it. Think like a motion designer: one idea per scene, every cut on the beat, the text carries the story with sound off.
+You do not write code or pixels. You write a STORYBOARD as JSON: the words, the beats, the visuals and the arc of the piece, which is then built in code from it. Think like a short-form editor who tells stories with real footage: one idea per scene, a real visual for every line, cuts that land on the voice and the beat, on-screen text that carries the story with the sound off.
 
 Rules that are checked in code, and a storyboard that breaks one is rejected:
 1. Facts: every number and every named product, company or person must appear in the article. Never invent results, benchmarks, quotes or dates.
 2. Hook first: the hook states the surprising concrete claim in plain words. No questions like "Did you know". No clickbait the article cannot back.
 3. Plain voice. No hype words (e.g. unlock, game-changer, revolutionary, delve, leverage, seamless, supercharge), no emojis in on-screen text.
-4. Caption (Instagram shows only its first line before "more"): line 1 is a hook of <= 110 chars that opens a gap the video closes (a stake or a sharp claim, never a summary or a label). Then 1-2 short paragraphs (blank line between) that add one concrete detail the video does not show. Then one line that gives a reason to save or send it ("Save this for ..." / "Send this to the person who ..."), and last a specific question people can answer in a comment. <= 1200 chars in all. 3-6 lowercase hashtags, mostly specific (#cprogramming) with at most one broad one (#ai).
+4. Caption (Instagram shows only its first line before "more"): line 1 is a hook of <= 110 chars that opens a gap the video closes, in plain words with the story's searchable keywords (a stake or a sharp claim, never a summary or a label). Then 1-2 short paragraphs (blank line between) that add one concrete detail the video does not show. Then one line that gives a reason to save or send it ("Save this for ..." / "Send this to the person who ..."), and last a specific question people can answer in a comment. No bait ("share to find out"). <= 1200 chars in all. 3-5 lowercase hashtags (Instagram allows 5), mostly specific (#cprogramming) with at most one broad one (#ai).
 5. Respect every length limit in the spec. Short text reads better on a phone than complete text.
 
 Return ONLY the JSON object, no prose.`;
@@ -89,14 +128,25 @@ const AGENT_NOTE = {
 /** Narration is written for agent reels when a voice can actually be made (template reels have none). */
 const narrated = (format, mode) => format === "reel" && mode === "agent" && voiceAvailable();
 
+/** What a scene's visual can name: every real asset (the post, its photos, page captures). */
+const materialIds = (article) => (article.assets || []).filter((a) => a && a.id && !String(a.kind || "").startsWith("stock")).map((a) => a.id);
+
+function materialList(article) {
+  const list = (article.assets || []).filter((a) => a && a.id && !String(a.kind || "").startsWith("stock"));
+  if (!list.length) return "REAL MATERIAL: none was captured for this story, so the visuals come from stock searches (and at most two graphic scenes).";
+  const what = { post: "the source post itself, as X shows it", photo: "a photo attached to the source post", desktop: "a page, desktop view", card: "a page, close-up whose text reads on a phone", mobile: "a page, full-length phone view to scroll", image: "the page's own share image" };
+  return `REAL MATERIAL (captured for this story; use a scene's "visual.use" to put one on screen):\n${list.map((a) => `- ${a.id}: ${what[a.kind] || a.kind}${a.title ? `, "${String(a.title).slice(0, 80)}"` : ""} (${a.url})`).join("\n")}`;
+}
+
 function buildPrompt({ article, format, feedback, patterns, avoid, mode }) {
-  const spec = format === "reel" ? REEL_SPEC : CAROUSEL_SPEC;
+  const agentReel = format === "reel" && mode === "agent";
+  const spec = agentReel ? agentReelSpec(narrated(format, mode)) : format === "reel" ? REEL_SPEC : CAROUSEL_SPEC;
   const shape = format === "reel" ? '"scenes": [...], "slides": []' : '"scenes": [], "slides": [...]';
   return [
     `FORMAT: ${format}`,
     spec,
     narrated(format, mode) ? `\n${VOICE_SPEC}` : "",
-    mode === "agent" ? `\n${AGENT_NOTE[format] || AGENT_NOTE.reel}` : "",
+    agentReel ? `\n${materialList(article)}` : mode === "agent" ? `\n${AGENT_NOTE[format] || AGENT_NOTE.reel}` : "",
     "",
     "JSON SHAPE:",
     `{"title": short internal title, "pattern": the pattern id you used or "new", "theme": one of ${THEMES.join("|")} (night = default; signal = launches/hot takes; paper = calm explainers), "bpm": 112-128, ${shape}, "caption": "...", "hashtags": ["#..."]}`,
@@ -134,7 +184,7 @@ const statText = (s) => `${s.prefix || ""}${Number(s.value).toLocaleString("en-U
 function visibleText(sb) {
   const out = [];
   const walk = (v, key) => {
-    if (key === "type" || key === "id" || key === "asset" || key === "src" || key === "host" || key === "highlight" || key === "beats" || key === "decimals" || key === "voiceover") return;
+    if (key === "type" || key === "id" || key === "asset" || key === "src" || key === "host" || key === "highlight" || key === "beats" || key === "decimals" || key === "voiceover" || key === "visual") return;
     if (typeof v === "string") out.push(v);
     else if (typeof v === "number") out.push(String(v));
     else if (Array.isArray(v)) v.forEach((x) => walk(x));
@@ -161,19 +211,41 @@ const WORD_NUMBERS = /\b(hundred|thousand|million|billion|trillion|dozen|twice|t
 const NUMBER = /(?<![\d.])(\d+(?:\.\d+)?)(?:([a-z%×]+)|\s*(k|m|b|bn|x|×|%|ms|s|sec|seconds|min|minutes|hours|gb|mb|tb|kb|kib|mib|gib|million|billion|thousand|times|percent|users|requests)\b)?/g;
 
 /** Voiceover rules: text, word budget for its scene, well-formed audio tags. */
-function checkVoiceover(s, at, bpm, errors) {
+function checkVoiceover(s, at, bpm, errors, maxTags = 3) {
   if (s.voiceover === undefined || s.voiceover === null) return;
   if (!isStr(s.voiceover)) return errors.push(`${at}: voiceover must be text.`);
   const budget = Math.ceil(((Number(s.beats) || 0) * 60 / (Number(bpm) || 120)) * WORDS_PER_SECOND) + 1;
   const words = wordsOf(s.voiceover).length;
   if (words > budget) errors.push(`${at}: voiceover is ${words} words; this scene can carry ${budget}. Cut words or lengthen the scene.`);
   const tags = tagsOf(s.voiceover);
-  if (tags.length > 3) errors.push(`${at}: at most 3 audio tags per scene.`);
+  if (tags.length > maxTags) errors.push(`${at}: at most ${maxTags} audio tag${maxTags === 1 ? "" : "s"} per scene.`);
   for (const t of tags) {
     if (!t || t.length > MAX_TAG) errors.push(`${at}: audio tag [${t.slice(0, 50)}] must be 1-${MAX_TAG} characters.`);
     if (/\d/.test(t)) errors.push(`${at}: audio tag [${t}] may not contain numbers.`);
   }
   if (/<\s*\/?\s*(break|speak|prosody|emphasis)\b/i.test(s.voiceover) || /[[\]]/.test(s.voiceover.replace(TAG, ""))) errors.push(`${at}: voiceover has SSML or a broken [tag]; use audio tags like [pause].`);
+}
+
+const countWords = (t) => String(t || "").trim().split(/\s+/).filter(Boolean).length;
+
+/** An agent reel scene: headline-length copy and a visual that names real material, a stock search or a graphic. */
+function checkAgentScene(s, at, article, errors) {
+  const cap = (v, label, max = AGENT_REEL.maxWords) => { if (isStr(v) && countWords(v) > max) errors.push(`${at}: ${label} is ${countWords(v)} words; on-screen lines are at most ${max} (the voice says the rest).`); };
+  if (s.type === "hook") { cap(s.text, "text"); cap(s.kicker, "kicker", 3); }
+  if (s.type === "statement") { cap(s.headline, "headline"); cap(s.sub, "sub"); }
+  if (s.type === "stat") cap(s.label, "label");
+  if (s.type === "compare") { cap(s.title, "title"); for (const side of ["left", "right"]) if (s[side] && typeof s[side] === "object") for (const k of ["label", "value", "note"]) cap(s[side][k], `${side}.${k}`); }
+  if (s.type === "list") { cap(s.title, "title"); for (const [k, it] of (Array.isArray(s.items) ? s.items : []).entries()) cap(it, `item ${k + 1}`); }
+  if (s.type === "code") { cap(s.caption, "caption"); if (isStr(s.code) && s.code.split("\n").length > 6) errors.push(`${at}: code is at most 6 lines in a reel.`); }
+  if (s.type === "cta") { cap(s.text, "text"); cap(s.sub, "sub"); }
+  const v = s.visual;
+  if (!v || typeof v !== "object" || Array.isArray(v)) return errors.push(`${at}: needs "visual": {"show": "...", "use": "..."}.`);
+  if (!isStr(v.show) || v.show.trim().length < 8) errors.push(`${at}: visual.show must say what the viewer sees.`);
+  else if (v.show.length > 160) errors.push(`${at}: visual.show is ${v.show.length} chars; limit 160.`);
+  const use = isStr(v.use) ? v.use.trim() : "";
+  if (!(use.toLowerCase() === "graphic" || materialIds(article).includes(use) || queryOf(use))) {
+    errors.push(`${at}: visual.use "${use.slice(0, 40)}" must be a REAL MATERIAL id${materialIds(article).length ? ` (${materialIds(article).join(", ")})` : ""}, "stock: <2-5 word search>" or "graphic".`);
+  } else if (queryOf(use) && countWords(queryOf(use)) > 6) errors.push(`${at}: the stock search is ${countWords(queryOf(use))} words; use 2-5 concrete nouns.`);
 }
 
 /** Returns a list of problems; empty means the storyboard can be rendered. */
@@ -188,10 +260,17 @@ function validate(sb, article, format, { mode = "template" } = {}) {
 
   if (format === "reel") {
     const scenes = Array.isArray(sb.scenes) ? sb.scenes : [];
+    const agentReel = mode === "agent";
     if (!Array.isArray(sb.scenes)) errors.push("scenes must be an array.");
-    if (scenes.length < 4 || scenes.length > 7) errors.push("A reel needs 4-7 scenes.");
     const total = scenes.reduce((a, s) => a + (Number(s?.beats) || 0), 0);
-    if (total < 34 || total > 56) errors.push(`Total beats is ${total}; must be 34-56.`);
+    if (agentReel) {
+      if (scenes.length < AGENT_REEL.minScenes || scenes.length > AGENT_REEL.maxScenes) errors.push(`A reel needs ${AGENT_REEL.minScenes}-${AGENT_REEL.maxScenes} scenes.`);
+      const seconds = (total * 60) / (Number(sb.bpm) || 120);
+      if (seconds < AGENT_REEL.minSeconds || seconds > AGENT_REEL.maxSeconds) errors.push(`The scenes add up to ${seconds.toFixed(1)} s (${total} beats at ${sb.bpm} bpm); a reel runs ${AGENT_REEL.minSeconds}-${AGENT_REEL.maxSeconds - 1} s.`);
+    } else {
+      if (scenes.length < 4 || scenes.length > 7) errors.push("A reel needs 4-7 scenes.");
+      if (total < 34 || total > 56) errors.push(`Total beats is ${total}; must be 34-56.`);
+    }
     if (scenes[0]?.type !== "hook") errors.push("The first scene must be a hook.");
     if (scenes[scenes.length - 1]?.type !== "cta") errors.push("The last scene must be a cta.");
     scenes.forEach((s, i) => {
@@ -246,12 +325,24 @@ function validate(sb, article, format, { mode = "template" } = {}) {
         if (s.source !== undefined && (!isStr(s.source) || !body.includes(squash(s.source)))) errors.push(`${at}: quote source must be named in the article.`);
       }
       if (s.type === "cta") { req(s.text, `${at} text`); len(s.text, 60, `${at} text`); opt(s.sub, `${at} sub`, 60); }
-      checkVoiceover(s, at, sb.bpm, errors);
+      checkVoiceover(s, at, sb.bpm, errors, agentReel ? AGENT_REEL.maxTagsPerScene : 3);
+      if (agentReel) checkAgentScene(s, at, article, errors);
     });
+    if (agentReel) {
+      const uses = scenes.map((s) => (s && s.visual && isStr(s.visual.use) ? s.visual.use.trim() : ""));
+      const graphics = uses.filter((u) => u.toLowerCase() === "graphic").length;
+      if (graphics > AGENT_REEL.maxGraphic) errors.push(`${graphics} scenes are "graphic"; at most ${AGENT_REEL.maxGraphic}: give the others real material or a stock search.`);
+      if ((uses[0] || "").toLowerCase() === "graphic") errors.push("The hook must open on real material or stock footage, not a graphic.");
+      if (materialIds(article).includes("post") && !uses.includes("post")) errors.push('The source post is in REAL MATERIAL: show it in one scene ("use": "post"), early.');
+    }
     if (narrated(format, mode)) {
       if (!isStr(scenes[0]?.voiceover) || !wordsOf(scenes[0].voiceover).length) errors.push("The hook needs a voiceover line (this reel is narrated).");
       const total = scenes.reduce((a, s) => a + (isStr(s?.voiceover) ? wordsOf(s.voiceover).length : 0), 0);
-      if (total < 12) errors.push(`The voiceover has ${total} words; a narrated reel needs at least 12.`);
+      if (agentReel) {
+        const silent = scenes.map((s, i) => (isStr(s?.voiceover) && wordsOf(s.voiceover).length ? 0 : i + 1)).filter(Boolean);
+        if (silent.length) errors.push(`Scene(s) ${silent.join(", ")} have no voiceover; every scene is narrated.`);
+        if (total < AGENT_REEL.minSpoken || total > AGENT_REEL.maxSpoken) errors.push(`The voiceover has ${total} words; a ${AGENT_REEL.minSeconds}-${AGENT_REEL.maxSeconds - 1} s reel needs ${AGENT_REEL.minSpoken}-${AGENT_REEL.maxSpoken}.`);
+      } else if (total < 12) errors.push(`The voiceover has ${total} words; a narrated reel needs at least 12.`);
     }
   } else {
     const slides = Array.isArray(sb.slides) ? sb.slides : [];
@@ -285,7 +376,7 @@ function validate(sb, article, format, { mode = "template" } = {}) {
   if (!isStr(sb.caption) || !sb.caption.trim()) errors.push("caption is required.");
   len(sb.caption, 1200, "caption");
   if (isStr(sb.caption) && sb.caption.trim().split("\n")[0].length > 110) errors.push("caption line 1 (the hook Instagram shows before \"more\") must be <= 110 chars.");
-  if (!isStrArray(sb.hashtags) || sb.hashtags.length < 3 || sb.hashtags.length > 6) errors.push("Use 3-6 hashtags.");
+  if (!isStrArray(sb.hashtags) || sb.hashtags.length < 3 || sb.hashtags.length > 5) errors.push("Use 3-5 hashtags (Instagram allows 5).");
   else if (sb.hashtags.some((h) => !/^#[a-z0-9_]{2,40}$/.test(h))) errors.push("Hashtags must be lowercase #words with no spaces.");
   if (errors.length) return errors; // the content gates below assume the shapes above
 
@@ -360,7 +451,8 @@ async function writeStoryboard(article, format, extraFeedback = null, previous =
   for (let attempt = 1; attempt <= 2; attempt++) {
     let prompt = buildPrompt({ article, format, feedback, patterns, avoid, mode });
     if (feedback && last) prompt += `\n\nPREVIOUS STORYBOARD:\n${JSON.stringify(last)}`;
-    const reply = await opus.ask({ system: SYSTEM, prompt, maxTokens: 6000, temperature: 0.8 });
+    // A reel storyboard at xhigh effort can think for ~7 min (word budgets, visuals, the arc).
+    const reply = await opus.ask({ system: SYSTEM, prompt, maxTokens: 8000, temperature: 0.8, timeoutMs: Math.max(config.factory.anthropic.requestTimeoutMs, 20 * 60 * 1000) });
     let raw;
     try {
       raw = opus.parseJson(reply);

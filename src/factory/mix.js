@@ -144,7 +144,7 @@ function captionChunks(words) {
 
 /**
  * Word-by-word captions as ASS: the line appears with a small pop, the word being spoken is lit
- * in the accent colour. Bottom-centred at y ~1400, inside Instagram's safe area.
+ * in the accent colour. Centred in the band y 1190..1340, just above Instagram's caption and buttons.
  */
 function captionsAss(words, { accent = "#FFD60A" } = {}) {
   const hi = assColor(accent) || "&H000AD6FF";
@@ -152,7 +152,7 @@ function captionsAss(words, { accent = "#FFD60A" } = {}) {
     "[Script Info]", "ScriptType: v4.00+", "PlayResX: 1080", "PlayResY: 1920", "WrapStyle: 2", "ScaledBorderAndShadow: yes", "",
     "[V4+ Styles]",
     "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding",
-    `Style: Cap,${CAPTION_FONT},116,&H00FFFFFF,&H00FFFFFF,&H00000000,&H78000000,0,0,0,0,100,100,1.5,0,1,8,4,2,80,80,500,1`,
+    `Style: Cap,${CAPTION_FONT},96,&H00FFFFFF,&H00FFFFFF,&H00000000,&H78000000,0,0,0,0,100,100,1.5,0,1,7,4,2,90,150,600,1`,
     "",
     "[Events]",
     "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",

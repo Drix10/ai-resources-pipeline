@@ -298,8 +298,10 @@ function canPostNow() {
 
 /** Caption + hashtags as posted (Instagram limit 2,200 chars, 30 tags). */
 function composeCaption(sb) {
-  const tags = (sb.hashtags || []).slice(0, 6).join(" ");
-  return `${sb.caption.trim()}\n\n${tags}`.slice(0, 2200);
+  // Instagram allows 5 hashtags. Sources and the credits their licences ask for go before them.
+  const tags = (sb.hashtags || []).slice(0, 5).join(" ");
+  const credits = (sb.credits || []).filter(Boolean);
+  return `${sb.caption.trim()}${credits.length ? `\n\n${credits.join("\n")}` : ""}\n\n${tags}`.slice(0, 2200);
 }
 
 module.exports = { InstagramPublisher, canPostNow, composeCaption, SEL };

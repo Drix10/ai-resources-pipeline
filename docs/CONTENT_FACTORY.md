@@ -9,12 +9,13 @@ flowchart TD
     A["End of a pipeline run: articles committed, LinkedIn steps, blog sync (cron.js)"] --> B["Fresh sources: this run's digest items + any from the last 36 h (inbox) + Insights written in that window"]
     B --> C["Novelty filter: drop topics already made"]
     C --> P["Editor: Opus scores every story for virality (stop, stakes, proof, reach, now, share, show) and picks ONE"]
-    P --> R["Deep dive: read every page the story links to (research) + screenshot them (real material)"]
-    R --> D["Storyboard: the words and the arc (setup, tension, reveal, payoff) + a voiceover line per scene"]
-    D --> E{"Code gates: facts and numbers (screen, caption, hashtags, voice), quotes, hype words, emoji, lengths, field types"}
+    P --> R["Deep dive: read every page the story links to (research); capture the source X post, its photos and the linked pages (real material)"]
+    R --> D["Storyboard: hook, context, value, payoff, CTA in 32-50 s; per scene a headline (<= 6 words), a voiceover line and a VISUAL (real material, a stock search, or a graphic)"]
+    D --> E{"Code gates: facts and numbers (screen, caption, hashtags, voice), quotes, hype words, emoji, lengths, visuals, field types"}
     E -- "rejected (once)" --> D
-    E --> V["Voice: ElevenLabs eleven_v4 with audio tags (OpenRouter fallback), recorded first, word timings"]
-    V --> S["Director: Opus picks 6 references from the whole library, then writes a director's prompt that remixes their techniques around one concept, held to THE BAR"]
+    E --> T["Stock: footage and photos for the scenes that asked (Pexels, Pixabay, Openverse)"]
+    T --> V["Voice: ElevenLabs with audio tags (OpenRouter fallback), recorded first, word timings; a narrated reel is never made silent"]
+    V --> S["Director: Opus picks 4 references for overlay and transition craft, then writes the brief against THE BAR FOR A REEL, with the storyboard's shot plan"]
     S --> U["Music: the director's track from factory/library/music (or the best fit), its drop placed on the climax, the real beat grid"]
     U --> H["Agent: Claude Code builds it (reel: Remotion or HyperFrames film cut to the music and timed to the voice, with library clips and effects; carousel: designed stills), checks its own frames, renders, writes its SFX cues"]
     H --> M["Mix: music stepped down under the voice and up in the pauses, synthesized SFX, word-by-word captions, -14 LUFS"]
@@ -22,11 +23,13 @@ flowchart TD
     K --> L["Instagram publisher (Chrome :9222): posts THIS run's piece within the cap; dry run until IG_POST=true"]
 ```
 
-Every word on screen is drawn in code, so there is no garbled AI lettering and no image bill. The pictures that are not code are real: screenshots of the pages the story links to (the repo, the docs, the blog post) and the share images those pages publish.
+Every word on screen is drawn in code, so there is no garbled AI lettering and no image bill. The pictures are real: the X post the story comes from and its photos, screenshots of the pages it links to (the repo, the docs, the blog post), licensed stock footage and photos found for each scene, and the visual library's clips.
 
 ## The bar
 
-`src/factory/director.js` holds THE BAR every reel and carousel is held to. P(doom) (`repos/pdoom-video`) and Tessel (`repos/claude-launchvideo`) show the level, not a template: each piece picks its own form (one continuous take, a machine that runs the mechanism, a single camera move, plates, a document that writes itself...), and the look memory makes consecutive pieces pick different forms, palettes and type. The bar asks for a designed world with a through-line, images that do the explaining, words integrated into the image, numbers and code staged in the world, depth and light, beat-locked motion, and typographic craft. It rejects text on a background, code cards, bullet lists, centred stat counters and boxes with arrows.
+**Reels** are held to THE BAR FOR A REEL (`REEL_BAR` in `src/factory/director.js`), written after the first live reel (an abstract motion-design film with no voice) was rejected as "2D text yapping, no images, no flow, looks generated". A reel is a story told over REAL material, led by the voice: real things on screen nearly every second with motion graphics as the layer on top (a highlighter on the line being said, a circled number, a zoom into a page); frame 0 is the hook, moving, with the claim at ~1.2-1.6 s; cuts land on the spoken word; one continuous flow tied together by a recurring device; every still moves, shots hold 1.5-3.5 s, a headline stays up long enough to read twice; one headline of at most 6 words at a time plus the captions; escalation to a payoff, one CTA, and a loop back to frame 0 with no logo outro. The arc, hook, on-screen-text and shot rules are adapted from Ootto's [claude-content-skills](https://github.com/Ootto-AI/claude-content-skills) (MIT): going-viral, reel-scripter, on-screen-text-writer, b-roll-shot-list, reel-builder. The numbers come from platform guidance and recent data: Instagram ranks reels on watch time, sends and likes per reach and reports a 3-second skip rate; brand reels of 30-60 s got the most median views in Socialinsider's 2026 study of 6M reels; hashtags are capped at 5 per post (Dec 2025); a voice of ~160 wpm reads as natural, faster sounds rushed.
+
+**Carousels** keep THE BAR (`CRAFT_BAR`). P(doom) (`repos/pdoom-video`) and Tessel (`repos/claude-launchvideo`) show the level, not a template: each piece picks its own form (one continuous take, a machine that runs the mechanism, a single camera move, plates, a document that writes itself...), and the look memory makes consecutive pieces pick different forms, palettes and type. The bar asks for a designed world with a through-line, images that do the explaining, words integrated into the image, numbers and code staged in the world, depth and light, beat-locked motion, and typographic craft. It rejects text on a background, code cards, bullet lists, centred stat counters and boxes with arrows.
 
 ## What gets made, and from what
 
@@ -35,14 +38,15 @@ At the end of each run (after the articles, the LinkedIn steps and the blog sync
 1. **Collects fresh material**: the digest items this run committed, saved to `factory/state/inbox.json` so a pass that is skipped (lock held, crash, Opus down) does not lose them, plus any Insight written in the last 36 hours. With nothing new it makes nothing, unless `FACTORY_ARCHIVE_FALLBACK=true` lets it use the Insights archive.
 2. **Lets an editor pick one story** (`editor.js`): Opus scores a shortlist on STOP, STAKES, PROOF, REACH, NOW, SHARE and SHOW, and picks the one most likely to go viral with engineers. The runners-up follow by score. `FACTORY_PER_CYCLE` (default 1) is the number of stories per run.
 3. **Deep-dives it**: every page the story links to is read (public hosts only) and appended as research. Numbers from those pages pass the fact gate; their URLs and headers do not, and hype words in a linked README do not excuse hype in the copy.
-4. **Captures real material** (`assets.js`): desktop, a 900-wide readable card, a full mobile page, and the og:image of each linked page. Chrome sends all traffic through an in-process proxy that refuses private, local and LAN addresses and ports other than 80/443.
-5. **Writes the storyboard**: the words and the arc only (the type labels classify copy, not layouts), and for reels a spoken `voiceover` line per scene with ElevenLabs audio tags. Everything a viewer reads or hears passes the fact gates.
-6. **Records the voice** (`voice.js`, reels): ElevenLabs is the main provider (`eleven_v4`, then the fallbacks), the whole script in one request with exact word timings; without a key, OpenRouter's speech model reads it scene by scene, every clip proven by its own audio. The film is timed to the voice, never the other way round.
-7. **Directs** (`director.js`): Opus reads the whole catalog, picks 6 references by craft (with the exact technique to take from each), then writes a director's prompt in the gallery's register: concept, form, through-line, palette, type system, the locked message, sections and arc, transitions, real-material plan, required techniques credited to their references, banned moves, gotchas.
-8. **Scores** (`music.js`, reels): the director picks a track from the music library (or the code picks the best fit for the story's mood); its biggest drop is placed on the climax and the agent gets the real beats and downbeats in film time.
-9. **Builds** (`hero.js`): Claude Code builds the piece from that prompt in a throwaway workspace (reels in Remotion or HyperFrames, carousels as Remotion stills), with the visual library's clips and effects at hand, checks its own frames against the bar, renders, and lists its sound effects in `out/cues.json`.
-10. **Mixes** (`mix.js`, reels): music, voice, synthesized SFX and captions (see Sound).
-11. **Posts** this run's piece (not the backlog) within `IG_DAILY_CAP` and `IG_MIN_GAP_MINUTES`.
+4. **Captures real material** (`assets.js`): the X post the story comes from (rendered by X's public embed page, no login, cut out along its card as a transparent PNG) and the photos attached to it; then a desktop view, a 900-wide readable card, a full mobile page and the og:image of each linked page. Chrome sends all traffic through an in-process proxy that refuses private, local and LAN addresses and ports other than 80/443.
+5. **Writes the storyboard**: for reels, the arc (hook, context, 3-4 escalating value beats with a pattern break, payoff, CTA) in 32-50 s; per scene a headline of at most 6 words, a spoken `voiceover` line, and a `visual` (`{show, use}`: a REAL MATERIAL id, `stock: <search>`, or `graphic`, at most two and never the hook). Everything a viewer reads or hears passes the fact gates.
+6. **Fetches stock** (`stock.js`, reels): for every scene that asked for `stock: <search>`, the best portrait clip (Pexels, then Pixabay) or photo (Pexels, Pixabay, then Openverse), saved beside the captures with its licence.
+7. **Records the voice** (`voice.js`, reels): ElevenLabs is the main provider (`eleven_v4`, then the fallbacks), the whole script in one request with exact word timings; without a key, OpenRouter's speech model reads it scene by scene, every clip proven by its own audio. The film is timed to the voice, never the other way round. A narrated storyboard with no voice is not made silent: the piece fails and is retried next run.
+8. **Directs** (`director.js`): Opus reads the whole catalog, picks references by craft (4 for a reel: overlay, transition and headline techniques to lay over the real material; 6 for a carousel) (with the exact technique to take from each), then writes a director's prompt in the gallery's register: concept, form, through-line, palette, type system, the locked message, sections and arc, transitions, real-material plan, required techniques credited to their references, banned moves, gotchas.
+9. **Scores** (`music.js`, reels): the director picks a track from the music library (or the code picks the best fit for the story's mood); its biggest drop is placed on the climax and the agent gets the real beats and downbeats in film time.
+10. **Builds** (`hero.js`): Claude Code builds the piece from that prompt in a throwaway workspace (reels in Remotion or HyperFrames, carousels as Remotion stills), with the visual library's clips and effects at hand, checks its own frames against the bar, renders, and lists its sound effects in `out/cues.json`.
+11. **Mixes** (`mix.js`, reels): music, voice, synthesized SFX and captions (see Sound).
+12. **Posts** this run's piece (not the backlog) within `IG_DAILY_CAP` and `IG_MIN_GAP_MINUTES`. The caption ends with the credits (`Source: x.com/<handle>`, never an @ that would tag someone else on Instagram; CC BY photo credits; "Stock footage: Pexels") and at most 5 hashtags.
 
 ## Where things run
 
@@ -84,6 +88,18 @@ Opus runs with `--model claude-opus-5-5 --effort xhigh`. Change these with `FACT
 ## Visual library
 
 `factory/library/visuals/<slug>/meta.json`: licensed stock clips (Mixkit free licence: overlays such as light leaks and glitch textures, an ink matte, abstract backgrounds, real-world b-roll) and techniques to rebuild in code (GEOMETRIC contour/dither art, SHATTER glass fracture, a liquid ORB), each with how it earns its place. Clips are hard-linked into every reel workspace (`visuals/`); the agent ffmpegs in only the part it uses. They are texture, transition and atmosphere, never a stand-in for the story's real material; techniques are applied to the real captures. The clips are gitignored (licences forbid redistributing them as-is): `npm run factory:library` downloads missing ones.
+
+## Stock footage and photos
+
+`src/factory/stock.js` fills the scenes whose storyboard visual is `stock: <2-5 word search>`:
+
+| Provider | Key | What | Licence |
+|---|---|---|---|
+| Pexels | `PEXELS_API_KEY` (free) | portrait video first, then photos | free for commercial use, no attribution required (credited anyway) |
+| Pixabay | `PIXABAY_API_KEY` (free) | video, then photos | Pixabay Content License, no attribution required |
+| Openverse | none | photos | CC0, public domain and CC BY only (never share-alike, no-derivatives or non-commercial); CC BY is credited in the caption |
+
+Video only comes from the providers' CDNs (videos.pexels.com, vimeo, cdn.pixabay.com), at most 80 MB and checked to be an MP4; photos go through the same checks as og:images. Files land in the job's `assets/` as `stock-<scene>.mp4|jpg` with provider, page, creator and licence in `assets.json`. Without keys only Openverse photos are fetched (about 1024 px, soft for a full-screen reel): a free Pexels key is what brings real footage. `FACTORY_OPENVERSE=off` turns Openverse off.
 
 ## Skills the agent can use
 

@@ -326,6 +326,33 @@ async function capture(cdp, url, kind, file, dark = true) {
   return withDeadline(run(), CAPTURE_DEADLINE_MS, `capture of ${url}`);
 }
 
+/**
+ * The source X post, rendered by X's public embed page (no login needed) and cut out along the
+ * card, corners transparent, so a film can lay the real post over anything.
+ */
+async function capturePost(cdp, post, file) {
+  const shot = { width: 550, height: 900, dpr: 3, mobile: false };
+  const run = async () => {
+    const tab = await openTab(cdp, shot, true);
+    try {
+      await navigate(cdp, tab, `https://platform.twitter.com/embed/Tweet.html?id=${post.id}&theme=dark&dnt=true`, shot);
+      const { result } = await tab.s("Runtime.evaluate", {
+        returnByValue: true,
+        expression: `(() => { const el = document.querySelector('article') || (document.body && document.body.firstElementChild); if (!el) return null; const r = el.getBoundingClientRect(); return { x: r.x, y: r.y, width: r.width, height: r.height }; })()`,
+      });
+      const box = result && result.value;
+      if (!box || box.width < 200 || box.height < 80) throw new Error("the post did not render (deleted or protected?)");
+      await tab.s("Emulation.setDefaultBackgroundColorOverride", { color: { r: 0, g: 0, b: 0, a: 0 } });
+      const { data } = await tab.s("Page.captureScreenshot", { format: "png", captureBeyondViewport: true, clip: { ...box, scale: 1 } }, 45000);
+      fs.writeFileSync(file, Buffer.from(data, "base64"));
+      return { width: Math.round(box.width * shot.dpr), height: Math.round(box.height * shot.dpr) };
+    } finally {
+      await tab.close();
+    }
+  };
+  return withDeadline(run(), CAPTURE_DEADLINE_MS, `capture of post ${post.id}`);
+}
+
 // ---------------------------------------------------------------- og:image
 
 const IMAGE_MAGIC = [
@@ -414,12 +441,36 @@ async function gatherAssets(article, outDir, { maxPages = config.factory.assetPa
   const manifestFile = path.join(dir, "assets.json");
   const cached = readManifest(manifestFile);
   if (cached) return cached;
-  const links = (article.links || []).slice(0, maxPages);
+  const links = maxPages > 0 ? (article.links || []).slice(0, maxPages) : [];
+  const post = article.post && /^\d{5,25}$/.test(String(article.post.id)) ? article.post : null;
+  const media = Array.isArray(article.media) ? article.media.slice(0, 4) : [];
   const assets = [];
-  if (!links.length || maxPages <= 0) return assets;
+  if (!links.length && !post && !media.length) return assets;
   fs.mkdirSync(dir, { recursive: true });
   let cdp = null;
   try {
+    // The post the story came from, then its own photos: the most direct real material there is.
+    if (post) {
+      const file = path.join(dir, "post.png");
+      try {
+        cdp = await launch();
+        const size = await capturePost(cdp, post, file);
+        assets.push({ id: "post", kind: "post", url: post.url, title: `@${post.user} on X (the post this story comes from)`, file, ...size });
+      } catch (e) {
+        logger.warn(`Factory: capture of the source post ${post.url} failed (${e.message}).`);
+        if (cdp) { await cdp.close(); cdp = null; }
+      }
+    }
+    for (const [i, src] of media.entries()) {
+      const file = path.join(dir, `post-photo${i + 1}.jpg`);
+      try {
+        await downloadImage(src, file);
+        const size = probe(file);
+        if (size.width && size.height) assets.push({ id: `post-photo${i + 1}`, kind: "photo", url: src, page: post ? post.url : "", title: "a photo attached to the source post", file, ...size });
+      } catch (e) {
+        logger.info(`Factory: photo ${src} from the source post skipped (${e.message}).`);
+      }
+    }
     for (const [i, url] of links.entries()) {
       const n = i + 1;
       try {
@@ -463,11 +514,11 @@ async function gatherAssets(article, outDir, { maxPages = config.factory.assetPa
   }
   // Only a non-empty result is cached: a run that captured nothing tries again next time.
   if (assets.length) fs.writeFileSync(manifestFile, JSON.stringify(assets, null, 2));
-  logger.info(`Factory: ${assets.length} real assets for ${article.slug} from ${links.length} page(s).`);
+  logger.info(`Factory: ${assets.length} real assets for ${article.slug} from ${links.length} page(s)${post ? " and the source post" : ""}.`);
   return assets;
 }
 
 /** Hosts the agent's shot tool may capture: the article's own links, plus GitHub. */
 const allowedHosts = (article) => [...new Set([...(article.links || []).map((l) => new URL(l).hostname.replace(/\.+$/, "").toLowerCase()), "github.com"])];
 
-module.exports = { gatherAssets, shootOne, allowedHosts, assertCapturable, resolvePublic, startProxy, chromeBinary, SHOTS };
+module.exports = { gatherAssets, shootOne, allowedHosts, assertCapturable, resolvePublic, startProxy, chromeBinary, downloadImage, SHOTS };

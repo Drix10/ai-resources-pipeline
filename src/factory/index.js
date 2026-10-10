@@ -12,7 +12,8 @@ const { logger } = require("../utils/helpers");
 const { writeStoryboard } = require("./storyboard");
 const { renderReel, renderReelStills, renderCarousel, contactSheet, ffmpeg } = require("./render");
 const { gatherAssets } = require("./assets");
-const { synthesizeVoice } = require("./voice");
+const { synthesizeVoice, voiceAvailable } = require("./voice");
+const { fetchStock, creditsOf } = require("./stock");
 const { reviewFrames } = require("./qa");
 const { makeHero, pickEngine } = require("./hero");
 const sources = require("./sources");
@@ -29,6 +30,20 @@ const JOBS = path.join(queue.STATE_DIR, "jobs");
 const WEEK = 7 * 24 * 3600 * 1000;
 
 const stamp = () => new Date().toISOString().slice(0, 10);
+
+/**
+ * Caption credits: where the story comes from and what the stock licences ask for. The source is
+ * written as a link, never an @handle: on Instagram that would tag whoever owns the name there.
+ */
+function creditLines(article, assets) {
+  const out = [];
+  if (article.post && article.post.user) out.push(`Source: x.com/${article.post.user}`);
+  const cc = creditsOf(assets);
+  if (cc.length) out.push(`Photos: ${cc.join("; ")}`);
+  const stock = [...new Set((assets || []).map((a) => ({ pexels: "Pexels", pixabay: "Pixabay" })[a && a.provider]).filter(Boolean))];
+  if (stock.length) out.push(`Stock footage: ${stock.join(", ")}`);
+  return out;
+}
 
 /** Fills each "shot" slide with its screenshot (a small JPEG data URL) and the page's host. */
 function withShots(sb, assets) {
@@ -124,7 +139,7 @@ async function produce(article, format, opts = {}) {
   fs.writeFileSync(path.join(dir, "source.md"), `# ${article.title}\n\n${article.text}\n`);
 
   // Real material first, so the storyboard knows which screenshots exist.
-  const assets = await gatherAssets(article, dir);
+  let assets = await gatherAssets(article, dir);
   article = { ...article, assets };
   let files;
   let look = null;
@@ -134,8 +149,15 @@ async function produce(article, format, opts = {}) {
 
   if (mode === "agent") {
     try {
+      // The stock footage and photos the scenes asked for, next to the captures.
+      if (format === "reel") {
+        assets = await fetchStock(sb, dir, assets);
+        article = { ...article, assets };
+      }
       // The narration is spoken first, so the brief and the film are timed to its words.
       const voice = format === "reel" ? await synthesizeVoice(sb, dir) : null;
+      // A narrated storyboard never becomes a silent reel: the piece is retried next cycle instead.
+      if (format === "reel" && !voice && voiceAvailable()) throw Object.assign(new Error("no voiceover was produced; a reel is never posted silent"), { code: "VOICE_FAILED" });
       // The director picks references from the whole library and writes this piece's brief.
       const engine = format === "carousel" ? "remotion" : pickEngine();
       const avoid = novelty.looksToAvoid();
@@ -190,7 +212,7 @@ async function produce(article, format, opts = {}) {
   const visuals = format === "reel" ? [files.poster] : files.slides;
   let sheet = null;
   try { sheet = contactSheet(visuals, path.join(dir, "contact.jpg")); } catch (e) { logger.warn(`Factory: contact sheet skipped (${e.message}).`); }
-  const caption = composeCaption(sb);
+  const caption = composeCaption({ ...sb, credits: creditLines(article, assets) });
   try {
     fs.writeFileSync(path.join(dir, "storyboard.json"), JSON.stringify(withoutShots(sb), null, 2));
     fs.writeFileSync(path.join(dir, "caption.txt"), caption);

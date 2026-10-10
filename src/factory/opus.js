@@ -112,9 +112,11 @@ function runClaude(args, { input, cwd, timeoutMs, logFile = null, stream = false
     if (aborted) return finish(reject, abortedError());
     let child;
     try {
-      // Claude Code caps one response at 15k output tokens by default; a director's brief at xhigh
-      // effort, or an agent writing a whole scene file, goes past it and the call fails outright.
-      const cap = { CLAUDE_CODE_MAX_OUTPUT_TOKENS: process.env.CLAUDE_CODE_MAX_OUTPUT_TOKENS || "64000" };
+      // Claude Code caps one response at 15k output tokens by default; a director's brief or a
+      // storyboard at xhigh effort, or an agent writing a whole scene file, goes past it and the
+      // call fails outright. 64k is a floor: a lower cap inherited from a parent shell (e.g. a
+      // Claude Code terminal) must not break the factory.
+      const cap = { CLAUDE_CODE_MAX_OUTPUT_TOKENS: String(Math.max(64000, Number(process.env.CLAUDE_CODE_MAX_OUTPUT_TOKENS) || 0)) };
       child = spawn(bin || claudeBin(), args, { cwd, env: { ...process.env, ...cap, ...env }, stdio: ["pipe", "pipe", "pipe"], windowsHide: true, detached: process.platform !== "win32" });
     } catch (e) {
       return finish(reject, unavailable(e));
