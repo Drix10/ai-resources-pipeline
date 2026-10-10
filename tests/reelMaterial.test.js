@@ -49,7 +49,9 @@ test("agent reels: 32-50 s, headline-length copy, a real visual for every scene,
   assert.match(errs((sb) => { delete sb.scenes[4].voiceover; }), /Scene\(s\) 5 have no voiceover/);
   assert.match(errs((sb) => { sb.scenes[0].voiceover = `[curious] [slowly] ${sb.scenes[0].voiceover}`; }), /at most 1 audio tag per scene/);
   assert.match(errs((sb) => { sb.scenes = sb.scenes.map((s) => ({ ...s, beats: 6 })); }), /add up to 21\.0 s/);
-  assert.match(errs(() => {}, { ...ART, assets: [...ART.assets, { id: "post", kind: "post", url: "https://x.com/a/status/1" }] }), /show it in one scene \("use": "post"\)/);
+  const withPost = { ...ART, assets: [...ART.assets, { id: "post", kind: "post", url: "https://x.com/a/status/1" }, { id: "post-video1", kind: "post-video", url: "https://video.twimg.com/a.mp4" }] };
+  assert.match(errs(() => {}, withPost), /The source post is in REAL MATERIAL: show it \(post, post-video1\) in one scene/);
+  assert.equal(errs((sb) => { sb.scenes[0].visual.use = "post-video1"; }, withPost), "", "the post's own video puts the source on screen");
   assert.match(errs((sb) => { sb.hashtags = ["#aa", "#bb", "#cc", "#dd", "#ee", "#ff"]; }), /3-5 hashtags/);
   assert.match(errs((sb) => { sb.scenes[3].voiceover = "It costs 9999 cycles."; }), /not in the article: 9999/, "the voice is fact-checked like the screen");
   // The visual plan is direction, not on-screen copy: its words are not fact-checked or length-gated.

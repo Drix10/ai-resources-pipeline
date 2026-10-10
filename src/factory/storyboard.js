@@ -335,7 +335,9 @@ function validate(sb, article, format, { mode = "template" } = {}) {
       const graphics = uses.filter((u) => u.toLowerCase() === "graphic").length;
       if (graphics > AGENT_REEL.maxGraphic) errors.push(`${graphics} scenes are "graphic"; at most ${AGENT_REEL.maxGraphic}: give the others real material or a stock search.`);
       if ((uses[0] || "").toLowerCase() === "graphic") errors.push("The hook must open on real material or stock footage, not a graphic.");
-      if (materialIds(article).includes("post") && !uses.includes("post")) errors.push('The source post is in REAL MATERIAL: show it in one scene ("use": "post"), early.');
+      // The post itself, its video or its photos: any of them puts the source on screen.
+      const postMaterial = materialIds(article).filter((id) => /^post(-|$)/.test(id));
+      if (postMaterial.length && !uses.some((u) => postMaterial.includes(u))) errors.push(`The source post is in REAL MATERIAL: show it (${postMaterial.join(", ")}) in one scene, early.`);
     }
     if (narrated(format, mode)) {
       if (!isStr(scenes[0]?.voiceover) || !wordsOf(scenes[0].voiceover).length) errors.push("The hook needs a voiceover line (this reel is narrated).");
@@ -450,7 +452,8 @@ async function writeStoryboard(article, format, extraFeedback = null, previous =
   const avoid = novelty.storyboardsToAvoid();
   let feedback = extraFeedback;
   let last = previous;
-  for (let attempt = 1; attempt <= 2; attempt++) {
+  // Three tries: a reel lost to one stray word costs a day; a fix-up round costs a minute.
+  for (let attempt = 1; attempt <= 3; attempt++) {
     let prompt = buildPrompt({ article, format, feedback, patterns, avoid, mode });
     if (feedback && last) prompt += `\n\nPREVIOUS STORYBOARD:\n${JSON.stringify(last)}`;
     // A reel storyboard at xhigh effort can think for ~7 min (word budgets, visuals, the arc).
@@ -480,7 +483,7 @@ async function writeStoryboard(article, format, extraFeedback = null, previous =
     feedback = errors;
     last = sb;
   }
-  const err = new Error(`Storyboard for ${article.slug} failed the gates twice: ${feedback.join(" | ")}`);
+  const err = new Error(`Storyboard for ${article.slug} failed the gates 3 times: ${feedback.join(" | ")}`);
   err.code = "STORYBOARD_REJECTED";
   throw err;
 }
