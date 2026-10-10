@@ -171,6 +171,26 @@ test("stock from an earlier storyboard of the job is reused only for the same re
   }
 });
 
+test("a reel tells an idea, never an ad: selling lines are sent back; the editor's angle leads", () => withVoice(() => {
+  const errs = (mut) => { const sb = agentReel(); mut(sb); return validate(sb, ART, "reel", { mode: "agent" }).join("\n"); };
+  assert.match(errs((sb) => { sb.scenes[0].text = "Acme launches 16-byte structs."; sb.scenes[0].emphasis = ["16-byte"]; }), /The hook sells \("launches"\)/);
+  assert.match(errs((sb) => { sb.scenes[6].text = "Try it free: link in bio."; }), /The CTA sells/);
+  assert.match(errs((sb) => { sb.caption = `Sign up today for faster structs.\n\n${sb.caption}`; }), /Caption line 1 sells/);
+  const { buildPrompt } = require("../src/factory/storyboard");
+  const p = buildPrompt({ article: { ...ART, angle: "Why your struct is twice its size" }, format: "reel", mode: "agent" });
+  assert.match(p, /THE ANGLE[^\n]*\nWhy your struct is twice its size/);
+  assert.match(p, /THIS IS NOT AN AD/);
+}));
+
+test("a reel's brief is its shot plan and a time budget, not a director's essay", () => {
+  const { heroPrompt } = require("../src/factory/hero");
+  const p = heroPrompt({ storyboard: { ...agentReel() }, article: ART, references: [], engine: "remotion", skills: [], avoid: "" });
+  assert.match(p, /YOUR BRIEF: THE STORYBOARD'S SHOT PLAN/);
+  assert.match(p, new RegExp(`TIME BUDGET: this run is stopped after ${config.factory.reelAgentMinutes} minutes`));
+  assert.ok(!/REFERENCES \(read access/.test(p), "no reference films to study");
+  assert.ok(p.indexOf("Write out/cues.json") < p.indexOf("Render the muted film"), "cues are written before the render, so a cut-short run still has them");
+});
+
 test("the film agent is one headless run: no background renders, no waiting for a later turn", () => {
   const { heroPrompt, DISALLOWED_TOOLS } = require("../src/factory/hero");
   const p = heroPrompt({ storyboard: { ...FIXTURE, slides: [] }, article: ARTICLE, references: [], engine: "remotion", skills: [], avoid: "" });

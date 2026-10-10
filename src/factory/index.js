@@ -163,8 +163,11 @@ async function produce(article, format, opts = {}) {
       // The director picks references from the whole library and writes this piece's brief.
       const engine = format === "carousel" ? "remotion" : pickEngine();
       const avoid = novelty.looksToAvoid();
-      const references = await director.selectReferences(article, format, { avoid });
-      const brief = await director.writeDirectorPrompt({ story: article, storyboard: sb, refs: references, assets, avoid, voice, engine, music: format === "reel" ? musicLines() : "" });
+      // A reel's brief is its storyboard's shot plan: the separate director (~20 min of thinking)
+      // only runs for carousels, or for reels with FACTORY_REEL_DIRECTOR=true.
+      const directed = format !== "reel" || config.factory.reelDirector;
+      const references = directed ? await director.selectReferences(article, format, { avoid }) : [];
+      const brief = directed ? await director.writeDirectorPrompt({ story: article, storyboard: sb, refs: references, assets, avoid, voice, engine, music: format === "reel" ? musicLines() : "" }) : null;
       // The music is chosen and beat-mapped BEFORE the build, so the film is cut to it.
       if (format === "reel") {
         chosenMusic = pickMusic({ sb, article, voice, brief, seconds: director.filmSeconds(sb, voice) });
@@ -175,7 +178,7 @@ async function produce(article, format, opts = {}) {
         if (brief) fs.writeFileSync(path.join(dir, "director-prompt.md"), brief);
         if (chosenMusic) fs.writeFileSync(path.join(dir, "music.json"), JSON.stringify({ ...musicRecord(chosenMusic), beats: chosenMusic.plan.beats, energy: chosenMusic.plan.energy }, null, 2));
       } catch { /* review files only */ }
-      if (!brief) logger.warn(`Factory: no director's prompt for ${sb.id}; the agent writes its own brief.`);
+      if (!brief && directed) logger.warn(`Factory: no director's prompt for ${sb.id}; the agent writes its own brief.`);
       const piece = await makeHero({ storyboard: sb, article, outDir: dir, assets, director: brief, references, voice, engine, music: chosenMusic });
       files = format === "reel" ? { video: piece.video, poster: piece.poster } : { slides: piece.slides };
       look = piece.look;
@@ -322,22 +325,27 @@ async function cycle({ extraSources = [], publish = config.instagram.post, dryRu
   const recent = novelty.recent();
   const usable = (list) => novelty.orderForNovelty(list).filter((a) => formats.some((f) => !queue.has(a, f)) && novelty.isFreshTopic(a, recent));
   const { fresh } = editor.freshSources(extraSources);
-  let open = usable(fresh);
-  if (!open.length) {
-    const why = fresh.length ? "this run's stories are all made already" : "nothing new this run";
+  // Ideas, not ads: launches, announcements, demos and events never become reels.
+  const ideas = fresh.filter((a) => !editor.isPromo(a));
+  if (fresh.length > ideas.length) logger.info(`Factory: ${fresh.length - ideas.length} of ${fresh.length} fresh stories are launches or promos; skipped.`);
+  const open = usable(ideas);
+  let ranked = open.length ? await editor.pickStory(open) : [];
+  if (!ranked.length) {
+    const why = !fresh.length ? "nothing new this run" : open.length ? "no story this run makes an interesting reel" : "this run's stories are promos or made already";
     if (!config.factory.archiveFallback) {
-      logger.info(`Factory: ${why}; no piece this time (FACTORY_ARCHIVE_FALLBACK=false keeps the channel on fresh stories).`);
+      logger.info(`Factory: ${why}; no piece this time (FACTORY_ARCHIVE_FALLBACK=false).`);
       return made;
     }
     logger.info(`Factory: ${why}; using the Insights archive.`);
-    open = usable(sources.listInsights());
+    ranked = await editor.pickStory(usable(sources.listInsights()));
   }
-  const ranked = await editor.pickStory(open);
+  const started = Date.now();
   // Opus runs are not free (plan limits): a story that fails moves on to the next, twice at most.
   let failures = 0;
   let stories = 0;
   for (const picked of ranked) {
-    if (stories >= config.factory.perCycle || failures >= 2 || opus.isAborted()) break;
+    // A reel is held to ~30 min: after a failure, another story only when the pass is still young.
+    if (stories >= config.factory.perCycle || failures >= 2 || opus.isAborted() || (failures && Date.now() - started > 8 * 60 * 1000)) break;
     const story = await editor.deepDive(picked);
     let ok = false;
     for (const format of formats) {

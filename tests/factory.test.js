@@ -686,12 +686,20 @@ test("editor: picks for virality and orders the runner-ups by viral score", asyn
   const saved = opus.ask;
   let prompt = "";
   try {
-    opus.ask = async (o) => { prompt = o.prompt; return JSON.stringify({ scores: [{ n: 1, viral: 3 }, { n: 2, viral: 9 }, { n: 3, viral: 5 }, { n: 4, viral: 8 }], pick: 2, why: "myth broken" }); };
+    opus.ask = async (o) => { prompt = o.prompt; return JSON.stringify({ scores: [{ n: 1, viral: 3, promo: 9 }, { n: 2, viral: 9, promo: 10 }, { n: 3, viral: 5, promo: 9 }, { n: 4, viral: 8, promo: 2 }], pick: 2, angle: "Why the myth breaks", why: "myth broken" }); };
     const order = await editor.pickStory(list);
     const ranked = rankSources(list).map((a) => a.title);
     assert.equal(order[0].title, ranked[1], "the pick comes first");
-    assert.deepEqual(order.slice(1).map((a) => a.title), [ranked[3], ranked[2], ranked[0]], "then by viral score");
-    for (const k of ["STOP", "STAKES", "PROOF", "REACH", "NOW", "SHARE", "SHOW"]) assert.match(prompt, new RegExp(`- ${k}:`));
+    assert.equal(order[0].angle, "Why the myth breaks", "the pick carries the angle the reel answers");
+    assert.deepEqual(order.slice(1).map((a) => a.title), [ranked[2], ranked[0]], "then by viral score, never one Opus marked as a promo");
+    for (const k of ["CURIOSITY", "SURPRISE", "STAKES", "PROOF", "REACH", "SHARE", "SHOW", "PROMO"]) assert.match(prompt, new RegExp(`- ${k}:`));
+    assert.match(prompt, /Never an ad/);
+    opus.ask = async () => JSON.stringify({ scores: [{ n: 1, viral: 6, promo: 1 }], pick: 0, why: "all launches" });
+    assert.deepEqual(await editor.pickStory(list), [], "nothing qualifies: an empty pick, so the archive takes over");
+    assert.equal(editor.isPromo({ title: "Acme launches Widget 2", text: "" }), true);
+    assert.equal(editor.isPromo({ title: "Liquid AI releases Open d1 decision models", text: "" }), true);
+    assert.equal(editor.isPromo({ title: "Detection-Guided Adaptive Purification (DGAP) paper released", text: "" }), false, "a research release is an idea");
+    assert.equal(editor.isPromo({ title: "Hugging Face breach by 700 AI agents performing 17,000+ actions", text: "" }), false);
   } finally {
     opus.ask = saved;
   }

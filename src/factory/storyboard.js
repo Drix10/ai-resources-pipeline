@@ -42,6 +42,8 @@ const AGENT_REEL = { minScenes: 6, maxScenes: 9, minSeconds: 32, maxSeconds: 51,
 
 const agentReelSpec = (narrated) => `REEL (1080x1920, 30 fps)${narrated ? ", NARRATED" : ""}, ${AGENT_REEL.minSeconds}-${AGENT_REEL.maxSeconds - 1} seconds. Durations are in BEATS at the storyboard's bpm (120 bpm: 1 beat = 0.5 s, so ${AGENT_REEL.minSeconds * 2}-${(AGENT_REEL.maxSeconds - 1) * 2} beats in all). ${AGENT_REEL.minScenes}-${AGENT_REEL.maxScenes} scenes: the first is a "hook", the last a "cta".
 
+THIS IS NOT AN AD. The reel is about an IDEA: what happened, why it matters, how it really works, what it changes. A company or product may appear only as evidence or an example, never as the hero: never open on a product name, no "X launches / introduces", no feature lists, no pricing, no "try it", no CTA toward any product. When the story is an announcement, tell the shift it is evidence of.
+
 THE ARC (promise -> withhold -> escalate -> pay off)
 - Pick ONE goal before writing and drive its emotion: SAVE (relief + fear of forgetting: a finite system future-you will need), SHARE (awe, indignation or status: it makes the sender look early or right), FOLLOW (fear of falling behind). High arousal beats calm "value".
 - HOOK (scene 1, 0-3 s): the most striking REAL image from the story itself (the product, the post, the people, the footage) is on screen and moving from frame 0; the claim lands at about 1.2-1.6 s, spoken from the first word (no intro, no "hey guys"). Open a gap, not a fact: name the payoff and tease where it comes ("the last number is the one that hurts"); never give it away here.
@@ -95,7 +97,7 @@ Slide types:
 - shot  {asset: id, title <= 50 chars, caption?: <= 120 chars}   a real screenshot of a page the article links to, in a browser frame (only ids listed under REAL SCREENSHOTS)
 - cta   {title <= 60 chars, body?: <= 120 chars}`;
 
-const SYSTEM = `You are the director of an Instagram channel for a hands-on systems/AI engineer. You turn one article into one short piece that a busy engineer would stop scrolling for, learn one concrete thing from, and save.
+const SYSTEM = `You are the director of an Instagram channel about the most interesting ideas in AI and tech, for smart, curious people (engineers and builders among them). You turn one story into one short piece that people stop scrolling for, learn one surprising thing from, and send to a friend. The channel never runs ads.
 
 You do not write code or pixels. You write a STORYBOARD as JSON: the words, the beats, the visuals and the arc of the piece, which is then built in code from it. Think like a short-form editor who tells stories with real footage: one idea per scene, a real visual for every line, cuts that land on the voice and the beat, on-screen text that carries the story with the sound off.
 
@@ -145,6 +147,7 @@ function buildPrompt({ article, format, feedback, patterns, avoid, mode }) {
   const shape = format === "reel" ? '"scenes": [...], "slides": []' : '"scenes": [], "slides": [...]';
   return [
     `FORMAT: ${format}`,
+    article.angle ? `THE ANGLE (the editor's pick: the piece is about this idea; build the hook and the payoff around it):\n${article.angle}\n` : "",
     spec,
     narrated(format, mode) ? `\n${VOICE_SPEC}` : "",
     agentReel ? `\n${materialList(article)}` : mode === "agent" ? `\n${AGENT_NOTE[format] || AGENT_NOTE.reel}` : "",
@@ -250,6 +253,8 @@ function checkAgentScene(s, at, article, errors) {
   } else if (search && countWords(search) > 6) errors.push(`${at}: the ${queryOf(use) ? "stock" : "photo"} search is ${countWords(search)} words; use 2-5 words.`);
 }
 
+const SELLING = /\b(launch(es|ed)?|introduc(es|ing)|now available|available now|try (it|now|for free)|sign up|link in bio|download (it|now)|free trial|get started|check (it|them) out|use code|buy now)\b/i;
+
 /** Returns a list of problems; empty means the storyboard can be rendered. */
 function validate(sb, article, format, { mode = "template" } = {}) {
   const errors = [];
@@ -331,6 +336,10 @@ function validate(sb, article, format, { mode = "template" } = {}) {
       if (agentReel) checkAgentScene(s, at, article, errors);
     });
     if (agentReel) {
+      // Not an ad: the lines that sell (hook, CTA, the caption's first line) never pitch a product.
+      for (const [label, t] of [["The hook", scenes[0]?.text], ["The hook's voiceover", scenes[0]?.voiceover], ["The CTA", scenes[scenes.length - 1]?.text], ["The CTA's sub", scenes[scenes.length - 1]?.sub], ["Caption line 1", isStr(sb.caption) ? sb.caption.split("\n")[0] : ""]]) {
+        if (isStr(t) && SELLING.test(t)) errors.push(`${label} sells ("${t.match(SELLING)[0]}"): this channel tells ideas, it never pitches a product. Rewrite it around the idea.`);
+      }
       const uses = scenes.map((s) => (s && s.visual && isStr(s.visual.use) ? s.visual.use.trim() : ""));
       const graphics = uses.filter((u) => u.toLowerCase() === "graphic").length;
       if (graphics > AGENT_REEL.maxGraphic) errors.push(`${graphics} scenes are "graphic"; at most ${AGENT_REEL.maxGraphic}: give the others real material or a stock search.`);
@@ -456,8 +465,8 @@ async function writeStoryboard(article, format, extraFeedback = null, previous =
   for (let attempt = 1; attempt <= 3; attempt++) {
     let prompt = buildPrompt({ article, format, feedback, patterns, avoid, mode });
     if (feedback && last) prompt += `\n\nPREVIOUS STORYBOARD:\n${JSON.stringify(last)}`;
-    // A reel storyboard at xhigh effort can think for ~7 min (word budgets, visuals, the arc).
-    const reply = await opus.ask({ system: SYSTEM, prompt, maxTokens: 8000, temperature: 0.8, timeoutMs: Math.max(config.factory.anthropic.requestTimeoutMs, 20 * 60 * 1000) });
+    // At xhigh a reel storyboard thought for ~7 min (word budgets, visuals, the arc); FACTORY_TEXT_EFFORT sets it.
+    const reply = await opus.ask({ system: SYSTEM, prompt, maxTokens: 8000, temperature: 0.8, timeoutMs: Math.max(config.factory.anthropic.requestTimeoutMs, 20 * 60 * 1000), effort: config.factory.textEffort });
     let raw;
     try {
       raw = opus.parseJson(reply);

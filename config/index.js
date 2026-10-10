@@ -84,6 +84,14 @@ const config = {
     claudeBin: process.env.CLAUDE_BIN || "claude",
     // Claude Code --effort: low | medium | high | xhigh | max. xhigh = "extra" effort.
     claudeEffort: ["low", "medium", "high", "xhigh", "max"].includes(process.env.FACTORY_CLAUDE_EFFORT) ? process.env.FACTORY_CLAUDE_EFFORT : "xhigh",
+    // A reel must be made in under 30 minutes. At xhigh the editor, the storyboard and a director's
+    // brief took ~30 min of thinking before the film started, and the film agent ~45 min. The text
+    // steps think at FACTORY_TEXT_EFFORT and the reel agent at FACTORY_AGENT_EFFORT, inside
+    // FACTORY_REEL_AGENT_MINUTES; reels skip the separate director (the storyboard plans every shot).
+    textEffort: ["low", "medium", "high", "xhigh", "max"].includes(process.env.FACTORY_TEXT_EFFORT) ? process.env.FACTORY_TEXT_EFFORT : "high",
+    agentEffort: ["low", "medium", "high", "xhigh", "max"].includes(process.env.FACTORY_AGENT_EFFORT) ? process.env.FACTORY_AGENT_EFFORT : "high",
+    reelAgentMinutes: parsePositiveInteger(process.env.FACTORY_REEL_AGENT_MINUTES, 18),
+    reelDirector: process.env.FACTORY_REEL_DIRECTOR === "true",
     anthropic: {
       apiKey: process.env.ANTHROPIC_API_KEY || "",
       baseUrl: (process.env.ANTHROPIC_BASE_URL || "https://api.anthropic.com").replace(/\/$/, ""),
@@ -136,7 +144,9 @@ const config = {
     carouselMode: process.env.FACTORY_CAROUSEL_MODE === "template" ? "template" : "agent",
     // When a run brought nothing new (or everything new is made already): true = make a piece from
     // the LinkedIn Insights archive; false (default) = skip, so the channel only posts fresh stories.
-    archiveFallback: process.env.FACTORY_ARCHIVE_FALLBACK === "true",
+    // When a run brings no story worth a reel (nothing new, or only launches and promos): true
+    // (default) = take the best unmade Insight from the archive; false = no reel that day.
+    archiveFallback: process.env.FACTORY_ARCHIVE_FALLBACK !== "false",
     heroPerWeek: parsePositiveInteger(process.env.FACTORY_HERO_PER_WEEK, 2),
     // When an agent film fails: false (default) = mark failed and retry next cycle, so every
     // posted reel stays unique; true = ship a templated reel instead.

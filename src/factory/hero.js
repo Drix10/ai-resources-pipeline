@@ -121,13 +121,15 @@ function heroPrompt({ storyboard, article, references = [], director = null, ass
   const seconds = format === "reel" ? filmSeconds(storyboard, voice) : 0;
   const gold = library.videos().filter((v) => GOLD.includes(v.slug));
   const what = format === "reel" ? `one Instagram Reel: a ~${seconds}-second film` : `one Instagram carousel: ${slides} designed slides`;
+  const minutes = config.factory.reelAgentMinutes;
   const steps = format === "reel"
-    ? `1. Read the director's prompt, then the references' prompts, frames and code for every technique it names. Write out/treatment.md (your plan: form, through-line, sections with frame numbers, techniques and where each comes from) and out/look.json:
+    ? `TIME BUDGET: this run is stopped after ${minutes} minutes, so work in this order and do not polish past it:
+1. (~3 min) Plan: write a short out/treatment.md (the recurring device, the palette, the type, then one line per scene of THE STORYBOARD'S SHOT PLAN: its material, framing and motion, the overlay, the cut into the next${director ? ", following the director's prompt" : ""}) and out/look.json:
    {"form": "<one line>", "idea": "<one line>", "palette": ["#hex", "..."], "fonts": ["Display face", "Text face"], "technique": "<one line>", "engine": "${engine}"}
-2. Build it.
-3. Render one still per scene and LOOK at every one against THE BAR FOR A REEL and the director's CHECKS: real material fills the frame, the headline reads over it, the captions band is clear. A scene that is type on a background, a card, a list or a centred stat is a failure: rebuild it. Fix clipped or cramped text, contrast, orphan words, empty frames. Then check the flow: stills at every second of the film (no frozen stretch while the voice talks, every cut lands on its spoken word, nothing ping-pongs). Repeat until every still would stop a scroll.
-4. Render the muted film to out/hero.muted.mp4.
-5. Write out/cues.json: {"bpm": ${storyboard.bpm}, "seconds": <exact duration>, "cuts": [<every cut time in seconds>], "sfx": [<events, see SOUND DESIGN>]${voice ? `, "captions": true|false` : ""}}. Music, voice and effects are mixed from it.
+2. (~${Math.max(6, minutes - 9)} min) Build it.
+3. (~2 min) Render 5 stills (the hook at 1.5 s, three middle scenes, the CTA) and LOOK at them against THE BAR FOR A REEL: real material fills the frame, the headline reads over it, the captions band is clear, no scene is type on a background. Fix what fails, once.
+4. Write out/cues.json: {"bpm": ${storyboard.bpm}, "seconds": <exact duration>, "cuts": [<every cut time in seconds>], "sfx": [<events, see SOUND DESIGN>]${voice ? `, "captions": true|false` : ""}}. Music, voice and effects are mixed from it.
+5. (~3 min) Render the muted film to out/hero.muted.mp4, in the foreground.
 6. Your final reply is one line: DONE, or FAILED: <reason>.`
     : `1. Read the director's prompt, then the references' prompts, frames and code for every technique it names. Write out/treatment.md (your plan: form, through-line, slide by slide, techniques and where each comes from) and out/look.json:
    {"form": "<one line>", "idea": "<one line>", "palette": ["#hex", "..."], "fonts": ["Display face", "Text face"], "technique": "<one line>", "engine": "remotion"}
@@ -138,8 +140,7 @@ function heroPrompt({ storyboard, article, references = [], director = null, ass
   const reel = format === "reel";
   return `${reel ? `You are a world-class short-form video editor and motion engineer. Build ${what}, cut from the REAL MATERIAL under the voiceover, in code, to the director's prompt below.` : `You are a world-class motion designer and engineer. Build ${what}, in code, to the director's prompt below.`}
 ${skills.length ? `\nSKILLS: before building, invoke these if they are installed: ${skills.join(", ")}.\n` : ""}
-DIRECTOR'S PROMPT (your brief: build THIS. Where your own stills show a better choice, improve it, but keep its concept, form, palette and message)
-${director || `(none this time: before building, write your own director's prompt to THE BAR into out/treatment.md: ${reel ? "concept, through-line, palette, type system, a shot list scene by scene, transitions, techniques" : "concept, form, through-line, palette, type system, sections, techniques credited to the references"})`}
+${director || !reel ? `DIRECTOR'S PROMPT (your brief: build THIS. Where your own stills show a better choice, improve it, but keep its concept, form, palette and message)\n${director || "(none this time: before building, write your own director's prompt to THE BAR into out/treatment.md: concept, form, through-line, palette, type system, sections, techniques credited to the references)"}` : "YOUR BRIEF: THE STORYBOARD'S SHOT PLAN below (what each scene shows, from which material, under which spoken line) and THE BAR FOR A REEL. You are the director: pick one recurring device, a palette and a type pairing that suit this story, then build."}
 
 ${reel ? REEL_BAR : CRAFT_BAR}
 
@@ -159,9 +160,7 @@ ${materialBlock(assets, format === "carousel" ? "remotion" : engine, assetsLib.a
 ${reel ? `\nTHE STORYBOARD'S SHOT PLAN (what each scene shows, from which material, under which spoken line):\n${shotPlan(storyboard, assets)}\n` : ""}
 ${format === "reel" ? `\n${library.visualsBlock((slug) => `visuals/${slug}.mp4`)}\nTo use a clip, ffmpeg only the part you need into your project, trimmed, scaled and silent (e.g. ffmpeg -ss 2 -t 3 -i visuals/<slug>.mp4 -vf scale=1080:-2 -an ${engine === "remotion" ? "public" : "film"}/<slug>.mp4); never copy the whole folder.\n` : ""}
 ${voice && format === "reel" ? `\n${voiceBlock(voice)}\n- Word-by-word timings: voice.json here. Do NOT put the voice in the film (it is mixed in afterwards); render the film muted.\n` : ""}${format === "reel" ? `\n${music ? musicBlock(music.track, music.plan) : `TIMING\n${storyboard.bpm} bpm, cuts on beats.`}\nEvery frame is a pure function of the frame number: no CSS transitions, no timers, no unseeded randomness. Springs and named easings only.\n\n${soundBlock(voice)}\n` : ""}
-REFERENCES (read access: ${library.LIB}). The director picked these for this piece; open their prompts, frames and code for every technique you use:
-${referenceLines(references) || "- (none: browse LIBRARY.md)"}
-${reel ? "" : `THE STANDARD (read for the level of craft, never to copy their look): ${referenceLines(gold).replace(/^- /gm, "")}\n`}Every other film in the library, with all its paths: LIBRARY.md here.
+${reel && !references.length ? "(A library of motion references is listed in LIBRARY.md if you want one technique; you do not need it.)" : `REFERENCES (read access: ${library.LIB}). The director picked these for this piece; open their prompts, frames and code for every technique you use:\n${referenceLines(references) || "- (none: browse LIBRARY.md)"}\n${reel ? "" : `THE STANDARD (read for the level of craft, never to copy their look): ${referenceLines(gold).replace(/^- /gm, "")}\n`}Every other film in the library, with all its paths: LIBRARY.md here.`}
 
 ${engineBlock(engine, format, slides)}
 
@@ -316,9 +315,10 @@ async function makeHero({ storyboard, article, outDir, assets = [], director = n
   const prompt = heroPrompt({ storyboard, article, references: refs, director, assets, engine, skills: config.factory.heroSkills, avoid: novelty.looksToAvoid(), voice, music });
   fs.writeFileSync(path.join(outDir, "agent-prompt.md"), prompt);
 
-  const args = claudeArgs(["--permission-mode", "acceptEdits", "--allowedTools", ...ALLOWED_TOOLS, "--disallowedTools", ...DISALLOWED_TOOLS, "--add-dir", library.LIB, ...(engine === "remotion" ? ["--add-dir", path.join(FACTORY_DIR, "node_modules")] : [])]);
+  const args = claudeArgs(["--permission-mode", "acceptEdits", "--allowedTools", ...ALLOWED_TOOLS, "--disallowedTools", ...DISALLOWED_TOOLS, "--add-dir", library.LIB, ...(engine === "remotion" ? ["--add-dir", path.join(FACTORY_DIR, "node_modules")] : [])], { effort: format === "reel" ? config.factory.agentEffort : config.factory.claudeEffort });
+  const timeoutMs = format === "reel" ? config.factory.reelAgentMinutes * 60 * 1000 : config.factory.heroTimeoutMs;
 
-  logger.info(`Factory agent: Opus (${config.factory.claudeEffort}) is building ${storyboard.id} (${format}) with ${engine} in ${workDir} ...`);
+  logger.info(`Factory agent: Opus (${format === "reel" ? config.factory.agentEffort : config.factory.claudeEffort}, ${Math.round(timeoutMs / 60000)} min) is building ${storyboard.id} (${format}) with ${engine} in ${workDir} ...`);
   const started = Date.now();
   // stream-json streams the transcript into agent.log while the agent works (tail -f it).
   const logFile = path.join(outDir, "agent.log");
@@ -326,7 +326,13 @@ async function makeHero({ storyboard, article, outDir, assets = [], director = n
   let text;
   let raw;
   try {
-    ({ text, raw } = await runClaude(args, { input: prompt, cwd: workDir, timeoutMs: config.factory.heroTimeoutMs, logFile, stream: true, env: { FACTORY_SHOT_HOSTS: assetsLib.allowedHosts(article).join(","), BASH_DEFAULT_TIMEOUT_MS: AGENT_BASH_TIMEOUT_MS, BASH_MAX_TIMEOUT_MS: AGENT_BASH_TIMEOUT_MS } }));
+    ({ text, raw } = await runClaude(args, { input: prompt, cwd: workDir, timeoutMs, logFile, stream: true, env: { FACTORY_SHOT_HOSTS: assetsLib.allowedHosts(article).join(","), BASH_DEFAULT_TIMEOUT_MS: AGENT_BASH_TIMEOUT_MS, BASH_MAX_TIMEOUT_MS: AGENT_BASH_TIMEOUT_MS } }));
+  } catch (e) {
+    // Out of time with a film built: render what is there rather than lose the day's reel.
+    if (!(format === "reel" && /timed out/.test(e.message) && renderLeftover(workDir, engine))) throw e;
+    logger.warn(`Factory agent: stopped at its ${Math.round(timeoutMs / 60000)}-min time box; rendered the composition it left.`);
+    text = "DONE (rendered at the time box)";
+    raw = null;
   } finally {
     restoreLibrary();
   }

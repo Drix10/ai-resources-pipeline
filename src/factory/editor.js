@@ -2,8 +2,10 @@
  * The editor: picks the ONE story a cycle turns into content, then researches it.
  *
  *  - freshSources(): this run's digest items plus Insights written in the last 36 h.
- *  - pickStory(): Opus reads the candidates and picks the one with the most concrete, visual,
- *    teachable story (the old digit-count ranking only orders the shortlist and is the fallback).
+ *  - pickStory(): Opus reads the candidates and picks the one most worth a reel: an interesting
+ *    topic (a surprising finding, how something really works, a shift, a debate), never a product
+ *    launch or promo, with the ANGLE the reel answers (the digit-count ranking only orders the
+ *    shortlist and is the fallback). isPromo() keeps launches and promos out before Opus looks.
  *  - deepDive(): reads every page the story links to (pageFetch: public hosts only, capped) and
  *    appends it as RESEARCH, so the storyboard has more to work with. The story's own text is
  *    kept as baseText: topic dedupe and the hype-word exemption never look at the research.
@@ -14,6 +16,7 @@ const { logger } = require("../utils/helpers");
 const { fetchPage } = require("../utils/pageFetch");
 const sources = require("./sources");
 const opus = require("./opus");
+const config = require("../../config");
 
 const FRESH_MS = 36 * 3600 * 1000;
 const SHORTLIST = 12;
@@ -72,42 +75,60 @@ function freshSources(extraSources = [], { now = Date.now() } = {}) {
   return { fresh: [...byOrigin.values()] };
 }
 
+/**
+ * A launch, an announcement, a demo or an event: the owner does not want promotional reels.
+ * Judged on the title and the opening of the story, where an announcement says what it is.
+ */
+const PROMO = /\b(launch(es|ed|ing)?|announc(e|es|ed|ing|ement)|introduc(es|ed|ing)|unveil(s|ed)?|now (available|live|open)|available now|is (live|out) now|free trial|sign[- ]?up|register (now|today|here)|webinar|roadshow|hackathon|giveaway|discount|coupon|promo code|pre-?order|waitlist|early access|beta access|join (us|our)|we'?re hiring|now hiring|demo day|livestream|meetup|conference talk|summit|course|bootcamp|certification|new features?|new version|release notes|rolls? out|ships?|live on|on demand|enters (alpha|beta)|in (alpha|beta)|walkthrough|added to|selects|partners? with|integrat(es|ion) with|(?<!\b(paper|study|report|dataset|data|code|weights|findings) )releas(es|ed|ing)\b(?! (a |the |an |its |their |new )?(paper|study|report|dataset|benchmark|data|findings|survey|analysis)))\b/i;
+function isPromo(article) {
+  const head = `${article.title || ""} ${String(article.baseText ?? article.text ?? "").slice(0, 280)}`;
+  return PROMO.test(head);
+}
+
 /** Opus picks one candidate; returns the candidates reordered with the pick first. */
 async function pickStory(candidates) {
   const list = sources.rankSources(candidates).slice(0, SHORTLIST);
   if (list.length <= 1) return list;
-  const menu = list.map((a, i) => `${i + 1}. ${a.title}\n   links: ${(a.links || []).length} | post photos: ${(a.media || []).length} | ${a.text.replace(/\s+/g, " ").slice(0, 420)}`).join("\n");
+  const menu = list.map((a, i) => `${i + 1}. ${a.title}\n   links: ${(a.links || []).length} | post photos/video: ${(a.media || []).length} | ${a.text.replace(/\s+/g, " ").slice(0, 420)}`).join("\n");
   try {
     const reply = await opus.ask({
-      system: "You are the editor of an Instagram channel for hands-on systems/AI engineers. You know what engineers save, share and argue about, and you pick the one story most likely to travel.",
-      prompt: `Score every story below for a 40-second narrated reel cut from real footage, then pick the ONE most likely to go viral with engineers.
+      system: "You are the editor of an Instagram channel about the most interesting ideas in AI and tech, for smart, curious people (engineers and builders among them). You know what people stop for, save and send to a friend, and you never run ads.",
+      prompt: `Pick the ONE story below that makes the most interesting 40-second narrated reel, and the ANGLE the reel takes.
 
-Score each 1-10 on:
-- STOP: a surprising or counter-intuitive claim that stops a scroll in 2 seconds ("your X is secretly Y", a myth broken, a cost nobody noticed)
-- STAKES: something engineers feel (money, outages, security holes, latency, lost data, their career)
-- PROOF: concrete evidence (a number, a before/after, a real repo or release, a reproducible bug)
-- REACH: how many engineers it applies to (common stacks and everyday pain beat niche configuration trivia)
-- NOW: tied to something new this week (a release, an incident, a trend)
-- SHARE: would someone send it to a teammate or save it for later
-- SHOW: is there something REAL to put on screen: a product or demo, the people involved, a real page (links), photos in the post, or a world stock footage can show (data centres, offices, factories, cities)? A story that is only numbers in a post, with nothing to show, makes a lifeless reel.
-Viral = the stories that score high on STOP, STAKES and SHARE together, with a real SHOW. Skip vague opinion pieces and lists of news.
+What we make: reels about an IDEA. A surprising finding, how something really works under the hood, a shift that changes how people build or work, a debate with real stakes, a number that changes how you see something. Never an ad: no product launches, feature announcements, demos, events, courses, hiring or "try our tool". When a story is an announcement, look for the idea inside it (the shift it is evidence of); if there is none, it scores 0.
+
+Score each 1-10:
+- CURIOSITY: a question a smart non-specialist wants answered ("why does X really happen", a hidden mechanism, a surprising number)
+- SURPRISE: counter-intuitive, a myth broken, an assumption overturned
+- STAKES: it matters to how people work, build, earn, stay safe, or what comes next
+- PROOF: concrete evidence (numbers, a result, a real example)
+- REACH: how many people care (broad tech curiosity beats niche configuration trivia)
+- SHARE: would someone send it to a friend or save it
+- SHOW: something real to put on screen (people, places, machines, the post, a page) or a mechanism that can be shown
+- PROMO: 0 if it is someone selling or announcing their own product, event or service; 10 if it is pure idea
+A pick needs PROMO >= 7. Viral = high CURIOSITY, SURPRISE and SHARE together.
 
 ${menu}
 
-Return only JSON: {"scores": [{"n": <number>, "viral": <1-10>}], "pick": <number>, "why": "<one line: the hook that makes it travel>"}`,
-      maxTokens: 800,
+Return only JSON: {"scores": [{"n": <number>, "viral": <1-10>, "promo": <0-10>}], "pick": <number or 0 if none qualifies>, "angle": "<the one-line question or claim the reel is about, framed as the idea, not a product (e.g. 'CAPTCHAs are dead: AI agents pass them, so proof-of-human is moving to your phone')>", "why": "<one line: why it travels>"}`,
+      maxTokens: 900,
       temperature: 0.2,
+      effort: config.factory.textEffort,
     });
-    const { pick, why, scores } = opus.parseJson(reply);
+    const { pick, why, scores, angle } = opus.parseJson(reply);
+    const promoOf = new Map((Array.isArray(scores) ? scores : []).map((x) => [Number(x?.n) - 1, Number(x?.promo)]));
+    // Runner-ups by viral score, never one Opus marked as a promo.
+    const rank = new Map((Array.isArray(scores) ? scores : []).map((x) => [Number(x?.n) - 1, Number(x?.viral) || 0]));
+    const ok = (j) => !(promoOf.get(j) < 7);
     const i = Number(pick) - 1;
-    if (Number.isInteger(i) && list[i]) {
-      const score = Array.isArray(scores) ? scores.find((s) => Number(s?.n) === i + 1)?.viral : undefined;
-      logger.info(`Factory editor: picked "${list[i].title}"${score ? ` (viral ${score}/10)` : ""}: ${why}.`);
-      // The runner-ups follow by their viral score, so a failed pick falls back to the next best.
-      const rank = new Map((Array.isArray(scores) ? scores : []).map((s) => [Number(s?.n) - 1, Number(s?.viral) || 0]));
-      const rest = list.map((a, j) => ({ a, j })).filter((x) => x.j !== i).sort((x, y) => (rank.get(y.j) || 0) - (rank.get(x.j) || 0)).map((x) => x.a);
-      return [list[i], ...rest];
+    const rest = list.map((a, j) => ({ a, j })).filter((x) => x.j !== i && ok(x.j)).sort((x, y) => (rank.get(y.j) || 0) - (rank.get(x.j) || 0)).map((x) => x.a);
+    if (Number.isInteger(i) && list[i] && ok(i)) {
+      logger.info(`Factory editor: picked "${list[i].title}"${rank.get(i) ? ` (viral ${rank.get(i)}/10)` : ""}: ${angle || why}.`);
+      return [{ ...list[i], angle: String(angle || "").slice(0, 240) }, ...rest];
     }
+    // None qualifies: an empty pick sends the cycle to the Insights archive instead of a weak reel.
+    logger.info(`Factory editor: no story qualifies as an interesting, non-promotional reel${why ? ` (${why})` : ""}.`);
+    return [];
   } catch (e) {
     logger.warn(`Factory editor: pick failed (${e.message}); using the ranking.`);
   }
@@ -127,4 +148,4 @@ async function deepDive(article, { maxPages = RESEARCH_PAGES, fetch = fetchPage 
   return { ...article, baseText: article.text, research: pages, text: `${article.text}\n\nRESEARCH (pages the article links to):\n${block}` };
 }
 
-module.exports = { freshSources, pickStory, deepDive, writtenAt, rememberRun, readInbox };
+module.exports = { freshSources, pickStory, deepDive, writtenAt, rememberRun, readInbox, isPromo };

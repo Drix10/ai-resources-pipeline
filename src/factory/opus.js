@@ -27,12 +27,13 @@ const usage = { calls: 0, inputTokens: 0, outputTokens: 0, costUsd: 0 };
  * @param {string[]} [p.imageFiles] absolute paths of JPEG/PNG files to look at
  * @param {number} [p.maxTokens]  (API backends only)
  * @param {number} [p.temperature] (API backends only)
+ * @param {string} [p.effort] Claude Code --effort for this call (default FACTORY_CLAUDE_EFFORT)
  */
-async function ask({ system, prompt, imageFiles = [], maxTokens = 8000, temperature = 0.7, timeoutMs = config.factory.anthropic.requestTimeoutMs }) {
+async function ask({ system, prompt, imageFiles = [], maxTokens = 8000, temperature = 0.7, timeoutMs = config.factory.anthropic.requestTimeoutMs, effort = null }) {
   const backend = config.factory.opusBackend;
   if (backend === "anthropic") return viaAnthropic({ system, prompt, imageFiles, maxTokens, temperature, timeoutMs });
   if (backend === "openrouter") return viaOpenRouter({ system, prompt, imageFiles, maxTokens, temperature, timeoutMs });
-  return viaClaudeCode({ system, prompt, imageFiles, timeoutMs });
+  return viaClaudeCode({ system, prompt, imageFiles, timeoutMs, effort });
 }
 
 // ---------------------------------------------------------------- Claude Code (default)
@@ -181,12 +182,14 @@ function runClaude(args, { input, cwd, timeoutMs, logFile = null, stream = false
   });
 }
 
-/** Common flags: model, effort, JSON envelope. */
-function claudeArgs(extra = []) {
-  return ["-p", "--no-session-persistence", "--model", config.factory.anthropic.model, "--effort", config.factory.claudeEffort, "--output-format", "json", ...extra];
+const EFFORTS = ["low", "medium", "high", "xhigh", "max"];
+
+/** Common flags: model, effort (a call may ask for less thinking than the default), JSON envelope. */
+function claudeArgs(extra = [], { effort = null } = {}) {
+  return ["-p", "--no-session-persistence", "--model", config.factory.anthropic.model, "--effort", EFFORTS.includes(effort) ? effort : config.factory.claudeEffort, "--output-format", "json", ...extra];
 }
 
-async function viaClaudeCode({ system, prompt, imageFiles, timeoutMs = config.factory.anthropic.requestTimeoutMs }) {
+async function viaClaudeCode({ system, prompt, imageFiles, timeoutMs = config.factory.anthropic.requestTimeoutMs, effort = null }) {
   // Director calls are pure text jobs: no tools except Read for the QA images.
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "factory-opus-"));
   try {
@@ -197,7 +200,7 @@ async function viaClaudeCode({ system, prompt, imageFiles, timeoutMs = config.fa
     const extra = ["--append-system-prompt", system];
     if (files.length) extra.push("--allowedTools", "Read", "--add-dir", ...[...new Set(files.map((f) => path.dirname(f)))]);
     else extra.push("--disallowedTools", "Bash", "Edit", "Write", "WebFetch", "WebSearch");
-    const { text } = await runClaude(claudeArgs(extra), { input: `${prompt}${look}`, cwd: dir, timeoutMs });
+    const { text } = await runClaude(claudeArgs(extra, { effort }), { input: `${prompt}${look}`, cwd: dir, timeoutMs });
     return text;
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
