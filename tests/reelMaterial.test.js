@@ -171,6 +171,14 @@ test("stock from an earlier storyboard of the job is reused only for the same re
   }
 });
 
+test("the film agent is one headless run: no background renders, no waiting for a later turn", () => {
+  const { heroPrompt, DISALLOWED_TOOLS } = require("../src/factory/hero");
+  const p = heroPrompt({ storyboard: { ...FIXTURE, slides: [] }, article: ARTICLE, references: [], engine: "remotion", skills: [], avoid: "" });
+  assert.match(p, /This is ONE headless run/);
+  assert.match(p, /Never run a command in the background, never schedule a wake-up/);
+  for (const t of ["ScheduleWakeup", "Monitor", "CronCreate"]) assert.ok(DISALLOWED_TOOLS.includes(t), `${t} is blocked`);
+});
+
 test("the Instagram caption carries the credits and at most 5 hashtags", () => {
   const cap = composeCaption({ caption: "Line one.\n\nMore.", hashtags: ["#a1", "#b2", "#c3", "#d4", "#e5", "#f6"], credits: ["Source: x.com/someone", "Stock footage: Pexels"] });
   assert.equal(cap, "Line one.\n\nMore.\n\nSource: x.com/someone\nStock footage: Pexels\n\n#a1 #b2 #c3 #d4 #e5");

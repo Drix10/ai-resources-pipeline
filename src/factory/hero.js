@@ -66,6 +66,11 @@ const ALLOWED_TOOLS = [
   "Bash(npx remotion:*)", "Bash(npx hyperframes:*)", "Bash(npx tsc:*)", "Bash(npm install --ignore-scripts:*)",
   "Bash(ffmpeg:*)", "Bash(ffprobe:*)", "Bash(node shot.cjs:*)", "Bash(ls:*)", "Bash(mkdir:*)", "Bash(cp:*)",
 ];
+// A headless run ends with its reply: tools that wait for a later turn would leave a render
+// half done (the first full trial backgrounded its render, scheduled a wake-up and ended).
+const DISALLOWED_TOOLS = ["ScheduleWakeup", "Monitor", "CronCreate", "CronDelete", "CronList", "TaskStop", "RemoteTrigger", "PushNotification"];
+// Claude Code moves a Bash call past its timeout into the background: give a full render room.
+const AGENT_BASH_TIMEOUT_MS = String(30 * 60 * 1000);
 // Not a sandbox: ffmpeg/cp can still touch any path the user can. What it does rule out is
 // running arbitrary code (no bare node, no npm lifecycle scripts) if third-party text in the
 // prompt (articles, linked pages, scraped gallery prompts) tries to steer the agent.
@@ -161,6 +166,7 @@ ${reel ? "" : `THE STANDARD (read for the level of craft, never to copy their lo
 ${engineBlock(engine, format, slides)}
 
 COMMANDS
+This is ONE headless run: when your final reply is sent the session ends and anything still running is killed. Never run a command in the background, never schedule a wake-up or wait for a later turn. Run every render in the foreground (a Bash call may take up to 30 minutes) and send your final reply only after out/hero.muted.mp4 (or the slides) exist on disk.
 Use the Bash tool, one command per call, from the workspace root: no cd, no &&/; chains, no PowerShell. Those need approval nobody is there to give. Allowed: ${allowedCommands}.
 The reference library is read-only: never write inside it.
 Fonts: npm install --ignore-scripts @fontsource/<name> or @fontsource-variable/<name>. Never use a system font (Arial, Bahnschrift, Segoe, Helvetica...): the piece must render the same on any machine.
@@ -247,6 +253,30 @@ function guardLibrary() {
   };
 }
 
+/**
+ * The agent built a film but left no render (it ended before the render did): render its
+ * composition here, the same way the brief tells it to. Returns true when the film now exists.
+ */
+function renderLeftover(workDir, engine) {
+  const muted = path.join(workDir, "out/hero.muted.mp4");
+  if (fs.existsSync(muted)) return true;
+  // npx is a .cmd on Windows, which Node only spawns through a shell; every argument is fixed.
+  const npx = (args) => spawnSync(`npx ${args.join(" ")}`, { cwd: workDir, shell: true, encoding: "utf8", timeout: 30 * 60 * 1000, windowsHide: true });
+  const browser = config.factory.browserExecutable ? [`--browser-executable="${config.factory.browserExecutable}"`] : [];
+  if (engine === "remotion") {
+    const entry = ["src/hero/index.ts", "src/hero/index.tsx"].find((e) => fs.existsSync(path.join(workDir, e)));
+    if (!entry) return false;
+    const r = npx(["remotion", "render", entry, "Hero", "out/hero.muted.mp4", "--muted", "--crf=18", ...browser]);
+    if (r.status !== 0) logger.warn(`Factory: rendering the agent's composition failed: ${String(r.stderr || r.stdout || "").slice(-300)}`);
+  } else {
+    if (!fs.existsSync(path.join(workDir, "film"))) return false;
+    const r = npx(["hyperframes", "render", "./film", "--output", "out/film.mp4"]);
+    if (r.status !== 0) logger.warn(`Factory: rendering the agent's HyperFrames project failed: ${String(r.stderr || r.stdout || "").slice(-300)}`);
+    else ffmpeg(["-i", path.join(workDir, "out/film.mp4"), "-an", "-c:v", "copy", muted], { timeoutMs: 120000 });
+  }
+  return fs.existsSync(muted);
+}
+
 /** Real duration of a video in seconds, or 0 when it cannot be read. */
 function probeSeconds(file) {
   const out = spawnSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", file], { encoding: "utf8", timeout: 30000 });
@@ -286,7 +316,7 @@ async function makeHero({ storyboard, article, outDir, assets = [], director = n
   const prompt = heroPrompt({ storyboard, article, references: refs, director, assets, engine, skills: config.factory.heroSkills, avoid: novelty.looksToAvoid(), voice, music });
   fs.writeFileSync(path.join(outDir, "agent-prompt.md"), prompt);
 
-  const args = claudeArgs(["--permission-mode", "acceptEdits", "--allowedTools", ...ALLOWED_TOOLS, "--add-dir", library.LIB, ...(engine === "remotion" ? ["--add-dir", path.join(FACTORY_DIR, "node_modules")] : [])]);
+  const args = claudeArgs(["--permission-mode", "acceptEdits", "--allowedTools", ...ALLOWED_TOOLS, "--disallowedTools", ...DISALLOWED_TOOLS, "--add-dir", library.LIB, ...(engine === "remotion" ? ["--add-dir", path.join(FACTORY_DIR, "node_modules")] : [])]);
 
   logger.info(`Factory agent: Opus (${config.factory.claudeEffort}) is building ${storyboard.id} (${format}) with ${engine} in ${workDir} ...`);
   const started = Date.now();
@@ -296,7 +326,7 @@ async function makeHero({ storyboard, article, outDir, assets = [], director = n
   let text;
   let raw;
   try {
-    ({ text, raw } = await runClaude(args, { input: prompt, cwd: workDir, timeoutMs: config.factory.heroTimeoutMs, logFile, stream: true, env: { FACTORY_SHOT_HOSTS: assetsLib.allowedHosts(article).join(",") } }));
+    ({ text, raw } = await runClaude(args, { input: prompt, cwd: workDir, timeoutMs: config.factory.heroTimeoutMs, logFile, stream: true, env: { FACTORY_SHOT_HOSTS: assetsLib.allowedHosts(article).join(","), BASH_DEFAULT_TIMEOUT_MS: AGENT_BASH_TIMEOUT_MS, BASH_MAX_TIMEOUT_MS: AGENT_BASH_TIMEOUT_MS } }));
   } finally {
     restoreLibrary();
   }
@@ -333,7 +363,10 @@ async function makeHero({ storyboard, article, outDir, assets = [], director = n
 
   // The film itself is the proof: it must exist and be a readable video of a sane length.
   const muted = path.join(workDir, "out/hero.muted.mp4");
-  if (!fs.existsSync(muted)) throw new Error(`Agent finished without out/hero.muted.mp4: ${text.slice(0, 200)}`);
+  if (!fs.existsSync(muted)) {
+    logger.warn("Factory agent: no out/hero.muted.mp4; rendering the agent's composition here.");
+    if (!renderLeftover(workDir, engine)) throw new Error(`Agent finished without out/hero.muted.mp4: ${text.slice(0, 200)}`);
+  }
   let seconds = probeSeconds(muted);
   if (seconds < 5 || seconds > 180) throw new Error(`out/hero.muted.mp4 is ${seconds ? `${seconds.toFixed(1)} s` : "unreadable"}; expected a 5-180 s film.`);
   if (!/^\s*DONE\b/im.test(verdict)) logger.warn(`Factory agent: no DONE line, but the film is valid (${seconds.toFixed(1)} s); using it.`);
@@ -393,4 +426,4 @@ function mixHero({ film, cues, seconds, outDir, storyboard, voice, music, palett
   };
 }
 
-module.exports = { makeHero, heroPrompt, pickEngine, mixHero, soundBlock };
+module.exports = { makeHero, heroPrompt, pickEngine, mixHero, soundBlock, renderLeftover, DISALLOWED_TOOLS };
