@@ -177,8 +177,9 @@ function analyzeLevels(levels, words) {
   if (first < 0) return { ok: false, reason: "silent" };
   // Seconds of voiced windows a full read cannot be under. Voiced time leaves out the dips between
   // words, so a brisk full read of 9 words can measure 1.7 s: the transcript check proves the
-  // words, this only catches a model that stops early and streams silence.
-  const needVoiced = words / 6;
+  // words, this only catches a model that stops early and streams silence. 7 words/s: a clean, quick
+  // read of a short line measured 1.65 s of 1.67 s at 6 words/s and threw away a good voice.
+  const needVoiced = words / 7;
   const maxLen = words / 1.9 + 0.8; // seconds a slow but natural read stays within
   let voiced = 0;
   let lastVoiced = first;
