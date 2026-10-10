@@ -127,6 +127,8 @@ const config = {
         return process.env.ELEVENLABS_STABILITY?.trim() && Number.isFinite(n) ? Math.min(1, Math.max(0, n)) : 0.5;
       })(),
       orModel: process.env.FACTORY_VOICE_FALLBACK_MODEL || "openai/gpt-audio-mini",
+      // Tried in order: the mini model is cheap but sometimes adds words of its own; gpt-audio reads more faithfully.
+      orModels: String(process.env.FACTORY_VOICE_FALLBACK_MODELS || `${process.env.FACTORY_VOICE_FALLBACK_MODEL || "openai/gpt-audio-mini"},openai/gpt-audio`).split(",").map((x) => x.trim()).filter((x, i, all) => x && all.indexOf(x) === i),
       orVoice: process.env.FACTORY_VOICE_FALLBACK_VOICE || "onyx",
     },
     // Carousels: agent = designed slide by slide by the local agent from a director's prompt
