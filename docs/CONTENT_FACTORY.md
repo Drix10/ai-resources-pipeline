@@ -40,7 +40,7 @@ At the end of each run (after the articles, the LinkedIn steps and the blog sync
 3. **Deep-dives it**: every page the story links to is read (public hosts only) and appended as research. Numbers from those pages pass the fact gate; their URLs and headers do not, and hype words in a linked README do not excuse hype in the copy.
 4. **Captures real material** (`assets.js`): the X post the story comes from (rendered by X's public embed page, no login, cut out along its card as a transparent PNG) and the photos attached to it; then a desktop view, a 900-wide readable card, a full mobile page and the og:image of each linked page. Chrome sends all traffic through an in-process proxy that refuses private, local and LAN addresses and ports other than 80/443.
 5. **Writes the storyboard**: for reels, the arc (hook, context, 3-4 escalating value beats with a pattern break, payoff, CTA) in 32-50 s; per scene a headline of at most 6 words, a spoken `voiceover` line, and a `visual` (`{show, use}`: a REAL MATERIAL id, `stock: <search>`, or `graphic`, at most two and never the hook). Everything a viewer reads or hears passes the fact gates.
-6. **Fetches stock** (`stock.js`, reels): for every scene that asked for `stock: <search>`, the best portrait clip (Pexels, then Pixabay) or photo (Pexels, Pixabay, then Openverse), saved beside the captures with its licence.
+6. **Fetches stock and photos** (`stock.js`, reels): for every scene that asked for `stock: <search>` the best clip (Pexels, Pixabay, Mixkit) or photo, and for `photo: <name>` a real photo (Wikimedia Commons, Openverse), saved beside the captures with its licence (see Real material from the web).
 7. **Records the voice** (`voice.js`, reels): ElevenLabs is the main provider (`eleven_v4`, then the fallbacks), the whole script in one request with exact word timings; without a key, OpenRouter's speech model reads it scene by scene, every clip proven by its own audio. The film is timed to the voice, never the other way round. A narrated storyboard with no voice is not made silent: the piece fails and is retried next run.
 8. **Directs** (`director.js`): Opus reads the whole catalog, picks references by craft (4 for a reel: overlay, transition and headline techniques to lay over the real material; 6 for a carousel) (with the exact technique to take from each), then writes a director's prompt in the gallery's register: concept, form, through-line, palette, type system, the locked message, sections and arc, transitions, real-material plan, required techniques credited to their references, banned moves, gotchas.
 9. **Scores** (`music.js`, reels): the director picks a track from the music library (or the code picks the best fit for the story's mood); its biggest drop is placed on the climax and the agent gets the real beats and downbeats in film time.
@@ -89,17 +89,23 @@ Opus runs with `--model claude-opus-5-5 --effort xhigh`. Change these with `FACT
 
 `factory/library/visuals/<slug>/meta.json`: licensed stock clips (Mixkit free licence: overlays such as light leaks and glitch textures, an ink matte, abstract backgrounds, real-world b-roll) and techniques to rebuild in code (GEOMETRIC contour/dither art, SHATTER glass fracture, a liquid ORB), each with how it earns its place. Clips are hard-linked into every reel workspace (`visuals/`); the agent ffmpegs in only the part it uses. They are texture, transition and atmosphere, never a stand-in for the story's real material; techniques are applied to the real captures. The clips are gitignored (licences forbid redistributing them as-is): `npm run factory:library` downloads missing ones.
 
-## Stock footage and photos
+## Real material from the web
 
-`src/factory/stock.js` fills the scenes whose storyboard visual is `stock: <2-5 word search>`:
+Every reel's material, best first:
 
-| Provider | Key | What | Licence |
+1. **The story's own media** (`assets.js`): the X post as X shows it (its public embed page, no login, cut out along the card), the post's video and full-size photos (X's public syndication endpoint, no key; videos up to 100 MB), the linked pages (desktop, readable card, full mobile page), their share images, and a page's own video (`og:video` or an MP4 `<video>`, e.g. a product demo).
+2. **`photo: <a named person, company, product or place>`** (`stock.js`): a real photo of something named in the story, from Wikimedia Commons (1600 px) then Openverse. Faces of the real people pull viewers in.
+3. **`stock: <2-5 word generic search>`** (`stock.js`): footage of the world the story lives in, video first.
+
+| Provider | Key | What | Used for |
 |---|---|---|---|
-| Pexels | `PEXELS_API_KEY` (free) | portrait video first, then photos | free for commercial use, no attribution required (credited anyway) |
-| Pixabay | `PIXABAY_API_KEY` (free) | video, then photos | Pixabay Content License, no attribution required |
-| Openverse | none | photos | CC0, public domain and CC BY only (never share-alike, no-derivatives or non-commercial); CC BY is credited in the caption |
+| Pexels | `PEXELS_API_KEY` (free) | portrait video, then photos | stock |
+| Pixabay | `PIXABAY_API_KEY` (free) | video, then photos | stock |
+| Mixkit | none (its tag pages) | 720p video | stock |
+| Wikimedia Commons | none | photos, 1600 px | photo, then stock |
+| Openverse | none | photos | photo, then stock |
 
-Video only comes from the providers' CDNs (videos.pexels.com, vimeo, cdn.pixabay.com), at most 80 MB and checked to be an MP4; photos go through the same checks as og:images. Files land in the job's `assets/` as `stock-<scene>.mp4|jpg` with provider, page, creator and licence in `assets.json`. Without keys only Openverse photos are fetched (about 1024 px, soft for a full-screen reel): a free Pexels key is what brings real footage. `FACTORY_OPENVERSE=off` turns Openverse off.
+Any licence is accepted (the owner's call, 2026-10-10); every licence that asks for credit gets one in the caption (`Photos: <artist> (<licence>, Wikimedia Commons)`, `Stock footage: Mixkit`). Note that "on the internet" is not "free to use": Instagram's Rights Manager matches video and music, and news-agency photos (Getty, AP, Reuters) draw paid claims, so the story's own media and the open archives are preferred over anything else. Video only comes from known CDNs (video.twimg.com, videos.pexels.com, vimeo, cdn.pixabay.com, assets.mixkit.co) or the story's own pages, size-capped and checked to be an MP4. Files land in the job's `assets/` (`post-video1.mp4`, `page1-video.mp4`, `stock-<scene>.mp4|jpg`) with provider, page, creator and licence in `assets.json`; in the agent's workspace clips sit in `footage/` and are trimmed in, never bundled whole. `FACTORY_MIXKIT`, `FACTORY_COMMONS`, `FACTORY_OPENVERSE` = `off` turn a source off.
 
 ## Skills the agent can use
 
