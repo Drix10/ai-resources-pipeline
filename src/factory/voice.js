@@ -37,7 +37,8 @@ const { STATE_DIR } = require("./queue");
 const CACHE = path.join(STATE_DIR, "voice-cache");
 const CACHE_VERSION = "v2"; // bump when a change makes old takes wrong
 const CACHE_DAYS = 30;
-const STAGE_DEADLINE_MS = 6 * 60 * 1000;
+// Room for two speech models scene by scene, with retries.
+const STAGE_DEADLINE_MS = 10 * 60 * 1000;
 const REQUEST_TIMEOUT_MS = 180000;
 const TAG = /\[[^\]\n]{1,60}\]/g;
 const TAG_MODELS = /^eleven_v[34]/;
@@ -440,7 +441,7 @@ async function synthesizeVoice(storyboard, outDir) {
     const expected = wordsOf(text);
     const providers = [];
     if (v.elevenlabsKey) for (const model of [v.model, ...v.fallbackModels]) providers.push({ name: "elevenlabs", model });
-    if (config.llm?.openrouter?.apiKey) providers.push({ name: "openrouter", model: v.orModel });
+    if (config.llm?.openrouter?.apiKey) for (const model of v.orModels || [v.orModel]) providers.push({ name: "openrouter", model });
     if (!providers.length) {
       logger.warn("Factory voice: no ELEVENLABS_API_KEY or OPENROUTER_API_KEY; the reel gets music only.");
       return null;

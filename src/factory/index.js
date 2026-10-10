@@ -145,6 +145,8 @@ async function produce(article, format, opts = {}) {
   let look = null;
   let mode = ["agent", "template"].includes(opts.mode) ? opts.mode : format === "reel" ? chooseReelMode() : config.factory.carouselMode;
   let sb = withShots(await writeStoryboard(article, format, null, null, { mode }), assets);
+  // Saved now (rewritten at the end), so a piece that fails later can still be read.
+  try { fs.writeFileSync(path.join(dir, "storyboard.json"), JSON.stringify(withoutShots(sb), null, 2)); } catch { /* review file only */ }
   let chosenMusic = null;
 
   if (mode === "agent") {
