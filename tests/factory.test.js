@@ -302,7 +302,7 @@ test("director: references come from the whole catalog; a draft missing sections
     assert.match(reelAsked[0], /THE BAR FOR A REEL/);
     assert.match(reelAsked[0], /TECHNIQUES FROM THE LIBRARY/);
     assert.match(reelAsked[0], /4\. SHOWS: Server racks, the number riding over them \| MATERIAL: stock-4 \(12 s video, 1080x1920, found for "server racks in a data center"\) \| SAYS: "But int b/);
-    assert.match(reelAsked[0], /5\. SHOWS: [^\n]*MATERIAL: no stock was found for "memory chips close up"/);
+    assert.match(reelAsked[0], /5\. SHOWS: [^\n]*MATERIAL: nothing was found for "memory chips close up"/);
     assert.ok(!/"visual"/.test(director.copyLines(reel)), "the visual plan is not on-screen copy");
     // The gold-standard films are never remix references.
     opus.ask = async () => JSON.stringify({ picks: [{ slug: "pdoom-music-video", steal: "x" }, ...slugs.map((slug) => ({ slug, steal: "x" })), { slug: slugs[0], steal: "dup" }] });

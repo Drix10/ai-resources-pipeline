@@ -6,7 +6,7 @@ const path = require("node:path");
 const ROOT = path.join(__dirname, "..");
 const { validate } = require("../src/factory/storyboard");
 const { fromInsight, fromDigest, postOf, mediaOf } = require("../src/factory/sources");
-const { queryOf, bestFile, creditsOf, SEARCHERS } = require("../src/factory/stock");
+const { queryOf, photoQueryOf, mixkitSlugs, bestFile, creditsOf, SEARCHERS } = require("../src/factory/stock");
 const { composeCaption } = require("../src/factory/instagram");
 const config = require("../config");
 
@@ -102,6 +102,47 @@ test("stock: search terms are parsed, the best file fills a 1080x1920 frame, CC 
   } finally {
     global.fetch = saved;
   }
+});
+
+test("a scene can ask for a real photo of a named person or thing", () => withVoice(() => {
+  const errs = (use) => { const sb = agentReel(); sb.scenes[4].visual.use = use; return validate(sb, ART, "reel", { mode: "agent" }).join("\n"); };
+  assert.equal(errs("photo: Jensen Huang"), "");
+  assert.equal(photoQueryOf("photo: TSMC fab, Taiwan!"), "TSMC fab Taiwan");
+  assert.match(errs("photo: the very long name of a thing nobody can find"), /the photo search is 10 words/);
+  assert.match(errs("picture: Jensen Huang"), /"photo: <named person, company, product or place>"/);
+}));
+
+test("open-web sources: Mixkit tag slugs, Commons credits, the post's own video", async () => {
+  assert.deepEqual(mixkitSlugs("server racks in a data center"), ["server-racks-in-a-data-center", "data-center", "server-racks", "center"]);
+  assert.deepEqual(mixkitSlugs("typing"), ["typing"]);
+  const saved = global.fetch;
+  try {
+    global.fetch = async (url) => {
+      assert.match(String(url), /commons\.wikimedia\.org\/w\/api\.php\?.*gsrsearch=Jensen%20Huang%20filetype%3Abitmap/);
+      return new Response(JSON.stringify({ query: { pages: {
+        2: { index: 2, title: "File:B.jpg", imageinfo: [{ mime: "image/jpeg", thumburl: "https://upload.wikimedia.org/b-1600.jpg", width: 3888, height: 5184, thumbwidth: 1600, thumbheight: 2133, descriptionurl: "https://commons.wikimedia.org/wiki/File:B.jpg", extmetadata: { LicenseShortName: { value: "CC BY-SA 4.0" }, Artist: { value: "<a href=\"x\">Anders</a>" } } }] },
+        1: { index: 1, title: "File:A.jpg", imageinfo: [{ mime: "image/jpeg", thumburl: "https://upload.wikimedia.org/a-1600.jpg", width: 4000, height: 3000, thumbwidth: 1600, thumbheight: 1200, extmetadata: { LicenseShortName: { value: "Public domain" }, Artist: { value: "NASA" } } }] },
+        3: { index: 3, title: "File:C.svg", imageinfo: [{ mime: "image/svg+xml", thumburl: "https://upload.wikimedia.org/c.png", thumbwidth: 1600, thumbheight: 900, extmetadata: {} }] },
+      } } }), { status: 200, headers: { "Content-Type": "application/json" } });
+    };
+    const got = await SEARCHERS.commonsPhoto("Jensen Huang");
+    assert.deepEqual(got.map((c) => c.src), ["https://upload.wikimedia.org/a-1600.jpg", "https://upload.wikimedia.org/b-1600.jpg"], "search order kept, drawings dropped");
+    assert.equal(got[0].credit, null, "public domain needs no credit");
+    assert.equal(got[1].credit, "Anders (CC BY-SA 4.0, Wikimedia Commons)");
+  } finally {
+    global.fetch = saved;
+  }
+  const { bestPostVariant, syndicationToken } = require("../src/factory/assets");
+  const info = { duration_millis: 62833, variants: [
+    { content_type: "application/x-mpegURL", url: "https://video.twimg.com/a.m3u8" },
+    { content_type: "video/mp4", bitrate: 832000, url: "https://video.twimg.com/360.mp4" },
+    { content_type: "video/mp4", bitrate: 2176000, url: "https://video.twimg.com/720.mp4" },
+    { content_type: "video/mp4", bitrate: 10368000, url: "https://video.twimg.com/1080.mp4" },
+  ] };
+  assert.equal(bestPostVariant(info).url, "https://video.twimg.com/1080.mp4", "the sharpest that fits");
+  assert.equal(bestPostVariant(info, 40 * 1024 * 1024).url, "https://video.twimg.com/720.mp4", "a long 1080p clip over the cap steps down");
+  assert.equal(bestPostVariant({ variants: [{ content_type: "application/x-mpegURL", url: "x" }] }), null, "no MP4, no video");
+  assert.match(syndicationToken("2108648698150302043"), /^[a-z0-9]+$/);
 });
 
 test("the Instagram caption carries the credits and at most 5 hashtags", () => {

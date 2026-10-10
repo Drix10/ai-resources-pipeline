@@ -295,7 +295,8 @@ async function navigate(cdp, tab, url, shot) {
   }).catch(() => {});
   const info = await tab.s("Runtime.evaluate", {
     returnByValue: true,
-    expression: `({ title: document.title, url: location.href, og: (document.querySelector('meta[property="og:image"],meta[name="og:image"],meta[name="twitter:image"]') || {}).content || '', height: Math.max(document.body ? document.body.scrollHeight : 0, document.documentElement.scrollHeight) })`,
+    // The page's own video (a product demo): og:video, else the first <video> with a real MP4 URL.
+    expression: `({ title: document.title, url: location.href, og: (document.querySelector('meta[property="og:image"],meta[name="og:image"],meta[name="twitter:image"]') || {}).content || '', video: (document.querySelector('meta[property="og:video:secure_url"],meta[property="og:video:url"],meta[property="og:video"]') || {}).content || ([...document.querySelectorAll('video, video source')].map((v) => v.currentSrc || v.src || '').find((s) => /^https?:[^?#]+\\.mp4([?#]|$)/i.test(s)) || ''), height: Math.max(document.body ? document.body.scrollHeight : 0, document.documentElement.scrollHeight) })`,
   });
   return info.result.value || {};
 }
@@ -336,10 +337,13 @@ async function capturePost(cdp, post, file) {
     const tab = await openTab(cdp, shot, true);
     try {
       await navigate(cdp, tab, `https://platform.twitter.com/embed/Tweet.html?id=${post.id}&theme=dark&dnt=true`, shot);
+      // The card is drawn after the embed fetches the post: on a slow line that is seconds after
+      // the load event. Wait for it (and its avatar) before measuring.
       const { result } = await tab.s("Runtime.evaluate", {
         returnByValue: true,
-        expression: `(() => { const el = document.querySelector('article') || (document.body && document.body.firstElementChild); if (!el) return null; const r = el.getBoundingClientRect(); return { x: r.x, y: r.y, width: r.width, height: r.height }; })()`,
-      });
+        awaitPromise: true,
+        expression: `(async () => { const box = () => { const el = document.querySelector('article'); if (!el) return null; const r = el.getBoundingClientRect(); return r.width >= 200 && r.height >= 80 ? { x: r.x, y: r.y, width: r.width, height: r.height } : null; }; const end = Date.now() + 12000; while (!box() && Date.now() < end) await new Promise((ok) => setTimeout(ok, 250)); const imgs = [...document.querySelectorAll('article img')]; while (imgs.some((i) => !i.complete) && Date.now() < end) await new Promise((ok) => setTimeout(ok, 250)); return box(); })()`,
+      }, 20000);
       const box = result && result.value;
       if (!box || box.width < 200 || box.height < 80) throw new Error("the post did not render (deleted or protected?)");
       await tab.s("Emulation.setDefaultBackgroundColorOverride", { color: { r: 0, g: 0, b: 0, a: 0 } });
@@ -384,7 +388,8 @@ async function downloadImage(url, file) {
   let res;
   for (let hop = 0; hop < 4; hop++) {
     await assertCapturable(url);
-    res = await secureFetch(url, { headers: { Accept: "image/*" }, signal: AbortSignal.timeout(20000) });
+    // A descriptive agent: Wikimedia refuses anonymous clients.
+    res = await secureFetch(url, { headers: { Accept: "image/*", "User-Agent": "Mozilla/5.0 (compatible; ai-resources-pipeline/1.0; +https://github.com/Drix10/ai-resources-pipeline)" }, signal: AbortSignal.timeout(20000) });
     const next = res.status >= 300 && res.status < 400 && res.headers.get("location");
     if (!next) break;
     url = new URL(next, url).toString();
@@ -403,6 +408,95 @@ async function downloadImage(url, file) {
     fs.rmSync(tmp, { force: true });
   }
 }
+
+// ---------------------------------------------------------------- video
+
+const MAX_VIDEO_BYTES = 100 * 1024 * 1024;
+
+/**
+ * Downloads an MP4: every hop checked (scheme, port, public address; `hosts` narrows it to known
+ * CDNs), size capped, and the bytes must be an MP4/MOV container.
+ */
+async function downloadVideo(url, file, { hosts = null, maxBytes = MAX_VIDEO_BYTES, timeoutMs = 180000 } = {}) {
+  let res;
+  for (let hop = 0; hop < 5; hop++) {
+    const u = await assertCapturable(url);
+    if (hosts && !hosts.test(u.hostname.replace(/\.+$/, ""))) throw new Error(`${u.hostname} is not an allowed video host`);
+    res = await secureFetch(url, { headers: { "User-Agent": "Mozilla/5.0", Accept: "video/mp4,video/*;q=0.9,*/*;q=0.5" }, signal: AbortSignal.timeout(timeoutMs) });
+    const next = res.status >= 300 && res.status < 400 && res.headers.get("location");
+    if (!next) break;
+    url = new URL(next, url).toString();
+  }
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  if (Number(res.headers.get("content-length") || 0) > maxBytes) throw new Error(`video over ${Math.round(maxBytes / 1048576)} MB`);
+  const reader = res.body?.getReader?.();
+  if (!reader) throw new Error("no body");
+  const tmp = `${file}.part`;
+  const fd = fs.openSync(tmp, "w");
+  let total = 0;
+  let head = Buffer.alloc(0);
+  try {
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      total += value.length;
+      if (total > maxBytes) { await reader.cancel().catch(() => {}); throw new Error(`video over ${Math.round(maxBytes / 1048576)} MB`); }
+      if (head.length < 12) head = Buffer.concat([head, Buffer.from(value.subarray(0, 12))]);
+      fs.writeSync(fd, value);
+    }
+  } catch (e) {
+    fs.closeSync(fd);
+    fs.rmSync(tmp, { force: true });
+    throw e;
+  }
+  fs.closeSync(fd);
+  if (head.subarray(4, 8).toString("latin1") !== "ftyp") {
+    fs.rmSync(tmp, { force: true });
+    throw new Error("not an MP4 file");
+  }
+  fs.renameSync(tmp, file);
+}
+
+/** Seconds of a video, or 0. */
+function videoSeconds(file) {
+  const out = spawnSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", file], { encoding: "utf8", timeout: 20000 });
+  const s = Number(String(out.stdout || "").trim());
+  return Number.isFinite(s) && s > 0 ? s : 0;
+}
+
+// ---------------------------------------------------------------- the source post's media
+
+const POST_VIDEO_HOSTS = /(^|\.)video\.twimg\.com$/i;
+/** The token X's public embed sends with a post id (the same one react-tweet uses). */
+const syndicationToken = (id) => ((Number(id) / 1e15) * Math.PI).toString(36).replace(/(0+|\.)/g, "");
+
+/** The best MP4 of a post video: the sharpest one that stays under the size cap. */
+function bestPostVariant(info, maxBytes = MAX_VIDEO_BYTES) {
+  const seconds = (Number(info?.duration_millis) || 0) / 1000;
+  const mp4 = (info?.variants || []).filter((v) => v && v.content_type === "video/mp4" && v.url);
+  const fits = (v) => !seconds || !v.bitrate || (v.bitrate * seconds) / 8 < maxBytes * 0.9;
+  return mp4.filter(fits).sort((a, b) => (b.bitrate || 0) - (a.bitrate || 0))[0] || null;
+}
+
+/** The photos and videos attached to the post, from X's public syndication endpoint (no login, no key). */
+async function postMedia(post) {
+  const res = await fetch(`https://cdn.syndication.twimg.com/tweet-result?id=${post.id}&token=${syndicationToken(post.id)}&lang=en`, { headers: { "User-Agent": "Mozilla/5.0" }, signal: AbortSignal.timeout(20000) });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const j = await res.json();
+  const photos = [];
+  const videos = [];
+  for (const m of j.mediaDetails || []) {
+    if (m.type === "photo" && m.media_url_https) photos.push(`${m.media_url_https}?name=large`);
+    if ((m.type === "video" || m.type === "animated_gif") && m.video_info) {
+      const v = bestPostVariant(m.video_info);
+      if (v) videos.push({ url: v.url, gif: m.type === "animated_gif" });
+    }
+  }
+  return { photos, videos };
+}
+
+/** One key per twimg image, so ?format=jpg&name=small and .jpg?name=large are the same photo. */
+const twimgKey = (u) => { try { const x = new URL(u); return x.pathname.replace(/\.(jpe?g|png|webp)$/i, ""); } catch { return u; } };
 
 const probe = (file) => {
   const out = spawnSync("ffprobe", ["-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height", "-of", "csv=p=0", file], { encoding: "utf8", timeout: 15000 });
@@ -461,7 +555,31 @@ async function gatherAssets(article, outDir, { maxPages = config.factory.assetPa
         if (cdp) { await cdp.close(); cdp = null; }
       }
     }
-    for (const [i, src] of media.entries()) {
+    // The post's own media from X's public endpoint: its videos (a demo, a clip) and full-size
+    // photos. The digest's embedded images stay as the fallback when the endpoint is down.
+    let photos = media;
+    if (post) {
+      try {
+        const got = await postMedia(post);
+        const seen = new Set();
+        photos = [...got.photos, ...media].filter((u) => !seen.has(twimgKey(u)) && seen.add(twimgKey(u))).slice(0, 4);
+        for (const [i, v] of got.videos.slice(0, 2).entries()) {
+          const file = path.join(dir, `post-video${i + 1}.mp4`);
+          try {
+            await downloadVideo(v.url, file, { hosts: POST_VIDEO_HOSTS });
+            const size = probe(file);
+            const seconds = Number(videoSeconds(file).toFixed(2));
+            if (size.width && size.height && seconds) assets.push({ id: `post-video${i + 1}`, kind: "post-video", url: v.url, page: post.url, title: v.gif ? "a GIF attached to the source post" : "the video attached to the source post", file, ...size, seconds });
+          } catch (e) {
+            fs.rmSync(file, { force: true });
+            logger.info(`Factory: video of the source post skipped (${e.message}).`);
+          }
+        }
+      } catch (e) {
+        logger.info(`Factory: media of the source post not fetched (${e.message}); using the digest's images.`);
+      }
+    }
+    for (const [i, src] of photos.entries()) {
       const file = path.join(dir, `post-photo${i + 1}.jpg`);
       try {
         await downloadImage(src, file);
@@ -481,6 +599,7 @@ async function gatherAssets(article, outDir, { maxPages = config.factory.assetPa
       }
       let title = "";
       let og = "";
+      let video = "";
       for (const kind of ["desktop", "card", "mobile"]) {
         const file = path.join(dir, `page${n}-${kind}.jpg`);
         try {
@@ -488,6 +607,7 @@ async function gatherAssets(article, outDir, { maxPages = config.factory.assetPa
           const info = await capture(cdp, url, kind, file);
           title = title || String(info.title || "").trim();
           og = og || info.og || "";
+          video = video || info.video || "";
           assets.push({ id: `page${n}-${kind}`, kind, url: info.url || url, title, file, width: info.width, height: info.height });
         } catch (e) {
           logger.warn(`Factory: ${kind} shot of ${url} failed (${e.message}).`);
@@ -506,6 +626,19 @@ async function gatherAssets(article, outDir, { maxPages = config.factory.assetPa
           logger.info(`Factory: og:image of ${url} skipped (${e.message}).`);
         }
       }
+      if (video) {
+        const file = path.join(dir, `page${n}-video.mp4`);
+        try {
+          const src = new URL(video, url).toString();
+          await downloadVideo(src, file);
+          const size = probe(file);
+          const seconds = Number(videoSeconds(file).toFixed(2));
+          if (size.width && size.height && seconds) assets.push({ id: `page${n}-video`, kind: "page-video", url: src, page: url, title, file, ...size, seconds });
+        } catch (e) {
+          fs.rmSync(file, { force: true });
+          logger.info(`Factory: video on ${url} skipped (${e.message}).`);
+        }
+      }
     }
   } catch (e) {
     logger.warn(`Factory: screenshots for ${article.slug} stopped (${e.message}).`);
@@ -521,4 +654,4 @@ async function gatherAssets(article, outDir, { maxPages = config.factory.assetPa
 /** Hosts the agent's shot tool may capture: the article's own links, plus GitHub. */
 const allowedHosts = (article) => [...new Set([...(article.links || []).map((l) => new URL(l).hostname.replace(/\.+$/, "").toLowerCase()), "github.com"])];
 
-module.exports = { gatherAssets, shootOne, allowedHosts, assertCapturable, resolvePublic, startProxy, chromeBinary, downloadImage, SHOTS };
+module.exports = { gatherAssets, shootOne, allowedHosts, assertCapturable, resolvePublic, startProxy, chromeBinary, downloadImage, downloadVideo, videoSeconds, postMedia, bestPostVariant, syndicationToken, SHOTS };

@@ -13,7 +13,7 @@ const { stripTags, wordsOf, tagsOf, TAG, voiceAvailable } = require("./voice");
 const opus = require("./opus");
 const library = require("./library");
 const novelty = require("./novelty");
-const { queryOf } = require("./stock");
+const { queryOf, photoQueryOf } = require("./stock");
 
 const SCENE_TYPES = ["hook", "statement", "code", "stat", "list", "compare", "quote", "cta"];
 const SLIDE_TYPES = ["cover", "point", "code", "stat", "shot", "cta"];
@@ -62,10 +62,11 @@ SCENE FIELDS (all text is set in code; the type label only classifies the copy, 
 ON-SCREEN COPY IS THE HEADLINE OF THE BEAT, NOT A TRANSCRIPT: every on-screen line (text, headline, sub, label, title, item, value, note, caption) is at most ${AGENT_REEL.maxWords} words${narrated ? " and never repeats the voiceover word for word" : ""}. MUTE PASS: read the on-screen lines alone, in order: the reel must still make sense with the sound off.
 
 EVERY SCENE ALSO HAS
-${narrated ? `- "voiceover": the line spoken over it (see VOICEOVER).\n` : ""}- "visual": {"show": "<what the viewer SEES, concrete: the real thing, how it is framed and how it moves; <= 160 chars>", "use": "<a material id from REAL MATERIAL> | stock: <2-5 word search> | graphic"}
+${narrated ? `- "voiceover": the line spoken over it (see VOICEOVER).\n` : ""}- "visual": {"show": "<what the viewer SEES, concrete: the real thing, how it is framed and how it moves; <= 160 chars>", "use": "<a material id from REAL MATERIAL> | stock: <2-5 word search> | photo: <a named person, company, product or place> | graphic"}
   Show, don't tell: every line gets a visual that covers exactly what is said over it. Pretty footage with no line to cover is what makes a reel drag.
-  - a material id: the real post, its photos, a captured page. The strongest material: the real thing. When the source post is listed, show it early (hook or context).
+  - a material id: the real post, its video and photos, a captured page, a page's video. The strongest material: the real thing. A video of the post or of a linked page is the best hook there is; when the source post is listed, show it early (hook or context).
   - stock: real-world footage or a photo the story lives in, found by search (people, faces and hands at work beat empty objects): concrete nouns a stock library has ("stock: server racks in a data center", "stock: developer typing at night", "stock: stock market screens"). No brand or people's names, no abstractions ("innovation", "AI", "the future"), no robots or glowing brains.
+  - photo: a real photo of a NAMED person, company, product or place in the story, found on Wikimedia Commons and open-licence archives ("photo: Jensen Huang", "photo: TSMC fab", "photo: Nvidia headquarters"). Faces of the real people pull viewers in; use them when the story has people.
   - graphic: a pure motion graphic (a mechanism you can watch work, a chart of the article's numbers). At most ${AGENT_REEL.maxGraphic} scenes, never the hook.`;
 const MAX_TAG = 40;
 
@@ -134,8 +135,8 @@ const materialIds = (article) => (article.assets || []).filter((a) => a && a.id 
 function materialList(article) {
   const list = (article.assets || []).filter((a) => a && a.id && !String(a.kind || "").startsWith("stock"));
   if (!list.length) return "REAL MATERIAL: none was captured for this story, so the visuals come from stock searches (and at most two graphic scenes).";
-  const what = { post: "the source post itself, as X shows it", photo: "a photo attached to the source post", desktop: "a page, desktop view", card: "a page, close-up whose text reads on a phone", mobile: "a page, full-length phone view to scroll", image: "the page's own share image" };
-  return `REAL MATERIAL (captured for this story; use a scene's "visual.use" to put one on screen):\n${list.map((a) => `- ${a.id}: ${what[a.kind] || a.kind}${a.title ? `, "${String(a.title).slice(0, 80)}"` : ""} (${a.url})`).join("\n")}`;
+  const what = { post: "the source post itself, as X shows it", "post-video": "the video attached to the source post (real footage)", photo: "a photo attached to the source post", desktop: "a page, desktop view", card: "a page, close-up whose text reads on a phone", mobile: "a page, full-length phone view to scroll", image: "the page's own share image", "page-video": "a video from a linked page (a demo)" };
+  return `REAL MATERIAL (captured for this story; use a scene's "visual.use" to put one on screen):\n${list.map((a) => `- ${a.id}: ${what[a.kind] || a.kind}${a.seconds ? ` (${Math.round(a.seconds)} s)` : ""}${a.title ? `, "${String(a.title).slice(0, 80)}"` : ""} (${a.page || a.url})`).join("\n")}`;
 }
 
 function buildPrompt({ article, format, feedback, patterns, avoid, mode }) {
@@ -243,9 +244,10 @@ function checkAgentScene(s, at, article, errors) {
   if (!isStr(v.show) || v.show.trim().length < 8) errors.push(`${at}: visual.show must say what the viewer sees.`);
   else if (v.show.length > 160) errors.push(`${at}: visual.show is ${v.show.length} chars; limit 160.`);
   const use = isStr(v.use) ? v.use.trim() : "";
-  if (!(use.toLowerCase() === "graphic" || materialIds(article).includes(use) || queryOf(use))) {
-    errors.push(`${at}: visual.use "${use.slice(0, 40)}" must be a REAL MATERIAL id${materialIds(article).length ? ` (${materialIds(article).join(", ")})` : ""}, "stock: <2-5 word search>" or "graphic".`);
-  } else if (queryOf(use) && countWords(queryOf(use)) > 6) errors.push(`${at}: the stock search is ${countWords(queryOf(use))} words; use 2-5 concrete nouns.`);
+  const search = queryOf(use) || photoQueryOf(use);
+  if (!(use.toLowerCase() === "graphic" || materialIds(article).includes(use) || search)) {
+    errors.push(`${at}: visual.use "${use.slice(0, 40)}" must be a REAL MATERIAL id${materialIds(article).length ? ` (${materialIds(article).join(", ")})` : ""}, "stock: <2-5 word search>", "photo: <named person, company, product or place>" or "graphic".`);
+  } else if (search && countWords(search) > 6) errors.push(`${at}: the ${queryOf(use) ? "stock" : "photo"} search is ${countWords(search)} words; use 2-5 words.`);
 }
 
 /** Returns a list of problems; empty means the storyboard can be rendered. */

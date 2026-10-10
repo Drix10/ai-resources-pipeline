@@ -84,7 +84,7 @@ function shotPlan(storyboard, assets = []) {
     const stock = assets.find((a) => a.id === `stock-${i + 1}`);
     const material = ids.has(use) ? use
       : stock ? `${stock.id} (${stock.kind === "stock-video" ? `${stock.seconds || "?"} s video` : "photo"}, ${stock.width}x${stock.height}, found for "${stock.query}")`
-        : /^stock/i.test(use) ? `no stock was found for "${use.replace(/^stock\s*:\s*/i, "")}": use a library clip, a capture or a graphic`
+        : /^(stock|photo)\s*:/i.test(use) ? `nothing was found for "${use.replace(/^(stock|photo)\s*:\s*/i, "")}": use a library clip, a capture or a graphic`
           : use || "graphic";
     return `${i + 1}. SHOWS: ${v.show || "-"} | MATERIAL: ${material}${s && s.voiceover ? ` | SAYS: "${stripTags(s.voiceover)}"` : ""}`;
   }).join("\n");

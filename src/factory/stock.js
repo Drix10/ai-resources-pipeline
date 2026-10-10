@@ -1,41 +1,44 @@
 /**
- * Stock footage and photos for a reel. The storyboard gives every scene a visual; a scene whose
- * visual asks for "stock: <search terms>" is filled here, before the film is built, from:
- *  - Pexels (PEXELS_API_KEY, free): portrait video first, then photos. Pexels License: free for
- *    commercial use, no attribution required.
- *  - Pixabay (PIXABAY_API_KEY, free): the same, under the Pixabay Content License.
- *  - Openverse (no key): openly licensed photos, CC0 / public domain / CC BY only (share-alike,
- *    no-derivatives and non-commercial licences are never fetched). CC BY needs a credit, which
- *    goes into the Instagram caption.
- * Files land in <job>/assets/ beside the page captures as stock-<scene>.mp4|jpg, with provider,
- * page, creator and licence in assets.json. Never throws: a scene without a match is left to
- * the film agent (library clips, the captures, or its own graphics).
+ * Footage and photos for a reel's scenes, from the open web. A scene's storyboard visual asks:
+ *  - "stock: <generic search>": real-world footage or a photo of the world the story lives in.
+ *    Video first: Pexels (PEXELS_API_KEY, free), Pixabay (PIXABAY_API_KEY, free), Mixkit (no key,
+ *    its tag pages); then photos: Pexels, Pixabay, Wikimedia Commons, Openverse (no keys).
+ *  - "photo: <a named person, company, product or place>": a real photo of that thing, from
+ *    Wikimedia Commons, then Openverse (no keys).
+ * Any licence is accepted (the owner's call); every licence that asks for credit gets one in the
+ * Instagram caption. Files land in <job>/assets/ beside the captures as stock-<scene>.mp4|jpg,
+ * with provider, page, creator and licence in assets.json. Never throws: a scene without a match
+ * is left to the film agent (library clips, the captures, or its own graphics).
  */
 const fs = require("fs");
 const path = require("path");
 const { spawnSync } = require("child_process");
 const config = require("../../config");
 const { logger } = require("../utils/helpers");
-const { secureFetch } = require("../utils/pageFetch");
-const { assertCapturable, downloadImage } = require("./assets");
+const { downloadImage, downloadVideo } = require("./assets");
 
 // Video downloads only ever come from the providers' own CDNs.
-const VIDEO_HOSTS = /(^|\.)(videos\.pexels\.com|player\.vimeo\.com|vimeocdn\.com|cdn\.pixabay\.com)$/i;
+const VIDEO_HOSTS = /(^|\.)(videos\.pexels\.com|player\.vimeo\.com|vimeocdn\.com|cdn\.pixabay\.com|assets\.mixkit\.co)$/i;
 const MAX_VIDEO_BYTES = 80 * 1024 * 1024;
 const SEARCH_TIMEOUT_MS = 15000;
-const DOWNLOAD_TIMEOUT_MS = 120000;
-const DEADLINE_MS = 5 * 60 * 1000;
+const DEADLINE_MS = 6 * 60 * 1000;
+const BROWSER_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0 Safari/537.36";
+// Wikimedia asks every API client for a descriptive User-Agent.
+const WIKI_UA = "ai-resources-pipeline/1.0 (https://github.com/Drix10/ai-resources-pipeline; reel factory)";
 const MAX_QUERIES = 8;
 
 const PEXELS_LICENSE = "Pexels License (free to use, no attribution required)";
 const PIXABAY_LICENSE = "Pixabay Content License (free to use, no attribution required)";
 
-/** "stock: rainy city street at night" -> "rainy city street at night"; anything else -> "". */
-const queryOf = (use) => {
-  const m = String(use || "").match(/^\s*stock\s*:\s*(.+)$/i);
-  const q = m ? m[1].replace(/[^\p{L}\p{N}\s'-]/gu, " ").replace(/\s+/g, " ").trim() : "";
+const searchOf = (prefix) => (use) => {
+  const m = String(use || "").match(new RegExp(`^\\s*${prefix}\\s*:\\s*(.+)$`, "i"));
+  const q = m ? m[1].replace(/[^\p{L}\p{N}\s'.&-]/gu, " ").replace(/\s+/g, " ").trim() : "";
   return q.length >= 2 && q.length <= 60 ? q : "";
 };
+/** "stock: rainy city street at night" -> "rainy city street at night"; anything else -> "". */
+const queryOf = searchOf("stock");
+/** "photo: Jensen Huang" -> "Jensen Huang": a real photo of a named person, company, product or place. */
+const photoQueryOf = searchOf("photo");
 
 async function getJson(url, headers = {}) {
   const res = await fetch(url, { headers: { Accept: "application/json", ...headers }, signal: AbortSignal.timeout(SEARCH_TIMEOUT_MS) });
@@ -50,7 +53,17 @@ function bestFile(files) {
   return mp4.sort((a, b) => score(b) - score(a))[0] || null;
 }
 
-const okClip = (c) => c && c.src && (c.type !== "video" || (c.duration >= 3 && c.duration <= 90));
+const okClip = (c) => c && c.src && (c.type !== "video" || !c.duration || (c.duration >= 3 && c.duration <= 90));
+const plain = (html) => String(html || "").replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/&quot;/g, "\"").replace(/&#0?39;/g, "'").replace(/\s+/g, " ").trim();
+const STOP = new Set(["a", "an", "the", "in", "on", "at", "of", "for", "with", "and", "to", "from", "by", "into"]);
+
+/** Mixkit tag slugs to try, most specific first: "server racks in a data center" -> server-racks-in-a-data-center, data-center, server-racks, center. */
+function mixkitSlugs(q) {
+  const words = q.toLowerCase().replace(/[^a-z0-9\s]/g, " ").split(/\s+/).filter(Boolean);
+  const nouns = words.filter((w) => !STOP.has(w));
+  const out = [words.join("-"), nouns.slice(-2).join("-"), nouns.slice(0, 2).join("-"), nouns[nouns.length - 1]];
+  return [...new Set(out.filter((x) => x && x.length >= 3))];
+}
 
 const SEARCHERS = {
   async pexelsVideo(q, key) {
@@ -80,65 +93,65 @@ const SEARCHERS = {
     const j = await getJson(`https://pixabay.com/api/?key=${encodeURIComponent(key)}&q=${encodeURIComponent(q)}&image_type=photo&per_page=12&safesearch=true`);
     return (j.hits || []).map((h) => ({ provider: "pixabay", type: "photo", src: h.largeImageURL, width: h.imageWidth, height: h.imageHeight, page: h.pageURL || "", creator: h.user || "", license: PIXABAY_LICENSE, credit: null }));
   },
+  async mixkitVideo(q) {
+    for (const slug of mixkitSlugs(q)) {
+      const res = await fetch(`https://mixkit.co/free-stock-video/discover/${slug}/`, { headers: { "User-Agent": BROWSER_UA }, signal: AbortSignal.timeout(SEARCH_TIMEOUT_MS) });
+      if (!res.ok) continue;
+      const html = await res.text();
+      const found = new Map();
+      for (const m of html.matchAll(/href="\/free-stock-video\/([a-z0-9-]+)-(\d+)\/"/g)) if (!found.has(m[2])) found.set(m[2], m[1]);
+      if (!found.size) continue;
+      // 1080p is often refused; 720p always exists.
+      return [...found].slice(0, 12).map(([id, name]) => ({ provider: "mixkit", type: "video", src: `https://assets.mixkit.co/videos/${id}/${id}-1080.mp4`, fallback: `https://assets.mixkit.co/videos/${id}/${id}-720.mp4`, page: `https://mixkit.co/free-stock-video/${name}-${id}/`, creator: "", license: "Mixkit License (free)", credit: null }));
+    }
+    return [];
+  },
+  async commonsPhoto(q) {
+    const j = await getJson(`https://commons.wikimedia.org/w/api.php?action=query&format=json&generator=search&gsrnamespace=6&gsrlimit=12&gsrsearch=${encodeURIComponent(`${q} filetype:bitmap`)}&prop=imageinfo&iiprop=url|size|mime|extmetadata&iiurlwidth=1600`, { "User-Agent": WIKI_UA });
+    return Object.values(j.query?.pages || {})
+      .sort((a, b) => (a.index || 0) - (b.index || 0))
+      .map((p) => {
+        const ii = (p.imageinfo || [])[0] || {};
+        const m = ii.extmetadata || {};
+        const license = plain(m.LicenseShortName?.value) || "see source";
+        const artist = plain(m.Artist?.value).slice(0, 40) || "unknown";
+        const free = /public domain|^pd|cc0/i.test(license);
+        // A thumbnail is never larger than its original: the original's size is what counts.
+        const width = Math.min(ii.width || 0, ii.thumbwidth || ii.width || 0);
+        const height = Math.min(ii.height || 0, ii.thumbheight || ii.height || 0);
+        return { provider: "commons", type: "photo", mime: ii.mime, src: ii.thumburl || ii.url, width, height, page: ii.descriptionurl || "", creator: artist, license, credit: free ? null : `${artist} (${license}, Wikimedia Commons)` };
+      })
+      .filter((c) => c.src && /image\/(jpeg|png|webp)/.test(c.mime || "") && (c.width || 0) >= 1000);
+  },
   async openversePhoto(q) {
-    const j = await getJson(`https://api.openverse.org/v1/images/?q=${encodeURIComponent(q)}&license=cc0,pdm,by&mature=false&page_size=12`);
+    const j = await getJson(`https://api.openverse.org/v1/images/?q=${encodeURIComponent(q)}&mature=false&page_size=12`);
     return (j.results || []).filter((r) => r.url && (r.width || 0) >= 900).map((r) => {
       const lic = String(r.license || "").toLowerCase();
-      const license = lic === "by" ? `CC BY ${r.license_version || ""}`.trim() : lic === "cc0" ? "CC0" : "Public domain";
-      const credit = lic === "by" ? `"${String(r.title || "Photo").slice(0, 60)}" by ${String(r.creator || "unknown").slice(0, 40)}, ${license}` : null;
+      const free = lic === "cc0" || lic === "pdm";
+      const license = lic === "cc0" ? "CC0" : lic === "pdm" ? "Public domain" : `CC ${lic.toUpperCase()} ${r.license_version || ""}`.trim();
+      const credit = free ? null : `"${String(r.title || "Photo").slice(0, 60)}" by ${String(r.creator || "unknown").slice(0, 40)}, ${license}`;
       return { provider: "openverse", type: "photo", src: r.url, width: r.width, height: r.height, page: r.foreign_landing_url || "", creator: r.creator || "", license, credit };
     });
   },
 };
 
-/** The searchers this machine can use, video first: a moving shot beats a still. */
-function searchers() {
+/**
+ * The searchers for a kind of request, in order. Stock: video first (a moving shot beats a
+ * still), then photos. A named photo: the encyclopedic sources that have real people and places.
+ */
+function searchers(kind = "stock") {
   const s = config.factory.stock || {};
   const out = [];
-  if (s.pexelsKey) out.push(["pexels video", (q) => SEARCHERS.pexelsVideo(q, s.pexelsKey)]);
-  if (s.pixabayKey) out.push(["pixabay video", (q) => SEARCHERS.pixabayVideo(q, s.pixabayKey)]);
-  if (s.pexelsKey) out.push(["pexels photo", (q) => SEARCHERS.pexelsPhoto(q, s.pexelsKey)]);
-  if (s.pixabayKey) out.push(["pixabay photo", (q) => SEARCHERS.pixabayPhoto(q, s.pixabayKey)]);
+  if (kind === "stock") {
+    if (s.pexelsKey) out.push(["pexels video", (q) => SEARCHERS.pexelsVideo(q, s.pexelsKey)]);
+    if (s.pixabayKey) out.push(["pixabay video", (q) => SEARCHERS.pixabayVideo(q, s.pixabayKey)]);
+    if (s.mixkit !== false) out.push(["mixkit video", (q) => SEARCHERS.mixkitVideo(q)]);
+    if (s.pexelsKey) out.push(["pexels photo", (q) => SEARCHERS.pexelsPhoto(q, s.pexelsKey)]);
+    if (s.pixabayKey) out.push(["pixabay photo", (q) => SEARCHERS.pixabayPhoto(q, s.pixabayKey)]);
+  }
+  if (s.commons !== false) out.push(["commons photo", (q) => SEARCHERS.commonsPhoto(q)]);
   if (s.openverse !== false) out.push(["openverse photo", (q) => SEARCHERS.openversePhoto(q)]);
   return out;
-}
-
-/** A video from a provider CDN: every hop checked, size capped, and it must be an MP4/MOV container. */
-async function downloadVideo(url, file) {
-  let res;
-  for (let hop = 0; hop < 5; hop++) {
-    const u = await assertCapturable(url);
-    if (!VIDEO_HOSTS.test(u.hostname.replace(/\.+$/, ""))) throw new Error(`${u.hostname} is not a stock video CDN`);
-    res = await secureFetch(url, { signal: AbortSignal.timeout(DOWNLOAD_TIMEOUT_MS) });
-    const next = res.status >= 300 && res.status < 400 && res.headers.get("location");
-    if (!next) break;
-    url = new URL(next, url).toString();
-  }
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  if (Number(res.headers.get("content-length") || 0) > MAX_VIDEO_BYTES) throw new Error("video over 80 MB");
-  const reader = res.body?.getReader?.();
-  if (!reader) throw new Error("no body");
-  const tmp = `${file}.part`;
-  const fd = fs.openSync(tmp, "w");
-  let total = 0;
-  let head = Buffer.alloc(0);
-  try {
-    for (;;) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      total += value.length;
-      if (total > MAX_VIDEO_BYTES) { await reader.cancel().catch(() => {}); throw new Error("video over 80 MB"); }
-      if (head.length < 12) head = Buffer.concat([head, Buffer.from(value.subarray(0, 12))]);
-      fs.writeSync(fd, value);
-    }
-  } finally {
-    fs.closeSync(fd);
-  }
-  if (head.subarray(4, 8).toString("latin1") !== "ftyp") {
-    fs.rmSync(tmp, { force: true });
-    throw new Error("not an MP4 file");
-  }
-  fs.renameSync(tmp, file);
 }
 
 function probeMedia(file) {
@@ -158,15 +171,13 @@ function probeMedia(file) {
  */
 async function fetchStock(storyboard, outDir, assets = []) {
   const wanted = (storyboard.scenes || [])
-    .map((scene, i) => ({ scene: i + 1, q: queryOf(scene && scene.visual && scene.visual.use) }))
+    .map((scene, i) => {
+      const use = scene && scene.visual && scene.visual.use;
+      return queryOf(use) ? { scene: i + 1, q: queryOf(use), kind: "stock" } : { scene: i + 1, q: photoQueryOf(use), kind: "photo" };
+    })
     .filter((w) => w.q)
     .slice(0, MAX_QUERIES);
   if (!wanted.length) return assets;
-  const list = searchers();
-  if (!list.length) {
-    logger.warn("Factory stock: no provider configured (PEXELS_API_KEY / PIXABAY_API_KEY, or Openverse on); scenes that asked for stock get none.");
-    return assets;
-  }
   const dir = path.join(outDir, "assets");
   fs.mkdirSync(dir, { recursive: true });
   const deadline = Date.now() + DEADLINE_MS;
@@ -177,7 +188,7 @@ async function fetchStock(storyboard, outDir, assets = []) {
     if (assets.some((a) => a.id === id)) continue;
     if (Date.now() > deadline) { logger.warn("Factory stock: time is up; the remaining scenes get no stock."); break; }
     let candidates = [];
-    for (const [name, search] of list) {
+    for (const [name, search] of searchers(w.kind)) {
       try {
         candidates = (await search(w.q)).filter(okClip).filter((c) => !used.has(c.src));
       } catch (e) {
@@ -190,8 +201,14 @@ async function fetchStock(storyboard, outDir, assets = []) {
     for (const c of candidates.slice(0, 3)) {
       const file = path.join(dir, `${id}.${c.type === "video" ? "mp4" : "jpg"}`);
       try {
-        if (c.type === "video") await downloadVideo(c.src, file);
-        else await downloadImage(c.src, file);
+        if (c.type === "video") {
+          try {
+            await downloadVideo(c.src, file, { hosts: VIDEO_HOSTS, maxBytes: MAX_VIDEO_BYTES });
+          } catch (e) {
+            if (!c.fallback) throw e;
+            await downloadVideo(c.fallback, file, { hosts: VIDEO_HOSTS, maxBytes: MAX_VIDEO_BYTES });
+          }
+        } else await downloadImage(c.src, file);
         const meta = probeMedia(file);
         if (!meta.width || !meta.height) throw new Error("unreadable file");
         used.add(c.src);
@@ -222,4 +239,4 @@ async function fetchStock(storyboard, outDir, assets = []) {
 /** Credits the licences require (CC BY), for the Instagram caption. */
 const creditsOf = (assets) => [...new Set((assets || []).map((a) => a && a.credit).filter(Boolean))];
 
-module.exports = { fetchStock, creditsOf, queryOf, bestFile, SEARCHERS };
+module.exports = { fetchStock, creditsOf, queryOf, photoQueryOf, mixkitSlugs, bestFile, SEARCHERS };

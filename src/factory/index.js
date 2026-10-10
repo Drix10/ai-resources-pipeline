@@ -40,7 +40,7 @@ function creditLines(article, assets) {
   if (article.post && article.post.user) out.push(`Source: x.com/${article.post.user}`);
   const cc = creditsOf(assets);
   if (cc.length) out.push(`Photos: ${cc.join("; ")}`);
-  const stock = [...new Set((assets || []).map((a) => ({ pexels: "Pexels", pixabay: "Pixabay" })[a && a.provider]).filter(Boolean))];
+  const stock = [...new Set((assets || []).map((a) => ({ pexels: "Pexels", pixabay: "Pixabay", mixkit: "Mixkit" })[a && a.provider]).filter(Boolean))];
   if (stock.length) out.push(`Stock footage: ${stock.join(", ")}`);
   return out;
 }
