@@ -177,15 +177,25 @@ async function fetchStock(storyboard, outDir, assets = []) {
     })
     .filter((w) => w.q)
     .slice(0, MAX_QUERIES);
-  if (!wanted.length) return assets;
   const dir = path.join(outDir, "assets");
+  const save = (list) => { try { fs.mkdirSync(dir, { recursive: true }); fs.writeFileSync(path.join(dir, "assets.json"), JSON.stringify(list, null, 2)); } catch { /* cache only */ } };
+  // Stock saved by an earlier storyboard of this job (a same-day retry) counts only when it answers
+  // the same request: otherwise a scene would get a clip searched for another line, and its credit.
+  const asked = new Map(wanted.map((w) => [`stock-${w.scene}`, w.q]));
+  const stale = assets.filter((a) => String(a.kind || "").startsWith("stock") && asked.get(a.id) !== a.query);
+  for (const a of stale) if (a.file) fs.rmSync(a.file, { force: true });
+  const base = assets.filter((a) => !stale.includes(a));
+  if (!wanted.length) {
+    if (stale.length) save(base);
+    return base;
+  }
   fs.mkdirSync(dir, { recursive: true });
   const deadline = Date.now() + DEADLINE_MS;
-  const used = new Set(assets.map((a) => a.url));
+  const used = new Set(base.map((a) => a.url));
   const got = [];
   for (const w of wanted) {
     const id = `stock-${w.scene}`;
-    if (assets.some((a) => a.id === id)) continue;
+    if (base.some((a) => a.id === id)) continue; // the same request, fetched before
     if (Date.now() > deadline) { logger.warn("Factory stock: time is up; the remaining scenes get no stock."); break; }
     let candidates = [];
     for (const [name, search] of searchers(w.kind)) {
@@ -227,10 +237,8 @@ async function fetchStock(storyboard, outDir, assets = []) {
     }
     if (!done) logger.info(`Factory stock: nothing usable for scene ${w.scene} ("${w.q}").`);
   }
-  const all = [...assets, ...got];
-  if (got.length) {
-    try { fs.writeFileSync(path.join(dir, "assets.json"), JSON.stringify(all, null, 2)); } catch { /* cache only */ }
-  }
+  const all = [...base, ...got];
+  if (got.length || stale.length) save(all);
   const tally = got.map((g) => `${g.provider} ${g.kind.replace("stock-", "")}`).join(", ");
   logger.info(`Factory stock: ${got.length} of ${wanted.length} scene visual(s) found${tally ? ` (${tally})` : ""}.`);
   return all;

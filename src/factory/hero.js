@@ -176,7 +176,8 @@ ${article.text.slice(0, 16000)}`;
 function prepareWorkspace(workDir, engine) {
   fs.mkdirSync(workDir, { recursive: true });
   // A same-day retry reuses the job dir: never let a previous attempt's piece or render leak in.
-  for (const stale of ["out", "src/hero", "src/slides", "film"]) fs.rmSync(path.join(workDir, stale), { recursive: true, force: true, maxRetries: 3, retryDelay: 500 });
+  // ...and never let an earlier attempt's material sit beside this one's (footage/, the asset folder).
+  for (const stale of ["out", "src/hero", "src/slides", "film", "footage", "assets", "public/assets"]) fs.rmSync(path.join(workDir, stale), { recursive: true, force: true, maxRetries: 3, retryDelay: 500 });
   if (engine === "remotion") {
     for (const entry of ["src", "package.json", "package-lock.json", "tsconfig.json", "remotion.config.ts"]) {
       if (fs.existsSync(path.join(FACTORY_DIR, entry))) fs.cpSync(path.join(FACTORY_DIR, entry), path.join(workDir, entry), { recursive: true });

@@ -30,7 +30,8 @@ const { FACTORY_DIR, ffmpeg } = require("./render");
 const NAV_TIMEOUT_MS = 25000;
 const CALL_TIMEOUT_MS = 30000;
 const CAPTURE_DEADLINE_MS = 75000;
-const MAX_IMAGE_BYTES = 8 * 1024 * 1024;
+// Full-size photos from the open archives run past 8 MB; they are scaled down on arrival.
+const MAX_IMAGE_BYTES = 20 * 1024 * 1024;
 const MOBILE_UA = "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1";
 const SHOTS = {
   desktop: { width: 1440, height: 900, dpr: 1.5, mobile: false },
@@ -377,7 +378,7 @@ async function readCapped(res) {
     const { done, value } = await reader.read();
     if (done) break;
     total += value.length;
-    if (total > MAX_IMAGE_BYTES) { await reader.cancel().catch(() => {}); throw new Error("image over 8 MB"); }
+    if (total > MAX_IMAGE_BYTES) { await reader.cancel().catch(() => {}); throw new Error(`image over ${MAX_IMAGE_BYTES / 1048576} MB`); }
     chunks.push(Buffer.from(value));
   }
   return Buffer.concat(chunks);

@@ -147,6 +147,30 @@ test("open-web sources: Mixkit tag slugs, Commons credits, the post's own video"
   assert.match(syndicationToken("2108648698150302043"), /^[a-z0-9]+$/);
 });
 
+test("stock from an earlier storyboard of the job is reused only for the same request", async () => {
+  const { fetchStock } = require("../src/factory/stock");
+  const os = require("node:os");
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "stock-"));
+  fs.mkdirSync(path.join(dir, "assets"));
+  const file = (n) => { const f = path.join(dir, "assets", n); fs.writeFileSync(f, "x"); return f; };
+  const assets = [
+    { id: "post", kind: "post", url: "https://x.com/a/status/1", file: file("post.png") },
+    { id: "stock-2", kind: "stock-video", query: "server racks", url: "https://assets.mixkit.co/a.mp4", file: file("stock-2.mp4") },
+    { id: "stock-3", kind: "stock-photo", query: "captcha on laptop screen", url: "https://upload.wikimedia.org/b.jpg", credit: "B (CC BY 2.0, Wikimedia Commons)", file: file("stock-3.jpg") },
+  ];
+  const saved = { stock: config.factory.stock };
+  config.factory.stock = { mixkit: false, commons: false, openverse: false };
+  try {
+    const sb = { scenes: [{ visual: { use: "post" } }, { visual: { use: "stock: server racks" } }, { visual: { use: "stock: scrolling job applications" } }] };
+    const out = await fetchStock(sb, dir, assets);
+    assert.deepEqual(out.map((a) => a.id), ["post", "stock-2"], "the same request keeps its clip; a different one drops the old file");
+    assert.ok(!fs.existsSync(assets[2].file), "the stale file is gone, so its credit cannot leak into the caption");
+    assert.deepEqual(JSON.parse(fs.readFileSync(path.join(dir, "assets", "assets.json"), "utf8")).map((a) => a.id), ["post", "stock-2"]);
+  } finally {
+    config.factory.stock = saved.stock;
+  }
+});
+
 test("the Instagram caption carries the credits and at most 5 hashtags", () => {
   const cap = composeCaption({ caption: "Line one.\n\nMore.", hashtags: ["#a1", "#b2", "#c3", "#d4", "#e5", "#f6"], credits: ["Source: x.com/someone", "Stock footage: Pexels"] });
   assert.equal(cap, "Line one.\n\nMore.\n\nSource: x.com/someone\nStock footage: Pexels\n\n#a1 #b2 #c3 #d4 #e5");
