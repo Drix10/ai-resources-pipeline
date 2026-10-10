@@ -22,7 +22,9 @@
 
 ## 📖 Overview
 
-**ai-resources-pipeline** is an autonomous curation and syndication engine built by **Drishtant Ghosh** ([@Drix10](https://github.com/Drix10)). It scrapes curated X lists, turns the best threads into grounded technical articles, publishes them to GitHub, [blogs.drix10.com](https://blogs.drix10.com) and DEV.to, and engages on LinkedIn with genuine, gated peer comments and likes.
+**ai-resources-pipeline** is an autonomous curation and syndication engine built by **Drishtant Ghosh** ([@Drix10](https://github.com/Drix10)). It scrapes curated X lists, turns the best threads into grounded technical articles, publishes them to GitHub, [blogs.drix10.com](https://blogs.drix10.com) and DEV.to, engages on LinkedIn with genuine, gated peer comments and likes, and ends every run with one narrated Instagram reel cut from the day's most viral story.
+
+One `npm start` is one full run, start to finish; there is no scheduler.
 
 ---
 
@@ -37,6 +39,7 @@ flowchart TD
     D --> F["DEV.to syndication (rate-limited, circuit breaker)"]
     D --> G["Announcement tweet"]
     D --> H["Likes after each article; 1-2 comments + 3-5 connects after each batch"]
+    E --> I["End of run: one Instagram reel from the run's most viral story (real footage, voiceover, music), then exit"]
 ```
 
 ---
@@ -69,11 +72,15 @@ flowchart TD
 - **Preview Before Live**: `node feed-preview.js --max 3` prints exactly what would be posted and liked — nothing runs live without approval.
 
 ### 🎬 Instagram Content Factory (`factory/`, `src/factory/`)
-- Turns fresh articles into **one-off reels and carousels**: at the end of each run an Opus editor picks the run's most viral story and researches its links, Opus writes a fact-gated storyboard and voiceover, ElevenLabs narrates it (OpenRouter fallback), a director picks references from a library of 413 gallery films and writes a director's prompt, and your **local Claude Code** (Opus 5.5, `--effort xhigh`, no API key) builds each reel and carousel as a one-off piece in Remotion or HyperFrames, held to the P(doom)/Tessel bar. No image models: everything is code plus real screenshots of the pages the story links to. See [docs/CONTENT_FACTORY.md](docs/CONTENT_FACTORY.md).
-- Every reel is a new topic and a new look: topic dedupe (TF-IDF) plus a memory of recent films' visual ideas, palettes and techniques.
-- Sound: music only from our own library (`factory/library/music`, analysed for tempo, beats and drops; the drop lands on the film's climax), stepped down under the voice and back up in the pauses, code-synthesized SFX on the agent's cuts, word-by-word captions, mastered to -14 LUFS. A visual library of licensed stock clips and code techniques (shatter, contour art, liquid orb) for the agent.
-- Vision QA on rendered stills, a review ledger, and an Instagram publisher on the logged-in Chrome (dry run by default, daily cap).
-- Off until `FACTORY_ENABLED=true`; nothing posts until `IG_POST=true`. Full guide: [`docs/CONTENT_FACTORY.md`](docs/CONTENT_FACTORY.md).
+- **One reel per run**, from the run's most viral story: an Opus editor scores the run's stories (stop, stakes, proof, reach, share, and what there is to *show*) and picks one, then researches its links.
+- **Real material, not generated images**: the X post the story comes from (captured as X shows it), the post's own video and photos, screenshots and demo videos of the pages it links to, real photos of the people and companies named in it (Wikimedia Commons, Openverse), and stock footage of its world (Mixkit, plus Pexels/Pixabay with free keys). Every licence that asks for credit is credited in the caption.
+- **Built like a creator's edit**: a 32-50 s arc (hook in the first 1.5 s, context, escalating beats with a pattern break, payoff, one CTA, a loop back to the start); every scene has a voiceover line, a headline of at most 6 words and a real visual. Rules adapted from Ootto's [claude-content-skills](https://github.com/Ootto-AI/claude-content-skills) (MIT) and recent platform data.
+- **Voice first**: ElevenLabs narrates (OpenRouter fallback); the film is cut to the spoken words, and a narrated reel is never made silent.
+- **Your local Claude Code builds it** (Opus 5.5, `--effort xhigh`, no API key) in Remotion or HyperFrames, from a director's brief with the storyboard's shot plan; motion graphics are the layer on top of the real footage (highlights, zooms, circled numbers).
+- **Sound**: music only from our own library (`factory/library/music`, analysed for tempo, beats and drops; the drop lands on the payoff), ducked under the voice, code-synthesized SFX on the cuts, word-by-word captions, mastered to -14 LUFS.
+- **Facts are gated in code**: every number, name and quote on screen, in the voice and in the caption must be in the story.
+- Every reel is a new topic and a new look (topic dedupe plus a memory of recent looks); a review ledger and an Instagram publisher on the logged-in Chrome (daily cap; nothing posts until `IG_POST=true`).
+- Off until `FACTORY_ENABLED=true`. Full guide: [`docs/CONTENT_FACTORY.md`](docs/CONTENT_FACTORY.md).
 
 ### ⚡ 5. High-Speed Next.js 14 Knowledge Hub (`blog/`)
 - **1,800+ Articles** across **42 Specialized Domains**, with static topic and archive pages so everything caches at the edge.
@@ -90,6 +97,7 @@ flowchart TD
 - **AI Models**: OpenRouter (`openai/gpt-oss-120b` for articles, `deepseek/deepseek-v4-flash` for comments); optional NVIDIA NIM or local Ollama as comment fallbacks
 - **Frontend / Web**: Next.js 14 (App Router), React 18, TypeScript, Tailwind CSS. `blog/` is the knowledge hub; `portfolio/` is [drix10.com](https://drix10.com), which reads projects, open-source work and the contribution graph live from GitHub and draws the Night-Hunt mice behind the name (after [ml-videos](https://github.com/Drix10/ml-videos)).
 - **Syndication**: DEV.to API, LinkedIn feed engagement, GitHub Octokit REST
+- **Reels**: local Claude Code (Opus 5.5) building in Remotion or HyperFrames, ffmpeg (mix, loudness, captions), ElevenLabs voice, headless Chrome captures over the DevTools protocol
 
 ---
 
@@ -117,11 +125,20 @@ OPENROUTER_API_KEY=your_openrouter_api_key
 # NVIDIA_API_KEY=your_nvidia_nim_api_key
 
 # Social Automation
+TWITTER_POST=true
 LINKEDIN_LIKE=true
 LINKEDIN_FEED_REPLY=true
-LINKEDIN_CONNECT=true
-DISCORD_WEBHOOK_URL=your_discord_webhook_url
+LINKEDIN_PROFILE_SLUG=your-linkedin-slug
+DEVTO_API_KEY=your_devto_api_key
+DEVTO_AUTO_PUBLISH=true
+
+# Instagram reels (docs/CONTENT_FACTORY.md)
+FACTORY_ENABLED=true
+IG_POST=true                      # false = rehearse the upload, never share
+ELEVENLABS_API_KEY=               # the voice (OpenRouter's speech model is the fallback)
+# PEXELS_API_KEY=                 # optional, free: portrait stock footage
 ```
+Every other setting has a working default; `.env.example` lists them all.
 
 ### 3. Running the Engine
 ```bash

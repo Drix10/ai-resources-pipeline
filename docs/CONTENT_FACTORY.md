@@ -13,7 +13,7 @@ flowchart TD
     R --> D["Storyboard: hook, context, value, payoff, CTA in 32-50 s; per scene a headline (<= 6 words), a voiceover line and a VISUAL (real material, a stock search, or a graphic)"]
     D --> E{"Code gates: facts and numbers (screen, caption, hashtags, voice), quotes, hype words, emoji, lengths, visuals, field types"}
     E -- "rejected (once)" --> D
-    E --> T["Stock: footage and photos for the scenes that asked (Pexels, Pixabay, Openverse)"]
+    E --> T["Stock and named photos for the scenes that asked (Mixkit, Wikimedia Commons, Openverse; Pexels and Pixabay with free keys)"]
     T --> V["Voice: ElevenLabs with audio tags (OpenRouter fallback), recorded first, word timings; a narrated reel is never made silent"]
     V --> S["Director: Opus picks 4 references for overlay and transition craft, then writes the brief against THE BAR FOR A REEL, with the storyboard's shot plan"]
     S --> U["Music: the director's track from factory/library/music (or the best fit), its drop placed on the climax, the real beat grid"]
@@ -70,7 +70,7 @@ Opus runs with `--model claude-opus-5-5 --effort xhigh`. Change these with `FACT
 
 ## Voiceover
 
-- **Script**: one `voiceover` line per reel scene, written to be heard (more than the screen says, never more than the article says), at most 2.8 words per second of its scene, ElevenLabs audio tags such as `[curious]`, `[deadpan]`, `[pause]`, `[low, steady voice]` (at most 3 per scene). It passes the same number, banned-word and emoji gates as the screen, tags stripped.
+- **Script**: one `voiceover` line per reel scene, written to be heard (more than the screen says, never more than the article says), at most 2.7 words per second of its scene and 80-135 words for a 32-50 s reel (about 160 wpm, unhurried), every scene narrated, ElevenLabs audio tags such as `[curious]`, `[deadpan]`, `[pause]`, `[low, steady voice]` used sparingly (at most one per scene in a reel). It passes the same number, banned-word and emoji gates as the screen, tags stripped.
 - **ElevenLabs** (`ELEVENLABS_API_KEY`, `ELEVENLABS_VOICE_ID`, `ELEVENLABS_MODEL=eleven_v4`): only `eleven_v3`/`v4` perform tags; any other fallback model gets the script with tags removed. Stability is snapped to 0 / 0.5 / 1 for v3/v4.
 - **OpenRouter fallback** (`openai/gpt-audio-mini`): strict text-to-speech framing, one request per scene, each clip checked by its own audio (enough voiced time, no long gap, a length cap) and transcript.
 - **Refusals** are remembered by cause: a bad key blocks the provider for 6 h, an unusable model blocks that model for 24 h, a quota or script error blocks nothing. The whole step has a 6-minute deadline; takes are cached by script.
@@ -169,14 +169,15 @@ factory/                      Remotion package (own package.json, like blog/)
 src/factory/
   index.js       orchestrator: runCycle (lock, inbox, prune), produce, publishDue, stop
   editor.js      fresh sources + inbox, the viral pick, deep dive
-  assets.js      real screenshots through the checked proxy
+  assets.js      real material: the source post (card, video, photos), page captures and videos, through the checked proxy
+  stock.js       stock footage and named photos for the scenes that ask (Pexels, Pixabay, Mixkit, Commons, Openverse)
   shot.js        the agent's screenshot tool
   storyboard.js  words, arc, voiceover + the gates
   voice.js       ElevenLabs / OpenRouter voiceover
   music.js       music library: analysis, track choice, window and beat grid
   sfx.js         synthesized sound effects from the agent's cues
   mix.js         the final reel: picture + captions, music/voice/SFX mix, mastering
-  director.js    THE BAR, reference picks, the director's prompt
+  director.js    THE BAR FOR A REEL / THE BAR, reference picks, the shot plan, the director's prompt
   hero.js        Claude Code agent pieces (reels and carousels)
   library.js     reference library: catalog, closest prompts, repo sync
   render.js      Remotion template renders, contact sheets, ffmpeg
@@ -199,7 +200,7 @@ factory-run.js   CLI
 - `prompt.md`: the full prompt (or, for repo entries, the README and treatment docs) verbatim.
 - `contact.jpg`: nine frames across the film. `video.mp4` (gitignored) and `src/` are optional.
 
-Every piece gets the whole library: the director reads the full catalog and picks 6 references by craft; the agent gets their prompt, frames and code paths, P(doom) and Tessel as the standard to read, and `LIBRARY.md` with every path. `npm run factory:library` clones or updates every repo an entry links to (`factory:install` runs it too).
+Every piece gets the whole library: the director reads the full catalog and picks references by craft (4 for a reel, whose overlay, headline and transition techniques are laid over the real material; 6 for a carousel); the agent gets their prompt, frames and code paths, `LIBRARY.md` with every path, and for carousels P(doom) and Tessel as the standard to read. `npm run factory:library` clones or updates every repo an entry links to (`factory:install` runs it too).
 
 ## Run it
 
