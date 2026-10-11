@@ -1,8 +1,9 @@
 const { Octokit } = require("@octokit/rest");
+const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
 const config = require("../../config");
-const { logger, handleError, generateSeoSlug, rebuildBlogIndex, redactSecrets } = require("../utils/helpers");
+const { logger, handleError, generateSeoSlug, rebuildBlogIndex, redactSecrets, blogDir } = require("../utils/helpers");
 const syndicationService = require("./syndication");
 
 // Files are zero-padded to 3 digits but keep growing past 999
@@ -12,10 +13,39 @@ const resourceNumber = (name) => {
   return m ? parseInt(m[1], 10) : null;
 };
 
+// Commits on the resources repo carry the author's handle (else name) and email; with either
+// missing, GitHub attributes them to the token's account.
+const commitIdentity = () => {
+  const name = config.author.handle || config.author.name;
+  return name && config.author.email ? { name, email: config.author.email } : null;
+};
+
+// The pipeline owns only the category list under this README heading; everything above it (title,
+// about, badges) is the repository owner's own text and is kept as it is.
+const README_CATEGORIES_HEADING = "## 📚 Resource Categories";
+
+// The "Read More & Connect" footer of a committed article: the blog link, the byline and the
+// author's links (config.author), each line only when its value is set. Null when there is nothing to add.
+const articleFooter = (blogArticleUrl) => {
+  const { byline, bio, websiteUrl, links } = config.author;
+  const lines = [];
+  if (blogArticleUrl) lines.push(`**Interactive version:** [${new URL(blogArticleUrl).host}](${blogArticleUrl})`);
+  if (byline) lines.push(`Written by **${websiteUrl ? `[${byline}](${websiteUrl})` : byline}**${bio ? `, ${bio}` : ""}.`);
+  if (links.length) lines.push(links.map((l) => `- **${l.label}:** [${l.text}](${l.url})`).join("\n"));
+  return lines.length ? `\n\n---\n\n### Read More & Connect\n\n${lines.join("\n\n")}\n` : null;
+};
+
+// The git blob id GitHub gives a file with this content.
+const blobSha = (content) => {
+  const body = Buffer.from(String(content), "utf8");
+  return crypto.createHash("sha1").update(`blob ${body.length}\0`).update(body).digest("hex");
+};
+
 class GithubService {
   constructor() {
     this.RATE_LIMIT_BUFFER = 100;
     this.MAX_RETRIES = 3;
+    this.RETRY_DELAY_MS = 2000; // times the attempt number
 
     try {
       // Plain Octokit: @octokit/rest ships without the retry/throttling plugins,
@@ -37,10 +67,14 @@ class GithubService {
    * Eliminates commit flooding (e.g. groups 5-10 folders into 1 commit instead of 1 by 1).
    *
    * @param {Array<Object>} items - Array of { folder, fileBuffer, markdownContent, tweets, linkedinPosts, queryName }
-   * @param {string} repoName - e.g. "Drix10/ai-resources"
+   * @param {string} repoName - "owner/repo"
+   * @param {Object} [options]
+   * @param {Array<Object>} [options.prepared] - error.prepared of an earlier failed call: its numbered paths
+   *   are reused (numbering again would add an attempt that did land a second time, as resources-N+1)
+   * @param {Function} [options.onCommitted] - called with the committed items as soon as the branch holds them
    * @returns {Promise<Array<Object>>} - Array of { success, url, content, folder, number, sha, tweets, queryName }
    */
-  async uploadMarkdownBatch(items, repoName = `${config.github.owner}/${config.github.repo}`, branch = "main") {
+  async uploadMarkdownBatch(items, repoName = `${config.github.owner}/${config.github.repo}`, { branch = "main", prepared = null, onCommitted = null } = {}) {
     if (!Array.isArray(items) || items.length === 0) {
       return [];
     }
@@ -58,79 +92,8 @@ class GithubService {
     await this.checkRepoAccess(owner, repo);
 
     // 1. Prepare file numbers, paths, and content strings for every item in the batch
-    const folderNumberMap = new Map();
-    const preparedItems = [];
-
-    for (const item of items) {
-      const folderObj = item.folder || { name: item.queryName };
-      if (!folderObj || typeof folderObj.name !== "string" || !folderObj.name.trim()) {
-        throw new Error("A valid destination folder is required for each batch item");
-      }
-      const decodedFolder = folderObj.name;
-      const urlSafeFolder = encodeURIComponent(decodedFolder);
-
-      let nextNumber;
-      if (folderNumberMap.has(decodedFolder)) {
-        nextNumber = folderNumberMap.get(decodedFolder) + 1;
-      } else {
-        nextNumber = await this.getNextFileNumber(owner, repo, decodedFolder, branch);
-      }
-      folderNumberMap.set(decodedFolder, nextNumber);
-
-      const fileName = `resources-${String(nextNumber).padStart(3, "0")}.md`;
-      const filePath = `${decodedFolder}/${fileName}`;
-      const fileUrl = `https://github.com/${owner}/${repo}/blob/${branch}/${urlSafeFolder}/${fileName}`;
-      // Last boundary before a public commit: redact again in case content came
-      // from anywhere other than generateArticle.
-      let content = redactSecrets(item.fileBuffer ? item.fileBuffer.toString("utf8") : String(item.markdownContent || ""));
-
-      // Attach promotional section and exact SEO backlink (skip for personal & linkedin insights)
-      const isSpecialFolder = decodedFolder.toLowerCase() === "personal" || decodedFolder.toLowerCase() === "linkedin insights";
-      let seoSlug = null;
-      if (!isSpecialFolder) {
-        const categorySlug = decodedFolder.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80);
-        const fileBase = fileName.replace(".md", "");
-        const titleMatch = content.match(/^#\s+(.+)$/m) || content.match(/^###\s+(.+)$/m);
-        const rawTitle = titleMatch ? titleMatch[1] : (`${decodedFolder} #${nextNumber}`);
-        seoSlug = generateSeoSlug(rawTitle, content, fileName, decodedFolder);
-        const blogArticleUrl = `${config.syndication.canonicalBaseUrl}/articles/${categorySlug}/${seoSlug}`;
-
-        if (!content.includes("Read More & Connect") && !content.includes("Read on the AI Knowledge Hub")) {
-          const promoSection = `
-
----
-
-### Read More & Connect
-
-**Interactive version:** [blogs.drix10.com](${blogArticleUrl})
-
-Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical founder and engineer working across AI systems, developer infrastructure, and cybersecurity.
-
-- **Blog:** [blogs.drix10.com](https://blogs.drix10.com)
-- **Portfolio:** [drix10.com](https://drix10.com)
-- **GitHub:** [github.com/Drix10](https://github.com/Drix10)
-- **LinkedIn:** [linkedin.com/in/drix10](https://www.linkedin.com/in/drix10)
-- **X:** [@DrishtantGhosh](https://x.com/DrishtantGhosh)
-- **Email:** [ggdrishtant@gmail.com](mailto:ggdrishtant@gmail.com)
-`;
-          content = content.trimEnd() + promoSection;
-        }
-      }
-
-      preparedItems.push({
-        ...item,
-        folder: folderObj,
-        queryName: folderObj.name,
-        decodedFolder,
-        urlSafeFolder,
-        nextNumber,
-        fileName,
-        filePath,
-        fileUrl,
-        content,
-        seoSlug
-      });
-    }
+    const reused = Array.isArray(prepared) && prepared.length > 0;
+    const preparedItems = reused ? prepared : await this.prepareBatch(items, owner, repo, branch);
 
     // 2. Commit all files in ONE single commit via GitHub Git Data API
     let newCommitSha = null;
@@ -140,6 +103,13 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
       try {
         const branchRef = await this.octokit.git.getRef({ owner, repo, ref: `heads/${branch}` });
         const latestCommitSha = branchRef.data.object.sha;
+        // An attempt that reported an error may still have landed (a timeout after GitHub applied the
+        // ref update): then the branch already holds these files and a new commit would add them twice.
+        if ((attempt > 1 || reused) && (await this.batchOnBranch(owner, repo, latestCommitSha, preparedItems))) {
+          newCommitSha = latestCommitSha;
+          logger.info(`Batch (${preparedItems.length} files) is already on ${owner}/${repo}@${branch}; not committing it again.`);
+          break;
+        }
         const commitData = await this.octokit.git.getCommit({ owner, repo, commit_sha: latestCommitSha });
         const baseTreeSha = commitData.data.tree.sha;
 
@@ -162,10 +132,7 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
           : `📝 Batch sync: ${preparedItems.length} resource collections\n\n` +
           preparedItems.map(it => `- ${it.decodedFolder} (#${it.nextNumber})`).join("\n");
 
-        const authorInfo = {
-          name: "Drix10",
-          email: "ggdrishtant@gmail.com"
-        };
+        const authorInfo = commitIdentity();
 
         const newCommit = await this.octokit.git.createCommit({
           owner,
@@ -173,8 +140,7 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
           message: commitMessage,
           tree: newTree.data.sha,
           parents: [latestCommitSha],
-          author: authorInfo,
-          committer: authorInfo
+          ...(authorInfo ? { author: authorInfo, committer: authorInfo } : {})
         });
 
         await this.octokit.git.updateRef({
@@ -190,20 +156,34 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
       } catch (err) {
         commitError = err;
         logger.warn(`Batch commit attempt ${attempt}/${this.MAX_RETRIES} failed: ${err.message}`);
+        if (err.code === "BATCH_PATH_TAKEN") break; // a retry cannot free the path
         if (attempt < this.MAX_RETRIES) {
-          await new Promise(res => setTimeout(res, 2000 * attempt));
+          await new Promise(res => setTimeout(res, this.RETRY_DELAY_MS * attempt));
         }
       }
     }
 
     if (!newCommitSha) {
-      throw new Error(`Failed to commit batch to GitHub after ${this.MAX_RETRIES} attempts: ${commitError?.message}`);
+      const error = new Error(`Failed to commit batch to GitHub: ${commitError?.message}`);
+      // A retry passes these back: the same paths are checked on the branch first, then reused.
+      error.prepared = preparedItems;
+      throw error;
+    }
+
+    // The sources are consumed the moment the branch holds the files: before the local copies, the
+    // DEV.to queue or any post, so a crash in between cannot leave them to be curated again.
+    if (onCommitted) {
+      try {
+        await onCommitted(preparedItems);
+      } catch (err) {
+        logger.error(`Marking the committed batch failed: ${err.message}`);
+      }
     }
 
     // 3. Post-commit operations for each file (local blog copy & syndication)
     for (const item of preparedItems) {
       try {
-        const localBlogContentDir = path.join(process.cwd(), "blog", "content", item.decodedFolder);
+        const localBlogContentDir = path.join(blogDir(), "content", item.decodedFolder);
         if (!fs.existsSync(localBlogContentDir)) {
           fs.mkdirSync(localBlogContentDir, { recursive: true });
         }
@@ -248,6 +228,90 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
       tweets: it.tweets || [],
       linkedinPosts: it.linkedinPosts || []
     }));
+  }
+
+  // Numbers, paths and final content (promo section, redaction) for each item of a batch.
+  async prepareBatch(items, owner, repo, branch) {
+    const folderNumberMap = new Map();
+    const preparedItems = [];
+
+    for (const item of items) {
+      const folderObj = item.folder || { name: item.queryName };
+      if (!folderObj || typeof folderObj.name !== "string" || !folderObj.name.trim()) {
+        throw new Error("A valid destination folder is required for each batch item");
+      }
+      const decodedFolder = folderObj.name;
+      const urlSafeFolder = encodeURIComponent(decodedFolder);
+
+      let nextNumber;
+      if (folderNumberMap.has(decodedFolder)) {
+        nextNumber = folderNumberMap.get(decodedFolder) + 1;
+      } else {
+        nextNumber = await this.getNextFileNumber(owner, repo, decodedFolder, branch);
+      }
+      folderNumberMap.set(decodedFolder, nextNumber);
+
+      const fileName = `resources-${String(nextNumber).padStart(3, "0")}.md`;
+      const filePath = `${decodedFolder}/${fileName}`;
+      const fileUrl = `https://github.com/${owner}/${repo}/blob/${branch}/${urlSafeFolder}/${fileName}`;
+      // Last boundary before a public commit: redact again in case content came
+      // from anywhere other than generateArticle.
+      let content = redactSecrets(item.fileBuffer ? item.fileBuffer.toString("utf8") : String(item.markdownContent || ""));
+
+      // Attach promotional section and exact SEO backlink (skip for personal & linkedin insights)
+      const isSpecialFolder = decodedFolder.toLowerCase() === "personal" || decodedFolder.toLowerCase() === "linkedin insights";
+      let seoSlug = null;
+      if (!isSpecialFolder) {
+        const categorySlug = decodedFolder.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80);
+        const fileBase = fileName.replace(".md", "");
+        const titleMatch = content.match(/^#\s+(.+)$/m) || content.match(/^###\s+(.+)$/m);
+        const rawTitle = titleMatch ? titleMatch[1] : (`${decodedFolder} #${nextNumber}`);
+        seoSlug = generateSeoSlug(rawTitle, content, fileName, decodedFolder);
+        const blogArticleUrl = config.syndication.canonicalBaseUrl ? `${config.syndication.canonicalBaseUrl}/articles/${categorySlug}/${seoSlug}` : "";
+        const footer = articleFooter(blogArticleUrl);
+
+        if (footer && !content.includes("Read More & Connect") && !content.includes("Read on the AI Knowledge Hub")) {
+          content = content.trimEnd() + footer;
+        }
+      }
+
+      preparedItems.push({
+        ...item,
+        folder: folderObj,
+        queryName: folderObj.name,
+        decodedFolder,
+        urlSafeFolder,
+        nextNumber,
+        fileName,
+        filePath,
+        fileUrl,
+        content,
+        seoSlug
+      });
+    }
+    return preparedItems;
+  }
+
+  // True when the commit holds every prepared file with this exact content. A path that holds other
+  // content throws BATCH_PATH_TAKEN: committing would overwrite another article.
+  async batchOnBranch(owner, repo, ref, preparedItems) {
+    let present = 0;
+    for (const it of preparedItems) {
+      let data;
+      try {
+        ({ data } = await this.octokit.repos.getContent({ owner, repo, path: it.filePath, ref }));
+      } catch (error) {
+        if (error.status === 404) continue;
+        throw error;
+      }
+      if (!data || data.sha !== blobSha(it.content)) {
+        const taken = new Error(`${it.filePath} already exists with other content; not overwriting it`);
+        taken.code = "BATCH_PATH_TAKEN";
+        throw taken;
+      }
+      present++;
+    }
+    return present === preparedItems.length;
   }
 
   async getNextFileNumber(owner, repo, folder, branch = "main") {
@@ -319,28 +383,6 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
     }
   }
 
-  async createOrUpdateFile(owner, repo, path, content, message) {
-    try {
-      const response = await this.octokit.repos.createOrUpdateFileContents({
-        owner,
-        repo,
-        path,
-        message: message || `Update ${path}`,
-        content,
-        branch: "main",
-      });
-      return response;
-    } catch (error) {
-      logger.error("File creation/update failed:", {
-        error: error.message,
-        owner,
-        repo,
-        path,
-      });
-      throw error;
-    }
-  }
-
   async updateReadmeWithNewFile(owner, repo) {
     try {
       const path = "README.md";
@@ -361,86 +403,18 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
         logger.warn("README.md not found");
         return;
       }
+      if (existing.data?.encoding !== "base64") {
+        // Over 1 MB GitHub returns no content: never overwrite a README that could not be read.
+        logger.warn("README.md could not be read; not updating it.");
+        return;
+      }
 
-      const headerContent = `
-<p align="center">
-  <img src="https://raw.githubusercontent.com/tandpfun/skill-icons/main/icons/Markdown-Dark.svg" width="80" alt="Drishtant Ghosh (Drix10) — AI Resources" />
-</p>
-
-<h1 align="center">Drishtant Ghosh (Drix10) — AI Resources</h1>
-
-<p align="center">
-  <strong>AI Systems Engineer • 1x Acquired Founder (ReeF) • Autonomous LLM Architect • Technical Writer</strong>
-</p>
-
-<p align="center">
-  <em>Continuous technical curation by <a href="https://drix10.com">Drishtant Ghosh</a> — zero-slop engineering breakdowns across AI systems, distributed infrastructure, and cybersecurity.</em>
-</p>
-
-<p align="center">
-  <a href="https://drix10.com"><img src="https://img.shields.io/badge/PORTFOLIO-DRIX10.COM-10b981?style=for-the-badge&logo=vercel&logoColor=white" alt="Drishtant Ghosh Portfolio" /></a>
-  <a href="https://blogs.drix10.com"><img src="https://img.shields.io/badge/BLOG-BLOGS.DRIX10.COM-0077b5?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Drix10 Blogs" /></a>
-  <img src="https://img.shields.io/github/last-commit/${owner}/${repo}?style=for-the-badge&color=5D6D7E&label=LAST_UPDATE" alt="Last Updated" />
-  <a href="https://github.com/${owner}/${repo}"><img src="https://img.shields.io/github/stars/${owner}/${repo}?style=for-the-badge&color=yellow&label=STARS" alt="GitHub Stars" /></a>
-</p>
-
-<p align="center">
-  <a href="https://x.com/DrishtantGhosh"><img src="https://img.shields.io/badge/FOLLOW_ON_𝕏-000000?style=for-the-badge&logo=x&logoColor=white" alt="Drishtant Ghosh on X" /></a>
-  <a href="https://github.com/Drix10"><img src="https://img.shields.io/badge/FOLLOW_ON_GITHUB-181717?style=for-the-badge&logo=github&logoColor=white" alt="Drix10 on GitHub" /></a>
-  <a href="https://www.linkedin.com/in/drix10"><img src="https://img.shields.io/badge/CONNECT_ON_LINKEDIN-0077b5?style=for-the-badge&logo=linkedin&logoColor=white" alt="Drishtant Ghosh on LinkedIn" /></a>
-  <a href="https://peerlist.io/drix10"><img src="https://img.shields.io/badge/PEERLIST-DRIX10-00AA45?style=for-the-badge&logo=peerlist&logoColor=white" alt="Drix10 on Peerlist" /></a>
-</p>
-
----
-
-## 👤 About Drishtant Ghosh (Drix10)
-
-**Drishtant Ghosh** — known online as **Drix10** — is an AI Systems Engineer and 1x Acquired Founder based in **Bengaluru, India**. He builds autonomous LLM architectures, multi-agent swarms, real-time distributed systems, and high-performance full-stack products.
-
-- **1x Acquired Founder** — ReeF (scaled to $15,000 ARR and 5M+ user interactions before acquisition in August 2024)
-- **Founder & CEO** — CosLynx.com (AI code-generation platform, 400+ live MVPs, Backdrop Build v4 and v6 finalist)
-- **AI Systems Architect** — Canopy @ Founders, Inc. (4-LLM autonomous multi-agent trading engine)
-- **Cybersecurity Student** — Dayananda Sagar University
-- **Hackathons** — Backdrop Build v4 and v6 finalist, NYC Code Quest 3rd place • **IBM AI Engineering Professional Certificate**
-
-> This repository is the public knowledge base behind that work: a continuously updated, high-signal archive of AI systems, developer infrastructure, and security engineering breakdowns — no motivational fluff, no consultant larp, just mechanics and code reality.
-
-**Connect:** [Portfolio](https://drix10.com) • [Blog](https://blogs.drix10.com) • [GitHub](https://github.com/Drix10) • [LinkedIn](https://www.linkedin.com/in/drix10) • [X / Twitter](https://x.com/DrishtantGhosh) • [Peerlist](https://peerlist.io/drix10) • [DEV.to](https://dev.to/drix10) • [Medium](https://medium.com/@drix10)
-
----
-
-## 📦 What's Inside This Repository
-
-This is not a link dump. It is a **continuously regenerated technical archive** — an autonomous pipeline scrapes curated X/Twitter lists, LinkedIn insights, and systems research, then distills each signal into a structured, publish-ready markdown article.
-
-| Layer | What It Contains |
-| --- | --- |
-| **🗂️ 41 Curated Categories** | AI Developer Tools, AI Leaders & Thinkers, AI Companies & Ventures, CS Academics, Tech VIPs, VC Firms, Devs/Designers/DevRel, Tech Infrastructure, Founders & Entrepreneurs, AI Organizations & Media, AI in Healthcare & Science, AI Generated Music & Audio, AI Policy & Ethics, AI & Robotics, AI Driven Vehicles, Computer Vision, Crypto & Web3, Decentralized AI, Quantum Computing, Spatial Computing, Cybersecurity & Tech, Neuroscience & AI, Climate Tech, AR/VR, and more. |
-| **📝 Scraped & Synthesized Articles** | Every \`resources-NNN.md\` file is generated from real X/Twitter list content and LinkedIn insights — deduplicated, ranked, and rewritten into dense technical breakdowns with concrete mechanics instead of hype. |
-| **🧠 LinkedIn Insights** | Long-form postmortems and engineering reflections (payment webhook failures, vector search tuning, struct padding, AST vs regex scanning, concurrency races) captured as standalone markdown. |
-| **✍️ Personal Essays** | Founder-journey and systems-thinking pieces — building autonomous AI systems, scaling and selling a startup, the memory-first mental model, and the signal-to-noise problem in AI resources. |
-| **🔗 Multi-Channel Syndication** | Every article is cross-published to [blogs.drix10.com](https://blogs.drix10.com) and [DEV.to](https://dev.to/drix10), each with a canonical SEO backlink and a Next.js 14 interactive version. |
-| **⚙️ Zero-Slop Quality Gates** | Deterministic validation rejects any model output that lacks a real article, strips credentials/secrets, and bans motivational fluff and consultant larp before anything is committed. |
-
-### 🔄 How It Works
-
-\`\`\`mermaid
-flowchart LR
-    A["X/Twitter Curated Lists (41 categories)"] --> D["Autonomous Curation Engine"]
-    B["LinkedIn Insights & Postmortems"] --> D
-    C["Systems Research & Repo Pulse"] --> D
-    D --> E["LLM Synthesis (OpenRouter)"]
-    E --> F["Zero-Slop Quality Gate + Secret Redaction"]
-    F --> G["resources-NNN.md committed to this repo"]
-    G --> H["blogs.drix10.com (Next.js 14)"]
-    G --> I["DEV.to Syndication"]
-\`\`\`
-
----
-
-## 📚 Resource Categories
-
-`;
+      // Everything up to the categories heading is kept; a README without it gets it appended.
+      const current = Buffer.from(existing.data.content || "", "base64").toString("utf8");
+      const at = current.indexOf(README_CATEGORIES_HEADING);
+      const headerContent = at >= 0
+        ? `${current.slice(0, at + README_CATEGORIES_HEADING.length)}\n\n`
+        : `${current.trimEnd()}\n\n${README_CATEGORIES_HEADING}\n\n`;
 
       let updatesContent = "";
 
@@ -449,7 +423,7 @@ flowchart LR
       const folderResults = await this.mapWithConcurrency(config.folders, 4, async (folder) => {
         const decodedFolder = folder.name;
         try {
-          // ponytail: fixed 250ms courtesy delay; was random 0-2s x41 folders (~1min/run) for reads GitHub happily serves concurrently.
+          // A short courtesy delay per folder: GitHub serves these reads concurrently.
           await new Promise(resolve => setTimeout(resolve, 250));
 
           const { data } = await this.octokit.repos.getContent({
@@ -594,6 +568,7 @@ flowchart LR
         };
       }
 
+      const committer = commitIdentity();
       const response = await this.octokit.repos.createOrUpdateFileContents({
         owner,
         repo,
@@ -602,10 +577,7 @@ flowchart LR
         content: Buffer.from(content).toString("base64"),
         sha: existingSha,
         branch,
-        committer: {
-          name: "Drix10",
-          email: "ggdrishtant@gmail.com",
-        },
+        ...(committer ? { committer } : {}),
       });
 
       logger.info("README updated successfully");

@@ -20,7 +20,11 @@ const TIMEOUT_MS = 10000;
 const MAX_REDIRECTS = 5;
 const MIN_TEXT_CHARS = 400;
 const MAX_TEXT_CHARS = 6000;
-const USER_AGENT = "Mozilla/5.0 (compatible; ai-resources-bot/1.0; +https://blogs.drix10.com)";
+// The blog (CANONICAL_BASE_URL) is the bot's contact URL when one is set.
+const userAgent = () => {
+  const site = String(process.env.CANONICAL_BASE_URL || "").trim().replace(/\/$/, "");
+  return `Mozilla/5.0 (compatible; ai-resources-bot/1.0${site ? `; +${site}` : ""})`;
+};
 
 // Hosts that never yield article text (login walls, video, social shells).
 const SKIP_HOST_RE = /(^|\.)(x\.com|twitter\.com|youtube\.com|youtu\.be|instagram\.com|facebook\.com|fb\.com|tiktok\.com|linkedin\.com|lnkd\.in|discord\.com|discord\.gg|open\.spotify\.com|twitch\.tv|t\.me|reddit\.com|pbs\.twimg\.com)$/i;
@@ -195,7 +199,7 @@ async function getText(startUrl, { fetchImpl = secureFetch, signal } = {}) {
     const res = await fetchImpl(url, {
       redirect: "manual",
       signal,
-      headers: { "User-Agent": USER_AGENT, Accept: "text/html,text/plain,text/markdown;q=0.9,*/*;q=0.1", "Accept-Language": "en" },
+      headers: { "User-Agent": userAgent(), Accept: "text/html,text/plain,text/markdown;q=0.9,*/*;q=0.1", "Accept-Language": "en" },
     });
     if (res.status >= 300 && res.status < 400 && res.headers.get("location")) {
       await discard(res);

@@ -1,8 +1,15 @@
+const path = require("path");
+// The repo's .env before anything else: helpers.js picks the log level from NODE_ENV as it loads.
+require("dotenv").config({ path: path.join(__dirname, ".env") });
+// Work from the repo root whatever directory the run was started in: code that resolves paths
+// against process.cwd() then uses the same files as everything anchored to the repo.
+process.chdir(__dirname);
 const { logger } = require("./src/utils/helpers");
 const { runPipeline, stopPipeline, releasePipelineLock } = require("./src/services/cron");
 
-// `npm start` = one full run (articles and batch commits, LinkedIn, the blog push, one reel),
-// then exit. No scheduler: start it again for the next run.
+// `npm start` = one full run (articles and batch commits, LinkedIn, the blog push), then exit.
+// With the optional content factory add-on (src/utils/factory.js) the run also ends with one reel.
+// No scheduler: start it again for the next run.
 
 // Graceful stop waits for the current step (an article, a comment) to finish; past this deadline
 // the process exits anyway. Closing the console window gives Windows only seconds.
@@ -15,7 +22,7 @@ const EXIT_GRACE_MS = 10 * 1000;
 let shuttingDown = false;
 
 const forceExit = (code) => {
-  try { require("./src/factory/opus").abortAll(); } catch { /* factory not loaded */ }
+  try { require("./src/utils/factory").factoryModule("opus")?.abortAll(); } catch { /* the factory is optional */ }
   releasePipelineLock();
   process.exit(code);
 };

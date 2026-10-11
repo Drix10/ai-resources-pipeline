@@ -1,16 +1,23 @@
 /**
- * feed-preview.js
+ * scripts/feed-preview.js
  *
- * TERMINAL PREVIEW ONLY — never posts, never tracks.
+ * Terminal preview of the LinkedIn comment pass: posts nothing, tracks nothing.
  * Scans your live LinkedIn post sources (finance/AI/founder content search plus config/creators.json,
  * or the home feed with LINKEDIN_SOURCE=feed), drafts a comment per post with the full voice
  * pipeline (SKIP / validate / retry), and prints exactly what WOULD be posted.
  *
- *   node feed-preview.js [--max 3] [--wait-login]
+ *   node scripts/feed-preview.js [--max 3] [--wait-login]
  *
  * Check every line. Only when you approve do we flip LINKEDIN_FEED_REPLY=true.
+ *
+ *   node scripts/feed-preview.js --connect [--live N]
+ *
+ * Connection requests: a dry run lists who would be invited. With --live it REALLY sends N
+ * requests (within the daily/weekly caps) and records them in the tracker.
  */
-const { logger } = require("./src/utils/helpers");
+const fs = require("fs");
+const path = require("path");
+const { REPO_ROOT } = require("../src/utils/helpers");
 
 const args = process.argv.slice(2);
 let max = 3;
@@ -21,8 +28,7 @@ for (let i = 0; i < args.length; i++) {
 // A running pipeline owns the LinkedIn tab and the tracker file: a preview would drive the
 // same Chrome and two writers would lose tracker entries. A lock whose pid is gone is stale.
 function pipelineRunning() {
-  const fs = require("fs");
-  const lockPath = require("path").join(process.cwd(), ".pipeline.lock");
+  const lockPath = process.env.PIPELINE_LOCK_PATH || path.join(REPO_ROOT, ".pipeline.lock");
   if (!fs.existsSync(lockPath)) return false;
   try {
     const { pid } = JSON.parse(fs.readFileSync(lockPath, "utf8"));
@@ -42,8 +48,8 @@ function pipelineRunning() {
   // --wait-login: you are at the keyboard, so wait up to 5 min for a manual LinkedIn login
   // (unattended runs never wait; they switch LinkedIn off for the run instead).
   if (args.includes("--wait-login")) process.env.LINKEDIN_INTERACTIVE_LOGIN = "true";
-  const feedEngage = require("./src/services/feedEngage");
-  // node feed-preview.js --connect [--live N]: preview (or, with --live, really send) N connection requests.
+  const feedEngage = require("../src/services/feedEngage");
+  // --connect [--live N]: preview (or, with --live, really send) N connection requests.
   if (args.includes("--connect")) {
     const li = args.indexOf("--live");
     const n = li >= 0 ? Math.max(1, parseInt(args[li + 1], 10) || 2) : 5;

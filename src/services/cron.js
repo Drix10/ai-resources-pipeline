@@ -1,7 +1,8 @@
-const { logger, handleError, sleep } = require("../utils/helpers");
+const { logger, handleError, sleep, REPO_ROOT } = require("../utils/helpers");
 const fs = require("fs");
 const path = require("path");
 const config = require("../../config");
+const { factoryModule } = require("../utils/factory");
 const twitterService = require("./twitter");
 const TwitterService = new twitterService();
 const feedEngage = require("./feedEngage");
@@ -12,10 +13,18 @@ const BLOG_PATHS = ["blog/content", "blog/lib/articles-index.json"];
 const BLOG_SYNC_SUBJECT = "feat(blog): sync new curated AI resource guides";
 // The only branch the blog sync commits to and pushes (the one Vercel deploys).
 const BLOG_DEPLOY_BRANCH = process.env.BLOG_DEPLOY_BRANCH || "main";
+const envMs = (name, fallback) => {
+  const n = parseInt(process.env[name], 10);
+  return Number.isFinite(n) && n >= 0 ? n : fallback;
+};
 const MAX_RETRIES = 3;
-const RETRY_DELAY = 5000;
+// Base delay between a folder's attempts (tests set PIPELINE_RETRY_DELAY_MS=0).
+const RETRY_DELAY = envMs("PIPELINE_RETRY_DELAY_MS", 5000);
 const MIN_PUBLISHABLE_CANDIDATES = 8;
-const PIPELINE_LOCK_PATH = path.join(process.cwd(), ".pipeline.lock");
+// Anchored to the repo, not process.cwd(); tests point PIPELINE_LOCK_PATH and BLOG_REPO_DIR at temp folders.
+const PIPELINE_LOCK_PATH = process.env.PIPELINE_LOCK_PATH || path.join(REPO_ROOT, ".pipeline.lock");
+// The git checkout the blog sync commits in and pushes from.
+const blogRepoDir = () => process.env.BLOG_REPO_DIR || REPO_ROOT;
 // Longer than any step that blocks the event loop (a synchronous ffmpeg encode is capped at 15 min),
 // so a live run's lock is never mistaken for a dead one.
 const PIPELINE_LOCK_STALE_AFTER_MS = 30 * 60 * 1000;
@@ -25,18 +34,6 @@ let lockHeartbeatTimer = null;
 let stopRequested = false;
 const stopping = () => stopRequested;
 
-const replaceRuntimeFile = (filePath, content) => {
-  const tempPath = `${filePath}.tmp`;
-  fs.writeFileSync(tempPath, content, "utf8");
-  try {
-    fs.renameSync(tempPath, filePath);
-  } catch (error) {
-    if (!['EEXIST', 'EPERM'].includes(error.code)) throw error;
-    fs.rmSync(filePath, { force: true });
-    fs.renameSync(tempPath, filePath);
-  }
-};
-
 // Two processes can race to reclaim the same stale lock; the loser finds it already gone.
 const safeUnlink = (filePath) => {
   try {
@@ -44,6 +41,26 @@ const safeUnlink = (filePath) => {
   } catch (error) {
     if (error.code !== 'ENOENT') throw error;
   }
+};
+
+// Removes a lock judged stale (`judged` is what was read from it; null when unreadable). Moved aside
+// by rename, which succeeds for one process only, and the moved file must be the very lock judged
+// stale: another run may have taken over in between, and its fresh lock is put back.
+const takeOverStaleLock = (judged) => {
+  const grave = `${PIPELINE_LOCK_PATH}.${process.pid}.stale`;
+  try {
+    fs.renameSync(PIPELINE_LOCK_PATH, grave);
+  } catch {
+    return false;
+  }
+  let moved = null;
+  try { moved = JSON.parse(fs.readFileSync(grave, "utf8")); } catch { /* unreadable, like the one judged */ }
+  if (moved && (!judged || moved.pid !== judged.pid || moved.heartbeatAt !== judged.heartbeatAt)) {
+    try { fs.renameSync(grave, PIPELINE_LOCK_PATH); } catch { /* gone; nothing to restore */ }
+    return false;
+  }
+  safeUnlink(grave);
+  return true;
 };
 
 const startLockHeartbeat = () => {
@@ -100,14 +117,12 @@ const acquirePipelineLock = () => {
           logger.warn("Pipeline lock is being initialized; skipping this run.");
           return false;
         }
-        safeUnlink(PIPELINE_LOCK_PATH);
-        return acquirePipelineLock();
+        return takeOverStaleLock(lock) && acquirePipelineLock();
       }
       // Our own pid in the lock can only be a leftover (Windows reuses pids after a quick
       // restart): this process never asks for the lock while it holds it.
       if (lock.pid === process.pid) {
-        safeUnlink(PIPELINE_LOCK_PATH);
-        return acquirePipelineLock();
+        return takeOverStaleLock(lock) && acquirePipelineLock();
       }
       // A stale lock from a terminated run must not prevent the next scheduled run.
       process.kill(lock.pid, 0);
@@ -115,15 +130,13 @@ const acquirePipelineLock = () => {
       // heartbeating, so a stale heartbeat means the lock is dead.
       if (!lockIsFresh(lock)) {
         logger.warn(`Pipeline lock heartbeat is stale (PID ${lock.pid} reused or hung); reclaiming.`);
-        safeUnlink(PIPELINE_LOCK_PATH);
-        return acquirePipelineLock();
+        return takeOverStaleLock(lock) && acquirePipelineLock();
       }
       logger.warn(`Another pipeline process is already running (PID ${lock.pid}); skipping this run.`);
       return false;
     } catch (lockError) {
       if (lockError.code === "ESRCH" || (lockError instanceof SyntaxError && !lockFileIsFresh())) {
-        safeUnlink(PIPELINE_LOCK_PATH);
-        return acquirePipelineLock();
+        return takeOverStaleLock(lock) && acquirePipelineLock();
       }
       if (lockError instanceof SyntaxError && lockFileIsFresh()) {
         logger.warn("Pipeline lock is being updated; skipping this run.");
@@ -131,8 +144,7 @@ const acquirePipelineLock = () => {
       }
       if (lockError.code === "EPERM") {
         if (!lock || !lockIsFresh(lock)) {
-          safeUnlink(PIPELINE_LOCK_PATH);
-          return acquirePipelineLock();
+          return takeOverStaleLock(lock) && acquirePipelineLock();
         }
         logger.warn(`Pipeline lock belongs to an inaccessible active process (PID ${lock.pid}); skipping this run.`);
         return false;
@@ -158,7 +170,7 @@ const releasePipelineLock = () => {
 
 // Runs a command without blocking the event loop (the lock heartbeat must keep beating during a
 // multi-minute build) and returns its exit status and output instead of throwing.
-const run = (command, args, { timeout = 60000, shell = false } = {}) =>
+const run = (command, args, { timeout = 60000, shell = false, cwd } = {}) =>
   new Promise((resolve) => {
     const { spawn, spawnSync } = require("child_process");
     let out = "";
@@ -168,7 +180,7 @@ const run = (command, args, { timeout = 60000, shell = false } = {}) =>
     const finish = (r) => { if (!done) { done = true; clearTimeout(timer); resolve(r); } };
     // Git must never wait on a login prompt or a credential-manager window nobody will answer.
     const env = { ...process.env, GIT_TERMINAL_PROMPT: "0", GCM_INTERACTIVE: "never" };
-    const child = spawn(command, args, { shell, windowsHide: true, env });
+    const child = spawn(command, args, { shell, windowsHide: true, env, cwd });
     const timer = setTimeout(() => {
       timedOut = true;
       // Kill the whole tree (a shell's grandchild holds the pipes open otherwise), then stop waiting.
@@ -194,23 +206,24 @@ const run = (command, args, { timeout = 60000, shell = false } = {}) =>
  *    autostash can never leave conflict markers in source files;
  *  - recovers from an interrupted rebase or a stale index.lock left by a killed run.
  */
-const publishBlog = async () => {
+const publishBlog = async (root) => {
   const fail = (step, result) => {
     const detail = (result.err || result.out || "").trim().split("\n").slice(-3).join(" | ");
     logger.error(`Cycle End: blog sync stopped at "${step}"${result.timedOut ? " (timed out)" : ""}: ${detail}`);
   };
   const lines = (r) => String(r.out || "").split("\n").map((l) => l.trim()).filter(Boolean);
+  const inRepo = (command, args, opts) => run(command, args, { ...opts, cwd: root });
   try {
     // A run killed mid-rebase or mid-commit leaves these behind; nothing else ever clears them.
-    const gitDir = path.join(process.cwd(), ".git");
+    const gitDir = path.join(root, ".git");
     if (fs.existsSync(path.join(gitDir, "rebase-merge")) || fs.existsSync(path.join(gitDir, "rebase-apply"))) {
       logger.warn("Cycle End: aborting a rebase a previous run left behind.");
-      await run("git", ["rebase", "--abort"], { timeout: 30000 });
+      await inRepo("git", ["rebase", "--abort"], { timeout: 30000 });
     }
     const indexLock = path.join(gitDir, "index.lock");
     try { if (Date.now() - fs.statSync(indexLock).mtimeMs > 10 * 60 * 1000) fs.rmSync(indexLock, { force: true }); } catch { /* none */ }
 
-    const branchResult = await run("git", ["rev-parse", "--abbrev-ref", "HEAD"], { timeout: 10000 });
+    const branchResult = await inRepo("git", ["rev-parse", "--abbrev-ref", "HEAD"], { timeout: 10000 });
     const branch = branchResult.out.trim();
     if (branchResult.status !== 0 || !branch || branch === "HEAD") {
       return logger.error("Cycle End: blog sync skipped: not on a branch (detached HEAD).");
@@ -219,9 +232,9 @@ const publishBlog = async () => {
       return logger.warn(`Cycle End: blog sync skipped: the checkout is on "${branch}", not ${BLOG_DEPLOY_BRANCH}; switch back and the next run publishes everything.`);
     }
 
-    const changed = await run("git", ["status", "--porcelain", "--", ...BLOG_PATHS], { timeout: 30000 });
+    const changed = await inRepo("git", ["status", "--porcelain", "--", ...BLOG_PATHS], { timeout: 30000 });
     const hasChanges = changed.status === 0 && lines(changed).length > 0;
-    const unpushed = await run("git", ["log", `origin/${branch}..HEAD`, "--format=%s"], { timeout: 30000 });
+    const unpushed = await inRepo("git", ["log", `origin/${branch}..HEAD`, "--format=%s"], { timeout: 30000 });
     const unpushedSubjects = unpushed.status === 0 ? lines(unpushed) : [];
     // Your own commits never ride along with the bot's push: they go when you push them.
     const ownCommits = unpushedSubjects.filter((s) => s !== BLOG_SYNC_SUBJECT);
@@ -229,15 +242,15 @@ const publishBlog = async () => {
 
     if (hasChanges) {
       logger.info("Cycle End: running the blog build before publishing...");
-      const build = await run("npm", ["--prefix", "blog", "run", "build"], { timeout: 15 * 60 * 1000, shell: true });
+      const build = await inRepo("npm", ["--prefix", "blog", "run", "build"], { timeout: 15 * 60 * 1000, shell: true });
       if (build.status !== 0) return fail("blog build", build);
       logger.info("Cycle End: blog build passed.");
 
-      const added = await run("git", ["add", "--", ...BLOG_PATHS], { timeout: 30000 });
+      const added = await inRepo("git", ["add", "--", ...BLOG_PATHS], { timeout: 30000 });
       if (added.status !== 0) return fail("git add", added);
-      const commit = await run("git", ["commit", "-m", BLOG_SYNC_SUBJECT, "--", ...BLOG_PATHS], { timeout: 60000 });
+      const commit = await inRepo("git", ["commit", "-m", BLOG_SYNC_SUBJECT, "--", ...BLOG_PATHS], { timeout: 60000 });
       if (commit.status !== 0) {
-        await run("git", ["reset", "-q", "--", ...BLOG_PATHS], { timeout: 30000 });
+        await inRepo("git", ["reset", "-q", "--", ...BLOG_PATHS], { timeout: 30000 });
         return fail("git commit", commit);
       }
     }
@@ -246,23 +259,23 @@ const publishBlog = async () => {
       return logger.warn(`Cycle End: blog committed locally but not pushed: ${ownCommits.length} of your own commit(s) are unpushed on ${branch} ("${ownCommits[0]}"). The bot never pushes your work; push it and the blog goes with it.`);
     }
 
-    const fetched = await run("git", ["fetch", "origin", branch], { timeout: 120000 });
+    const fetched = await inRepo("git", ["fetch", "origin", branch], { timeout: 120000 });
     if (fetched.status !== 0) return fail("git fetch", fetched);
     // Upstream changes to a file you are editing would make the autostash conflict: wait instead.
-    const dirty = await run("git", ["status", "--porcelain", "--untracked-files=no"], { timeout: 30000 });
+    const dirty = await inRepo("git", ["status", "--porcelain", "--untracked-files=no"], { timeout: 30000 });
     const dirtyFiles = new Set(lines(dirty).map((l) => l.slice(3).replace(/^"|"$/g, "")));
-    const incoming = await run("git", ["diff", "--name-only", `HEAD...origin/${branch}`], { timeout: 30000 });
+    const incoming = await inRepo("git", ["diff", "--name-only", `HEAD...origin/${branch}`], { timeout: 30000 });
     const clash = lines(incoming).filter((f) => dirtyFiles.has(f));
     if (clash.length) {
       return logger.warn(`Cycle End: blog committed locally but not pushed: origin changed ${clash.length} file(s) you have uncommitted edits in (${clash.slice(0, 3).join(", ")}). Commit or stash them; the next run pushes.`);
     }
 
-    const pulled = await run("git", ["pull", "--rebase", "--autostash", "origin", branch], { timeout: 120000 });
+    const pulled = await inRepo("git", ["pull", "--rebase", "--autostash", "origin", branch], { timeout: 120000 });
     if (pulled.status !== 0) {
-      await run("git", ["rebase", "--abort"], { timeout: 30000 });
+      await inRepo("git", ["rebase", "--abort"], { timeout: 30000 });
       return fail("git pull --rebase", pulled);
     }
-    const pushed = await run("git", ["push", "origin", `HEAD:${branch}`], { timeout: 120000 });
+    const pushed = await inRepo("git", ["push", "origin", `HEAD:${branch}`], { timeout: 120000 });
     if (pushed.status !== 0) return fail("git push", pushed);
     logger.info(`Cycle End: pushed the blog to origin/${branch} (triggers the Vercel deploy).`);
     return true;
@@ -271,10 +284,17 @@ const publishBlog = async () => {
   }
   return false;
 };
-const syncBlogToGit = async () => (await publishBlog()) === true;
+const syncBlogToGit = async (root = blogRepoDir()) => (await publishBlog(root)) === true;
 
 // Outages that hit every folder the same way: retrying them only hammers X or the provider.
 const RUN_ENDING_CODES = new Set(["LOCAL_LLM_UNAVAILABLE", "LLM_UNAVAILABLE", "X_UNAVAILABLE"]);
+
+// Set when the published-ID store could not be written: curation and tweets stop for the run and
+// the save is retried before it ends (the next run would otherwise curate the same sources again).
+let idsUnsaved = false;
+const markPublished = (collections) => {
+  if (TwitterService.markContentAsPublished(collections) === false) idsUnsaved = true;
+};
 
 const runDataPipeline = async (folder) => {
   let tweets = null;
@@ -320,12 +340,15 @@ const runDataPipeline = async (folder) => {
       if (error.code === "MARKDOWN_QUALITY_REJECTED") {
         // The writer judged these sources (thin, off-topic, rejected): mark them so the next run
         // does not spend calls on them again. The error carries them, so log only its message.
-        if (Array.isArray(error.usedTweets) && error.usedTweets.length) TwitterService.markContentAsPublished(error.usedTweets);
+        if (Array.isArray(error.usedTweets) && error.usedTweets.length) markPublished(error.usedTweets);
         logger.warn(`${folder.name}: no file this run (${error.message}); ${error.usedTweets?.length || 0} judged source(s) will not be retried.`);
         return null;
       }
       logger.error(`Pipeline error for folder ${folder.name} (attempt ${retryCount + 1}/${MAX_RETRIES}): ${error.message}`, { code: error.code });
       if (RUN_ENDING_CODES.has(error.code)) {
+        // The writer judged some sources before it went down: mark those (only those), or the next
+        // run pays to judge them again.
+        if (Array.isArray(error.usedTweets) && error.usedTweets.length) markPublished(error.usedTweets);
         throw error;
       }
       if (retryCount === MAX_RETRIES - 1) {
@@ -351,12 +374,33 @@ function getTopicName(queryName) {
 // minute apart read as a bot to X and get throttled ("Composer still open").
 const TWEETS_PER_RUN = Math.max(0, Number(process.env.TWITTER_POSTS_PER_RUN ?? 3) || 0);
 const TWEET_GAP_MS = 20 * 60 * 1000;
+// Optional credit lines (TWITTER_MADE_BY, TWITTER_VIA): a template leaves out a line it has no value for.
+const { madeBy: MADE_BY, via: VIA } = config.social.tweetCredit;
+const CREDIT = [MADE_BY && `Made by ${MADE_BY}`, VIA && `via ${VIA}`].filter(Boolean).join(" ");
 const ANNOUNCEMENTS = [
-  (topic, url) => `New ${topic} resource added!\n\nMade by @Drix10 via @CosLynxAI\n\nCheck out the latest resource here:\n${url}`,
+  (topic, url) => `New ${topic} resource added!\n\n${CREDIT ? `${CREDIT}\n\n` : ""}Check out the latest resource here:\n${url}`,
   (topic, url) => `Fresh ${topic} picks, sorted and summarised.\n\nRead them here:\n${url}`,
-  (topic, url) => `Just published: the latest ${topic} roundup.\n\nvia @CosLynxAI\n${url}`,
+  (topic, url) => `Just published: the latest ${topic} roundup.\n\n${VIA ? `via ${VIA}\n` : ""}${url}`,
   (topic, url) => `${topic}: this week's most useful finds in one place.\n\n${url}`,
 ];
+
+// A long wait that ends as soon as a stop is requested.
+const pauseUnlessStopped = async (ms) => {
+  const end = Date.now() + ms;
+  while (!stopping() && Date.now() < end) await sleep(Math.min(1000, end - Date.now()));
+};
+
+// The IDs of committed sources are only in memory: keep trying to write them before the run ends.
+const saveIdsBeforeExit = async () => {
+  for (let attempt = 1; attempt <= 4; attempt++) {
+    await sleep(RETRY_DELAY * attempt);
+    if (TwitterService.persistProcessedIds()) {
+      idsUnsaved = false;
+      return logger.info("Published X IDs saved on retry.");
+    }
+  }
+  logger.error("Published X IDs could NOT be saved: the next run may curate this run's sources again. Check the store file (.processed-tweet-ids.json) and its folder permissions.");
+};
 
 /**
  * Single canonical pipeline runner: initialises services, processes all folders,
@@ -370,6 +414,7 @@ const processAllFolders = async () => {
     // start this run's cross-folder dedupe sets.
     TwitterService.beginRun?.();
     llmService.beginRun?.();
+    idsUnsaved = false;
     const successfulArticles = [];
     let tweetsThisRun = 0;
     let lastTweetAt = 0;
@@ -378,7 +423,7 @@ const processAllFolders = async () => {
       if (!config.social.twitterPost) {
         return logger.info(`Twitter posting disabled (TWITTER_POST=false). Skipping tweet for ${item.queryName}.`);
       }
-      if (stopping() || tweetingHalted) return;
+      if (stopping() || tweetingHalted || idsUnsaved) return;
       if (tweetsThisRun >= TWEETS_PER_RUN) {
         return logger.info(`Tweet cap reached (${TWEETS_PER_RUN} this run); not announcing ${item.queryName}.`);
       }
@@ -405,7 +450,7 @@ const processAllFolders = async () => {
     const nextBatchSize = () => Math.floor(Math.random() * 8) + 1;
     let COMMIT_BATCH_SIZE = nextBatchSize(); // re-rolled after every batch commit
     let pendingBatch = [];
-    // Instagram content factory: digest items committed this run become reel/carousel candidates.
+    // Optional content factory add-on: digest items committed this run become reel/carousel candidates.
     const factoryInbox = [];
 
     // LinkedIn runs in step with the content, never ahead of it:
@@ -415,7 +460,7 @@ const processAllFolders = async () => {
     const likeAfterArticle = async () => {
       if (!config.social.linkedinLike || stopping()) return;
       try {
-        const likeResult = await feedEngage.runLikePass({ min: 2, max: 4 });
+        const likeResult = await feedEngage.runLikePass({ min: 2, max: 4, shouldStop: stopping });
         logger.info(`Article done: LinkedIn likes ${likeResult.liked}/${likeResult.target}.`);
       } catch (feedErr) {
         logger.error("LinkedIn likes failed (non-fatal):", feedErr.message);
@@ -425,7 +470,7 @@ const processAllFolders = async () => {
       if (stopping()) return;
       if (config.social.linkedinFeedReply) {
         try {
-          const engageResult = await feedEngage.runFeedEngagement({ max: 1 + Math.floor(Math.random() * 2) });
+          const engageResult = await feedEngage.runFeedEngagement({ max: 1 + Math.floor(Math.random() * 2), shouldStop: stopping });
           logger.info(`Batch done: LinkedIn comments ${engageResult.commented} posted, ${engageResult.skipped} skipped. ${engageResult.reason || ""}`);
         } catch (feedErr) {
           logger.error("LinkedIn comment pass failed (non-fatal):", feedErr.message);
@@ -433,7 +478,7 @@ const processAllFolders = async () => {
       }
       if (config.social.linkedinConnect && !stopping()) {
         try {
-          const conn = await feedEngage.runConnectPass({ min: 3, max: 5 });
+          const conn = await feedEngage.runConnectPass({ min: 3, max: 5, shouldStop: stopping });
           logger.info(`Batch done: LinkedIn connections ${conn.sent}/${conn.target} sent. ${conn.reason || ""}`);
         } catch (connErr) {
           logger.error("LinkedIn connection pass failed (non-fatal):", connErr.message);
@@ -441,10 +486,18 @@ const processAllFolders = async () => {
       }
     };
 
-    // A batch whose commit failed (a GitHub blip) is retried once at the end of the run.
+    // A batch whose commit failed (a GitHub blip) is retried once at the end of the run, with the
+    // paths it was given: if the failed attempt landed after all, the retry finds it on the branch.
     const failedBatches = [];
-    const flushBatch = async ({ retry = false } = {}) => {
+    const flushBatch = async ({ retry = false, prepared = null } = {}) => {
       if (pendingBatch.length === 0) return;
+      // Committing while the published-ID store cannot be written would let the next run curate
+      // (and commit) the same sources again: these stay uncommitted and their sources unmarked.
+      if (idsUnsaved) {
+        logger.error(`Not committing ${pendingBatch.length} article(s): the published-ID store could not be saved this run.`);
+        pendingBatch = [];
+        return;
+      }
       const batchToCommit = [...pendingBatch];
       pendingBatch = [];
       COMMIT_BATCH_SIZE = nextBatchSize();
@@ -456,12 +509,14 @@ const processAllFolders = async () => {
       try {
         const results = await GithubService.uploadMarkdownBatch(
           batchToCommit,
-          `${config.github.owner}/${config.github.repo}`
+          `${config.github.owner}/${config.github.repo}`,
+          {
+            prepared,
+            // Only a confirmed GitHub commit consumes the source IDs, and they are marked the moment
+            // it lands, before anything else: a kill afterwards never leaves committed items unmarked.
+            onCommitted: (committed) => { for (const item of committed) markPublished(item.tweets); },
+          }
         );
-
-        // Only a confirmed GitHub upload consumes the source IDs, and every committed item is marked
-        // BEFORE any posting: a kill mid-tweet must never leave committed items unmarked.
-        for (const item of results) TwitterService.markContentAsPublished(item.tweets);
 
         for (const item of results) {
           await announce(item);
@@ -469,7 +524,7 @@ const processAllFolders = async () => {
           logger.info(`Pipeline succeeded for folder type ${item.queryName}: ${item.url}`);
           if (config.factory.enabled) {
             try {
-              factoryInbox.push(...require("../factory/sources").fromDigest(item.content, { topic: item.queryName, url: item.url }));
+              factoryInbox.push(...factoryModule("sources").fromDigest(item.content, { topic: item.queryName, url: item.url }));
             } catch (inboxErr) {
               logger.warn(`Factory: could not read ${item.queryName} digest (non-fatal): ${inboxErr.message}`);
             }
@@ -484,7 +539,7 @@ const processAllFolders = async () => {
         await engageAfterBatch();
       } catch (batchErr) {
         logger.error(`Batch GitHub commit failed for ${batchToCommit.length} folders${retry ? " (retry)" : "; will retry at the end of the run"}:`, batchErr);
-        if (!retry) failedBatches.push(batchToCommit);
+        if (!retry) failedBatches.push({ items: batchToCommit, prepared: batchErr?.prepared || null });
       }
     };
 
@@ -502,6 +557,10 @@ const processAllFolders = async () => {
     for (const folder of xReady ? folders : []) {
       if (stopping()) {
         logger.warn("Stop requested: no more folders this run.");
+        break;
+      }
+      if (idsUnsaved) {
+        logger.error("The published-ID store could not be saved: no more curation or tweets this run.");
         break;
       }
       try {
@@ -547,9 +606,9 @@ const processAllFolders = async () => {
       await flushBatch();
     }
     for (const batch of failedBatches.splice(0)) {
-      logger.info(`Retrying a failed batch of ${batch.length} folder article(s)...`);
-      pendingBatch = batch;
-      await flushBatch({ retry: true });
+      logger.info(`Retrying a failed batch of ${batch.items.length} folder article(s)...`);
+      pendingBatch = batch.items;
+      await flushBatch({ retry: true, prepared: batch.prepared });
     }
 
     if (stopping()) {
@@ -582,13 +641,16 @@ const processAllFolders = async () => {
       logger.warn("Cycle End: Index rebuild skipped:", indexErr.message);
     }
 
-    // --- Instagram content factory (FACTORY_ENABLED=true) ---
+    // --- Optional content factory add-on (src/utils/factory.js; FACTORY_ENABLED=true) ---
     // Last, after every commit, the LinkedIn steps and the blog sync: the editor picks this run's
     // one most viral story, researches it, makes the reel and posts within the cap. Never fatal
     // to the content pipeline.
+    if (config.factory.requested && !config.factory.enabled) {
+      logger.warn("FACTORY_ENABLED=true, but the content factory is not checked out at ./factory (or FACTORY_DIR): skipping it.");
+    }
     if (config.factory.enabled && !stopping()) {
       try {
-        await require("../factory").runCycle({ extraSources: factoryInbox });
+        await factoryModule().runCycle({ extraSources: factoryInbox });
       } catch (factoryErr) {
         logger.error(`Content factory pass failed (non-fatal): ${factoryErr?.message ?? factoryErr}`);
       }
@@ -601,9 +663,11 @@ const processAllFolders = async () => {
       try {
         const syndication = require("./syndication");
         if (typeof syndication.processQueue === "function") {
-          if (blogPushed && !(config.factory.enabled)) await sleep(4 * 60 * 1000);
-          const synd = await syndication.processQueue();
-          if (synd) logger.info(`Cycle End: DEV.to queue: ${JSON.stringify(synd)}`);
+          if (blogPushed && !(config.factory.enabled)) await pauseUnlessStopped(4 * 60 * 1000);
+          if (!stopping()) {
+            const synd = await syndication.processQueue();
+            if (synd) logger.info(`Cycle End: DEV.to queue: ${JSON.stringify(synd)}`);
+          }
         }
       } catch (syndErr) {
         logger.warn(`Cycle End: DEV.to queue failed (non-fatal): ${syndErr?.message ?? syndErr}`);
@@ -614,6 +678,7 @@ const processAllFolders = async () => {
     TwitterService.cleanupScreenshots();
     return { ran: true, articles: successfulArticles.length, xReady };
   } finally {
+    if (idsUnsaved) await saveIdsBeforeExit();
     // Release the browsers at the end of the run, whatever happened in it.
     await TwitterService.cleanup().catch(() => {});
     await feedEngage.cleanup().catch(() => {});
@@ -624,8 +689,9 @@ const processAllFolders = async () => {
 let activePipelinePromise = null;
 
 /**
- * One full run, started by `npm start`: articles and batch commits, LinkedIn, the blog push, one
- * reel, DEV.to. Resolves "ok", "locked" (another run holds the lock), "stopped" or "failed".
+ * One full run, started by `npm start`: articles and batch commits, LinkedIn, the blog push and
+ * DEV.to, plus one reel when the optional content factory add-on is enabled (src/utils/factory.js).
+ * Resolves "ok", "locked" (another run holds the lock), "stopped" or "failed".
  */
 const runPipeline = async () => {
   if (activePipelinePromise) {
@@ -651,7 +717,7 @@ const requestStop = () => {
   stopRequested = true;
 };
 
-/** Stops the run (if any) at its next step, then releases the browsers and the local LLM. */
+/** Stops the run (if any) at its next step, then releases the browsers. */
 const stopPipeline = async () => {
   requestStop();
 
@@ -659,7 +725,7 @@ const stopPipeline = async () => {
     // A film can take an hour: stop the factory's claude processes first, so shutdown is not
     // held hostage by it (and nothing gets posted after a stop was asked for).
     if (config.factory.enabled) {
-      try { require("../factory").stop(); } catch (error) { logger.warn(`Could not stop the content factory: ${error?.message ?? error}`); }
+      try { factoryModule().stop(); } catch (error) { logger.warn(`Could not stop the content factory: ${error?.message ?? error}`); }
     }
     try {
       await activePipelinePromise;
@@ -682,19 +748,12 @@ const stopPipeline = async () => {
   } catch (error) {
     logger.error("Error cleaning up LinkedIn service:", error);
   }
-  try {
-    llmService.cleanup();
-    logger.info("Local LLM service cleaned up");
-  } catch (error) {
-    logger.error("Error cleaning up local LLM service:", error);
-  }
 };
 
 // A hard exit (a second Ctrl+C, a forced deadline) skips the finally blocks: never leave the lock.
 process.on("exit", releasePipelineLock);
 
 module.exports = {
-  runDataPipeline,
   runPipeline,
   stopPipeline,
   requestStop,

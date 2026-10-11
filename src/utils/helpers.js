@@ -2,6 +2,12 @@ const winston = require("winston");
 const fs = require("fs");
 const path = require("path");
 
+// The checkout this code runs from. Logs, state files and the blog are anchored here, never to
+// process.cwd(): a start from another directory must use the same files.
+const REPO_ROOT = path.resolve(__dirname, "../..");
+// The blog folder; tests point BLOG_DIR at a temp folder (tests/_env.js).
+const blogDir = () => process.env.BLOG_DIR || path.join(REPO_ROOT, "blog");
+
 // logger.error("Step failed:", err.message) is used all over the codebase, and winston drops a
 // string passed after the message. Fold every extra argument into the message instead.
 const SPLAT = Symbol.for("splat");
@@ -28,13 +34,13 @@ const logger = winston.createLogger({
     // Test runs (node --test sets NODE_TEST_CONTEXT) must not write into the live bot's logs.
     ...(process.env.NODE_TEST_CONTEXT ? [] : [
       new winston.transports.File({
-        filename: "error.log",
+        filename: path.join(REPO_ROOT, "error.log"),
         level: "error",
         maxsize: 5242880, // 5MB
         maxFiles: 5,
       }),
       new winston.transports.File({
-        filename: "helpers.log",
+        filename: path.join(REPO_ROOT, "helpers.log"),
         maxsize: 5242880, // 5MB
         maxFiles: 5,
       }),
@@ -50,31 +56,6 @@ const logger = winston.createLogger({
 });
 // A full disk or a log file another program holds must never crash the long-running process.
 logger.on("error", () => {});
-
-/**
- * Sanitizes user input to prevent XSS attacks.
- * @param {string} input - The input string to sanitize.
- * @returns {string} - The sanitized string.
- */
-const sanitizeInput = (input) => {
-  if (typeof input !== "string") {
-    logger.error("Invalid input type for sanitizeInput: Expected string, got", typeof input);
-    return "";
-  }
-
-  if (!input.trim()) return "";
-
-  return input
-    .trim()
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#x27;")
-    .replace(/\//g, "&#x2F;")
-    .replace(/\\/g, "&#x5C;")
-    .replace(/`/g, "&#x60;");
-};
 
 /**
  * Handles errors gracefully and logs them using Winston.
@@ -97,25 +78,15 @@ const handleError = (error, message = "An error occurred", additionalContext = {
   logger.error(`${message}: ${error.message}`, errorDetails);
 };
 
-/**
- * Creates a standardized error response object.
- */
-const createErrorResponse = (message, statusCode = 500, details = {}) => {
-  return {
-    success: false,
-    error: {
-      message,
-      statusCode,
-      ...details,
-      timestamp: new Date().toISOString(),
-    },
-  };
-};
-
 // Read from env at call time: requiring config here would make every script
 // that loads helpers fail without GitHub credentials, and helpers can load
-// before dotenv runs. Same default as config.
-const canonicalBaseUrl = () => (process.env.CANONICAL_BASE_URL || "https://blogs.drix10.com").replace(/\/$/, "");
+// before dotenv runs. Same values as config.syndication.canonicalBaseUrl and config.author.byline.
+const canonicalBaseUrl = () => String(process.env.CANONICAL_BASE_URL || "").trim().replace(/\/$/, "");
+const authorByline = () => {
+  const name = String(process.env.AUTHOR_NAME || "").trim();
+  const handle = String(process.env.AUTHOR_HANDLE || "").trim();
+  return name && handle ? `${name} (${handle})` : name || handle;
+};
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -266,63 +237,43 @@ const parseDigestItems = (content) => {
 };
 
 const isPersonalEntry = (name) => String(name).toLowerCase() === "personal";
+// YYYY-MM-DD in local time: the day the article was written where it was written, not in UTC.
+const localDate = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 
 const rebuildBlogIndex = () => {
   try {
-    const rootDir = path.resolve(__dirname, "../../");
-    const blogDir = path.join(rootDir, "blog");
-    if (!fs.existsSync(blogDir)) return;
+    const rootDir = REPO_ROOT;
+    const blogRoot = blogDir();
+    if (!fs.existsSync(blogRoot)) return;
 
-    const ignored = new Set(["node_modules", ".git", ".next", ".gemini", "blog", "config", "src", "utils", "tests", "logs", "linkedin-previews", "scratch", "temp", "tracker"]);
     const articles = [];
     const seenSlugs = new Set();
     const categoryCountMap = new Map();
 
-    const contentDir = path.join(blogDir, "content");
+    const contentDir = path.join(blogRoot, "content");
     if (!fs.existsSync(contentDir)) return;
 
     let datesMap = null;
     try {
-      const datesMapPath = path.join(blogDir, "lib", "commit-dates-map.json");
+      const datesMapPath = path.join(blogRoot, "lib", "commit-dates-map.json");
       if (fs.existsSync(datesMapPath)) {
         datesMap = JSON.parse(fs.readFileSync(datesMapPath, "utf8"));
       }
     } catch (e) {}
 
-    // Auto-sync root content/Personal to blog/content/Personal if present
-    const rootPersonal = path.join(rootDir, "content", "Personal");
-    const blogPersonal = path.join(contentDir, "Personal");
-    if (fs.existsSync(rootPersonal)) {
-      if (!fs.existsSync(blogPersonal)) fs.mkdirSync(blogPersonal, { recursive: true });
-      const rootFiles = fs.readdirSync(rootPersonal);
-      for (const rf of rootFiles) {
-        const srcPath = path.join(rootPersonal, rf);
-        const destPath = path.join(blogPersonal, rf);
-        if (!fs.existsSync(destPath) || fs.statSync(srcPath).mtimeMs > fs.statSync(destPath).mtimeMs) {
-          fs.copyFileSync(srcPath, destPath);
-        }
+    // Dates already published stay as they are: file mtimes change on every fresh clone.
+    const indexPath = path.join(blogRoot, "lib", "articles-index.json");
+    const knownDates = new Map();
+    try {
+      for (const a of JSON.parse(fs.readFileSync(indexPath, "utf8")).articles || []) {
+        if (a && /^\d{4}-\d{2}-\d{2}$/.test(a.date || "")) knownDates.set(`${a.category}/${a.filename}`, a.date);
       }
-    }
+    } catch (e) {}
 
-    // Auto-sync root "LinkedIn Insights" to blog/content/LinkedIn Insights if present
-    const rootLinkedIn = path.join(rootDir, "LinkedIn Insights");
-    const blogLinkedIn = path.join(contentDir, "LinkedIn Insights");
-    if (fs.existsSync(rootLinkedIn)) {
-      if (!fs.existsSync(blogLinkedIn)) fs.mkdirSync(blogLinkedIn, { recursive: true });
-      const rootFiles = fs.readdirSync(rootLinkedIn);
-      for (const rf of rootFiles) {
-        if (!rf.endsWith(".md") || rf.toLowerCase() === "readme.md") continue;
-        const srcPath = path.join(rootLinkedIn, rf);
-        const destPath = path.join(blogLinkedIn, rf);
-        if (!fs.existsSync(destPath) || fs.statSync(srcPath).mtimeMs > fs.statSync(destPath).mtimeMs) {
-          fs.copyFileSync(srcPath, destPath);
-        }
-      }
-    }
-
+    // Every category is a folder of blog/content (Personal and LinkedIn Insights included).
     const entries = fs.readdirSync(contentDir, { withFileTypes: true });
     for (const entry of entries) {
-      if (!entry.isDirectory() || entry.name.startsWith(".") || ignored.has(entry.name)) continue;
+      if (!entry.isDirectory() || entry.name.startsWith(".")) continue;
       const catDir = path.join(contentDir, entry.name);
       try {
         const files = fs.readdirSync(catDir);
@@ -346,22 +297,25 @@ const rebuildBlogIndex = () => {
           const wordCount = content.split(/\s+/).filter(Boolean).length;
           const readingTimeMinutes = Math.max(1, Math.ceil(wordCount / 200));
 
-          let date = stats.mtime.toISOString().split("T")[0];
+          let date = knownDates.get(`${entry.name}/${file}`);
           const numMatch = file.match(/resources-(\d+)/i);
           const tsMatch = file.match(/(\d{13})/);
-          if (tsMatch) {
-            try {
-              const d = new Date(parseInt(tsMatch[1], 10));
-              if (!isNaN(d.getTime())) date = d.toISOString().split("T")[0];
-            } catch (e) {}
-          } else if (numMatch) {
-            try {
-              const num = parseInt(numMatch[1], 10);
-              // Only consult historical commit dates for old archival collections
-              if (num < 200 && datesMap && datesMap[num]) {
-                date = datesMap[num];
-              }
-            } catch (e) {}
+          if (!date) {
+            date = localDate(stats.mtime);
+            if (tsMatch) {
+              try {
+                const d = new Date(parseInt(tsMatch[1], 10));
+                if (!isNaN(d.getTime())) date = localDate(d);
+              } catch (e) {}
+            } else if (numMatch) {
+              try {
+                const num = parseInt(numMatch[1], 10);
+                // Only consult historical commit dates for old archival collections
+                if (num < 200 && datesMap && datesMap[num]) {
+                  date = datesMap[num];
+                }
+              } catch (e) {}
+            }
           }
 
           const categorySlug = entry.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80);
@@ -389,7 +343,7 @@ const rebuildBlogIndex = () => {
             date,
             readingTimeMinutes,
             wordCount,
-            author: "Drishtant Ghosh (Drix10)",
+            author: authorByline(),
             isPersonal,
             canonicalUrl: canonicalBaseUrl() + "/articles/" + slug,
             mtimeMs: stats.mtimeMs
@@ -423,7 +377,7 @@ const rebuildBlogIndex = () => {
     const categories = Array.from(categoryCountMap.values()).sort((a, b) => b.count - a.count);
 
     fs.writeFileSync(
-      path.join(blogDir, "lib/articles-index.json"),
+      indexPath,
       JSON.stringify({ articles: articles.map(({ mtimeMs, ...rest }) => rest), categories }),
       "utf8"
     );
@@ -462,14 +416,13 @@ function isEnglish(text) {
 }
 
 module.exports = Object.freeze({
-  sanitizeInput,
+  REPO_ROOT,
+  blogDir,
   handleError,
-  createErrorResponse,
   logger,
   sleep,
   redactSecrets,
   generateSeoSlug,
   rebuildBlogIndex,
-  parseDigestItems,
   isEnglish,
 });

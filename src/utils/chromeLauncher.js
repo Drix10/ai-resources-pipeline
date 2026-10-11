@@ -125,7 +125,16 @@ const TRANSIENT_SESSION_ERRORS = [
   "invalid session", "no such window", "chrome not reachable", "transport", "session not created", "session deleted",
 ];
 
-// Waits (up to 5 min) for the user to be logged in to X in the attached Chrome.
+// X's login flow and the locked-account page: no amount of waiting turns these into the home timeline.
+const X_LOGIN_PATH_RE = /^\/(?:i\/flow\/login|login|logout|i\/flow\/signup|account\/access)\b/;
+const X_LOGIN_FAIL_FAST_MS = 12000;
+const onXLoginFlow = async (driver) => {
+  try { return X_LOGIN_PATH_RE.test(new URL(await driver.getCurrentUrl()).pathname); } catch { return false; }
+};
+
+// Waits for the attached Chrome to be logged in to X. A page that stays on X's login flow fails
+// within ~12 s (code X_UNAVAILABLE): an unattended run never sits on a login wall. Any other page
+// that has not shown the timeline yet (a slow load) is polled for up to 5 min.
 async function waitForXLogin(driver, label = "pipeline") {
   const homeLink = By.css('[data-testid="AppTabBar_Home_Link"]');
   await driver.get("https://x.com/home");
@@ -135,10 +144,11 @@ async function waitForXLogin(driver, label = "pipeline") {
     logger.info("Already logged in to X (Twitter), skipping login process");
     return;
   } catch (e) {
-    logger.warn("⚠️ X (Twitter) Login Required: Please log in manually in the Chrome browser window.");
+    logger.warn("X (Twitter) timeline not shown yet; checking for a login page.");
   }
 
-  for (let attempt = 0; attempt < 60; attempt++) {
+  let loginSince = 0;
+  for (let attempt = 0; attempt < 150; attempt++) {
     try {
       if ((await driver.findElements(homeLink)).length > 0) {
         logger.info(`X (Twitter) login detected! Continuing ${label}...`);
@@ -148,7 +158,17 @@ async function waitForXLogin(driver, label = "pipeline") {
       const msg = String(pollErr?.message || "").toLowerCase();
       if (TRANSIENT_SESSION_ERRORS.some((m) => msg.includes(m))) throw pollErr;
     }
-    await sleep(5000);
+    if (await onXLoginFlow(driver)) {
+      loginSince = loginSince || Date.now();
+      if (Date.now() - loginSince >= X_LOGIN_FAIL_FAST_MS) {
+        const error = new Error("logged out of X (login page). Log in to x.com in the debug Chrome, then run again.");
+        error.code = "X_UNAVAILABLE";
+        throw error;
+      }
+    } else {
+      loginSince = 0;
+    }
+    await sleep(2000);
   }
   throw new Error("Twitter manual login timed out after 5 minutes.");
 }

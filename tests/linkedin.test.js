@@ -1,3 +1,4 @@
+require("./_env"); // isolated even when run on its own
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("fs");
@@ -205,9 +206,10 @@ test("a comment merges into the entry and keeps likedAt/followedAt", () => {
   assert.equal(T.commentedSince(track, DAY), 1);
 });
 
-test("prune drops stale posts but keeps invite history and recently liked entries", () => {
+test("prune drops stale posts but keeps 90 days of invite history and recently liked entries", () => {
   const track = {
-    "conn:https://www.linkedin.com/in/x": { ts: ago(90), status: "invited" },
+    "conn:https://www.linkedin.com/in/x": { ts: ago(80), status: "invited" },
+    "conn:https://www.linkedin.com/in/old": { ts: ago(95), status: "invited" },
     stale: { ts: ago(40), status: "liked" },
     relike: { ts: ago(40), status: "skipped", likedAt: ago(0.5) },
     cooldowns: { all: ago(-1) },
@@ -221,4 +223,31 @@ test("LLM skips rest 30 days, gate rejections 3, and every key scheme is checked
   assert.equal(T.shouldSkipTracked({ k: { ts: ago(31), status: "skipped" } }, "k"), false);
   assert.equal(T.shouldSkipTracked({ k: { ts: ago(4), status: "rejected" } }, "k"), false);
   assert.equal(T.shouldSkipTracked({ old: { ts: ago(5), status: "commented" } }, "new", ["c1:x", "old"]), true);
+});
+
+test("a stop request ends a pass before its next public action, without the pacing wait", async () => {
+  const proto = LinkedInService.prototype;
+  const saved = { scan: proto.scanFeedPosts, like: proto.likeFeedCard, follow: proto.followFeedCard, people: proto.scanPeopleSearch };
+  const savedTrack = process.env.LINKEDIN_TRACK_PATH;
+  process.env.LINKEDIN_TRACK_PATH = path.join(TMP, "stop-track.json");
+  LinkedInService._resetDisabled();
+  let likes = 0, searches = 0, stop = false;
+  const text = (i) => `Venture capital investors in New York weigh fintech and AI startups, private equity and markets this week (${i}).`;
+  proto.scanFeedPosts = async () => Array.from({ length: 6 }, (_, i) => ({ key: `urn:li:activity:${900 + i}`, author: `a${i}`, href: `https://www.linkedin.com/in/a${i}`, text: text(i), head: "", ageH: 1 }));
+  proto.likeFeedCard = async () => { likes++; stop = true; return true; };
+  proto.followFeedCard = async () => false;
+  proto.scanPeopleSearch = async () => { searches++; return { people: [] }; };
+  try {
+    const started = Date.now();
+    const r = await feedEngage.runLikePass({ min: 4, max: 4, shouldStop: () => stop });
+    assert.equal(likes, 1, "no like after the stop");
+    assert.equal(r.liked, 1);
+    assert.ok(Date.now() - started < 5000, "the 6-20 s pause after a like ends at the stop");
+    const c = await feedEngage.runConnectPass({ min: 3, max: 3, shouldStop: () => true });
+    assert.equal(searches, 0);
+    assert.equal(c.sent, 0);
+  } finally {
+    Object.assign(proto, { scanFeedPosts: saved.scan, likeFeedCard: saved.like, followFeedCard: saved.follow, scanPeopleSearch: saved.people });
+    process.env.LINKEDIN_TRACK_PATH = savedTrack;
+  }
 });

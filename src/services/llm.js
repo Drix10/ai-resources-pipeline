@@ -21,6 +21,14 @@ const { fetchPage } = require("../utils/pageFetch");
  * ============================================================================
  */
 
+// Who LinkedIn replies are written as (config.author: AUTHOR_NAME / AUTHOR_HANDLE).
+const persona = (who) => (who ? `${who}, a software engineer` : "a software engineer");
+// A "Best, <first name>" sign-off a model sometimes appends to a reply.
+const REPLY_SIGNOFF = (() => {
+  const first = config.author.name.split(/\s+/)[0];
+  return first ? new RegExp(`(?:^|\\n+)[ \\t]*Best,\\s*${first.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}[^\\n]*`, "gi") : null;
+})();
+
 const BANNED_WORDS = [
   "delve", "testament", "tapestry", "unlock", "unlocking", "seamless", "game-changer",
   "revolutionary", "groundbreaking", "moreover", "furthermore", "in conclusion",
@@ -283,8 +291,6 @@ class LocalLLMService {
     };
   }
 
-  cleanup() {}
-
   isLocalMode() {
     return Boolean(config.llm.useLocal);
   }
@@ -350,13 +356,6 @@ class LocalLLMService {
     } finally {
       clearTimeout(timeout);
     }
-  }
-
-  async ensureAvailable() {
-    if (this.isLocalMode()) {
-      return this.ensureLocalOllamaAvailable();
-    }
-    return this.ensureNvidiaAvailable();
   }
 
   async ensureNvidiaAvailable() {
@@ -608,8 +607,8 @@ class LocalLLMService {
     return new RegExp(`\\b${pattern}${optionalE}(s|ed|ing|ly|tion|ness|er|est|ance|ence|ment|ive|ize|ise|able|ible)?\\b`, 'i');
   }
 
-  // Article pipeline: local Ollama or NVIDIA. LinkedIn writing goes through
-  // generateChainText / generateCommentText (OpenRouter first, NVIDIA fallback).
+  // Local Ollama or NVIDIA only, no OpenRouter. Articles go through generateArticleText and
+  // LinkedIn writing through generateChainText / generateCommentText (OpenRouter first).
   async generateText(prompt, options = {}) {
     this.recordMetric("llmCalls");
     if (this.isLocalMode()) {
@@ -650,8 +649,7 @@ class LocalLLMService {
   async generateTextViaOllama(prompt, options = {}) {
     const endpoint = `${config.llm.baseUrl}/api/generate`;
     await this.ensureLocalOllamaAvailable();
-    // ponytail: honor per-call timeoutMs like the Nvidia path; big multi-source
-    // generations budget sourceCount * 25s and were aborted at the 300s default.
+    // Per-call timeoutMs, like the Nvidia path: big multi-source generations need more than the default.
     const { format, timeoutMs, system, model, ...generationOptions } = options;
     logger.info(`LocalLLMService: Generating with local model "${model || config.llm.model}".`);
     const requestTimeout = Math.max(config.llm.requestTimeoutMs, typeof timeoutMs === "number" ? timeoutMs : 0);
@@ -946,9 +944,9 @@ class LocalLLMService {
       .replace(/[‒-―]|--/g, ", ")
       .replace(/^[ \t]*#{1,6}\s*.*$/gm, "")
       .replace(/\*\*|__/g, "")
-      .replace(/https?:\/\/\S+/g, "")
-      .replace(/(?:^|\n+)[ \t]*Best,\s*Drishtant[^\n]*/gi, "")
-      .trim();
+      .replace(/https?:\/\/\S+/g, "");
+    if (REPLY_SIGNOFF) body = body.replace(REPLY_SIGNOFF, "");
+    body = body.trim();
     body = body.replace(/(?:\r?\n|\s)*(?:#[a-zA-Z0-9_]+\s*)+$/g, "").trim();
     body = body.replace(/\n{3,}/g, "\n\n").trim();
     body = body.replace(/[\p{Extended_Pictographic}\uFE0F\u200D]+/gu, "").replace(/ {2,}/g, " ").trim();
@@ -1223,7 +1221,7 @@ class LocalLLMService {
     // runs (it cleans, never rejects). Everything else passes through verbatim.
     if (config.social.linkedinSimpleReply) {
       const raw = await this.generateCommentText(
-        `Write a short, natural LinkedIn reply (1-2 sentences) to the post below, as its reader Drishtant Ghosh, a software engineer. Sound like a real peer: specific, warm, zero fluff, no hashtags, no emojis. Return only the reply text, or exactly SKIP if there is nothing worth saying.\n\nPOST BY ${author}:\n${cleanPost}`,
+        `Write a short, natural LinkedIn reply (1-2 sentences) to the post below, as its reader ${persona(config.author.name)}. Sound like a real peer: specific, warm, zero fluff, no hashtags, no emojis. Return only the reply text, or exactly SKIP if there is nothing worth saying.\n\nPOST BY ${author}:\n${cleanPost}`,
         { temperature: 0.7, num_predict: 200, system: "You write short natural LinkedIn replies." });
       const comment = String(raw || "").trim().replace(/^["'\u201C\u201D\u2018\u2019]+|["'\u201C\u201D\u2018\u2019]+$/g, "");
       if (/^skip\b/i.test(comment)) return { comment: "", isValid: false, skipped: true, errors: ["simple-mode skip"] };
@@ -1233,7 +1231,7 @@ class LocalLLMService {
     const feedbackSection = Array.isArray(feedback) && feedback.length > 0
       ? `\n=== YOUR LAST DRAFT WAS REJECTED ===\n${feedback.map((f) => `- ${f}`).join("\n")}\nWrite a different, simpler reply. Say less, using only what the post itself says. Do not reword the rejected draft.\n`
       : "";
-    const prompt = `You are Drishtant Ghosh (Drix10), a software engineer scrolling LinkedIn and replying to ONE post the way a thoughtful, busy person would. Not a fan, not a teacher, not a brand.
+    const prompt = `You are ${persona(config.author.byline)} scrolling LinkedIn and replying to ONE post the way a thoughtful, busy person would. Not a fan, not a teacher, not a brand.
 
 POST AUTHOR: ${author} (the system tags them; most replies need no name)
 POST:
@@ -1265,7 +1263,7 @@ REPLY: <the comment text, or SKIP>`;
       // Temperature rises with each retry: first attempt is disciplined (0.4), later
       // retries are more creative (0.7-0.8) to escape the rut the gates caused.
       const temperature = retries >= 3 ? 0.4 : retries === 2 ? 0.6 : retries === 1 ? 0.75 : 0.85;
-      const planned = await this.generateCommentText(prompt, { temperature, num_predict: 2000, system: "You are Drishtant Ghosh (Drix10), a software engineer replying to LinkedIn posts like a real person: short, honest, and only when you have something genuine to say." });
+      const planned = await this.generateCommentText(prompt, { temperature, num_predict: 2000, system: `You are ${persona(config.author.byline)} replying to LinkedIn posts like a real person: short, honest, and only when you have something genuine to say.` });
       // Output is "MODE: x\nREPLY: y"; tolerate models that return the bare reply.
       const modeM = String(planned || "").match(/^\s*MODE\s*:\s*([A-Za-z]+)/i);
       const replyM = String(planned || "").match(/REPLY\s*:\s*([\s\S]*)$/i);
@@ -1880,5 +1878,3 @@ ${feedback.length ? `\nYour previous attempt was rejected. Fix this:\n${feedback
 }
 
 module.exports = new LocalLLMService();
-// Shared with the content factory's storyboard gate (src/factory/storyboard.js).
-module.exports.BANNED_WORDS = BANNED_WORDS;

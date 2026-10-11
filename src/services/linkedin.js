@@ -1,8 +1,7 @@
 const { By, Key } = require("selenium-webdriver");
+const config = require("../../config");
 const { logger, sleep } = require("../utils/helpers");
 const { attachDriver, releaseDriver, MOD_KEY } = require("../utils/chromeLauncher");
-const fs = require("fs");
-const path = require("path");
 const crypto = require("crypto");
 
 // Fixed waits read as a bot; every pause in this file is jittered +-25%.
@@ -53,6 +52,14 @@ class LinkedInService {
     // Own profile slug (to spot our own earlier comment on a card): LINKEDIN_PROFILE_SLUG,
     // else read once from the nav "Me" link.
     this._ownSlug = String(process.env.LINKEDIN_PROFILE_SLUG || "").trim().replace(/^.*\/in\//, "").replace(/[/?#].*$/, "");
+    // Own posts are recognised by the author's name or handle (AUTHOR_NAME / AUTHOR_HANDLE) on the
+    // card, or by the profile slug in its link.
+    this._ownNames = [config.author.name, config.author.handle].filter(Boolean).map((n) => n.toLowerCase());
+  }
+
+  isOwnPost(item) {
+    const hay = `${item.author} ${item.href}`.toLowerCase();
+    return this._ownNames.some((n) => hay.includes(n)) || Boolean(this._ownSlug && String(item.href).includes(`/in/${this._ownSlug}`));
   }
 
   // Process-wide stop switch (see linkedinDisabledUntil).
@@ -152,7 +159,6 @@ class LinkedInService {
         await this.checkLogin();
         this._isLoggedIn = true;
       }
-      this.cleanupDebugScreenshots();
     } catch (error) {
       if (isLinkedInStop(error)) logger.warn(`LinkedInService: ${error.message}`);
       else logger.error("LinkedInService: Failed to initialize:", error);
@@ -165,7 +171,7 @@ class LinkedInService {
 
   // One quick check (~10 s). An unattended run never waits for a human: a signed-out
   // browser switches LinkedIn off for the rest of the run (LINKEDIN_LOGIN_REQUIRED) instead
-  // of stalling 5 minutes on every scan. Only feed-preview.js --wait-login
+  // of stalling 5 minutes on every scan. Only scripts/feed-preview.js --wait-login
   // (LINKEDIN_INTERACTIVE_LOGIN=true) waits for a manual login.
   async checkLogin() {
     await this.driver.get("https://www.linkedin.com/feed/");
@@ -197,7 +203,7 @@ class LinkedInService {
     throw linkedinError("LINKEDIN_LOGIN_REQUIRED", "LinkedIn is not logged in in the debug Chrome; skipping LinkedIn for this run.");
   }
 
-  // Interactive only (feed-preview.js --wait-login): a person is at the keyboard.
+  // Interactive only (scripts/feed-preview.js --wait-login): a person is at the keyboard.
   async login() {
     const maxAttempts = 60; // 5 minutes total wait time (60 * 5 seconds)
     let attempts = 0;
@@ -251,7 +257,7 @@ class LinkedInService {
       "register now", "register here", "register today", "register for", "registration is open"
     ];
     const lower = String(text || "").toLowerCase();
-    if (FEED_SPAM.some((kw) => lower.includes(kw)) || /starts (?:on|at|in) /.test(lower)) return true;
+    if (FEED_SPAM.some((kw) => lower.includes(kw)) || /\bstarts (?:on|at|in) /.test(lower)) return true;
     // Ad label = a header line (or a "•"-separated header segment) that is exactly "Promoted".
     // Body sentences ("I got promoted", "Promoted by the board") never match.
     const headLines = String(text || "").split(/\r?\n/).slice(0, 8);
@@ -435,7 +441,7 @@ class LinkedInService {
           if (LinkedInService.hasMixedAuthors(text)) { dropped.mixed++; continue; } // two authors merged in one card: attribution unknowable
           if (LinkedInService.isFeedModuleText(text)) { dropped.module++; continue; } // recommendation module (Jobs/People cards): not a post
           if (LinkedInService.isFeedSpamText(text)) { dropped.spam++; continue; }
-          if (/drishtant|drix10/i.test(`${item.author} ${item.href}`) || (this._ownSlug && String(item.href).includes(`/in/${this._ownSlug}`))) { dropped.own++; continue; } // own post: never engage
+          if (this.isOwnPost(item)) { dropped.own++; continue; } // own post: never engage
           if (keySrc.split(/\s+/).length < MIN_WORDS) { dropped.thin++; continue; }
           const allLetters = keySrc.match(/[\p{L}]/gu) || [];
           const asciiLetters = keySrc.match(/[A-Za-z]/g) || [];
@@ -565,7 +571,7 @@ class LinkedInService {
     const snip = String(textSnippet).substring(0, 80);
     const EDITOR_SEL = '[aria-label="Text editor for creating comment"], .tiptap, .ProseMirror';
     const FIND = `
-      const norm = s => (s || '').replace(/[\u200b-\u200d\ufeff]/g, '').replace(/\s+/g, ' ').trim();
+      const norm = s => (s || '').replace(/[\\u200b-\\u200d\\ufeff]/g, '').replace(/\\s+/g, ' ').trim();
       ${CARDS_JS}
       const nq = norm(arguments[0]);
       const card = cards.find(c => norm(c.innerText).includes(nq)) || null;
@@ -1008,30 +1014,6 @@ class LinkedInService {
       return "sent-unverified";
     } catch (e) {
       return dispatched ? "sent-unverified" : "fail";
-    }
-  }
-
-  cleanupDebugScreenshots() {
-    try {
-      const tempDir = path.join(process.cwd(), "temp");
-      if (!fs.existsSync(tempDir)) return;
-      const files = fs.readdirSync(tempDir).filter(f =>
-        f.startsWith("linkedin-") &&
-        (f.endsWith(".png") || f.endsWith(".html") || f.endsWith(".jpg") || f.endsWith(".jpeg"))
-      );
-      const now = Date.now();
-      for (const file of files) {
-        const filePath = path.join(tempDir, file);
-        try {
-          const stat = fs.statSync(filePath);
-          if (now - stat.mtimeMs > 3600000) {
-            fs.unlinkSync(filePath);
-            logger.info(`LinkedInService: Cleaned up old temporary file: ${file}`);
-          }
-        } catch (e) { }
-      }
-    } catch (error) {
-      logger.warn("LinkedInService: Failed to cleanup temporary files:", error.message);
     }
   }
 

@@ -1,3 +1,6 @@
+require("./_env"); // isolated even when run on its own
+// Only articles with a blog page are queued: this suite's own blog address, set before config loads.
+process.env.CANONICAL_BASE_URL = "https://blog.example.com";
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
@@ -123,6 +126,27 @@ test("only 'has already been taken' counts as a duplicate; any other 422 is a fa
     assert.equal(items(file)[bad.canonicalUrl].status, "failed");
     assert.equal(items(file)[bad.canonicalUrl].attempts, 3);
     assert.match(items(file)[bad.canonicalUrl].lastError, /invalid/);
+    assert.equal(items(file)[bad.canonicalUrl].markdown, undefined, "a failed item keeps no body");
+  });
+});
+
+test("finished items are dropped after 30 days; pending ones stay whatever their age", async () => {
+  await withQueue({ live: () => false, devto: () => assert.fail("nothing is live") }, async ({ file }) => {
+    for (const n of [1, 2, 3, 4]) await queueOne(n);
+    const raw = JSON.parse(fs.readFileSync(file, "utf8"));
+    const urls = Object.keys(raw.items);
+    const old = new Date(Date.now() - 31 * 24 * 3600 * 1000).toISOString();
+    const recent = new Date(Date.now() - 2 * 24 * 3600 * 1000).toISOString();
+    Object.assign(raw.items[urls[0]], { status: "done", updatedAt: old });
+    Object.assign(raw.items[urls[1]], { status: "failed", updatedAt: recent });
+    Object.assign(raw.items[urls[2]], { status: "done", updatedAt: recent });
+    Object.assign(raw.items[urls[3]], { createdAt: recent, updatedAt: old });
+    fs.writeFileSync(file, JSON.stringify(raw));
+    await syndication.processQueue();
+    const after = items(file);
+    assert.deepEqual(Object.keys(after).sort(), urls.slice(1).sort(), "only the old finished item is gone");
+    assert.equal(after[urls[1]].markdown, undefined, "a failed item keeps no body");
+    assert.ok(after[urls[2]].markdown && after[urls[3]].markdown);
   });
 });
 

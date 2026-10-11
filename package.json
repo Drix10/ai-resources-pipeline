@@ -1,16 +1,20 @@
 {
   "name": "ai-resources-pipeline",
   "version": "1.0.0",
-  "description": "Autonomous AI Knowledge & Multi-Channel Syndication Engine",
-  "main": "index.js",
-  "author": "Drix10",
+  "private": true,
+  "description": "Collects AI and technology resources, writes them up with an LLM, and publishes them across X, LinkedIn and a Next.js blog, on one scheduled run.",
   "license": "MIT",
-  "engines": {
-    "node": ">=18"
-  },
+  "author": "Drix10",
+  "homepage": "https://github.com/Drix10/ai-resources-pipeline#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Drix10/ai-resources-pipeline.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Drix10/ai-resources-pipeline/issues"
+  },
+  "engines": {
+    "node": ">=20"
   },
   "dependencies": {
     "@octokit/rest": "^22.0.1",
@@ -20,19 +24,10 @@
     "selenium-webdriver": "^4.47.0",
     "winston": "^3.17.0"
   },
-  "devDependencies": {
-    "nodemon": "^3.1.9"
-  },
   "scripts": {
     "start": "node start-app.js",
-    "dev": "nodemon index.js",
-    "list": "node tracker/start-list.js",
+    "preview": "node scripts/feed-preview.js",
     "test": "node --require ./tests/_env.js --test tests/*.test.js",
-    "seo:audit": "node scripts/seo-audit.mjs",
-    "factory": "node factory-run.js",
-    "factory:install": "cd factory && npm install && cd .. && node factory-run.js --sync-library",
-    "factory:library": "node factory-run.js --sync-library",
-    "factory:sample": "node factory-run.js --sample",
-    "factory:studio": "cd factory && npm run studio"
+    "seo:audit": "node scripts/seo-audit.mjs"
   }
 }

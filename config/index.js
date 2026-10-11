@@ -1,9 +1,40 @@
-require("dotenv").config();
+const path = require("path");
+// The repo's .env, whatever directory the process was started from. A variable that is already
+// set (the shell, tests/_env.js) wins over the file.
+require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
+const { factoryInstalled } = require("../src/utils/factory");
 
 const parsePositiveInteger = (value, fallback) => {
   const parsed = Number.parseInt(value, 10);
   return Number.isSafeInteger(parsed) && parsed > 0 ? parsed : fallback;
 };
+
+const env = (name) => String(process.env[name] || "").trim();
+const canonicalBaseUrl = env("CANONICAL_BASE_URL").replace(/\/$/, "");
+
+// Who the pipeline publishes as: the article footer, the blog index byline, the LinkedIn reply
+// persona and the commits on the resources repo. Every field is optional; an empty one leaves its
+// line out (with no AUTHOR_EMAIL, GitHub attributes commits to the token's account).
+const author = {
+  name: env("AUTHOR_NAME"),
+  // Handle shown as "Name (handle)"; also the name on commits to the resources repo.
+  handle: env("AUTHOR_HANDLE"),
+  email: env("AUTHOR_EMAIL"),
+  // One clause after "Written by <name>, " in the article footer.
+  bio: env("AUTHOR_BIO"),
+  websiteUrl: env("AUTHOR_WEBSITE_URL"),
+};
+author.byline = author.name && author.handle ? `${author.name} (${author.handle})` : author.name || author.handle;
+// Footer links in display order: { label, url, text } (text is the visible link text).
+const displayUrl = (url) => url.replace(/^https?:\/\/(www\.)?/i, "").replace(/\/$/, "");
+author.links = [
+  { label: "Blog", url: canonicalBaseUrl, text: displayUrl(canonicalBaseUrl) },
+  { label: "Portfolio", url: author.websiteUrl, text: displayUrl(author.websiteUrl) },
+  { label: "GitHub", url: env("AUTHOR_GITHUB_URL"), text: displayUrl(env("AUTHOR_GITHUB_URL")) },
+  { label: "LinkedIn", url: env("AUTHOR_LINKEDIN_URL"), text: displayUrl(env("AUTHOR_LINKEDIN_URL")) },
+  { label: "X", url: env("AUTHOR_X_URL"), text: `@${env("AUTHOR_X_URL").replace(/\/$/, "").split("/").pop()}` },
+  { label: "Email", url: author.email && `mailto:${author.email}`, text: author.email },
+].filter((link) => link.url);
 
 const config = {
   github: {
@@ -11,9 +42,11 @@ const config = {
     owner: process.env.GITHUB_USERNAME,
     repo: process.env.GITHUB_REPONAME,
   },
+  author,
   llm: {
-    // Default matches .env.example: NVIDIA NIM unless LOCAL_LLM=true.
-    useLocal: (process.env.LOCAL_LLM ?? process.env.USE_LOCAL_LLM ?? "false") === "true",
+    // LOCAL_LLM=true: local Ollama for everything. Otherwise OpenRouter writes articles and
+    // comments, with NVIDIA NIM as the fallback.
+    useLocal: (process.env.LOCAL_LLM ?? "false") === "true",
     baseUrl: (process.env.LOCAL_LLM_BASE_URL || "http://127.0.0.1:11434").replace(/\/$/, ""),
     model: process.env.LOCAL_LLM_MODEL || "gemma4:latest",
     commentModel: process.env.LOCAL_LLM_COMMENT_MODEL || process.env.LOCAL_LLM_MODEL || "gemma4:latest",
@@ -46,14 +79,10 @@ const config = {
       requestTimeoutMs: parsePositiveInteger(process.env.OPENROUTER_REQUEST_TIMEOUT_MS, 120000),
     },
   },
-  // Used by the list tracker (npm run list), not by the main pipeline.
-  discord: {
-    webhookUrl: process.env.DISCORD_WEBHOOK_URL,
-  },
   social: {
     linkedinFeedReply: process.env.LINKEDIN_FEED_REPLY === "true",
     // Like-only engagement while comments stay disabled (perfecting replies).
-    // 5-9 likes per cycle on targeted finance/AI/founder posts.
+    // 2-4 likes after each article on targeted finance/AI/founder posts.
     linkedinLike: process.env.LINKEDIN_LIKE !== "false",
     // Simple mode: raw LLM reply, no system prompting, no gates, no critic.
     // Experiment flag for comparing against the policed pipeline. Nothing posts
@@ -62,125 +91,29 @@ const config = {
     // Post sources for likes/comments: "targeted" (default: content search + config/creators.json,
     // home-feed fallback) or "feed" (home feed Top/Recent only).
     linkedinSource: process.env.LINKEDIN_SOURCE === "feed" ? "feed" : "targeted",
-    // 10-15 no-note connection requests per run to US people in AI/tech/finance/investing.
+    // 3-5 no-note connection requests after each batch commit to US people in AI/tech/finance/investing.
     linkedinConnect: process.env.LINKEDIN_CONNECT !== "false",
     twitterPost: process.env.TWITTER_POST !== "false",
+    // Optional credit lines in announcement tweets ("Made by @you via @yourorg"); empty = no line.
+    tweetCredit: {
+      madeBy: env("TWITTER_MADE_BY"),
+      via: env("TWITTER_VIA"),
+    },
   },
   syndication: {
-    canonicalBaseUrl: (process.env.CANONICAL_BASE_URL || "https://blogs.drix10.com").replace(/\/$/, ""),
+    // The blog's public address. Empty: articles get no canonical link and nothing is queued for DEV.to.
+    canonicalBaseUrl,
     devto: {
       apiKey: process.env.DEVTO_API_KEY || "",
       enabled: process.env.DEVTO_AUTO_PUBLISH === "true",
     },
   },
-  // Instagram content factory (src/factory/, docs/CONTENT_FACTORY.md). Off unless FACTORY_ENABLED=true.
+  // The content factory is an optional add-on (its own repository, checked out at ./factory or
+  // FACTORY_DIR; its settings live in its own config). It runs at the end of a run when
+  // FACTORY_ENABLED=true and the checkout is present.
   factory: {
-    enabled: process.env.FACTORY_ENABLED === "true",
-    // Opus is the director: storyboard JSON (template mode), vision QA, and full code films
-    // (agent/hero mode). Default backend is the LOCAL Claude Code CLI (`claude -p`) on the machine
-    // that runs `npm start`, signed in with your Claude plan: no Anthropic API key needed.
-    // "anthropic" / "openrouter" are optional API fallbacks for headless servers.
-    opusBackend: ["claude-code", "anthropic", "openrouter"].includes(process.env.FACTORY_OPUS_BACKEND) ? process.env.FACTORY_OPUS_BACKEND : "claude-code",
-    claudeBin: process.env.CLAUDE_BIN || "claude",
-    // Claude Code --effort: low | medium | high | xhigh | max. xhigh = "extra" effort.
-    claudeEffort: ["low", "medium", "high", "xhigh", "max"].includes(process.env.FACTORY_CLAUDE_EFFORT) ? process.env.FACTORY_CLAUDE_EFFORT : "xhigh",
-    // A reel must be made in under 30 minutes. At xhigh the editor, the storyboard and a director's
-    // brief took ~30 min of thinking before the film started, and the film agent ~45 min. The text
-    // steps think at FACTORY_TEXT_EFFORT and the reel agent at FACTORY_AGENT_EFFORT, inside
-    // FACTORY_REEL_AGENT_MINUTES; reels skip the separate director (the storyboard plans every shot).
-    textEffort: ["low", "medium", "high", "xhigh", "max"].includes(process.env.FACTORY_TEXT_EFFORT) ? process.env.FACTORY_TEXT_EFFORT : "high",
-    agentEffort: ["low", "medium", "high", "xhigh", "max"].includes(process.env.FACTORY_AGENT_EFFORT) ? process.env.FACTORY_AGENT_EFFORT : "high",
-    reelAgentMinutes: parsePositiveInteger(process.env.FACTORY_REEL_AGENT_MINUTES, 18),
-    reelDirector: process.env.FACTORY_REEL_DIRECTOR === "true",
-    anthropic: {
-      apiKey: process.env.ANTHROPIC_API_KEY || "",
-      baseUrl: (process.env.ANTHROPIC_BASE_URL || "https://api.anthropic.com").replace(/\/$/, ""),
-      model: process.env.FACTORY_OPUS_MODEL || "claude-opus-5-5",
-      requestTimeoutMs: parsePositiveInteger(process.env.FACTORY_OPUS_TIMEOUT_MS, 600000),
-    },
-    openrouterOpusModel: process.env.FACTORY_OPENROUTER_OPUS_MODEL || "anthropic/claude-opus-5.5",
-    // Stories per pipeline cycle (the editor picks the best of the run), and the formats made from each.
-    perCycle: parsePositiveInteger(process.env.FACTORY_PER_CYCLE, 1),
-    formats: String(process.env.FACTORY_FORMATS || "reel").split(",").map((f) => f.trim()).filter((f) => f === "reel" || f === "carousel"),
-    // Vision QA: Opus looks at rendered stills and can send the storyboard back once.
-    visionQa: process.env.FACTORY_VISION_QA !== "false",
-    // How reels are made after the storyboard exists:
-    //   agent    (default) every reel is a one-off film written by your local Claude Code agent,
-    //            with its own look; recent looks and topics are fed back so nothing repeats
-    //   hybrid   house templates for most reels plus heroPerWeek agent films
-    //   template house templates only (fast previews; every reel shares one look)
-    videoMode: ["hybrid", "agent", "template"].includes(process.env.FACTORY_VIDEO_MODE) ? process.env.FACTORY_VIDEO_MODE : "agent",
-    // Footage and photos for the scenes that ask for them (src/factory/stock.js). Pexels and
-    // Pixabay keys are free; Mixkit video, Wikimedia Commons and Openverse photos need none.
-    stock: {
-      pexelsKey: process.env.PEXELS_API_KEY || "",
-      pixabayKey: process.env.PIXABAY_API_KEY || "",
-      openverse: process.env.FACTORY_OPENVERSE !== "off",
-      mixkit: process.env.FACTORY_MIXKIT !== "off",
-      commons: process.env.FACTORY_COMMONS !== "off",
-    },
-    // Voiceover for agent reels (src/factory/voice.js): ElevenLabs is the main provider, OpenRouter
-    // (a speech model over chat completions) the fallback. Without either key reels get music only.
-    voice: {
-      enabled: process.env.FACTORY_VOICE !== "off",
-      elevenlabsKey: process.env.ELEVENLABS_API_KEY || "",
-      // A premade library voice until your own is set ("George": warm, articulate narrator).
-      voiceId: process.env.ELEVENLABS_VOICE_ID || "JBFqnCBsd6RMkjVDRZzb",
-      model: process.env.ELEVENLABS_MODEL || "eleven_v4",
-      // Tried in order when a model is refused (e.g. not enabled for the account, no timestamps).
-      fallbackModels: String(process.env.ELEVENLABS_FALLBACK_MODELS ?? "eleven_v3,eleven_multilingual_v2").split(",").map((x) => x.trim()).filter(Boolean),
-      // 0 = most expressive (tags land hardest), 0.5 = natural, 1 = most stable.
-      stability: (() => {
-        const n = Number(process.env.ELEVENLABS_STABILITY);
-        return process.env.ELEVENLABS_STABILITY?.trim() && Number.isFinite(n) ? Math.min(1, Math.max(0, n)) : 0.5;
-      })(),
-      orModel: process.env.FACTORY_VOICE_FALLBACK_MODEL || "openai/gpt-audio-mini",
-      // Tried in order: the mini model is cheap but sometimes adds words of its own; gpt-audio reads more faithfully.
-      orModels: String(process.env.FACTORY_VOICE_FALLBACK_MODELS || `${process.env.FACTORY_VOICE_FALLBACK_MODEL || "openai/gpt-audio-mini"},openai/gpt-audio`).split(",").map((x) => x.trim()).filter((x, i, all) => x && all.indexOf(x) === i),
-      orVoice: process.env.FACTORY_VOICE_FALLBACK_VOICE || "onyx",
-    },
-    // Carousels: agent = designed slide by slide by the local agent from a director's prompt
-    // (default); template = the house slide templates (fast, but every carousel shares one look).
-    carouselMode: process.env.FACTORY_CAROUSEL_MODE === "template" ? "template" : "agent",
-    // When a run brought nothing new (or everything new is made already): true = make a piece from
-    // the LinkedIn Insights archive; false (default) = skip, so the channel only posts fresh stories.
-    // When a run brings no story worth a reel (nothing new, or only launches and promos): true
-    // (default) = take the best unmade Insight from the archive; false = no reel that day.
-    archiveFallback: process.env.FACTORY_ARCHIVE_FALLBACK !== "false",
-    heroPerWeek: parsePositiveInteger(process.env.FACTORY_HERO_PER_WEEK, 2),
-    // When an agent film fails: false (default) = mark failed and retry next cycle, so every
-    // posted reel stays unique; true = ship a templated reel instead.
-    templateFallback: process.env.FACTORY_TEMPLATE_FALLBACK === "true",
-    // Novelty memory: how many recent pieces' looks/topics the director must avoid repeating.
-    noveltyWindow: parsePositiveInteger(process.env.FACTORY_NOVELTY_WINDOW, 15),
-    heroTimeoutMs: parsePositiveInteger(process.env.FACTORY_HERO_TIMEOUT_MS, 60 * 60 * 1000),
-    // Real material: how many of the article's linked pages to screenshot (0 = none).
-    assetPages: process.env.FACTORY_ASSET_PAGES === "0" ? 0 : parsePositiveInteger(process.env.FACTORY_ASSET_PAGES, 4),
-    // Engine the agent builds with: remotion (Remotion + its skills), hyperframes (HeyGen HTML+GSAP),
-    // or auto (alternate between the two each film; needs both installed).
-    heroEngine: ["remotion", "hyperframes", "auto"].includes(process.env.FACTORY_HERO_ENGINE) ? process.env.FACTORY_HERO_ENGINE : "remotion",
-    // Skills/plugins the agent is told to use if installed in your local Claude Code (comma-separated slash names).
-    heroSkills: String(process.env.FACTORY_HERO_SKILLS || "/remotion:remotion-best-practices,/hyperframes:motion-graphics").split(",").filter((x) => x.trim() !== "none").map((x) => x.trim()).filter(Boolean),
-    handle: process.env.FACTORY_HANDLE || "@drix10",
-    author: process.env.FACTORY_AUTHOR || "Drishtant Ghosh",
-    // Chromium for Remotion renders; empty lets Remotion download its own headless shell.
-    browserExecutable: process.env.REMOTION_BROWSER || "",
-  },
-  instagram: {
-    // Nothing is shared unless IG_POST=true; otherwise uploads stop before the Share click.
-    post: process.env.IG_POST === "true",
-    dailyCap: parsePositiveInteger(process.env.IG_DAILY_CAP, 2),
-    // Minimum gap between two published pieces.
-    minGapMinutes: parsePositiveInteger(process.env.IG_MIN_GAP_MINUTES, 180),
-  },
-  monitoring: {
-    targetListId: process.env.MONITOR_LIST_ID,
-    checkInterval: parsePositiveInteger(process.env.CHECK_INTERVAL, 300000),
-    rateLimitDelay: parsePositiveInteger(process.env.RATE_LIMIT_DELAY, 60000),
-    sendAllTweets: process.env.SEND_ALL_TWEETS === "true" || false,
-    keywords: process.env.MONITOR_KEYWORDS
-      ? process.env.MONITOR_KEYWORDS.split(",").map((k) => k.trim())
-      : [],
+    requested: process.env.FACTORY_ENABLED === "true",
+    enabled: process.env.FACTORY_ENABLED === "true" && factoryInstalled(),
   },
   folders: [
     {

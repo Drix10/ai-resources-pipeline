@@ -22,7 +22,7 @@ const config = require("../../config");
 const llmService = require("./llm");
 const linkedinService = require("./linkedin");
 const LinkedInService = new linkedinService();
-const { logger, sleep, isEnglish } = require("../utils/helpers");
+const { logger, sleep, isEnglish, REPO_ROOT } = require("../utils/helpers");
 
 const HOUR = 3600 * 1000;
 const DAY = 24 * HOUR;
@@ -34,11 +34,12 @@ const jitter = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
 const nowIso = () => new Date().toISOString();
 
 // The tracker path is read per call so tests can point LINKEDIN_TRACK_PATH at a temp dir.
-const trackPath = () => process.env.LINKEDIN_TRACK_PATH || path.join(process.cwd(), "data", "linkedin-feed-commented.json");
+const trackPath = () => process.env.LINKEDIN_TRACK_PATH || path.join(REPO_ROOT, "data", "linkedin-feed-commented.json");
 const MAX_PER_DAY = 15; // comments, rolling 24 h
 const REJECT_TTL_MS = 3 * DAY; // drafts our own gates rejected: the post is fine, retry after 3 days
 const SKIP_TTL_MS = 30 * DAY; // LLM SKIPs, sensitive and thin posts: the post itself is the problem
 const PRUNE_MS = 30 * DAY;
+const CONN_PRUNE_MS = 90 * DAY; // invite history: well past the weekly cap, then dropped
 const LIKES_MAX_PER_DAY = 40;
 const FOLLOW_MAX_PER_DAY = 10;
 const AUTHOR_COMMENT_GAP_MS = 7 * DAY; // at most 1 comment per author per week
@@ -130,7 +131,7 @@ const searchUrl = (q) => "https://www.linkedin.com/search/results/content/?keywo
   "&datePosted=%22past-week%22&sortBy=%22date_posted%22";
 function loadCreators() {
   try {
-    const list = JSON.parse(fs.readFileSync(path.join(process.cwd(), "config", "creators.json"), "utf8"));
+    const list = JSON.parse(fs.readFileSync(path.join(REPO_ROOT, "config", "creators.json"), "utf8"));
     return (Array.isArray(list) ? list : []).filter((u) => /linkedin\.com\/in\//i.test(u))
       .map((u) => String(u).split("?")[0].replace(/\/$/, "") + "/recent-activity/all/");
   } catch (e) { return []; }
@@ -315,11 +316,11 @@ const authorDid = (track, href, pick, ms) => {
 };
 
 // Prune entries older than 30 days by their LAST activity (a like today on an old entry keeps
-// it, so the like cap still sees it). Invite history (conn:) is never pruned.
+// it, so the like cap still sees it). Invite history (conn:) is kept 90 days.
 function pruneTrack(track) {
-  const cutoff = Date.now() - PRUNE_MS;
+  const now = Date.now();
   for (const [key, v] of postEntries(track)) {
-    if (key.startsWith("conn:")) continue;
+    const cutoff = now - (key.startsWith("conn:") ? CONN_PRUNE_MS : PRUNE_MS);
     const e = entryOf(v);
     const times = [e.ts, e.likedAt, e.followedAt, e.commentedAt].map((x) => Date.parse(x || "")).filter(Number.isFinite);
     if (!times.length || Math.max(...times) < cutoff) delete track[key];
@@ -346,6 +347,12 @@ function passBlocked(track, kind) {
   if (cooldownLeft(track, "all")) return `linkedin unavailable (cooldown until ${track.cooldowns.all})`;
   if (kind === "connect" && cooldownLeft(track, "connect")) return `linkedin unavailable (connect cooldown until ${track.cooldowns.connect})`;
   return "";
+}
+
+// A pacing wait that ends as soon as a stop is requested (cron's stopping()): nothing is posted after a stop.
+async function pause(ms, shouldStop) {
+  const end = Date.now() + ms;
+  while (!shouldStop() && Date.now() < end) await sleep(Math.min(1000, end - Date.now()));
 }
 
 const stopError = (message) => Object.assign(new Error(message), { code: "LINKEDIN_UNAVAILABLE" });
@@ -420,7 +427,8 @@ async function maybeFollow(post, track) {
   } catch (err) { rethrowStop(err); }
 }
 
-async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
+// shouldStop (every pass): checked before each public action; true ends the pass at once.
+async function runFeedEngagement({ max = 2, dryRun = false, shouldStop = () => false } = {}) {
   if (!config.social.linkedinFeedReply && !dryRun) {
     return { commented: 0, skipped: 0, liked: 0, previews: [], wouldLike: [], reason: "disabled", cost: null };
   }
@@ -476,7 +484,7 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
       out.skipped++;
       return;
     }
-    if (ctx.aborted) return;
+    if (ctx.aborted || shouldStop()) return;
     if (draft.skipped) {
       skipPost(post, "skipped", (draft.errors || []).join("; ") || "llm skip"); // remembered 30 days
       logger.info(`feedEngage: SKIP - no safe angle on @${post.author} post. Moving on.`);
@@ -527,7 +535,7 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
   // already ran this cycle.
   const seenThisRun = new Set();
   const wanted = new Set();
-  const done = () => ctx.aborted || (dryRun ? out.previews.length : out.commented) >= max;
+  const done = () => ctx.aborted || shouldStop() || (dryRun ? out.previews.length : out.commented) >= max;
   const capHit = () => !dryRun && commentedSince(track, DAY) >= MAX_PER_DAY;
   const commentFrom = async (src) => {
     const posts = (await scanSource(src, 10))
@@ -549,7 +557,7 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
       const before = out.commented;
       await engageOne(post, src.label);
       // Pace only published comments (nothing public happened on a rejection).
-      if (!dryRun && out.commented > before && out.commented < max) await sleep(jitter(60000, 180000));
+      if (!dryRun && out.commented > before && out.commented < max) await pause(jitter(60000, 180000), shouldStop);
     }
     return fresh;
   };
@@ -580,7 +588,7 @@ async function runFeedEngagement({ max = 2, dryRun = false } = {}) {
 // sources, likes the best-scoring fresh posts right after each scan (cards
 // virtualize out within a minute), stops at the target. Already-liked keys
 // persist in the tracker; likeFeedCard is state-checked (never toggles off).
-async function runLikePass({ min = 5, max = 9 } = {}) {
+async function runLikePass({ min = 5, max = 9, shouldStop = () => false } = {}) {
   const out = { liked: 0, picked: 0, target: 0, reason: "" };
   const track = loadTrack();
   const blocked = passBlocked(track, "like");
@@ -589,6 +597,7 @@ async function runLikePass({ min = 5, max = 9 } = {}) {
   if (out.target <= 0) return { ...out, reason: `daily like cap (${LIKES_MAX_PER_DAY}) reached` };
   const rememberSlug = shareOwnSlug(track);
   const ctx = { track, out, aborted: false };
+  const halted = () => ctx.aborted || shouldStop();
   const seen = new Set();
   const likeFrom = async (src) => {
     let posts = [];
@@ -613,18 +622,18 @@ async function runLikePass({ min = 5, max = 9 } = {}) {
     // Best audience match first, with a little noise so the pattern isn't mechanical.
     pool.sort((a, b) => (b.score + Math.random() * 1.5) - (a.score + Math.random() * 1.5));
     for (const post of pool) {
-      if (ctx.aborted || out.liked >= out.target) break;
+      if (halted() || out.liked >= out.target) break;
       if (authorDid(track, post.href, (x) => x.likedAt, AUTHOR_LIKE_GAP_MS)) continue; // 1 like per author per day
       out.picked++;
       await maybeFollow(post, track);
-      if (ctx.aborted) break;
+      if (halted()) break;
       try {
         if (await LinkedInService.likeFeedCard(post.text.slice(0, 80))) {
           out.liked++;
           markPost(track, post, { likedAt: nowIso() });
           saveOrStop(track); // persist immediately so a crash can't re-like this post
           logger.info(`feedEngage like-pass: liked @${post.author} via ${src.label} (${out.liked}/${out.target}).`);
-          await sleep(jitter(6000, 20000));
+          await pause(jitter(6000, 20000), shouldStop);
         } else {
           await sleep(jitter(1500, 4000));
         }
@@ -638,18 +647,18 @@ async function runLikePass({ min = 5, max = 9 } = {}) {
   await guarded("like", ctx, async () => {
     let found = 0;
     for (const src of buildSources()) {
-      if (ctx.aborted || out.liked >= out.target) break;
+      if (halted() || out.liked >= out.target) break;
       found += await likeFrom(src);
     }
     // Targeted sources empty (markup change, nothing fresh): fall back to the home feed.
-    if (found === 0 && out.liked < out.target && config.social.linkedinSource !== "feed") {
+    if (found === 0 && !halted() && out.liked < out.target && config.social.linkedinSource !== "feed") {
       logger.warn("feedEngage like-pass: targeted sources yielded nothing - falling back to home feed.");
       for (const src of FALLBACK_SOURCES) {
-        if (ctx.aborted || out.liked >= out.target) break;
+        if (halted() || out.liked >= out.target) break;
         await likeFrom(src);
       }
     }
-    if (out.liked < out.target) logger.warn(`feedEngage like-pass: sources exhausted (${out.liked}/${out.target} liked).`);
+    if (out.liked < out.target && !halted()) logger.warn(`feedEngage like-pass: sources exhausted (${out.liked}/${out.target} liked).`);
   });
   if (!ctx.aborted) {
     pruneTrack(track); // bound tracker growth
@@ -672,7 +681,7 @@ function recordSearchLoad(track) {
 // Connection pass: a few no-note requests per run to US, 2nd-degree people in
 // AI/tech/finance/investing, found through US-filtered people search. Stops cleanly on
 // LinkedIn's weekly cap (connects pause 7 days) or any checkpoint (everything pauses).
-async function runConnectPass({ min = 10, max = 15, dryRun = false } = {}) {
+async function runConnectPass({ min = 10, max = 15, dryRun = false, shouldStop = () => false } = {}) {
   const out = { sent: 0, target: 0, scanned: 0, previews: [], reason: "" };
   const track = loadTrack();
   const blocked = passBlocked(track, "connect");
@@ -690,7 +699,7 @@ async function runConnectPass({ min = 10, max = 15, dryRun = false } = {}) {
     for (const kw of queries) {
       let kwSent = 0;
       for (let page = 1; page <= 2; page++) {
-        if (ctx.aborted || out.sent >= out.target) break outer;
+        if (ctx.aborted || shouldStop() || out.sent >= out.target) break outer;
         if (kwSent >= CONNECT_PER_KEYWORD) break;
         if (loads >= SEARCH_LOADS_PER_PASS) { out.reason = `search page cap (${SEARCH_LOADS_PER_PASS} per pass)`; break outer; }
         if (searchLoadsSince(track, DAY) >= SEARCH_LOADS_PER_DAY) { out.reason = `search page cap (${SEARCH_LOADS_PER_DAY} per day)`; break outer; }
@@ -704,7 +713,7 @@ async function runConnectPass({ min = 10, max = 15, dryRun = false } = {}) {
         }
         if (res.people.length === 0) break; // no more results for this keyword
         for (const p of res.people) {
-          if (ctx.aborted || out.sent >= out.target) break outer;
+          if (ctx.aborted || shouldStop() || out.sent >= out.target) break outer;
           if (kwSent >= CONNECT_PER_KEYWORD) break;
           out.scanned++;
           const key = CONNECT_KEY(p.href);
@@ -738,9 +747,9 @@ async function runConnectPass({ min = 10, max = 15, dryRun = false } = {}) {
           }
           // A send that navigated away (profile page, verification step) ends the pass.
           if (!(await LinkedInService.onPeopleSearchPage())) { out.reason = "left the people search page after a send"; break outer; }
-          await sleep(jitter(6000, 14000));
+          await pause(jitter(6000, 14000), shouldStop);
         }
-        await sleep(jitter(2000, 5000));
+        await pause(jitter(2000, 5000), shouldStop);
       }
     }
   });

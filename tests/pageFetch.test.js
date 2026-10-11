@@ -1,3 +1,4 @@
+require("./_env"); // isolated even when run on its own
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const { fetchPage, isPrivateIp, assertPublicHost, extractHtml, extractMarkdown } = require("../src/utils/pageFetch");

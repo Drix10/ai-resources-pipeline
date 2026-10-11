@@ -1,3 +1,4 @@
+require("./_env"); // isolated even when run on its own
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("fs");
@@ -150,8 +151,8 @@ test("an unreadable store blocks curation instead of starting empty, and stays b
     assert.ok(!fs.existsSync(file));
     service.beginRun();
     assert.match(service.storeError, /unreadable/);
-    // Nothing is written over it either.
-    service.markContentAsPublished([{ tweets: [{ tweetId: "5" }] }]);
+    // Nothing is written over it either, and the caller is told the IDs are not saved.
+    assert.equal(service.markContentAsPublished([{ tweets: [{ tweetId: "5" }] }]), false);
     assert.ok(!fs.existsSync(file));
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
@@ -165,12 +166,29 @@ test("markContentAsPublished prefers tweetId and parses /status/ID/photo/1 URLs"
     const service = new TwitterService({ storePath: file });
     const recent = idAt(Date.now() - DAY);
     const other = idAt(Date.now() - 2 * DAY);
-    service.markContentAsPublished([
+    assert.equal(service.markContentAsPublished([
       { tweets: [{ tweetId: recent, url: "https://x.com/a/status/999/photo/1" }] },
       { tweets: [{ url: `https://x.com/b/status/${other}/photo/1` }] },
-    ]);
+    ]), true);
     const saved = JSON.parse(fs.readFileSync(file, "utf8"));
     assert.deepEqual(saved.sort(), [recent, other].sort());
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("a failed save is reported, and the next mark retries it even with nothing new", () => {
+  const dir = tmpDir();
+  const file = path.join(dir, "ids.json");
+  try {
+    const service = new TwitterService({ storePath: file });
+    const id = idAt(Date.now() - DAY);
+    fs.mkdirSync(`${file}.tmp`); // the write of the .tmp copy fails
+    assert.equal(service.markContentAsPublished([{ tweets: [{ tweetId: id }] }]), false);
+    assert.ok(!fs.existsSync(file));
+    fs.rmSync(`${file}.tmp`, { recursive: true });
+    assert.equal(service.markContentAsPublished([{ tweets: [{ tweetId: id }] }]), true, "same ID again: still written");
+    assert.deepEqual(JSON.parse(fs.readFileSync(file, "utf8")), [id]);
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
   }

@@ -1,3 +1,4 @@
+require("./_env"); // isolated even when run on its own
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
@@ -37,12 +38,6 @@ function sandbox({ buildPasses = true } = {}) {
   return { base, remote, work, clone };
 }
 
-const inDir = async (dir, fn) => {
-  const prev = process.cwd();
-  process.chdir(dir);
-  try { return await fn(); } finally { process.chdir(prev); }
-};
-
 test("publishes new blog files and rebases over commits the remote gained meanwhile", { timeout: 120000 }, async () => {
   const { work, clone, remote } = sandbox();
   const other = clone("other");
@@ -53,7 +48,7 @@ test("publishes new blog files and rebases over commits the remote gained meanwh
 
   write(work, "blog/content/Cat/b.md", "### B\nbody");
   write(work, "other/unrelated.txt", "must not be committed");
-  await inDir(work, () => syncBlogToGit());
+  await syncBlogToGit(work);
 
   const files = git(remote, "ls-tree", "-r", "--name-only", "main").split("\n");
   assert.ok(files.includes("blog/content/Cat/b.md"), "the new article reached the remote");
@@ -67,7 +62,7 @@ test("publishes new blog files and rebases over commits the remote gained meanwh
 test("nothing to publish is a quiet no-op", { timeout: 60000 }, async () => {
   const { work, remote } = sandbox();
   const before = git(remote, "rev-parse", "main");
-  await inDir(work, () => syncBlogToGit());
+  await syncBlogToGit(work);
   assert.equal(git(remote, "rev-parse", "main"), before);
 });
 
@@ -75,7 +70,7 @@ test("a failing blog build publishes nothing and stages nothing (the next run pi
   const { work, remote } = sandbox({ buildPasses: false });
   const before = git(remote, "rev-parse", "main");
   write(work, "blog/content/Cat/b.md", "### B\nbody");
-  assert.equal(await inDir(work, () => syncBlogToGit()), false);
+  assert.equal(await syncBlogToGit(work), false);
   assert.equal(git(remote, "rev-parse", "main"), before, "remote untouched");
   assert.equal(git(work, "log", "-1", "--format=%s"), "init", "no commit was made");
   assert.equal(git(work, "diff", "--cached", "--name-only"), "", "nothing left in your index");
@@ -88,7 +83,7 @@ test("a bot commit whose push failed last cycle is retried even when there is no
   git(work, "add", "-A");
   git(work, "commit", "-m", "feat(blog): sync new curated AI resource guides");
   assert.notEqual(git(work, "rev-parse", "HEAD"), git(remote, "rev-parse", "main"));
-  assert.equal(await inDir(work, () => syncBlogToGit()), true);
+  assert.equal(await syncBlogToGit(work), true);
   assert.equal(git(work, "rev-parse", "HEAD"), git(remote, "rev-parse", "main"));
 });
 
@@ -99,7 +94,7 @@ test("your own unpushed commits never ride along with the bot's push", { timeout
   git(work, "commit", "-m", "wip: my own change");
   write(work, "blog/content/Cat/b.md", "### B\nbody");
   const before = git(remote, "rev-parse", "main");
-  assert.equal(await inDir(work, () => syncBlogToGit()), false);
+  assert.equal(await syncBlogToGit(work), false);
   assert.equal(git(remote, "rev-parse", "main"), before, "nothing pushed");
   assert.match(git(work, "log", "-1", "--format=%s"), /sync new curated AI resource guides/, "the blog is committed locally, ready to go with your push");
 });
@@ -109,7 +104,7 @@ test("a checkout on another branch is never committed to or pushed", { timeout: 
   git(work, "checkout", "-b", "feature");
   write(work, "blog/content/Cat/b.md", "### B\nbody");
   const before = git(remote, "rev-parse", "main");
-  assert.equal(await inDir(work, () => syncBlogToGit()), false);
+  assert.equal(await syncBlogToGit(work), false);
   assert.equal(git(remote, "rev-parse", "main"), before);
   assert.equal(git(work, "log", "-1", "--format=%s"), "init");
 });
@@ -119,7 +114,7 @@ test("a detached HEAD is refused instead of pushing something odd", { timeout: 6
   write(work, "blog/content/Cat/b.md", "### B\nbody");
   git(work, "checkout", "--detach");
   const before = git(remote, "rev-parse", "main");
-  await inDir(work, () => syncBlogToGit());
+  await syncBlogToGit(work);
   assert.equal(git(remote, "rev-parse", "main"), before);
 });
 
@@ -134,7 +129,7 @@ test("a rebase conflict is aborted cleanly rather than leaving the checkout mid-
   write(work, "blog/lib/articles-index.json", '{"local":true}');
   write(work, "blog/content/Cat/b.md", "### B\nbody");
   const remoteBefore = git(remote, "rev-parse", "main");
-  await inDir(work, () => syncBlogToGit());
+  await syncBlogToGit(work);
   assert.equal(git(remote, "rev-parse", "main"), remoteBefore, "nothing pushed on conflict");
   assert.ok(!fs.existsSync(path.join(work, ".git", "rebase-merge")) && !fs.existsSync(path.join(work, ".git", "rebase-apply")), "no rebase left in progress");
 });

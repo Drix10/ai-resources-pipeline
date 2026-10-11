@@ -6,7 +6,7 @@ const fs = require("fs");
 const path = require("path");
 
 // Anchored to the repo, not process.cwd(): a start from another directory must not
-// begin with an empty store and republish everything.
+// begin with an empty store and republish everything. Tests set PROCESSED_IDS_PATH.
 const REPO_ROOT = path.resolve(__dirname, "../..");
 const PROCESSED_IDS_PATH = path.join(REPO_ROOT, ".processed-tweet-ids.json");
 const SCREENSHOT_DIR = path.join(REPO_ROOT, "logs");
@@ -297,8 +297,10 @@ class TwitterService {
     this.lastRequestTime = 0;
     this.isInitialized = false;
     this.MAX_PROCESSED_IDS = MAX_PROCESSED_IDS;
-    this.storePath = options.storePath || PROCESSED_IDS_PATH;
+    this.storePath = options.storePath || process.env.PROCESSED_IDS_PATH || PROCESSED_IDS_PATH;
     this.storeError = null;
+    // True while IDs marked in memory are not on disk (a failed save).
+    this.idsUnsaved = false;
     // IDs handed out this run, so overlapping lists never yield the same post twice.
     this.reservedIds = new Set();
     this.processedTweetIds = this.loadProcessedIds();
@@ -323,11 +325,6 @@ class TwitterService {
     return dropped;
   }
 
-  // Kept for older callers: eviction is by tweet age now, see pruneIds.
-  clearProcessedIds() {
-    return this.pruneProcessedIds();
-  }
-
   loadProcessedIds() {
     const { ids, error } = loadIdStore(this.storePath);
     this.storeError = error;
@@ -339,6 +336,7 @@ class TwitterService {
     // Writing now would replace an unreadable store with a partial one and hide the problem.
     if (this.storeError) {
       logger.error(`Not writing published X IDs: ${this.storeError}`);
+      this.idsUnsaved = true;
       return false;
     }
     try {
@@ -347,13 +345,17 @@ class TwitterService {
       if (!onDisk.error) for (const id of onDisk.ids) this.processedTweetIds.add(id);
       this.processedTweetIds = pruneIds(this.processedTweetIds);
       saveIdStore(this.storePath, this.processedTweetIds);
+      this.idsUnsaved = false;
       return true;
     } catch (error) {
       logger.error(`Could not persist published X IDs: ${error.message}`);
+      this.idsUnsaved = true;
       return false;
     }
   }
 
+  // True once the IDs are on disk. False when the store could not be written: the caller stops
+  // curating and tweeting for the run and retries persistProcessedIds before it ends.
   markContentAsPublished(collections) {
     let changed = false;
     for (const collection of collections || []) {
@@ -369,7 +371,8 @@ class TwitterService {
       }
     }
     this.pruneProcessedIds();
-    if (changed) this.persistProcessedIds();
+    if (changed || this.idsUnsaved) return this.persistProcessedIds();
+    return true;
   }
 
   getSearchQuery(folder) {
@@ -826,27 +829,6 @@ class TwitterService {
   cleanupScreenshots() {
     const now = Date.now();
     const ageOf = (file) => now - fs.statSync(file).mtimeMs;
-    const stampOf = (file) => new Date(fs.statSync(file).mtimeMs).toISOString().replace(/[:.]/g, "-");
-    // Older builds wrote fixed names to the working directory.
-    for (const dir of new Set([process.cwd(), REPO_ROOT])) {
-      for (const name of ["login-error.png", "tweet-failed.png"]) {
-        const file = path.join(dir, name);
-        try {
-          if (!fs.existsSync(file)) continue;
-          if (ageOf(file) > SCREENSHOT_KEEP_MS) {
-            fs.unlinkSync(file);
-            logger.info(`Cleaned up old screenshot: ${file}`);
-          } else {
-            fs.mkdirSync(SCREENSHOT_DIR, { recursive: true });
-            const target = path.join(SCREENSHOT_DIR, `${path.basename(name, ".png")}-${stampOf(file)}.png`);
-            fs.renameSync(file, target);
-            logger.info(`Kept recent failure screenshot as ${target}`);
-          }
-        } catch (error) {
-          logger.warn(`Failed to clean up screenshot ${file}: ${error.message}`);
-        }
-      }
-    }
     try {
       if (!fs.existsSync(SCREENSHOT_DIR)) return;
       for (const name of fs.readdirSync(SCREENSHOT_DIR)) {
@@ -882,7 +864,7 @@ class TwitterService {
       );
       await this.driver.wait(until.elementIsVisible(tweetTextarea), 60000);
       await this.driver.wait(until.elementIsEnabled(tweetTextarea), 60000);
-      // Enter right after "@CosLynxAI" can be taken by the mention autocomplete (it picks
+      // Enter right after a mention ("@someone") can be taken by the mention autocomplete (it picks
       // a suggestion instead of starting a new line). A space closes the suggestions, and
       // a short pause lets the box go away before the newline arrives.
       const typed = typeof text === "string" ? text : String(text ?? "");
@@ -914,7 +896,6 @@ class TwitterService {
 }
 
 module.exports = TwitterService;
-module.exports.isOfftopicTweet = isOfftopicTweet;
 TwitterService.isOfftopicTweet = isOfftopicTweet;
 // Pure helpers for tests/twitter.test.js; not part of the runtime interface.
 module.exports.__test = {

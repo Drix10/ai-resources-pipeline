@@ -1,7 +1,23 @@
 const fs = require("fs");
 const path = require("path");
 const config = require("../../config");
-const { logger, generateSeoSlug } = require("../utils/helpers");
+const { logger, generateSeoSlug, REPO_ROOT } = require("../utils/helpers");
+
+// Identifies the pipeline to DEV.to and the blog; the blog address is its contact URL when set.
+const userAgent = () => `ai-resources-pipeline/1.0${config.syndication.canonicalBaseUrl ? ` (${config.syndication.canonicalBaseUrl})` : ""}`;
+
+// The "Read More & Connect" footer of a DEV.to copy: the canonical link, the byline and the
+// author's links (config.author), each line only when its value is set. Null when there is nothing to add.
+const devtoFooter = (canonicalUrl) => {
+  const { byline, bio, websiteUrl, links } = config.author;
+  const lines = [];
+  if (canonicalUrl) lines.push(`**Canonical / interactive version:** [${new URL(canonicalUrl).host}](${canonicalUrl})`);
+  if (byline) lines.push(`Written by **${websiteUrl ? `[${byline}](${websiteUrl})` : byline}**${bio ? `, ${bio}` : ""}.`);
+  const linkLines = [];
+  for (let i = 0; i < links.length; i += 3) linkLines.push(`- ${links.slice(i, i + 3).map((l) => `[${l.label}](${l.url})`).join(" · ")}`);
+  if (linkLines.length) lines.push(linkLines.join("\n"));
+  return lines.length ? `\n\n---\n\n### Read More & Connect\n\n${lines.join("\n\n")}\n` : null;
+};
 
 class SyndicationService {
   constructor() {
@@ -19,6 +35,8 @@ class SyndicationService {
     this.LIVE_CHECK_TIMEOUT_MS = 10000;
     this.MAX_ATTEMPTS = 3;
     this.MAX_PENDING_MS = 14 * 24 * 60 * 60 * 1000;
+    // Done and failed records are kept this long (so a re-queue of the same URL is still a no-op), then dropped.
+    this.KEEP_FINISHED_MS = 30 * 24 * 60 * 60 * 1000;
   }
 
   /**
@@ -98,7 +116,7 @@ class SyndicationService {
       const cleanTags = this.sanitizeTags(tags, 4);
       let validCanonical = this.isValidUrl(canonicalUrl) ? canonicalUrl : undefined;
 
-      const autoPublish = config.syndication?.devto?.enabled ?? true;
+      const autoPublish = config.syndication.devto.enabled;
       const isPublished = typeof published === "boolean" ? (published && autoPublish) : autoPublish;
 
       const buildPayload = (cUrl) => ({
@@ -122,7 +140,7 @@ class SyndicationService {
               headers: {
                 "Content-Type": "application/json",
                 "api-key": apiKey,
-                "User-Agent": "ai-resources-pipeline/1.0 (https://blogs.drix10.com)",
+                "User-Agent": userAgent(),
               },
               signal: controller.signal,
               body: JSON.stringify(payload),
@@ -152,8 +170,7 @@ class SyndicationService {
             if (response.status === 429) this.tripBreaker(15 * 60 * 1000, "HTTP 429 rate limited");
             return { ok: response.ok, status: response.status, data };
           } catch (fetchErr) {
-            // ponytail: timeouts are transient too; error.log shows DEV.to
-            // publishes dying on first-attempt AbortError with zero retries.
+            // Timeouts (AbortError) and network errors are transient too: retry them.
             if (attempt < maxRetries) {
               const waitSeconds = 3 + attempt * 2;
               logger.warn(`SyndicationService: Network error (${fetchErr.message}). Retrying in ${waitSeconds}s (attempt ${attempt + 1}/${maxRetries})...`);
@@ -197,30 +214,6 @@ class SyndicationService {
   }
 
   /**
-   * Broadcast an article across enabled syndication destinations (DEV.to)
-   */
-  async syndicateAll({ title, markdown, tags = [], canonicalUrl, coverImage, published = true }) {
-    const results = [];
-
-    const isDevToConfigured = Boolean(config.syndication?.devto?.apiKey);
-    if (isDevToConfigured) {
-      const res = await this.publishToDevTo({ title, markdown, tags, canonicalUrl, coverImage, published });
-      results.push(res);
-    }
-
-    return results;
-  }
-
-  /**
-   * Syndicate markdown article file from GitHub service hook with unique content-based SEO slug.
-   * Posts immediately; the pipeline uses queueMarkdownArticle + processQueue instead, so DEV.to
-   * never links to a canonical page that is not deployed yet.
-   */
-  async syndicateMarkdownArticle(args) {
-    return this.syndicateAll(this.prepareMarkdownArticle(args));
-  }
-
-  /**
    * The DEV.to payload for a committed markdown file: title, enriched markdown and its canonical blog URL.
    */
   prepareMarkdownArticle({ title, markdown, tags = [], category, relativePath, coverImage, published = true, seoSlug }) {
@@ -241,27 +234,16 @@ class SyndicationService {
       const computedSlug = seoSlug || generateSeoSlug(rawTitle, enrichedMarkdown, fileName, folderName);
 
       const cleanPath = `${categorySlug}/${computedSlug}`;
-      canonicalUrl = `${config.syndication.canonicalBaseUrl}/articles/${cleanPath}`;
+      // No blog address (CANONICAL_BASE_URL): no canonical page, so nothing is queued for DEV.to.
+      canonicalUrl = config.syndication.canonicalBaseUrl ? `${config.syndication.canonicalBaseUrl}/articles/${cleanPath}` : undefined;
 
       // Guarantee DEV.to articles contain reciprocal backlinks to both the blog and GitHub file
       const isSpecial = categorySlug === "personal" || categorySlug === "linkedin-insights";
-      if (!isSpecial && !enrichedMarkdown.includes("Read More & Connect") && !enrichedMarkdown.includes("Read on the AI Knowledge Hub")) {
-        const promoSection = `
-
----
-
-### Read More & Connect
-
-**Canonical / interactive version:** [blogs.drix10.com](${canonicalUrl})
-
-Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical founder and engineer working across AI systems, developer infrastructure, and cybersecurity.
-
-- [Blog](https://blogs.drix10.com) · [Portfolio](https://drix10.com) · [GitHub](https://github.com/Drix10)
-- [LinkedIn](https://www.linkedin.com/in/drix10) · [X](https://x.com/DrishtantGhosh) · [Email](mailto:ggdrishtant@gmail.com)
-`;
-        enrichedMarkdown = enrichedMarkdown.trimEnd() + promoSection;
+      const footer = isSpecial ? null : devtoFooter(canonicalUrl);
+      if (footer && !enrichedMarkdown.includes("Read More & Connect") && !enrichedMarkdown.includes("Read on the AI Knowledge Hub")) {
+        enrichedMarkdown = enrichedMarkdown.trimEnd() + footer;
       }
-    } else {
+    } else if (config.syndication.canonicalBaseUrl) {
       const categorySlug = String(category || title || "tech").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80);
       canonicalUrl = `${config.syndication.canonicalBaseUrl}/articles/${categorySlug}-${Date.now()}`;
     }
@@ -283,7 +265,7 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
   // ---------------------------------------------------------------------
 
   queuePath() {
-    return process.env.SYNDICATION_QUEUE_PATH || path.join(process.cwd(), "data", "syndication-queue.json");
+    return process.env.SYNDICATION_QUEUE_PATH || path.join(REPO_ROOT, "data", "syndication-queue.json");
   }
 
   readQueue() {
@@ -365,7 +347,7 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), this.LIVE_CHECK_TIMEOUT_MS);
       try {
-        const res = await fetch(url, { method, redirect: "follow", signal: controller.signal, headers: { "User-Agent": "ai-resources-pipeline/1.0 (https://blogs.drix10.com)" } });
+        const res = await fetch(url, { method, redirect: "follow", signal: controller.signal, headers: { "User-Agent": userAgent() } });
         try { await res.body?.cancel(); } catch { /* nothing to release */ }
         if (method === "HEAD" && (res.status === 405 || res.status === 501)) continue;
         return res.status === 200;
@@ -388,12 +370,23 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
     if (!config.syndication?.devto?.apiKey || this._processing) return summary; // one pass at a time: no double posts
     this._processing = true;
     try {
+      await this.mutateQueue((queue) => this.pruneQueue(queue));
       await this.drainQueue(summary, maxItems);
     } finally {
       this._processing = false;
     }
     logger.info(`SyndicationService: DEV.to queue: ${summary.posted} posted, ${summary.duplicates} already there, ${summary.notLive} not live yet, ${summary.retrying} to retry, ${summary.failed} failed${summary.paused ? ", paused" : ""}.`);
     return summary;
+  }
+
+  // Bounds the file: finished records go after KEEP_FINISHED_MS, and a failed one never needs its body.
+  pruneQueue(queue, now = Date.now()) {
+    for (const [url, item] of Object.entries(queue.items)) {
+      if (!item || (item.status !== "done" && item.status !== "failed")) continue;
+      const at = Date.parse(item.updatedAt || item.createdAt || "");
+      if (!Number.isFinite(at) || now - at > this.KEEP_FINISHED_MS) delete queue.items[url];
+      else if (item.status === "failed") delete item.markdown;
+    }
   }
 
   async drainQueue(summary, maxItems) {
@@ -406,7 +399,7 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
         summary.notLive++;
         const ageMs = Date.now() - Date.parse(item.createdAt || 0);
         if (ageMs > this.MAX_PENDING_MS) {
-          await this.updateQueueItem(item.canonicalUrl, { status: "failed", lastError: "canonical page never went live" });
+          await this.updateQueueItem(item.canonicalUrl, { status: "failed", lastError: "canonical page never went live", markdown: undefined });
           summary.failed++;
         }
         continue;
@@ -426,7 +419,7 @@ Written by **[Drishtant Ghosh (Drix10)](https://drix10.com)**, a technical found
       }
       const attempts = (Number(item.attempts) || 0) + 1;
       const failed = attempts >= this.MAX_ATTEMPTS;
-      await this.updateQueueItem(item.canonicalUrl, { status: failed ? "failed" : "pending", attempts, lastError: result.error });
+      await this.updateQueueItem(item.canonicalUrl, { status: failed ? "failed" : "pending", attempts, lastError: result.error, ...(failed ? { markdown: undefined } : {}) });
       failed ? summary.failed++ : summary.retrying++;
     }
   }
