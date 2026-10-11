@@ -1,48 +1,29 @@
-# ⚡ Drix10 Technical Knowledge Hub (Next.js 14)
+# AI Resources Blog
 
-Live Hub: [blogs.drix10.com](https://blogs.drix10.com)
+The public site of the AI resources pipeline: [blogs.drix10.com](https://blogs.drix10.com). A statically generated Next.js 14 (App Router) site with Tailwind CSS, serving the guides the pipeline writes: about 2,000 articles across 43 domains.
 
-High-performance, statically generated technical research and architecture teardown hub built on **Next.js 14 App Router**, **Tailwind CSS**, and **Lucide Icons**.
+## How it works
 
----
+- **Content** lives in `content/<domain>/*.md` (Markdown with frontmatter). `content/LinkedIn Insights/` holds long-form posts and `content/Personal/` the author's own essays, pinned first.
+- **Search index.** `lib/articles-index.json` is a pre-tokenized index of every article that the site loads for instant client-side search. The pipeline rebuilds it after each run (`rebuildBlogIndex` in `src/utils/helpers.js` at the repository root) and commits it with the new content.
+- **Slides.** Each post's companion card is served from `public/slides/`.
+- **Deploys.** The pipeline builds the site, and pushes only when the build passes. Vercel deploys each push.
 
-## 🏛️ Architecture & Highlights
-
-- **8,940+ Technical Guides**: Deep-dives across 42 specialized computing, AI, systems, and security domains.
-- **Sub-60ms In-Memory Search**: Pre-tokenized inverted search index stored in `lib/articles-index.json` with instant client-side filtering.
-- **Automated Companion Slides**: Visual dark-mode architecture slides rendered by the agentic pipeline are automatically served from `public/slides/` and embedded in posts.
-- **Incremental Static Regeneration (ISR)**: Pre-renders high-priority pages statically and revalidates dynamically on push.
-- **Automated Vercel Sync**: Root cron cycles automatically rebuild the index and push verified builds to `origin main` to trigger instant live deployment.
-
----
-
-## 📂 Content Organization
-
-- `content/`: Markdown knowledge base organized by technical domains (AI Developer Tools, Systems Architecture, Cybersecurity, etc.).
-- `content/LinkedIn Insights/`: Automated LinkedIn breakdowns and technical teardowns synchronized directly by `post-gen.js` and the cron engine.
-- `content/Personal/`: Essays and announcements written directly by Drishtant Ghosh (pinned with highest priority).
-- `lib/`: Core markdown parsing, frontmatter extraction, and tokenized search index utilities.
-- `public/slides/`: Dark-mode architecture PNG cards generated for each post.
-
----
-
-## 🚀 Local Development
+## Local development
 
 ```bash
-# 1. Install dependencies
 npm install
-
-# 2. Rebuild the search index (if new markdown guides were added)
-node ../src/utils/rebuildIndex.js
-
-# 3. Start the Next.js dev server (http://localhost:3000)
-npm run dev
-
-# 4. Build for production
-npm run build
+npm run dev        # http://localhost:3000
+npm run build      # production build (the pipeline runs this before every push)
+npm test           # unit tests for the content and index helpers
 ```
 
----
+To rebuild the index by hand after editing content, run this from the repository root:
 
-## 📄 License
-MIT License © 2026 [Drishtant Ghosh](https://drix10.com)
+```bash
+node -e "require('./src/utils/helpers').rebuildBlogIndex()"
+```
+
+## License
+
+MIT (see the repository's [LICENSE](../LICENSE)).
