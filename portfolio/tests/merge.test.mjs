@@ -221,3 +221,12 @@ test('forks returned in their own list can be hand-picked, but never reach the a
   assert.ok(!parseGraphqlProfile(data, OPTS).selection.more.some((r) => r.name === 'my-fork'));
   assert.deepEqual(parseGraphqlProfile(data, { ...OPTS, order: ['my-fork'] }).selection.more.map((r) => r.name), ['my-fork']);
 });
+
+test('promoteWhenNoPins: no duplicates when "more" holds presented copies, hidden repos stay out', () => {
+  const repos = [repo({ fullName: 'a/web', name: 'web', stars: 29 }), repo({ fullName: 'a/hid', name: 'hid', stars: 99 }), repo({ fullName: 'a/lo', name: 'lo', stars: 1 })];
+  const opts = { login: 'a', hide: ['hid'], order: ['web', 'lo'], names: { web: 'Website' } };
+  const sel = promoteWhenNoPins(selectProjects(repos, opts), repos, opts, 6);
+  assert.deepEqual(sel.featured.map((r) => r.name), ['web', 'lo']);
+  assert.equal(sel.featured[0].title, 'Website');
+  assert.deepEqual(sel.more, []);
+});
