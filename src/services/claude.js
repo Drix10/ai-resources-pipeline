@@ -3,14 +3,16 @@
  *
  * One headless Claude Code call (`claude -p` on the account's Claude subscription): the prompt on
  * stdin, the reply text back. The LLM provider "claude" (config.llm.providers) runs on it.
- * A call is text only, or may Read the given images and nothing else: no other tool, no MCP server,
- * no session kept. The child gets an allow-listed environment: no posting, API or repo key reaches
- * it, and an Anthropic API key would bill the API instead of the plan.
+ * A call is text only, or may Read copies of the given images and nothing else: no other tool, no MCP
+ * server, no session kept, and none of the user's own Claude Code setup (CLAUDE.md, hooks, plugins,
+ * skills: --safe-mode). The child gets an allow-listed environment: no posting, API or repo key
+ * reaches it, and an Anthropic API key would bill the API instead of the plan.
  *
  * Errors carry a code a caller can act on:
  *  CLAUDE_UNAVAILABLE  the CLI is missing or not signed in (`claude` once, then /login)
  *  CLAUDE_LIMIT        the plan's usage limit is reached
  *  CLAUDE_TIMEOUT      the call ran past its time-out (the process tree is killed)
+ *  CLAUDE_STOPPED      the pipeline is shutting down (killAll): no call starts, none is retried
  *  CLAUDE_FAILED       any other failed run
  */
 const fs = require("fs");
@@ -25,7 +27,8 @@ const ENV_ALLOW = new Set([
   "PROGRAMFILES", "PROGRAMFILES(X86)", "PROGRAMW6432", "COMMONPROGRAMFILES", "COMMONPROGRAMFILES(X86)", "COMMONPROGRAMW6432",
   "NUMBER_OF_PROCESSORS", "USERNAME", "USERDOMAIN", "COMPUTERNAME", "USER", "LOGNAME", "LANG", "LANGUAGE", "TERM", "TZ", "SHELL",
   "HTTP_PROXY", "HTTPS_PROXY", "NO_PROXY", "NODE_EXTRA_CA_CERTS", "SSL_CERT_FILE", "SSL_CERT_DIR",
-  "CLAUDE_CONFIG_DIR", "CLAUDE_CODE_GIT_BASH_PATH",
+  // (CLAUDE_CODE_OAUTH_TOKEN: the subscription sign-in of `claude setup-token`, for headless machines)
+  "CLAUDE_CONFIG_DIR", "CLAUDE_CODE_GIT_BASH_PATH", "CLAUDE_CODE_OAUTH_TOKEN",
 ]);
 const childEnv = () => Object.fromEntries(Object.entries(process.env).filter(([k]) => ENV_ALLOW.has(k.toUpperCase())));
 
@@ -39,16 +42,18 @@ const programName = (bin) => String(bin).trim().replace(/^"(.*)"$/, "$1").split(
 
 /**
  * On Windows an npm install puts `claude.cmd` on PATH, and spawn() cannot run a .cmd without a shell
- * (which would mangle a long prompt's arguments): resolve to the claude.exe the shim launches.
+ * (which would mangle a long prompt's arguments): resolve to what the shim launches, a claude.exe or
+ * the package's cli.js (run on this node by ask()), never the node.exe a JS shim starts it with.
  */
 function resolveBin(bin = "claude", { platform = process.platform, pathEnv = process.env.PATH } = {}) {
   bin = String(bin || "claude").trim().replace(/^"(.*)"$/, "$1");
   if (platform !== "win32") return bin;
   const fromShim = (cmd) => {
     if (!fs.existsSync(cmd)) return null;
-    const m = fs.readFileSync(cmd, "utf8").match(/"%dp0%\\?([^"]+\.exe)"/i);
-    const exe = m && path.join(path.dirname(cmd), m[1]);
-    return exe && fs.existsSync(exe) ? exe : null;
+    const targets = [...fs.readFileSync(cmd, "utf8").matchAll(/"%dp0%\\?([^"]+\.(?:exe|js|cjs|mjs))"/gi)]
+      .map((m) => m[1]).filter((t) => !/(?:^|[\\/])node\.exe$/i.test(t))
+      .map((t) => path.join(path.dirname(cmd), t)).filter((t) => fs.existsSync(t));
+    return targets.length ? targets[targets.length - 1] : null;
   };
   const ext = path.extname(bin).toLowerCase();
   if ([".exe", ".js", ".mjs", ".cjs"].includes(ext)) return bin;
@@ -71,10 +76,17 @@ function rulePath(abs) {
   return m ? `//${m[1].toLowerCase()}/${m[2]}`.replace(/\/$/, "") : `/${p}`.replace(/\/$/, "");
 }
 
+// The user's own Claude Code setup stays out of every call: --safe-mode, or on a CLI too old for it,
+// only the (empty) working folder's project settings.
+const ISOLATE = ["--safe-mode"];
+const ISOLATE_OLD_CLI = ["--setting-sources", "project"];
+let isolate = ISOLATE;
+const NO_SAFE_MODE_RE = /unknown option[^\n]*--safe-mode|--safe-mode[^\n]*(?:unknown|not recogni[sz]ed|unrecogni[sz]ed)/i;
+
 /** The arguments of one call: text only, or Read limited to the images' own folders. */
 function claudeArgs({ model, effort, system = "", imageFiles = [] }) {
   const dirs = [...new Set(imageFiles.map((f) => path.dirname(path.resolve(f))))];
-  const out = ["-p", "--no-session-persistence", "--model", model, "--effort", effort, "--output-format", "json", "--strict-mcp-config"];
+  const out = ["-p", "--no-session-persistence", "--model", model, "--effort", effort, "--output-format", "json", ...isolate, "--strict-mcp-config"];
   if (system) out.push("--append-system-prompt", system);
   if (dirs.length) out.push("--tools", "Read", "--allowedTools", ...dirs.map((d) => `Read(${rulePath(d)}/**)`), "--disallowedTools", ...DENY.filter((t) => t !== "Read"), "--add-dir", ...dirs);
   else out.push("--tools", "", "--disallowedTools", ...DENY);
@@ -88,8 +100,10 @@ const killTree = (child) => {
   if (process.platform === "win32") spawnSync("taskkill", ["/pid", String(child.pid), "/T", "/F"], { stdio: "ignore", timeout: 15000, windowsHide: true });
   else try { process.kill(-child.pid, "SIGKILL"); } catch (e) { try { child.kill("SIGKILL"); } catch (e2) { /* gone */ } }
 };
-/** Kills every running call (the pipeline's shutdown). */
+/** Kills every running call and refuses new ones (the pipeline's shutdown). */
+let stopped = false;
 function killAll() {
+  stopped = true;
   for (const child of live) killTree(child);
   live.clear();
 }
@@ -104,22 +118,34 @@ function ask({ prompt, system = "", imageFiles = [], model, effort, timeoutMs = 
   if (process.env.NODE_TEST_CONTEXT && programName(bin) === "claude") {
     return Promise.reject(withCode("a test reached the real Claude Code: stub it, or point CLAUDE_BIN at a fake", "CLAUDE_UNAVAILABLE"));
   }
-  const files = imageFiles.map((f) => path.resolve(f));
+  if (stopped) return Promise.reject(withCode("the pipeline is stopping", "CLAUDE_STOPPED"));
+  // The call's own empty folder is its working folder, and the only folder it may Read: each image
+  // is copied in, so a prompt carrying untrusted page text cannot reach any other file.
+  let cwd;
+  const files = [];
+  try {
+    cwd = fs.mkdtempSync(path.join(os.tmpdir(), "pipeline-claude-"));
+    imageFiles.forEach((f, i) => {
+      const copy = path.join(cwd, `image-${i + 1}${path.extname(f).toLowerCase() || ".png"}`);
+      fs.copyFileSync(path.resolve(f), copy);
+      files.push(copy);
+    });
+  } catch (e) {
+    if (cwd) try { fs.rmSync(cwd, { recursive: true, force: true }); } catch (e2) { /* left behind costs nothing */ }
+    return Promise.reject(withCode(`no temp folder for claude: ${e.message}`, "CLAUDE_FAILED"));
+  }
   const look = files.length ? `\n\nFirst use the Read tool to look at each of these image files, in order:\n${files.map((f, i) => `${i + 1}. ${f}`).join("\n")}\n` : "";
   const exe = resolveBin(bin);
-  const args = claudeArgs({ model, effort, system, imageFiles: files });
-  // A .js CLI (a test's fake, or a wrapper) runs on this node.
-  const [cmd, argv] = /\.(?:m|c)?js$/i.test(exe) ? [process.execPath, [exe, ...args]] : [exe, args];
-  let cwd;
-  try { cwd = fs.mkdtempSync(path.join(os.tmpdir(), "pipeline-claude-")); } catch (e) { return Promise.reject(withCode(`no temp folder for claude: ${e.message}`, "CLAUDE_FAILED")); }
-  return new Promise((resolve, reject) => {
+  const run = () => new Promise((resolve, reject) => {
+    const args = claudeArgs({ model, effort, system, imageFiles: files });
+    // A .js CLI (a test's fake, or a wrapper) runs on this node.
+    const [cmd, argv] = /\.(?:m|c)?js$/i.test(exe) ? [process.execPath, [exe, ...args]] : [exe, args];
     let settled = false, out = "", err = "", child = null, timer = null;
     const finish = (fn, v) => {
       if (settled) return;
       settled = true;
       clearTimeout(timer);
       if (child) live.delete(child);
-      try { fs.rmSync(cwd, { recursive: true, force: true }); } catch (e) { /* a temp folder left behind costs nothing */ }
       fn(v);
     };
     try {
@@ -136,16 +162,27 @@ function ask({ prompt, system = "", imageFiles = [], model, effort, timeoutMs = 
     child.stdin.on("error", () => {});
     child.on("error", (e) => finish(reject, withCode(`claude CLI could not start ("${exe}"): ${e.message}. Install it and sign in: npm i -g @anthropic-ai/claude-code && claude`, "CLAUDE_UNAVAILABLE")));
     child.on("close", (code) => {
+      if (stopped) return finish(reject, withCode("the pipeline is stopping", "CLAUDE_STOPPED"));
       let parsed = null;
       try { parsed = JSON.parse(out); } catch (e) { /* not the JSON envelope */ }
       if (parsed && !parsed.is_error && code === 0 && String(parsed.result || "").trim()) return finish(resolve, String(parsed.result));
       const said = `${(parsed && parsed.result) || ""}\n${err}\n${parsed ? "" : out}`.trim();
       const code_ = LIMIT_RE.test(said) || Number(parsed && parsed.api_error_status) === 429 ? "CLAUDE_LIMIT"
-        : AUTH_RE.test(said) || Number(parsed && parsed.api_error_status) === 401 ? "CLAUDE_UNAVAILABLE" : "CLAUDE_FAILED";
+        : AUTH_RE.test(said) || Number(parsed && parsed.api_error_status) === 401 ? "CLAUDE_UNAVAILABLE"
+          : isolate === ISOLATE && NO_SAFE_MODE_RE.test(said) ? "CLAUDE_NO_SAFE_MODE" : "CLAUDE_FAILED";
       finish(reject, withCode(`claude -p failed (exit ${code}): ${said.slice(0, 300) || "an empty reply"}`, code_));
     });
     child.stdin.end(`${prompt}${look}`);
   });
+  return run()
+    .catch((e) => {
+      if (e.code !== "CLAUDE_NO_SAFE_MODE") throw e;
+      isolate = ISOLATE_OLD_CLI; // this CLI predates --safe-mode: every later call too
+      return run();
+    })
+    .finally(() => {
+      try { fs.rmSync(cwd, { recursive: true, force: true }); } catch (e) { /* a temp folder left behind costs nothing */ }
+    });
 }
 
 /** The first JSON object in a reply (tolerates ```json fences and prose around it). */
@@ -167,4 +204,7 @@ function parseJson(text) {
   throw new Error("the reply had an unterminated JSON object");
 }
 
-module.exports = { ask, killAll, parseJson, claudeArgs, resolveBin, rulePath, programName, LIMIT_RE, AUTH_RE };
+// Tests only: a fresh module state (calls allowed again, --safe-mode assumed).
+const _reset = () => { stopped = false; isolate = ISOLATE; };
+
+module.exports = { ask, killAll, parseJson, claudeArgs, resolveBin, rulePath, programName, LIMIT_RE, AUTH_RE, _reset };

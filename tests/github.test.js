@@ -106,6 +106,7 @@ test("a committed digest is queued for DEV.to under its lead headline, with tags
     ], "o/r");
   } finally { syndication.queueMarkdownArticle = saved; }
   assert.equal(queued[0].title, "Acme Fooql 2.0 makes joins 3x faster");
+  assert.match(queued[0].description, /^Acme released Fooql 2\.0/, "the lead summary is the DEV.to snippet");
   assert.deepEqual(queued[0].tags, ["ai", "programming", "news"]);
   assert.equal(queued[1].title, "Tech VIPs #1", "no headline: the numbered folder title");
   assert.deepEqual(queued[1].tags, ["ai", "technology", "news"]);

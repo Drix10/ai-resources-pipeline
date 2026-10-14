@@ -223,6 +223,20 @@ test("a title with an @handle or #hashtag is sent back; C# and #1 are not tags",
   assert.match(mk("@acme Fooql 2.0 makes joins 3x faster"), /@handles or #hashtags/);
   assert.match(mk("Acme Fooql 2.0 makes joins 3x faster #fooql"), /@handles or #hashtags/);
   assert.doesNotMatch(mk("Acme Fooql 2.0 C# joins 3x faster"), /@handles/);
+  for (const t of ["@0xAcme Fooql 2.0 joins 3x faster", "Acme Fooql 2.0 #100DaysOfCode", "＠acme Fooql 2.0 joins 3x faster"]) assert.match(mk(t), /@handles or #hashtags/, t);
+  for (const t of ["Acme Fooql 2.0 makes joins 3x faster #1", "Acme Fooql 2.0 makes joins 3x faster @ scale"]) assert.doesNotMatch(mk(t), /@handles/, t);
+});
+
+test("a number with its unit glued on is not a name, and a handle's name may be written out", () => {
+  const post = "Acme raised $2B led by @SequoiaCap for its 70B model with 128K context. Thanks @GoogleDeepMind and @huggingface for the help on the release.";
+  const errs = (over) => llm.validateArticle({ ...llm.parseArticleReply(GOOD), title: "Acme raises $2B for its 70B model", summary: "Acme raised $2B for its 70B model with 128K context, with help from Google DeepMind and Hugging Face.", points: [{ label: "Funding", text: "Acme raised $2B led by Sequoia." }], ...over }, post).join(" | ");
+  assert.doesNotMatch(errs({ title: "Acme raises $2B for its 70B model" }), /names are not in the post/);
+  assert.doesNotMatch(errs({}), /names are not in the post/, "DeepMind, Hugging Face and Sequoia come from the handles");
+  assert.match(errs({ title: "Acme raises $2B for its 70B model with Microsoft" }), /Microsoft/, "a name in no word or handle is still caught");
+});
+
+test("a bolded VALUE is read, so the low-value gate and the lead order see it", () => {
+  for (const v of ["**VALUE:** 2", "**VALUE**: 2", "VALUE: **2**"]) assert.equal(llm.parseArticleReply(GOOD.replace("VALUE: 4", v)).value, 2, v);
 });
 
 // ---- review round: every field fact-checked, figures with units, quotes, claims, negation, links ----

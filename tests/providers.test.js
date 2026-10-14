@@ -146,7 +146,7 @@ test("viral drafter: a banned word fails a candidate (never laundered by the san
 // ---- the claude CLI wrapper ----
 test("claude CLI arguments: text calls get no tool at all; image calls may Read only the images' folder", () => {
   const text = claude.claudeArgs({ model: "m", effort: "low", system: "s" });
-  assert.deepEqual(text.slice(0, 9), ["-p", "--no-session-persistence", "--model", "m", "--effort", "low", "--output-format", "json", "--strict-mcp-config"]);
+  assert.deepEqual(text.slice(0, 10), ["-p", "--no-session-persistence", "--model", "m", "--effort", "low", "--output-format", "json", "--safe-mode", "--strict-mcp-config"], "none of the user's own CLAUDE.md, hooks or plugins");
   assert.equal(text[text.indexOf("--tools") + 1], "", "no tool");
   assert.ok(text.includes("Bash") && text.includes("WebFetch") && text.includes("Read"), "denied as a second lock");
   assert.equal(text[text.indexOf("--append-system-prompt") + 1], "s");
@@ -156,7 +156,8 @@ test("claude CLI arguments: text calls get no tool at all; image calls may Read 
   assert.equal(withImg[withImg.indexOf("--allowedTools") + 1], `Read(${claude.rulePath(path.dirname(img))}/**)`);
   assert.equal(withImg[withImg.indexOf("--add-dir") + 1], path.dirname(img));
   assert.ok(!withImg.slice(withImg.indexOf("--disallowedTools") + 1).includes("Read"));
-  assert.equal(claude.rulePath("C:\\a\\b"), process.platform === "win32" ? "//c/a/b" : claude.rulePath("C:\\a\\b"));
+  if (process.platform === "win32") assert.equal(claude.rulePath("C:\\a\\b"), "//c/a/b");
+  else assert.equal(claude.rulePath("/home/a/"), "//home/a");
 });
 
 test("claude CLI: an npm .cmd shim resolves to the claude.exe it launches; programName ignores folders and extensions", () => {
@@ -167,6 +168,13 @@ test("claude CLI: an npm .cmd shim resolves to the claude.exe it launches; progr
   fs.writeFileSync(path.join(dir, "claude.cmd"), '@ECHO off\r\n"%dp0%\\node_modules\\pkg\\bin\\claude.exe"   %*\r\n');
   assert.equal(claude.resolveBin("claude", { platform: "win32", pathEnv: dir }), exe);
   assert.equal(claude.resolveBin("claude", { platform: "linux", pathEnv: dir }), "claude");
+  // A JS-target shim: the cli.js it launches (run on this node), never the node.exe beside it.
+  const js = path.join(TMP, "jsbin");
+  fs.mkdirSync(path.join(js, "node_modules", "pkg"), { recursive: true });
+  fs.writeFileSync(path.join(js, "node.exe"), "");
+  fs.writeFileSync(path.join(js, "node_modules", "pkg", "cli.js"), "");
+  fs.writeFileSync(path.join(js, "claude.cmd"), '@IF EXIST "%dp0%\\node.exe" (\r\n  "%dp0%\\node.exe"  "%dp0%\\node_modules\\pkg\\cli.js" %*\r\n) ELSE (\r\n  node  "%dp0%\\node_modules\\pkg\\cli.js" %*\r\n)\r\n');
+  assert.equal(claude.resolveBin("claude", { platform: "win32", pathEnv: js }), path.join(js, "node_modules", "pkg", "cli.js"));
   assert.equal(claude.programName("C:/npm/claude.cmd"), "claude");
   assert.equal(claude.programName("/tmp/fake-claude.js"), "fake-claude");
 });
@@ -182,6 +190,8 @@ process.stdin.on("data", (d) => (input += d)).on("end", () => {
   if (input.includes("MODE=garbage")) { process.stdout.write("not json"); process.exitCode = 2; return; }
   if (input.includes("MODE=empty")) return say({ type: "result", is_error: false, result: "" });
   if (input.includes("MODE=hang")) return setTimeout(() => {}, 60000);
+  if (input.includes("MODE=oldcli") && process.argv.includes("--safe-mode")) { process.stderr.write("error: unknown option '--safe-mode'"); process.exitCode = 1; return; }
+  if (input.includes("MODE=echo")) return say({ type: "result", is_error: false, result: JSON.stringify({ input, argv: process.argv.slice(2), cwd: process.cwd(), files: require("fs").readdirSync(process.cwd()) }) });
   say({ type: "result", is_error: false, result: "ARGS " + JSON.stringify(process.argv.slice(2)) + " ENV " + Object.keys(process.env).filter((k) => /API_?KEY|_KEY$|TOKEN|SECRET|^GITHUB_PAT$/i.test(k)).join(",") });
 });
 `);
@@ -214,4 +224,64 @@ test("claude CLI: a test can never start the real claude", async () => {
   const e = await claude.ask({ prompt: "x", model: "m", effort: "low", bin: "claude" }).catch((x) => x);
   assert.equal(e.code, "CLAUDE_UNAVAILABLE");
   assert.match(e.message, /a test reached the real Claude Code/);
+});
+
+test("claude CLI: an image is copied into the call's own folder, the only one it may Read, and removed with it", async () => {
+  const src = path.join(TMP, "shots-elsewhere", "card.png");
+  fs.mkdirSync(path.dirname(src), { recursive: true });
+  fs.writeFileSync(src, "png");
+  const r = JSON.parse(await claude.ask({ prompt: "MODE=echo", imageFiles: [src], model: "m", effort: "low", bin: FAKE, timeoutMs: 20000 }));
+  assert.deepEqual(r.files, ["image-1.png"], "the copy, in the call's own folder");
+  assert.match(path.basename(r.cwd), /^pipeline-claude-/);
+  const allowed = r.argv[r.argv.indexOf("--allowedTools") + 1];
+  assert.equal(allowed, `Read(${claude.rulePath(r.cwd)}/**)`, "Read reaches that folder only, not the temp folder the image came from");
+  assert.ok(!r.input.includes(src) && r.input.includes(path.join(r.cwd, "image-1.png")), "the prompt names the copy");
+  assert.equal(fs.existsSync(r.cwd), false, "the folder is gone after the call");
+  assert.ok(fs.existsSync(src), "the caller's file is left alone");
+});
+
+test("claude CLI: a CLI without --safe-mode is asked again with only project settings, and every later call too", async () => {
+  try {
+    const first = JSON.parse(await claude.ask({ prompt: "MODE=oldcli MODE=echo", model: "m", effort: "low", bin: FAKE, timeoutMs: 20000 }));
+    assert.ok(!first.argv.includes("--safe-mode"));
+    assert.equal(first.argv[first.argv.indexOf("--setting-sources") + 1], "project");
+    assert.ok(claude.claudeArgs({ model: "m", effort: "low" }).includes("--setting-sources"), "remembered");
+  } finally {
+    claude._reset();
+  }
+  assert.ok(claude.claudeArgs({ model: "m", effort: "low" }).includes("--safe-mode"));
+});
+
+test("claude CLI: a stop kills the running calls and refuses new ones (CLAUDE_STOPPED), which no fallback answers", async () => {
+  try {
+    const hung = claude.ask({ prompt: "MODE=hang", model: "m", effort: "low", bin: FAKE, timeoutMs: 20000 }).catch((e) => e);
+    await new Promise((r) => setTimeout(r, 1500));
+    claude.killAll();
+    assert.equal((await hung).code, "CLAUDE_STOPPED");
+    assert.equal((await claude.ask({ prompt: "x", model: "m", effort: "low", bin: FAKE }).catch((e) => e)).code, "CLAUDE_STOPPED");
+  } finally {
+    claude._reset();
+  }
+  await withRoutes({ comment: "claude", article: "claude" }, async (calls) => {
+    claude.ask = async () => { throw Object.assign(new Error("the pipeline is stopping"), { code: "CLAUDE_STOPPED" }); };
+    assert.equal((await llm.generateCommentText("p", {}).catch((e) => e)).code, "CLAUDE_STOPPED");
+    assert.equal((await llm.generateArticleText("p").catch((e) => e)).code, "CLAUDE_STOPPED");
+    assert.ok(!calls.some((c) => c.via !== "claude"), "no paid fallback after a stop");
+    const run = llm.beginRun();
+    const e = await llm.generateArticle([{ text: "Acme released Fooql 2.0 with 3x faster joins on TPC-H, from 360 ms to 120 ms per query, under the MIT license.", url: "https://x.com/acme/status/1", links: [], images: [] }], { run }).catch((x) => x);
+    assert.equal(e.code, "CLAUDE_STOPPED", "the writer stops instead of counting a transport failure");
+    assert.equal(run.transportFailures, 0);
+  }, { openrouterKey: "k" });
+});
+
+test("comments: an image call never falls back to a model that cannot see the image", () => withRoutes({ viral: "claude" }, async (calls) => {
+  claude.ask = async () => { throw Object.assign(new Error("boom"), { code: "CLAUDE_FAILED" }); };
+  assert.match((await llm.generateCommentText("p", { role: "viral", imageFiles: ["shot.png"] }).catch((e) => e)).message, /boom/);
+  assert.equal(calls.length, 0);
+  assert.equal(await llm.generateCommentText("p", { role: "viral" }), "openrouter text", "a text call still falls back");
+}, { openrouterKey: "k" }));
+
+test("config: LOCAL_LLM=true stops the start with the new setting's name instead of quietly using OpenRouter", () => {
+  assert.match(loadConfig({ LOCAL_LLM: "true" }).error, /LLM_PROVIDER=local/);
+  assert.deepEqual(loadConfig({ LOCAL_LLM: "false" }).providers, { article: "openrouter", comment: "openrouter", viral: "openrouter" });
 });

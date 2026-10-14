@@ -326,8 +326,15 @@ class LinkedInService {
   static withoutAgeChrome(text) {
     // ("7 hours ago • Visible to anyone…", "1h • Edited •", "Edited •": an age or "Edited", then a bullet)
     const CHROME = /^\s*(?:\d+\s*(?:s|m|h|d|w|mo|yr|seconds?|minutes?|hours?|days?|weeks?|months?|years?)(?:\s+ago)?|Edited)\s*•[^\n]*(?:\n|$)/i;
+    // Only a line that reads as chrome: "ago", "Edited" or "Visible to" in it, or a bare short age
+    // ("1h •"). "5 years • 3 startups • 1 exit" is the author's own first line.
+    const isChrome = (line) => /\bago\b|\bEdited\b|\bVisible to\b/i.test(line) || /^\s*\d+\s*(?:s|m|h|d|w|mo|yr)\s*(?:•\s*)+$/i.test(line);
     let t = String(text || "");
-    for (let i = 0; i < 3 && CHROME.test(t); i++) t = t.replace(CHROME, "");
+    for (let i = 0; i < 3; i++) {
+      const m = t.match(CHROME);
+      if (!m || !isChrome(m[0].trim())) break;
+      t = t.slice(m[0].length);
+    }
     return t.trim();
   }
 
@@ -337,16 +344,24 @@ class LinkedInService {
   // the reactions, the second the comments). A number in the author's own text never counts.
   static socialCounts(text) {
     const count = (s) => {
-      const m = String(s || "").replace(/,/g, "").match(/^(\d+(?:\.\d+)?)\s*([KkMm])?$/);
+      const raw = String(s || "").trim();
+      // "1.234" with no K/M is a thousands separator (German, Dutch...), "1.2K" a decimal.
+      const plain = /^\d{1,3}(?:\.\d{3})+$/.test(raw) ? raw.replace(/\./g, "") : raw.replace(/,/g, "");
+      const m = plain.match(/^(\d+(?:\.\d+)?)\s*([KkMm])?$/);
       return m ? Math.round(Number(m[1]) * ({ k: 1e3, m: 1e6 }[String(m[2] || "").toLowerCase()] || 1)) : 0;
     };
     const lines = String(text || "").replace(/\p{Cf}/gu, "").split(/\r?\n/).map((l) => l.trim());
-    // The tally block starts after the commentary: the first tally-shaped line past the header.
-    let start = lines.findIndex((l, i) => i >= 3 && (TALLY_LINE_RE.test(l) || /^\d[\d,.]*[KkMm]?$/.test(l)));
-    if (start < 0) return { reactions: 0, comments: 0, reposts: 0 };
+    // The tally block sits at the end of the card, above the action buttons: the last tally-shaped
+    // line, and the tally lines right above it. A number in the commentary is never next to them.
+    const tallyish = (l) => TALLY_LINE_RE.test(l) || /^\d[\d,.]*[KkMm]?$/.test(l);
+    let end = -1;
+    for (let i = lines.length - 1; i >= 3; i--) if (tallyish(lines[i])) { end = i; break; }
+    if (end < 0) return { reactions: 0, comments: 0, reposts: 0 };
+    let start = end;
+    while (start - 1 >= 3 && end - (start - 1) < 8 && (tallyish(lines[start - 1]) || /^[•·]?$/.test(lines[start - 1]))) start--;
     const out = { reactions: 0, comments: 0, reposts: 0 };
     const bare = [];
-    for (const l of lines.slice(start, start + 8)) {
+    for (const l of lines.slice(start, end + 1)) {
       let m;
       if ((m = l.match(/\band\s+([\d,]+)\s+others?\b/i))) out.reactions = Math.max(out.reactions, count(m[1]) + 1);
       if ((m = l.match(/^(\d[\d,.]*\s*[KkMm]?)\s*(?:reactions?|likes?)\b/i))) out.reactions = Math.max(out.reactions, count(m[1]));
@@ -721,7 +736,8 @@ class LinkedInService {
     }
   }
 
-  async commentOnFeedCard(cardKey, authorHref, textSnippet, text, fullName = "") {
+  // like: false leaves the post unliked (the day's like cap is reached).
+  async commentOnFeedCard(cardKey, authorHref, textSnippet, text, fullName = "", { like = true } = {}) {
     const snip = String(textSnippet).substring(0, 80);
     const EDITOR_SEL = '[aria-label="Text editor for creating comment"], .tiptap, .ProseMirror';
     const FIND = `
@@ -776,7 +792,7 @@ class LinkedInService {
         return await done("already");
       }
       // Like first (human flow: like, then comment). Non-fatal if it fails.
-      liked = await this.driver.executeScript(`${FIND}
+      if (like) liked = await this.driver.executeScript(`${FIND}
         if (!card) return false;
         const likeBtn = Array.from(card.querySelectorAll('button')).find(b => {
           const al = (b.getAttribute('aria-label') || '').toLowerCase();

@@ -21,6 +21,10 @@ const llmProvider = (name, fallback) => {
   if (!LLM_PROVIDERS.includes(value)) throw new Error(`${name}="${env(name)}" is not an LLM provider; use one of: ${LLM_PROVIDERS.join(", ")}.`);
   return value;
 };
+// LOCAL_LLM=true once meant Ollama: an .env that still says so must not quietly run on OpenRouter.
+if (env("LOCAL_LLM").toLowerCase() === "true") {
+  throw new Error("LOCAL_LLM is gone: set LLM_PROVIDER=local in .env (and delete the LOCAL_LLM line) to keep writing with Ollama.");
+}
 
 // Who the pipeline publishes as: the article footer, the blog index byline, the LinkedIn reply
 // persona and the commits on the resources repo. Every field is optional; an empty one leaves its

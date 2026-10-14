@@ -23,15 +23,15 @@ const devtoFooter = (canonicalUrl) => {
 // when none fits), then "news".
 // The squashed folder name ("aidevelopertools") is a tag nobody follows.
 const TOPIC_TAGS = [
-  [/secur|cyber/i, "security"],
+  [/\b(?:cyber|security\b)/i, "security"],
   [/developer|\bdevs\b|devrel|infrastructure/i, "programming"],
   [/robot/i, "robotics"],
-  [/vision/i, "computervision"],
+  [/\bvision\b/i, "computervision"],
   [/quantum/i, "quantum"],
   [/crypto|web3|decentrali/i, "web3"],
   [/health|science|neuro/i, "science"],
   [/\bar vr\b|spatial|holodeck|virtual/i, "vr"],
-  [/founder|venture|investor|\bvc\b|compan|enterprise|consult|real estate/i, "startup"],
+  [/founder|venture|investor|\bvc\b|\bcompan(?:y|ies)\b|enterprise|consult|real estate/i, "startup"],
   [/education|academic/i, "learning"],
   [/policy|ethic/i, "ethics"],
   [/marketing|content creation|\bpr\b/i, "marketing"],
@@ -131,7 +131,7 @@ class SyndicationService {
   /**
    * Publish an article to DEV.to via REST API with canonical URL backlink protection
    */
-  async publishToDevTo({ title, markdown, tags = [], canonicalUrl, coverImage, published = true }) {
+  async publishToDevTo({ title, description = "", markdown, tags = [], canonicalUrl, coverImage, published = true }) {
     return this.enqueue(async () => {
       if (Date.now() < this._blockedUntil) {
         return { success: false, platform: "devto", skipped: true, error: `DEV.to paused: ${this._blockReason}` };
@@ -152,6 +152,7 @@ class SyndicationService {
       const buildPayload = (cUrl) => ({
         article: {
           title: safeTitle,
+          ...(description ? { description: String(description).trim().slice(0, 150) } : {}),
           published: Boolean(isPublished),
           body_markdown: String(markdown || ""),
           tags: cleanTags.length > 0 ? cleanTags : ["tech", "ai", "coding"],
@@ -246,7 +247,7 @@ class SyndicationService {
   /**
    * The DEV.to payload for a committed markdown file: title, enriched markdown and its canonical blog URL.
    */
-  prepareMarkdownArticle({ title, markdown, tags = [], category, relativePath, coverImage, published = true, seoSlug }) {
+  prepareMarkdownArticle({ title, description = "", markdown, tags = [], category, relativePath, coverImage, published = true, seoSlug }) {
     let canonicalUrl;
     let enrichedMarkdown = String(markdown || "");
 
@@ -280,6 +281,8 @@ class SyndicationService {
 
     return {
       title: String(title || "Technical Breakdown").trim().slice(0, 120),
+      // DEV.to's search snippet: up to 150 characters, cut at a word.
+      description: ((d) => (d.length > 150 ? `${d.slice(0, 147).replace(/\s+\S*$/, "")}...` : d))(String(description || "").replace(/\s+/g, " ").trim()),
       markdown: enrichedMarkdown,
       tags: this.sanitizeTags(tags),
       canonicalUrl,

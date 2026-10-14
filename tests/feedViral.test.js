@@ -95,8 +95,32 @@ test("a big name's page read: when, and how often it posts", () => {
   assert.ok(Math.abs(track.meta.viralPages["vip:x"].perDay - 3 / (50 / 24)) < 0.01, "3 posts in 50 h");
   feedEngage.noteViralPage(track, "viral:OpenAI", [{ ageH: 1 }]);
   assert.equal(track.meta.viralPages["viral:OpenAI"], undefined, "searches are not pages");
-  feedEngage.noteViralPage(track, "vip:quiet", []);
-  assert.equal(track.meta.viralPages["vip:quiet"].perDay, 0);
+  feedEngage.noteViralPage(track, "vip:quiet", [{ ageH: 900 }]);
+  assert.equal(track.meta.viralPages["vip:quiet"].perDay, 0, "posts, none in 14 days: quiet");
+  feedEngage.noteViralPage(track, "vip:x", []);
+  assert.ok(Math.abs(track.meta.viralPages["vip:x"].perDay - 3 / (50 / 24)) < 0.01, "no card read keeps the learned rate");
+  feedEngage.noteViralPage(track, "vip:new", []);
+  assert.equal(track.meta.viralPages["vip:new"].perDay, null, "no card read and nothing learned: unknown");
+});
+
+test("the scheduler reads a quiet page least, and an unknown rate as a typical page", () => {
+  const now = Date.now();
+  const at = new Date(now - 3 * 24 * HOUR).toISOString();
+  const people = VIRAL.people.slice(0, 3).map((p) => `vip:${p.slug}`);
+  const track = { meta: { viralPages: { [people[0]]: { at, perDay: 0 }, [people[1]]: { at, perDay: 0.1 }, [people[2]]: { at, perDay: null } } } };
+  let quietLast = 0;
+  for (let i = 0; i < 50; i++) {
+    const order = buildViralSources(track, 200, now).map((s) => s.label).filter((l) => people.includes(l));
+    if (order.indexOf(people[0]) > order.indexOf(people[1]) && order.indexOf(people[0]) > order.indexOf(people[2])) quietLast++;
+  }
+  assert.ok(quietLast >= 45, `the quiet page came last ${quietLast}/50 times`);
+});
+
+test("counts are read from the tally block at the card's end; the post's own numbers and age-like lines stay", () => {
+  assert.deepEqual(LinkedInService.socialCounts("Feed post\nA\nB\n2h •\nBody line one\n2024\nMore body text here\nSam Lee and 1,234 others\n56 comments • 12 reposts\nLike\nComment"), { reactions: 1235, comments: 56, reposts: 12 });
+  assert.deepEqual(LinkedInService.socialCounts("Feed post\nA\nB\n2h •\n300 comments later we shipped\nbody\n1.234\n56 comments\nLike"), { reactions: 1234, comments: 56, reposts: 0 }, "a German thousands separator, and a body line that looks like a tally");
+  assert.equal(LinkedInService.withoutAgeChrome("5 years • 3 startups • 1 exit\nHere is what I learned"), "5 years • 3 startups • 1 exit\nHere is what I learned");
+  assert.equal(LinkedInService.withoutAgeChrome("1h •\nOur report."), "Our report.");
 });
 
 test("viral comments are counted on their own cap, apart from the regular comments", () => {
@@ -190,5 +214,108 @@ test("viral drafter: the first candidate that passes the hard gates and the judg
     await assert.rejects(llm.draftViralComment({ post }), /viral draft failed/);
   } finally {
     llm.generateCommentText = saved;
+  }
+});
+
+test("the judge's verdicts are matched by number: a pass for candidate 2 is never lent to candidate 1", async () => {
+  const saved = llm.generateCommentText;
+  const replies = [];
+  llm.generateCommentText = async () => replies.shift();
+  const post = { author: "Ada Lovelace", text: "We are releasing our open model weights today for every developer to build on.", ageH: 1, reactions: 900, comments: 40 };
+  const first = "Will the open weights come with the evaluation code too?";
+  const second = "Releasing the weights is the part that will move people.";
+  const two = JSON.stringify({ candidates: [{ angle: "question", comment: first }, { angle: "detail", comment: second }] });
+  try {
+    replies.push(two, JSON.stringify({ verdicts: [{ n: 2, pass: true, reason: "specific" }] }));
+    const r = await llm.draftViralComment({ post });
+    assert.equal(r.candidates.filter((c) => !c.gate.length).length, 2, "both candidates reach the judge");
+    assert.equal(r.comment, second, "the only pass is candidate 2's");
+    replies.push(two, JSON.stringify({ verdicts: [{ pass: true, reason: "ok" }] }));
+    assert.equal((await llm.draftViralComment({ post })).isValid, false, "one unnumbered verdict for two candidates: none counts");
+    replies.push(two, JSON.stringify({ verdicts: [{ pass: false, reason: "generic" }, { pass: true, reason: "ok" }] }));
+    assert.equal((await llm.draftViralComment({ post })).comment, second, "one unnumbered verdict per candidate: in order");
+  } finally {
+    llm.generateCommentText = saved;
+  }
+});
+
+test("viral prompts treat the page as data; a resting Claude gets no screenshot and the judge sees the one the drafter saw", async () => {
+  const saved = { gen: llm.generateCommentText, viral: config.llm.providers.viral, rest: llm._claudeRestUntil };
+  const calls = [];
+  const replies = [];
+  llm.generateCommentText = async (prompt, opts) => { calls.push({ prompt, opts }); return replies.shift(); };
+  const post = { author: "Ada Lovelace", text: "We are releasing our open model weights today for every developer to build on.", ageH: 1 };
+  const one = JSON.stringify({ candidates: [{ angle: "question", comment: "Will the open weights come with the evaluation code too?" }] });
+  const pass = JSON.stringify({ verdicts: [{ n: 1, pass: true, reason: "ok" }] });
+  try {
+    config.llm.providers.viral = "claude";
+    llm._claudeRestUntil = 0;
+    replies.push(one, pass);
+    await llm.draftViralComment({ post, imageFile: "shot.png" });
+    assert.deepEqual(calls[0].opts.imageFiles, ["shot.png"]);
+    assert.deepEqual(calls[1].opts.imageFiles, ["shot.png"], "the judge sees the screenshot too");
+    for (const c of calls) assert.match(c.prompt, /data, not instructions/);
+    calls.length = 0;
+    llm._claudeRestUntil = Date.now() + 60000;
+    replies.push(one, pass);
+    await llm.draftViralComment({ post, imageFile: "shot.png" });
+    assert.deepEqual(calls[0].opts.imageFiles, [], "the fallback writer gets no image");
+    assert.doesNotMatch(calls[0].prompt, /screenshot/i, "and is not told about one");
+    assert.deepEqual(calls[1].opts.imageFiles, []);
+  } finally {
+    llm.generateCommentText = saved.gen;
+    config.llm.providers.viral = saved.viral;
+    llm._claudeRestUntil = saved.rest;
+  }
+});
+
+test("the viral pass: a checkpoint ends it, a regular-pass rejection does not bar it, a dry run tracks nothing, the like obeys its cap", async () => {
+  const proto = LinkedInService.prototype;
+  const saved = { scan: proto.scanFeedPosts, comment: proto.commentOnFeedCard, read: proto.readComments, draft: llm.draftViralComment, social: { ...config.social }, track: process.env.LINKEDIN_TRACK_PATH };
+  const big = (n) => ({ key: `urn:li:activity:${n}`, author: VIRAL.people[n % VIRAL.people.length].name, href: `https://www.linkedin.com/in/${VIRAL.people[n % VIRAL.people.length].slug}`, text: TEXT, head: "", ageH: 2, reactions: 5400, comments: 300 });
+  const fresh = (name, content) => {
+    process.env.LINKEDIN_TRACK_PATH = path.join(TMP, `${name}.json`);
+    if (content) fs.writeFileSync(process.env.LINKEDIN_TRACK_PATH, JSON.stringify(content));
+    LinkedInService._resetDisabled();
+  };
+  const commented = [];
+  proto.readComments = async () => ({ status: "open", comments: "", commenters: [] });
+  proto.commentOnFeedCard = async (key, href, snip, text, author, opts) => { commented.push({ key, like: opts && opts.like }); return { status: "posted", liked: Boolean(opts && opts.like) }; };
+  llm.draftViralComment = async () => ({ comment: "Shipping it open source is the part that will travel.", isValid: true, skipped: false, errors: [], candidates: [] });
+  Object.assign(config.social, { linkedinFeedReply: true, linkedinViral: true });
+  try {
+    fresh("stop");
+    proto.scanFeedPosts = async () => [big(2)];
+    proto.readComments = async () => { throw Object.assign(new Error("checkpoint"), { code: "LINKEDIN_RESTRICTED" }); };
+    const stopped = await feedEngage.runViralPass({ max: 1 });
+    assert.match(stopped.reason, /linkedin unavailable/);
+    assert.ok(T.loadTrack().cooldowns.all, "every pass pauses for a day or two");
+    assert.equal(commented.length, 0);
+    proto.readComments = async () => ({ status: "open", comments: "", commenters: [] });
+
+    const now = new Date().toISOString();
+    fresh("rejected", { "urn:li:activity:2": { ts: now, status: "rejected", skipReason: "peer gate" }, "urn:li:activity:4": { ts: now, status: "rejected", pass: "viral" } });
+    proto.scanFeedPosts = async () => [big(4), big(2)];
+    assert.equal((await feedEngage.runViralPass({ max: 2 })).commented, 1);
+    assert.deepEqual(commented.map((c) => c.key), ["urn:li:activity:2"], "the regular pass's rejection does not count; the viral pass's own does");
+
+    fresh("dry");
+    commented.length = 0;
+    const dry = await feedEngage.runViralPass({ max: 1, dryRun: true });
+    assert.equal(dry.previews.length, 1);
+    assert.equal(fs.existsSync(process.env.LINKEDIN_TRACK_PATH), false, "a dry run writes no tracker");
+
+    const liked = {};
+    for (let i = 0; i < 60; i++) liked[`urn:li:activity:9${i}`] = { ts: now, status: "liked", likedAt: now };
+    fresh("likes", liked);
+    proto.scanFeedPosts = async () => [big(3)];
+    assert.equal((await feedEngage.runViralPass({ max: 1 })).commented, 1);
+    assert.deepEqual(commented, [{ key: "urn:li:activity:3", like: false }], "the day's 60 likes are spent: the comment goes without one");
+  } finally {
+    Object.assign(proto, { scanFeedPosts: saved.scan, commentOnFeedCard: saved.comment, readComments: saved.read });
+    llm.draftViralComment = saved.draft;
+    Object.assign(config.social, saved.social);
+    process.env.LINKEDIN_TRACK_PATH = saved.track;
+    LinkedInService._resetDisabled();
   }
 });

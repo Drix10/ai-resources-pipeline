@@ -1,4 +1,4 @@
-const { logger, handleError, sleep, REPO_ROOT, digestLeadTitle } = require("../utils/helpers");
+const { logger, handleError, sleep, REPO_ROOT, digestLead } = require("../utils/helpers");
 const fs = require("fs");
 const path = require("path");
 const config = require("../../config");
@@ -442,7 +442,7 @@ const processAllFolders = async () => {
       }
       const template = ANNOUNCEMENTS[Math.floor(Math.random() * ANNOUNCEMENTS.length)];
       const topic = getTopicName(item.queryName);
-      let text = template(topic, item.url, digestLeadTitle(item.content));
+      let text = template(topic, item.url, digestLead(item.content).title);
       // X counts a link as 23 characters; a headline that would push the post past 280 is left out.
       if (text.replace(item.url, "x".repeat(23)).length > 280) text = template(topic, item.url, "");
       const posted = await TwitterService.postTweet(text).catch((err) => {

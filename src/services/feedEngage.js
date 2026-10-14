@@ -176,6 +176,11 @@ const VIRAL_AUTHOR_GAP_MS = 2 * DAY; // a big name posts often; still not on eve
 const VIRAL_SOURCES_PER_PASS = 3;
 const VIRAL_LOADS_PER_DAY = 40; // big-name pages and viral searches loaded, rolling 24 h
 const VIRAL_RECHECK_MS = 2 * HOUR; // a big name's page is not reloaded sooner
+// Each post costs two LLM calls (a draft and a judge, minutes each on Claude): the viral pass gets
+// twice the usual pass time, and starts no post in the stretch it would need to finish one.
+const VIRAL_PASS_TIMEOUT_MS = 2 * PASS_TIMEOUT_MS;
+const viralDraftReserveMs = () => 2 * (llmService.providerFor("viral") === "claude"
+  ? config.llm.claude.requestTimeoutMs : (config.llm.openrouter.requestTimeoutMs || 120000));
 // Launches, funding and big-company news: what makes a post spread.
 const NEWS_RE = /\b(raises?|raised|series [a-e]|seed round|funding|funded|unicorn|valuation|launch(?:es|ed|ing)?|announc\w+|acquir\w+|acquisition|ipo|open.?sourc\w+|releas\w+|ships?|shipped|introducing)\b/gi;
 const slugOf = (href, kind) => ((String(href || "").match(new RegExp(`/${kind}/([^/?#]+)`, "i")) || [])[1] || "").toLowerCase();
@@ -226,7 +231,9 @@ function buildViralSources(track = {}, limit = VIRAL_SOURCES_PER_PASS, now = Dat
     const at = Date.parse((s && s.at) || "");
     if (!Number.isFinite(at)) return 2 + Math.random();
     if (now - at < VIRAL_RECHECK_MS) return -1;
-    const perDay = Math.max(0.05, Number(s.perDay) || 0.3);
+    // (a learned 0 is a page that has gone quiet: the floor, not the unknown-page default)
+    const learned = s.perDay === null || s.perDay === undefined ? NaN : Number(s.perDay);
+    const perDay = Math.max(0.05, Number.isFinite(learned) ? learned : 0.3);
     return 1 - Math.exp(-perDay * (now - at) / DAY) + Math.random() * 0.15; // P(a new post since)
   };
   const pages = vipPages().map((src) => ({ ...src, p: chance(src) })).filter((s) => s.p >= 0)
@@ -244,7 +251,10 @@ function noteViralPage(track, label, posts, now = Date.now()) {
   if (!String(label).startsWith("vip:")) return;
   const ages = posts.map((p) => p.ageH).filter((h) => typeof h === "number" && h <= 14 * 24);
   const days = Math.max(1, Math.max(0, ...ages) / 24);
-  const viralPages = { ...(((track.meta || {}).viralPages) || {}), [label]: { at: new Date(now).toISOString(), perDay: Number((ages.length / days).toFixed(3)) } };
+  const pages = ((track.meta || {}).viralPages) || {};
+  // No card read at all says nothing about the page (it may not have rendered): the rate stays as it was.
+  const perDay = posts.length ? Number((ages.length / days).toFixed(3)) : ((pages[label] || {}).perDay ?? null);
+  const viralPages = { ...pages, [label]: { at: new Date(now).toISOString(), perDay } };
   track.meta = { ...(track.meta || {}), viralPages };
 }
 
@@ -357,7 +367,8 @@ function saveTrack(track) {
 }
 
 // Tracker entries: { ts, status: "commented" | "liked" | "skipped" | "rejected" | "invited",
-// likedAt?, followedAt?, commentedAt?, authorHref?, skipReason?, unverified? }
+// likedAt?, followedAt?, commentedAt?, authorHref?, skipReason?, unverified?, viral?,
+// pass? ("comment" | "viral": which pass skipped or rejected it) }
 // (legacy plain-string values = commented).
 function entryOf(v) {
   if (v && typeof v === "object") return v;
@@ -470,10 +481,11 @@ function saveOrStop(track) {
 // on timeout chromedriver is killed and LinkedIn is off for the run), and the typed LinkedIn
 // stops (signed out, checkpoint, earlier failure) turned into a clean return with a reason.
 // A checkpoint/limit wall also pauses every pass for 24-48 h, persisted in the tracker.
-async function guarded(name, ctx, body) {
+async function guarded(name, ctx, body, timeoutMs = PASS_TIMEOUT_MS) {
   let timer = null;
+  ctx.deadline = Date.now() + timeoutMs;
   const timedOut = new Promise((resolve) => {
-    timer = setTimeout(() => resolve("timeout"), PASS_TIMEOUT_MS);
+    timer = setTimeout(() => resolve("timeout"), timeoutMs);
     if (timer.unref) timer.unref();
   });
   const run = body();
@@ -482,7 +494,7 @@ async function guarded(name, ctx, body) {
     const r = await Promise.race([run.then(() => "done"), timedOut]);
     if (r === "timeout") {
       ctx.aborted = true;
-      ctx.out.reason = `linkedin unavailable (${name} pass timed out after ${Math.round(PASS_TIMEOUT_MS / 60000)} min)`;
+      ctx.out.reason = `linkedin unavailable (${name} pass timed out after ${Math.round(timeoutMs / 60000)} min)`;
       logger.error(`feedEngage ${name}: ${ctx.out.reason}; stopping chromedriver.`);
       linkedinService.disable(6 * HOUR, `${name} pass timed out`);
       await LinkedInService.cleanup().catch(() => {});
@@ -566,15 +578,23 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
   if (capHit()) return { ...out, reason: `daily ${viral ? "viral " : ""}cap (${cap}) reached`, cost: runCost() };
   const rememberSlug = shareOwnSlug(track);
   const ctx = { track, out, aborted: false };
+  let dryLoads = 0;
 
   const skipPost = (post, status, why) => {
     if (dryRun) return;
-    markPost(track, post, { status, ts: nowIso(), skipReason: String(why || status).slice(0, 200) });
+    markPost(track, post, { status, ts: nowIso(), skipReason: String(why || status).slice(0, 200), pass: viral ? "viral" : "comment" });
     saveTrack(track);
+  };
+  // The regular pass's own rejection (its stricter, peer-only gates) does not bar the viral pass
+  // from the same post during the hours that matter; anything else tracked does.
+  const tracked = (post) => {
+    const e = entryOfPost(track, post);
+    if (viral && e.status === "rejected" && e.pass !== "viral") return false;
+    return shouldSkipTracked(track, post.key, keysOfPost(post).slice(1));
   };
 
   const engageOne = async (post, sort) => {
-    if (shouldSkipTracked(track, post.key, keysOfPost(post).slice(1))) { out.skipped++; return; }
+    if (tracked(post)) { out.skipped++; return; }
     if (authorDid(track, post.href, commentedAtOf, viral ? VIRAL_AUTHOR_GAP_MS : AUTHOR_COMMENT_GAP_MS)) {
       logger.info(`${tag}: already commented on @${post.author} ${viral ? "in the last 2 days" : "this week"} - skipping.`);
       out.skipped++;
@@ -597,15 +617,16 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
           out.skipped++;
           return;
         }
-        let shot = "";
-        if (llmService.providerFor("viral") === "claude") {
-          shot = path.join(os.tmpdir(), `viral-${process.pid}-${Date.now()}.png`);
+        let shot = "", shotDir = "";
+        if (llmService.providerFor("viral") === "claude" && !llmService.claudeResting()) {
+          shotDir = fs.mkdtempSync(path.join(os.tmpdir(), "viral-shot-"));
+          shot = path.join(shotDir, "post.png");
           if (!(await LinkedInService.screenshotCard(post.text.slice(0, 80), shot))) shot = "";
         }
         try {
           draft = await llmService.draftViralComment({ post, comments: section.comments, imageFile: shot });
         } finally {
-          if (shot) try { fs.unlinkSync(shot); } catch (e) { /* a temp image left behind costs nothing */ }
+          if (shotDir) try { fs.rmSync(shotDir, { recursive: true, force: true }); } catch (e) { /* a temp image left behind costs nothing */ }
         }
         if (draft.candidates && draft.candidates.length) {
           for (const c of draft.candidates) logger.info(`${tag}: candidate [${c.angle}] "${c.comment}" -> ${c.gate && c.gate.length ? `gates: ${c.gate.join("; ")}` : c.judge ? `judge: ${c.judge.pass ? "PASS" : "FAIL"} ${c.judge.reason}` : "not judged"}`);
@@ -614,6 +635,7 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
         draft = await llmService.draftFeedComment({ postAuthor: post.author, postText: post.text });
       }
     } catch (e) {
+      rethrowStop(e); // a checkpoint or sign-out while reading the thread ends the pass (and pauses LinkedIn)
       // Thin posts throw before any LLM call: park them so every cycle doesn't waste a scan
       // slot on them. Anything else (network, LLM down) stays untracked and retries next cycle.
       if (/too thin/i.test(e.message || "")) skipPost(post, "skipped", "too thin");
@@ -641,7 +663,8 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
       return;
     }
     logger.info(`${tag} [${sort}]: commenting on @${post.author}${viral ? ` (score ${post.score}, ${post.reactions || 0} reactions, ${Math.round(post.ageH)}h old)` : ""}: "${draft.comment.slice(0, 90)}..."`);
-    const res = await LinkedInService.commentOnFeedCard(post.key, post.href, post.text.slice(0, 80), draft.comment, post.author);
+    // The like that goes with a comment counts toward the day's like cap too.
+    const res = await LinkedInService.commentOnFeedCard(post.key, post.href, post.text.slice(0, 80), draft.comment, post.author, { like: likedSince(track, DAY) < LIKES_MAX_PER_DAY });
     const at = nowIso();
     const liked = res && res.liked ? { likedAt: at } : {};
     if (res && liked.likedAt) out.liked++;
@@ -689,7 +712,7 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
     for (const post of posts) {
       if (done() || capHit()) break;
       if (seenThisRun.has(post.key)) continue;
-      if (shouldSkipTracked(track, post.key, keysOfPost(post).slice(1))) continue;
+      if (tracked(post)) continue;
       seenThisRun.add(post.key);
       fresh++;
       if (isSensitivePost(post.text)) { skipPost(post, "skipped", "sensitive topic"); continue; }
@@ -698,6 +721,7 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
         out.wouldLike.push({ author: post.author, snippet: post.text.slice(0, 60), score: post.score });
       }
       if (post.score < minScore) continue;
+      if (viral && Date.now() > ctx.deadline - viralDraftReserveMs()) { out.reason = "the pass's time is nearly up"; break; }
       const before = out.commented;
       await engageOne(post, src.label);
       // Pace only published comments (nothing public happened on a rejection).
@@ -711,8 +735,12 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
       if (done() || capHit()) break;
       // The viral pass's page loads are capped per day (big-name pages and searches are extra loads).
       if (viral) {
-        if (searchLoadsSince(track, DAY, "viralLoads") >= VIRAL_LOADS_PER_DAY) { out.reason = `viral page cap (${VIRAL_LOADS_PER_DAY} per day)`; break; }
-        recordSearchLoad(track, "viralLoads");
+        if (searchLoadsSince(track, DAY, "viralLoads") + dryLoads >= VIRAL_LOADS_PER_DAY) { out.reason = `viral page cap (${VIRAL_LOADS_PER_DAY} per day)`; break; }
+        // Drafts take minutes (a draft and a judge call): none is started that the pass cannot finish.
+        if (Date.now() > ctx.deadline - viralDraftReserveMs()) { out.reason = "the pass's time is nearly up"; break; }
+        // A dry run tracks nothing: its loads are counted in memory only.
+        if (dryRun) dryLoads++;
+        else recordSearchLoad(track, "viralLoads");
       }
       try { found += await commentFrom(src); } catch (e) { rethrowStop(e); logger.warn(`${tag} [${src.label}]: scan failed: ${e.message}`); }
     }
@@ -724,7 +752,7 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
       }
     }
     if (!done()) logger.info(`${tag}: ${dryRun ? out.previews.length : out.commented}/${max} comments - ${out.reason || "sources exhausted"}, moving on.`);
-  });
+  }, viral ? VIRAL_PASS_TIMEOUT_MS : PASS_TIMEOUT_MS);
   if (!ctx.aborted && !dryRun) rememberSlug();
 
   out.cost = runCost();

@@ -3,7 +3,7 @@ const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
 const config = require("../../config");
-const { logger, handleError, generateSeoSlug, digestLeadTitle, rebuildBlogIndex, redactSecrets, blogDir } = require("../utils/helpers");
+const { logger, handleError, generateSeoSlug, digestLead, rebuildBlogIndex, redactSecrets, blogDir } = require("../utils/helpers");
 const syndicationService = require("./syndication");
 
 // Files are zero-padded to 3 digits but keep growing past 999
@@ -203,9 +203,11 @@ class GithubService {
     // pushed and deployed. syndicationService.processQueue() posts once that URL is live.
     for (const item of preparedItems) {
       try {
+        // The lead item's headline and summary are the search title and snippet, as on the blog page.
+        const lead = digestLead(item.content);
         await syndicationService.queueMarkdownArticle({
-          // The lead item's headline is the search title, as on the blog page; tags readers follow.
-          title: digestLeadTitle(item.content) || `${item.decodedFolder} #${item.nextNumber}`,
+          title: lead.title || `${item.decodedFolder} #${item.nextNumber}`,
+          description: lead.summary,
           markdown: item.content,
           tags: syndicationService.topicTags(item.decodedFolder),
           category: item.decodedFolder,
