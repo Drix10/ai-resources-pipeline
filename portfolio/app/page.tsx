@@ -7,7 +7,7 @@ import Writing from '@/components/Writing';
 import ContactEmail from '@/components/ContactEmail';
 import { getGitHubProfile, USERNAME } from '@/lib/github';
 import { PERSON_ID, jsonLd } from '@/lib/site';
-import { EDUCATION, HACKATHONS, NOW_BUILDING, ROLES, SKILLS } from '@/lib/profile';
+import { EDUCATION, HACKATHONS, NOW_BUILDING, RESUME_URL, ROLES, SKILLS } from '@/lib/profile';
 
 // Projects, stars, activity and open-source work are read from GitHub; rebuild hourly.
 export const revalidate = 3600;
@@ -44,7 +44,7 @@ export default async function HomePage() {
       position: i + 1,
       item: {
         '@type': 'SoftwareSourceCode',
-        name: r.name,
+        name: r.title || r.name,
         description: r.description || undefined,
         codeRepository: r.url,
         url: r.homepage || r.url,
@@ -78,9 +78,13 @@ export default async function HomePage() {
                 <span className="font-semibold text-ink">Building now: </span>
                 {NOW_BUILDING.map((n, i) => (
                   <span key={n.name}>
-                    <a href={n.href} target="_blank" rel="noreferrer" className="link">
-                      {n.name}
-                    </a>
+                    {n.href ? (
+                      <a href={n.href} target="_blank" rel="noreferrer" className="link">
+                        {n.name}
+                      </a>
+                    ) : (
+                      n.name
+                    )}
                     {i < NOW_BUILDING.length - 1 ? ', ' : '.'}
                   </span>
                 ))}
@@ -91,6 +95,7 @@ export default async function HomePage() {
                 <li><a className="link" href="https://www.linkedin.com/in/drix10" target="_blank" rel="me noreferrer">LinkedIn</a></li>
                 <li><a className="link" href="https://x.com/DrishtantGhosh" target="_blank" rel="me noreferrer">X</a></li>
                 <li><a className="link" href="https://blogs.drix10.com" target="_blank" rel="noreferrer">Blog</a></li>
+                <li><a className="link" href={RESUME_URL} target="_blank" rel="noreferrer">Resume</a></li>
               </ul>
               <p className="mt-6 text-[0.9375rem] text-faint">
                 The name is a swarm of agents. An owl crosses it on its own and whatever it scares runs, then returns: the{' '}
@@ -154,7 +159,7 @@ export default async function HomePage() {
         </ol>
 
         <div className="mt-16 border-t border-rule pt-10">
-          <h3 className="mb-4 font-semibold text-ink">Hackathons</h3>
+          <h3 className="mb-4 font-semibold text-ink">Hackathons and programs</h3>
           <ul className="divide-y divide-rule border-y border-rule">
             {HACKATHONS.map((h) => (
               <li key={`${h.event}-${h.project}`} className="grid gap-x-8 gap-y-1 py-4 sm:grid-cols-[10.5rem_1fr]">
@@ -194,7 +199,11 @@ export default async function HomePage() {
 
       <Section id="contact" title="Contact">
         <p className="prose-text mb-8">
-          Open to founding-engineer roles, agent infrastructure, security and research systems, and to collaborations. Email is the quickest way to reach me.
+          Open to founding-engineer roles, agent infrastructure, security and research systems, and to collaborations. Email is the quickest way to reach me, and my{' '}
+          <a className="link" href={RESUME_URL} target="_blank" rel="noreferrer">
+            resume
+          </a>{' '}
+          has the short version.
         </p>
         <ContactEmail />
       </Section>
