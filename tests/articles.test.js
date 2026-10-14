@@ -233,6 +233,28 @@ test("a number with its unit glued on is not a name, and a handle's name may be 
   assert.doesNotMatch(errs({ title: "Acme raises $2B for its 70B model" }), /names are not in the post/);
   assert.doesNotMatch(errs({}), /names are not in the post/, "DeepMind, Hugging Face and Sequoia come from the handles");
   assert.match(errs({ title: "Acme raises $2B for its 70B model with Microsoft" }), /Microsoft/, "a name in no word or handle is still caught");
+  // Any run of a handle's own words, as the handle writes them; a lowercase one without its brand suffix.
+  const brands = "Acme raised $2B for its 70B model. Thanks @GoogleDeepMind, @AIatMeta, @OpenAIDevs, @GitHubCopilot, @nvidianewsroom, @runwayml and @llama_index.";
+  const brandErrs = (summary) => llm.validateArticle({ ...llm.parseArticleReply(GOOD), title: "Acme raises $2B for its 70B model", summary, points: [{ label: "Funding", text: "Acme raised $2B for its 70B model." }] }, brands).join(" | ");
+  for (const name of ["DeepMind", "Google", "Meta", "OpenAI", "Copilot", "GitHub", "NVIDIA", "Runway", "LlamaIndex"]) {
+    assert.doesNotMatch(brandErrs(`Acme raised $2B for its 70B model, with help from ${name}.`), /names are not in the post/, name);
+  }
+  assert.match(brandErrs("Acme raised $2B for its 70B model, with help from Microsoft."), /Microsoft/);
+  // A surname after the full name a lowercase handle spells; a pasted blob after a # costs nothing.
+  const people = "Acme raised $2B for its 70B model, says @elonmusk.";
+  const peopleErrs = (summary) => llm.validateArticle({ ...llm.parseArticleReply(GOOD), title: "Acme raises $2B for its 70B model", summary, points: [{ label: "Funding", text: "Acme raised $2B for its 70B model." }] }, people).join(" | ");
+  assert.doesNotMatch(peopleErrs("Acme raised $2B for its 70B model, says Elon Musk. Musk backs it."), /names are not in the post/);
+  assert.match(peopleErrs("Acme raised $2B for its 70B model. Musk backs it."), /Musk/, "a surname alone is still a piece of the handle");
+  const blob = `${brands} #${"aB3".repeat(1600)}`;
+  const t0 = Date.now();
+  llm.validateArticle({ ...llm.parseArticleReply(GOOD), title: "Acme raises $2B for its 70B model", summary: "Acme raised $2B for its 70B model.", points: [{ label: "Funding", text: "Acme raised $2B for its 70B model." }] }, blob);
+  assert.ok(Date.now() - t0 < 2000, `a 4,800-character tag is read in ${Date.now() - t0} ms`);
+  // A piece of a handle is not its name.
+  const near = "Acme raised $2B for its 70B model, with feedback from @metaculus and @thealexandrawang.";
+  const nearErrs = (summary) => llm.validateArticle({ ...llm.parseArticleReply(GOOD), title: "Acme raises $2B for its 70B model", summary, points: [{ label: "Funding", text: "Acme raised $2B for its 70B model." }] }, near).join(" | ");
+  assert.match(nearErrs("Acme raised $2B for its 70B model, with feedback from Meta."), /Meta/);
+  assert.match(nearErrs("Acme raised $2B for its 70B model, with feedback from Lex."), /Lex/);
+  assert.doesNotMatch(nearErrs("Acme raised $2B for its 70B model, with feedback from Metaculus."), /names are not in the post/);
 });
 
 test("a bolded VALUE is read, so the low-value gate and the lead order see it", () => {

@@ -269,7 +269,7 @@ test("viral prompts treat the page as data; a resting Claude gets no screenshot 
   }
 });
 
-test("the viral pass: a checkpoint ends it, a regular-pass rejection does not bar it, a dry run tracks nothing, the like obeys its cap", async () => {
+test("the viral pass: a checkpoint ends it, a regular-pass rejection does not bar it, a dry run tracks nothing, the like obeys its cap", { timeout: 120000 }, async () => {
   const proto = LinkedInService.prototype;
   const saved = { scan: proto.scanFeedPosts, comment: proto.commentOnFeedCard, read: proto.readComments, draft: llm.draftViralComment, social: { ...config.social }, track: process.env.LINKEDIN_TRACK_PATH };
   const big = (n) => ({ key: `urn:li:activity:${n}`, author: VIRAL.people[n % VIRAL.people.length].name, href: `https://www.linkedin.com/in/${VIRAL.people[n % VIRAL.people.length].slug}`, text: TEXT, head: "", ageH: 2, reactions: 5400, comments: 300 });
@@ -296,7 +296,8 @@ test("the viral pass: a checkpoint ends it, a regular-pass rejection does not ba
     const now = new Date().toISOString();
     fresh("rejected", { "urn:li:activity:2": { ts: now, status: "rejected", skipReason: "peer gate" }, "urn:li:activity:4": { ts: now, status: "rejected", pass: "viral" } });
     proto.scanFeedPosts = async () => [big(4), big(2)];
-    assert.equal((await feedEngage.runViralPass({ max: 2 })).commented, 1);
+    // (max 1: a second comment would wait out the real 1-3 minute pause; post 4 is scanned first either way)
+    assert.equal((await feedEngage.runViralPass({ max: 1 })).commented, 1);
     assert.deepEqual(commented.map((c) => c.key), ["urn:li:activity:2"], "the regular pass's rejection does not count; the viral pass's own does");
 
     fresh("dry");
@@ -311,6 +312,58 @@ test("the viral pass: a checkpoint ends it, a regular-pass rejection does not ba
     proto.scanFeedPosts = async () => [big(3)];
     assert.equal((await feedEngage.runViralPass({ max: 1 })).commented, 1);
     assert.deepEqual(commented, [{ key: "urn:li:activity:3", like: false }], "the day's 60 likes are spent: the comment goes without one");
+
+    // A Claude time-out as long as the pass: its draft reserve is capped at half the pass, not the whole of it.
+    const routes = { viral: config.llm.providers.viral, timeout: config.llm.claude.requestTimeoutMs, shot: proto.screenshotCard };
+    try {
+      config.llm.providers.viral = "claude";
+      config.llm.claude.requestTimeoutMs = 60 * 60 * 1000;
+      proto.screenshotCard = async () => false;
+      fresh("reserve");
+      commented.length = 0;
+      proto.scanFeedPosts = async () => [big(5)];
+      assert.equal((await feedEngage.runViralPass({ max: 1 })).commented, 1);
+    } finally {
+      config.llm.providers.viral = routes.viral;
+      config.llm.claude.requestTimeoutMs = routes.timeout;
+      proto.screenshotCard = routes.shot;
+    }
+
+    // The reserve follows the slowest draft: after a 14.5-minute draft no 1-3 minute pause is waited out
+    // (the next post could not finish in the 30-minute pass), and no further page is loaded.
+    const realNow = Date.now;
+    const draft = llm.draftViralComment;
+    let clock = realNow();
+    let scans = 0;
+    try {
+      Date.now = () => clock;
+      config.llm.providers.viral = "openrouter";
+      fresh("slow");
+      commented.length = 0;
+      proto.scanFeedPosts = async () => { scans++; return [big(5), big(6)]; };
+      llm.draftViralComment = async (a) => { clock += 14.5 * 60000; llm.commentCalls = (llm.commentCalls || 0) + 1; return draft(a); };
+      const slow = await feedEngage.runViralPass({ max: 2 });
+      assert.equal(slow.commented, 1);
+      assert.equal(slow.reason, "the pass's time is nearly up");
+      assert.equal(scans, 1, "no page is loaded for a post the pass cannot finish");
+
+      // A draft that ended before any model call (a thin post, a second) teaches the reserve nothing: when the
+      // next page leaves 3 minutes, a pass on OpenRouter (4 minutes' reserve) starts no further draft.
+      fresh("thin");
+      commented.length = 0;
+      clock = realNow();
+      let drafted = 0, pages = 0;
+      proto.scanFeedPosts = async () => (pages++ === 0 ? [big(7)] : ((clock += 27 * 60000), [big(8)]));
+      llm.draftViralComment = async (a) => { if (drafted++ === 0) { clock += 1000; return { comment: "", isValid: false, skipped: true, errors: ["too thin"], candidates: [] }; } clock += 60000; llm.commentCalls = (llm.commentCalls || 0) + 1; return draft(a); };
+      const thin = await feedEngage.runViralPass({ max: 2 });
+      assert.equal(drafted, 1, "the thin post, and no draft after it");
+      assert.equal(thin.commented, 0);
+      assert.equal(thin.reason, "the pass's time is nearly up");
+    } finally {
+      Date.now = realNow;
+      llm.draftViralComment = draft;
+      config.llm.providers.viral = routes.viral;
+    }
   } finally {
     Object.assign(proto, { scanFeedPosts: saved.scan, commentOnFeedCard: saved.comment, readComments: saved.read });
     llm.draftViralComment = saved.draft;

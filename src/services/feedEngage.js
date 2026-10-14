@@ -176,11 +176,24 @@ const VIRAL_AUTHOR_GAP_MS = 2 * DAY; // a big name posts often; still not on eve
 const VIRAL_SOURCES_PER_PASS = 3;
 const VIRAL_LOADS_PER_DAY = 40; // big-name pages and viral searches loaded, rolling 24 h
 const VIRAL_RECHECK_MS = 2 * HOUR; // a big name's page is not reloaded sooner
-// Each post costs two LLM calls (a draft and a judge, minutes each on Claude): the viral pass gets
-// twice the usual pass time, and starts no post in the stretch it would need to finish one.
+// Each post costs at least two LLM calls (a draft and its judge or critic, minutes each on Claude): the
+// viral pass gets twice the usual pass time, and neither pass starts a post, or a pause before one, in the
+// stretch the next post would need: twice the slowest draft this pass (at least 2 minutes), or before the
+// first, twice the writer's time-out. That stretch is at most half the pass, so a long time-out never empties it.
 const VIRAL_PASS_TIMEOUT_MS = 2 * PASS_TIMEOUT_MS;
-const viralDraftReserveMs = () => 2 * (llmService.providerFor("viral") === "claude"
-  ? config.llm.claude.requestTimeoutMs : (config.llm.openrouter.requestTimeoutMs || 120000));
+const RESERVE_MIN_MS = 2 * 60 * 1000;
+// What posting the last comment needs after its draft: the LLM calls end this long before the guard.
+const SUBMIT_MS = 90 * 1000;
+// The time-out of the writer a job's calls reach now (a resting Claude hands its calls to OpenRouter).
+function writerTimeoutMs(role) {
+  const provider = llmService.providerFor(role);
+  if (provider === "claude" && !llmService.claudeResting()) return config.llm.claude.requestTimeoutMs;
+  if (provider === "local") return config.llm.requestTimeoutMs;
+  if (provider === "nvidia") return config.llm.nvidia.requestTimeoutMs || 240000;
+  return config.llm.openrouter.requestTimeoutMs || 120000;
+}
+const draftReserveMs = (viral, slowestMs = 0) => Math.min((viral ? VIRAL_PASS_TIMEOUT_MS : PASS_TIMEOUT_MS) / 2,
+  slowestMs ? Math.max(RESERVE_MIN_MS, 2 * slowestMs) : 2 * writerTimeoutMs(viral ? "viral" : "comment"));
 // Launches, funding and big-company news: what makes a post spread.
 const NEWS_RE = /\b(raises?|raised|series [a-e]|seed round|funding|funded|unicorn|valuation|launch(?:es|ed|ing)?|announc\w+|acquir\w+|acquisition|ipo|open.?sourc\w+|releas\w+|ships?|shipped|introducing)\b/gi;
 const slugOf = (href, kind) => ((String(href || "").match(new RegExp(`/${kind}/([^/?#]+)`, "i")) || [])[1] || "").toLowerCase();
@@ -579,6 +592,10 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
   const rememberSlug = shareOwnSlug(track);
   const ctx = { track, out, aborted: false };
   let dryLoads = 0;
+  // The slowest draft so far, and whether the pass already ran out of time for another post.
+  let slowestDraftMs = 0;
+  let timeUp = false;
+  const nearlyUp = (extraMs = 0) => timeUp || Date.now() + extraMs > ctx.deadline - draftReserveMs(viral, slowestDraftMs);
 
   const skipPost = (post, status, why) => {
     if (dryRun) return;
@@ -601,6 +618,11 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
       return;
     }
     let draft;
+    // A draft's time (from its first LLM call to its verdict) sizes the reserve for the next post: only a
+    // draft that reached a model (a thin, foreign or promo post ends before any call, and teaches nothing).
+    let drafting = 0, callsBefore = 0;
+    const startDraft = () => { drafting = Date.now(); callsBefore = llmService.commentCalls || 0; };
+    const timed = () => { if (drafting && (llmService.commentCalls || 0) > callsBefore) slowestDraftMs = Math.max(slowestDraftMs, Date.now() - drafting); };
     try {
       if (viral) {
         // Read the thread first (and see the post as readers do): the comment must say what the
@@ -618,12 +640,13 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
           return;
         }
         let shot = "", shotDir = "";
-        if (llmService.providerFor("viral") === "claude" && !llmService.claudeResting()) {
-          shotDir = fs.mkdtempSync(path.join(os.tmpdir(), "viral-shot-"));
-          shot = path.join(shotDir, "post.png");
-          if (!(await LinkedInService.screenshotCard(post.text.slice(0, 80), shot))) shot = "";
-        }
+        startDraft();
         try {
+          if (llmService.providerFor("viral") === "claude" && !llmService.claudeResting()) {
+            shotDir = fs.mkdtempSync(path.join(os.tmpdir(), "viral-shot-"));
+            shot = path.join(shotDir, "post.png");
+            if (!(await LinkedInService.screenshotCard(post.text.slice(0, 80), shot))) shot = "";
+          }
           draft = await llmService.draftViralComment({ post, comments: section.comments, imageFile: shot });
         } finally {
           if (shotDir) try { fs.rmSync(shotDir, { recursive: true, force: true }); } catch (e) { /* a temp image left behind costs nothing */ }
@@ -632,10 +655,14 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
           for (const c of draft.candidates) logger.info(`${tag}: candidate [${c.angle}] "${c.comment}" -> ${c.gate && c.gate.length ? `gates: ${c.gate.join("; ")}` : c.judge ? `judge: ${c.judge.pass ? "PASS" : "FAIL"} ${c.judge.reason}` : "not judged"}`);
         }
       } else {
+        startDraft();
         draft = await llmService.draftFeedComment({ postAuthor: post.author, postText: post.text });
       }
     } catch (e) {
+      timed();
       rethrowStop(e); // a checkpoint or sign-out while reading the thread ends the pass (and pauses LinkedIn)
+      // The pass's deadline came before the draft could end: this post and the pass end here, untracked.
+      if (e.code === "PASS_TIME_UP") { timeUp = true; out.reason = "the pass's time is nearly up"; out.skipped++; return; }
       // Thin posts throw before any LLM call: park them so every cycle doesn't waste a scan
       // slot on them. Anything else (network, LLM down) stays untracked and retries next cycle.
       if (/too thin/i.test(e.message || "")) skipPost(post, "skipped", "too thin");
@@ -643,6 +670,7 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
       out.skipped++;
       return;
     }
+    timed();
     if (ctx.aborted || shouldStop()) return;
     if (draft.skipped) {
       skipPost(post, "skipped", (draft.errors || []).join("; ") || "llm skip"); // remembered 30 days
@@ -721,23 +749,30 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
         out.wouldLike.push({ author: post.author, snippet: post.text.slice(0, 60), score: post.score });
       }
       if (post.score < minScore) continue;
-      if (viral && Date.now() > ctx.deadline - viralDraftReserveMs()) { out.reason = "the pass's time is nearly up"; break; }
+      if (nearlyUp()) { out.reason = "the pass's time is nearly up"; break; }
       const before = out.commented;
       await engageOne(post, src.label);
-      // Pace only published comments (nothing public happened on a rejection).
-      if (!dryRun && out.commented > before && out.commented < max) await pause(jitter(60000, 180000), shouldStop);
+      // Pace only published comments (nothing public happened on a rejection); a pause the next post
+      // could not follow is not waited out.
+      if (!dryRun && out.commented > before && out.commented < max) {
+        const wait = jitter(60000, 180000);
+        if (nearlyUp(wait)) { timeUp = true; out.reason = "the pass's time is nearly up"; break; }
+        await pause(wait, shouldStop);
+      }
     }
     return fresh;
   };
   await guarded(viral ? "viral" : "comment", ctx, async () => {
+    // The pass's LLM calls end before its guard does, with time left to post the last comment.
+    llmService.commentDeadline = ctx.deadline - SUBMIT_MS;
     let found = 0;
     for (const src of viral ? buildViralSources(track) : buildSources()) {
       if (done() || capHit()) break;
+      // Drafts take minutes (a draft and its judge or critic): no page is loaded for a post the pass cannot finish.
+      if (nearlyUp()) { out.reason = "the pass's time is nearly up"; break; }
       // The viral pass's page loads are capped per day (big-name pages and searches are extra loads).
       if (viral) {
         if (searchLoadsSince(track, DAY, "viralLoads") + dryLoads >= VIRAL_LOADS_PER_DAY) { out.reason = `viral page cap (${VIRAL_LOADS_PER_DAY} per day)`; break; }
-        // Drafts take minutes (a draft and a judge call): none is started that the pass cannot finish.
-        if (Date.now() > ctx.deadline - viralDraftReserveMs()) { out.reason = "the pass's time is nearly up"; break; }
         // A dry run tracks nothing: its loads are counted in memory only.
         if (dryRun) dryLoads++;
         else recordSearchLoad(track, "viralLoads");
@@ -747,12 +782,12 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
     if (found === 0 && !viral && !done() && config.social.linkedinSource !== "feed") {
       logger.warn("feedEngage: targeted sources yielded nothing - falling back to home feed.");
       for (const src of FALLBACK_SOURCES) {
-        if (done()) break;
+        if (done() || nearlyUp()) break;
         try { await commentFrom(src); } catch (e) { rethrowStop(e); logger.warn(`feedEngage [${src.label}]: scan failed: ${e.message}`); }
       }
     }
     if (!done()) logger.info(`${tag}: ${dryRun ? out.previews.length : out.commented}/${max} comments - ${out.reason || "sources exhausted"}, moving on.`);
-  }, viral ? VIRAL_PASS_TIMEOUT_MS : PASS_TIMEOUT_MS);
+  }, viral ? VIRAL_PASS_TIMEOUT_MS : PASS_TIMEOUT_MS).finally(() => { llmService.commentDeadline = 0; });
   if (!ctx.aborted && !dryRun) rememberSlug();
 
   out.cost = runCost();

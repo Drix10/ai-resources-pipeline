@@ -344,6 +344,11 @@ const runDataPipeline = async (folder) => {
         logger.warn(`${folder.name}: no file this run (${error.message}); ${error.usedTweets?.length || 0} judged source(s) will not be retried.`);
         return null;
       }
+      // A stop is no failure: nothing is retried or reported, and the sources judged before it are kept.
+      if (error.code === "CLAUDE_STOPPED" || stopping()) {
+        if (Array.isArray(error.usedTweets) && error.usedTweets.length) markPublished(error.usedTweets);
+        throw error;
+      }
       logger.error(`Pipeline error for folder ${folder.name} (attempt ${retryCount + 1}/${MAX_RETRIES}): ${error.message}`, { code: error.code });
       if (RUN_ENDING_CODES.has(error.code)) {
         // The writer judged some sources before it went down: mark those (only those), or the next
@@ -604,6 +609,14 @@ const processAllFolders = async () => {
           );
         }
       } catch (error) {
+        if (error.code === "CLAUDE_STOPPED" || stopping()) {
+          // A killed Claude means the run is stopping, even before the stop flag is seen.
+          requestStop();
+          // A real failure that lands during a stop is still worth its line.
+          const why = error.code === "CLAUDE_STOPPED" ? "" : ` (it failed as the stop came: ${error.code ? `${error.code}: ` : ""}${error.message})`;
+          logger.info(`Stopping: ${folder.name} ends here${why}.`);
+          break;
+        }
         logger.error(`Pipeline iteration failed for folder ${folder.name}:`, error);
         if (error.code === "LOCAL_LLM_UNAVAILABLE") {
           localLlmUnavailable = true;
@@ -783,4 +796,7 @@ module.exports = {
   releasePipelineLock,
   syncBlogToGit,
   processAllFolders,
+  runDataPipeline,
+  // tests only: a stopped module stays stopped (the process exits after a stop)
+  _resetStop: () => { stopRequested = false; },
 };

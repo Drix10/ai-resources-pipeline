@@ -84,9 +84,9 @@ let isolate = ISOLATE;
 const NO_SAFE_MODE_RE = /unknown option[^\n]*--safe-mode|--safe-mode[^\n]*(?:unknown|not recogni[sz]ed|unrecogni[sz]ed)/i;
 
 /** The arguments of one call: text only, or Read limited to the images' own folders. */
-function claudeArgs({ model, effort, system = "", imageFiles = [] }) {
+function claudeArgs({ model, effort, system = "", imageFiles = [], isolation = isolate }) {
   const dirs = [...new Set(imageFiles.map((f) => path.dirname(path.resolve(f))))];
-  const out = ["-p", "--no-session-persistence", "--model", model, "--effort", effort, "--output-format", "json", ...isolate, "--strict-mcp-config"];
+  const out = ["-p", "--no-session-persistence", "--model", model, "--effort", effort, "--output-format", "json", ...isolation, "--strict-mcp-config"];
   if (system) out.push("--append-system-prompt", system);
   if (dirs.length) out.push("--tools", "Read", "--allowedTools", ...dirs.map((d) => `Read(${rulePath(d)}/**)`), "--disallowedTools", ...DENY.filter((t) => t !== "Read"), "--add-dir", ...dirs);
   else out.push("--tools", "", "--disallowedTools", ...DENY);
@@ -132,12 +132,14 @@ function ask({ prompt, system = "", imageFiles = [], model, effort, timeoutMs = 
     });
   } catch (e) {
     if (cwd) try { fs.rmSync(cwd, { recursive: true, force: true }); } catch (e2) { /* left behind costs nothing */ }
-    return Promise.reject(withCode(`no temp folder for claude: ${e.message}`, "CLAUDE_FAILED"));
+    return Promise.reject(withCode(`${cwd ? "could not copy an image for claude" : "no temp folder for claude"}: ${e.message}`, "CLAUDE_FAILED"));
   }
   const look = files.length ? `\n\nFirst use the Read tool to look at each of these image files, in order:\n${files.map((f, i) => `${i + 1}. ${f}`).join("\n")}\n` : "";
   const exe = resolveBin(bin);
   const run = () => new Promise((resolve, reject) => {
-    const args = claudeArgs({ model, effort, system, imageFiles: files });
+    // (the isolation this run used: a concurrent call may switch it while this one runs)
+    const used = isolate;
+    const args = claudeArgs({ model, effort, system, imageFiles: files, isolation: used });
     // A .js CLI (a test's fake, or a wrapper) runs on this node.
     const [cmd, argv] = /\.(?:m|c)?js$/i.test(exe) ? [process.execPath, [exe, ...args]] : [exe, args];
     let settled = false, out = "", err = "", child = null, timer = null;
@@ -169,7 +171,8 @@ function ask({ prompt, system = "", imageFiles = [], model, effort, timeoutMs = 
       const said = `${(parsed && parsed.result) || ""}\n${err}\n${parsed ? "" : out}`.trim();
       const code_ = LIMIT_RE.test(said) || Number(parsed && parsed.api_error_status) === 429 ? "CLAUDE_LIMIT"
         : AUTH_RE.test(said) || Number(parsed && parsed.api_error_status) === 401 ? "CLAUDE_UNAVAILABLE"
-          : isolate === ISOLATE && NO_SAFE_MODE_RE.test(said) ? "CLAUDE_NO_SAFE_MODE" : "CLAUDE_FAILED";
+          // (a rejected option never gets as far as the JSON envelope)
+          : used === ISOLATE && !parsed && NO_SAFE_MODE_RE.test(said) ? "CLAUDE_NO_SAFE_MODE" : "CLAUDE_FAILED";
       finish(reject, withCode(`claude -p failed (exit ${code}): ${said.slice(0, 300) || "an empty reply"}`, code_));
     });
     child.stdin.end(`${prompt}${look}`);

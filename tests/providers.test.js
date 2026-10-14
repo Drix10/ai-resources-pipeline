@@ -250,6 +250,13 @@ test("claude CLI: a CLI without --safe-mode is asked again with only project set
     claude._reset();
   }
   assert.ok(claude.claudeArgs({ model: "m", effort: "low" }).includes("--safe-mode"));
+  try {
+    // Calls started together: each one refused --safe-mode is asked again, not only the first to fail.
+    const all = await Promise.all([1, 2, 3].map(() => claude.ask({ prompt: "MODE=oldcli MODE=echo", model: "m", effort: "low", bin: FAKE, timeoutMs: 20000 }).catch((e) => e)));
+    assert.deepEqual(all.map((r) => typeof r === "string" && JSON.parse(r).argv.includes("--setting-sources")), [true, true, true]);
+  } finally {
+    claude._reset();
+  }
 });
 
 test("claude CLI: a stop kills the running calls and refuses new ones (CLAUDE_STOPPED), which no fallback answers", async () => {
@@ -271,8 +278,48 @@ test("claude CLI: a stop kills the running calls and refuses new ones (CLAUDE_ST
     const e = await llm.generateArticle([{ text: "Acme released Fooql 2.0 with 3x faster joins on TPC-H, from 360 ms to 120 ms per query, under the MIT license.", url: "https://x.com/acme/status/1", links: [], images: [] }], { run }).catch((x) => x);
     assert.equal(e.code, "CLAUDE_STOPPED", "the writer stops instead of counting a transport failure");
     assert.equal(run.transportFailures, 0);
+    let asked = 0;
+    claude.ask = async () => { asked++; throw Object.assign(new Error("the pipeline is stopping"), { code: "CLAUDE_STOPPED" }); };
+    const post = "Acme released Fooql 2.0 today with 3x faster joins on TPC-H, from 360 ms to 120 ms per query, under the MIT license, after two years of work.";
+    assert.equal((await llm.draftFeedComment({ postAuthor: "Acme", postText: post }).catch((x) => x)).code, "CLAUDE_STOPPED");
+    assert.equal(asked, 1, "a stopped comment draft is not retried");
+    // A stop that reaches the critic ends the draft too, after one draft and one critic call.
+    const seen = [];
+    claude.ask = async ({ prompt }) => {
+      const critic = /strict judge of LinkedIn replies/.test(prompt);
+      seen.push(critic ? "critic" : "draft");
+      if (critic) throw Object.assign(new Error("the pipeline is stopping"), { code: "CLAUDE_STOPPED" });
+      return "MODE: REACT\nREPLY: Two years for a third of the query time sounds about right for join work.";
+    };
+    assert.equal((await llm.draftFeedComment({ postAuthor: "Acme", postText: post }).catch((x) => x)).code, "CLAUDE_STOPPED");
+    assert.deepEqual(seen, ["draft", "critic"]);
+  }, { openrouterKey: "k" });
+  await withRoutes({ viral: "claude" }, async () => {
+    claude.ask = async () => { throw Object.assign(new Error("the pipeline is stopping"), { code: "CLAUDE_STOPPED" }); };
+    const post = { text: "Acme released Fooql 2.0 today with 3x faster joins on TPC-H, under the MIT license.", author: "Acme", ageH: 2, reactions: 5000, comments: 100 };
+    assert.equal((await llm.draftViralComment({ post, comments: "" }).catch((x) => x)).code, "CLAUDE_STOPPED", "the viral draft keeps the stop's code");
   }, { openrouterKey: "k" });
 });
+
+test("comments: a LinkedIn pass's deadline cuts a Claude call to what is left, and no call starts without 20 s of it", () => withRoutes({ comment: "claude" }, async () => {
+  const asked = [];
+  claude.ask = async (o) => { asked.push(o.timeoutMs); return "ok"; };
+  try {
+    llm.commentDeadline = Date.now() + 60000;
+    const before = llm.commentCalls || 0;
+    assert.equal(await llm.generateCommentText("p", {}), "ok");
+    assert.ok(asked[0] <= 60000 && asked[0] > 50000, String(asked[0]));
+    assert.equal(llm.commentCalls, before + 1, "each call is counted");
+    llm.commentDeadline = Date.now() + 10000;
+    assert.equal((await llm.generateCommentText("p", {}).catch((e) => e)).code, "PASS_TIME_UP");
+    assert.equal(asked.length, 1, "nothing was asked");
+    llm.commentDeadline = 0;
+    assert.equal(await llm.generateCommentText("p", {}), "ok");
+    assert.equal(asked[1], config.llm.claude.requestTimeoutMs, "no pass: the configured time-out");
+  } finally {
+    llm.commentDeadline = 0;
+  }
+}, { openrouterKey: "k" }));
 
 test("comments: an image call never falls back to a model that cannot see the image", () => withRoutes({ viral: "claude" }, async (calls) => {
   claude.ask = async () => { throw Object.assign(new Error("boom"), { code: "CLAUDE_FAILED" }); };

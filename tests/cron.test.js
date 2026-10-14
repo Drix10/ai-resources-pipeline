@@ -203,4 +203,47 @@ test("a stop request ends the run at the next step and skips README, blog and fa
   assert.ok(!calls.includes("fetch:C"), "no new folder after the stop");
   assert.ok(calls.some((c) => c.startsWith("upload:")), "articles already generated are still committed");
   assert.ok(!calls.includes("readme"));
+
+  // A stop that reaches the writer (CLAUDE_STOPPED) is no failure: not retried, and the sources it judged are kept.
+  calls.length = 0;
+  state.fetch = () => tweets(10);
+  let generated = 0;
+  const generate = state.generate;
+  state.generate = (t) => { generated++; throw Object.assign(new Error("the pipeline is stopping"), { code: "CLAUDE_STOPPED", usedTweets: t.slice(0, 2) }); };
+  try {
+    const started = Date.now();
+    await cron.runDataPipeline({ name: "E" }).catch((e) => assert.equal(e.code, "CLAUDE_STOPPED"));
+    assert.equal(generated, 1, "never retried");
+    assert.ok(Date.now() - started < 3000, "no retry sleep");
+    assert.deepEqual(calls.filter((c) => c.startsWith("mark:")), ["mark:2"]);
+  } finally {
+    state.generate = generate;
+  }
+});
+
+test("a killed Claude ends the run before the stop flag is seen; a real failure that lands with a stop keeps its line", { timeout: 60000 }, async () => {
+  const generate = state.generate;
+  const info = helpers.logger.info;
+  const lines = [];
+  try {
+    cron._resetStop();
+    calls.length = 0;
+    state.fetch = () => tweets(10);
+    let n = 0;
+    state.generate = (t) => { if (++n === 2) throw Object.assign(new Error("the pipeline is stopping"), { code: "CLAUDE_STOPPED", usedTweets: [] }); return generate(t); };
+    const r = await cron.processAllFolders();
+    assert.equal(r.stopped, true, "the kill is a stop");
+    assert.ok(calls.includes("fetch:B") && !calls.includes("fetch:C"), "no folder after the kill");
+    assert.ok(!calls.includes("readme"));
+
+    cron._resetStop();
+    helpers.logger.info = (m, ...rest) => { lines.push(String(m)); return info.call(helpers.logger, m, ...rest); };
+    state.generate = () => { cron.requestStop(); throw Object.assign(new Error("402: insufficient credits"), { code: "LLM_UNAVAILABLE" }); };
+    await cron.processAllFolders();
+    assert.ok(lines.some((l) => /^Stopping: A ends here \(it failed as the stop came: LLM_UNAVAILABLE: 402: insufficient credits\)\.$/.test(l)), lines.join("\n"));
+  } finally {
+    state.generate = generate;
+    helpers.logger.info = info;
+    cron.requestStop();
+  }
 });

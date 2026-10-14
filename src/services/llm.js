@@ -27,6 +27,8 @@ const claude = require("./claude");
 const persona = (who) => (who ? `${who}, a software engineer` : "a software engineer");
 // After a usage limit or a missing/signed-out claude CLI, Claude is not called again for this long.
 const CLAUDE_REST_MS = 20 * 60 * 1000;
+// A comment call is not started with less than this left of a LinkedIn pass's deadline.
+const MIN_COMMENT_CALL_MS = 20 * 1000;
 // A "Best, <first name>" sign-off a model sometimes appends to a reply.
 const REPLY_SIGNOFF = (() => {
   const first = config.author.name.split(/\s+/)[0];
@@ -851,6 +853,12 @@ class LocalLLMService {
     const role = options.role === "viral" ? "viral" : "comment";
     const provider = this.providerFor(role);
     const { role: _role, imageFiles = [], ...rest } = options;
+    // A LinkedIn pass sets its deadline (feedEngage): no call starts that could not end before it, and a
+    // Claude call is cut to what is left. Each call is counted, so the pass can tell a draft that reached
+    // a model from one that ended before it.
+    const left = this.commentDeadline ? this.commentDeadline - Date.now() : Infinity;
+    if (left < MIN_COMMENT_CALL_MS) throw Object.assign(new Error("the LinkedIn pass has no time left for another call"), { code: "PASS_TIME_UP" });
+    this.commentCalls = (this.commentCalls || 0) + 1;
     if (provider === "claude") {
       const c = config.llm.claude;
       try {
@@ -859,6 +867,7 @@ class LocalLLMService {
           model: role === "viral" ? c.viralModel : c.model,
           // (a critic's one-line verdict needs no long thinking)
           effort: role === "viral" ? c.viralEffort : (rest.noReasoning ? "low" : c.effort),
+          timeoutMs: Number.isFinite(left) ? Math.min(c.requestTimeoutMs, left) : 0,
         });
       } catch (e) {
         // A stop is not a failure, and a prompt written for a model that sees images must not
@@ -1360,6 +1369,8 @@ REPLY: <the comment text, or SKIP>`;
       const filtered = check.isValid ? this.filterCommentReply(forCheck) : forCheck;
       return { comment: filtered, isValid: check.isValid, skipped: false, errors: check.errors };
     } catch (err) {
+      // (a stopping pipeline, or a pass with no time left, is not retried)
+      if (err.code === "CLAUDE_STOPPED" || err.code === "PASS_TIME_UP") throw err;
       logger.error("LocalLLMService: draftFeedComment error:", err);
       if (retries > 0) {
         await this.sleepWithJitter(4000);
@@ -1390,7 +1401,7 @@ Reply with exactly one line: PASS or FAIL: <reason, quoting the span when FAIL>.
     } catch (e) {
       // Fail closed: a public comment must never go out without the semantic check.
       // Throwing (not returning FAIL) leaves the post untracked so it retries next cycle.
-      throw new Error(`comment critic unavailable: ${e.message}`);
+      throw Object.assign(new Error(`comment critic unavailable: ${e.message}`), { code: e.code });
     }
   }
 
@@ -1467,7 +1478,7 @@ or {"skip": true, "reason": "..."}`;
       }));
     } catch (e) {
       // A reply that is not JSON, or a failed call: nothing is posted, the post is tried again later.
-      throw new Error(`viral draft failed: ${e.message}`);
+      throw Object.assign(new Error(`viral draft failed: ${e.message}`), { code: e.code });
     }
     if (drafted.skip === true) return { ...out, skipped: true, errors: [String(drafted.reason || "no specific angle").slice(0, 200)] };
     const PEER_ONLY = /adds detail the post never states|synthetic engagement phrase|names only a generic noun|topic is a clause/i;
@@ -1528,7 +1539,7 @@ Reply with JSON only, one verdict per candidate: {"verdicts": [{"n": 1, "pass": 
         system: "You are a strict judge of LinkedIn comments. Return JSON only.",
       }));
     } catch (e) {
-      throw new Error(`viral judge unavailable: ${e.message}`);
+      throw Object.assign(new Error(`viral judge unavailable: ${e.message}`), { code: e.code });
     }
     const list = (Array.isArray(parsed.verdicts) ? parsed.verdicts : []).filter((x) => x && typeof x === "object");
     // Numbered verdicts are matched by number only: a judge that lists just the one it passes must
@@ -1646,18 +1657,47 @@ Reply with JSON only, one verdict per candidate: {"verdicts": [{"n": 1, "pass": 
     // those in the title and labels included; there, an ordinary word in capitals is not a name.
     const trimWord = (w) => w.toLowerCase().replace(/[.+-]+$/, "");
     const sourceWords = new Set((sourceNorm.match(/[a-z0-9][a-z0-9.+-]*/g) || []).map(trimWord));
-    // A name the post gives only as a handle may be written out: "Google DeepMind" for @GoogleDeepMind.
-    const handles = (sourceNorm.match(/[@#][a-z0-9_]{3,}/g) || []).map((h) => h.slice(1));
-    const known = (w) => sourceWords.has(w) || sourceWords.has(w + "s") || sourceWords.has(w.replace(/(?:es|s)$/, ""))
-      || (w.length >= 3 && handles.some((h) => h.includes(w)));
+    // A name the post gives only as a handle may be written out: the handle's own words, whole or any run
+    // of them as the handle writes them ("Google DeepMind", "DeepMind" or "Google" for @GoogleDeepMind,
+    // "Meta" for @AIatMeta), or a lowercase handle without a brand prefix or suffix ("NVIDIA" for
+    // @nvidianewsroom); never a piece of one word ("Meta" is not @metaculus). Only a handle's first 8
+    // words count: a long tag or a pasted blob must not cost a run of every length.
+    const handleForms = new Set((String(sourceText).match(/[@#][A-Za-z0-9_]{3,}/g) || []).flatMap((h) => {
+      const words = h.slice(1, 61).split("_").flatMap((p) => p.match(/[A-Z]+(?=[A-Z][a-z])|[A-Z]?[a-z]+|[A-Z]+|\d+/g) || []).slice(0, 8).map((w) => w.toLowerCase());
+      const runs = words.flatMap((_, i) => words.slice(i).map((__, k) => words.slice(i, i + k + 1).join("")));
+      return runs.flatMap((f) => [f, f.replace(/^(?:the|get|use|try|join)(?=.{4})/, "")])
+        .flatMap((f) => {
+          const cut = f.replace(/(?:ai|hq|inc|labs?|app|official|io|devs?|team|news(?:room)?|cap|vc|tech|ml|research|compute)$/, "");
+          // (a brand suffix leaves a name of 4 letters or more: "runway", never "cal" or "fin")
+          return cut !== f && cut.length >= 4 ? [f, cut] : [f];
+        });
+    }).filter((f) => f.length >= 3));
+    const known = (w) => sourceWords.has(w) || sourceWords.has(w + "s") || sourceWords.has(w.replace(/(?:es|s)$/, ""));
     const plainWord = (w) => ARTICLE_COMMON_WORDS.has(w.toLowerCase()) || this.articleStems(w).size > 0 && [...this.articleStems(w)].every((s) => stems.has(s));
     const foreign = new Set();
+    const sentencesOf = (text) => String(text || "").split(/(?<=[.!?])\s+/);
+    // A unit glued to a number ("$2B", "70B", "128K") is part of the number, not a name.
+    const wordsOf = (sentence) => (sentence.match(/(?<![\d.])[A-Za-z][A-Za-z0-9.+-]*/g) || []).map((w) => w.replace(/[.+-]+$/, ""));
+    // The words of any run of capitalised words that spells a handle, wherever the article uses them again
+    // ("Musk" after "Elon Musk" for @elonmusk).
+    const spelled = new Set();
+    for (const text of [title, summary, ...points.flatMap((p) => [p.label, p.text])]) {
+      for (const sentence of sentencesOf(text)) {
+        const ws = wordsOf(sentence);
+        for (let i = 0; i < ws.length; i++) {
+          let joined = "";
+          for (let j = i; j < ws.length && /^[A-Z]/.test(ws[j]); j++) {
+            joined += ws[j].toLowerCase().replace(/[^a-z0-9]/g, "");
+            if (handleForms.has(joined)) for (let k = i; k <= j; k++) spelled.add(ws[k].toLowerCase());
+          }
+        }
+      }
+    }
     const checkWords = (text, titleCase) => {
-      for (const sentence of String(text || "").split(/(?<=[.!?])\s+/)) {
-        // A unit glued to a number ("$2B", "70B", "128K") is part of the number, not a name.
-        const ws = (sentence.match(/(?<![\d.])[A-Za-z][A-Za-z0-9.+-]*/g) || []).map((w) => w.replace(/[.+-]+$/, ""));
+      for (const sentence of sentencesOf(text)) {
+        const ws = wordsOf(sentence);
         ws.forEach((w, i) => {
-          if (!/^[A-Z]/.test(w) || ENTITY_ALLOW.has(w.toLowerCase())) return;
+          if (!/^[A-Z]/.test(w) || ENTITY_ALLOW.has(w.toLowerCase()) || spelled.has(w.toLowerCase())) return;
           // Version digits are not a name ("GPT-6" must not pass because the post has a 6).
           const parts = w.toLowerCase().split("-").filter((part) => /[a-z]{2}/.test(part));
           if (known(trimWord(w)) || parts.some((part) => known(part))) return;
