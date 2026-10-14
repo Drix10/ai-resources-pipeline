@@ -7,6 +7,7 @@ const path = require("node:path");
 
 // cron.js wires real services at require time: swap them for scripted fakes first.
 const calls = [];
+const tweetTexts = [];
 const state = { fetch: () => [], upload: (items) => items.map((it, i) => ({ ...it, url: `https://x/${it.queryName}/${i}`, content: "md" })), tweet: () => true, generate: (tweets) => ({ markdown: "# md", usedTweets: tweets.slice(0, 2) }) };
 const stub = (rel, exports) => {
   const file = require.resolve(path.join(__dirname, "..", rel));
@@ -18,7 +19,7 @@ class FakeTwitter {
   async fetchTweets({ folder }) { calls.push(`fetch:${folder.name}`); return state.fetch(folder); }
   markContentAsPublished(t) { calls.push(`mark:${t.length}`); return state.markOk ?? true; }
   persistProcessedIds() { calls.push("persist"); return state.persistOk ?? true; }
-  async postTweet() { calls.push("tweet"); return state.tweet(); }
+  async postTweet(text) { calls.push("tweet"); tweetTexts.push(text); return state.tweet(); }
   cleanupScreenshots() {}
   async cleanup() { calls.push("x-cleanup"); }
 }
@@ -68,6 +69,24 @@ test("a run commits, marks only the sources used, caps tweets and cleans up", { 
   assert.ok(calls.includes("readme") && calls.includes("syndication"));
   assert.ok(calls.includes("x-cleanup") && calls.includes("li-cleanup"), "browsers released at the end of every run");
   assert.ok(!fs.existsSync(LOCK), "lock released");
+});
+
+test("the announcement leads with the digest's top headline, and falls back to a plain line without one", { timeout: 60000 }, async () => {
+  const saved = state.upload;
+  const lead = "Acme Fooql 2.0 makes joins 3x faster";
+  try {
+    state.fetch = () => tweets(10);
+    state.upload = (items) => items.map((it, i) => ({ ...it, url: `https://x/${it.queryName}/${i}`, content: `### 🚀 ${lead}\n\nAcme released Fooql 2.0, a query engine with joins that run three times faster.` }));
+    tweetTexts.length = 0;
+    await cron.processAllFolders();
+    assert.equal(tweetTexts.length, 1);
+    assert.ok(tweetTexts[0].includes(lead) && !tweetTexts[0].includes("🚀"), tweetTexts[0]);
+    assert.match(tweetTexts[0], /https:\/\/x\/A\/0$/);
+    state.upload = saved;
+    tweetTexts.length = 0;
+    await cron.processAllFolders();
+    assert.ok(tweetTexts[0] && !tweetTexts[0].includes(lead) && tweetTexts[0].includes("https://x/A/0"), tweetTexts[0]);
+  } finally { state.upload = saved; }
 });
 
 test("three folder failures in a row end the X phase, and the rest of the run still happens", { timeout: 60000 }, async () => {

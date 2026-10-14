@@ -1,4 +1,4 @@
-const { logger, handleError, sleep, REPO_ROOT } = require("../utils/helpers");
+const { logger, handleError, sleep, REPO_ROOT, digestLeadTitle } = require("../utils/helpers");
 const fs = require("fs");
 const path = require("path");
 const config = require("../../config");
@@ -377,11 +377,21 @@ const TWEET_GAP_MS = 20 * 60 * 1000;
 // Optional credit lines (TWITTER_MADE_BY, TWITTER_VIA): a template leaves out a line it has no value for.
 const { madeBy: MADE_BY, via: VIA } = config.social.tweetCredit;
 const CREDIT = [MADE_BY && `Made by ${MADE_BY}`, VIA && `via ${VIA}`].filter(Boolean).join(" ");
+// A headline earns the click a generic "new resource" line does not: each template leads with the
+// digest's top item when it has one.
 const ANNOUNCEMENTS = [
-  (topic, url) => `New ${topic} resource added!\n\n${CREDIT ? `${CREDIT}\n\n` : ""}Check out the latest resource here:\n${url}`,
-  (topic, url) => `Fresh ${topic} picks, sorted and summarised.\n\nRead them here:\n${url}`,
-  (topic, url) => `Just published: the latest ${topic} roundup.\n\n${VIA ? `via ${VIA}\n` : ""}${url}`,
-  (topic, url) => `${topic}: this week's most useful finds in one place.\n\n${url}`,
+  (topic, url, lead) => lead
+    ? `${lead}\n\nThis and more in the latest ${topic} roundup:\n${url}`
+    : `New ${topic} resource added!\n\n${CREDIT ? `${CREDIT}\n\n` : ""}Check out the latest resource here:\n${url}`,
+  (topic, url, lead) => lead
+    ? `New in ${topic}: ${lead}\n\n${CREDIT ? `${CREDIT}\n\n` : ""}The key facts and sources:\n${url}`
+    : `Fresh ${topic} picks, sorted and summarised.\n\nRead them here:\n${url}`,
+  (topic, url, lead) => lead
+    ? `${lead}\n\nSummarised, with the sources, in today's ${topic} picks:\n${url}`
+    : `Just published: the latest ${topic} roundup.\n\n${VIA ? `via ${VIA}\n` : ""}${url}`,
+  (topic, url, lead) => lead
+    ? `Just published (${topic}): ${lead}\n\n${VIA ? `via ${VIA}\n` : ""}${url}`
+    : `${topic}: this week's most useful finds in one place.\n\n${url}`,
 ];
 
 // A long wait that ends as soon as a stop is requested.
@@ -430,7 +440,11 @@ const processAllFolders = async () => {
       if (Date.now() - lastTweetAt < TWEET_GAP_MS) {
         return logger.info(`Not announcing ${item.queryName}: the last tweet went out under ${TWEET_GAP_MS / 60000} min ago.`);
       }
-      const text = ANNOUNCEMENTS[Math.floor(Math.random() * ANNOUNCEMENTS.length)](getTopicName(item.queryName), item.url);
+      const template = ANNOUNCEMENTS[Math.floor(Math.random() * ANNOUNCEMENTS.length)];
+      const topic = getTopicName(item.queryName);
+      let text = template(topic, item.url, digestLeadTitle(item.content));
+      // X counts a link as 23 characters; a headline that would push the post past 280 is left out.
+      if (text.replace(item.url, "x".repeat(23)).length > 280) text = template(topic, item.url, "");
       const posted = await TwitterService.postTweet(text).catch((err) => {
         logger.error(`Failed to post tweet for ${item.queryName}:`, err);
         return false;
@@ -455,12 +469,13 @@ const processAllFolders = async () => {
 
     // LinkedIn runs in step with the content, never ahead of it:
     //  - after every article (.md) is written: a few random likes (likeAfterArticle)
-    //  - after every batch commit: 1 or 2 comments, then a few connection requests (engageAfterBatch)
+    //  - after every batch commit: 2 or 3 comments, 1 or 2 more on posts going viral, then a few
+    //    connection requests (engageAfterBatch)
     // Targeted finance/AI/founder sources; non-English posts are skipped. Never fatal.
     const likeAfterArticle = async () => {
       if (!config.social.linkedinLike || stopping()) return;
       try {
-        const likeResult = await feedEngage.runLikePass({ min: 2, max: 4, shouldStop: stopping });
+        const likeResult = await feedEngage.runLikePass({ min: 3, max: 6, shouldStop: stopping });
         logger.info(`Article done: LinkedIn likes ${likeResult.liked}/${likeResult.target}.`);
       } catch (feedErr) {
         logger.error("LinkedIn likes failed (non-fatal):", feedErr.message);
@@ -470,15 +485,23 @@ const processAllFolders = async () => {
       if (stopping()) return;
       if (config.social.linkedinFeedReply) {
         try {
-          const engageResult = await feedEngage.runFeedEngagement({ max: 1 + Math.floor(Math.random() * 2), shouldStop: stopping });
+          const engageResult = await feedEngage.runFeedEngagement({ max: 2 + Math.floor(Math.random() * 2), shouldStop: stopping });
           logger.info(`Batch done: LinkedIn comments ${engageResult.commented} posted, ${engageResult.skipped} skipped. ${engageResult.reason || ""}`);
         } catch (feedErr) {
           logger.error("LinkedIn comment pass failed (non-fatal):", feedErr.message);
         }
+        if (config.social.linkedinViral && !stopping()) {
+          try {
+            const viral = await feedEngage.runViralPass({ max: 1 + Math.floor(Math.random() * 2), shouldStop: stopping });
+            logger.info(`Batch done: LinkedIn viral comments ${viral.commented} posted, ${viral.skipped} skipped. ${viral.reason || ""}`);
+          } catch (viralErr) {
+            logger.error("LinkedIn viral comment pass failed (non-fatal):", viralErr.message);
+          }
+        }
       }
       if (config.social.linkedinConnect && !stopping()) {
         try {
-          const conn = await feedEngage.runConnectPass({ min: 3, max: 5, shouldStop: stopping });
+          const conn = await feedEngage.runConnectPass({ min: 3, max: 7, shouldStop: stopping });
           logger.info(`Batch done: LinkedIn connections ${conn.sent}/${conn.target} sent. ${conn.reason || ""}`);
         } catch (connErr) {
           logger.error("LinkedIn connection pass failed (non-fatal):", connErr.message);

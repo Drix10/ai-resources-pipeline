@@ -4,13 +4,15 @@ const path = require("path");
 const { spawn } = require("child_process");
 const { logger, sleep, redactSecrets, isEnglish } = require("../utils/helpers");
 const { fetchPage } = require("../utils/pageFetch");
+const claude = require("./claude");
 
 /**
  * ============================================================================
  * LocalLLMService
  * ----------------------------------------------------------------------------
  * Generates markdown "resource" articles from curated X threads and drafts
- * LinkedIn feed comments, using local Ollama, NVIDIA NIM or OpenRouter.
+ * LinkedIn feed comments, on the provider each job is set to (config.llm.providers): OpenRouter
+ * (NVIDIA NIM as its fallback), NVIDIA NIM, local Ollama, or Claude through the claude CLI.
  *
  * Subsystems:
  *  - Anti-AI-slop guardrails: BANNED_WORDS, sanitizeBannedWords.
@@ -23,6 +25,8 @@ const { fetchPage } = require("../utils/pageFetch");
 
 // Who LinkedIn replies are written as (config.author: AUTHOR_NAME / AUTHOR_HANDLE).
 const persona = (who) => (who ? `${who}, a software engineer` : "a software engineer");
+// After a usage limit or a missing/signed-out claude CLI, Claude is not called again for this long.
+const CLAUDE_REST_MS = 20 * 60 * 1000;
 // A "Best, <first name>" sign-off a model sometimes appends to a reply.
 const REPLY_SIGNOFF = (() => {
   const first = config.author.name.split(/\s+/)[0];
@@ -291,8 +295,34 @@ class LocalLLMService {
     };
   }
 
-  isLocalMode() {
-    return Boolean(config.llm.useLocal);
+  // The provider of a job ("article" | "comment" | "viral"): config.llm.providers.
+  providerFor(role) {
+    return config.llm.providers[role] || config.llm.provider;
+  }
+
+  // An API writer (OpenRouter or NVIDIA) has a key: where a failed Claude call can go next.
+  apiFallbackReady() {
+    return this.openRouterReady() || Boolean(config.llm.nvidia.apiKey && config.llm.nvidia.apiKey.trim());
+  }
+
+  // One call on the claude CLI (provider "claude"). A missing or signed-out CLI, or the plan's usage
+  // limit, rests Claude for a while (CLAUDE_REST_MS) so a run does not wait on it for every item.
+  async generateTextViaClaude(prompt, { system = "", model = "", effort = "", imageFiles = [], timeoutMs = 0 } = {}) {
+    const c = config.llm.claude;
+    if (Date.now() < (this._claudeRestUntil || 0)) throw Object.assign(new Error(`Claude is resting after: ${this._claudeRestWhy}`), { code: this._claudeRestCode });
+    this.recordMetric("claudeCalls");
+    try {
+      const text = await claude.ask({ prompt, system, imageFiles, model: model || c.model, effort: effort || c.effort, timeoutMs: timeoutMs || c.requestTimeoutMs, bin: c.bin });
+      return text.replace(/<think>[\s\S]*?<\/think>/gi, "").trim();
+    } catch (e) {
+      if (e.code === "CLAUDE_LIMIT" || e.code === "CLAUDE_UNAVAILABLE") {
+        this._claudeRestUntil = Date.now() + CLAUDE_REST_MS;
+        this._claudeRestCode = e.code;
+        this._claudeRestWhy = String(e.message).slice(0, 160);
+        logger.warn(`LocalLLMService: Claude ${e.code === "CLAUDE_LIMIT" ? "hit the plan's usage limit" : "is unavailable"} - not called again for ${Math.round(CLAUDE_REST_MS / 60000)} min (${this._claudeRestWhy}).`);
+      }
+      throw e;
+    }
   }
 
   isLocalEndpoint() {
@@ -361,7 +391,7 @@ class LocalLLMService {
   async ensureNvidiaAvailable() {
     if (!config.llm.nvidia.apiKey || config.llm.nvidia.apiKey.trim() === "") {
       const error = new Error(
-        "NVIDIA API Key is missing. Set NVIDIA_API_KEY in .env or set LOCAL_LLM=true to use local Ollama."
+        "NVIDIA API Key is missing. Set NVIDIA_API_KEY in .env, or pick another LLM_PROVIDER (openrouter, local, claude)."
       );
       error.code = "NVIDIA_LLM_UNAVAILABLE";
       throw error;
@@ -607,28 +637,14 @@ class LocalLLMService {
     return new RegExp(`\\b${pattern}${optionalE}(s|ed|ing|ly|tion|ness|er|est|ance|ence|ment|ive|ize|ise|able|ible)?\\b`, 'i');
   }
 
-  // Local Ollama or NVIDIA only, no OpenRouter. Articles go through generateArticleText and
-  // LinkedIn writing through generateChainText / generateCommentText (OpenRouter first).
-  async generateText(prompt, options = {}) {
-    this.recordMetric("llmCalls");
-    if (this.isLocalMode()) {
-      return this.generateTextViaOllama(prompt, options);
-    }
-    return this.generateTextViaNvidia(prompt, options);
-  }
-
-  // LinkedIn posts: OpenRouter, then NVIDIA. The last error propagates so callers'
-  // retry/skip logic engages; never returns placeholder text.
-  async generateChainText(prompt, options = {}) {
-    this.recordMetric("llmCalls");
-    if (this.isLocalMode()) {
-      return this.generateTextViaOllama(prompt, options);
-    }
+  // The "openrouter" provider's chain: OpenRouter, then NVIDIA. The last error propagates so
+  // callers' retry/skip logic engages; never returns placeholder text.
+  async generateViaApiChain(prompt, options = {}) {
     if (this.openRouterReady()) {
       try {
         return await this.generateTextViaOpenRouter(prompt, options);
       } catch (e) {
-        logger.warn(`OpenRouter post call failed (${e.message}), falling back to NVIDIA...`);
+        logger.warn(`OpenRouter call failed (${e.message}), falling back to NVIDIA...`);
       }
     }
     return this.generateTextViaNvidia(prompt, options);
@@ -639,10 +655,9 @@ class LocalLLMService {
     return Boolean(apiKey && apiKey.trim() && model && model.trim());
   }
 
-  // Reply-system model: short constraint-following jobs run on the cheap comment
+  // Reply-system model on NVIDIA: short constraint-following jobs run on the cheap comment
   // model, never the big article model. Empty string = reuse the main model.
   commentModelName() {
-    if (config.llm.useLocal) return config.llm.commentModel || config.llm.model;
     return config.llm.nvidia.commentModel || config.llm.nvidia.model;
   }
 
@@ -823,20 +838,39 @@ class LocalLLMService {
     throw lastError || new Error("All NVIDIA candidate models failed.");
   }
 
-  // Comments and critics: OpenRouter, then the cheap NVIDIA/local comment model.
-  // A sustained outage skips comments; it never crashes the pipeline.
+  // Comments and critics (options.role "comment", the default) and the viral pass (role "viral"),
+  // on that job's provider. "openrouter": OpenRouter, then the cheap NVIDIA comment model. "claude":
+  // the claude CLI (options.imageFiles may be read; the viral pass gets the stronger model), then the
+  // OpenRouter/NVIDIA chain when it has a key. A sustained outage skips comments; it never crashes the pipeline.
   async generateCommentText(prompt, options = {}) {
-    if (this.openRouterReady()) {
+    const role = options.role === "viral" ? "viral" : "comment";
+    const provider = this.providerFor(role);
+    const { role: _role, imageFiles = [], ...rest } = options;
+    if (provider === "claude") {
+      const c = config.llm.claude;
       try {
-        return await this.generateTextViaOpenRouter(prompt, options);
+        return await this.generateTextViaClaude(prompt, {
+          system: rest.system, imageFiles,
+          model: role === "viral" ? c.viralModel : c.model,
+          // (a critic's one-line verdict needs no long thinking)
+          effort: role === "viral" ? c.viralEffort : (rest.noReasoning ? "low" : c.effort),
+        });
+      } catch (e) {
+        if (!this.apiFallbackReady()) throw e;
+        logger.warn(`Claude ${role} call failed (${e.message}), falling back to ${this.openRouterReady() ? "OpenRouter" : "NVIDIA"}.`);
+      }
+    }
+    if (provider === "local") return this.generateTextViaOllama(prompt, { ...rest, model: config.llm.commentModel || config.llm.model });
+    if (provider === "nvidia") return this.generateTextViaNvidia(prompt, { ...rest, model: this.commentModelName() });
+    if (this.openRouterReady()) {
+      const viralModel = role === "viral" && !rest.model ? config.llm.openrouter.viralModel : "";
+      try {
+        return await this.generateTextViaOpenRouter(prompt, { ...rest, ...(viralModel ? { model: viralModel } : {}) });
       } catch (e) {
         logger.warn(`OpenRouter comment call failed (${e.message}), falling back to ${this.commentModelName()}.`);
       }
     }
-    if (this.isLocalMode()) {
-      return this.generateTextViaOllama(prompt, { ...options, model: this.commentModelName() });
-    }
-    return this.generateTextViaNvidia(prompt, { ...options, model: this.commentModelName() });
+    return this.generateTextViaNvidia(prompt, { ...rest, model: this.commentModelName() });
   }
 
   async generateTextViaOpenRouter(prompt, options = {}) {
@@ -1353,6 +1387,146 @@ Reply with exactly one line: PASS or FAIL: <reason, quoting the span when FAIL>.
     }
   }
 
+  /**
+   * VIRAL COMMENT ENGINE: one comment under a post that is about to reach a very large audience
+   * (feedEngage.runViralPass). Its readers read the top comments, so a comment has to earn a place
+   * there: specific to this post, saying what the thread has not, in a plain human voice. Peer
+   * replies (draftFeedComment) may only endorse with the post's own words; a viral comment may add
+   * an angle, so it keeps every hard gate (invented numbers, experience and attendance claims,
+   * uncited studies, unsupported comparisons, lecturing, bait, banned words, echoes) and drops only
+   * the peer-only ones (post-words-only grounding, hedge words, template shapes).
+   * One drafting call writes up to three candidates from different angles, best first; a separate,
+   * strict judge call passes or fails each against the post and the comments already shown. The
+   * first candidate, in the drafter's order, that passes the gates and the judge is the comment.
+   * Both calls run on the viral provider (config.llm.providers.viral); only "claude" looks at the
+   * screenshot (imageFile), any other provider works from the text.
+   * @returns {Promise<{comment: string, isValid: boolean, skipped: boolean, errors: string[], angle: string, candidates: object[]}>}
+   */
+  async draftViralComment({ post = {}, comments = "", imageFile = "" } = {}) {
+    const clean = (t, n) => String(t || "").replace(/https?:\/\/[^\s)]+/g, "").normalize("NFKC")
+      // (control, zero-width and line-separator characters out; tabs and line breaks kept)
+      .replace(/(?![\t\n\r])[\p{Cc}\p{Cf}\p{Zl}\p{Zp}]/gu, "")
+      // (untrusted page text must not close the tags it is wrapped in)
+      .replace(/<\s*\/?\s*(?:post|comments)\b[^>]*>/gi, "").slice(0, n).trim();
+    const postText = clean(post.text, 1500);
+    const thread = clean(comments, 3500);
+    const author = String(post.author || "").trim() || "the author";
+    const out = { comment: "", isValid: false, skipped: false, errors: [], angle: "", candidates: [] };
+    if (postText.split(/\s+/).length < 6 && !imageFile) return { ...out, skipped: true, errors: ["post too thin to comment on"] };
+    if (!isEnglish(postText)) return { ...out, skipped: true, errors: ["post is not in English"] };
+    const sees = Boolean(imageFile) && this.providerFor("viral") === "claude";
+    const who = persona(config.author.byline) + (config.author.bio ? `, ${config.author.bio}` : "");
+    const ago = typeof post.ageH === "number" ? (post.ageH < 1 ? `${Math.max(1, Math.round(post.ageH * 60))} min` : `${Math.round(post.ageH)} h`) : "recently";
+    const facts = `Posted ${ago} ago; ${Number(post.reactions) || 0} reactions and ${Number(post.comments) || 0} comments so far.`;
+    const prompt = `You are ${who}, writing ONE comment under a LinkedIn post that is spreading fast. Thousands of people will read its top comments. A comment earns a place there when it is specific to this post and says something the thread has not said yet, in a plain human voice. You are not a fan, a teacher or a brand.
+
+THE POST by ${author}. ${facts}
+${sees ? "A screenshot of the post as readers see it (its image or link preview, and the first comments) is attached: look at it before you write.\n" : ""}<post>
+${postText}
+</post>
+
+THE COMMENTS SHOWN FIRST UNDER IT (raw page text: names, headlines, ages, the comments; may be empty):
+<comments>
+${thread || "(none yet)"}
+</comments>
+
+Write up to THREE candidate comments, each from a different angle, best first. Angles that earn attention under a big post:
+- implication: what this changes for the people who build, buy or use it, named plainly;
+- question: one specific question about a detail the post leaves open, one the author could answer;
+- detail: one specific thing in the post (a phrase, a choice, a number it states) and why it matters;
+- congrats: for a milestone, launch or funding round, warm and specific, naming what was achieved, one line.
+
+Rules for every candidate:
+- 1 or 2 sentences, under 220 characters, in plain words a smart non-expert uses.
+- Specific to this post: it must not make sense under another post.
+- Say what the comments shown have not; never echo them or restate the post.
+- Facts: only what the post${sees ? " or the screenshot" : ""} shows, plus widely known public facts about the companies or people it names. No number the post does not state. No prediction stated as fact.
+- No experience claims ("I've seen", "we built", "at my company"); never pretend you used, attended or tried anything.
+- No praise or filler: great, amazing, huge, exciting, incredible, game changer, insightful, love this, thanks for sharing, couldn't agree more.
+- No hashtags, emojis, links, @mentions, quotation of the post, dashes as punctuation, or "it's not X, it's Y" lines.
+- Respectful to the author: a question may probe; never mock, pitch or promote anything.
+- If the post is about grief, layoffs, war, politics, a crime or a tragedy, or is an ad or a hiring post, or there is nothing specific and true to add: skip.
+
+Reply with JSON only, no other text:
+{"skip": false, "candidates": [{"angle": "implication", "comment": "..."}]}
+or {"skip": true, "reason": "..."}`;
+    let drafted;
+    try {
+      drafted = claude.parseJson(await this.generateCommentText(prompt, {
+        role: "viral", temperature: 0.6, num_predict: 1500, imageFiles: sees ? [imageFile] : [],
+        system: `You are ${who}. You write short, specific, human LinkedIn comments and return JSON only.`,
+      }));
+    } catch (e) {
+      // A reply that is not JSON, or a failed call: nothing is posted, the post is tried again later.
+      throw new Error(`viral draft failed: ${e.message}`);
+    }
+    if (drafted.skip === true) return { ...out, skipped: true, errors: [String(drafted.reason || "no specific angle").slice(0, 200)] };
+    const PEER_ONLY = /adds detail the post never states|synthetic engagement phrase|names only a generic noun|topic is a clause/i;
+    // Gated as written (quotes unwrapped only): the sanitizer rewrites banned words, which would
+    // launder a draft into a pass. Only the picked one is sanitized.
+    const candidates = (Array.isArray(drafted.candidates) ? drafted.candidates : []).slice(0, 3)
+      .map((c) => ({ angle: String((c && c.angle) || "").slice(0, 20), comment: String((c && c.comment) || "").trim().replace(/^["'“”‘’]+|["'“”‘’]+$/g, "").trim() }))
+      .filter((c) => c.comment);
+    for (const c of candidates) {
+      const v = this.validateCommentReply(c.comment, postText, author);
+      c.gate = v.errors.filter((e) => !PEER_ONLY.test(e));
+      if (c.comment.length > 300) c.gate.push(`too long for a top comment (${c.comment.length} chars, max 300)`);
+      if (/(^|\s)[@#][\p{L}\d_]/u.test(c.comment)) c.gate.push("no @mentions or hashtags");
+    }
+    out.candidates = candidates;
+    const gated = candidates.filter((c) => !c.gate.length);
+    if (!gated.length) return { ...out, errors: candidates.length ? candidates.flatMap((c) => c.gate).slice(0, 4) : ["no candidate"] };
+    const verdicts = await this.judgeViralComments(gated.map((c) => c.comment), { postText, thread, author });
+    gated.forEach((c, i) => { c.judge = verdicts[i] || { pass: false, reason: "no verdict" }; });
+    const pick = gated.find((c) => c.judge.pass);
+    if (!pick) return { ...out, errors: gated.map((c) => `judge: ${c.judge.reason}`).slice(0, 3) };
+    return { ...out, comment: this.filterCommentReply(pick.comment), isValid: true, angle: pick.angle };
+  }
+
+  // The viral pass's judge: a separate call, strict, on the viral provider. [{pass, reason}] per
+  // candidate, in order. A judge that cannot answer throws: no public comment goes out unjudged.
+  async judgeViralComments(candidates, { postText, thread, author }) {
+    const prompt = `You judge comments before they are posted under a LinkedIn post that is spreading fast. Be strict: a weak comment under a big post is worse than none.
+
+THE POST by ${author}:
+<post>
+${postText}
+</post>
+
+THE COMMENTS ALREADY SHOWN FIRST:
+<comments>
+${thread || "(none yet)"}
+</comments>
+
+CANDIDATES:
+${candidates.map((c, i) => `${i + 1}. """${c}"""`).join("\n")}
+
+For each candidate decide PASS or FAIL. FAIL, quoting the span, when any of these hold:
+1. a factual claim the post does not support and that is not widely known public fact, or any invented number, name, quote or event;
+2. an experience or participation claim;
+3. generic: it could sit under many posts, or it only praises;
+4. it repeats the post or a comment already shown;
+5. the wrong register: cheering bad news, a pitch, a lecture, sarcasm, a jab at the author;
+6. it reads as AI-written or engagement farming: a tidy aphorism, "it's not X, it's Y", a question fished for engagement, a motivational closer;
+7. a thoughtful reader would not think it worth a like.
+
+Reply with JSON only: {"verdicts": [{"n": 1, "pass": true, "reason": "..."}]}`;
+    let parsed;
+    try {
+      parsed = claude.parseJson(await this.generateCommentText(prompt, {
+        role: "viral", temperature: 0.1, num_predict: 800, noReasoning: true,
+        system: "You are a strict judge of LinkedIn comments. Return JSON only.",
+      }));
+    } catch (e) {
+      throw new Error(`viral judge unavailable: ${e.message}`);
+    }
+    const list = Array.isArray(parsed.verdicts) ? parsed.verdicts : [];
+    return candidates.map((_, i) => {
+      const v = list.find((x) => Number(x && x.n) === i + 1) || list[i];
+      return v ? { pass: v.pass === true, reason: String(v.reason || "").slice(0, 200) } : { pass: false, reason: "no verdict" };
+    });
+  }
+
   // ---------------------------------------------------------------------
   // Article generation. One source post -> one article, written by the model
   // as plain fields (title / summary / points) and assembled in code. Resource
@@ -1420,6 +1594,8 @@ Reply with exactly one line: PASS or FAIL: <reason, quoting the span when FAIL>.
     if (/^(?:[#>|]|[-*+]\s|\d+[.)]\s)/.test(summary.trim()) || /^[#>|]/.test(title.trim())) {
       errors.push("TITLE and SUMMARY must start with a word, not a markdown symbol.");
     }
+    // The title is a search title and an announcement headline: an @handle there would tag the account on X.
+    if (/(?:^|[^\w])[@#][A-Za-z_]/.test(title)) errors.push("Write names in the TITLE as plain names, not @handles or #hashtags.");
     const slop = body.match(ARTICLE_SLOP_RE);
     if (slop) errors.push(`Remove filler phrasing ("${slop[0]}").`);
     // Hype vocabulary is rejected unless the source itself uses the word (a security post can say "leverage").
@@ -1562,14 +1738,29 @@ Reply with exactly one line: PASS or FAIL: <reason, quoting the span when FAIL>.
     return { lines: [...lines, ...images], original };
   }
 
-  // Article writer: the benchmarked OpenRouter model, then its fallback. Never the
-  // small NVIDIA model (it padded thin posts into slop). Without an OpenRouter
-  // key the normal chain (local Ollama / NVIDIA) is the only option.
+  // Article writer, on the article job's provider. "openrouter": the benchmarked OpenRouter model,
+  // then its fallback, never the small NVIDIA model (it padded thin posts into slop); without an
+  // OpenRouter key, NVIDIA. "claude": the claude CLI; a usage limit or a missing/signed-out CLI hands
+  // over to OpenRouter when it has a key, else the writer is down (the run stops writing).
   async generateArticleText(prompt) {
     const { apiKey, articleModel, articleFallbackModel } = config.llm.openrouter;
     const options = { system: ARTICLE_SYSTEM, temperature: 0.3, num_predict: 3000, timeoutMs: 120000 };
-    if (!apiKey || !apiKey.trim() || this.isLocalMode()) return this.generateChainText(prompt, options);
+    const provider = this.providerFor("article");
     this.recordMetric("llmCalls");
+    if (provider === "claude") {
+      try {
+        return await this.generateTextViaClaude(prompt, { system: ARTICLE_SYSTEM });
+      } catch (error) {
+        const down = error.code === "CLAUDE_LIMIT" || error.code === "CLAUDE_UNAVAILABLE";
+        // A time-out or a failed run is this article's problem: it is retried like any other.
+        if (!down) throw error;
+        if (!this.apiFallbackReady()) throw this.articleProviderDown(error);
+        logger.warn(`LocalLLMService: Claude cannot write articles now (${error.message}); OpenRouter/NVIDIA write them.`);
+      }
+    }
+    if (provider === "local") return this.generateTextViaOllama(prompt, options);
+    if (provider === "nvidia") return this.generateTextViaNvidia(prompt, options);
+    if (!apiKey || !apiKey.trim()) return this.generateViaApiChain(prompt, options);
     let lastError;
     const models = [articleModel, articleFallbackModel].filter(Boolean);
     let retired = 0;
@@ -1704,8 +1895,8 @@ Write a briefing about this ${page ? "post and its page" : "one post"}. Reply in
 
 EMOJI: one of ${ARTICLE_EMOJIS.join(" ")}
 VALUE: 1-5, how much concrete, checkable, useful information the post gives an engineer. 5 = specific numbers, benchmarks, release details or results. 3 = a named launch or announcement with one real fact. 1 = promotion, event, hiring, thanks, vague claims.
-TITLE: Subject - what happened. Name the actual tool, company, model or technique. Max 70 characters.
-SUMMARY: 2-4 plain sentences: what it is and what was announced, claimed or changed. The first sentence names the subject. Never write "the post" or "engineers should care".
+TITLE: Subject - what happened. It is the page's search title: start with the exact name a reader would search for (the tool, company, model or technique), written as a plain name, never an @handle or #hashtag, then what happened, with the key number or detail when the post gives one. 40-70 characters.
+SUMMARY: 2-4 plain sentences: what it is and what was announced, claimed or changed. The first sentence is the search snippet: it names the subject in full and says what is new, with the most concrete fact, in under 160 characters. Never write "the post" or "engineers should care".
 POINTS:
 - Label: one fact from the post, with its number or name if given
 - Label: another, different fact
@@ -1753,7 +1944,7 @@ ${feedback.length ? `\nYour previous attempt was rejected. Fix this:\n${feedback
           article.summary,
           `Key Points:\n\n${points}`,
           `🔗 Resources:\n\n${resources.join("\n")}`,
-        ].join("\n\n")));
+        ].join("\n\n")), { value: article.value });
       }
       feedback = errors.slice(0, 4);
       logger.warn(`LocalLLMService: article for ${original} rejected (attempt ${attempt}): ${feedback.join(" | ")}`);
@@ -1797,7 +1988,12 @@ ${feedback.length ? `\nYour previous attempt was rejected. Fix this:\n${feedback
       }
     };
     await Promise.all(Array.from({ length: Math.min(concurrency, entries.length) }, worker));
-    const articles = results.filter(Boolean);
+    // The most substantive item leads: its title and first sentence become the page's search title,
+    // meta description, URL slug, DEV.to title and the announcement headline.
+    const articles = results.map((md, i) => ({ md, i, value: contexts[i]?.value || 0 }))
+      .filter((a) => a.md)
+      .sort((a, b) => b.value - a.value || a.i - b.i)
+      .map((a) => a.md);
     // A file that does not ship publishes nothing: its articles' post and page URLs are free
     // again this run, and sources dropped as their duplicates were never written up.
     const unshipped = new Set();

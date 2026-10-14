@@ -92,3 +92,21 @@ test("a retry whose path now holds other content commits nothing", async () => {
   assert.equal(gh.commits, 0);
   assert.equal(gh.files.get("Cat/resources-001.md"), "someone else's article");
 });
+
+test("a committed digest is queued for DEV.to under its lead headline, with tags readers follow", async () => {
+  fakeGitHub();
+  const syndication = require("../src/services/syndication");
+  const saved = syndication.queueMarkdownArticle;
+  const queued = [];
+  syndication.queueMarkdownArticle = async (args) => { queued.push(args); };
+  try {
+    await github.uploadMarkdownBatch([
+      item("AI Developer Tools", "### 🚀 Acme Fooql 2.0 makes joins 3x faster\n\nAcme released Fooql 2.0, a query engine with joins that run three times faster."),
+      item("Tech VIPs", "no heading at all, just a body long enough to be read as one"),
+    ], "o/r");
+  } finally { syndication.queueMarkdownArticle = saved; }
+  assert.equal(queued[0].title, "Acme Fooql 2.0 makes joins 3x faster");
+  assert.deepEqual(queued[0].tags, ["ai", "programming", "news"]);
+  assert.equal(queued[1].title, "Tech VIPs #1", "no headline: the numbered folder title");
+  assert.deepEqual(queued[1].tags, ["ai", "technology", "news"]);
+});

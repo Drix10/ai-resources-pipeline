@@ -17,7 +17,6 @@ const fromQueue = async (prompt) => {
   return item;
 };
 const realGenerateCommentText = llm.generateCommentText.bind(llm);
-llm.generateText = fromQueue;
 llm.generateCommentText = fromQueue;
 
 const EVAL_POST = "LLM eval methods compared: BLEU and ROUGE need references, embedding similarity is softer, LLM judges score semantics, agents need behavioural evals, metric design matters";
@@ -333,9 +332,9 @@ test("recommendation modules are UI, not posts: jobs and people cards never draf
 async function withRouting(fn) {
   const saved = {
     fetch: global.fetch, nvidia: llm.generateTextViaNvidia, sleep: llm.sleepWithJitter,
-    or: config.llm.openrouter.apiKey, orm: config.llm.openrouter.model, nv: config.llm.nvidia.apiKey, local: config.llm.useLocal,
+    or: config.llm.openrouter.apiKey, orm: config.llm.openrouter.model, nv: config.llm.nvidia.apiKey, providers: { ...config.llm.providers },
   };
-  config.llm.useLocal = false;
+  Object.assign(config.llm.providers, { article: "openrouter", comment: "openrouter", viral: "openrouter" });
   llm.sleepWithJitter = async () => {}; // OpenRouter's retry backoff: no real sleeps
   try {
     await fn();
@@ -344,7 +343,7 @@ async function withRouting(fn) {
     llm.generateTextViaNvidia = saved.nvidia;
     llm.sleepWithJitter = saved.sleep;
     config.llm.openrouter.apiKey = saved.or; config.llm.openrouter.model = saved.orm;
-    config.llm.nvidia.apiKey = saved.nv; config.llm.useLocal = saved.local;
+    config.llm.nvidia.apiKey = saved.nv; Object.assign(config.llm.providers, saved.providers);
   }
 }
 
@@ -387,26 +386,26 @@ test("comments: without an OpenRouter key they fall back to the legacy comment m
   assert.equal(typeof legacyOpts?.model, "string");
 }));
 
-test("LinkedIn posts: OpenRouter first, NVIDIA on failure, and exhaustion throws", () => withRouting(async () => {
+test("the API chain: OpenRouter first, NVIDIA on failure, and exhaustion throws", () => withRouting(async () => {
   const realNvidia = llm.generateTextViaNvidia;
   let fetches = 0, nvidiaCalls = 0;
   llm.generateTextViaNvidia = async () => { nvidiaCalls++; return "nvidia post"; };
   config.llm.openrouter.apiKey = "test-or-key"; config.llm.openrouter.model = "test/linkedin-model";
   global.fetch = async () => { fetches++; return { ok: true, status: 200, json: async () => ({ choices: [{ message: { content: "openrouter post" } }] }) }; };
-  assert.equal(await llm.generateChainText("write", {}), "openrouter post");
+  assert.equal(await llm.generateViaApiChain("write", {}), "openrouter post");
   assert.equal(nvidiaCalls, 0);
 
   global.fetch = async () => ({ ok: false, status: 400, text: async () => "bad model" });
-  assert.equal(await llm.generateChainText("write", {}), "nvidia post", "an OpenRouter error falls back to NVIDIA");
+  assert.equal(await llm.generateViaApiChain("write", {}), "nvidia post", "an OpenRouter error falls back to NVIDIA");
 
   config.llm.openrouter.model = ""; fetches = 0;
   global.fetch = async () => { fetches++; throw new Error("no network in tests"); };
-  assert.equal(await llm.generateChainText("write", {}), "nvidia post", "no OPENROUTER_MODEL skips OpenRouter");
+  assert.equal(await llm.generateViaApiChain("write", {}), "nvidia post", "no OPENROUTER_MODEL skips OpenRouter");
   assert.equal(fetches, 0);
 
   llm.generateTextViaNvidia = realNvidia;
   config.llm.openrouter.apiKey = ""; config.llm.nvidia.apiKey = "";
-  await assert.rejects(llm.generateChainText("write", {}), /NVIDIA|missing/i, "exhaustion throws for the skip logic");
+  await assert.rejects(llm.generateViaApiChain("write", {}), /NVIDIA|missing/i, "exhaustion throws for the skip logic");
   assert.equal(fetches, 0);
 }));
 

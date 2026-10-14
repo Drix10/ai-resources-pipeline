@@ -193,3 +193,12 @@ test("without a DEV.to key nothing is queued and processQueue is a no-op", async
     assert.deepEqual(await syndication.processQueue(), { posted: 0, duplicates: 0, notLive: 0, failed: 0, retrying: 0, paused: false });
   });
 });
+
+test("DEV.to tags are ones readers follow: ai, up to two topical tags (technology when none fits), news", () => {
+  assert.deepEqual(syndication.topicTags("AI Developer Tools"), ["ai", "programming", "news"]);
+  assert.deepEqual(syndication.topicTags("Cybersecurity and Tech"), ["ai", "security", "news"]);
+  assert.deepEqual(syndication.topicTags("AR VR Companies and Development"), ["ai", "vr", "startup", "news"]);
+  assert.deepEqual(syndication.topicTags("Tech VIPs"), ["ai", "technology", "news"]);
+  assert.deepEqual(syndication.topicTags(""), ["ai", "technology", "news"]);
+  for (const tag of syndication.topicTags("PR and Communications")) assert.match(tag, /^[a-z0-9]{2,20}$/);
+});

@@ -198,6 +198,33 @@ test("generateMarkdownBatched joins articles in order, caps at 8, and enforces t
   } finally { llm.generateArticle = origArticle; }
 });
 
+test("the most substantive article leads the file: it becomes the page title, slug and headline", async () => {
+  const mkSource = (i) => [{ text: POST + ` Run ${i}.`, url: `https://x.com/acme/status/${i}`, links: [], images: [] }];
+  const values = { 1: 3, 2: 5, 3: 4, 4: 5 };
+  const origArticle = llm.generateArticle;
+  try {
+    llm.generateArticle = async (src, ctx) => {
+      const n = src[0].url.split("/").pop();
+      Object.assign(ctx, { outcome: "published", value: values[n] });
+      return `### 🚀 Article ${n}`;
+    };
+    const r = await llm.generateMarkdownBatched([1, 2, 3, 4].map(mkSource), "T");
+    assert.deepEqual(r.markdown.split("\n\n---\n\n").map((a) => a.replace(/\D/g, "")), ["2", "4", "3", "1"], "by VALUE, ties in source order");
+  } finally { llm.generateArticle = origArticle; }
+  await withStubs({ reply: GOOD.replace("VALUE: 4", "VALUE: 5") }, async () => {
+    const ctx = { run: null };
+    assert.ok(await llm.generateArticle(tweet(), ctx));
+    assert.equal(ctx.value, 5, "the writer's VALUE reaches the batch");
+  });
+});
+
+test("a title with an @handle or #hashtag is sent back; C# and #1 are not tags", () => {
+  const mk = (title) => llm.validateArticle({ ...llm.parseArticleReply(GOOD), title }, `${POST} @acme #fooql C# #1`).join(" | ");
+  assert.match(mk("@acme Fooql 2.0 makes joins 3x faster"), /@handles or #hashtags/);
+  assert.match(mk("Acme Fooql 2.0 makes joins 3x faster #fooql"), /@handles or #hashtags/);
+  assert.doesNotMatch(mk("Acme Fooql 2.0 C# joins 3x faster"), /@handles/);
+});
+
 // ---- review round: every field fact-checked, figures with units, quotes, claims, negation, links ----
 const FALCON = "Acme Labs released Falcon 2, an open model trained on 6 trillion tokens. It raised $10 million in seed funding. The model supports 128k context and does not support images. Weights are on Hugging Face under Apache 2.0. GPT-4 comparison: it holds up against GPT-4 on 3 of 5 coding benchmarks.";
 const falcon = (over) => ({
@@ -425,7 +452,8 @@ test("the article writer tells a dead key or retired models from a passing outag
     return llm.generateArticleText("prompt").then((text) => ({ text }), (error) => ({ error }));
   };
   Object.assign(config.llm.openrouter, { apiKey: "test-key", articleModel: "main/model", articleFallbackModel: "backup/model" });
-  llm.isLocalMode = () => false;
+  const savedProvider = config.llm.providers.article;
+  config.llm.providers.article = "openrouter";
   try {
     let r = await run({ "main/model": fail(401, "User not found"), "backup/model": "unused" });
     assert.equal(r.error.providerDown, true);
@@ -443,6 +471,6 @@ test("the article writer tells a dead key or retired models from a passing outag
   } finally {
     Object.assign(config.llm.openrouter, saved);
     llm.generateTextViaOpenRouter = origCall;
-    delete llm.isLocalMode;
+    config.llm.providers.article = savedProvider;
   }
 });

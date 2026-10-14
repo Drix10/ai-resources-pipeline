@@ -12,6 +12,16 @@ const parsePositiveInteger = (value, fallback) => {
 const env = (name) => String(process.env[name] || "").trim();
 const canonicalBaseUrl = env("CANONICAL_BASE_URL").replace(/\/$/, "");
 
+// An LLM provider setting: empty = `fallback`; a value that is not a provider stops the start
+// (a typo must not silently send every job to another, maybe paid, provider).
+const LLM_PROVIDERS = ["openrouter", "nvidia", "local", "claude"];
+const llmProvider = (name, fallback) => {
+  const value = env(name).toLowerCase();
+  if (!value) return fallback;
+  if (!LLM_PROVIDERS.includes(value)) throw new Error(`${name}="${env(name)}" is not an LLM provider; use one of: ${LLM_PROVIDERS.join(", ")}.`);
+  return value;
+};
+
 // Who the pipeline publishes as: the article footer, the blog index byline, the LinkedIn reply
 // persona and the commits on the resources repo. Every field is optional; an empty one leaves its
 // line out (with no AUTHOR_EMAIL, GitHub attributes commits to the token's account).
@@ -44,9 +54,29 @@ const config = {
   },
   author,
   llm: {
-    // LOCAL_LLM=true: local Ollama for everything. Otherwise OpenRouter writes articles and
-    // comments, with NVIDIA NIM as the fallback.
-    useLocal: (process.env.LOCAL_LLM ?? "false") === "true",
+    // Who writes, per job: "openrouter" (OpenRouter, with NVIDIA NIM as the fallback), "nvidia"
+    // (NVIDIA NIM only), "local" (Ollama only) or "claude" (the claude CLI on a Claude subscription;
+    // when a call fails there, the OpenRouter/NVIDIA chain takes over if it has a key).
+    // LLM_PROVIDER sets every job; LLM_ARTICLE_PROVIDER, LLM_COMMENT_PROVIDER (comments and their
+    // critic) and LLM_VIRAL_PROVIDER (the LinkedIn viral pass; default: the comment provider) override it.
+    provider: llmProvider("LLM_PROVIDER", "openrouter"),
+    providers: {
+      article: llmProvider("LLM_ARTICLE_PROVIDER", llmProvider("LLM_PROVIDER", "openrouter")),
+      comment: llmProvider("LLM_COMMENT_PROVIDER", llmProvider("LLM_PROVIDER", "openrouter")),
+      viral: llmProvider("LLM_VIRAL_PROVIDER", llmProvider("LLM_COMMENT_PROVIDER", llmProvider("LLM_PROVIDER", "openrouter"))),
+    },
+    // The claude CLI (LLM_*_PROVIDER=claude): signed in once with `claude`, billed to the plan.
+    // --effort per call: low | medium | high | xhigh | max.
+    claude: {
+      bin: process.env.CLAUDE_BIN || "claude",
+      model: process.env.CLAUDE_MODEL || "claude-sonnet-5-5",
+      effort: process.env.CLAUDE_EFFORT || "medium",
+      // The viral pass: the comment most people will read, so the strongest model.
+      viralModel: process.env.CLAUDE_VIRAL_MODEL || "claude-opus-5-5",
+      viralEffort: process.env.CLAUDE_VIRAL_EFFORT || "high",
+      requestTimeoutMs: parsePositiveInteger(process.env.CLAUDE_REQUEST_TIMEOUT_MS, 300000),
+    },
+    // Local Ollama (provider "local").
     baseUrl: (process.env.LOCAL_LLM_BASE_URL || "http://127.0.0.1:11434").replace(/\/$/, ""),
     model: process.env.LOCAL_LLM_MODEL || "gemma4:latest",
     commentModel: process.env.LOCAL_LLM_COMMENT_MODEL || process.env.LOCAL_LLM_MODEL || "gemma4:latest",
@@ -74,6 +104,8 @@ const config = {
       // specificity and publishability): strongest accuracy, skips thin posts, ~$0.0001/article.
       articleModel: process.env.OPENROUTER_ARTICLE_MODEL || "openai/gpt-oss-120b",
       articleFallbackModel: process.env.OPENROUTER_ARTICLE_FALLBACK_MODEL || "qwen/qwen3.7-flash",
+      // The LinkedIn viral pass (LLM_VIRAL_PROVIDER=openrouter): the comment model unless set.
+      viralModel: process.env.OPENROUTER_VIRAL_MODEL || "",
       // "input,output" USD per 1M tokens, for run-cost logs only.
       pricePerM: String(process.env.OPENROUTER_PRICE_PER_M || "").split(",").map(Number).filter(n => Number.isFinite(n) && n >= 0),
       requestTimeoutMs: parsePositiveInteger(process.env.OPENROUTER_REQUEST_TIMEOUT_MS, 120000),
@@ -81,9 +113,12 @@ const config = {
   },
   social: {
     linkedinFeedReply: process.env.LINKEDIN_FEED_REPLY === "true",
-    // Like-only engagement while comments stay disabled (perfecting replies).
-    // 2-4 likes after each article on targeted finance/AI/founder posts.
+    // 3-6 likes after each article on targeted finance/AI/founder posts.
     linkedinLike: process.env.LINKEDIN_LIKE !== "false",
+    // 1-2 extra comments after each batch commit on posts going viral (big names in config/viral.js,
+    // the day's most-engaged launches and funding news), on their own daily cap. Comments post only
+    // with LINKEDIN_FEED_REPLY=true.
+    linkedinViral: process.env.LINKEDIN_VIRAL !== "false",
     // Simple mode: raw LLM reply, no system prompting, no gates, no critic.
     // Experiment flag for comparing against the policed pipeline. Nothing posts
     // without LINKEDIN_FEED_REPLY=true; previews stay dry-run either way.
@@ -91,7 +126,7 @@ const config = {
     // Post sources for likes/comments: "targeted" (default: content search + config/creators.json,
     // home-feed fallback) or "feed" (home feed Top/Recent only).
     linkedinSource: process.env.LINKEDIN_SOURCE === "feed" ? "feed" : "targeted",
-    // 3-5 no-note connection requests after each batch commit to US people in AI/tech/finance/investing.
+    // 3-7 no-note connection requests after each batch commit to US people in AI/tech/finance/investing.
     linkedinConnect: process.env.LINKEDIN_CONNECT !== "false",
     twitterPost: process.env.TWITTER_POST !== "false",
     // Optional credit lines in announcement tweets ("Made by @you via @yourorg"); empty = no line.

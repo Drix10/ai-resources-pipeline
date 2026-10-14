@@ -19,9 +19,16 @@ for (const key of [
 // FACTORY_ENABLED is off too: the optional content factory never runs in a test unless the test
 // turns it on itself.
 for (const flag of [
-  "TWITTER_POST", "LINKEDIN_LIKE", "LINKEDIN_CONNECT", "LINKEDIN_FEED_REPLY", "LINKEDIN_SIMPLE_REPLY",
+  "TWITTER_POST", "LINKEDIN_LIKE", "LINKEDIN_CONNECT", "LINKEDIN_FEED_REPLY", "LINKEDIN_VIRAL", "LINKEDIN_SIMPLE_REPLY",
   "DEVTO_AUTO_PUBLISH", "FACTORY_ENABLED",
 ]) process.env[flag] = "false";
+// LLM providers: the documented default (openrouter, with no key) for every job, and the claude CLI
+// settings at their defaults. Tests that need claude set the provider and CLAUDE_BIN themselves.
+process.env.LLM_PROVIDER = "openrouter";
+for (const key of [
+  "LLM_ARTICLE_PROVIDER", "LLM_COMMENT_PROVIDER", "LLM_VIRAL_PROVIDER",
+  "CLAUDE_BIN", "CLAUDE_MODEL", "CLAUDE_EFFORT", "CLAUDE_VIRAL_MODEL", "CLAUDE_VIRAL_EFFORT", "CLAUDE_REQUEST_TIMEOUT_MS",
+]) process.env[key] = "";
 
 // helpers.js writes no log files when NODE_TEST_CONTEXT is set. node --test sets it in each file's
 // process; set it for a file run on its own too, but never in the --test runner itself (its run()

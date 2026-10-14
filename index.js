@@ -21,7 +21,11 @@ const EXIT_GRACE_MS = 10 * 1000;
 
 let shuttingDown = false;
 
+// Claude calls (LLM provider "claude") are child processes, which outlive this one on Windows.
+const killClaude = () => { try { require("./src/services/claude").killAll(); } catch { /* nothing running */ } };
+
 const forceExit = (code) => {
+  killClaude();
   try { require("./src/utils/factory").factoryModule("opus")?.abortAll(); } catch { /* the factory is optional */ }
   releasePipelineLock();
   process.exit(code);
@@ -35,6 +39,8 @@ const handleShutdown = async (signal, { code = 0, deadlineMs = SHUTDOWN_DEADLINE
   }
   shuttingDown = true;
   logger.info(`Received ${signal}. Starting graceful shutdown (press Ctrl+C again to force)...`);
+  // A stop ends the run's writing at once: a Claude call in flight is killed, not waited for.
+  killClaude();
   const deadline = setTimeout(() => {
     logger.error(`Shutdown did not finish within ${Math.round(deadlineMs / 1000)}s; exiting.`);
     forceExit(1);

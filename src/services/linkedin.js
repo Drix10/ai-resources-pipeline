@@ -3,6 +3,7 @@ const config = require("../../config");
 const { logger, sleep } = require("../utils/helpers");
 const { attachDriver, releaseDriver, MOD_KEY } = require("../utils/chromeLauncher");
 const crypto = require("crypto");
+const fs = require("fs");
 
 // Fixed waits read as a bot; every pause in this file is jittered +-25%.
 const nap = (ms) => sleep(Math.round(ms * (0.75 + Math.random() * 0.5)));
@@ -35,12 +36,34 @@ const LOGGED_IN_CSS = "a[href*='/feed'], a[href*='/mynetwork'], a[href*='/messag
 
 // Card lookup shared by scan/like/comment/follow. Home feed cards are children of
 // mainFeed; other pages (content search, profile activity) have no mainFeed, so
-// fall back to list items inside <main>. Sets `cards` (never null).
+// fall back to list items inside <main>, and on a company page (its posts sit outside any list
+// item) to the outermost activity updates. Sets `cards` (never null).
 const CARDS_JS = `
   const feedRoot = document.querySelector('div[data-testid="mainFeed"]');
-  const cards = feedRoot
+  let cards = feedRoot
     ? Array.from(feedRoot.children).filter(c => (c.innerText || '').includes('Feed post'))
     : Array.from(document.querySelectorAll('main li, main [role="listitem"]')).filter(c => (c.innerText || '').length > 200 && !(c.parentElement && c.parentElement.closest('li, [role="listitem"]')));
+  if (!feedRoot && !cards.length) {
+    const URN = '[data-urn*="urn:li:activity:"]';
+    cards = Array.from(document.querySelectorAll('main ' + URN)).filter(c => (c.innerText || '').length > 200 && !(c.parentElement && c.parentElement.closest(URN)));
+  }
+`;
+
+// The comment section of an opened card. LinkedIn renders no <article> per comment any more, and
+// its comment markup differs by page, so the section is read as a reader sees it:
+//  commentersOf(card): every commenter's name, from the buttons that name a comment ("View more
+//    options for <name>'s comment.", "Reply to <name>'s comment", "React Like to <name>'s comment")
+//  commentsTextOf(card): the section's text below its sort label ("Most relevant", ...), "" when
+//    there is none yet (a post with no comment shows no sort label).
+const COMMENTS_JS = `
+  const COMMENT_LABEL = /^(?:View more options for|Open options for|Reply to|React Like to)\\s+(.+?)[\\u2019']s comment\\.?$/i;
+  const commentersOf = (card) => Array.from(new Set(Array.from(card.querySelectorAll('button[aria-label]'))
+    .map(b => ((b.getAttribute('aria-label') || '').match(COMMENT_LABEL) || [])[1]).filter(Boolean).map(n => n.trim())));
+  const commentsTextOf = (card) => {
+    const t = card.innerText || '';
+    const m = t.match(/^\\s*(?:Most relevant|Most recent|Newest|Top comments|All comments)\\s*$/m);
+    return m ? t.slice(m.index + m[0].length).replace(/\\n{2,}/g, '\\n').trim() : '';
+  };
 `;
 
 class LinkedInService {
@@ -298,6 +321,44 @@ class LinkedInService {
     return t.trim();
   }
 
+  // Pure: company and activity pages repeat the post's age as a line of chrome above the post
+  // ("7 hours ago • Visible to anyone on or off LinkedIn"): drafting and the card lookup never see it.
+  static withoutAgeChrome(text) {
+    // ("7 hours ago • Visible to anyone…", "1h • Edited •", "Edited •": an age or "Edited", then a bullet)
+    const CHROME = /^\s*(?:\d+\s*(?:s|m|h|d|w|mo|yr|seconds?|minutes?|hours?|days?|weeks?|months?|years?)(?:\s+ago)?|Edited)\s*•[^\n]*(?:\n|$)/i;
+    let t = String(text || "");
+    for (let i = 0; i < 3 && CHROME.test(t); i++) t = t.replace(CHROME, "");
+    return t.trim();
+  }
+
+  // Pure: a card's social counts from its raw innerText, for the viral pass ({reactions, comments,
+  // reposts}, 0 when not shown). Read from the tally lines under the commentary only: "Jane Smith and
+  // 1,234 others", "1.2K reactions", "56 comments", "12 reposts", or bare count lines (the first is
+  // the reactions, the second the comments). A number in the author's own text never counts.
+  static socialCounts(text) {
+    const count = (s) => {
+      const m = String(s || "").replace(/,/g, "").match(/^(\d+(?:\.\d+)?)\s*([KkMm])?$/);
+      return m ? Math.round(Number(m[1]) * ({ k: 1e3, m: 1e6 }[String(m[2] || "").toLowerCase()] || 1)) : 0;
+    };
+    const lines = String(text || "").replace(/\p{Cf}/gu, "").split(/\r?\n/).map((l) => l.trim());
+    // The tally block starts after the commentary: the first tally-shaped line past the header.
+    let start = lines.findIndex((l, i) => i >= 3 && (TALLY_LINE_RE.test(l) || /^\d[\d,.]*[KkMm]?$/.test(l)));
+    if (start < 0) return { reactions: 0, comments: 0, reposts: 0 };
+    const out = { reactions: 0, comments: 0, reposts: 0 };
+    const bare = [];
+    for (const l of lines.slice(start, start + 8)) {
+      let m;
+      if ((m = l.match(/\band\s+([\d,]+)\s+others?\b/i))) out.reactions = Math.max(out.reactions, count(m[1]) + 1);
+      if ((m = l.match(/^(\d[\d,.]*\s*[KkMm]?)\s*(?:reactions?|likes?)\b/i))) out.reactions = Math.max(out.reactions, count(m[1]));
+      if ((m = l.match(/(?:^|•|·)\s*(\d[\d,.]*\s*[KkMm]?)\s+comments?\b/i))) out.comments = Math.max(out.comments, count(m[1]));
+      if ((m = l.match(/(?:^|•|·)\s*(\d[\d,.]*\s*[KkMm]?)\s+reposts?\b/i))) out.reposts = Math.max(out.reposts, count(m[1]));
+      if (/^\d[\d,.]*[KkMm]?$/.test(l)) bare.push(count(l));
+    }
+    if (!out.reactions && bare.length) out.reactions = bare[0];
+    if (!out.comments && bare.length > 1) out.comments = bare[1];
+    return out;
+  }
+
   // Pure: a post's tracker keys. key = the activity URN when the card links its permalink
   // (stable forever), else a hash of the commentary's first 200 chars. altKeys are every
   // older scheme (commentary hash, body hash, author+body hash), so posts tracked before
@@ -454,9 +515,9 @@ class LinkedInService {
           const ageH = ageM ? Number(ageM[1]) * { s: 1 / 3600, m: 1 / 60, h: 1, d: 24, w: 168, mo: 720, yr: 8760 }[ageM[2]] : 999;
           // Drafting sees the commentary without trailing tally/reaction lines when that
           // still leaves a real post; otherwise the body as before.
-          const commentary = LinkedInService.commentaryText(keySrc);
-          const draftText = commentary.split(/\s+/).filter(Boolean).length >= 10 ? commentary : keySrc;
-          out.push({ key, altKeys, legacyKey, urn: item.urn || "", author: item.author || "unknown", href: item.href || "", text: draftText.slice(0, 1500), head: tlines.slice(0, 8).join(" "), ageH });
+          const commentary = LinkedInService.withoutAgeChrome(LinkedInService.commentaryText(keySrc));
+          const draftText = commentary.split(/\s+/).filter(Boolean).length >= 10 ? commentary : LinkedInService.withoutAgeChrome(keySrc);
+          out.push({ key, altKeys, legacyKey, urn: item.urn || "", author: item.author || "unknown", href: item.href || "", text: draftText.slice(0, 1500), head: tlines.slice(0, 8).join(" "), ageH, ...LinkedInService.socialCounts(text) });
         }
         if (fresh === 0) {
           stallRounds++;
@@ -567,6 +628,99 @@ class LinkedInService {
   //   "already"   the card already holds a comment by our own profile
   //   "failed"    nothing was submitted, safe to try another time
   // Every non-posted exit clears the editor, so a "leave page?" prompt never blocks the next navigation.
+  // True when one of the card's comments is ours: our name (AUTHOR_NAME / AUTHOR_HANDLE) on a
+  // comment, or a link to our profile inside one.
+  async _hasOwnComment(textSnippet, ownSlug = "") {
+    return await this.driver.executeScript(`
+      const norm = s => (s || '').replace(/[\\u200b-\\u200d\\ufeff]/g, '').replace(/\\s+/g, ' ').trim();
+      ${CARDS_JS}
+      ${COMMENTS_JS}
+      const card = cards.find(c => norm(c.innerText).includes(norm(arguments[0])));
+      if (!card) return false;
+      const names = arguments[1], slug = arguments[2];
+      // (our own posts are never engaged, so a link to our profile in the card is one of our comments)
+      const ed = card.querySelector('[aria-label="Text editor for creating comment"], .tiptap, .ProseMirror');
+      return commentersOf(card).some(n => names.includes(n.toLowerCase()))
+        || (!!slug && Array.from(card.querySelectorAll('a[href*="/in/' + slug + '"]')).some(a => !(ed && ed.contains(a))));
+    `, String(textSnippet).substring(0, 80), this._ownNames, ownSlug || "").catch(() => false) === true;
+  }
+
+  // Opens a card's comment section and reads the comments LinkedIn shows first ("Most relevant"),
+  // so a comment can be written against what is already there. Read-only: nothing is liked, typed or
+  // posted. {status: "open" | "already" (one of them is ours) | "failed", comments: the section's
+  // text as a reader sees it ("" when none show), commenters: their names}
+  async readComments(textSnippet, authorHref = "", { expectComments = true } = {}) {
+    const snip = String(textSnippet).substring(0, 80);
+    const EDITOR_SEL = '[aria-label="Text editor for creating comment"], .tiptap, .ProseMirror';
+    const FIND = `
+      const norm = s => (s || '').replace(/[\\u200b-\\u200d\\ufeff]/g, '').replace(/\\s+/g, ' ').trim();
+      ${CARDS_JS}
+      ${COMMENTS_JS}
+      const card = cards.find(c => norm(c.innerText).includes(norm(arguments[0]))) || null;
+    `;
+    try {
+      await this.ensureDriverConnected(true);
+      const opened = await this.driver.executeScript(`${FIND}
+        if (!card) return 'no-card';
+        if (arguments[1] && !card.querySelector('a[href*="' + arguments[1] + '"]')) return 'author-mismatch';
+        try { card.scrollIntoView({ block: 'center' }); } catch (e) {}
+        if (card.querySelector(arguments[2])) return 'opened';
+        const toggle = Array.from(card.querySelectorAll('button')).find(b => (b.getAttribute('aria-label') || '').toLowerCase() === 'comment');
+        if (!toggle) return 'no-toggle';
+        toggle.click();
+        return 'opened';
+      `, snip, String(authorHref || "").split("/in/")[1] || "", EDITOR_SEL).catch(() => "fail");
+      if (opened !== "opened") return { status: "failed", comments: "", commenters: [], reason: opened };
+      let section = { text: "", commenters: [] };
+      for (let i = 0; i < (expectComments ? 3 : 1); i++) {
+        await nap(i ? 2000 : 3500);
+        section = await this.driver.executeScript(`${FIND} return card ? { text: commentsTextOf(card).slice(0, 6000), commenters: commentersOf(card) } : null;`, snip).catch(() => section);
+        if (section === null) return { status: "failed", comments: "", commenters: [], reason: "card gone" };
+        if (section.text) break;
+      }
+      const out = { comments: section.text, commenters: section.commenters };
+      if (await this._hasOwnComment(snip, await this._ownProfileSlug())) return { status: "already", ...out };
+      return { status: "open", ...out };
+    } catch (e) {
+      if (isLinkedInStop(e)) throw e;
+      logger.warn(`LinkedInService: readComments failed: ${e.message}`);
+      return { status: "failed", comments: "", commenters: [], reason: e.message };
+    }
+  }
+
+  // Saves a PNG of the card as a reader sees it (its image or video frame, and the comments when
+  // open) to `file`. True on success; never throws.
+  async screenshotCard(textSnippet, file) {
+    try {
+      const el = await this.driver.executeScript(`
+        const norm = s => (s || '').replace(/[\\u200b-\\u200d\\ufeff]/g, '').replace(/\\s+/g, ' ').trim();
+        ${CARDS_JS}
+        return cards.find(c => norm(c.innerText).includes(norm(arguments[0]))) || null;
+      `, String(textSnippet).substring(0, 80));
+      if (!el) return false;
+      // The whole card, in page coordinates, below the page's sticky headers (an element screenshot
+      // is cut to the window and has the nav bar over its top). Very long cards stop at 2600 px.
+      const box = await this.driver.executeScript(`
+        const el = arguments[0];
+        window.scrollTo(0, Math.max(0, el.getBoundingClientRect().top + window.scrollY - 260));
+        const r = el.getBoundingClientRect();
+        return { x: r.left + window.scrollX, y: r.top + window.scrollY, width: r.width, height: Math.min(r.height, 2600) };
+      `, el);
+      await nap(800);
+      let png = "";
+      try {
+        const shot = await this.driver.sendAndGetDevToolsCommand("Page.captureScreenshot", { format: "png", captureBeyondViewport: true, clip: { ...box, scale: 1 } });
+        png = shot && shot.data;
+      } catch (e) { /* no DevTools channel: the element screenshot below */ }
+      if (!png) png = await el.takeScreenshot();
+      fs.writeFileSync(file, Buffer.from(png, "base64"));
+      return true;
+    } catch (e) {
+      logger.warn(`LinkedInService: card screenshot failed: ${e.message}`);
+      return false;
+    }
+  }
+
   async commentOnFeedCard(cardKey, authorHref, textSnippet, text, fullName = "") {
     const snip = String(textSnippet).substring(0, 80);
     const EDITOR_SEL = '[aria-label="Text editor for creating comment"], .tiptap, .ProseMirror';
@@ -601,12 +755,14 @@ class LinkedInService {
         if (!card) return 'no-card';
         if (arguments[1] && !card.querySelector('a[href*="' + arguments[1] + '"]')) return 'author-mismatch';
         try { card.scrollIntoView({ block: 'center' }); } catch (e) {}
+        // Already open (the viral pass read the comments first): a second click could close it.
+        if (card.querySelector(arguments[2])) return 'opened';
         const toggle = Array.from(card.querySelectorAll('button'))
           .find(b => (b.getAttribute('aria-label') || '').toLowerCase() === 'comment');
         if (!toggle) return 'no-toggle';
         toggle.click();
         return 'opened';
-      `, snip, String(authorHref || "").split("/in/")[1] || "").catch(() => "fail");
+      `, snip, String(authorHref || "").split("/in/")[1] || "", EDITOR_SEL).catch(() => "fail");
       if (opened !== "opened") {
         logger.warn(`LinkedInService: feed card or Comment toggle not found (${opened}).`);
         return { status: "failed", liked };
@@ -614,19 +770,10 @@ class LinkedInService {
       await nap(2500);
       // Already commented here (a run that crashed after posting, or an older key)? Any link
       // to our own profile inside the card's comment list means yes: never post twice.
-      if (ownSlug) {
-        const mine = await this.driver.executeScript(`${FIND}
-          if (!card) return false;
-          const ed = card.querySelector(arguments[2]);
-          return Array.from(card.querySelectorAll('a[href*="/in/' + arguments[1] + '"]'))
-            .some(a => !(ed && ed.contains(a)) && !!a.closest('article, [class*="comment"], [data-id*="comment"]'));
-        `, snip, ownSlug, EDITOR_SEL).catch(() => false);
-        if (mine) {
-          logger.info("LinkedInService: this post already has our comment - not commenting again.");
-          return await done("already");
-        }
-      } else {
-        logger.warn("LinkedInService: own profile unknown (set LINKEDIN_PROFILE_SLUG) - own-comment check skipped.");
+      if (!ownSlug && !this._ownNames.length) logger.warn("LinkedInService: own profile unknown (set LINKEDIN_PROFILE_SLUG or AUTHOR_NAME) - own-comment check skipped.");
+      if (await this._hasOwnComment(snip, ownSlug)) {
+        logger.info("LinkedInService: this post already has our comment - not commenting again.");
+        return await done("already");
       }
       // Like first (human flow: like, then comment). Non-fatal if it fails.
       liked = await this.driver.executeScript(`${FIND}
@@ -703,13 +850,18 @@ class LinkedInService {
       let state = { onPage: false, residual: -1 };
       for (let i = 0; i < 10; i++) {
         await sleep(2000);
+        // Posted = our text shows in one of the card's comments (never just in the editor).
         state = await this.driver.executeScript(`${FIND}
+          ${COMMENTS_JS}
           const ed = card ? card.querySelector(arguments[2]) : null;
           const residual = ed ? (ed.innerText || '').trim().length : -1;
           const want = norm(arguments[1]);
           const nodes = Array.from((card || document).querySelectorAll('article, [class*="comment"]'))
             .filter(n => !(ed && (n.contains(ed) || ed.contains(n))));
-          return { residual, onPage: !!want && nodes.some(n => norm(n.innerText).includes(want)) };
+          // (the editor sits above the section, so the section's text is never the editor's; with no
+          // section label yet, an emptied editor and our text on the card is the posted comment)
+          const inComments = !!card && (norm(commentsTextOf(card)).includes(want) || (residual === 0 && norm(card.innerText).includes(want)));
+          return { residual, onPage: !!want && (inComments || nodes.some(n => norm(n.innerText).includes(want))) };
         `, snip, want, EDITOR_SEL).catch(() => state) || state;
         if (state.onPage) break;
       }

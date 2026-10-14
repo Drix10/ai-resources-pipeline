@@ -2,9 +2,13 @@
  * feedEngage.js
  *
  * Fully automated LinkedIn growth, called from cron.js in step with the content loop:
- *  1. runLikePass       (LINKEDIN_LIKE, default on): 2-4 likes after each article is written
- *  2. runFeedEngagement (LINKEDIN_FEED_REPLY=true): 1 or 2 comments after each batch commit
- *  3. runConnectPass    (LINKEDIN_CONNECT, default on): 3-5 no-note invites after each batch commit
+ *  1. runLikePass       (LINKEDIN_LIKE, default on): 3-6 likes after each article is written
+ *  2. runFeedEngagement (LINKEDIN_FEED_REPLY=true): 2 or 3 comments after each batch commit
+ *  3. runViralPass      (LINKEDIN_VIRAL, default on, needs LINKEDIN_FEED_REPLY=true): 1 or 2 extra
+ *     comments after each batch commit on posts going viral (big names in config/viral.js, the
+ *     day's most-engaged launches and funding news), early in their rise, written against the
+ *     comments already there (llm.draftViralComment), on their own daily cap
+ *  4. runConnectPass    (LINKEDIN_CONNECT, default on): 3-7 no-note invites after each batch commit
  *
  * Posts come from targeted sources (finance/AI/founder content search plus
  * optional creator profiles in config/creators.json), not the home feed. The
@@ -17,6 +21,7 @@
  */
 
 const fs = require("fs");
+const os = require("os");
 const path = require("path");
 const config = require("../../config");
 const llmService = require("./llm");
@@ -35,17 +40,17 @@ const nowIso = () => new Date().toISOString();
 
 // The tracker path is read per call so tests can point LINKEDIN_TRACK_PATH at a temp dir.
 const trackPath = () => process.env.LINKEDIN_TRACK_PATH || path.join(REPO_ROOT, "data", "linkedin-feed-commented.json");
-const MAX_PER_DAY = 15; // comments, rolling 24 h
+const MAX_PER_DAY = envInt("LINKEDIN_COMMENTS_MAX_PER_DAY", 20); // regular comments, rolling 24 h (viral ones have their own cap)
 const REJECT_TTL_MS = 3 * DAY; // drafts our own gates rejected: the post is fine, retry after 3 days
 const SKIP_TTL_MS = 30 * DAY; // LLM SKIPs, sensitive and thin posts: the post itself is the problem
 const PRUNE_MS = 30 * DAY;
 const CONN_PRUNE_MS = 90 * DAY; // invite history: well past the weekly cap, then dropped
-const LIKES_MAX_PER_DAY = 40;
-const FOLLOW_MAX_PER_DAY = 10;
+const LIKES_MAX_PER_DAY = envInt("LINKEDIN_LIKES_MAX_PER_DAY", 60);
+const FOLLOW_MAX_PER_DAY = 5;
 const AUTHOR_COMMENT_GAP_MS = 7 * DAY; // at most 1 comment per author per week
 const AUTHOR_LIKE_GAP_MS = DAY; // at most 1 like per author per day
 const PASS_TIMEOUT_MS = envInt("LINKEDIN_PASS_TIMEOUT_MS", 15 * 60 * 1000);
-const SEARCH_LOADS_PER_PASS = 6;
+const SEARCH_LOADS_PER_PASS = 8;
 const SEARCH_LOADS_PER_DAY = 40;
 
 // ---- Audience targeting: US-based people in AI, tech, finance, investing ----
@@ -100,7 +105,7 @@ const CONNECT_TECH_KEYWORDS = [
   "AI engineer", "machine learning engineer", "head of AI", "CTO", "data scientist",
   "software engineer", "AI startup founder",
 ];
-const CONNECT_PER_KEYWORD = 3; // spread each run across many keywords, 3 finance for every 1 AI/tech
+const CONNECT_PER_KEYWORD = 4; // spread each run across many keywords, 3 finance for every 1 AI/tech
 const shuffled = (a) => [...a].sort(() => Math.random() - 0.5);
 function buildConnectQueries() {
   const fin = shuffled(CONNECT_FIN_KEYWORDS), tech = shuffled(CONNECT_TECH_KEYWORDS);
@@ -115,9 +120,10 @@ const CONNECT_ICP_RE = /\b(ai|artificial intelligence|machine learning|ml|llm|da
 const CONNECT_SKIP_RE = /\b(recruit|recruiter|talent acquisition|staffing|headhunter|open to work|seeking|student|intern|coach|seo|agency|mlm|forex|signals|dropshipping)\b/i;
 // The geo filter leaks occasionally; drop anyone whose card names a non-US country.
 const CONNECT_NON_US_RE = /\b(india|russia|ukraine|pakistan|united kingdom|england|london|canada|toronto|germany|france|nigeria|brazil|china|singapore|uae|dubai|australia|bangladesh|philippines|indonesia|egypt|turkey|israel|netherlands|spain|italy|poland|mexico|kenya|vietnam)\b/i;
-// Conservative by default (LinkedIn restricts accounts that invite in bulk); env can raise or lower.
-const CONNECT_MAX_PER_DAY = envInt("LINKEDIN_CONNECT_MAX_PER_DAY", 12);
-const CONNECT_MAX_PER_WEEK = envInt("LINKEDIN_CONNECT_MAX_PER_WEEK", 60);
+// Under LinkedIn's own weekly invitation limit (about 100 for most accounts; hitting it pauses
+// connects 7 days, see runConnectPass). LinkedIn restricts accounts that invite in bulk: env can lower.
+const CONNECT_MAX_PER_DAY = envInt("LINKEDIN_CONNECT_MAX_PER_DAY", 15);
+const CONNECT_MAX_PER_WEEK = envInt("LINKEDIN_CONNECT_MAX_PER_WEEK", 90);
 const CONNECT_KEY = (href) => `conn:${String(href || "").replace(/\/$/, "")}`;
 
 // ---- Targeted post sources ----
@@ -147,6 +153,100 @@ function buildSources(limit = 6) {
 const FALLBACK_SOURCES = [{ label: "feed:top", sort: "top" }, { label: "feed:recent", sort: "recent" }];
 const scanSource = (src, maxScrolls = 8) =>
   LinkedInService.scanFeedPosts({ maxPosts: 12, maxScrolls, ...(src.url ? { url: src.url } : { sort: src.sort }) });
+
+// ---- Viral pass: extra comments where the audience is largest ----
+// A post by a big name (config/viral.js), or one gathering reactions fast, is read by far more
+// people than an ordinary post, and the comments its readers see are the early ones: timing is
+// most of it. The pass checks the big names most likely to have posted since it last looked, and
+// the day's most-engaged searches; it scores every post on how early it is in its rise (age,
+// reactions per hour, room left at the top of its comments); the best one gets a comment written
+// against the comments already there (llm.draftViralComment: drafts, gates and a judge), on its
+// own daily cap.
+const VIRAL = require("../../config/viral");
+const VIRAL_MAX_PER_DAY = envInt("LINKEDIN_VIRAL_MAX_PER_DAY", 8); // on top of MAX_PER_DAY
+const VIRAL_MIN = 8;
+// A post not by a big name needs a crowd already: one of these, or VIRAL_MIN_PER_HOUR reactions an hour.
+const VIRAL_MIN_REACTIONS = 150;
+const VIRAL_MIN_COMMENTS = 40;
+const VIRAL_MIN_PER_HOUR = 50;
+// Past these ages a new comment lands below hundreds of others.
+const VIRAL_MAX_AGE_H = 24;
+const VIP_MAX_AGE_H = 36;
+const VIRAL_AUTHOR_GAP_MS = 2 * DAY; // a big name posts often; still not on every post
+const VIRAL_SOURCES_PER_PASS = 3;
+const VIRAL_LOADS_PER_DAY = 40; // big-name pages and viral searches loaded, rolling 24 h
+const VIRAL_RECHECK_MS = 2 * HOUR; // a big name's page is not reloaded sooner
+// Launches, funding and big-company news: what makes a post spread.
+const NEWS_RE = /\b(raises?|raised|series [a-e]|seed round|funding|funded|unicorn|valuation|launch(?:es|ed|ing)?|announc\w+|acquir\w+|acquisition|ipo|open.?sourc\w+|releas\w+|ships?|shipped|introducing)\b/gi;
+const slugOf = (href, kind) => ((String(href || "").match(new RegExp(`/${kind}/([^/?#]+)`, "i")) || [])[1] || "").toLowerCase();
+// A big name from config/viral.js: by the card's profile or company link, or by its author name.
+function isVip(post) {
+  const person = slugOf(post.href, "in"), company = slugOf(post.href, "company");
+  const name = String(post.author || "").trim().toLowerCase();
+  return (VIRAL.people || []).some((p) => String(p.slug).toLowerCase() === person || String(p.name).toLowerCase() === name)
+    || (VIRAL.companies || []).some((c) => String(c.slug).toLowerCase() === company || String(c.name).toLowerCase() === name);
+}
+// How much a comment there now would be seen: a big name; how early the post is (the first hours
+// decide which comments sit on top); its momentum (reactions an hour); its reach so far (log
+// scale); the room left at the top of its comments; and whether it is launch, funding or tech news
+// this audience follows. VIRAL_MIN+ gets a draft. Sensitive, bait, non-English and stale posts get nothing.
+function viralScore(post) {
+  const hay = `${post.head || ""} ${post.text || ""}`;
+  if (!isEnglish(hay)) return -99;
+  if (isSensitivePost(post.text) || BAIT_RE.test(hay)) return -99;
+  const vip = isVip(post);
+  const age = typeof post.ageH === "number" ? post.ageH : 999;
+  if (age > (vip ? VIP_MAX_AGE_H : VIRAL_MAX_AGE_H)) return -99;
+  const reactions = Number(post.reactions) || 0, comments = Number(post.comments) || 0;
+  const perHour = reactions / Math.max(0.5, age);
+  if (!vip && reactions < VIRAL_MIN_REACTIONS && comments < VIRAL_MIN_COMMENTS && perHour < VIRAL_MIN_PER_HOUR) return 0;
+  let score = vip ? 5 : 0;
+  score += age <= 1 ? 4 : age <= 3 ? 3 : age <= 6 ? 2 : age <= 12 ? 1 : 0;
+  score += perHour >= 300 ? 4 : perHour >= 100 ? 3 : perHour >= 30 ? 2 : perHour >= 10 ? 1 : 0;
+  if (reactions >= 100) score += Math.min(3, Math.floor(1.5 * Math.log10(reactions) - 2)); // 1K: 2, 10K: 3
+  score += comments < 30 ? 2 : comments < 150 ? 1 : comments > 800 ? -2 : 0;
+  const distinct = (re) => new Set((hay.match(re) || []).map((m) => m.toLowerCase())).size;
+  score += Math.min(distinct(TECH_RE) + distinct(NEWS_RE), 2);
+  if (NOISE_RE.test(hay)) score -= 4;
+  return score;
+}
+const viralSearchUrl = (q) => "https://www.linkedin.com/search/results/content/?keywords=" + encodeURIComponent(q) +
+  "&datePosted=%22past-24h%22&sortBy=%22relevance%22";
+const vipPages = () => [
+  ...(VIRAL.people || []).map((p) => ({ label: `vip:${p.slug}`, url: `https://www.linkedin.com/in/${p.slug}/recent-activity/all/` })),
+  ...(VIRAL.companies || []).map((c) => ({ label: `vip:${c.slug}`, url: `https://www.linkedin.com/company/${c.slug}/posts/?feedView=all` })),
+];
+// One pass's sources: the big names most likely to have posted since their page was last read
+// (each page's posting rate, learned from its last read, in the tracker's meta.viralPages), then
+// a viral search, alternating. A page read under VIRAL_RECHECK_MS ago waits; one never read goes first.
+function buildViralSources(track = {}, limit = VIRAL_SOURCES_PER_PASS, now = Date.now()) {
+  const seen = ((track && track.meta) || {}).viralPages || {};
+  const chance = (src) => {
+    const s = seen[src.label];
+    const at = Date.parse((s && s.at) || "");
+    if (!Number.isFinite(at)) return 2 + Math.random();
+    if (now - at < VIRAL_RECHECK_MS) return -1;
+    const perDay = Math.max(0.05, Number(s.perDay) || 0.3);
+    return 1 - Math.exp(-perDay * (now - at) / DAY) + Math.random() * 0.15; // P(a new post since)
+  };
+  const pages = vipPages().map((src) => ({ ...src, p: chance(src) })).filter((s) => s.p >= 0)
+    .sort((a, b) => b.p - a.p).map(({ p, ...src }) => src);
+  const searches = shuffled(VIRAL.searches || []).map((q) => ({ label: `viral:${q}`, url: viralSearchUrl(q) }));
+  const out = [];
+  while (out.length < limit && (pages.length || searches.length)) {
+    if (pages.length) out.push(pages.shift());
+    if (out.length < limit && searches.length) out.push(searches.shift());
+  }
+  return out;
+}
+// After a big name's page is read: when, and how often it posts (posts in the last 14 days a day).
+function noteViralPage(track, label, posts, now = Date.now()) {
+  if (!String(label).startsWith("vip:")) return;
+  const ages = posts.map((p) => p.ageH).filter((h) => typeof h === "number" && h <= 14 * 24);
+  const days = Math.max(1, Math.max(0, ...ages) / 24);
+  const viralPages = { ...(((track.meta || {}).viralPages) || {}), [label]: { at: new Date(now).toISOString(), perDay: Number((ages.length / days).toFixed(3)) } };
+  track.meta = { ...(track.meta || {}), viralPages };
+}
 
 // ---- Tracker file ----
 // Post/person entries plus three meta keys: cooldowns { all, connect } (ISO times until which
@@ -306,7 +406,9 @@ const within = (iso, ms, now = Date.now()) => {
 const commentedAtOf = (e) => e.commentedAt || (e.status === "commented" ? e.ts : "");
 // Rolling windows (L8): "today" is the last 24 h, not the UTC calendar day.
 const countEntries = (track, pred) => postEntries(track).filter(([, v]) => pred(entryOf(v))).length;
-const commentedSince = (track, ms) => countEntries(track, (e) => within(commentedAtOf(e), ms));
+// viral: true counts only the viral pass's comments, false only the others, absent all of them.
+const commentedSince = (track, ms, { viral } = {}) =>
+  countEntries(track, (e) => within(commentedAtOf(e), ms) && (viral === undefined || !!e.viral === viral));
 const likedSince = (track, ms) => countEntries(track, (e) => within(e.likedAt, ms));
 const followedSince = (track, ms) => countEntries(track, (e) => within(e.followedAt, ms));
 const invitedSince = (track, ms) => countEntries(track, (e) => e.status === "invited" && within(e.ts, ms));
@@ -428,8 +530,13 @@ async function maybeFollow(post, track) {
 }
 
 // shouldStop (every pass): checked before each public action; true ends the pass at once.
-async function runFeedEngagement({ max = 2, dryRun = false, shouldStop = () => false } = {}) {
-  if (!config.social.linkedinFeedReply && !dryRun) {
+const runFeedEngagement = (opts = {}) => commentPass({ ...opts, viral: false });
+// The viral pass: the same comment engine on posts going viral (viralScore), on its own daily cap.
+const runViralPass = (opts = {}) => commentPass({ max: 1, ...opts, viral: true });
+
+async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, viral = false } = {}) {
+  const tag = viral ? "feedEngage viral" : "feedEngage";
+  if ((!config.social.linkedinFeedReply || (viral && !config.social.linkedinViral)) && !dryRun) {
     return { commented: 0, skipped: 0, liked: 0, previews: [], wouldLike: [], reason: "disabled", cost: null };
   }
   // Simple mode skips every gate and the critic: it may preview, never post.
@@ -454,9 +561,9 @@ async function runFeedEngagement({ max = 2, dryRun = false, shouldStop = () => f
   const blocked = passBlocked(track, "comment");
   if (blocked) return { ...out, reason: blocked, cost: runCost() };
   pruneTrack(track);
-  if (!dryRun && commentedSince(track, DAY) >= MAX_PER_DAY) {
-    return { ...out, reason: `daily cap (${MAX_PER_DAY}) reached`, cost: runCost() };
-  }
+  const cap = viral ? VIRAL_MAX_PER_DAY : MAX_PER_DAY;
+  const capHit = () => !dryRun && commentedSince(track, DAY, { viral }) >= cap;
+  if (capHit()) return { ...out, reason: `daily ${viral ? "viral " : ""}cap (${cap}) reached`, cost: runCost() };
   const rememberSlug = shareOwnSlug(track);
   const ctx = { track, out, aborted: false };
 
@@ -468,14 +575,44 @@ async function runFeedEngagement({ max = 2, dryRun = false, shouldStop = () => f
 
   const engageOne = async (post, sort) => {
     if (shouldSkipTracked(track, post.key, keysOfPost(post).slice(1))) { out.skipped++; return; }
-    if (authorDid(track, post.href, commentedAtOf, AUTHOR_COMMENT_GAP_MS)) {
-      logger.info(`feedEngage: already commented on @${post.author} this week - skipping.`);
+    if (authorDid(track, post.href, commentedAtOf, viral ? VIRAL_AUTHOR_GAP_MS : AUTHOR_COMMENT_GAP_MS)) {
+      logger.info(`${tag}: already commented on @${post.author} ${viral ? "in the last 2 days" : "this week"} - skipping.`);
       out.skipped++;
       return;
     }
     let draft;
     try {
-      draft = await llmService.draftFeedComment({ postAuthor: post.author, postText: post.text });
+      if (viral) {
+        // Read the thread first (and see the post as readers do): the comment must say what the
+        // comments on top have not. Opening the comments is read-only.
+        const section = await LinkedInService.readComments(post.text.slice(0, 80), post.href, { expectComments: (Number(post.comments) || 0) > 0 });
+        if (section.status === "already") {
+          if (!dryRun) { markPost(track, post, { status: "commented", ts: nowIso(), commentedAt: nowIso(), viral: true, skipReason: "our earlier comment found on the post" }); saveOrStop(track); }
+          logger.info(`${tag}: @${post.author}'s post already has our comment - skipping.`);
+          out.skipped++;
+          return;
+        }
+        if (section.status !== "open") {
+          logger.warn(`${tag}: could not open the comments on ${post.key} (${section.reason}) - not tracked, tried again later.`);
+          out.skipped++;
+          return;
+        }
+        let shot = "";
+        if (llmService.providerFor("viral") === "claude") {
+          shot = path.join(os.tmpdir(), `viral-${process.pid}-${Date.now()}.png`);
+          if (!(await LinkedInService.screenshotCard(post.text.slice(0, 80), shot))) shot = "";
+        }
+        try {
+          draft = await llmService.draftViralComment({ post, comments: section.comments, imageFile: shot });
+        } finally {
+          if (shot) try { fs.unlinkSync(shot); } catch (e) { /* a temp image left behind costs nothing */ }
+        }
+        if (draft.candidates && draft.candidates.length) {
+          for (const c of draft.candidates) logger.info(`${tag}: candidate [${c.angle}] "${c.comment}" -> ${c.gate && c.gate.length ? `gates: ${c.gate.join("; ")}` : c.judge ? `judge: ${c.judge.pass ? "PASS" : "FAIL"} ${c.judge.reason}` : "not judged"}`);
+        }
+      } else {
+        draft = await llmService.draftFeedComment({ postAuthor: post.author, postText: post.text });
+      }
     } catch (e) {
       // Thin posts throw before any LLM call: park them so every cycle doesn't waste a scan
       // slot on them. Anything else (network, LLM down) stays untracked and retries next cycle.
@@ -498,12 +635,12 @@ async function runFeedEngagement({ max = 2, dryRun = false, shouldStop = () => f
       return;
     }
     if (dryRun) {
-      out.previews.push({ author: post.author, key: post.key, postText: post.text, comment: draft.comment, sort, score: post.score });
-      logger.info(`feedEngage DRYRUN [${sort}] would comment on @${post.author}: "${draft.comment}"`);
+      out.previews.push({ author: post.author, key: post.key, postText: post.text, comment: draft.comment, sort, score: post.score, reactions: post.reactions || 0, ageH: post.ageH });
+      logger.info(`${tag} DRYRUN [${sort}] would comment on @${post.author}: "${draft.comment}"`);
       out.skipped++;
       return;
     }
-    logger.info(`feedEngage [${sort}]: commenting on @${post.author}: "${draft.comment.slice(0, 90)}..."`);
+    logger.info(`${tag} [${sort}]: commenting on @${post.author}${viral ? ` (score ${post.score}, ${post.reactions || 0} reactions, ${Math.round(post.ageH)}h old)` : ""}: "${draft.comment.slice(0, 90)}..."`);
     const res = await LinkedInService.commentOnFeedCard(post.key, post.href, post.text.slice(0, 80), draft.comment, post.author);
     const at = nowIso();
     const liked = res && res.liked ? { likedAt: at } : {};
@@ -511,14 +648,14 @@ async function runFeedEngagement({ max = 2, dryRun = false, shouldStop = () => f
     if (res && (res.status === "posted" || res.status === "uncertain" || res.status === "already")) {
       // A dispatched submit is never retried: uncertain is tracked as commented (unverified).
       markPost(track, post, {
-        status: "commented", ts: at, commentedAt: at, ...liked,
+        status: "commented", ts: at, commentedAt: at, ...liked, ...(viral ? { viral: true } : {}),
         ...(res.status === "posted" ? {} : { unverified: true }),
         ...(res.status === "already" ? { skipReason: "our earlier comment found on the post" } : {}),
       });
       saveOrStop(track);
       if (res.status === "already") { out.skipped++; return; }
       out.commented++;
-      logger.info(`feedEngage: commented (${out.commented}/${max} this cycle)${res.status === "uncertain" ? " [unverified]" : ""}.`);
+      logger.info(`${tag}: commented (${out.commented}/${max} this cycle, ${commentedSince(track, DAY, { viral })}/${cap} today)${res.status === "uncertain" ? " [unverified]" : ""}.`);
       return;
     }
     if (liked.likedAt) {
@@ -529,18 +666,25 @@ async function runFeedEngagement({ max = 2, dryRun = false, shouldStop = () => f
     out.skipped++;
   };
 
-  // Walk targeted sources until `max` comments land or sources run out. Posts are
-  // scored (finance/AI/founder, US, fresh); only COMMENT_MIN+ get a draft, best first.
-  // No separate like loop here: commentOnFeedCard likes first, and the like pass
-  // already ran this cycle.
+  // Walk the sources until `max` comments land or sources run out. Posts are scored (the
+  // regular pass: finance/AI/founder, US, fresh, COMMENT_MIN+; the viral pass: viralScore,
+  // VIRAL_MIN+); only those get a draft, best first. No separate like loop here:
+  // commentOnFeedCard likes first, and the like pass already ran this cycle.
   const seenThisRun = new Set();
   const wanted = new Set();
   const done = () => ctx.aborted || shouldStop() || (dryRun ? out.previews.length : out.commented) >= max;
-  const capHit = () => !dryRun && commentedSince(track, DAY) >= MAX_PER_DAY;
+  const [score, minScore] = viral ? [viralScore, VIRAL_MIN] : [scorePost, COMMENT_MIN];
   const commentFrom = async (src) => {
-    const posts = (await scanSource(src, 10))
-      .map((p) => ({ ...p, score: scorePost(p) }))
+    const scanned = await scanSource(src, 10);
+    // A big name's page: when it was read and how often it posts decide when it is read again.
+    if (viral && String(src.label).startsWith("vip:")) {
+      noteViralPage(track, src.label, scanned);
+      if (!dryRun) saveTrack(track);
+    }
+    const posts = scanned
+      .map((p) => ({ ...p, score: score(p) }))
       .sort((a, b) => b.score - a.score);
+    if (viral && posts.length) logger.info(`${tag} [${src.label}]: best ${posts.slice(0, 3).map((p) => `@${p.author} ${p.score} (${Math.round(p.ageH)}h, ${p.reactions || 0} reactions, ${p.comments || 0} comments)`).join("; ")}.`);
     let fresh = 0;
     for (const post of posts) {
       if (done() || capHit()) break;
@@ -549,11 +693,11 @@ async function runFeedEngagement({ max = 2, dryRun = false, shouldStop = () => f
       seenThisRun.add(post.key);
       fresh++;
       if (isSensitivePost(post.text)) { skipPost(post, "skipped", "sensitive topic"); continue; }
-      if (dryRun && post.score >= LIKE_MIN && !wanted.has(post.key)) {
+      if (dryRun && !viral && post.score >= LIKE_MIN && !wanted.has(post.key)) {
         wanted.add(post.key);
         out.wouldLike.push({ author: post.author, snippet: post.text.slice(0, 60), score: post.score });
       }
-      if (post.score < COMMENT_MIN) continue;
+      if (post.score < minScore) continue;
       const before = out.commented;
       await engageOne(post, src.label);
       // Pace only published comments (nothing public happened on a rejection).
@@ -561,25 +705,30 @@ async function runFeedEngagement({ max = 2, dryRun = false, shouldStop = () => f
     }
     return fresh;
   };
-  await guarded("comment", ctx, async () => {
+  await guarded(viral ? "viral" : "comment", ctx, async () => {
     let found = 0;
-    for (const src of buildSources()) {
+    for (const src of viral ? buildViralSources(track) : buildSources()) {
       if (done() || capHit()) break;
-      try { found += await commentFrom(src); } catch (e) { rethrowStop(e); logger.warn(`feedEngage [${src.label}]: scan failed: ${e.message}`); }
+      // The viral pass's page loads are capped per day (big-name pages and searches are extra loads).
+      if (viral) {
+        if (searchLoadsSince(track, DAY, "viralLoads") >= VIRAL_LOADS_PER_DAY) { out.reason = `viral page cap (${VIRAL_LOADS_PER_DAY} per day)`; break; }
+        recordSearchLoad(track, "viralLoads");
+      }
+      try { found += await commentFrom(src); } catch (e) { rethrowStop(e); logger.warn(`${tag} [${src.label}]: scan failed: ${e.message}`); }
     }
-    if (found === 0 && !done() && config.social.linkedinSource !== "feed") {
+    if (found === 0 && !viral && !done() && config.social.linkedinSource !== "feed") {
       logger.warn("feedEngage: targeted sources yielded nothing - falling back to home feed.");
       for (const src of FALLBACK_SOURCES) {
         if (done()) break;
         try { await commentFrom(src); } catch (e) { rethrowStop(e); logger.warn(`feedEngage [${src.label}]: scan failed: ${e.message}`); }
       }
     }
-    if (!done()) logger.info(`feedEngage: ${dryRun ? out.previews.length : out.commented}/${max} comments - sources exhausted, moving on.`);
+    if (!done()) logger.info(`${tag}: ${dryRun ? out.previews.length : out.commented}/${max} comments - ${out.reason || "sources exhausted"}, moving on.`);
   });
   if (!ctx.aborted && !dryRun) rememberSlug();
 
   out.cost = runCost();
-  logger.info(`feedEngage: run cost ~$${out.cost.openrouter.usd.toFixed(4)} (OpenRouter ${out.cost.openrouter.prompt}+${out.cost.openrouter.completion} tok; NVIDIA ${out.cost.legacy.prompt}+${out.cost.legacy.completion} tok).`);
+  logger.info(`${tag}: run cost ~$${out.cost.openrouter.usd.toFixed(4)} (OpenRouter ${out.cost.openrouter.prompt}+${out.cost.openrouter.completion} tok; NVIDIA ${out.cost.legacy.prompt}+${out.cost.legacy.completion} tok).`);
   if (!out.reason && dryRun) out.reason = "dry run - nothing posted or tracked";
   return out;
 }
@@ -668,13 +817,14 @@ async function runLikePass({ min = 5, max = 9, shouldStop = () => false } = {}) 
   return out;
 }
 
-// People-search page loads in the last 24 h (each one counts toward LinkedIn's search limits).
-function searchLoadsSince(track, ms) {
-  return (((track.counters || {}).searchLoads) || []).filter((t) => within(t, ms)).length;
+// Page loads in the last 24 h, per counter: people searches (each one counts toward LinkedIn's
+// search limits) and the viral pass's big-name pages and searches.
+function searchLoadsSince(track, ms, counter = "searchLoads") {
+  return (((track.counters || {})[counter]) || []).filter((t) => within(t, ms)).length;
 }
-function recordSearchLoad(track) {
-  const kept = (((track.counters || {}).searchLoads) || []).filter((t) => within(t, DAY));
-  track.counters = { ...(track.counters || {}), searchLoads: [...kept, nowIso()] };
+function recordSearchLoad(track, counter = "searchLoads") {
+  const kept = (((track.counters || {})[counter]) || []).filter((t) => within(t, DAY));
+  track.counters = { ...(track.counters || {}), [counter]: [...kept, nowIso()] };
   saveTrack(track);
 }
 
@@ -760,6 +910,6 @@ async function runConnectPass({ min = 10, max = 15, dryRun = false, shouldStop =
 const cleanup = () => LinkedInService.cleanup();
 
 module.exports = {
-  runFeedEngagement, runLikePass, runConnectPass, scorePost, isSensitivePost, cleanup,
+  runFeedEngagement, runViralPass, runLikePass, runConnectPass, scorePost, viralScore, isVip, buildViralSources, noteViralPage, isSensitivePost, cleanup,
   _tracker: { shouldSkipTracked, entryOfPost, markPost, loadTrack, saveTrack, pruneTrack, passBlocked, commentedSince, likedSince, setCooldown, cooldownLeft },
 };

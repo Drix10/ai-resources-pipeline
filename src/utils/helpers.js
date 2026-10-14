@@ -236,6 +236,9 @@ const parseDigestItems = (content) => {
   return { items, summary: lead ? cutAtSentence(lead.summary, 200) : "" };
 };
 
+// The title of a digest's first item: the headline its page, DEV.to copy and announcement lead with.
+const digestLeadTitle = (content) => (parseDigestItems(content).items[0] || {}).title || "";
+
 const isPersonalEntry = (name) => String(name).toLowerCase() === "personal";
 // YYYY-MM-DD in local time: the day the article was written where it was written, not in UTC.
 const localDate = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
@@ -423,6 +426,7 @@ module.exports = Object.freeze({
   sleep,
   redactSecrets,
   generateSeoSlug,
+  digestLeadTitle,
   rebuildBlogIndex,
   isEnglish,
 });

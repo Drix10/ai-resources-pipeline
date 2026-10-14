@@ -10,6 +10,11 @@
  *
  * Check every line. Only when you approve do we flip LINKEDIN_FEED_REPLY=true.
  *
+ *   node scripts/feed-preview.js --viral [--max 3]
+ *
+ * The viral pass: posts by the big names in config/viral.js and the day's most-engaged launches and
+ * funding news, with the comment each would get (score, reactions and age shown). Posts nothing.
+ *
  *   node scripts/feed-preview.js --connect [--live N]
  *
  * Connection requests: a dry run lists who would be invited. With --live it REALLY sends N
@@ -59,12 +64,13 @@ function pipelineRunning() {
     await feedEngage.cleanup().catch(() => {});
     process.exit(0);
   }
-  const r = await feedEngage.runFeedEngagement({ max, dryRun: true });
+  const viral = args.includes("--viral");
+  const r = await (viral ? feedEngage.runViralPass : feedEngage.runFeedEngagement)({ max, dryRun: true });
   console.log("\n================ PREVIEW ================");
   (r.previews || []).forEach((p, i) => {
     const m = (p.postText || "").match(/\d+\s*(?:mo|yr|[smhdw])\s*•/);
     const body = m ? (p.postText || "").slice(m.index + m[0].length).trim() : (p.postText || "");
-    console.log(`\n--- [${i + 1}] @${p.author} [${p.sort || p.kind || "peer"}] ---`);
+    console.log(`\n--- [${i + 1}] @${p.author} [${p.sort || p.kind || "peer"}]${viral ? ` score ${p.score}, ${p.reactions} reactions, ${Math.round(p.ageH)}h old` : ""} ---`);
     console.log(`POST: ${body}`);
     console.log(`WOULD COMMENT: ${p.comment}`);
   });

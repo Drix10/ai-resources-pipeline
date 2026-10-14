@@ -19,6 +19,32 @@ const devtoFooter = (canonicalUrl) => {
   return lines.length ? `\n\n---\n\n### Read More & Connect\n\n${lines.join("\n\n")}\n` : null;
 };
 
+// DEV.to tags readers follow, from a topic folder's name: "ai", up to two topical tags ("technology"
+// when none fits), then "news".
+// The squashed folder name ("aidevelopertools") is a tag nobody follows.
+const TOPIC_TAGS = [
+  [/secur|cyber/i, "security"],
+  [/developer|\bdevs\b|devrel|infrastructure/i, "programming"],
+  [/robot/i, "robotics"],
+  [/vision/i, "computervision"],
+  [/quantum/i, "quantum"],
+  [/crypto|web3|decentrali/i, "web3"],
+  [/health|science|neuro/i, "science"],
+  [/\bar vr\b|spatial|holodeck|virtual/i, "vr"],
+  [/founder|venture|investor|\bvc\b|compan|enterprise|consult|real estate/i, "startup"],
+  [/education|academic/i, "learning"],
+  [/policy|ethic/i, "ethics"],
+  [/marketing|content creation|\bpr\b/i, "marketing"],
+  [/music|audio|film|artist/i, "creativity"],
+  [/climate|weather/i, "climate"],
+  [/vehicle|transport/i, "automotive"],
+];
+const topicTags = (folder) => {
+  const name = String(folder || "");
+  const topical = TOPIC_TAGS.filter(([re]) => re.test(name)).map(([, tag]) => tag).slice(0, 2);
+  return [...new Set(["ai", ...(topical.length ? topical : ["technology"]), "news"])];
+};
+
 class SyndicationService {
   constructor() {
     this.DEFAULT_TIMEOUT_MS = 30000;
@@ -75,6 +101,10 @@ class SyndicationService {
   /**
    * Sanitizes tags to conform to platform constraints (alphanumeric, lowercase, max 4)
    */
+  topicTags(folder) {
+    return topicTags(folder);
+  }
+
   sanitizeTags(tags = [], maxTags = 4) {
     if (!Array.isArray(tags)) {
       tags = typeof tags === "string" ? tags.split(/[\s,#]+/) : [];

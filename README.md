@@ -14,19 +14,20 @@ flowchart TD
     D --> E["Blog: search index rebuilt, site built, pushed only if the build passes (Vercel deploys)"]
     D --> F["DEV.to syndication (rate-limited, circuit breaker)"]
     D --> G["Announcement on X"]
-    D --> H["LinkedIn: likes after each article; comments and connection requests after each batch"]
+    D --> H["LinkedIn: likes after each article; comments, viral-post comments and connection requests after each batch"]
     E --> I["Optional add-on: the content factory (Instagram reels), then exit"]
 ```
 
 - **Grounded articles.** One article per source post, never several posts in one call. The writer is `openai/gpt-oss-120b` on OpenRouter, chosen by benchmark (9 models, 30 real posts, judged for faithfulness, specificity and publishability). Every number and name must appear in the post, resource links are built in code from the post itself, filler phrasing and banned words are rejected, and a rejected article gets one retry with the reasons. Posts with nothing concrete are skipped, not padded.
-- **LinkedIn engagement.** Short peer comments (a congratulation, an honest acknowledgement, or nothing), checked by mechanical gates and a semantic critic; if the critic is unavailable, nothing is posted. English posts only. Daily caps: 15 comments, 40 likes, 10 follows, 12 connection requests (60 a week). Content generation never depends on LinkedIn, and every LinkedIn step is non-fatal.
+- **Search and clicks.** Titles open with the name a reader would search for, and an article's first sentence is written to work as the search snippet. Each digest leads with its most substantive item, whose headline becomes the page title, URL slug and meta description, the DEV.to title, and the opening line of the X announcement. DEV.to copies carry tags readers follow (`ai`, the topic's own tags, `news`) and a canonical link back to the blog.
+- **LinkedIn engagement.** Short peer comments (a congratulation, an honest acknowledgement, or nothing), checked by mechanical gates and a semantic critic; if the critic is unavailable, nothing is posted. English posts only. A viral pass adds comments on posts about to reach a very large audience: big names (founders, CEOs, labs, big dev tools and investors, listed in `config/viral.js`) and the day's most-engaged launches and funding news, scored by reactions, their pace and freshness. Daily caps: 20 comments plus 8 viral ones, 60 likes, 5 follows, 15 connection requests (90 a week). Content generation never depends on LinkedIn, and every LinkedIn step is non-fatal.
 - **Safety.** Credentials, webhook URLs, private keys and internal IPs are stripped before anything is committed. One run at a time (`.pipeline.lock`); Ctrl+C stops at the next step.
 
 ## Requirements
 
 - Node.js 20 or newer, and Git with push access to this repository (the run commits articles and pushes the blog).
 - Google Chrome. The pipeline drives your logged-in Chrome over remote debugging on port 9222 (profile in `~/chrome-debug`); `npm start` launches it if it is not running. Log in to x.com and linkedin.com in that window once.
-- An [OpenRouter](https://openrouter.ai) API key (articles and comments). Optional: NVIDIA NIM or a local Ollama model as the comment fallback.
+- A writer for articles and comments, chosen per job with `LLM_PROVIDER` (and `LLM_ARTICLE_PROVIDER`, `LLM_COMMENT_PROVIDER`, `LLM_VIRAL_PROVIDER`): an [OpenRouter](https://openrouter.ai) API key (the default, with NVIDIA NIM as its fallback), NVIDIA NIM, a local Ollama model, or a Claude subscription through the [Claude Code](https://docs.anthropic.com/en/docs/claude-code) CLI (`claude`, signed in once).
 - A GitHub personal access token with `repo` scope (`GITHUB_PAT`) for the articles repository.
 
 ## Setup
@@ -46,6 +47,7 @@ npm test                                      # runs offline, against a temporar
 ```bash
 npm start                    # one full run, then exit
 npm run preview -- --max 3   # print the LinkedIn comments and likes a run would make, without posting
+npm run preview -- --viral   # the same for the viral pass: big names and the day's most-engaged posts
 npm run seo:audit -- <url>   # audit a deployed blog for SEO issues
 ```
 
@@ -55,12 +57,13 @@ Every setting is in [`.env.example`](.env.example) with a comment and a working 
 
 | Variable | Purpose |
 | --- | --- |
-| `OPENROUTER_API_KEY` | Article writing and comment drafting |
+| `LLM_PROVIDER` | Who writes: `openrouter` (default), `nvidia`, `local` or `claude`; per-job overrides and the Claude models in `.env.example` |
+| `OPENROUTER_API_KEY` | Article writing and comment drafting (provider `openrouter`) |
 | `GITHUB_PAT`, `GITHUB_USERNAME`, `GITHUB_REPONAME` | The repository the articles are committed to |
 | `TWITTER_POST` | Post the announcement on X (`true`/`false`) |
-| `LINKEDIN_LIKE`, `LINKEDIN_FEED_REPLY`, `LINKEDIN_CONNECT`, `LINKEDIN_PROFILE_SLUG` | LinkedIn engagement switches and your profile |
+| `LINKEDIN_LIKE`, `LINKEDIN_FEED_REPLY`, `LINKEDIN_VIRAL`, `LINKEDIN_CONNECT`, `LINKEDIN_PROFILE_SLUG` | LinkedIn engagement switches and your profile (caps: `LINKEDIN_*_MAX_PER_DAY`, see `.env.example`) |
 | `DEVTO_API_KEY`, `DEVTO_AUTO_PUBLISH` | DEV.to syndication |
-| `NVIDIA_API_KEY` or `LOCAL_LLM=true` | Optional comment fallbacks |
+| `NVIDIA_API_KEY` | NVIDIA NIM (provider `nvidia`, and the fallback for `openrouter` and `claude`) |
 | `AUTHOR_NAME`, `AUTHOR_HANDLE`, `AUTHOR_EMAIL`, `AUTHOR_WEBSITE_URL` (and `AUTHOR_*_URL` links) | Your identity: commit author, article bylines and footers, the LinkedIn persona |
 | `CANONICAL_BASE_URL` | The blog's public address (articles link to it; DEV.to syndication needs it) |
 | `FACTORY_ENABLED`, `FACTORY_DIR` | The optional content factory (below) |
