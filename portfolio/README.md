@@ -10,8 +10,8 @@ Next.js 14 portfolio. Almost everything about projects comes from GitHub, so it 
 | Which repos are featured | The six repositories pinned on the GitHub profile |
 | Open source (pull requests to other people's repos, with their state) | GitHub GraphQL |
 | Activity graph and contribution totals | GitHub GraphQL |
-| Latest blog digests | `https://blogs.drix10.com/rss.xml` |
-| Roles, hackathons, education, skills, "building now" | `lib/profile.ts` (edit by hand) |
+| Latest blog digests | `https://blogs.drix10.com/rss.xml`, filtered to the categories in `components/Writing.tsx` |
+| Roles, hackathons, education, skills, "building now", the order of "More projects", display names | `lib/profile.ts` (edit by hand) |
 
 The page is static and revalidates hourly (`revalidate = 3600`). If GitHub cannot be reached while revalidating, the previous version keeps being served; if it cannot be reached at build time, the build fails rather than shipping an empty page.
 
@@ -31,7 +31,8 @@ npm test                     # selection and parsing logic, run against a real G
 ## Which repos are listed
 
 - **Pinned on GitHub**: the pinned repositories, in pin order (forks and archived repos are kept if you pinned them).
-- **More recent work**: other original repositories that have a real description and were updated in the last 18 months, or have at least 5 stars. Hide a repo by adding its name to `HIDDEN_REPOS` in `lib/profile.ts`.
+- **More projects**: the repositories named in `MORE_REPOS` in `lib/profile.ts`, in that order (pinned, hidden and archived ones are skipped; a fork is allowed because you chose it). Leave `MORE_REPOS` empty to fall back to other original repositories that have a real description and were updated in the last 18 months, or have at least 5 stars. Hide a repo by adding its name to `HIDDEN_REPOS`.
+- **Names and descriptions**: `PROJECT_NAMES` shows a product name instead of the repo name (the repo name stays in the meta line), `PROJECT_DESCRIPTIONS` replaces a GitHub description, and `OWN_FORKS` drops the "fork" tag for forks of your own organisation's repos.
 
 ## Hero and SEO
 

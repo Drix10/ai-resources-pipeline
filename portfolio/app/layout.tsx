@@ -5,6 +5,7 @@ import CommandPalette from '@/components/CommandPalette';
 import ThemeToggle from '@/components/ThemeToggle';
 import LocalTimeBadge from '@/components/LocalTimeBadge';
 import { BLOG_URL, DESCRIPTION, PERSON_ID, SITE_URL, TITLE, jsonLd } from '@/lib/site';
+import { AWARDS, RESUME_URL } from '@/lib/profile';
 import './globals.css';
 
 // Display and interface: a variable grotesque whose width axis lets the name set tight.
@@ -50,6 +51,7 @@ const ELSEWHERE = [
   { href: 'https://x.com/DrishtantGhosh', label: 'X' },
   { href: 'https://peerlist.io/drix10', label: 'Peerlist' },
   { href: BLOG_URL, label: 'Blog' },
+  { href: RESUME_URL, label: 'Resume' },
 ];
 
 export const metadata: Metadata = {
@@ -74,7 +76,12 @@ export const metadata: Metadata = {
     'IBM AI Engineering Professional Certificate',
     'Bengaluru AI Engineer',
     'Autonomous Multi-Agent Systems',
-    'Agent infrastructure'
+    'Agent infrastructure',
+    'Agent Flow',
+    'MiroHedge',
+    'Guardian UPI scam detection',
+    'Keystroke-LLM',
+    'Sentinel AI security CLI'
   ],
   authors: [{ name: 'Drishtant Ghosh (Drix10)', url: SITE_URL }],
   creator: 'Drishtant Ghosh (Drix10)',
@@ -166,15 +173,14 @@ export default function RootLayout({
             name: 'IBM',
           },
         },
-        award: ['Backdrop Build v4 Finalist', 'Backdrop Build v6 Finalist', 'NYC Code Quest 3rd place'],
+        award: AWARDS,
         description:
-          'Drishtant Ghosh (known online as Drix10) is an AI Systems Engineer, 1x Acquired Serial Founder (ReeF), and a B.Sc. Cybersecurity student at Dayananda Sagar University. Creator of CosLynx and author of technical breakdowns at Drix10 Blogs.',
+          'Drishtant Ghosh (known online as Drix10) is an AI Systems Engineer, 1x Acquired Founder (ReeF), and a B.Sc. Cybersecurity student at Dayananda Sagar University. Creator of CosLynx (Backdrop Build v4 and v6 winner), Agent Flow, MiroHedge and Guardian, and author of technical breakdowns at Drix10 Blogs.',
         sameAs: [
           'https://github.com/Drix10',
           'https://www.linkedin.com/in/drix10',
           'https://peerlist.io/drix10',
-          'https://medium.com/@drix10',
-          'https://dev.to/drix10',
+          'https://medium.com/@ggdrishtant',
           'https://x.com/DrishtantGhosh',
           BLOG_URL,
         ],
@@ -189,6 +195,8 @@ export default function RootLayout({
           'TypeScript & Python',
           'Prisma & Turso DB',
           'WebSockets',
+          'Model Context Protocol',
+          'Application Security',
         ],
         hasOccupation: {
           '@type': 'Occupation',

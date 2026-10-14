@@ -15,6 +15,9 @@ export const PROFILE_QUERY = `
       repositories(first: 100, privacy: PUBLIC, isFork: false, ownerAffiliations: OWNER, orderBy: { field: PUSHED_AT, direction: DESC }) {
         nodes { ${REPO_FIELDS} }
       }
+      forks: repositories(first: 30, privacy: PUBLIC, isFork: true, ownerAffiliations: OWNER, orderBy: { field: PUSHED_AT, direction: DESC }) {
+        nodes { ${REPO_FIELDS} }
+      }
       contributionsCollection {
         totalCommitContributions
         totalPullRequestContributions

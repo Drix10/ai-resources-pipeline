@@ -16,6 +16,22 @@ const ESSAYS = [
   },
 ];
 
+// The blog covers dozens of beats; the portfolio only shows the ones close to my own work.
+const DIGEST_CATEGORIES = new Set(
+  [
+    'AI Developer Tools',
+    'Devs, Designers, DevRel',
+    'Tech Infrastructure',
+    'Cybersecurity and Tech',
+    'AI Organizations and Media',
+    'AI Companies and Ventures',
+    'AI in Enterprise Applications',
+    'Computer Vision and AI Applications',
+    'AI Leaders and Thinkers',
+    'CS Academics',
+  ].map((c) => c.toLowerCase()),
+);
+
 interface Digest {
   title: string;
   href: string;
@@ -43,7 +59,7 @@ async function latestDigests(): Promise<Digest[]> {
     for (const item of xml.split('<item>').slice(1)) {
       const field = (tag: string) => textOf((item.match(new RegExp(`<${tag}>([\\s\\S]*?)</${tag}>`)) || [])[1]);
       const category = field('category');
-      if (/^(personal|linkedin insights)$/i.test(category)) continue;
+      if (!DIGEST_CATEGORIES.has(category.toLowerCase())) continue;
       const title = field('title');
       const link = field('link');
       const pub = field('pubDate');

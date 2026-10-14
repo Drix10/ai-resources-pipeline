@@ -1,10 +1,11 @@
 import 'server-only';
 import { PROFILE_QUERY } from './github-query';
 import { parseGraphqlProfile, promoteWhenNoPins, selectProjects, type GitHubProfile, type Repo } from './merge';
-import { HIDDEN_REPOS } from './profile';
+import { HIDDEN_REPOS, MORE_REPOS, OWN_FORKS, PROJECT_DESCRIPTIONS, PROJECT_NAMES } from './profile';
 
 export const USERNAME = process.env.GITHUB_USERNAME || 'Drix10';
 const REVALIDATE_SECONDS = 3600;
+const SELECT = { hide: HIDDEN_REPOS, order: MORE_REPOS, names: PROJECT_NAMES, descriptions: PROJECT_DESCRIPTIONS, ownForks: OWN_FORKS };
 
 // The same server-side token the old activity graph used. It is read here, on the server
 // only, and never reaches the browser.
@@ -21,7 +22,7 @@ async function viaGraphql(token: string): Promise<GitHubProfile | null> {
     signal: AbortSignal.timeout(10000),
   });
   if (!res.ok) return null;
-  return parseGraphqlProfile(await res.json(), { login: USERNAME, hide: HIDDEN_REPOS });
+  return parseGraphqlProfile(await res.json(), { login: USERNAME, ...SELECT });
 }
 
 interface RestRepo {
@@ -68,7 +69,7 @@ async function viaRest(token: string): Promise<GitHubProfile | null> {
       isArchived: r.archived,
       pinnedRank: null,
     }));
-  const opts = { login: USERNAME, hide: HIDDEN_REPOS };
+  const opts = { login: USERNAME, ...SELECT };
   return {
     selection: promoteWhenNoPins(selectProjects(repos, opts), repos, opts),
     openSource: [],

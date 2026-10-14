@@ -21,8 +21,11 @@ const ACTIONS: Action[] = [
   { label: 'GitHub', group: 'Elsewhere', href: 'https://github.com/Drix10', external: true },
   { label: 'LinkedIn', group: 'Elsewhere', href: 'https://www.linkedin.com/in/drix10', external: true },
   { label: 'X', group: 'Elsewhere', href: 'https://x.com/DrishtantGhosh', external: true },
+  { label: 'Resume', group: 'Elsewhere', href: 'https://resume.drix10.com', external: true },
   { label: 'Agent Flow source', group: 'Projects', href: 'https://github.com/Drix10/agent-flow', external: true },
+  { label: 'MiroHedge', group: 'Projects', href: 'https://www.mirohedge.com', external: true },
   { label: 'MiroHedge source (hypothesis-arena)', group: 'Projects', href: 'https://github.com/Drix10/hypothesis-arena', external: true },
+  { label: 'Guardian source', group: 'Projects', href: 'https://github.com/Drix10/guardian-gpt', external: true },
   { label: 'Send an email', group: 'Contact', href: 'mailto:ggdrishtant@gmail.com' },
 ];
 
