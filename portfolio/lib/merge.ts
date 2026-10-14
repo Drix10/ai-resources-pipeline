@@ -16,6 +16,8 @@ export interface Repo {
   isFork: boolean;
   isArchived: boolean;
   pinnedRank: number | null; // 0-based position on the profile, null when not pinned
+  title?: string; // display name when it differs from the repo name (see PROJECT_NAMES)
+  hideForkTag?: boolean; // a fork of my own organisation's repo (see OWN_FORKS)
 }
 
 export interface PullRequest {
@@ -47,13 +49,33 @@ export interface SelectOptions {
   maxMore?: number;
   recentDays?: number;
   minStars?: number;
+  order?: string[]; // hand-picked "more" list, in order (repo names, any case)
+  names?: Record<string, string>; // display names, keyed by lowercase repo name
+  descriptions?: Record<string, string>; // description overrides, keyed by lowercase repo name
+  ownForks?: string[]; // forks that should not carry a "fork" tag
 }
 
-// Featured = the repos pinned on the GitHub profile, in pin order. "More" = other original
-// work that has a description and is either recent or has earned stars, so abandoned
-// experiments and empty repos never reach the page.
+// Display names, description overrides and the fork tag, applied without mutating the input.
+export function present(r: Repo, opts: Pick<SelectOptions, 'names' | 'descriptions' | 'ownForks'>): Repo {
+  const key = r.name.toLowerCase();
+  const title = opts.names?.[key];
+  const description = opts.descriptions?.[key];
+  const ownFork = (opts.ownForks || []).some((n) => n.toLowerCase() === key);
+  if (!title && !description && !ownFork) return r;
+  return {
+    ...r,
+    ...(title && title !== r.name ? { title } : {}),
+    ...(description ? { description } : {}),
+    ...(ownFork ? { hideForkTag: true } : {}),
+  };
+}
+
+// Featured = the repos pinned on the GitHub profile, in pin order. "More" = the hand-picked
+// `order` list when one is given (pinned, hidden and archived repos are skipped), otherwise
+// other original work that has a description and is either recent or has earned stars, so
+// abandoned experiments and empty repos never reach the page.
 export function selectProjects(repos: Repo[], opts: SelectOptions): Selection {
-  const { login, now = Date.now(), hide = [], maxMore = 10, recentDays = 540, minStars = 5 } = opts;
+  const { login, now = Date.now(), hide = [], maxMore = 10, recentDays = 540, minStars = 5, order = [] } = opts;
   const hidden = new Set(hide.map((h) => h.toLowerCase()));
   const seen = new Set<string>();
   const unique = repos.filter((r) => {
@@ -72,21 +94,37 @@ export function selectProjects(repos: Repo[], opts: SelectOptions): Selection {
     return Number.isFinite(t) && now - t <= recentDays * DAY;
   };
 
-  const more = unique
-    .filter(
-      (r) =>
-        r.pinnedRank === null &&
-        !r.isFork &&
-        !r.isArchived &&
-        !hidden.has(r.name.toLowerCase()) &&
-        r.name.toLowerCase() !== login.toLowerCase() && // the profile README repo
-        Boolean(r.description && r.description.trim().length >= 12) &&
-        (recent(r) || r.stars >= minStars),
-    )
-    .sort((a, b) => Date.parse(b.pushedAt) - Date.parse(a.pushedAt))
-    .slice(0, maxMore);
+  let more: Repo[];
+  if (order.length > 0) {
+    // Listed by hand, so a fork is allowed here (the owner chose it), like a pinned fork.
+    const byName = new Map<string, Repo>();
+    for (const r of unique) if (!byName.has(r.name.toLowerCase())) byName.set(r.name.toLowerCase(), r);
+    const picked = new Set<string>();
+    more = order
+      .map((n) => byName.get(n.toLowerCase()))
+      .filter((r): r is Repo => {
+        if (!r || r.pinnedRank !== null || r.isArchived || hidden.has(r.name.toLowerCase()) || picked.has(r.fullName.toLowerCase())) return false;
+        picked.add(r.fullName.toLowerCase());
+        return true;
+      })
+      .slice(0, maxMore);
+  } else {
+    more = unique
+      .filter(
+        (r) =>
+          r.pinnedRank === null &&
+          !r.isFork &&
+          !r.isArchived &&
+          !hidden.has(r.name.toLowerCase()) &&
+          r.name.toLowerCase() !== login.toLowerCase() && // the profile README repo
+          Boolean(r.description && r.description.trim().length >= 12) &&
+          (recent(r) || r.stars >= minStars),
+      )
+      .sort((a, b) => Date.parse(b.pushedAt) - Date.parse(a.pushedAt))
+      .slice(0, maxMore);
+  }
 
-  return { featured, more };
+  return { featured: featured.map((r) => present(r, opts)), more: more.map((r) => present(r, opts)) };
 }
 
 // Without a token only the REST list is available, so nothing is pinned: promote the
@@ -97,7 +135,7 @@ export function promoteWhenNoPins(sel: Selection, repos: Repo[], opts: SelectOpt
     .filter((r) => !r.isFork && !r.isArchived && r.description && r.name.toLowerCase() !== opts.login.toLowerCase())
     .sort((a, b) => b.stars - a.stars || Date.parse(b.pushedAt) - Date.parse(a.pushedAt));
   const featured = pool.slice(0, count);
-  return { featured, more: sel.more.filter((r) => !featured.includes(r)) };
+  return { featured: featured.map((r) => present(r, opts)), more: sel.more.filter((r) => !featured.includes(r)) };
 }
 
 // Languages that actually appear in the visible repos, most common first, for the filter tabs.
@@ -185,7 +223,10 @@ export function parseGraphqlProfile(json: any, opts: SelectOptions): GitHubProfi
   if (!user) return null; // partial errors (one repo hidden by permissions) still leave usable data
 
   const pinned: GqlRepo[] = ((user.pinnedItems && user.pinnedItems.nodes) || []).filter((r: GqlRepo | null) => r && !r.isPrivate);
-  const own: GqlRepo[] = ((user.repositories && user.repositories.nodes) || []).filter((r: GqlRepo | null) => r && !r.isPrivate);
+  // Forks come in a separate list (the main one excludes them) so a hand-picked fork can be shown.
+  const own: GqlRepo[] = [...((user.repositories && user.repositories.nodes) || []), ...((user.forks && user.forks.nodes) || [])].filter(
+    (r: GqlRepo | null) => r && !r.isPrivate,
+  );
   const repos: Repo[] = [...pinned.map((r, i) => fromGql(r, i)), ...own.map((r) => fromGql(r, null))];
 
   const cc = user.contributionsCollection;
