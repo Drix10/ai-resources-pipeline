@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { externalContributions, languageFilters, parseGraphqlProfile, promoteWhenNoPins, selectProjects, siteUrl } from '../lib/merge.ts';
+import { externalContributions, languageFilters, parseGraphqlProfile, present, promoteWhenNoPins, selectProjects, siteUrl } from '../lib/merge.ts';
 
 // A real response from GitHub's GraphQL API for the Drix10 account (public data only).
 const real = JSON.parse(readFileSync(new URL('./fixtures/github-profile.json', import.meta.url), 'utf8'));
@@ -178,4 +178,46 @@ test('the real response never yields a social profile as a project site', () => 
   const hosts = [...featured, ...more].map((r) => siteUrl(r.homepage)).filter(Boolean).map((u) => new URL(u).hostname);
   for (const h of hosts) assert.ok(!/^(www\.)?(x\.com|twitter\.com|instagram\.com|lnkd\.in|linkedin\.com)$/.test(h), h);
   assert.ok(hosts.some((h) => /coslynx|drix10|npmjs/.test(h)), 'real project sites survive');
+});
+
+test('selectProjects: a hand-picked order wins over recency and skips pinned, hidden, archived and unknown repos', () => {
+  const repos = [
+    repo({ fullName: 'a/pin', name: 'pin', pinnedRank: 0 }),
+    repo({ fullName: 'a/newest', name: 'newest', pushedAt: '2026-09-30T00:00:00Z' }),
+    repo({ fullName: 'a/old', name: 'Old', pushedAt: '2019-01-01T00:00:00Z' }),
+    repo({ fullName: 'a/fork', name: 'fork', isFork: true }),
+    repo({ fullName: 'a/arch', name: 'arch', isArchived: true }),
+    repo({ fullName: 'a/hid', name: 'hid' }),
+  ];
+  const sel = selectProjects(repos, { login: 'a', hide: ['hid'], order: ['fork', 'pin', 'old', 'missing', 'arch', 'hid', 'OLD'], now: Date.parse('2026-10-01T00:00:00Z') });
+  assert.deepEqual(sel.more.map((r) => r.name), ['fork', 'Old'], 'listed order, a chosen fork allowed, no duplicates');
+  assert.deepEqual(sel.featured.map((r) => r.name), ['pin']);
+  const capped = selectProjects(repos, { login: 'a', order: ['newest', 'old', 'fork'], maxMore: 2 });
+  assert.deepEqual(capped.more.map((r) => r.name), ['newest', 'Old']);
+});
+
+test('present: display names, description overrides and own forks, without touching the input', () => {
+  const r = repo({ name: 'hypothesis-arena', isFork: true });
+  const out = present(r, { names: { 'hypothesis-arena': 'MiroHedge' }, descriptions: { 'hypothesis-arena': 'New text' }, ownForks: ['HYPOTHESIS-ARENA'] });
+  assert.equal(out.title, 'MiroHedge');
+  assert.equal(out.description, 'New text');
+  assert.equal(out.hideForkTag, true);
+  assert.equal(r.title, undefined, 'input untouched');
+  assert.equal(present(r, {}), r, 'no options: same object');
+  assert.equal(present(repo({ name: 'same' }), { names: { same: 'same' } }).title, undefined, 'no title when it equals the repo name');
+});
+
+test('real response: hand-picked order and names apply to featured and more', () => {
+  const opts = { ...OPTS, order: ['sentinal', 'payscope', 'ai-resources'], names: { sentinal: 'Sentinel', 'hypothesis-arena': 'MiroHedge' } };
+  const { featured, more } = parseGraphqlProfile(real, opts).selection;
+  assert.deepEqual(more.map((r) => r.name), ['sentinal', 'payscope'], 'pinned ai-resources is skipped');
+  assert.equal(more[0].title, 'Sentinel');
+  assert.equal(featured.find((r) => r.name === 'hypothesis-arena').title, 'MiroHedge');
+});
+
+test('forks returned in their own list can be hand-picked, but never reach the automatic list', () => {
+  const fork = { ...real.data.user.repositories.nodes[0], name: 'my-fork', nameWithOwner: 'Drix10/my-fork', isFork: true };
+  const data = { data: { user: { ...real.data.user, forks: { nodes: [fork] } } } };
+  assert.ok(!parseGraphqlProfile(data, OPTS).selection.more.some((r) => r.name === 'my-fork'));
+  assert.deepEqual(parseGraphqlProfile(data, { ...OPTS, order: ['my-fork'] }).selection.more.map((r) => r.name), ['my-fork']);
 });
