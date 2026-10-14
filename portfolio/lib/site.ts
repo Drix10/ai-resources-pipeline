@@ -5,7 +5,7 @@ export const BLOG_URL = (process.env.NEXT_PUBLIC_BLOG_URL || 'https://blogs.drix
 export const PERSON_ID = `${SITE_URL}/#person`;
 export const TITLE = 'Drishtant Ghosh (Drix10): AI Systems Engineer and Founder';
 export const DESCRIPTION =
-  'Drishtant Ghosh (Drix10): AI systems engineer and serial founder in Bengaluru. Ran ReeF to acquisition, built CosLynx, now building agent infrastructure.';
+  'Drishtant Ghosh (Drix10), AI systems engineer and 1x acquired founder in Bengaluru. Built ReeF and CosLynx; now building Agent Flow, MiroHedge and Guardian.';
 
 // Safe to embed in a <script> tag.
 export const jsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, '\u003c');
