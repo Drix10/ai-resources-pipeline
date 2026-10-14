@@ -12,10 +12,11 @@ const formatDate = (iso: string) => {
 function Row({ repo }: { repo: Repo }) {
   const site = siteUrl(repo.homepage);
   const meta = [
+    repo.title ? repo.name : '',
     repo.language,
     repo.stars > 0 ? `${repo.stars.toLocaleString('en-US')} star${repo.stars === 1 ? '' : 's'}` : '',
     repo.forks > 0 ? `${repo.forks.toLocaleString('en-US')} fork${repo.forks === 1 ? '' : 's'}` : '',
-    repo.isFork ? 'fork' : '',
+    repo.isFork && !repo.hideForkTag ? 'fork' : '',
     repo.pushedAt ? `updated ${formatDate(repo.pushedAt)}` : '',
   ].filter(Boolean);
 
@@ -30,7 +31,7 @@ function Row({ repo }: { repo: Repo }) {
             className="inline-flex items-baseline gap-2 break-words text-[clamp(1.75rem,3.4vw,2.6rem)] font-bold leading-[1.02] tracking-tight text-ink transition-colors hover:text-accent"
             style={{ fontVariationSettings: "'wdth' 78" }}
           >
-            {repo.name}
+            {repo.title || repo.name}
             <ArrowUpRight className="h-4 w-4 shrink-0 self-center text-faint" aria-hidden />
           </a>
         </h4>
@@ -99,7 +100,7 @@ export default function Work({ featured, more, pinned = true }: { featured: Repo
       {shownMore.length > 0 && (
         <section aria-labelledby="more" className="mt-12">
           <h3 id="more" className="mb-1 font-semibold text-ink">
-            More recent work
+            More projects
           </h3>
           <ul className="border-t border-rule">
             {shownMore.map((r) => (
