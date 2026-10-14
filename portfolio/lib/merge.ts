@@ -131,11 +131,20 @@ export function selectProjects(repos: Repo[], opts: SelectOptions): Selection {
 // strongest originals instead (stars first, then recency).
 export function promoteWhenNoPins(sel: Selection, repos: Repo[], opts: SelectOptions, count = 6): Selection {
   if (sel.featured.length > 0) return sel;
-  const pool = [...sel.more, ...repos.filter((r) => !sel.more.includes(r))]
-    .filter((r) => !r.isFork && !r.isArchived && r.description && r.name.toLowerCase() !== opts.login.toLowerCase())
+  const key = (r: Repo) => r.fullName.toLowerCase();
+  const hidden = new Set((opts.hide || []).map((h) => h.toLowerCase()));
+  // `sel.more` holds presented copies, so match repos by name rather than by object.
+  const seen = new Set<string>();
+  const pool = [...sel.more, ...repos]
+    .filter((r) => {
+      if (seen.has(key(r))) return false;
+      seen.add(key(r));
+      return !r.isFork && !r.isArchived && r.description && !hidden.has(r.name.toLowerCase()) && r.name.toLowerCase() !== opts.login.toLowerCase();
+    })
     .sort((a, b) => b.stars - a.stars || Date.parse(b.pushedAt) - Date.parse(a.pushedAt));
   const featured = pool.slice(0, count);
-  return { featured: featured.map((r) => present(r, opts)), more: sel.more.filter((r) => !featured.includes(r)) };
+  const promoted = new Set(featured.map(key));
+  return { featured: featured.map((r) => present(r, opts)), more: sel.more.filter((r) => !promoted.has(key(r))) };
 }
 
 // Languages that actually appear in the visible repos, most common first, for the filter tabs.
