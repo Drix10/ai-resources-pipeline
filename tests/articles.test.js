@@ -96,9 +96,9 @@ test("validateArticle reads ordinary words in labels and units after numbers as 
     const named = { ...a, points: [{ label, text: "1% of revenue to open source maintainers every month." }] };
     assert.match(llm.validateArticle(named, post).join(" "), new RegExp(`names are not in the post: ${label}`), label);
   }
-  const reply = llm.parseArticleReply("TITLE: Greptile runner works over Wi\u2011Fi\nSUMMARY: It needs 24\u202fGB of memory, 560\u202fB parameters and 5\u202fmillion tokens.\nPOINTS:\n- Memory: 24GB");
+  const reply = llm.parseArticleReply("TITLE: Greptile runner works over Wi\u2011Fi\nSUMMARY: It needs 24\u202fGB of memory, 560\u202fB parameters, 5\u202fmillion tokens and 4\u202f000 GPUs.\nPOINTS:\n- Memory: 24GB");
   assert.equal(reply.title, "Greptile runner works over Wi-Fi");
-  assert.equal(reply.summary, "It needs 24GB of memory, 560B parameters and 5 million tokens.");
+  assert.equal(reply.summary, "It needs 24GB of memory, 560B parameters, 5 million tokens and 4,000 GPUs.");
 });
 
 test("generateArticle builds the article and the resources in code", async () => {
