@@ -49,6 +49,10 @@ const CARDS_JS = `
   }
 `;
 
+// A card's comment editor: the current one (TipTap) or the older one some posts still use (Quill), and
+// any editable text box in the card, which is only ever the comment box.
+const COMMENT_EDITOR_SEL = '[aria-label="Text editor for creating comment"], .tiptap, .ProseMirror, .ql-editor, [contenteditable="true"]';
+
 // The comment section of an opened card. LinkedIn renders no <article> per comment any more, and
 // its comment markup differs by page, so the section is read as a reader sees it:
 //  commentersOf(card): every commenter's name, from the buttons that name a comment ("View more
@@ -655,7 +659,7 @@ class LinkedInService {
       if (!card) return false;
       const names = arguments[1], slug = arguments[2];
       // (our own posts are never engaged, so a link to our profile in the card is one of our comments)
-      const ed = card.querySelector('[aria-label="Text editor for creating comment"], .tiptap, .ProseMirror');
+      const ed = card.querySelector(${JSON.stringify(COMMENT_EDITOR_SEL)});
       return commentersOf(card).some(n => names.includes(n.toLowerCase()))
         || (!!slug && Array.from(card.querySelectorAll('a[href*="/in/' + slug + '"]')).some(a => !(ed && ed.contains(a))));
     `, String(textSnippet).substring(0, 80), this._ownNames, ownSlug || "").catch(() => false) === true;
@@ -667,7 +671,6 @@ class LinkedInService {
   // text as a reader sees it ("" when none show), commenters: their names}
   async readComments(textSnippet, authorHref = "", { expectComments = true } = {}) {
     const snip = String(textSnippet).substring(0, 80);
-    const EDITOR_SEL = '[aria-label="Text editor for creating comment"], .tiptap, .ProseMirror';
     const FIND = `
       const norm = s => (s || '').replace(/[\\u200b-\\u200d\\ufeff]/g, '').replace(/\\s+/g, ' ').trim();
       ${CARDS_JS}
@@ -680,12 +683,12 @@ class LinkedInService {
         if (!card) return 'no-card';
         if (arguments[1] && !card.querySelector('a[href*="' + arguments[1] + '"]')) return 'author-mismatch';
         try { card.scrollIntoView({ block: 'center' }); } catch (e) {}
-        if (card.querySelector(arguments[2])) return 'opened';
+        if (card.querySelector(arguments[2]) || commentsTextOf(card)) return 'opened';
         const toggle = Array.from(card.querySelectorAll('button')).find(b => (b.getAttribute('aria-label') || '').toLowerCase() === 'comment');
         if (!toggle) return 'no-toggle';
         toggle.click();
         return 'opened';
-      `, snip, String(authorHref || "").split("/in/")[1] || "", EDITOR_SEL).catch(() => "fail");
+      `, snip, String(authorHref || "").split("/in/")[1] || "", COMMENT_EDITOR_SEL).catch(() => "fail");
       if (opened !== "opened") return { status: "failed", comments: "", commenters: [], reason: opened };
       let section = { text: "", commenters: [] };
       for (let i = 0; i < (expectComments ? 3 : 1); i++) {
@@ -740,7 +743,6 @@ class LinkedInService {
   // like: false leaves the post unliked (the day's like cap is reached).
   async commentOnFeedCard(cardKey, authorHref, textSnippet, text, fullName = "", { like = true } = {}) {
     const snip = String(textSnippet).substring(0, 80);
-    const EDITOR_SEL = '[aria-label="Text editor for creating comment"], .tiptap, .ProseMirror';
     const FIND = `
       const norm = s => (s || '').replace(/[\\u200b-\\u200d\\ufeff]/g, '').replace(/\\s+/g, ' ').trim();
       ${CARDS_JS}
@@ -757,7 +759,7 @@ class LinkedInService {
           ed.focus();
           document.execCommand('selectAll');
           document.execCommand('delete');
-        `, snip, EDITOR_SEL);
+        `, snip, COMMENT_EDITOR_SEL);
       } catch (e) {}
     };
     const done = async (status) => {
@@ -769,17 +771,18 @@ class LinkedInService {
       await this.ensureDriverConnected(true);
       const ownSlug = await this._ownProfileSlug();
       const opened = await this.driver.executeScript(`${FIND}
+        ${COMMENTS_JS}
         if (!card) return 'no-card';
         if (arguments[1] && !card.querySelector('a[href*="' + arguments[1] + '"]')) return 'author-mismatch';
         try { card.scrollIntoView({ block: 'center' }); } catch (e) {}
-        // Already open (the viral pass read the comments first): a second click could close it.
-        if (card.querySelector(arguments[2])) return 'opened';
+        // Already open (the viral pass read the comments first): a second click would close it.
+        if (card.querySelector(arguments[2]) || commentsTextOf(card)) return 'opened';
         const toggle = Array.from(card.querySelectorAll('button'))
           .find(b => (b.getAttribute('aria-label') || '').toLowerCase() === 'comment');
         if (!toggle) return 'no-toggle';
         toggle.click();
         return 'opened';
-      `, snip, String(authorHref || "").split("/in/")[1] || "", EDITOR_SEL).catch(() => "fail");
+      `, snip, String(authorHref || "").split("/in/")[1] || "", COMMENT_EDITOR_SEL).catch(() => "fail");
       if (opened !== "opened") {
         logger.warn(`LinkedInService: feed card or Comment toggle not found (${opened}).`);
         return { status: "failed", liked };
@@ -807,7 +810,7 @@ class LinkedInService {
       await nap(1200);
       const editor = await this.driver.executeScript(`${FIND}
         return card ? card.querySelector(arguments[1]) : null;
-      `, snip, EDITOR_SEL).catch(() => null);
+      `, snip, COMMENT_EDITOR_SEL).catch(() => null);
       if (!editor) {
         logger.warn("LinkedInService: comment editor did not open on feed card.");
         return await done("failed");
@@ -879,7 +882,7 @@ class LinkedInService {
           // section label yet, an emptied editor and our text on the card is the posted comment)
           const inComments = !!card && (norm(commentsTextOf(card)).includes(want) || (residual === 0 && norm(card.innerText).includes(want)));
           return { residual, onPage: !!want && (inComments || nodes.some(n => norm(n.innerText).includes(want))) };
-        `, snip, want, EDITOR_SEL).catch(() => state) || state;
+        `, snip, want, COMMENT_EDITOR_SEL).catch(() => state) || state;
         if (state.onPage) break;
       }
       logger.info(`LinkedInService: after submit: on-page=${state.onPage}, editor-residual=${state.residual}.`);
@@ -911,7 +914,7 @@ class LinkedInService {
         const nq = norm(arguments[0]);
         const card = cards.find(c => norm(c.innerText).includes(nq));
         if (!card) return -1;
-        const ed = card.querySelector('[aria-label="Text editor for creating comment"], .tiptap, .ProseMirror');
+        const ed = card.querySelector(${JSON.stringify(COMMENT_EDITOR_SEL)});
         if (!ed) return -1;
         try { window.focus(); } catch (e) {}
         ed.focus();
