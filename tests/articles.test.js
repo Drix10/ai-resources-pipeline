@@ -68,10 +68,12 @@ test("validateArticle rejects invented numbers, names, filler, banned words and 
   assert.match(errs(mk({ summary: "Totally unrelated words about quantum gardening dragons and planetary orchestras without any overlap whatsoever to the source material provided." })), /not in the post/);
 });
 
-test("validateArticle allows months, weekdays and acronyms that the post lacks", () => {
+test("validateArticle allows months, weekdays, acronyms and pronouns that the post lacks", () => {
   const post = "Foo shipped a new build on the first Monday of the month with 40% lower memory use across the whole fleet in testing.";
   const a = { title: "Foo ships build with 40% lower memory", summary: "Foo shipped a new build in October that uses 40% less memory across the fleet. The change was tested on a Monday by the API team.", points: [{ label: "Memory", text: "40% lower memory use across the fleet" }] };
   assert.deepEqual(llm.validateArticle(a, post), []);
+  const said = { ...a, summary: `${a.summary} He says they will ship it.` };
+  assert.doesNotMatch(llm.validateArticle(said, post).join(" "), /names are not in the post/);
 });
 
 test("validateArticle reads ordinary words in labels and units after numbers as words, never names", () => {
