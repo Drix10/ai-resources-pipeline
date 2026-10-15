@@ -1605,6 +1605,8 @@ Reply with JSON only, one verdict per candidate: {"verdicts": [{"n": 1, "pass": 
       .replace(/```[a-z]*\n?/gi, "")
       .replace(/<think>[\s\S]*?<\/think>/gi, "")
       .replace(/[\u2010\u2011\u2212]/g, "-")
+      // (a short unit stays on its number: "560B", "1M-token", "24GB", "20%"; "5 million" keeps its space)
+      .replace(/(\d)[\u00a0\u2007\u202f](?=(?:[KMBTkmbt]|[KMGT]B|%)(?![A-Za-z]))/g, "$1")
       .replace(/[\u00a0\u2007\u202f]/g, " ")
       .replace(/\*\*\s*(EMOJI|VALUE|TITLE|SUMMARY|POINTS)\s*:?\s*\*\*\s*:?/gi, "$1:")
       .trim();
