@@ -2015,6 +2015,7 @@ POINTS:
 Rules:
 - 1 to 4 points, each a different fact. Fewer points beats padding. Never restate the summary.
 - Every name, number, date and claim must appear in the post. Add no background, history, definitions, advice, comparisons or predictions.
+- State each fact directly. Never write "the post says", "notes", "states" or "mentions", or "the announcement was".
 - Do not strengthen a claim: if the post says "holds up against", do not write "beats". Keep its hedges.
 - Short words and sentences. No hype words (significant, comprehensive, ecosystem, landscape, leverage, robust, powerful, game-changer).
 - Concrete data, numbers, releases, benchmarks, funding, research results and named launches are substance: write them up, do not SKIP them.
