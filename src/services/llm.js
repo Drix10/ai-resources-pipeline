@@ -1717,12 +1717,12 @@ Reply with JSON only, one verdict per candidate: {"verdicts": [{"n": 1, "pass": 
     // writes it in lowercase or it ends like one ("Reported", "Tokenization"). In a label any common English
     // word is too ("Map", "Gaps"); elsewhere a surname may be one ("Musk", "Cook"). A product's name never is.
     const lowerWords = new Set([summary, ...points.map((p) => p.text)].join(" ").match(/\b[a-z]{3,}\b/g) || []);
-    const ordinaryWord = (w, label) => {
-      const lower = w.toLowerCase(), singular = lower.replace(/(?:es|s)$/, "");
-      if (plainWord(w)) return true;
+    // (a compound is ordinary when each of its pieces is: "Hand-off")
+    const ordinaryWord = (w, label) => plainWord(w) || w.toLowerCase().split("-").every((lower) => {
+      const singular = lower.replace(/(?:es|s)$/, "");
       if (PRODUCT_WORDS.has(lower) || PRODUCT_WORDS.has(singular)) return false;
       return (label && ENGLISH_WORDS.has(lower)) || lowerWords.has(lower) || lowerWords.has(singular) || (lower.length >= 5 && ORDINARY_ENDING_RE.test(lower));
-    };
+    });
     const foreign = new Set();
     const sentencesOf = (text) => String(text || "").split(/(?<=[.!?])\s+/);
     // A unit after a number ("$2B", "70B", "24 GB", "2.4 GHz", "3-D") is part of the number, not a name.
@@ -1753,6 +1753,8 @@ Reply with JSON only, one verdict per candidate: {"verdicts": [{"n": 1, "pass": 
           // Version digits are not a name ("GPT-6" must not pass because the post has a 6).
           const parts = w.toLowerCase().split("-").filter((part) => /[a-z]{2}/.test(part));
           if (known(trimWord(w)) || parts.some((part) => known(part))) return;
+          // A compound on a common acronym is a word ("AI-generated", "GPU-based"); "OpenAI-backed" is not.
+          if (w.includes("-") && w.split("-").every((part) => !/^[A-Z]/.test(part) || ENTITY_ALLOW.has(part.toLowerCase()))) return;
           if ((titleCase || i === 0) && !/[A-Z].*[A-Z]|\d/.test(w.slice(1)) && ordinaryWord(w, label)) return;
           foreign.add(w);
         });

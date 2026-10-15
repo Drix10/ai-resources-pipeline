@@ -88,6 +88,10 @@ test("validateArticle reads ordinary words in labels and units after numbers as 
   assert.doesNotMatch(llm.validateArticle(a, post).join(" "), /names are not in the post/);
   const plain = { ...a, points: [{ label: "Map", text: "1% of revenue goes to open source maintainers every month." }, { label: "Gaps", text: "The review runner needs 24 GB of memory." }] };
   assert.doesNotMatch(llm.validateArticle(plain, post).join(" "), /names are not in the post/, "any common English word in a label");
+  const compounds = { ...a, points: [{ label: "Hand-off", text: "The review runner needs 24 GB of memory for AI-generated and GPU-based checks." }] };
+  assert.doesNotMatch(llm.validateArticle(compounds, post).join(" "), /names are not in the post/, "compounds of ordinary words and common acronyms");
+  const backed = { ...a, points: [{ label: "Memory", text: "The OpenAI-backed review runner needs 24 GB of memory." }] };
+  assert.match(llm.validateArticle(backed, post).join(" "), /names are not in the post: OpenAI-backed/);
   for (const label of ["OpenAI", "Cursor", "Perplexity"]) {
     const named = { ...a, points: [{ label, text: "1% of revenue to open source maintainers every month." }] };
     assert.match(llm.validateArticle(named, post).join(" "), new RegExp(`names are not in the post: ${label}`), label);
