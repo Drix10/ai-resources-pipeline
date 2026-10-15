@@ -246,6 +246,13 @@ for (const [name, post, author, responses, expectValid, expectSkipped = false, r
   });
 }
 
+test("a dash in a comment becomes a comma, and a range keeps its hyphen", () => {
+  assert.equal(
+    llm.filterCommentReply("Congrats on the Inception acceptance \u2014 and on being live in 12 countries, with 2\u20133 more next year -- nice."),
+    "Congrats on the Inception acceptance, and on being live in 12 countries, with 2-3 more next year, nice.",
+  );
+});
+
 test("simple mode passes the raw reply through, even one the gates would reject", async () => {
   config.social.linkedinSimpleReply = true;
   try {

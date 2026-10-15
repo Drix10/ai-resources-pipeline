@@ -647,10 +647,6 @@ class LLMService {
 
       // Cut intensifier adverbs
       [/\b(?:very|really|quite|extremely|wildly)\s+/gi, ""],
-
-      // Dashes (replace all unicode em/en dashes and double hyphens with colon or comma)
-      [/[—–\u2014\u2013\u2015]/g, ": "],
-      [/--/g, "- "]
     ];
 
     for (const [pattern, replacement] of inflectedReplacements) {
@@ -1015,7 +1011,8 @@ class LLMService {
       .replace(/[‘’]/g, "'")
       .replace(/[“”]/g, '"')
       .replace(/```[\s\S]*?```/g, "")
-      .replace(/[‒-―]|--/g, ", ")
+      .replace(/(\d)\s*[‒–]\s*(?=\d)/g, "$1-")
+      .replace(/\s*(?:[‒-―]|--)\s*/g, ", ")
       .replace(/^[ \t]*#{1,6}\s*.*$/gm, "")
       .replace(/\*\*|__/g, "")
       .replace(/https?:\/\/\S+/g, "");
