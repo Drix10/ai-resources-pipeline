@@ -74,6 +74,25 @@ test("validateArticle allows months, weekdays and acronyms that the post lacks",
   assert.deepEqual(llm.validateArticle(a, post), []);
 });
 
+test("validateArticle reads ordinary words in labels and units after numbers as words, never names", () => {
+  const post = "Greptile now donates 1% of its revenue to open source maintainers every month. Its review runner needs 24GB of memory.";
+  const a = {
+    title: "Greptile donates 1% of revenue to open source",
+    summary: "Greptile now donates 1% of its revenue to open source maintainers every month.",
+    points: [
+      { label: "Donation", text: "1% of revenue goes to open source maintainers every month." },
+      { label: "Capability", text: "The review runner needs 24 GB of memory." },
+      { label: "Claim", text: "The ARR share is 1% for maintainers." },
+    ],
+  };
+  assert.doesNotMatch(llm.validateArticle(a, post).join(" "), /names are not in the post/);
+  const named = { ...a, points: [{ label: "OpenAI", text: "1% of revenue to open source maintainers every month." }] };
+  assert.match(llm.validateArticle(named, post).join(" "), /names are not in the post: OpenAI/);
+  const reply = llm.parseArticleReply("TITLE: Greptile runner works over Wi\u2011Fi\nSUMMARY: It needs 24\u202fGB of memory.\nPOINTS:\n- Memory: 24GB");
+  assert.equal(reply.title, "Greptile runner works over Wi-Fi");
+  assert.equal(reply.summary, "It needs 24 GB of memory.");
+});
+
 test("generateArticle builds the article and the resources in code", async () => {
   await withStubs({ reply: GOOD }, async () => {
     const md = await llm.generateArticle(tweet({ links: ["https://t.co/abc", "https://x.com/acme", "https://t.co/abc"], images: ["https://pbs.twimg.com/media/a.jpg", "https://pbs.twimg.com/media/a.jpg"] }));

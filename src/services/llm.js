@@ -244,7 +244,7 @@ const MAX_ARTICLES_PER_FILE = 8;
 const MAX_WRITER_TRANSPORT_FAILURES = 3;
 const ARTICLE_SLOP_RE = /\b(in this (?:article|post|thread)|we(?:'|’)ll explore|let(?:'|’)s (?:explore|dive)|(?:is|are) a (?:critical|crucial|key|vital|fundamental) (?:aspect|part|component|challenge)|game[- ]chang\w*|revolutioni[sz]\w*|brief description|best practices|tips for (?:improving|implementing)|the importance of|plays? a (?:crucial|key|vital) role|the author (?:argues|states|says|shares|notes)|(?:linked|link|thread|details|writeup|repo) (?:is )?below|below the post|(?:was|were) posted|posted on|the announcement was|the (?:post|page|article|blog(?: post)?|study|report|thread) (?:says|states|mentions|links|claims|observes|notes|announces|describes|argues|explains|discusses|reports|shows|finds))\b|\(\s*\)|\bn\/a\b/i;
 // Acronyms and generic capitalised words that need not appear in the post.
-const ENTITY_ALLOW = new Set("ai api apis cli llm llms sdk gpu gpus cpu ui ux mcp saas ml cto ceo cfo vc vcs us usa uk eu http https url json html css sql os ios x i a an the this that these those it its in on at for to of and or but with from by as is are was were be been has have had will can may not no new now january february march april june july august september october november december monday tuesday wednesday thursday friday saturday sunday".split(" "));
+const ENTITY_ALLOW = new Set("ai api apis cli llm llms sdk gpu gpus cpu ui ux mcp saas ml cto ceo cfo vc vcs us usa uk eu http https url json html css sql os ios arr mrr yoy qoq ipo roi kpi eps gmv ebitda q1 q2 q3 q4 h1 h2 x i a an the this that these those it its in on at for to of and or but with from by as is are was were be been has have had will can may not no new now january february march april june july august september october november december monday tuesday wednesday thursday friday saturday sunday".split(" "));
 const GROUNDING_STOPWORDS = new Set([
   "about", "after", "also", "article", "been", "between", "build", "content", "could", "data", "developers", "from", "have", "into", "model", "models", "more", "most", "only", "resource", "source", "system", "that", "their", "there", "these", "this", "those", "tool", "tools", "using", "with", "your",
 ]);
@@ -253,7 +253,8 @@ const GROUNDING_STOPWORDS = new Set([
 const ARTICLE_COMMON_WORDS = new Set((
   "after all also although another any as at because before both but by during each early even every few first for from here how however if in instead into its last later like many more most new next no not now of on one only other our over per plus since so some still such than that their then there these they this those though through to today two three four five under unlike until up via what when where which while who why with without yet " +
   "adoption alternative analysis app apps attack authentication automation backend backup bandwidth baseline batch billing browser cache caching capacity catalog chat cli client cloud command commands config configuration contributors coverage database databases debugging default dependencies deploy desktop developer developers docs documentation editor efficiency encryption endpoint endpoints energy engine environment error errors example examples experiment export extension file files fine-tuning format formats framework frontend function functions goal goals guide hosting improvements incident index input inputs interface issue issues job jobs language languages layer library limit load logging login lookup migration mobile modes monitoring network notes offline output outputs owner package packages parameters pipeline platform plugin plugins policy preview problem process product protocol queries query queue rate ratio record regions registry requests requirements response responses roadmap rollout routing runtime schema scope sdk server servers service services session sessions sizes spec specs storage streaming summary supply sync target targets task tasks template terms throughput tokenizer toolkit traffic transport trial upgrade uptime validation vendor versions web window workload workloads " +
-  "access accuracy adds added agent agents approach architecture audio availability available benchmark benchmarks beta better big bug bugs build builds built change changes chip chips cluster code coding compatibility compute context core cost costs customers data dataset datasets deal demo deployment design details download early evaluation evals faster feature features fix fixes free funding growth hardware how images impact inference install integration key latency launch launches launched license licensing limits local main memory method metrics model models news numbers open paper partner partners partnership patch patches performance price pricing privacy quality quote reasoning release released releases repo research results risk round rules runs safety scale security setup ships shipped size software source speed stack status study support supports team tests text throughput timeline tokens training trained update updates usage use users version video vision weights what workflow"
+  "access accuracy adds added agent agents approach architecture audio availability available benchmark benchmarks beta better big bug bugs build builds built change changes chip chips cluster code coding compatibility compute context core cost costs customers data dataset datasets deal demo deployment design details download early evaluation evals faster feature features fix fixes free funding growth hardware how images impact inference install integration key latency launch launches launched license licensing limits local main memory method metrics model models news numbers open paper partner partners partnership patch patches performance price pricing privacy quality quote reasoning release released releases repo research results risk round rules runs safety scale security setup ships shipped size software source speed stack status study support supports team tests text throughput timeline tokens training trained update updates usage use users version video vision weights what workflow " +
+  "action age amount background category cause caveat claim company concern daily date detail event future high highlights level location loss low market metric monthly name number outcome payload phase plan prior purpose rank ranking reason resource revenue role sample schedule stage step takeaway technique time title tool tools top total trend type valuation weekly"
 ).split(" "));
 // Claims the writer may not strengthen to unless the source makes them too.
 const ARTICLE_CLAIM_RE = /\b(?:better|worse)\s+than\b|\bbeat(?:s|ing)?\b|\boutperform\w*|\bsurpass\w*|\bprov(?:es?|en|ing)\b|\bconfirm\w*/i;
@@ -1599,6 +1600,8 @@ Reply with JSON only, one verdict per candidate: {"verdicts": [{"n": 1, "pass": 
     const text = String(raw || "")
       .replace(/```[a-z]*\n?/gi, "")
       .replace(/<think>[\s\S]*?<\/think>/gi, "")
+      .replace(/[\u2010\u2011\u2212]/g, "-")
+      .replace(/[\u00a0\u2007\u202f]/g, " ")
       .replace(/\*\*\s*(EMOJI|VALUE|TITLE|SUMMARY|POINTS)\s*:?\s*\*\*\s*:?/gi, "$1:")
       .trim();
     if (/^\W*SKIP\b/i.test(text)) return { skip: true };
@@ -1701,11 +1704,23 @@ Reply with JSON only, one verdict per candidate: {"verdicts": [{"n": 1, "pass": 
         });
     }).filter((f) => f.length >= 3));
     const known = (w) => sourceWords.has(w) || sourceWords.has(w + "s") || sourceWords.has(w.replace(/(?:es|s)$/, ""));
-    const plainWord = (w) => ARTICLE_COMMON_WORDS.has(w.toLowerCase()) || this.articleStems(w).size > 0 && [...this.articleStems(w)].every((s) => stems.has(s));
+    const plainWord = (w) => [w.toLowerCase(), w.toLowerCase().replace(/(?:es|s)$/, "")].some((c) => ARTICLE_COMMON_WORDS.has(c))
+      || this.articleStems(w).size > 0 && [...this.articleStems(w)].every((s) => stems.has(s));
+    // In a label or at a sentence start, a plain word in capitals is also an ordinary word when the article
+    // writes it in lowercase too, or it ends like one ("Capability", "Donation", "Reported").
+    const lowerWords = new Set([summary, ...points.map((p) => p.text)].join(" ").match(/\b[a-z]{3,}\b/g) || []);
+    const ordinaryWord = (w) => {
+      const lower = w.toLowerCase();
+      return lowerWords.has(lower) || lowerWords.has(lower.replace(/(?:es|s)$/, "")) || plainWord(w)
+        || (lower.length >= 5 && /(?:tions?|sions?|ments?|ness|ances?|ences?|ancy|ency|ity|ities|ings?|ed|ships?|isms?|ics|ures?|ives?|ous|able|ible|ional|ial|ical)$/.test(lower));
+    };
     const foreign = new Set();
     const sentencesOf = (text) => String(text || "").split(/(?<=[.!?])\s+/);
-    // A unit glued to a number ("$2B", "70B", "128K") is part of the number, not a name.
-    const wordsOf = (sentence) => (sentence.match(/(?<![\d.])[A-Za-z][A-Za-z0-9.+-]*/g) || []).map((w) => w.replace(/[.+-]+$/, ""));
+    // A unit after a number ("$2B", "70B", "24 GB", "2.4 GHz", "3-D") is part of the number, not a name.
+    const UNIT_RE = /^(?:[kmbt]n?|[kmgtp]i?b|[kmgt]?bps|[kmg]?hz|[kmgt]?wh?|[mnu]?s|hrs?|mins?|[ap]m|x|d|fps|tps|qps|rpm|nm|mm|cm|km|kg|mg|ml|mah|[tpe]?flops|tops)$/i;
+    const wordsOf = (sentence) => [...sentence.matchAll(/(?<![\d.])[A-Za-z][A-Za-z0-9.+-]*/g)]
+      .filter((m) => !(UNIT_RE.test(m[0].replace(/[.+-]+$/, "")) && /\d[\s-]?$/.test(sentence.slice(0, m.index))))
+      .map((m) => m[0].replace(/[.+-]+$/, ""));
     // The words of any run of capitalised words that spells a handle, wherever the article uses them again
     // ("Musk" after "Elon Musk" for @elonmusk).
     const spelled = new Set();
@@ -1721,20 +1736,21 @@ Reply with JSON only, one verdict per candidate: {"verdicts": [{"n": 1, "pass": 
         }
       }
     }
-    const checkWords = (text, titleCase) => {
+    // The title keeps to the post's own words; a label or a sentence start may use any ordinary word.
+    const checkWords = (text, titleCase, strict = false) => {
       for (const sentence of sentencesOf(text)) {
         const ws = wordsOf(sentence);
         ws.forEach((w, i) => {
-          if (!/^[A-Z]/.test(w) || ENTITY_ALLOW.has(w.toLowerCase()) || spelled.has(w.toLowerCase())) return;
+          if (!/^[A-Z]/.test(w) || ENTITY_ALLOW.has(w.toLowerCase()) || ENTITY_ALLOW.has(w.toLowerCase().replace(/s$/, "")) || spelled.has(w.toLowerCase())) return;
           // Version digits are not a name ("GPT-6" must not pass because the post has a 6).
           const parts = w.toLowerCase().split("-").filter((part) => /[a-z]{2}/.test(part));
           if (known(trimWord(w)) || parts.some((part) => known(part))) return;
-          if ((titleCase || i === 0) && !/[A-Z].*[A-Z]|\d/.test(w.slice(1)) && plainWord(w)) return;
+          if ((titleCase || i === 0) && !/[A-Z].*[A-Z]|\d/.test(w.slice(1)) && (strict ? plainWord(w) : ordinaryWord(w))) return;
           foreign.add(w);
         });
       }
     };
-    checkWords(title, true);
+    checkWords(title, true, true);
     checkWords(summary, false);
     for (const p of points) { checkWords(p.label, true); checkWords(p.text, false); }
 
