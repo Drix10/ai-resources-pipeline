@@ -301,6 +301,16 @@ const falcon = (over) => ({
 });
 const point = (label, text) => ({ points: [{ label, text }] });
 
+test("a negation the post makes word for word may sit in another clause", () => {
+  const post = "MAI-Image-2.6 is now available on Vercel AI Gateway. Generate images with one API key across providers, with usage-based pricing at $0.03 per image and no markup.";
+  const a = {
+    title: "MAI-Image-2.6 now on Vercel AI Gateway, $0.03 per image",
+    summary: "MAI-Image-2.6 is now available on Vercel AI Gateway with usage-based pricing at $0.03 per image and no markup.",
+    points: [{ label: "Pricing", text: "$0.03 per image, no markup" }],
+  };
+  assert.doesNotMatch(llm.validateArticle(a, post).join(" "), /negation/);
+});
+
 test("the gate rejects fabricated names, figures, versions, quotes, claims, negations and links in any field", () => {
   assert.deepEqual(llm.validateArticle(falcon({}), FALCON), [], "the faithful article passes");
   const cases = {
