@@ -313,6 +313,62 @@ test("a negation the post makes word for word may sit in another clause", () => 
   assert.doesNotMatch(llm.validateArticle(a, post).join(" "), /negation/);
 });
 
+test("a negation in other words, or a negated part left out, keeps the post's polarity", () => {
+  const post = "We run our own support on Acme Agents. It resolves over 22,000 support tickets a month without adding headcount.\n\nI built a ghost-hunting game in Unity 6 with Claude, no code written by hand.\n\nJen learned to reset her rhythm in just 24 hours instead of weeks.\n\nAReA is a training-free attention method, up to 3.2x faster.";
+  const article = (text) => ({
+    title: "Acme Agents resolves 22,000 support tickets a month",
+    summary: "Acme Agents resolves over 22,000 support tickets a month for its own support team, and a ghost-hunting game was built in Unity 6 with Claude.",
+    points: [{ label: "Detail", text }],
+  });
+  for (const text of [
+    "Acme Agents resolves over 22,000 support tickets a month.",
+    "The ghost-hunting game was built in Unity 6 with Claude, with no hand-written code.",
+    "Jen reset her rhythm in 24 hours, not weeks.",
+    "AReA is an attention method that needs no training, up to 3.2x faster.",
+  ]) {
+    assert.doesNotMatch(llm.validateArticle(article(text), post).join(" "), /negation|could reverse/, text);
+  }
+  // still the opposite of the post: what it denies, said without the negation, or a negation of something else
+  assert.match(llm.validateArticle(article("Acme Agents resolves its tickets by adding headcount each month."), post).join(" "), /drops a negation/);
+  assert.match(llm.validateArticle(article("The ghost-hunting game in Unity 6 does not use Claude."), post).join(" "), /adds a negation|could reverse/);
+});
+
+test("a magnitude written another way, and an abbreviation of the post's words, are the post's own", () => {
+  const post = "We run our own customer support on ElevenAgents. It has resolved over 22,000 tickets a month and our standard operating procedures cover refunds. The fund raised $1.5B.";
+  const a = (text) => ({
+    title: "ElevenAgents resolves 22k support tickets a month",
+    summary: "ElevenAgents resolves over 22,000 customer support tickets a month, and standard operating procedures cover refunds.",
+    points: [{ label: "Detail", text }],
+  });
+  for (const text of ["22k tickets a month", "SOPs cover refunds", "The fund raised $1,500,000,000."]) {
+    assert.deepEqual(llm.validateArticle(a(text), post), [], text);
+  }
+  assert.match(llm.validateArticle(a("23k tickets a month"), post).join(" "), /23/);
+  assert.match(llm.validateArticle(a("The fund raised $1.5M."), post).join(" "), /does not match the post/);
+  assert.match(llm.validateArticle(a("The QRT team covers refunds"), post).join(" "), /names are not in the post: QRT/);
+});
+
+test("a title past 90 characters ends at its last clause break inside the limit", () => {
+  const reply = (title) => llm.parseArticleReply(`EMOJI: 🚀\nVALUE: 4\nTITLE: ${title}\nSUMMARY: s\nPOINTS:\n- A: b`).title;
+  assert.equal(reply("ElevenAgents support resolves over 22,000 tickets monthly, cuts response time to 60 seconds"), "ElevenAgents support resolves over 22,000 tickets monthly");
+  assert.equal(reply("Short title, kept whole"), "Short title, kept whole");
+  const unbroken = "A".repeat(95);
+  assert.equal(reply(unbroken), unbroken, "no break to end at: the gate rejects it");
+});
+
+test("a comparison sign is plain text; a tag, a backtick or brackets are not", () => {
+  const post = "Introducing Boxes, cloud computers for AI agents: 4 vCPU, 8 GB RAM spun up in <1s, used by over 30 million people. Over 1000 eval runs cost > $5000.";
+  const a = (text) => ({
+    title: "Boxes offers cloud computers for AI agents",
+    summary: "Boxes offers cloud computers for AI agents with 4 vCPU and 8 GB RAM that spin up in <1 s. Over 1000 eval runs cost > $5000.",
+    points: [{ label: "Specs", text }],
+  });
+  assert.deepEqual(llm.validateArticle(a("4 vCPU, 8GB RAM spun up in <1 s, used by >30 million people."), post), []);
+  for (const text of ["4 vCPU, <b>8 GB RAM</b>", "4 vCPU, `8 GB RAM`", "4 vCPU [8 GB RAM]"]) {
+    assert.match(llm.validateArticle(a(text), post).join(" "), /plain text only/, text);
+  }
+});
+
 test("the gate rejects fabricated names, figures, versions, quotes, claims, negations and links in any field", () => {
   assert.deepEqual(llm.validateArticle(falcon({}), FALCON), [], "the faithful article passes");
   const cases = {

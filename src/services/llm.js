@@ -268,12 +268,25 @@ const ARTICLE_CLAIM_RE = /\b(?:better|worse)\s+than\b|\bbeat(?:s|ing)?\b|\boutpe
 const ARTICLE_CLAIM_ROOT_RE = /\b(?:better|worse|beat\w*|outperform\w*|surpass\w*|prov\w*|confirm\w*)\b/i;
 // Links come only from buildArticleResources: model text must not carry a destination of its own.
 const ARTICLE_LINK_RE = /https?:\/\/|\bwww\.|[\w.+-]+@[\w-]+\.[a-z]{2,}|\b[a-z0-9][a-z0-9-]*(?:\.[a-z0-9-]+)*\.(?:com|net|org|io|ai|dev|app|co|xyz|gg|me|sh|so|ly|to|tv|fm|tech|cloud|info|biz|site|online|page|link|run|tools|blog|news|example|us|uk|de|fr|cn|in|jp|ru)\b(?![-.]?\w)/;
-// A clause says the opposite of a positive one when it carries one of these.
-const ARTICLE_POLARITY_RE = /\b(?:not|never|no|none|nor|neither|without|cannot|lacks?|unable|deprecat\w*|discontinu\w*)\b|n['’]t\b/i;
-// Each negation in a clause with the two words that follow it ("no markup", "not support images").
-const ARTICLE_NEGATION_PHRASE_RE = /\b(?:\w+n['’]t|not|never|no|none|nor|neither|without|cannot|lacks?|unable|deprecat\w*|discontinu\w*)\b(?:\s+[\w$%.-]+){0,2}/gi;
+// A clause says the opposite of a positive one when it carries one of these ("X-free" and "instead of X" deny X too).
+const ARTICLE_NEGATOR = String.raw`\w+n['’]t|not|never|no|none|nor|neither|without|cannot|lacks?|unable|zero(?![-\w])|free\s+of|rather\s+than|instead\s+of|deprecat\w*|discontinu\w*`;
+const ARTICLE_POLARITY_RE = new RegExp(String.raw`\b(?:${ARTICLE_NEGATOR})\b|n['’]t\b|\w-free\b`, "i");
+// Each negation in a clause with the two words that follow it ("no markup", "not support images"), and each "X-free".
+const ARTICLE_NEGATION_PHRASE_RE = new RegExp(String.raw`\b(?:${ARTICLE_NEGATOR})\b((?:\s+[\w$%.-]+){0,2})|\b([\w.]+)-free\b`, "gi");
+// Words a negation reaches past to what it denies ("not a", "no more than the").
+const NEGATION_FILLER = new Set("a an the be been being is are was were to of for by any it its as at in on or so do does did have has had more much less than this that these those".split(" "));
+// A text's words as short stems, hyphenated words in parts ("hand-written code" -> hand, writt, code).
+const articleLooseStems = (text) => new Set(String(text || "").toLowerCase().split(/[\s-]+/)
+  .map((w) => w.replace(/^[^\w$%]+|[^\w$%]+$/g, ""))
+  .filter((w) => w.length >= 2 && !NEGATION_FILLER.has(w))
+  .map((w) => w.slice(0, 5)));
+// What the negations in a text deny: the words after each one, and the X of each "X-free".
+const articleDenied = (text) => new Set([...String(text || "").matchAll(ARTICLE_NEGATION_PHRASE_RE)].flatMap((m) => [...articleLooseStems(m[1] || m[2])]));
 const MAGNITUDE = { k: "k", thousand: "k", m: "m", mn: "m", million: "m", b: "b", bn: "b", billion: "b", t: "t", tn: "t", trillion: "t", "%": "%", percent: "%", x: "x", "×": "x", times: "x" };
 const CURRENCY = { $: "$", usd: "$", dollars: "$", "€": "€", eur: "€", euros: "€", "£": "£", gbp: "£", pounds: "£", "¥": "¥", yen: "¥" };
+// What a quantity counts, its magnitude applied ("22k" and "22,000" are both 22000); null for a percentage or a ratio.
+const MAGNITUDE_SCALE = { "": 1, k: 1e3, m: 1e6, b: 1e9, t: 1e12 };
+const quantityValue = (q) => (q.unit in MAGNITUDE_SCALE ? Number((Number(q.num) * MAGNITUDE_SCALE[q.unit]).toPrecision(12)) : null);
 
 // Every number with the magnitude/unit and currency around it: "$10 million" -> { num: "10", unit: "m", cur: "$" }.
 function articleQuantities(text) {
@@ -1617,7 +1630,11 @@ Reply with JSON only, one verdict per candidate: {"verdicts": [{"n": 1, "pass": 
     if (/^\W*SKIP\b/i.test(text)) return { skip: true };
     const field = (re) => (text.match(re) || [])[1]?.trim() || "";
     // Field names may follow an emoji or other lead-in on the same line.
-    const title = field(/^[^\n]*?\bTITLE:\s*(.+)$/im).replace(/^[#*\s]+|[*\s]+$/g, "");
+    const fullTitle = field(/^[^\n]*?\bTITLE:\s*(.+)$/im).replace(/^[#*\s]+|[*\s]+$/g, "");
+    // A title past 90 characters keeps its subject and what happened, up to its last clause break inside the
+    // limit ("ElevenAgents resolves over 22,000 tickets monthly, cuts response time to 60 seconds").
+    const cut = fullTitle.length > 90 ? [...fullTitle.slice(0, 91).matchAll(/,\s|;\s|:\s|\s[-–—]\s/g)].pop() : null;
+    const title = cut && cut.index >= 30 ? fullTitle.slice(0, cut.index).trim() : fullTitle;
     const summary = field(/\bSUMMARY:\s*([\s\S]*?)^\s*POINTS:/im).replace(/\s+/g, " ");
     const pointsBlock = (text.match(/^\s*POINTS:\s*([\s\S]*)$/im) || [])[1] || "";
     const points = [];
@@ -1649,7 +1666,8 @@ Reply with JSON only, one verdict per candidate: {"verdicts": [{"n": 1, "pass": 
     const body = [title, summary, ...points.map((p) => `${p.label} ${p.text}`)].join("\n");
     // The text is committed as markdown and rendered on the blog, so it must be plain words:
     // no HTML, links, backticks, or text that would start a heading, list or quote.
-    if ([title, summary, ...points.map((p) => `${p.label} ${p.text}`)].some((t) => /[<>`]|\]\(|\[[^\]]*\]/.test(t))) {
+    // (a "<" opens a tag only before a letter, "/", "!" or "?": "<1 s" and "> $5,000" are plain comparisons)
+    if ([title, summary, ...points.map((p) => `${p.label} ${p.text}`)].some((t) => /<[A-Za-z/!?]|`|\]\(|\[[^\]]*\]/.test(t))) {
       errors.push("Use plain text only: no HTML, backticks, brackets or links.");
     }
     // GitHub, DEV.to and the blog autolink bare URLs, www. hosts and emails; the only links an
@@ -1674,11 +1692,15 @@ Reply with JSON only, one verdict per candidate: {"verdicts": [{"n": 1, "pass": 
     const sourceNorm = String(sourceText).replace(/(\d),(?=\d)/g, "$1").replace(/[\u2019]/g, "'").toLowerCase();
     const numbers = body.replace(/(\d),(?=\d)/g, "$1").match(/\d+(?:\.\d+)?/g) || [];
     const inSource = (n) => new RegExp(`(?<![\\d.])${n.replace(/\./g, "\\.")}(?!\\d|\\.\\d)`).test(sourceNorm);
-    const badNum = numbers.find((n) => !inSource(n));
+    // (a number written with another magnitude is the post's own: "22k" for its "22,000", "22,000" for its "22K")
+    const sourceQty = articleQuantities(sourceText);
+    const bodyQty = articleQuantities(body);
+    // (only across a magnitude: a version's "2" is still not the post's "2.0")
+    const sameValue = (q, s) => (MAGNITUDE_SCALE[q.unit] > 1 || MAGNITUDE_SCALE[s.unit] > 1) && quantityValue(q) !== null && quantityValue(q) === quantityValue(s);
+    const badNum = numbers.find((n) => !inSource(n) && !bodyQty.some((q) => q.num === n && sourceQty.some((s) => sameValue(q, s))));
     if (badNum) errors.push(`The number ${badNum} is not in the post. Use only numbers from the post.`);
     // A number is only as true as its unit: "$10 billion" is not the post's "$10 million".
-    const sourceQty = articleQuantities(sourceText);
-    const badQty = !badNum && articleQuantities(body).find((q) => (q.unit || q.cur) && !sourceQty.some((s) => s.num === q.num && (!q.unit || s.unit === q.unit) && (!q.cur || s.cur === q.cur)));
+    const badQty = !badNum && bodyQty.find((q) => (q.unit || q.cur) && !sourceQty.some((s) => (s.num === q.num && (!q.unit || s.unit === q.unit) || sameValue(q, s)) && (!q.cur || s.cur === q.cur)));
     if (badQty) errors.push(`"${badQty.shown}" does not match the post: keep each number with the post's own unit and currency.`);
     // A versioned name must carry the post's version: "GPT-6" when the post says "GPT-4".
     const sourceVersions = articleVersionedNames(sourceText);
@@ -1714,6 +1736,19 @@ Reply with JSON only, one verdict per candidate: {"verdicts": [{"n": 1, "pass": 
         });
     }).filter((f) => f.length >= 3));
     const known = (w) => sourceWords.has(w) || sourceWords.has(w + "s") || sourceWords.has(w.replace(/(?:es|s)$/, ""));
+    // The initials of each run of 3 to 6 words in the post, also read past "of", "and", "the" and "for", so an
+    // abbreviation of words the post writes out is the post's own ("SOPs", "CGM", "DOE").
+    const sourceInitials = new Set();
+    const sourceLetters = sourceNorm.match(/[a-z]+/g) || [];
+    for (const words of [sourceLetters, sourceLetters.filter((x) => !/^(?:of|and|the|for)$/.test(x))]) {
+      for (let i = 0; i < words.length; i++) {
+        let initials = "";
+        for (let k = i; k < Math.min(words.length, i + 6); k++) {
+          initials += words[k][0];
+          if (initials.length >= 3) sourceInitials.add(initials);
+        }
+      }
+    }
     const plainWord = (w) => [w.toLowerCase(), w.toLowerCase().replace(/(?:es|s)$/, "")].some((c) => ARTICLE_COMMON_WORDS.has(c))
       || this.articleStems(w).size > 0 && [...this.articleStems(w)].every((s) => stems.has(s));
     // A plain word in capitals in the title or at a sentence start is an ordinary word when the article also
@@ -1730,7 +1765,8 @@ Reply with JSON only, one verdict per candidate: {"verdicts": [{"n": 1, "pass": 
     const sentencesOf = (text) => String(text || "").split(/(?<=[.!?])\s+/);
     // A unit after a number ("$2B", "70B", "24 GB", "2.4 GHz", "3-D") is part of the number, not a name.
     const UNIT_RE = /^(?:[kmbt]n?|[kmgtp]i?b|[kmgt]?bps|[kmg]?hz|[kmgt]?wh?|[mnu]?s|hrs?|mins?|[ap]m|x|d|fps|tps|qps|rpm|nm|mm|cm|km|kg|mg|ml|mah|[tpe]?flops|tops)$/i;
-    const wordsOf = (sentence) => [...sentence.matchAll(/(?<![\d.])[A-Za-z][A-Za-z0-9.+-]*/g)]
+    // (a word starts at a word's start: the "B" of "8GB" is no word of its own)
+    const wordsOf = (sentence) => [...sentence.matchAll(/(?<![A-Za-z0-9.])[A-Za-z][A-Za-z0-9.+-]*/g)]
       .filter((m) => !(UNIT_RE.test(m[0].replace(/[.+-]+$/, "")) && /\d[\s-]?$/.test(sentence.slice(0, m.index))))
       .map((m) => m[0].replace(/[.+-]+$/, ""));
     // The words of any run of capitalised words that spells a handle, wherever the article uses them again
@@ -1758,6 +1794,7 @@ Reply with JSON only, one verdict per candidate: {"verdicts": [{"n": 1, "pass": 
           if (known(trimWord(w)) || parts.some((part) => known(part))) return;
           // A compound on a common acronym is a word ("AI-generated", "GPU-based"); "OpenAI-backed" is not.
           if (w.includes("-") && w.split("-").every((part) => !/^[A-Z]/.test(part) || ENTITY_ALLOW.has(part.toLowerCase()))) return;
+          if (/^[A-Z]{3,6}s?$/.test(w) && sourceInitials.has(w.replace(/s$/, "").toLowerCase())) return;
           if ((titleCase || i === 0) && !/[A-Z].*[A-Z]|\d/.test(w.slice(1)) && ordinaryWord(w, label)) return;
           foreign.add(w);
         });
@@ -1780,29 +1817,50 @@ Reply with JSON only, one verdict per candidate: {"verdicts": [{"n": 1, "pass": 
 
     // Negation per claim: each clause keeps the polarity of the source clause it restates
     // (catches "does not support X" from "supports X", and a dropped "not").
-    const sourceClauses = articleClauses(sourceText).map((c) => ({ stems: this.articleStems(c), negated: ARTICLE_POLARITY_RE.test(c) }));
-    // A negation the post makes word for word, with up to two words after it, is the post's own, whichever
-    // clause it sits in ("$0.03 per image, no markup" from "at $0.03 per image and no markup").
+    const sourceClauses = articleClauses(sourceText).map((c) => ({ stems: this.articleStems(c), negated: ARTICLE_POLARITY_RE.test(c), denied: articleDenied(c) }));
+    // A negation is the post's own when the post makes it word for word, with up to two words after it, whichever
+    // clause it sits in ("$0.03 per image, no markup" from "at $0.03 per image and no markup"), or when the post
+    // denies most of the same words in its own ("no hand-written code" from "no code written by hand", "not
+    // weeks" from "instead of weeks").
     const sourceFlat = sourceNorm.replace(/\s+/g, " ");
-    const ownNegations = (clause) => [...clause.matchAll(ARTICLE_NEGATION_PHRASE_RE)]
-      .every((m) => sourceFlat.includes(m[0].toLowerCase().replace(/[\u2019]/g, "'").replace(/\s+/g, " ").replace(/[.,;:!?]+$/, "")));
+    const sourceDenied = articleDenied(sourceText);
+    const ownNegation = (m) => {
+      if (sourceFlat.includes(m[0].toLowerCase().replace(/[\u2019]/g, "'").replace(/\s+/g, " ").replace(/[.,;:!?]+$/, ""))) return true;
+      const denied = [...articleLooseStems(m[1] || m[2])];
+      return denied.length > 0 && denied.filter((s) => sourceDenied.has(s)).length * 2 > denied.length;
+    };
+    const ownNegations = (clause) => [...clause.matchAll(ARTICLE_NEGATION_PHRASE_RE)].every(ownNegation);
     for (const clause of articleClauses([summary, ...points.map((p) => p.text)].join("\n"))) {
       const own = this.articleStems(clause);
       if (own.size < 2) continue;
       if (ARTICLE_POLARITY_RE.test(clause) && ownNegations(clause)) continue;
       const best = { true: 0, false: 0 };
+      // (what the negated source clauses closest to this one deny)
+      let denied = new Set();
       for (const s of sourceClauses) {
         const overlap = [...own].filter((t) => s.stems.has(t)).length;
+        if (s.negated && overlap > best.true) denied = new Set(s.denied);
+        else if (s.negated && overlap === best.true) s.denied.forEach((t) => denied.add(t));
         best[s.negated] = Math.max(best[s.negated], overlap);
       }
       const negated = ARTICLE_POLARITY_RE.test(clause);
-      if (best[!negated] >= 2 && best[!negated] > best[negated]) {
+      // A clause that leaves out what the post denies is a shorter claim, not the opposite one ("resolves 22,000
+      // tickets a month" from "... a month without adding headcount"); one that still says it reverses the post
+      // ("supports images" from "does not support images").
+      const reverses = negated || [...articleLooseStems(clause)].some((t) => denied.has(t));
+      if (reverses && best[!negated] >= 2 && best[!negated] > best[negated]) {
         errors.push(`"${clause.slice(0, 80)}" ${negated ? "adds a negation the post does not make" : "drops a negation the post makes"}. Keep what the post says.`);
         break;
       }
     }
     const NEGATION = /\b(?:not|never|no longer|cannot|can't|won't|doesn't|didn't|isn't|aren't|without|deprecat\w*|discontinu\w*)\b/gi;
-    const flips = [...new Set((body.replace(/[\u2019]/g, "'").match(NEGATION) || []).map((x) => x.toLowerCase()))].filter((x) => !sourceNorm.includes(x));
+    const bodyNegations = [...body.replace(/[\u2019]/g, "'").matchAll(ARTICLE_NEGATION_PHRASE_RE)];
+    const flips = [...new Set((body.replace(/[\u2019]/g, "'").match(NEGATION) || []).map((x) => x.toLowerCase()))].filter((x) => !sourceNorm.includes(x))
+      // (unless each use of the word denies what the post denies: "in 24 hours, not weeks" from "instead of weeks")
+      .filter((x) => {
+        const uses = bodyNegations.filter((m) => m[0].toLowerCase().startsWith(x));
+        return !(uses.length > 0 && uses.every(ownNegation));
+      });
     if (flips.length > 0) errors.push(`The words "${flips.join('", "')}" are not in the post and could reverse what it says. Remove them.`);
     if (foreign.size > 0) errors.push(`These names are not in the post: ${[...foreign].slice(0, 5).join(", ")}. Remove them.`);
     return errors;
