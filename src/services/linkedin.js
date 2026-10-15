@@ -1075,6 +1075,16 @@ class LinkedInService {
     return Number(m[1]) * per;
   }
 
+  // Pure: the name of a notification's actor: their link's text, unless that is the presence label on
+  // their picture ("Status is reachable"), else the words before what they did.
+  static notificationName(linkText, text) {
+    const presence = /^status is \w+\s*/i;
+    const linked = String(linkText || "").trim();
+    if (linked && !presence.test(linked)) return linked;
+    const headline = String(text || "").replace(presence, "");
+    return (headline.match(/^(.+?)\s+(?:and \d+ others?\s+)?(?:commented|replied|mentioned|reposted|reacted|likes?|liked|loves?|celebrates?|supports?|finds?|accepted|followed|started|is now|now follows)\b/i) || [])[1] || "";
+  }
+
   // People who engaged with our account lately, from the notifications page. Read-only: nothing is
   // clicked. Returns [{ kind, name, href, ageH }], one per notification whose actor links a profile
   // (/in/); company pages and LinkedIn's own notifications are left out. [] when nothing parses.
@@ -1096,7 +1106,7 @@ class LinkedInService {
           // names someone else.
           const links = Array.from(c.querySelectorAll('a[href*="/in/"]'));
           const href = links[0] ? links[0].href.split('?')[0] : '';
-          const named = links.find(a => a.href.split('?')[0] === href && (a.innerText || '').trim());
+          const named = links.find(a => a.href.split('?')[0] === href && (a.innerText || '').trim() && !/^status is /i.test((a.innerText || '').trim()));
           const text = (c.innerText || '').replace(/\\s+/g, ' ').trim();
           return {
             href,
@@ -1110,7 +1120,7 @@ class LinkedInService {
       for (const r of raw || []) {
         const kind = LinkedInService.notificationKind(r.text);
         if (!kind || !/linkedin\.com\/in\/[^/?#]+/i.test(String(r.href))) continue;
-        const name = String(r.name || "").trim() || (String(r.text).match(/^(.+?)\s+(?:and \d+ others?\s+)?(?:commented|replied|mentioned|reposted|reacted|likes?|liked|loves?|celebrates?|supports?|finds?|accepted|followed|started|is now|now follows)\b/i) || [])[1] || "";
+        const name = LinkedInService.notificationName(r.name, r.text);
         if (this.isOwnPost({ author: name, href: r.href })) continue;
         out.push({ kind, name: name.slice(0, 80), href: String(r.href).replace(/\/$/, ""), ageH: LinkedInService.notificationAgeH(r.tail || "") });
       }

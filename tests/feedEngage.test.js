@@ -90,6 +90,10 @@ test("notifications: only what people did with our account counts, with its age"
   assert.equal(kind("Sam Lee commented on Jane Doe's post: it commented on your post earlier 3h"), "");
   assert.equal(kind("Jane Doe commented on Sam Lee's post 2h"), "");
   assert.equal(kind("Your post is getting attention. 3h"), "");
+  const name = LinkedInService.notificationName;
+  assert.equal(name("Jane Doe", "Jane Doe commented on your post"), "Jane Doe");
+  assert.equal(name("Status is reachable", "Status is reachable Jane Doe commented on your post: great"), "Jane Doe", "the picture's presence label is no name");
+  assert.equal(name("", "Jane Doe and 3 others reacted to your post"), "Jane Doe");
   const age = LinkedInService.notificationAgeH;
   assert.equal(age("Jane Doe commented on your post 3h"), 3);
   assert.equal(age("Jane Doe followed you 2d"), 48);
@@ -179,6 +183,14 @@ test("a warm person known by member id is recognised on their posts' vanity link
   const post = { href: vanity, head: "", text: "A long weekend hiking the coastal trail with old friends, the views were worth every step.", ageH: 5 };
   assert.equal(R.audienceScore(track, post), 3);
   assert.equal(R.warmPeople(track).length, 1, "one person, not two");
+  // A notification's escaped link ("%2D") is the same person as their posts' link.
+  const fresh = {};
+  R.noteWarmPeople(fresh, [{ kind: "reaction", name: "Jane Doe", href: "https://www.linkedin.com/in/jane%2Ddoe%2D42", ageH: 2 }]);
+  assert.deepEqual(Object.keys(fresh).filter((k) => k.startsWith("warm:")), [`warm:${vanity}`]);
+  // A comment on their vanity link this week keeps their page out of the comment pass.
+  assert.equal(R.warmSources(track, 5, Date.now(), "comment").length, 1);
+  track["urn:li:activity:1"] = { status: "commented", ts: ago(1), commentedAt: ago(1), authorHref: vanity };
+  assert.deepEqual(R.warmSources(track, 5, Date.now(), "comment"), []);
 });
 
 test("the like pass reads notifications at most every 3 h and likes and follows back the warm person first; a company is never followed", async () => {

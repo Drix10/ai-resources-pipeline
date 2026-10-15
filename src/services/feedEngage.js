@@ -442,7 +442,11 @@ function shouldSkipTracked(track, key, ...older) {
   return false;
 }
 
-const normHref = (h) => String(h || "").split("?")[0].replace(/\/$/, "");
+// One form per profile link: no query, no trailing slash, no escapes (notifications write "-" as "%2D").
+const normHref = (h) => {
+  const s = String(h || "").split("?")[0].replace(/\/$/, "");
+  try { return decodeURI(s); } catch { return s; }
+};
 
 // Merge, never replace: a comment must not erase the likedAt/followedAt the caps count.
 function markPost(track, post, fields) {
@@ -669,13 +673,16 @@ async function refreshWarm(track) {
 
 // Up to WARM_SOURCES_PER_PASS warm people's recent posts as scan sources for a pass ("like" or
 // "comment"): the strongest engagement first, then the latest; never a page that pass read in the
-// last WARM_REVISIT_MS, nor a person inside that pass's author gap (liked today, commented this week).
+// last WARM_REVISIT_MS, nor a person inside that pass's author gap (liked today, commented this week)
+// under any link they are known by: a notification's member id or their posts' vanity link (an alias).
 const WARM_VISITED = { like: "visitedAt", comment: "commentVisitedAt" };
 function warmSources(track = {}, limit = WARM_SOURCES_PER_PASS, now = Date.now(), pass = "like") {
   const visited = WARM_VISITED[pass] || WARM_VISITED.like;
+  const aliases = postEntries(track).filter(([k, v]) => k.startsWith("warm:") && v && v.aliasOf);
+  const hrefsOf = (w) => [w.href, ...aliases.filter(([, v]) => v.aliasOf === w.key).map(([k]) => k.slice("warm:".length))];
   const gapHit = pass === "comment"
-    ? (w) => authorDid(track, w.href, (e) => e.commentedAt, AUTHOR_COMMENT_GAP_MS)
-    : (w) => authorDid(track, w.href, (e) => e.likedAt, AUTHOR_LIKE_GAP_MS);
+    ? (w) => hrefsOf(w).some((h) => authorDid(track, h, (e) => e.commentedAt, AUTHOR_COMMENT_GAP_MS))
+    : (w) => hrefsOf(w).some((h) => authorDid(track, h, (e) => e.likedAt, AUTHOR_LIKE_GAP_MS));
   return warmPeople(track, now)
     .filter((w) => !within(w[visited], WARM_REVISIT_MS, now) && !gapHit(w))
     .sort((a, b) => warmRank(b) - warmRank(a) || Date.parse(b.ts) - Date.parse(a.ts))
@@ -780,10 +787,13 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
     return shouldSkipTracked(track, post.key, keysOfPost(post).slice(1));
   };
 
+  // (one line per author: a profile source can offer several of an author's posts)
+  const authorsSkipped = new Set();
   const engageOne = async (post, sort) => {
     if (tracked(post)) { out.skipped++; return; }
     if (authorDid(track, post.href, commentedAtOf, viral ? VIRAL_AUTHOR_GAP_MS : AUTHOR_COMMENT_GAP_MS)) {
-      logger.info(`${tag}: already commented on @${post.author} ${viral ? "in the last 2 days" : "this week"} - skipping.`);
+      if (!authorsSkipped.has(post.author)) logger.info(`${tag}: already commented on @${post.author} ${viral ? "in the last 2 days" : "this week"} - skipping.`);
+      authorsSkipped.add(post.author);
       out.skipped++;
       return;
     }
