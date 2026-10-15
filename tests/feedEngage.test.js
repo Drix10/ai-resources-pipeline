@@ -230,6 +230,37 @@ test("the like pass reads notifications at most every 3 h and likes and follows 
   }
 });
 
+test("a page whose comment box will not open is left after two tries", async () => {
+  const proto = LinkedInService.prototype;
+  const saved = { scan: proto.scanFeedPosts, comment: proto.commentOnFeedCard, notes: proto.scanNotifications, draft: llm.draftFeedComment, reply: config.social.linkedinFeedReply };
+  process.env.LINKEDIN_TRACK_PATH = path.join(TMP, "no-editor-track.json");
+  LinkedInService._resetDisabled();
+  let scans = 0;
+  const tries = new Map();
+  proto.scanNotifications = async () => [];
+  proto.scanFeedPosts = async () => {
+    scans++;
+    return [1, 2, 3, 4].map((i) => ({ key: `urn:li:activity:9${scans}0${i}`, author: `Builder ${scans}${i}`, href: `https://www.linkedin.com/in/builder-${scans}-${i}`, text: BUILDER, head: "", ageH: 1, reactions: 30, comments: 2 }));
+  };
+  proto.commentOnFeedCard = async (key) => {
+    const page = key.slice("urn:li:activity:9".length, -2);
+    tries.set(page, (tries.get(page) || 0) + 1);
+    return { status: "failed", liked: false, reason: "no-editor" };
+  };
+  llm.draftFeedComment = async () => ({ comment: "Which part of the framework did the developers ask for first?", isValid: true, skipped: false, errors: [] });
+  try {
+    config.social.linkedinFeedReply = true;
+    const res = await feedEngage.runFeedEngagement({ max: 2 });
+    assert.equal(res.commented, 0);
+    assert.ok(tries.size >= 1, "comments were tried");
+    for (const [page, n] of tries) assert.equal(n, 2, `page ${page}: two tries, then the page is left`);
+  } finally {
+    Object.assign(proto, { scanFeedPosts: saved.scan, commentOnFeedCard: saved.comment, scanNotifications: saved.notes });
+    llm.draftFeedComment = saved.draft;
+    config.social.linkedinFeedReply = saved.reply;
+  }
+});
+
 // ---- Comment memory: never the same structure twice, never about us ----
 test("the comment pass remembers what it posted and drafts against its latest comments", async () => {
   const proto = LinkedInService.prototype;

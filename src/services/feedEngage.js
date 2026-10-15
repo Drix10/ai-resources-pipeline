@@ -789,6 +789,8 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
 
   // (one line per author: a profile source can offer several of an author's posts)
   const authorsSkipped = new Set();
+  // Sources whose comment box would not open, and how often: a page that fails twice is left.
+  const noEditor = new Map();
   const engageOne = async (post, sort) => {
     if (tracked(post)) { out.skipped++; return; }
     if (authorDid(track, post.href, commentedAtOf, viral ? VIRAL_AUTHOR_GAP_MS : AUTHOR_COMMENT_GAP_MS)) {
@@ -895,6 +897,7 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
       saveOrStop(track);
     }
     logger.warn(`feedEngage: comment not submitted on ${post.key} (not tracked, retried next cycle).`);
+    if (res && res.reason === "no-editor") noEditor.set(sort, (noEditor.get(sort) || 0) + 1);
     out.skipped++;
   };
 
@@ -921,6 +924,8 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
     let fresh = 0;
     for (const post of posts) {
       if (done() || capHit()) break;
+      // No more drafts for a page whose comment box will not open.
+      if ((noEditor.get(src.label) || 0) >= 2) { logger.warn(`${tag} [${src.label}]: the comment box did not open twice - leaving this page.`); break; }
       if (seenThisRun.has(post.key)) continue;
       if (tracked(post)) continue;
       seenThisRun.add(post.key);

@@ -762,10 +762,10 @@ class LinkedInService {
         `, snip, COMMENT_EDITOR_SEL);
       } catch (e) {}
     };
-    const done = async (status) => {
+    const done = async (status, extra = {}) => {
       if (status !== "posted") await clearEditor();
       logger.info(`LinkedInService: feed comment result: ${status}.`);
-      return { status, liked };
+      return { status, liked, ...extra };
     };
     try {
       await this.ensureDriverConnected(true);
@@ -813,7 +813,7 @@ class LinkedInService {
       `, snip, COMMENT_EDITOR_SEL).catch(() => null);
       if (!editor) {
         logger.warn("LinkedInService: comment editor did not open on feed card.");
-        return await done("failed");
+        return await done("failed", { reason: "no-editor" });
       }
       await editor.click();
       await nap(400);
