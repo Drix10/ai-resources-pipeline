@@ -112,7 +112,7 @@ const config = {
   },
   social: {
     linkedinFeedReply: process.env.LINKEDIN_FEED_REPLY === "true",
-    // 3-6 likes after each article on targeted finance/AI/founder posts.
+    // 3-6 likes after each article on targeted finance/AI/founder posts, the people who engaged with us first.
     linkedinLike: process.env.LINKEDIN_LIKE !== "false",
     // 1-2 extra comments after each batch commit on posts going viral (big names in config/viral.js,
     // the day's most-engaged launches and funding news), on their own daily cap. Comments post only

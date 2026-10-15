@@ -227,7 +227,7 @@ test("LLM skips rest 30 days, gate rejections 3, and every key scheme is checked
 
 test("a stop request ends a pass before its next public action, without the pacing wait", async () => {
   const proto = LinkedInService.prototype;
-  const saved = { scan: proto.scanFeedPosts, like: proto.likeFeedCard, follow: proto.followFeedCard, people: proto.scanPeopleSearch };
+  const saved = { scan: proto.scanFeedPosts, like: proto.likeFeedCard, follow: proto.followFeedCard, people: proto.scanPeopleSearch, notes: proto.scanNotifications };
   const savedTrack = process.env.LINKEDIN_TRACK_PATH;
   process.env.LINKEDIN_TRACK_PATH = path.join(TMP, "stop-track.json");
   LinkedInService._resetDisabled();
@@ -237,6 +237,7 @@ test("a stop request ends a pass before its next public action, without the paci
   proto.likeFeedCard = async () => { likes++; stop = true; return true; };
   proto.followFeedCard = async () => false;
   proto.scanPeopleSearch = async () => { searches++; return { people: [] }; };
+  proto.scanNotifications = async () => [];
   try {
     const started = Date.now();
     const r = await feedEngage.runLikePass({ min: 4, max: 4, shouldStop: () => stop });
@@ -247,7 +248,7 @@ test("a stop request ends a pass before its next public action, without the paci
     assert.equal(searches, 0);
     assert.equal(c.sent, 0);
   } finally {
-    Object.assign(proto, { scanFeedPosts: saved.scan, likeFeedCard: saved.like, followFeedCard: saved.follow, scanPeopleSearch: saved.people });
+    Object.assign(proto, { scanFeedPosts: saved.scan, likeFeedCard: saved.like, followFeedCard: saved.follow, scanPeopleSearch: saved.people, scanNotifications: saved.notes });
     process.env.LINKEDIN_TRACK_PATH = savedTrack;
   }
 });

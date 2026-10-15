@@ -2,7 +2,7 @@
  * scripts/feed-preview.js
  *
  * Terminal preview of the LinkedIn comment pass: posts nothing, tracks nothing.
- * Scans your live LinkedIn post sources (finance/AI/founder content search plus config/creators.json,
+ * Scans your live LinkedIn post sources (the people who engaged with you, config/creators.json and finance/AI/founder content search,
  * or the home feed with LINKEDIN_SOURCE=feed), drafts a comment per post with the full voice
  * pipeline (SKIP / validate / retry), and prints exactly what WOULD be posted.
  *

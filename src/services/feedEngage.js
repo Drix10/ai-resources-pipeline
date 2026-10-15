@@ -10,10 +10,13 @@
  *     comments already there (llm.draftViralComment), on their own daily cap
  *  4. runConnectPass    (LINKEDIN_CONNECT, default on): 3-7 no-note invites after each batch commit
  *
- * Posts come from targeted sources (finance/AI/founder content search plus
- * optional creator profiles in config/creators.json), not the home feed. The
- * home feed is only the fallback when targeted sources yield nothing, or the
- * whole thing when LINKEDIN_SOURCE=feed.
+ * Posts come from targeted sources (the recent posts of people who engaged with us, optional
+ * creator profiles in config/creators.json, and finance/AI/founder content search), not the home feed. The
+ * home feed is only the fallback when targeted sources yield nothing, or the whole thing when
+ * LINKEDIN_SOURCE=feed.
+ *
+ * Reciprocity: the like and comment passes read the notifications page (at most every 3 h) and
+ * engage the people who engaged with us first: like back, follow back, comment on their posts.
  *
  * Safety: every pass first checks the circuit breaker (signed out, checkpoint/limit
  * cooldowns persisted in the tracker) and runs under a 15 min
@@ -53,18 +56,25 @@ const PASS_TIMEOUT_MS = envInt("LINKEDIN_PASS_TIMEOUT_MS", 15 * 60 * 1000);
 const SEARCH_LOADS_PER_PASS = 8;
 const SEARCH_LOADS_PER_DAY = 40;
 
-// ---- Audience targeting: US-based people in AI, tech, finance, investing ----
-// Every feed card gets a score; likes, follows and comments only go to posts that
-// clear these bars, so the feed algorithm learns this audience and our replies
-// land in front of it.
+// ---- Audience targeting: US-based people in finance and investing, then AI and tech (builders,
+// founders, engineers) ----
+// Every feed card gets a score; likes, follows and comments only go to posts that clear these
+// bars, so the feed algorithm learns this audience and our comments land in front of it. Past the
+// topic, the score favours posts where a comment is read and answered: early, with room left at
+// the top of its comments, by a mid-size author rather than a celebrity, in our network.
 const LIKE_MIN = 3;
 const COMMENT_MIN = 4;
-const FOLLOW_MIN = 6;
-// Finance is the priority audience (2 pts per distinct term, up to 3 terms); AI/tech
-// is the secondary audience (1 pt per term, up to 3), so a finance post clears the
-// bars on its own while an AI-only post needs to be on-topic, fresh or US-relevant.
+const FOLLOW_MIN = 7;
+// Finance is the priority audience (2 pts per distinct term, up to 3 terms); AI/tech is the
+// secondary audience (1 pt per term, up to 3), so a finance post clears the bars on its own while an
+// AI-only post needs to be on-topic, fresh or US-relevant. A post with neither scores 0: off-topic
+// posts by strangers get no like, follow or comment however fresh they are.
 const FIN_RE = /\b(fintech|finance|financial|banks?|banking|investment banking|payments?|cfo|investors?|investing|investment|investments|venture|vcs?|private equity|hedge funds?|asset management|wealth|portfolio|equity|equities|markets?|stocks?|trading|traders?|earnings|valuation|ipo|m&a|buyouts?|fed|federal reserve|rates|yields?|treasury|bonds?|credit|inflation|recession|gdp|cpi|macro|economy|economic|etfs?|capital|funding|fundraising|seed|series [a-d]|family office|real estate|reits?|commodities|derivatives|options|hedging|liquidity|dealmaking|wall street|nasdaq|s&p)\b/gi;
-const TECH_RE = /\b(ai|artificial intelligence|machine learning|ml|llms?|gpt|agents?|agentic|openai|anthropic|claude|gemini|genai|generative|deep learning|neural|inference|nvidia|copilot|chatgpt|software|engineering|engineers?|developers?|devops|cloud|aws|kubernetes|infrastructure|open.?source|saas|startups?|founders?|cto|cybersecurity|backend|programming|coding|semiconductors?|robotics|tech)\b/gi;
+const TECH_RE = /\b(ai|artificial intelligence|machine learning|ml|llms?|gpt|agents?|agentic|openai|anthropic|claude|gemini|genai|generative|deep learning|neural|inference|fine.?tun\w*|evals?|nvidia|copilot|chatgpt|software|engineering|engineers?|developers?|devtools?|devops|cloud|aws|kubernetes|infrastructure|open.?source|github|apis?|sdks?|saas|startups?|founders?|co-?founders?|indie hackers?|product managers?|cto|cybersecurity|backend|frontend|programming|coding|data scien\w*|semiconductors?|robotics|tech)\b/gi;
+// Header signals (post.head: name, degree, headline): 1st/2nd-degree authors see and return our
+// engagement far more often; recruiter accounts post jobs, not conversations.
+const NETWORK_RE = /•\s*(?:1st|2nd)\b/i;
+const RECRUITER_RE = /\b(recruit\w*|talent acquisition|headhunt\w*|staffing|sourcer)\b/i;
 const US_RE = /\b(united states|usa|u\.s\.a?|us-based|new york|nyc|manhattan|san francisco|bay area|silicon valley|palo alto|menlo park|austin|seattle|boston|chicago|los angeles|miami|denver|atlanta|dallas|houston|california|texas|washington,? dc|wall street|nasdaq|nyse|s&p|federal reserve|congress)\b|\$\d/i;
 // Comment-bait ("Comment AGENT and I'll send you the guide", "drop a YES below"): engaging
 // with it is exactly what the bait wants, so it is excluded outright, not just penalised.
@@ -85,15 +95,33 @@ function scorePost(post) {
   // Sensitive posts get nothing at all (the body only: a headline is not the post).
   if (isSensitivePost(post.text) || BAIT_RE.test(hay)) return -99;
   const distinct = (re) => new Set((hay.match(re) || []).map((m) => m.toLowerCase())).size;
-  let score = 2 * Math.min(distinct(FIN_RE), 3) + Math.min(distinct(TECH_RE), 3);
+  const topic = 2 * Math.min(distinct(FIN_RE), 3) + Math.min(distinct(TECH_RE), 3);
+  // Promo noise and recruiter accounts are marked down whatever the topic, so an off-topic one
+  // scores below zero and a warm author's bonus never lifts it to a like.
+  const penalty = (NOISE_RE.test(hay) ? 4 : 0) + (RECRUITER_RE.test(post.head || "") ? 3 : 0);
+  if (!topic) return penalty ? -penalty : 0;
+  let score = topic;
   if (US_RE.test(hay)) score += 2;
   const age = typeof post.ageH === "number" ? post.ageH : 999;
-  if (age <= 3) score += 2; else if (age <= 12) score += 1;
-  if (NOISE_RE.test(hay)) score -= 4;
-  return score;
+  if (age <= 3) score += 2; else if (age <= 12) score += 1; else if (age > 72) score -= 1;
+  // Where a comment is read and answered, for a post squarely on the topic (one term is not
+  // enough): room at the top of its comments and a mid-size author (a celebrity's crowd buries a
+  // comment; the viral pass is the one that goes there), from counts the card showed (a card
+  // whose counts did not parse reads 0 reactions), and an author in our network.
+  if (topic >= 2) {
+    const reactions = Number(post.reactions) || 0, comments = Number(post.comments) || 0;
+    if (reactions > 0) {
+      if (comments <= 30) score += 1; else if (comments > 150) score -= 1;
+      if (reactions >= 10 && reactions <= 1000) score += 1; else if (reactions > 3000) score -= 1;
+    }
+    if (NETWORK_RE.test(post.head || "")) score += 1;
+  }
+  return score - penalty;
 }
 
-// ---- Connection requests: US, 2nd-degree, target-industry people, no note ----
+// ---- Connection requests: US, 2nd-degree target-industry people, no note ----
+// No note: LinkedIn allows free accounts only a few personalised notes a month, and a templated
+// note reads worse than none. A 2nd-degree request in the same field is what gets accepted.
 const CONNECT_FIN_KEYWORDS = [
   "investment banking analyst", "private equity", "venture capital", "portfolio manager",
   "equity research", "hedge fund", "CFO", "wealth management", "asset management",
@@ -102,8 +130,9 @@ const CONNECT_FIN_KEYWORDS = [
   "investor relations", "financial advisor", "managing director investments",
 ];
 const CONNECT_TECH_KEYWORDS = [
-  "AI engineer", "machine learning engineer", "head of AI", "CTO", "data scientist",
-  "software engineer", "AI startup founder",
+  "AI engineer", "machine learning engineer", "LLM engineer", "head of AI", "AI researcher",
+  "AI product manager", "developer advocate", "AI startup founder", "startup CTO",
+  "data scientist", "software engineer", "technical founder",
 ];
 const CONNECT_PER_KEYWORD = 4; // spread each run across many keywords, 3 finance for every 1 AI/tech
 const shuffled = (a) => [...a].sort(() => Math.random() - 0.5);
@@ -116,7 +145,7 @@ function buildConnectQueries() {
   }
   return out;
 }
-const CONNECT_ICP_RE = /\b(ai|artificial intelligence|machine learning|ml|llm|data scien|software|engineer|developer|cto|founder|co-?founder|startup|tech|cloud|cyber|product|venture|vc|investor|investing|investment|private equity|equity|portfolio|fintech|finance|financial|banking|banker|analyst|quant|trading|trader|cfo|capital|fund|partner|principal|associate|wealth|advisor|asset|hedge|credit|m&a|treasury|economist|managing director|family office|bank|equity)\b/i;
+const CONNECT_ICP_RE = /\b(ai|artificial intelligence|machine learning|ml|llm|data scien|software|engineer|developer|devrel|advocate|maintainer|researcher|builder|automation|cto|founder|co-?founder|startup|tech|cloud|cyber|product|venture|vc|investor|investing|investment|private equity|equity|portfolio|fintech|finance|financial|banking|banker|analyst|quant|trading|trader|cfo|capital|fund|partner|principal|associate|wealth|advisor|asset|hedge|credit|m&a|treasury|economist|managing director|family office|bank|equity)\b/i;
 const CONNECT_SKIP_RE = /\b(recruit|recruiter|talent acquisition|staffing|headhunter|open to work|seeking|student|intern|coach|seo|agency|mlm|forex|signals|dropshipping)\b/i;
 // The geo filter leaks occasionally; drop anyone whose card names a non-US country.
 const CONNECT_NON_US_RE = /\b(india|russia|ukraine|pakistan|united kingdom|england|london|canada|toronto|germany|france|nigeria|brazil|china|singapore|uae|dubai|australia|bangladesh|philippines|indonesia|egypt|turkey|israel|netherlands|spain|italy|poland|mexico|kenya|vietnam)\b/i;
@@ -142,13 +171,14 @@ function loadCreators() {
       .map((u) => String(u).split("?")[0].replace(/\/$/, "") + "/recent-activity/all/");
   } catch (e) { return []; }
 }
-// Ordered scan sources for one pass. Creators first (highest signal), then shuffled
-// searches. "feed" mode, or a targeted run that finds nothing, uses home Top/Recent.
-function buildSources(limit = 6) {
+// Ordered scan sources for one pass ("like" or "comment"). The people who engaged with us first
+// (warmSources), then creators (highest signal), then shuffled searches. "feed" mode, or a targeted
+// run that finds nothing, uses home Top/Recent.
+function buildSources(track = {}, limit = 6, pass = "like") {
   if (config.social.linkedinSource === "feed") return [{ label: "feed:top", sort: "top" }, { label: "feed:recent", sort: "recent" }];
   const creators = shuffled(loadCreators()).slice(0, 2).map((url) => ({ label: `creator:${url.split("/in/")[1].split("/")[0]}`, url }));
   const searches = shuffled(SOURCE_QUERIES).map((q) => ({ label: `search:${q}`, url: searchUrl(q) }));
-  return [...creators, ...searches].slice(0, limit);
+  return [...warmSources(track, WARM_SOURCES_PER_PASS, Date.now(), pass), ...creators, ...searches].slice(0, limit);
 }
 const FALLBACK_SOURCES = [{ label: "feed:top", sort: "top" }, { label: "feed:recent", sort: "recent" }];
 const scanSource = (src, maxScrolls = 8) =>
@@ -380,9 +410,10 @@ function saveTrack(track) {
 }
 
 // Tracker entries: { ts, status: "commented" | "liked" | "skipped" | "rejected" | "invited",
-// likedAt?, followedAt?, commentedAt?, authorHref?, skipReason?, unverified?, viral?,
-// pass? ("comment" | "viral": which pass skipped or rejected it) }
-// (a plain-string value = commented).
+// likedAt?, followedAt?, commentedAt?, comment? (the text we posted), authorHref?, skipReason?,
+// unverified?, viral?, pass? ("comment" | "viral": which pass skipped or rejected it) }
+// (a plain-string value = commented). Invites are conn:<profile> entries (acceptedAt once
+// accepted), the people who engage with us warm:<profile> entries (see the reciprocity section).
 function entryOf(v) {
   if (v && typeof v === "object") return v;
   return { ts: String(v || ""), status: "commented" };
@@ -436,6 +467,13 @@ const commentedSince = (track, ms, { viral } = {}) =>
 const likedSince = (track, ms) => countEntries(track, (e) => within(e.likedAt, ms));
 const followedSince = (track, ms) => countEntries(track, (e) => within(e.followedAt, ms));
 const invitedSince = (track, ms) => countEntries(track, (e) => e.status === "invited" && within(e.ts, ms));
+// The texts of our latest comments, newest first: the drafters write against them so no two
+// comments open or run the same way.
+const RECENT_COMMENTS = 8;
+const recentComments = (track, n = RECENT_COMMENTS) => postEntries(track).map(([, v]) => entryOf(v))
+  .filter((e) => e.comment && commentedAtOf(e))
+  .sort((a, b) => Date.parse(commentedAtOf(b)) - Date.parse(commentedAtOf(a)))
+  .slice(0, n).map((e) => e.comment);
 const authorDid = (track, href, pick, ms) => {
   const h = normHref(href);
   return !!h && countEntries(track, (e) => e.authorHref === h && within(pick(e), ms)) > 0;
@@ -538,10 +576,141 @@ function shareOwnSlug(track) {
 }
 const rethrowStop = (e) => { if (linkedinService.isStopError(e)) throw e; };
 
-// Follow top-scoring authors: follows weigh heavier than likes in what LinkedIn ranks into
-// the feed. Never unfollows; state-checked in the service. Capped per rolling day.
+// ---- Reciprocity: the people who engage with us ----
+// Whoever comments on, reacts to, reposts or mentions our posts, follows us or accepts our invite
+// is the warmest audience there is. The notifications page (read at most every 3 h) records them as
+// warm:<profile> entries { ts: their latest engagement, status: "warm", name, kinds, visitedAt?,
+// ourFirst?: we had engaged them first, aliasOf?: the same person under another profile link },
+// and an accepted invite gets acceptedAt on its conn: entry.
+// The like and comment passes engage them first: their recent posts are the first sources, their
+// posts score WARM_BONUS higher, and following them back needs no top score. Every daily cap and
+// per-author gap still holds.
+const WARM_KEY = (href) => `warm:${normHref(href)}`;
+const WARM_BONUS = 3;
+const WARM_MAX_AGE_H = 7 * 24; // an older notification says little about who is around now
+const WARM_TTL_MS = 14 * DAY; // warm this long after their latest engagement
+const WARM_RECHECK_MS = 3 * HOUR;
+const WARM_REVISIT_MS = 3 * DAY; // a warm person's page is not reloaded sooner
+const WARM_SOURCES_PER_PASS = 2;
+// Who goes first: a comment, reply or mention is a conversation; a reaction is a nod.
+const WARM_RANK = { comment: 5, reply: 5, mention: 4, repost: 4, accepted: 3, follow: 2, reaction: 1 };
+const warmRank = (w) => Math.max(0, ...(w.kinds || []).map((k) => WARM_RANK[k] || 0));
+
+// One per person (aliases left out); isWarm sees every link a person is known by.
+function warmPeople(track, now = Date.now()) {
+  return postEntries(track).filter(([k, v]) => k.startsWith("warm:") && v && !v.aliasOf && within(v.ts, WARM_TTL_MS, now))
+    .map(([k, v]) => ({ ...v, key: k, href: k.slice("warm:".length) }));
+}
+const isWarm = (track, href) => {
+  const e = track[WARM_KEY(href)];
+  if (!normHref(href) || !e) return false;
+  const main = e.aliasOf && track[e.aliasOf];
+  return within(e.ts, WARM_TTL_MS) || (!!main && within(main.ts, WARM_TTL_MS));
+};
+
+// Records what the notifications page showed (LinkedInService.scanNotifications). Returns how many
+// people are new to the warm list.
+function noteWarmPeople(track, items, now = Date.now()) {
+  let added = 0;
+  for (const it of items || []) {
+    const href = normHref(it.href);
+    // An age the card did not show is unknown: it never moves a known person's ts (a notification that
+    // stays in the list would keep them warm forever) and dates a new one now.
+    const known = typeof it.ageH === "number" && Number.isFinite(it.ageH);
+    if (!/linkedin\.com\/in\/[^/]+$/i.test(href) || (known && it.ageH > WARM_MAX_AGE_H)) continue;
+    const key = WARM_KEY(href);
+    const prev = track[key] && typeof track[key] === "object" ? track[key] : null;
+    if (prev && !known) continue;
+    if (!prev) added++;
+    const atMs = known ? now - it.ageH * HOUR : now, at = new Date(atMs).toISOString();
+    const invite = track[CONNECT_KEY(href)];
+    const invited = !!invite && invite.status === "invited" && Date.parse(invite.ts) < atMs;
+    // We engaged them first (a comment, like or follow in the 30 days before they engaged, or our
+    // invite): it came back. Our like back after their engagement is not a first.
+    const before = (x) => !!x && Date.parse(x) < atMs && within(x, PRUNE_MS, now);
+    const ourFirst = (prev && prev.ourFirst) || invited || authorDid(track, href, (e) => [e.commentedAt, e.likedAt, e.followedAt].find(before), PRUNE_MS);
+    track[key] = {
+      ts: prev && Date.parse(prev.ts) > atMs ? prev.ts : at,
+      status: "warm",
+      name: it.name || (prev && prev.name) || "",
+      kinds: [...new Set([...((prev && prev.kinds) || []), it.kind])],
+      ...(prev && prev.visitedAt ? { visitedAt: prev.visitedAt } : {}),
+      ...(prev && prev.commentVisitedAt ? { commentVisitedAt: prev.commentVisitedAt } : {}),
+      ...(prev && prev.aliasOf ? { aliasOf: prev.aliasOf } : {}),
+      ...(ourFirst ? { ourFirst: true } : {}),
+    };
+    // A notification under an alias's link is news of the person it stands for.
+    const main = prev && prev.aliasOf && track[prev.aliasOf];
+    if (main && typeof main === "object" && Date.parse(track[key].ts) > Date.parse(main.ts)) track[prev.aliasOf] = { ...main, ts: track[key].ts };
+    if (it.kind === "accepted" && invited && !invite.acceptedAt) track[CONNECT_KEY(href)] = { ...invite, acceptedAt: at };
+  }
+  return added;
+}
+
+// Reads the notifications page when the last read is over WARM_RECHECK_MS old, and logs how the
+// reciprocity loop is doing: warm people, how many came back after we engaged first, invites accepted.
+// Never fatal: a failed read leaves the pass to its other sources (a stop still stops).
+async function refreshWarm(track) {
+  try {
+    if (searchLoadsSince(track, WARM_RECHECK_MS, "notifLoads")) return;
+    recordSearchLoad(track, "notifLoads");
+    const items = await LinkedInService.scanNotifications();
+    const added = noteWarmPeople(track, items);
+    saveTrack(track);
+    const warm = warmPeople(track);
+    const invites = postEntries(track).filter(([k, v]) => k.startsWith("conn:") && v.status === "invited" && within(v.ts, PRUNE_MS));
+    logger.info(`feedEngage: ${items.length} engagements with us read, ${added} new; ${warm.length} warm people (${warm.filter((w) => w.ourFirst).length} came back after we engaged first); invites accepted in 30 days: ${invites.filter(([, v]) => v.acceptedAt).length}/${invites.length}.`);
+  } catch (e) {
+    rethrowStop(e);
+    logger.warn(`feedEngage: notifications not read: ${e.message}`);
+  }
+}
+
+// Up to WARM_SOURCES_PER_PASS warm people's recent posts as scan sources for a pass ("like" or
+// "comment"): the strongest engagement first, then the latest; never a page that pass read in the
+// last WARM_REVISIT_MS, nor a person inside that pass's author gap (liked today, commented this week).
+const WARM_VISITED = { like: "visitedAt", comment: "commentVisitedAt" };
+function warmSources(track = {}, limit = WARM_SOURCES_PER_PASS, now = Date.now(), pass = "like") {
+  const visited = WARM_VISITED[pass] || WARM_VISITED.like;
+  const gapHit = pass === "comment"
+    ? (w) => authorDid(track, w.href, (e) => e.commentedAt, AUTHOR_COMMENT_GAP_MS)
+    : (w) => authorDid(track, w.href, (e) => e.likedAt, AUTHOR_LIKE_GAP_MS);
+  return warmPeople(track, now)
+    .filter((w) => !within(w[visited], WARM_REVISIT_MS, now) && !gapHit(w))
+    .sort((a, b) => warmRank(b) - warmRank(a) || Date.parse(b.ts) - Date.parse(a.ts))
+    .slice(0, limit)
+    .map((w) => ({ label: `warm:${w.href.split("/in/")[1]}`, url: `${w.href}/recent-activity/all/`, warmKey: w.key, pass }));
+}
+// A warm person's page is read: not again for WARM_REVISIT_MS. A notification may link a person by
+// member id (/in/ACoAA...) while their posts link the vanity name: their posts on the page, matched
+// by name, carry the warm record over to the link the posts use (an alias).
+function noteWarmPage(track, src, posts = []) {
+  const w = src.warmKey && track[src.warmKey];
+  if (!w) return;
+  track[src.warmKey] = { ...w, [WARM_VISITED[src.pass] || WARM_VISITED.like]: nowIso() };
+  const name = String(w.name || "").trim().toLowerCase();
+  for (const post of posts) {
+    const key = WARM_KEY(post.href);
+    if (!name || String(post.author || "").trim().toLowerCase() !== name || !/\/in\//i.test(String(post.href)) || key === src.warmKey || track[key]) continue;
+    track[key] = { ...track[src.warmKey], aliasOf: src.warmKey };
+  }
+  saveTrack(track);
+}
+
+// A post's audience score with the reciprocity bonus (a sensitive, bait or non-English post still
+// gets nothing).
+function audienceScore(track, post) {
+  const s = scorePost(post);
+  return s > -99 && isWarm(track, post.href) ? s + WARM_BONUS : s;
+}
+
+// Follow top-scoring authors and everyone warm: follows weigh heavier than likes in what LinkedIn
+// ranks into the feed, and a follow back is the first reply to someone who engaged with us. People
+// only (a company page follows nobody back). Never unfollows; state-checked in the service. Capped
+// per rolling day.
 async function maybeFollow(post, track) {
-  if (post.score < FOLLOW_MIN || followedSince(track, DAY) >= FOLLOW_MAX_PER_DAY) return;
+  if (!/\/in\//i.test(String(post.href || ""))) return;
+  if ((post.score < FOLLOW_MIN && !isWarm(track, post.href)) || followedSince(track, DAY) >= FOLLOW_MAX_PER_DAY) return;
   if (entryOfPost(track, post).followedAt) return;
   if (authorDid(track, post.href, (e) => e.followedAt, PRUNE_MS)) return; // followed this author already
   try {
@@ -647,7 +816,7 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
             shot = path.join(shotDir, "post.png");
             if (!(await LinkedInService.screenshotCard(post.text.slice(0, 80), shot))) shot = "";
           }
-          draft = await llmService.draftViralComment({ post, comments: section.comments, imageFile: shot });
+          draft = await llmService.draftViralComment({ post, comments: section.comments, imageFile: shot, recent: recentComments(track) });
         } finally {
           if (shotDir) try { fs.rmSync(shotDir, { recursive: true, force: true }); } catch (e) { /* a temp image left behind costs nothing */ }
         }
@@ -656,7 +825,7 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
         }
       } else {
         startDraft();
-        draft = await llmService.draftFeedComment({ postAuthor: post.author, postText: post.text });
+        draft = await llmService.draftFeedComment({ postAuthor: post.author, postText: post.text, recent: recentComments(track) });
       }
     } catch (e) {
       timed();
@@ -700,6 +869,7 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
       // A dispatched submit is never retried: uncertain is tracked as commented (unverified).
       markPost(track, post, {
         status: "commented", ts: at, commentedAt: at, ...liked, ...(viral ? { viral: true } : {}),
+        ...(res.status === "already" ? {} : { comment: draft.comment.slice(0, 300) }),
         ...(res.status === "posted" ? {} : { unverified: true }),
         ...(res.status === "already" ? { skipReason: "our earlier comment found on the post" } : {}),
       });
@@ -724,9 +894,10 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
   const seenThisRun = new Set();
   const wanted = new Set();
   const done = () => ctx.aborted || shouldStop() || (dryRun ? out.previews.length : out.commented) >= max;
-  const [score, minScore] = viral ? [viralScore, VIRAL_MIN] : [scorePost, COMMENT_MIN];
+  const [score, minScore] = viral ? [viralScore, VIRAL_MIN] : [(p) => audienceScore(track, p), COMMENT_MIN];
   const commentFrom = async (src) => {
     const scanned = await scanSource(src, 10);
+    if (!dryRun) noteWarmPage(track, src, scanned);
     // A big name's page: when it was read and how often it posts decide when it is read again.
     if (viral && String(src.label).startsWith("vip:")) {
       noteViralPage(track, src.label, scanned);
@@ -765,8 +936,9 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
   await guarded(viral ? "viral" : "comment", ctx, async () => {
     // The pass's LLM calls end before its guard does, with time left to post the last comment.
     llmService.commentDeadline = ctx.deadline - SUBMIT_MS;
+    if (!viral && !dryRun) await refreshWarm(track);
     let found = 0;
-    for (const src of viral ? buildViralSources(track) : buildSources()) {
+    for (const src of viral ? buildViralSources(track) : buildSources(track, 6, "comment")) {
       if (done() || capHit()) break;
       // Drafts take minutes (a draft and its judge or critic): no page is loaded for a post the pass cannot finish.
       if (nearlyUp()) { out.reason = "the pass's time is nearly up"; break; }
@@ -815,6 +987,7 @@ async function runLikePass({ min = 5, max = 9, shouldStop = () => false } = {}) 
     let posts = [];
     try {
       posts = await scanSource(src);
+      noteWarmPage(track, src, posts);
     } catch (e) {
       rethrowStop(e);
       logger.warn(`feedEngage like-pass: ${src.label} scan failed: ${e.message}`);
@@ -827,8 +1000,8 @@ async function runLikePass({ min = 5, max = 9, shouldStop = () => false } = {}) 
       if (e.likedAt) continue;
       // The comment pass judged it not worth engaging (LLM SKIP, sensitive, thin): no like either.
       if (e.status === "skipped" && within(e.ts, SKIP_TTL_MS)) continue;
-      post.score = scorePost(post);
-      if (post.score < LIKE_MIN) continue; // only target-audience posts train the feed
+      post.score = audienceScore(track, post);
+      if (post.score < LIKE_MIN) continue; // only target-audience posts (and warm people's) train the feed
       pool.push(post);
     }
     // Best audience match first, with a little noise so the pattern isn't mechanical.
@@ -857,8 +1030,9 @@ async function runLikePass({ min = 5, max = 9, shouldStop = () => false } = {}) 
     return pool.length;
   };
   await guarded("like", ctx, async () => {
+    await refreshWarm(track);
     let found = 0;
-    for (const src of buildSources()) {
+    for (const src of buildSources(track)) {
       if (halted() || out.liked >= out.target) break;
       found += await likeFrom(src);
     }
@@ -891,8 +1065,8 @@ function recordSearchLoad(track, counter = "searchLoads") {
   saveTrack(track);
 }
 
-// Connection pass: a few no-note requests per run to US, 2nd-degree people in
-// AI/tech/finance/investing, found through US-filtered people search. Stops cleanly on
+// Connection pass: a few no-note requests per run to US, 2nd-degree people building with AI (and
+// some investors around them), found through US-filtered people search. Stops cleanly on
 // LinkedIn's weekly cap (connects pause 7 days) or any checkpoint (everything pauses).
 async function runConnectPass({ min = 10, max = 15, dryRun = false, shouldStop = () => false } = {}) {
   const out = { sent: 0, target: 0, scanned: 0, previews: [], reason: "" };
@@ -974,5 +1148,6 @@ const cleanup = () => LinkedInService.cleanup();
 
 module.exports = {
   runFeedEngagement, runViralPass, runLikePass, runConnectPass, scorePost, viralScore, isVip, buildViralSources, noteViralPage, isSensitivePost, cleanup,
-  _tracker: { shouldSkipTracked, entryOfPost, markPost, loadTrack, saveTrack, pruneTrack, passBlocked, commentedSince, likedSince, setCooldown },
+  _tracker: { shouldSkipTracked, entryOfPost, markPost, loadTrack, saveTrack, pruneTrack, passBlocked, commentedSince, likedSince, setCooldown, recentComments },
+  _reciprocity: { noteWarmPeople, noteWarmPage, warmPeople, warmSources, audienceScore, buildSources },
 };

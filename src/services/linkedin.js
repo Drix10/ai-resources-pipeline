@@ -1042,6 +1042,85 @@ class LinkedInService {
     }
   }
 
+  // Pure: what a notification says a person did with our account: "comment" (on our post), "reply"
+  // (to our comment), "mention", "repost" (of our post), "reaction" (to our post or comment),
+  // "accepted" (our invitation), "follow" (they followed us), or "" for everything else (posts by
+  // people we follow, jobs, news, profile views, LinkedIn's own suggestions). Only the headline is
+  // read: what follows its first colon is quoted post or comment text, which may say anything.
+  static notificationKind(text) {
+    const t = String(text || "").replace(/\s+/g, " ").trim().split(":")[0].slice(0, 160);
+    if (/\b(?:posted|shared (?:a|this|their) post)\b/i.test(t)) return "";
+    if (/\baccepted your invitation\b/i.test(t)) return "accepted";
+    if (/\breplied to your comment\b/i.test(t)) return "reply";
+    if (/\bcommented on your (?:post|article|repost)\b/i.test(t)) return "comment";
+    if (/\bmentioned you\b/i.test(t)) return "mention";
+    if (/\breposted your (?:post|article)\b/i.test(t)) return "repost";
+    if (/\b(?:reacted to|likes?|liked|loves?|celebrates?|supports?|finds?)\b[^.]{0,30}\byour (?:post|comment|article|repost)\b/i.test(t)) return "reaction";
+    if (/\b(?:followed|started following|is now following|now follows) you\b/i.test(t)) return "follow";
+    return "";
+  }
+
+  // Pure: a notification's age in hours, from its age chrome ("2h", "3d", "1w", "5 days ago") at the
+  // end of the card (pass the card's tail: a number quoted from a comment comes before it); null when
+  // none shows.
+  static notificationAgeH(text) {
+    const all = [...String(text || "").matchAll(/\b(\d+)\s*(mo|yr|m|h|d|w|minutes?|hours?|days?|weeks?|months?|years?)\b/gi)];
+    const m = all[all.length - 1];
+    if (!m) return null;
+    const unit = m[2].toLowerCase();
+    const per = unit === "mo" || unit.startsWith("month") ? 720 : unit === "yr" || unit.startsWith("year") ? 8760
+      : unit.startsWith("w") ? 168 : unit.startsWith("d") ? 24 : unit.startsWith("h") ? 1 : 1 / 60;
+    return Number(m[1]) * per;
+  }
+
+  // People who engaged with our account lately, from the notifications page. Read-only: nothing is
+  // clicked. Returns [{ kind, name, href, ageH }], one per notification whose actor links a profile
+  // (/in/); company pages and LinkedIn's own notifications are left out. [] when nothing parses.
+  async scanNotifications(maxItems = 40) {
+    try {
+      await this.ensureDriverConnected(true);
+      await this.driver.get("https://www.linkedin.com/notifications/?filter=all");
+      await nap(5000);
+      await this._assertUsable(false);
+      for (let i = 0; i < 2; i++) {
+        try { await this.driver.executeScript("window.scrollBy(0, window.innerHeight);"); } catch (e) {}
+        await nap(1500);
+      }
+      const raw = await this.driver.executeScript(`
+        const items = Array.from(document.querySelectorAll('main article, main li, main [role="listitem"]'))
+          .filter(c => !(c.parentElement && c.parentElement.closest('article, li, [role="listitem"]')));
+        return items.slice(0, arguments[0]).map(c => {
+          // The actor is the card's first profile link (their picture); a link inside the quoted text
+          // names someone else.
+          const links = Array.from(c.querySelectorAll('a[href*="/in/"]'));
+          const href = links[0] ? links[0].href.split('?')[0] : '';
+          const named = links.find(a => a.href.split('?')[0] === href && (a.innerText || '').trim());
+          const text = (c.innerText || '').replace(/\\s+/g, ' ').trim();
+          return {
+            href,
+            name: named ? (named.innerText || '').trim().split('\\n')[0] : '',
+            text: text.slice(0, 400),
+            tail: text.slice(-48)
+          };
+        });
+      `, maxItems).catch(() => []);
+      const out = [];
+      for (const r of raw || []) {
+        const kind = LinkedInService.notificationKind(r.text);
+        if (!kind || !/linkedin\.com\/in\/[^/?#]+/i.test(String(r.href))) continue;
+        const name = String(r.name || "").trim() || (String(r.text).match(/^(.+?)\s+(?:and \d+ others?\s+)?(?:commented|replied|mentioned|reposted|reacted|likes?|liked|loves?|celebrates?|supports?|finds?|accepted|followed|started|is now|now follows)\b/i) || [])[1] || "";
+        if (this.isOwnPost({ author: name, href: r.href })) continue;
+        out.push({ kind, name: name.slice(0, 80), href: String(r.href).replace(/\/$/, ""), ageH: LinkedInService.notificationAgeH(r.tail || "") });
+      }
+      logger.info(`LinkedInService: notifications read: ${out.length} from people who engaged with us (of ${(raw || []).length} items).`);
+      return out;
+    } catch (e) {
+      if (isLinkedInStop(e)) throw e;
+      logger.warn(`LinkedInService: notifications read failed: ${e.message}`);
+      return [];
+    }
+  }
+
   // People search (US only via geoUrn, 2nd-degree only, which accept far more often).
   // Returns visible Connect candidates: { label, name, href, text }.
   async scanPeopleSearch(keywords, page = 1) {

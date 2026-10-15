@@ -400,7 +400,7 @@ test("the API chain: OpenRouter first, NVIDIA on failure, and exhaustion throws"
 
   config.llm.openrouter.model = ""; fetches = 0;
   global.fetch = async () => { fetches++; throw new Error("no network in tests"); };
-  assert.equal(await llm.generateViaApiChain("write", {}), "nvidia post", "no OPENROUTER_MODEL skips OpenRouter");
+  assert.equal(await llm.generateViaApiChain("write", {}), "nvidia post", "no OpenRouter model skips OpenRouter");
   assert.equal(fetches, 0);
 
   llm.generateTextViaNvidia = realNvidia;

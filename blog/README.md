@@ -8,6 +8,7 @@ The public site of the AI resources pipeline: [blogs.drix10.com](https://blogs.d
 - **Search index.** `lib/articles-index.json` is a pre-tokenized index of every article that the site loads for instant client-side search. The pipeline rebuilds it after each run (`rebuildBlogIndex` in `src/utils/helpers.js` at the repository root) and commits it with the new content.
 - **Slides.** Each post's companion card is served from `public/slides/`.
 - **Deploys.** The pipeline builds the site, and pushes only when the build passes. Vercel deploys each push.
+- **Settings** (Vercel environment variables): `CANONICAL_BASE_URL`, the site's public address for canonicals and the sitemap (default `https://blogs.drix10.com`; the pipeline's `.env` uses the same name); `NEXT_PUBLIC_PORTFOLIO_URL`, the portfolio it links to (default `https://drix10.com`); optional `GOOGLE_SITE_VERIFICATION` and `BING_SITE_VERIFICATION`.
 
 ## Local development
 
