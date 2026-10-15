@@ -1,5 +1,5 @@
 require("./_env"); // isolated even when run on its own
-// The LinkedIn comment pipeline's adversarial regression set (formerly feed-regression.js).
+// The LinkedIn comment pipeline's adversarial regression set.
 // Drafts and critic verdicts are stubbed and deterministic; the draft -> gates -> critic -> retry
 // wiring under test is real. Anything failing here blocks enabling LINKEDIN_FEED_REPLY.
 const test = require("node:test");
@@ -162,7 +162,7 @@ const DRAFT_CASES = [
     "At Pwn2Own Ireland 2025 researchers chained five vulnerabilities against a Galaxy S25 and gained root access in under 60 seconds.",
     "Srinivas L",
     ["Well said on chaining five vulnerabilities to root access in under 60 seconds.", "PASS"], true],
-  // Reply-system V2: the prof-joined-college bug class. Vague goodwill passes,
+  // Invented details on a life update: vague goodwill passes,
   // invented role/subject details fail even when wrapped in congratulations.
   ["prof joined college: invented teaching details -> reject",
     "Excited to share I have joined ABC College as an Assistant Professor. Grateful for the support of my mentors and looking forward to this new chapter.",
@@ -282,9 +282,9 @@ test("spam gate: life updates pass; giveaways, hiring, bait, ads, promos and clo
   for (const [name, text, wantSpam] of cases) assert.equal(LinkedInService.isFeedSpamText(text), wantSpam, name);
 });
 
-test("body extraction drops the headline and tallies; normal cards keep their old tracker key", () => {
-  // The pre-refactor key source: normal cards (timestamp within 10 lines) must hash exactly as before.
-  const oldKeySrc = (tlines) => {
+test("body extraction drops the headline and tallies; normal cards keep their tracker key", () => {
+  // The key source the tracker holds: normal cards (timestamp within 10 lines) must hash exactly like it.
+  const trackedKeySrc = (tlines) => {
     let bodyStart = 0;
     for (let i = 0; i < Math.min(tlines.length, 10); i++) {
       if (/\d+\s*[smhdw]\s*•/.test(tlines[i])) { bodyStart = i + 1; break; }
@@ -295,7 +295,7 @@ test("body extraction drops the headline and tallies; normal cards keep their ol
   // The leading newline mirrors the pre-refactor computation exactly (drafting trims it).
   const card = ["Feed post", "Sasha Yan • 3rd+", "Machine Learning Engineer at Foo", "5h • Edited", "Follow", "Recently, I interviewed several intern candidates about AI tools.", "14", "4"];
   assert.equal(LinkedInService.postBodyFromLines(card), "\nRecently, I interviewed several intern candidates about AI tools.");
-  assert.equal(LinkedInService.postBodyFromLines(card), oldKeySrc(card), "key stable");
+  assert.equal(LinkedInService.postBodyFromLines(card), trackedKeySrc(card), "key stable");
   // No timestamp in range: the Follow fallback drops the header. The key rotates here by design.
   const exotic = ["Feed post", "Jane Doe • 2nd", "Founder at Bar", "Edited •", "Follow", "Thrilled to share I have been promoted to Senior Engineer.", "7"];
   assert.equal(LinkedInService.postBodyFromLines(exotic), "Thrilled to share I have been promoted to Senior Engineer.");
@@ -377,13 +377,13 @@ test("OpenRouter: a 500 throws, so draft retry and fallback engage", () => withR
   await assert.rejects(llm.generateTextViaOpenRouter("hi", {}), /500|boom/);
 }));
 
-test("comments: without an OpenRouter key they fall back to the legacy comment model", () => withRouting(async () => {
+test("comments: without an OpenRouter key they fall back to the NVIDIA comment model", () => withRouting(async () => {
   config.llm.openrouter.apiKey = "";
-  let legacyOpts = null;
+  let nvidiaOpts = null;
   global.fetch = async () => { throw new Error("no network in tests"); };
-  llm.generateTextViaNvidia = async (p, o) => { legacyOpts = o; return "legacy reply"; };
-  assert.equal(await realGenerateCommentText("hello", { temperature: 0.2 }), "legacy reply");
-  assert.equal(typeof legacyOpts?.model, "string");
+  llm.generateTextViaNvidia = async (p, o) => { nvidiaOpts = o; return "nvidia reply"; };
+  assert.equal(await realGenerateCommentText("hello", { temperature: 0.2 }), "nvidia reply");
+  assert.equal(typeof nvidiaOpts?.model, "string");
 }));
 
 test("the API chain: OpenRouter first, NVIDIA on failure, and exhaustion throws", () => withRouting(async () => {

@@ -210,4 +210,4 @@ function parseJson(text) {
 // Tests only: a fresh module state (calls allowed again, --safe-mode assumed).
 const _reset = () => { stopped = false; isolate = ISOLATE; };
 
-module.exports = { ask, killAll, parseJson, claudeArgs, resolveBin, rulePath, programName, LIMIT_RE, AUTH_RE, _reset };
+module.exports = { ask, killAll, parseJson, claudeArgs, resolveBin, rulePath, programName, _reset };

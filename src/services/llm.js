@@ -1,5 +1,4 @@
 const config = require("../../config");
-const fs = require("fs");
 const path = require("path");
 const { spawn } = require("child_process");
 const { logger, sleep, redactSecrets, isEnglish } = require("../utils/helpers");
@@ -8,7 +7,7 @@ const claude = require("./claude");
 
 /**
  * ============================================================================
- * LocalLLMService
+ * LLMService
  * ----------------------------------------------------------------------------
  * Generates markdown "resource" articles from curated X threads and drafts
  * LinkedIn feed comments, on the provider each job is set to (config.llm.providers): OpenRouter
@@ -47,33 +46,29 @@ const BANNED_WORDS = [
   "supercharge", "supercharged", "supercharging", "paradigm shift",
   "synergy", "plethora", "myriad", "harness", "harnessing", "unleash", "unleashing",
   "reconceptualize", "demassification", "attitudinally", "judgmentally", "utilize", "utilizing",
-  // 2026 durable vocab markers (density-scored per Humanizer V3: 3+ per paragraph = rewrite)
+  // Vocabulary that marks machine-written text (three or more in a paragraph reads generated)
   "notably", "particularly", "comprehensive", "insights", "insight",
   "foster", "fostering", "landscape", "nuanced", "multifaceted", "holistic",
   "streamline", "streamlining", "streamlined", "empower", "empowering",
   "facilitate", "facilitating", "navigate", "navigating", "ecosystem",
   "fundamentally", "essentially", "ultimately", "crucially", "arguably",
   "undoubtedly", "certainly", "definitely",
-  // 2026 LinkedIn-layer tells (were human idiom, now model idiom)
+  // LinkedIn phrases that now read as model idiom
   "quietly", "built different", "load-bearing", "doing the heavy lifting",
   "let that sink in", "that's the real story", "the real question is",
   "what nobody tells you", "what most people miss", "this is where it gets interesting",
   "in the age of AI", "at the end of the day"
 ];
 
-// REPLY-SYSTEM V2 POLICY: vague goodwill is allowed, added knowledge is not.
-// The old engine demanded "one sharp thing" per comment and rejected plain
-// congrats — so on non-technical posts (joined a college, new role) the model was
-// FORCED to invent substance (teaching subjects, role details). These gates invert
-// that: GOODWILL_RE exempts short goodwill from the shared-vocabulary gate, and
-// REPLY_FILLER backs the substantive-grounding gate (every other content word in
-// the reply must already exist in the post, stemmed).
+// Reply policy: vague goodwill is allowed, added knowledge is not. Demanding substance on a
+// non-technical post (joined a college, new role) makes a model invent it (teaching subjects,
+// role details), so GOODWILL_RE exempts short goodwill from the shared-vocabulary gate, and
+// REPLY_FILLER backs the substantive-grounding gate (every other content word in the reply must
+// already exist in the post, stemmed).
 const GOODWILL_RE = /\b(congrats?|congratulations|well deserved|best wishes|good luck|all the best|happy for you|happy birthday|happy bday|proud of you|way to go|kudos|interesting (read|post|share|perspective)|well said|love this|cheers to|sorry to hear|rooting for you|hang in there|sending (?:you )?(?:strength|good vibes|support)|wishing you (?:the best|all the best|strength)|you['’]ve got this|welcome aboard|great news|big news)\b|\bhappy \d/i;
-// Shape discipline: free-form drafts are where fragments ("Desk, good coffee, good
-// company is free.") and echo-paraphrases come from - and "Great post on X" itself
-// became mass-produced slop, so it is BANNED as a shape. Anything that isn't short
-// goodwill must use exactly one human ACK frame below - otherwise reshape or SKIP.
-// Each frame has exactly ONE capturing group: the X topic slot.
+// Acknowledgement frames a reply may use (optional: free-form drafts are allowed too). A reply
+// that matches one faces the X-slot rules in validateCommentReply. "Great post on X" is not a
+// frame: it is banned as dead praise. Each frame has exactly ONE capturing group: the X topic slot.
 const ACK_SHAPES = [
   /^(?:[\w.()]+,\s*)?the (.+?) really lands\.?$/i,
   /^(?:[\w.()]+,\s*)?good reminder on (.+?)\.?$/i,
@@ -134,12 +129,12 @@ const HAT_TIP_PROHIBITED_PATTERNS = [
   /\bAST of the model\b/i,
   // Forced summaries
   /(?:in conclusion|to wrap up|all in all|in summary|to summarize)[,:]?/i,
-  // Textbook definitions & lecture filler (Hank Wu Anti-Slop / Anti-Empty standard)
+  // Textbook definitions & lecture filler
   /\b[A-Za-z0-9_\s-]+(?:occurs when|is defined as|refers to the process of)\b/i,
   /\bBy following (?:these|such) best practices\b/i,
   /\bIt(?:'s| is) easy to overlook the importance\b/i,
   /\bA deep breakdown of [^.\n]+ is crucial\b/i,
-  // LARPing & Fake Guru posturing (Strict Anti-LARP)
+  // LARPing & fake guru posturing
   /\bAs a (?:technical |software )?founder\b/i,
   /\bAs an (?:experienced |enterprise |AI )?advisor\b/i,
   /\bI (?:often )?advise (?:companies|teams|founders|startups)\b/i,
@@ -169,21 +164,21 @@ const HAT_TIP_PROHIBITED_PATTERNS = [
   /\bregular monitoring and testing of\b/i,
   // Engagement bait CTAs
   /(?:agree\??|thoughts\??|drop a comment below|let me know in the comments|share your thoughts)/i,
-  // 2026 reveal bridges (measured reach-negative: -4.3% to -6.7%)
+  // Reveal bridges
   /^(?:the (?:result|outcome|answer|lesson|catch|kicker|truth)\?|plot twist[:?]?|spoiler[:?]?|the twist[:?]?)/im,
   /^(?:here'?s (?:what|how|why)\b|stop \w+ing[^.\n]*\b(?:start|try)\b)/im,
-  // 2026 sincerity announcements / performed vulnerability (named tell: state the dated fact flat, no frame)
+  // Sincerity announcements / performed vulnerability (state the fact flat, no frame)
   /^(?:let me be (?:honest|real|direct|clear)|i(?:'ll| will) be (?:honest|real|direct)|honestly\?|honest (?:caveat|version|answer)|the honest (?:version|answer|truth) is|to be (?:direct|honest|fair|transparent)|real talk|full transparency|can i be (?:honest|vulnerable)|i'll say the quiet part|not gonna lie|\bngl\b|unpopular opinion|confession[:]?)/im,
-  // Staccato fragment stacks (manufactured variance = #1 2026 tell)
+  // Staccato fragment stacks (manufactured variance)
   /\bno \w+\. no \w+\. (?:just|only) \w+/i,
   /^\w+\.$/m,
   /\bshort\. punchy\. done\b/i,
   /\ball (?:of )?the \w+\. none of the \w+/i,
   // Announcement openers (replace with the concrete moment)
   /^i'?m (?:excited|thrilled|honored|delighted) to (?:announce|share|be)/im,
-  // Comment-gate phrasing (March 2026 authenticity update target; keyword-gate shapes only —
+  // Comment-gate phrasing (keyword-gate shapes only)
   /\b[Cc]omment\s+(?:YES|"[^"]+"|[A-Z]{2,})\s+to\s+(?:get|unlock|receive|access)\b/,
-  // Soft neg-parallel ("not just X, Y") - contrast family, banned in posts and comments alike
+  // Soft neg-parallel ("not just X, Y") - contrast family
   /\bnot just [^.\n]{1,40}, /i,
   /\bcomment\s+\w+\s+below\s+to\s+(?:get|unlock|receive)\b/i,
   /\bcomment YES\b/i,
@@ -193,9 +188,8 @@ const HAT_TIP_PROHIBITED_PATTERNS = [
   /smash the (?:like|follow) button/i
 ];
 
-// NOTE (2026 update): only GENERIC survey bait is banned here. A specific,
-// experience-anchored closing question ("What's the worst rollback you shipped?")
-// is reach-positive (+3%) and must pass. Generic "Thoughts?"-class prompts fail.
+// Only GENERIC survey bait is banned here. A specific, experience-anchored closing question
+// ("What's the worst rollback you shipped?") must pass. Generic "Thoughts?"-class prompts fail.
 const WEAK_CTA_PATTERNS = [
   /what do you think/i,
   /thoughts\?/i,
@@ -282,7 +276,7 @@ const normQuote = (s) => String(s || "").toLowerCase().replace(/[‘’]/g, "'")
 
 
 
-class LocalLLMService {
+class LLMService {
 
   constructor() {
     this.startupPromise = null;
@@ -326,7 +320,7 @@ class LocalLLMService {
         this._claudeRestUntil = Date.now() + CLAUDE_REST_MS;
         this._claudeRestCode = e.code;
         this._claudeRestWhy = String(e.message).slice(0, 160);
-        logger.warn(`LocalLLMService: Claude ${e.code === "CLAUDE_LIMIT" ? "hit the plan's usage limit" : "is unavailable"} - not called again for ${Math.round(CLAUDE_REST_MS / 60000)} min (${this._claudeRestWhy}).`);
+        logger.warn(`LLMService: Claude ${e.code === "CLAUDE_LIMIT" ? "hit the plan's usage limit" : "is unavailable"} - not called again for ${Math.round(CLAUDE_REST_MS / 60000)} min (${this._claudeRestWhy}).`);
       }
       throw e;
     }
@@ -368,8 +362,7 @@ class LocalLLMService {
 
   // ---------------------------------------------------------------------
   // Reliability helpers: jittered backoff + a single retry wrapper reused
-  // by every JSON-producing method (previously each one hand-rolled its
-  // own try/catch/sleep/retry loop with slightly different behavior).
+  // by every JSON-producing method.
   // ---------------------------------------------------------------------
 
   /**
@@ -434,7 +427,7 @@ class LocalLLMService {
   }
 
   async startLocalServer() {
-    logger.info(`LocalLLMService: Ollama is offline; starting "${config.llm.command} serve".`);
+    logger.info(`LLMService: Ollama is offline; starting "${config.llm.command} serve".`);
     await new Promise((resolve, reject) => {
       let settled = false;
       const child = spawn(config.llm.command, ["serve"], {
@@ -467,7 +460,7 @@ class LocalLLMService {
       try {
         const models = await this.getAvailableModels();
         if (models.includes(config.llm.model)) {
-          logger.info(`LocalLLMService: Ollama is ready with model "${config.llm.model}".`);
+          logger.info(`LLMService: Ollama is ready with model "${config.llm.model}".`);
           return;
         }
         lastError = new Error(`Local model "${config.llm.model}" is not installed.`);
@@ -613,7 +606,7 @@ class LocalLLMService {
       [/\bbeacon\b/gi, "standard"],
       [/\bsophisticated\b/gi, "advanced"],
 
-      // Ogilvy banned jargon
+      // Academic jargon
       [/\breconceptualiz(?:e|es)\b/gi, "rethink"],
       [/\breconceptualizing\b/gi, "rethinking"],
       [/\breconceptualized\b/gi, "rethought"],
@@ -621,7 +614,7 @@ class LocalLLMService {
       [/\battitudinally\b/gi, "in attitude"],
       [/\bjudgmentally\b/gi, "critically"],
 
-      // Cut unnecessary adverbs prohibited by Hat Tip
+      // Cut intensifier adverbs
       [/\b(?:very|really|quite|extremely|wildly)\s+/gi, ""],
 
       // Dashes (replace all unicode em/en dashes and double hyphens with colon or comma)
@@ -673,7 +666,7 @@ class LocalLLMService {
     await this.ensureLocalOllamaAvailable();
     // Per-call timeoutMs, like the Nvidia path: big multi-source generations need more than the default.
     const { format, timeoutMs, system, model, ...generationOptions } = options;
-    logger.info(`LocalLLMService: Generating with local model "${model || config.llm.model}".`);
+    logger.info(`LLMService: Generating with local model "${model || config.llm.model}".`);
     const requestTimeout = Math.max(config.llm.requestTimeoutMs, typeof timeoutMs === "number" ? timeoutMs : 0);
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), requestTimeout);
@@ -1202,9 +1195,9 @@ class LocalLLMService {
         errors.push(`Reply adds detail the post never states (${bad.slice(0, 3).join(", ")}); endorse or congratulate using only the post's own words.`);
       }
     }
-    // Shape discipline: fixed frames are ALLOWED but no longer required - free-form
-    // drafts read human, templates read robotic. Dead slop shapes are banned outright;
-    // framed replies still face the X-slot rules below.
+    // Shape discipline: fixed frames are allowed, not required - free-form drafts read human,
+    // templates read robotic. Dead slop shapes are banned outright; framed replies still face
+    // the X-slot rules below.
     const shapeX = ackShapeMatch(reply);
     if (!isGoodwill && /^(great|nice|awesome|excellent|amazing|insightful|informative|solid)\s+(post|article|insights?|reads?|shares?|breakdowns?|threads?|points?)\b/i.test(reply)) {
       errors.push("Reply is dead praise with no topic (\"Great post\"-family); name the post's specific point instead.");
@@ -1243,12 +1236,12 @@ class LocalLLMService {
 
   /**
    * FEED COMMENT ENGINE: short peer comment on someone ELSE's LinkedIn post.
-   * Reply-system V2: vague goodwill is allowed, added knowledge is not. Congrats
+   * Vague goodwill is allowed, added knowledge is not. Congrats
    * on life updates, one grounded sentence on everything else, SKIP only for
    * grief/politics/spam. The model never informs, only endorses or congratulates.
    */
-  // Lean system prompts for feed comments: the old 2500-token post-writing prompt
-  // drowns short comment drafts (instruction dilution). Gates + critic carry the strictness.
+  // Lean system prompts for feed comments: a long prompt drowns a short comment draft
+  // (instruction dilution). Gates + critic carry the strictness.
   async draftFeedComment({ postAuthor = "", postText = "" } = {}, retries = 3, feedback = []) {
     const cleanPost = String(postText || "").replace(/https?:\/\/[^\s)]+/g, "").normalize("NFKC").replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u200B-\u200F\u2028\u2029\uFEFF]/g, "").slice(0, 1500).replace(/[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/g, "").trim();
     if (cleanPost.split(/\s+/).length < 10) throw new Error("draftFeedComment: post too thin to engage.");
@@ -1363,7 +1356,7 @@ REPLY: <the comment text, or SKIP>`;
         }
       }
       if (!check.isValid && retries > 0) {
-        logger.warn(`LocalLLMService: feed comment rejected (${check.errors.join("; ")}), retrying...`);
+        logger.warn(`LLMService: feed comment rejected (${check.errors.join("; ")}), retrying...`);
         return this.draftFeedComment({ postAuthor, postText }, retries - 1, check.errors);
       }
       const filtered = check.isValid ? this.filterCommentReply(forCheck) : forCheck;
@@ -1371,7 +1364,7 @@ REPLY: <the comment text, or SKIP>`;
     } catch (err) {
       // (a stopping pipeline, or a pass with no time left, is not retried)
       if (err.code === "CLAUDE_STOPPED" || err.code === "PASS_TIME_UP") throw err;
-      logger.error("LocalLLMService: draftFeedComment error:", err);
+      logger.error("LLMService: draftFeedComment error:", err);
       if (retries > 0) {
         await this.sleepWithJitter(4000);
         return this.draftFeedComment({ postAuthor, postText }, retries - 1, feedback);
@@ -1812,7 +1805,7 @@ Reply with JSON only, one verdict per candidate: {"verdicts": [{"n": 1, "pass": 
         // A time-out or a failed run is this article's problem: it is retried like any other.
         if (!down) throw error;
         if (!this.apiFallbackReady()) throw this.articleProviderDown(error);
-        logger.warn(`LocalLLMService: Claude cannot write articles now (${error.message}); OpenRouter/NVIDIA write them.`);
+        logger.warn(`LLMService: Claude cannot write articles now (${error.message}); OpenRouter/NVIDIA write them.`);
       }
     }
     if (provider === "local") return this.generateTextViaOllama(prompt, options);
@@ -1829,7 +1822,7 @@ Reply with JSON only, one verdict per candidate: {"verdicts": [{"n": 1, "pass": 
         return await this.generateTextViaOpenRouter(prompt, { ...options, model, reasoning });
       } catch (error) {
         lastError = error;
-        logger.warn(`LocalLLMService: article model ${model} failed (${error.message}).`);
+        logger.warn(`LLMService: article model ${model} failed (${error.message}).`);
         // One key and one balance serve both models: a rejected key or no credit fails the fallback too.
         if (this.isArticleAccountError(error)) throw this.articleProviderDown(error);
         if (this.isRetiredModelError(error)) retired++;
@@ -1851,8 +1844,8 @@ Reply with JSON only, one verdict per candidate: {"verdicts": [{"n": 1, "pass": 
       /not a valid model|invalid model|unknown model|model[^.]{0,40}(?:not found|does not exist|is not available|deprecated|retired)|no endpoints found/i.test(String(error?.message));
   }
 
-  // Marks an error as "the writer is down". generateArticle keeps the legacy
-  // LOCAL_LLM_UNAVAILABLE code for direct callers; generateMarkdownBatched reports LLM_UNAVAILABLE.
+  // Marks an error as "the writer is down": generateArticle throws it with the code
+  // LOCAL_LLM_UNAVAILABLE; generateMarkdownBatched reports it as LLM_UNAVAILABLE.
   articleProviderDown(error) {
     const down = error instanceof Error ? error : new Error(String(error));
     down.providerDown = true;
@@ -1982,7 +1975,7 @@ ${feedback.length ? `\nYour previous attempt was rejected. Fix this:\n${feedback
         // (a stopping pipeline is no writer outage: nothing is counted, nothing retried)
         if (error.code === "LOCAL_LLM_UNAVAILABLE" || error.code === "CLAUDE_STOPPED") throw error;
         transportFailed = true;
-        logger.warn(`LocalLLMService: article call failed (${error.message}).`);
+        logger.warn(`LLMService: article call failed (${error.message}).`);
         // Timeouts and 5xx on several sources in a row are an outage, not thin sources.
         if (run && ++run.transportFailures >= MAX_WRITER_TRANSPORT_FAILURES) {
           throw this.articleProviderDown(new Error(`The article writer failed ${run.transportFailures} calls in a row (last: ${error.message}).`));
@@ -2005,7 +1998,7 @@ ${feedback.length ? `\nYour previous attempt was rejected. Fix this:\n${feedback
         ].join("\n\n")), { value: article.value });
       }
       feedback = errors.slice(0, 4);
-      logger.warn(`LocalLLMService: article for ${original} rejected (attempt ${attempt}): ${feedback.join(" | ")}`);
+      logger.warn(`LLMService: article for ${original} rejected (attempt ${attempt}): ${feedback.join(" | ")}`);
     }
     // Ended on a transport error: the source was never fairly judged, so it stays for the next run.
     return report(transportFailed ? "failed" : "rejected");
@@ -2066,7 +2059,7 @@ ${feedback.length ? `\nYour previous attempt was rejected. Fix this:\n${feedback
       throw failure;
     }
     const count = (o) => outcomes.filter((x) => x === o).length;
-    logger.info(`LocalLLMService: "${folderName}" wrote ${articles.length}/${entries.length} articles (${count("rejected")} thin or failed the quality checks, ${count("duplicate")} duplicates, ${count("failed")} transport failures, ${count(null)} not tried).`);
+    logger.info(`LLMService: "${folderName}" wrote ${articles.length}/${entries.length} articles (${count("rejected")} thin or failed the quality checks, ${count("duplicate")} duplicates, ${count("failed")} transport failures, ${count(null)} not tried).`);
     if (articles.length < MIN_ARTICLES_PER_FILE) {
       const error = new Error(`Only ${articles.length}/${entries.length} sources produced a publishable article (minimum ${MIN_ARTICLES_PER_FILE}).`);
       error.code = "MARKDOWN_QUALITY_REJECTED";
@@ -2131,4 +2124,4 @@ ${feedback.length ? `\nYour previous attempt was rejected. Fix this:\n${feedback
 
 }
 
-module.exports = new LocalLLMService();
+module.exports = new LLMService();

@@ -124,7 +124,7 @@ const acquirePipelineLock = () => {
       if (lock.pid === process.pid) {
         return takeOverStaleLock(lock) && acquirePipelineLock();
       }
-      // A stale lock from a terminated run must not prevent the next scheduled run.
+      // A lock left by a terminated run must not block the next run.
       process.kill(lock.pid, 0);
       // The PID may have been reused by an unrelated process: a live holder keeps
       // heartbeating, so a stale heartbeat means the lock is dead.
@@ -359,7 +359,7 @@ const runDataPipeline = async (folder) => {
       if (retryCount === MAX_RETRIES - 1) {
         handleError(
           error,
-          `Pipeline error for folder type (attempt ${retryCount + 1}/${MAX_RETRIES})`,
+          `Pipeline error for folder (attempt ${retryCount + 1}/${MAX_RETRIES})`,
           { folder }
         );
         throw error;
@@ -369,11 +369,6 @@ const runDataPipeline = async (folder) => {
     }
   }
 };
-
-function getTopicName(queryName) {
-  const folder = config.folders.find((f) => f.name === queryName);
-  return folder ? folder.name : "AI Scrapped";
-}
 
 // Announcement tweets: a few per run, spaced out, in varied words. Eight identical link posts a
 // minute apart read as a bot to X and get throttled ("Composer still open").
@@ -418,8 +413,8 @@ const saveIdsBeforeExit = async () => {
 };
 
 /**
- * Single canonical pipeline runner: initialises services, processes all folders,
- * updates README, runs end-of-run LinkedIn curation, and cleans up temp files.
+ * One run: curates every folder, commits the articles in batches (with the LinkedIn steps after
+ * each), updates the README, syncs the blog, runs the optional factory and the DEV.to queue.
  */
 const processAllFolders = async () => {
   if (!acquirePipelineLock()) return { ran: false };
@@ -446,7 +441,7 @@ const processAllFolders = async () => {
         return logger.info(`Not announcing ${item.queryName}: the last tweet went out under ${TWEET_GAP_MS / 60000} min ago.`);
       }
       const template = ANNOUNCEMENTS[Math.floor(Math.random() * ANNOUNCEMENTS.length)];
-      const topic = getTopicName(item.queryName);
+      const topic = item.queryName;
       let text = template(topic, item.url, digestLead(item.content).title);
       // X counts a link as 23 characters; a headline that would push the post past 280 is left out.
       if (text.replace(item.url, "x".repeat(23)).length > 280) text = template(topic, item.url, "");
@@ -462,10 +457,9 @@ const processAllFolders = async () => {
       tweetsThisRun++;
       lastTweetAt = Date.now();
     };
-    let localLlmUnavailable = false;
     const folders = config.folders;
     logger.info(`Processing all ${folders.length} folders this run.`);
-    // Randomize batch commit size between 1 and 8 on each run
+    // A random batch size of 1 to 8 articles per commit.
     const nextBatchSize = () => Math.floor(Math.random() * 8) + 1;
     let COMMIT_BATCH_SIZE = nextBatchSize(); // re-rolled after every batch commit
     let pendingBatch = [];
@@ -549,7 +543,7 @@ const processAllFolders = async () => {
         for (const item of results) {
           await announce(item);
 
-          logger.info(`Pipeline succeeded for folder type ${item.queryName}: ${item.url}`);
+          logger.info(`Pipeline succeeded for folder ${item.queryName}: ${item.url}`);
           if (config.factory.enabled) {
             try {
               factoryInbox.push(...factoryModule("sources").fromDigest(item.content, { topic: item.queryName, url: item.url }));
@@ -619,7 +613,6 @@ const processAllFolders = async () => {
         }
         logger.error(`Pipeline iteration failed for folder ${folder.name}:`, error);
         if (error.code === "LOCAL_LLM_UNAVAILABLE") {
-          localLlmUnavailable = true;
           logger.warn("Local Ollama service is unavailable. Stopping this run instead of retrying every folder.");
           break;
         }
@@ -662,8 +655,7 @@ const processAllFolders = async () => {
     }
     let blogPushed = false;
 
-    // --- End-of-Cycle Batched Synchronization ---
-    // Automatically rebuilds the blog index and synchronizes all new articles in ONE single consolidated batch commit
+    // Rebuild the blog index, then publish every new article in one blog commit.
     try {
       const { rebuildBlogIndex } = require("../utils/helpers");
       if (typeof rebuildBlogIndex === "function") {
@@ -710,7 +702,7 @@ const processAllFolders = async () => {
       }
     }
 
-    // Cleanup leftover debug screenshots from root
+    // Delete failure screenshots older than three days.
     TwitterService.cleanupScreenshots();
     return { ran: true, articles: successfulArticles.length, xReady };
   } finally {

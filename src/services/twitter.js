@@ -1,5 +1,5 @@
 const { By, Key, until } = require("selenium-webdriver");
-const config = require("../../config");
+require("../../config"); // loads .env before the settings below are read
 const { logger, sleep } = require("../utils/helpers");
 const { attachDriver, releaseDriver, waitForXLogin, MOD_KEY } = require("../utils/chromeLauncher");
 const fs = require("fs");
@@ -360,7 +360,7 @@ class TwitterService {
     let changed = false;
     for (const collection of collections || []) {
       for (const tweet of collection?.tweets || []) {
-        // Prefer the ID findContent stored; parse the URL only for older objects.
+        // The ID findContent stored, else the one in the post's URL.
         const id = tweet?.tweetId || tweet?.id || String(tweet?.url || "").match(/\/status\/(\d+)/)?.[1];
         if (!id) continue;
         this.reservedIds.add(String(id));
@@ -588,7 +588,7 @@ class TwitterService {
                 const textNodes = Array.from(el.querySelectorAll('[data-testid="tweetText"]'));
                 const mainNodes = textNodes.filter((n) => !inQuote(n));
                 const quoteNodes = textNodes.filter((n) => inQuote(n));
-                // Without the card structure, keep the old reading: first block is the post.
+                // Without a quote card, the first text block is the post's own; later ones are quoted.
                 const ownNodes = mainNodes.length ? mainNodes.slice(0, 1) : [];
                 const quotedNodes = mainNodes.length ? quoteNodes.concat(mainNodes.slice(1)) : quoteNodes;
                 const mainText = ownNodes.map((n) => (n.innerText || "").trim()).join("\n").trim();
@@ -651,8 +651,7 @@ class TwitterService {
           if (isAd) { skip("promoted post", tweetId); continue; }
           if (isReply) { skip("reply", tweetId); continue; }
           if (truncated) { skip("truncated (Show more)", tweetId); continue; }
-          // mainText is absent only if the page script is older than this file; then use text.
-          if (!(mainText ?? text)) { skip("no text of its own", tweetId); continue; }
+          if (!mainText) { skip("no text of its own", tweetId); continue; }
 
           if (isTooOld(tweetId, timestamp)) {
             skip(`older than ${TWEET_MAX_AGE_DAYS} days`, tweetId);
@@ -901,18 +900,11 @@ TwitterService.isOfftopicTweet = isOfftopicTweet;
 module.exports.__test = {
   classifyTweetText,
   isOfftopicTweet,
-  isSpamTweet,
-  isPromoTweet,
   snowflakeTime,
-  tweetAgeMs,
   isTooOld,
   pruneIds,
   loadIdStore,
   saveIdStore,
   classifyXUrl,
-  isSessionError,
   PROCESSED_IDS_PATH,
-  TWEET_MAX_AGE_DAYS,
-  PROCESSED_ID_RETENTION_DAYS,
-  MAX_PROCESSED_IDS,
 };

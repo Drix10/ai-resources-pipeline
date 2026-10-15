@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 // Audits a deployed (or locally running) site for the things search engines care about.
 //
-//   node scripts/seo-audit.mjs https://blogs.drix10.com
-//   node scripts/seo-audit.mjs https://drix10.com --pages 10
-//   node scripts/seo-audit.mjs http://localhost:3010 --host https://blogs.drix10.com
+//   node scripts/seo-audit.mjs https://blog.example.com
+//   node scripts/seo-audit.mjs https://example.com --pages 10
+//   node scripts/seo-audit.mjs http://localhost:3010 --host https://blog.example.com
 //
 // --host  the public address the site declares in canonicals (use it when auditing localhost).
 // --pages how many sitemap URLs to sample (default 40, spread evenly).

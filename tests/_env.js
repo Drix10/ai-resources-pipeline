@@ -13,7 +13,7 @@ process.env.GITHUB_REPONAME = "test-repo";
 // Secrets (key names from .env.example, plus the GitHub tokens the gh CLI reads): blank, so a
 // stray call cannot authenticate or spend money.
 for (const key of [
-  "OPENROUTER_API_KEY", "NVIDIA_API_KEY", "DEVTO_API_KEY", "DISCORD_WEBHOOK_URL", "GITHUB_TOKEN", "GH_TOKEN",
+  "OPENROUTER_API_KEY", "NVIDIA_API_KEY", "DEVTO_API_KEY", "GITHUB_TOKEN", "GH_TOKEN",
 ]) process.env[key] = "";
 // Posting flags: off. Several default to on when unset, so they are set to "false", not blanked.
 // FACTORY_ENABLED is off too: the optional content factory never runs in a test unless the test

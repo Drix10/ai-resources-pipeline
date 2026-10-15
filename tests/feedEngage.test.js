@@ -7,13 +7,13 @@ const { shouldSkipTracked, entryOfPost } = _tracker;
 const DAY = 86400000;
 const ago = (days) => new Date(Date.now() - days * DAY).toISOString();
 
-test("a post commented under its old key is still recognised after keys became text-based", () => {
+test("a post commented under another of its keys is still recognised", () => {
   const track = { oldkey: { ts: ago(1), status: "commented" } };
   assert.equal(shouldSkipTracked(track, "newkey", "oldkey"), true);
   assert.equal(shouldSkipTracked(track, "newkey", "otherkey"), false);
 });
 
-test("an entry under the new key wins over a stale one under the old key", () => {
+test("an entry under the primary key wins over a stale one under another key", () => {
   const track = { newkey: { ts: ago(1), status: "liked" }, oldkey: { ts: ago(1), status: "commented" } };
   assert.equal(shouldSkipTracked(track, "newkey", "oldkey"), false, "the new entry is the source of truth");
 });
@@ -26,12 +26,12 @@ test("commented posts are never repeated; rejected posts rest 3 days, skipped po
   assert.equal(shouldSkipTracked({ k: { ts: ago(4), status: "skipped" } }, "k"), true, "an LLM SKIP is about the post: remembered 30 days");
   assert.equal(shouldSkipTracked({ k: { ts: ago(0.1), status: "liked" } }, "k"), false, "a like alone does not block a comment");
   assert.equal(shouldSkipTracked({}, "k"), false);
-  assert.equal(shouldSkipTracked({ k: "2026-01-01T00:00:00Z" }, "k"), true, "legacy plain-string entries count as commented");
+  assert.equal(shouldSkipTracked({ k: "2026-01-01T00:00:00Z" }, "k"), true, "a plain-string entry counts as commented");
 });
 
-test("entryOfPost reads the new key first, then the old one, and tolerates both missing", () => {
-  assert.equal(entryOfPost({ a: { ts: ago(0), status: "liked", likedAt: "x" } }, { key: "a", legacyKey: "b" }).likedAt, "x");
-  assert.equal(entryOfPost({ b: { ts: ago(0), status: "liked", likedAt: "y" } }, { key: "a", legacyKey: "b" }).likedAt, "y");
+test("entryOfPost reads the primary key first, then the author key, and tolerates both missing", () => {
+  assert.equal(entryOfPost({ a: { ts: ago(0), status: "liked", likedAt: "x" } }, { key: "a", authorKey: "b" }).likedAt, "x");
+  assert.equal(entryOfPost({ b: { ts: ago(0), status: "liked", likedAt: "y" } }, { key: "a", authorKey: "b" }).likedAt, "y");
   assert.equal(entryOfPost({}, { key: "a" }).likedAt, undefined);
 });
 

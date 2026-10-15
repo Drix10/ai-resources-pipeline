@@ -21,10 +21,6 @@ const llmProvider = (name, fallback) => {
   if (!LLM_PROVIDERS.includes(value)) throw new Error(`${name}="${env(name)}" is not an LLM provider; use one of: ${LLM_PROVIDERS.join(", ")}.`);
   return value;
 };
-// LOCAL_LLM=true once meant Ollama: an .env that still says so must not quietly run on OpenRouter.
-if (env("LOCAL_LLM").toLowerCase() === "true") {
-  throw new Error("LOCAL_LLM is gone: set LLM_PROVIDER=local in .env (and delete the LOCAL_LLM line) to keep writing with Ollama.");
-}
 
 // Who the pipeline publishes as: the article footer, the blog index byline, the LinkedIn reply
 // persona and the commits on the resources repo. Every field is optional; an empty one leaves its
@@ -100,9 +96,8 @@ const config = {
     openrouter: {
       apiKey: process.env.OPENROUTER_API_KEY || "",
       baseUrl: (process.env.OPENROUTER_BASE_URL || "https://openrouter.ai/api/v1").replace(/\/$/, ""),
-      // One model for all LinkedIn writing: posts, feed comments and both critics.
-      // Pinned: DeepSeek V4 Flash for every comment/critic call. OPENROUTER_MODEL in
-      // .env no longer overrides it; set OPENROUTER_MODEL_OVERRIDE to change it.
+      // One model for all LinkedIn writing: feed comments and both critics
+      // (OPENROUTER_MODEL_OVERRIDE replaces it).
       model: process.env.OPENROUTER_MODEL_OVERRIDE || "deepseek/deepseek-v4-flash",
       // Article writer, picked by benchmark (30 real posts, judged for faithfulness,
       // specificity and publishability): strongest accuracy, skips thin posts, ~$0.0001/article.
@@ -197,8 +192,6 @@ const config = {
     },
     {
       name: "AI Powered Film and Media",
-      // 1741902685669113995 belongs to "AI Organizations and Media" (its only list); sharing
-      // it made two folders scrape the same posts.
       lists: ["1846645136064995788"],
     },
     {

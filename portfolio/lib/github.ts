@@ -7,8 +7,8 @@ export const USERNAME = process.env.GITHUB_USERNAME || 'Drix10';
 const REVALIDATE_SECONDS = 3600;
 const SELECT = { hide: HIDDEN_REPOS, order: MORE_REPOS, names: PROJECT_NAMES, descriptions: PROJECT_DESCRIPTIONS, ownForks: OWN_FORKS };
 
-// The same server-side token the old activity graph used. It is read here, on the server
-// only, and never reaches the browser.
+// A server-side token (GITHUB_READ_TOKEN). It is read here, on the server only, and never
+// reaches the browser.
 const githubToken = () => process.env.GITHUB_READ_TOKEN || process.env.GITHUB_TOKEN || process.env.GITHUB_PAT || '';
 
 export type { CalendarDay, GitHubProfile } from './merge';

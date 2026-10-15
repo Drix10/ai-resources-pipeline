@@ -40,7 +40,7 @@ renderer.table = ({ header, rows }) =>
   `<div class="digest-table"><table><thead>${header}</thead><tbody>${rows}</tbody></table></div>`;
 marked.setOptions({ gfm: true, breaks: false, renderer });
 
-// "🚀 Tech - Zephon" -> "Tech - Zephon": the emoji was a marker for the old layout.
+// "🚀 Tech - Zephon" -> "Tech - Zephon": a leading emoji is a marker, not part of the title.
 export function cleanTitle(title: string): string {
   return String(title || '')
     .replace(/^[\p{Extended_Pictographic}️‍\s]+/u, '')
@@ -61,7 +61,7 @@ const labelOf = (line: string): 'Key points' | 'Sources' | 'Implementation' | nu
   return null;
 };
 
-// Older digests were written with inconsistent markdown: labels glued to the previous sentence,
+// Some digests carry inconsistent markdown: labels glued to the previous sentence,
 // bullets squashed onto one line, and source lists padded with placeholders. Repair those shapes
 // (outside code blocks only) and turn the section labels into real headings the stylesheet targets.
 function prepareSectionBody(body: string): string {

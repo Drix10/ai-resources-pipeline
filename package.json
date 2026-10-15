@@ -2,7 +2,7 @@
   "name": "ai-resources-pipeline",
   "version": "1.0.0",
   "private": true,
-  "description": "Collects AI and technology resources, writes them up with an LLM, and publishes them across X, LinkedIn and a Next.js blog, on one scheduled run.",
+  "description": "Collects AI and technology resources, writes them up with an LLM, and publishes them across X, LinkedIn and a Next.js blog in one run.",
   "license": "MIT",
   "author": "Drix10",
   "homepage": "https://github.com/Drix10/ai-resources-pipeline#readme",

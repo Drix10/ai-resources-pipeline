@@ -234,7 +234,7 @@ class LinkedInService {
     try {
       logger.warn("⚠️ LinkedIn Login Required: Please log in manually in the Chrome browser window.");
 
-      // Poll until the login is completed by the user or we timeout
+      // Poll until the user completes the login or the wait runs out.
       while (attempts < maxAttempts) {
         try {
           const loggedInElements = await this.driver.findElements(
@@ -263,7 +263,7 @@ class LinkedInService {
   // the mainFeed children containing "Feed post" (sort is set to Top or Recent); on content
   // search and profile pages they are the outermost list items (see CARDS_JS).
   // Identity = sha1 of the post text, so the same post is one post whichever page it is found on;
-  // legacyKey (author link + text) is kept to recognise posts tracked before that change.
+  // authorKey (author link + text) matches tracker entries keyed that way.
   // Pure predicate so the spam gate is unit-testable without a browser.
   // Life updates (joined, new role, promotion, anniversary) are CONGRATS targets,
   // not spam. Only LinkedIn's own "Promoted" ad label is filtered - matched in the
@@ -302,8 +302,8 @@ class LinkedInService {
     // Body (not header) drives identity: same post re-rendered = same key, no double-comments.
     // Trailing count-only lines (reaction/comment/repost tallies) shift over time, so they
     // are stripped - counts rot keys and cause re-comments (and leak digits into drafts).
-    // NOTE: no .trim() here - keySrc must stay byte-identical to the pre-refactor key
-    // computation, or every previously-commented post becomes commentable again.
+    // NOTE: no .trim() here - keySrc must stay byte-identical to the key the tracker
+    // already holds, or every previously-commented post becomes commentable again.
     // Zero-width/format chars are stripped FIRST: they break the tally regex ($ anchor)
     // and inflate word counts ("97\n9\n\u200b" never strips otherwise).
     return tlines.slice(bodyStart).join("\n").replace(/[\u200b-\u200d\ufeff]/g, "").replace(/^follow\s*$/gim, "").replace(/(\n\s*[\d][\d\s,.KMB]*)+$/, "");
@@ -376,26 +376,26 @@ class LinkedInService {
 
   // Pure: a post's tracker keys. key = the activity URN when the card links its permalink
   // (stable forever), else a hash of the commentary's first 200 chars. altKeys are every
-  // older scheme (commentary hash, body hash, author+body hash), so posts tracked before
-  // still match and are never commented twice.
+  // other scheme (commentary hash, body hash, author+body hash), so a post tracked under any
+  // of them still matches and is never commented twice.
   static postKeys({ href = "", urn = "", body = "" } = {}) {
     const h = (s) => crypto.createHash("sha1").update(s).digest("hex").slice(0, 16);
-    const legacyKey = h(`${href}|${String(body).slice(0, 300)}`);
-    const bodyKey = String(body).length >= 60 ? h(`body|${String(body).slice(0, 300)}`) : legacyKey;
+    const authorKey = h(`${href}|${String(body).slice(0, 300)}`);
+    const bodyKey = String(body).length >= 60 ? h(`body|${String(body).slice(0, 300)}`) : authorKey;
     const norm = LinkedInService.commentaryText(body).replace(/\s+/g, " ").trim().slice(0, 200);
     const textKey = norm.length >= 40 ? `c1:${h(norm)}` : "";
     const urnKey = /^urn:li:activity:\d+$/.test(String(urn)) ? String(urn) : "";
-    const all = [urnKey, textKey, bodyKey, legacyKey].filter(Boolean);
+    const all = [urnKey, textKey, bodyKey, authorKey].filter(Boolean);
     const unique = [...new Set(all)];
-    return { key: unique[0], altKeys: unique.slice(1), legacyKey };
+    return { key: unique[0], altKeys: unique.slice(1), authorKey };
   }
 
   // Pure: LinkedIn wraps other people's posts in activity chrome ("X supports this",
-  // "Y commented", "Followed by Z"). Commenting there attributes the wrong author -
-  // the Rohini-card-is-actually-Shrey's-post class of bug. Skip the whole card.
+  // "Y commented", "Followed by Z"). Commenting there would credit the post to the
+  // wrong author. Skip the whole card.
   static isActivityCard(text) {
     const head = String(text || "").slice(0, 400);
-    // "commented" only counts at a line end (LinkedIn's "Hank Wu commented" header) -
+    // "commented" only counts at a line end (LinkedIn's "Jane Doe commented" header) -
     // body sentences like "most commented threads" must not trip it.
     return /(likes|loves|celebrates|supports)\s+this\b|commented on this|\breposted\b|followed by/i.test(head)
       || /^.*\bcommented\s*$/m.test(head)
@@ -507,7 +507,7 @@ class LinkedInService {
           const tlines = text.split(/\r?\n/);
           const keySrc = LinkedInService.postBodyFromLines(tlines);
           if (keySrc.split(/\s+/).filter(Boolean).length < 10) { dropped.fragment++; continue; } // render fragment, not a post yet
-          const { key, altKeys, legacyKey } = LinkedInService.postKeys({ href: item.href, urn: item.urn, body: keySrc });
+          const { key, altKeys, authorKey } = LinkedInService.postKeys({ href: item.href, urn: item.urn, body: keySrc });
           if (seen.has(key)) { dropped.dupe++; continue; }
           seen.add(key);
           cardsSeen++;
@@ -529,10 +529,10 @@ class LinkedInService {
           const ageM = text.match(/(\d+)\s*(mo|yr|[smhdw])\s*•/);
           const ageH = ageM ? Number(ageM[1]) * { s: 1 / 3600, m: 1 / 60, h: 1, d: 24, w: 168, mo: 720, yr: 8760 }[ageM[2]] : 999;
           // Drafting sees the commentary without trailing tally/reaction lines when that
-          // still leaves a real post; otherwise the body as before.
+          // still leaves a real post; otherwise the whole body.
           const commentary = LinkedInService.withoutAgeChrome(LinkedInService.commentaryText(keySrc));
           const draftText = commentary.split(/\s+/).filter(Boolean).length >= 10 ? commentary : LinkedInService.withoutAgeChrome(keySrc);
-          out.push({ key, altKeys, legacyKey, urn: item.urn || "", author: item.author || "unknown", href: item.href || "", text: draftText.slice(0, 1500), head: tlines.slice(0, 8).join(" "), ageH, ...LinkedInService.socialCounts(text) });
+          out.push({ key, altKeys, authorKey, urn: item.urn || "", author: item.author || "unknown", href: item.href || "", text: draftText.slice(0, 1500), head: tlines.slice(0, 8).join(" "), ageH, ...LinkedInService.socialCounts(text) });
         }
         if (fresh === 0) {
           stallRounds++;
@@ -554,8 +554,7 @@ class LinkedInService {
   // button, so it never unlikes or double-likes. True = like newly placed.
   // Three-phase like with read-back proof: locate+scroll, click, then re-read
   // the button state. Only a flipped state counts as liked - a dispatched click
-  // LinkedIn drops must never log as a like (that false positive is exactly
-  // what the old fire-and-forget version produced).
+  // LinkedIn drops must never log as a like.
   async likeFeedCard(textSnippet) {
     const snip = String(textSnippet).substring(0, 80);
     const FIND_CARD = `

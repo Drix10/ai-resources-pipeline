@@ -8,7 +8,7 @@
  *
  *   node scripts/feed-preview.js [--max 3] [--wait-login]
  *
- * Check every line. Only when you approve do we flip LINKEDIN_FEED_REPLY=true.
+ * Check every line; set LINKEDIN_FEED_REPLY=true only once they all read right.
  *
  *   node scripts/feed-preview.js --viral [--max 3]
  *
@@ -82,7 +82,7 @@ function pipelineRunning() {
   console.log(`\nDone: ${r.previews ? r.previews.length : 0} previewed, ${r.skipped} skipped (${r.reason}).`);
   if (r.cost) {
     const c = r.cost.openrouter;
-    console.log(`COST: ~$${c.usd.toFixed(4)} this run (OpenRouter ${c.prompt}+${c.completion} tok; NVIDIA ${r.cost.legacy.prompt}+${r.cost.legacy.completion} tok).`);
+    console.log(`COST: ~$${c.usd.toFixed(4)} this run (OpenRouter ${c.prompt}+${c.completion} tok; NVIDIA ${r.cost.nvidia.prompt}+${r.cost.nvidia.completion} tok).`);
   }
   await feedEngage.cleanup().catch(() => {});
   process.exit(0);

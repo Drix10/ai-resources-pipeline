@@ -174,8 +174,6 @@ async function waitForXLogin(driver, label = "pipeline") {
 }
 
 module.exports = {
-  isChromeRunning,
-  startChrome,
   ensureChromeReady,
   attachDriver,
   releaseDriver,

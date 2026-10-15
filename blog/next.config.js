@@ -19,7 +19,7 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      // The old About page now lives on the portfolio.
+      // The About page is the portfolio.
       { source: '/about', destination: `${process.env.NEXT_PUBLIC_PORTFOLIO_URL || 'https://drix10.com'}`, permanent: true },
       // Page 1 of every list is the list itself.
       { source: '/archive/1', destination: '/', permanent: true },

@@ -327,8 +327,3 @@ test("comments: an image call never falls back to a model that cannot see the im
   assert.equal(calls.length, 0);
   assert.equal(await llm.generateCommentText("p", { role: "viral" }), "openrouter text", "a text call still falls back");
 }, { openrouterKey: "k" }));
-
-test("config: LOCAL_LLM=true stops the start with the new setting's name instead of quietly using OpenRouter", () => {
-  assert.match(loadConfig({ LOCAL_LLM: "true" }).error, /LLM_PROVIDER=local/);
-  assert.deepEqual(loadConfig({ LOCAL_LLM: "false" }).providers, { article: "openrouter", comment: "openrouter", viral: "openrouter" });
-});

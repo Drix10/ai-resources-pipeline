@@ -273,8 +273,8 @@ function noteViralPage(track, label, posts, now = Date.now()) {
 
 // ---- Tracker file ----
 // Post/person entries plus three meta keys: cooldowns { all, connect } (ISO times until which
-// passes stay off), counters { searchLoads: [ISO] } and meta { ownSlug }. Old files have
-// no meta keys and load as-is.
+// passes stay off), counters { searchLoads: [ISO] } and meta { ownSlug }. A file without
+// them loads as-is.
 const META_KEYS = new Set(["cooldowns", "counters", "meta"]);
 const postEntries = (track) => Object.entries(track).filter(([k]) => !META_KEYS.has(k));
 
@@ -382,14 +382,14 @@ function saveTrack(track) {
 // Tracker entries: { ts, status: "commented" | "liked" | "skipped" | "rejected" | "invited",
 // likedAt?, followedAt?, commentedAt?, authorHref?, skipReason?, unverified?, viral?,
 // pass? ("comment" | "viral": which pass skipped or rejected it) }
-// (legacy plain-string values = commented).
+// (a plain-string value = commented).
 function entryOf(v) {
   if (v && typeof v === "object") return v;
   return { ts: String(v || ""), status: "commented" };
 }
 
-// Every key a post may be tracked under: the current one first, then each older scheme.
-const keysOfPost = (post) => [post.key, ...(post.altKeys || []), post.legacyKey].filter(Boolean);
+// Every key a post may be tracked under: the primary one first, then each other scheme.
+const keysOfPost = (post) => [post.key, ...(post.altKeys || []), post.authorKey].filter(Boolean);
 function rawEntry(track, keys) {
   for (const k of keys) if (track[k] !== undefined) return track[k];
   return undefined;
@@ -428,7 +428,7 @@ const within = (iso, ms, now = Date.now()) => {
   return Number.isFinite(t) && now - t < ms;
 };
 const commentedAtOf = (e) => e.commentedAt || (e.status === "commented" ? e.ts : "");
-// Rolling windows (L8): "today" is the last 24 h, not the UTC calendar day.
+// Rolling windows: "today" is the last 24 h, not the UTC calendar day.
 const countEntries = (track, pred) => postEntries(track).filter(([, v]) => pred(entryOf(v))).length;
 // viral: true counts only the viral pass's comments, false only the others, absent all of them.
 const commentedSince = (track, ms, { viral } = {}) =>
@@ -578,7 +578,7 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
     const nvPrompt = d("nvidiaPromptTokens"), nvCompletion = d("nvidiaCompletionTokens");
     return {
       openrouter: { prompt: orPrompt, completion: orCompletion, usd: llmService.commentCostUsd(orPrompt, orCompletion) },
-      legacy: { prompt: nvPrompt, completion: nvCompletion },
+      nvidia: { prompt: nvPrompt, completion: nvCompletion },
     };
   };
   const out = { commented: 0, skipped: 0, liked: 0, previews: [], wouldLike: [], reason: "", cost: null };
@@ -791,7 +791,7 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
   if (!ctx.aborted && !dryRun) rememberSlug();
 
   out.cost = runCost();
-  logger.info(`${tag}: run cost ~$${out.cost.openrouter.usd.toFixed(4)} (OpenRouter ${out.cost.openrouter.prompt}+${out.cost.openrouter.completion} tok; NVIDIA ${out.cost.legacy.prompt}+${out.cost.legacy.completion} tok).`);
+  logger.info(`${tag}: run cost ~$${out.cost.openrouter.usd.toFixed(4)} (OpenRouter ${out.cost.openrouter.prompt}+${out.cost.openrouter.completion} tok; NVIDIA ${out.cost.nvidia.prompt}+${out.cost.nvidia.completion} tok).`);
   if (!out.reason && dryRun) out.reason = "dry run - nothing posted or tracked";
   return out;
 }
@@ -974,5 +974,5 @@ const cleanup = () => LinkedInService.cleanup();
 
 module.exports = {
   runFeedEngagement, runViralPass, runLikePass, runConnectPass, scorePost, viralScore, isVip, buildViralSources, noteViralPage, isSensitivePost, cleanup,
-  _tracker: { shouldSkipTracked, entryOfPost, markPost, loadTrack, saveTrack, pruneTrack, passBlocked, commentedSince, likedSince, setCooldown, cooldownLeft },
+  _tracker: { shouldSkipTracked, entryOfPost, markPost, loadTrack, saveTrack, pruneTrack, passBlocked, commentedSince, likedSince, setCooldown },
 };

@@ -187,9 +187,6 @@ const generateSeoSlug = (rawTitle, content = "", filename = "", categoryName = "
   return slug || fileBase || "article";
 };
 
-/**
- * Automatically scans all workspace markdown folders and rebuilds blog/lib/articles-index.json
- */
 const stripEmoji = (s) => String(s || "").replace(/^[\p{Extended_Pictographic}️‍\s]+/u, "").trim();
 const cutAtSentence = (text, max) => {
   const t = String(text || "").replace(/\s+/g, " ").trim();
@@ -247,6 +244,7 @@ const isPersonalEntry = (name) => String(name).toLowerCase() === "personal";
 // YYYY-MM-DD in local time: the day the article was written where it was written, not in UTC.
 const localDate = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 
+/** Scans every blog/content category folder and rebuilds blog/lib/articles-index.json. */
 const rebuildBlogIndex = () => {
   try {
     const rootDir = REPO_ROOT;
@@ -317,7 +315,7 @@ const rebuildBlogIndex = () => {
             } else if (numMatch) {
               try {
                 const num = parseInt(numMatch[1], 10);
-                // Only consult historical commit dates for old archival collections
+                // Files numbered under 200 take their date from the commit-date map.
                 if (num < 200 && datesMap && datesMap[num]) {
                   date = datesMap[num];
                 }

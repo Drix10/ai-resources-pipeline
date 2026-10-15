@@ -66,7 +66,7 @@ class GithubService {
    * Batches multiple folder markdown files into ONE consolidated GitHub commit using the Git Data API.
    * Eliminates commit flooding (e.g. groups 5-10 folders into 1 commit instead of 1 by 1).
    *
-   * @param {Array<Object>} items - Array of { folder, fileBuffer, markdownContent, tweets, linkedinPosts, queryName }
+   * @param {Array<Object>} items - Array of { folder, fileBuffer, markdownContent, tweets, queryName }
    * @param {string} repoName - "owner/repo"
    * @param {Object} [options]
    * @param {Array<Object>} [options.prepared] - error.prepared of an earlier failed call: its numbered paths
@@ -229,7 +229,6 @@ class GithubService {
       queryName: it.queryName,
       folder: it.folder,
       tweets: it.tweets || [],
-      linkedinPosts: it.linkedinPosts || []
     }));
   }
 
@@ -261,7 +260,7 @@ class GithubService {
       // from anywhere other than generateArticle.
       let content = redactSecrets(item.fileBuffer ? item.fileBuffer.toString("utf8") : String(item.markdownContent || ""));
 
-      // Attach promotional section and exact SEO backlink (skip for personal & linkedin insights)
+      // Attach the footer and SEO backlink (not for the Personal and LinkedIn Insights folders)
       const isSpecialFolder = decodedFolder.toLowerCase() === "personal" || decodedFolder.toLowerCase() === "linkedin insights";
       let seoSlug = null;
       if (!isSpecialFolder) {

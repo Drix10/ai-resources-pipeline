@@ -76,7 +76,7 @@ test("off-topic blocks are folder-aware", () => {
   const match = "Great soccer match tonight, the referee was terrible.";
   assert.equal(isOfftopicTweet(match, "AI and Robotics Applications"), false);
   assert.equal(isOfftopicTweet(match, "Tech VIPs"), true);
-  // The old single-argument call still works.
+  // Without a folder, every block applies.
   assert.equal(TwitterService.isOfftopicTweet(match), true);
 });
 

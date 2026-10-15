@@ -63,14 +63,14 @@ test("tally, reaction and video lines never change a post's key", () => {
   assert.match(a.key, /^c1:[0-9a-f]{16}$/);
 });
 
-test("the activity URN wins as the key; older key schemes stay as altKeys", () => {
+test("the activity URN wins as the key; the other key schemes stay as altKeys", () => {
   const crypto = require("crypto");
   const h = (s) => crypto.createHash("sha1").update(s).digest("hex").slice(0, 16);
   const body = `${BODY}\n2 comments`;
   const k = LinkedInService.postKeys({ href: "https://x/in/a", urn: "urn:li:activity:7212345678901234567", body });
   assert.equal(k.key, "urn:li:activity:7212345678901234567");
   assert.ok(k.altKeys.includes(h(`body|${body.slice(0, 300)}`)), "pre-change body key still looked up");
-  assert.equal(k.legacyKey, h(`https://x/in/a|${body.slice(0, 300)}`));
+  assert.equal(k.authorKey, h(`https://x/in/a|${body.slice(0, 300)}`));
   assert.equal(LinkedInService.postKeys({ urn: "urn:li:activity:1 OR 1", body }).key.startsWith("c1:"), true, "junk URN ignored");
 });
 
@@ -163,7 +163,7 @@ test("tracker: corrupt with no backup disables LinkedIn instead of returning {}"
   assert.ok(T.loadTrack().disabled);
 });
 
-test("tracker: old-format files load unchanged and have no cooldowns", () => {
+test("tracker: files without meta keys load unchanged and have no cooldowns", () => {
   reset();
   fs.writeFileSync(file, JSON.stringify({ a: "2026-09-19T16:07:27.441Z", b: { ts: ago(1), status: "liked" } }));
   const t = T.loadTrack();
@@ -195,7 +195,7 @@ test("a process-level disable blocks every pass until reset", () => {
 
 // ---- Entries merge, prune keeps what caps need ----
 test("a comment merges into the entry and keeps likedAt/followedAt", () => {
-  const post = { key: "urn:li:activity:1", altKeys: ["c1:abc"], legacyKey: "old", href: "https://www.linkedin.com/in/jane/?x=1" };
+  const post = { key: "urn:li:activity:1", altKeys: ["c1:abc"], authorKey: "old", href: "https://www.linkedin.com/in/jane/?x=1" };
   const track = { "c1:abc": { ts: ago(0.1), status: "liked", likedAt: ago(0.1), followedAt: ago(0.1) } };
   T.markPost(track, post, { status: "commented", ts: ago(0), commentedAt: ago(0) });
   const e = track["urn:li:activity:1"];

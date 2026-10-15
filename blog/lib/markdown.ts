@@ -45,12 +45,12 @@ for (const a of articlesList) {
     slugMap.set(slugParts[slugParts.length - 1].toLowerCase(), a);
   }
 
-  // Legacy counter slug: e.g. "cs-academics/resources-272"
+  // Counter slug (category + file name): e.g. "cs-academics/resources-272"
   if (a.legacySlug) {
     slugMap.set(a.legacySlug.toLowerCase(), a);
   }
 
-  // Legacy fileBase: e.g. "resources-272"
+  // Bare file name: e.g. "resources-272"
   const fileBase = a.filename.replace('.md', '').toLowerCase();
   slugMap.set(fileBase, a);
   slugMap.set(a.categorySlug + '/' + fileBase, a);
@@ -85,7 +85,7 @@ export function formatDate(iso: string): string {
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 }
 
-// Resolves any known address of a digest (current slug, bare slug, legacy counter slug) to its index entry.
+// Resolves any known address of a digest (current slug, bare slug, counter slug) to its index entry.
 export function findSummary(slugPath: string[]): ArticleSummary | null {
   if (!Array.isArray(slugPath) || slugPath.length === 0) return null;
   let targetSlug = slugPath.join('/').toLowerCase();
