@@ -20,7 +20,9 @@ const envMs = (name, fallback) => {
 const MAX_RETRIES = 3;
 // Base delay between a folder's attempts (tests set PIPELINE_RETRY_DELAY_MS=0).
 const RETRY_DELAY = envMs("PIPELINE_RETRY_DELAY_MS", 5000);
-const MIN_PUBLISHABLE_CANDIDATES = 8;
+// The writer keeps about half its sources and a file needs 2 articles: fewer than 4 vetted posts is not
+// worth a list's writing calls. Quality is the article gates' job, not this count's.
+const MIN_PUBLISHABLE_CANDIDATES = 4;
 // Anchored to the repo, not process.cwd(); tests point PIPELINE_LOCK_PATH and BLOG_REPO_DIR at temp folders.
 const PIPELINE_LOCK_PATH = process.env.PIPELINE_LOCK_PATH || path.join(REPO_ROOT, ".pipeline.lock");
 // The git checkout the blog sync commits in and pushes from.
@@ -317,7 +319,7 @@ const runDataPipeline = async (folder) => {
 
         if (fetched.length < MIN_PUBLISHABLE_CANDIDATES) {
           logger.info(
-            `Skipping ${folder.name}: only ${fetched.length}/${MIN_PUBLISHABLE_CANDIDATES} pre-vetted sources were collected; preserving the quality bar.`
+            `Skipping ${folder.name}: only ${fetched.length} vetted posts (fewer than ${MIN_PUBLISHABLE_CANDIDATES}).`
           );
           return null;
         }
