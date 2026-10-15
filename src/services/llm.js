@@ -2,7 +2,7 @@ const config = require("../../config");
 const path = require("path");
 const { spawn } = require("child_process");
 const { logger, sleep, redactSecrets, isEnglish } = require("../utils/helpers");
-const { fetchPage } = require("../utils/pageFetch");
+const { fetchPage, resolveShortLink } = require("../utils/pageFetch");
 const englishWords = require("wordlist-english");
 const claude = require("./claude");
 
@@ -1798,6 +1798,14 @@ Reply with JSON only, one verdict per candidate: {"verdicts": [{"n": 1, "pass": 
     return errors;
   }
 
+  // The post's t.co links, each replaced by where it goes so the resources name the real page (a link
+  // that does not resolve stays as it is; ARTICLE_FETCH_LINKS=false leaves them all).
+  async resolveShortLinks(tweets) {
+    if (process.env.ARTICLE_FETCH_LINKS === "false") return tweets;
+    return Promise.all(tweets.map(async (t) => (!Array.isArray(t?.links) ? t
+      : { ...t, links: await Promise.all(t.links.map(async (link) => (await resolveShortLink(link)) || link)) })));
+  }
+
   // The first page a post links to that has readable text (null when none does or
   // ARTICLE_FETCH_LINKS=false). Tries at most 2 links; failures are silent by design.
   async fetchLinkedPage(tweets) {
@@ -1963,9 +1971,10 @@ Reply with JSON only, one verdict per candidate: {"verdicts": [{"n": 1, "pass": 
     const postText = defang(tweets.map((t) => t?.text || "").join("\n\n").trim());
     const postUrl = this.normalizeResourceUrl(tweets.find((t) => t?.url)?.url);
     if (run && postUrl && run.published.has(postUrl)) return report("duplicate", null, { duplicateOf: postUrl });
-    const fetched = await this.fetchLinkedPage(tweets);
+    const linked = await this.resolveShortLinks(tweets);
+    const fetched = await this.fetchLinkedPage(linked);
     const page = fetched ? { ...fetched, text: defang(fetched.text), title: defang(fetched.title) } : null;
-    const { lines: resources, original } = this.buildArticleResources(tweets, page);
+    const { lines: resources, original } = this.buildArticleResources(linked, page);
     // Facts may come from the post or the page it links to; the gates check both.
     const sourceText = page ? `${postText}\n\n${page.text}` : postText;
     if (!original || sourceText.length < 80) return report("rejected");

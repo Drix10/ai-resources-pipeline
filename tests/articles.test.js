@@ -193,14 +193,17 @@ test("generateArticle ignores a failing page fetch", async () => {
   const origText = llm.generateArticleText;
   llm.generateArticleText = async () => GOOD;
   llm.fetchLinkedPage = orig; // real implementation, with an unreachable link
+  process.env.ARTICLE_FETCH_LINKS = "true";
   try {
     assert.ok(await llm.generateArticle(tweet({ links: ["http://127.0.0.1:1/blocked", "https://x.com/acme", "javascript:alert(1)"] })));
-  } finally { llm.generateArticleText = origText; }
+  } finally { llm.generateArticleText = origText; process.env.ARTICLE_FETCH_LINKS = "false"; }
 });
 
 test("ARTICLE_FETCH_LINKS=false disables page fetching", async () => {
-  process.env.ARTICLE_FETCH_LINKS = "false";
-  try { assert.equal(await llm.fetchLinkedPage(tweet({ links: ["https://example.com/a"] })), null); } finally { delete process.env.ARTICLE_FETCH_LINKS; }
+  assert.equal(process.env.ARTICLE_FETCH_LINKS, "false", "tests/_env.js keeps tests offline");
+  assert.equal(await llm.fetchLinkedPage(tweet({ links: ["https://example.com/a"] })), null);
+  const tweets = tweet({ links: ["https://t.co/abc"] });
+  assert.equal(await llm.resolveShortLinks(tweets), tweets, "no t.co link is resolved either");
 });
 
 test("generateMarkdownBatched joins articles in order, caps at 8, and enforces the minimum", async () => {

@@ -337,4 +337,23 @@ function finish(finalUrl, { title, description, text }) {
   return { url: cleanUrl(finalUrl), title: (headline.length >= 12 ? headline : title).slice(0, 120), text: body.slice(0, MAX_TEXT_CHARS) };
 }
 
-module.exports = { fetchPage, isPrivateIp, assertPublicHost, extractHtml, extractMarkdown, secureFetch };
+// Where a t.co link goes, read from its redirect without loading the page; null when it does not say.
+async function resolveShortLink(rawUrl, { fetchImpl = secureFetch, timeoutMs = 5000 } = {}) {
+  let url;
+  try {
+    url = new URL(String(rawUrl).trim());
+  } catch (e) {
+    return null;
+  }
+  if (url.hostname !== "t.co") return null;
+  try {
+    const res = await fetchImpl(url.toString(), { signal: AbortSignal.timeout(timeoutMs) });
+    const to = res.status >= 300 && res.status < 400 ? res.headers.get("location") : null;
+    const dest = to ? new URL(to, url) : null;
+    return dest && /^https?:$/.test(dest.protocol) ? dest.toString() : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+module.exports = { fetchPage, resolveShortLink, isPrivateIp, assertPublicHost, extractHtml, extractMarkdown, secureFetch };

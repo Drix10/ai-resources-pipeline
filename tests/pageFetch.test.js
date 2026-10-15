@@ -1,7 +1,7 @@
 require("./_env"); // isolated even when run on its own
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const { fetchPage, isPrivateIp, assertPublicHost, extractHtml, extractMarkdown } = require("../src/utils/pageFetch");
+const { fetchPage, resolveShortLink, isPrivateIp, assertPublicHost, extractHtml, extractMarkdown } = require("../src/utils/pageFetch");
 
 const PUBLIC = "93.184.216.34"; // public IP literal: no DNS needed
 const para = (n, word = "engineers") => `<p>${Array.from({ length: n }, (_, i) => `${word} ship real systems and measure the results ${i}.`).join(" ")}</p>`;
@@ -13,6 +13,18 @@ const router = (routes) => async (url) => {
   if (!r) return new Response("not found", { status: 404 });
   return typeof r === "function" ? r() : r;
 };
+
+test("resolveShortLink reads where a t.co link goes from its redirect, and nothing else", async () => {
+  const redirect = (location) => async () => new Response(null, { status: 301, headers: location ? { location } : {} });
+  assert.equal(await resolveShortLink("https://t.co/abc", { fetchImpl: redirect("https://modelscope.cn/models/x") }), "https://modelscope.cn/models/x");
+  assert.equal(await resolveShortLink("https://t.co/abc", { fetchImpl: redirect("javascript:alert(1)") }), null);
+  assert.equal(await resolveShortLink("https://t.co/abc", { fetchImpl: redirect("") }), null);
+  assert.equal(await resolveShortLink("https://t.co/abc", { fetchImpl: async () => reply("page") }), null, "a page, not a redirect");
+  assert.equal(await resolveShortLink("https://t.co/abc", { fetchImpl: async () => { throw new Error("offline"); } }), null);
+  let called = false;
+  assert.equal(await resolveShortLink("https://example.com/a", { fetchImpl: async () => { called = true; } }), null);
+  assert.equal(called, false, "only t.co links are resolved");
+});
 
 test("isPrivateIp covers loopback, private, link-local, CGNAT, multicast and v6", () => {
   for (const ip of ["127.0.0.1", "10.1.2.3", "172.16.0.1", "172.31.255.255", "192.168.1.1", "169.254.169.254", "100.64.0.1", "0.0.0.0", "224.0.0.1", "::1", "fd00::1", "fe80::1", "::ffff:127.0.0.1"]) {
