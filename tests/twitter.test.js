@@ -256,6 +256,40 @@ test("findContent skips ads, replies, truncated, stale and already-reserved post
   }
 });
 
+test("findContent reads a long post in full on its own page while the pool has room", async () => {
+  const dir = tmpDir();
+  try {
+    const service = new TwitterService({ storePath: path.join(dir, "ids.json") });
+    service.RATE_LIMIT_DELAY = 0;
+    const now = Date.now();
+    const longId = idAt(now - 300), stillCut = idAt(now - 400);
+    const list = [
+      post(longId, { truncated: true, text: "The opening line only" }),
+      post(stillCut, { truncated: true }),
+      ...Array.from({ length: 3 }, (_, i) => post(idAt(now - DAY - i * 1000))),
+    ];
+    const pages = {
+      [`https://x.com/u/status/${longId}`]: [post(longId)],
+      [`https://x.com/u/status/${stillCut}`]: [post(stillCut, { truncated: true })],
+    };
+    let page = list;
+    const opened = [];
+    service.driver = {
+      wait: async () => true,
+      get: async (url) => { opened.push(url); page = pages[url] || []; },
+      executeScript: async (script) => (typeof script === "function" ? page : undefined),
+    };
+    const found = await service.findContent("AI Developer Tools");
+    assert.deepEqual(opened, Object.keys(pages));
+    const long = found.find((c) => c.tweets[0].tweetId === longId);
+    assert.equal(long?.tweets[0].text, post(longId).text, "the full text from the post's own page");
+    assert.ok(!found.some((c) => c.tweets[0].tweetId === stillCut), "a post still cut on its own page is skipped");
+    assert.equal(found.length, 4);
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test("X login and account-access pages are classified as unavailable", () => {
   assert.match(classifyXUrl("https://x.com/i/flow/login?redirect_after_login=%2Fhome"), /logged out/);
   assert.match(classifyXUrl("https://x.com/login"), /logged out/);

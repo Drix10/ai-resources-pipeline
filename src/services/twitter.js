@@ -288,6 +288,78 @@ function detectXErrorPage() {
   return "";
 }
 
+// Runs in the page: every post on screen, with its own text, the text it quotes, its links and
+// whether it is cut short, promoted or a reply.
+function readPosts() {
+  const articles = Array.from(document.querySelectorAll('article[data-testid="tweet"]'));
+  const list = [];
+  for (const el of articles) {
+    try {
+      // A quoted post sits in a [role=link] card inside the article. Anything in
+      // that card belongs to the quoted post, never to the outer one.
+      const inQuote = (node) => {
+        const card = node.closest('[role="link"]');
+        return !!card && card !== el && el.contains(card);
+      };
+
+      // The permalink wrapping the first <time> is the post's own; fall back to
+      // the first status link. Normalised so /photo/1 or /analytics never leak in.
+      const timeEl = el.querySelector("time");
+      const statusA = (timeEl && timeEl.closest('a[href*="/status/"]')) || el.querySelector('a[href*="/status/"]');
+      const rawUrl = statusA ? statusA.href : "";
+      const idMatch = rawUrl.match(/\/status\/(\d+)/);
+      const tweetId = idMatch ? idMatch[1] : "";
+      if (!tweetId) continue;
+      const url = rawUrl.replace(/(\/status\/\d+).*$/, "$1");
+      const timestamp = timeEl ? timeEl.getAttribute("datetime") || "" : "";
+
+      const textNodes = Array.from(el.querySelectorAll('[data-testid="tweetText"]'));
+      const mainNodes = textNodes.filter((n) => !inQuote(n));
+      const quoteNodes = textNodes.filter((n) => inQuote(n));
+      // Without a quote card, the first text block is the post's own; later ones are quoted.
+      const ownNodes = mainNodes.length ? mainNodes.slice(0, 1) : [];
+      const quotedNodes = mainNodes.length ? quoteNodes.concat(mainNodes.slice(1)) : quoteNodes;
+      const mainText = ownNodes.map((n) => (n.innerText || "").trim()).join("\n").trim();
+      const quotedText = quotedNodes.map((n) => (n.innerText || "").trim()).filter(Boolean).join("\n\n");
+      let text = mainText;
+      if (quotedText) text += "\n\nQuoted Tweet:\n" + quotedText;
+
+      // "Show more" means the visible text is cut; an article from half a post is not safe.
+      const showMore = Array.from(el.querySelectorAll('[data-testid="tweet-text-show-more-link"]'));
+      const truncated = showMore.some((n) => !inQuote(n));
+
+      // Promoted posts: a bare "Ad"/"Promoted" label outside the text. Not placementTracking:
+      // X wraps every organic video player in it, so it would drop all video demos.
+      const isAd = Array.from(el.querySelectorAll("span")).some((s) => !s.closest('[data-testid="tweetText"]') && /^(Ad|Promoted)$/.test((s.textContent || "").trim()));
+
+      const isReply = Array.from(el.querySelectorAll("div")).some((n) => !inQuote(n)
+        && !n.closest('[data-testid="tweetText"]') && /^Replying to\b/.test((n.textContent || "").trim()));
+
+      const links = [];
+      const anchors = Array.from(el.querySelectorAll("a[href]"));
+      for (const a of anchors) {
+        const href = a.href;
+        if (!href) continue;
+        const hl = href.toLowerCase();
+        const isInternal = hl.includes("twitter.com/") || hl.includes("x.com/") || href.startsWith("/");
+        const isNav = hl.includes("/status/") || hl.includes("/hashtag/") || hl.includes("/search") || hl.includes("/i/lists") || hl.includes("/home");
+        if (hl.includes("t.co") || !isInternal || (!isNav && !href.startsWith("/"))) {
+          links.push(href);
+        }
+      }
+
+      const images = [];
+      const imgEls = Array.from(el.querySelectorAll('[data-testid="tweetPhoto"] img'));
+      for (const img of imgEls) {
+        if (img.src) images.push(img.src);
+      }
+
+      list.push({ tweetId, url, timestamp, text, mainText, links, images, truncated, isAd, isReply });
+    } catch (e) {}
+  }
+  return list;
+}
+
 class TwitterService {
   constructor(options = {}) {
     this.driver = null;
@@ -526,6 +598,8 @@ class TwitterService {
       const INITIAL_LOAD_TIMEOUT = 10000;
       const MIN_TOTAL_WORDS = 30;
       const MIN_WORDS_WITH_EXTERNAL_LINK = 15;
+      // Each long post costs a page load.
+      const MAX_LONG_POSTS = 6;
       // Lists run newest first: a long run of stale posts means nothing fresh is left.
       const MAX_OLD_STREAK = 15;
 
@@ -539,6 +613,27 @@ class TwitterService {
       const skip = (reason, tweetId) => {
         skipped[reason] = (skipped[reason] || 0) + 1;
         logger.debug(`Skipping tweet ${tweetId}: ${reason}`);
+      };
+      // Long posts show only their opening on the list ("Show more"); they are read in full later.
+      const longPosts = [];
+      const consider = ({ tweetId, url, timestamp, text, mainText, links, images }) => {
+        if (!mainText) return skip("no text of its own", tweetId);
+        const reason = classifyTweetText(text, folderName);
+        if (reason) return skip(reason, tweetId);
+
+        const wordCount = text.split(/\s+/).filter(w => w.length > 0).length;
+        const hasExternalLink = (links || []).some(l => /^https?:\/\//i.test(l) && !/^(https?:\/\/)?(?:www\.)?(?:x|twitter)\.com\//i.test(l));
+        const hasEnoughDetail = wordCount >= MIN_TOTAL_WORDS || (hasExternalLink && wordCount >= MIN_WORDS_WITH_EXTERNAL_LINK);
+        if (!hasEnoughDetail) return skip(`thin (${wordCount} words)`, tweetId);
+
+        // Reserve at collection time: overlapping lists in later folders skip it.
+        this.reservedIds.add(tweetId);
+        collectedContent.push({
+          tweets: [{ tweetId, text, links, images, url, timestamp }],
+          url,
+          timestamp
+        });
+        validTweetsCount++;
       };
 
       this.pruneProcessedIds();
@@ -562,75 +657,7 @@ class TwitterService {
       while (scrollAttempts < MAX_SCROLL_ATTEMPTS && validTweetsCount < THREADS_NEEDED) {
         let batch = [];
         try {
-          batch = await this.driver.executeScript(() => {
-            const articles = Array.from(document.querySelectorAll('article[data-testid="tweet"]'));
-            const list = [];
-            for (const el of articles) {
-              try {
-                // A quoted post sits in a [role=link] card inside the article. Anything in
-                // that card belongs to the quoted post, never to the outer one.
-                const inQuote = (node) => {
-                  const card = node.closest('[role="link"]');
-                  return !!card && card !== el && el.contains(card);
-                };
-
-                // The permalink wrapping the first <time> is the post's own; fall back to
-                // the first status link. Normalised so /photo/1 or /analytics never leak in.
-                const timeEl = el.querySelector("time");
-                const statusA = (timeEl && timeEl.closest('a[href*="/status/"]')) || el.querySelector('a[href*="/status/"]');
-                const rawUrl = statusA ? statusA.href : "";
-                const idMatch = rawUrl.match(/\/status\/(\d+)/);
-                const tweetId = idMatch ? idMatch[1] : "";
-                if (!tweetId) continue;
-                const url = rawUrl.replace(/(\/status\/\d+).*$/, "$1");
-                const timestamp = timeEl ? timeEl.getAttribute("datetime") || "" : "";
-
-                const textNodes = Array.from(el.querySelectorAll('[data-testid="tweetText"]'));
-                const mainNodes = textNodes.filter((n) => !inQuote(n));
-                const quoteNodes = textNodes.filter((n) => inQuote(n));
-                // Without a quote card, the first text block is the post's own; later ones are quoted.
-                const ownNodes = mainNodes.length ? mainNodes.slice(0, 1) : [];
-                const quotedNodes = mainNodes.length ? quoteNodes.concat(mainNodes.slice(1)) : quoteNodes;
-                const mainText = ownNodes.map((n) => (n.innerText || "").trim()).join("\n").trim();
-                const quotedText = quotedNodes.map((n) => (n.innerText || "").trim()).filter(Boolean).join("\n\n");
-                let text = mainText;
-                if (quotedText) text += "\n\nQuoted Tweet:\n" + quotedText;
-
-                // "Show more" means the visible text is cut; an article from half a post is not safe.
-                const showMore = Array.from(el.querySelectorAll('[data-testid="tweet-text-show-more-link"]'));
-                const truncated = showMore.some((n) => !inQuote(n));
-
-                // Promoted posts: a bare "Ad"/"Promoted" label outside the text. Not placementTracking:
-                // X wraps every organic video player in it, so it would drop all video demos.
-                const isAd = Array.from(el.querySelectorAll("span")).some((s) => !s.closest('[data-testid="tweetText"]') && /^(Ad|Promoted)$/.test((s.textContent || "").trim()));
-
-                const isReply = Array.from(el.querySelectorAll("div")).some((n) => !inQuote(n)
-                  && !n.closest('[data-testid="tweetText"]') && /^Replying to\b/.test((n.textContent || "").trim()));
-
-                const links = [];
-                const anchors = Array.from(el.querySelectorAll("a[href]"));
-                for (const a of anchors) {
-                  const href = a.href;
-                  if (!href) continue;
-                  const hl = href.toLowerCase();
-                  const isInternal = hl.includes("twitter.com/") || hl.includes("x.com/") || href.startsWith("/");
-                  const isNav = hl.includes("/status/") || hl.includes("/hashtag/") || hl.includes("/search") || hl.includes("/i/lists") || hl.includes("/home");
-                  if (hl.includes("t.co") || !isInternal || (!isNav && !href.startsWith("/"))) {
-                    links.push(href);
-                  }
-                }
-
-                const images = [];
-                const imgEls = Array.from(el.querySelectorAll('[data-testid="tweetPhoto"] img'));
-                for (const img of imgEls) {
-                  if (img.src) images.push(img.src);
-                }
-
-                list.push({ tweetId, url, timestamp, text, mainText, links, images, truncated, isAd, isReply });
-              } catch (e) {}
-            }
-            return list;
-          });
+          batch = await this.driver.executeScript(readPosts);
         } catch (scriptErr) {
           // A dead session must reach the retry loop (it reattaches); a script error just skips the step.
           if (isSessionError(scriptErr)) throw scriptErr;
@@ -650,8 +677,6 @@ class TwitterService {
           if (this.isKnownId(tweetId)) { skip("already published or reserved this run", tweetId); continue; }
           if (isAd) { skip("promoted post", tweetId); continue; }
           if (isReply) { skip("reply", tweetId); continue; }
-          if (truncated) { skip("truncated (Show more)", tweetId); continue; }
-          if (!mainText) { skip("no text of its own", tweetId); continue; }
 
           if (isTooOld(tweetId, timestamp)) {
             skip(`older than ${TWEET_MAX_AGE_DAYS} days`, tweetId);
@@ -660,26 +685,8 @@ class TwitterService {
           }
           oldStreak = 0;
 
-          const reason = classifyTweetText(text, folderName);
-          if (reason) { skip(reason, tweetId); continue; }
-
-          const wordCount = text.split(/\s+/).filter(w => w.length > 0).length;
-          const hasExternalLink = (links || []).some(l => /^https?:\/\//i.test(l) && !/^(https?:\/\/)?(?:www\.)?(?:x|twitter)\.com\//i.test(l));
-          const hasEnoughDetail = wordCount >= MIN_TOTAL_WORDS || (hasExternalLink && wordCount >= MIN_WORDS_WITH_EXTERNAL_LINK);
-
-          if (!hasEnoughDetail) {
-            skip(`thin (${wordCount} words)`, tweetId);
-            continue;
-          }
-
-          // Reserve at collection time: overlapping lists in later folders skip it.
-          this.reservedIds.add(tweetId);
-          collectedContent.push({
-            tweets: [{ tweetId, text, links, images, url, timestamp }],
-            url,
-            timestamp
-          });
-          validTweetsCount++;
+          if (truncated) { longPosts.push({ tweetId, url, timestamp }); continue; }
+          consider({ tweetId, url, timestamp, text, mainText, links, images });
         }
 
         if (oldStreak >= MAX_OLD_STREAK) {
@@ -709,6 +716,24 @@ class TwitterService {
 
         await sleep(SCROLL_PAUSE);
         scrollAttempts++;
+      }
+
+      // A post's own page shows all of it. Read as many long posts as the pool has room for; the
+      // list is reopened for the next folder.
+      const room = Math.min(MAX_LONG_POSTS, Math.max(0, THREADS_NEEDED - validTweetsCount));
+      for (const [i, post] of longPosts.entries()) {
+        if (i >= room) { skip("truncated (Show more)", post.tweetId); continue; }
+        try {
+          await this.checkRateLimit();
+          await withTimeout(this.driver.get(post.url), 30000, `loading ${post.url}`);
+          await this.driver.wait(until.elementLocated(articleLocator), INITIAL_LOAD_TIMEOUT);
+          const full = ((await this.driver.executeScript(readPosts)) || []).find((p) => p.tweetId === post.tweetId);
+          if (!full || full.truncated) { skip("truncated (Show more)", post.tweetId); continue; }
+          consider({ ...full, url: post.url, timestamp: full.timestamp || post.timestamp });
+        } catch (error) {
+          if (isSessionError(error)) throw error;
+          skip("long post unreadable", post.tweetId);
+        }
       }
 
       const skipSummary = Object.entries(skipped).map(([k, v]) => `${k}: ${v}`).join(", ");
