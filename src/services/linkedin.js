@@ -598,15 +598,17 @@ class LinkedInService {
         const q = arguments[0];
         const card = (function() { ${FIND_CARD} })();
         if (!card) return 'gone';
-        // Proof is the reaction button's own aria-pressed, nothing else: other pressed
-        // buttons in the card (Follow, a toggled comment box) are not a like.
+        // Proof is the reaction button's own state, nothing else: other pressed buttons in the
+        // card (Follow, a toggled comment box) are not a like. LinkedIn shows it as aria-pressed,
+        // or in the button's label ("Reaction button state: Like" once reacted, "... no reaction"
+        // before).
         const rb = Array.from(card.querySelectorAll('button')).find(b => {
           const al = (b.getAttribute('aria-label') || '').toLowerCase();
           return al === 'like' || al === 'react like' || al.indexOf('unlike') === 0 || al.indexOf('reaction button state') === 0;
         });
         if (!rb) return 'no-reaction-button';
-        const pressed = rb.getAttribute('aria-pressed');
-        if (pressed === 'true') return 'liked';
+        const pressed = rb.getAttribute('aria-pressed'), label = (rb.getAttribute('aria-label') || '').toLowerCase();
+        if (pressed === 'true' || label.indexOf('unlike') === 0 || (label.indexOf('reaction button state') === 0 && label.indexOf('no reaction') === -1)) return 'liked';
         return 'not-liked:' + ((rb.getAttribute('aria-label') || '') + '|' + pressed).slice(0, 80);
       `, snip).catch(() => 'fail');
       if (state === 'liked') {
