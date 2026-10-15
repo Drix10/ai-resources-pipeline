@@ -112,7 +112,7 @@ const config = {
   },
   social: {
     linkedinFeedReply: process.env.LINKEDIN_FEED_REPLY === "true",
-    // 3-6 likes after each article on targeted finance/AI/founder posts, the people who engaged with us first.
+    // 3-6 likes after each article on targeted AI/founder/finance posts, the people who engaged with us first.
     linkedinLike: process.env.LINKEDIN_LIKE !== "false",
     // 1-2 extra comments after each batch commit on posts going viral (big names in config/viral.js,
     // the day's most-engaged launches and funding news), on their own daily cap. Comments post only
@@ -125,7 +125,7 @@ const config = {
     // Post sources for likes/comments: "targeted" (default: content search + config/creators.json,
     // home-feed fallback) or "feed" (home feed Top/Recent only).
     linkedinSource: process.env.LINKEDIN_SOURCE === "feed" ? "feed" : "targeted",
-    // 3-7 no-note connection requests after each batch commit to US people in AI/tech/finance/investing.
+    // 3-7 no-note connection requests after each batch commit to US people in AI/tech (2 of 3) and finance/investing.
     linkedinConnect: process.env.LINKEDIN_CONNECT !== "false",
     twitterPost: process.env.TWITTER_POST !== "false",
     // Optional credit lines in announcement tweets ("Made by @you via @yourorg"); empty = no line.

@@ -11,7 +11,7 @@
  *  4. runConnectPass    (LINKEDIN_CONNECT, default on): 3-7 no-note invites after each batch commit
  *
  * Posts come from targeted sources (the recent posts of people who engaged with us, optional
- * creator profiles in config/creators.json, and finance/AI/founder content search), not the home feed. The
+ * creator profiles in config/creators.json, and AI/founder/finance content search), not the home feed. The
  * home feed is only the fallback when targeted sources yield nothing, or the whole thing when
  * LINKEDIN_SOURCE=feed.
  *
@@ -56,8 +56,8 @@ const PASS_TIMEOUT_MS = envInt("LINKEDIN_PASS_TIMEOUT_MS", 15 * 60 * 1000);
 const SEARCH_LOADS_PER_PASS = 8;
 const SEARCH_LOADS_PER_DAY = 40;
 
-// ---- Audience targeting: US-based people in finance and investing, then AI and tech (builders,
-// founders, engineers) ----
+// ---- Audience targeting: US-based people in AI and tech (builders, founders, engineers) first, and
+// in finance and investing ----
 // Every feed card gets a score; likes, follows and comments only go to posts that clear these
 // bars, so the feed algorithm learns this audience and our comments land in front of it. Past the
 // topic, the score favours posts where a comment is read and answered: early, with room left at
@@ -65,10 +65,10 @@ const SEARCH_LOADS_PER_DAY = 40;
 const LIKE_MIN = 3;
 const COMMENT_MIN = 4;
 const FOLLOW_MIN = 7;
-// Finance is the priority audience (2 pts per distinct term, up to 3 terms); AI/tech is the
-// secondary audience (1 pt per term, up to 3), so a finance post clears the bars on its own while an
-// AI-only post needs to be on-topic, fresh or US-relevant. A post with neither scores 0: off-topic
-// posts by strangers get no like, follow or comment however fresh they are.
+// AI/tech is the priority audience (2 pts per distinct term, up to 3 terms); finance is the second
+// (1 pt per term, up to 3), so an AI post clears the bars on its own while a finance-only post needs
+// to be on-topic, fresh or US-relevant. A post with neither scores 0: off-topic posts by strangers get
+// no like, follow or comment however fresh they are.
 const FIN_RE = /\b(fintech|finance|financial|banks?|banking|investment banking|payments?|cfo|investors?|investing|investment|investments|venture|vcs?|private equity|hedge funds?|asset management|wealth|portfolio|equity|equities|markets?|stocks?|trading|traders?|earnings|valuation|ipo|m&a|buyouts?|fed|federal reserve|rates|yields?|treasury|bonds?|credit|inflation|recession|gdp|cpi|macro|economy|economic|etfs?|capital|funding|fundraising|seed|series [a-d]|family office|real estate|reits?|commodities|derivatives|options|hedging|liquidity|dealmaking|wall street|nasdaq|s&p)\b/gi;
 const TECH_RE = /\b(ai|artificial intelligence|machine learning|ml|llms?|gpt|agents?|agentic|openai|anthropic|claude|gemini|genai|generative|deep learning|neural|inference|fine.?tun\w*|evals?|nvidia|copilot|chatgpt|software|engineering|engineers?|developers?|devtools?|devops|cloud|aws|kubernetes|infrastructure|open.?source|github|apis?|sdks?|saas|startups?|founders?|co-?founders?|indie hackers?|product managers?|cto|cybersecurity|backend|frontend|programming|coding|data scien\w*|semiconductors?|robotics|tech)\b/gi;
 // Header signals (post.head: name, degree, headline): 1st/2nd-degree authors see and return our
@@ -95,7 +95,7 @@ function scorePost(post) {
   // Sensitive posts get nothing at all (the body only: a headline is not the post).
   if (isSensitivePost(post.text) || BAIT_RE.test(hay)) return -99;
   const distinct = (re) => new Set((hay.match(re) || []).map((m) => m.toLowerCase())).size;
-  const topic = 2 * Math.min(distinct(FIN_RE), 3) + Math.min(distinct(TECH_RE), 3);
+  const topic = 2 * Math.min(distinct(TECH_RE), 3) + Math.min(distinct(FIN_RE), 3);
   // Promo noise and recruiter accounts are marked down whatever the topic, so an off-topic one
   // scores below zero and a warm author's bonus never lifts it to a like.
   const penalty = (NOISE_RE.test(hay) ? 4 : 0) + (RECRUITER_RE.test(post.head || "") ? 3 : 0);
@@ -134,13 +134,13 @@ const CONNECT_TECH_KEYWORDS = [
   "AI product manager", "developer advocate", "AI startup founder", "startup CTO",
   "data scientist", "software engineer", "technical founder",
 ];
-const CONNECT_PER_KEYWORD = 4; // spread each run across many keywords, 3 finance for every 1 AI/tech
+const CONNECT_PER_KEYWORD = 4; // spread each run across many keywords, 2 AI/tech for every 1 finance
 const shuffled = (a) => [...a].sort(() => Math.random() - 0.5);
 function buildConnectQueries() {
   const fin = shuffled(CONNECT_FIN_KEYWORDS), tech = shuffled(CONNECT_TECH_KEYWORDS);
   const out = [];
   for (let i = 0; fin.length || tech.length; i++) {
-    const list = (i % 4 === 3 && tech.length) || !fin.length ? tech : fin;
+    const list = (i % 3 === 2 && fin.length) || !tech.length ? fin : tech;
     if (list.length) out.push(list.shift());
   }
   return out;
@@ -156,11 +156,12 @@ const CONNECT_MAX_PER_WEEK = envInt("LINKEDIN_CONNECT_MAX_PER_WEEK", 90);
 const CONNECT_KEY = (href) => `conn:${String(href || "").replace(/\/$/, "")}`;
 
 // ---- Targeted post sources ----
-// Content-search queries (newest first) aimed at the finance + AI + founder audience.
+// Content-search queries (newest first): two on AI and the people building with it for every one
+// where AI meets finance.
 const SOURCE_QUERIES = [
-  "fintech founder", "AI in finance", "venture capital AI", "private equity AI",
-  "quant trading machine learning", "AI startup funding", "banking AI agents",
-  "hedge fund AI", "fintech startup", "generative AI investing", "CFO AI",
+  "AI agents", "building with LLMs", "AI engineering", "open source AI", "AI developer tools",
+  "AI startup founder", "machine learning in production", "generative AI",
+  "AI in finance", "fintech founder", "venture capital AI", "AI startup funding",
 ];
 const searchUrl = (q) => "https://www.linkedin.com/search/results/content/?keywords=" + encodeURIComponent(q) +
   "&datePosted=%22past-week%22&sortBy=%22date_posted%22";

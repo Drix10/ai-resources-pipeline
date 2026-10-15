@@ -470,7 +470,7 @@ const processAllFolders = async () => {
     //  - after every article (.md) is written: a few random likes (likeAfterArticle)
     //  - after every batch commit: 2 or 3 comments, 1 or 2 more on posts going viral, then a few
     //    connection requests (engageAfterBatch)
-    // Targeted finance/AI/founder sources, the people who engaged with us first; non-English posts are skipped. Never fatal.
+    // Targeted AI/founder/finance sources, the people who engaged with us first; non-English posts are skipped. Never fatal.
     const likeAfterArticle = async () => {
       if (!config.social.linkedinLike || stopping()) return;
       try {

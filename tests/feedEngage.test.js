@@ -48,18 +48,18 @@ test("entryOfPost reads the primary key first, then the author key, and tolerate
   assert.equal(entryOfPost({}, { key: "a" }).likedAt, undefined);
 });
 
-// ---- Audience targeting: finance first, then AI and tech ----
+// ---- Audience targeting: AI and tech first, then finance ----
 const BUILDER = "We shipped an open source AI agents framework for developers building with LLMs this week.";
 
-test("audience scoring: finance + fresh + US outranks an AI-only post, and off-topic or promo posts get nothing", () => {
-  const finance = scorePost({ head: "VC partner, New York", text: "The Fed held rates while venture funding for AI startups rose; investors price equity differently now.", ageH: 2 });
+test("audience scoring: an AI post outranks a finance-only one, both are engaged, and off-topic or promo posts get nothing", () => {
   const builder = scorePost({ head: "Founder • 2nd", text: BUILDER, ageH: 2, reactions: 80, comments: 6 });
+  const finance = scorePost({ head: "Portfolio manager", text: "The Fed held rates and bond yields moved; equity markets priced in a slower economy this quarter.", ageH: 2 });
   const generic = scorePost({ head: "someone", text: "Had a great weekend with the family and the dog at the lake.", ageH: 2, reactions: 40 });
   const promo = scorePost({ head: "", text: "We're hiring! Join us for our fintech webinar, register now, link in bio.", ageH: 1 });
-  assert.ok(finance >= 8, `finance ${finance}: the priority audience`);
-  assert.ok(builder >= 3 && builder < finance, `builder ${builder}: the secondary audience, liked`);
+  assert.ok(builder >= 7, `builder ${builder}: the priority audience, commented on and followed`);
+  assert.ok(finance >= 4 && finance < builder, `finance ${finance}: the second audience, liked and commented on`);
   assert.equal(generic, 0, "off-topic: nothing, however fresh");
-  assert.ok(promo < finance && promo < 4, `promo ${promo}`);
+  assert.ok(promo < 3, `promo ${promo}`);
 });
 
 test("audience scoring: an early, mid-size, in-network post where a comment is seen beats a buried celebrity one", () => {
