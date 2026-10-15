@@ -726,8 +726,12 @@ class TwitterService {
         try {
           await this.checkRateLimit();
           await withTimeout(this.driver.get(post.url), 30000, `loading ${post.url}`);
-          await this.driver.wait(until.elementLocated(articleLocator), INITIAL_LOAD_TIMEOUT);
-          const full = ((await this.driver.executeScript(readPosts)) || []).find((p) => p.tweetId === post.tweetId);
+          // get can return while the list is still on screen, where the post is still cut: wait for its own
+          // page, then for the post to render on it.
+          await this.driver.wait(until.urlContains(`/status/${post.tweetId}`), INITIAL_LOAD_TIMEOUT);
+          const findPost = async () => ((await this.driver.executeScript(readPosts)) || []).find((p) => p.tweetId === post.tweetId);
+          let full = await findPost();
+          for (const deadline = Date.now() + INITIAL_LOAD_TIMEOUT; !full && Date.now() < deadline; full = await findPost()) await sleep(SCROLL_PAUSE);
           if (!full || full.truncated) { skip("truncated (Show more)", post.tweetId); continue; }
           consider({ ...full, url: post.url, timestamp: full.timestamp || post.timestamp });
         } catch (error) {
