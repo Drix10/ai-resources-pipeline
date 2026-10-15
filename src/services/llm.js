@@ -3,6 +3,7 @@ const path = require("path");
 const { spawn } = require("child_process");
 const { logger, sleep, redactSecrets, isEnglish } = require("../utils/helpers");
 const { fetchPage } = require("../utils/pageFetch");
+const englishWords = require("wordlist-english");
 const claude = require("./claude");
 
 /**
@@ -256,6 +257,12 @@ const ARTICLE_COMMON_WORDS = new Set((
   "access accuracy adds added agent agents approach architecture audio availability available benchmark benchmarks beta better big bug bugs build builds built change changes chip chips cluster code coding compatibility compute context core cost costs customers data dataset datasets deal demo deployment design details download early evaluation evals faster feature features fix fixes free funding growth hardware how images impact inference install integration key latency launch launches launched license licensing limits local main memory method metrics model models news numbers open paper partner partners partnership patch patches performance price pricing privacy quality quote reasoning release released releases repo research results risk round rules runs safety scale security setup ships shipped size software source speed stack status study support supports team tests text throughput timeline tokens training trained update updates usage use users version video vision weights what workflow " +
   "action age amount background category cause caveat claim company concern daily date detail event future high highlights level location loss low market metric monthly name number outcome payload phase plan prior purpose rank ranking reason resource revenue role sample schedule stage step takeaway technique time title tool tools top total trend type valuation weekly"
 ).split(" "));
+// Common English words (SCOWL up to size 35, which holds no proper names), and the common words that are
+// also the names of software and AI products: those must come from the post like any other name.
+const ENGLISH_WORDS = new Set(["english/10", "english/20", "english/35"].flatMap((size) => englishWords[size]));
+const PRODUCT_WORDS = new Set("apple azure bard bedrock cursor discord edge falcon flash granola java linear llama notion nova office opus oracle perplexity python ramp replicate ruby runway rust slack snap sonnet spark stripe swift teams twitter unity unreal windows zoom".split(" "));
+// Endings of ordinary words, for those too rare for the dictionary ("Tokenization", "Robotics").
+const ORDINARY_ENDING_RE = /(?:tions?|sions?|ments?|ness|ances?|ences?|ancy|ency|ity|ities|ings?|ed|ships?|isms?|ics|ures?|ives?|ous|able|ible|ional|ial|ical)$/;
 // Claims the writer may not strengthen to unless the source makes them too.
 const ARTICLE_CLAIM_RE = /\b(?:better|worse)\s+than\b|\bbeat(?:s|ing)?\b|\boutperform\w*|\bsurpass\w*|\bprov(?:es?|en|ing)\b|\bconfirm\w*/i;
 const ARTICLE_CLAIM_ROOT_RE = /\b(?:better|worse|beat\w*|outperform\w*|surpass\w*|prov\w*|confirm\w*)\b/i;
@@ -1706,13 +1713,15 @@ Reply with JSON only, one verdict per candidate: {"verdicts": [{"n": 1, "pass": 
     const known = (w) => sourceWords.has(w) || sourceWords.has(w + "s") || sourceWords.has(w.replace(/(?:es|s)$/, ""));
     const plainWord = (w) => [w.toLowerCase(), w.toLowerCase().replace(/(?:es|s)$/, "")].some((c) => ARTICLE_COMMON_WORDS.has(c))
       || this.articleStems(w).size > 0 && [...this.articleStems(w)].every((s) => stems.has(s));
-    // In a label or at a sentence start, a plain word in capitals is also an ordinary word when the article
-    // writes it in lowercase too, or it ends like one ("Capability", "Donation", "Reported").
+    // A plain word in capitals in the title or at a sentence start is an ordinary word when the article also
+    // writes it in lowercase or it ends like one ("Reported", "Tokenization"). In a label any common English
+    // word is too ("Map", "Gaps"); elsewhere a surname may be one ("Musk", "Cook"). A product's name never is.
     const lowerWords = new Set([summary, ...points.map((p) => p.text)].join(" ").match(/\b[a-z]{3,}\b/g) || []);
-    const ordinaryWord = (w) => {
-      const lower = w.toLowerCase();
-      return lowerWords.has(lower) || lowerWords.has(lower.replace(/(?:es|s)$/, "")) || plainWord(w)
-        || (lower.length >= 5 && /(?:tions?|sions?|ments?|ness|ances?|ences?|ancy|ency|ity|ities|ings?|ed|ships?|isms?|ics|ures?|ives?|ous|able|ible|ional|ial|ical)$/.test(lower));
+    const ordinaryWord = (w, label) => {
+      const lower = w.toLowerCase(), singular = lower.replace(/(?:es|s)$/, "");
+      if (plainWord(w)) return true;
+      if (PRODUCT_WORDS.has(lower) || PRODUCT_WORDS.has(singular)) return false;
+      return (label && ENGLISH_WORDS.has(lower)) || lowerWords.has(lower) || lowerWords.has(singular) || (lower.length >= 5 && ORDINARY_ENDING_RE.test(lower));
     };
     const foreign = new Set();
     const sentencesOf = (text) => String(text || "").split(/(?<=[.!?])\s+/);
@@ -1736,8 +1745,7 @@ Reply with JSON only, one verdict per candidate: {"verdicts": [{"n": 1, "pass": 
         }
       }
     }
-    // The title keeps to the post's own words; a label or a sentence start may use any ordinary word.
-    const checkWords = (text, titleCase, strict = false) => {
+    const checkWords = (text, titleCase, label = false) => {
       for (const sentence of sentencesOf(text)) {
         const ws = wordsOf(sentence);
         ws.forEach((w, i) => {
@@ -1745,14 +1753,14 @@ Reply with JSON only, one verdict per candidate: {"verdicts": [{"n": 1, "pass": 
           // Version digits are not a name ("GPT-6" must not pass because the post has a 6).
           const parts = w.toLowerCase().split("-").filter((part) => /[a-z]{2}/.test(part));
           if (known(trimWord(w)) || parts.some((part) => known(part))) return;
-          if ((titleCase || i === 0) && !/[A-Z].*[A-Z]|\d/.test(w.slice(1)) && (strict ? plainWord(w) : ordinaryWord(w))) return;
+          if ((titleCase || i === 0) && !/[A-Z].*[A-Z]|\d/.test(w.slice(1)) && ordinaryWord(w, label)) return;
           foreign.add(w);
         });
       }
     };
-    checkWords(title, true, true);
+    checkWords(title, true);
     checkWords(summary, false);
-    for (const p of points) { checkWords(p.label, true); checkWords(p.text, false); }
+    for (const p of points) { checkWords(p.label, true, true); checkWords(p.text, false); }
 
     // Quoted words must be the post's own words.
     const sourceQuote = normQuote(sourceText);

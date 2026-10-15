@@ -22,7 +22,8 @@
     "cheerio": "^1.2.0",
     "dotenv": "^16.4.5",
     "selenium-webdriver": "^4.47.0",
-    "winston": "^3.17.0"
+    "winston": "^3.17.0",
+    "wordlist-english": "^1.2.1"
   },
   "scripts": {
     "start": "node start-app.js",

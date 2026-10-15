@@ -86,8 +86,12 @@ test("validateArticle reads ordinary words in labels and units after numbers as 
     ],
   };
   assert.doesNotMatch(llm.validateArticle(a, post).join(" "), /names are not in the post/);
-  const named = { ...a, points: [{ label: "OpenAI", text: "1% of revenue to open source maintainers every month." }] };
-  assert.match(llm.validateArticle(named, post).join(" "), /names are not in the post: OpenAI/);
+  const plain = { ...a, points: [{ label: "Map", text: "1% of revenue goes to open source maintainers every month." }, { label: "Gaps", text: "The review runner needs 24 GB of memory." }] };
+  assert.doesNotMatch(llm.validateArticle(plain, post).join(" "), /names are not in the post/, "any common English word in a label");
+  for (const label of ["OpenAI", "Cursor", "Perplexity"]) {
+    const named = { ...a, points: [{ label, text: "1% of revenue to open source maintainers every month." }] };
+    assert.match(llm.validateArticle(named, post).join(" "), new RegExp(`names are not in the post: ${label}`), label);
+  }
   const reply = llm.parseArticleReply("TITLE: Greptile runner works over Wi\u2011Fi\nSUMMARY: It needs 24\u202fGB of memory.\nPOINTS:\n- Memory: 24GB");
   assert.equal(reply.title, "Greptile runner works over Wi-Fi");
   assert.equal(reply.summary, "It needs 24 GB of memory.");
