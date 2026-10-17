@@ -24,6 +24,58 @@ const commitIdentity = () => {
 // about, badges) is the repository owner's own text and is kept as it is.
 const README_CATEGORIES_HEADING = "## 📚 Resource Categories";
 
+// How many of the newest digest headlines each category shows in the README.
+const README_HEADLINES_PER_CATEGORY = 3;
+
+// The digest headlines ("### 🤖 Title") of one resources file, without the leading emoji, in file order.
+const digestHeadlines = (markdown, max = README_HEADLINES_PER_CATEGORY) =>
+  String(markdown || "")
+    .split("\n")
+    .filter((line) => line.startsWith("### "))
+    .map((line) => line.slice(4).replace(/^[\p{Extended_Pictographic}\u{1F1E6}-\u{1F1FF}\u{1F3FB}-\u{1F3FF}\uFE0F\u200D\u20E3\s]+/u, "").replace(/\s+/g, " ").trim())
+    .filter((h) => h && h !== "Read More & Connect")
+    .slice(0, max);
+
+// The blog's page for a category (same slug rule as the blog index), or null without a blog address.
+const blogCategoryUrl = (name) => {
+  const base = config.syndication?.canonicalBaseUrl;
+  if (!base) return null;
+  const slug = String(name).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80);
+  return `${base}/categories/${slug}`;
+};
+
+// One category's README section: its newest digest, the newest headlines in it and the digest count.
+const renderCategorySection = (folder, files, headlines = []) => {
+  let out = `### ${folder.name}\n\n`;
+  if (!files.length) return `${out}*   No resources yet.\n\n`;
+  const latest = files[0];
+  const number = String(latest.number).padStart(3, "0");
+  const about = folder.description ? `${folder.description} · ` : "";
+  const blog = blogCategoryUrl(folder.name);
+  out += `<sub>${about}${files.length} digests · [latest: #${number}](${latest.url})${blog ? ` · [read on the blog](${blog})` : ""}</sub>\n\n`;
+  if (headlines.length) out += headlines.map((h) => `*   ${h.replace(/[[\]]/g, "").replace(/</g, "&lt;")}`).join("\n") + "\n";
+  else out += `*   [Latest Update (#${number})](${latest.url})\n`;
+  return `${out}\n`;
+};
+
+// Kept under the regenerated category list on every run (the list replaces everything below the heading).
+const readmeFooter = (owner, repo) => {
+  const home = `https://github.com/${owner}/${repo}`;
+  const by = config.author?.name ? ` © ${config.author.name}` : "";
+  return [
+    "---",
+    "",
+    "<div align=\"center\">",
+    "",
+    `**Found something useful?** ⭐ [Star the repo](${home}) to keep it handy and help others find it, or [suggest a source](${home}/issues/new/choose).`,
+    "",
+    `<sub>Summaries${by}, licensed [CC BY 4.0](LICENSE). Every digest links to its original post where one exists; the posts and linked pages belong to their authors.</sub>`,
+    "",
+    "</div>",
+    "",
+  ].join("\n");
+};
+
 // The "Read More & Connect" footer of a committed article: the blog link, the byline and the
 // author's links (config.author), each line only when its value is set. Null when there is nothing to add.
 const articleFooter = (blogArticleUrl) => {
@@ -437,6 +489,7 @@ class GithubService {
           const files = data
             .filter((file) => resourceNumber(file.name) !== null)
             .map((file) => ({
+              name: file.name,
               number: resourceNumber(file.name),
               url: `https://github.com/${owner}/${repo}/blob/main/${encodeURIComponent(
                 decodedFolder
@@ -444,17 +497,21 @@ class GithubService {
             }))
             .sort((a, b) => b.number - a.number);
 
-          let sectionContent = `### ${folder.name}\n\n`;
-
+          // The newest digest's headlines; a failed read only drops the headlines, not the section.
+          let headlines = [];
           if (files.length > 0) {
-            sectionContent += `*   [Latest Update (#${String(
-              files[0].number
-            ).padStart(3, "0")})](${files[0].url}) - *${folder.description || "Resources related to " + folder.name
-              }*\n`;
-          } else {
-            sectionContent += `*   No resources yet.\n`;
+            try {
+              const { data: latest } = await this.octokit.repos.getContent({
+                owner,
+                repo,
+                path: `${decodedFolder}/${files[0].name}`,
+              });
+              if (latest?.encoding === "base64") headlines = digestHeadlines(Buffer.from(latest.content || "", "base64").toString("utf8"));
+            } catch (error) {
+              logger.warn(`Could not read the newest digest in ${decodedFolder}: ${error.message}`);
+            }
           }
-          sectionContent += "\n";
+          const sectionContent = renderCategorySection(folder, files, headlines);
           return { name: folder.name, content: sectionContent };
         } catch (error) {
           let sectionContent = `### ${folder.name}\n\n`;
@@ -475,7 +532,7 @@ class GithubService {
 
       updatesContent += orderedContent;
 
-      const newContent = headerContent + updatesContent;
+      const newContent = headerContent + updatesContent + readmeFooter(owner, repo);
 
       await this.createOrUpdateReadme(owner, repo, newContent);
     } catch (error) {
@@ -575,7 +632,7 @@ class GithubService {
         owner,
         repo,
         path,
-        message: "📚 Update README with latest tweets",
+        message: "📚 README: refresh the category list with the newest digests",
         content: Buffer.from(content).toString("base64"),
         sha: existingSha,
         branch,
@@ -616,3 +673,4 @@ class GithubService {
 }
 
 module.exports = new GithubService();
+module.exports.readme = { digestHeadlines, renderCategorySection, blogCategoryUrl, readmeFooter, README_CATEGORIES_HEADING };
