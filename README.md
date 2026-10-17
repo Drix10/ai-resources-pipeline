@@ -1,5 +1,10 @@
 # AI Resources Pipeline
 
+![Node](https://img.shields.io/badge/node-%E2%89%A5%2020-339933?logo=node.js&logoColor=white)
+![Next.js](https://img.shields.io/badge/blog-Next.js%2014-000000?logo=nextdotjs&logoColor=white)
+![LLM](https://img.shields.io/badge/LLM-OpenRouter%20·%20NIM%20·%20Ollama%20·%20Claude-6E56CF)
+![License](https://img.shields.io/badge/license-MIT-2ea44f)
+
 An autonomous curation and syndication pipeline. Each run reads curated X lists, turns the strongest posts into grounded technical articles, commits them to GitHub, publishes them on a Next.js knowledge hub ([blogs.drix10.com](https://blogs.drix10.com)) and DEV.to, announces them on X, and engages on LinkedIn with gated, genuine interactions.
 
 One `npm start` is one full run, start to finish. There is no scheduler: run it again (or schedule it with your OS) for the next batch.
@@ -18,10 +23,14 @@ flowchart TD
     E --> I["Optional add-on: the content factory (Instagram reels), then exit"]
 ```
 
-- **Grounded articles.** One article per source post, never several posts in one call. The writer is `openai/gpt-oss-120b` on OpenRouter, chosen by benchmark (9 models, 30 real posts, judged for faithfulness, specificity and publishability). Every number and name must appear in the post, resource links are built in code from the post itself, filler phrasing and banned words are rejected, and a rejected article gets one retry with the reasons. Posts with nothing concrete are skipped, not padded.
-- **Search and clicks.** Titles open with the name a reader would search for, and an article's first sentence is written to work as the search snippet. Each digest leads with its most substantive item: its headline becomes the page title, URL slug, DEV.to title and the opening line of the X announcement, and its summary the page's meta description and the DEV.to description. DEV.to copies carry tags readers follow (`ai`, the topic's own tags, `news`) and a canonical link back to the blog.
-- **LinkedIn engagement.** Short peer comments (a congratulation, an honest acknowledgement, a specific question, or nothing), checked by mechanical gates and a semantic critic; if the critic is unavailable, nothing is posted. No comment opens or runs like one of the last eight, and none points at your own work. English posts only. Engagement goes mostly to people building with AI, with finance and investing as the second audience (about two to one in searches and connection requests), early in a post's life, by authors who answer: the people who commented on, reacted to or reposted your posts, followed you or accepted your invitation (read from your notifications) are liked, followed and commented on first. A viral pass adds comments on posts about to reach a very large audience: big names (founders, CEOs, labs, big dev tools and investors, listed in `config/viral.js`) and the day's most-engaged launches and funding news, scored by reactions, their pace and freshness. Daily caps: 20 comments plus 8 viral ones, 60 likes, 5 follows, 15 connection requests (90 a week). Content generation never depends on LinkedIn, and every LinkedIn step is non-fatal.
-- **Safety.** Credentials, webhook URLs, private keys and internal IPs are stripped before anything is committed. One run at a time (`.pipeline.lock`); Ctrl+C stops at the next step.
+| | |
+| --- | --- |
+| 📰 **Grounded articles** | One article per source post, by `openai/gpt-oss-120b` (picked by benchmark: 9 models, 30 real posts). Every number and name must be in the post; links are built in code; thin posts are skipped, a rejected article gets one retry. |
+| 🔍 **Search-first** | Titles open with the name a reader searches for; each digest's lead item becomes the page title, slug, DEV.to title and X announcement. DEV.to copies link back to the blog as canonical. |
+| 🤝 **LinkedIn, gated** | Short peer comments checked by code gates and a critic (no critic, no comment). People who engaged with you come first; a viral pass comments on posts about to reach a large audience. Every LinkedIn step is non-fatal. |
+| 🔒 **Safe** | Credentials, webhooks, keys and internal IPs are stripped before any commit. One run at a time (`.pipeline.lock`); Ctrl+C stops at the next step. |
+
+LinkedIn's daily caps: 20 comments + 8 viral, 60 likes, 5 follows, 15 connection requests (90 a week). Engagement leans to people building with AI, with finance as the second audience.
 
 ## Requirements
 
