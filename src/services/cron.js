@@ -244,7 +244,8 @@ const publishBlog = async (root) => {
 
     if (hasChanges) {
       logger.info("Cycle End: running the blog build before publishing...");
-      const build = await inRepo("npm", ["--prefix", "blog", "run", "build"], { timeout: 15 * 60 * 1000, shell: true });
+      // (one command string: npm is a .cmd on Windows, so it needs the shell, and Node warns of args passed beside one)
+      const build = await inRepo("npm --prefix blog run build", [], { timeout: 15 * 60 * 1000, shell: true });
       if (build.status !== 0) return fail("blog build", build);
       logger.info("Cycle End: blog build passed.");
 
