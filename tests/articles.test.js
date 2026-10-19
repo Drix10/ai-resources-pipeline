@@ -333,6 +333,27 @@ test("a negation in other words, or a negated part left out, keeps the post's po
   assert.match(llm.validateArticle(article("The ghost-hunting game in Unity 6 does not use Claude."), post).join(" "), /adds a negation|could reverse/);
 });
 
+test("the post's own words in other forms: a release line, a negation past its filler words, a verb in another tense", () => {
+  const post = "Shipping precompiled bytecode in our images cuts vLLM startup by 14–18%. Official release images from v0.32.0.\n\n100,000+ members had account numbers stolen, not from their funds but from PK Softech, a software vendor.\n\nSaved 3+ hours on a large build by using 15 boat VM machines in parallel.";
+  const article = (text) => ({
+    title: "vLLM release images ship precompiled bytecode",
+    summary: "vLLM official release images ship precompiled bytecode that cuts startup by 14-18%, and 100,000+ members had account numbers stolen from PK Softech.",
+    points: [{ label: "Detail", text }],
+  });
+  for (const text of [
+    "Release images from v0.32 ship precompiled bytecode.",
+    "The account numbers came from the software vendor PK Softech, not the funds.",
+    "Used 15 boat VM machines in parallel to save 3+ hours on a large build.",
+  ]) {
+    assert.deepEqual(llm.validateArticle(article(text), post), [], text);
+  }
+  // still not the post's: a whole number for its version, a negation of something else, a name it never gives
+  assert.match(llm.validateArticle(article("Release images from v0 ship precompiled bytecode."), post).join(" "), /number 0 /);
+  assert.match(llm.validateArticle(article("Release images from v0.33 ship precompiled bytecode."), post).join(" "), /0\.33/);
+  assert.match(llm.validateArticle(article("PK Softech is not a software vendor."), post).join(" "), /adds a negation/);
+  assert.match(llm.validateArticle(article("Fred used 15 boat VM machines in parallel."), post).join(" "), /names are not in the post: Fred/);
+});
+
 test("a magnitude written another way, and an abbreviation of the post's words, are the post's own", () => {
   const post = "We run our own customer support on ElevenAgents. It has resolved over 22,000 tickets a month and our standard operating procedures cover refunds. The fund raised $1.5B.";
   const a = (text) => ({

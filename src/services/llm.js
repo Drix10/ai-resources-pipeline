@@ -274,14 +274,16 @@ const ARTICLE_POLARITY_RE = new RegExp(String.raw`\b(?:${ARTICLE_NEGATOR})\b|n['
 // Each negation in a clause with the two words that follow it ("no markup", "not support images"), and each "X-free".
 const ARTICLE_NEGATION_PHRASE_RE = new RegExp(String.raw`\b(?:${ARTICLE_NEGATOR})\b((?:\s+[\w$%.-]+){0,2})|\b([\w.]+)-free\b`, "gi");
 // Words a negation reaches past to what it denies ("not a", "no more than the").
-const NEGATION_FILLER = new Set("a an the be been being is are was were to of for by any it its as at in on or so do does did have has had more much less than this that these those".split(" "));
+const NEGATION_FILLER = new Set("a an the be been being is are was were to of for by from with any it its their our your his her my as at in on or and but so do does did have has had more much less than this that these those".split(" "));
 // A text's words as short stems, hyphenated words in parts ("hand-written code" -> hand, writt, code).
 const articleLooseStems = (text) => new Set(String(text || "").toLowerCase().split(/[\s-]+/)
   .map((w) => w.replace(/^[^\w$%]+|[^\w$%]+$/g, ""))
   .filter((w) => w.length >= 2 && !NEGATION_FILLER.has(w))
   .map((w) => w.slice(0, 5)));
-// What the negations in a text deny: the words after each one, and the X of each "X-free".
-const articleDenied = (text) => new Set([...String(text || "").matchAll(ARTICLE_NEGATION_PHRASE_RE)].flatMap((m) => [...articleLooseStems(m[1] || m[2])]));
+// What the negations in a text deny: the two words after each one past the filler ("not from their funds" denies
+// "funds"), and the X of each "X-free".
+const NEGATION_REACH_RE = new RegExp(String.raw`\b(?:${ARTICLE_NEGATOR})\b((?:\s+[\w$%.-]+){0,5})|\b([\w.]+)-free\b`, "gi");
+const articleDenied = (text) => new Set([...String(text || "").matchAll(NEGATION_REACH_RE)].flatMap((m) => [...articleLooseStems(m[1] || m[2])].slice(0, 2)));
 const MAGNITUDE = { k: "k", thousand: "k", m: "m", mn: "m", million: "m", b: "b", bn: "b", billion: "b", t: "t", tn: "t", trillion: "t", "%": "%", percent: "%", x: "x", "×": "x", times: "x" };
 const CURRENCY = { $: "$", usd: "$", dollars: "$", "€": "€", eur: "€", euros: "€", "£": "£", gbp: "£", pounds: "£", "¥": "¥", yen: "¥" };
 // What a quantity counts, its magnitude applied ("22k" and "22,000" are both 22000); null for a percentage or a ratio.
@@ -1691,7 +1693,9 @@ Reply with JSON only, one verdict per candidate: {"verdicts": [{"n": 1, "pass": 
 
     const sourceNorm = String(sourceText).replace(/(\d),(?=\d)/g, "$1").replace(/[\u2019]/g, "'").toLowerCase();
     const numbers = body.replace(/(\d),(?=\d)/g, "$1").match(/\d+(?:\.\d+)?/g) || [];
-    const inSource = (n) => new RegExp(`(?<![\\d.])${n.replace(/\./g, "\\.")}(?!\\d|\\.\\d)`).test(sourceNorm);
+    // (a release line is the post's own: "0.32" for its "v0.32.0"; a whole number never is: "2" is not its "2.5")
+    const inSource = (n) => new RegExp(`(?<![\\d.])${n.replace(/\./g, "\\.")}(?!\\d|\\.\\d)`).test(sourceNorm)
+      || (n.includes(".") && new RegExp(`(?<![\\d.])${n.replace(/\./g, "\\.")}\\.\\d+(?!\\.?\\d)`).test(sourceNorm));
     // (a number written with another magnitude is the post's own: "22k" for its "22,000", "22,000" for its "22K")
     const sourceQty = articleQuantities(sourceText);
     const bodyQty = articleQuantities(body);
@@ -1755,11 +1759,14 @@ Reply with JSON only, one verdict per candidate: {"verdicts": [{"n": 1, "pass": 
     // writes it in lowercase or it ends like one ("Reported", "Tokenization"). In a label any common English
     // word is too ("Map", "Gaps"); elsewhere a surname may be one ("Musk", "Cook"). A product's name never is.
     const lowerWords = new Set([summary, ...points.map((p) => p.text)].join(" ").match(/\b[a-z]{3,}\b/g) || []);
+    // (or the post's own word in another form: "Used" for its "using", "Ships" for its "shipped")
+    const inflected = (lower) => [lower.replace(/(?:ed|d|es|s|ing)$/, ""), lower.replace(/(?:ed|es|ing)$/, "")].some((b) => b.length >= 2
+      && [b, `${b}s`, `${b}es`, `${b}d`, `${b}ed`, `${b}ing`, `${b.replace(/e$/, "")}ing`].some((f) => f !== lower && f.length >= 4 && sourceWords.has(f)));
     // (a compound is ordinary when each of its pieces is: "Hand-off")
     const ordinaryWord = (w, label) => plainWord(w) || w.toLowerCase().split("-").every((lower) => {
       const singular = lower.replace(/(?:es|s)$/, "");
       if (PRODUCT_WORDS.has(lower) || PRODUCT_WORDS.has(singular)) return false;
-      return (label && ENGLISH_WORDS.has(lower)) || lowerWords.has(lower) || lowerWords.has(singular) || (lower.length >= 5 && ORDINARY_ENDING_RE.test(lower));
+      return (label && ENGLISH_WORDS.has(lower)) || lowerWords.has(lower) || lowerWords.has(singular) || (lower.length >= 5 && ORDINARY_ENDING_RE.test(lower)) || inflected(lower);
     });
     const foreign = new Set();
     const sentencesOf = (text) => String(text || "").split(/(?<=[.!?])\s+/);
