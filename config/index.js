@@ -118,10 +118,6 @@ const config = {
     // the day's most-engaged launches and funding news), on their own daily cap. Comments post only
     // with LINKEDIN_FEED_REPLY=true.
     linkedinViral: process.env.LINKEDIN_VIRAL !== "false",
-    // Simple mode: raw LLM reply, no system prompting, no gates, no critic.
-    // Experiment flag for comparing against the policed pipeline. Nothing posts
-    // without LINKEDIN_FEED_REPLY=true; previews stay dry-run either way.
-    linkedinSimpleReply: process.env.LINKEDIN_SIMPLE_REPLY === "true",
     // Post sources for likes/comments: "targeted" (default: content search + config/creators.json,
     // home-feed fallback) or "feed" (home feed Top/Recent only).
     linkedinSource: process.env.LINKEDIN_SOURCE === "feed" ? "feed" : "targeted",

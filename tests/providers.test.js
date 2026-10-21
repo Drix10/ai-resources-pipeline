@@ -128,16 +128,24 @@ test("after a usage limit Claude rests: the next calls go straight to the fallba
   assert.equal(asked, 2, "after the rest it is tried again");
 }, { openrouterKey: "k" }));
 
-test("viral drafter: a banned word fails a candidate (never laundered by the sanitizer)", async () => {
+test("viral drafter: a stock word is a note the judge weighs, and the comment goes out as written", async () => {
   const saved = llm.generateCommentText;
+  const comment = "Releasing the weights will supercharge every small team.";
+  const prompts = [];
   const replies = [
-    JSON.stringify({ candidates: [{ angle: "detail", comment: "Releasing the weights will supercharge every small team." }] }),
+    JSON.stringify({ candidates: [{ angle: "detail", comment }] }),
+    JSON.stringify({ verdicts: [{ n: 1, pass: false, reason: "reads as hype" }] }),
+    JSON.stringify({ candidates: [{ angle: "detail", comment }] }),
+    JSON.stringify({ verdicts: [{ n: 1, pass: true, reason: "specific" }] }),
   ];
-  llm.generateCommentText = async () => replies.shift();
+  llm.generateCommentText = async (prompt) => { prompts.push(prompt); return replies.shift(); };
+  const post = { author: "Ada", text: "We are releasing our open model weights today for every developer to build on.", ageH: 1 };
   try {
-    const r = await llm.draftViralComment({ post: { author: "Ada", text: "We are releasing our open model weights today for every developer to build on.", ageH: 1 } });
+    const r = await llm.draftViralComment({ post });
     assert.equal(r.isValid, false);
-    assert.match(r.errors.join(" "), /Banned word/);
+    assert.match(r.errors.join(" "), /judge: reads as hype/);
+    assert.match(prompts[1], /CODE NOTES[^\n]*supercharge/, "the judge sees the code's note on its candidate");
+    assert.equal((await llm.draftViralComment({ post })).comment, comment, "no word is rewritten after the judge passed it");
   } finally {
     llm.generateCommentText = saved;
   }

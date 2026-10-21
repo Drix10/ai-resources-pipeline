@@ -388,25 +388,18 @@ const runDataPipeline = async (folder) => {
 // minute apart read as a bot to X and get throttled ("Composer still open").
 const TWEETS_PER_RUN = Math.max(0, Number(process.env.TWITTER_POSTS_PER_RUN ?? 3) || 0);
 const TWEET_GAP_MS = 20 * 60 * 1000;
-// Optional credit lines (TWITTER_MADE_BY, TWITTER_VIA): a template leaves out a line it has no value for.
+// Optional credit line (TWITTER_MADE_BY, TWITTER_VIA), added in code when it fits: it may name the owner, so
+// it never goes into a prompt.
 const { madeBy: MADE_BY, via: VIA } = config.social.tweetCredit;
 const CREDIT = [MADE_BY && `Made by ${MADE_BY}`, VIA && `via ${VIA}`].filter(Boolean).join(" ");
-// A headline earns the click a generic "new resource" line does not: each template leads with the
-// digest's top item when it has one.
-const ANNOUNCEMENTS = [
-  (topic, url, lead) => lead
-    ? `${lead}\n\nThis and more in the latest ${topic} roundup:\n${url}`
-    : `New ${topic} resource added!\n\n${CREDIT ? `${CREDIT}\n\n` : ""}Check out the latest resource here:\n${url}`,
-  (topic, url, lead) => lead
-    ? `New in ${topic}: ${lead}\n\n${CREDIT ? `${CREDIT}\n\n` : ""}The key facts and sources:\n${url}`
-    : `Fresh ${topic} picks, sorted and summarised.\n\nRead them here:\n${url}`,
-  (topic, url, lead) => lead
-    ? `${lead}\n\nSummarised, with the sources, in today's ${topic} picks:\n${url}`
-    : `Just published: the latest ${topic} roundup.\n\n${VIA ? `via ${VIA}\n` : ""}${url}`,
-  (topic, url, lead) => lead
-    ? `Just published (${topic}): ${lead}\n\n${VIA ? `via ${VIA}\n` : ""}${url}`
-    : `${topic}: this week's most useful finds in one place.\n\n${url}`,
-];
+// X counts a link as 23 characters.
+const xLength = (text, url) => text.split(url).join("x".repeat(23)).length;
+// The announcement when the model's call fails or its post fails the check: the digest's top headline, which
+// earns the click a generic line does not, else a plain line.
+const plainAnnouncement = (topic, url, lead) => {
+  const text = `${lead}\n\nThis and more in the latest ${topic} roundup:\n${url}`;
+  return lead && xLength(text, url) <= 280 ? text : `New in the latest ${topic} roundup:\n${url}`;
+};
 
 // A long wait that ends as soon as a stop is requested.
 const pauseUnlessStopped = async (ms) => {
@@ -454,11 +447,15 @@ const processAllFolders = async () => {
       if (Date.now() - lastTweetAt < TWEET_GAP_MS) {
         return logger.info(`Not announcing ${item.queryName}: the last tweet went out under ${TWEET_GAP_MS / 60000} min ago.`);
       }
-      const template = ANNOUNCEMENTS[Math.floor(Math.random() * ANNOUNCEMENTS.length)];
       const topic = item.queryName;
-      let text = template(topic, item.url, digestLead(item.content).title);
-      // X counts a link as 23 characters; a headline that would push the post past 280 is left out.
-      if (text.replace(item.url, "x".repeat(23)).length > 280) text = template(topic, item.url, "");
+      let text = await llmService.writeAnnouncement({ topic, url: item.url, content: item.content }).catch((err) => {
+        if (err.code === "CLAUDE_STOPPED") return "";
+        logger.warn(`Announcement for ${topic} not written by the model (${err.message}); posting the plain line.`);
+        return plainAnnouncement(topic, item.url, digestLead(item.content).title);
+      });
+      // (a stop that came during the call posts nothing)
+      if (!text || stopping()) return;
+      if (CREDIT && xLength(`${text}\n\n${CREDIT}`, item.url) <= 280) text = `${text}\n\n${CREDIT}`;
       const posted = await TwitterService.postTweet(text).catch((err) => {
         logger.error(`Failed to post tweet for ${item.queryName}:`, err);
         return false;

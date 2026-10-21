@@ -418,7 +418,8 @@ function saveTrack(track) {
 
 // Tracker entries: { ts, status: "commented" | "liked" | "skipped" | "rejected" | "invited",
 // likedAt?, followedAt?, commentedAt?, comment? (the text we posted), authorHref?, skipReason?,
-// unverified?, viral?, pass? ("comment" | "viral": which pass skipped or rejected it) }
+// unverified?, viral?, pass? ("comment" | "viral": which pass skipped or rejected it), answeredAt? (the
+// author replied, reacted or mentioned us after our comment) }
 // (a plain-string value = commented). Invites are conn:<profile> entries (acceptedAt once
 // accepted), the people who engage with us warm:<profile> entries (see the reciprocity section).
 function entryOf(v) {
@@ -478,13 +479,13 @@ const commentedSince = (track, ms, { viral } = {}) =>
 const likedSince = (track, ms) => countEntries(track, (e) => within(e.likedAt, ms));
 const followedSince = (track, ms) => countEntries(track, (e) => within(e.followedAt, ms));
 const invitedSince = (track, ms) => countEntries(track, (e) => e.status === "invited" && within(e.ts, ms));
-// The texts of our latest comments, newest first: the drafters write against them so no two
-// comments open or run the same way.
+// Our latest comments, newest first, as { text, answered }: the drafters write against them so no two
+// comments open or run the same way, and learn from the ones whose author answered (noteWarmPeople).
 const RECENT_COMMENTS = 8;
 const recentComments = (track, n = RECENT_COMMENTS) => postEntries(track).map(([, v]) => entryOf(v))
   .filter((e) => e.comment && commentedAtOf(e))
   .sort((a, b) => Date.parse(commentedAtOf(b)) - Date.parse(commentedAtOf(a)))
-  .slice(0, n).map((e) => e.comment);
+  .slice(0, n).map((e) => ({ text: e.comment, answered: !!e.answeredAt }));
 const authorDid = (track, href, pick, ms) => {
   const h = normHref(href);
   return !!h && countEntries(track, (e) => e.authorHref === h && within(pick(e), ms)) > 0;
@@ -614,6 +615,18 @@ const isWarm = (track, href) => {
   return within(e.ts, WARM_TTL_MS) || (!!main && within(main.ts, WARM_TTL_MS));
 };
 
+// A reply to our comment, a reaction or a mention from someone whose post we commented on before it: our
+// latest such comment earned it (answeredAt), so the drafters can learn what earns a reply (recentComments).
+// shortcut: matched by the post's author only (a notification names no post), so a third person's reply is
+// not tied back; upgrade if scanNotifications ever reads which comment a notification is about.
+const EARNED_KINDS = new Set(["reply", "reaction", "mention"]);
+function noteAnswered(track, href, atMs, at, now) {
+  const before = (x) => !!x && Date.parse(x) < atMs && within(x, PRUNE_MS, now);
+  const earned = postEntries(track).filter(([, v]) => v && v.comment && v.authorHref === href && before(commentedAtOf(v)))
+    .sort(([, a], [, b]) => Date.parse(commentedAtOf(b)) - Date.parse(commentedAtOf(a)))[0];
+  if (earned && !earned[1].answeredAt) track[earned[0]] = { ...earned[1], answeredAt: at };
+}
+
 // Records what the notifications page showed (LinkedInService.scanNotifications). Returns how many
 // people are new to the warm list.
 function noteWarmPeople(track, items, now = Date.now()) {
@@ -649,6 +662,7 @@ function noteWarmPeople(track, items, now = Date.now()) {
     const main = prev && prev.aliasOf && track[prev.aliasOf];
     if (main && typeof main === "object" && Date.parse(track[key].ts) > Date.parse(main.ts)) track[prev.aliasOf] = { ...main, ts: track[key].ts };
     if (it.kind === "accepted" && invited && !invite.acceptedAt) track[CONNECT_KEY(href)] = { ...invite, acceptedAt: at };
+    if (EARNED_KINDS.has(it.kind)) noteAnswered(track, href, atMs, at, now);
   }
   return added;
 }
@@ -762,11 +776,6 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
   if ((!config.social.linkedinFeedReply || (viral && !config.social.linkedinViral)) && !dryRun) {
     return { commented: 0, skipped: 0, liked: 0, previews: [], wouldLike: [], reason: "disabled", cost: null };
   }
-  // Simple mode skips every gate and the critic: it may preview, never post.
-  if (config.social.linkedinSimpleReply && !dryRun) {
-    logger.warn("feedEngage: LINKEDIN_SIMPLE_REPLY=true has no gates or critic - forcing a dry run, nothing will be posted.");
-    dryRun = true;
-  }
   // Cost readout: snapshot LLM token meters so every run reports its own spend.
   const m0 = llmService.getMetrics();
   const runCost = () => {
@@ -863,7 +872,7 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
         draft = await llmService.draftViralComment({ post, comments: thread.comments, recent: recentComments(track) });
         for (const c of draft.candidates || []) logger.info(`${tag}: candidate [${c.angle}] "${c.comment}" -> ${c.gate && c.gate.length ? `gates: ${c.gate.join("; ")}` : c.judge ? `judge: ${c.judge.pass ? "PASS" : "FAIL"} ${c.judge.reason}` : "not judged"}`);
       } else {
-        draft = await llmService.draftFeedComment({ postAuthor: post.author, postText: post.text, recent: recentComments(track) });
+        draft = await llmService.draftFeedComment({ postAuthor: post.author, postText: post.text, comments: thread.comments, recent: recentComments(track) });
       }
     } catch (e) {
       timed();

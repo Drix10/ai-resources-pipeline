@@ -19,7 +19,7 @@ for (const key of [
 // FACTORY_ENABLED is off too: the optional content factory never runs in a test unless the test
 // turns it on itself.
 for (const flag of [
-  "TWITTER_POST", "LINKEDIN_LIKE", "LINKEDIN_CONNECT", "LINKEDIN_FEED_REPLY", "LINKEDIN_VIRAL", "LINKEDIN_SIMPLE_REPLY",
+  "TWITTER_POST", "LINKEDIN_LIKE", "LINKEDIN_CONNECT", "LINKEDIN_FEED_REPLY", "LINKEDIN_VIRAL",
   "DEVTO_AUTO_PUBLISH", "FACTORY_ENABLED",
 ]) process.env[flag] = "false";
 // LLM providers: the documented default (openrouter, with no key) for every job, and the claude CLI
@@ -48,6 +48,8 @@ process.env.SYNDICATION_QUEUE_PATH = path.join(dir, "data", "syndication-queue.j
 // Neither exists: the blog index rebuild and the blog's git sync find nothing to do.
 process.env.BLOG_DIR = path.join(dir, "blog");
 process.env.BLOG_REPO_DIR = path.join(dir, "no-repo");
+// No factory checkout: its state (state/demand.json) never reaches a test that does not write one.
+process.env.FACTORY_DIR = path.join(dir, "factory");
 process.on("exit", () => {
   try { fs.rmSync(dir, { recursive: true, force: true }); } catch { /* best effort */ }
 });

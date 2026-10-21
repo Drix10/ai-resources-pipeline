@@ -133,6 +133,28 @@ test("warm people: recorded with what they did, an accepted invite marked, old a
   assert.equal(_tracker.commentedSince(track, DAY), 0);
 });
 
+test("a reply, reaction or mention from an author we commented on marks our latest comment to them as answered", () => {
+  const now = Date.now();
+  const ada = "https://www.linkedin.com/in/ada";
+  const track = {
+    old: { ts: ago(5), status: "commented", commentedAt: ago(5), comment: "Older comment on Ada.", authorHref: ada },
+    latest: { ts: ago(2), status: "commented", commentedAt: ago(2), comment: "Latest comment on Ada.", authorHref: ada },
+    after: { ts: new Date(now - 3600000).toISOString(), status: "commented", commentedAt: new Date(now - 3600000).toISOString(), comment: "Comment after her reply.", authorHref: ada },
+    bob: { ts: ago(1), status: "commented", commentedAt: ago(1), comment: "Comment on Bob.", authorHref: "https://www.linkedin.com/in/bob" },
+  };
+  R.noteWarmPeople(track, [
+    { kind: "reply", name: "Ada", href: `${ada}/`, ageH: 24 },
+    { kind: "follow", name: "Bob", href: "https://www.linkedin.com/in/bob", ageH: 2 },
+  ], now);
+  assert.ok(track.latest.answeredAt, "the latest comment before her reply earned it");
+  assert.equal(track.old.answeredAt, undefined);
+  assert.equal(track.after.answeredAt, undefined, "a comment after the reply did not earn it");
+  assert.equal(track.bob.answeredAt, undefined, "a follow is not an answer to a comment");
+  assert.deepEqual(_tracker.recentComments(track).map((c) => [c.text, c.answered]), [
+    ["Comment after her reply.", false], ["Comment on Bob.", false], ["Latest comment on Ada.", true], ["Older comment on Ada.", false],
+  ]);
+});
+
 test("warm sources go first: a conversation before a nod, never a page read lately or a person liked today", () => {
   const now = Date.now();
   const iso = (h) => new Date(now - h * 3600000).toISOString();
@@ -274,22 +296,27 @@ test("a comment the session could not post is not tracked; one it posted after t
 });
 
 // ---- Comment memory: never the same structure twice, never about us ----
-test("the comment pass remembers what it posted and drafts against its latest comments", async () => {
+test("the comment pass remembers what it posted and drafts against its latest comments and the post's thread", async () => {
   const saved = { draft: llm.draftFeedComment, reply: config.social.linkedinFeedReply };
   process.env.LINKEDIN_TRACK_PATH = path.join(TMP, "comment-track.json");
   LinkedInService._resetDisabled();
   let n = 0;
   const recents = [];
-  const li = fakeLinkedIn({ scan: () => { n++; return [{ key: `urn:li:activity:70${n}`, author: `Builder ${n}`, href: `https://www.linkedin.com/in/builder-${n}`, text: BUILDER, head: "", ageH: 1, reactions: 30, comments: 2 }]; } });
-  llm.draftFeedComment = async ({ recent }) => { recents.push(recent); return { comment: `Which part of the framework did the developers ask for first, take ${recents.length}?`, isValid: true, skipped: false, errors: [] }; };
+  const threads = [];
+  const li = fakeLinkedIn({
+    scan: () => { n++; return [{ key: `urn:li:activity:70${n}`, author: `Builder ${n}`, href: `https://www.linkedin.com/in/builder-${n}`, text: BUILDER, head: "", ageH: 1, reactions: 30, comments: 2 }]; },
+    thread: () => ({ status: "open", comments: "Ana Lima\nThe agents part is underrated.", commenters: [] }),
+  });
+  llm.draftFeedComment = async ({ recent, comments }) => { recents.push(recent); threads.push(comments); return { comment: `Which part of the framework did the developers ask for first, take ${recents.length}?`, isValid: true, skipped: false, errors: [] }; };
   try {
     config.social.linkedinFeedReply = true;
     assert.equal((await feedEngage.runFeedEngagement({ max: 1 })).commented, 1);
     assert.equal((await feedEngage.runFeedEngagement({ max: 1 })).commented, 1);
     assert.deepEqual(recents[0], []);
-    assert.deepEqual(recents[1], ["Which part of the framework did the developers ask for first, take 1?"]);
+    assert.equal(threads[0], "Ana Lima\nThe agents part is underrated.", "the thread readThreads read reaches the drafter");
+    assert.deepEqual(recents[1], [{ text: "Which part of the framework did the developers ask for first, take 1?", answered: false }]);
     const track = _tracker.loadTrack();
-    assert.deepEqual(_tracker.recentComments(track), [
+    assert.deepEqual(_tracker.recentComments(track).map((c) => c.text), [
       "Which part of the framework did the developers ask for first, take 2?",
       "Which part of the framework did the developers ask for first, take 1?",
     ], "newest first");
@@ -331,7 +358,7 @@ test("the viral drafter sees our latest comments and drops a candidate that repe
   llm.generateCommentText = async (prompt) => { prompts.push(prompt); return replies.shift(); };
   try {
     const post = { author: "Ada Lovelace", text: "We are releasing our open model weights today for every developer to build on.", ageH: 1, reactions: 900, comments: 40 };
-    const r = await llm.draftViralComment({ post, recent: ["Shipping the harness is the part most teams will copy first."] });
+    const r = await llm.draftViralComment({ post, recent: [{ text: "Shipping the harness is the part most teams will copy first.", answered: false }] });
     assert.equal(r.comment, "Will the open weights come with the evaluation code too?");
     assert.match(r.candidates[0].gate.join(" "), /repeats the phrasing/);
     assert.match(prompts[0], /YOUR LATEST COMMENTS ON OTHER POSTS[\s\S]*Shipping the harness/);

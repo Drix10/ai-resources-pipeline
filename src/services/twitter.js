@@ -44,6 +44,14 @@ function isTooOld(tweetId, timestamp, maxAgeDays = TWEET_MAX_AGE_DAYS, now = Dat
   return Number.isFinite(age) && age > maxAgeDays * DAY_MS;
 }
 
+// Readers' interest in a post per hour on X: likes, reposts at double (a repost carries it to new readers)
+// and views at 1/100 (most readers never tap anything). A post under an hour old counts one hour.
+function engagementPerHour({ tweetId, timestamp, likes = 0, reposts = 0, views = 0 }, now = Date.now()) {
+  const age = tweetAgeMs(tweetId, timestamp, now);
+  const hours = Math.max(1, Number.isFinite(age) ? age / 3600000 : 1);
+  return (likes + 2 * reposts + views / 100) / hours;
+}
+
 // Topic blocks catch sports, fashion, celebrity and film posts that show up in lists of
 // tech people. Each can be lifted by the folder it runs in, and a clear tech subject
 // ("computer vision", "robots", "startup") overrides them: those posts are on topic.
@@ -340,7 +348,15 @@ function readPosts() {
         if (img.src) images.push(img.src);
       }
 
-      list.push({ tweetId, url, timestamp, text, mainText, links, images, truncated, isAd, isReply });
+      // What readers did with it, from the action bar's label ("12 replies, 34 reposts, 567 likes, 8 bookmarks,
+      // 12345 views"); a count X does not show is 0.
+      const bar = Array.from(el.querySelectorAll('[role="group"][aria-label]')).find((n) => !inQuote(n));
+      const counts = {};
+      for (const m of ((bar && bar.getAttribute("aria-label")) || "").matchAll(/([\d,]+)\s+(repl(?:y|ies)|reposts?|likes?|views?)\b/gi)) {
+        counts[m[2].toLowerCase().slice(0, 4)] = Number(m[1].replace(/,/g, ""));
+      }
+
+      list.push({ tweetId, url, timestamp, text, mainText, links, images, truncated, isAd, isReply, likes: counts.like || 0, reposts: counts.repo || 0, views: counts.view || 0 });
     } catch (e) {}
   }
   return list;
@@ -356,6 +372,7 @@ const LIST_MAX_POSTS = 40;
 const MAX_LONG_POSTS = 6;
 const SYSTEM = "You work in the owner's own Chrome on x.com, exactly as the steps say: you read what they ask for, and act only after the local gate's GO.";
 const clip = (v, n) => String(v ?? "").slice(0, n);
+const countOf = (v) => (Number.isSafeInteger(v) && v >= 0 ? v : 0);
 // The one read a list session runs in the page (kept in the tab for SEND): where the tab is, a full-page failure and
 // every post on screen, with what the session steers by: posts new to the tab ("fresh"), posts kept so far ("kept")
 // and the addresses of cut ("Show more") ones, first seen first.
@@ -408,6 +425,7 @@ function postOf(p) {
     text: clip(p.text, 8000), mainText: clip(p.mainText, 8000),
     links: urls(p.links, 30), images: urls(p.images, 8),
     truncated: p.truncated === true, isAd: p.isAd === true, isReply: p.isReply === true,
+    likes: countOf(p.likes), reposts: countOf(p.reposts), views: countOf(p.views),
   };
 }
 
@@ -589,7 +607,8 @@ class TwitterService {
   }
 
   // The posts worth an article among a list's `posts` (newest first): never one published or reserved
-  // this run, an ad, a reply, a stale or a still-truncated post, an off-topic or thin one.
+  // this run, an ad, a reply, a stale or a still-truncated post, an off-topic or thin one. Of those, the
+  // THREADS_NEEDED that readers engage with most per hour.
   findContent(folderName = "", posts = []) {
     // The writer skips roughly half of what it is given (opinion, PR, thin posts), so collect a
     // deeper pool; generation keeps at most 8 articles per file.
@@ -599,7 +618,7 @@ class TwitterService {
     // Lists run newest first: a long run of stale posts means nothing fresh is left.
     const MAX_OLD_STREAK = 15;
 
-    const collectedContent = [];
+    const eligible = [];
     const seen = new Set();
     let oldStreak = 0;
     const skipped = {};
@@ -609,8 +628,8 @@ class TwitterService {
     };
 
     this.pruneProcessedIds();
-    for (const { tweetId, url, timestamp, text, mainText, links, images, truncated, isAd, isReply } of posts) {
-      if (collectedContent.length >= THREADS_NEEDED) break;
+    for (const post of posts) {
+      const { tweetId, url, timestamp, text, mainText, links, images, truncated, isAd, isReply, likes = 0, reposts = 0, views = 0 } = post;
       if (!tweetId || seen.has(tweetId)) continue;
       seen.add(tweetId);
       // Published before, or already taken by another folder this run.
@@ -631,10 +650,11 @@ class TwitterService {
       const wordCount = text.split(/\s+/).filter((w) => w.length > 0).length;
       const hasExternalLink = (links || []).some((l) => /^https?:\/\//i.test(l) && !/^(https?:\/\/)?(?:www\.)?(?:x|twitter)\.com\//i.test(l));
       if (!(wordCount >= MIN_TOTAL_WORDS || (hasExternalLink && wordCount >= MIN_WORDS_WITH_EXTERNAL_LINK))) { skip(`thin (${wordCount} words)`, tweetId); continue; }
-      // Reserve at collection time: overlapping lists in later folders skip it.
-      this.reservedIds.add(tweetId);
-      collectedContent.push({ tweets: [{ tweetId, text, links, images, url, timestamp }], url, timestamp });
+      eligible.push({ score: engagementPerHour(post), item: { tweets: [{ tweetId, text, links, images, url, timestamp, likes, reposts, views }], url, timestamp } });
     }
+    const collectedContent = eligible.sort((a, b) => b.score - a.score).slice(0, THREADS_NEEDED).map((e) => e.item);
+    // Reserved once picked: overlapping lists in later folders skip them.
+    for (const c of collectedContent) this.reservedIds.add(c.tweets[0].tweetId);
     const skipSummary = Object.entries(skipped).map(([k, v]) => `${k}: ${v}`).join(", ");
     logger.info(`Collected ${collectedContent.length} valid high-signal content pieces${skipSummary ? ` (skipped ${skipSummary})` : ""}`);
     return collectedContent;
@@ -718,6 +738,7 @@ module.exports.__test = {
   saveIdStore,
   classifyXUrl,
   postOf,
+  engagementPerHour,
   listPrompt,
   postPrompt,
   READ_SCRIPT,

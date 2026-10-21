@@ -17,4 +17,18 @@ function factoryModule(name = "") {
   return require(path.join(FACTORY_DIR, "lib", name));
 }
 
-module.exports = { FACTORY_DIR, factoryInstalled, factoryModule };
+/**
+ * What people search for, from the factory's daily Search Console read (state/demand.json: the site's top, rising
+ * and gap queries), lowercased. Read-only; [] when the factory, the file or a Search Console read is missing.
+ */
+function searchedQueries() {
+  try {
+    const site = JSON.parse(fs.readFileSync(path.join(FACTORY_DIR, "state", "demand.json"), "utf8"))?.demand?.site || {};
+    return ["top", "rising", "gaps"].flatMap((k) => (Array.isArray(site[k]) ? site[k] : []))
+      .map((x) => String(x?.query || "").toLowerCase().trim()).filter(Boolean);
+  } catch {
+    return [];
+  }
+}
+
+module.exports = { FACTORY_DIR, factoryInstalled, factoryModule, searchedQueries };

@@ -247,6 +247,33 @@ test("findContent skips ads, replies, truncated, stale and already-reserved post
   }
 });
 
+test("findContent keeps the posts readers engage with most per hour, with their counts; postOf checks the counts", () => {
+  const dir = tmpDir();
+  try {
+    const service = new TwitterService({ storePath: path.join(dir, "ids.json") });
+    const now = Date.now();
+    // 18 posts with 10 likes each, 1 h to 18 h old: 10/h down to 0.56/h.
+    const plain = Array.from({ length: 18 }, (_, i) => post(idAt(now - (i + 1) * 3600000 - 1000), { likes: 10 }));
+    const old = post(idAt(now - 20 * 3600000 - 1000), { likes: 90 }); // 4.5/h
+    const spread = post(idAt(now - 2 * 3600000 - 2000), { reposts: 5, views: 400 }); // (2 x 5 + 400 / 100) / 2 h = 7/h
+    const ad = post(idAt(now - 3600000), { likes: 99999, isAd: true });
+    const got = service.findContent("AI Developer Tools", [ad, ...plain, old, spread]);
+    const ids = got.map((c) => c.tweets[0].tweetId);
+    assert.equal(ids.length, 16);
+    assert.deepEqual(ids.slice(0, 4), [plain[0].tweetId, spread.tweetId, plain[1].tweetId, old.tweetId], "by engagement per hour: 10, 7, 5 and 4.5 an hour");
+    assert.deepEqual(ids.slice(4), plain.slice(2, 14).map((p) => p.tweetId), "the four slowest are left");
+    assert.ok(!ids.includes(ad.tweetId), "an ad stays out whatever its counts");
+    const kept = got[1].tweets[0];
+    assert.deepEqual([kept.likes, kept.reposts, kept.views], [0, 5, 400], "the counts travel with the post to the writer");
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+  const { postOf } = TwitterService.__test;
+  const base = { tweetId: "123456789", url: "https://x.com/u/status/123456789" };
+  assert.deepEqual([postOf({ ...base, likes: 12, reposts: 3, views: 400 })].map((p) => [p.likes, p.reposts, p.views]), [[12, 3, 400]]);
+  assert.deepEqual([postOf({ ...base, likes: -1, reposts: "9", views: 1.5 })].map((p) => [p.likes, p.reposts, p.views]), [[0, 0, 0]], "a count that is not a whole number of 0 or more is 0");
+});
+
 test("a list is read by one read-only Claude in Chrome session; its posts are checked, and a wall or no browser is X_UNAVAILABLE", async () => {
   const dir = tmpDir();
   const saved = claude.ask;

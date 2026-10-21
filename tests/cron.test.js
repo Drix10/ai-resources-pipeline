@@ -34,11 +34,13 @@ stub("src/services/github.js", {
   },
   updateReadmeWithNewFile: async () => calls.push("readme"),
 });
-stub("src/services/llm.js", { beginRun: () => calls.push("llm-beginRun"), generateMarkdownBatched: async (tweets) => state.generate(tweets) });
+// The announcement writer fails by default: the plain line goes out.
+state.announce = async () => { throw new Error("no model in tests"); };
+stub("src/services/llm.js", { beginRun: () => calls.push("llm-beginRun"), generateMarkdownBatched: async (tweets) => state.generate(tweets), writeAnnouncement: (a) => state.announce(a) });
 stub("src/services/syndication.js", { processQueue: async () => { calls.push("syndication"); return null; } });
 const config = require("../config");
 config.folders = [{ name: "A" }, { name: "B" }, { name: "C" }, { name: "D" }];
-config.social = { ...config.social, linkedinLike: false, linkedinFeedReply: false, linkedinConnect: false, twitterPost: true };
+config.social = { ...config.social, linkedinLike: false, linkedinFeedReply: false, linkedinConnect: false, twitterPost: true, tweetCredit: { madeBy: "", via: "" } };
 config.factory = { ...config.factory, enabled: false };
 
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), "cron-"));
@@ -67,7 +69,7 @@ test("a run commits, marks only the sources used, caps tweets and cleans up", { 
   assert.ok(!fs.existsSync(LOCK), "lock released");
 });
 
-test("the announcement leads with the digest's top headline, and falls back to a plain line without one", { timeout: 60000 }, async () => {
+test("the model writes the announcement; when it cannot, the plain line leads with the digest's top headline, or goes without one", { timeout: 60000 }, async () => {
   const saved = state.upload;
   const lead = "Acme Fooql 2.0 makes joins 3x faster";
   try {
@@ -82,7 +84,16 @@ test("the announcement leads with the digest's top headline, and falls back to a
     tweetTexts.length = 0;
     await cron.processAllFolders();
     assert.ok(tweetTexts[0] && !tweetTexts[0].includes(lead) && tweetTexts[0].includes("https://x/A/0"), tweetTexts[0]);
-  } finally { state.upload = saved; }
+    const asked = [];
+    state.announce = async (a) => { asked.push(a); return `Joins got 3x faster: ${a.url}`; };
+    tweetTexts.length = 0;
+    await cron.processAllFolders();
+    assert.equal(tweetTexts[0], "Joins got 3x faster: https://x/A/0", "the model's post goes out as written");
+    assert.deepEqual(asked[0], { topic: "A", url: "https://x/A/0", content: "md" });
+  } finally {
+    state.upload = saved;
+    state.announce = async () => { throw new Error("no model in tests"); };
+  }
 });
 
 test("three folder failures in a row end the X phase, and the rest of the run still happens", { timeout: 60000 }, async () => {

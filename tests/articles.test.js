@@ -629,3 +629,65 @@ test("the article writer tells a dead key or retired models from a passing outag
     config.llm.providers.article = savedProvider;
   }
 });
+
+test("between equally substantive articles, the one people search for leads; no Search Console read changes nothing", async () => {
+  const fs = require("node:fs");
+  const path = require("node:path");
+  const file = path.join(process.env.FACTORY_DIR, "state", "demand.json");
+  const titles = { 1: "Acme Fooql 2.0 makes joins faster", 2: "Bolt cache adds eviction stats", 3: "Claude Code skills load on demand" };
+  const origArticle = llm.generateArticle;
+  const order = async () => (await llm.generateMarkdownBatched([1, 2, 3].map((i) => [{ text: `${POST} Run ${i}.`, url: `https://x.com/acme/status/${i}`, links: [], images: [] }]), "T"))
+    .markdown.split("\n\n---\n\n").map((a) => a.match(/Article (\d)/)[1]);
+  try {
+    llm.generateArticle = async (src, ctx) => {
+      const n = src[0].url.split("/").pop();
+      Object.assign(ctx, { outcome: "published", value: n === "1" ? 5 : 4 });
+      return `### 🚀 Article ${n}: ${titles[n]}\n\nSummary.\n\nKey Points:\n\n- **Note**: claude code skills`;
+    };
+    assert.deepEqual(await order(), ["1", "2", "3"], "no demand.json: by VALUE, ties in source order");
+    fs.mkdirSync(path.dirname(file), { recursive: true });
+    fs.writeFileSync(file, JSON.stringify({ status: "done", demand: { site: { top: [{ query: "claude code skills" }], rising: [], gaps: [{ query: "fooql" }], pages: [] } } }));
+    assert.deepEqual(await order(), ["1", "3", "2"], "a searched title wins a VALUE tie (key points do not count), never over a higher VALUE");
+    fs.writeFileSync(file, "{ not json");
+    assert.deepEqual(await order(), ["1", "2", "3"], "an unreadable file is no demand");
+  } finally {
+    llm.generateArticle = origArticle;
+    fs.rmSync(file, { force: true });
+  }
+});
+
+test("the writer sees what readers on X did with the post, as interest for VALUE, never as facts to write", async () => {
+  await withStubs({ reply: GOOD }, async (prompts) => {
+    await llm.generateArticle(tweet({ likes: 312, reposts: 40, views: 52000 }), { run: null });
+    assert.match(prompts[0], /Readers on X so far: 312 likes, 40 reposts, 52000 views\./);
+    await llm.generateArticle(tweet(), { run: null });
+    assert.doesNotMatch(prompts[1], /Readers on X/, "no counts, no line");
+  });
+});
+
+test("the announcement is the model's, with the link put in by code and checked: once, no other link, 280 as X counts", async () => {
+  const saved = llm.generateCommentText;
+  const prompts = [];
+  const replies = [];
+  llm.generateCommentText = async (prompt) => { prompts.push(prompt); return replies.shift(); };
+  const url = "https://github.com/someone/repo/blob/main/AI/2026-10-21.md";
+  const write = () => llm.writeAnnouncement({ topic: "AI Developer Tools", url, content: "### 🚀 Acme Fooql 2.0 makes joins 3x faster" });
+  try {
+    replies.push("Fooql 2.0 makes joins 3x faster. The numbers and sources: {LINK}");
+    assert.equal(await write(), `Fooql 2.0 makes joins 3x faster. The numbers and sources: ${url}`);
+    assert.ok(!prompts[0].includes(url), "the link never reaches the prompt");
+    assert.match(prompts[0], /Fooql 2\.0/);
+    replies.push("Fooql 2.0 is out, no link");
+    await assert.rejects(write(), /exactly once/);
+    replies.push("{LINK} and again {LINK}");
+    await assert.rejects(write(), /exactly once/);
+    replies.push("Fooql 2.0: {LINK} (see https://acme.dev too)");
+    await assert.rejects(write(), /another link/);
+    replies.push(`${"x".repeat(256)} {LINK}`);
+    assert.ok(await write(), "256 + a space + 23 for the link is 280");
+    replies.push(`${"x".repeat(257)} {LINK}`);
+    await assert.rejects(write(), /281 characters/);
+  } finally {
+    llm.generateCommentText = saved;
+  }
+});
