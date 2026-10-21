@@ -3,7 +3,7 @@ import { getAllArticles, getAllCategories } from '@/lib/markdown';
 import { PAGE_SIZE, SITE_URL, absolute, archiveHref, topicHref } from '@/lib/site';
 
 export const dynamic = 'force-static';
-export const revalidate = 3600;
+export const revalidate = false;
 
 const asDate = (iso: string | undefined) => {
   const d = new Date(`${String(iso || '').slice(0, 10)}T00:00:00Z`);

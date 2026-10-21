@@ -87,7 +87,33 @@ test("a bot commit whose push failed last cycle is retried even when there is no
   assert.equal(git(work, "rev-parse", "HEAD"), git(remote, "rev-parse", "main"));
 });
 
-test("your own unpushed commits never ride along with the bot's push", { timeout: 120000 }, async () => {
+test("the blog ships once a day: new files wait while today's sync is on origin, and go out the next day", { timeout: 120000 }, async () => {
+  const pushSync = (work, date) => {
+    git(work, "add", "-A");
+    const env = { ...process.env, GIT_AUTHOR_DATE: date, GIT_COMMITTER_DATE: date };
+    execFileSync("git", ["commit", "-m", "feat(blog): sync new curated AI resource guides"], { cwd: work, env, stdio: "ignore" });
+    git(work, "push", "origin", "main");
+  };
+
+  const today = sandbox();
+  write(today.work, "blog/content/Cat/b.md", "### B\nbody");
+  pushSync(today.work, new Date().toISOString());
+  write(today.work, "blog/content/Cat/c.md", "### C\nbody");
+  const before = git(today.remote, "rev-parse", "main");
+  assert.equal(await syncBlogToGit(today.work), false);
+  assert.equal(git(today.remote, "rev-parse", "main"), before, "nothing pushed: no second deploy today");
+  assert.equal(git(today.work, "rev-parse", "HEAD"), before, "nothing committed");
+  assert.match(git(today.work, "status", "--porcelain"), /\?\?\s+blog\/content\/Cat\/c\.md/, "the new file waits, untracked");
+
+  const yesterday = sandbox();
+  write(yesterday.work, "blog/content/Cat/b.md", "### B\nbody");
+  pushSync(yesterday.work, new Date(Date.now() - 2 * 86400000).toISOString());
+  write(yesterday.work, "blog/content/Cat/c.md", "### C\nbody");
+  assert.equal(await syncBlogToGit(yesterday.work), true);
+  assert.ok(git(yesterday.remote, "ls-tree", "-r", "--name-only", "main").split("\n").includes("blog/content/Cat/c.md"), "the waiting file shipped");
+});
+
+test("your own unpushed commits never ride along with the bot's push",{ timeout: 120000 }, async () => {
   const { work, remote } = sandbox();
   write(work, "other/mine.txt", "work in progress");
   git(work, "add", "-A");

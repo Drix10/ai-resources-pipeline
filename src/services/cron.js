@@ -202,6 +202,7 @@ const run = (command, args, { timeout = 60000, shell = false, cwd } = {}) =>
  * Publishes blog/content and the search index to the repo Vercel deploys; true once pushed. This runs git in the
  * checkout the bot runs from, which may also be where you develop, so it is careful:
  *  - only on BLOG_DEPLOY_BRANCH (main): never commits to or pushes a feature branch;
+ *  - at most one new blog commit a day: once one reached origin today, new files wait for tomorrow;
  *  - never pushes your own unpushed commits: it waits until you have pushed them;
  *  - builds first and stages after, so a failed build never leaves blog files in your index;
  *  - pulls only when upstream did not touch a file you have uncommitted edits in, so the
@@ -241,6 +242,16 @@ const publishBlog = async (root) => {
     // Your own commits never ride along with the bot's push: they go when you push them.
     const ownCommits = unpushedSubjects.filter((s) => s !== BLOG_SYNC_SUBJECT);
     if (!hasChanges && !unpushedSubjects.length) return logger.info("Cycle End: no new blog files to publish.");
+
+    // Every push is a Vercel deploy, and a deploy renders and stores every page again: new files wait
+    // in the checkout and ship in one push a day.
+    if (hasChanges && !unpushedSubjects.includes(BLOG_SYNC_SUBJECT)) {
+      const synced = await inRepo("git", ["log", "-5", "--format=%ct %s", "--fixed-strings", `--grep=${BLOG_SYNC_SUBJECT}`, `origin/${branch}`], { timeout: 30000 });
+      const last = lines(synced).find((l) => l.slice(l.indexOf(" ") + 1) === BLOG_SYNC_SUBJECT);
+      if (last && new Date(Number(last.split(" ")[0]) * 1000).toDateString() === new Date().toDateString()) {
+        return logger.info(`Cycle End: the blog already shipped today; ${lines(changed).length} blog change(s) wait for the next day's run.`);
+      }
+    }
 
     if (hasChanges) {
       logger.info("Cycle End: running the blog build before publishing...");

@@ -5,7 +5,7 @@ import { SITE_URL, absolute, topicHref } from '@/lib/site';
 import { jsonLd } from '@/lib/url';
 import TopicView, { topicArticles, topicPageCount } from '@/components/TopicView';
 
-export const revalidate = 3600;
+export const revalidate = false;
 export const dynamicParams = false;
 
 // Pages 2.. of every topic that has them.

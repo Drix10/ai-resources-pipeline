@@ -9,8 +9,11 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 
+// Content only changes with a deploy, so a page never revalidates: the newest digests are rendered at
+// build and every other one once, on its first visit after a deploy. (Rendering all ~2,100 at build
+// took the build from about 1.5 to 9 minutes, growing with the archive toward the pipeline's 15-minute cap.)
 export const dynamicParams = true;
-export const revalidate = 3600;
+export const revalidate = false;
 
 export async function generateStaticParams() {
   const articles = getAllArticles();

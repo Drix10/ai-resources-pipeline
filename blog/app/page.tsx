@@ -5,7 +5,7 @@ import { absolute } from '@/lib/site';
 import ArchiveView from '@/components/ArchiveView';
 
 // Static and cached at the edge: the home page is the first page of the archive.
-export const revalidate = 3600;
+export const revalidate = false;
 
 export const metadata: Metadata = {
   alternates: { canonical: absolute('/') },

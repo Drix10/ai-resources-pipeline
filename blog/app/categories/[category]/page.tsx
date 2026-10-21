@@ -6,7 +6,7 @@ import { jsonLd, safeDecode } from '@/lib/url';
 import TopicView, { topicArticles } from '@/components/TopicView';
 
 export const dynamicParams = true;
-export const revalidate = 3600;
+export const revalidate = false;
 
 export function generateStaticParams() {
   return getAllCategories().map((c) => ({ category: c.slug }));

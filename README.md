@@ -16,7 +16,7 @@ flowchart TD
     A["Curated X lists (Claude in Chrome on your own logged-in Chrome)"] --> B["One article per source post (OpenRouter; thin posts are skipped)"]
     B --> C["Fact gates: numbers and names must come from the post; links built in code; secrets redacted"]
     C --> D["Batched GitHub commits (1-8 articles per batch)"]
-    D --> E["Blog: search index rebuilt, site built, pushed only if the build passes (Vercel deploys)"]
+    D --> E["Blog: search index rebuilt, site built, pushed at most once a day and only if the build passes (Vercel deploys)"]
     D --> F["DEV.to syndication (rate-limited, circuit breaker)"]
     D --> G["Announcement on X"]
     D --> H["LinkedIn: likes after each article; comments, viral-post comments and connection requests after each batch"]

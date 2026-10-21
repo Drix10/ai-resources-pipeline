@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import ArchiveView, { archivePageCount } from '@/components/ArchiveView';
 import { absolute } from '@/lib/site';
 
-export const revalidate = 3600;
+export const revalidate = false;
 export const dynamicParams = false;
 
 // Pages 2..N of the newest-first archive; page 1 is the home page.
