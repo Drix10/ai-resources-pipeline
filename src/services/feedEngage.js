@@ -18,19 +18,22 @@
  * Reciprocity: the like and comment passes read the notifications page (at most every 3 h) and
  * engage the people who engaged with us first: like back, follow back, comment on their posts.
  *
+ * Browser: each pass reads in one Claude in Chrome session on the owner's own Chrome (LinkedInService) and
+ * acts in one more, where every like, follow, comment and invite waits for the local gate's GO: the caps,
+ * gaps and the tracker mark are decided in Node, so a dry run or a stop never sends anything.
+ *
  * Safety: every pass first checks the circuit breaker (signed out, checkpoint/limit
- * cooldowns persisted in the tracker) and runs under a 15 min
+ * cooldowns persisted in the tracker) and runs under a 30 min
  * timeout. Sensitive posts (grief, layoffs, war, politics) get no like, follow or comment.
  */
 
 const fs = require("fs");
-const os = require("os");
 const path = require("path");
 const config = require("../../config");
 const llmService = require("./llm");
 const linkedinService = require("./linkedin");
 const LinkedInService = new linkedinService();
-const { logger, sleep, isEnglish, REPO_ROOT } = require("../utils/helpers");
+const { logger, isEnglish, REPO_ROOT } = require("../utils/helpers");
 
 const HOUR = 3600 * 1000;
 const DAY = 24 * HOUR;
@@ -52,7 +55,8 @@ const LIKES_MAX_PER_DAY = envInt("LINKEDIN_LIKES_MAX_PER_DAY", 60);
 const FOLLOW_MAX_PER_DAY = 5;
 const AUTHOR_COMMENT_GAP_MS = 7 * DAY; // at most 1 comment per author per week
 const AUTHOR_LIKE_GAP_MS = DAY; // at most 1 like per author per day
-const PASS_TIMEOUT_MS = envInt("LINKEDIN_PASS_TIMEOUT_MS", 15 * 60 * 1000);
+// (a pass is two or three browser sessions of minutes each, and a comment pass its drafts too)
+const PASS_TIMEOUT_MS = envInt("LINKEDIN_PASS_TIMEOUT_MS", 30 * 60 * 1000);
 const SEARCH_LOADS_PER_PASS = 8;
 const SEARCH_LOADS_PER_DAY = 40;
 
@@ -182,8 +186,10 @@ function buildSources(track = {}, limit = 6, pass = "like") {
   return [...warmSources(track, WARM_SOURCES_PER_PASS, Date.now(), pass), ...creators, ...searches].slice(0, limit);
 }
 const FALLBACK_SOURCES = [{ label: "feed:top", sort: "top" }, { label: "feed:recent", sort: "recent" }];
-const scanSource = (src, maxScrolls = 8) =>
-  LinkedInService.scanFeedPosts({ maxPosts: 12, maxScrolls, ...(src.url ? { url: src.url } : { sort: src.sort }) });
+// The pages one pass reads in its one scan session (each page's cards are read back through the model: a few pages,
+// not a dozen).
+const LIKE_SOURCES = 3;
+const COMMENT_SOURCES = 3;
 
 // ---- Viral pass: extra comments where the audience is largest ----
 // A post by a big name (config/viral.js), or one gathering reactions fast, is read by far more
@@ -518,12 +524,6 @@ function passBlocked(track, kind) {
   return "";
 }
 
-// A pacing wait that ends as soon as a stop is requested (cron's stopping()): nothing is posted after a stop.
-async function pause(ms, shouldStop) {
-  const end = Date.now() + ms;
-  while (!shouldStop() && Date.now() < end) await sleep(Math.min(1000, end - Date.now()));
-}
-
 const stopError = (message) => Object.assign(new Error(message), { code: "LINKEDIN_UNAVAILABLE" });
 // After a public action the tracker MUST persist; if it cannot, the pass stops (and LinkedIn
 // stays off for the run) rather than act again with no memory of what it did.
@@ -533,13 +533,14 @@ function saveOrStop(track) {
   throw stopError("tracker save failed after a public action");
 }
 
-// Every pass runs under one guard: a hard timeout (a hung WebDriver call must not hold the run;
-// on timeout chromedriver is killed and LinkedIn is off for the run), and the typed LinkedIn
-// stops (signed out, checkpoint, earlier failure) turned into a clean return with a reason.
-// A checkpoint/limit wall also pauses every pass for 24-48 h, persisted in the tracker.
+// Every pass runs under one guard: a hard timeout (its browser sessions end by its deadline, and LinkedIn is
+// off for the run after one), and the typed LinkedIn stops (signed out, checkpoint, no browser, earlier failure)
+// turned into a clean return with a reason. A checkpoint/limit wall also pauses every pass for 24-48 h,
+// persisted in the tracker.
 async function guarded(name, ctx, body, timeoutMs = PASS_TIMEOUT_MS) {
   let timer = null;
   ctx.deadline = Date.now() + timeoutMs;
+  LinkedInService.deadline = ctx.deadline;
   const timedOut = new Promise((resolve) => {
     timer = setTimeout(() => resolve("timeout"), timeoutMs);
     if (timer.unref) timer.unref();
@@ -551,9 +552,8 @@ async function guarded(name, ctx, body, timeoutMs = PASS_TIMEOUT_MS) {
     if (r === "timeout") {
       ctx.aborted = true;
       ctx.out.reason = `linkedin unavailable (${name} pass timed out after ${Math.round(timeoutMs / 60000)} min)`;
-      logger.error(`feedEngage ${name}: ${ctx.out.reason}; stopping chromedriver.`);
+      logger.error(`feedEngage ${name}: ${ctx.out.reason}.`);
       linkedinService.disable(6 * HOUR, `${name} pass timed out`);
-      await LinkedInService.cleanup().catch(() => {});
     }
   } catch (e) {
     ctx.aborted = true;
@@ -563,6 +563,7 @@ async function guarded(name, ctx, body, timeoutMs = PASS_TIMEOUT_MS) {
     logger.warn(`feedEngage ${name}: stopped - ${ctx.out.reason}.`);
   } finally {
     clearTimeout(timer);
+    LinkedInService.deadline = 0;
   }
   return ctx.out;
 }
@@ -714,24 +715,44 @@ function audienceScore(track, post) {
 
 // Follow top-scoring authors and everyone warm: follows weigh heavier than likes in what LinkedIn
 // ranks into the feed, and a follow back is the first reply to someone who engaged with us. People
-// only (a company page follows nobody back). Never unfollows; state-checked in the service. Capped
-// per rolling day.
-async function maybeFollow(post, track) {
-  if (!/\/in\//i.test(String(post.href || ""))) return;
-  if ((post.score < FOLLOW_MIN && !isWarm(track, post.href)) || followedSince(track, DAY) >= FOLLOW_MAX_PER_DAY) return;
-  if (entryOfPost(track, post).followedAt) return;
-  if (authorDid(track, post.href, (e) => e.followedAt, PRUNE_MS)) return; // followed this author already
-  try {
-    if (await LinkedInService.followFeedCard(post.text.slice(0, 80))) {
-      markPost(track, post, { followedAt: nowIso() });
-      saveOrStop(track);
-      logger.info(`feedEngage: followed @${post.author} (score ${post.score}, ${followedSince(track, DAY)}/${FOLLOW_MAX_PER_DAY} today).`);
-      await sleep(jitter(2000, 6000));
-    }
-  } catch (err) { rethrowStop(err); }
+// only (a company page follows nobody back). Never unfollows: the session only presses a plain Follow.
+// Capped per rolling day. The follow action for `post`, or null; `picked` holds the authors this pass follows.
+function followAction(post, track, picked, halted) {
+  if (!/\/in\//i.test(String(post.href || "")) || picked.has(normHref(post.href))) return null;
+  if ((post.score < FOLLOW_MIN && !isWarm(track, post.href)) || followedSince(track, DAY) + picked.size >= FOLLOW_MAX_PER_DAY) return null;
+  if (entryOfPost(track, post).followedAt) return null;
+  if (authorDid(track, post.href, (e) => e.followedAt, PRUNE_MS)) return null; // followed this author already
+  picked.add(normHref(post.href));
+  return {
+    kind: "follow", urn: post.urn, post,
+    allow: () => (halted() ? "the run is stopping" : followedSince(track, DAY) >= FOLLOW_MAX_PER_DAY ? "the day's follow cap is reached" : ""),
+    onGo: () => { markPost(track, post, { followedAt: nowIso() }); saveOrStop(track); },
+  };
 }
 
-// shouldStop (every pass): checked before each public action; true ends the pass at once.
+// A like of `post`: allowed while the day's like cap holds, recorded at the gate's GO so a crash never likes twice.
+const likeAction = (post, track, halted) => ({
+  kind: "like", urn: post.urn, post,
+  allow: () => (halted() ? "the run is stopping" : likedSince(track, DAY) >= LIKES_MAX_PER_DAY ? "the day's like cap is reached" : ""),
+  onGo: () => { markPost(track, post, { likedAt: nowIso() }); saveOrStop(track); },
+});
+
+// Reads `sources` in one session (LinkedInService.scanPages); a warm person's page and a big name's are noted
+// (`note`: not on a dry run).
+async function scanPages(track, sources, { note = true, viral = false } = {}) {
+  const pages = await LinkedInService.scanPages(sources);
+  for (const src of pages) {
+    if (note) noteWarmPage(track, src, src.posts);
+    // A big name's page: when it was read and how often it posts decide when it is read again.
+    if (viral && String(src.label).startsWith("vip:")) {
+      noteViralPage(track, src.label, src.posts);
+      if (note) saveTrack(track);
+    }
+  }
+  return pages;
+}
+
+// shouldStop (every pass): asked at each action's gate; true stops every action left.
 const runFeedEngagement = (opts = {}) => commentPass({ ...opts, viral: false });
 // The viral pass: the same comment engine on posts going viral (viralScore), on its own daily cap.
 const runViralPass = (opts = {}) => commentPass({ max: 1, ...opts, viral: true });
@@ -764,11 +785,11 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
   if (blocked) return { ...out, reason: blocked, cost: runCost() };
   pruneTrack(track);
   const cap = viral ? VIRAL_MAX_PER_DAY : MAX_PER_DAY;
-  const capHit = () => !dryRun && commentedSince(track, DAY, { viral }) >= cap;
+  const capHit = (more = 0) => !dryRun && commentedSince(track, DAY, { viral }) + more >= cap;
   if (capHit()) return { ...out, reason: `daily ${viral ? "viral " : ""}cap (${cap}) reached`, cost: runCost() };
   const rememberSlug = shareOwnSlug(track);
   const ctx = { track, out, aborted: false };
-  let dryLoads = 0;
+  const halted = () => ctx.aborted || shouldStop();
   // The slowest draft so far, and whether the pass already ran out of time for another post.
   let slowestDraftMs = 0;
   let timeUp = false;
@@ -786,210 +807,174 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
     if (viral && e.status === "rejected" && e.pass !== "viral") return false;
     return shouldSkipTracked(track, post.key, keysOfPost(post).slice(1));
   };
+  const markAlready = (post) => {
+    if (!dryRun) { markPost(track, post, { status: "commented", ts: nowIso(), commentedAt: nowIso(), ...(viral ? { viral: true } : {}), skipReason: "our earlier comment found on the post" }); saveOrStop(track); }
+    logger.info(`${tag}: @${post.author}'s post already has our comment - skipping.`);
+    out.skipped++;
+  };
 
-  // (one line per author: a profile source can offer several of an author's posts)
-  const authorsSkipped = new Set();
-  // Sources whose comment box would not open, and how often: a page that fails twice is left.
-  const noEditor = new Map();
-  const engageOne = async (post, sort) => {
-    if (tracked(post)) { out.skipped++; return; }
-    if (authorDid(track, post.href, commentedAtOf, viral ? VIRAL_AUTHOR_GAP_MS : AUTHOR_COMMENT_GAP_MS)) {
-      if (!authorsSkipped.has(post.author)) logger.info(`${tag}: already commented on @${post.author} ${viral ? "in the last 2 days" : "this week"} - skipping.`);
-      authorsSkipped.add(post.author);
+  // The posts worth a draft on the pages read, best first: scored (the regular pass: finance/AI/founder, US,
+  // fresh, COMMENT_MIN+; the viral pass: viralScore, VIRAL_MIN+), untracked, not sensitive, openable (a urn).
+  const seenThisRun = new Set();
+  const wanted = new Set();
+  const [score, minScore] = viral ? [viralScore, VIRAL_MIN] : [(p) => audienceScore(track, p), COMMENT_MIN];
+  const candidatesOf = (pages) => {
+    const all = [];
+    for (const src of pages) {
+      const posts = src.posts.map((p) => ({ ...p, score: score(p), sort: src.label })).sort((a, b) => b.score - a.score);
+      if (viral && posts.length) logger.info(`${tag} [${src.label}]: best ${posts.slice(0, 3).map((p) => `@${p.author} ${p.score} (${Math.round(p.ageH)}h, ${p.reactions || 0} reactions, ${p.comments || 0} comments)`).join("; ")}.`);
+      for (const post of posts) {
+        if (seenThisRun.has(post.key) || tracked(post)) continue;
+        seenThisRun.add(post.key);
+        if (isSensitivePost(post.text)) { skipPost(post, "skipped", "sensitive topic"); continue; }
+        if (dryRun && !viral && post.score >= LIKE_MIN && !wanted.has(post.key)) {
+          wanted.add(post.key);
+          out.wouldLike.push({ author: post.author, snippet: post.text.slice(0, 60), score: post.score });
+        }
+        if (post.score >= minScore) all.push(post);
+      }
+    }
+    return all.sort((a, b) => b.score - a.score);
+  };
+
+  // One post's comment draft, or null (tracked as the old engageOne did: SKIP 30 days, rejected 3 days, thin;
+  // a dry run previews it). `thread` is its comment section (readThreads).
+  const authorsTaken = new Set();
+  const draftOne = async (post, thread) => {
+    if (authorsTaken.has(normHref(post.href)) || authorDid(track, post.href, commentedAtOf, viral ? VIRAL_AUTHOR_GAP_MS : AUTHOR_COMMENT_GAP_MS)) {
+      if (!authorsTaken.has(normHref(post.href))) logger.info(`${tag}: already commented on @${post.author} ${viral ? "in the last 2 days" : "this week"} - skipping.`);
       out.skipped++;
-      return;
+      return null;
+    }
+    if (thread?.status === "already") { markAlready(post); return null; }
+    if (thread?.status !== "open") {
+      logger.warn(`${tag}: could not open the comments on ${post.key} (${thread?.reason || "not read"}) - not tracked, tried again later.`);
+      out.skipped++;
+      return null;
     }
     let draft;
     // A draft's time (from its first LLM call to its verdict) sizes the reserve for the next post: only a
     // draft that reached a model (a thin, foreign or promo post ends before any call, and teaches nothing).
-    let drafting = 0, callsBefore = 0;
-    const startDraft = () => { drafting = Date.now(); callsBefore = llmService.commentCalls || 0; };
-    const timed = () => { if (drafting && (llmService.commentCalls || 0) > callsBefore) slowestDraftMs = Math.max(slowestDraftMs, Date.now() - drafting); };
+    const drafting = Date.now(), callsBefore = llmService.commentCalls || 0;
+    const timed = () => { if ((llmService.commentCalls || 0) > callsBefore) slowestDraftMs = Math.max(slowestDraftMs, Date.now() - drafting); };
     try {
       if (viral) {
-        // Read the thread first (and see the post as readers do): the comment must say what the
-        // comments on top have not. Opening the comments is read-only.
-        const section = await LinkedInService.readComments(post.text.slice(0, 80), post.href, { expectComments: (Number(post.comments) || 0) > 0 });
-        if (section.status === "already") {
-          if (!dryRun) { markPost(track, post, { status: "commented", ts: nowIso(), commentedAt: nowIso(), viral: true, skipReason: "our earlier comment found on the post" }); saveOrStop(track); }
-          logger.info(`${tag}: @${post.author}'s post already has our comment - skipping.`);
-          out.skipped++;
-          return;
-        }
-        if (section.status !== "open") {
-          logger.warn(`${tag}: could not open the comments on ${post.key} (${section.reason}) - not tracked, tried again later.`);
-          out.skipped++;
-          return;
-        }
-        let shot = "", shotDir = "";
-        startDraft();
-        try {
-          if (llmService.providerFor("viral") === "claude" && !llmService.claudeResting()) {
-            shotDir = fs.mkdtempSync(path.join(os.tmpdir(), "viral-shot-"));
-            shot = path.join(shotDir, "post.png");
-            if (!(await LinkedInService.screenshotCard(post.text.slice(0, 80), shot))) shot = "";
-          }
-          draft = await llmService.draftViralComment({ post, comments: section.comments, imageFile: shot, recent: recentComments(track) });
-        } finally {
-          if (shotDir) try { fs.rmSync(shotDir, { recursive: true, force: true }); } catch (e) { /* a temp image left behind costs nothing */ }
-        }
-        if (draft.candidates && draft.candidates.length) {
-          for (const c of draft.candidates) logger.info(`${tag}: candidate [${c.angle}] "${c.comment}" -> ${c.gate && c.gate.length ? `gates: ${c.gate.join("; ")}` : c.judge ? `judge: ${c.judge.pass ? "PASS" : "FAIL"} ${c.judge.reason}` : "not judged"}`);
-        }
+        // The comment must say what the comments on top have not.
+        draft = await llmService.draftViralComment({ post, comments: thread.comments, recent: recentComments(track) });
+        for (const c of draft.candidates || []) logger.info(`${tag}: candidate [${c.angle}] "${c.comment}" -> ${c.gate && c.gate.length ? `gates: ${c.gate.join("; ")}` : c.judge ? `judge: ${c.judge.pass ? "PASS" : "FAIL"} ${c.judge.reason}` : "not judged"}`);
       } else {
-        startDraft();
         draft = await llmService.draftFeedComment({ postAuthor: post.author, postText: post.text, recent: recentComments(track) });
       }
     } catch (e) {
       timed();
-      rethrowStop(e); // a checkpoint or sign-out while reading the thread ends the pass (and pauses LinkedIn)
       // The pass's deadline came before the draft could end: this post and the pass end here, untracked.
-      if (e.code === "PASS_TIME_UP") { timeUp = true; out.reason = "the pass's time is nearly up"; out.skipped++; return; }
+      if (e.code === "PASS_TIME_UP") { timeUp = true; out.reason = "the pass's time is nearly up"; out.skipped++; return null; }
       // Thin posts throw before any LLM call: park them so every cycle doesn't waste a scan
       // slot on them. Anything else (network, LLM down) stays untracked and retries next cycle.
       if (/too thin/i.test(e.message || "")) skipPost(post, "skipped", "too thin");
       logger.warn(`feedEngage: draft failed for ${post.key}: ${e.message}`);
       out.skipped++;
-      return;
+      return null;
     }
     timed();
-    if (ctx.aborted || shouldStop()) return;
     if (draft.skipped) {
       skipPost(post, "skipped", (draft.errors || []).join("; ") || "llm skip"); // remembered 30 days
       logger.info(`feedEngage: SKIP - no safe angle on @${post.author} post. Moving on.`);
       out.skipped++;
-      return;
+      return null;
     }
     if (!draft.isValid) {
       skipPost(post, "rejected", (draft.errors || []).join("; ")); // our draft failed, not the post: 3 days
       logger.warn(`feedEngage: comment rejected (${(draft.errors || []).join("; ")}) - skipping ${post.key} for 3d.`);
       out.skipped++;
-      return;
+      return null;
     }
+    authorsTaken.add(normHref(post.href));
     if (dryRun) {
-      out.previews.push({ author: post.author, key: post.key, postText: post.text, comment: draft.comment, sort, score: post.score, reactions: post.reactions || 0, ageH: post.ageH });
-      logger.info(`${tag} DRYRUN [${sort}] would comment on @${post.author}: "${draft.comment}"`);
+      out.previews.push({ author: post.author, key: post.key, postText: post.text, comment: draft.comment, sort: post.sort, score: post.score, reactions: post.reactions || 0, ageH: post.ageH });
+      logger.info(`${tag} DRYRUN [${post.sort}] would comment on @${post.author}: "${draft.comment}"`);
       out.skipped++;
-      return;
+      return null;
     }
-    logger.info(`${tag} [${sort}]: commenting on @${post.author}${viral ? ` (score ${post.score}, ${post.reactions || 0} reactions, ${Math.round(post.ageH)}h old)` : ""}: "${draft.comment.slice(0, 90)}..."`);
-    // The like that goes with a comment counts toward the day's like cap too.
-    const res = await LinkedInService.commentOnFeedCard(post.key, post.href, post.text.slice(0, 80), draft.comment, post.author, { like: likedSince(track, DAY) < LIKES_MAX_PER_DAY });
-    const at = nowIso();
-    const liked = res && res.liked ? { likedAt: at } : {};
-    if (res && liked.likedAt) out.liked++;
-    if (res && (res.status === "posted" || res.status === "uncertain" || res.status === "already")) {
-      // A dispatched submit is never retried: uncertain is tracked as commented (unverified).
-      markPost(track, post, {
-        status: "commented", ts: at, commentedAt: at, ...liked, ...(viral ? { viral: true } : {}),
-        ...(res.status === "already" ? {} : { comment: draft.comment.slice(0, 300) }),
-        ...(res.status === "posted" ? {} : { unverified: true }),
-        ...(res.status === "already" ? { skipReason: "our earlier comment found on the post" } : {}),
-      });
-      saveOrStop(track);
-      if (res.status === "already") { out.skipped++; return; }
-      out.commented++;
-      logger.info(`${tag}: commented (${out.commented}/${max} this cycle, ${commentedSince(track, DAY, { viral })}/${cap} today)${res.status === "uncertain" ? " [unverified]" : ""}.`);
-      return;
-    }
-    if (liked.likedAt) {
-      markPost(track, post, liked);
-      saveOrStop(track);
-    }
-    logger.warn(`feedEngage: comment not submitted on ${post.key} (not tracked, retried next cycle).`);
-    if (res && res.reason === "no-editor") noEditor.set(sort, (noEditor.get(sort) || 0) + 1);
-    out.skipped++;
+    return draft;
   };
 
-  // Walk the sources until `max` comments land or sources run out. Posts are scored (the
-  // regular pass: finance/AI/founder, US, fresh, COMMENT_MIN+; the viral pass: viralScore,
-  // VIRAL_MIN+); only those get a draft, best first. No separate like loop here:
-  // commentOnFeedCard likes first, and the like pass already ran this cycle.
-  const seenThisRun = new Set();
-  const wanted = new Set();
-  const done = () => ctx.aborted || shouldStop() || (dryRun ? out.previews.length : out.commented) >= max;
-  const [score, minScore] = viral ? [viralScore, VIRAL_MIN] : [(p) => audienceScore(track, p), COMMENT_MIN];
-  const commentFrom = async (src) => {
-    const scanned = await scanSource(src, 10);
-    if (!dryRun) noteWarmPage(track, src, scanned);
-    // A big name's page: when it was read and how often it posts decide when it is read again.
-    if (viral && String(src.label).startsWith("vip:")) {
-      noteViralPage(track, src.label, scanned);
-      if (!dryRun) saveTrack(track);
-    }
-    const posts = scanned
-      .map((p) => ({ ...p, score: score(p) }))
-      .sort((a, b) => b.score - a.score);
-    if (viral && posts.length) logger.info(`${tag} [${src.label}]: best ${posts.slice(0, 3).map((p) => `@${p.author} ${p.score} (${Math.round(p.ageH)}h, ${p.reactions || 0} reactions, ${p.comments || 0} comments)`).join("; ")}.`);
-    let fresh = 0;
-    for (const post of posts) {
-      if (done() || capHit()) break;
-      // No more drafts for a page whose comment box will not open.
-      if ((noEditor.get(src.label) || 0) >= 2) { logger.warn(`${tag} [${src.label}]: the comment box did not open twice - leaving this page.`); break; }
-      if (seenThisRun.has(post.key)) continue;
-      if (tracked(post)) continue;
-      seenThisRun.add(post.key);
-      fresh++;
-      if (isSensitivePost(post.text)) { skipPost(post, "skipped", "sensitive topic"); continue; }
-      if (dryRun && !viral && post.score >= LIKE_MIN && !wanted.has(post.key)) {
-        wanted.add(post.key);
-        out.wouldLike.push({ author: post.author, snippet: post.text.slice(0, 60), score: post.score });
-      }
-      if (post.score < minScore) continue;
-      if (nearlyUp()) { out.reason = "the pass's time is nearly up"; break; }
-      const before = out.commented;
-      await engageOne(post, src.label);
-      // Pace only published comments (nothing public happened on a rejection); a pause the next post
-      // could not follow is not waited out.
-      if (!dryRun && out.commented > before && out.commented < max) {
-        const wait = jitter(60000, 180000);
-        if (nearlyUp(wait)) { timeUp = true; out.reason = "the pass's time is nearly up"; break; }
-        await pause(wait, shouldStop);
-      }
-    }
-    return fresh;
-  };
   await guarded(viral ? "viral" : "comment", ctx, async () => {
-    // The pass's LLM calls end before its guard does, with time left to post the last comment.
+    // The pass's LLM calls end before its guard does, with time left to post the comments.
     llmService.commentDeadline = ctx.deadline - SUBMIT_MS;
     if (!viral && !dryRun) await refreshWarm(track);
-    let found = 0;
-    for (const src of viral ? buildViralSources(track) : buildSources(track, 6, "comment")) {
-      if (done() || capHit()) break;
-      // Drafts take minutes (a draft and its judge or critic): no page is loaded for a post the pass cannot finish.
-      if (nearlyUp()) { out.reason = "the pass's time is nearly up"; break; }
-      // The viral pass's page loads are capped per day (big-name pages and searches are extra loads).
-      if (viral) {
-        if (searchLoadsSince(track, DAY, "viralLoads") + dryLoads >= VIRAL_LOADS_PER_DAY) { out.reason = `viral page cap (${VIRAL_LOADS_PER_DAY} per day)`; break; }
-        // A dry run tracks nothing: its loads are counted in memory only.
-        if (dryRun) dryLoads++;
-        else recordSearchLoad(track, "viralLoads");
-      }
-      try { found += await commentFrom(src); } catch (e) { rethrowStop(e); logger.warn(`${tag} [${src.label}]: scan failed: ${e.message}`); }
+    if (halted()) return;
+    let sources = viral ? buildViralSources(track) : buildSources(track, COMMENT_SOURCES, "comment");
+    // The viral pass's page loads are capped per day (big-name pages and searches are extra loads); a dry run
+    // tracks nothing.
+    if (viral) {
+      sources = sources.slice(0, Math.max(0, VIRAL_LOADS_PER_DAY - searchLoadsSince(track, DAY, "viralLoads")));
+      if (!sources.length) { out.reason = `viral page cap (${VIRAL_LOADS_PER_DAY} per day)`; return; }
+      if (!dryRun) for (let i = 0; i < sources.length; i++) recordSearchLoad(track, "viralLoads");
     }
-    if (found === 0 && !viral && !done() && config.social.linkedinSource !== "feed") {
+    let candidates = candidatesOf(await scanPages(track, sources, { note: !dryRun, viral }));
+    if (!candidates.length && !viral && config.social.linkedinSource !== "feed" && !halted()) {
       logger.warn("feedEngage: targeted sources yielded nothing - falling back to home feed.");
-      for (const src of FALLBACK_SOURCES) {
-        if (done() || nearlyUp()) break;
-        try { await commentFrom(src); } catch (e) { rethrowStop(e); logger.warn(`feedEngage [${src.label}]: scan failed: ${e.message}`); }
+      candidates = candidatesOf(await scanPages(track, FALLBACK_SOURCES, { note: !dryRun }));
+    }
+    if (!candidates.length || halted()) return;
+    // Our own earlier comment, and (the viral pass) what the thread already says: read before any draft.
+    const threads = await LinkedInService.readThreads(candidates);
+    const ready = [];
+    for (const post of candidates) {
+      if (halted() || capHit(ready.length) || (dryRun ? out.previews.length : ready.length) >= max) break;
+      // Drafts take minutes (a draft and its judge or critic): none starts that the pass cannot finish.
+      if (nearlyUp()) { out.reason = "the pass's time is nearly up"; break; }
+      const draft = await draftOne(post, threads.get(post.key));
+      if (draft) ready.push({ post, draft });
+    }
+    if (dryRun || !ready.length || halted()) return;
+    // One session posts them, each like (under the day's cap) then its comment, each at its gate's GO.
+    const actions = ready.flatMap(({ post, draft }) => [
+      ...(likedSince(track, DAY) < LIKES_MAX_PER_DAY ? [likeAction(post, track, halted)] : []),
+      {
+        kind: "comment", urn: post.urn, text: draft.comment, post,
+        allow: () => (halted() ? "the run is stopping" : capHit() ? `the day's ${viral ? "viral " : ""}comment cap is reached` : ""),
+        // (recorded before the Post click, unverified until the session saw it: a maybe-posted comment is never retried)
+        onGo: () => { markPost(track, post, { status: "commented", ts: nowIso(), commentedAt: nowIso(), comment: draft.comment.slice(0, 300), unverified: true, ...(viral ? { viral: true } : {}) }); saveOrStop(track); },
+      },
+    ]);
+    logger.info(`${tag}: posting ${ready.length} comment(s): ${ready.map(({ post, draft }) => `@${post.author} "${draft.comment.slice(0, 60)}..."`).join("; ")}`);
+    for (const a of await LinkedInService.act(actions)) {
+      if (a.kind === "like") {
+        if (a.result === "done") out.liked++;
+        if (a.result === "already") { markPost(track, a.post, { likedAt: nowIso() }); saveTrack(track); }
+        continue;
+      }
+      if (a.result === "done") {
+        markPost(track, a.post, { unverified: undefined });
+        saveTrack(track);
+        out.commented++;
+        logger.info(`${tag}: commented on @${a.post.author} (${out.commented}/${max} this cycle, ${commentedSince(track, DAY, { viral })}/${cap} today).`);
+      } else if (a.go) {
+        out.commented++;
+        logger.info(`${tag}: commented on @${a.post.author} [unverified: ${a.detail || a.result}].`);
+      } else {
+        logger.warn(`${tag}: comment not posted on ${a.post.key} (${a.result}${a.detail ? `: ${a.detail}` : ""}; not tracked, retried next cycle).`);
+        out.skipped++;
       }
     }
-    if (!done()) logger.info(`${tag}: ${dryRun ? out.previews.length : out.commented}/${max} comments - ${out.reason || "sources exhausted"}, moving on.`);
   }, viral ? VIRAL_PASS_TIMEOUT_MS : PASS_TIMEOUT_MS).finally(() => { llmService.commentDeadline = 0; });
   if (!ctx.aborted && !dryRun) rememberSlug();
 
   out.cost = runCost();
   logger.info(`${tag}: run cost ~$${out.cost.openrouter.usd.toFixed(4)} (OpenRouter ${out.cost.openrouter.prompt}+${out.cost.openrouter.completion} tok; NVIDIA ${out.cost.nvidia.prompt}+${out.cost.nvidia.completion} tok).`);
   if (!out.reason && dryRun) out.reason = "dry run - nothing posted or tracked";
+  if (!out.reason && out.commented < max) out.reason = "sources exhausted";
   return out;
 }
 
-// Like-only pass: no drafting, no commenting, no LLM spend. Walks the targeted
-// sources, likes the best-scoring fresh posts right after each scan (cards
-// virtualize out within a minute), stops at the target. Already-liked keys
-// persist in the tracker; likeFeedCard is state-checked (never toggles off).
-async function runLikePass({ min = 5, max = 9, shouldStop = () => false } = {}) {
-  const out = { liked: 0, picked: 0, target: 0, reason: "" };
+// Like pass: no drafting, no LLM spend. Reads the targeted sources in one session, picks the best-scoring
+// fresh posts (one per author, 1 like per author per day), and likes them (and follows their authors where
+// followAction's rules say so) in one more, each at its gate's GO. With `dryRun` the second session is never
+// started: `picks` says what it would like and follow.
+async function runLikePass({ min = 5, max = 9, dryRun = false, shouldStop = () => false } = {}) {
+  const out = { liked: 0, picked: 0, target: 0, picks: [], reason: "" };
   const track = loadTrack();
   const blocked = passBlocked(track, "like");
   if (blocked) return { ...out, reason: blocked };
@@ -998,18 +983,10 @@ async function runLikePass({ min = 5, max = 9, shouldStop = () => false } = {}) 
   const rememberSlug = shareOwnSlug(track);
   const ctx = { track, out, aborted: false };
   const halted = () => ctx.aborted || shouldStop();
-  const seen = new Set();
-  const likeFrom = async (src) => {
-    let posts = [];
-    try {
-      posts = await scanSource(src);
-      noteWarmPage(track, src, posts);
-    } catch (e) {
-      rethrowStop(e);
-      logger.warn(`feedEngage like-pass: ${src.label} scan failed: ${e.message}`);
-    }
+  const poolOf = (pages) => {
+    const seen = new Set();
     const pool = [];
-    for (const post of posts) {
+    for (const post of pages.flatMap((p) => p.posts)) {
       if (!post || seen.has(post.key)) continue;
       seen.add(post.key);
       const e = entryOfPost(track, post);
@@ -1021,52 +998,46 @@ async function runLikePass({ min = 5, max = 9, shouldStop = () => false } = {}) 
       pool.push(post);
     }
     // Best audience match first, with a little noise so the pattern isn't mechanical.
-    pool.sort((a, b) => (b.score + Math.random() * 1.5) - (a.score + Math.random() * 1.5));
-    for (const post of pool) {
-      if (halted() || out.liked >= out.target) break;
-      if (authorDid(track, post.href, (x) => x.likedAt, AUTHOR_LIKE_GAP_MS)) continue; // 1 like per author per day
-      out.picked++;
-      await maybeFollow(post, track);
-      if (halted()) break;
-      try {
-        if (await LinkedInService.likeFeedCard(post.text.slice(0, 80))) {
-          out.liked++;
-          markPost(track, post, { likedAt: nowIso() });
-          saveOrStop(track); // persist immediately so a crash can't re-like this post
-          logger.info(`feedEngage like-pass: liked @${post.author} via ${src.label} (${out.liked}/${out.target}).`);
-          await pause(jitter(6000, 20000), shouldStop);
-        } else {
-          await sleep(jitter(1500, 4000));
-        }
-      } catch (e) {
-        rethrowStop(e);
-        await sleep(jitter(1500, 4000));
-      }
-    }
-    return pool.length;
+    return pool.sort((a, b) => (b.score + Math.random() * 1.5) - (a.score + Math.random() * 1.5));
   };
   await guarded("like", ctx, async () => {
-    await refreshWarm(track);
-    let found = 0;
-    for (const src of buildSources(track)) {
-      if (halted() || out.liked >= out.target) break;
-      found += await likeFrom(src);
-    }
+    if (!dryRun) await refreshWarm(track);
+    if (halted()) return;
+    let pool = poolOf(await scanPages(track, buildSources(track, LIKE_SOURCES), { note: !dryRun }));
     // Targeted sources empty (markup change, nothing fresh): fall back to the home feed.
-    if (found === 0 && !halted() && out.liked < out.target && config.social.linkedinSource !== "feed") {
+    if (!pool.length && config.social.linkedinSource !== "feed" && !halted()) {
       logger.warn("feedEngage like-pass: targeted sources yielded nothing - falling back to home feed.");
-      for (const src of FALLBACK_SOURCES) {
-        if (halted() || out.liked >= out.target) break;
-        await likeFrom(src);
-      }
+      pool = poolOf(await scanPages(track, FALLBACK_SOURCES, { note: !dryRun }));
+    }
+    const actions = [];
+    const authors = new Set();
+    const follows = new Set();
+    for (const post of pool) {
+      if (out.picked >= out.target) break;
+      const author = normHref(post.href) || post.author;
+      if (authors.has(author) || authorDid(track, post.href, (x) => x.likedAt, AUTHOR_LIKE_GAP_MS)) continue; // 1 like per author per day
+      authors.add(author);
+      out.picked++;
+      const follow = followAction(post, track, follows, halted);
+      if (follow) actions.push(follow);
+      actions.push(likeAction(post, track, halted));
+      out.picks.push({ author: post.author, score: post.score, follow: !!follow, snippet: post.text.slice(0, 60) });
+    }
+    if (dryRun || !actions.length || halted()) return;
+    for (const a of await LinkedInService.act(actions)) {
+      if (a.result === "already") { markPost(track, a.post, a.kind === "like" ? { likedAt: nowIso() } : { followedAt: nowIso() }); saveTrack(track); }
+      if (a.result !== "done" && !(a.go && a.result === "uncertain")) continue;
+      if (a.kind === "follow") logger.info(`feedEngage: followed @${a.post.author} (score ${a.post.score}, ${followedSince(track, DAY)}/${FOLLOW_MAX_PER_DAY} today).`);
+      else logger.info(`feedEngage like-pass: liked @${a.post.author} (${++out.liked}/${out.target})${a.result === "uncertain" ? " [unverified]" : ""}.`);
     }
     if (out.liked < out.target && !halted()) logger.warn(`feedEngage like-pass: sources exhausted (${out.liked}/${out.target} liked).`);
   });
-  if (!ctx.aborted) {
+  if (!ctx.aborted && !dryRun) {
     pruneTrack(track); // bound tracker growth
     saveTrack(track);
     rememberSlug();
   }
+  if (!out.reason && dryRun) out.reason = "dry run - nothing liked or followed";
   return out;
 }
 
@@ -1082,8 +1053,9 @@ function recordSearchLoad(track, counter = "searchLoads") {
 }
 
 // Connection pass: a few no-note requests per run to US, 2nd-degree people building with AI (and
-// some investors around them), found through US-filtered people search. Stops cleanly on
-// LinkedIn's weekly cap (connects pause 7 days) or any checkpoint (everything pauses).
+// some investors around them), found through US-filtered people search in one session, sent in one more,
+// each at its gate's GO. Stops cleanly on LinkedIn's weekly cap (connects pause 7 days) or any checkpoint
+// (everything pauses).
 async function runConnectPass({ min = 10, max = 15, dryRun = false, shouldStop = () => false } = {}) {
   const out = { sent: 0, target: 0, scanned: 0, previews: [], reason: "" };
   const track = loadTrack();
@@ -1094,76 +1066,71 @@ async function runConnectPass({ min = 10, max = 15, dryRun = false, shouldStop =
   out.target = Math.max(0, Math.min(min + Math.floor(Math.random() * (max - min + 1)), dayLeft, weekLeft));
   if (out.target <= 0) return { ...out, reason: "daily/weekly connect cap reached" };
   const ctx = { track, out, aborted: false };
+  const halted = () => ctx.aborted || shouldStop();
   await guarded("connect", ctx, async () => {
+    if (halted()) return;
+    const loads = Math.min(SEARCH_LOADS_PER_PASS, SEARCH_LOADS_PER_DAY - searchLoadsSince(track, DAY));
+    if (loads <= 0) { out.reason = `search page cap (${SEARCH_LOADS_PER_DAY} per day)`; return; }
+    // (one results page per keyword: enough people for a pass, across many keywords)
+    const searches = buildConnectQueries().slice(0, loads).map((kw) => ({ kw, page: 1 }));
+    for (let i = 0; i < searches.length; i++) recordSearchLoad(track);
+    const res = await LinkedInService.scanPeopleSearch(searches);
+    if (res.blocked) {
+      if (res.code === "LINKEDIN_RESTRICTED") setCooldown(track, "all", jitter(24 * HOUR, 48 * HOUR), res.reason || "checkpoint");
+      out.reason = `linkedin unavailable (${res.reason || "login/checkpoint wall"})`;
+      return;
+    }
     const seenHref = new Set();
-    let consecutiveFails = 0, loads = 0;
-    const queries = buildConnectQueries();
-    outer:
-    for (const kw of queries) {
-      let kwSent = 0;
-      for (let page = 1; page <= 2; page++) {
-        if (ctx.aborted || shouldStop() || out.sent >= out.target) break outer;
-        if (kwSent >= CONNECT_PER_KEYWORD) break;
-        if (loads >= SEARCH_LOADS_PER_PASS) { out.reason = `search page cap (${SEARCH_LOADS_PER_PASS} per pass)`; break outer; }
-        if (searchLoadsSince(track, DAY) >= SEARCH_LOADS_PER_DAY) { out.reason = `search page cap (${SEARCH_LOADS_PER_DAY} per day)`; break outer; }
-        loads++;
-        recordSearchLoad(track);
-        const res = await LinkedInService.scanPeopleSearch(kw, page);
-        if (res.blocked) {
-          if (res.code === "LINKEDIN_RESTRICTED") setCooldown(track, "all", jitter(24 * HOUR, 48 * HOUR), res.reason || "checkpoint");
-          out.reason = `linkedin unavailable (${res.reason || "login/checkpoint wall"})`;
-          break outer;
-        }
-        if (res.people.length === 0) break; // no more results for this keyword
-        for (const p of res.people) {
-          if (ctx.aborted || shouldStop() || out.sent >= out.target) break outer;
-          if (kwSent >= CONNECT_PER_KEYWORD) break;
-          out.scanned++;
-          const key = CONNECT_KEY(p.href);
-          if (!p.href || track[key] || seenHref.has(key)) continue;
-          seenHref.add(key);
-          if (!CONNECT_ICP_RE.test(p.text) || CONNECT_SKIP_RE.test(p.text) || CONNECT_NON_US_RE.test(p.text)) continue;
-          if (dryRun) {
-            out.previews.push({ name: p.name, text: p.text.slice(0, 140), kw });
-            out.sent++; kwSent++;
-            continue;
-          }
-          const r = await LinkedInService.sendConnectRequest({ label: p.label, href: p.href });
-          if (r === "limit") {
-            setCooldown(track, "connect", 7 * DAY, "LinkedIn invitation limit");
-            out.reason = "LinkedIn invitation limit reached - connects paused 7 days";
-            break outer;
-          }
-          if (r === "sent" || r === "sent-unverified") {
-            out.sent++; kwSent++;
-            // Unverified still counts: over-counting the cap is safe, under-counting is not.
-            track[key] = { ts: nowIso(), status: "invited", ...(r === "sent-unverified" ? { unverified: true } : {}) };
-            saveOrStop(track);
-            logger.info(`feedEngage connect: invited ${p.name} (${out.sent}/${out.target}) via "${kw}"${r === "sent-unverified" ? " [unverified]" : ""}.`);
-            consecutiveFails = 0;
-          } else {
-            // Email-gated or UI failure: park so the same person isn't retried every run.
-            track[key] = { ts: nowIso(), status: "skipped" };
-            saveTrack(track);
-            logger.warn(`feedEngage connect: ${p.name} not sent (${r}).`);
-            if (++consecutiveFails >= 5) { out.reason = "5 consecutive failures (LinkedIn UI changed?)"; break outer; }
-          }
-          // A send that navigated away (profile page, verification step) ends the pass.
-          if (!(await LinkedInService.onPeopleSearchPage())) { out.reason = "left the people search page after a send"; break outer; }
-          await pause(jitter(6000, 14000), shouldStop);
-        }
-        await pause(jitter(2000, 5000), shouldStop);
+    const picks = [];
+    for (const { kw, people } of res.results) {
+      let kwPicked = 0;
+      for (const p of people) {
+        if (picks.length >= out.target || kwPicked >= CONNECT_PER_KEYWORD) break;
+        out.scanned++;
+        const key = CONNECT_KEY(p.href);
+        if (track[key] || seenHref.has(key)) continue;
+        seenHref.add(key);
+        if (!CONNECT_ICP_RE.test(p.text) || CONNECT_SKIP_RE.test(p.text) || CONNECT_NON_US_RE.test(p.text)) continue;
+        picks.push({ ...p, kw, key });
+        kwPicked++;
       }
     }
+    if (dryRun) {
+      out.previews = picks.map((p) => ({ name: p.name, text: p.text.slice(0, 140), kw: p.kw }));
+      out.sent = picks.length;
+      return;
+    }
+    if (!picks.length || halted()) return;
+    const actions = picks.map((p) => ({
+      kind: "connect", url: p.href, person: p,
+      allow: () => (halted() ? "the run is stopping" : invitedSince(track, DAY) >= CONNECT_MAX_PER_DAY || invitedSince(track, 7 * DAY) >= CONNECT_MAX_PER_WEEK ? "the connect cap is reached" : cooldownLeft(track, "connect") ? "connects are paused" : ""),
+      // (counted at the GO, unverified until the session saw Pending: over-counting a cap is safe, under-counting is not)
+      onGo: () => { track[p.key] = { ts: nowIso(), status: "invited", unverified: true }; saveOrStop(track); },
+    }));
+    for (const a of await LinkedInService.act(actions)) {
+      const p = a.person;
+      if (a.result === "limit") {
+        delete track[p.key];
+        setCooldown(track, "connect", 7 * DAY, "LinkedIn invitation limit");
+        out.reason = "LinkedIn invitation limit reached - connects paused 7 days";
+      } else if (a.result === "done" || a.result === "already" || a.go) {
+        if (a.go) out.sent++;
+        track[p.key] = { ts: nowIso(), status: "invited", ...(a.result === "done" || a.result === "already" ? {} : { unverified: true }) };
+        logger.info(`feedEngage connect: ${a.go ? "invited" : "already invited"} ${p.name} (${out.sent}/${out.target}) via "${p.kw}"${a.result === "uncertain" ? " [unverified]" : ""}.`);
+      } else if (a.result !== "skipped") {
+        // Email-gated or UI failure: park so the same person isn't retried every run.
+        track[p.key] = { ts: nowIso(), status: "skipped" };
+        logger.warn(`feedEngage connect: ${p.name} not sent (${a.result}${a.detail ? `: ${a.detail}` : ""}).`);
+      }
+    }
+    saveTrack(track);
   });
   logger.info(`feedEngage connect: ${dryRun ? "would send" : "sent"} ${out.sent}/${out.target} (scanned ${out.scanned})${out.reason ? ` - stopped: ${out.reason}` : ""}.`);
   return out;
 }
 
-const cleanup = () => LinkedInService.cleanup();
-
 module.exports = {
-  runFeedEngagement, runViralPass, runLikePass, runConnectPass, scorePost, viralScore, isVip, buildViralSources, noteViralPage, isSensitivePost, cleanup,
+  runFeedEngagement, runViralPass, runLikePass, runConnectPass, scorePost, viralScore, isVip, buildViralSources, noteViralPage, isSensitivePost,
   _tracker: { shouldSkipTracked, entryOfPost, markPost, loadTrack, saveTrack, pruneTrack, passBlocked, commentedSince, likedSince, setCooldown, recentComments },
   _reciprocity: { noteWarmPeople, noteWarmPage, warmPeople, warmSources, audienceScore, buildSources },
 };

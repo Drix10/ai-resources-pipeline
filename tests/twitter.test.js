@@ -5,6 +5,7 @@ const fs = require("fs");
 const os = require("os");
 const path = require("path");
 const TwitterService = require("../src/services/twitter");
+const claude = require("../src/services/claude");
 
 const {
   classifyTweetText, isOfftopicTweet, snowflakeTime, isTooOld, pruneIds,
@@ -210,27 +211,19 @@ test("beginRun rereads the store and resets reservations", () => {
   }
 });
 
-// A stand-in WebDriver: findContent only waits for the first post, runs the extraction
-// script and scrolls.
-function fakeDriver(batch) {
-  return {
-    wait: async () => true,
-    executeScript: async (script) => (typeof script === "function" ? batch : undefined),
-  };
-}
 const words = (n, seed) => Array.from({ length: n }, (_, i) => `${seed}${i}`).join(" ") + " with benchmarks on GPUs";
 const post = (id, over = {}) => ({
   tweetId: id, url: `https://x.com/u/status/${id}`, timestamp: "", text: words(35, `w${id}x`), mainText: "x",
   links: [], images: [], truncated: false, isAd: false, isReply: false, ...over,
 });
 
-test("findContent skips ads, replies, truncated, stale and already-reserved posts", async () => {
+test("findContent skips ads, replies, truncated, stale and already-reserved posts", () => {
   const dir = tmpDir();
   try {
     const service = new TwitterService({ storePath: path.join(dir, "ids.json") });
     const now = Date.now();
     const fresh = Array.from({ length: 20 }, (_, i) => idAt(now - DAY - i * 1000));
-    service.driver = fakeDriver([
+    const first = service.findContent("AI Developer Tools", [
       post(idAt(now - 100), { isAd: true }),
       post(idAt(now - 200), { isReply: true }),
       post(idAt(now - 300), { truncated: true }),
@@ -238,7 +231,6 @@ test("findContent skips ads, replies, truncated, stale and already-reserved post
       post(idAt(now - 400), { mainText: "" }),
       ...fresh.map((id) => post(id)),
     ]);
-    const first = await service.findContent("AI Developer Tools");
     const firstIds = first.map((c) => c.tweets[0].tweetId);
     assert.equal(firstIds.length, 16);
     assert.deepEqual(firstIds, fresh.slice(0, 16));
@@ -246,8 +238,7 @@ test("findContent skips ads, replies, truncated, stale and already-reserved post
 
     // A second folder whose list overlaps never yields the same post in the same run.
     const more = Array.from({ length: 12 }, (_, i) => idAt(now - 2 * DAY - i * 1000));
-    service.driver = fakeDriver([...fresh, ...more].map((id) => post(id)));
-    const second = await service.findContent("AI Companies and Ventures");
+    const second = service.findContent("AI Companies and Ventures", [...fresh, ...more].map((id) => post(id)));
     const secondIds = second.map((c) => c.tweets[0].tweetId);
     assert.equal(secondIds.filter((id) => firstIds.includes(id)).length, 0);
     assert.deepEqual(secondIds, [...fresh.slice(16), ...more]);
@@ -256,37 +247,77 @@ test("findContent skips ads, replies, truncated, stale and already-reserved post
   }
 });
 
-test("findContent reads a long post in full on its own page while the pool has room", async () => {
+test("a list is read by one read-only Claude in Chrome session; its posts are checked, and a wall or no browser is X_UNAVAILABLE", async () => {
   const dir = tmpDir();
+  const saved = claude.ask;
   try {
     const service = new TwitterService({ storePath: path.join(dir, "ids.json") });
     service.RATE_LIMIT_DELAY = 0;
     const now = Date.now();
-    const longId = idAt(now - 300), stillCut = idAt(now - 400);
-    const list = [
-      post(longId, { truncated: true, text: "The opening line only" }),
-      post(stillCut, { truncated: true }),
-      ...Array.from({ length: 3 }, (_, i) => post(idAt(now - DAY - i * 1000))),
-    ];
-    const pages = {
-      [`https://x.com/u/status/${longId}`]: [post(longId)],
-      [`https://x.com/u/status/${stillCut}`]: [post(stillCut, { truncated: true })],
+    const ids = Array.from({ length: 3 }, (_, i) => idAt(now - DAY - i * 1000));
+    let reply = null;
+    let reads = [];
+    const seen = [];
+    // A session as Claude in Chrome would run it: its tab's reads go to the gate by SEND, the reply carries none.
+    claude.ask = async (opts) => {
+      seen.push(opts);
+      const send = /"(http:\/\/127\.0\.0\.1:\d+\/gate\/[0-9a-f]+\/in\?d=)"/.exec(opts.prompt)[1];
+      const back = "&back=" + encodeURIComponent("https://x.com/i/lists/42");
+      assert.equal((await fetch(send + encodeURIComponent(JSON.stringify(reads.map((v) => ({ at: "", url: v.url, v })))) + back, { redirect: "manual" })).headers.get("location"), "https://x.com/i/lists/42#gate=RECEIVED");
+      return JSON.stringify(reply);
     };
-    let page = list;
-    const opened = [];
-    service.driver = {
-      wait: async () => true,
-      get: async (url) => { opened.push(url); page = pages[url] || []; },
-      executeScript: async (script) => (typeof script === "function" ? page : undefined),
-    };
-    const found = await service.findContent("AI Developer Tools");
-    assert.deepEqual(opened, Object.keys(pages));
-    const long = found.find((c) => c.tweets[0].tweetId === longId);
-    assert.equal(long?.tweets[0].text, post(longId).text, "the full text from the post's own page");
-    assert.ok(!found.some((c) => c.tweets[0].tweetId === stillCut), "a post still cut on its own page is skipped");
-    assert.equal(found.length, 4);
+    reply = { browser: "connected", sent: "RECEIVED" };
+    const list = { url: "https://x.com/i/lists/42", problem: "", posts: [...ids.map((id) => post(id, { truncated: id === ids[0] })), { tweetId: "1", url: "https://evil.example/status/1", text: "x" }, post(idAt(now - 500), { url: "https://x.com/u/status/999" })] };
+    // ids[0]'s own page: its full copy replaces the cut one, and a reply under it is not a list post.
+    const own = { url: `https://x.com/u/status/${ids[0]}`, problem: "", posts: [post(ids[0]), post(idAt(now - 600))] };
+    reads = [list, own];
+    const found = await service.fetchTweets({ folder: { name: "AI Developer Tools", lists: ["42"] } });
+    assert.deepEqual(found.map((c) => c.tweets[0].tweetId), ids, "a post whose id or address does not hold is dropped, a long post's page adds only it");
+    assert.equal(seen[0].chrome, true);
+    assert.match(seen[0].prompt, /https:\/\/x\.com\/i\/lists\/42/);
+    assert.match(seen[0].prompt, /Read only/);
+    assert.doesNotThrow(() => new Function(`return ${TwitterService.__test.READ_SCRIPT}`), "READ is one valid expression");
+
+    reads = [];
+    await assert.rejects(service.fetchTweets({ folder: { name: "A", lists: ["42"] } }), (e) => e.code === "X_UNAVAILABLE" && /sent no read back/.test(e.message));
+    reads = [{ url: "https://x.com/i/flow/login", problem: "", posts: [] }];
+    await assert.rejects(service.fetchTweets({ folder: { name: "A", lists: ["42"] } }), (e) => e.code === "X_UNAVAILABLE" && /logged out/.test(e.message));
+    reply = { browser: "none" };
+    await assert.rejects(service.fetchTweets({ folder: { name: "A", lists: ["42"] } }), (e) => e.code === "X_UNAVAILABLE" && /no browser/.test(e.message));
+    claude.ask = async () => { throw Object.assign(new Error("usage limit reached"), { code: "CLAUDE_LIMIT" }); };
+    await assert.rejects(service.fetchTweets({ folder: { name: "A", lists: ["42"] } }), (e) => e.code === "X_UNAVAILABLE");
   } finally {
+    claude.ask = saved;
     fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+// A posting session as Claude in Chrome would run it: it types `typed`, runs CHECK (here: the hash of what it
+// typed) and opens the gate; Post is "pressed" only at a GO.
+const postingSession = (typed, result = {}) => async ({ prompt }) => {
+  const gate = /"(http:\/\/127\.0\.0\.1:\d+\/gate\/[0-9a-f]+\/post\/)"/.exec(prompt)[1];
+  const said = await (await fetch(gate + claude.textHash(claude.normText(typed)))).text();
+  const go = said.startsWith("GO");
+  return JSON.stringify({ browser: "connected", gate: said.split(":")[0], posted: go, error: "", detail: said, ...result });
+};
+
+test("a post is typed, read back at the gate and posted only at its GO; a dry run or another text never posts", async () => {
+  const saved = claude.ask;
+  const text = "New in AI Developer Tools: a faster reranker\n\nRead them here:\nhttps://example.com/x";
+  try {
+    const service = new TwitterService({ storePath: path.join(tmpDir(), "ids.json") });
+    claude.ask = postingSession(text);
+    assert.equal(await service.postTweet(text), true);
+    claude.ask = postingSession(text);
+    assert.equal(await service.postTweet(text, { dryRun: true }), true, "a dry run reaches the gate");
+    let posted = null;
+    claude.ask = async (opts) => { const r = JSON.parse(await postingSession("another text")(opts)); posted = r.posted; return JSON.stringify(r); };
+    assert.equal(await service.postTweet(text), false, "the composer holding another text never posts");
+    assert.equal(posted, false);
+    claude.ask = async (opts) => { assert.match(opts.prompt, /Press Post ONLY after the gate/); return JSON.stringify({ browser: "connected", gate: "none", posted: true }); };
+    assert.equal(await service.postTweet(text), false, "a post with no GO is not taken as posted");
+  } finally {
+    claude.ask = saved;
   }
 });
 

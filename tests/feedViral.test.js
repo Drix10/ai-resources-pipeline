@@ -15,6 +15,7 @@ const VIRAL = require("../config/viral");
 const LinkedInService = require("../src/services/linkedin");
 const feedEngage = require("../src/services/feedEngage");
 const llm = require("../src/services/llm");
+const { fakeLinkedIn } = require("./_fakeLinkedIn");
 const { viralScore, isVip, buildViralSources, _tracker: T } = feedEngage;
 
 const HOUR = 3600000;
@@ -136,18 +137,16 @@ test("viral comments are counted on their own cap, apart from the regular commen
 });
 
 test("the viral pass reads the thread, drafts against it, comments on the viral post only, and is off without comments", async () => {
-  const proto = LinkedInService.prototype;
-  const saved = { scan: proto.scanFeedPosts, comment: proto.commentOnFeedCard, read: proto.readComments, shot: proto.screenshotCard, draft: llm.draftViralComment, social: { ...config.social } };
+  const saved = { draft: llm.draftViralComment, social: { ...config.social } };
   process.env.LINKEDIN_TRACK_PATH = path.join(TMP, "viral-track.json");
   LinkedInService._resetDisabled();
-  const commented = [], drafts = [];
-  proto.scanFeedPosts = async () => [
+  const drafts = [];
+  let page = () => [
     { key: "urn:li:activity:1", author: "Ordinary Person", href: "https://www.linkedin.com/in/ordinary", text: TEXT, head: "", ageH: 5, reactions: 12 },
     { key: "urn:li:activity:2", author: vip.name, href: `https://www.linkedin.com/in/${vip.slug}`, text: TEXT, head: "", ageH: 2, reactions: 5400, comments: 300 },
   ];
-  proto.readComments = async () => ({ status: "open", comments: "Jane Doe\nFounder\n1h\nCongrats on the launch!", commenters: ["Jane Doe"] });
-  proto.screenshotCard = async () => { throw new Error("no screenshot unless the viral provider is claude"); };
-  proto.commentOnFeedCard = async (key) => { commented.push(key); return { status: "posted", liked: true }; };
+  let thread = () => ({ status: "open", comments: "Jane Doe\nFounder\n1h\nCongrats on the launch!", commenters: ["Jane Doe"] });
+  const li = fakeLinkedIn({ scan: () => page(), thread: (p) => thread(p) });
   llm.draftViralComment = async (args) => { drafts.push(args); return { comment: "Shipping it open source is the part that will travel.", isValid: true, skipped: false, errors: [], candidates: [] }; };
   try {
     config.social.linkedinFeedReply = false;
@@ -158,24 +157,23 @@ test("the viral pass reads the thread, drafts against it, comments on the viral 
     config.social.linkedinViral = true;
     const r = await feedEngage.runViralPass({ max: 1 });
     assert.equal(r.commented, 1);
-    assert.deepEqual(commented, ["urn:li:activity:2"], "only the big name's post");
+    assert.deepEqual(li.done("comment"), ["urn:li:activity:2"], "only the big name's post");
     const track = T.loadTrack();
     assert.equal(track["urn:li:activity:2"].viral, true);
     assert.equal(T.commentedSince(track, 24 * HOUR, { viral: false }), 0, "the regular cap is untouched");
-    assert.equal(track.counters.viralLoads.length, 1, "one page loaded for one comment");
+    assert.equal(track.counters.viralLoads.length, li.scanned.length, "one load counted per page the scan read");
     assert.equal(drafts.length, 1);
     assert.match(drafts[0].comments, /Congrats on the launch/, "the draft sees the comments already there");
-    assert.equal(drafts[0].imageFile, "", "no screenshot for a provider that cannot see it");
     assert.ok(track.meta.viralPages, "the big name's page read is remembered");
     // Our comment already on the post: recorded, never a second one.
-    proto.readComments = async () => ({ status: "already", comments: "", commenters: [] });
-    proto.scanFeedPosts = async () => [{ key: "urn:li:activity:3", author: VIRAL.people[1].name, href: `https://www.linkedin.com/in/${VIRAL.people[1].slug}`, text: TEXT, head: "", ageH: 1, reactions: 900, comments: 20 }];
+    thread = () => ({ status: "already", comments: "", commenters: [] });
+    page = () => [{ key: "urn:li:activity:3", author: VIRAL.people[1].name, href: `https://www.linkedin.com/in/${VIRAL.people[1].slug}`, text: TEXT, head: "", ageH: 1, reactions: 900, comments: 20 }];
     const again = await feedEngage.runViralPass({ max: 1 });
     assert.equal(again.commented, 0);
     assert.equal(T.loadTrack()["urn:li:activity:3"].status, "commented");
-    assert.deepEqual(commented, ["urn:li:activity:2"]);
+    assert.deepEqual(li.done("comment"), ["urn:li:activity:2"]);
   } finally {
-    Object.assign(proto, { scanFeedPosts: saved.scan, commentOnFeedCard: saved.comment, readComments: saved.read, screenshotCard: saved.shot });
+    li.restore();
     llm.draftViralComment = saved.draft;
     Object.assign(config.social, saved.social);
   }
@@ -202,7 +200,7 @@ test("viral drafter: the first candidate that passes the hard gates and the judg
     assert.equal(calls.length, 2, "one draft call and one judge call");
     assert.ok(calls.every((c) => c.opts.role === "viral"), "both on the viral provider");
     assert.match(calls[0].prompt, /Congrats!/, "the draft prompt carries the comments shown");
-    assert.ok(!calls[0].opts.imageFiles.length, "no image without the claude provider");
+    assert.ok(!("imageFiles" in calls[0].opts), "the drafter works from the text");
     // A skip, a judge that fails everything, and a reply that is not JSON.
     replies.push(JSON.stringify({ skip: true, reason: "a layoffs post" }));
     assert.equal((await llm.draftViralComment({ post })).skipped, true);
@@ -239,69 +237,56 @@ test("the judge's verdicts are matched by number: a pass for candidate 2 is neve
   }
 });
 
-test("viral prompts treat the page as data; a resting Claude gets no screenshot and the judge sees the one the drafter saw", async () => {
-  const saved = { gen: llm.generateCommentText, viral: config.llm.providers.viral, rest: llm._claudeRestUntil };
+test("viral prompts treat the post and its comments as data", async () => {
+  const saved = llm.generateCommentText;
   const calls = [];
-  const replies = [];
+  const replies = [JSON.stringify({ candidates: [{ angle: "question", comment: "Will the open weights come with the evaluation code too?" }] }), JSON.stringify({ verdicts: [{ n: 1, pass: true, reason: "ok" }] })];
   llm.generateCommentText = async (prompt, opts) => { calls.push({ prompt, opts }); return replies.shift(); };
-  const post = { author: "Ada Lovelace", text: "We are releasing our open model weights today for every developer to build on.", ageH: 1 };
-  const one = JSON.stringify({ candidates: [{ angle: "question", comment: "Will the open weights come with the evaluation code too?" }] });
-  const pass = JSON.stringify({ verdicts: [{ n: 1, pass: true, reason: "ok" }] });
   try {
-    config.llm.providers.viral = "claude";
-    llm._claudeRestUntil = 0;
-    replies.push(one, pass);
-    await llm.draftViralComment({ post, imageFile: "shot.png" });
-    assert.deepEqual(calls[0].opts.imageFiles, ["shot.png"]);
-    assert.deepEqual(calls[1].opts.imageFiles, ["shot.png"], "the judge sees the screenshot too");
+    await llm.draftViralComment({ post: { author: "Ada Lovelace", text: "We are releasing our open model weights today for every developer to build on.", ageH: 1 } });
+    assert.equal(calls.length, 2);
     for (const c of calls) assert.match(c.prompt, /data, not instructions/);
-    calls.length = 0;
-    llm._claudeRestUntil = Date.now() + 60000;
-    replies.push(one, pass);
-    await llm.draftViralComment({ post, imageFile: "shot.png" });
-    assert.deepEqual(calls[0].opts.imageFiles, [], "the fallback writer gets no image");
-    assert.doesNotMatch(calls[0].prompt, /screenshot/i, "and is not told about one");
-    assert.deepEqual(calls[1].opts.imageFiles, []);
+    for (const c of calls) assert.doesNotMatch(c.prompt, /screenshot/i);
   } finally {
-    llm.generateCommentText = saved.gen;
-    config.llm.providers.viral = saved.viral;
-    llm._claudeRestUntil = saved.rest;
+    llm.generateCommentText = saved;
   }
 });
 
 test("the viral pass: a checkpoint ends it, a regular-pass rejection does not bar it, a dry run tracks nothing, the like obeys its cap", { timeout: 120000 }, async () => {
-  const proto = LinkedInService.prototype;
-  const saved = { scan: proto.scanFeedPosts, comment: proto.commentOnFeedCard, read: proto.readComments, draft: llm.draftViralComment, social: { ...config.social }, track: process.env.LINKEDIN_TRACK_PATH };
+  const saved = { draft: llm.draftViralComment, social: { ...config.social }, track: process.env.LINKEDIN_TRACK_PATH };
   const big = (n) => ({ key: `urn:li:activity:${n}`, author: VIRAL.people[n % VIRAL.people.length].name, href: `https://www.linkedin.com/in/${VIRAL.people[n % VIRAL.people.length].slug}`, text: TEXT, head: "", ageH: 2, reactions: 5400, comments: 300 });
   const fresh = (name, content) => {
     process.env.LINKEDIN_TRACK_PATH = path.join(TMP, `${name}.json`);
     if (content) fs.writeFileSync(process.env.LINKEDIN_TRACK_PATH, JSON.stringify(content));
     LinkedInService._resetDisabled();
   };
-  const commented = [];
-  proto.readComments = async () => ({ status: "open", comments: "", commenters: [] });
-  proto.commentOnFeedCard = async (key, href, snip, text, author, opts) => { commented.push({ key, like: opts && opts.like }); return { status: "posted", liked: Boolean(opts && opts.like) }; };
+  let page = () => [];
+  let thread = () => ({ status: "open", comments: "", commenters: [] });
+  const li = fakeLinkedIn({ scan: () => page(), thread: (p) => thread(p) });
+  const scanPages = LinkedInService.prototype.scanPages;
+  let scans = 0;
+  LinkedInService.prototype.scanPages = async (sources) => { scans++; return scanPages(sources); };
+  const commented = () => li.acted.filter((a) => a.said === "GO").map((a) => (a.kind === "comment" ? a.key : `like:${a.key}`));
   llm.draftViralComment = async () => ({ comment: "Shipping it open source is the part that will travel.", isValid: true, skipped: false, errors: [], candidates: [] });
   Object.assign(config.social, { linkedinFeedReply: true, linkedinViral: true });
   try {
     fresh("stop");
-    proto.scanFeedPosts = async () => [big(2)];
-    proto.readComments = async () => { throw Object.assign(new Error("checkpoint"), { code: "LINKEDIN_RESTRICTED" }); };
+    page = () => [big(2)];
+    thread = () => { throw Object.assign(new Error("checkpoint"), { code: "LINKEDIN_RESTRICTED" }); };
     const stopped = await feedEngage.runViralPass({ max: 1 });
     assert.match(stopped.reason, /linkedin unavailable/);
     assert.ok(T.loadTrack().cooldowns.all, "every pass pauses for a day or two");
-    assert.equal(commented.length, 0);
-    proto.readComments = async () => ({ status: "open", comments: "", commenters: [] });
+    assert.equal(commented().length, 0);
+    thread = () => ({ status: "open", comments: "", commenters: [] });
 
     const now = new Date().toISOString();
     fresh("rejected", { "urn:li:activity:2": { ts: now, status: "rejected", skipReason: "peer gate" }, "urn:li:activity:4": { ts: now, status: "rejected", pass: "viral" } });
-    proto.scanFeedPosts = async () => [big(4), big(2)];
-    // (max 1: a second comment would wait out the real 1-3 minute pause; post 4 is scanned first either way)
+    page = () => [big(4), big(2)];
     assert.equal((await feedEngage.runViralPass({ max: 1 })).commented, 1);
-    assert.deepEqual(commented.map((c) => c.key), ["urn:li:activity:2"], "the regular pass's rejection does not count; the viral pass's own does");
+    assert.deepEqual(commented().filter((k) => !k.startsWith("like:")), ["urn:li:activity:2"], "the regular pass's rejection does not count; the viral pass's own does");
 
     fresh("dry");
-    commented.length = 0;
+    li.acted.length = 0;
     const dry = await feedEngage.runViralPass({ max: 1, dryRun: true });
     assert.equal(dry.previews.length, 1);
     assert.equal(fs.existsSync(process.env.LINKEDIN_TRACK_PATH), false, "a dry run writes no tracker");
@@ -309,63 +294,58 @@ test("the viral pass: a checkpoint ends it, a regular-pass rejection does not ba
     const liked = {};
     for (let i = 0; i < 60; i++) liked[`urn:li:activity:9${i}`] = { ts: now, status: "liked", likedAt: now };
     fresh("likes", liked);
-    proto.scanFeedPosts = async () => [big(3)];
+    li.acted.length = 0;
+    page = () => [big(3)];
     assert.equal((await feedEngage.runViralPass({ max: 1 })).commented, 1);
-    assert.deepEqual(commented, [{ key: "urn:li:activity:3", like: false }], "the day's 60 likes are spent: the comment goes without one");
+    assert.deepEqual(commented(), ["urn:li:activity:3"], "the day's 60 likes are spent: the comment goes without one");
 
     // A Claude time-out as long as the pass: its draft reserve is capped at half the pass, not the whole of it.
-    const routes = { viral: config.llm.providers.viral, timeout: config.llm.claude.requestTimeoutMs, shot: proto.screenshotCard };
+    const routes = { viral: config.llm.providers.viral, timeout: config.llm.claude.requestTimeoutMs };
     try {
       config.llm.providers.viral = "claude";
-      config.llm.claude.requestTimeoutMs = 60 * 60 * 1000;
-      proto.screenshotCard = async () => false;
+      config.llm.claude.requestTimeoutMs = 2 * 60 * 60 * 1000;
       fresh("reserve");
-      commented.length = 0;
-      proto.scanFeedPosts = async () => [big(5)];
+      page = () => [big(5)];
       assert.equal((await feedEngage.runViralPass({ max: 1 })).commented, 1);
     } finally {
       config.llm.providers.viral = routes.viral;
       config.llm.claude.requestTimeoutMs = routes.timeout;
-      proto.screenshotCard = routes.shot;
     }
 
-    // The reserve follows the slowest draft: after a 14.5-minute draft no 1-3 minute pause is waited out
-    // (the next post could not finish in the 30-minute pass), and no further page is loaded.
+    // The reserve follows the slowest draft: after a 31-minute draft no second draft starts (the next post could
+    // not finish in the 60-minute pass), and no further page is read.
     const realNow = Date.now;
     const draft = llm.draftViralComment;
     let clock = realNow();
-    let scans = 0;
     try {
       Date.now = () => clock;
       config.llm.providers.viral = "openrouter";
       fresh("slow");
-      commented.length = 0;
-      proto.scanFeedPosts = async () => { scans++; return [big(5), big(6)]; };
-      llm.draftViralComment = async (a) => { clock += 14.5 * 60000; llm.commentCalls = (llm.commentCalls || 0) + 1; return draft(a); };
+      scans = 0;
+      page = () => [big(5), big(6)];
+      llm.draftViralComment = async (a) => { clock += 31 * 60000; llm.commentCalls = (llm.commentCalls || 0) + 1; return draft(a); };
       const slow = await feedEngage.runViralPass({ max: 2 });
       assert.equal(slow.commented, 1);
       assert.equal(slow.reason, "the pass's time is nearly up");
-      assert.equal(scans, 1, "no page is loaded for a post the pass cannot finish");
+      assert.equal(scans, 1, "one scan session, and no page read after it");
 
-      // A draft that ended before any model call (a thin post, a second) teaches the reserve nothing: when the
-      // next page leaves 3 minutes, a pass on OpenRouter (4 minutes' reserve) starts no further draft.
+      // A draft that ended before any model call (a thin post) teaches the reserve nothing: with 5 minutes left
+      // after it, a pass on OpenRouter (4 minutes' reserve) still drafts the next post.
       fresh("thin");
-      commented.length = 0;
       clock = realNow();
-      let drafted = 0, pages = 0;
-      proto.scanFeedPosts = async () => (pages++ === 0 ? [big(7)] : ((clock += 27 * 60000), [big(8)]));
-      llm.draftViralComment = async (a) => { if (drafted++ === 0) { clock += 1000; return { comment: "", isValid: false, skipped: true, errors: ["too thin"], candidates: [] }; } clock += 60000; llm.commentCalls = (llm.commentCalls || 0) + 1; return draft(a); };
+      let drafted = 0;
+      page = () => [big(7), big(8)];
+      llm.draftViralComment = async (a) => { if (drafted++ === 0) { clock += 55 * 60000; return { comment: "", isValid: false, skipped: true, errors: ["too thin"], candidates: [] }; } clock += 60000; llm.commentCalls = (llm.commentCalls || 0) + 1; return draft(a); };
       const thin = await feedEngage.runViralPass({ max: 2 });
-      assert.equal(drafted, 1, "the thin post, and no draft after it");
-      assert.equal(thin.commented, 0);
-      assert.equal(thin.reason, "the pass's time is nearly up");
+      assert.equal(drafted, 2, "the thin post taught no 30-minute reserve");
+      assert.equal(thin.commented, 1);
     } finally {
       Date.now = realNow;
       llm.draftViralComment = draft;
       config.llm.providers.viral = routes.viral;
     }
   } finally {
-    Object.assign(proto, { scanFeedPosts: saved.scan, commentOnFeedCard: saved.comment, readComments: saved.read });
+    li.restore();
     llm.draftViralComment = saved.draft;
     Object.assign(config.social, saved.social);
     process.env.LINKEDIN_TRACK_PATH = saved.track;

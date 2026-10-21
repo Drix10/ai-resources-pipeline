@@ -15,16 +15,13 @@ const stub = (rel, exports) => {
 };
 class FakeTwitter {
   beginRun() { calls.push("beginRun"); }
-  async init() { calls.push("init"); if (state.initFails) throw new Error("no X"); }
   async fetchTweets({ folder }) { calls.push(`fetch:${folder.name}`); return state.fetch(folder); }
   markContentAsPublished(t) { calls.push(`mark:${t.length}`); return state.markOk ?? true; }
   persistProcessedIds() { calls.push("persist"); return state.persistOk ?? true; }
   async postTweet(text) { calls.push("tweet"); tweetTexts.push(text); return state.tweet(); }
-  cleanupScreenshots() {}
-  async cleanup() { calls.push("x-cleanup"); }
 }
 stub("src/services/twitter.js", FakeTwitter);
-stub("src/services/feedEngage.js", { cleanup: async () => calls.push("li-cleanup"), runLikePass: async () => ({ liked: 0, target: 0 }), runFeedEngagement: async () => ({ commented: 0, skipped: 0 }), runConnectPass: async () => ({ sent: 0, target: 0 }) });
+stub("src/services/feedEngage.js", { runLikePass: async () => ({ liked: 0, target: 0 }), runFeedEngagement: async () => ({ commented: 0, skipped: 0 }), runConnectPass: async () => ({ sent: 0, target: 0 }) });
 // Like the real one, marks the batch through onCommitted the moment the commit lands.
 const uploads = [];
 stub("src/services/github.js", {
@@ -60,14 +57,13 @@ test("a run commits, marks only the sources used, caps tweets and cleans up", { 
   const r = await cron.processAllFolders();
   assert.equal(r.ran, true);
   assert.equal(r.articles, 4);
-  assert.ok(calls.indexOf("beginRun") < calls.indexOf("init"), "the ID store is reloaded before X starts");
+  assert.ok(calls.indexOf("beginRun") < calls.indexOf("fetch:A"), "the ID store is reloaded before X starts");
   assert.ok(calls.includes("llm-beginRun"));
   const marks = calls.filter((c) => c.startsWith("mark:"));
   assert.ok(marks.length === 4 && marks.every((c) => c === "mark:2"), "every committed item is marked, with only its usedTweets");
   assert.ok(calls.indexOf("mark:2") < calls.indexOf("tweet"), "sources are marked before any tweet");
   assert.equal(calls.filter((c) => c === "tweet").length, 1, "tweets are spaced 20 min apart: one per quick run");
   assert.ok(calls.includes("readme") && calls.includes("syndication"));
-  assert.ok(calls.includes("x-cleanup") && calls.includes("li-cleanup"), "browsers released at the end of every run");
   assert.ok(!fs.existsSync(LOCK), "lock released");
 });
 
@@ -99,17 +95,11 @@ test("three folder failures in a row end the X phase, and the rest of the run st
   assert.ok(calls.includes("readme"), "README update still runs");
 });
 
-test("X_UNAVAILABLE ends the X phase at once; an X init failure skips curation but not the run", { timeout: 60000 }, async () => {
+test("X_UNAVAILABLE ends the X phase at once, and the rest of the run still happens", { timeout: 60000 }, async () => {
   calls.length = 0;
   state.fetch = () => { throw Object.assign(new Error("logged out"), { code: "X_UNAVAILABLE" }); };
   await cron.processAllFolders();
   assert.equal(calls.filter((c) => c.startsWith("fetch:")).length, 1);
-  calls.length = 0;
-  state.initFails = true;
-  const r = await cron.processAllFolders();
-  state.initFails = false;
-  assert.equal(r.xReady, false);
-  assert.equal(calls.filter((c) => c.startsWith("fetch:")).length, 0);
   assert.ok(calls.includes("readme"));
 });
 
@@ -141,7 +131,6 @@ test("an ID store that cannot be saved stops curation and tweets; the save is re
     assert.deepEqual(calls.filter((c) => c.startsWith("fetch:")), ["fetch:A"], "no folder after the failed save");
     assert.ok(!calls.includes("tweet"), "no tweet for an article whose sources are not saved");
     assert.equal(calls.filter((c) => c === "persist").length, 1, "saved on the first retry");
-    assert.ok(calls.indexOf("persist") < calls.indexOf("x-cleanup"));
   } finally {
     Math.random = random;
     state.markOk = undefined;
@@ -189,7 +178,7 @@ test("runPipeline does one run and reports it; a second call during it is refuse
   const [first, second] = await Promise.all([cron.runPipeline(), cron.runPipeline()]);
   assert.equal(first, "ok");
   assert.equal(second, "busy");
-  assert.equal(calls.filter((c) => c === "init").length, 1, "one run, not two");
+  assert.equal(calls.filter((c) => c === "beginRun").length, 1, "one run, not two");
   assert.ok(!fs.existsSync(LOCK), "lock released");
   assert.deepEqual(fs.readdirSync(dir).filter((f) => f.startsWith(".pipeline-schedule")), [], "no schedule is kept");
 });

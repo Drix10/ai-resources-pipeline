@@ -14,6 +14,7 @@ const config = require("../config");
 const LinkedInService = require("../src/services/linkedin");
 const feedEngage = require("../src/services/feedEngage");
 const llm = require("../src/services/llm");
+const { fakeLinkedIn } = require("./_fakeLinkedIn");
 const { scorePost, _tracker, _reciprocity: R } = feedEngage;
 const { shouldSkipTracked, entryOfPost } = _tracker;
 
@@ -194,68 +195,79 @@ test("a warm person known by member id is recognised on their posts' vanity link
 });
 
 test("the like pass reads notifications at most every 3 h and likes and follows back the warm person first; a company is never followed", async () => {
-  const proto = LinkedInService.prototype;
-  const saved = { scan: proto.scanFeedPosts, like: proto.likeFeedCard, follow: proto.followFeedCard, notes: proto.scanNotifications };
   process.env.LINKEDIN_TRACK_PATH = path.join(TMP, "like-track.json");
   LinkedInService._resetDisabled();
-  const scanned = [], follows = [];
-  let notes = 0, stop = false;
   const warmHref = "https://www.linkedin.com/in/warm-person";
-  proto.scanNotifications = async () => { notes++; return [{ kind: "comment", name: "Warm Person", href: warmHref, ageH: 2 }]; };
-  proto.scanFeedPosts = async ({ url = "" } = {}) => {
-    scanned.push(url);
-    if (url.startsWith(warmHref)) return [{ key: "urn:li:activity:501", author: "Warm Person", href: warmHref, text: "A long weekend hiking the coastal trail with old friends, the views were worth every step.", head: "", ageH: 5 }];
-    if (url.includes("/search/")) return [{ key: "urn:li:activity:502", author: "Acme", href: "https://www.linkedin.com/company/acme", text: BUILDER, head: "", ageH: 1, reactions: 50 }];
-    return [];
-  };
-  proto.likeFeedCard = async () => { stop = true; return true; };
-  proto.followFeedCard = async (snippet) => { follows.push(snippet); return true; };
+  const li = fakeLinkedIn({
+    notifications: () => [{ kind: "comment", name: "Warm Person", href: warmHref, ageH: 2 }],
+    scan: ({ url = "" }) => {
+      if (url.startsWith(warmHref)) return [{ key: "urn:li:activity:501", author: "Warm Person", href: warmHref, text: "A long weekend hiking the coastal trail with old friends, the views were worth every step.", head: "", ageH: 5 }];
+      if (url.includes("/search/")) return [{ key: "urn:li:activity:502", author: "Acme", href: "https://www.linkedin.com/company/acme", text: BUILDER, head: "", ageH: 1, reactions: 50 }];
+      return [];
+    },
+  });
   try {
-    const r = await feedEngage.runLikePass({ min: 1, max: 1, shouldStop: () => stop });
-    assert.equal(r.liked, 1);
-    assert.ok(scanned[0].startsWith(`${warmHref}/recent-activity`), "the warm person's posts are the first source");
-    assert.equal(follows.length, 1, "followed back below the follow score");
+    const r = await feedEngage.runLikePass({ min: 2, max: 2 });
+    assert.equal(r.liked, 2);
+    assert.ok(li.scanned[0].startsWith(`${warmHref}/recent-activity`), "the warm person's posts are the first source");
+    assert.deepEqual(li.done("follow"), ["urn:li:activity:501"], "followed back below the follow score; the company never");
     const track = _tracker.loadTrack();
+    assert.ok(track["urn:li:activity:501"].likedAt && track["urn:li:activity:501"].followedAt, "marked at the gate's GO");
     assert.ok(track[`warm:${warmHref}`].visitedAt, "their page is not reloaded for a few days");
     assert.equal(track.counters.notifLoads.length, 1);
-    stop = false;
-    proto.likeFeedCard = async () => { stop = true; return true; };
-    const again = await feedEngage.runLikePass({ min: 1, max: 1, shouldStop: () => stop });
-    assert.equal(notes, 1, "notifications are not read again within 3 h");
-    assert.equal(again.liked, 1, "the company's AI post is liked");
-    assert.ok(!scanned.slice(1).some((u) => u.startsWith(warmHref)), "a warm page read today waits");
-    assert.equal(follows.length, 1, "a company page is never followed");
+    li.scanned.length = 0;
+    const again = await feedEngage.runLikePass({ min: 1, max: 1 });
+    assert.equal(li.notes, 1, "notifications are not read again within 3 h");
+    assert.equal(again.liked, 0, "both posts were liked already");
+    assert.ok(!li.scanned.some((u) => u.startsWith(warmHref)), "a warm page read today waits");
   } finally {
-    Object.assign(proto, { scanFeedPosts: saved.scan, likeFeedCard: saved.like, followFeedCard: saved.follow, scanNotifications: saved.notes });
+    li.restore();
   }
 });
 
-test("a page whose comment box will not open is left after two tries", async () => {
-  const proto = LinkedInService.prototype;
-  const saved = { scan: proto.scanFeedPosts, comment: proto.commentOnFeedCard, notes: proto.scanNotifications, draft: llm.draftFeedComment, reply: config.social.linkedinFeedReply };
+test("a like pass dry run picks without acting; after a stop every gate answers STOP, and nothing more is marked", async () => {
+  process.env.LINKEDIN_TRACK_PATH = path.join(TMP, "like-dry-track.json");
+  LinkedInService._resetDisabled();
+  const posts = [1, 2, 3].map((i) => ({ key: `urn:li:activity:60${i}`, author: `Builder ${i}`, href: `https://www.linkedin.com/company/builder-${i}`, text: BUILDER, head: "", ageH: 1, reactions: 30 }));
+  const li = fakeLinkedIn({ scan: ({ url = "" }) => (url.includes("/search/") ? posts : []) });
+  try {
+    const dry = await feedEngage.runLikePass({ min: 2, max: 2, dryRun: true });
+    assert.equal(dry.picks.length, 2);
+    assert.equal(li.acted.length, 0, "no action session on a dry run");
+    assert.equal(fs.existsSync(process.env.LINKEDIN_TRACK_PATH), false, "a dry run writes no tracker");
+    const stopped = await feedEngage.runLikePass({ min: 3, max: 3, shouldStop: () => li.acted.length >= 1 });
+    assert.equal(stopped.liked, 1, "the gate stops every action after the stop");
+    assert.deepEqual(li.acted.map((a) => a.said), ["GO", "STOP", "STOP"]);
+    assert.equal(Object.keys(_tracker.loadTrack()).filter((k) => _tracker.loadTrack()[k].likedAt).length, 1);
+  } finally {
+    li.restore();
+  }
+});
+
+test("a comment the session could not post is not tracked; one it posted after the GO is, unverified when unconfirmed", async () => {
+  const saved = { draft: llm.draftFeedComment, reply: config.social.linkedinFeedReply };
   process.env.LINKEDIN_TRACK_PATH = path.join(TMP, "no-editor-track.json");
   LinkedInService._resetDisabled();
-  let scans = 0;
-  const tries = new Map();
-  proto.scanNotifications = async () => [];
-  proto.scanFeedPosts = async () => {
-    scans++;
-    return [1, 2, 3, 4].map((i) => ({ key: `urn:li:activity:9${scans}0${i}`, author: `Builder ${scans}${i}`, href: `https://www.linkedin.com/in/builder-${scans}-${i}`, text: BUILDER, head: "", ageH: 1, reactions: 30, comments: 2 }));
-  };
-  proto.commentOnFeedCard = async (key) => {
-    const page = key.slice("urn:li:activity:9".length, -2);
-    tries.set(page, (tries.get(page) || 0) + 1);
-    return { status: "failed", liked: false, reason: "no-editor" };
-  };
+  let n = 0;
+  let outcome = "no-editor";
+  const li = fakeLinkedIn({
+    scan: () => { n++; return [{ key: `urn:li:activity:9${n}01`, author: `Builder ${n}`, href: `https://www.linkedin.com/in/builder-${n}`, text: BUILDER, head: "", ageH: 1, reactions: 30, comments: 2 }]; },
+    result: (a) => (a.kind === "comment" ? outcome : "done"),
+  });
   llm.draftFeedComment = async () => ({ comment: "Which part of the framework did the developers ask for first?", isValid: true, skipped: false, errors: [] });
   try {
     config.social.linkedinFeedReply = true;
-    const res = await feedEngage.runFeedEngagement({ max: 2 });
-    assert.equal(res.commented, 0);
-    assert.ok(tries.size >= 1, "comments were tried");
-    for (const [page, n] of tries) assert.equal(n, 2, `page ${page}: two tries, then the page is left`);
+    // (the fake reports no-editor after the GO here: the session's word cannot undo a GO, so it stays tracked unverified)
+    const res = await feedEngage.runFeedEngagement({ max: 1 });
+    assert.equal(res.commented, 1);
+    const key = li.done("comment")[0];
+    assert.equal(_tracker.loadTrack()[key].unverified, true, "a GO the session did not confirm may be public");
+    outcome = "done";
+    const ok = await feedEngage.runFeedEngagement({ max: 1 });
+    assert.equal(ok.commented, 1);
+    assert.equal(_tracker.loadTrack()[li.done("comment")[1]].unverified, undefined, "a confirmed comment is not unverified");
   } finally {
-    Object.assign(proto, { scanFeedPosts: saved.scan, commentOnFeedCard: saved.comment, scanNotifications: saved.notes });
+    li.restore();
     llm.draftFeedComment = saved.draft;
     config.social.linkedinFeedReply = saved.reply;
   }
@@ -263,15 +275,12 @@ test("a page whose comment box will not open is left after two tries", async () 
 
 // ---- Comment memory: never the same structure twice, never about us ----
 test("the comment pass remembers what it posted and drafts against its latest comments", async () => {
-  const proto = LinkedInService.prototype;
-  const saved = { scan: proto.scanFeedPosts, comment: proto.commentOnFeedCard, notes: proto.scanNotifications, draft: llm.draftFeedComment, reply: config.social.linkedinFeedReply };
+  const saved = { draft: llm.draftFeedComment, reply: config.social.linkedinFeedReply };
   process.env.LINKEDIN_TRACK_PATH = path.join(TMP, "comment-track.json");
   LinkedInService._resetDisabled();
   let n = 0;
   const recents = [];
-  proto.scanNotifications = async () => [];
-  proto.scanFeedPosts = async () => { n++; return [{ key: `urn:li:activity:70${n}`, author: `Builder ${n}`, href: `https://www.linkedin.com/in/builder-${n}`, text: BUILDER, head: "", ageH: 1, reactions: 30, comments: 2 }]; };
-  proto.commentOnFeedCard = async () => ({ status: "posted", liked: false });
+  const li = fakeLinkedIn({ scan: () => { n++; return [{ key: `urn:li:activity:70${n}`, author: `Builder ${n}`, href: `https://www.linkedin.com/in/builder-${n}`, text: BUILDER, head: "", ageH: 1, reactions: 30, comments: 2 }]; } });
   llm.draftFeedComment = async ({ recent }) => { recents.push(recent); return { comment: `Which part of the framework did the developers ask for first, take ${recents.length}?`, isValid: true, skipped: false, errors: [] }; };
   try {
     config.social.linkedinFeedReply = true;
@@ -285,7 +294,7 @@ test("the comment pass remembers what it posted and drafts against its latest co
       "Which part of the framework did the developers ask for first, take 1?",
     ], "newest first");
   } finally {
-    Object.assign(proto, { scanFeedPosts: saved.scan, commentOnFeedCard: saved.comment, scanNotifications: saved.notes });
+    li.restore();
     llm.draftFeedComment = saved.draft;
     config.social.linkedinFeedReply = saved.reply;
   }
