@@ -19,7 +19,7 @@ flowchart TD
     D --> E["Blog: search index rebuilt, site built, pushed at most once a day and only if the build passes (Vercel deploys)"]
     D --> F["DEV.to syndication (rate-limited, circuit breaker)"]
     D --> G["Announcement on X (the link in the reply under it)"]
-    D --> H["LinkedIn: likes after each article; comments, viral-post comments and connection requests after each batch"]
+    D --> H["LinkedIn: likes after each article; comments, viral-post comments, stale-invite withdrawals and connection requests after each batch"]
     E --> I["Optional add-on: the content factory (Instagram reels), then exit"]
 ```
 
@@ -30,7 +30,7 @@ flowchart TD
 | 🤝 **LinkedIn, gated** | Short peer comments checked by code gates and a critic (no critic, no comment). People who engaged with you come first; a viral pass comments on posts about to reach a large audience. Every LinkedIn step is non-fatal. |
 | 🔒 **Safe** | Credentials, webhooks, keys and internal IPs are stripped before any commit. One run at a time (`.pipeline.lock`); Ctrl+C stops at the next step. |
 
-LinkedIn's daily caps: 20 comments + 8 viral, 60 likes, 5 follows, 15 connection requests (90 a week). Engagement leans to people building with AI, with finance as the second audience.
+LinkedIn's daily caps: 20 comments + 8 viral, 60 likes, 5 follows, 15 connection requests (90 a week; 3 a day while under 20% of the last month's invites were accepted), 10 withdrawals of invites pending 14+ days. With `LINKEDIN_TARGETED=true` engagement leans to people building with AI, with finance as the second audience; with `false` it works off your home feed (Top and Recent) and LinkedIn's People you may know.
 
 ## Requirements
 
@@ -71,6 +71,7 @@ Every setting is in [`.env.example`](.env.example) with a comment and a working 
 | `GITHUB_PAT`, `GITHUB_USERNAME`, `GITHUB_REPONAME` | The repository the articles are committed to |
 | `TWITTER_POST` | Post the announcement on X (`true`/`false`) |
 | `LINKEDIN_LIKE`, `LINKEDIN_FEED_REPLY`, `LINKEDIN_VIRAL`, `LINKEDIN_CONNECT`, `LINKEDIN_PROFILE_SLUG` | LinkedIn engagement switches and your profile (caps: `LINKEDIN_*_MAX_PER_DAY`, see `.env.example`) |
+| `LINKEDIN_TARGETED` | `true`: target AI/finance (searches, big names, topic and US filters); `false`: home feed and People you may know only |
 | `DEVTO_API_KEY`, `DEVTO_AUTO_PUBLISH` | DEV.to syndication |
 | `NVIDIA_API_KEY` | NVIDIA NIM (provider `nvidia`, and the fallback for `openrouter` and `claude`) |
 | `AUTHOR_NAME`, `AUTHOR_HANDLE`, `AUTHOR_EMAIL`, `AUTHOR_WEBSITE_URL` (and `AUTHOR_*_URL` links) | Your identity: commit author, article bylines and footers, the LinkedIn persona |
