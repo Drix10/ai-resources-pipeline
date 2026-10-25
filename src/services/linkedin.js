@@ -1416,7 +1416,7 @@ class LinkedInService {
       await nap(6000);
       await this._assertUsable(false);
       let rows = [], still = 0;
-      for (let i = 0; i < 15 && still < 2; i++) {
+      for (let i = 0; i < 25 && still < 3; i++) {
         await this.driver.executeScript(`const w = Array.from(document.querySelectorAll('[aria-label^="Withdraw invitation sent to "]')); if (w.length) w[w.length - 1].scrollIntoView({ block: 'end' }); window.scrollBy(0, 400);`).catch(() => {});
         await nap(2000);
         const now = (await this.driver.executeScript(ROWS).catch(() => null)) || rows;
@@ -1451,8 +1451,10 @@ class LinkedInService {
       const confirmed = await this.driver.executeScript(`
         const host = document.querySelector('#interop-outlet');
         const roots = [host && host.shadowRoot, document].filter(Boolean);
+        // A native <dialog> (no role) titled "Withdraw invitation"; the page also keeps hidden ad dialogs.
         for (const r of roots) {
-          const dlg = r.querySelector('[role="alertdialog"], [role="dialog"], .artdeco-modal');
+          const dlg = Array.from(r.querySelectorAll('dialog, [role="alertdialog"], [role="dialog"], .artdeco-modal'))
+            .find(x => /withdraw invitation/i.test(x.innerText || ''));
           if (!dlg) continue;
           const ok = Array.from(dlg.querySelectorAll('button')).find(x => (x.innerText || '').trim().toLowerCase() === 'withdraw');
           if (ok) { ok.click(); return 'confirmed'; }
@@ -1465,7 +1467,8 @@ class LinkedInService {
       }
       for (let i = 0; i < 4; i++) {
         await nap(1500);
-        const gone = await this.driver.executeScript(`return !Array.from(document.querySelectorAll('a, button')).some(x => (x.getAttribute('aria-label') || '').trim() === arguments[0]);`, invite.label).catch(() => false);
+        // (the dialog's own Withdraw button carries the same label)
+        const gone = await this.driver.executeScript(`return !Array.from(document.querySelectorAll('a, button')).some(x => !x.closest('dialog') && (x.getAttribute('aria-label') || '').trim() === arguments[0]);`, invite.label).catch(() => false);
         if (gone) return "withdrawn";
       }
       return "fail";

@@ -917,20 +917,24 @@ class TwitterService {
       }
       await sleep(1600);
 
-      // A reply goes out as the thread's second post (X's "Add post"), in the same submit as the first.
-      let last = tweetTextarea;
+      // A reply goes out as the thread's second post (X's "Add post", box tweetTextarea_1), in the same submit
+      // as the first ("Post all"). (The home timeline's own composer behind the dialog is another
+      // tweetTextarea_0: never pick a box by position.)
       if (reply) {
         const addButton = await this.driver.wait(until.elementLocated(By.css('[data-testid="addButton"]')), 10000);
         await addButton.click();
-        const boxes = By.css('div[data-testid^="tweetTextarea_"][role="textbox"], div[data-testid="tweetTextarea_0"], div[data-testid="tweetTextarea_1"]');
-        await this.driver.wait(async () => (await this.driver.findElements(boxes)).length >= 2, 10000)
+        const second = await this.driver.wait(until.elementLocated(By.css('div[data-testid="tweetTextarea_1"]')), 10000)
           .catch(() => { throw new Error("the thread's second post box did not open"); });
-        last = (await this.driver.findElements(boxes)).pop();
-        await last.sendKeys(String(reply));
+        await second.sendKeys(String(reply));
         await sleep(1200);
+        if (!String(await second.getText()).includes(String(reply).slice(0, 20))) throw new Error("the thread's second post did not take the reply");
+        const postAll = await this.driver.findElement(By.css('[data-testid="tweetButton"]'));
+        await this.driver.wait(async () => (await postAll.getAttribute("aria-disabled")) !== "true", 10000)
+          .catch(() => { throw new Error("Post all stayed disabled"); });
+        await postAll.click();
+      } else {
+        await tweetTextarea.sendKeys(Key.chord(MOD_KEY, Key.ENTER));
       }
-
-      await last.sendKeys(Key.chord(MOD_KEY, Key.ENTER));
       // Only a closed compose modal counts as posted; a dropped shortcut leaves
       // it open. (The home timeline has its own inline composer, so check the URL.)
       const posted = await this.driver
