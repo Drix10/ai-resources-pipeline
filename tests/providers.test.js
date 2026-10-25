@@ -166,34 +166,6 @@ test("claude CLI arguments: text calls get no tool at all; image calls may Read 
   assert.ok(!withImg.slice(withImg.indexOf("--disallowedTools") + 1).includes("Read"));
   if (process.platform === "win32") assert.equal(claude.rulePath("C:\\a\\b"), "//c/a/b");
   else assert.equal(claude.rulePath("/home/a/"), "//home/a");
-  // A browser call: Claude in Chrome's own tools and nothing else (no file, shell or web tool, no form filler or upload).
-  const chrome = claude.claudeArgs({ model: "m", effort: "low", chrome: true });
-  assert.ok(chrome.includes("--chrome") && chrome.includes("--safe-mode") && !chrome.includes("--strict-mcp-config"));
-  assert.equal(chrome[chrome.indexOf("--tools") + 1], "", "no built-in tool");
-  const allowed = chrome.slice(chrome.indexOf("--allowedTools") + 1, chrome.indexOf("--disallowedTools"));
-  assert.deepEqual(allowed, claude.CHROME_TOOLS);
-  assert.ok(allowed.every((t) => t.startsWith("mcp__claude-in-chrome__")));
-  const denied = chrome.slice(chrome.indexOf("--disallowedTools") + 1);
-  for (const t of ["Bash", "Read", "WebFetch", "mcp__claude-in-chrome__form_input", "mcp__claude-in-chrome__file_upload"]) assert.ok(denied.includes(t), t);
-});
-
-test("the gate answers each action once, only on its own random path and only on 127.0.0.1; the CHECK script hashes the text a page holds", async () => {
-  const asked = [];
-  const g = await claude.gate((id, hash) => { asked.push([id, hash]); return id === "a1" ? "GO: do it" : "STOP: no"; });
-  try {
-    assert.match(g.url, /^http:\/\/127\.0\.0\.1:\d+\/gate\/[0-9a-f]{32}$/);
-    assert.equal(await (await fetch(`${g.url}/a1/-`)).text(), "GO: do it");
-    assert.equal(await (await fetch(`${g.url}/a1/-`)).text(), "GO: do it", "a second visit hears the first answer");
-    assert.equal(await (await fetch(`${g.url}/a2/abc`)).text(), "STOP: no");
-    assert.equal((await fetch(g.url.replace(/[0-9a-f]{32}$/, "0".repeat(32)) + "/a1/-")).status, 404, "another path is nothing");
-    assert.deepEqual(asked, [["a1", "-"], ["a2", "abc"]]);
-  } finally {
-    g.close();
-  }
-  const script = claude.checkScript("http://127.0.0.1:1/gate/n", "c1", "div.box");
-  const run = (text) => new Function("document", `return ${script}`)({ querySelectorAll: () => (text === null ? [] : [{ innerText: text }]) });
-  assert.equal(run("Hello  world\u200b"), `http://127.0.0.1:1/gate/n/c1/${claude.textHash("Hello world")}`);
-  assert.equal(run(null), "http://127.0.0.1:1/gate/n/c1/none");
 });
 
 test("claude CLI: an npm .cmd shim resolves to the claude.exe it launches; programName ignores folders and extensions", () => {

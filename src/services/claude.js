@@ -5,10 +5,7 @@
  * stdin, the reply text back. The LLM provider "claude" (config.llm.providers) runs on it.
  * A call is text only, or may Read copies of the given images and nothing else: no other tool, no MCP
  * server, no session kept, and none of the user's own Claude Code setup (CLAUDE.md, hooks, plugins,
- * skills: --safe-mode). A browser call (`chrome`) is a Claude in Chrome session (`claude -p --chrome`)
- * on the owner's own default Chrome and the logins it already has: only the Chrome tools of
- * CHROME_TOOLS, no file, shell or web tool. Its prompt keeps it to the sites and steps it is given, and
- * anything it may do in public waits for a GO from a one-shot local gate (gate()), decided in Node. The child gets an allow-listed environment: no posting, API or repo key
+ * skills: --safe-mode). The child gets an allow-listed environment: no posting, API or repo key
  * reaches it, and an Anthropic API key would bill the API instead of the plan.
  *
  * Errors carry a code a caller can act on:
@@ -24,12 +21,6 @@ const path = require("path");
 const { spawn, spawnSync } = require("child_process");
 
 const DENY = ["Read", "Glob", "Grep", "Task", "Agent", "Skill", "WebFetch", "WebSearch", "Bash", "Edit", "Write", "NotebookEdit"];
-// A browser call's tools: tabs, reading and clicking a page, and the page's JavaScript (each prompt gives the
-// exact scripts it may run); never a form filler, a file upload, a batch that runs the others unseen, the
-// network or console logs, or another browser.
-const CHROME = "mcp__claude-in-chrome__";
-const CHROME_TOOLS = ["list_connected_browsers", "select_browser", "tabs_context_mcp", "tabs_create_mcp", "tabs_close_mcp", "navigate", "read_page", "get_page_text", "find", "computer", "javascript_tool"].map((t) => CHROME + t);
-const CHROME_DENY = ["form_input", "file_upload", "upload_image", "browser_batch", "shortcuts_execute", "shortcuts_list", "gif_creator", "read_network_requests", "read_console_messages", "switch_browser", "resize_window"].map((t) => CHROME + t);
 const ENV_ALLOW = new Set([
   "PATH", "PATHEXT", "SYSTEMROOT", "WINDIR", "SYSTEMDRIVE", "COMSPEC", "OS", "TEMP", "TMP", "TMPDIR",
   "HOME", "USERPROFILE", "HOMEDRIVE", "HOMEPATH", "APPDATA", "LOCALAPPDATA", "PROGRAMDATA", "ALLUSERSPROFILE", "PUBLIC",
@@ -92,14 +83,12 @@ const ISOLATE_OLD_CLI = ["--setting-sources", "project"];
 let isolate = ISOLATE;
 const NO_SAFE_MODE_RE = /unknown option[^\n]*--safe-mode|--safe-mode[^\n]*(?:unknown|not recogni[sz]ed|unrecogni[sz]ed)/i;
 
-/** The arguments of one call: text only, Read limited to the images' own folders, or a browser session (`chrome`). */
-function claudeArgs({ model, effort, system = "", imageFiles = [], chrome = false, isolation = isolate }) {
+/** The arguments of one call: text only, or Read limited to the images' own folders. */
+function claudeArgs({ model, effort, system = "", imageFiles = [], isolation = isolate }) {
   const dirs = [...new Set(imageFiles.map((f) => path.dirname(path.resolve(f))))];
-  // (a browser call keeps the Claude in Chrome server: --strict-mcp-config would leave it out)
-  const out = ["-p", "--no-session-persistence", "--model", model, "--effort", effort, "--output-format", "json", ...isolation, ...(chrome ? ["--chrome"] : ["--strict-mcp-config"])];
+  const out = ["-p", "--no-session-persistence", "--model", model, "--effort", effort, "--output-format", "json", ...isolation, "--strict-mcp-config"];
   if (system) out.push("--append-system-prompt", system);
-  if (chrome) out.push("--tools", "", "--allowedTools", ...CHROME_TOOLS, "--disallowedTools", ...DENY, ...CHROME_DENY);
-  else if (dirs.length) out.push("--tools", "Read", "--allowedTools", ...dirs.map((d) => `Read(${rulePath(d)}/**)`), "--disallowedTools", ...DENY.filter((t) => t !== "Read"), "--add-dir", ...dirs);
+  if (dirs.length) out.push("--tools", "Read", "--allowedTools", ...dirs.map((d) => `Read(${rulePath(d)}/**)`), "--disallowedTools", ...DENY.filter((t) => t !== "Read"), "--add-dir", ...dirs);
   else out.push("--tools", "", "--disallowedTools", ...DENY);
   return out;
 }
@@ -121,10 +110,9 @@ function killAll() {
 
 /**
  * One call. Resolves with the reply text; rejects with a coded error (see the top of this file).
- * @param {{prompt: string, system?: string, imageFiles?: string[], chrome?: boolean, model: string, effort: string, timeoutMs?: number, bin?: string}} p
+ * @param {{prompt: string, system?: string, imageFiles?: string[], model: string, effort: string, timeoutMs?: number, bin?: string}} p
  */
-function ask({ prompt, system = "", imageFiles = [], chrome = false, model, effort, timeoutMs = 5 * 60 * 1000, bin = "claude" }) {
-  if (chrome && imageFiles.length) return Promise.reject(withCode("a claude call gets a browser or images, never both", "CLAUDE_FAILED"));
+function ask({ prompt, system = "", imageFiles = [], model, effort, timeoutMs = 5 * 60 * 1000, bin = "claude" }) {
   // A test never starts the real Claude Code: a step it forgot to stub fails here (a test points
   // `bin` at a fake CLI script instead).
   if (process.env.NODE_TEST_CONTEXT && programName(bin) === "claude") {
@@ -151,7 +139,7 @@ function ask({ prompt, system = "", imageFiles = [], chrome = false, model, effo
   const run = () => new Promise((resolve, reject) => {
     // (the isolation this run used: a concurrent call may switch it while this one runs)
     const used = isolate;
-    const args = claudeArgs({ model, effort, system, imageFiles: files, chrome, isolation: used });
+    const args = claudeArgs({ model, effort, system, imageFiles: files, isolation: used });
     // A .js CLI (a test's fake, or a wrapper) runs on this node.
     const [cmd, argv] = /\.(?:m|c)?js$/i.test(exe) ? [process.execPath, [exe, ...args]] : [exe, args];
     let settled = false, out = "", err = "", child = null, timer = null;
@@ -219,87 +207,7 @@ function parseJson(text) {
   throw new Error("the reply had an unterminated JSON object");
 }
 
-/** A text as two of the same are compared: its spacing and zero-width characters aside. Self-contained (runs in a page too). */
-const normText = (s) => String(s || "").replace(/[\u200b-\u200d\ufeff]/g, "").replace(/\s+/g, " ").trim();
-/** A 53-bit hash of a text (cyrb53), as base-36. Self-contained (runs in a page too). */
-const textHash = (s) => {
-  let h1 = 0xdeadbeef;
-  let h2 = 0x41c6ce57;
-  for (let i = 0; i < s.length; i++) {
-    const c = s.charCodeAt(i);
-    h1 = Math.imul(h1 ^ c, 2654435761);
-    h2 = Math.imul(h2 ^ c, 1597334677);
-  }
-  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
-  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
-  return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(36);
-};
-/** A function's source on one line, for a browser session to hand to javascript_tool as given. */
-const oneLine = (fn) => String(fn).replace(/\/\*.*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "").replace(/\s+/g, " ");
-/**
- * The CHECK one-liner a browser session runs before an action: the gate's address for action `id`, ending in the
- * hash of the text the page holds in `selector` ("none" when it holds none, "-" when `selector` is "").
- */
-const checkScript = (gateUrl, id, selector = "") => `(() => { const norm = ${oneLine(normText)}; const hash = ${oneLine(textHash)}; const sel = ${JSON.stringify(selector)}; const el = sel ? [...document.querySelectorAll(sel)].pop() : null; const t = el ? norm(el.innerText) : ""; return ${JSON.stringify(`${gateUrl}/${id}/`)} + (sel ? (t ? hash(t) : "none") : "-"); })()`;
-
-/**
- * The KEEP one-liner wrapping a page read (`expr`: an object, or its JSON): it keeps the read, with the tab's MARK and
- * address, in the tab's sessionStorage for SEND, and returns only its outline (a list as its length, the rest cut).
- * A read never passes through the model: javascript_tool shows it about 1000 characters of a result, and blocks
- * one that carries a query string (so the outline leaves every "?..." out).
- */
-const keepScript = (expr) => `(() => { let v = ${expr}; if (typeof v === "string") { try { v = JSON.parse(v); } catch (e) {} } const all = JSON.parse(sessionStorage.getItem("cc:kept") || "[]"); all.push({ at: sessionStorage.getItem("cc:at") || "", url: location.href, v }); sessionStorage.setItem("cc:kept", JSON.stringify(all)); const cut = (s, n) => String(s).replace(/\\?[^\\s"]*/g, "?").slice(0, n); const o = {}; for (const [f, x] of Object.entries(v && typeof v === "object" ? v : { value: v })) o[f] = Array.isArray(x) ? x.length : typeof x === "string" ? cut(x, 400) : x && typeof x === "object" ? cut(JSON.stringify(x), 300) : x; return JSON.stringify(o); })()`;
-/** The MARK one-liner: the label the tab's next reads are kept under. */
-const markScript = (label) => `sessionStorage.setItem("cc:at", ${JSON.stringify(String(label))})`;
-/**
- * The SEND one-liner: the tab's kept reads go to the gate (`gateUrl`/in) as one address, which the tab then opens; the
- * gate sends the tab back to its page, with "#gate=RECEIVED" (GATE_SAYS reads it).
- * shortcut: Chrome caps an address near 2 MB, so the oldest reads are dropped past 1.9 MB; send twice if reads ever grow that big.
- */
-const sendScript = (gateUrl) => `(() => { let all = JSON.parse(sessionStorage.getItem("cc:kept") || "[]"); let u = ""; for (;;) { u = ${JSON.stringify(`${gateUrl}/in?d=`)} + encodeURIComponent(JSON.stringify(all)); if (u.length < 1900000 || !all.length) break; all = all.slice(1); } setTimeout(() => { location.href = u + "&back=" + encodeURIComponent(location.href.split("#")[0]); }, 100); return "sending " + all.length + " reads"; })()`;
-
-/** The GATE_SAYS one-liner: what the gate said, from the address it sent the tab back to ("" before it has). */
-const GATE_SAYS = `decodeURIComponent((location.hash.match(/^#gate=(.*)$/) || ["", ""])[1])`;
-
-/**
- * A one-shot local gate a browser session must open before each public action: GET <url>/<id>/<hash> answers
- * decide(id, hash) ("GO: ...", "DRY RUN: ..." or "STOP: ..."), once per id: a second visit hears the first answer,
- * so a STOP never turns into a GO. GET <url>/in?d=<JSON> is where SEND delivers a session's kept reads (`got`, in
- * arrival order). Only 127.0.0.1, behind a random path. Resolves { url, close, said, got }.
- */
-async function gate(decide) {
-  const http = require("http");
-  const nonce = require("crypto").randomBytes(16).toString("hex");
-  const said = new Map();
-  const got = [];
-  // A SEND address runs to ~2 MB, past Node's 16 KB default.
-  const server = http.createServer({ maxHeaderSize: 4 * 1024 * 1024 }, (req, res) => {
-    const u = new URL(req.url, "http://gate.invalid");
-    // Claude in Chrome reads no 127.0.0.1 page (nor closes its tab): with an https `back`, the answer goes back there as #gate=<answer>.
-    const back = /^https:\/\/[^\s#]+$/.test(u.searchParams.get("back") || "") ? u.searchParams.get("back") : "";
-    const answer = (text) => {
-      if (back) res.writeHead(302, { location: `${back}#gate=${encodeURIComponent(text)}`, "cache-control": "no-store" });
-      else res.writeHead(200, { "content-type": "text/plain; charset=utf-8", "cache-control": "no-store" });
-      res.end(back ? "" : text);
-    };
-    if (u.pathname === `/gate/${nonce}/in`) {
-      try { got.push(JSON.parse(u.searchParams.get("d"))); } catch { return answer("NOT RECEIVED"); }
-      return answer("RECEIVED");
-    }
-    const m = new RegExp(`^/gate/${nonce}/([\\w-]{1,40})/([0-9a-z-]{1,20})/?$`).exec(u.pathname);
-    if (!m) { res.writeHead(404); return res.end(); }
-    if (!said.has(m[1])) {
-      let answer;
-      try { answer = String(decide(m[1], m[2])); } catch (e) { answer = `STOP: ${e.message}`; }
-      said.set(m[1], answer);
-    }
-    answer(said.get(m[1]));
-  });
-  await new Promise((ok, fail) => { server.once("error", fail); server.listen(0, "127.0.0.1", ok); });
-  return { url: `http://127.0.0.1:${server.address().port}/gate/${nonce}`, close: () => server.close(), said, got };
-}
-
 // Tests only: a fresh module state (calls allowed again, --safe-mode assumed).
 const _reset = () => { stopped = false; isolate = ISOLATE; };
 
-module.exports = { ask, killAll, parseJson, claudeArgs, resolveBin, rulePath, programName, gate, checkScript, keepScript, markScript, sendScript, GATE_SAYS, oneLine, textHash, normText, CHROME_TOOLS, CHROME_DENY, _reset };
+module.exports = { ask, killAll, parseJson, claudeArgs, resolveBin, rulePath, programName, _reset };

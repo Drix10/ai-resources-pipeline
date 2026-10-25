@@ -13,7 +13,7 @@ One `npm start` is one full run, start to finish. There is no scheduler: run it 
 
 ```mermaid
 flowchart TD
-    A["Curated X lists (Claude in Chrome on your own logged-in Chrome)"] --> B["One article per source post (OpenRouter; thin posts are skipped)"]
+    A["Curated X lists (Selenium on the logged-in Chrome, port 9222)"] --> B["One article per source post (OpenRouter; thin posts are skipped)"]
     B --> C["Fact gates: numbers and names must come from the post; links built in code; secrets redacted"]
     C --> D["Batched GitHub commits (1-8 articles per batch)"]
     D --> E["Blog: search index rebuilt, site built, pushed at most once a day and only if the build passes (Vercel deploys)"]
@@ -35,7 +35,7 @@ LinkedIn's daily caps: 20 comments + 8 viral, 60 likes, 5 follows, 15 connection
 ## Requirements
 
 - Node.js 20 or newer, and Git with push access to this repository (the run commits articles and pushes the blog).
-- Google Chrome with the Claude in Chrome extension, signed in, and the Claude Code CLI (`claude`, signed in once). X and LinkedIn are read and posted to by Claude in Chrome sessions (`claude -p --chrome`) on your own Chrome, at `CLAUDE_MODEL` on your Claude plan: stay logged in to x.com and linkedin.com there. Every post, like, comment, follow and invite is decided by the pipeline and done only after a one-shot local gate says GO.
+- Google Chrome. The pipeline drives your logged-in Chrome over remote debugging on port 9222 (profile in `~/chrome-debug`); `npm start` launches it if it is not running. Log in to x.com and linkedin.com in that window once.
 - A writer for articles and comments, chosen per job with `LLM_PROVIDER` (and `LLM_ARTICLE_PROVIDER`, `LLM_COMMENT_PROVIDER`, `LLM_VIRAL_PROVIDER`): an [OpenRouter](https://openrouter.ai) API key (the default, with NVIDIA NIM as its fallback), NVIDIA NIM, a local Ollama model, or a Claude subscription through the [Claude Code](https://docs.anthropic.com/en/docs/claude-code) CLI (`claude`, signed in once).
 - A GitHub personal access token with `repo` scope (`GITHUB_PAT`) for the articles repository.
 
@@ -80,10 +80,10 @@ Every setting is in [`.env.example`](.env.example) with a comment and a working 
 ## Repository layout
 
 ```
-index.js, start-app.js   entry points: one run (start-app.js loads .env first)
+index.js, start-app.js   entry points: one run; the Chrome check before it
 config/                  settings (config/index.js) and the LinkedIn creators template
 src/services/            cron.js (the run), twitter.js, llm.js, github.js, syndication.js, linkedin.js, feedEngage.js
-src/utils/               helpers (logging, blog index), pageFetch, factory (the optional add-on)
+src/utils/               helpers (logging, blog index), pageFetch, chromeLauncher, factory (the optional add-on)
 blog/                    the Next.js 14 knowledge hub (content, search index, slides)
 portfolio/               drix10.com: projects, open-source work and the contribution graph, read live from GitHub
 scripts/                 feed-preview.js, seo-audit.mjs
@@ -102,8 +102,8 @@ The Instagram content factory (narrated reels built by a Claude Code agent) is a
 ## Troubleshooting
 
 - **"The pipeline is running" / lock held.** Another run is active, or one crashed: a lock whose process is gone is taken over automatically.
-- **"No browser is connected to Claude in Chrome".** Open Chrome with the Claude in Chrome extension signed in to the same Claude account as the CLI; X and LinkedIn are skipped for the run until it is.
-- **X or LinkedIn shows a login wall.** Log in to x.com or linkedin.com in your own Chrome once; the sessions use its login.
+- **Chrome not reachable on 9222.** Close every Chrome window and run `npm start` again; it relaunches Chrome with remote debugging on your profile.
+- **X shows a login wall.** Log in to x.com in the debugging Chrome window once; the session persists in its profile.
 - **Articles stop with 401/402 from OpenRouter.** The key is invalid or out of credit; the run stops writing rather than publishing anything unchecked.
 - **The blog is not pushed.** The site build failed; nothing is pushed until `npm --prefix blog run build` passes.
 

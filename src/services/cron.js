@@ -318,7 +318,7 @@ const runDataPipeline = async (folder) => {
         logger.info(`Fetching tweets for folder: ${folder.name}...`);
         // Let failures reach the retry loop. Converting a browser/network failure
         // into an empty array makes the pipeline falsely report "no new content".
-        // Two tries inside times this loop's three.
+        // Two tries inside (it reattaches the browser on a session error) times this loop's three.
         const fetched = await TwitterService.fetchTweets({ folder, maxRetries: 2 });
         if (!Array.isArray(fetched)) {
           throw new Error(`X fetch returned an invalid result for folder ${folder.name}`);
@@ -576,11 +576,18 @@ const processAllFolders = async () => {
       }
     };
 
-    // The X phase is isolated: X unavailable (signed out, no browser: X_UNAVAILABLE) ends it, never the
-    // run's README update, blog sync and factory pass.
+    // The X phase is isolated: a session or network failure there must not cost the run its
+    // README update, blog sync and factory pass.
+    let xReady = true;
+    try {
+      await TwitterService.init();
+    } catch (xErr) {
+      xReady = false;
+      logger.error(`X session unavailable this run; skipping curation: ${xErr?.message ?? xErr}`);
+    }
     let consecutiveFailures = 0;
 
-    for (const folder of folders) {
+    for (const folder of xReady ? folders : []) {
       if (stopping()) {
         logger.warn("Stop requested: no more folders this run.");
         break;
@@ -706,9 +713,14 @@ const processAllFolders = async () => {
       }
     }
 
-    return { ran: true, articles: successfulArticles.length };
+    // Delete failure screenshots older than three days.
+    TwitterService.cleanupScreenshots();
+    return { ran: true, articles: successfulArticles.length, xReady };
   } finally {
     if (idsUnsaved) await saveIdsBeforeExit();
+    // Release the browsers at the end of the run, whatever happened in it.
+    await TwitterService.cleanup().catch(() => {});
+    await feedEngage.cleanup().catch(() => {});
     releasePipelineLock();
   }
 };
@@ -744,7 +756,7 @@ const requestStop = () => {
   stopRequested = true;
 };
 
-/** Stops the run (if any) at its next step (index.js kills its claude runs, browser sessions too). */
+/** Stops the run (if any) at its next step, then releases the browsers. */
 const stopPipeline = async () => {
   requestStop();
 
@@ -761,6 +773,19 @@ const stopPipeline = async () => {
     } finally {
       activePipelinePromise = null;
     }
+  }
+
+  try {
+    await TwitterService.cleanup();
+    logger.info("Twitter service cleaned up");
+  } catch (error) {
+    logger.error("Error cleaning up Twitter service:", error);
+  }
+  try {
+    await feedEngage.cleanup();
+    logger.info("LinkedIn service cleaned up");
+  } catch (error) {
+    logger.error("Error cleaning up LinkedIn service:", error);
   }
 };
 
