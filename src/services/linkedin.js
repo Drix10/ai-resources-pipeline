@@ -843,6 +843,9 @@ class LinkedInService {
         logger.warn("LinkedInService: comment editor did not open on feed card.");
         return await done("failed", { reason: "no-editor" });
       }
+      // Centred first: scrolled to the top, the editor sits under LinkedIn's sticky header and the click lands there.
+      const centreEditor = () => this.driver.executeScript("arguments[0].scrollIntoView({ block: 'center' });", editor).catch(() => {});
+      await centreEditor();
       await editor.click();
       await nap(400);
       await editor.sendKeys(Key.chord(MOD_KEY, "a"), Key.BACK_SPACE);
@@ -887,6 +890,7 @@ class LinkedInService {
       if (!submitted) {
         // From here on a submit may be in flight: the result can only be posted or uncertain.
         submitted = true;
+        await centreEditor();
         await editor.click();
         await nap(300);
         const actions = this.driver.actions({ async: true });
