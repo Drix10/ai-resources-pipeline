@@ -444,3 +444,32 @@ test("grounding gate: a longer reply may carry an opinion and its reason; a shor
   assert.deepEqual(errs("Running evaluations on every pull request is the part most teams put off. It doesn't feel urgent until a regression ships, and by then nobody remembers which change caused it. How long does a full run take per request?"), []);
   assert.equal(errs("Kubernetes autoscaling budgets matter more.").length, 1, "three off-post words in a six-word reply");
 });
+
+test("own-post replies: a judged answer passes; the commenter's name up front, an invented number or a judge FAIL is rejected; OWNER and SKIP post nothing", async () => {
+  const post = "We open-sourced our agent eval harness today, with the retry logic we run in production.";
+  const comment = "Does the retry logic back off per tool or per agent?";
+  const draft = () => llm.draftOwnReply({ post, comment, commenter: "Cara Ng" }, 0);
+  queue = ["MODE: REPLY\nREPLY: Per tool. Each tool keeps its own retry budget, so one flaky tool never stalls the whole agent. How do you handle it today?", "PASS: answers the question"];
+  let r = await draft();
+  assert.equal(r.isValid, true, r.errors.join("; "));
+  assert.match(r.reply, /^Per tool\./);
+  queue = ["MODE: REPLY\nREPLY: Cara, per tool, each one keeps its own retry budget."];
+  r = await draft();
+  assert.equal(r.isValid, false);
+  assert.match(r.errors.join(" "), /starts with their name/);
+  queue = ["MODE: REPLY\nREPLY: Per tool, and 40 teams already run it that way in production."];
+  r = await draft();
+  assert.equal(r.isValid, false, "a number neither the post nor the comment states");
+  queue = ["MODE: REPLY\nREPLY: Per tool. Each tool keeps its own retry budget so one flaky tool never stalls the agent.", "FAIL: \"never stalls\" overclaims"];
+  r = await draft();
+  assert.equal(r.isValid, false);
+  assert.match(r.errors.join(" "), /judge: "never stalls"/);
+  queue = ["MODE: OWNER\nREPLY: How many teams run it in production?"];
+  r = await llm.draftOwnReply({ post, comment: "How many teams use it?", commenter: "Ben Ode" }, 0);
+  assert.equal(r.mode, "OWNER");
+  assert.equal(r.reply, "");
+  queue = ["MODE: SKIP\nREPLY: SKIP"];
+  r = await llm.draftOwnReply({ post, comment: "Check out my agency for growth hacks!", commenter: "Spam Co" }, 0);
+  assert.equal(r.mode, "SKIP");
+  assert.equal(queue.length, 0, "no judge call for OWNER or SKIP");
+});

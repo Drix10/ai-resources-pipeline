@@ -1202,6 +1202,88 @@ async function runConnectPass({ min = 10, max = 15, dryRun = false, shouldStop =
   return out;
 }
 
+// ---- Replies under our own posts (the golden hour) ----
+// LinkedIn widens a post whose comments turn into conversations, most of all in its first hour, and an author
+// who answers early gets far more comments and views: answering on our own posts is worth more than any
+// comment elsewhere. Our posts up to OWN_REPLY_MAX_AGE_H old, newest first; every comment that is not ours and
+// not answered yet (no comment of ours in the thread names its author) gets a drafted, judged reply. One that
+// needs the owner's own answer is logged for them, never guessed.
+const OWN_REPLY_MAX_AGE_H = 72;
+const OWN_REPLY_MAX_PER_DAY = envInt("LINKEDIN_OWN_REPLIES_MAX_PER_DAY", 30);
+const ownReplyKey = (postKey, c) => `ownreply:${postKey}|${slugOf(c.href, "in") || c.name}|` +
+  require("crypto").createHash("sha1").update(String(c.text)).digest("hex").slice(0, 10);
+const normName = (s) => String(s || "").toLowerCase().replace(/\s+/g, " ").trim();
+// Our latest own-post replies, newest first, for the drafter's repeat memory.
+const recentOwnReplies = (track, n = RECENT_COMMENTS) => postEntries(track).map(([, v]) => entryOf(v))
+  .filter((e) => e.reply && e.repliedAt)
+  .sort((a, b) => Date.parse(b.repliedAt) - Date.parse(a.repliedAt))
+  .slice(0, n).map((e) => ({ text: e.reply, answered: false }));
+
+async function runOwnRepliesPass({ max = 6, maxAgeH = OWN_REPLY_MAX_AGE_H, dryRun = false, shouldStop = () => false } = {}) {
+  const out = { replied: 0, skipped: 0, posts: 0, owner: [], previews: [], reason: "" };
+  const track = loadTrack();
+  const blocked = passBlocked(track, "comment");
+  if (blocked) return { ...out, reason: blocked };
+  const target = Math.min(max, OWN_REPLY_MAX_PER_DAY - countEntries(track, (e) => e.status === "replied" && within(e.repliedAt, DAY)));
+  if (target <= 0) return { ...out, reason: "daily reply cap reached" };
+  const ctx = { track, out, aborted: false };
+  await guarded("replies", ctx, async () => {
+    llmService.commentDeadline = ctx.deadline - SUBMIT_MS;
+    const posts = (await LinkedInService.scanOwnPosts(6))
+      .filter((p) => p.ageH <= maxAgeH && (Number(p.comments) || 0) > 0)
+      .sort((a, b) => a.ageH - b.ageH);
+    out.posts = posts.length;
+    for (const post of posts) {
+      if (ctx.aborted || shouldStop() || out.replied >= target) break;
+      const snip = post.text.slice(0, 80);
+      const thread = await LinkedInService.readOwnPostComments(snip);
+      if (thread.status !== "open") { logger.warn(`feedEngage replies: could not open the comments on our post (${thread.reason}).`); continue; }
+      const ours = thread.comments.filter((c) => c.own);
+      // (LinkedIn starts a reply with the name of the person it answers)
+      const answered = (c) => ours.some((o) => normName(o.text).includes(normName(c.name)));
+      const threadText = thread.comments.map((c) => `${c.own ? "You" : c.name}: ${c.text}`).join("\n");
+      for (const c of thread.comments) {
+        if (ctx.aborted || shouldStop() || out.replied >= target) break;
+        if (c.own || !c.text || answered(c)) continue;
+        const key = ownReplyKey(post.key, c);
+        if (track[key]) continue;
+        if (nearlyUpFor(ctx)) { out.reason = "the pass's time is nearly up"; break; }
+        const draft = await llmService.draftOwnReply({ post: post.text, comment: c.text, commenter: c.name, thread: threadText, recent: recentOwnReplies(track) });
+        if (draft.mode === "OWNER") {
+          out.owner.push({ name: c.name, comment: c.text.slice(0, 200), question: draft.errors[0] || "" });
+          if (!dryRun) { track[key] = { ts: nowIso(), status: "owner" }; saveOrStop(track); }
+          continue;
+        }
+        if (draft.mode === "SKIP" || !draft.isValid) {
+          out.skipped++;
+          logger.info(`feedEngage replies: no reply to ${c.name} (${draft.mode === "SKIP" ? "skip" : "rejected"}: ${draft.errors.join("; ").slice(0, 160)}).`);
+          // A skip is final; a rejected draft is tried again next run.
+          if (!dryRun && draft.mode === "SKIP") { track[key] = { ts: nowIso(), status: "skipped", skipReason: draft.errors.join("; ").slice(0, 200) }; saveOrStop(track); }
+          continue;
+        }
+        if (dryRun) {
+          out.previews.push({ name: c.name, comment: c.text.slice(0, 160), reply: draft.reply });
+          out.replied++;
+          continue;
+        }
+        const r = await LinkedInService.replyToComment(snip, c, draft.reply);
+        if (r === "failed") { logger.warn(`feedEngage replies: the reply to ${c.name} did not go out (retried next run).`); continue; }
+        track[key] = { ts: nowIso(), status: "replied", repliedAt: nowIso(), reply: draft.reply, ...(r === "uncertain" ? { unverified: true } : {}) };
+        saveOrStop(track);
+        out.replied++;
+        ours.push({ own: true, text: `${c.name} ${draft.reply}` });
+        logger.info(`feedEngage replies: answered ${c.name} on our ${Math.round(post.ageH)}h post${r === "uncertain" ? " [unverified]" : ""}: "${draft.reply.slice(0, 90)}"`);
+        if (out.replied < target) await pause(jitter(30000, 90000), shouldStop);
+      }
+    }
+  }, VIRAL_PASS_TIMEOUT_MS).finally(() => { llmService.commentDeadline = 0; });
+  for (const o of out.owner) logger.warn(`feedEngage replies: ${o.name} needs YOUR answer on our post: "${o.comment}" (${o.question})`);
+  logger.info(`feedEngage replies: ${dryRun ? "would post" : "posted"} ${out.replied}, ${out.owner.length} for you, ${out.skipped} skipped, on ${out.posts} post(s) with comments${out.reason ? ` - stopped: ${out.reason}` : ""}.`);
+  return out;
+}
+// A draft and its judge take minutes: no new one starts in the stretch it would need.
+const nearlyUpFor = (ctx) => Date.now() > ctx.deadline - draftReserveMs(true);
+
 // "5 days ago" on the sent-invitations page, in days (an hour or a minute is 0).
 function inviteAgeDays(sent) {
   const m = /(\d+)\s+(minute|hour|day|week|month|year)s?\s+ago/i.exec(String(sent || ""));
@@ -1246,7 +1328,7 @@ async function runWithdrawPass({ max = 5, shouldStop = () => false } = {}) {
 const cleanup = () => LinkedInService.cleanup();
 
 module.exports = {
-  runFeedEngagement, runViralPass, runLikePass, runConnectPass, runWithdrawPass, inviteAgeDays, mutualCount, acceptance, scorePost, viralScore, isVip, buildViralSources, noteViralPage, isSensitivePost, cleanup,
+  runFeedEngagement, runViralPass, runLikePass, runConnectPass, runWithdrawPass, runOwnRepliesPass, inviteAgeDays, mutualCount, acceptance, scorePost, viralScore, isVip, buildViralSources, noteViralPage, isSensitivePost, cleanup,
   _tracker: { shouldSkipTracked, entryOfPost, markPost, loadTrack, saveTrack, pruneTrack, passBlocked, commentedSince, likedSince, setCooldown, recentComments },
   _reciprocity: { noteWarmPeople, noteWarmPage, warmPeople, warmSources, audienceScore, buildSources },
 };

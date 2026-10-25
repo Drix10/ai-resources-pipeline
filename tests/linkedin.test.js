@@ -252,3 +252,13 @@ test("a stop request ends a pass before its next public action, without the paci
     process.env.LINKEDIN_TRACK_PATH = savedTrack;
   }
 });
+
+test("own posts and their comments read as people see them: no Promote/Boost chrome, a comment's own words only", () => {
+  const raw = "Feed post\n\nPromote this post to reach people who matter to you.\n\nBoost\n\nDrishtant Ghosh\n\n \n • You\n\nAI Systems Engineer\n\n22h • \n\nToday we open-sourced three tools.";
+  assert.equal(LinkedInService.ownPostText(raw), "Today we open-sourced three tools.");
+  assert.equal(LinkedInService.ownPostText("Feed post\nPromote this post to reach people who matter to you.\nBoost\nDrishtant Ghosh with CosLynx. 1w •\nAfter the launch"), "After the launch");
+  assert.equal(LinkedInService.ownPostText("Feed post\nPromote this post to reach people who matter to you.\nBoost\nNo age line here"), "No age line here");
+  const box = "Laurent Chevrette Verified Profile 3rd+\nLaurent Chevrette \n • 3rd+\n\nFullstack Web Developer at Mondzo\n\n3w\n\nFollow\n\nThe context-drift problem you're naming is real. What's your most common failure mode?\n\n1 reaction\n1\n\nReply";
+  assert.equal(LinkedInService.commentBody(box), "The context-drift problem you're naming is real. What's your most common failure mode?");
+  assert.equal(LinkedInService.commentBody("Drishtant Ghosh\n\nAuthor\n\nAI Systems Engineer\n\n2w\n\nhttps://github.com/Drix10/guardian-gpt\n\n39 impressions\n\nLike\n\nReply"), "https://github.com/Drix10/guardian-gpt");
+});

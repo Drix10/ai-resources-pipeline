@@ -28,6 +28,7 @@
   "scripts": {
     "start": "node start-app.js",
     "preview": "node scripts/feed-preview.js",
+    "golden": "node scripts/golden-hour.js",
     "test": "node --require ./tests/_env.js --test tests/*.test.js",
     "seo:audit": "node scripts/seo-audit.mjs"
   }

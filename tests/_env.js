@@ -19,7 +19,7 @@ for (const key of [
 // FACTORY_ENABLED is off too: the optional content factory never runs in a test unless the test
 // turns it on itself.
 for (const flag of [
-  "TWITTER_POST", "LINKEDIN_LIKE", "LINKEDIN_CONNECT", "LINKEDIN_FEED_REPLY", "LINKEDIN_VIRAL",
+  "TWITTER_POST", "LINKEDIN_LIKE", "LINKEDIN_CONNECT", "LINKEDIN_FEED_REPLY", "LINKEDIN_VIRAL", "LINKEDIN_OWN_REPLIES",
   "DEVTO_AUTO_PUBLISH", "FACTORY_ENABLED",
 ]) process.env[flag] = "false";
 // LLM providers: the documented default (openrouter, with no key) for every job, and the claude CLI

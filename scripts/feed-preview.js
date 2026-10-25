@@ -20,9 +20,7 @@
  * Connection requests: a dry run lists who would be invited. With --live it REALLY sends N
  * requests (within the daily/weekly caps) and records them in the tracker.
  */
-const fs = require("fs");
-const path = require("path");
-const { REPO_ROOT } = require("../src/utils/helpers");
+const { pipelineRunning } = require("./pipeline-lock");
 
 const args = process.argv.slice(2);
 let max = 3;
@@ -30,20 +28,6 @@ for (let i = 0; i < args.length; i++) {
   if (args[i] === "--max" && args[i + 1]) max = Math.max(1, Math.min(10, parseInt(args[i + 1], 10) || 3));
 }
 
-// A running pipeline owns the LinkedIn tab and the tracker file: a preview would drive the
-// same Chrome and two writers would lose tracker entries. A lock whose pid is gone is stale.
-function pipelineRunning() {
-  const lockPath = process.env.PIPELINE_LOCK_PATH || path.join(REPO_ROOT, ".pipeline.lock");
-  if (!fs.existsSync(lockPath)) return false;
-  try {
-    const { pid } = JSON.parse(fs.readFileSync(lockPath, "utf8"));
-    if (!Number.isInteger(pid) || pid <= 0 || pid === process.pid) return false;
-    process.kill(pid, 0); // throws ESRCH when the process is gone
-    return true;
-  } catch (e) {
-    return e.code === "EPERM" || e instanceof SyntaxError; // alive but not ours / lock mid-write
-  }
-}
 
 (async () => {
   if (pipelineRunning()) {

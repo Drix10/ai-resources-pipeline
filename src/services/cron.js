@@ -478,9 +478,19 @@ const processAllFolders = async () => {
 
     // LinkedIn runs in step with the content, never ahead of it:
     //  - after every article (.md) is written: a few random likes (likeAfterArticle)
-    //  - after every batch commit: 2 or 3 comments, 1 or 2 more on posts going viral, then a few
-    //    connection requests (engageAfterBatch)
-    // Targeted AI/founder/finance sources, the people who engaged with us first; non-English posts are skipped. Never fatal.
+    //  - after every batch commit: replies on our own posts, 2 or 3 comments, 1 or 2 more on posts going
+    //    viral, then stale invites withdrawn and a few connection requests (engageAfterBatch)
+    //  - at the start of the run: replies on our own posts (a run started right after a post covers its first hour)
+    // Sources follow LINKEDIN_TARGETED; non-English posts are skipped. Never fatal.
+    const repliesOnOurPosts = async (when) => {
+      if (!config.social.linkedinOwnReplies || stopping()) return;
+      try {
+        const r = await feedEngage.runOwnRepliesPass({ max: 6, shouldStop: stopping });
+        logger.info(`${when}: LinkedIn replies on our posts ${r.replied} posted, ${r.owner.length} need you, ${r.skipped} skipped. ${r.reason || ""}`);
+      } catch (replyErr) {
+        logger.error("LinkedIn replies on our posts failed (non-fatal):", replyErr.message);
+      }
+    };
     const likeAfterArticle = async () => {
       if (!config.social.linkedinLike || stopping()) return;
       try {
@@ -492,6 +502,7 @@ const processAllFolders = async () => {
     };
     const engageAfterBatch = async () => {
       if (stopping()) return;
+      await repliesOnOurPosts("Batch done");
       if (config.social.linkedinFeedReply) {
         try {
           const engageResult = await feedEngage.runFeedEngagement({ max: 2 + Math.floor(Math.random() * 2), shouldStop: stopping });
@@ -581,6 +592,8 @@ const processAllFolders = async () => {
         if (!retry) failedBatches.push({ items: batchToCommit, prepared: batchErr?.prepared || null });
       }
     };
+
+    await repliesOnOurPosts("Run start");
 
     // The X phase is isolated: a session or network failure there must not cost the run its
     // README update, blog sync and factory pass.

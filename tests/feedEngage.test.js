@@ -422,3 +422,46 @@ test("the viral drafter sees our latest comments and drops a candidate that repe
     llm.generateCommentText = saved;
   }
 });
+
+test("replies on our own posts: new comments answered once, ours and answered ones skipped, the owner's kept for them, a dry run posts nothing", async () => {
+  const proto = LinkedInService.prototype;
+  const saved = { scan: proto.scanOwnPosts, read: proto.readOwnPostComments, reply: proto.replyToComment, draft: llm.draftOwnReply, track: process.env.LINKEDIN_TRACK_PATH };
+  process.env.LINKEDIN_TRACK_PATH = path.join(TMP, "own-replies-track.json");
+  LinkedInService._resetDisabled();
+  const post = { key: "urn:li:activity:1", text: "We open-sourced our agent eval harness today, with the retry logic we run in production.", ageH: 1, comments: 4 };
+  proto.scanOwnPosts = async () => [post, { ...post, key: "urn:li:activity:0", text: "An older post with comments.", ageH: 100 }];
+  proto.readOwnPostComments = async () => ({ status: "open", comments: [
+    { name: "Ana Lima", href: "https://www.linkedin.com/in/ana", text: "Congrats on shipping it!", own: false },
+    { name: "Drishtant Ghosh", href: "https://www.linkedin.com/in/drix10", text: "Ana Lima thank you, it took a while.", own: true },
+    { name: "Ben Ode", href: "https://www.linkedin.com/in/ben", text: "How many teams already use it in production?", own: false },
+    { name: "Cara Ng", href: "https://www.linkedin.com/in/cara", text: "Does the retry logic back off per tool or per agent?", own: false },
+  ] });
+  const drafted = [], posted = [];
+  llm.draftOwnReply = async ({ commenter, post: p }) => {
+    drafted.push(commenter);
+    assert.ok(!p.includes("older post"), "only posts under 72 h");
+    return commenter === "Ben Ode"
+      ? { mode: "OWNER", isValid: false, reply: "", errors: ["How many teams use it?"] }
+      : { mode: "REPLY", isValid: true, reply: "Per tool: each tool keeps its own budget, so one flaky API never stalls the agent.", errors: [] };
+  };
+  proto.replyToComment = async (snip, c, text) => { posted.push([c.name, text]); return "posted"; };
+  try {
+    const dry = await feedEngage.runOwnRepliesPass({ max: 1, dryRun: true });
+    assert.deepEqual(posted, [], "a dry run posts nothing");
+    assert.equal(dry.previews[0].name, "Cara Ng");
+    drafted.length = 0;
+    const r = await feedEngage.runOwnRepliesPass({ max: 1 });
+    assert.deepEqual(drafted, ["Ben Ode", "Cara Ng"], "our own comment and Ana's (answered) are never drafted");
+    assert.deepEqual(posted.map(([n]) => n), ["Cara Ng"]);
+    assert.equal(r.replied, 1);
+    assert.deepEqual(r.owner.map((o) => o.name), ["Ben Ode"], "a comment that needs the owner is theirs, not posted");
+    drafted.length = 0;
+    await feedEngage.runOwnRepliesPass({ max: 1 });
+    assert.deepEqual(drafted, [], "nothing is drafted twice");
+    assert.equal(posted.length, 1);
+  } finally {
+    Object.assign(proto, { scanOwnPosts: saved.scan, readOwnPostComments: saved.read, replyToComment: saved.reply });
+    llm.draftOwnReply = saved.draft;
+    process.env.LINKEDIN_TRACK_PATH = saved.track;
+  }
+});
