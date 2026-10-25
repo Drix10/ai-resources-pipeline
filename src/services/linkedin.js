@@ -1,7 +1,7 @@
 const { By, Key } = require("selenium-webdriver");
 const config = require("../../config");
 const { logger, sleep } = require("../utils/helpers");
-const { attachDriver, releaseDriver, MOD_KEY } = require("../utils/chromeLauncher");
+const { attachDriver, releaseDriver, adoptTab, MOD_KEY } = require("../utils/chromeLauncher");
 const crypto = require("crypto");
 const fs = require("fs");
 
@@ -161,6 +161,14 @@ class LinkedInService {
         await this.driver.switchTo().window(this._tabHandle);
         return;
       }
+    }
+    // A LinkedIn tab an earlier run left open is reused (its extras closed): one tab, reloaded per page.
+    const left = await adoptTab(this.driver, /(?:^|\.)linkedin\.com$/i);
+    if (left) {
+      await this.driver.switchTo().window(left);
+      this._tabHandle = left;
+      logger.info("LinkedInService: reusing the LinkedIn tab already open.");
+      return;
     }
     await this.driver.switchTo().newWindow("tab");
     this._tabHandle = await this.driver.getWindowHandle();

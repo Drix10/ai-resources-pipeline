@@ -30,6 +30,36 @@ function probeHttpEndpoint(timeoutMs = 800) {
   });
 }
 
+// GET on the debug endpoint: /json/list's JSON, or "" for /json/close/<id>.
+function debugGet(pathname, timeoutMs = 3000) {
+  return new Promise((resolve, reject) => {
+    const req = http.get(`http://${DEBUG_ADDRESS}${pathname}`, { timeout: timeoutMs }, (res) => {
+      let body = "";
+      res.on("data", (c) => { body += c; });
+      res.on("end", () => resolve(body));
+    });
+    req.on("error", reject);
+    req.on("timeout", () => req.destroy(new Error("debug endpoint timed out")));
+  });
+}
+
+// One tab per site across runs, not one more per run: a tab on `hostRe` left open by an earlier run (killed
+// before it could close its own) is handed back to be reused, and every other one is closed. Returns that tab's
+// handle (a window handle is Chrome's target id), or "" when the site has no tab open.
+async function adoptTab(driver, hostRe) {
+  try {
+    const handles = await driver.getAllWindowHandles();
+    const pages = JSON.parse(await debugGet("/json/list"))
+      .filter((p) => p.type === "page" && handles.includes(p.id) && hostRe.test(String(p.url).replace(/^https?:\/\//, "").split("/")[0]));
+    for (const p of pages.slice(1)) await debugGet(`/json/close/${p.id}`).catch(() => {});
+    if (pages.length > 1) logger.info(`Closed ${pages.length - 1} leftover ${pages[0].url.split("/")[2]} tab(s) from earlier runs.`);
+    return pages.length ? pages[0].id : "";
+  } catch (e) {
+    logger.warn(`Could not look for leftover tabs: ${e.message}`);
+    return "";
+  }
+}
+
 // The debug endpoint is the single source of truth: a listening socket that does
 // not answer /json/version is not a usable Chrome, so no netstat/lsof fallback.
 const isChromeRunning = () => probeHttpEndpoint(800);
@@ -177,6 +207,7 @@ module.exports = {
   ensureChromeReady,
   attachDriver,
   releaseDriver,
+  adoptTab,
   waitForXLogin,
   MOD_KEY,
 };

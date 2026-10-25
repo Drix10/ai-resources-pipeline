@@ -1,7 +1,7 @@
 const { By, Key, until } = require("selenium-webdriver");
 require("../../config"); // loads .env before the settings below are read
 const { logger, sleep } = require("../utils/helpers");
-const { attachDriver, releaseDriver, waitForXLogin, MOD_KEY } = require("../utils/chromeLauncher");
+const { attachDriver, releaseDriver, adoptTab, waitForXLogin, MOD_KEY } = require("../utils/chromeLauncher");
 const fs = require("fs");
 const path = require("path");
 
@@ -545,6 +545,14 @@ class TwitterService {
     const handles = await withTimeout(this.driver.getAllWindowHandles(), 10000, "listing tabs");
     if (this.tabHandle && handles.includes(this.tabHandle)) {
       await withTimeout(this.driver.switchTo().window(this.tabHandle), 10000, "switching to the X tab");
+      return;
+    }
+    // An X tab an earlier run left open is reused (its extras closed): one tab, reloaded per page.
+    const left = await adoptTab(this.driver, /(?:^|\.)(?:x|twitter)\.com$/i);
+    if (left) {
+      await withTimeout(this.driver.switchTo().window(left), 10000, "switching to the X tab");
+      this.tabHandle = left;
+      logger.info("TwitterService: reusing the X tab already open");
       return;
     }
     try {
