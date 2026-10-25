@@ -392,13 +392,11 @@ const TWEET_GAP_MS = 20 * 60 * 1000;
 // it never goes into a prompt.
 const { madeBy: MADE_BY, via: VIA } = config.social.tweetCredit;
 const CREDIT = [MADE_BY && `Made by ${MADE_BY}`, VIA && `via ${VIA}`].filter(Boolean).join(" ");
-// X counts a link as 23 characters.
-const xLength = (text, url) => text.split(url).join("x".repeat(23)).length;
 // The announcement when the model's call fails or its post fails the check: the digest's top headline, which
-// earns the click a generic line does not, else a plain line.
-const plainAnnouncement = (topic, url, lead) => {
-  const text = `${lead}\n\nThis and more in the latest ${topic} roundup:\n${url}`;
-  return lead && xLength(text, url) <= 280 ? text : `New in the latest ${topic} roundup:\n${url}`;
+// earns the click a generic line does not, else a plain line. The link follows in the thread's reply.
+const plainAnnouncement = (topic, lead) => {
+  const text = `${lead}\n\nThis and more in today's ${topic} roundup, link below.`;
+  return lead && text.length <= 280 ? text : `Today's ${topic} roundup is out, link below.`;
 };
 
 // A long wait that ends as soon as a stop is requested.
@@ -448,15 +446,16 @@ const processAllFolders = async () => {
         return logger.info(`Not announcing ${item.queryName}: the last tweet went out under ${TWEET_GAP_MS / 60000} min ago.`);
       }
       const topic = item.queryName;
-      let text = await llmService.writeAnnouncement({ topic, url: item.url, content: item.content }).catch((err) => {
+      let text = await llmService.writeAnnouncement({ topic, content: item.content }).catch((err) => {
         if (err.code === "CLAUDE_STOPPED") return "";
         logger.warn(`Announcement for ${topic} not written by the model (${err.message}); posting the plain line.`);
-        return plainAnnouncement(topic, item.url, digestLead(item.content).title);
+        return plainAnnouncement(topic, digestLead(item.content).title);
       });
       // (a stop that came during the call posts nothing)
       if (!text || stopping()) return;
-      if (CREDIT && xLength(`${text}\n\n${CREDIT}`, item.url) <= 280) text = `${text}\n\n${CREDIT}`;
-      const posted = await TwitterService.postTweet(text).catch((err) => {
+      if (CREDIT && `${text}\n\n${CREDIT}`.length <= 280) text = `${text}\n\n${CREDIT}`;
+      // The link goes in the reply under the post: X ranks a post that carries a link far lower.
+      const posted = await TwitterService.postTweet(text, { reply: item.url }).catch((err) => {
         logger.error(`Failed to post tweet for ${item.queryName}:`, err);
         return false;
       });

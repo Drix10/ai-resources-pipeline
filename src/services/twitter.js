@@ -889,7 +889,7 @@ class TwitterService {
     }
   }
 
-  async postTweet(text) {
+  async postTweet(text, { reply = "" } = {}) {
     try {
       await this.ensureDriverConnected();
       await this.ensureTab();
@@ -917,7 +917,20 @@ class TwitterService {
       }
       await sleep(1600);
 
-      await tweetTextarea.sendKeys(Key.chord(MOD_KEY, Key.ENTER));
+      // A reply goes out as the thread's second post (X's "Add post"), in the same submit as the first.
+      let last = tweetTextarea;
+      if (reply) {
+        const addButton = await this.driver.wait(until.elementLocated(By.css('[data-testid="addButton"]')), 10000);
+        await addButton.click();
+        const boxes = By.css('div[data-testid^="tweetTextarea_"][role="textbox"], div[data-testid="tweetTextarea_0"], div[data-testid="tweetTextarea_1"]');
+        await this.driver.wait(async () => (await this.driver.findElements(boxes)).length >= 2, 10000)
+          .catch(() => { throw new Error("the thread's second post box did not open"); });
+        last = (await this.driver.findElements(boxes)).pop();
+        await last.sendKeys(String(reply));
+        await sleep(1200);
+      }
+
+      await last.sendKeys(Key.chord(MOD_KEY, Key.ENTER));
       // Only a closed compose modal counts as posted; a dropped shortcut leaves
       // it open. (The home timeline has its own inline composer, so check the URL.)
       const posted = await this.driver

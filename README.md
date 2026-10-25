@@ -18,7 +18,7 @@ flowchart TD
     C --> D["Batched GitHub commits (1-8 articles per batch)"]
     D --> E["Blog: search index rebuilt, site built, pushed at most once a day and only if the build passes (Vercel deploys)"]
     D --> F["DEV.to syndication (rate-limited, circuit breaker)"]
-    D --> G["Announcement on X"]
+    D --> G["Announcement on X (the link in the reply under it)"]
     D --> H["LinkedIn: likes after each article; comments, viral-post comments and connection requests after each batch"]
     E --> I["Optional add-on: the content factory (Instagram reels), then exit"]
 ```

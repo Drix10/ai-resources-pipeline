@@ -665,27 +665,24 @@ test("the writer sees what readers on X did with the post, as interest for VALUE
   });
 });
 
-test("the announcement is the model's, with the link put in by code and checked: once, no other link, 280 as X counts", async () => {
+test("the announcement is the model's, checked in code: no link at all (it goes in the reply), at most 280", async () => {
   const saved = llm.generateCommentText;
   const prompts = [];
   const replies = [];
   llm.generateCommentText = async (prompt) => { prompts.push(prompt); return replies.shift(); };
-  const url = "https://github.com/someone/repo/blob/main/AI/2026-10-21.md";
-  const write = () => llm.writeAnnouncement({ topic: "AI Developer Tools", url, content: "### 🚀 Acme Fooql 2.0 makes joins 3x faster" });
+  const write = () => llm.writeAnnouncement({ topic: "AI Developer Tools", content: "### 🚀 Acme Fooql 2.0 makes joins 3x faster" });
   try {
-    replies.push("Fooql 2.0 makes joins 3x faster. The numbers and sources: {LINK}");
-    assert.equal(await write(), `Fooql 2.0 makes joins 3x faster. The numbers and sources: ${url}`);
-    assert.ok(!prompts[0].includes(url), "the link never reaches the prompt");
+    replies.push("Fooql 2.0 makes joins 3x faster. The numbers and sources below.");
+    assert.equal(await write(), "Fooql 2.0 makes joins 3x faster. The numbers and sources below.");
     assert.match(prompts[0], /Fooql 2\.0/);
-    replies.push("Fooql 2.0 is out, no link");
-    await assert.rejects(write(), /exactly once/);
-    replies.push("{LINK} and again {LINK}");
-    await assert.rejects(write(), /exactly once/);
-    replies.push("Fooql 2.0: {LINK} (see https://acme.dev too)");
-    await assert.rejects(write(), /another link/);
-    replies.push(`${"x".repeat(256)} {LINK}`);
-    assert.ok(await write(), "256 + a space + 23 for the link is 280");
-    replies.push(`${"x".repeat(257)} {LINK}`);
+    assert.match(prompts[0], /No link at all/);
+    replies.push("Fooql 2.0: {LINK}");
+    await assert.rejects(write(), /carries a link/);
+    replies.push("Fooql 2.0 (see https://acme.dev)");
+    await assert.rejects(write(), /carries a link/);
+    replies.push("x".repeat(280));
+    assert.ok(await write(), "280 is the limit");
+    replies.push("x".repeat(281));
     await assert.rejects(write(), /281 characters/);
   } finally {
     llm.generateCommentText = saved;

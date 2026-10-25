@@ -8,6 +8,7 @@ const path = require("node:path");
 // cron.js wires real services at require time: swap them for scripted fakes first.
 const calls = [];
 const tweetTexts = [];
+const tweetReplies = [];
 const state = { fetch: () => [], upload: (items) => items.map((it, i) => ({ ...it, url: `https://x/${it.queryName}/${i}`, content: "md" })), tweet: () => true, generate: (tweets) => ({ markdown: "# md", usedTweets: tweets.slice(0, 2) }) };
 const stub = (rel, exports) => {
   const file = require.resolve(path.join(__dirname, "..", rel));
@@ -19,7 +20,7 @@ class FakeTwitter {
   async fetchTweets({ folder }) { calls.push(`fetch:${folder.name}`); return state.fetch(folder); }
   markContentAsPublished(t) { calls.push(`mark:${t.length}`); return state.markOk ?? true; }
   persistProcessedIds() { calls.push("persist"); return state.persistOk ?? true; }
-  async postTweet(text) { calls.push("tweet"); tweetTexts.push(text); return state.tweet(); }
+  async postTweet(text, { reply = "" } = {}) { calls.push("tweet"); tweetTexts.push(text); tweetReplies.push(reply); return state.tweet(); }
   cleanupScreenshots() {}
   async cleanup() { calls.push("x-cleanup"); }
 }
@@ -80,20 +81,22 @@ test("the model writes the announcement; when it cannot, the plain line leads wi
     state.fetch = () => tweets(10);
     state.upload = (items) => items.map((it, i) => ({ ...it, url: `https://x/${it.queryName}/${i}`, content: `### 🚀 ${lead}\n\nAcme released Fooql 2.0, a query engine with joins that run three times faster.` }));
     tweetTexts.length = 0;
+    tweetReplies.length = 0;
     await cron.processAllFolders();
     assert.equal(tweetTexts.length, 1);
     assert.ok(tweetTexts[0].includes(lead) && !tweetTexts[0].includes("🚀"), tweetTexts[0]);
-    assert.match(tweetTexts[0], /https:\/\/x\/A\/0$/);
+    assert.ok(!tweetTexts[0].includes("https://"), "no link in the post itself");
+    assert.equal(tweetReplies[0], "https://x/A/0", "the link goes in the reply under it");
     state.upload = saved;
     tweetTexts.length = 0;
     await cron.processAllFolders();
-    assert.ok(tweetTexts[0] && !tweetTexts[0].includes(lead) && tweetTexts[0].includes("https://x/A/0"), tweetTexts[0]);
+    assert.ok(tweetTexts[0] && !tweetTexts[0].includes(lead) && /roundup is out, link below/.test(tweetTexts[0]), tweetTexts[0]);
     const asked = [];
-    state.announce = async (a) => { asked.push(a); return `Joins got 3x faster: ${a.url}`; };
+    state.announce = async (a) => { asked.push(a); return "Joins got 3x faster, details below."; };
     tweetTexts.length = 0;
     await cron.processAllFolders();
-    assert.equal(tweetTexts[0], "Joins got 3x faster: https://x/A/0", "the model's post goes out as written");
-    assert.deepEqual(asked[0], { topic: "A", url: "https://x/A/0", content: "md" });
+    assert.equal(tweetTexts[0], "Joins got 3x faster, details below.", "the model's post goes out as written");
+    assert.deepEqual(asked[0], { topic: "A", content: "md" });
   } finally {
     state.upload = saved;
     state.announce = async () => { throw new Error("no model in tests"); };
