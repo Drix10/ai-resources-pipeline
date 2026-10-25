@@ -1155,9 +1155,10 @@ class LinkedInService {
       await this.driver.get(url);
       await nap(5000);
       await this._assertUsable(false); // login/checkpoint/limit wall: typed error, handled below
-      for (let i = 0; i < 3; i++) {
-        try { await this.driver.executeScript("window.scrollBy(0, window.innerHeight);"); } catch (e) {}
-        await nap(1200);
+      // To the bottom: "People you may know" renders its cards only below the invitations and hiring blocks.
+      for (let i = 0; i < 4; i++) {
+        try { await this.driver.executeScript("window.scrollTo(0, document.body.scrollHeight);"); } catch (e) {}
+        await nap(1800);
       }
       const readPeople = () => this.driver.executeScript(`
         const out = [];
@@ -1207,6 +1208,85 @@ class LinkedInService {
   async onPeopleSearchPage() {
     const url = await this.driver.getCurrentUrl().catch(() => "");
     return /linkedin\.com\/(?:search\/results\/people|mynetwork\/grow)/i.test(url);
+  }
+
+  // The pending invitations we sent, newest first, as [{ label, href, sent }] ("sent" is LinkedIn's
+  // "5 days ago"), or { blocked, code, reason } on a wall. The list grows as its last row scrolls into view.
+  async scanSentInvites() {
+    const ROWS = `
+      const rows = [];
+      for (const b of Array.from(document.querySelectorAll('a, button')).filter(x => /^Withdraw invitation sent to /i.test(x.getAttribute('aria-label') || ''))) {
+        // The widest ancestor that holds this one Withdraw button is the row.
+        let c = b;
+        while (c.parentElement && c.parentElement.querySelectorAll('[aria-label^="Withdraw invitation sent to "]').length === 1) c = c.parentElement;
+        const a = c.querySelector('a[href*="/in/"]');
+        const m = (c.innerText || '').match(/Sent ([^\\n]+)/);
+        rows.push({ label: b.getAttribute('aria-label').trim(), href: a ? a.href.split('?')[0] : '', sent: m ? m[1].trim() : '' });
+      }
+      return rows;`;
+    try {
+      await this.ensureDriverConnected(true);
+      await this.driver.get("https://www.linkedin.com/mynetwork/invitation-manager/sent/");
+      await nap(6000);
+      await this._assertUsable(false);
+      let rows = [], still = 0;
+      for (let i = 0; i < 15 && still < 2; i++) {
+        await this.driver.executeScript(`const w = Array.from(document.querySelectorAll('[aria-label^="Withdraw invitation sent to "]')); if (w.length) w[w.length - 1].scrollIntoView({ block: 'end' }); window.scrollBy(0, 400);`).catch(() => {});
+        await nap(2000);
+        const now = (await this.driver.executeScript(ROWS).catch(() => null)) || rows;
+        still = now.length > rows.length ? 0 : still + 1;
+        rows = now;
+      }
+      return { blocked: false, invites: rows };
+    } catch (e) {
+      logger.warn(`LinkedInService: sent invitations failed: ${e.message}`);
+      if (isLinkedInStop(e)) return { blocked: true, code: e.code, reason: e.message, invites: [] };
+      return { blocked: false, invites: [] };
+    }
+  }
+
+  // Withdraw one invitation on the sent-invitations page: invite = { label, href } from scanSentInvites (the
+  // button is found inside the row whose /in/ link is this person's). Confirms LinkedIn's dialog, then
+  // proves the row's Withdraw button is gone. Returns "withdrawn" | "fail".
+  async withdrawInvite(invite) {
+    const slug = (String(invite.href || "").match(/\/in\/([^/?#]+)/) || [])[1] || "";
+    try {
+      const clicked = await this.driver.executeScript(`
+        const [label, slug] = arguments;
+        const b = Array.from(document.querySelectorAll('a, button')).filter(x => (x.getAttribute('aria-label') || '').trim() === label)
+          .find(x => { let c = x; for (let i = 0; i < 8 && c.parentElement; i++) { c = c.parentElement; if (slug && c.querySelector('a[href*="/in/' + slug + '"]')) return true; } return !slug; });
+        if (!b) return 'no-button';
+        b.scrollIntoView({ block: 'center' });
+        b.click();
+        return 'clicked';
+      `, invite.label, slug).catch(() => "fail");
+      if (clicked !== "clicked") return "fail";
+      await nap(1500);
+      const confirmed = await this.driver.executeScript(`
+        const host = document.querySelector('#interop-outlet');
+        const roots = [host && host.shadowRoot, document].filter(Boolean);
+        for (const r of roots) {
+          const dlg = r.querySelector('[role="alertdialog"], [role="dialog"], .artdeco-modal');
+          if (!dlg) continue;
+          const ok = Array.from(dlg.querySelectorAll('button')).find(x => (x.innerText || '').trim().toLowerCase() === 'withdraw');
+          if (ok) { ok.click(); return 'confirmed'; }
+        }
+        return 'no-dialog';
+      `).catch(() => "fail");
+      if (confirmed !== "confirmed") {
+        try { await this.driver.actions().sendKeys(Key.ESCAPE).perform(); } catch (e) {}
+        return "fail";
+      }
+      for (let i = 0; i < 4; i++) {
+        await nap(1500);
+        const gone = await this.driver.executeScript(`return !Array.from(document.querySelectorAll('a, button')).some(x => (x.getAttribute('aria-label') || '').trim() === arguments[0]);`, invite.label).catch(() => false);
+        if (gone) return "withdrawn";
+      }
+      return "fail";
+    } catch (e) {
+      logger.warn(`LinkedInService: withdraw failed: ${e.message}`);
+      return "fail";
+    }
   }
 
   // Send one connection request WITHOUT a note from the current search page.

@@ -510,6 +510,13 @@ const processAllFolders = async () => {
         }
       }
       if (config.social.linkedinConnect && !stopping()) {
+        // Stale pending invites go first: a low acceptance rate narrows the account's reach.
+        try {
+          const wd = await feedEngage.runWithdrawPass({ max: 5, shouldStop: stopping });
+          logger.info(`Batch done: LinkedIn invites withdrawn ${wd.withdrawn} (${wd.stale} pending 14+ days). ${wd.reason || ""}`);
+        } catch (wdErr) {
+          logger.error("LinkedIn withdraw pass failed (non-fatal):", wdErr.message);
+        }
         try {
           const conn = await feedEngage.runConnectPass({ min: 3, max: 7, shouldStop: stopping });
           logger.info(`Batch done: LinkedIn connections ${conn.sent}/${conn.target} sent. ${conn.reason || ""}`);

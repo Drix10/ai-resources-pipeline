@@ -155,6 +155,15 @@ const CONNECT_NON_US_RE = /\b(india|russia|ukraine|pakistan|united kingdom|engla
 const CONNECT_MAX_PER_DAY = envInt("LINKEDIN_CONNECT_MAX_PER_DAY", 15);
 const CONNECT_MAX_PER_WEEK = envInt("LINKEDIN_CONNECT_MAX_PER_WEEK", 90);
 const CONNECT_KEY = (href) => `conn:${String(href || "").replace(/\/$/, "")}`;
+// LinkedIn reads a low acceptance rate as spam and narrows the account's reach: while under
+// LOW_ACCEPT_RATE of the last 30 days' invites (a week old or more, at least LOW_ACCEPT_MIN of them)
+// were accepted, at most LOW_ACCEPT_DAY_MAX go out a day.
+const LOW_ACCEPT_RATE = 0.2;
+const LOW_ACCEPT_MIN = 15;
+const LOW_ACCEPT_DAY_MAX = 3;
+// Invites unanswered this long are withdrawn (pending invites count against the account), a few a day.
+const WITHDRAW_AFTER_DAYS = 14;
+const WITHDRAW_MAX_PER_DAY = 10;
 
 // ---- Targeted post sources ----
 // Content-search queries (newest first): two on AI and the people building with it for every one
@@ -1096,15 +1105,31 @@ function recordSearchLoad(track, counter = "searchLoads") {
 // Connection pass: a few no-note requests per run to US, 2nd-degree people building with AI (and
 // some investors around them), found through US-filtered people search. Stops cleanly on
 // LinkedIn's weekly cap (connects pause 7 days) or any checkpoint (everything pauses).
+// Invites of the last 30 days old enough to have been answered, and how many were accepted.
+function acceptance(track, now = Date.now()) {
+  const old = postEntries(track).filter(([k, v]) => k.startsWith("conn:") && v && v.status === "invited"
+    && within(v.ts, 30 * DAY, now) && !within(v.ts, 7 * DAY, now));
+  return { sent: old.length, accepted: old.filter(([, v]) => v.acceptedAt).length };
+}
+const lowAcceptance = (track, now) => { const a = acceptance(track, now); return a.sent >= LOW_ACCEPT_MIN && a.accepted / a.sent < LOW_ACCEPT_RATE; };
+// "12 mutual connections", "Ana and 12 other mutual connections" (13), "Ana is a mutual connection" (1).
+function mutualCount(text) {
+  const t = String(text || "");
+  const n = t.match(/(\d+)\s+(other\s+)?mutual connections?/i);
+  if (n) return Number(n[1]) + (n[2] ? 1 : 0);
+  return /mutual connection/i.test(t) ? 1 : 0;
+}
+
 async function runConnectPass({ min = 10, max = 15, dryRun = false, shouldStop = () => false } = {}) {
   const out = { sent: 0, target: 0, scanned: 0, previews: [], reason: "" };
   const track = loadTrack();
   const blocked = passBlocked(track, "connect");
   if (blocked) return { ...out, reason: blocked };
-  const dayLeft = CONNECT_MAX_PER_DAY - invitedSince(track, DAY);
+  const low = lowAcceptance(track);
+  const dayLeft = (low ? LOW_ACCEPT_DAY_MAX : CONNECT_MAX_PER_DAY) - invitedSince(track, DAY);
   const weekLeft = CONNECT_MAX_PER_WEEK - invitedSince(track, 7 * DAY);
   out.target = Math.max(0, Math.min(min + Math.floor(Math.random() * (max - min + 1)), dayLeft, weekLeft));
-  if (out.target <= 0) return { ...out, reason: "daily/weekly connect cap reached" };
+  if (out.target <= 0) return { ...out, reason: low ? `acceptance under ${LOW_ACCEPT_RATE * 100}%: ${LOW_ACCEPT_DAY_MAX} invites a day` : "daily/weekly connect cap reached" };
   const ctx = { track, out, aborted: false };
   await guarded("connect", ctx, async () => {
     const seenHref = new Set();
@@ -1130,7 +1155,9 @@ async function runConnectPass({ min = 10, max = 15, dryRun = false, shouldStop =
           break outer;
         }
         if (res.people.length === 0) break; // no more results for this keyword
-        for (const p of res.people) {
+        // Suggestions with the most mutual connections first: they are the ones who accept.
+        const people = targeted ? res.people : [...res.people].sort((a, b) => mutualCount(b.text) - mutualCount(a.text));
+        for (const p of people) {
           if (ctx.aborted || shouldStop() || out.sent >= out.target) break outer;
           if (kwSent >= perKeyword) break;
           out.scanned++;
@@ -1175,10 +1202,51 @@ async function runConnectPass({ min = 10, max = 15, dryRun = false, shouldStop =
   return out;
 }
 
+// "5 days ago" on the sent-invitations page, in days (an hour or a minute is 0).
+function inviteAgeDays(sent) {
+  const m = /(\d+)\s+(minute|hour|day|week|month|year)s?\s+ago/i.exec(String(sent || ""));
+  return m ? Number(m[1]) * { minute: 0, hour: 0, day: 1, week: 7, month: 30, year: 365 }[m[2].toLowerCase()] : 0;
+}
+
+// Withdraw pass: invites pending WITHDRAW_AFTER_DAYS or more, oldest first, at most WITHDRAW_MAX_PER_DAY a
+// rolling day. Any pending invite counts, ours or sent by hand: unanswered for two weeks, it will not be.
+async function runWithdrawPass({ max = 5, shouldStop = () => false } = {}) {
+  const out = { withdrawn: 0, stale: 0, pending: 0, reason: "" };
+  const track = loadTrack();
+  const blocked = passBlocked(track, "connect");
+  if (blocked) return { ...out, reason: blocked };
+  const left = Math.min(max, WITHDRAW_MAX_PER_DAY - searchLoadsSince(track, DAY, "withdrawals"));
+  if (left <= 0) return { ...out, reason: "daily withdraw cap reached" };
+  const ctx = { track, out, aborted: false };
+  await guarded("withdraw", ctx, async () => {
+    const res = await LinkedInService.scanSentInvites();
+    if (res.blocked) {
+      if (res.code === "LINKEDIN_RESTRICTED") setCooldown(track, "all", jitter(24 * HOUR, 48 * HOUR), res.reason || "checkpoint");
+      out.reason = `linkedin unavailable (${res.reason || "login/checkpoint wall"})`;
+      return;
+    }
+    out.pending = res.invites.length;
+    const stale = res.invites.filter((i) => inviteAgeDays(i.sent) >= WITHDRAW_AFTER_DAYS).reverse();
+    out.stale = stale.length;
+    for (const inv of stale) {
+      if (ctx.aborted || shouldStop() || out.withdrawn >= left) break;
+      if (await LinkedInService.withdrawInvite(inv) !== "withdrawn") { out.reason = `could not withdraw "${inv.label}"`; break; }
+      out.withdrawn++;
+      const key = CONNECT_KEY(inv.href);
+      if (track[key] && typeof track[key] === "object") track[key] = { ...track[key], withdrawnAt: nowIso() };
+      recordSearchLoad(track, "withdrawals"); // (saves the tracker)
+      logger.info(`feedEngage withdraw: ${inv.label} (sent ${inv.sent}), ${out.withdrawn}/${left}.`);
+      await pause(jitter(5000, 12000), shouldStop);
+    }
+  });
+  logger.info(`feedEngage withdraw: ${out.withdrawn} withdrawn of ${out.stale} pending ${WITHDRAW_AFTER_DAYS}+ days (${out.pending} pending)${out.reason ? ` - stopped: ${out.reason}` : ""}.`);
+  return out;
+}
+
 const cleanup = () => LinkedInService.cleanup();
 
 module.exports = {
-  runFeedEngagement, runViralPass, runLikePass, runConnectPass, scorePost, viralScore, isVip, buildViralSources, noteViralPage, isSensitivePost, cleanup,
+  runFeedEngagement, runViralPass, runLikePass, runConnectPass, runWithdrawPass, inviteAgeDays, mutualCount, acceptance, scorePost, viralScore, isVip, buildViralSources, noteViralPage, isSensitivePost, cleanup,
   _tracker: { shouldSkipTracked, entryOfPost, markPost, loadTrack, saveTrack, pruneTrack, passBlocked, commentedSince, likedSince, setCooldown, recentComments },
   _reciprocity: { noteWarmPeople, noteWarmPage, warmPeople, warmSources, audienceScore, buildSources },
 };

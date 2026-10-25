@@ -95,6 +95,47 @@ test("LINKEDIN_TARGETED=false: every pass reads the home feed, any topic counts,
   }
 });
 
+test("invite health: ages and mutuals parse, low acceptance throttles connects, stale invites are withdrawn oldest first", async () => {
+  assert.deepEqual(["5 days ago", "1 week ago", "2 weeks ago", "1 month ago", "3 hours ago", ""].map(feedEngage.inviteAgeDays), [5, 7, 14, 30, 0, 0]);
+  assert.deepEqual(["Ana Lima is a mutual connection", "Ana Lima and 12 other mutual connections", "4 mutual connections", "Based on your profile"].map(feedEngage.mutualCount), [1, 13, 4, 0]);
+
+  const proto = LinkedInService.prototype;
+  const saved = { suggested: proto.scanSuggestedPeople, send: proto.sendConnectRequest, onPage: proto.onPeopleSearchPage, scanSent: proto.scanSentInvites, withdraw: proto.withdrawInvite, targeted: config.social.linkedinTargeted, track: process.env.LINKEDIN_TRACK_PATH };
+  process.env.LINKEDIN_TRACK_PATH = path.join(TMP, "invite-health-track.json");
+  LinkedInService._resetDisabled();
+  // 20 invites 10 days old, none accepted: under 20%.
+  const iso = (d) => new Date(Date.now() - d * DAY).toISOString();
+  const track = {};
+  for (let i = 0; i < 20; i++) track[`conn:https://www.linkedin.com/in/old${i}`] = { ts: iso(10), status: "invited" };
+  _tracker.saveTrack(track);
+  assert.deepEqual(feedEngage.acceptance(_tracker.loadTrack()), { sent: 20, accepted: 0 });
+  const sent = [];
+  proto.scanSuggestedPeople = async () => ({ people: Array.from({ length: 6 }, (_, i) => ({ label: `Invite P${i} to connect`, name: `P${i}`, href: `https://www.linkedin.com/in/p${i}`, text: i === 4 ? "P4 Engineer, 9 mutual connections" : `P${i} Engineer` })) });
+  proto.sendConnectRequest = async (p) => { sent.push(p.href); return "sent"; };
+  proto.onPeopleSearchPage = async () => true;
+  const withdrawn = [];
+  proto.scanSentInvites = async () => ({ invites: [
+    { label: "Withdraw invitation sent to New", href: "https://www.linkedin.com/in/new/", sent: "5 days ago" },
+    { label: "Withdraw invitation sent to Old0", href: "https://www.linkedin.com/in/old0/", sent: "2 weeks ago" },
+    { label: "Withdraw invitation sent to Older", href: "https://www.linkedin.com/in/older/", sent: "1 month ago" },
+  ] });
+  proto.withdrawInvite = async (inv) => { withdrawn.push(inv.label); return "withdrawn"; };
+  try {
+    config.social.linkedinTargeted = false;
+    const c = await feedEngage.runConnectPass({ min: 7, max: 7 });
+    assert.equal(c.target, 3, "low acceptance: 3 invites a day");
+    assert.equal(sent[0], "https://www.linkedin.com/in/p4", "the most mutual connections first");
+    const w = await feedEngage.runWithdrawPass({ max: 5 });
+    assert.deepEqual(withdrawn, ["Withdraw invitation sent to Older", "Withdraw invitation sent to Old0"], "14+ days only, oldest first");
+    assert.equal(w.withdrawn, 2);
+    assert.ok(_tracker.loadTrack()["conn:https://www.linkedin.com/in/old0"].withdrawnAt, "our tracked invite is marked withdrawn");
+  } finally {
+    config.social.linkedinTargeted = saved.targeted;
+    Object.assign(proto, { scanSuggestedPeople: saved.suggested, sendConnectRequest: saved.send, onPeopleSearchPage: saved.onPage, scanSentInvites: saved.scanSent, withdrawInvite: saved.withdraw });
+    process.env.LINKEDIN_TRACK_PATH = saved.track;
+  }
+});
+
 test("audience scoring: an early, mid-size, in-network post where a comment is seen beats a buried celebrity one", () => {
   const base = { text: BUILDER };
   const early = scorePost({ ...base, head: "Engineer • 2nd", ageH: 1, reactions: 120, comments: 8 });

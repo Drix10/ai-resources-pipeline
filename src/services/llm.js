@@ -1207,10 +1207,10 @@ STEP 1: Read what the author is actually doing with this post, then pick the rep
 - SKIP: ads, lead-gen, giveaways, engagement bait, politics, outrage, or anything where a comment from you would be noise. A skipped post is better than a hollow comment.
 
 STEP 2: Write it like a human typing on their phone:
-- Match the post's weight. A birthday gets 3 words, a long technical post can get one sentence. Never longer than 2 short sentences.
-- A REACT reply carries a tiny opinion or reason, not just a pointer. Weak: "The X point hits home." Better: "Keys inside the app is the one people will skip until it bites them." Never use "hits home", "lands", "resonates", "stuck with me", "nails it".
+- Match the post's weight. A birthday or a congrats gets a few words and SUPPORT one line. A REACT or ANSWER on a substantive post gets 2 or 3 short sentences: the specific part, your honest take, and the reason for it or a question the author can answer. LinkedIn barely shows a one-line reaction; a comment with a real thought in it is what people read and answer.
+- A REACT reply carries an opinion and its reason, not just a pointer. Weak: "The X point hits home." Better: "Keys inside the app is the one people will skip until it bites them." Never use "hits home", "lands", "resonates", "stuck with me", "nails it".
 - Friendly tone toward the author always. No sarcasm, no jabs, no teasing, no pushback on a stranger's opinion; if you disagree, SKIP.
-- Do NOT try to add value, teach, summarize, or sound insightful. Reacting honestly is enough.
+- Do NOT teach, summarize, lecture or perform insight. An honest take with its reason is enough.
 - No stock praise ("Great post", "Thanks for sharing", "Insightful", "Well said", "So true", "Absolutely"), no "This resonates", no motivational closers, no questions fished for engagement.
 - Never restate their post back to them in other words.
 - Use only the numbers, names, and terms the post states. No invented facts, no experience claims ("I've seen", "when I built"), no pretending you attended or tried anything.

@@ -24,7 +24,7 @@ class FakeTwitter {
   async cleanup() { calls.push("x-cleanup"); }
 }
 stub("src/services/twitter.js", FakeTwitter);
-stub("src/services/feedEngage.js", { cleanup: async () => calls.push("li-cleanup"), runLikePass: async () => ({ liked: 0, target: 0 }), runFeedEngagement: async () => ({ commented: 0, skipped: 0 }), runConnectPass: async () => ({ sent: 0, target: 0 }) });
+stub("src/services/feedEngage.js", { cleanup: async () => calls.push("li-cleanup"), runLikePass: async () => ({ liked: 0, target: 0 }), runFeedEngagement: async () => ({ commented: 0, skipped: 0 }), runConnectPass: async () => ({ sent: 0, target: 0 }), runWithdrawPass: async () => ({ withdrawn: 0, stale: 0 }) });
 // Like the real one, marks the batch through onCommitted the moment the commit lands.
 const uploads = [];
 stub("src/services/github.js", {
