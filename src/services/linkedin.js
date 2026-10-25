@@ -1138,11 +1138,20 @@ class LinkedInService {
 
   // People search (US only via geoUrn, 2nd-degree only, which accept far more often).
   // Returns visible Connect candidates: { label, name, href, text }.
-  async scanPeopleSearch(keywords, page = 1) {
+  scanPeopleSearch(keywords, page = 1) {
+    const url = "https://www.linkedin.com/search/results/people/?keywords=" + encodeURIComponent(keywords) +
+      "&geoUrn=%5B%22103644278%22%5D&network=%5B%22S%22%5D&origin=FACETED_SEARCH&page=" + page;
+    return this._scanPeople(url, `people search "${keywords}" page ${page}`);
+  }
+
+  // LinkedIn's own "People you may know" (the untargeted connect source), same shape as scanPeopleSearch.
+  scanSuggestedPeople() {
+    return this._scanPeople("https://www.linkedin.com/mynetwork/grow/", "People you may know");
+  }
+
+  async _scanPeople(url, what) {
     try {
       await this.ensureDriverConnected(true);
-      const url = "https://www.linkedin.com/search/results/people/?keywords=" + encodeURIComponent(keywords) +
-        "&geoUrn=%5B%22103644278%22%5D&network=%5B%22S%22%5D&origin=FACETED_SEARCH&page=" + page;
       await this.driver.get(url);
       await nap(5000);
       await this._assertUsable(false); // login/checkpoint/limit wall: typed error, handled below
@@ -1181,23 +1190,23 @@ class LinkedInService {
         // An empty page may be the "commercial use limit" banner rather than no results.
         await this._assertUsable(true);
         const where = await this.driver.executeScript("return location.href.slice(0, 160) + ' | ' + document.title + ' | ' + (document.body ? document.body.innerText.slice(0, 120).split(String.fromCharCode(10)).join(' / ') : '')").catch(() => "?");
-        logger.warn(`LinkedInService: people search "${keywords}" page ${page} found no invite buttons (${where}).`);
+        logger.warn(`LinkedInService: ${what} found no invite buttons (${where}).`);
       }
 
       return { blocked: false, people: people || [] };
     } catch (e) {
-      logger.warn(`LinkedInService: people search failed: ${e.message}`);
+      logger.warn(`LinkedInService: ${what} failed: ${e.message}`);
       // A wall (signed out, checkpoint, limit) blocks the pass; code tells feedEngage which.
       if (isLinkedInStop(e)) return { blocked: true, code: e.code, reason: e.message, people: [] };
       return { blocked: false, people: [] };
     }
   }
 
-  // True while the tab is still on people-search results (a send must never leave it
-  // somewhere else, e.g. a profile page or a verification step, with the pass still running).
+  // True while the tab is still on people-search results or "People you may know" (a send must never leave
+  // it somewhere else, e.g. a profile page or a verification step, with the pass still running).
   async onPeopleSearchPage() {
     const url = await this.driver.getCurrentUrl().catch(() => "");
-    return /linkedin\.com\/search\/results\/people/i.test(url);
+    return /linkedin\.com\/(?:search\/results\/people|mynetwork\/grow)/i.test(url);
   }
 
   // Send one connection request WITHOUT a note from the current search page.

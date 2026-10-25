@@ -118,9 +118,10 @@ const config = {
     // the day's most-engaged launches and funding news), on their own daily cap. Comments post only
     // with LINKEDIN_FEED_REPLY=true.
     linkedinViral: process.env.LINKEDIN_VIRAL !== "false",
-    // Post sources for likes/comments: "targeted" (default: content search + config/creators.json,
-    // home-feed fallback) or "feed" (home feed Top/Recent only).
-    linkedinSource: process.env.LINKEDIN_SOURCE === "feed" ? "feed" : "targeted",
+    // true (default): likes, comments, viral comments and connects target AI/finance (warm people, creators,
+    // content and people search, big names, the topic and US filters). false: the home feed (Top and Recent)
+    // for likes and comments, viral comments too, any topic, and LinkedIn's "People you may know" for connects.
+    linkedinTargeted: process.env.LINKEDIN_TARGETED !== "false",
     // 3-7 no-note connection requests after each batch commit to US people in AI/tech (2 of 3) and finance/investing.
     linkedinConnect: process.env.LINKEDIN_CONNECT !== "false",
     twitterPost: process.env.TWITTER_POST !== "false",

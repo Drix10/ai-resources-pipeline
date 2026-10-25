@@ -62,6 +62,39 @@ test("audience scoring: an AI post outranks a finance-only one, both are engaged
   assert.ok(promo < 3, `promo ${promo}`);
 });
 
+test("LINKEDIN_TARGETED=false: every pass reads the home feed, any topic counts, and connects come from People you may know", async () => {
+  const proto = LinkedInService.prototype;
+  const saved = { targeted: config.social.linkedinTargeted, people: proto.scanPeopleSearch, suggested: proto.scanSuggestedPeople, send: proto.sendConnectRequest, onPage: proto.onPeopleSearchPage, track: process.env.LINKEDIN_TRACK_PATH };
+  const generic = { head: "Product designer • 1st", text: "Had a great weekend with the family and the dog at the lake, back to the roadmap tomorrow.", ageH: 2, reactions: 40, comments: 3 };
+  assert.equal(scorePost(generic), 0, "targeted: off-topic gets nothing");
+  process.env.LINKEDIN_TRACK_PATH = path.join(TMP, "untargeted-track.json");
+  LinkedInService._resetDisabled();
+  let searched = 0;
+  const sent = [];
+  proto.scanPeopleSearch = async () => { searched++; return { people: [] }; };
+  proto.scanSuggestedPeople = async () => ({ people: [
+    { label: "Invite Mia Chen to connect", name: "Mia Chen", href: "https://www.linkedin.com/in/mia", text: "Mia Chen Product designer at a studio in London" },
+    { label: "Invite Sam Roe to connect", name: "Sam Roe", href: "https://www.linkedin.com/in/sam", text: "Sam Roe Technical recruiter, talent acquisition" },
+  ] });
+  proto.sendConnectRequest = async (p) => { sent.push(p.href); return "sent"; };
+  proto.onPeopleSearchPage = async () => true;
+  try {
+    config.social.linkedinTargeted = false;
+    assert.ok(scorePost(generic) >= 4, "untargeted: a post in our feed is liked and commented on whatever its topic");
+    assert.equal(scorePost({ ...generic, text: "We're hiring! Join our webinar, register now, link in bio, apply now today." }) < 3, true, "promo is still marked down");
+    assert.deepEqual(R.buildSources({}).map((s) => s.label), ["feed:top", "feed:recent"]);
+    assert.deepEqual(feedEngage.buildViralSources({}).map((s) => s.label), ["feed:top", "feed:recent"]);
+    const c = await feedEngage.runConnectPass({ min: 2, max: 2 });
+    assert.equal(searched, 0, "no people search");
+    assert.deepEqual(sent, ["https://www.linkedin.com/in/mia"], "no topic or US filter; recruiters still skipped");
+    assert.equal(c.sent, 1);
+  } finally {
+    config.social.linkedinTargeted = saved.targeted;
+    Object.assign(proto, { scanPeopleSearch: saved.people, scanSuggestedPeople: saved.suggested, sendConnectRequest: saved.send, onPeopleSearchPage: saved.onPage });
+    process.env.LINKEDIN_TRACK_PATH = saved.track;
+  }
+});
+
 test("audience scoring: an early, mid-size, in-network post where a comment is seen beats a buried celebrity one", () => {
   const base = { text: BUILDER };
   const early = scorePost({ ...base, head: "Engineer • 2nd", ageH: 1, reactions: 120, comments: 8 });
@@ -170,15 +203,7 @@ test("warm sources go first: a conversation before a nod, never a page read late
   // the comment pass has its own visits and its own author gap: liked today is no bar to a comment
   assert.deepEqual(R.warmSources(track, 5, now, "comment").map((s) => s.label), ["warm:visited", "warm:talker", "warm:liked", "warm:nod"]);
   assert.equal(src[0].url, "https://www.linkedin.com/in/talker/recent-activity/all/");
-  const saved = config.social.linkedinSource;
-  try {
-    config.social.linkedinSource = "targeted";
-    assert.deepEqual(R.buildSources(track).slice(0, 2).map((s) => s.label), ["warm:talker", "warm:nod"]);
-    config.social.linkedinSource = "feed";
-    assert.deepEqual(R.buildSources(track).map((s) => s.label), ["feed:top", "feed:recent"]);
-  } finally {
-    config.social.linkedinSource = saved;
-  }
+  assert.deepEqual(R.buildSources(track).slice(0, 2).map((s) => s.label), ["warm:talker", "warm:nod"]);
 });
 
 test("a warm author's post scores higher; a sensitive one still gets nothing", () => {

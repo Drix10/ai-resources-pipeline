@@ -25,6 +25,8 @@ for (const flag of [
 // LLM providers: the documented default (openrouter, with no key) for every job, and the claude CLI
 // settings at their defaults. Tests that need claude set the provider and CLAUDE_BIN themselves.
 process.env.LLM_PROVIDER = "openrouter";
+// LinkedIn targeting at its default (on); tests of the untargeted mode switch config.social.linkedinTargeted.
+process.env.LINKEDIN_TARGETED = "true";
 // No linked page is fetched and no t.co link resolved: tests that need either stub or enable it.
 process.env.ARTICLE_FETCH_LINKS = "false";
 for (const key of [

@@ -12,8 +12,8 @@
  *
  * Posts come from targeted sources (the recent posts of people who engaged with us, optional
  * creator profiles in config/creators.json, and AI/founder/finance content search), not the home feed. The
- * home feed is only the fallback when targeted sources yield nothing, or the whole thing when
- * LINKEDIN_SOURCE=feed.
+ * home feed is only the fallback when targeted sources yield nothing. With LINKEDIN_TARGETED=false every
+ * pass works off the home feed (Top and Recent) on any topic, and connects go to "People you may know".
  *
  * Reciprocity: the like and comment passes read the notifications page (at most every 3 h) and
  * engage the people who engaged with us first: like back, follow back, comment on their posts.
@@ -99,16 +99,17 @@ function scorePost(post) {
   // Promo noise and recruiter accounts are marked down whatever the topic, so an off-topic one
   // scores below zero and a warm author's bonus never lifts it to a like.
   const penalty = (NOISE_RE.test(hay) ? 4 : 0) + (RECRUITER_RE.test(post.head || "") ? 3 : 0);
-  if (!topic) return penalty ? -penalty : 0;
-  let score = topic;
-  if (US_RE.test(hay)) score += 2;
+  // Untargeted, a post in our own home feed is on topic: it scores as a squarely on-topic one.
+  if (!topic && (config.social.linkedinTargeted || penalty)) return penalty ? -penalty : 0;
+  let score = config.social.linkedinTargeted ? topic : Math.max(topic, 3);
+  if (config.social.linkedinTargeted && US_RE.test(hay)) score += 2;
   const age = typeof post.ageH === "number" ? post.ageH : 999;
   if (age <= 3) score += 2; else if (age <= 12) score += 1; else if (age > 72) score -= 1;
   // Where a comment is read and answered, for a post squarely on the topic (one term is not
   // enough): room at the top of its comments and a mid-size author (a celebrity's crowd buries a
   // comment; the viral pass is the one that goes there), from counts the card showed (a card
   // whose counts did not parse reads 0 reactions), and an author in our network.
-  if (topic >= 2) {
+  if (topic >= 2 || !config.social.linkedinTargeted) {
     const reactions = Number(post.reactions) || 0, comments = Number(post.comments) || 0;
     if (reactions > 0) {
       if (comments <= 30) score += 1; else if (comments > 150) score -= 1;
@@ -175,13 +176,13 @@ function loadCreators() {
 // Ordered scan sources for one pass ("like" or "comment"). The people who engaged with us first
 // (warmSources), then creators (highest signal), then shuffled searches. "feed" mode, or a targeted
 // run that finds nothing, uses home Top/Recent.
+const FEED_SOURCES = [{ label: "feed:top", sort: "top" }, { label: "feed:recent", sort: "recent" }];
 function buildSources(track = {}, limit = 6, pass = "like") {
-  if (config.social.linkedinSource === "feed") return [{ label: "feed:top", sort: "top" }, { label: "feed:recent", sort: "recent" }];
+  if (!config.social.linkedinTargeted) return FEED_SOURCES;
   const creators = shuffled(loadCreators()).slice(0, 2).map((url) => ({ label: `creator:${url.split("/in/")[1].split("/")[0]}`, url }));
   const searches = shuffled(SOURCE_QUERIES).map((q) => ({ label: `search:${q}`, url: searchUrl(q) }));
   return [...warmSources(track, WARM_SOURCES_PER_PASS, Date.now(), pass), ...creators, ...searches].slice(0, limit);
 }
-const FALLBACK_SOURCES = [{ label: "feed:top", sort: "top" }, { label: "feed:recent", sort: "recent" }];
 const scanSource = (src, maxScrolls = 8) =>
   LinkedInService.scanFeedPosts({ maxPosts: 12, maxScrolls, ...(src.url ? { url: src.url } : { sort: src.sort }) });
 
@@ -269,6 +270,7 @@ const vipPages = () => [
 // (each page's posting rate, learned from its last read, in the tracker's meta.viralPages), then
 // a viral search, alternating. A page read under VIRAL_RECHECK_MS ago waits; one never read goes first.
 function buildViralSources(track = {}, limit = VIRAL_SOURCES_PER_PASS, now = Date.now()) {
+  if (!config.social.linkedinTargeted) return FEED_SOURCES;
   const seen = ((track && track.meta) || {}).viralPages || {};
   const chance = (src) => {
     const s = seen[src.label];
@@ -977,9 +979,9 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
       }
       try { found += await commentFrom(src); } catch (e) { rethrowStop(e); logger.warn(`${tag} [${src.label}]: scan failed: ${e.message}`); }
     }
-    if (found === 0 && !viral && !done() && config.social.linkedinSource !== "feed") {
+    if (found === 0 && !viral && !done() && config.social.linkedinTargeted) {
       logger.warn("feedEngage: targeted sources yielded nothing - falling back to home feed.");
-      for (const src of FALLBACK_SOURCES) {
+      for (const src of FEED_SOURCES) {
         if (done() || nearlyUp()) break;
         try { await commentFrom(src); } catch (e) { rethrowStop(e); logger.warn(`feedEngage [${src.label}]: scan failed: ${e.message}`); }
       }
@@ -1063,9 +1065,9 @@ async function runLikePass({ min = 5, max = 9, shouldStop = () => false } = {}) 
       found += await likeFrom(src);
     }
     // Targeted sources empty (markup change, nothing fresh): fall back to the home feed.
-    if (found === 0 && !halted() && out.liked < out.target && config.social.linkedinSource !== "feed") {
+    if (found === 0 && !halted() && out.liked < out.target && config.social.linkedinTargeted) {
       logger.warn("feedEngage like-pass: targeted sources yielded nothing - falling back to home feed.");
-      for (const src of FALLBACK_SOURCES) {
+      for (const src of FEED_SOURCES) {
         if (halted() || out.liked >= out.target) break;
         await likeFrom(src);
       }
@@ -1107,18 +1109,21 @@ async function runConnectPass({ min = 10, max = 15, dryRun = false, shouldStop =
   await guarded("connect", ctx, async () => {
     const seenHref = new Set();
     let consecutiveFails = 0, loads = 0;
-    const queries = buildConnectQueries();
+    // Untargeted: one page of LinkedIn's own suggestions, no topic or US filter.
+    const targeted = config.social.linkedinTargeted;
+    const queries = targeted ? buildConnectQueries() : ["People you may know"];
+    const perKeyword = targeted ? CONNECT_PER_KEYWORD : out.target;
     outer:
     for (const kw of queries) {
       let kwSent = 0;
-      for (let page = 1; page <= 2; page++) {
+      for (let page = 1; page <= (targeted ? 2 : 1); page++) {
         if (ctx.aborted || shouldStop() || out.sent >= out.target) break outer;
-        if (kwSent >= CONNECT_PER_KEYWORD) break;
+        if (kwSent >= perKeyword) break;
         if (loads >= SEARCH_LOADS_PER_PASS) { out.reason = `search page cap (${SEARCH_LOADS_PER_PASS} per pass)`; break outer; }
         if (searchLoadsSince(track, DAY) >= SEARCH_LOADS_PER_DAY) { out.reason = `search page cap (${SEARCH_LOADS_PER_DAY} per day)`; break outer; }
         loads++;
         recordSearchLoad(track);
-        const res = await LinkedInService.scanPeopleSearch(kw, page);
+        const res = targeted ? await LinkedInService.scanPeopleSearch(kw, page) : await LinkedInService.scanSuggestedPeople();
         if (res.blocked) {
           if (res.code === "LINKEDIN_RESTRICTED") setCooldown(track, "all", jitter(24 * HOUR, 48 * HOUR), res.reason || "checkpoint");
           out.reason = `linkedin unavailable (${res.reason || "login/checkpoint wall"})`;
@@ -1127,12 +1132,12 @@ async function runConnectPass({ min = 10, max = 15, dryRun = false, shouldStop =
         if (res.people.length === 0) break; // no more results for this keyword
         for (const p of res.people) {
           if (ctx.aborted || shouldStop() || out.sent >= out.target) break outer;
-          if (kwSent >= CONNECT_PER_KEYWORD) break;
+          if (kwSent >= perKeyword) break;
           out.scanned++;
           const key = CONNECT_KEY(p.href);
           if (!p.href || track[key] || seenHref.has(key)) continue;
           seenHref.add(key);
-          if (!CONNECT_ICP_RE.test(p.text) || CONNECT_SKIP_RE.test(p.text) || CONNECT_NON_US_RE.test(p.text)) continue;
+          if ((targeted && (!CONNECT_ICP_RE.test(p.text) || CONNECT_NON_US_RE.test(p.text))) || CONNECT_SKIP_RE.test(p.text)) continue;
           if (dryRun) {
             out.previews.push({ name: p.name, text: p.text.slice(0, 140), kw });
             out.sent++; kwSent++;
