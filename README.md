@@ -56,6 +56,7 @@ npm test                                      # runs offline, against a temporar
 ```bash
 npm start                    # one full run, then exit
 npm run preview -- --max 3   # print the LinkedIn comments and likes a run would make, without posting
+npm run post-check -- draft.txt   # before you post on LinkedIn: ranking problems (links, hashtags, bait) and stronger openings
 npm run golden               # right after you post on LinkedIn: answer its comments for 90 min (--dry: print only)
 npm run preview -- --viral   # the same for the viral pass: big names and the day's most-engaged posts
 npm run seo:audit -- <url>   # audit a deployed blog for SEO issues
