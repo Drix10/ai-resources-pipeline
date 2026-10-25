@@ -1100,7 +1100,8 @@ class LLMService {
         const rio = r.replace(/ion$/, "");
         if (rio !== r) { postToks.add(rio); postToks.add(`${rio}e`); }
       }
-      const bad = [...new Set(words(reply).filter((w) => w.length >= 5 && !STOP.has(w) && !REPLY_FILLER.has(w) && !authorWords.has(w)))]
+      // (a contraction's stem, "doesn" of "doesn't", is no detail)
+      const bad = [...new Set(words(reply).filter((w) => w.length >= 5 && !STOP.has(w) && !REPLY_FILLER.has(w) && !authorWords.has(w) && !/^(?:doesn|didn|wasn|weren|wouldn|couldn|shouldn|hasn|haven|hadn|aren)$/.test(w)))]
         .map((w) => stemTok(w))
         .filter((s) => {
           if (s.length < 4 || postToks.has(s) || REPLY_FILLER.has(s)) return false;
@@ -1109,11 +1110,12 @@ class LLMService {
           const rio = r.replace(/ion$/, "");
           return !(rio !== r && (postToks.has(rio) || postToks.has(`${rio}e`)));
         });
-      // Allow up to 2 natural non-post words (common adjectives/adverbs) before
-      // rejecting. The figures gate already catches invented facts; this gate's job
-      // is invented domain nouns and named entities, not ordinary English words.
-      if (bad.length > 2) {
-        errors.push(`Reply adds detail the post never states (${bad.slice(0, 3).join(", ")}); endorse or congratulate using only the post's own words.`);
+      // Allow a few natural non-post words (an opinion and its reason need some), more for a longer reply:
+      // 2 for a short reply, else one per 4 words. The figures gate already catches invented facts and the critic
+      // weighs claims; this gate's job is a reply drifting off the post into its own subject.
+      const allowed = Math.max(2, Math.floor(words(reply).length / 4));
+      if (bad.length > allowed) {
+        errors.push(`Reply adds detail the post never states (${bad.slice(0, 3).join(", ")}); keep to the post's own subject and terms, and name nothing it does not.`);
       }
     }
     // Shape discipline: fixed frames are allowed, not required - free-form drafts read human,

@@ -116,10 +116,11 @@ const DRAFT_CASES = [
     "The biggest cost of AI is not the API bill. Every question costs explanation time and context across 20 people and thousands of workflows. Humans repeatedly teach the machine the same company, market, and findings. Expensive amnesia.",
     "Albert Mao",
     ["Every question costing explanation time across thousands of workflows is the key detail here.", "PASS: grounded acknowledgment"], true],
-  ["latent-mechanism interpretation is added knowledge -> reject",
+  ["latent-mechanism interpretation is added knowledge -> the critic rejects it",
     "The biggest cost of AI is not the API bill. Every question costs explanation time and context across 20 people and thousands of workflows. Humans repeatedly teach the machine the same company, market, and findings. Expensive amnesia.",
     "Albert Mao",
-    ["The expensive part is not passing context once but losing it between workflows, forcing humans to reconstruct it each time.", "The expensive part is not passing context once but losing it between workflows, forcing humans to reconstruct it each time."], false],
+    ["The expensive part is not passing context once but losing it between workflows, forcing humans to reconstruct it each time.", "FAIL: (2) a mechanism the post never states: \"losing it between workflows\"",
+     "The expensive part is not passing context once but losing it between workflows, forcing humans to reconstruct it each time.", "FAIL: (2) still the same added mechanism"], false],
   ["single-sentence acknowledgment -> pass",
     "Oruk announcing Resonance-2, speech emotion recognition. Scores 31 emotion categories directly from audio signals for voice agents.",
     "Nathan Roll",
@@ -435,4 +436,11 @@ test("cost estimator: DeepSeek V4 Flash rates for a preview run, and a conservat
   assert.ok(Math.abs(llm.commentCostUsd(39588, 538, "deepseek/deepseek-v4-flash") - 0.001876) < 0.0001);
   // Unknown slugs: $0.30 / $1.00 per 1M tokens.
   assert.ok(Math.abs(llm.commentCostUsd(1000, 100, "some/unknown-model") - 0.0004) < 1e-9);
+});
+
+test("grounding gate: a longer reply may carry an opinion and its reason; a short one that drifts off the post is still caught", () => {
+  const post = "We moved our agent evaluations from a weekly batch to every pull request, and regressions now show up the same day.";
+  const errs = (reply) => llm.validateCommentReply(reply, post, "Ada", []).errors.filter((e) => /never states/.test(e));
+  assert.deepEqual(errs("Running evaluations on every pull request is the part most teams put off. It doesn't feel urgent until a regression ships, and by then nobody remembers which change caused it. How long does a full run take per request?"), []);
+  assert.equal(errs("Kubernetes autoscaling budgets matter more.").length, 1, "three off-post words in a six-word reply");
 });
