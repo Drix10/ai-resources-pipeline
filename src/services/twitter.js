@@ -17,6 +17,8 @@ const envDays = (name, fallback) => {
   return Number.isFinite(n) && n > 0 ? n : fallback;
 };
 const DAY_MS = 24 * 60 * 60 * 1000;
+// Text without characters outside the BMP (emoji), with the spaces they leave collapsed within each line.
+const stripNonBmp = (s) => String(s ?? "").replace(/[\u{10000}-\u{10FFFF}]️?/gu, "").replace(/[ \t]{2,}/g, " ");
 // Older posts are stale news for a daily digest.
 const TWEET_MAX_AGE_DAYS = envDays("TWEET_MAX_AGE_DAYS", 14);
 // Stored IDs are evicted by tweet age, never by insertion order: anything evicted is
@@ -699,7 +701,7 @@ class TwitterService {
           }
           oldStreak = 0;
 
-          if (truncated) { longPosts.push({ tweetId, url: item.url, timestamp }); continue; }
+          if (truncated) { longPosts.push(item); continue; }
           consider(item);
         }
 
@@ -730,7 +732,8 @@ class TwitterService {
         scrollAttempts++;
       }
 
-      // A post's own page shows all of it; the list is reopened for the next folder.
+      // A post's own page shows all of it; the list is reopened for the next folder. The busiest are read first.
+      longPosts.sort((a, b) => engagementPerHour(b) - engagementPerHour(a));
       for (const [i, post] of longPosts.entries()) {
         if (i >= MAX_LONG_POSTS) { skip("truncated (Show more)", post.tweetId); continue; }
         try {
@@ -743,7 +746,7 @@ class TwitterService {
           let full = await findPost();
           for (const deadline = Date.now() + INITIAL_LOAD_TIMEOUT; !full && Date.now() < deadline; full = await findPost()) await sleep(SCROLL_PAUSE);
           if (!full || full.truncated) { skip("truncated (Show more)", post.tweetId); continue; }
-          consider({ ...full, url: post.url, timestamp: full.timestamp || post.timestamp });
+          consider({ likes: post.likes, reposts: post.reposts, views: post.views, ...full, url: post.url, timestamp: full.timestamp || post.timestamp });
         } catch (error) {
           if (isSessionError(error)) throw error;
           skip("long post unreadable", post.tweetId);
@@ -889,7 +892,20 @@ class TwitterService {
     }
   }
 
+  // One of the compose dialog's elements by test id. The home timeline behind the dialog has its own composer
+  // with the same ids, first in the page: the one inside [role="dialog"], else the last match.
+  async composerEl(testid, timeout) {
+    return this.driver.wait(async () => {
+      for (const css of [`[role="dialog"] [data-testid="${testid}"]`, `[data-testid="${testid}"]`]) {
+        const found = await this.driver.findElements(By.css(css));
+        if (found.length) return found[found.length - 1];
+      }
+      return null;
+    }, timeout);
+  }
+
   async postTweet(text, { reply = "" } = {}) {
+    let submitted = false;
     try {
       await this.ensureDriverConnected();
       await this.ensureTab();
@@ -899,16 +915,14 @@ class TwitterService {
       const urlProblem = classifyXUrl(await this.currentUrl());
       if (urlProblem) throw xUnavailable(`${urlProblem} while posting`);
 
-      const tweetTextarea = await this.driver.wait(
-        until.elementLocated(By.css('div[data-testid="tweetTextarea_0"]')),
-        60000
-      );
+      const tweetTextarea = await this.composerEl("tweetTextarea_0", 60000);
       await this.driver.wait(until.elementIsVisible(tweetTextarea), 60000);
       await this.driver.wait(until.elementIsEnabled(tweetTextarea), 60000);
       // Enter right after a mention ("@someone") can be taken by the mention autocomplete (it picks
       // a suggestion instead of starting a new line). A space closes the suggestions, and
       // a short pause lets the box go away before the newline arrives.
-      const typed = typeof text === "string" ? text : String(text ?? "");
+      // (ChromeDriver's sendKeys refuses characters outside the BMP, emoji among them.)
+      const typed = stripNonBmp(text);
       const segments = typed.replace(/(@\w+)(?=\r?\n|$)/g, "$1 ").split(/(?<=@\w+ )(?=\r?\n|$)/);
       for (const segment of segments) {
         if (!segment) continue;
@@ -916,23 +930,27 @@ class TwitterService {
         await sleep(400);
       }
       await sleep(1600);
+      const norm = (s) => String(s).replace(/\s+/g, " ").trim();
+      if (norm(await tweetTextarea.getText()) !== norm(typed)) throw new Error("the composer does not hold the post's text");
 
       // A reply goes out as the thread's second post (X's "Add post", box tweetTextarea_1), in the same submit
-      // as the first ("Post all"). (The home timeline's own composer behind the dialog is another
-      // tweetTextarea_0: never pick a box by position.)
+      // as the first ("Post all").
       if (reply) {
-        const addButton = await this.driver.wait(until.elementLocated(By.css('[data-testid="addButton"]')), 10000);
+        const replyText = stripNonBmp(reply);
+        const addButton = await this.composerEl("addButton", 10000);
         await addButton.click();
-        const second = await this.driver.wait(until.elementLocated(By.css('div[data-testid="tweetTextarea_1"]')), 10000)
+        const second = await this.composerEl("tweetTextarea_1", 10000)
           .catch(() => { throw new Error("the thread's second post box did not open"); });
-        await second.sendKeys(String(reply));
+        await second.sendKeys(replyText);
         await sleep(1200);
-        if (!String(await second.getText()).includes(String(reply).slice(0, 20))) throw new Error("the thread's second post did not take the reply");
-        const postAll = await this.driver.findElement(By.css('[data-testid="tweetButton"]'));
+        if (!String(await second.getText()).includes(replyText.slice(0, 20))) throw new Error("the thread's second post did not take the reply");
+        const postAll = await this.composerEl("tweetButton", 10000);
         await this.driver.wait(async () => (await postAll.getAttribute("aria-disabled")) !== "true", 10000)
           .catch(() => { throw new Error("Post all stayed disabled"); });
+        submitted = true;
         await postAll.click();
       } else {
+        submitted = true;
         await tweetTextarea.sendKeys(Key.chord(MOD_KEY, Key.ENTER));
       }
       // Only a closed compose modal counts as posted; a dropped shortcut leaves
@@ -941,12 +959,14 @@ class TwitterService {
         .wait(async () => !(await this.currentUrl()).includes("/compose/"), 15000)
         .then(() => true, () => false);
       if (!posted) {
-        throw new Error("Composer still open after submit; tweet was not posted.");
+        throw new Error("Composer still open after submit");
       }
       logger.info("Tweet posted (composer closed).");
       return true;
     } catch (error) {
-      logger.error("Failed to post tweet:", error);
+      // After the submit X may have sent some or all of the thread: say so, and never retry it.
+      if (submitted) logger.error(`Tweet submitted; X did not confirm (${error.message}). The post may be live, maybe without its link reply: check the profile.`);
+      else logger.error("Failed to post tweet (not submitted):", error);
       await this.saveFailureScreenshot("tweet-failed");
       return false;
     }

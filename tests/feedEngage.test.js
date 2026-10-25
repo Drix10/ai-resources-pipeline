@@ -73,8 +73,9 @@ test("LINKEDIN_TARGETED=false: every pass reads the home feed, any topic counts,
   const sent = [];
   proto.scanPeopleSearch = async () => { searched++; return { people: [] }; };
   proto.scanSuggestedPeople = async () => ({ people: [
-    { label: "Invite Mia Chen to connect", name: "Mia Chen", href: "https://www.linkedin.com/in/mia", text: "Mia Chen Product designer at a studio in London" },
-    { label: "Invite Sam Roe to connect", name: "Sam Roe", href: "https://www.linkedin.com/in/sam", text: "Sam Roe Technical recruiter, talent acquisition" },
+    { label: "Invite Mia Chen to connect", name: "Mia Chen", href: "https://www.linkedin.com/in/mia", text: "Mia Chen Product designer at a studio in London Ana Lima is a mutual connection" },
+    { label: "Invite Lee Fox to connect", name: "Lee Fox", href: "https://www.linkedin.com/in/lee", text: "Lee Fox Product designer, no one in common" },
+    { label: "Invite Sam Roe to connect", name: "Sam Roe", href: "https://www.linkedin.com/in/sam", text: "Sam Roe Technical recruiter, talent acquisition 3 mutual connections" },
   ] });
   proto.sendConnectRequest = async (p) => { sent.push(p.href); return "sent"; };
   proto.onPeopleSearchPage = async () => true;
@@ -86,7 +87,7 @@ test("LINKEDIN_TARGETED=false: every pass reads the home feed, any topic counts,
     assert.deepEqual(feedEngage.buildViralSources({}).map((s) => s.label), ["feed:top", "feed:recent"]);
     const c = await feedEngage.runConnectPass({ min: 2, max: 2 });
     assert.equal(searched, 0, "no people search");
-    assert.deepEqual(sent, ["https://www.linkedin.com/in/mia"], "no topic or US filter; recruiters still skipped");
+    assert.deepEqual(sent, ["https://www.linkedin.com/in/mia"], "no topic or US filter; recruiters and strangers (no mutual connection) skipped");
     assert.equal(c.sent, 1);
   } finally {
     config.social.linkedinTargeted = saved.targeted;
@@ -97,6 +98,7 @@ test("LINKEDIN_TARGETED=false: every pass reads the home feed, any topic counts,
 
 test("invite health: ages and mutuals parse, low acceptance throttles connects, stale invites are withdrawn oldest first", async () => {
   assert.deepEqual(["5 days ago", "1 week ago", "2 weeks ago", "1 month ago", "3 hours ago", ""].map(feedEngage.inviteAgeDays), [5, 7, 14, 30, 0, 0]);
+  assert.deepEqual(["a week ago", "an hour ago", "yesterday", "last month", "today"].map(feedEngage.inviteAgeDays), [7, 0, 1, 30, 0]);
   assert.deepEqual(["Ana Lima is a mutual connection", "Ana Lima and 12 other mutual connections", "4 mutual connections", "Based on your profile"].map(feedEngage.mutualCount), [1, 13, 4, 0]);
 
   const proto = LinkedInService.prototype;
@@ -423,7 +425,7 @@ test("the viral drafter sees our latest comments and drops a candidate that repe
   }
 });
 
-test("replies on our own posts: new comments answered once, ours and answered ones skipped, the owner's kept for them, a dry run posts nothing", async () => {
+test("replies on our own posts: new comments answered once, ones the owner answered by hand skipped, the owner's kept for them, a dry run posts nothing", async () => {
   const proto = LinkedInService.prototype;
   const saved = { scan: proto.scanOwnPosts, read: proto.readOwnPostComments, reply: proto.replyToComment, draft: llm.draftOwnReply, track: process.env.LINKEDIN_TRACK_PATH };
   process.env.LINKEDIN_TRACK_PATH = path.join(TMP, "own-replies-track.json");
@@ -431,10 +433,11 @@ test("replies on our own posts: new comments answered once, ours and answered on
   const post = { key: "urn:li:activity:1", text: "We open-sourced our agent eval harness today, with the retry logic we run in production.", ageH: 1, comments: 4 };
   proto.scanOwnPosts = async () => [post, { ...post, key: "urn:li:activity:0", text: "An older post with comments.", ageH: 100 }];
   proto.readOwnPostComments = async () => ({ status: "open", comments: [
-    { name: "Ana Lima", href: "https://www.linkedin.com/in/ana", text: "Congrats on shipping it!", own: false },
-    { name: "Drishtant Ghosh", href: "https://www.linkedin.com/in/drix10", text: "Ana Lima thank you, it took a while.", own: true },
-    { name: "Ben Ode", href: "https://www.linkedin.com/in/ben", text: "How many teams already use it in production?", own: false },
-    { name: "Cara Ng", href: "https://www.linkedin.com/in/cara", text: "Does the retry logic back off per tool or per agent?", own: false },
+    { name: "Ana Lima", href: "https://www.linkedin.com/in/ana", text: "Congrats on shipping it!", own: false, idx: 0, thread: 0, reply: false },
+    // the owner's hand reply, its mention deleted: the thread alone says Ana was answered
+    { name: "Drishtant Ghosh", href: "https://www.linkedin.com/in/drix10", text: "thank you, it took a while.", own: true, idx: 1, thread: 0, reply: true },
+    { name: "Ben Ode", href: "https://www.linkedin.com/in/ben", text: "How many teams already use it in production?", own: false, idx: 2, thread: 2, reply: false },
+    { name: "Cara Ng", href: "https://www.linkedin.com/in/cara", text: "Does the retry logic back off per tool or per agent?", own: false, idx: 3, thread: 3, reply: false },
   ] });
   const drafted = [], posted = [];
   llm.draftOwnReply = async ({ commenter, post: p }) => {
@@ -459,9 +462,45 @@ test("replies on our own posts: new comments answered once, ours and answered on
     await feedEngage.runOwnRepliesPass({ max: 1 });
     assert.deepEqual(drafted, [], "nothing is drafted twice");
     assert.equal(posted.length, 1);
+    // A post whose comments were not all read (one hidden may be the owner's answer) gets no replies at all.
+    proto.scanOwnPosts = async () => [{ ...post, key: "urn:li:activity:2", comments: 9 }];
+    await feedEngage.runOwnRepliesPass({ max: 3 });
+    assert.deepEqual(drafted, [], "a post read in part is left alone");
   } finally {
     Object.assign(proto, { scanOwnPosts: saved.scan, readOwnPostComments: saved.read, replyToComment: saved.reply });
     llm.draftOwnReply = saved.draft;
     process.env.LINKEDIN_TRACK_PATH = saved.track;
   }
+});
+
+test("who is still owed a reply on our post: one per thread, never where the owner already answered", () => {
+  const C = (idx, thread, name, own, reply, text = "a real question here") => ({ idx, thread, name, own, reply, text });
+  const owed = (cs) => feedEngage.pickUnanswered(cs).map((c) => c.idx);
+  // the owner answered Laurent by hand (no mention); Asad's thread is untouched
+  assert.deepEqual(owed([C(0, 0, "Asad Soomro", false, false), C(1, 1, "Laurent Chevrette", false, false), C(2, 1, "Drishtant Ghosh", true, true, "mostly stale context")]), [0]);
+  // a follow-up after our reply is owed; people talking under an untouched comment only owe the top one
+  assert.deepEqual(owed([C(0, 0, "Ana Lima", false, false), C(1, 0, "D G", true, true), C(2, 0, "Ana Lima", false, true), C(3, 3, "Ben Ode", false, false), C(4, 3, "Cara Ng", false, true)]), [2, 3]);
+  // a hand reply that landed as its own comment still answers the person it opens with
+  assert.deepEqual(owed([C(0, 0, "Laurent Chevrette", false, false), C(1, 1, "D G", true, false, "Laurent good question")]), []);
+  // a short first name is not found inside another word
+  assert.deepEqual(owed([C(0, 0, "Al Roy", false, false), C(1, 1, "D G", true, false, "Always ship it")]), [0]);
+});
+
+test("invites that left the sent list are marked accepted, only inside what the list covered", () => {
+  const day = 24 * 3600 * 1000, now = Date.now(), at = (d) => new Date(now - d * day).toISOString();
+  const track = {
+    "conn:https://www.linkedin.com/in/p1": { ts: at(3), status: "invited" },
+    "conn:https://www.linkedin.com/in/p2": { ts: at(4), status: "invited" },
+    "conn:https://www.linkedin.com/in/p3": { ts: at(5), status: "invited" },
+    "conn:https://www.linkedin.com/in/gone": { ts: at(6), status: "invited" },
+    "conn:https://www.linkedin.com/in/old": { ts: at(40), status: "invited" },
+    "conn:https://www.linkedin.com/in/wd": { ts: at(6), status: "invited", withdrawnAt: at(1) },
+  };
+  const rows = ["p1", "p2", "p3"].map((p) => ({ href: `https://www.linkedin.com/in/${p}/`, sent: "2 weeks ago" }));
+  assert.equal(feedEngage.noteAccepted(track, rows, now), 1);
+  assert.ok(track["conn:https://www.linkedin.com/in/gone"].acceptedAt);
+  assert.ok(!track["conn:https://www.linkedin.com/in/old"].acceptedAt, "older than the list covered: unknown");
+  assert.ok(!track["conn:https://www.linkedin.com/in/wd"].acceptedAt, "withdrawn by us");
+  // rows that match nothing tracked (a changed link format) mark nothing
+  assert.equal(feedEngage.noteAccepted(track, [{ href: "https://www.linkedin.com/in/ACoAAx", sent: "1 month ago" }], now), 0);
 });

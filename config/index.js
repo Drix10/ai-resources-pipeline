@@ -125,8 +125,8 @@ const config = {
     // 3-7 no-note connection requests after each batch commit to US people in AI/tech (2 of 3) and finance/investing.
     linkedinConnect: process.env.LINKEDIN_CONNECT !== "false",
     // Replies to the comments on our own posts (the first hour decides a post's reach): at the start of a run
-    // and after each batch commit; `npm run golden` watches a new post for its first 90 minutes. Off by default.
-    linkedinOwnReplies: process.env.LINKEDIN_OWN_REPLIES === "true",
+    // and after each batch commit. A comment only the owner can answer is logged for them, never guessed.
+    linkedinOwnReplies: process.env.LINKEDIN_OWN_REPLIES !== "false",
     twitterPost: process.env.TWITTER_POST !== "false",
     // Optional credit lines in announcement tweets ("Made by @you via @yourorg"); empty = no line.
     tweetCredit: {

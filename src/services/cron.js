@@ -1,4 +1,4 @@
-const { logger, handleError, sleep, REPO_ROOT, digestLead } = require("../utils/helpers");
+const { logger, handleError, sleep, REPO_ROOT, digestLead, announcementProblem } = require("../utils/helpers");
 const fs = require("fs");
 const path = require("path");
 const config = require("../../config");
@@ -396,7 +396,7 @@ const CREDIT = [MADE_BY && `Made by ${MADE_BY}`, VIA && `via ${VIA}`].filter(Boo
 // earns the click a generic line does not, else a plain line. The link follows in the thread's reply.
 const plainAnnouncement = (topic, lead) => {
   const text = `${lead}\n\nThis and more in today's ${topic} roundup, link below.`;
-  return lead && text.length <= 280 ? text : `Today's ${topic} roundup is out, link below.`;
+  return lead && !announcementProblem(lead) && text.length <= 280 ? text : `Today's ${topic} roundup is out, link below.`;
 };
 
 // A long wait that ends as soon as a stop is requested.
@@ -445,6 +445,7 @@ const processAllFolders = async () => {
       if (Date.now() - lastTweetAt < TWEET_GAP_MS) {
         return logger.info(`Not announcing ${item.queryName}: the last tweet went out under ${TWEET_GAP_MS / 60000} min ago.`);
       }
+      if (!item.url) return logger.warn(`Not announcing ${item.queryName}: it has no link for the reply.`);
       const topic = item.queryName;
       let text = await llmService.writeAnnouncement({ topic, content: item.content }).catch((err) => {
         if (err.code === "CLAUDE_STOPPED") return "";

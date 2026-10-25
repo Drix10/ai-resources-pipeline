@@ -675,11 +675,17 @@ test("the announcement is the model's, checked in code: no link at all (it goes 
     replies.push("Fooql 2.0 makes joins 3x faster. The numbers and sources below.");
     assert.equal(await write(), "Fooql 2.0 makes joins 3x faster. The numbers and sources below.");
     assert.match(prompts[0], /Fooql 2\.0/);
-    assert.match(prompts[0], /No link at all/);
+    assert.match(prompts[0], /No link, no domain name, no hashtag/);
     replies.push("Fooql 2.0: {LINK}");
     await assert.rejects(write(), /carries a link/);
     replies.push("Fooql 2.0 (see https://acme.dev)");
     await assert.rejects(write(), /carries a link/);
+    replies.push("Fooql 2.0 is on acme.dev now");
+    await assert.rejects(write(), /carries a link/, "a bare domain is a link on X");
+    replies.push("Fooql 2.0 makes joins 3x faster #databases");
+    await assert.rejects(write(), /hashtag or @mention/);
+    replies.push("Fooql 2.0 makes joins 3x faster 👇");
+    await assert.rejects(write(), /emoji/);
     replies.push("x".repeat(280));
     assert.ok(await write(), "280 is the limit");
     replies.push("x".repeat(281));

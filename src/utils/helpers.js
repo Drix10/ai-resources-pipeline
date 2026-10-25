@@ -240,6 +240,16 @@ const digestLead = (content) => {
   return { title: (items[0] || {}).title || "", summary };
 };
 
+// Why a line cannot go in an X announcement, or "": a link (bare domains too: X turns them into links and
+// counts each as 23 characters), a hashtag, an @mention, or an emoji (ChromeDriver cannot type one).
+const announcementProblem = (text) => {
+  const t = String(text || "");
+  if (/https?:\/\/|\bwww\.|\{LINK\}|\b[a-z0-9-]+\.(?:com|io|ai|dev|org|net|co|app|xyz|gg|so|sh|me|ly)\b/i.test(t)) return "a link";
+  if (/(?:^|\s)[#@][\p{L}\p{N}_]/u.test(t)) return "a hashtag or @mention";
+  if (/[\u{10000}-\u{10FFFF}]/u.test(t)) return "an emoji";
+  return "";
+};
+
 const isPersonalEntry = (name) => String(name).toLowerCase() === "personal";
 // YYYY-MM-DD in local time: the day the article was written where it was written, not in UTC.
 const localDate = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
@@ -429,6 +439,7 @@ module.exports = Object.freeze({
   redactSecrets,
   generateSeoSlug,
   digestLead,
+  announcementProblem,
   rebuildBlogIndex,
   isEnglish,
 });

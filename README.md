@@ -56,8 +56,6 @@ npm test                                      # runs offline, against a temporar
 ```bash
 npm start                    # one full run, then exit
 npm run preview -- --max 3   # print the LinkedIn comments and likes a run would make, without posting
-npm run post-check -- draft.txt   # before you post on LinkedIn: ranking problems (links, hashtags, bait) and stronger openings
-npm run golden               # right after you post on LinkedIn: answer its comments for 90 min (--dry: print only)
 npm run preview -- --viral   # the same for the viral pass: big names and the day's most-engaged posts
 npm run seo:audit -- <url>   # audit a deployed blog for SEO issues
 ```
@@ -74,7 +72,7 @@ Every setting is in [`.env.example`](.env.example) with a comment and a working 
 | `TWITTER_POST` | Post the announcement on X (`true`/`false`) |
 | `LINKEDIN_LIKE`, `LINKEDIN_FEED_REPLY`, `LINKEDIN_VIRAL`, `LINKEDIN_CONNECT`, `LINKEDIN_PROFILE_SLUG` | LinkedIn engagement switches and your profile (caps: `LINKEDIN_*_MAX_PER_DAY`, see `.env.example`) |
 | `LINKEDIN_TARGETED` | `true`: target AI/finance (searches, big names, topic and US filters); `false`: home feed and People you may know only |
-| `LINKEDIN_OWN_REPLIES` | Reply to the comments on your own posts (start of each run and after each batch); a comment only you can answer is printed for you, never guessed |
+| `LINKEDIN_OWN_REPLIES` | On by default: reply to the comments on your own posts (start of each run and after each batch). Never twice, never where you already replied by hand; a comment only you can answer is logged for you, never guessed |
 | `DEVTO_API_KEY`, `DEVTO_AUTO_PUBLISH` | DEV.to syndication |
 | `NVIDIA_API_KEY` | NVIDIA NIM (provider `nvidia`, and the fallback for `openrouter` and `claude`) |
 | `AUTHOR_NAME`, `AUTHOR_HANDLE`, `AUTHOR_EMAIL`, `AUTHOR_WEBSITE_URL` (and `AUTHOR_*_URL` links) | Your identity: commit author, article bylines and footers, the LinkedIn persona |

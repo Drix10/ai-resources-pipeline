@@ -53,6 +53,25 @@ const CARDS_JS = `
 // any editable text box in the card, which is only ever the comment box.
 const COMMENT_EDITOR_SEL = '[aria-label="Text editor for creating comment"], .tiptap, .ProseMirror, .ql-editor, [contenteditable="true"]';
 
+// A profile or company slug from a link, decoded and lower-cased ("" when none).
+const hrefSlug = (href, kind) => {
+  const s = (String(href || "").match(new RegExp(`/${kind}/([^/?#]+)`, "i")) || [])[1] || "";
+  try { return decodeURIComponent(s).toLowerCase(); } catch (e) { return s.toLowerCase(); }
+};
+
+// One of our own posts on our activity page (arguments[0] = its text's start, arguments[1] = its activity URN),
+// and its comments: OPTS is each comment's options button, boxOf its comment box, nameOf its author.
+const OWN_CARD_JS = `
+  const norm = s => (s || '').replace(/[\\u200b-\\u200d\\ufeff]/g, '').replace(/\\s+/g, ' ').trim();
+  ${CARDS_JS}
+  const urnId = (String(arguments[1]).match(/\\d{6,}/) || [''])[0];
+  const card = (urnId && cards.find(c => c.matches('[data-urn*="' + urnId + '"]') || c.querySelector('[data-urn*="' + urnId + '"], a[href*="' + urnId + '"]')))
+    || (norm(arguments[0]).length >= 30 ? cards.find(c => norm(c.innerText).includes(norm(arguments[0]))) : null) || null;
+  const OPTS = 'button[aria-label^="View more options for"]';
+  const boxOf = (b) => { let box = b; while (box.parentElement && box !== card && !box.querySelector('button[aria-label="Reply"]') && box.parentElement.querySelectorAll(OPTS).length === 1) box = box.parentElement; return box; };
+  const nameOf = (b) => ((b.getAttribute('aria-label') || '').match(/^View more options for (.+?)[\\u2019']s (?:comment|reply)\\.?$/i) || [])[1] || '';
+`;
+
 // The comment section of an opened card. LinkedIn renders no <article> per comment any more, and
 // its comment markup differs by page, so the section is read as a reader sees it:
 //  commentersOf(card): every commenter's name, from the buttons that name a comment ("View more
@@ -521,12 +540,12 @@ class LinkedInService {
           if (LinkedInService.isActivityCard(text)) { dropped.activity++; continue; } // someone else's post in activity chrome: wrong author
           if (LinkedInService.hasMixedAuthors(text)) { dropped.mixed++; continue; } // two authors merged in one card: attribution unknowable
           if (LinkedInService.isFeedModuleText(text)) { dropped.module++; continue; } // recommendation module (Jobs/People cards): not a post
-          if (LinkedInService.isFeedSpamText(text)) { dropped.spam++; continue; }
+          if (!own && LinkedInService.isFeedSpamText(text)) { dropped.spam++; continue; } // (our own posts all get their replies)
           if (this.isOwnPost(item) !== own) { dropped.own++; continue; } // own post: never engage (own: only those)
-          if (keySrc.split(/\s+/).length < MIN_WORDS) { dropped.thin++; continue; }
+          if (!own && keySrc.split(/\s+/).length < MIN_WORDS) { dropped.thin++; continue; }
           const allLetters = keySrc.match(/[\p{L}]/gu) || [];
           const asciiLetters = keySrc.match(/[A-Za-z]/g) || [];
-          if (allLetters.length > 0 && asciiLetters.length / allLetters.length < 0.5) { dropped.nonlatin++; continue; }
+          if (!own && allLetters.length > 0 && asciiLetters.length / allLetters.length < 0.5) { dropped.nonlatin++; continue; }
           // Life updates and milestones pass through: they ride the CONGRATS path.
           // Drafting/validation see the clean BODY only - never the headline (which is
           // what produced "Great post on Machine Learning Engineer" on an interview post).
@@ -1023,7 +1042,8 @@ class LinkedInService {
     const posts = await this.scanFeedPosts({ maxPosts, maxScrolls: 4, url: `https://www.linkedin.com/in/${slug}/recent-activity/all/`, own: true });
     // Our own cards carry "Promote this post ... Boost" above the author, which pushes the age line past where
     // postBodyFromLines looks: the text starts below the first age line ("22h •").
-    return posts.map((p) => ({ ...p, text: LinkedInService.ownPostText(p.text) }));
+    // (an image-only post leaves too little text to find its card by: only one with its URN is kept)
+    return posts.map((p) => ({ ...p, text: LinkedInService.ownPostText(p.text) })).filter((p) => p.urn || p.text.length >= 30);
   }
 
   static ownPostText(text) {
@@ -1036,62 +1056,90 @@ class LinkedInService {
   // A comment's own words from its box text: below its age line ("3w"), without the box's chrome.
   static commentBody(boxText) {
     const lines = String(boxText || "").split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
-    const at = lines.findIndex((l) => /^\d+\s*(?:s|m|h|d|w|mo|yr)$/.test(l));
-    const CHROME = /^(?:Follow|Following|Author|Edited|Like|Reply|Pinned|Report|Load more|See translation|\d+|\d+ reactions?|\d+ repl(?:y|ies)|[\d,]+ impressions?|•.*)$/i;
+    // ("3w", or "3w • Edited")
+    const at = lines.findIndex((l) => /^\d+\s*(?:s|m|h|d|w|mo|yr)\b(?:\s*•.*)?$/.test(l));
+    const CHROME = /^(?:Follow|Following|Author|\(?Edited\)?|Like|Reply|Pinned|Report|Load more|See translation|(?:…|\.\.\.)\s*(?:see )?more|\d+|\d+ reactions?|\d+ repl(?:y|ies)|[\d,]+ impressions?|•.*)$/i;
     return lines.slice(at + 1).filter((l) => !CHROME.test(l)).join(" ").replace(/\s+/g, " ").trim();
   }
 
-  // Every comment and reply under one of our posts (found by its text on the page scanOwnPosts left open), in
-  // page order: [{ name, href, text, own }]. Opens the comment section and its "load more"; posts nothing.
-  async readOwnPostComments(textSnippet) {
-    const snip = String(textSnippet).substring(0, 80);
-    const FIND = `
-      const norm = s => (s || '').replace(/[\\u200b-\\u200d\\ufeff]/g, '').replace(/\\s+/g, ' ').trim();
-      ${CARDS_JS}
-      const card = cards.find(c => norm(c.innerText).includes(norm(arguments[0]))) || null;
-    `;
-    const OPTS = 'button[aria-label^="View more options for"]';
+  // Every comment and reply under one of our posts, in page order: [{ name, href, text, own, idx, thread, reply }].
+  // thread = the idx of the top-level comment it sits under (replies are indented under it). The view is switched
+  // to "Most recent" first: "Most relevant" hides comments, and a hidden reply of ours would be answered twice.
+  // Opens the section, the sort menu and every "load more"; posts nothing.
+  async readOwnPostComments(post) {
+    const args = [String(post.text || "").substring(0, 80), String(post.urn || "")];
+    const run = (js) => this.driver.executeScript(`${OWN_CARD_JS}${js}`, ...args);
     try {
       await this.ensureDriverConnected(true);
-      const opened = await this.driver.executeScript(`${FIND}
+      const opened = await run(`
         if (!card) return 'no-card';
         card.scrollIntoView({ block: 'center' });
-        if (card.querySelector('${OPTS}')) return 'open';
+        if (card.querySelector(OPTS)) return 'open';
         const toggle = Array.from(card.querySelectorAll('button')).find(b => (b.getAttribute('aria-label') || '').toLowerCase() === 'comment');
         if (!toggle) return 'no-toggle';
         toggle.click();
         return 'opened';
-      `, snip).catch(() => "fail");
+      `).catch(() => "fail");
       if (opened !== "open" && opened !== "opened") return { status: "failed", reason: opened, comments: [] };
-      // Comments render after the section opens; older ones and replies sit behind "load more" buttons.
-      for (let i = 0; i < 8; i++) {
-        await nap(1500);
-        const more = await this.driver.executeScript(`${FIND}
-          if (!card) return -1;
-          const b = Array.from(card.querySelectorAll('button')).find(x => /^(?:load (?:more|previous) (?:comments|replies)|see previous replies|\\d+ repl(?:y|ies))$/i.test((x.innerText || '').trim()));
-          if (b) { b.click(); return 1; }
-          return card.querySelectorAll('${OPTS}').length ? 0 : 2;
-        `, snip).catch(() => -1);
-        if (more === 0 && i >= 1) break;
-        if (more === -1) return { status: "failed", reason: "card gone", comments: [] };
+      for (let i = 0; i < 10 && !(await run(`return !!(card && card.querySelector(OPTS));`).catch(() => false)); i++) await nap(1500);
+      // The sort control is a role=button reading "Most relevant"; its menu renders outside the card.
+      let sorted = false;
+      for (let i = 0; i < 2 && !sorted; i++) {
+        const sort = await run(`
+          if (!card) return 'no-card';
+          const s = Array.from(card.querySelectorAll('[role="button"]')).find(x => /^Most (?:relevant|recent)$/.test(norm(x.innerText)));
+          if (!s) return /may not be displayed/i.test(card.innerText) ? 'hidden' : 'none';
+          if (/recent/i.test(s.innerText)) return 'recent';
+          s.click();
+          return 'menu';
+        `).catch(() => "fail");
+        if (sort === "recent" || sort === "none") { sorted = true; break; }
+        if (sort !== "menu") return { status: "failed", reason: `sort ${sort}`, comments: [] };
+        await nap(1200);
+        await run(`
+          const item = Array.from(document.querySelectorAll('p, span, strong, li, div')).filter(x => !card.contains(x) && /^Most recent$/.test(norm(x.innerText)) && x.getClientRects().length).pop();
+          if (item) item.click();
+        `).catch(() => {});
+        await nap(2500);
       }
-      const ownSlug = await this._ownProfileSlug();
-      const rows = await this.driver.executeScript(`${FIND}
+      if (!sorted) return { status: "failed", reason: "could not switch the comments to Most recent", comments: [] };
+      // Older comments and collapsed replies sit behind "load more" buttons; each is clicked once (some toggle).
+      for (let i = 0, idle = 0; i < 20 && idle < 2; i++) {
+        await nap(1500);
+        const more = await run(`
+          if (!card) return -1;
+          const b = Array.from(card.querySelectorAll('button')).find(x => !x.dataset.ownDone && /^(?:(?:load|see|view|show) (?:\\d+ )?(?:more |previous |all |earlier )?(?:comments?|repl(?:y|ies))|\\d+ repl(?:y|ies))$/i.test(norm(x.innerText)));
+          if (b) { b.dataset.ownDone = '1'; b.click(); return 1; }
+          return 0;
+        `).catch(() => -1);
+        if (more === -1) return { status: "failed", reason: "card gone", comments: [] };
+        idle = more ? 0 : idle + 1;
+      }
+      const rows = await run(`
         if (!card) return null;
-        return Array.from(card.querySelectorAll('${OPTS}')).map(b => {
-          const name = ((b.getAttribute('aria-label') || '').match(/^View more options for (.+?)[\\u2019']s comment\\.?$/i) || [])[1] || '';
-          // The widest ancestor holding this one comment's options is the comment (its replies have their own).
-          let box = b;
-          while (box.parentElement && box !== card && !box.querySelector('button[aria-label="Reply"]') && box.parentElement.querySelectorAll('${OPTS}').length === 1) box = box.parentElement;
+        const left = card.getBoundingClientRect().left;
+        return Array.from(card.querySelectorAll(OPTS)).map(b => {
+          const box = boxOf(b);
           const a = box.querySelector('a[href*="/in/"], a[href*="/company/"]');
-          return { name: name.trim(), href: a ? a.href.split('?')[0] : '', box: box.innerText || '' };
+          const r = a && a.getBoundingClientRect();
+          return { name: nameOf(b).trim(), href: a ? a.href.split('?')[0] : '', box: box.innerText || '', indent: r && r.width ? Math.round(r.left - left) : null };
         });
-      `, snip).catch(() => null);
+      `).catch(() => null);
       if (!rows) return { status: "failed", reason: "card gone", comments: [] };
-      const comments = rows.filter((r) => r.name).map((r) => ({
-        name: r.name, href: r.href, text: LinkedInService.commentBody(r.box),
-        own: Boolean(ownSlug && r.href.includes(`/in/${ownSlug}`)) || /(?:^|\n)\s*Author\s*(?:\n|$)/.test(r.box),
-      }));
+      // Without each comment's indent, replies cannot be told from comments: never guess who was answered.
+      if (rows.some((r) => r.indent === null)) return { status: "failed", reason: "comment layout unreadable", comments: [] };
+      if (rows.some((r) => !r.name)) return { status: "failed", reason: "a comment without its author's name", comments: [] };
+      const ownSlug = await this._ownProfileSlug();
+      const top = Math.min(...rows.map((r) => r.indent));
+      let thread = -1;
+      const comments = rows.map((r, idx) => {
+        const reply = r.indent > top + 12 && thread >= 0;
+        if (!reply) thread = idx;
+        return {
+          name: r.name, href: r.href, text: LinkedInService.commentBody(r.box), idx, thread, reply,
+          own: Boolean(ownSlug && hrefSlug(r.href, "in") === ownSlug.toLowerCase()) || /(?:^|\n)\s*Author\s*(?:\n|$)/.test(r.box),
+        };
+      });
       return { status: "open", comments };
     } catch (e) {
       if (isLinkedInStop(e)) throw e;
@@ -1100,45 +1148,55 @@ class LinkedInService {
     }
   }
 
-  // Reply to one comment under our post: the Reply button inside that person's comment (by name and profile)
-  // opens an editor that already holds a mention of them; the text goes in after it and the editor's own
-  // Reply button submits. Proven by the text showing in the thread. "posted" | "uncertain" | "failed".
-  async replyToComment(textSnippet, comment, text) {
-    const snip = String(textSnippet).substring(0, 80);
-    const FIND = `
-      const norm = s => (s || '').replace(/[\\u200b-\\u200d\\ufeff]/g, '').replace(/\\s+/g, ' ').trim();
-      ${CARDS_JS}
-      const card = cards.find(c => norm(c.innerText).includes(norm(arguments[0]))) || null;
-      const OPTS = 'button[aria-label^="View more options for"]';
-      const boxOf = (b) => { let box = b; while (box.parentElement && box !== card && !box.querySelector('button[aria-label="Reply"]') && box.parentElement.querySelectorAll(OPTS).length === 1) box = box.parentElement; return box; };
-    `;
-    const slug = (String(comment.href || "").match(/\/(?:in|company)\/([^/?#]+)/) || [])[1] || "";
+  // Reply to one comment under our post: the Reply button inside that person's comment (by exact name, profile and
+  // text) opens an editor that already holds a mention of them; the text goes in after it and that editor's own
+  // Reply button submits. Proven by one more comment box showing the text. "posted" | "uncertain" | "failed".
+  async replyToComment(post, comment, text) {
+    const args = [String(post.text || "").substring(0, 80), String(post.urn || "")];
+    const run = (js, ...more) => this.driver.executeScript(`${OWN_CARD_JS}${js}`, ...args, ...more);
+    const slug = hrefSlug(comment.href, "in") || hrefSlug(comment.href, "company");
+    const want = String(text).replace(/\s+/g, " ").trim().substring(0, 40);
+    const shownCount = () => run(`
+      if (!card) return -1;
+      return Array.from(card.querySelectorAll(OPTS)).filter(b => { const box = boxOf(b); return !box.querySelector('[contenteditable="true"]') && norm(box.innerText).includes(norm(arguments[2])); }).length;
+    `, want).catch(() => -1);
+    // Our editor for this person: holds the mention of them (and, once typed, our text).
+    const EDITOR = `const editors = (withText) => Array.from(card.querySelectorAll(${JSON.stringify(COMMENT_EDITOR_SEL)}))
+      .filter(e => e.isContentEditable && e.querySelector('[data-type="mention"]') && norm(e.innerText).includes(norm(arguments[2]))
+        && (!withText || norm(e.innerText).includes(norm(arguments[3]).slice(0, 30))));`;
+    // A failed attempt leaves no half-written reply behind for a later submit to pick up.
+    const clear = () => run(`if (!card) return; ${EDITOR}
+      for (const e of editors(false)) { e.focus(); document.execCommand('selectAll'); document.execCommand('delete'); }`, comment.name, "").catch(() => {});
     let submitted = false;
     try {
       await this.ensureDriverConnected(true);
-      const clicked = await this.driver.executeScript(`${FIND}
+      const before = await shownCount();
+      if (before < 0) return "failed";
+      const clicked = await run(`
         if (!card) return 'no-card';
-        const opt = Array.from(card.querySelectorAll(OPTS)).find(b =>
-          (b.getAttribute('aria-label') || '').replace(/[\\u2019']s comment\\.?$/, '').endsWith(arguments[1])
-          && (!arguments[2] || !!boxOf(b).querySelector('a[href*="/' + arguments[2] + '"]')));
+        const opt = Array.from(card.querySelectorAll(OPTS)).find(b => {
+          const box = boxOf(b);
+          return norm(nameOf(b)) === norm(arguments[2])
+            && (!arguments[3] || Array.from(box.querySelectorAll('a[href*="/in/"], a[href*="/company/"]')).some(a => { const s = (a.href.match(/\\/(?:in|company)\\/([^/?#]+)/) || [])[1] || ''; let d = s; try { d = decodeURIComponent(s); } catch (e) {} return d.toLowerCase() === arguments[3]; }))
+            && norm(box.innerText).includes(norm(arguments[4]).slice(0, 60));
+        });
         if (!opt) return 'no-comment';
         const reply = Array.from(boxOf(opt).querySelectorAll('button')).find(b => (b.getAttribute('aria-label') || '').trim() === 'Reply');
         if (!reply) return 'no-reply-button';
         reply.scrollIntoView({ block: 'center' });
         reply.click();
         return 'clicked';
-      `, snip, comment.name, slug).catch(() => "fail");
+      `, comment.name, slug, comment.text).catch(() => "fail");
       if (clicked !== "clicked") {
         logger.warn(`LinkedInService: reply to ${comment.name} not opened (${clicked}).`);
         return "failed";
       }
       await nap(1800);
-      // The reply editor is the one holding the mention of this person; the text goes in after it with the
-      // editor's own insert command (needs no window focus), and is read back.
-      const typed = await this.driver.executeScript(`${FIND}
+      // The text goes in after the mention with the editor's own insert command (needs no window focus).
+      const typed = await run(`
         if (!card) return -1;
-        const ed = Array.from(card.querySelectorAll(${JSON.stringify(COMMENT_EDITOR_SEL)}))
-          .filter(e => e.isContentEditable && e.querySelector('[data-type="mention"]') && norm(e.innerText).includes(norm(arguments[1]))).pop();
+        ${EDITOR}
+        const ed = editors(false).pop();
         if (!ed) return -2;
         ed.focus();
         const r = document.createRange();
@@ -1147,45 +1205,48 @@ class LinkedInService {
         const sel = window.getSelection();
         sel.removeAllRanges();
         sel.addRange(r);
-        document.execCommand('insertText', false, arguments[2]);
-        return norm(ed.innerText).includes(norm(arguments[2]).slice(0, 30)) ? 1 : 0;
-      `, snip, comment.name, String(text)).catch(() => -1);
+        document.execCommand('insertText', false, arguments[3]);
+        return norm(ed.innerText).includes(norm(arguments[3]).slice(0, 30)) ? 1 : 0;
+      `, comment.name, String(text)).catch(() => -1);
       if (typed !== 1) {
         logger.warn(`LinkedInService: reply editor for ${comment.name} ${typed === -2 ? "did not open with the mention" : "did not take the text"}.`);
+        await clear();
         return "failed";
       }
-      await nap(1500);
-      const sent = await this.driver.executeScript(`${FIND}
-        if (!card) return 'no-card';
-        const ed = Array.from(card.querySelectorAll(${JSON.stringify(COMMENT_EDITOR_SEL)})).filter(e => e.isContentEditable && e.querySelector('[data-type="mention"]')).pop();
-        if (!ed) return 'no-editor';
-        // The submit is the "Reply" text button next to this editor (comment options use aria-labels, not text).
-        let f = ed, btn = null;
-        for (let i = 0; i < 8 && f.parentElement && !btn; i++) {
-          f = f.parentElement;
-          btn = Array.from(f.querySelectorAll('button')).find(b => (b.innerText || '').trim() === 'Reply' && !b.disabled);
-        }
-        if (!btn) return 'no-button';
-        btn.click();
-        return 'clicked';
-      `, snip).catch(() => "fail");
+      // The submit is the "Reply" text button after this editor; the comment's own Reply action (aria-label
+      // "Reply") is never it. Disabled while the editor settles: waited for, never climbed past.
+      let sent = "";
+      for (let i = 0; i < 4; i++) {
+        await nap(1500);
+        submitted = true; // a click may land from here on
+        sent = await run(`
+          if (!card) return 'no-card';
+          ${EDITOR}
+          const ed = editors(true).pop();
+          if (!ed) return 'no-editor';
+          let f = ed, btn = null;
+          for (let i = 0; i < 8 && f.parentElement && !btn; i++) {
+            f = f.parentElement;
+            btn = Array.from(f.querySelectorAll('button')).find(b => (b.innerText || '').trim() === 'Reply' && (b.getAttribute('aria-label') || '') !== 'Reply'
+              && (ed.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING));
+          }
+          if (!btn) return 'no-button';
+          if (btn.disabled || btn.getAttribute('aria-disabled') === 'true') return 'disabled';
+          btn.click();
+          return 'clicked';
+        `, comment.name, String(text)).catch(() => "uncertain");
+        if (sent !== "disabled") break;
+      }
+      if (sent === "uncertain") return "uncertain";
       if (sent !== "clicked") {
+        submitted = false;
         logger.warn(`LinkedInService: reply to ${comment.name} not submitted (${sent}).`);
+        await clear();
         return "failed";
       }
-      submitted = true;
-      const want = String(text).replace(/\s+/g, " ").trim().substring(0, 40);
       for (let i = 0; i < 10; i++) {
         await sleep(2000);
-        const shown = await this.driver.executeScript(`${FIND}
-          if (!card) return false;
-          const want = norm(arguments[1]);
-          return Array.from(card.querySelectorAll(OPTS)).some(b => {
-            const box = boxOf(b);
-            return !box.querySelector('[contenteditable="true"]') && norm(box.innerText).includes(want);
-          });
-        `, snip, want).catch(() => false);
-        if (shown) return "posted";
+        if ((await shownCount()) > before) return "posted";
       }
       return "uncertain";
     } catch (e) {
@@ -1350,13 +1411,13 @@ class LinkedInService {
         const out = [];
         const btns = Array.from(document.querySelectorAll('a, button')).filter(b => /^Invite .+ to connect$/i.test((b.getAttribute('aria-label') || '').trim()));
         for (const b of btns) {
+          // The widest ancestor holding this one Invite button is the person's card (a short card never climbs
+          // into the grid and takes its neighbour's link).
           let c = b;
-          for (let i = 0; i < 8 && c.parentElement; i++) {
-            c = c.parentElement;
-            if (c.querySelector('a[href*="/in/"]') && (c.innerText || '').length > 60) break;
-          }
-          const a = c.querySelector('a[href*="/in/"]');
+          while (c.parentElement && c.parentElement !== document.body && Array.from(c.parentElement.querySelectorAll('a, button')).filter(x => /^Invite .+ to connect$/i.test((x.getAttribute('aria-label') || '').trim())).length === 1) c = c.parentElement;
           const label = (b.getAttribute('aria-label') || '').trim();
+          const who = label.replace(/^Invite /i, '').replace(/ to connect$/i, '');
+          const a = Array.from(c.querySelectorAll('a[href*="/in/"]')).find(x => (x.innerText || '').includes(who)) || c.querySelector('a[href*="/in/"]');
           out.push({
             label: label,
             name: label.replace(/^Invite\\s+/i, '').replace(/\\s+to connect$/i, ''),
@@ -1406,7 +1467,8 @@ class LinkedInService {
         let c = b;
         while (c.parentElement && c.parentElement !== document.querySelector('main') && !c.matches('li') && c.parentElement.querySelectorAll('[aria-label^="Withdraw invitation sent to "]').length === 1) c = c.parentElement;
         const a = c.querySelector('a[href*="/in/"]');
-        const m = (c.innerText || '').match(/Sent ([^\\n]+)/);
+        // (a line of its own: "Sent 5 days ago", never a headline's "Founder at Sent Inc")
+        const m = (c.innerText || '').match(/(?:^|\\n)\\s*Sent ((?:\\d+|an?) [a-z]+ ago|today|yesterday|last \\w+)\\s*(?:\\n|$)/i);
         rows.push({ label: b.getAttribute('aria-label').trim(), href: a ? a.href.split('?')[0] : '', sent: m ? m[1].trim() : '' });
       }
       return rows;`;
@@ -1435,17 +1497,27 @@ class LinkedInService {
   // button is found inside the row whose /in/ link is this person's). Confirms LinkedIn's dialog, then
   // proves the row's Withdraw button is gone. Returns "withdrawn" | "fail".
   async withdrawInvite(invite) {
-    const slug = (String(invite.href || "").match(/\/in\/([^/?#]+)/) || [])[1] || "";
+    const slug = hrefSlug(invite.href, "in");
     try {
-      const clicked = await this.driver.executeScript(`
-        const [label, slug] = arguments;
-        const b = Array.from(document.querySelectorAll('a, button')).filter(x => (x.getAttribute('aria-label') || '').trim() === label)
-          .find(x => { let c = x; for (let i = 0; i < 8 && c.parentElement; i++) { c = c.parentElement; if (slug && c.querySelector('a[href*="/in/' + slug + '"]')) return true; } return !slug; });
-        if (!b) return 'no-button';
-        b.scrollIntoView({ block: 'center' });
-        b.click();
-        return 'clicked';
-      `, invite.label, slug).catch(() => "fail");
+      // The button inside the row (the widest ancestor holding one Withdraw button) that links exactly this
+      // person. A re-render after the last withdrawal may drop older rows: they are scrolled back in.
+      let clicked = "";
+      for (let i = 0; i < 5; i++) {
+        clicked = await this.driver.executeScript(`
+          const [label, slug] = arguments;
+          const W = '[aria-label^="Withdraw invitation sent to "]';
+          const rowOf = (x) => { let c = x; while (c.parentElement && c.parentElement !== document.querySelector('main') && !c.matches('li') && c.parentElement.querySelectorAll(W).length === 1) c = c.parentElement; return c; };
+          const slugIs = (a) => { const m = (a.href.match(/\\/in\\/([^/?#]+)/) || [])[1] || ''; let d = m; try { d = decodeURIComponent(m); } catch (e) {} return d.toLowerCase() === slug; };
+          const b = Array.from(document.querySelectorAll('a, button')).filter(x => !x.closest('dialog') && (x.getAttribute('aria-label') || '').trim() === label)
+            .find(x => !slug || Array.from(rowOf(x).querySelectorAll('a[href*="/in/"]')).some(slugIs));
+          if (!b) { const w = Array.from(document.querySelectorAll(W)); if (w.length) w[w.length - 1].scrollIntoView({ block: 'end' }); window.scrollBy(0, 400); return 'no-button'; }
+          b.scrollIntoView({ block: 'center' });
+          b.click();
+          return 'clicked';
+        `, invite.label, slug).catch(() => "fail");
+        if (clicked !== "no-button") break;
+        await nap(2000);
+      }
       if (clicked !== "clicked") return "fail";
       await nap(1500);
       const confirmed = await this.driver.executeScript(`
@@ -1454,7 +1526,7 @@ class LinkedInService {
         // A native <dialog> (no role) titled "Withdraw invitation"; the page also keeps hidden ad dialogs.
         for (const r of roots) {
           const dlg = Array.from(r.querySelectorAll('dialog, [role="alertdialog"], [role="dialog"], .artdeco-modal'))
-            .find(x => /withdraw invitation/i.test(x.innerText || ''));
+            .find(x => (x.open || x.getClientRects().length) && /withdraw invitation/i.test(x.innerText || ''));
           if (!dlg) continue;
           const ok = Array.from(dlg.querySelectorAll('button')).find(x => (x.innerText || '').trim().toLowerCase() === 'withdraw');
           if (ok) { ok.click(); return 'confirmed'; }
@@ -1467,8 +1539,10 @@ class LinkedInService {
       }
       for (let i = 0; i < 4; i++) {
         await nap(1500);
-        // (the dialog's own Withdraw button carries the same label)
-        const gone = await this.driver.executeScript(`return !Array.from(document.querySelectorAll('a, button')).some(x => !x.closest('dialog') && (x.getAttribute('aria-label') || '').trim() === arguments[0]);`, invite.label).catch(() => false);
+        // (the dialog's own Withdraw button carries the same label; a list mid-reload holds no rows at all)
+        const gone = await this.driver.executeScript(`
+          const rows = Array.from(document.querySelectorAll('a, button')).filter(x => !x.closest('dialog') && /^Withdraw invitation sent to /i.test(x.getAttribute('aria-label') || ''));
+          return rows.length > 0 && !rows.some(x => (x.getAttribute('aria-label') || '').trim() === arguments[0]);`, invite.label).catch(() => false);
         if (gone) return "withdrawn";
       }
       return "fail";

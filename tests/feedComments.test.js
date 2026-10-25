@@ -457,6 +457,12 @@ test("own-post replies: a judged answer passes; the commenter's name up front, a
   r = await draft();
   assert.equal(r.isValid, false);
   assert.match(r.errors.join(" "), /starts with their name/);
+  queue = ["MODE: REPLY\nREPLY: Hi Cara, per tool: each one keeps its own retry budget."];
+  r = await draft();
+  assert.match(r.errors.join(" "), /starts with their name/, "a greeting with the name");
+  queue = ["MODE: REPLY\nREPLY: Per tool. Each tool keeps its own retry budget so one flaky tool never stalls the agent.", "PASS/FAIL: FAIL - overclaims"];
+  r = await draft();
+  assert.equal(r.isValid, false, "a verdict line with FAIL in it never passes");
   queue = ["MODE: REPLY\nREPLY: Per tool, and 40 teams already run it that way in production."];
   r = await draft();
   assert.equal(r.isValid, false, "a number neither the post nor the comment states");
