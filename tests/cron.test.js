@@ -40,10 +40,12 @@ stub("src/services/llm.js", { beginRun: () => calls.push("llm-beginRun"), genera
 // The X reply passes: recorded with the instance they were handed (cron's own TwitterService).
 const xPasses = [];
 stub("src/services/xReplies.js", { runXReplyPass: async (opts) => { calls.push(`x-replies:${opts.viral ? "viral" : "regular"}`); xPasses.push(opts); return { replied: 0, skipped: 0, reason: "" }; } });
+const redditPasses = [];
+stub("src/services/redditComments.js", { runRedditPass: async (opts) => { calls.push("reddit"); redditPasses.push(opts); return { commented: 0, skipped: 0, pains: 0, reason: "" }; }, cleanup: async () => calls.push("reddit-cleanup") });
 stub("src/services/syndication.js", { processQueue: async () => { calls.push("syndication"); return null; } });
 const config = require("../config");
 config.folders = [{ name: "A" }, { name: "B" }, { name: "C" }, { name: "D" }];
-config.social = { ...config.social, linkedinLike: false, linkedinFeedReply: false, linkedinConnect: false, xReplies: true };
+config.social = { ...config.social, linkedinLike: false, linkedinFeedReply: false, linkedinConnect: false, xReplies: true, redditComments: true };
 config.factory = { ...config.factory, enabled: false };
 
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), "cron-"));
@@ -74,7 +76,9 @@ test("a run commits, marks only the sources used, replies on X after each batch 
   assert.ok(xPasses.every((o) => o.twitter instanceof FakeTwitter && typeof o.shouldStop === "function"));
   assert.ok(xPasses.every((o) => (o.viral ? o.max >= 1 && o.max <= 2 : o.max >= 2 && o.max <= 3)), "2-3 regular, 1-2 viral, like LinkedIn");
   assert.ok(calls.includes("readme") && calls.includes("syndication"));
-  assert.ok(calls.includes("x-cleanup") && calls.includes("li-cleanup"), "browsers released at the end of every run");
+  assert.equal(calls.filter((c) => c === "reddit").length, batches, "one Reddit pass per batch");
+  assert.ok(calls.indexOf("reddit") > firstUpload && redditPasses.every((o) => o.max === 1 && typeof o.shouldStop === "function"), "one Reddit comment at most, after a commit");
+  assert.ok(calls.includes("x-cleanup") && calls.includes("li-cleanup") && calls.includes("reddit-cleanup"), "browsers released at the end of every run");
   assert.ok(!fs.existsSync(LOCK), "lock released");
 });
 
@@ -103,9 +107,12 @@ test("X_UNAVAILABLE ends the X phase at once; an X init failure skips curation b
   assert.ok(!calls.some((c) => c.startsWith("x-replies:")), "no X replies without an X session");
   assert.ok(calls.includes("readme"));
   config.social.xReplies = false;
+  config.social.redditComments = false;
   calls.length = 0;
   await cron.processAllFolders();
   config.social.xReplies = true;
+  config.social.redditComments = true;
+  assert.ok(!calls.includes("reddit"), "REDDIT_COMMENTS=false turns them off");
   assert.ok(calls.some((c) => c.startsWith("upload:")) && !calls.some((c) => c.startsWith("x-replies:")), "X_REPLIES=false turns them off");
 });
 
