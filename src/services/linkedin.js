@@ -742,7 +742,8 @@ class LinkedInService {
       const el = await this.driver.executeScript(`
         const norm = s => (s || '').replace(/[\\u200b-\\u200d\\ufeff]/g, '').replace(/\\s+/g, ' ').trim();
         ${CARDS_JS}
-        return cards.find(c => norm(c.innerText).includes(norm(arguments[0]))) || null;
+        // (a hidden copy of the card has 0 width and cannot be captured)
+        return cards.find(c => c.getBoundingClientRect().width > 0 && norm(c.innerText).includes(norm(arguments[0]))) || null;
       `, String(textSnippet).substring(0, 80));
       if (!el) return false;
       // The whole card, in page coordinates, below the page's sticky headers (an element screenshot
