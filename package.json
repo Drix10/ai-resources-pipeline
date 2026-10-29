@@ -17,10 +17,12 @@
     "node": ">=20"
   },
   "dependencies": {
+    "@huggingface/hub": "^2.17.10",
     "@octokit/rest": "^22.0.1",
     "axios": "^1.19.0",
     "cheerio": "^1.2.0",
     "dotenv": "^16.4.5",
+    "hyparquet-writer": "^0.18.0",
     "selenium-webdriver": "^4.47.0",
     "winston": "^3.17.0",
     "wordlist-english": "^1.2.1"

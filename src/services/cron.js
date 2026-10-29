@@ -8,6 +8,7 @@ const TwitterService = new twitterService();
 const feedEngage = require("./feedEngage");
 const xReplies = require("./xReplies");
 const redditComments = require("./redditComments");
+const hfDataset = require("./hfDataset");
 const GithubService = require("./github");
 const llmService = require("./llm");
 
@@ -652,6 +653,15 @@ const processAllFolders = async () => {
     );
     // The run's commits (and any an earlier run left on its branch) go into main through a merged pull request.
     await GithubService.finishRunBranches(config.github.owner, config.github.repo);
+
+    // Weekly: the resources repo as a Hugging Face dataset (skipped without HF_TOKEN or inside 7 days of the last upload).
+    if (!stopping()) {
+      try {
+        await hfDataset.runHfDataset({ shouldStop: stopping });
+      } catch (hfErr) {
+        logger.warn(`Cycle End: Hugging Face dataset upload failed (non-fatal): ${hfErr?.message ?? hfErr}`);
+      }
+    }
 
     if (successfulArticles.length > 0) {
       logger.info(`Cycle End: Successfully processed and syndicated ${successfulArticles.length} curated guide(s).`);

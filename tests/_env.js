@@ -16,8 +16,9 @@ process.env.GITHUB_CO_AUTHOR = "";
 // Secrets (key names from .env.example, plus the GitHub tokens the gh CLI reads): blank, so a
 // stray call cannot authenticate or spend money.
 for (const key of [
-  "OPENROUTER_API_KEY", "NVIDIA_API_KEY", "DEVTO_API_KEY", "GITHUB_TOKEN", "GH_TOKEN",
+  "OPENROUTER_API_KEY", "NVIDIA_API_KEY", "DEVTO_API_KEY", "GITHUB_TOKEN", "GH_TOKEN", "HF_TOKEN",
 ]) process.env[key] = "";
+process.env.HF_DATASET_REPO = "";
 // Posting flags: off. Several default to on when unset, so they are set to "false", not blanked.
 // FACTORY_ENABLED is off too: the optional content factory never runs in a test unless the test
 // turns it on itself.
@@ -53,6 +54,7 @@ process.env.X_REPLIES_TRACK_PATH = path.join(dir, "data", "x-replies.json");
 process.env.REDDIT_TRACK_PATH = path.join(dir, "data", "reddit-comments.json");
 process.env.REDDIT_PAINPOINTS_PATH = path.join(dir, "data", "reddit-painpoints.jsonl");
 process.env.SYNDICATION_QUEUE_PATH = path.join(dir, "data", "syndication-queue.json");
+process.env.HF_DATASET_STATE_PATH = path.join(dir, "data", "hf-dataset.json");
 // Neither exists: the blog index rebuild and the blog's git sync find nothing to do.
 process.env.BLOG_DIR = path.join(dir, "blog");
 process.env.BLOG_REPO_DIR = path.join(dir, "no-repo");

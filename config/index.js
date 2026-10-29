@@ -147,6 +147,13 @@ const config = {
       enabled: process.env.DEVTO_AUTO_PUBLISH === "true",
     },
   },
+  // The resources repo as a Hugging Face dataset (src/services/hfDataset.js), refreshed weekly at the end of a
+  // run; skipped, with one info line, until HF_TOKEN (a write token) is set.
+  hfDataset: {
+    enabled: process.env.HF_DATASET !== "false",
+    token: env("HF_TOKEN"),
+    repo: env("HF_DATASET_REPO") || "Drix10/ai-resources",
+  },
   // The content factory is an optional add-on (its own repository, checked out at ./factory or
   // FACTORY_DIR; its settings live in its own config). It runs at the end of a run when
   // FACTORY_ENABLED=true and the checkout is present.

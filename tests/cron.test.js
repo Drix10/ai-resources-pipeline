@@ -42,6 +42,9 @@ const xPasses = [];
 stub("src/services/xReplies.js", { runXReplyPass: async (opts) => { calls.push(`x-replies:${opts.viral ? "viral" : "regular"}`); xPasses.push(opts); return { replied: 0, skipped: 0, reason: "" }; } });
 const redditPasses = [];
 stub("src/services/redditComments.js", { runRedditPass: async (opts) => { calls.push("reddit"); redditPasses.push(opts); return { commented: 0, skipped: 0, pains: 0, reason: "" }; }, cleanup: async () => calls.push("reddit-cleanup") });
+// The weekly Hugging Face upload: scripted, with the options cron handed it.
+const hfRuns = [];
+stub("src/services/hfDataset.js", { runHfDataset: async (opts) => { calls.push("hf-dataset"); hfRuns.push(opts); if (state.hfFails) throw new Error("HF down"); return { skipped: "not due" }; } });
 stub("src/services/syndication.js", { processQueue: async () => { calls.push("syndication"); return null; } });
 const config = require("../config");
 config.folders = [{ name: "A" }, { name: "B" }, { name: "C" }, { name: "D" }];
@@ -76,6 +79,9 @@ test("a run commits, marks only the sources used, replies on X after each batch 
   assert.ok(xPasses.every((o) => o.twitter instanceof FakeTwitter && typeof o.shouldStop === "function"));
   assert.ok(xPasses.every((o) => (o.viral ? o.max >= 1 && o.max <= 2 : o.max >= 2 && o.max <= 3)), "2-3 regular, 1-2 viral, like LinkedIn");
   assert.ok(calls.includes("readme") && calls.includes("syndication"));
+  assert.ok(calls.indexOf("merge-run") < calls.indexOf("hf-dataset") && calls.indexOf("hf-dataset") < calls.indexOf("syndication"), "the weekly dataset step follows the run-branch merge");
+  assert.equal(calls.filter((c) => c === "hf-dataset").length, 1, "once per run");
+  assert.equal(typeof hfRuns[hfRuns.length - 1].shouldStop, "function", "it is handed the stop check");
   assert.equal(calls.filter((c) => c === "reddit").length, batches, "one Reddit pass per batch");
   assert.ok(calls.indexOf("reddit") > firstUpload && redditPasses.every((o) => o.max === 1 && typeof o.shouldStop === "function"), "one Reddit comment at most, after a commit");
   assert.ok(calls.includes("x-cleanup") && calls.includes("li-cleanup") && calls.includes("reddit-cleanup"), "browsers released at the end of every run");
@@ -114,6 +120,19 @@ test("X_UNAVAILABLE ends the X phase at once; an X init failure skips curation b
   config.social.redditComments = true;
   assert.ok(!calls.includes("reddit"), "REDDIT_COMMENTS=false turns them off");
   assert.ok(calls.some((c) => c.startsWith("upload:")) && !calls.some((c) => c.startsWith("x-replies:")), "X_REPLIES=false turns them off");
+});
+
+test("a failing Hugging Face upload never fails the run", { timeout: 60000 }, async () => {
+  calls.length = 0;
+  state.fetch = () => tweets(10);
+  state.hfFails = true;
+  try {
+    const r = await cron.processAllFolders();
+    assert.equal(r.ran, true);
+    assert.ok(calls.includes("hf-dataset") && calls.includes("syndication"), "the rest of the run still happens");
+  } finally {
+    state.hfFails = false;
+  }
 });
 
 test("a failed GitHub batch is retried once at the end of the run", { timeout: 60000 }, async () => {
@@ -204,7 +223,7 @@ test("a stop request ends the run at the next step and skips README, blog and fa
   assert.equal(r.stopped, true);
   assert.ok(!calls.includes("fetch:C"), "no new folder after the stop");
   assert.ok(calls.some((c) => c.startsWith("upload:")), "articles already generated are still committed");
-  assert.ok(!calls.includes("readme"));
+  assert.ok(!calls.includes("readme") && !calls.includes("hf-dataset"), "no dataset upload once a stop was asked for");
 
   // A stop that reaches the writer (CLAUDE_STOPPED) is no failure: not retried, and the sources it judged are kept.
   calls.length = 0;
