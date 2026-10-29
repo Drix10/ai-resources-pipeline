@@ -1,7 +1,7 @@
-const { By, Key, until } = require("selenium-webdriver");
+const { By, until } = require("selenium-webdriver");
 require("../../config"); // loads .env before the settings below are read
 const { logger, sleep } = require("../utils/helpers");
-const { attachDriver, releaseDriver, adoptTab, waitForXLogin, MOD_KEY } = require("../utils/chromeLauncher");
+const { attachDriver, releaseDriver, adoptTab, waitForXLogin } = require("../utils/chromeLauncher");
 const fs = require("fs");
 const path = require("path");
 
@@ -157,7 +157,7 @@ function classifyTweetText(text, folderName = "") {
 
 // ---- Processed-ID store: a JSON array of tweet IDs, written durably on Windows ----
 
-// Synchronous backoff: markContentAsPublished is sync and must finish before posting.
+// Synchronous backoff: markContentAsPublished is sync and must finish before the run goes on.
 const sleepSync = (ms) => {
   try { Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms); } catch { /* best effort */ }
 };
@@ -330,6 +330,8 @@ function readPosts() {
       const ownNodes = mainNodes.length ? mainNodes.slice(0, 1) : [];
       const quotedNodes = mainNodes.length ? quoteNodes.concat(mainNodes.slice(1)) : quoteNodes;
       const mainText = ownNodes.map((n) => (n.innerText || "").trim()).join("\n").trim();
+      // The language X tagged the post's own text with ("en", "und" for too little text to tell).
+      const lang = ownNodes.length ? ownNodes[0].getAttribute("lang") || "" : "";
       const quotedText = quotedNodes.map((n) => (n.innerText || "").trim()).filter(Boolean).join("\n\n");
       let text = mainText;
       if (quotedText) text += "\n\nQuoted Tweet:\n" + quotedText;
@@ -341,6 +343,11 @@ function readPosts() {
       // Promoted posts: a bare "Ad"/"Promoted" label outside the text. Not placementTracking:
       // X wraps every organic video player in it, so it would drop all video demos.
       const isAd = Array.from(el.querySelectorAll("span")).some((s) => !s.closest('[data-testid="tweetText"]') && /^(Ad|Promoted)$/.test((s.textContent || "").trim()));
+
+      // The author's handle, from the first profile link in its name block (not the quoted post's).
+      const nameBlock = Array.from(el.querySelectorAll('[data-testid="User-Name"]')).find((n) => !inQuote(n));
+      const profileA = nameBlock && Array.from(nameBlock.querySelectorAll("a[href]")).find((a) => /^https?:\/\/(?:x|twitter)\.com\/\w{1,15}\/?$/.test(a.href));
+      const handle = profileA ? profileA.href.replace(/\/$/, "").split("/").pop() : "";
 
       const isReply = Array.from(el.querySelectorAll("div")).some((n) => !inQuote(n)
         && !n.closest('[data-testid="tweetText"]') && /^Replying to\b/.test((n.textContent || "").trim()));
@@ -372,7 +379,7 @@ function readPosts() {
         counts[m[2].toLowerCase().slice(0, 4)] = Number(m[1].replace(/,/g, ""));
       }
 
-      list.push({ tweetId, url, timestamp, text, mainText, links, images, truncated, isAd, isReply, likes: counts.like || 0, reposts: counts.repo || 0, views: counts.view || 0 });
+      list.push({ tweetId, url, timestamp, text, mainText, lang, handle, links, images, truncated, isAd, isReply, likes: counts.like || 0, reposts: counts.repo || 0, replies: counts.repl || 0, views: counts.view || 0 });
     } catch (e) {}
   }
   return list;
@@ -445,7 +452,7 @@ class TwitterService {
   }
 
   // True once the IDs are on disk. False when the store could not be written: the caller stops
-  // curating and tweeting for the run and retries persistProcessedIds before it ends.
+  // curating for the run and retries persistProcessedIds before it ends.
   markContentAsPublished(collections) {
     let changed = false;
     for (const collection of collections || []) {
@@ -884,7 +891,7 @@ class TwitterService {
     try {
       if (!fs.existsSync(SCREENSHOT_DIR)) return;
       for (const name of fs.readdirSync(SCREENSHOT_DIR)) {
-        if (!/^(?:tweet-failed|login-error|x-unavailable)-.+\.png$/.test(name)) continue;
+        if (!/^(?:x-reply-failed|login-error|x-unavailable)-.+\.png$/.test(name)) continue;
         const file = path.join(SCREENSHOT_DIR, name);
         try {
           if (ageOf(file) > SCREENSHOT_KEEP_MS) {
@@ -900,89 +907,144 @@ class TwitterService {
     }
   }
 
-  // One of the compose dialog's elements by test id. The home timeline behind the dialog has its own composer
-  // with the same ids, first in the page: the one inside [role="dialog"], else the last match.
-  async composerEl(testid, timeout) {
-    return this.driver.wait(async () => {
-      for (const css of [`[role="dialog"] [data-testid="${testid}"]`, `[data-testid="${testid}"]`]) {
-        const found = await this.driver.findElements(By.css(css));
-        if (found.length) return found[found.length - 1];
-      }
-      return null;
-    }, timeout);
+  // ---- Replies under other people's posts (xReplies.js) ----
+
+  // Our own handle, from the side bar's profile link (on any loaded X page), kept once read.
+  async ownHandle() {
+    if (this._ownHandle) return this._ownHandle;
+    const href = await withTimeout(this.driver.executeScript(
+      "const a = document.querySelector('a[data-testid=\"AppTabBar_Profile_Link\"]'); return a ? a.href : '';"), 10000, "reading our handle").catch(() => "");
+    this._ownHandle = String(href || "").replace(/\/$/, "").split("/").pop() || "";
+    return this._ownHandle;
   }
 
-  async postTweet(text, { reply = "" } = {}) {
+  // The posts on one timeline (the home page's "For you" or "Following" tab, or a list) as readPosts reads them,
+  // over a few screens of scrolling. Read-only: a tab is chosen by clicking it, nothing else is touched.
+  async scanTimeline({ url, tab = "" }, maxScrolls = 8) {
+    await this.checkRateLimit();
+    await withTimeout(this.driver.get(url), 60000, `loading ${url}`);
+    const urlProblem = classifyXUrl(await this.currentUrl());
+    if (urlProblem) throw xUnavailable(`${urlProblem} while opening ${url}`);
+    if (tab) {
+      await this.driver.wait(async () => this.driver.executeScript(selectTimelineTab, tab), 15000)
+        .catch(() => { throw new Error(`no "${tab}" tab on ${url}`); });
+      await sleep(2500);
+    }
+    const articles = By.css('article[data-testid="tweet"]');
+    await this.driver.wait(until.elementLocated(articles), 15000).catch(async () => {
+      await this.assertXUsable(`reading ${tab || url}`);
+      await this.driver.wait(until.elementLocated(articles), 15000);
+    });
+    const seen = new Map();
+    for (let i = 0; i <= maxScrolls; i++) {
+      for (const p of (await this.driver.executeScript(readPosts)) || []) if (!seen.has(p.tweetId)) seen.set(p.tweetId, p);
+      await this.driver.executeScript("window.scrollBy(0, Math.round(window.innerHeight * 0.8));");
+      await sleep(700);
+    }
+    return [...seen.values()];
+  }
+
+  // A post's own page: the post in full, the replies X shows under it, and whether one of them is ours (X lists
+  // the viewer's own reply near the top). null when the post does not render.
+  async openPost(post) {
+    await this.checkRateLimit();
+    await withTimeout(this.driver.get(post.url), 60000, `loading ${post.url}`);
+    const urlProblem = classifyXUrl(await this.currentUrl());
+    if (urlProblem) throw xUnavailable(`${urlProblem} while opening ${post.url}`);
+    const read = async () => (await this.driver.executeScript(readPosts)) || [];
+    let posts = [];
+    for (const deadline = Date.now() + 15000; Date.now() < deadline; await sleep(700)) {
+      posts = await read();
+      if (posts.some((p) => p.tweetId === post.tweetId)) break;
+    }
+    if (!posts.some((p) => p.tweetId === post.tweetId)) return null;
+    // The replies load a moment after the post.
+    await sleep(2000);
+    posts = await read();
+    const at = posts.findIndex((p) => p.tweetId === post.tweetId);
+    if (at < 0) return null;
+    // Above the post: the thread it answers; below it: the replies.
+    const replies = posts.slice(at + 1).filter((p) => p.mainText).slice(0, 12);
+    const own = await this.ownHandle();
+    return { post: posts[at], replies, ours: replies.some((r) => sameHandle(r.handle, own)) };
+  }
+
+  // Replies to a post from its own page (open it with openPost first): its reply button opens the reply dialog,
+  // the text is typed and checked, then sent. { status: "posted" } once our reply shows under the post;
+  // "uncertain" when it was sent but not confirmed (never retried: it may be live); "failed" when nothing was
+  // sent, with a reason ("no-composer": the dialog did not open, as on a post whose replies are limited).
+  async replyToPost(post, text) {
     let submitted = false;
+    // One line: an Enter is a new line in X's box, and ChromeDriver cannot type emoji.
+    const typed = stripNonBmp(text).replace(/\s+/g, " ").trim();
+    const norm = (s) => String(s || "").replace(/\s+/g, " ").trim();
+    const dialogBox = By.css('[role="dialog"] [data-testid="tweetTextarea_0"]');
     try {
-      await this.ensureDriverConnected();
-      await this.ensureTab();
-
-      logger.info("Posting new tweet...");
-      await withTimeout(this.driver.get("https://x.com/compose/tweet"), 90000, "opening the composer");
-      const urlProblem = classifyXUrl(await this.currentUrl());
-      if (urlProblem) throw xUnavailable(`${urlProblem} while posting`);
-
-      const tweetTextarea = await this.composerEl("tweetTextarea_0", 60000);
-      await this.driver.wait(until.elementIsVisible(tweetTextarea), 60000);
-      await this.driver.wait(until.elementIsEnabled(tweetTextarea), 60000);
-      // Enter right after a mention ("@someone") can be taken by the mention autocomplete (it picks
-      // a suggestion instead of starting a new line). A space closes the suggestions, and
-      // a short pause lets the box go away before the newline arrives.
-      // (ChromeDriver's sendKeys refuses characters outside the BMP, emoji among them.)
-      const typed = stripNonBmp(text);
-      const segments = typed.replace(/(@\w+)(?=\r?\n|$)/g, "$1 ").split(/(?<=@\w+ )(?=\r?\n|$)/);
-      for (const segment of segments) {
-        if (!segment) continue;
-        await tweetTextarea.sendKeys(segment);
-        await sleep(400);
+      const article = await this.driver.executeScript(findPostArticle, post.tweetId);
+      if (!article) return { status: "failed", reason: "post not on the page" };
+      const replyButton = await article.findElement(By.css('[data-testid="reply"]'));
+      await this.driver.executeScript("arguments[0].scrollIntoView({ block: 'center' });", replyButton);
+      await replyButton.click();
+      const box = await this.driver.wait(until.elementLocated(dialogBox), 10000).catch(() => null);
+      if (!box) return { status: "failed", reason: "no-composer" };
+      await this.driver.wait(until.elementIsVisible(box), 10000);
+      await box.sendKeys(typed);
+      await sleep(1200);
+      if (norm(await box.getText()) !== norm(typed)) throw new Error("the reply box does not hold the reply's text");
+      const send = await this.driver.findElement(By.css('[role="dialog"] [data-testid="tweetButton"]'));
+      await this.driver.wait(async () => (await send.getAttribute("aria-disabled")) !== "true", 10000)
+        .catch(() => { throw new Error("the Reply button stayed disabled"); });
+      submitted = true;
+      await send.click();
+      const closed = await this.driver.wait(async () => (await this.driver.findElements(dialogBox)).length === 0, 15000).then(() => true, () => false);
+      if (!closed) throw new Error("the reply dialog is still open after sending");
+      const own = await this.ownHandle();
+      const head = typed.slice(0, 40);
+      for (const deadline = Date.now() + 12000; Date.now() < deadline; await sleep(1000)) {
+        const posts = (await this.driver.executeScript(readPosts)) || [];
+        if (posts.some((p) => p.tweetId !== post.tweetId && sameHandle(p.handle, own) && norm(p.mainText).startsWith(head))) return { status: "posted" };
       }
-      await sleep(1600);
-      const norm = (s) => String(s).replace(/\s+/g, " ").trim();
-      if (norm(await tweetTextarea.getText()) !== norm(typed)) throw new Error("the composer does not hold the post's text");
-
-      // A reply goes out as the thread's second post (X's "Add post", box tweetTextarea_1), in the same submit
-      // as the first ("Post all").
-      if (reply) {
-        const replyText = stripNonBmp(reply);
-        const addButton = await this.composerEl("addButton", 10000);
-        await addButton.click();
-        const second = await this.composerEl("tweetTextarea_1", 10000)
-          .catch(() => { throw new Error("the thread's second post box did not open"); });
-        await second.sendKeys(replyText);
-        await sleep(1200);
-        if (!String(await second.getText()).includes(replyText.slice(0, 20))) throw new Error("the thread's second post did not take the reply");
-        const postAll = await this.composerEl("tweetButton", 10000);
-        await this.driver.wait(async () => (await postAll.getAttribute("aria-disabled")) !== "true", 10000)
-          .catch(() => { throw new Error("Post all stayed disabled"); });
-        submitted = true;
-        await postAll.click();
-      } else {
-        submitted = true;
-        await tweetTextarea.sendKeys(Key.chord(MOD_KEY, Key.ENTER));
-      }
-      // Only a closed compose modal counts as posted; a dropped shortcut leaves
-      // it open. (The home timeline has its own inline composer, so check the URL.)
-      const posted = await this.driver
-        .wait(async () => !(await this.currentUrl()).includes("/compose/"), 15000)
-        .then(() => true, () => false);
-      if (!posted) {
-        throw new Error("Composer still open after submit");
-      }
-      logger.info("Tweet posted (composer closed).");
-      return true;
+      return { status: "uncertain", reason: "sent, but not seen under the post yet" };
     } catch (error) {
-      // After the submit X may have sent some or all of the thread: say so, and never retry it.
-      if (submitted) logger.error(`Tweet submitted; X did not confirm (${error.message}). The post may be live, maybe without its link reply: check the profile.`);
-      else logger.error("Failed to post tweet (not submitted):", error);
-      await this.saveFailureScreenshot("tweet-failed");
-      return false;
+      // Logged out or a lost browser before the send: the caller's pass ends on it.
+      if (!submitted && (error.code === "X_UNAVAILABLE" || isSessionError(error))) throw error;
+      await this.saveFailureScreenshot("x-reply-failed");
+      if (submitted) {
+        logger.error(`X reply sent; X did not confirm it (${error.message}). It may be live: check the post.`);
+        return { status: "uncertain", reason: error.message };
+      }
+      logger.error(`X reply not sent: ${error.message}`);
+      return { status: "failed", reason: error.message };
     }
   }
 }
 
+const sameHandle = (a, b) => !!a && !!b && String(a).toLowerCase() === String(b).toLowerCase();
+
+// Runs in the page: selects the home timeline's tab by its label ("For you", "Following"); true once it is shown.
+function selectTimelineTab(label) {
+  const tab = Array.from(document.querySelectorAll('[role="tab"]')).find((t) => (t.textContent || "").trim() === label);
+  if (!tab) return false;
+  if (tab.getAttribute("aria-selected") !== "true") tab.click();
+  return true;
+}
+
+// Runs in the page: the article of one post (by the permalink around its first <time>, as readPosts reads it).
+function findPostArticle(id) {
+  return Array.from(document.querySelectorAll('article[data-testid="tweet"]')).find((a) => {
+    const time = a.querySelector("time");
+    const link = time && time.closest('a[href*="/status/"]');
+    return !!link && new RegExp("/status/" + id + "(?:$|[/?#])").test(link.href);
+  }) || null;
+}
+
 module.exports = TwitterService;
 TwitterService.isOfftopicTweet = isOfftopicTweet;
+// What xReplies.js scores timeline posts with.
+TwitterService.classifyTweetText = classifyTweetText;
+TwitterService.engagementPerHour = engagementPerHour;
+TwitterService.tweetAgeMs = tweetAgeMs;
+TwitterService.sameHandle = sameHandle;
 // Pure helpers for tests/twitter.test.js; not part of the runtime interface.
 module.exports.__test = {
   classifyTweetText,

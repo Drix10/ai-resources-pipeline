@@ -109,6 +109,7 @@ Every setting is in [`.env.example`](.env.example) with a comment and a working 
 | `LINKEDIN_LIKE`, `LINKEDIN_FEED_REPLY`, `LINKEDIN_VIRAL`, `LINKEDIN_CONNECT`, `LINKEDIN_PROFILE_SLUG` | LinkedIn engagement switches and your profile (caps: `LINKEDIN_*_MAX_PER_DAY`, see `.env.example`) |
 | `LINKEDIN_TARGETED` | `true`: target AI/finance (searches, big names, topic and US filters); `false`: home feed and People you may know only |
 | `LINKEDIN_OWN_REPLIES` | On by default: reply to the comments on your own posts (start of each run and after each batch). Never twice, never where you already replied by hand; a comment only you can answer is logged for you, never guessed |
+| `X_REPLIES` | On by default: after each batch, 2–3 replies under fresh X posts with real momentum (home For you + Following, a curated list), then 1–2 under posts going viral; gated and judged like the LinkedIn comments, never twice (`data/x-replies.json`). Caps: `X_REPLIES_MAX_PER_DAY` (20), `X_REPLIES_VIRAL_MAX_PER_DAY` (8); pass limit `X_PASS_TIMEOUT_MS` |
 | `DEVTO_API_KEY`, `DEVTO_AUTO_PUBLISH` | DEV.to syndication |
 | `NVIDIA_API_KEY` | NVIDIA NIM (provider `nvidia`, and the fallback for `openrouter` and `claude`) |
 | `AUTHOR_NAME`, `AUTHOR_HANDLE`, `AUTHOR_EMAIL`, `AUTHOR_WEBSITE_URL` (and `AUTHOR_*_URL` links) | Your identity: commit author, article bylines and footers, the LinkedIn persona |

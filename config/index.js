@@ -127,12 +127,9 @@ const config = {
     // Replies to the comments on our own posts (the first hour decides a post's reach): at the start of a run
     // and after each batch commit. A comment only the owner can answer is logged for them, never guessed.
     linkedinOwnReplies: process.env.LINKEDIN_OWN_REPLIES !== "false",
-    twitterPost: process.env.TWITTER_POST !== "false",
-    // Optional credit lines in announcement tweets ("Made by @you via @yourorg"); empty = no line.
-    tweetCredit: {
-      madeBy: env("TWITTER_MADE_BY"),
-      via: env("TWITTER_VIA"),
-    },
+    // Replies under other people's posts on X after each batch commit (src/services/xReplies.js): 2 or 3 on
+    // fresh posts from the home timeline (For you, Following) and a curated list, then 1 or 2 on posts going viral.
+    xReplies: process.env.X_REPLIES !== "false",
   },
   syndication: {
     // The blog's public address. Empty: articles get no canonical link and nothing is queued for DEV.to.

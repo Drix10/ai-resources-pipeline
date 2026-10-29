@@ -233,16 +233,16 @@ const parseDigestItems = (content) => {
   return { items, summary: lead ? cutAtSentence(lead.summary, 200) : "" };
 };
 
-// A digest's first item: the headline its page, DEV.to copy and announcement lead with, and the
+// A digest's first item: the headline its page and DEV.to copy lead with, and the
 // summary its page description and DEV.to description are taken from.
 const digestLead = (content) => {
   const { items, summary } = parseDigestItems(content);
   return { title: (items[0] || {}).title || "", summary };
 };
 
-// Why a line cannot go in an X announcement, or "": a link (bare domains too: X turns them into links and
+// Why a line cannot go in an X reply, or "": a link (bare domains too: X turns them into links and
 // counts each as 23 characters), a hashtag, an @mention, or an emoji (ChromeDriver cannot type one).
-const announcementProblem = (text) => {
+const xTextProblem = (text) => {
   const t = String(text || "");
   if (/https?:\/\/|\bwww\.|\{LINK\}|\b[a-z0-9-]+\.(?:com|io|ai|dev|org|net|co|app|xyz|gg|so|sh|me|ly)\b/i.test(t)) return "a link";
   if (/(?:^|\s)[#@][\p{L}\p{N}_]/u.test(t)) return "a hashtag or @mention";
@@ -439,7 +439,7 @@ module.exports = Object.freeze({
   redactSecrets,
   generateSeoSlug,
   digestLead,
-  announcementProblem,
+  xTextProblem,
   rebuildBlogIndex,
   isEnglish,
 });
