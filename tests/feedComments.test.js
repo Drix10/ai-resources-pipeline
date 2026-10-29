@@ -479,3 +479,11 @@ test("own-post replies: a judged answer passes; the commenter's name up front, a
   assert.equal(r.mode, "SKIP");
   assert.equal(queue.length, 0, "no judge call for OWNER or SKIP");
 });
+
+test("typo gate: a dropped inner letter is a typo; another real word or a word form is not", () => {
+  const post = "If engineers stop reading code, who catches the hallucinated output we simulate?";
+  const typo = (reply) => llm.validateCommentReply(reply, post, "Amjad Masad").errors.some((e) => /misspells/.test(e));
+  assert.equal(typo("The halucinated output is what nobody catches."), true);
+  assert.equal(typo("Leading the review matters more once nobody is reading."), false);
+  assert.equal(typo("Code nobody has simulated still ships."), false);
+});
