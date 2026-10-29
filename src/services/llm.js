@@ -1398,7 +1398,8 @@ Reply with exactly one line: PASS or FAIL: <reason, quoting the span when FAIL>.
   // "Verdict: FAIL", "PASS/FAIL: FAIL", "The reply fails (5).", an empty answer or anything unparseable is a FAIL.
   parseCriticVerdict(raw) {
     const line = String(raw || "").trim().split(/\r?\n/).map((l) => l.trim()).find(Boolean) || "";
-    if (/^\W*PASS\b/i.test(line) && !/\bFAIL/i.test(line)) return { pass: true, reason: "" };
+    // (whole word: "PASS: ...without violating any failure criteria" is a pass)
+    if (/^\W*PASS\b/i.test(line) && !/\bFAIL(?:S|ED)?\b/i.test(line)) return { pass: true, reason: "" };
     const reason = line.replace(/^\W*(?:verdict\s*:\s*)?\W*FAIL\W*?\s*:?\s*/i, "").slice(0, 200);
     return { pass: false, reason: reason || "critic gave no PASS verdict" };
   }

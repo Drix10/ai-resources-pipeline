@@ -104,10 +104,10 @@ test("restriction pages are recognised from the URL and page chrome", () => {
 
 // ---- Critic verdict fails closed ----
 test("critic: only a verdict that opens with PASS passes", () => {
-  for (const raw of ["PASS", "PASS: grounded", "**PASS**: fine", "pass - names the point"]) {
+  for (const raw of ["PASS", "PASS: grounded", "**PASS**: fine", "pass - names the point", "PASS: asks about the claim without violating any failure criteria."]) {
     assert.equal(llm.parseCriticVerdict(raw).pass, true, raw);
   }
-  for (const raw of ["**FAIL**: invents a number", "Verdict: FAIL", "The reply fails (5).", "", "   ", null, "I think this is okay", "FAIL"]) {
+  for (const raw of ["**FAIL**: invents a number", "Verdict: FAIL", "The reply fails (5).", "", "   ", null, "I think this is okay", "FAIL", "PASS/FAIL: FAIL", "PASS? No, it fails (2)"]) {
     assert.equal(llm.parseCriticVerdict(raw).pass, false, String(raw));
   }
   assert.equal(llm.parseCriticVerdict("FAIL: invents \"40%\"").reason, "invents \"40%\"");
