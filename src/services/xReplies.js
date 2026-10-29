@@ -2,7 +2,7 @@
  * xReplies.js
  *
  * Replies under other people's posts on X, the twin of the LinkedIn comment passes (feedEngage.js), called
- * from cron.js after each batch commit (X_REPLIES, default on):
+ * from cron.js's engagement loop, each pass at most every ~40 min (X_REPLIES, default on):
  *  - runXReplyPass({ viral: false }): 2 or 3 replies on fresh posts with real momentum
  *  - runXReplyPass({ viral: true }):  1 or 2 more on posts going viral, early in their rise, on their own cap
  *

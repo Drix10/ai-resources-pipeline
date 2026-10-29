@@ -1,14 +1,14 @@
 /**
  * feedEngage.js
  *
- * Fully automated LinkedIn growth, called from cron.js in step with the content loop:
+ * Fully automated LinkedIn growth, called from cron.js (likes in the article loop, the rest in its engagement loop):
  *  1. runLikePass       (LINKEDIN_LIKE, default on): 3-6 likes after each article is written
- *  2. runFeedEngagement (LINKEDIN_FEED_REPLY=true): 2 or 3 comments after each batch commit
+ *  2. runFeedEngagement (LINKEDIN_FEED_REPLY=true): 2 or 3 comments a pass, at most every ~40 min
  *  3. runViralPass      (LINKEDIN_VIRAL, default on, needs LINKEDIN_FEED_REPLY=true): 1 or 2 extra
- *     comments after each batch commit on posts going viral (big names in config/viral.js, the
+ *     comments a pass (at most every ~40 min) on posts going viral (big names in config/viral.js, the
  *     day's most-engaged launches and funding news), early in their rise, written against the
  *     comments already there (llm.draftViralComment), on their own daily cap
- *  4. runConnectPass    (LINKEDIN_CONNECT, default on): 3-7 no-note invites after each batch commit
+ *  4. runConnectPass    (LINKEDIN_CONNECT, default on): 3-7 no-note invites a pass, at most every ~40 min
  *
  * Posts come from targeted sources (the recent posts of people who engaged with us, optional
  * creator profiles in config/creators.json, and AI/founder/finance content search), not the home feed. The

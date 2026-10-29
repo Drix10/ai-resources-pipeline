@@ -40,6 +40,18 @@ let lockHeartbeatTimer = null;
 let stopRequested = false;
 const stopping = () => stopRequested;
 
+// One browser job per site at a time, in the order asked: the article loop (X fetches, LinkedIn likes) and
+// the engagement loop share each site's tab and chromedriver session. Different sites run side by side:
+// each service attaches its own session and drives its own window (a hidden tab would stop rendering).
+const siteQueues = {};
+const withSite = (site, job) => {
+  const run = (siteQueues[site] || Promise.resolve()).then(job);
+  siteQueues[site] = run.catch(() => {});
+  return run;
+};
+// Each engagement pass runs at most once in this window (jittered), so a run is no longer paced by them.
+const ENGAGE_EVERY_MS = 40 * 60 * 1000;
+
 // Two processes can race to reclaim the same stale lock; the loser finds it already gone.
 const safeUnlink = (filePath) => {
   try {
@@ -314,16 +326,24 @@ const markPublished = (collections) => {
   if (TwitterService.markContentAsPublished(collections) === false) idsUnsaved = true;
 };
 
-const runDataPipeline = async (folder) => {
+// Two tries inside (it reattaches the browser on a session error) times runDataPipeline's three.
+const fetchFolder = (folder) => withSite("x", () => {
+  logger.info(`Fetching tweets for folder: ${folder.name}...`);
+  return TwitterService.fetchTweets({ folder, maxRetries: 2 });
+});
+
+// `prefetched`: this folder's fetch, already started (its first attempt); `onFetched` runs once the
+// sources are in, before the writer starts (the run fetches the next folder meanwhile).
+const runDataPipeline = async (folder, { prefetched = null, onFetched = () => {} } = {}) => {
   let tweets = null;
   for (let retryCount = 0; retryCount < MAX_RETRIES; retryCount++) {
     try {
       if (!tweets) {
-        logger.info(`Fetching tweets for folder: ${folder.name}...`);
         // Let failures reach the retry loop. Converting a browser/network failure
         // into an empty array makes the pipeline falsely report "no new content".
-        // Two tries inside (it reattaches the browser on a session error) times this loop's three.
-        const fetched = await TwitterService.fetchTweets({ folder, maxRetries: 2 });
+        const pending = prefetched || fetchFolder(folder);
+        prefetched = null; // a retry fetches again
+        const fetched = await pending;
         if (!Array.isArray(fetched)) {
           throw new Error(`X fetch returned an invalid result for folder ${folder.name}`);
         }
@@ -341,6 +361,7 @@ const runDataPipeline = async (folder) => {
         }
         // A writer retry reuses these instead of scraping X again.
         tweets = fetched;
+        onFetched();
       }
 
       const { markdown: markdownContent, usedTweets } = await llmService.generateMarkdownBatched(tweets, folder?.name);
@@ -407,8 +428,8 @@ const saveIdsBeforeExit = async () => {
 };
 
 /**
- * One run: curates every folder, commits the articles in batches (with the LinkedIn steps after
- * each), updates the README, syncs the blog, runs the optional factory and the DEV.to queue.
+ * One run: curates every folder and commits the articles in batches while the engagement passes run beside
+ * them, then updates the README, syncs the blog, runs the optional factory and the DEV.to queue.
  */
 const processAllFolders = async () => {
   if (!acquirePipelineLock()) return { ran: false };
@@ -429,84 +450,114 @@ const processAllFolders = async () => {
     // Optional content factory add-on: digest items committed this run become reel/carousel candidates.
     const factoryInbox = [];
 
-    // LinkedIn runs in step with the content, never ahead of it:
-    //  - after every article (.md) is written: a few random likes (likeAfterArticle)
-    //  - after every batch commit: replies on our own posts, 2 or 3 comments, 1 or 2 more on posts going
-    //    viral, then stale invites withdrawn and a few connection requests (engageAfterBatch)
-    //  - at the start of the run: replies on our own posts (a run started right after a post covers its first hour)
+    // Two loops run side by side, each browser job under its site's lock (withSite):
+    //  - the article loop: while the writer works on a folder, the next folder is fetched on X and the
+    //    previous article's few random LinkedIn likes are done (likeAfterArticle); commits go in batches
+    //  - the engagement loop: replies on our own posts (first, at the start of the run: a run started right
+    //    after a post covers its golden hour), 2 or 3 LinkedIn comments, 1 or 2 more on posts going viral,
+    //    X replies (X_REPLIES) the same way, at most one Reddit comment (REDDIT_COMMENTS), then stale
+    //    invites withdrawn and a few connection requests. Each pass runs at most once per ENGAGE_EVERY_MS;
+    //    a pass at its daily cap returns before it touches the browser. One pass at a time: the passes
+    //    share llmService.commentDeadline.
     // Sources follow LINKEDIN_TARGETED; non-English posts are skipped. Never fatal.
-    // X gets the same after every batch commit (X_REPLIES): 2 or 3 replies, then 1 or 2 on posts going viral.
-    // Reddit too (REDDIT_COMMENTS): at most one comment, 20-40 min apart, 6 a day.
-    const repliesOnOurPosts = async (when) => {
-      if (!config.social.linkedinOwnReplies || stopping()) return;
+    // A fatal error in the article loop stops the engagement loop too.
+    let aborted = false;
+    const halted = () => stopping() || aborted;
+    const repliesOnOurPosts = async () => {
       try {
-        const r = await feedEngage.runOwnRepliesPass({ max: 6, shouldStop: stopping });
-        logger.info(`${when}: LinkedIn replies on our posts ${r.replied} posted, ${r.owner.length} need you, ${r.skipped} skipped. ${r.reason || ""}`);
+        const r = await feedEngage.runOwnRepliesPass({ max: 6, shouldStop: halted });
+        logger.info(`Engagement: LinkedIn replies on our posts ${r.replied} posted, ${r.owner.length} need you, ${r.skipped} skipped. ${r.reason || ""}`);
       } catch (replyErr) {
         logger.error("LinkedIn replies on our posts failed (non-fatal):", replyErr.message);
       }
     };
     const likeAfterArticle = async () => {
-      if (!config.social.linkedinLike || stopping()) return;
+      if (!config.social.linkedinLike || halted()) return;
       try {
-        const likeResult = await feedEngage.runLikePass({ min: 3, max: 6, shouldStop: stopping });
+        const likeResult = await feedEngage.runLikePass({ min: 3, max: 6, shouldStop: halted });
         logger.info(`Article done: LinkedIn likes ${likeResult.liked}/${likeResult.target}.`);
       } catch (feedErr) {
         logger.error("LinkedIn likes failed (non-fatal):", feedErr.message);
       }
     };
-    const engageAfterBatch = async () => {
-      if (stopping()) return;
-      await repliesOnOurPosts("Batch done");
-      if (config.social.linkedinFeedReply) {
+    const xPass = (viral) => async () => {
+      try {
+        const r = await xReplies.runXReplyPass({ twitter: TwitterService, viral, max: (viral ? 1 : 2) + Math.floor(Math.random() * 2), shouldStop: halted });
+        logger.info(`Engagement: X ${viral ? "viral " : ""}replies ${r.replied} posted, ${r.skipped} skipped. ${r.reason || ""}`);
+      } catch (xErr) {
+        logger.error(`X ${viral ? "viral " : ""}reply pass failed (non-fatal):`, xErr.message);
+      }
+    };
+    // In the order they run; `on` is read under the site's lock (xReady is known once X init is done).
+    const passes = [
+      { site: "linkedin", on: () => config.social.linkedinOwnReplies, run: repliesOnOurPosts },
+      { site: "linkedin", on: () => config.social.linkedinFeedReply, run: async () => {
         try {
-          const engageResult = await feedEngage.runFeedEngagement({ max: 2 + Math.floor(Math.random() * 2), shouldStop: stopping });
-          logger.info(`Batch done: LinkedIn comments ${engageResult.commented} posted, ${engageResult.skipped} skipped. ${engageResult.reason || ""}`);
+          const engageResult = await feedEngage.runFeedEngagement({ max: 2 + Math.floor(Math.random() * 2), shouldStop: halted });
+          logger.info(`Engagement: LinkedIn comments ${engageResult.commented} posted, ${engageResult.skipped} skipped. ${engageResult.reason || ""}`);
         } catch (feedErr) {
           logger.error("LinkedIn comment pass failed (non-fatal):", feedErr.message);
         }
-        if (config.social.linkedinViral && !stopping()) {
-          try {
-            const viral = await feedEngage.runViralPass({ max: 1 + Math.floor(Math.random() * 2), shouldStop: stopping });
-            logger.info(`Batch done: LinkedIn viral comments ${viral.commented} posted, ${viral.skipped} skipped. ${viral.reason || ""}`);
-          } catch (viralErr) {
-            logger.error("LinkedIn viral comment pass failed (non-fatal):", viralErr.message);
-          }
-        }
-      }
-      if (config.social.xReplies && xReady && !stopping()) {
-        for (const viral of [false, true]) {
-          if (stopping()) break;
-          try {
-            const r = await xReplies.runXReplyPass({ twitter: TwitterService, viral, max: (viral ? 1 : 2) + Math.floor(Math.random() * 2), shouldStop: stopping });
-            logger.info(`Batch done: X ${viral ? "viral " : ""}replies ${r.replied} posted, ${r.skipped} skipped. ${r.reason || ""}`);
-          } catch (xErr) {
-            logger.error(`X ${viral ? "viral " : ""}reply pass failed (non-fatal):`, xErr.message);
-          }
-        }
-      }
-      if (config.social.redditComments && !stopping()) {
+      } },
+      { site: "linkedin", on: () => config.social.linkedinFeedReply && config.social.linkedinViral, run: async () => {
         try {
-          const r = await redditComments.runRedditPass({ max: 1, shouldStop: stopping });
-          logger.info(`Batch done: Reddit comments ${r.commented} posted, ${r.skipped} skipped, ${r.pains} pain points logged. ${r.reason || ""}`);
+          const viral = await feedEngage.runViralPass({ max: 1 + Math.floor(Math.random() * 2), shouldStop: halted });
+          logger.info(`Engagement: LinkedIn viral comments ${viral.commented} posted, ${viral.skipped} skipped. ${viral.reason || ""}`);
+        } catch (viralErr) {
+          logger.error("LinkedIn viral comment pass failed (non-fatal):", viralErr.message);
+        }
+      } },
+      { site: "x", on: () => config.social.xReplies && xReady, run: xPass(false) },
+      { site: "x", on: () => config.social.xReplies && xReady, run: xPass(true) },
+      { site: "reddit", on: () => config.social.redditComments, run: async () => {
+        try {
+          const r = await redditComments.runRedditPass({ max: 1, shouldStop: halted });
+          logger.info(`Engagement: Reddit comments ${r.commented} posted, ${r.skipped} skipped, ${r.pains} pain points logged. ${r.reason || ""}`);
         } catch (redditErr) {
           logger.error("Reddit comment pass failed (non-fatal):", redditErr.message);
         }
-      }
-      if (config.social.linkedinConnect && !stopping()) {
-        // Stale pending invites go first: a low acceptance rate narrows the account's reach.
+      } },
+      // Stale pending invites go first: a low acceptance rate narrows the account's reach.
+      { site: "linkedin", on: () => config.social.linkedinConnect, run: async () => {
         try {
-          const wd = await feedEngage.runWithdrawPass({ max: 5, shouldStop: stopping });
-          logger.info(`Batch done: LinkedIn invites withdrawn ${wd.withdrawn} (${wd.stale} pending 14+ days). ${wd.reason || ""}`);
+          const wd = await feedEngage.runWithdrawPass({ max: 5, shouldStop: halted });
+          logger.info(`Engagement: LinkedIn invites withdrawn ${wd.withdrawn} (${wd.stale} pending 14+ days). ${wd.reason || ""}`);
         } catch (wdErr) {
           logger.error("LinkedIn withdraw pass failed (non-fatal):", wdErr.message);
         }
+      } },
+      { site: "linkedin", on: () => config.social.linkedinConnect, run: async () => {
         try {
-          const conn = await feedEngage.runConnectPass({ min: 3, max: 7, shouldStop: stopping });
-          logger.info(`Batch done: LinkedIn connections ${conn.sent}/${conn.target} sent. ${conn.reason || ""}`);
+          const conn = await feedEngage.runConnectPass({ min: 3, max: 7, shouldStop: halted });
+          logger.info(`Engagement: LinkedIn connections ${conn.sent}/${conn.target} sent. ${conn.reason || ""}`);
         } catch (connErr) {
           logger.error("LinkedIn connection pass failed (non-fatal):", connErr.message);
         }
+      } },
+    ].map((p) => ({ ...p, dueAt: 0 }));
+    let articlesDone = false;
+    let wakeEngagement = () => {};
+    const articlesFinished = new Promise((resolve) => { wakeEngagement = resolve; });
+    // Rounds of the passes that are due, until the articles are done (one last round then: whatever came
+    // due meanwhile) or the run halts.
+    const engagementLoop = async () => {
+      try {
+        while (!halted()) {
+          const last = articlesDone;
+          for (const p of passes) {
+            if (halted()) return;
+            if (Date.now() < p.dueAt) continue;
+            await withSite(p.site, () => (p.on() && !halted() ? p.run() : null));
+            p.dueAt = Date.now() + ENGAGE_EVERY_MS * (0.88 + Math.random() * 0.24);
+          }
+          if (last) return;
+          const wake = Math.min(...passes.map((p) => p.dueAt));
+          while (!halted() && !articlesDone && Date.now() < wake) {
+            await Promise.race([articlesFinished, sleep(Math.min(1000, wake - Date.now()))]);
+          }
+        }
+      } catch (loopErr) {
+        logger.error("Engagement loop failed (non-fatal):", loopErr?.message ?? loopErr);
       }
     };
 
@@ -557,8 +608,6 @@ const processAllFolders = async () => {
             fullContent: item.content
           });
         }
-
-        await engageAfterBatch();
       } catch (batchErr) {
         logger.error(`Batch GitHub commit failed for ${batchToCommit.length} folders${retry ? " (retry)" : "; will retry at the end of the run"}:`, batchErr);
         if (!retry) failedBatches.push({ items: batchToCommit, prepared: batchErr?.prepared || null });
@@ -569,82 +618,112 @@ const processAllFolders = async () => {
     // from main without it would number the same digest files again and never merge.
     await GithubService.finishRunBranches(config.github.owner, config.github.repo);
 
-    await repliesOnOurPosts("Run start");
-
     // The X phase is isolated: a session or network failure there must not cost the run its
-    // README update, blog sync and factory pass.
+    // README update, blog sync and factory pass. Init goes first on the X lock, before any X job.
     let xReady = true;
-    try {
-      await TwitterService.init();
-    } catch (xErr) {
+    const xInit = withSite("x", () => TwitterService.init()).catch((xErr) => {
       xReady = false;
       logger.error(`X session unavailable this run; skipping curation: ${xErr?.message ?? xErr}`);
-    }
-    let consecutiveFailures = 0;
+    });
+    const engaging = engagementLoop();
 
-    for (const folder of xReady ? folders : []) {
-      if (stopping()) {
-        logger.warn("Stop requested: no more folders this run.");
-        break;
-      }
-      if (idsUnsaved) {
-        logger.error("The published-ID store could not be saved: no more curation this run.");
-        break;
-      }
+    const articleLoop = async () => {
+      await xInit;
+      let consecutiveFailures = 0;
+      // The next folder's fetch, started while the writer works on this one.
+      let prefetch = null;
+      // The last article's LinkedIn likes, done while the next one is written.
+      let likes = Promise.resolve();
       try {
-        const prepared = await runDataPipeline(folder);
-        consecutiveFailures = 0;
-        if (prepared) {
-          logger.info(
-            `Prepared article for ${prepared.queryName}. Queued in commit batch (${pendingBatch.length + 1}/${COMMIT_BATCH_SIZE}).`
-          );
-          pendingBatch.push(prepared);
-          await likeAfterArticle();
-          if (pendingBatch.length >= COMMIT_BATCH_SIZE) {
-            await flushBatch();
+        for (const [i, folder] of (xReady ? folders : []).entries()) {
+          const prefetched = prefetch?.folder === folder ? prefetch.promise : null;
+          prefetch = null;
+          if (stopping()) {
+            logger.warn("Stop requested: no more folders this run.");
+            break;
           }
-        } else {
-          logger.info(
-            `Pipeline completed for folder with no article (no new threads, or generation failed gates - see warnings above).`
-          );
+          if (idsUnsaved) {
+            logger.error("The published-ID store could not be saved: no more curation this run.");
+            break;
+          }
+          const onFetched = () => {
+            const next = folders[i + 1];
+            if (!next || stopping() || idsUnsaved) return;
+            prefetch = { folder: next, promise: fetchFolder(next) };
+            prefetch.promise.catch(() => {}); // handled when its folder's turn comes
+          };
+          try {
+            const prepared = await runDataPipeline(folder, { prefetched, onFetched });
+            consecutiveFailures = 0;
+            if (prepared) {
+              logger.info(
+                `Prepared article for ${prepared.queryName}. Queued in commit batch (${pendingBatch.length + 1}/${COMMIT_BATCH_SIZE}).`
+              );
+              pendingBatch.push(prepared);
+              await likes;
+              likes = withSite("linkedin", likeAfterArticle);
+              if (pendingBatch.length >= COMMIT_BATCH_SIZE) {
+                await flushBatch();
+              }
+            } else {
+              logger.info(
+                `Pipeline completed for folder with no article (no new threads, or generation failed gates - see warnings above).`
+              );
+            }
+          } catch (error) {
+            if (error.code === "CLAUDE_STOPPED" || stopping()) {
+              // A killed Claude means the run is stopping, even before the stop flag is seen.
+              requestStop();
+              // A real failure that lands during a stop is still worth its line.
+              const why = error.code === "CLAUDE_STOPPED" ? "" : ` (it failed as the stop came: ${error.code ? `${error.code}: ` : ""}${error.message})`;
+              logger.info(`Stopping: ${folder.name} ends here${why}.`);
+              break;
+            }
+            logger.error(`Pipeline iteration failed for folder ${folder.name}:`, error);
+            if (error.code === "LOCAL_LLM_UNAVAILABLE") {
+              logger.warn("Local Ollama service is unavailable. Stopping this run instead of retrying every folder.");
+              break;
+            }
+            if (RUN_ENDING_CODES.has(error.code)) {
+              logger.warn(`${error.code}: ending the X phase for this run (${error.message}).`);
+              if (error.code === "X_UNAVAILABLE") xReady = false; // no X replies either
+              break;
+            }
+            // An outage (DNS, network, a dead browser) fails every folder the same way: stop the X
+            // phase after three in a row instead of retrying all of them, and still finish the run.
+            if (++consecutiveFailures >= 3) {
+              logger.warn("Three folders failed in a row; ending the X phase for this run.");
+              break;
+            }
+          }
         }
-      } catch (error) {
-        if (error.code === "CLAUDE_STOPPED" || stopping()) {
-          // A killed Claude means the run is stopping, even before the stop flag is seen.
-          requestStop();
-          // A real failure that lands during a stop is still worth its line.
-          const why = error.code === "CLAUDE_STOPPED" ? "" : ` (it failed as the stop came: ${error.code ? `${error.code}: ` : ""}${error.message})`;
-          logger.info(`Stopping: ${folder.name} ends here${why}.`);
-          break;
-        }
-        logger.error(`Pipeline iteration failed for folder ${folder.name}:`, error);
-        if (error.code === "LOCAL_LLM_UNAVAILABLE") {
-          logger.warn("Local Ollama service is unavailable. Stopping this run instead of retrying every folder.");
-          break;
-        }
-        if (RUN_ENDING_CODES.has(error.code)) {
-          logger.warn(`${error.code}: ending the X phase for this run (${error.message}).`);
-          if (error.code === "X_UNAVAILABLE") xReady = false; // no X replies either
-          break;
-        }
-        // An outage (DNS, network, a dead browser) fails every folder the same way: stop the X
-        // phase after three in a row instead of retrying all of them, and still finish the run.
-        if (++consecutiveFailures >= 3) {
-          logger.warn("Three folders failed in a row; ending the X phase for this run.");
-          break;
-        }
+      } finally {
+        // Nothing of this loop outlives it: a fetch or likes still running (a break, a stop) is waited for.
+        await Promise.all([prefetch?.promise.catch(() => {}), likes]);
       }
-    }
 
-    // Flush any remaining prepared articles in final batch (also when stopping: they are generated).
-    if (pendingBatch.length > 0) {
-      logger.info(`Flushing final remaining batch of ${pendingBatch.length} folder article(s)...`);
-      await flushBatch();
-    }
-    for (const batch of failedBatches.splice(0)) {
-      logger.info(`Retrying a failed batch of ${batch.items.length} folder article(s)...`);
-      pendingBatch = batch.items;
-      await flushBatch({ retry: true, prepared: batch.prepared });
+      // Flush any remaining prepared articles in final batch (also when stopping: they are generated).
+      if (pendingBatch.length > 0) {
+        logger.info(`Flushing final remaining batch of ${pendingBatch.length} folder article(s)...`);
+        await flushBatch();
+      }
+      for (const batch of failedBatches.splice(0)) {
+        logger.info(`Retrying a failed batch of ${batch.items.length} folder article(s)...`);
+        pendingBatch = batch.items;
+        await flushBatch({ retry: true, prepared: batch.prepared });
+      }
+    };
+
+    // The end steps below start only once both loops are done.
+    try {
+      await articleLoop();
+    } catch (loopErr) {
+      aborted = true;
+      throw loopErr;
+    } finally {
+      articlesDone = true;
+      wakeEngagement();
+      await engaging;
     }
 
     if (stopping()) {
@@ -821,4 +900,5 @@ module.exports = {
   runDataPipeline,
   // tests only: a stopped module stays stopped (the process exits after a stop)
   _resetStop: () => { stopRequested = false; },
+  _withSite: withSite, // tests only
 };
