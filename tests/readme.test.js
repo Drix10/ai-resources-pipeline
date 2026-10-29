@@ -40,6 +40,12 @@ test("a category section names the newest digest, its headlines and the count", 
   assert.match(renderCategorySection({ name: "A" }, files, []), /\[Latest Update \(#012\)\]\(https:\/\/x\/12\)/);
 });
 
+test("the category index totals the digests and links GitHub's heading anchors", () => {
+  const out = github.readme.renderCategoryIndex([{ name: "Devs, Designers, DevRel", count: 1200 }, { name: "AR VR Companies and Development", count: 3 }]);
+  assert.match(out, /^\*\*1,203 digests in 2 categories\.\*\*/);
+  assert.match(out, /\(#devs-designers-devrel\) · \[AR VR Companies and Development\]\(#ar-vr-companies-and-development\)/);
+});
+
 test("the README keeps the owner's text, rebuilds the list and ends with the footer once", async () => {
   const owner = "Drix10";
   const repo = "ai-resources";
@@ -74,6 +80,8 @@ test("the README keeps the owner's text, rebuilds the list and ends with the foo
     assert.match(readme, /2 digests · \[latest: #002\]/);
     assert.match(readme, /\*   Nemotron 3\.5 Super VL runs at 500\+ tokens\/sec/);
     assert.match(readme, /### Nothing Here\n\n\*   No resources yet\./);
+    assert.match(readme, /\*\*2 digests in 2 categories\.\*\*/);
+    assert.match(readme, /\[AI Developer Tools\]\(#ai-developer-tools\) · \[Nothing Here\]\(#nothing-here\)/);
     assert.ok(readme.endsWith(README_FOOTER));
     assert.equal(readme.split("Star the repo").length, 2, "footer appears once");
     await github.updateReadmeWithNewFile(owner, repo);
