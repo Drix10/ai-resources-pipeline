@@ -150,12 +150,13 @@ class RedditService {
       this.tabHandle = left;
       return;
     }
+    // Its own window: the sites run side by side, and a background tab stops rendering (lazy feeds stall).
     try {
-      await withTimeout(this.driver.switchTo().newWindow("tab"), 15000, "opening the Reddit tab");
+      await withTimeout(this.driver.switchTo().newWindow("window"), 15000, "opening the Reddit tab");
     } catch (error) {
       if (!handles.length) throw error;
       await withTimeout(this.driver.switchTo().window(handles[0]), 10000, "anchoring on a tab");
-      await withTimeout(this.driver.switchTo().newWindow("tab"), 15000, "opening the Reddit tab");
+      await withTimeout(this.driver.switchTo().newWindow("window"), 15000, "opening the Reddit tab");
     }
     this.tabHandle = await withTimeout(this.driver.getWindowHandle(), 10000, "reading the tab handle");
     logger.info("RedditService: opened a dedicated Reddit tab");

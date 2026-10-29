@@ -12,17 +12,26 @@ const stub = (rel, exports) => {
   const file = require.resolve(path.join(__dirname, "..", rel));
   require.cache[file] = { id: file, filename: file, loaded: true, exports };
 };
+// Every fake browser job holds its site for a moment; two jobs on one site at once are recorded.
+const busy = {};
+const overlaps = [];
+const hold = async (site, ms = 5) => {
+  if (busy[site]) overlaps.push(site);
+  busy[site] = true;
+  await new Promise((r) => setTimeout(r, ms));
+  busy[site] = false;
+};
 class FakeTwitter {
   beginRun() { calls.push("beginRun"); }
   async init() { calls.push("init"); if (state.initFails) throw new Error("no X"); }
-  async fetchTweets({ folder }) { calls.push(`fetch:${folder.name}`); return state.fetch(folder); }
+  async fetchTweets({ folder }) { calls.push(`fetch:${folder.name}`); await hold("x"); return state.fetch(folder); }
   markContentAsPublished(t) { calls.push(`mark:${t.length}`); return state.markOk ?? true; }
   persistProcessedIds() { calls.push("persist"); return state.persistOk ?? true; }
   cleanupScreenshots() {}
   async cleanup() { calls.push("x-cleanup"); }
 }
 stub("src/services/twitter.js", FakeTwitter);
-stub("src/services/feedEngage.js", { cleanup: async () => calls.push("li-cleanup"), runLikePass: async () => ({ liked: 0, target: 0 }), runFeedEngagement: async () => ({ commented: 0, skipped: 0 }), runConnectPass: async () => ({ sent: 0, target: 0 }), runWithdrawPass: async () => ({ withdrawn: 0, stale: 0 }), runOwnRepliesPass: async () => ({ replied: 0, owner: [], skipped: 0 }) });
+stub("src/services/feedEngage.js", { cleanup: async () => calls.push("li-cleanup"), runLikePass: async () => { calls.push("likes"); await hold("linkedin"); return { liked: 0, target: 0 }; }, runFeedEngagement: async () => ({ commented: 0, skipped: 0 }), runConnectPass: async () => ({ sent: 0, target: 0 }), runWithdrawPass: async () => ({ withdrawn: 0, stale: 0 }), runOwnRepliesPass: async () => { calls.push("li-own-replies"); await hold("linkedin"); return { replied: 0, owner: [], skipped: 0 }; } });
 // Like the real one, marks the batch through onCommitted the moment the commit lands.
 const uploads = [];
 stub("src/services/github.js", {
@@ -36,12 +45,12 @@ stub("src/services/github.js", {
   updateReadmeWithNewFile: async () => calls.push("readme"),
   finishRunBranches: async () => calls.push("merge-run"),
 });
-stub("src/services/llm.js", { beginRun: () => calls.push("llm-beginRun"), generateMarkdownBatched: async (tweets) => state.generate(tweets) });
+stub("src/services/llm.js", { beginRun: () => calls.push("llm-beginRun"), generateMarkdownBatched: async (tweets) => { await new Promise((r) => setTimeout(r, 5)); return state.generate(tweets); } });
 // The X reply passes: recorded with the instance they were handed (cron's own TwitterService).
 const xPasses = [];
-stub("src/services/xReplies.js", { runXReplyPass: async (opts) => { calls.push(`x-replies:${opts.viral ? "viral" : "regular"}`); xPasses.push(opts); return { replied: 0, skipped: 0, reason: "" }; } });
+stub("src/services/xReplies.js", { runXReplyPass: async (opts) => { calls.push(`x-replies:${opts.viral ? "viral" : "regular"}`); xPasses.push(opts); await hold("x"); return { replied: 0, skipped: 0, reason: "" }; } });
 const redditPasses = [];
-stub("src/services/redditComments.js", { runRedditPass: async (opts) => { calls.push("reddit"); redditPasses.push(opts); return { commented: 0, skipped: 0, pains: 0, reason: "" }; }, cleanup: async () => calls.push("reddit-cleanup") });
+stub("src/services/redditComments.js", { runRedditPass: async (opts) => { calls.push("reddit"); redditPasses.push(opts); await hold("reddit", state.redditMs ?? 5); calls.push("reddit-done"); return { commented: 0, skipped: 0, pains: 0, reason: "" }; }, cleanup: async () => calls.push("reddit-cleanup") });
 // The weekly Hugging Face upload: scripted, with the options cron handed it.
 const hfRuns = [];
 stub("src/services/hfDataset.js", { runHfDataset: async (opts) => { calls.push("hf-dataset"); hfRuns.push(opts); if (state.hfFails) throw new Error("HF down"); return { skipped: "not due" }; } });
@@ -49,7 +58,7 @@ stub("src/services/kbTopics.js", { runKbTopics: async () => { calls.push("kb-top
 stub("src/services/syndication.js", { processQueue: async () => { calls.push("syndication"); return null; } });
 const config = require("../config");
 config.folders = [{ name: "A" }, { name: "B" }, { name: "C" }, { name: "D" }];
-config.social = { ...config.social, linkedinLike: false, linkedinFeedReply: false, linkedinConnect: false, xReplies: true, redditComments: true };
+config.social = { ...config.social, linkedinLike: true, linkedinOwnReplies: true, linkedinFeedReply: false, linkedinConnect: false, xReplies: true, redditComments: true };
 config.factory = { ...config.factory, enabled: false };
 
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), "cron-"));
@@ -62,8 +71,9 @@ for (const t of helpers.logger.transports) t.silent = true;
 
 const tweets = (n) => Array.from({ length: n }, (_, i) => ({ id: String(i), tweetId: String(i) }));
 
-test("a run commits, marks only the sources used, replies on X after each batch and cleans up", { timeout: 60000 }, async () => {
+test("a run commits, marks only the sources used, engages beside the articles and cleans up", { timeout: 60000 }, async () => {
   calls.length = 0;
+  overlaps.length = 0;
   state.fetch = () => tweets(10);
   const r = await cron.processAllFolders();
   assert.equal(r.ran, true);
@@ -72,11 +82,11 @@ test("a run commits, marks only the sources used, replies on X after each batch 
   assert.ok(calls.includes("llm-beginRun"));
   const marks = calls.filter((c) => c.startsWith("mark:"));
   assert.ok(marks.length === 4 && marks.every((c) => c === "mark:2"), "every committed item is marked, with only its usedTweets");
-  const firstUpload = calls.findIndex((c) => c.startsWith("upload:"));
-  assert.ok(firstUpload >= 0 && calls.indexOf("x-replies:regular") > firstUpload, "X replies come after a batch commit");
+  assert.ok(calls.indexOf("init") < calls.indexOf("x-replies:regular"), "X replies wait for the X session");
   assert.ok(calls.indexOf("x-replies:regular") < calls.indexOf("x-replies:viral"), "the regular pass, then the viral one");
-  const batches = calls.filter((c) => c.startsWith("upload:")).length;
-  assert.equal(calls.filter((c) => c === "x-replies:regular").length, batches, "one regular pass per batch");
+  assert.ok(calls.indexOf("li-own-replies") >= 0 && calls.indexOf("li-own-replies") < calls.indexOf("likes"), "replies on our posts first, at the start of the run");
+  assert.equal(calls.filter((c) => c === "likes").length, 4, "likes after every article");
+  assert.deepEqual(overlaps, [], "never two browser jobs on one site at once");
   assert.ok(xPasses.every((o) => o.twitter instanceof FakeTwitter && typeof o.shouldStop === "function"));
   assert.ok(xPasses.every((o) => (o.viral ? o.max >= 1 && o.max <= 2 : o.max >= 2 && o.max <= 3)), "2-3 regular, 1-2 viral, like LinkedIn");
   assert.ok(calls.includes("readme") && calls.includes("syndication"));
@@ -85,8 +95,7 @@ test("a run commits, marks only the sources used, replies on X after each batch 
   assert.ok(calls.indexOf("readme") < calls.indexOf("kb-topics") && calls.indexOf("kb-topics") < calls.lastIndexOf("merge-run"), "topic pages land on the run branch before its merge");
   assert.ok(calls.indexOf("merge-run") < calls.indexOf("init"), "an earlier run's leftover branch is merged before this run commits");
   assert.equal(typeof hfRuns[hfRuns.length - 1].shouldStop, "function", "it is handed the stop check");
-  assert.equal(calls.filter((c) => c === "reddit").length, batches, "one Reddit pass per batch");
-  assert.ok(calls.indexOf("reddit") > firstUpload && redditPasses.every((o) => o.max === 1 && typeof o.shouldStop === "function"), "one Reddit comment at most, after a commit");
+  assert.ok(redditPasses.every((o) => o.max === 1 && typeof o.shouldStop === "function"), "one Reddit comment at most a pass");
   assert.ok(calls.includes("x-cleanup") && calls.includes("li-cleanup") && calls.includes("reddit-cleanup"), "browsers released at the end of every run");
   assert.ok(!fs.existsSync(LOCK), "lock released");
 });
@@ -166,7 +175,8 @@ test("an ID store that cannot be saved stops curation; the save is retried befor
     state.markOk = false;
     state.persistOk = true;
     await cron.processAllFolders();
-    assert.deepEqual(calls.filter((c) => c.startsWith("fetch:")), ["fetch:A"], "no folder after the failed save");
+    assert.equal(calls.filter((c) => c.startsWith("upload:")).length, 1, "no article after the failed save");
+    assert.ok(!calls.includes("fetch:C"), "no folder after the failed save (B was fetched while A was written)");
     assert.equal(calls.filter((c) => c === "persist").length, 1, "saved on the first retry");
     assert.ok(calls.indexOf("persist") < calls.indexOf("x-cleanup"));
   } finally {
@@ -187,7 +197,7 @@ test("a writer outage marks the sources it already judged (only those) and ends 
     state.generate = generate;
   }
   assert.deepEqual(calls.filter((c) => c.startsWith("mark:")), ["mark:3"]);
-  assert.equal(calls.filter((c) => c.startsWith("fetch:")).length, 1);
+  assert.ok(!calls.includes("fetch:C"), "no folder after the outage (B was fetched while A was written)");
 });
 
 test("a stale lock is taken over; a fresh one held by a live process is not", { timeout: 60000 }, async () => {
@@ -260,7 +270,8 @@ test("a killed Claude ends the run before the stop flag is seen; a real failure 
     state.generate = (t) => { if (++n === 2) throw Object.assign(new Error("the pipeline is stopping"), { code: "CLAUDE_STOPPED", usedTweets: [] }); return generate(t); };
     const r = await cron.processAllFolders();
     assert.equal(r.stopped, true, "the kill is a stop");
-    assert.ok(calls.includes("fetch:B") && !calls.includes("fetch:C"), "no folder after the kill");
+    assert.equal(n, 2, "no article written after the kill");
+    assert.ok(calls.includes("fetch:B") && !calls.includes("fetch:D"), "no folder after the kill (C was fetched while B was written)");
     assert.ok(!calls.includes("readme"));
 
     cron._resetStop();
@@ -271,6 +282,67 @@ test("a killed Claude ends the run before the stop flag is seen; a real failure 
   } finally {
     state.generate = generate;
     helpers.logger.info = info;
+    cron.requestStop();
+  }
+});
+
+test("one job per site at a time, in order; different sites run side by side", { timeout: 60000 }, async () => {
+  const log = [];
+  const job = (name, ms) => async () => { log.push(`${name}+`); await new Promise((r) => setTimeout(r, ms)); log.push(`${name}-`); };
+  const failing = cron._withSite("t-a", async () => { throw new Error("boom"); });
+  await Promise.all([
+    assert.rejects(failing, /boom/),
+    cron._withSite("t-a", job("a1", 30)),
+    cron._withSite("t-a", job("a2", 5)),
+    cron._withSite("t-b", job("b1", 5)),
+  ]);
+  assert.deepEqual(log.filter((l) => l.startsWith("a")), ["a1+", "a1-", "a2+", "a2-"], "a failed job frees the site; the next ones never overlap");
+  assert.ok(log.indexOf("b1-") < log.indexOf("a1-"), "another site does not wait");
+});
+
+test("engagement runs on its own cadence beside the articles; the end steps wait for both loops", { timeout: 60000 }, async () => {
+  const random = Math.random;
+  Math.random = () => 0; // one article per commit batch
+  try {
+    cron._resetStop();
+    calls.length = 0;
+    overlaps.length = 0;
+    state.fetch = () => tweets(10);
+    state.upload = (items) => items.map((it, i) => ({ ...it, url: `https://x/${i}`, content: "md" }));
+    state.redditMs = 300;
+    const r = await cron.processAllFolders();
+    assert.equal(r.articles, 4);
+    assert.equal(calls.filter((c) => c.startsWith("upload:")).length, 4, "four batch commits");
+    for (const pass of ["li-own-replies", "x-replies:regular", "x-replies:viral", "reddit"]) {
+      assert.equal(calls.filter((c) => c === pass).length, 1, `${pass}: once in a run shorter than its cadence, not once per batch`);
+    }
+    assert.ok(calls.indexOf("fetch:D") < calls.indexOf("reddit-done"), "the articles go on while a pass is busy");
+    const lastWork = Math.max(calls.lastIndexOf("reddit-done"), calls.lastIndexOf("likes"), ...calls.map((c, i) => (c.startsWith("upload:") ? i : -1)));
+    assert.ok(calls.indexOf("readme") > lastWork, "README, topics, merge and the rest start after both loops");
+    assert.deepEqual(overlaps, []);
+  } finally {
+    Math.random = random;
+    state.redditMs = undefined;
+  }
+});
+
+test("a stop during an engagement pass ends both loops; the run still releases everything", { timeout: 60000 }, async () => {
+  cron._resetStop();
+  calls.length = 0;
+  state.fetch = () => tweets(10);
+  state.redditMs = 200;
+  const generate = state.generate;
+  state.generate = (t) => { if (calls.includes("reddit")) cron.requestStop(); return generate(t); };
+  try {
+    const r = await cron.processAllFolders();
+    assert.equal(r.stopped, true);
+    assert.ok(redditPasses[redditPasses.length - 1].shouldStop(), "the running pass sees the stop");
+    assert.ok(!calls.includes("readme"));
+    assert.ok(calls.includes("x-cleanup") && calls.includes("li-cleanup") && calls.includes("reddit-cleanup"));
+    assert.ok(!fs.existsSync(LOCK), "lock released");
+  } finally {
+    state.generate = generate;
+    state.redditMs = undefined;
     cron.requestStop();
   }
 });

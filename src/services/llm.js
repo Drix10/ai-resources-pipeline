@@ -2307,12 +2307,12 @@ ${feedback.length ? `\nYour previous attempt was rejected. Fix this:\n${feedback
     return report(transportFailed ? "failed" : "rejected");
   }
 
-  // One article per source, three at a time, stopping once a file's worth has passed.
+  // One article per source, six at a time (a 429 is retried with backoff), stopping once a file's worth has passed.
   // Sources with nothing concrete are skipped; the file ships only when enough real
   // articles survive. Returns usedTweets: the caller's own source objects that were
   // published or judged (thin, rejected, duplicate). Sources never tried, or lost to a
   // transport error, are left out so the next run can try them again.
-  async generateMarkdownBatched(threads, folderName = "", concurrency = 3) {
+  async generateMarkdownBatched(threads, folderName = "", concurrency = 6) {
     const entries = (Array.isArray(threads) ? threads : [])
       .map((raw) => ({ raw, source: this.normalizeCollectedThreads([raw])[0] }))
       .filter((entry) => entry.source);

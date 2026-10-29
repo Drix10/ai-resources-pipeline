@@ -170,7 +170,8 @@ class LinkedInService {
       logger.info("LinkedInService: reusing the LinkedIn tab already open.");
       return;
     }
-    await this.driver.switchTo().newWindow("tab");
+    // Its own window: the sites run side by side, and a background tab stops rendering (lazy feeds stall).
+    await this.driver.switchTo().newWindow("window");
     this._tabHandle = await this.driver.getWindowHandle();
     logger.info("LinkedInService: opened a dedicated LinkedIn tab.");
   }

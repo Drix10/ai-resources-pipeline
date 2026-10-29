@@ -562,13 +562,14 @@ class TwitterService {
       logger.info("TwitterService: reusing the X tab already open");
       return;
     }
+    // Its own window: the sites run side by side, and a background tab stops rendering (lazy feeds stall).
     try {
-      await withTimeout(this.driver.switchTo().newWindow("tab"), 15000, "opening the X tab");
+      await withTimeout(this.driver.switchTo().newWindow("window"), 15000, "opening the X tab");
     } catch (error) {
       // New Window fails when the session's current tab was closed; anchor on any tab first.
       if (!handles.length) throw error;
       await withTimeout(this.driver.switchTo().window(handles[0]), 10000, "anchoring on a tab");
-      await withTimeout(this.driver.switchTo().newWindow("tab"), 15000, "opening the X tab");
+      await withTimeout(this.driver.switchTo().newWindow("window"), 15000, "opening the X tab");
     }
     this.tabHandle = await withTimeout(this.driver.getWindowHandle(), 10000, "reading the tab handle");
     logger.info("TwitterService: opened a dedicated X tab");
