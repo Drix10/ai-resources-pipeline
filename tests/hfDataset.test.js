@@ -152,7 +152,10 @@ test("the dataset card has the YAML header, the fields and the links back to Git
   const yaml = card.split("---")[1];
   assert.ok(!yaml.includes("\t"), "plain YAML");
   for (const field of ["id", "category", "digest_file", "digest_number", "title", "text", "source_urls", "date", "github_url"]) assert.ok(card.includes(`| \`${field}\` |`), field);
-  assert.ok(card.includes("(https://github.com/Drix10/ai-resources-pipeline)"), "how it is built links the pipeline");
+  const built = card.split("## How it is built")[1].split("##")[0];
+  assert.ok(!card.includes("ai-resources-pipeline"), "the private pipeline repo is never linked");
+  assert.ok(built.includes("(https://github.com/test-owner/test-repo)"), "how it is built links the resources repo");
+  if (config.syndication.canonicalBaseUrl) assert.ok(built.includes(`(${config.syndication.canonicalBaseUrl})`), "and the blog");
   assert.ok(card.includes("## Star the repo") && card.includes("(https://github.com/test-owner/test-repo)"), "the star link goes to the resources repo");
   assert.ok(card.includes("@misc{ai_resources") && card.includes("year = {2026}"));
   assert.ok(card.includes("The newest dated briefing is from 2026-10-26."));

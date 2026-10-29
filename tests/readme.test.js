@@ -90,3 +90,11 @@ test("the README keeps the owner's text, rebuilds the list and ends with the foo
     config.folders = folders;
   }
 });
+
+test("the README footer links the agent guide and never the private pipeline repo", () => {
+  assert.ok(!README_FOOTER.includes("ai-resources-pipeline"), "no pipeline link");
+  assert.ok(!README_FOOTER.includes("How it is built"));
+  assert.ok(README_FOOTER.includes("[Use it from your AI agent](https://github.com/Drix10/ai-resources/blob/main/USE-WITH-AI.md)"));
+  const blog = config.syndication.canonicalBaseUrl;
+  if (blog) assert.ok(README_FOOTER.includes(`[RSS feed](${blog}/rss.xml)`), "blog and RSS links stay");
+});

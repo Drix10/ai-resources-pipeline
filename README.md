@@ -22,6 +22,14 @@
 
 > ⭐ **If you build with LLMs and care about them not making things up, star the repo.** The fact gates in `src/services/llm.js` are the part worth stealing.
 
+## Use it from your agent
+
+The briefings are a news layer any AI agent can read, with sources on every item. Setup lives in the knowledge base, [Drix10/ai-resources](https://github.com/Drix10/ai-resources) ([USE-WITH-AI.md](https://github.com/Drix10/ai-resources/blob/main/USE-WITH-AI.md)):
+
+- **MCP server** ([mcp/](https://github.com/Drix10/ai-resources/tree/main/mcp)): `claude mcp add ai-resources -- npx -y ai-resources-mcp`. Tools: `search_briefings`, `latest`, `get_briefing`, `list_categories`.
+- **Agent Skill** ([skills/ai-news](https://github.com/Drix10/ai-resources/tree/main/skills/ai-news)): copy the `ai-news` folder into `~/.claude/skills/` (or your project's `.claude/skills/`) and ask "what's new in AI this week?" or "who raised this month?".
+- **Plain HTTP** (no key, CORS open): [`/api/articles?q=gemini&limit=5`](https://blogs.drix10.com/api/articles?q=gemini&limit=5) (also `category`, `since=YYYY-MM-DD`, `page`, `slug`), [`/api/categories`](https://blogs.drix10.com/api/categories), and per-category [`/llms/<category>.txt`](https://blogs.drix10.com/llms/ai-developer-tools.txt) linked from [llms.txt](https://blogs.drix10.com/llms.txt).
+
 ---
 
 ## What it has produced
@@ -111,6 +119,7 @@ Every setting is in [`.env.example`](.env.example) with a comment and a working 
 | `LINKEDIN_OWN_REPLIES` | On by default: reply to the comments on your own posts (start of each run and after each batch). Never twice, never where you already replied by hand; a comment only you can answer is logged for you, never guessed |
 | `X_REPLIES` | On by default: after each batch, 2–3 replies under fresh X posts with real momentum (home For you + Following, a curated list), then 1–2 under posts going viral; gated and judged like the LinkedIn comments, never twice (`data/x-replies.json`). Caps: `X_REPLIES_MAX_PER_DAY` (20), `X_REPLIES_VIRAL_MAX_PER_DAY` (8); pass limit `X_PASS_TIMEOUT_MS` |
 | `REDDIT_COMMENTS` | On by default: after each batch, at most one comment in a fresh Reddit thread (subs in `config/reddit.js`) from the account logged in to the debug Chrome; answers first, never a product mention, gated and judged like the X replies, never twice in a thread (`data/reddit-comments.json`). 20–40 min apart, one per sub a day, cap `REDDIT_COMMENTS_MAX_PER_DAY` (6); paused 24–48 h when Reddit refuses. Pain points the threads state go to `data/reddit-painpoints.jsonl` |
+| `KB_TOPICS` | On by default: at the end of a run, at most once a day, the resources repo gets `topics/<slug>.md` (the newest 100 briefings per company or theme in `config/topics.js`, with an index at `topics/README.md`) and `TIMELINE.md` (model and product releases by month), committed on the run branch only when a page changed; state in `data/kb-topics.json` |
 | `HF_TOKEN`, `HF_DATASET`, `HF_DATASET_REPO` | On by default once `HF_TOKEN` (a Hugging Face write token) is set: at the end of a run, when the last upload is 7+ days old, the resources repo is published as a dataset (one Parquet file and a card linking back to GitHub) to `HF_DATASET_REPO` (default `Drix10/ai-resources`); state in `data/hf-dataset.json`. Without a token it is skipped with one log line |
 | `DEVTO_API_KEY`, `DEVTO_AUTO_PUBLISH` | DEV.to syndication |
 | `NVIDIA_API_KEY` | NVIDIA NIM (provider `nvidia`, and the fallback for `openrouter` and `claude`) |
@@ -125,7 +134,7 @@ index.js, start-app.js   entry points: one run; the Chrome check before it
 config/                  settings (config/index.js) and the LinkedIn creators template
 src/services/            cron.js (the run), twitter.js, llm.js (writer + fact gates), github.js, syndication.js, linkedin.js, feedEngage.js
 src/utils/               helpers (logging, blog index), pageFetch, chromeLauncher, factory (the optional add-on)
-blog/                    the Next.js 14 knowledge hub (content, search index, RSS, llms.txt, OG images)
+blog/                    the Next.js 14 knowledge hub (content, search index, JSON API, RSS, llms.txt, OG images)
 portfolio/               drix10.com: projects, open-source work and the contribution graph, read live from GitHub
 scripts/                 feed-preview.js, seo-audit.mjs
 tests/                   node:test suites (offline; tests/_env.js isolates state)

@@ -9,6 +9,7 @@ const feedEngage = require("./feedEngage");
 const xReplies = require("./xReplies");
 const redditComments = require("./redditComments");
 const hfDataset = require("./hfDataset");
+const kbTopics = require("./kbTopics");
 const GithubService = require("./github");
 const llmService = require("./llm");
 
@@ -651,6 +652,12 @@ const processAllFolders = async () => {
       config.github.owner,
       config.github.repo
     );
+    // Daily: topic pages and TIMELINE.md, committed on the run's branch so the merge below takes them too.
+    try {
+      await kbTopics.runKbTopics({ shouldStop: stopping });
+    } catch (topicsErr) {
+      logger.warn(`Cycle End: topic pages failed (non-fatal): ${topicsErr?.message ?? topicsErr}`);
+    }
     // The run's commits (and any an earlier run left on its branch) go into main through a merged pull request.
     await GithubService.finishRunBranches(config.github.owner, config.github.repo);
 

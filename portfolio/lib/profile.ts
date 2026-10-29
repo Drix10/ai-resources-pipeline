@@ -21,7 +21,6 @@ export const HIDDEN_REPOS: string[] = ['video-storage', 'certificates'];
 // here automatically; an empty list falls back to "most recently pushed".
 export const MORE_REPOS: string[] = [
   'sentinal',
-  'ai-resources-pipeline',
   'payscope',
   'intent-canvas',
   'ml-videos',
@@ -37,7 +36,6 @@ export const MORE_REPOS: string[] = [
 export const PROJECT_NAMES: Record<string, string> = {
   'agent-flow': 'Agent Flow',
   'ai-resources': 'AI Resources',
-  'ai-resources-pipeline': 'AI Resources pipeline',
   'hypothesis-arena': 'MiroHedge',
   'mirohedge-frontend': 'MiroHedge website',
   coslynx: 'CosLynx',
@@ -63,7 +61,7 @@ export const PROJECT_DESCRIPTIONS: Record<string, string> = {
 };
 
 // Forks of my own organisation's repos: they are original work, so no "fork" tag.
-export const OWN_FORKS: string[] = ['ai-resources-pipeline'];
+export const OWN_FORKS: string[] = [];
 
 export const ROLES = [
   {
