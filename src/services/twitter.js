@@ -997,14 +997,20 @@ class TwitterService {
       const replyButton = await article.findElement(By.css('[data-testid="reply"]'));
       await this.driver.executeScript("arguments[0].scrollIntoView({ block: 'center' });", replyButton);
       await replyButton.click();
-      // The dialog when it opens, else the page's inline box (the focal post's own reply box).
-      const pick = async () => {
-        const [d] = await this.driver.findElements(dialogBox);
-        if (d && await d.isDisplayed().catch(() => false)) return { box: d, inDialog: true };
-        for (const e of await this.driver.findElements(anyBox)) if (await e.isDisplayed().catch(() => false)) return { box: e, inDialog: false };
+      // The dialog when it opens (it can take a moment: the inline box is already there, so it gets 3 s first),
+      // else the page's inline box (the focal post's own reply box).
+      const shown = async (by) => {
+        for (const e of await this.driver.findElements(by)) if (await e.isDisplayed().catch(() => false)) return e;
         return null;
       };
-      const found = await this.driver.wait(pick, 10000).catch(() => null);
+      const inDialogBox = await this.driver.wait(() => shown(dialogBox), 3000).catch(() => null);
+      const found = inDialogBox ? { box: inDialogBox, inDialog: true }
+        : await this.driver.wait(async () => {
+          const d = await shown(dialogBox);
+          if (d) return { box: d, inDialog: true };
+          const e = await shown(anyBox);
+          return e ? { box: e, inDialog: false } : null;
+        }, 7000).catch(() => null);
       if (!found) return { status: "failed", reason: "no-composer" };
       const { box, inDialog } = found;
       // (focused, not clicked: the sticky header or a "Replying to" line can sit over the inline box)
