@@ -149,6 +149,9 @@ const config = {
   },
   // The resources repo as a Hugging Face dataset (src/services/hfDataset.js), refreshed weekly at the end of a
   // run; skipped, with one info line, until HF_TOKEN (a write token) is set.
+  // Topic pages (topics/<slug>.md, the list in config/topics.js) and TIMELINE.md, rebuilt in the resources repo
+  // at most once a day at the end of a run (src/services/kbTopics.js).
+  kbTopics: { enabled: process.env.KB_TOPICS !== "false" },
   hfDataset: {
     enabled: process.env.HF_DATASET !== "false",
     token: env("HF_TOKEN"),

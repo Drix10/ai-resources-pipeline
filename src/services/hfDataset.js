@@ -22,7 +22,6 @@ const { logger } = require("../utils/helpers");
 
 const DAY = 24 * 60 * 60 * 1000;
 const WEEK = 7 * DAY;
-const PIPELINE_URL = "https://github.com/Drix10/ai-resources-pipeline";
 const PARQUET_PATH = "data/train.parquet";
 const ROW_GROUP = 5000;
 
@@ -106,12 +105,18 @@ const parseDigest = (markdown, { category, file }) => {
   const rows = [];
   // Split before each "### " heading at the start of a line; whatever comes before the first one is not a briefing.
   const chunks = String(markdown || "").split(/^(?=### )/m).filter((c) => c.startsWith("### "));
+  const anchors = new Map();
   chunks.forEach((chunk, position) => {
     const nl = chunk.indexOf("\n");
-    const item = parseItem(chunk.slice(4, nl < 0 ? undefined : nl), nl < 0 ? "" : chunk.slice(nl + 1));
+    const heading = chunk.slice(4, nl < 0 ? undefined : nl);
+    // GitHub's heading anchor (as headingAnchor in github.js), "-1", "-2"... on a repeat. Not a Parquet column.
+    const slug = heading.trim().toLowerCase().replace(/[^\p{L}\p{N} _-]/gu, "").replace(/ /g, "-");
+    const seen = anchors.get(slug) || 0;
+    anchors.set(slug, seen + 1);
+    const item = parseItem(heading, nl < 0 ? "" : chunk.slice(nl + 1));
     if (!item) return;
     const id = crypto.createHash("sha1").update(`${category}/${file}#${position}`).digest("hex").slice(0, 16);
-    rows.push({ id, category, digest_file: file, digest_number: number, ...item, github_url: base });
+    rows.push({ id, category, digest_file: file, digest_number: number, ...item, github_url: base, anchor: seen ? `${slug}-${seen}` : slug });
   });
   return rows;
 };
@@ -158,6 +163,7 @@ const datasetCard = (rows, { now = new Date() } = {}) => {
   const newest = dates.length ? ` The newest dated briefing is from ${dates[dates.length - 1]}.` : "";
   const author = config.author.name || config.author.handle || config.github.owner;
   const repo = `${config.github.owner}/${config.github.repo}`;
+  const blog = config.syndication?.canonicalBaseUrl;
   return `---
 license: cc-by-4.0
 language:
@@ -200,7 +206,7 @@ ${rows.length.toLocaleString("en-US")} short briefings on AI and technology in $
 
 ## How it is built
 
-[ai-resources-pipeline](${PIPELINE_URL}) collects posts, writes each up with an LLM and commits the digests to GitHub. Once a week it downloads the repository, splits every digest into briefings and uploads them here. Last built ${now.toISOString().slice(0, 10)}.
+A pipeline collects posts, writes each up with an LLM, checks every number and name against its source and commits the digests to [${repo}](${repoUrl()})${blog ? `, which are also published on [the blog](${blog})` : ""}. Once a week it downloads the repository, splits every digest into briefings and uploads them here. Last built ${now.toISOString().slice(0, 10)}.
 
 ## Licence and citation
 
@@ -223,11 +229,11 @@ If this is useful, star [${repo}](${repoUrl()}) on GitHub: new briefings land th
 
 // ---- Download and upload ----
 
-// The repo's default branch as a gunzipped tar. No GitHub token: the repo is public (a private one is not
+// The repo's default branch (or `ref`) as a gunzipped tar. No GitHub token: the repo is public (a private one is not
 // published), and a weekly call is far inside the anonymous rate limit.
-const downloadTar = async () => {
+const downloadTar = async (ref = "") => {
   const { owner, repo } = config.github;
-  const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/tarball`, {
+  const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/tarball${ref ? `/${ref.split("/").map(encodeURIComponent).join("/")}` : ""}`, {
     headers: { Accept: "application/vnd.github+json", "User-Agent": "ai-resources-pipeline" },
     signal: AbortSignal.timeout(10 * 60 * 1000),
   });

@@ -75,9 +75,6 @@ const renderCategoryIndex = (sections) => {
   return `**${total.toLocaleString("en-US")} digests in ${sections.length} categories.** Each category shows its newest headlines; jump to one:\n\n<sub>${links}</sub>\n\n`;
 };
 
-// The pipeline's own repository (package.json), linked from the footer as the place the digests come from.
-const pipelineRepoUrl = String(require("../../package.json").repository?.url || "").replace(/^git\+/, "").replace(/\.git$/, "");
-
 // Kept under the regenerated category list on every run (the list replaces everything below the heading).
 const readmeFooter = (owner, repo) => {
   const home = `https://github.com/${owner}/${repo}`;
@@ -86,7 +83,7 @@ const readmeFooter = (owner, repo) => {
   const more = [
     blog && `[Read on the blog](${blog})`,
     blog && `[RSS feed](${blog}/rss.xml)`,
-    pipelineRepoUrl && `[How it is built](${pipelineRepoUrl})`,
+    `[Use it from your AI agent](${home}/blob/main/USE-WITH-AI.md)`,
   ].filter(Boolean);
   return [
     "---",
@@ -677,6 +674,24 @@ class GithubService {
       }
     }
     return merged;
+  }
+
+  // One commit of whole files ([{ path, content }]) on this run's branch, with the run's identity and trailer.
+  async commitFiles(owner, repo, files, message) {
+    const branch = await this.workBranch(owner, repo);
+    const parent = (await this.octokit.git.getRef({ owner, repo, ref: `heads/${branch}` })).data.object.sha;
+    const baseTree = (await this.octokit.git.getCommit({ owner, repo, commit_sha: parent })).data.tree.sha;
+    const tree = await this.octokit.git.createTree({
+      owner, repo, base_tree: baseTree,
+      tree: files.map((f) => ({ path: f.path, mode: "100644", type: "blob", content: f.content })),
+    });
+    const identity = commitIdentity();
+    const commit = await this.octokit.git.createCommit({
+      owner, repo, message: message + coAuthorTrailer(), tree: tree.data.sha, parents: [parent],
+      ...(identity ? { author: identity, committer: identity } : {}),
+    });
+    await this.octokit.git.updateRef({ owner, repo, ref: `heads/${branch}`, sha: commit.data.sha });
+    return commit.data.sha;
   }
 
   async createOrUpdateReadme(owner, repo, content) {

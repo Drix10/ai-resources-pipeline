@@ -55,6 +55,7 @@ process.env.REDDIT_TRACK_PATH = path.join(dir, "data", "reddit-comments.json");
 process.env.REDDIT_PAINPOINTS_PATH = path.join(dir, "data", "reddit-painpoints.jsonl");
 process.env.SYNDICATION_QUEUE_PATH = path.join(dir, "data", "syndication-queue.json");
 process.env.HF_DATASET_STATE_PATH = path.join(dir, "data", "hf-dataset.json");
+process.env.KB_TOPICS_STATE_PATH = path.join(dir, "data", "kb-topics.json");
 // Neither exists: the blog index rebuild and the blog's git sync find nothing to do.
 process.env.BLOG_DIR = path.join(dir, "blog");
 process.env.BLOG_REPO_DIR = path.join(dir, "no-repo");

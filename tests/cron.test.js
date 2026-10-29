@@ -45,6 +45,7 @@ stub("src/services/redditComments.js", { runRedditPass: async (opts) => { calls.
 // The weekly Hugging Face upload: scripted, with the options cron handed it.
 const hfRuns = [];
 stub("src/services/hfDataset.js", { runHfDataset: async (opts) => { calls.push("hf-dataset"); hfRuns.push(opts); if (state.hfFails) throw new Error("HF down"); return { skipped: "not due" }; } });
+stub("src/services/kbTopics.js", { runKbTopics: async () => { calls.push("kb-topics"); if (state.topicsFail) throw new Error("topics down"); return { skipped: "not due" }; } });
 stub("src/services/syndication.js", { processQueue: async () => { calls.push("syndication"); return null; } });
 const config = require("../config");
 config.folders = [{ name: "A" }, { name: "B" }, { name: "C" }, { name: "D" }];
@@ -81,6 +82,7 @@ test("a run commits, marks only the sources used, replies on X after each batch 
   assert.ok(calls.includes("readme") && calls.includes("syndication"));
   assert.ok(calls.indexOf("merge-run") < calls.indexOf("hf-dataset") && calls.indexOf("hf-dataset") < calls.indexOf("syndication"), "the weekly dataset step follows the run-branch merge");
   assert.equal(calls.filter((c) => c === "hf-dataset").length, 1, "once per run");
+  assert.ok(calls.indexOf("readme") < calls.indexOf("kb-topics") && calls.indexOf("kb-topics") < calls.indexOf("merge-run"), "topic pages land on the run branch before its merge");
   assert.equal(typeof hfRuns[hfRuns.length - 1].shouldStop, "function", "it is handed the stop check");
   assert.equal(calls.filter((c) => c === "reddit").length, batches, "one Reddit pass per batch");
   assert.ok(calls.indexOf("reddit") > firstUpload && redditPasses.every((o) => o.max === 1 && typeof o.shouldStop === "function"), "one Reddit comment at most, after a commit");
@@ -122,16 +124,19 @@ test("X_UNAVAILABLE ends the X phase at once; an X init failure skips curation b
   assert.ok(calls.some((c) => c.startsWith("upload:")) && !calls.some((c) => c.startsWith("x-replies:")), "X_REPLIES=false turns them off");
 });
 
-test("a failing Hugging Face upload never fails the run", { timeout: 60000 }, async () => {
+test("a failing Hugging Face upload or topic build never fails the run", { timeout: 60000 }, async () => {
   calls.length = 0;
   state.fetch = () => tweets(10);
   state.hfFails = true;
+  state.topicsFail = true;
   try {
     const r = await cron.processAllFolders();
     assert.equal(r.ran, true);
+    assert.ok(calls.includes("kb-topics") && calls.includes("merge-run"), "the run branch is still merged");
     assert.ok(calls.includes("hf-dataset") && calls.includes("syndication"), "the rest of the run still happens");
   } finally {
     state.hfFails = false;
+    state.topicsFail = false;
   }
 });
 
@@ -223,7 +228,7 @@ test("a stop request ends the run at the next step and skips README, blog and fa
   assert.equal(r.stopped, true);
   assert.ok(!calls.includes("fetch:C"), "no new folder after the stop");
   assert.ok(calls.some((c) => c.startsWith("upload:")), "articles already generated are still committed");
-  assert.ok(!calls.includes("readme") && !calls.includes("hf-dataset"), "no dataset upload once a stop was asked for");
+  assert.ok(!calls.includes("readme") && !calls.includes("hf-dataset") && !calls.includes("kb-topics"), "no dataset upload or topic build once a stop was asked for");
 
   // A stop that reaches the writer (CLAUDE_STOPPED) is no failure: not retried, and the sources it judged are kept.
   calls.length = 0;
