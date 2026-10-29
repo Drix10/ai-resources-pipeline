@@ -60,7 +60,7 @@ test("viral score: only a crowd already, early in its rise", () => {
   assert.ok(xViralScore({ ...big, replies: 3000 }) < xViralScore(big), "a buried thread scores lower");
 });
 
-test("X drafter: shared gates plus X's own rules, then the judge in X's words; the regular pass keeps the peer grounding gate", async () => {
+test("X drafter: shared gates plus X's own rules, then the judge in X's words; off-post detail is the judge's call (a tweet is too short for the peer grounding gate)", async () => {
   const saved = llm.generateCommentText;
   const calls = [];
   const replies = [];
@@ -91,10 +91,12 @@ test("X drafter: shared gates plus X's own rules, then the judge in X's words; t
     assert.match(calls[1].prompt, /replies before they are posted under a post on X/);
     assert.ok(!/LinkedIn/.test(calls[0].prompt + calls[1].prompt + calls[1].opts.system));
 
-    // Off-post detail: the regular pass's peer gate rejects it, the viral pass lets the judge decide.
+    // Off-post detail: no peer gate on X (a tweet leaves too few words to ground in); the judge decides.
     const drift = "Streaming tool calls matter most for Kubernetes operators, Terraform modules, Postgres replicas and orchestration pipelines.";
-    replies.push(JSON.stringify({ candidates: [{ angle: "take", comment: drift }] }));
-    assert.match((await llm.draftXReply({ post: p })).errors.join(" "), /adds detail the post never states/);
+    replies.push(JSON.stringify({ candidates: [{ angle: "take", comment: drift }] }), JSON.stringify({ verdicts: [{ n: 1, pass: false, reason: "off topic" }] }));
+    const regular = await llm.draftXReply({ post: p });
+    assert.ok(!/adds detail the post never states/.test(regular.errors.join(" ")));
+    assert.match(regular.errors.join(" "), /judge: off topic/);
     calls.length = 0;
     replies.push(JSON.stringify({ candidates: [{ angle: "take", comment: drift }] }), JSON.stringify({ verdicts: [{ n: 1, pass: false, reason: "off topic" }] }));
     const viral = await llm.draftXReply({ post: p, viral: true });
