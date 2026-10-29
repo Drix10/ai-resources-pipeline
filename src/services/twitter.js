@@ -808,6 +808,7 @@ class TwitterService {
       retryDelay = 10000,
       reinitializeOnFailure = true,
       folder,
+      shouldStop = () => false,
     } = options;
 
     if (!folder) {
@@ -824,6 +825,11 @@ class TwitterService {
         await this.checkRateLimit();
         const { listId, name } = this.getSearchQuery(folder);
         logger.info(`Processing list ID: ${listId} (Type: ${name})`);
+        // Lists one after another as fast as the writer takes them get X to stall (its loading screen, no posts):
+        // at least ~45 s between list loads.
+        const gap = LIST_GAP_MS * (0.85 + Math.random() * 0.3) - (Date.now() - (this.lastListAt || 0));
+        if (gap > 0) await sleep(gap);
+        this.lastListAt = Date.now();
         await this.openList(listId);
 
         return await this.findContent(name);
@@ -837,8 +843,11 @@ class TwitterService {
           logger.error("Max retries reached. Unable to fetch tweets.");
           throw error;
         }
-        logger.info(`Retrying in ${retryDelay / 1000} seconds...`);
-        await sleep(retryDelay);
+        // X showing only its loading screen is throttling: a minute's rest before the next try (a stop cuts it short).
+        const blank = await this.driver.executeScript("return !(document.body && document.body.innerText.trim());").catch(() => false);
+        const wait = blank ? STALL_WAIT_MS : retryDelay;
+        logger.info(`Retrying in ${wait / 1000} seconds${blank ? " (X shows only its loading screen)" : ""}...`);
+        for (const end = Date.now() + wait; Date.now() < end && !shouldStop();) await sleep(Math.min(1000, end - Date.now()));
         // Reattach only when the session or connection itself broke.
         if (reinitializeOnFailure && isSessionError(error)) {
           await this.cleanup({ closeTab: false });
@@ -1068,6 +1077,9 @@ function selectTimelineTab(label) {
 }
 
 // Runs in the page: the article of one post (by the permalink around its first <time>, as readPosts reads it).
+const LIST_GAP_MS = 45 * 1000;
+const STALL_WAIT_MS = 60 * 1000;
+
 function findPostArticle(id) {
   return Array.from(document.querySelectorAll('article[data-testid="tweet"]')).find((a) => {
     // As readPosts: the permalink around the first <time>, else the first status link (a post's own page shows

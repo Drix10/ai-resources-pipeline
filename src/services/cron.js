@@ -329,7 +329,7 @@ const markPublished = (collections) => {
 // Two tries inside (it reattaches the browser on a session error) times runDataPipeline's three.
 const fetchFolder = (folder) => withSite("x", () => {
   logger.info(`Fetching tweets for folder: ${folder.name}...`);
-  return TwitterService.fetchTweets({ folder, maxRetries: 2 });
+  return TwitterService.fetchTweets({ folder, maxRetries: 2, shouldStop: stopping });
 });
 
 // `prefetched`: this folder's fetch, already started (its first attempt); `onFetched` runs once the
