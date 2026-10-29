@@ -983,7 +983,16 @@ class TwitterService {
     // On the post's own page X often keeps its inline "Post your reply" box instead of opening a dialog.
     const anyBox = By.css('[data-testid="tweetTextarea_0"]');
     try {
-      const article = await this.driver.executeScript(findPostArticle, post.tweetId);
+      // Drafting takes minutes and X may unload the post meanwhile: look again from the top, then reload it once.
+      const refind = (ms) => this.driver.wait(async () => {
+        await this.driver.executeScript("window.scrollTo(0, 0);");
+        return this.driver.executeScript(findPostArticle, post.tweetId);
+      }, ms).catch(() => null);
+      let article = await refind(8000);
+      if (!article && post.url) {
+        await withTimeout(this.driver.get(post.url), 60000, `reloading ${post.url}`);
+        article = await refind(15000);
+      }
       if (!article) return { status: "failed", reason: "post not on the page" };
       const replyButton = await article.findElement(By.css('[data-testid="reply"]'));
       await this.driver.executeScript("arguments[0].scrollIntoView({ block: 'center' });", replyButton);
