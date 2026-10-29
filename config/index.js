@@ -51,6 +51,11 @@ const config = {
     personalAccessToken: process.env.GITHUB_PAT,
     owner: process.env.GITHUB_USERNAME,
     repo: process.env.GITHUB_REPONAME,
+    // On (default): a run commits to its day's branch ("run/2026-10-29"), merged into main by a pull request
+    // at the end of the run. Off: straight to main.
+    runBranches: process.env.GITHUB_RUN_BRANCHES !== "false",
+    // "Name <email>": every commit of a run carries it as a Co-authored-by trailer ("" = none).
+    coAuthor: String(process.env.GITHUB_CO_AUTHOR || "").trim(),
   },
   author,
   llm: {

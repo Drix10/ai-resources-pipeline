@@ -640,6 +640,8 @@ const processAllFolders = async () => {
       config.github.owner,
       config.github.repo
     );
+    // The run's commits (and any an earlier run left on its branch) go into main through a merged pull request.
+    await GithubService.finishRunBranches(config.github.owner, config.github.repo);
 
     if (successfulArticles.length > 0) {
       logger.info(`Cycle End: Successfully processed and syndicated ${successfulArticles.length} curated guide(s).`);

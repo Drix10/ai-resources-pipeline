@@ -111,3 +111,45 @@ test("a committed digest is queued for DEV.to under its lead headline, with tags
   assert.equal(queued[1].title, "Tech VIPs #1", "no headline: the numbered folder title");
   assert.deepEqual(queued[1].tags, ["ai", "technology", "news"]);
 });
+
+test("a run commits to its day's branch with the co-author, and the end of the run merges it into main by a pull request", async () => {
+  const config = require("../config");
+  const saved = { ...config.github };
+  Object.assign(config.github, { runBranches: true, coAuthor: "CosLynx <support@coslynx.com>" });
+  github._runBranch = null;
+  const state = fakeGitHub();
+  const refs = new Set(), messages = [], calls = [];
+  const getRef = github.octokit.git.getRef;
+  github.octokit.git.getRef = async (args) => {
+    if (args.ref !== "heads/main" && args.ref.startsWith("heads/run/") && !refs.has(args.ref.slice(6))) throw Object.assign(new Error("Not Found"), { status: 404 });
+    return getRef(args);
+  };
+  github.octokit.git.createRef = async ({ ref }) => { refs.add(ref.replace("refs/heads/", "")); calls.push(`branch ${ref}`); return { data: {} }; };
+  const createCommit = github.octokit.git.createCommit;
+  github.octokit.git.createCommit = async (args) => { messages.push(args.message); return createCommit(args); };
+  github.octokit.git.listMatchingRefs = async () => ({ data: [...refs].map((r) => ({ ref: `refs/heads/${r}` })) });
+  github.octokit.git.deleteRef = async ({ ref }) => { refs.delete(ref.replace("heads/", "")); calls.push(`delete ${ref}`); return { data: {} }; };
+  github.octokit.repos.compareCommits = async () => ({ data: { ahead_by: 2 } });
+  github.octokit.pulls = {
+    list: async () => ({ data: [] }),
+    create: async ({ head }) => { calls.push(`pr ${head}`); return { data: { number: 42 } }; },
+    merge: async ({ pull_number, merge_method }) => { calls.push(`merge #${pull_number} ${merge_method}`); return { data: {} }; },
+  };
+  try {
+    const [r] = await github.uploadMarkdownBatch([item("AI Tools", "### 🤖 One\nbody")], "o/r");
+    await github.uploadMarkdownBatch([item("AI Tools", "### 🤖 Two\nbody")], "o/r");
+    assert.equal(calls.filter((c) => c.startsWith("branch")).length, 1, "one branch per day");
+    assert.match(calls[0], /^branch refs\/heads\/run\/\d{4}-\d{2}-\d{2}$/);
+    assert.ok(messages.every((m) => m.endsWith("\n\nCo-authored-by: CosLynx <support@coslynx.com>")), "every commit is co-authored");
+    assert.match(r.url, /\/blob\/main\//, "links point at main, where the branch lands");
+    assert.ok(state.commits >= 2);
+    assert.deepEqual(await github.finishRunBranches("o", "r"), [42]);
+    assert.deepEqual(calls.slice(1), [calls[1], "merge #42 merge", calls[3]]);
+    assert.match(calls[1], /^pr run\//);
+    assert.match(calls[3], /^delete heads\/run\//);
+    assert.equal(refs.size, 0, "the branch is gone once merged");
+  } finally {
+    Object.assign(config.github, saved);
+    github._runBranch = null;
+  }
+});
