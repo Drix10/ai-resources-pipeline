@@ -34,6 +34,7 @@ stub("src/services/github.js", {
     return results;
   },
   updateReadmeWithNewFile: async () => calls.push("readme"),
+  finishRunBranches: async () => calls.push("merge-run"),
 });
 stub("src/services/llm.js", { beginRun: () => calls.push("llm-beginRun"), generateMarkdownBatched: async (tweets) => state.generate(tweets) });
 // The X reply passes: recorded with the instance they were handed (cron's own TwitterService).

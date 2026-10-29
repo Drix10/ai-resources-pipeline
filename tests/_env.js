@@ -10,6 +10,9 @@ const path = require("path");
 process.env.GITHUB_PAT = "test-token-not-real";
 process.env.GITHUB_USERNAME = "test-owner";
 process.env.GITHUB_REPONAME = "test-repo";
+// Commits go straight to main with no co-author unless a test turns run branches on itself.
+process.env.GITHUB_RUN_BRANCHES = "false";
+process.env.GITHUB_CO_AUTHOR = "";
 // Secrets (key names from .env.example, plus the GitHub tokens the gh CLI reads): blank, so a
 // stray call cannot authenticate or spend money.
 for (const key of [

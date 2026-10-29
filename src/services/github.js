@@ -20,6 +20,13 @@ const commitIdentity = () => {
   return name && config.author.email ? { name, email: config.author.email } : null;
 };
 
+// The co-author trailer every commit of a run carries ("Name <email>" from GITHUB_CO_AUTHOR), or "".
+const coAuthorTrailer = () => (config.github.coAuthor ? `\n\nCo-authored-by: ${config.github.coAuthor}` : "");
+
+// A run's commits go to the branch of its day ("run/2026-10-29"), merged into main by a pull request at the end.
+const RUN_BRANCH_PREFIX = "run/";
+const runBranchName = (now = new Date()) => `${RUN_BRANCH_PREFIX}${now.toLocaleDateString("en-CA")}`;
+
 // The pipeline owns only the category list under this README heading; everything above it (title,
 // about, badges) is the repository owner's own text and is kept as it is.
 const README_CATEGORIES_HEADING = "## 📚 Resource Categories";
@@ -146,7 +153,7 @@ class GithubService {
    * @param {Function} [options.onCommitted] - called with the committed items as soon as the branch holds them
    * @returns {Promise<Array<Object>>} - Array of { success, url, content, folder, number, sha, tweets, queryName }
    */
-  async uploadMarkdownBatch(items, repoName = `${config.github.owner}/${config.github.repo}`, { branch = "main", prepared = null, onCommitted = null } = {}) {
+  async uploadMarkdownBatch(items, repoName = `${config.github.owner}/${config.github.repo}`, { branch = null, prepared = null, onCommitted = null } = {}) {
     if (!Array.isArray(items) || items.length === 0) {
       return [];
     }
@@ -155,6 +162,7 @@ class GithubService {
       throw new Error("Repository must use the owner/repository format");
     }
     const [owner, repo] = repoName.split("/");
+    branch = branch || await this.workBranch(owner, repo);
 
     const rateLimit = await this.checkRateLimit();
     if (rateLimit.isLimited) {
@@ -203,13 +211,14 @@ class GithubService {
           ? `📝 Add resource collection: ${preparedItems[0].decodedFolder} #${preparedItems[0].nextNumber}`
           : `📝 Batch sync: ${preparedItems.length} resource collections\n\n` +
           preparedItems.map(it => `- ${it.decodedFolder} (#${it.nextNumber})`).join("\n");
+        const fullMessage = commitMessage + coAuthorTrailer();
 
         const authorInfo = commitIdentity();
 
         const newCommit = await this.octokit.git.createCommit({
           owner,
           repo,
-          message: commitMessage,
+          message: fullMessage,
           tree: newTree.data.sha,
           parents: [latestCommitSha],
           ...(authorInfo ? { author: authorInfo, committer: authorInfo } : {})
@@ -327,7 +336,8 @@ class GithubService {
 
       const fileName = `resources-${String(nextNumber).padStart(3, "0")}.md`;
       const filePath = `${decodedFolder}/${fileName}`;
-      const fileUrl = `https://github.com/${owner}/${repo}/blob/${branch}/${urlSafeFolder}/${fileName}`;
+      // (on main: a run's branch is merged there at the end of the run, then deleted)
+      const fileUrl = `https://github.com/${owner}/${repo}/blob/main/${urlSafeFolder}/${fileName}`;
       // Last boundary before a public commit: redact again in case content came
       // from anywhere other than generateArticle.
       let content = redactSecrets(item.fileBuffer ? item.fileBuffer.toString("utf8") : String(item.markdownContent || ""));
@@ -614,10 +624,65 @@ class GithubService {
     }
   }
 
+  // The branch this run commits to: main, or (GITHUB_RUN_BRANCHES, on by default) the day's run branch, made
+  // from main the first time it is needed. A day's branch left by a run that stopped early is reused.
+  async workBranch(owner, repo) {
+    if (!config.github.runBranches) return "main";
+    const name = runBranchName();
+    if (this._runBranch === name) return name;
+    try {
+      await this.octokit.git.getRef({ owner, repo, ref: `heads/${name}` });
+    } catch (error) {
+      if (error.status !== 404) throw error;
+      const main = await this.octokit.git.getRef({ owner, repo, ref: "heads/main" });
+      await this.octokit.git.createRef({ owner, repo, ref: `refs/heads/${name}`, sha: main.data.object.sha });
+      logger.info(`This run commits to ${owner}/${repo}@${name}.`);
+    }
+    this._runBranch = name;
+    return name;
+  }
+
+  // End of a run: every run branch (this run's, and any an earlier run left unmerged) goes into main through a
+  // pull request merged with a merge commit, then is deleted; an empty one is just deleted. Never fatal: a
+  // branch that does not merge stays for the next run. Returns the merged pull request numbers.
+  async finishRunBranches(owner, repo) {
+    const merged = [];
+    if (!config.github.runBranches) return merged;
+    let refs = [];
+    try {
+      refs = (await this.octokit.git.listMatchingRefs({ owner, repo, ref: `heads/${RUN_BRANCH_PREFIX}` })).data;
+    } catch (error) {
+      logger.error(`Run branches could not be listed: ${error.message}`);
+      return merged;
+    }
+    for (const ref of refs) {
+      const name = ref.ref.replace(/^refs\/heads\//, "");
+      try {
+        const cmp = await this.octokit.repos.compareCommits({ owner, repo, base: "main", head: name });
+        if (cmp.data.ahead_by > 0) {
+          const open = (await this.octokit.pulls.list({ owner, repo, state: "open", head: `${owner}:${name}`, base: "main" })).data[0];
+          const pr = open || (await this.octokit.pulls.create({
+            owner, repo, head: name, base: "main",
+            title: `📚 Run ${name.slice(RUN_BRANCH_PREFIX.length)}: ${cmp.data.ahead_by} commit(s) of new digests`,
+            body: `The digests and README refresh committed by the pipeline's run on ${name.slice(RUN_BRANCH_PREFIX.length)}.`,
+          })).data;
+          await this.octokit.pulls.merge({ owner, repo, pull_number: pr.number, merge_method: "merge" });
+          merged.push(pr.number);
+          logger.info(`Run branch ${name} merged into main (pull request #${pr.number}).`);
+        }
+        await this.octokit.git.deleteRef({ owner, repo, ref: `heads/${name}` });
+        if (this._runBranch === name) this._runBranch = null;
+      } catch (error) {
+        logger.error(`Run branch ${name} not merged (kept for the next run): ${error.message}`);
+      }
+    }
+    return merged;
+  }
+
   async createOrUpdateReadme(owner, repo, content) {
     try {
       const path = "README.md";
-      const branch = "main";
+      const branch = await this.workBranch(owner, repo);
 
       let existingSha = null;
       let existingContent = null;
@@ -652,7 +717,7 @@ class GithubService {
         owner,
         repo,
         path,
-        message: "📚 README: refresh the category list with the newest digests",
+        message: "📚 README: refresh the category list with the newest digests" + coAuthorTrailer(),
         content: Buffer.from(content).toString("base64"),
         sha: existingSha,
         branch,
