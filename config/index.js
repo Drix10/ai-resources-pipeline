@@ -135,6 +135,9 @@ const config = {
     // Replies under other people's posts on X after each batch commit (src/services/xReplies.js): 2 or 3 on
     // fresh posts from the home timeline (For you, Following) and a curated list, then 1 or 2 on posts going viral.
     xReplies: process.env.X_REPLIES !== "false",
+    // A comment in a Reddit thread after each batch commit (src/services/redditComments.js), from the account
+    // logged in to the debug Chrome: subs in config/reddit.js, at most 1 a pass, 20-40 min apart, 6 a day, no plugs.
+    redditComments: process.env.REDDIT_COMMENTS !== "false",
   },
   syndication: {
     // The blog's public address. Empty: articles get no canonical link and nothing is queued for DEV.to.

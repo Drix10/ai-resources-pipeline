@@ -33,6 +33,7 @@ logs/
 .processed-tweet-ids.json*
 data/*.json
 data/*.json.*
+data/*.jsonl
 data/*.tmp*
 data/*.lock
 blog/lib/views-data.json*

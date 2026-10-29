@@ -7,6 +7,7 @@ const twitterService = require("./twitter");
 const TwitterService = new twitterService();
 const feedEngage = require("./feedEngage");
 const xReplies = require("./xReplies");
+const redditComments = require("./redditComments");
 const GithubService = require("./github");
 const llmService = require("./llm");
 
@@ -433,6 +434,7 @@ const processAllFolders = async () => {
     //  - at the start of the run: replies on our own posts (a run started right after a post covers its first hour)
     // Sources follow LINKEDIN_TARGETED; non-English posts are skipped. Never fatal.
     // X gets the same after every batch commit (X_REPLIES): 2 or 3 replies, then 1 or 2 on posts going viral.
+    // Reddit too (REDDIT_COMMENTS): at most one comment, 20-40 min apart, 6 a day.
     const repliesOnOurPosts = async (when) => {
       if (!config.social.linkedinOwnReplies || stopping()) return;
       try {
@@ -479,6 +481,14 @@ const processAllFolders = async () => {
           } catch (xErr) {
             logger.error(`X ${viral ? "viral " : ""}reply pass failed (non-fatal):`, xErr.message);
           }
+        }
+      }
+      if (config.social.redditComments && !stopping()) {
+        try {
+          const r = await redditComments.runRedditPass({ max: 1, shouldStop: stopping });
+          logger.info(`Batch done: Reddit comments ${r.commented} posted, ${r.skipped} skipped, ${r.pains} pain points logged. ${r.reason || ""}`);
+        } catch (redditErr) {
+          logger.error("Reddit comment pass failed (non-fatal):", redditErr.message);
         }
       }
       if (config.social.linkedinConnect && !stopping()) {
@@ -703,6 +713,7 @@ const processAllFolders = async () => {
     // Release the browsers at the end of the run, whatever happened in it.
     await TwitterService.cleanup().catch(() => {});
     await feedEngage.cleanup().catch(() => {});
+    await redditComments.cleanup().catch(() => {});
     releasePipelineLock();
   }
 };
@@ -768,6 +779,11 @@ const stopPipeline = async () => {
     logger.info("LinkedIn service cleaned up");
   } catch (error) {
     logger.error("Error cleaning up LinkedIn service:", error);
+  }
+  try {
+    await redditComments.cleanup();
+  } catch (error) {
+    logger.error("Error cleaning up Reddit service:", error);
   }
 };
 

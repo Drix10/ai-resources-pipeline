@@ -22,7 +22,7 @@ for (const key of [
 // FACTORY_ENABLED is off too: the optional content factory never runs in a test unless the test
 // turns it on itself.
 for (const flag of [
-  "X_REPLIES", "LINKEDIN_LIKE", "LINKEDIN_CONNECT", "LINKEDIN_FEED_REPLY", "LINKEDIN_VIRAL", "LINKEDIN_OWN_REPLIES",
+  "X_REPLIES", "REDDIT_COMMENTS", "LINKEDIN_LIKE", "LINKEDIN_CONNECT", "LINKEDIN_FEED_REPLY", "LINKEDIN_VIRAL", "LINKEDIN_OWN_REPLIES",
   "DEVTO_AUTO_PUBLISH", "FACTORY_ENABLED",
 ]) process.env[flag] = "false";
 // LLM providers: the documented default (openrouter, with no key) for every job, and the claude CLI
@@ -50,6 +50,8 @@ process.env.PROCESSED_IDS_PATH = path.join(dir, ".processed-tweet-ids.json");
 process.env.PIPELINE_LOCK_PATH = path.join(dir, ".pipeline.lock");
 process.env.LINKEDIN_TRACK_PATH = path.join(dir, "data", "linkedin-feed-commented.json");
 process.env.X_REPLIES_TRACK_PATH = path.join(dir, "data", "x-replies.json");
+process.env.REDDIT_TRACK_PATH = path.join(dir, "data", "reddit-comments.json");
+process.env.REDDIT_PAINPOINTS_PATH = path.join(dir, "data", "reddit-painpoints.jsonl");
 process.env.SYNDICATION_QUEUE_PATH = path.join(dir, "data", "syndication-queue.json");
 // Neither exists: the blog index rebuild and the blog's git sync find nothing to do.
 process.env.BLOG_DIR = path.join(dir, "blog");
