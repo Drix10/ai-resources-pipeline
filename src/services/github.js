@@ -58,10 +58,29 @@ const renderCategorySection = (folder, files, headlines = []) => {
   return `${out}\n`;
 };
 
+// GitHub's heading anchor: lowercase, punctuation dropped, spaces to hyphens ("Devs, Designers, DevRel" -> "devs-designers-devrel").
+const headingAnchor = (name) => String(name).toLowerCase().replace(/[^\p{L}\p{N} _-]/gu, "").replace(/ /g, "-");
+
+// The line under the categories heading: the live digest total and a jump link to every category.
+const renderCategoryIndex = (sections) => {
+  const total = sections.reduce((sum, s) => sum + (s.count || 0), 0);
+  const links = sections.map((s) => `[${s.name}](#${headingAnchor(s.name)})`).join(" · ");
+  return `**${total.toLocaleString("en-US")} digests in ${sections.length} categories.** Each category shows its newest headlines; jump to one:\n\n<sub>${links}</sub>\n\n`;
+};
+
+// The pipeline's own repository (package.json), linked from the footer as the place the digests come from.
+const pipelineRepoUrl = String(require("../../package.json").repository?.url || "").replace(/^git\+/, "").replace(/\.git$/, "");
+
 // Kept under the regenerated category list on every run (the list replaces everything below the heading).
 const readmeFooter = (owner, repo) => {
   const home = `https://github.com/${owner}/${repo}`;
   const by = config.author?.name ? ` © ${config.author.name}` : "";
+  const blog = config.syndication?.canonicalBaseUrl;
+  const more = [
+    blog && `[Read on the blog](${blog})`,
+    blog && `[RSS feed](${blog}/rss.xml)`,
+    pipelineRepoUrl && `[How it is built](${pipelineRepoUrl})`,
+  ].filter(Boolean);
   return [
     "---",
     "",
@@ -69,6 +88,7 @@ const readmeFooter = (owner, repo) => {
     "",
     `**Found something useful?** ⭐ [Star the repo](${home}) to keep it handy and help others find it, or [suggest a source](${home}/issues/new/choose).`,
     "",
+    ...(more.length ? [more.join(" · "), ""] : []),
     `<sub>Summaries${by}, licensed [CC BY 4.0](LICENSE). Every digest links to its original post where one exists; the posts and linked pages belong to their authors.</sub>`,
     "",
     "</div>",
@@ -512,7 +532,7 @@ class GithubService {
             }
           }
           const sectionContent = renderCategorySection(folder, files, headlines);
-          return { name: folder.name, content: sectionContent };
+          return { name: folder.name, content: sectionContent, count: files.length };
         } catch (error) {
           let sectionContent = `### ${folder.name}\n\n`;
           if (error.status === 404) {
@@ -526,11 +546,11 @@ class GithubService {
       });
 
       // Sort results to maintain order from config
-      const orderedContent = config.folders.map(folder =>
-        folderResults.find(r => r.name === folder.name)?.content || ""
-      ).join("");
+      const ordered = config.folders.map(folder =>
+        folderResults.find(r => r.name === folder.name) || { name: folder.name, content: "", count: 0 }
+      );
 
-      updatesContent += orderedContent;
+      updatesContent += renderCategoryIndex(ordered) + ordered.map((r) => r.content).join("");
 
       const newContent = headerContent + updatesContent + readmeFooter(owner, repo);
 
@@ -673,4 +693,4 @@ class GithubService {
 }
 
 module.exports = new GithubService();
-module.exports.readme = { digestHeadlines, renderCategorySection, blogCategoryUrl, readmeFooter, README_CATEGORIES_HEADING };
+module.exports.readme = { digestHeadlines, renderCategorySection, renderCategoryIndex, blogCategoryUrl, readmeFooter, README_CATEGORIES_HEADING };
