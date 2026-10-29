@@ -1007,7 +1007,8 @@ class TwitterService {
       const found = await this.driver.wait(pick, 10000).catch(() => null);
       if (!found) return { status: "failed", reason: "no-composer" };
       const { box, inDialog } = found;
-      await box.click();
+      // (focused, not clicked: the sticky header or a "Replying to" line can sit over the inline box)
+      await this.driver.executeScript("arguments[0].scrollIntoView({ block: 'center' }); arguments[0].focus();", box);
       await box.sendKeys(typed);
       await sleep(1200);
       if (norm(await box.getText()) !== norm(typed)) throw new Error("the reply box does not hold the reply's text");
