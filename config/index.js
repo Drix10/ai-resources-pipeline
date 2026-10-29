@@ -119,7 +119,7 @@ const config = {
     linkedinFeedReply: process.env.LINKEDIN_FEED_REPLY === "true",
     // 3-6 likes after each article on targeted AI/founder/finance posts, the people who engaged with us first.
     linkedinLike: process.env.LINKEDIN_LIKE !== "false",
-    // 1-2 extra comments a pass (at most every ~40 min) on posts going viral (big names in config/viral.js,
+    // 1-2 extra comments a pass (at most every ~25 min) on posts going viral (big names in config/viral.js,
     // the day's most-engaged launches and funding news), on their own daily cap. Comments post only
     // with LINKEDIN_FEED_REPLY=true.
     linkedinViral: process.env.LINKEDIN_VIRAL !== "false",
@@ -127,12 +127,12 @@ const config = {
     // content and people search, big names, the topic and US filters). false: the home feed (Top and Recent)
     // for likes and comments, viral comments too, any topic, and LinkedIn's "People you may know" for connects.
     linkedinTargeted: process.env.LINKEDIN_TARGETED !== "false",
-    // 3-7 no-note connection requests a pass (at most every ~40 min) to US people in AI/tech (2 of 3) and finance/investing.
+    // 3-7 no-note connection requests a pass (at most every ~25 min) to US people in AI/tech (2 of 3) and finance/investing.
     linkedinConnect: process.env.LINKEDIN_CONNECT !== "false",
     // Replies to the comments on our own posts (the first hour decides a post's reach): at the start of a run
-    // and then at most every ~40 min. A comment only the owner can answer is logged for them, never guessed.
+    // and then at most every ~25 min. A comment only the owner can answer is logged for them, never guessed.
     linkedinOwnReplies: process.env.LINKEDIN_OWN_REPLIES !== "false",
-    // Replies under other people's posts on X, at most every ~40 min (src/services/xReplies.js): 2 or 3 on
+    // Replies under other people's posts on X, at most every ~25 min (src/services/xReplies.js): 2 or 3 on
     // fresh posts from the home timeline (For you, Following) and a curated list, then 1 or 2 on posts going viral.
     xReplies: process.env.X_REPLIES !== "false",
     // A comment in a Reddit thread after each batch commit (src/services/redditComments.js), from the account

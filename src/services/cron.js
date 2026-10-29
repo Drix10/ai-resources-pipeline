@@ -50,7 +50,7 @@ const withSite = (site, job) => {
   return run;
 };
 // Each engagement pass runs at most once in this window (jittered), so a run is no longer paced by them.
-const ENGAGE_EVERY_MS = 40 * 60 * 1000;
+const ENGAGE_EVERY_MS = 25 * 60 * 1000;
 
 // Two processes can race to reclaim the same stale lock; the loser finds it already gone.
 const safeUnlink = (filePath) => {
