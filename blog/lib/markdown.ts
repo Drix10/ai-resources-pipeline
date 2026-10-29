@@ -120,27 +120,30 @@ export function findSummary(slugPath: string[]): ArticleSummary | null {
   return summary ?? null;
 }
 
+// The raw Markdown file behind a digest (falls back to its title and description).
+export function getArticleSource(summary: ArticleSummary): string {
+  const contentDir = resolveContentRootDir();
+  try {
+    return fs.readFileSync(path.join(contentDir, summary.category, summary.filename), 'utf8');
+  } catch (err) {
+    try {
+      return fs.readFileSync(path.join(process.cwd(), summary.filePath), 'utf8');
+    } catch (e) {
+      return '# ' + summary.title + '\n\n' + summary.description;
+    }
+  }
+}
+
+// The static GitHub promo footer is replaced on the web by the author card.
+export const stripFooter = (content: string) =>
+  content.replace(/(?:\r?\n)+\s*---\s*###\s*(?:🌐\s*)?(?:Read on the AI Knowledge Hub|Read More & Connect|⭐️\s*Support)[\s\S]*$/i, '').trim();
+
 export function getArticleBySlug(slugPath: string[]): Article | null {
   const summary = findSummary(slugPath);
   if (!summary) return null;
 
-  const contentDir = resolveContentRootDir();
-  const fullPath = path.join(contentDir, summary.category, summary.filename);
-  let content = '';
-  try {
-    content = fs.readFileSync(fullPath, 'utf8');
-  } catch (err) {
-    try {
-      content = fs.readFileSync(path.join(process.cwd(), summary.filePath), 'utf8');
-    } catch (e) {
-      content = '# ' + summary.title + '\n\n' + summary.description;
-    }
-  }
-
-  // The static GitHub promo footer is replaced on the web by the author card.
-  const cleanContentForWeb = content
-    .replace(/(?:\r?\n)+\s*---\s*###\s*(?:🌐\s*)?(?:Read on the AI Knowledge Hub|Read More & Connect|⭐️\s*Support)[\s\S]*$/i, '')
-    .trim();
+  const content = getArticleSource(summary);
+  const cleanContentForWeb = stripFooter(content);
 
   const sections = summary.isPersonal || summary.category.toLowerCase() === 'personal' ? [] : buildSections(cleanContentForWeb);
 

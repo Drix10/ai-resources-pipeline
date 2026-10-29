@@ -8,6 +8,7 @@ export interface SearchParams {
   sort?: SortOption | string;
   page?: number;
   limit?: number;
+  since?: string; // YYYY-MM-DD: only digests published on or after this day
 }
 
 export interface SearchResult {
@@ -22,12 +23,13 @@ const all = getAllArticles();
 
 // One implementation behind both the home page (server-rendered) and /api/articles,
 // so a shared URL and the API always agree.
-export function searchArticles({ q = '', category = '', sort = 'newest', page = 1, limit = 20 }: SearchParams): SearchResult {
-  const safeLimit = Number.isInteger(limit) && limit > 0 ? Math.min(100, Math.max(5, limit)) : 20;
+export function searchArticles({ q = '', category = '', sort = 'newest', page = 1, limit = 20, since = '' }: SearchParams): SearchResult {
+  const safeLimit = Number.isInteger(limit) && limit > 0 ? Math.min(100, limit) : 20;
   // The index text is stripped to letters and digits, so the query gets the same treatment.
   const terms = q.toLowerCase().slice(0, 100).replace(/[^a-z0-9]+/g, ' ').split(' ').filter(Boolean).slice(0, 8);
 
   let list = all;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(since)) list = list.filter((a) => a.date >= since);
   if (category) list = list.filter((a) => a.category === category || a.categorySlug === category);
   if (terms.length) {
     list = list.filter((a) => {

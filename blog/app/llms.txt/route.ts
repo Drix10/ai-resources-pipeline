@@ -35,6 +35,19 @@ Drishtant Ghosh (alias Drix10) is a technical founder and engineer working acros
     text += `- [${cat.name}](${baseUrl}/categories/${cat.slug}): ${cat.count} verified engineering breakdowns\n`;
   }
 
+  text += `\n## Latest Briefings per Category (llms.txt)\n`;
+  for (const cat of categories) {
+    text += `- [${cat.name}](${baseUrl}/llms/${cat.slug}.txt): the 50 newest briefings with sources\n`;
+  }
+
+  text += `\n## For AI Agents
+- JSON API: ${baseUrl}/api/articles?q=<words>&category=<slug>&since=<YYYY-MM-DD>&limit=<1-100> (CORS open)
+- One briefing with full Markdown: ${baseUrl}/api/articles?slug=<category-slug>/<article-slug>
+- Categories: ${baseUrl}/api/categories
+- MCP server: npx ai-resources-mcp (https://github.com/Drix10/ai-resources-pipeline/tree/main/mcp)
+- Data: https://github.com/Drix10/ai-resources (CC BY 4.0)
+`;
+
   text += `\n## Featured & Latest Technical Breakdowns\n`;
   for (const a of articles.slice(0, 40)) {
     text += `- [${a.title}](${baseUrl}/articles/${a.slug}): ${a.description.slice(0, 140)}...\n`;
