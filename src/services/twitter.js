@@ -980,25 +980,38 @@ class TwitterService {
     const typed = stripNonBmp(text).replace(/\s+/g, " ").trim();
     const norm = (s) => String(s || "").replace(/\s+/g, " ").trim();
     const dialogBox = By.css('[role="dialog"] [data-testid="tweetTextarea_0"]');
+    // On the post's own page X often keeps its inline "Post your reply" box instead of opening a dialog.
+    const anyBox = By.css('[data-testid="tweetTextarea_0"]');
     try {
       const article = await this.driver.executeScript(findPostArticle, post.tweetId);
       if (!article) return { status: "failed", reason: "post not on the page" };
       const replyButton = await article.findElement(By.css('[data-testid="reply"]'));
       await this.driver.executeScript("arguments[0].scrollIntoView({ block: 'center' });", replyButton);
       await replyButton.click();
-      const box = await this.driver.wait(until.elementLocated(dialogBox), 10000).catch(() => null);
-      if (!box) return { status: "failed", reason: "no-composer" };
-      await this.driver.wait(until.elementIsVisible(box), 10000);
+      // The dialog when it opens, else the page's inline box (the focal post's own reply box).
+      const pick = async () => {
+        const [d] = await this.driver.findElements(dialogBox);
+        if (d && await d.isDisplayed().catch(() => false)) return { box: d, inDialog: true };
+        for (const e of await this.driver.findElements(anyBox)) if (await e.isDisplayed().catch(() => false)) return { box: e, inDialog: false };
+        return null;
+      };
+      const found = await this.driver.wait(pick, 10000).catch(() => null);
+      if (!found) return { status: "failed", reason: "no-composer" };
+      const { box, inDialog } = found;
+      await box.click();
       await box.sendKeys(typed);
       await sleep(1200);
       if (norm(await box.getText()) !== norm(typed)) throw new Error("the reply box does not hold the reply's text");
-      const send = await this.driver.findElement(By.css('[role="dialog"] [data-testid="tweetButton"]'));
+      const send = await this.driver.findElement(By.css(inDialog ? '[role="dialog"] [data-testid="tweetButton"]' : '[data-testid="tweetButtonInline"]'));
       await this.driver.wait(async () => (await send.getAttribute("aria-disabled")) !== "true", 10000)
         .catch(() => { throw new Error("the Reply button stayed disabled"); });
       submitted = true;
       await send.click();
-      const closed = await this.driver.wait(async () => (await this.driver.findElements(dialogBox)).length === 0, 15000).then(() => true, () => false);
-      if (!closed) throw new Error("the reply dialog is still open after sending");
+      // Sent: the dialog closes, or the inline box empties.
+      const closed = await this.driver.wait(async () => (inDialog
+        ? (await this.driver.findElements(dialogBox)).length === 0
+        : !norm(await box.getText().catch(() => ""))), 15000).then(() => true, () => false);
+      if (!closed) throw new Error("the reply box still holds the reply after sending");
       const own = await this.ownHandle();
       const head = typed.slice(0, 40);
       for (const deadline = Date.now() + 12000; Date.now() < deadline; await sleep(1000)) {
@@ -1014,7 +1027,7 @@ class TwitterService {
       // keeps the tab here: every later load fails. Cleared and closed (never sent: no button is clicked).
       if (!submitted) {
         await withTimeout((async () => {
-          for (const box of await this.driver.findElements(dialogBox)) await box.sendKeys(Key.chord(MOD_KEY, "a"), Key.BACK_SPACE);
+          for (const box of await this.driver.findElements(anyBox)) await box.sendKeys(Key.chord(MOD_KEY, "a"), Key.BACK_SPACE);
           await this.driver.actions().sendKeys(Key.ESCAPE).perform();
         })(), 10000, "clearing the reply dialog").catch(() => { });
       }
