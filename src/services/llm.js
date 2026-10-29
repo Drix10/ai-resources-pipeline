@@ -31,6 +31,8 @@ const persona = (who) => (who ? `${who}, a software engineer` : "a software engi
 const CLAUDE_REST_MS = 20 * 60 * 1000;
 // A comment call is not started with less than this left of a LinkedIn pass's deadline.
 const MIN_COMMENT_CALL_MS = 20 * 1000;
+// A reply or comment call on NVIDIA gives up after this: a hung model otherwise holds a pass for 4 min.
+const COMMENT_CALL_CAP_MS = 90 * 1000;
 // A "Best, <first name>" sign-off a model sometimes appends to a reply.
 const REPLY_SIGNOFF = (() => {
   const first = config.author.name.split(/\s+/)[0];
@@ -651,10 +653,11 @@ class LLMService {
 
       for (let attempt = 1; attempt <= maxRetries; attempt++) {
         const controller = new AbortController();
-        const requestTimeout = Math.max(
+        // (timeoutCapMs: a short reply call never waits an article's timeout on a hung model)
+        const requestTimeout = Math.min(Math.max(
           config.llm.nvidia.requestTimeoutMs || 180000,
           typeof options.timeoutMs === "number" ? options.timeoutMs : 180000
-        );
+        ), options.timeoutCapMs || Infinity);
         const timeout = setTimeout(() => controller.abort(), requestTimeout);
 
         try {
@@ -789,7 +792,7 @@ class LLMService {
       }
     }
     if (provider === "local") return this.generateTextViaOllama(prompt, { ...rest, model: config.llm.commentModel || config.llm.model });
-    if (provider === "nvidia") return this.generateTextViaNvidia(prompt, { ...rest, model: this.commentModelName() });
+    if (provider === "nvidia") return this.generateTextViaNvidia(prompt, { ...rest, model: this.commentModelName(), timeoutCapMs: Math.min(COMMENT_CALL_CAP_MS, left) });
     if (this.openRouterReady()) {
       const viralModel = role === "viral" && !rest.model ? config.llm.openrouter.viralModel : "";
       try {
@@ -798,7 +801,7 @@ class LLMService {
         logger.warn(`OpenRouter comment call failed (${e.message}), falling back to ${this.commentModelName()}.`);
       }
     }
-    return this.generateTextViaNvidia(prompt, { ...rest, model: this.commentModelName() });
+    return this.generateTextViaNvidia(prompt, { ...rest, model: this.commentModelName(), timeoutCapMs: Math.min(COMMENT_CALL_CAP_MS, left) });
   }
 
   async generateTextViaOpenRouter(prompt, options = {}) {
