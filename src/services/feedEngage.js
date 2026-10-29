@@ -336,8 +336,8 @@ function parseTrackFile(file) {
 // Fails closed. Missing file = first run. A corrupt file is moved aside (.corrupt-<ts>) and
 // the .bak used; with no usable backup LinkedIn stays off for the run. Never a silent {}:
 // that resets every cap and the commented-memory (double comments, cap overruns).
-function loadTrack() {
-  const file = trackPath();
+// file: another tracker of the same shape (xReplies.js keeps its own).
+function loadTrack(file = trackPath()) {
   try {
     return parseTrackFile(file);
   } catch (e) {
@@ -348,29 +348,29 @@ function loadTrack() {
       let corrupt = [];
       try { corrupt = fs.readdirSync(dir).filter((f) => f.startsWith(`${base}.corrupt-`)); } catch (dirErr) { /* no dir yet */ }
       if (corrupt.length) {
-        logger.error(`feedEngage: tracker missing and ${corrupt[0]} exists - LinkedIn off until it is restored.`);
+        logger.error(`feedEngage: ${path.basename(file)} missing and ${corrupt[0]} exists - its passes off until it is restored.`);
         return disabledTracker("tracker missing after corruption");
       }
       return {};
     }
     if (!(e instanceof SyntaxError)) {
       // Locked or unreadable (EBUSY/EACCES): the file may be fine, so leave it alone.
-      logger.error(`feedEngage: tracker unreadable (${e.code || e.message}) - LinkedIn off for this run.`);
+      logger.error(`feedEngage: ${path.basename(file)} unreadable (${e.code || e.message}) - its passes off for this run.`);
       return disabledTracker(`tracker unreadable (${e.code || "error"})`);
     }
     const aside = `${file}.corrupt-${Date.now()}`;
     try {
       fs.renameSync(file, aside);
-      logger.error(`feedEngage: tracker is corrupt (${e.message}); moved to ${path.basename(aside)}.`);
+      logger.error(`feedEngage: ${path.basename(file)} is corrupt (${e.message}); moved to ${path.basename(aside)}.`);
     } catch (mvErr) {
-      logger.error(`feedEngage: tracker is corrupt and could not be moved aside: ${mvErr.message}`);
+      logger.error(`feedEngage: ${path.basename(file)} is corrupt and could not be moved aside: ${mvErr.message}`);
     }
     try {
       const restored = parseTrackFile(`${file}.bak`);
       logger.warn("feedEngage: tracker restored from its .bak copy.");
       return restored;
     } catch (bakErr) {
-      logger.error("feedEngage: no usable tracker backup - LinkedIn off for this run.");
+      logger.error(`feedEngage: no usable ${path.basename(file)} backup - its passes off for this run.`);
       return disabledTracker("tracker corrupt, no backup");
     }
   }
@@ -381,9 +381,8 @@ const sleepSync = (ms) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)),
 // Durable write: tmp + fsync + rename, retried while Windows holds the target (antivirus,
 // indexer, an editor). The target is never deleted first, and the previous version is kept
 // as .bak. Returns false when nothing was written.
-function saveTrack(track) {
+function saveTrack(track, file = trackPath()) {
   if (!track || track.disabled) return false;
-  const file = trackPath();
   const dir = path.dirname(file);
   const tmp = `${file}.${process.pid}.tmp`;
   try {
@@ -1404,6 +1403,6 @@ const cleanup = () => LinkedInService.cleanup();
 
 module.exports = {
   runFeedEngagement, runViralPass, runLikePass, runConnectPass, runWithdrawPass, runOwnRepliesPass, pickUnanswered, noteAccepted, inviteAgeDays, mutualCount, acceptance, scorePost, viralScore, isVip, buildViralSources, noteViralPage, isSensitivePost, cleanup,
-  _tracker: { shouldSkipTracked, entryOfPost, markPost, loadTrack, saveTrack, pruneTrack, passBlocked, commentedSince, likedSince, setCooldown, recentComments },
+  _tracker: { shouldSkipTracked, entryOfPost, keysOfPost, markPost, loadTrack, saveTrack, pruneTrack, passBlocked, commentedSince, likedSince, setCooldown, recentComments, authorDid, commentedAtOf },
   _reciprocity: { noteWarmPeople, noteWarmPage, warmPeople, warmSources, audienceScore, buildSources },
 };

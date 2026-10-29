@@ -664,33 +664,3 @@ test("the writer sees what readers on X did with the post, as interest for VALUE
     assert.doesNotMatch(prompts[1], /Readers on X/, "no counts, no line");
   });
 });
-
-test("the announcement is the model's, checked in code: no link at all (it goes in the reply), at most 280", async () => {
-  const saved = llm.generateCommentText;
-  const prompts = [];
-  const replies = [];
-  llm.generateCommentText = async (prompt) => { prompts.push(prompt); return replies.shift(); };
-  const write = () => llm.writeAnnouncement({ topic: "AI Developer Tools", content: "### 🚀 Acme Fooql 2.0 makes joins 3x faster" });
-  try {
-    replies.push("Fooql 2.0 makes joins 3x faster. The numbers and sources below.");
-    assert.equal(await write(), "Fooql 2.0 makes joins 3x faster. The numbers and sources below.");
-    assert.match(prompts[0], /Fooql 2\.0/);
-    assert.match(prompts[0], /No link, no domain name, no hashtag/);
-    replies.push("Fooql 2.0: {LINK}");
-    await assert.rejects(write(), /carries a link/);
-    replies.push("Fooql 2.0 (see https://acme.dev)");
-    await assert.rejects(write(), /carries a link/);
-    replies.push("Fooql 2.0 is on acme.dev now");
-    await assert.rejects(write(), /carries a link/, "a bare domain is a link on X");
-    replies.push("Fooql 2.0 makes joins 3x faster #databases");
-    await assert.rejects(write(), /hashtag or @mention/);
-    replies.push("Fooql 2.0 makes joins 3x faster 👇");
-    await assert.rejects(write(), /emoji/);
-    replies.push("x".repeat(280));
-    assert.ok(await write(), "280 is the limit");
-    replies.push("x".repeat(281));
-    await assert.rejects(write(), /281 characters/);
-  } finally {
-    llm.generateCommentText = saved;
-  }
-});

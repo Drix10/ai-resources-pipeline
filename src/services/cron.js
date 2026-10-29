@@ -1,4 +1,4 @@
-const { logger, handleError, sleep, REPO_ROOT, digestLead, announcementProblem } = require("../utils/helpers");
+const { logger, handleError, sleep, REPO_ROOT } = require("../utils/helpers");
 const fs = require("fs");
 const path = require("path");
 const config = require("../../config");
@@ -6,6 +6,7 @@ const { factoryModule } = require("../utils/factory");
 const twitterService = require("./twitter");
 const TwitterService = new twitterService();
 const feedEngage = require("./feedEngage");
+const xReplies = require("./xReplies");
 const GithubService = require("./github");
 const llmService = require("./llm");
 
@@ -303,7 +304,7 @@ const syncBlogToGit = async (root = blogRepoDir()) => (await publishBlog(root)) 
 // Outages that hit every folder the same way: retrying them only hammers X or the provider.
 const RUN_ENDING_CODES = new Set(["LOCAL_LLM_UNAVAILABLE", "LLM_UNAVAILABLE", "X_UNAVAILABLE"]);
 
-// Set when the published-ID store could not be written: curation and tweets stop for the run and
+// Set when the published-ID store could not be written: curation stops for the run and
 // the save is retried before it ends (the next run would otherwise curate the same sources again).
 let idsUnsaved = false;
 const markPublished = (collections) => {
@@ -384,21 +385,6 @@ const runDataPipeline = async (folder) => {
   }
 };
 
-// Announcement tweets: a few per run, spaced out, in varied words. Eight identical link posts a
-// minute apart read as a bot to X and get throttled ("Composer still open").
-const TWEETS_PER_RUN = Math.max(0, Number(process.env.TWITTER_POSTS_PER_RUN ?? 3) || 0);
-const TWEET_GAP_MS = 20 * 60 * 1000;
-// Optional credit line (TWITTER_MADE_BY, TWITTER_VIA), added in code when it fits: it may name the owner, so
-// it never goes into a prompt.
-const { madeBy: MADE_BY, via: VIA } = config.social.tweetCredit;
-const CREDIT = [MADE_BY && `Made by ${MADE_BY}`, VIA && `via ${VIA}`].filter(Boolean).join(" ");
-// The announcement when the model's call fails or its post fails the check: the digest's top headline, which
-// earns the click a generic line does not, else a plain line. The link follows in the thread's reply.
-const plainAnnouncement = (topic, lead) => {
-  const text = `${lead}\n\nThis and more in today's ${topic} roundup, link below.`;
-  return lead && !announcementProblem(lead) && text.length <= 280 ? text : `Today's ${topic} roundup is out, link below.`;
-};
-
 // A long wait that ends as soon as a stop is requested.
 const pauseUnlessStopped = async (ms) => {
   const end = Date.now() + ms;
@@ -431,43 +417,6 @@ const processAllFolders = async () => {
     llmService.beginRun?.();
     idsUnsaved = false;
     const successfulArticles = [];
-    let tweetsThisRun = 0;
-    let lastTweetAt = 0;
-    let tweetingHalted = false;
-    const announce = async (item) => {
-      if (!config.social.twitterPost) {
-        return logger.info(`Twitter posting disabled (TWITTER_POST=false). Skipping tweet for ${item.queryName}.`);
-      }
-      if (stopping() || tweetingHalted || idsUnsaved) return;
-      if (tweetsThisRun >= TWEETS_PER_RUN) {
-        return logger.info(`Tweet cap reached (${TWEETS_PER_RUN} this run); not announcing ${item.queryName}.`);
-      }
-      if (Date.now() - lastTweetAt < TWEET_GAP_MS) {
-        return logger.info(`Not announcing ${item.queryName}: the last tweet went out under ${TWEET_GAP_MS / 60000} min ago.`);
-      }
-      if (!item.url) return logger.warn(`Not announcing ${item.queryName}: it has no link for the reply.`);
-      const topic = item.queryName;
-      let text = await llmService.writeAnnouncement({ topic, content: item.content }).catch((err) => {
-        if (err.code === "CLAUDE_STOPPED") return "";
-        logger.warn(`Announcement for ${topic} not written by the model (${err.message}); posting the plain line.`);
-        return plainAnnouncement(topic, digestLead(item.content).title);
-      });
-      // (a stop that came during the call posts nothing)
-      if (!text || stopping()) return;
-      if (CREDIT && `${text}\n\n${CREDIT}`.length <= 280) text = `${text}\n\n${CREDIT}`;
-      // The link goes in the reply under the post: X ranks a post that carries a link far lower.
-      const posted = await TwitterService.postTweet(text, { reply: item.url }).catch((err) => {
-        logger.error(`Failed to post tweet for ${item.queryName}:`, err);
-        return false;
-      });
-      if (posted === false) {
-        // X refusing one post usually means it is throttling the account: stop for this run.
-        tweetingHalted = true;
-        return logger.warn("Tweet failed; no more tweets this run.");
-      }
-      tweetsThisRun++;
-      lastTweetAt = Date.now();
-    };
     const folders = config.folders;
     logger.info(`Processing all ${folders.length} folders this run.`);
     // A random batch size of 1 to 8 articles per commit.
@@ -483,6 +432,7 @@ const processAllFolders = async () => {
     //    viral, then stale invites withdrawn and a few connection requests (engageAfterBatch)
     //  - at the start of the run: replies on our own posts (a run started right after a post covers its first hour)
     // Sources follow LINKEDIN_TARGETED; non-English posts are skipped. Never fatal.
+    // X gets the same after every batch commit (X_REPLIES): 2 or 3 replies, then 1 or 2 on posts going viral.
     const repliesOnOurPosts = async (when) => {
       if (!config.social.linkedinOwnReplies || stopping()) return;
       try {
@@ -517,6 +467,17 @@ const processAllFolders = async () => {
             logger.info(`Batch done: LinkedIn viral comments ${viral.commented} posted, ${viral.skipped} skipped. ${viral.reason || ""}`);
           } catch (viralErr) {
             logger.error("LinkedIn viral comment pass failed (non-fatal):", viralErr.message);
+          }
+        }
+      }
+      if (config.social.xReplies && xReady && !stopping()) {
+        for (const viral of [false, true]) {
+          if (stopping()) break;
+          try {
+            const r = await xReplies.runXReplyPass({ twitter: TwitterService, viral, max: (viral ? 1 : 2) + Math.floor(Math.random() * 2), shouldStop: stopping });
+            logger.info(`Batch done: X ${viral ? "viral " : ""}replies ${r.replied} posted, ${r.skipped} skipped. ${r.reason || ""}`);
+          } catch (xErr) {
+            logger.error(`X ${viral ? "viral " : ""}reply pass failed (non-fatal):`, xErr.message);
           }
         }
       }
@@ -570,8 +531,6 @@ const processAllFolders = async () => {
         );
 
         for (const item of results) {
-          await announce(item);
-
           logger.info(`Pipeline succeeded for folder ${item.queryName}: ${item.url}`);
           if (config.factory.enabled) {
             try {
@@ -613,7 +572,7 @@ const processAllFolders = async () => {
         break;
       }
       if (idsUnsaved) {
-        logger.error("The published-ID store could not be saved: no more curation or tweets this run.");
+        logger.error("The published-ID store could not be saved: no more curation this run.");
         break;
       }
       try {
@@ -649,6 +608,7 @@ const processAllFolders = async () => {
         }
         if (RUN_ENDING_CODES.has(error.code)) {
           logger.warn(`${error.code}: ending the X phase for this run (${error.message}).`);
+          if (error.code === "X_UNAVAILABLE") xReady = false; // no X replies either
           break;
         }
         // An outage (DNS, network, a dead browser) fails every folder the same way: stop the X

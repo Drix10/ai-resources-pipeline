@@ -7,9 +7,7 @@ const path = require("node:path");
 
 // cron.js wires real services at require time: swap them for scripted fakes first.
 const calls = [];
-const tweetTexts = [];
-const tweetReplies = [];
-const state = { fetch: () => [], upload: (items) => items.map((it, i) => ({ ...it, url: `https://x/${it.queryName}/${i}`, content: "md" })), tweet: () => true, generate: (tweets) => ({ markdown: "# md", usedTweets: tweets.slice(0, 2) }) };
+const state = { fetch: () => [], upload: (items) => items.map((it, i) => ({ ...it, url: `https://x/${it.queryName}/${i}`, content: "md" })), generate: (tweets) => ({ markdown: "# md", usedTweets: tweets.slice(0, 2) }) };
 const stub = (rel, exports) => {
   const file = require.resolve(path.join(__dirname, "..", rel));
   require.cache[file] = { id: file, filename: file, loaded: true, exports };
@@ -20,7 +18,6 @@ class FakeTwitter {
   async fetchTweets({ folder }) { calls.push(`fetch:${folder.name}`); return state.fetch(folder); }
   markContentAsPublished(t) { calls.push(`mark:${t.length}`); return state.markOk ?? true; }
   persistProcessedIds() { calls.push("persist"); return state.persistOk ?? true; }
-  async postTweet(text, { reply = "" } = {}) { calls.push("tweet"); tweetTexts.push(text); tweetReplies.push(reply); return state.tweet(); }
   cleanupScreenshots() {}
   async cleanup() { calls.push("x-cleanup"); }
 }
@@ -38,13 +35,14 @@ stub("src/services/github.js", {
   },
   updateReadmeWithNewFile: async () => calls.push("readme"),
 });
-// The announcement writer fails by default: the plain line goes out.
-state.announce = async () => { throw new Error("no model in tests"); };
-stub("src/services/llm.js", { beginRun: () => calls.push("llm-beginRun"), generateMarkdownBatched: async (tweets) => state.generate(tweets), writeAnnouncement: (a) => state.announce(a) });
+stub("src/services/llm.js", { beginRun: () => calls.push("llm-beginRun"), generateMarkdownBatched: async (tweets) => state.generate(tweets) });
+// The X reply passes: recorded with the instance they were handed (cron's own TwitterService).
+const xPasses = [];
+stub("src/services/xReplies.js", { runXReplyPass: async (opts) => { calls.push(`x-replies:${opts.viral ? "viral" : "regular"}`); xPasses.push(opts); return { replied: 0, skipped: 0, reason: "" }; } });
 stub("src/services/syndication.js", { processQueue: async () => { calls.push("syndication"); return null; } });
 const config = require("../config");
 config.folders = [{ name: "A" }, { name: "B" }, { name: "C" }, { name: "D" }];
-config.social = { ...config.social, linkedinLike: false, linkedinFeedReply: false, linkedinConnect: false, twitterPost: true, tweetCredit: { madeBy: "", via: "" } };
+config.social = { ...config.social, linkedinLike: false, linkedinFeedReply: false, linkedinConnect: false, xReplies: true };
 config.factory = { ...config.factory, enabled: false };
 
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), "cron-"));
@@ -57,7 +55,7 @@ for (const t of helpers.logger.transports) t.silent = true;
 
 const tweets = (n) => Array.from({ length: n }, (_, i) => ({ id: String(i), tweetId: String(i) }));
 
-test("a run commits, marks only the sources used, caps tweets and cleans up", { timeout: 60000 }, async () => {
+test("a run commits, marks only the sources used, replies on X after each batch and cleans up", { timeout: 60000 }, async () => {
   calls.length = 0;
   state.fetch = () => tweets(10);
   const r = await cron.processAllFolders();
@@ -67,40 +65,16 @@ test("a run commits, marks only the sources used, caps tweets and cleans up", { 
   assert.ok(calls.includes("llm-beginRun"));
   const marks = calls.filter((c) => c.startsWith("mark:"));
   assert.ok(marks.length === 4 && marks.every((c) => c === "mark:2"), "every committed item is marked, with only its usedTweets");
-  assert.ok(calls.indexOf("mark:2") < calls.indexOf("tweet"), "sources are marked before any tweet");
-  assert.equal(calls.filter((c) => c === "tweet").length, 1, "tweets are spaced 20 min apart: one per quick run");
+  const firstUpload = calls.findIndex((c) => c.startsWith("upload:"));
+  assert.ok(firstUpload >= 0 && calls.indexOf("x-replies:regular") > firstUpload, "X replies come after a batch commit");
+  assert.ok(calls.indexOf("x-replies:regular") < calls.indexOf("x-replies:viral"), "the regular pass, then the viral one");
+  const batches = calls.filter((c) => c.startsWith("upload:")).length;
+  assert.equal(calls.filter((c) => c === "x-replies:regular").length, batches, "one regular pass per batch");
+  assert.ok(xPasses.every((o) => o.twitter instanceof FakeTwitter && typeof o.shouldStop === "function"));
+  assert.ok(xPasses.every((o) => (o.viral ? o.max >= 1 && o.max <= 2 : o.max >= 2 && o.max <= 3)), "2-3 regular, 1-2 viral, like LinkedIn");
   assert.ok(calls.includes("readme") && calls.includes("syndication"));
   assert.ok(calls.includes("x-cleanup") && calls.includes("li-cleanup"), "browsers released at the end of every run");
   assert.ok(!fs.existsSync(LOCK), "lock released");
-});
-
-test("the model writes the announcement; when it cannot, the plain line leads with the digest's top headline, or goes without one", { timeout: 60000 }, async () => {
-  const saved = state.upload;
-  const lead = "Acme Fooql 2.0 makes joins 3x faster";
-  try {
-    state.fetch = () => tweets(10);
-    state.upload = (items) => items.map((it, i) => ({ ...it, url: `https://x/${it.queryName}/${i}`, content: `### 🚀 ${lead}\n\nAcme released Fooql 2.0, a query engine with joins that run three times faster.` }));
-    tweetTexts.length = 0;
-    tweetReplies.length = 0;
-    await cron.processAllFolders();
-    assert.equal(tweetTexts.length, 1);
-    assert.ok(tweetTexts[0].includes(lead) && !tweetTexts[0].includes("🚀"), tweetTexts[0]);
-    assert.ok(!tweetTexts[0].includes("https://"), "no link in the post itself");
-    assert.equal(tweetReplies[0], "https://x/A/0", "the link goes in the reply under it");
-    state.upload = saved;
-    tweetTexts.length = 0;
-    await cron.processAllFolders();
-    assert.ok(tweetTexts[0] && !tweetTexts[0].includes(lead) && /roundup is out, link below/.test(tweetTexts[0]), tweetTexts[0]);
-    const asked = [];
-    state.announce = async (a) => { asked.push(a); return "Joins got 3x faster, details below."; };
-    tweetTexts.length = 0;
-    await cron.processAllFolders();
-    assert.equal(tweetTexts[0], "Joins got 3x faster, details below.", "the model's post goes out as written");
-    assert.deepEqual(asked[0], { topic: "A", content: "md" });
-  } finally {
-    state.upload = saved;
-    state.announce = async () => { throw new Error("no model in tests"); };
-  }
 });
 
 test("three folder failures in a row end the X phase, and the rest of the run still happens", { timeout: 60000 }, async () => {
@@ -119,12 +93,19 @@ test("X_UNAVAILABLE ends the X phase at once; an X init failure skips curation b
   await cron.processAllFolders();
   assert.equal(calls.filter((c) => c.startsWith("fetch:")).length, 1);
   calls.length = 0;
+  state.fetch = () => tweets(10);
   state.initFails = true;
   const r = await cron.processAllFolders();
   state.initFails = false;
   assert.equal(r.xReady, false);
   assert.equal(calls.filter((c) => c.startsWith("fetch:")).length, 0);
+  assert.ok(!calls.some((c) => c.startsWith("x-replies:")), "no X replies without an X session");
   assert.ok(calls.includes("readme"));
+  config.social.xReplies = false;
+  calls.length = 0;
+  await cron.processAllFolders();
+  config.social.xReplies = true;
+  assert.ok(calls.some((c) => c.startsWith("upload:")) && !calls.some((c) => c.startsWith("x-replies:")), "X_REPLIES=false turns them off");
 });
 
 test("a failed GitHub batch is retried once at the end of the run", { timeout: 60000 }, async () => {
@@ -142,7 +123,7 @@ test("a failed GitHub batch is retried once at the end of the run", { timeout: 6
   assert.equal(uploads[uploads.length - 1].prepared, "paths-of-attempt-1", "the retry reuses the failed attempt's paths");
 });
 
-test("an ID store that cannot be saved stops curation and tweets; the save is retried before the run ends", { timeout: 60000 }, async () => {
+test("an ID store that cannot be saved stops curation; the save is retried before the run ends", { timeout: 60000 }, async () => {
   const random = Math.random;
   Math.random = () => 0; // one article per commit batch
   try {
@@ -153,7 +134,6 @@ test("an ID store that cannot be saved stops curation and tweets; the save is re
     state.persistOk = true;
     await cron.processAllFolders();
     assert.deepEqual(calls.filter((c) => c.startsWith("fetch:")), ["fetch:A"], "no folder after the failed save");
-    assert.ok(!calls.includes("tweet"), "no tweet for an article whose sources are not saved");
     assert.equal(calls.filter((c) => c === "persist").length, 1, "saved on the first retry");
     assert.ok(calls.indexOf("persist") < calls.indexOf("x-cleanup"));
   } finally {
