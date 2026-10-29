@@ -1600,10 +1600,13 @@ class LinkedInService {
       if (clicked !== 'clicked') return "fail";
       dispatched = true; // some accounts send straight from the Invite click, with no modal
       await nap(1800);
-      // The invite modal renders inside #interop-outlet's shadow root, invisible to document queries.
+      // The invite modal renders inside #interop-outlet's shadow root (invisible to document queries) or, now, as a
+      // plain dialog in the page while that shadow root holds only styles: the one with a Send button wins.
       const modal = await this.driver.executeScript(`
         const host = document.querySelector('#interop-outlet');
-        const dlg = (host && host.shadowRoot) || document.querySelector('[role="dialog"], .artdeco-modal');
+        const roots = [host && host.shadowRoot, document.querySelector('[role="dialog"], .artdeco-modal')].filter(Boolean);
+        const hasSend = r => Array.from(r.querySelectorAll('button')).some(x => /send without a note|^send$/i.test(((x.getAttribute('aria-label') || '') + ' ' + (x.innerText || '')).trim()));
+        const dlg = roots.find(hasSend) || roots[0];
         if (!dlg) return 'no-modal';
         const txt = (dlg.textContent || '').toLowerCase();
         if (txt.indexOf('invitation limit') !== -1 || txt.indexOf('weekly invitation') !== -1) return 'limit';
