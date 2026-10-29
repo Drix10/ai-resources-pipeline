@@ -2,7 +2,7 @@ const { By, Key, until } = require("selenium-webdriver");
 const fs = require("fs");
 const path = require("path");
 const { logger, sleep, REPO_ROOT } = require("../utils/helpers");
-const { attachDriver, releaseDriver, adoptTab } = require("../utils/chromeLauncher");
+const { attachDriver, releaseDriver, adoptTab, MOD_KEY } = require("../utils/chromeLauncher");
 
 /**
  * RedditService: the debug Chrome's logged-in Reddit session (new Reddit, the shreddit web components), in one
@@ -268,6 +268,14 @@ class RedditService {
     } catch (error) {
       if (!submitted && (error.code === "REDDIT_UNAVAILABLE" || isSessionError(error))) throw error;
       await this.saveFailureScreenshot("reddit-comment-failed");
+      // Unsent text left in the composer makes the next page load ask "leave site?", and the dismissed prompt keeps
+      // the tab here: every later load fails. Cleared and cancelled (never sent: the submit is not clicked).
+      if (!submitted) {
+        await withTimeout((async () => {
+          for (const ed of await this.driver.findElements(editorSel)) await ed.sendKeys(Key.chord(MOD_KEY, "a"), Key.BACK_SPACE);
+          await this.driver.executeScript("const c = document.querySelector('#comment-composer-cancel-button'); if (c) c.click();");
+        })(), 10000, "clearing the comment box").catch(() => {});
+      }
       if (submitted) {
         logger.error(`Reddit comment sent; Reddit did not confirm it (${error.message}). It may be live: check ${thread.url || thread.permalink}.`);
         return { status: "uncertain", reason: error.message };

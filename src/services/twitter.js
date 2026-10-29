@@ -1,7 +1,7 @@
-const { By, until } = require("selenium-webdriver");
+const { By, Key, until } = require("selenium-webdriver");
 require("../../config"); // loads .env before the settings below are read
 const { logger, sleep } = require("../utils/helpers");
-const { attachDriver, releaseDriver, adoptTab, waitForXLogin } = require("../utils/chromeLauncher");
+const { attachDriver, releaseDriver, adoptTab, waitForXLogin, MOD_KEY } = require("../utils/chromeLauncher");
 const fs = require("fs");
 const path = require("path");
 
@@ -1009,6 +1009,14 @@ class TwitterService {
       // Logged out or a lost browser before the send: the caller's pass ends on it.
       if (!submitted && (error.code === "X_UNAVAILABLE" || isSessionError(error))) throw error;
       await this.saveFailureScreenshot("x-reply-failed");
+      // Unsent text left in the dialog makes X ask "leave site?" on the next page load, and the dismissed prompt
+      // keeps the tab here: every later load fails. Cleared and closed (never sent: no button is clicked).
+      if (!submitted) {
+        await withTimeout((async () => {
+          for (const box of await this.driver.findElements(dialogBox)) await box.sendKeys(Key.chord(MOD_KEY, "a"), Key.BACK_SPACE);
+          await this.driver.actions().sendKeys(Key.ESCAPE).perform();
+        })(), 10000, "clearing the reply dialog").catch(() => { });
+      }
       if (submitted) {
         logger.error(`X reply sent; X did not confirm it (${error.message}). It may be live: check the post.`);
         return { status: "uncertain", reason: error.message };

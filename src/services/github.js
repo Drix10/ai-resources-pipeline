@@ -467,13 +467,15 @@ class GithubService {
   async updateReadmeWithNewFile(owner, repo) {
     try {
       const path = "README.md";
+      // This run's digests are on its branch, not yet on main: list them from there.
+      const ref = await this.workBranch(owner, repo);
       let existing;
       try {
         existing = await this.octokit.repos.getContent({
           owner,
           repo,
           path,
-          ref: "main",
+          ref,
         });
       } catch (error) {
         if (error.status !== 404) throw error;
@@ -511,6 +513,7 @@ class GithubService {
             owner,
             repo,
             path: decodedFolder,
+            ref,
           });
 
           const files = data
@@ -532,6 +535,7 @@ class GithubService {
                 owner,
                 repo,
                 path: `${decodedFolder}/${files[0].name}`,
+                ref,
               });
               if (latest?.encoding === "base64") headlines = digestHeadlines(Buffer.from(latest.content || "", "base64").toString("utf8"));
             } catch (error) {
@@ -625,8 +629,9 @@ class GithubService {
   // from main the first time it is needed. A day's branch left by a run that stopped early is reused.
   async workBranch(owner, repo) {
     if (!config.github.runBranches) return "main";
+    // A run past midnight keeps its branch: a second branch made from main would number the same files again.
+    if (this._runBranch) return this._runBranch;
     const name = runBranchName();
-    if (this._runBranch === name) return name;
     try {
       await this.octokit.git.getRef({ owner, repo, ref: `heads/${name}` });
     } catch (error) {
@@ -667,7 +672,8 @@ class GithubService {
           merged.push(pr.number);
           logger.info(`Run branch ${name} merged into main (pull request #${pr.number}).`);
         }
-        await this.octokit.git.deleteRef({ owner, repo, ref: `heads/${name}` });
+        // (422: GitHub already deleted the merged head branch, a repository setting)
+        await this.octokit.git.deleteRef({ owner, repo, ref: `heads/${name}` }).catch((e) => { if (e.status !== 422 && e.status !== 404) throw e; });
         if (this._runBranch === name) this._runBranch = null;
       } catch (error) {
         logger.error(`Run branch ${name} not merged (kept for the next run): ${error.message}`);
