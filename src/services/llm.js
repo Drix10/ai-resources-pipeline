@@ -1583,7 +1583,7 @@ or {"skip": true, "reason": "..."}`;
     let drafted;
     try {
       drafted = claude.parseJson(await this.generateCommentText(prompt, {
-        role, temperature: 0.7, num_predict: 1200,
+        role, temperature: 0.7, num_predict: 2000, // (reasoning models spend part of it before the JSON)
         system: `You are ${who}. You write short, specific, human replies on X and return JSON only.`,
       }));
     } catch (e) {
