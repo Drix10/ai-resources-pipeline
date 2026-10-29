@@ -634,6 +634,7 @@ const processAllFolders = async () => {
       let prefetch = null;
       // The last article's LinkedIn likes, done while the next one is written.
       let likes = Promise.resolve();
+      let likesBusy = false;
       try {
         for (const [i, folder] of (xReady ? folders : []).entries()) {
           const prefetched = prefetch?.folder === folder ? prefetch.promise : null;
@@ -660,8 +661,12 @@ const processAllFolders = async () => {
                 `Prepared article for ${prepared.queryName}. Queued in commit batch (${pendingBatch.length + 1}/${COMMIT_BATCH_SIZE}).`
               );
               pendingBatch.push(prepared);
-              await likes;
-              likes = withSite("linkedin", likeAfterArticle);
+              // Random feed likes, not this article's: while the last round still waits on LinkedIn (a comment
+              // pass holds it), this round is skipped rather than holding up the next fetch.
+              if (!likesBusy) {
+                likesBusy = true;
+                likes = withSite("linkedin", likeAfterArticle).finally(() => { likesBusy = false; });
+              }
               if (pendingBatch.length >= COMMIT_BATCH_SIZE) {
                 await flushBatch();
               }
