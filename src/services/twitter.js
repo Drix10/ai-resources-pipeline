@@ -1064,8 +1064,10 @@ function selectTimelineTab(label) {
 // Runs in the page: the article of one post (by the permalink around its first <time>, as readPosts reads it).
 function findPostArticle(id) {
   return Array.from(document.querySelectorAll('article[data-testid="tweet"]')).find((a) => {
+    // As readPosts: the permalink around the first <time>, else the first status link (a post's own page shows
+    // its time unlinked).
     const time = a.querySelector("time");
-    const link = time && time.closest('a[href*="/status/"]');
+    const link = (time && time.closest('a[href*="/status/"]')) || a.querySelector('a[href*="/status/"]');
     return !!link && new RegExp("/status/" + id + "(?:$|[/?#])").test(link.href);
   }) || null;
 }
