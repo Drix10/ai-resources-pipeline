@@ -565,6 +565,10 @@ const processAllFolders = async () => {
       }
     };
 
+    // A branch an earlier run left unmerged (stopped, crashed) goes into main first: a new day's branch made
+    // from main without it would number the same digest files again and never merge.
+    await GithubService.finishRunBranches(config.github.owner, config.github.repo);
+
     await repliesOnOurPosts("Run start");
 
     // The X phase is isolated: a session or network failure there must not cost the run its

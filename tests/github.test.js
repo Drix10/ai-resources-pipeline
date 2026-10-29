@@ -153,3 +153,23 @@ test("a run commits to its day's branch with the co-author, and the end of the r
     github._runBranch = null;
   }
 });
+
+test("a run past midnight keeps its branch, and a head branch GitHub already deleted on merge is no failure", async () => {
+  const config = require("../config");
+  const saved = { ...config.github };
+  Object.assign(config.github, { runBranches: true });
+  fakeGitHub();
+  github._runBranch = "run/2000-01-01"; // the branch this run started on, yesterday
+  github.octokit.git.listMatchingRefs = async () => ({ data: [{ ref: "refs/heads/run/2000-01-01" }] });
+  github.octokit.repos.compareCommits = async () => ({ data: { ahead_by: 1 } });
+  github.octokit.pulls = { list: async () => ({ data: [{ number: 7 }] }), merge: async () => ({ data: {} }) };
+  github.octokit.git.deleteRef = async () => { throw Object.assign(new Error("Reference does not exist"), { status: 422 }); };
+  try {
+    assert.equal(await github.workBranch("o", "r"), "run/2000-01-01");
+    assert.deepEqual(await github.finishRunBranches("o", "r"), [7]);
+    assert.equal(github._runBranch, null, "the merged branch is no longer this run's");
+  } finally {
+    Object.assign(config.github, saved);
+    github._runBranch = null;
+  }
+});

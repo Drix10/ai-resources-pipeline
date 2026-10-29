@@ -82,7 +82,8 @@ test("a run commits, marks only the sources used, replies on X after each batch 
   assert.ok(calls.includes("readme") && calls.includes("syndication"));
   assert.ok(calls.indexOf("merge-run") < calls.indexOf("hf-dataset") && calls.indexOf("hf-dataset") < calls.indexOf("syndication"), "the weekly dataset step follows the run-branch merge");
   assert.equal(calls.filter((c) => c === "hf-dataset").length, 1, "once per run");
-  assert.ok(calls.indexOf("readme") < calls.indexOf("kb-topics") && calls.indexOf("kb-topics") < calls.indexOf("merge-run"), "topic pages land on the run branch before its merge");
+  assert.ok(calls.indexOf("readme") < calls.indexOf("kb-topics") && calls.indexOf("kb-topics") < calls.lastIndexOf("merge-run"), "topic pages land on the run branch before its merge");
+  assert.ok(calls.indexOf("merge-run") < calls.indexOf("init"), "an earlier run's leftover branch is merged before this run commits");
   assert.equal(typeof hfRuns[hfRuns.length - 1].shouldStop, "function", "it is handed the stop check");
   assert.equal(calls.filter((c) => c === "reddit").length, batches, "one Reddit pass per batch");
   assert.ok(calls.indexOf("reddit") > firstUpload && redditPasses.every((o) => o.max === 1 && typeof o.shouldStop === "function"), "one Reddit comment at most, after a commit");
