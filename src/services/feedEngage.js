@@ -818,6 +818,12 @@ async function commentPass({ max = 2, dryRun = false, shouldStop = () => false, 
       out.skipped++;
       return;
     }
+    // An author whose post this pass skipped today (a promo, nothing safe to say) is not drafted again until tomorrow:
+    // a company page posting ads all day otherwise costs a draft call per batch (live run: the same pages 3-4 times).
+    if (authorDid(track, post.href, (e) => (e.status === "skipped" && e.pass === (viral ? "viral" : "comment") ? e.ts : ""), DAY)) {
+      out.skipped++;
+      return;
+    }
     let draft;
     // A draft's time (from its first LLM call to its verdict) sizes the reserve for the next post: only a
     // draft that reached a model (a thin, foreign or promo post ends before any call, and teaches nothing).
