@@ -1,4 +1,4 @@
-const { By, Key, until } = require("selenium-webdriver");
+const { By, Key } = require("selenium-webdriver");
 const fs = require("fs");
 const path = require("path");
 const { logger, sleep, REPO_ROOT } = require("../utils/helpers");
@@ -235,9 +235,12 @@ class RedditService {
       await this.driver.executeScript("arguments[0].scrollIntoView({ block: 'center' });", trigger);
       await sleep(600);
       await trigger.click();
-      const editor = await this.driver.wait(until.elementLocated(editorSel), 10000).catch(() => null);
+      // The visible editor: a thread can hold a second, collapsed composer that matches first and never shows.
+      const editor = await this.driver.wait(async () => {
+        for (const e of await this.driver.findElements(editorSel)) if (await e.isDisplayed().catch(() => false)) return e;
+        return null;
+      }, 10000).catch(() => null);
       if (!editor) return { status: "failed", reason: "no-composer" };
-      await this.driver.wait(until.elementIsVisible(editor), 10000);
       await this.driver.executeScript("arguments[0].scrollIntoView({ block: 'center' });", editor);
       await editor.click();
       for (const [i, p] of paragraphs.entries()) {
