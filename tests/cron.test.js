@@ -51,6 +51,8 @@ const xPasses = [];
 stub("src/services/xReplies.js", { runXReplyPass: async (opts) => { calls.push(`x-replies:${opts.viral ? "viral" : "regular"}`); xPasses.push(opts); await hold("x"); return { replied: 0, skipped: 0, reason: "" }; } });
 const redditPasses = [];
 stub("src/services/redditComments.js", { runRedditPass: async (opts) => { calls.push("reddit"); redditPasses.push(opts); await hold("reddit", state.redditMs ?? 5); calls.push("reddit-done"); return { commented: 0, skipped: 0, pains: 0, reason: "" }; }, cleanup: async () => calls.push("reddit-cleanup") });
+const hnPasses = [];
+stub("src/services/hnComments.js", { runHnPass: async (opts) => { calls.push("hn"); hnPasses.push(opts); return { commented: 0, skipped: 0, reason: "" }; }, cleanup: async () => calls.push("hn-cleanup") });
 // The weekly Hugging Face upload: scripted, with the options cron handed it.
 const hfRuns = [];
 stub("src/services/hfDataset.js", { runHfDataset: async (opts) => { calls.push("hf-dataset"); hfRuns.push(opts); if (state.hfFails) throw new Error("HF down"); return { skipped: "not due" }; } });
@@ -58,7 +60,7 @@ stub("src/services/kbTopics.js", { runKbTopics: async () => { calls.push("kb-top
 stub("src/services/syndication.js", { processQueue: async () => { calls.push("syndication"); return null; } });
 const config = require("../config");
 config.folders = [{ name: "A" }, { name: "B" }, { name: "C" }, { name: "D" }];
-config.social = { ...config.social, linkedinLike: true, linkedinOwnReplies: true, linkedinFeedReply: false, linkedinConnect: false, xReplies: true, redditComments: true };
+config.social = { ...config.social, linkedinLike: true, linkedinOwnReplies: true, linkedinFeedReply: false, linkedinConnect: false, xReplies: true, redditComments: true, hnComments: true };
 config.factory = { ...config.factory, enabled: false };
 
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), "cron-"));
@@ -96,7 +98,8 @@ test("a run commits, marks only the sources used, engages beside the articles an
   assert.ok(calls.indexOf("merge-run") < calls.indexOf("init"), "an earlier run's leftover branch is merged before this run commits");
   assert.equal(typeof hfRuns[hfRuns.length - 1].shouldStop, "function", "it is handed the stop check");
   assert.ok(redditPasses.every((o) => o.max === 1 && typeof o.shouldStop === "function"), "one Reddit comment at most a pass");
-  assert.ok(calls.includes("x-cleanup") && calls.includes("li-cleanup") && calls.includes("reddit-cleanup"), "browsers released at the end of every run");
+  assert.ok(hnPasses.length && hnPasses.every((o) => o.max === 1 && typeof o.shouldStop === "function"), "one HN comment at most a pass");
+  assert.ok(calls.includes("x-cleanup") && calls.includes("li-cleanup") && calls.includes("reddit-cleanup") && calls.includes("hn-cleanup"), "browsers released at the end of every run");
   assert.ok(!fs.existsSync(LOCK), "lock released");
 });
 
@@ -126,11 +129,14 @@ test("X_UNAVAILABLE ends the X phase at once; an X init failure skips curation b
   assert.ok(calls.includes("readme"));
   config.social.xReplies = false;
   config.social.redditComments = false;
+  config.social.hnComments = false;
   calls.length = 0;
   await cron.processAllFolders();
   config.social.xReplies = true;
   config.social.redditComments = true;
+  config.social.hnComments = true;
   assert.ok(!calls.includes("reddit"), "REDDIT_COMMENTS=false turns them off");
+  assert.ok(!calls.includes("hn"), "HN_COMMENTS=false turns them off");
   assert.ok(calls.some((c) => c.startsWith("upload:")) && !calls.some((c) => c.startsWith("x-replies:")), "X_REPLIES=false turns them off");
 });
 

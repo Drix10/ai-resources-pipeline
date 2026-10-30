@@ -8,6 +8,7 @@ const TwitterService = new twitterService();
 const feedEngage = require("./feedEngage");
 const xReplies = require("./xReplies");
 const redditComments = require("./redditComments");
+const hnComments = require("./hnComments");
 const hfDataset = require("./hfDataset");
 const kbTopics = require("./kbTopics");
 const GithubService = require("./github");
@@ -455,7 +456,8 @@ const processAllFolders = async () => {
     //    previous article's few random LinkedIn likes are done (likeAfterArticle); commits go in batches
     //  - the engagement loop: replies on our own posts (first, at the start of the run: a run started right
     //    after a post covers its golden hour), 2 or 3 LinkedIn comments, 1 or 2 more on posts going viral,
-    //    X replies (X_REPLIES) the same way, at most one Reddit comment (REDDIT_COMMENTS), then stale
+    //    X replies (X_REPLIES) the same way, at most one Reddit comment (REDDIT_COMMENTS) and one
+    //    HN comment (HN_COMMENTS), then stale
     //    invites withdrawn and a few connection requests. Each pass runs at most once per ENGAGE_EVERY_MS;
     //    a pass at its daily cap returns before it touches the browser. One pass at a time: the passes
     //    share llmService.commentDeadline.
@@ -515,6 +517,14 @@ const processAllFolders = async () => {
           logger.info(`Engagement: Reddit comments ${r.commented} posted, ${r.skipped} skipped, ${r.pains} pain points logged. ${r.reason || ""}`);
         } catch (redditErr) {
           logger.error("Reddit comment pass failed (non-fatal):", redditErr.message);
+        }
+      } },
+      { site: "hn", on: () => config.social.hnComments, run: async () => {
+        try {
+          const r = await hnComments.runHnPass({ max: 1, shouldStop: halted });
+          logger.info(`Engagement: HN comments ${r.commented} posted, ${r.skipped} skipped. ${r.reason || ""}`);
+        } catch (hnErr) {
+          logger.error("HN comment pass failed (non-fatal):", hnErr.message);
         }
       } },
       // Stale pending invites go first: a low acceptance rate narrows the account's reach.
@@ -819,6 +829,7 @@ const processAllFolders = async () => {
     await TwitterService.cleanup().catch(() => {});
     await feedEngage.cleanup().catch(() => {});
     await redditComments.cleanup().catch(() => {});
+    await hnComments.cleanup().catch(() => {});
     releasePipelineLock();
   }
 };
@@ -889,6 +900,11 @@ const stopPipeline = async () => {
     await redditComments.cleanup();
   } catch (error) {
     logger.error("Error cleaning up Reddit service:", error);
+  }
+  try {
+    await hnComments.cleanup();
+  } catch (error) {
+    logger.error("Error cleaning up HN service:", error);
   }
 };
 

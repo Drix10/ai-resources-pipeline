@@ -138,6 +138,9 @@ const config = {
     // A comment in a Reddit thread after each batch commit (src/services/redditComments.js), from the account
     // logged in to the debug Chrome: subs in config/reddit.js, at most 1 a pass, 20-40 min apart, 6 a day, no plugs.
     redditComments: process.env.REDDIT_COMMENTS !== "false",
+    // A comment on a Hacker News front-page thread in our field (src/services/hnComments.js), from the account
+    // logged in to the debug Chrome: at most 1 a pass, 45-90 min apart, 3 a day (1 while the account is new), no plugs.
+    hnComments: process.env.HN_COMMENTS !== "false",
   },
   syndication: {
     // The blog's public address. Empty: articles get no canonical link and nothing is queued for DEV.to.
