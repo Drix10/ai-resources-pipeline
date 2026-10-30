@@ -493,7 +493,20 @@ class GithubService {
       }
 
       // Everything up to the categories heading is kept; a README without it gets it appended.
-      const current = Buffer.from(existing.data.content || "", "base64").toString("utf8");
+      // The kept part is read from main, not from the run branch: the branch is cut from main when a
+      // run starts, so an edit made to the README on main after that (by hand or by another tool) would
+      // otherwise be replaced by the branch's older copy when the run's pull request is merged.
+      let current = Buffer.from(existing.data.content || "", "base64").toString("utf8");
+      if (ref !== "main") {
+        try {
+          const onMain = await this.octokit.repos.getContent({ owner, repo, path, ref: "main" });
+          if (onMain.data?.encoding === "base64") {
+            current = Buffer.from(onMain.data.content || "", "base64").toString("utf8");
+          }
+        } catch (error) {
+          logger.warn(`README.md on main could not be read (${error.status || error.message}); keeping the run branch's text above the categories.`);
+        }
+      }
       const at = current.indexOf(README_CATEGORIES_HEADING);
       const headerContent = at >= 0
         ? `${current.slice(0, at + README_CATEGORIES_HEADING.length)}\n\n`
