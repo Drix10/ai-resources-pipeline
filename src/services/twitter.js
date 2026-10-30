@@ -826,7 +826,7 @@ class TwitterService {
         const { listId, name } = this.getSearchQuery(folder);
         logger.info(`Processing list ID: ${listId} (Type: ${name})`);
         // Lists one after another as fast as the writer takes them get X to stall (its loading screen, no posts):
-        // at least ~45 s between list loads.
+        // at least ~20 s between list loads.
         const gap = LIST_GAP_MS * (0.85 + Math.random() * 0.3) - (Date.now() - (this.lastListAt || 0));
         if (gap > 0) await sleep(gap);
         this.lastListAt = Date.now();
@@ -1077,7 +1077,7 @@ function selectTimelineTab(label) {
 }
 
 // Runs in the page: the article of one post (by the permalink around its first <time>, as readPosts reads it).
-const LIST_GAP_MS = 45 * 1000;
+const LIST_GAP_MS = 20 * 1000;
 const STALL_WAIT_MS = 60 * 1000;
 
 function findPostArticle(id) {

@@ -23,7 +23,7 @@ process.env.HF_DATASET_REPO = "";
 // FACTORY_ENABLED is off too: the optional content factory never runs in a test unless the test
 // turns it on itself.
 for (const flag of [
-  "X_REPLIES", "REDDIT_COMMENTS", "LINKEDIN_LIKE", "LINKEDIN_CONNECT", "LINKEDIN_FEED_REPLY", "LINKEDIN_VIRAL", "LINKEDIN_OWN_REPLIES",
+  "X_REPLIES", "REDDIT_COMMENTS", "HN_COMMENTS", "LINKEDIN_LIKE", "LINKEDIN_CONNECT", "LINKEDIN_FEED_REPLY", "LINKEDIN_VIRAL", "LINKEDIN_OWN_REPLIES",
   "DEVTO_AUTO_PUBLISH", "FACTORY_ENABLED",
 ]) process.env[flag] = "false";
 // LLM providers: the documented default (openrouter, with no key) for every job, and the claude CLI
