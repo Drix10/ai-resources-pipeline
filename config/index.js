@@ -179,7 +179,7 @@ const config = {
     },
     {
       name: "CS Academics",
-      lists: ["89224383"],
+      lists: ["923778298705977344", "1148338147375271936"],
     },
     {
       name: "Tech VIPs",
@@ -199,7 +199,7 @@ const config = {
     },
     {
       name: "Founders and Entrepreneurs",
-      lists: ["8020", "1049755751185403904", "1795545373173575917"],
+      lists: ["8020", "1049755751185403904", "1540878174468317185"],
     },
     {
       name: "AI Organizations and Media",
@@ -234,7 +234,7 @@ const config = {
       lists: [
         "952969346518720512",
         "1807679743619367128",
-        "1811773620181463494",
+        "1349067845615943681",
         "1822396593506848796",
         "1854973625138294946",
       ],
@@ -261,7 +261,7 @@ const config = {
     },
     {
       name: "AR VR Companies and Development",
-      lists: ["733277650085511168"],
+      lists: ["1255210280146989056"],
     },
     {
       name: "AR VR Professionals and Community",
@@ -277,7 +277,7 @@ const config = {
     },
     {
       name: "Crypto and Web3",
-      lists: ["952969256903168000", "1837926936586473655"],
+      lists: ["952969256903168000", "1073407660337188865"],
     },
     {
       name: "Decentralized AI",
@@ -297,7 +297,7 @@ const config = {
     },
     {
       name: "Interesting Finds",
-      lists: ["1221942510081036293", "1814007176647847963"],
+      lists: ["1369446830916968453"],
     },
     {
       name: "Investors and Venture Capital",
@@ -317,7 +317,7 @@ const config = {
     },
     {
       name: "Quantum Computing",
-      lists: ["953244273901621248", "1714954513730425115", "1879078035921748205"],
+      lists: ["1394707190120861697", "1279024414210682880", "1879078035921748205"],
     },
     {
       name: "Spatial Computing",
